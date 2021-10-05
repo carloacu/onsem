@@ -1,0 +1,52 @@
+#ifndef SEMANTICMODEL_TYPES_SEMANTICGROUNDING_SEMANTICRELATIVELOCATIONGROUNDING_HPP
+#define SEMANTICMODEL_TYPES_SEMANTICGROUNDING_SEMANTICRELATIVELOCATIONGROUNDING_HPP
+
+#include "semanticgrouding.hpp"
+#include <onsem/common/enum/semanticrelativelocationtype.hpp>
+
+
+namespace onsem
+{
+
+// Relative Location Grounding
+// ===========================
+
+
+struct ONSEM_TEXTTOSEMANTIC_API SemanticRelativeLocationGrounding : public SemanticGrounding
+{
+  SemanticRelativeLocationGrounding(SemanticRelativeLocationType pLocationType)
+    : SemanticGrounding(SemanticGroudingType::RELATIVELOCATION),
+      locationType(pLocationType)
+  {
+  }
+
+  const SemanticRelativeLocationGrounding& getRelLocationGrounding() const { return *this; }
+  SemanticRelativeLocationGrounding& getRelLocationGrounding() { return *this; }
+  const SemanticRelativeLocationGrounding* getRelLocationGroundingPtr() const { return this; }
+  SemanticRelativeLocationGrounding* getRelLocationGroundingPtr() { return this; }
+
+  bool operator==(const SemanticRelativeLocationGrounding& pOther) const;
+  bool isEqual(const SemanticRelativeLocationGrounding& pOther) const;
+
+  SemanticRelativeLocationType locationType;
+};
+
+
+
+
+inline bool SemanticRelativeLocationGrounding::operator==(const SemanticRelativeLocationGrounding& pOther) const
+{
+  return this->isEqual(pOther);
+}
+
+inline bool SemanticRelativeLocationGrounding::isEqual(const SemanticRelativeLocationGrounding& pOther) const
+{
+  return _isMotherClassEqual(pOther) &&
+      locationType == pOther.locationType;
+}
+
+
+} // End of namespace onsem
+
+
+#endif // SEMANTICMODEL_TYPES_SEMANTICGROUNDING_SEMANTICRELATIVELOCATIONGROUNDING_HPP
