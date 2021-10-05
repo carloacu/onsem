@@ -36,7 +36,7 @@ void _loadXmlDirectory(const boost::filesystem::path& pFolderPath,
     if (boost::filesystem::is_directory(itFolder->path()))
       _loadXmlDirectory(currPath, pLingDatabase, pLingdbTree);
     else
-      ALXmlDatabaseLoader::merge(*itFolder, pLingDatabase, pLingdbTree);
+      ALXmlDatabaseLoader::merge(itFolder->path().string(), pLingDatabase, pLingdbTree);
     ++itFolder;
   }
 }
@@ -57,19 +57,19 @@ int ALXmlDatabaseLoader::getVersion
     std::istringstream buffer(versionChild->get("<xmlattr>.val", "0"));
     unsigned int value;
     buffer >> value;
-    return value;
+    return static_cast<int>(value);
   }
   return -1;
 }
 
 
 void ALXmlDatabaseLoader::merge
-(const boost::filesystem::path& pFilename,
+(const std::string& pFilename,
  LinguisticIntermediaryDatabase& pLingDatabase,
  const ALLingdbTree& pLingdbTree)
 {
   boost::property_tree::ptree tree;
-  boost::property_tree::read_xml(pFilename.string(), tree);
+  boost::property_tree::read_xml(pFilename, tree);
 
   childLoop(tree, currSubTree, "linguisticdatabase")
   {
@@ -156,7 +156,7 @@ void ALXmlDatabaseLoader::merge
     {
       std::string tag = subTree.get<std::string>("<xmlattr>.name", "");
       if (tag.empty())
-        throw std::runtime_error("Tag name is empty (in file: \"" + pFilename.string() + "\").");
+        throw std::runtime_error("Tag name is empty (in file: \"" + pFilename + "\").");
       ALLingdbAnimationsTag* animTag = pLingDatabase.addATag(tag);
       for(const auto& currAnimTree : subTree)
       {
@@ -168,13 +168,13 @@ void ALXmlDatabaseLoader::merge
           std::string name = animAttrs.get<std::string>("name", "");
           if (name.empty())
           {
-            throw std::runtime_error("Name of the concept not found (in file: \"" + pFilename.string() + "\").");
+            throw std::runtime_error("Name of the concept not found (in file: \"" + pFilename + "\").");
           }
           ALLingdbConcept* conceptPtr = pLingDatabase.getConcept(name);
           if (conceptPtr == nullptr)
           {
             throw std::runtime_error("Concept not found: \"" + name + "\" (in file: \"" +
-                                     pFilename.string() + "\").");
+                                     pFilename + "\").");
           }
           char minValue = 1;
           std::string minValueStr = animAttrs.get<std::string>("minValue", "");
@@ -224,7 +224,7 @@ void ALXmlDatabaseLoader::merge
           std::string lemma = cptAttrs.get<std::string>("lemme", "");
           if (lemma.empty())
             throw std::runtime_error("Meaning with an empty lemme in the \"" + conceptName +
-                                     "\" concept (in file: \"" + pFilename.string() + "\")");
+                                     "\" concept (in file: \"" + pFilename + "\")");
           std::string inputGramStr = cptAttrs.get<std::string>("gram", "*");
 
           if (currCptTree.first == "linkedMeaning")
@@ -272,7 +272,7 @@ void ALXmlDatabaseLoader::merge
       else
       {
         throw std::runtime_error("concept: \"" + conceptName + "\" is not declared " +
-                                 "(in file: \"" + pFilename.string() + "\")");
+                                 "(in file: \"" + pFilename + "\")");
       }
     }
     else if (currSubTree.first == "declareconcept")
@@ -341,12 +341,12 @@ void ALXmlDatabaseLoader::merge
       std::string lemme = subTreeAttrs.get<std::string>("lemme", "");
       if (lemme.empty())
       {
-        throw std::runtime_error("Meaning with an empty lemme (in file: \"" + pFilename.string() + "\")");
+        throw std::runtime_error("Meaning with an empty lemme (in file: \"" + pFilename + "\")");
       }
       std::string partOfSpeechStr = subTreeAttrs.get<std::string>("gram", "");
       if (partOfSpeechStr.empty())
       {
-        throw std::runtime_error("Meaning with an empty grammatical info (in file: \"" + pFilename.string() + "\")");
+        throw std::runtime_error("Meaning with an empty grammatical info (in file: \"" + pFilename + "\")");
       }
       PartOfSpeech lemmaPartOfSpeech = partOfSpeech_fromStr(partOfSpeechStr);
       ALLingdbMeaning* meaningPtr = pLingDatabase.getMeaning(lemme, lemmaPartOfSpeech);
@@ -367,7 +367,7 @@ void ALXmlDatabaseLoader::merge
             std::string contInfoStr = meaningTreeAttrs.get<std::string>("val", "");
             WordContextualInfos contInfo = wordContextualInfos_fromStr(contInfoStr);
             if (contInfo == WordContextualInfos::ENDOFENUM)
-              throw std::runtime_error(contInfoStr + " is not a valid meaning contextual info (in file: \"" + pFilename.string() + "\")");
+              throw std::runtime_error(contInfoStr + " is not a valid meaning contextual info (in file: \"" + pFilename + "\")");
             meaningPtr->pushBackContextInfo(pLingDatabase, contInfo);
           }
           else if (currMeaningTree.first == "removeContextInfo")
@@ -375,13 +375,13 @@ void ALXmlDatabaseLoader::merge
             std::string contInfoStr = meaningTreeAttrs.get<std::string>("val", "");
             WordContextualInfos contInfo = wordContextualInfos_fromStr(contInfoStr);
             if (contInfo == WordContextualInfos::ENDOFENUM)
-              throw std::runtime_error(contInfoStr + " is not a valid meaning contextual info (in file: \"" + pFilename.string() + "\")");
+              throw std::runtime_error(contInfoStr + " is not a valid meaning contextual info (in file: \"" + pFilename + "\")");
             meaningPtr->removeContextInfo(pLingDatabase, contInfo);
           }
           else
           {
             throw std::runtime_error("\"" + currMeaningTree.first +
-                                     "\" is an unknown child of \"existingMeaning\" (in file: \"" + pFilename.string() + "\")");
+                                     "\" is an unknown child of \"existingMeaning\" (in file: \"" + pFilename + "\")");
           }
         }
       }
@@ -400,21 +400,21 @@ void ALXmlDatabaseLoader::merge
     }
     else if (currSubTree.first == "include")
     {
-      boost::filesystem::path subFolder;
+      std::string subFolder;
       pLingdbTree.getHoldingFolder(subFolder, pFilename);
 
       const boost::property_tree::ptree& subTreeAttrs = subTree.get_child("<xmlattr>");
       std::string folder = subTreeAttrs.get<std::string>("folder", "");
       if (folder != "")
       {
-        boost::filesystem::path folderPath(subFolder / folder);
+        boost::filesystem::path folderPath(subFolder + "/" + folder);
         _loadXmlDirectory(folderPath, pLingDatabase, pLingdbTree);
       }
       else
       {
         std::string file = subTreeAttrs.get<std::string>("file", "");
         if (file != "")
-          merge(subFolder / file, pLingDatabase, pLingdbTree);
+          merge(subFolder + "/" + file, pLingDatabase, pLingdbTree);
       }
     }
     else if (currSubTree.first == "separatorsBetweenWords")
@@ -438,7 +438,7 @@ void ALXmlDatabaseLoader::merge
     else if (currSubTree.first != "<xmlcomment>")
     {
       throw std::runtime_error("Unknown tag name: \"" + currSubTree.first +
-                               "\" (in file: \"" + pFilename.string() + "\")");
+                               "\" (in file: \"" + pFilename + "\")");
     }
   }
 }

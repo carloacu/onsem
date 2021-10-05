@@ -71,11 +71,10 @@ LinguisticIntermediaryDatabase::~LinguisticIntermediaryDatabase()
 
 
 void LinguisticIntermediaryDatabase::load
-(const boost::filesystem::path& pFilename, float pCoef)
+(const std::string& pFilename, float pCoef)
 { 
   std::string errorMessage;
-  fAlloc.deserialize(errorMessage,
-                     pFilename, pCoef);
+  fAlloc.deserialize(errorMessage, pFilename, pCoef);
   fRoot = fAlloc.first<ALLingdbDynamicTrieNode>();
   fInfos = fAlloc.first<ALLingdbInfos>();
   fConceptNameToPtr.clear();

@@ -35,7 +35,7 @@ public:
    * @return True if no error, False if an error.
    */
   static void merge
-  (const boost::filesystem::path& pFilename,
+  (const std::string& pFilename,
    LinguisticIntermediaryDatabase& pLingDatabase,
    const ALLingdbTree& pLingdbTree);
 

@@ -51,7 +51,7 @@ public:
    * @param pFilename The name of the file where we will
    * store the serialization.
    */
-  void serialize(const boost::filesystem::path& pFilename);
+  void serialize(const std::string& pFilename);
 
 
   /**
@@ -71,7 +71,7 @@ public:
    */
   void deserialize
   (std::string& pErrorMessage,
-   const boost::filesystem::path& pFilename, float pCoef = 1.2f);
+   const std::string& pFilename, float pCoef = 1.2f);
 
 
   /**
@@ -212,7 +212,7 @@ protected:
    */
   void xSerialize
   (std::set<FPAShift>& pShifts,
-   const boost::filesystem::path& pFilename);
+   const std::string& pFilename);
 
   /**
    * @brief Write the memory in a stream.

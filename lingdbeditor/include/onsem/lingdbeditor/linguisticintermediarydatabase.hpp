@@ -45,7 +45,7 @@ public:
    * @brief Serialize all the database in a (.bdb32/.bdb64) file.
    * @param pFilename Filename of file where we will store the serialised database.
    */
-  void save(const boost::filesystem::path& pFilename);
+  void save(const std::string& pFilename);
 
   /**
    * @brief Load the database hold by a (.bdb32/.bdb64) file in the memory.
@@ -55,7 +55,7 @@ public:
    * we reserve relatively to the size of the database store by the file.
    * @return If the loading has succeeded.
    */
-  void load(const boost::filesystem::path& pFilename, float pCoef = 1.2f);
+  void load(const std::string& pFilename, float pCoef = 1.2f);
 
 
 

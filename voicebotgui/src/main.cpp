@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QtGlobal>
 #include <QApplication>
-#include <qisem/databaseprovider/databaseprovider.hpp>
+#include <onsem/streamdatabaseaccessor/streamdatabaseaccessor.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         shareSemantic = argv[i + 1];
     }
   }
-  static const std::string exOfCommandLine = "--databases ../semanticreasoner/linguistic/databases --share_semantic ../../semanticreasoner/share/semantic";
+  static const std::string exOfCommandLine = "--databases ../linguistic/databases --share_semantic ../../share/semantic";
   if (lingDbPath.empty())
     throw std::runtime_error("--databases option is missing (ex: " + exOfCommandLine + ")");
   if (shareSemantic.empty())

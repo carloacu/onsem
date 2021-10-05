@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<project version="3">
-  <maintainer email="jmartin@aldebaran-robotics.com">Jocelyn Martin</maintainer>
-  <qibuild name="semanticreasonergui">
-    <depends buildtime="true" runtime="true" names="libqi qt semantictypes semanticreasoner" />
-  </qibuild>
-</project>

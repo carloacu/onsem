@@ -13,25 +13,25 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/property_tree/xml_parser.hpp>
-#include <qisem/semanticmodel/utility/string.hpp>
-#include <qisem/linguisticanalyzer/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
-#include <qisem/linguisticanalyzer/dbtype/semanticgrounding/semantictimegrounding.hpp>
-#include <qisem/semanticcontroller/tool/semexpcomparator.hpp>
-#include <qisem/linguisticanalyzer/tool/semexpgetter.hpp>
-#include <qisem/linguisticanalyzer/languagedetector.hpp>
-#include <qisem/semanticcontroller/executor/executorlogger.hpp>
-#include <qisem/semanticcontroller/executor/executorcontext.hpp>
-#include <qisem/semanticcontroller/executor/textexecutor.hpp>
-#include <qisem/semanticcontroller/io/loadchatbot.hpp>
-#include <qisem/semanticcontroller/serialization.hpp>
-#include <qisem/semanticcontroller/semanticmemory/semanticmemory.hpp>
-#include <qisem/semanticcontroller/semexpoperators.hpp>
-#include <qisem/semanticcontroller/semanticconverter.hpp>
-#include <qisem/semanticdebugger/dotsaver.hpp>
-#include <qisem/semanticdebugger/syntacticgraphresult.hpp>
-#include <qisem/semanticdebugger/diagnosisprinter.hpp>
-#include <semanticreasonertester/reactOnTexts.hpp>
-#include <semanticreasonertester/syntacticanalysisxmlsaver.hpp>
+#include <onsem/common/utility/string.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
+#include <onsem/texttosemantic/tool/semexpgetter.hpp>
+#include <onsem/texttosemantic/languagedetector.hpp>
+#include <onsem/semantictotext/tool/semexpcomparator.hpp>
+#include <onsem/semantictotext/executor/executorlogger.hpp>
+#include <onsem/semantictotext/executor/executorcontext.hpp>
+#include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/semantictotext/io/loadchatbot.hpp>
+#include <onsem/semantictotext/serialization.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/semantictotext/semexpoperators.hpp>
+#include <onsem/semantictotext/semanticconverter.hpp>
+#include <onsem/semanticdebugger/dotsaver.hpp>
+#include <onsem/semanticdebugger/syntacticgraphresult.hpp>
+#include <onsem/semanticdebugger/diagnosisprinter.hpp>
+#include <onsem/tester/reactOnTexts.hpp>
+#include <onsem/tester/syntacticanalysisxmlsaver.hpp>
 
 
 namespace {
@@ -49,6 +49,7 @@ static const QString stopMicroStr = "stop";
 const std::string _tmpFolder = ".";
 }
 
+using namespace onsem;
 
 MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
                        const boost::filesystem::path& pCorpusResultsFolder,
@@ -67,12 +68,12 @@ MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
   _corpusFolder(pCorpusFolder),
   _listenToANewTokenizerStep(false),
   _lingDb(pIStreams),
-  _currentLanguage(qisem::SemanticLanguageEnum::UNKNOWN),
+  _currentLanguage(SemanticLanguageEnum::UNKNOWN),
   _currReformulationInSameLanguage(),
   fLangToTokenizerSteps(),
   _newOrOldVersion(true),
-  _semMemoryPtr(mystd::make_unique<qisem::SemanticMemory>()),
-  _semMemoryBinaryPtr(mystd::make_unique<qisem::SemanticMemory>()),
+  _semMemoryPtr(mystd::make_unique<SemanticMemory>()),
+  _semMemoryBinaryPtr(mystd::make_unique<SemanticMemory>()),
   _chatbotDomain(),
   _chatbotProblem(),
   _plannerHistorical(),
@@ -130,7 +131,7 @@ MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
   _ui->tabWidget_AATester_Logs->setAttribute(Qt::WA_TranslucentBackground, true);
 
   _lineEditHistorical.emplace(_ui->lineEdit_history_newText,
-                              qisem::LineEditHistoricalWrapper(_ui->lineEdit_history_newText, this));
+                              LineEditHistoricalWrapper(_ui->lineEdit_history_newText, this));
 
   // Fit objects to the windows every seconds
   QTimer *timer = new QTimer(this);
@@ -150,27 +151,27 @@ MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
   _ui->lineEdit_AATester_InputSentence->setEnabled(true);
 
   // fill convertion output comboBox
-  for (std::size_t i = 0; i < qisem::CONV_OUTPUT_TABLE_ENDFORNOCOMPILWARNING; ++i)
+  for (std::size_t i = 0; i < CONV_OUTPUT_TABLE_ENDFORNOCOMPILWARNING; ++i)
   {
     _ui->comboBox_AATester_convertionToShow->addItem
-        (QString::fromUtf8(qisem::ConvertionOutputEnum_toStr[i].c_str()));
+        (QString::fromUtf8(ConvertionOutputEnum_toStr[i].c_str()));
   }
 
   // fill tokenizer steps
   auto fillDebugSteps = [this](std::list<std::string>& pSteps,
-      qisem::SemanticLanguageEnum pLanguageType)
+      SemanticLanguageEnum pLanguageType)
   {
     const auto& specLingDb = _lingDb.langToSpec[pLanguageType];
     for (const auto& currContextFilter : specLingDb.getContextFilters())
       pSteps.emplace_back(currContextFilter->getName());
   };
-  fillDebugSteps(fLangToTokenizerSteps[qisem::SemanticLanguageEnum::ENGLISH], qisem::SemanticLanguageEnum::ENGLISH);
-  fillDebugSteps(fLangToTokenizerSteps[qisem::SemanticLanguageEnum::FRENCH], qisem::SemanticLanguageEnum::FRENCH);
+  fillDebugSteps(fLangToTokenizerSteps[SemanticLanguageEnum::ENGLISH], SemanticLanguageEnum::ENGLISH);
+  fillDebugSteps(fLangToTokenizerSteps[SemanticLanguageEnum::FRENCH], SemanticLanguageEnum::FRENCH);
   _updateCurrentLanguage(_currentLanguage);
 
   // fill ending steps
   _ui->comboBox_AATester_endingStep->clear();
-  for (const auto& currDebugingStep : qisem::linguistics::linguisticAnalysisFinishDebugStepEnum_toStr)
+  for (const auto& currDebugingStep : linguistics::linguisticAnalysisFinishDebugStepEnum_toStr)
     _ui->comboBox_AATester_endingStep->addItem(QString::fromUtf8(currDebugingStep.second.c_str()));
   _ui->comboBox_AATester_endingStep->setCurrentIndex(_ui->comboBox_AATester_endingStep->count() - 1);
   xSetSwitchVersionNewOrOld(true);
@@ -311,13 +312,13 @@ std::string MainWindow::_getSelectedLanguageStr() const
 }
 
 
-qisem::SemanticLanguageEnum MainWindow::_getSelectedLanguageType()
+SemanticLanguageEnum MainWindow::_getSelectedLanguageType()
 {
-  return qisem::semanticLanguageTypeGroundingEnumFromStr(_getSelectedLanguageStr());
+  return semanticLanguageTypeGroundingEnumFromStr(_getSelectedLanguageStr());
 }
 
 
-void MainWindow::_updateCurrentLanguage(qisem::SemanticLanguageEnum pNewLanguage)
+void MainWindow::_updateCurrentLanguage(SemanticLanguageEnum pNewLanguage)
 {
   if (pNewLanguage != _currentLanguage)
   {
@@ -362,16 +363,16 @@ void MainWindow::on_lineEdit_AATester_InputSentence_textChanged(const QString &a
     return;
 
   _listenToANewTokenizerStep = false;
-  qisem::SemanticLanguageEnum languageType = _getSelectedLanguageType();
+  SemanticLanguageEnum languageType = _getSelectedLanguageType();
   const std::string sentence = arg1.toUtf8().constData();
-  if (languageType == qisem::SemanticLanguageEnum::UNKNOWN)
-    languageType = qisem::linguistics::getLanguage(sentence, _lingDb);
+  if (languageType == SemanticLanguageEnum::UNKNOWN)
+    languageType = linguistics::getLanguage(sentence, _lingDb);
   _updateCurrentLanguage(languageType);
-  qisem::SyntacticAnalysisResultToDisplay autoAnnotToDisplay;
+  SyntacticAnalysisResultToDisplay autoAnnotToDisplay;
 
   SemanticAnalysisDebugOptions debugOptions;
   debugOptions.outputFormat = PrintSemExpDiffsOutPutFormat::HTML;
-  debugOptions.convOutput = qisem::ConvertionOutputEnum(_ui->comboBox_AATester_convertionToShow->currentIndex());
+  debugOptions.convOutput = ConvertionOutputEnum(_ui->comboBox_AATester_convertionToShow->currentIndex());
   {
     debugOptions.endingStep.tokenizerEndingStep =
         _ui->comboBox_tokenizer_endingStep->currentText().toUtf8().constData();
@@ -386,7 +387,7 @@ void MainWindow::on_lineEdit_AATester_InputSentence_textChanged(const QString &a
     }
 
     debugOptions.endingStep.endingStep =
-        qisem::linguistics::LinguisticAnalysisFinishDebugStepEnum(_ui->comboBox_AATester_endingStep->currentIndex());
+        linguistics::LinguisticAnalysisFinishDebugStepEnum(_ui->comboBox_AATester_endingStep->currentIndex());
     try
     {
       debugOptions.endingStep.nbOfDebugRoundsForSynthAnalysis = boost::lexical_cast<std::size_t>
@@ -445,7 +446,7 @@ void MainWindow::_clearPrintTags()
 
 
 void MainWindow::xDisplayResult
-(const qisem::SyntacticAnalysisResultToDisplay& pAutoAnnotToDisplay)
+(const SyntacticAnalysisResultToDisplay& pAutoAnnotToDisplay)
 {
   xPrintDotImage(pAutoAnnotToDisplay.highLevelResults.syntGraphStr);
   _clearPrintTokens();
@@ -643,7 +644,7 @@ void MainWindow::on_pushButton_AATester_NextSentence_clicked()
 
 void MainWindow::xDisplayOldResult()
 {
-  qisem::SyntacticAnalysisResultToDisplay autoAnnotToDisplay;
+  SyntacticAnalysisResultToDisplay autoAnnotToDisplay;
   const auto& resToDisp =
       *fSentenceLoader.getOldResults().oldResultThatDiffers[fSentenceLoader.getCurrIndex()];
   SemanticDebug::semAnalResultToStructToDisplay(autoAnnotToDisplay, resToDisp.semAnal);
@@ -655,7 +656,7 @@ void MainWindow::xDisplayOldResult()
 void MainWindow::on_pushButton_AATester_Logs_Compare_OldXml_clicked()
 {
   const std::string selLanguageStr = _getSelectedLanguageStr();
-  qisem::SentencesLoader sentencesXml;
+  SentencesLoader sentencesXml;
   auto copusFolder = _corpusFolder.string() + "/input";
   sentencesXml.loadFolder(copusFolder + "/" + selLanguageStr);
   syntacticAnalysisXmlSaver::save(_corpusResultsFolder.string() + "/" +
@@ -677,8 +678,6 @@ void MainWindow::on_pushButton_AATester_Logs_Compare_NewXml_clicked()
       _ui->checkBox_regressiontests_syntgraph->isChecked();
   diffResults->whatNeedToChecked.syntaticGraph =
       _ui->checkBox_regressiontests_syntgraph->isChecked();
-  diffResults->whatNeedToChecked.animations =
-      _ui->checkBox_regressiontests_animations->isChecked();
   diffResults->whatNeedToChecked.sentimentsInfos =
       _ui->checkBox_regressiontests_sentimentsinfos->isChecked();
   diffResults->whatNeedToChecked.completeness =
@@ -864,7 +863,7 @@ void MainWindow::on_pushButton_MemoryClearer_RefreshPkg_clicked()
 {
   _ui->textBrowser_MemoryClearer_DisplayPkg->setText
       (QString::fromUtf8
-       (qisem::diagnosisPrinter::diagnosis({"loadedDatabases"}, qisem::SemanticMemory(), _lingDb).c_str()));
+       (diagnosisPrinter::diagnosis({"loadedDatabases"}, SemanticMemory(), _lingDb).c_str()));
 }
 
 
@@ -873,12 +872,12 @@ void MainWindow::on_texts_load_triggered()
   xSetSwitchVersionNewOrOld(true);
   _ui->pushButton_AATester_SwitchVersion->setEnabled(false);
 
-  qisem::SemanticLanguageEnum langType = _getSelectedLanguageType();
+  SemanticLanguageEnum langType = _getSelectedLanguageType();
   const std::string textCorpusFolder = _corpusFolder.string() + "/input";
-  if (langType == qisem::SemanticLanguageEnum::UNKNOWN)
+  if (langType == SemanticLanguageEnum::UNKNOWN)
     _loadSentences(true, textCorpusFolder);
   else
-    _loadSentences(true, textCorpusFolder + "/" + qisem::semanticLanguageEnum_toLegacyStr(langType));
+    _loadSentences(true, textCorpusFolder + "/" + semanticLanguageEnum_toLegacyStr(langType));
 
   _ui->pushButton_AATester_PrevSentence->setEnabled(true);
   _ui->pushButton_AATester_NextSentence->setEnabled(true);
@@ -924,8 +923,8 @@ void MainWindow::on_actionExport_to_ldic_triggered()
     return;
   fileToWriteStr += extensionLdic.toUtf8().constData();
   boost::property_tree::ptree propTree;
-  qisem::serialization::saveLingDatabase(propTree, _lingDb);
-  qisem::serialization::propertyTreeToZipedFile(propTree, fileToWriteStr, ".ldic");
+  serialization::saveLingDatabase(propTree, _lingDb);
+  serialization::propertyTreeToZipedFile(propTree, fileToWriteStr, ".ldic");
 }
 
 
@@ -939,8 +938,8 @@ void MainWindow::on_actionImport_from_ldic_triggered()
   if (filename.empty())
     return;
   boost::property_tree::ptree propTree;
-  qisem::serialization::propertyTreeFromZippedFile(propTree, filename);
-  qisem::serialization::loadLingDatabase(propTree, _lingDb);
+  serialization::propertyTreeFromZippedFile(propTree, filename);
+  serialization::loadLingDatabase(propTree, _lingDb);
 }
 
 void MainWindow::on_lineEdit_history_newText_returnPressed()
@@ -1017,10 +1016,10 @@ std::string MainWindow::_operator_react(
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    pTextLanguage);
-  auto execContext = std::make_shared<qisem::ExecutorContext>(outContext);
+  auto execContext = std::make_shared<ExecutorContext>(outContext);
   std::string res;
-  qisem::ExecutorLoggerWithoutMetaInformation logger(res);
-  qisem::TextExecutor textExec(semMemory, _lingDb, logger);
+  ExecutorLoggerWithoutMetaInformation logger(res);
+  TextExecutor textExec(semMemory, _lingDb, logger);
   textExec.runSemExp(std::move(*reaction), execContext);
   return res;
 }
@@ -1033,7 +1032,7 @@ void MainWindow::_onNewTextSubmitted(const std::string& pText)
   _ui->textBrowser_chat_history->append(QString::fromUtf8(_inLabel.c_str()) + " \"" +
                                         QString::fromUtf8(pText.c_str()) + "\"");
 
-  qisem::LineEditHistoricalWrapper& hWrapper = _lineEditHistorical[_ui->lineEdit_history_newText];
+  LineEditHistoricalWrapper& hWrapper = _lineEditHistorical[_ui->lineEdit_history_newText];
   hWrapper.addNewText(pText, true);
   hWrapper.goToEndOfHistorical();
 
@@ -1336,7 +1335,7 @@ void MainWindow::_clearLoadedScenarios()
   {
     _chatbotDomain.reset();
     _chatbotProblem.reset();
-    _plannerHistorical = qisem::lp::Historical();
+    _plannerHistorical = lp::Historical();
     _currentActionParameters.clear();
     _effectAfterCurrentInput.reset();
   }
@@ -1400,7 +1399,7 @@ void MainWindow::on_pushButton_clicked()
 {
   _ui->textBrowser_PrintMemory->setText
       (QString::fromUtf8
-       (qisem::diagnosisPrinter::diagnosis({"memory", "memoryInformations"}, *_semMemoryPtr, _lingDb).c_str()));
+       (diagnosisPrinter::diagnosis({"memory", "memoryInformations"}, *_semMemoryPtr, _lingDb).c_str()));
 }
 
 void MainWindow::on_pushButton_addEquivalence_AATester_Logs_Reformulation_clicked()
@@ -1418,7 +1417,7 @@ void MainWindow::on_pushButton_addEquivalence_AATester_Logs_Reformulation_clicke
 
 boost::filesystem::path MainWindow::_getEquivalencesFilename()
 {
-  std::string languageStr = qisem::semanticLanguageEnum_toLegacyStr(_currentLanguage);
+  std::string languageStr = semanticLanguageEnum_toLegacyStr(_currentLanguage);
   return _corpusEquivalencesFolder /
       boost::filesystem::path(languageStr + "_equivalences.xml");
 }

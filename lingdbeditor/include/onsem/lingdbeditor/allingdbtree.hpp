@@ -16,20 +16,20 @@ class ALLingdbMeaning;
 class ALLingdbTree
 {
 public:
-  explicit ALLingdbTree(const boost::filesystem::path& pInputResourcesDir);
+  explicit ALLingdbTree(const std::string& pInputResourcesDir);
 
-  boost::filesystem::path getDynDbFilenameForLanguage(const std::string& pLang) const;
+  std::string getDynDbFilenameForLanguage(const std::string& pLang) const;
 
 
-  void update(const boost::filesystem::path& pSdkShareDir,
-              const boost::filesystem::path& pLoadDatabasesDir,
+  void update(const std::string& pSdkShareDir,
+              const std::string& pLoadDatabasesDir,
               const std::string& pDynamicdictionaryPath,
               bool pClearTmpFolder);
 
   void clearAll() const;
 
   void getHoldingFolder
-  (boost::filesystem::path& pFolder,
+  (std::string& pFolder,
    const boost::filesystem::path& pFilename) const;
 
 
@@ -63,7 +63,7 @@ public:
   std::string getExtBinaryDatabase() const;
 
 
-  boost::filesystem::path getDynamicDatabasesFolder() const;
+  std::string getDynamicDatabasesFolder() const;
 
   std::string getRlaDatabase() const;
 
@@ -71,7 +71,7 @@ public:
 
   std::string getWlksDatabase() const;
 
-  const boost::filesystem::path& getInputResourcesDir() const { return fInputResourcesDir; }
+  const std::string& getInputResourcesDir() const { return fInputResourcesDir; }
 
 
 private:
@@ -91,8 +91,8 @@ private:
     int dynDbVersion;
     int statDbVersion;
   };
-  const boost::filesystem::path fInputResourcesDir;
-  boost::filesystem::path fDynamicDatabasesFolder;
+  const std::string fInputResourcesDir;
+  std::string fDynamicDatabasesFolder;
   std::vector<LanguageStruct> fLanguages;
   /// If the machine is a 32 bits (64 bits otherwise)
   bool fIn32Bits;
@@ -100,7 +100,7 @@ private:
   bool xExtractVersionFromFile
   (std::string& pFormalismVersion,
    std::string& pVersion,
-   const boost::filesystem::path& pFilePath);
+   const std::string& pFilePath);
 
   std::string xGetDynDatabaseFilename
   (const std::string& pLanguage) const;
@@ -109,17 +109,17 @@ private:
   (const std::string& pLanguage) const;
 
   void xCreateDirectory
-  (const boost::filesystem::path& pPath) const;
+  (const std::string& pPath) const;
 
   void xRemoveDirectory
   (const boost::filesystem::path& pPath) const;
 
   void xCopyFile
-  (const boost::filesystem::path& pFrom,
-   const boost::filesystem::path& pTo) const;
+  (const std::string& pFrom,
+   const std::string& pTo) const;
 
   void xClearDirectory
-  (const boost::filesystem::path& pDirectory) const;
+  (const std::string& pDirectory) const;
 
   bool xTryToLoadDynamicDbs();
 

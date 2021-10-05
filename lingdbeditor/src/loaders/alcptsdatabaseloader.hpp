@@ -1,7 +1,6 @@
 #ifndef ALCPTSDATABASELOADER_H
 #define ALCPTSDATABASELOADER_H
 
-#include <boost/filesystem/path.hpp>
 #include <string>
 
 namespace onsem
@@ -14,7 +13,7 @@ class ALCptsDatabaseLoader
 {
 public:
   void merge
-  (const boost::filesystem::path& pFilename,
+  (const std::string& pFilename,
    LinguisticIntermediaryDatabase& pLingdb);
 
 private:
@@ -24,7 +23,7 @@ private:
    const ALLingdbConcept* pNewConcept,
    const std::string& pNewConceptStr,
    char pRelatedToConcept,
-   const boost::filesystem::path& pFilename,
+   const std::string& pFilename,
    const std::string& pLine);
 
 };

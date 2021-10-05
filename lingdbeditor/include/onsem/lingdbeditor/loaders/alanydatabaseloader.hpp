@@ -2,7 +2,6 @@
 #define ALANYDATABASELOADER_H
 
 #include <string>
-#include <boost/filesystem/path.hpp>
 
 
 namespace onsem
@@ -15,21 +14,21 @@ class ALAnyDatabaseLoader
 {
 public:
   void open
-  (const boost::filesystem::path& pFilename,
-   const boost::filesystem::path& pInputResourcesDir,
+  (const std::string& pFilename,
+   const std::string& pInputResourcesDir,
    LinguisticIntermediaryDatabase& pLingdb,
    const ALLingdbTree& pLingdbTree,
    std::size_t pImbricationLevel = 0) const;
 
   void mergeWith
-  (const boost::filesystem::path& pFilename,
-   const boost::filesystem::path& pInputResourcesDir,
+  (const std::string& pFilename,
+   const std::string& pInputResourcesDir,
    LinguisticIntermediaryDatabase& pLingdb,
    const ALLingdbTree& pLingdbTree,
    std::size_t pImbricationLevel = 0) const;
 
   void exec
-  (const boost::filesystem::path& pFilename,
+  (const std::string& pFilename,
    const ALLingdbTree& pLingdbTree) const;
 };
 

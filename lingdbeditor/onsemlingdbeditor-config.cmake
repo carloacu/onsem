@@ -6,7 +6,7 @@ set(ONSEMLINGDBEDITOR_FOUND TRUE)
 
 set(
   ONSEMLINGDBEDITOR_INCLUDE_DIRS
-  ${_onsemlingdbeditor_root}
+  ${_onsemlingdbeditor_root}/include
   CACHE INTERNAL "" FORCE
 )
 

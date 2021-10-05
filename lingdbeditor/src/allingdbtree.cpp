@@ -1,5 +1,6 @@
 #include <onsem/lingdbeditor/allingdbtree.hpp>
 #include <sstream>
+#include <fstream>
 #include <boost/filesystem.hpp>
 #include <onsem/common/utility/make_unique.hpp>
 #include <onsem/lingdbeditor/savers/albinarydatabaseconceptssaver.hpp>
@@ -47,7 +48,7 @@ void _printAllSubPaths(std::ostream& pFStream,
 }
 
 
-ALLingdbTree::ALLingdbTree(const boost::filesystem::path& pInputResourcesDir)
+ALLingdbTree::ALLingdbTree(const std::string& pInputResourcesDir)
   : fInputResourcesDir(pInputResourcesDir),
     fDynamicDatabasesFolder(),
     fLanguages(),
@@ -65,9 +66,9 @@ ALLingdbTree::ALLingdbTree(const boost::filesystem::path& pInputResourcesDir)
 bool ALLingdbTree::xExtractVersionFromFile
 (std::string& pFormalismVersion,
  std::string& pVersion,
- const boost::filesystem::path& pFilePath)
+ const std::string& pFilePath)
 {
-  boost::filesystem::ifstream versionFile(pFilePath);
+  std::ifstream versionFile(pFilePath, std::ifstream::in);
   if (!versionFile.is_open())
   {
     return false;
@@ -101,26 +102,25 @@ void ALLingdbTree::clearAll() const
 }
 
 
-boost::filesystem::path ALLingdbTree::getDynDbFilenameForLanguage
-(const std::string& pLang) const
+std::string ALLingdbTree::getDynDbFilenameForLanguage(const std::string& pLang) const
 {
-  return fDynamicDatabasesFolder / xGetDynDatabaseFilename(pLang);
+  return fDynamicDatabasesFolder + "/" + xGetDynDatabaseFilename(pLang);
 }
 
 
-void ALLingdbTree::update(const boost::filesystem::path& pSdkShareDir,
-                          const boost::filesystem::path& pLoadDatabasesDir,
+void ALLingdbTree::update(const std::string& pSdkShareDir,
+                          const std::string& pLoadDatabasesDir,
                           const std::string& pDynamicdictionaryPath,
                           bool pClearTmpFolder)
 {
-  boost::filesystem::path inputVersionFilePath = pLoadDatabasesDir / "version.txt";
+  std::string inputVersionFilePath = pLoadDatabasesDir + "/version.txt";
   std::string inputDbFormalismVersion;
   std::string inputDbVersion;
   if (!xExtractVersionFromFile(inputDbFormalismVersion,
                                inputDbVersion,
                                inputVersionFilePath))
   {
-    throw std::runtime_error(inputVersionFilePath.string() + " is missing!");
+    throw std::runtime_error(inputVersionFilePath + " is missing!");
   }
   if (inputDbFormalismVersion != semanticdb_formalismVersion)
   {
@@ -128,12 +128,12 @@ void ALLingdbTree::update(const boost::filesystem::path& pSdkShareDir,
                              "If you are using qibuild the command to do is: \"qibuild make-host-tools\"");
   }
 
-  boost::filesystem::path linguisticPath = pSdkShareDir / "linguistic";
+  std::string linguisticPath = pSdkShareDir + "/linguistic";
   xCreateDirectory(linguisticPath);
-  boost::filesystem::path linguisticDatabasesPath = linguisticPath / "databases";
+  std::string linguisticDatabasesPath = linguisticPath + "/databases";
   xCreateDirectory(linguisticDatabasesPath);
-  boost::filesystem::path installedVersionFilePath = linguisticDatabasesPath / "version.txt";
-  fDynamicDatabasesFolder = linguisticPath / "tmpdatabases";
+  std::string installedVersionFilePath = linguisticDatabasesPath + "/version.txt";
+  fDynamicDatabasesFolder = linguisticPath + "/tmpdatabases";
 
   bool needToUpdateAllStatBinDico = false;
   {
@@ -171,7 +171,7 @@ void ALLingdbTree::update(const boost::filesystem::path& pSdkShareDir,
     xCreateDirectory(fDynamicDatabasesFolder);
     LinguisticIntermediaryDatabase currLingdb;
     ALAnyDatabaseLoader anyLoader;
-    anyLoader.open(pLoadDatabasesDir / "reloadall.rla", fInputResourcesDir,
+    anyLoader.open(pLoadDatabasesDir + "/reloadall.rla", fInputResourcesDir,
                    currLingdb, *this);
     xTryToLoadDynamicDbs();
     xCopyFile(inputVersionFilePath, installedVersionFilePath);
@@ -216,7 +216,7 @@ void ALLingdbTree::update(const boost::filesystem::path& pSdkShareDir,
 
       std::string lang = semanticLanguageEnum_toLanguageFilenameStr(fLanguages[i].langGroundingsType);
       binDicoSaver.save(langToMeaningsPtr[fLanguages[i].langGroundingsType], conceptsOffsets,
-          linguisticDatabasesPath / xGetStatDatabaseFilename(lang),
+          linguisticDatabasesPath + "/" + xGetStatDatabaseFilename(lang),
           linguisticDatabasesPath / boost::filesystem::path(lang + "animations." + getExtBinaryDatabase()),
           linguisticDatabasesPath / boost::filesystem::path(lang + "synthesizer." + getExtBinaryDatabase()),
           *fLanguages[i].dynDb);
@@ -230,7 +230,7 @@ void ALLingdbTree::update(const boost::filesystem::path& pSdkShareDir,
     if (!pDynamicdictionaryPath.empty())
     {
       {
-        std::ofstream wordsrelativePathsFile(linguisticPath.string() + "/wordsrelativePaths.txt");
+        std::ofstream wordsrelativePathsFile(linguisticPath + "/wordsrelativePaths.txt");
         std::string wordModificationPath = pDynamicdictionaryPath + "/words";
         // /!\ The order of the folders is important
         static const std::vector<std::string> folders{"anyverb", "readonly", "manual"};
@@ -249,7 +249,7 @@ void ALLingdbTree::update(const boost::filesystem::path& pSdkShareDir,
       }
 
       {
-        std::ofstream treeConvertionsPathsFile(linguisticPath.string() + "/treeConvertionsPaths.txt");
+        std::ofstream treeConvertionsPathsFile(linguisticPath + "/treeConvertionsPaths.txt");
 
         auto treeConverterPath = pDynamicdictionaryPath + "/treeconversions";
         boost::filesystem::directory_iterator itTreeConvsFolders(treeConverterPath);
@@ -324,7 +324,7 @@ void ALLingdbTree::xGenerateTranslations
 
   // load translations
   ALWlksDatabaseLoader wlksLoader;
-  wlksLoader.load(wlksWorkState, fInputResourcesDir / "common" / "traductions.wlks");
+  wlksLoader.load(wlksWorkState, fInputResourcesDir + "/common/traductions.wlks");
 
   // save translations
   ALBinaryTradSaver tradSaver;
@@ -335,7 +335,7 @@ void ALLingdbTree::xGenerateTranslations
 
 
 void ALLingdbTree::xClearDirectory
-(const boost::filesystem::path& pDirectory) const
+(const std::string& pDirectory) const
 {
   boost::filesystem::path pathToRemove(pDirectory);
   for (boost::filesystem::directory_iterator end_dir_it, itFilesToRemove(pathToRemove);
@@ -362,21 +362,21 @@ std::string ALLingdbTree::xGetStatDatabaseFilename
 
 
 void ALLingdbTree::getHoldingFolder
-(boost::filesystem::path& pFolder,
+(std::string& pFolder,
  const boost::filesystem::path& pFilename) const
 {
   boost::system::error_code ec;
   if (boost::filesystem::is_regular_file(pFilename, ec))
   {
-    pFolder = pFilename.parent_path();
+    pFolder = pFilename.parent_path().string();
     return;
   }
-  pFolder = pFilename;
+  pFolder = pFilename.string();
 }
 
 
 void ALLingdbTree::xCreateDirectory
-(const boost::filesystem::path& pPath) const
+(const std::string& pPath) const
 {
   boost::filesystem::create_directory(pPath);
 }
@@ -389,8 +389,8 @@ void ALLingdbTree::xRemoveDirectory
 }
 
 void ALLingdbTree::xCopyFile
-(const boost::filesystem::path& pFrom,
- const boost::filesystem::path& pTo) const
+(const std::string& pFrom,
+ const std::string& pTo) const
 {
   /*
   boost::filesystem::path from(pFrom.c_str());
@@ -398,8 +398,8 @@ void ALLingdbTree::xCopyFile
   boost::filesystem::copy_file(from, to, boost::filesystem::copy_option::overwrite_if_exists);
   */
 
-  boost::filesystem::ifstream source(pFrom, boost::filesystem::ifstream::binary);
-  boost::filesystem::ofstream dest(pTo, boost::filesystem::ofstream::binary);
+  std::ifstream source(pFrom, std::ifstream::binary);
+  std::ofstream dest(pTo, std::ofstream::binary);
   dest << source.rdbuf();
   source.close();
   dest.close();

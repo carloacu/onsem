@@ -21,7 +21,7 @@ inline ALCompositePoolAllocator& LinguisticIntermediaryDatabase::xGetFPAlloc
 
 
 inline void LinguisticIntermediaryDatabase::save
-(const boost::filesystem::path& pFilename)
+(const std::string& pFilename)
 {
   fAlloc.serialize(pFilename);
 }

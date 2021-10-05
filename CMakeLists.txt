@@ -4,8 +4,11 @@ project(onsem)
 
 set(CMAKE_CXX_FLAGS "-std=gnu++11" CACHE STRING "" FORCE)
 
+## Command line for database compilation
+# cmake -DBUILD_ONSEM_DATABASE=ON -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
+
 ## Command line for compilation
-# cmake ../ && make -j4
+# cmake  -DBUILD_ONSEM_DATABASE=OFF -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
 
 
 include(onsem-config.cmake)
@@ -13,10 +16,40 @@ add_subdirectory(common)
 
 add_subdirectory(typeallocatorandserializer)
 add_subdirectory(lingdbeditor)
+add_subdirectory(databasegenerator)
 
-add_subdirectory(chatbotplanner)
-add_subdirectory(texttosemantic)
-add_subdirectory(semantictotext)
-add_subdirectory(streamdatabaseaccessor)
-add_subdirectory(semanticdebugger)
-add_subdirectory(tests)
+if (NOT BUILD_ONSEM_DATABASE)
+  # Generate the semantic databases
+  get_property(ONSEMDATABASEGENERATOR_EXECUTABLE GLOBAL PROPERTY onsem_database_generator_executable)
+  message(STATUS "executable_to_generate_the_databases=${ONSEMDATABASEGENERATOR_EXECUTABLE}")
+
+  set(SEMANTICDATABASE_OUTDIR "${CMAKE_CURRENT_BINARY_DIR}")
+  message(STATUS "SEMANTICDATABASE_OUTDIR=${SEMANTICDATABASE_OUTDIR}")
+
+  set(SHARE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/share")
+  message(STATUS "SHARE_FOLDER=${SHARE_FOLDER}")
+
+  add_custom_target(
+    generate_semantic_databases ALL
+    DEPENDS check_if_semantic_databases_are_needed)
+  add_custom_command(
+    OUTPUT
+      check_if_semantic_databases_are_needed  # ensure we run the binary, but the binary is no op if nothing is needed!
+    COMMAND "${ONSEMDATABASEGENERATOR_EXECUTABLE}" "${SEMANTICDATABASE_OUTDIR}" "${SHARE_FOLDER}"
+  )
+
+  install(DIRECTORY "${SEMANTICDATABASE_OUTDIR}/linguistic/databases" DESTINATION share/linguistic)
+  install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/share/semantic/dynamicdictionary" DESTINATION share/semantic)
+
+  add_subdirectory(chatbotplanner)
+  add_subdirectory(texttosemantic)
+  add_subdirectory(semantictotext)
+  add_subdirectory(streamdatabaseaccessor)
+  add_subdirectory(semanticdebugger)
+  add_subdirectory(tests)
+  add_subdirectory(voicebotgui)
+
+endif()
+
+
+

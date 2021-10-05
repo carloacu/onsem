@@ -15,13 +15,13 @@ namespace onsem
 
 
 void ALAnyDatabaseLoader::open
-(const boost::filesystem::path& pFilename,
- const boost::filesystem::path& pInputResourcesDir,
+(const std::string& pFilename,
+ const std::string& pInputResourcesDir,
  LinguisticIntermediaryDatabase& pCurrLingdb,
  const ALLingdbTree& pLingdbTree,
  std::size_t pImbricationLevel) const
 {
-  std::string suffixStr = mystd::filenameToSuffix(pFilename.string());
+  std::string suffixStr = mystd::filenameToSuffix(pFilename);
 
   if (suffixStr == pLingdbTree.getExtDynDatabase())
   {
@@ -54,13 +54,13 @@ void ALAnyDatabaseLoader::open
 
 
 void ALAnyDatabaseLoader::mergeWith
-(const boost::filesystem::path& pFilename,
- const boost::filesystem::path& pInputResourcesDir,
+(const std::string& pFilename,
+ const std::string& pInputResourcesDir,
  LinguisticIntermediaryDatabase& pCurrLingdb,
  const ALLingdbTree& pLingdbTree,
  std::size_t pImbricationLevel) const
 {
-  std::string suffixStr = mystd::filenameToSuffix(pFilename.string());
+  std::string suffixStr = mystd::filenameToSuffix(pFilename);
 
   if (suffixStr == pLingdbTree.getExtXmlDatabase())
   {
@@ -89,10 +89,10 @@ void ALAnyDatabaseLoader::mergeWith
 
 
 void ALAnyDatabaseLoader::exec
-(const boost::filesystem::path& pFilename,
+(const std::string& pFilename,
  const ALLingdbTree& pLingdbTree) const
 {
-  std::string suffixStr = mystd::filenameToSuffix(pFilename.string());
+  std::string suffixStr = mystd::filenameToSuffix(pFilename);
 
   if (suffixStr == pLingdbTree.getWlksDatabase())
   {
@@ -100,7 +100,7 @@ void ALAnyDatabaseLoader::exec
     wlksLoader.loadAndSave(pFilename, pLingdbTree);
     return;
   }
-  throw std::runtime_error("Cannot exec file: \"" + pFilename.string() + "\".");
+  throw std::runtime_error("Cannot exec file: \"" + pFilename + "\".");
 }
 
 

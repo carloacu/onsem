@@ -71,7 +71,7 @@ inline std::string ALLingdbTree::getWlksDatabase
 
 
 
-inline boost::filesystem::path ALLingdbTree::getDynamicDatabasesFolder() const
+inline std::string ALLingdbTree::getDynamicDatabasesFolder() const
 {
   return fDynamicDatabasesFolder;
 }

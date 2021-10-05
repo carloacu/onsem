@@ -1,9 +1,9 @@
 #include <onsem/typeallocatorandserializer/advanced/componentpoolallocator.hpp>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <cstring>
 #include <assert.h>
-#include <boost/filesystem/fstream.hpp>
 
 namespace onsem
 {
@@ -16,7 +16,7 @@ namespace onsem
 
 
   void ALComponentPoolAllocator::serialize
-  (const boost::filesystem::path& pFilename)
+  (const std::string& pFilename)
   {
     std::set<FPAShift> shifts;
     // Do the serialization task.
@@ -43,14 +43,14 @@ namespace onsem
 
   void ALComponentPoolAllocator::deserialize
   (std::string& pErrorMessage,
-   const boost::filesystem::path& pFilename, float pCoef)
+   const std::string& pFilename, float pCoef)
   {
     clear();
 
-    boost::filesystem::ifstream infile(pFilename, boost::filesystem::ifstream::binary);
+    std::ifstream infile(pFilename, std::ifstream::binary);
     if (!infile.is_open())
     {
-      pErrorMessage = "Error: Can't open " + pFilename.string() + " file !";
+      pErrorMessage = "Error: Can't open " + pFilename + " file !";
       return;
     }
     std::set<FPAShift> shifts;
@@ -62,10 +62,9 @@ namespace onsem
 
   void ALComponentPoolAllocator::xSerialize
   (std::set<FPAShift>& pShifts,
-   const boost::filesystem::path& pFilename)
+   const std::string& pFilename)
   {
-    boost::filesystem::ofstream outfile(pFilename,
-                                        boost::filesystem::ofstream::binary);
+    std::ofstream outfile(pFilename, std::ofstream::binary);
     xFindShiftsForDefragmentation(pShifts);
     xChangePointers(pShifts);
     xDefragmentMemory(pShifts);

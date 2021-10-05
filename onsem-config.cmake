@@ -3,6 +3,8 @@ get_filename_component(_onsem_root "${_onsem_root}" ABSOLUTE)
 
 include(${_onsem_root}/common/onsemcommon-config.cmake)
 include(${_onsem_root}/typeallocatorandserializer/onsemtypeallocatorandserialyzer-config.cmake)
+include(${_onsem_root}/lingdbeditor/onsemlingdbeditor-config.cmake)
+
 include(${_onsem_root}/chatbotplanner/onsemchatbotplanner-config.cmake)
 include(${_onsem_root}/texttosemantic/onsemtexttosemantic-config.cmake)
 include(${_onsem_root}/semantictotext/onsemsemantictotext-config.cmake)

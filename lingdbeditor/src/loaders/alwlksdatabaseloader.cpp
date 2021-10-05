@@ -24,7 +24,7 @@ void ALWlksDatabaseLoader::loadAndSave
   ALWlksDatabaseLoader_WorkState workState(pLingbTree);
   load(workState, pFilename);
 
-  for (std::map<std::string, ALWlksDatabaseLoader_LangSpec >::iterator it = workState.strToLangSpecs.begin();
+  for (auto it = workState.strToLangSpecs.begin();
        it != workState.strToLangSpecs.end(); ++it)
   {
     it->second.lingDatabase->save(workState.lingbTree.getDynDbFilenameForLanguage(it->first));
@@ -174,9 +174,9 @@ void ALWlksDatabaseLoader::load
         }
         std::string fileStr;
         iss >> fileStr;
-        boost::filesystem::path subFolder;
+        std::string subFolder;
         pWorkState.lingbTree.getHoldingFolder(subFolder, pFilename);
-        load(pWorkState, subFolder / fileStr);
+        load(pWorkState, subFolder + "/" + fileStr);
       }
       else if (instruction == "fillconceptsofotherlanguages")
       {

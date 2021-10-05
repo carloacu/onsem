@@ -8,18 +8,18 @@
 #include <vector>
 #include <string>
 #include <boost/filesystem/path.hpp>
-#include <qisem/guiutility/lineedithistoricwrapper.hpp>
-#include <qisem/semanticmodel/enum/semanticlanguagetype.hpp>
-#include <qisem/semanticmodel/enum/contextualannotation.hpp>
-#include <qisem/semanticmodel/keytostreams.hpp>
-#include <qisem/linguisticanalyzer/dbtype/linguisticdatabase.hpp>
-#include <semanticreasonertester/sentencesloader.hpp>
-#include <semanticreasonertester/scenariocontainer.hpp>
-#include <linguisticplanner/linguisticplanner.hpp>
-#include <qisem/semanticcontroller/io/loadchatbot.hpp>
+#include <onsem/guiutility/lineedithistoricwrapper.hpp>
+#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/contextualannotation.hpp>
+#include <onsem/common/keytostreams.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
+#include <onsem/tester/sentencesloader.hpp>
+#include <onsem/tester/scenariocontainer.hpp>
+#include <onsem/chatbotplanner/linguisticplanner.hpp>
+#include <onsem/semantictotext/io/loadchatbot.hpp>
 #include "qobject/scrollpanel.hpp"
 
-using namespace qisem;
+using namespace onsem;
 
 namespace Ui {
 class MainWindow;
@@ -161,16 +161,16 @@ private:
   const boost::filesystem::path _outputScenariosFolder;
   const boost::filesystem::path _corpusFolder;
   bool _listenToANewTokenizerStep;
-  qisem::linguistics::LinguisticDatabase _lingDb;
-  qisem::SemanticLanguageEnum _currentLanguage;
+  onsem::linguistics::LinguisticDatabase _lingDb;
+  onsem::SemanticLanguageEnum _currentLanguage;
   std::string _currReformulationInSameLanguage;
-  std::map<qisem::SemanticLanguageEnum, std::list<std::string>> fLangToTokenizerSteps;
+  std::map<onsem::SemanticLanguageEnum, std::list<std::string>> fLangToTokenizerSteps;
   bool _newOrOldVersion;
-  std::unique_ptr<qisem::SemanticMemory> _semMemoryPtr;
-  std::unique_ptr<qisem::SemanticMemory> _semMemoryBinaryPtr;
-  std::unique_ptr<qisem::ChatbotDomain> _chatbotDomain;
-  std::unique_ptr<qisem::ChatbotProblem> _chatbotProblem;
-  qisem::lp::Historical _plannerHistorical;
+  std::unique_ptr<onsem::SemanticMemory> _semMemoryPtr;
+  std::unique_ptr<onsem::SemanticMemory> _semMemoryBinaryPtr;
+  std::unique_ptr<onsem::ChatbotDomain> _chatbotDomain;
+  std::unique_ptr<onsem::ChatbotProblem> _chatbotProblem;
+  onsem::lp::Historical _plannerHistorical;
   std::list<ChatbotSemExpParam> _currentActionParameters;
   std::unique_ptr<lp::SetOfFacts> _effectAfterCurrentInput;
   ScenarioContainer _scenarioContainer;
@@ -183,7 +183,7 @@ private:
   bool _shouldWaitForNewSpeech;
 
   /// The panel where we will see the tokens (this panel have a scrollbar)
-  qisem::ScrollPanel fTokensPanel;
+  onsem::ScrollPanel fTokensPanel;
   /// List of tokens that we display
   QList<QLabel*> fTokens;
   /// List of initial grammatical possiblities.
@@ -200,12 +200,12 @@ private:
   QList<QComboBox*> fTokenTagsPossibilities;
   /// Display the dot image
   bool fDispDotImage;
-  qisem::SentencesLoader fSentenceLoader;
-  std::map<QObject*, qisem::LineEditHistoricalWrapper> _lineEditHistorical;
+  onsem::SentencesLoader fSentenceLoader;
+  std::map<QObject*, onsem::LineEditHistoricalWrapper> _lineEditHistorical;
 
   std::string _getSelectedLanguageStr() const;
-  qisem::SemanticLanguageEnum _getSelectedLanguageType();
-  void _updateCurrentLanguage(qisem::SemanticLanguageEnum pNewLanguage);
+  onsem::SemanticLanguageEnum _getSelectedLanguageType();
+  void _updateCurrentLanguage(onsem::SemanticLanguageEnum pNewLanguage);
   void xSetSwitchVersionNewOrOld(bool pNewOrOld);
   void xPrintDotImage(const std::string& pDotContent) const;
 
@@ -215,7 +215,7 @@ private:
   /// Clear the display of tags.
   void _clearPrintTags();
 
-  void xDisplayResult(const qisem::SyntacticAnalysisResultToDisplay& pAutoAnnotToDisplay);
+  void xDisplayResult(const onsem::SyntacticAnalysisResultToDisplay& pAutoAnnotToDisplay);
 
   /// Refresh the syntactic graph image of the sentence.
   void _showImageInACanvas
@@ -229,7 +229,7 @@ private:
                       const std::string& pTextCorpusPath);
 
   std::string _operator_react(
-      qisem::ContextualAnnotation& pContextualAnnotation,
+      onsem::ContextualAnnotation& pContextualAnnotation,
       std::list<std::string>& pReferences,
       const std::string& pText,
       SemanticLanguageEnum& pTextLanguage);

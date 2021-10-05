@@ -1,11 +1,11 @@
-#ifndef QISEM_GUIUTILITY_LINEEDITHISTORICWRAPPER_HPP
-#define QISEM_GUIUTILITY_LINEEDITHISTORICWRAPPER_HPP
+#ifndef ONSEMGUIUTILITY_LINEEDITHISTORICWRAPPER_HPP
+#define ONSEMGUIUTILITY_LINEEDITHISTORICWRAPPER_HPP
 
 #include <list>
 #include <string>
 #include <QLineEdit>
 
-namespace qisem
+namespace onsem
 {
 
 class LineEditHistoricalWrapper
@@ -57,6 +57,6 @@ private:
                                           const std::string& pRefText);
 };
 
-} // End of namespace qisem
+} // End of namespace onsem
 
-#endif // QISEM_GUIUTILITY_LINEEDITHISTORICWRAPPER_HPP
+#endif // ONSEMGUIUTILITY_LINEEDITHISTORICWRAPPER_HPP

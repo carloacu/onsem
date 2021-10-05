@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <assert.h>
 
-namespace qisem
+namespace onsem
 {
 
 ScrollPanel::~ScrollPanel()
@@ -90,4 +90,4 @@ void ScrollPanel::onVerticalScrollBarValueChanged
 }
 
 
-} // End of namespace qisem
+} // End of namespace onsem

@@ -5,7 +5,7 @@
 #include <QScrollBar>
 #include <QFrame>
 
-namespace qisem
+namespace onsem
 {
 
 class ScrollPanel : public QObject
@@ -46,6 +46,6 @@ private:
   void xInitScrollBar();
 };
 
-} // End of namespace qisem
+} // End of namespace onsem
 
 #endif // SCROLLPANEL_H

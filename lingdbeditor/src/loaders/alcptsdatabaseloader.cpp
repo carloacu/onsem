@@ -1,6 +1,7 @@
 #include "alcptsdatabaseloader.hpp"
 #include <assert.h>
-#include <boost/filesystem/fstream.hpp>
+#include <fstream>
+#include <sstream>
 #include <onsem/common/utility/lexical_cast.hpp>
 #include <onsem/lingdbeditor/linguisticintermediarydatabase.hpp>
 #include <onsem/lingdbeditor/allingdbwordforms.hpp>
@@ -12,13 +13,13 @@ namespace onsem
 {
 
 void ALCptsDatabaseLoader::merge
-(const boost::filesystem::path& pFilename,
+(const std::string& pFilename,
  LinguisticIntermediaryDatabase& pLingdb)
 {
-  boost::filesystem::ifstream infile(pFilename, boost::filesystem::ifstream::in);
+  std::ifstream infile(pFilename, std::ifstream::in);
   if (!infile.is_open())
   {
-    std::cerr << "Error: Can't open " << pFilename.string() << " file !" << std::endl;
+    std::cerr << "Error: Can't open " << pFilename << " file !" << std::endl;
     return;
   }
 
@@ -68,14 +69,14 @@ void ALCptsDatabaseLoader::merge
         if (tabPos <= beginGramPos)
         {
           throw std::runtime_error("Error: ',' shoud come before '\t' for line: \"" +
-                                   line + "\" and for file: \"" + pFilename.string() + "\"");
+                                   line + "\" and for file: \"" + pFilename + "\"");
         }
         std::string gramStr = line.substr(beginGramPos, tabPos - beginGramPos);
         PartOfSpeech gram  = partOfSpeech_fromStr(gramStr);
         if (gram == PartOfSpeech::UNKNOWN)
         {
           throw std::runtime_error("Error: unknown grammatical type: \"" + gramStr + "\" for line: \"" +
-                                   line + "\" and for file: \"" + pFilename.string() + "\"");
+                                   line + "\" and for file: \"" + pFilename + "\"");
         }
 
         ALLingdbMeaning* meaningToHandle = pLingdb.getMeaning(lemma, gram);
@@ -120,7 +121,7 @@ void ALCptsDatabaseLoader::merge
         if (currConcept == nullptr)
         {
           currConceptStr.clear();
-          throw std::runtime_error("Error: in \"" + pFilename.string() + "\" in the line: \"" +
+          throw std::runtime_error("Error: in \"" + pFilename + "\" in the line: \"" +
                                    line + "\" the concept doesn't exists");
         }
       }
@@ -133,7 +134,7 @@ void ALCptsDatabaseLoader::merge
         if (contraryConcept == nullptr)
         {
           contraryConceptStr.clear();
-          throw std::runtime_error("Error: in \"" + pFilename.string() + "\" in the line: \"" +
+          throw std::runtime_error("Error: in \"" + pFilename + "\" in the line: \"" +
                                    line + "\" the concept doesn't exists");
         }
       }
@@ -144,7 +145,7 @@ void ALCptsDatabaseLoader::merge
     }
     else
     {
-      std::cerr << "Error: in " << pFilename.string()
+      std::cerr << "Error: in " << pFilename
                 << " a line don't begins with \"#\"" << std::endl;
     }
   }
@@ -159,7 +160,7 @@ void ALCptsDatabaseLoader::_fillConcept
  const ALLingdbConcept* pNewConcept,
  const std::string& pNewConceptStr,
  char pRelatedToConcept,
- const boost::filesystem::path& pFilename,
+ const std::string& pFilename,
  const std::string& pLine)
 {
   if (pNewConcept == nullptr)

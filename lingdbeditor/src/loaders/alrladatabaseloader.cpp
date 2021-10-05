@@ -1,6 +1,6 @@
 #include "alrladatabaseloader.hpp"
 #include <iostream>
-#include <boost/filesystem/fstream.hpp>
+#include <fstream>
 #include <onsem/lingdbeditor/allingdbtree.hpp>
 #include <onsem/lingdbeditor/loaders/alanydatabaseloader.hpp>
 #include <onsem/lingdbeditor/linguisticintermediarydatabase.hpp>
@@ -10,21 +10,21 @@ namespace onsem
 {
 
 void ALRlaDatabaseLoader::merge
-(const boost::filesystem::path& pFilename,
- const boost::filesystem::path& pInputResourcesDir,
+(const std::string& pFilename,
+ const std::string& pInputResourcesDir,
  LinguisticIntermediaryDatabase& pCurrLingdb,
  const ALLingdbTree& pLingdbTree,
  const ALAnyDatabaseLoader& pAnyLoader,
  std::size_t pImbricationLevel)
 {
-  boost::filesystem::ifstream infile(pFilename, boost::filesystem::ifstream::in);
+  std::ifstream infile(pFilename, std::ifstream::in);
   if (!infile.is_open())
   {
-    std::cerr << "Error: Can't open " << pFilename.string() << " file !" << std::endl;
+    std::cerr << "Error: Can't open " << pFilename << " file !" << std::endl;
     return;
   }
 
-  boost::filesystem::path holdingFolder;
+  std::string holdingFolder;
   pLingdbTree.getHoldingFolder(holdingFolder, pFilename);
 
   std::string line;
@@ -83,9 +83,9 @@ void ALRlaDatabaseLoader::merge
       {
         throw std::runtime_error("The current database has no language associated");
       }
-      pCurrLingdb.save(pLingdbTree.getDynamicDatabasesFolder() /
-                       boost::filesystem::path(pCurrLingdb.getLanguage()->toStr() + "." +
-                                pLingdbTree.getExtDynDatabase()));
+      pCurrLingdb.save(pLingdbTree.getDynamicDatabasesFolder() + "/" +
+                       pCurrLingdb.getLanguage()->toStr() + "." +
+                       pLingdbTree.getExtDynDatabase());
       continue;
     }
     throw std::runtime_error("instruction unknown: " + line);
@@ -95,11 +95,11 @@ void ALRlaDatabaseLoader::merge
 }
 
 
-boost::filesystem::path ALRlaDatabaseLoader::_getPath
-(const std::string& pLine,
- const std::string& pInstruction,
- const boost::filesystem::path& pHoldingFolder,
- const boost::filesystem::path& pInputResourcesDir)
+std::string ALRlaDatabaseLoader::_getPath(
+    const std::string& pLine,
+    const std::string& pInstruction,
+    const std::string& pHoldingFolder,
+    const std::string& pInputResourcesDir)
 {
   std::string pathStr = pLine.substr(pInstruction.size(), pLine.size() - pInstruction.size());
   {
@@ -107,12 +107,12 @@ boost::filesystem::path ALRlaDatabaseLoader::_getPath
     std::size_t posInputResource = pathStr.find(inputResourceLabel);
     if (posInputResource != std::string::npos)
     {
-      pathStr.replace(posInputResource, inputResourceLabel.size(), pInputResourcesDir.string());
-      return boost::filesystem::path(pathStr);
+      pathStr.replace(posInputResource, inputResourceLabel.size(), pInputResourcesDir);
+      return pathStr;
     }
   }
 
-  return pHoldingFolder / boost::filesystem::path(pathStr);
+  return pHoldingFolder + "/" + pathStr;
 }
 
 

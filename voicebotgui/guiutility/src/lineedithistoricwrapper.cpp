@@ -1,7 +1,7 @@
-#include <qisem/guiutility/lineedithistoricwrapper.hpp>
+#include <onsem/guiutility/lineedithistoricwrapper.hpp>
 
 
-namespace qisem
+namespace onsem
 {
 
 LineEditHistoricalWrapper::LineEditHistoricalWrapper()
@@ -255,4 +255,4 @@ std::size_t LineEditHistoricalWrapper::_updateMinAndMaxSize(
 }
 
 
-} // End of namespace qisem
+} // End of namespace onsem

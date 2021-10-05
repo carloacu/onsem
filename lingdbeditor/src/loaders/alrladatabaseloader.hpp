@@ -2,7 +2,6 @@
 #define ALRLADATABASELOADER_H
 
 #include <string>
-#include <boost/filesystem/path.hpp>
 
 
 namespace onsem
@@ -16,19 +15,19 @@ class ALRlaDatabaseLoader
 {
 public:
   static void merge
-  (const boost::filesystem::path& pFilename,
-   const boost::filesystem::path& pInputResourcesDir,
+  (const std::string& pFilename,
+   const std::string& pInputResourcesDir,
    LinguisticIntermediaryDatabase& pCurrLingdb,
    const ALLingdbTree& pLingdbTree,
    const ALAnyDatabaseLoader& pAnyLoader,
    std::size_t pImbricationLevel);
 
 private:
-  static boost::filesystem::path _getPath
+  static std::string _getPath
   (const std::string& pLine,
    const std::string& pInstruction,
-   const boost::filesystem::path& pHoldingFolder,
-   const boost::filesystem::path& pInputResourcesDir);
+   const std::string& pHoldingFolder,
+   const std::string& pInputResourcesDir);
 };
 
 

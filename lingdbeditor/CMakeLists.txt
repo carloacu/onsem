@@ -77,9 +77,11 @@ include_directories(include)
 if(NOT ONSEMTYPEALLOCATORANDSERIALYZER_FOUND)
   find_package(onsemtypeallocatorandserialyzer)
 endif()
-if(NOT FOUND_ONSEMCOMMON)
+if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
+
+find_package(Boost REQUIRED COMPONENTS system filesystem)
 
 
 add_library(onsemlingdbeditor STATIC
@@ -95,6 +97,8 @@ include_directories(
 
 target_link_libraries(onsemlingdbeditor
   ${BOOST_LIBRARIES}
+  Boost::system
+  Boost::filesystem
   ${ONSEMTYPEALLOCATORANDSERIALYZER_LIBRARIES}
   ${ONSEMCOMMON_LIBRARIES}
 )
