@@ -527,6 +527,19 @@ void _fillListExpPtr(ListExpPtr& pListExpPtr,
                 pFirstOrSecondArg, pAllowGrdExpThatDoesntModifyAMeaning);
 }
 
+void _getConvertResultIfSemExpEqualTheFeedbackOfTheOther(mystd::optional<ImbricationType>& pImbricationType,
+                                                         bool pDirection)
+{
+  if (pImbricationType)
+  {
+    auto imbricationIfEqual = pDirection ? ImbricationType::LESS_DETAILED : ImbricationType::MORE_DETAILED;
+    if (*pImbricationType == ImbricationType::EQUALS)
+      pImbricationType.emplace(imbricationIfEqual);
+    else if (*pImbricationType != imbricationIfEqual &&
+             *pImbricationType != ImbricationType::OPPOSES)
+      pImbricationType.reset();
+  }
+}
 
 mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const SemanticExpression& pSemExp1,
                                                                     const SemanticExpression& pSemExp2,
@@ -534,55 +547,160 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
                                                                     const linguistics::LinguisticDatabase& pLingDb,
                                                                     const ComparisonExceptions* pExceptionsPtr)
 {
-  const GroundedExpression* grdExp1 = pSemExp1.getGrdExpPtr_SkipWrapperPtrs();
-  if (grdExp1 != nullptr)
+  switch (pSemExp1.type)
   {
-    const GroundedExpression* grdExp2 = pSemExp2.getGrdExpPtr_SkipWrapperPtrs();
-    if (grdExp2 != nullptr &&
+  case SemanticExpressionType::GROUNDED:
+  {
+    switch (pSemExp2.type)
+    {
+    case SemanticExpressionType::GROUNDED:
+    {
+      auto& grdExp2 = pSemExp2.getGrdExp();
+      if (pExceptionsPtr == nullptr ||
+          (pExceptionsPtr->semExps1ToSkip.count(&pSemExp1) == 0 &&
+           pExceptionsPtr->semExps2ToSkip.count(&pSemExp2) == 0))
+      {
+        auto& grdExp1 = pSemExp1.getGrdExp();
+        return getGrdExpsImbrications(grdExp1, grdExp2, pMemBlock, pLingDb, pExceptionsPtr);
+      }
+      break;
+    }
+    case SemanticExpressionType::INTERPRETATION:
+    {
+      auto& intExp = *pSemExp2.getIntExp().interpretedExp;
+      return _getSemExpsWithoutListImbrications(pSemExp1, intExp, pMemBlock, pLingDb, pExceptionsPtr);
+    }
+    case SemanticExpressionType::FEEDBACK:
+    {
+      auto& fdkExp = pSemExp2.getFdkExp();
+      auto subResult = _getSemExpsWithoutListImbrications(pSemExp1, *fdkExp.feedbackExp, pMemBlock, pLingDb, pExceptionsPtr);
+      _getConvertResultIfSemExpEqualTheFeedbackOfTheOther(subResult, true);
+      if (subResult)
+        return subResult;
+      auto& concernedExp = *fdkExp.concernedExp;
+      return _getSemExpsWithoutListImbrications(pSemExp1, concernedExp, pMemBlock, pLingDb, pExceptionsPtr);
+    }
+    case SemanticExpressionType::ANNOTATED:
+    {
+      auto& semExp = *pSemExp2.getAnnExp().semExp;
+      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr);
+    }
+    case SemanticExpressionType::METADATA:
+    {
+      auto& semExp = *pSemExp2.getMetadataExp().semExp;
+      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr);
+    }
+    case SemanticExpressionType::COMMAND:
+    {
+      auto& semExp = *pSemExp2.getCmdExp().semExp;
+      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr);
+    }
+    case SemanticExpressionType::SETOFFORMS:
+    {
+      UniqueSemanticExpression* originalFrom = pSemExp2.getSetOfFormsExp().getOriginalForm();
+      if (originalFrom != nullptr)
+        return _getSemExpsWithoutListImbrications(pSemExp1, **originalFrom, pMemBlock, pLingDb, pExceptionsPtr);
+      break;
+    }
+    case SemanticExpressionType::FIXEDSYNTHESIS:
+    {
+      auto* semExp = pSemExp2.getFSynthExp().getSemExpPtr();
+      if (semExp != nullptr)
+        return _getSemExpsWithoutListImbrications(pSemExp1, *semExp, pMemBlock, pLingDb, pExceptionsPtr);
+      break;
+    }
+    case SemanticExpressionType::COMPARISON:
+    case SemanticExpressionType::CONDITION:
+    case SemanticExpressionType::LIST:
+      break;
+    }
+    break;
+  }
+  case SemanticExpressionType::INTERPRETATION:
+  {
+    auto& interpretedExp = *pSemExp1.getIntExp().interpretedExp;
+    return _getSemExpsWithoutListImbrications(interpretedExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+  }
+  case SemanticExpressionType::FEEDBACK:
+  {
+    auto& fdkExp = pSemExp1.getFdkExp();
+    auto subResult = _getSemExpsWithoutListImbrications(*fdkExp.feedbackExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    _getConvertResultIfSemExpEqualTheFeedbackOfTheOther(subResult, false);
+    if (subResult)
+      return subResult;
+    auto& concernedExp = *fdkExp.concernedExp;
+    return _getSemExpsWithoutListImbrications(concernedExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+  }
+  case SemanticExpressionType::ANNOTATED:
+  {
+    auto& semExp = *pSemExp1.getAnnExp().semExp;
+    return _getSemExpsWithoutListImbrications(semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+  }
+  case SemanticExpressionType::METADATA:
+  {
+    auto& semExp = *pSemExp1.getMetadataExp().semExp;
+    return _getSemExpsWithoutListImbrications(semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+  }
+  case SemanticExpressionType::COMMAND:
+  {
+    auto& cmdExp = *pSemExp1.getCmdExp().semExp;
+    return _getSemExpsWithoutListImbrications(cmdExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+  }
+  case SemanticExpressionType::SETOFFORMS:
+  {
+    UniqueSemanticExpression* originalFrom = pSemExp1.getSetOfFormsExp().getOriginalForm();
+    if (originalFrom != nullptr)
+      return _getSemExpsWithoutListImbrications(**originalFrom, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    break;
+  }
+  case SemanticExpressionType::FIXEDSYNTHESIS:
+  {
+    auto* semExp = pSemExp1.getFSynthExp().getSemExpPtr();
+    if (semExp != nullptr)
+      return _getSemExpsWithoutListImbrications(*semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    break;
+  }
+  case SemanticExpressionType::COMPARISON:
+    break;
+  case SemanticExpressionType::LIST:
+    break;
+  case SemanticExpressionType::CONDITION:
+  {
+    auto& condExp1 = pSemExp1.getCondExp();
+    const ConditionExpression* condExp2 = pSemExp2.getCondExpPtr_SkipWrapperPtrs();
+    if (condExp2 != nullptr &&
         (pExceptionsPtr == nullptr ||
          (pExceptionsPtr->semExps1ToSkip.count(&pSemExp1) == 0 &&
           pExceptionsPtr->semExps2ToSkip.count(&pSemExp2) == 0)))
-      return getGrdExpsImbrications(*grdExp1, *grdExp2, pMemBlock, pLingDb, pExceptionsPtr);
-  }
-  else
-  {
-    const ConditionExpression* condExp1 = pSemExp1.getCondExpPtr_SkipWrapperPtrs();
-    if (condExp1 != nullptr)
     {
-      const ConditionExpression* condExp2 = pSemExp2.getCondExpPtr_SkipWrapperPtrs();
-      if (condExp2 != nullptr &&
-          (pExceptionsPtr == nullptr ||
-           (pExceptionsPtr->semExps1ToSkip.count(&pSemExp1) == 0 &&
-            pExceptionsPtr->semExps2ToSkip.count(&pSemExp2) == 0)))
-      {
-        auto resCond = getSemExpsImbrications(*condExp1->conditionExp, *condExp2->conditionExp, pMemBlock, pLingDb, pExceptionsPtr);
-        if (resCond == ImbricationType::DIFFERS)
-          return resCond;
-        auto resThen = getSemExpsImbrications(*condExp1->thenExp, *condExp2->thenExp, pMemBlock, pLingDb, pExceptionsPtr);
-        if (resThen == ImbricationType::DIFFERS)
-          return resThen;
-        if (resThen == ImbricationType::EQUALS)
-          resThen = resCond;
-
-        if (condExp1->elseExp)
-        {
-          if (condExp2->elseExp)
-          {
-            auto resElse = getSemExpsImbrications(*condExp1->thenExp, *condExp2->thenExp, pMemBlock, pLingDb, pExceptionsPtr);
-            return resElse == ImbricationType::EQUALS ? resThen : resElse;
-          }
-          else
-          {
-            return ImbricationType::MORE_DETAILED;
-          }
-        }
-        else if (condExp2->elseExp)
-        {
-          return ImbricationType::LESS_DETAILED;
-        }
+      auto resCond = getSemExpsImbrications(*condExp1.conditionExp, *condExp2->conditionExp, pMemBlock, pLingDb, pExceptionsPtr);
+      if (resCond == ImbricationType::DIFFERS)
+        return resCond;
+      auto resThen = getSemExpsImbrications(*condExp1.thenExp, *condExp2->thenExp, pMemBlock, pLingDb, pExceptionsPtr);
+      if (resThen == ImbricationType::DIFFERS)
         return resThen;
+      if (resThen == ImbricationType::EQUALS)
+        resThen = resCond;
+
+      if (condExp1.elseExp)
+      {
+        if (condExp2->elseExp)
+        {
+          auto resElse = getSemExpsImbrications(*condExp1.thenExp, *condExp2->thenExp, pMemBlock, pLingDb, pExceptionsPtr);
+          return resElse == ImbricationType::EQUALS ? resThen : resElse;
+        }
+        else
+        {
+          return ImbricationType::MORE_DETAILED;
+        }
       }
+      else if (condExp2->elseExp)
+      {
+        return ImbricationType::LESS_DETAILED;
+      }
+      return resThen;
     }
+  }
   }
   return mystd::optional<ImbricationType>();
 }
