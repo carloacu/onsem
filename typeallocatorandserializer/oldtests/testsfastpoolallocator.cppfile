@@ -1,0 +1,358 @@
+#include "testsfastpoolallocator.h"
+#include <assert.h>
+#include <time.h>
+#include <altypeallocatorandserializer/altypeallocatorandserializer.h>
+#include <allingdbeditor/allinguisticdatabase.h>
+#include <allingdbeditor/savers/albinarydatabasesaver.h>
+#include <allingdbeditor/savers/alxmldatabasesaver.h>
+#include <allingdbeditor/loaders/aldeladatabaseloader.h>
+#include <allingdbeditor/allingdbdynamictrienode.h>
+#include <allingdbeditor/allingdbtypes.h>
+#include <allingdbeditor/allingdbmeaning.h>
+#include <allingdbeditor/allingdbwordforms.h>
+#include <alsyntacticanalyzer/advanced/alsyntacticanalyzerbinarydatabase.h>
+
+#define SIZE_MEMORY 8
+
+void test1()
+{
+  const unsigned char alignementMemory = 4;
+  AL::ALTypeAllocatorAndSerializer FPAlloc("simple tests");
+  FPAlloc.declareANewType<int>("int type", alignementMemory);
+
+  int* i = FPAlloc.allocate<int>(1);
+  *i = 42;
+
+
+  FPAlloc.serialize("testSerial.bin");
+
+  AL::ALTypeAllocatorAndSerializer a2("lol");
+  a2.declareANewType<int>("int type", alignementMemory);
+  a2.deserialize("testSerial.bin", 2);
+  int* j = a2.first<int>();
+  assert(FPAlloc.getOccupatedSize() == 4);
+  assert(a2.getOccupatedSize() == 4);
+  assert(a2.getTotalSize() == 8);
+  assert(*i == 42);
+  assert(*i == *j);
+
+  std::cout << "Test1: OK" << std::endl;
+}
+
+
+struct IntPtr
+{
+  static void getPointers
+  (std::vector<const void*>& pRes, void* pVar)
+  {
+    pRes.push_back(&reinterpret_cast<IntPtr*>
+                   (pVar)->ptr);
+  }
+
+  int* ptr;
+};
+
+
+void test2()
+{
+  const unsigned char alignementMemory = 4;
+  AL::ALTypeAllocatorAndSerializer FPAlloc("simple tests");
+  FPAlloc.declareANewType<IntPtr>("IntPtr type", alignementMemory, IntPtr::getPointers);
+  FPAlloc.declareANewType<int>("int type", alignementMemory);
+
+  int* i = FPAlloc.allocate<int>(1);
+  *i = 13;
+  int* ii = FPAlloc.allocate<int>(1);
+  *ii = 42;
+  IntPtr* ip = FPAlloc.allocate<IntPtr>(1);
+  ip->ptr = ii;
+
+  FPAlloc.serialize("testSerial.bin");
+
+  AL::ALTypeAllocatorAndSerializer a2("lol");
+  a2.declareANewType<IntPtr>("IntPtr type", alignementMemory, IntPtr::getPointers);
+  a2.declareANewType<int>("int type", alignementMemory);
+  a2.deserialize("testSerial.bin", 1);
+  IntPtr* jp = a2.first<IntPtr>();
+  int* j = a2.first<int>();
+  int* jj = a2.next<int>(j);
+
+  assert(FPAlloc.getOccupatedSize() == 8 + SIZE_MEMORY);
+  assert(a2.getOccupatedSize() == 8 + SIZE_MEMORY);
+  assert(a2.getTotalSize() == 8 + SIZE_MEMORY);
+  assert(*j == 13);
+  assert(*ip->ptr == 42);
+  *ii = 10;
+  assert(*ip->ptr == 10);
+  assert(*jp->ptr == 42);
+  *jj = 33;
+  assert(*jp->ptr == 33);
+
+  std::cout << "Test2: OK" << std::endl;
+}
+
+
+void test3()
+{
+  const unsigned char alignementMemory = 4;
+  AL::ALTypeAllocatorAndSerializer FPAlloc("simple tests");
+  FPAlloc.declareANewType<IntPtr>("IntPtr type", alignementMemory, IntPtr::getPointers);
+  FPAlloc.declareANewType<int>("int type", alignementMemory);
+
+  int* i = FPAlloc.allocate<int>(1);
+  *i = 53;
+  int* ii = FPAlloc.allocate<int>(1);
+  *ii = 42;
+  int* iii = FPAlloc.allocate<int>(1);
+  *iii = 23;
+  FPAlloc.deallocate<int>(i, 1);
+  IntPtr* ip = FPAlloc.allocate<IntPtr>(1);
+  ip->ptr = ii;
+
+  FPAlloc.serialize("testSerial.bin");
+
+
+  AL::ALTypeAllocatorAndSerializer a2("lol");
+  a2.declareANewType<IntPtr>("IntPtr type", alignementMemory, IntPtr::getPointers);
+  a2.declareANewType<int>("int type", alignementMemory);
+  a2.deserialize("testSerial.bin", 1);
+  IntPtr* jp = a2.first<IntPtr>();
+  int* j = a2.first<int>();
+  int* jj = a2.next<int>(j);
+
+
+  assert(FPAlloc.getOccupatedSize() == 8 + SIZE_MEMORY);
+  assert(a2.getOccupatedSize() == 8 + SIZE_MEMORY);
+  assert(a2.getTotalSize() == 8 + SIZE_MEMORY);
+
+  assert(*i == 42);
+  assert(*ii == 42);
+  assert(*iii == 23);
+  assert(*j == 42);
+  assert(*ip->ptr == 42);
+  *ii = 10;
+  assert(*ip->ptr == 10);
+  assert(*jp->ptr == 42);
+  *jj = 33;
+  assert(*jp->ptr == 42);
+  *j = 22;
+  assert(*jp->ptr == 22);
+
+  std::cout << "Test3: OK" << std::endl;
+}
+
+
+struct RecPtr
+{
+  static void getPointers
+  (std::vector<const void*>& pRes, void* pVar)
+  {
+    pRes.push_back(&reinterpret_cast<RecPtr*>
+                   (pVar)->ptr);
+  }
+
+  char c;
+  RecPtr* ptr;
+};
+
+
+
+void testDealloc()
+{
+  const unsigned char alignementMemory = 4;
+  AL::ALTypeAllocatorAndSerializer FPAlloc("simple tests");
+  FPAlloc.declareANewType<RecPtr>("RecPtr type", alignementMemory, RecPtr::getPointers);
+
+  RecPtr* ip1 = FPAlloc.allocate<RecPtr>(1);
+  RecPtr* ip2 = FPAlloc.allocate<RecPtr>(1);
+  RecPtr* ip3 = FPAlloc.allocate<RecPtr>(1);
+  RecPtr* ip4 = FPAlloc.allocate<RecPtr>(1);
+  ip1->c = 'a';
+  ip1->ptr = ip1;
+  ip2->c = 'b';
+  ip2->ptr = ip2;
+  ip3->c = 'c';
+  ip3->ptr = ip3;
+  ip4->c = 'd';
+  ip4->ptr = ip4;
+  FPAlloc.deallocate<RecPtr>(ip1);
+  FPAlloc.deallocate<RecPtr>(ip3);
+
+  FPAlloc.serialize("testSerial.bin");
+
+  AL::ALTypeAllocatorAndSerializer a2("lol");
+  a2.declareANewType<RecPtr>("RecPtr type", alignementMemory, RecPtr::getPointers);
+  a2.deserialize("testSerial.bin", 1);
+
+  assert(a2.first<RecPtr>() == a2.first<RecPtr>()->ptr);
+  assert(a2.first<RecPtr>()->c == 'b');
+
+  std::cout << "TestDealloc: OK" << std::endl;
+}
+
+
+
+double getElapsedTime
+(const struct timespec& start, const struct timespec& finish)
+{
+  double elapsed = static_cast<double>(finish.tv_sec - start.tv_sec);
+  elapsed += static_cast<double>(finish.tv_nsec - start.tv_nsec) / 1000000000.0;
+  return elapsed;
+}
+
+
+void test4()
+{
+  /*
+  // Create Dynamic dictionnary
+  AL::ALLingdb words;
+
+  // Load dictionnary
+  AL::ALDelaDatabaseLoader tdl(true);
+  tdl.load("input_ressources/dela_dic.tdb", words);
+
+  // some tests
+  assert(words.doesWordExist("Abemmm") == false);
+  assert(words.doesWordExist("mangée"));
+  std::string myTagName = "une animation entrain de manger";
+
+  // Serialize
+  words.serialize("testSerial.bin");
+
+  // Deserialize
+  AL::ALLingdb w2;
+  w2.deserialize("testSerial.bin");
+
+
+  // Some tests
+  assert(words.doesWordExist("Abemmm") == false);
+  std::string wordToTest = "abaissant";
+  assert(words.doesWordExist(wordToTest));
+  const AL::ForwardPtrList<AL::ALLingdbWordForms>* wordsForms = words.getPointerToEndOfWord(wordToTest)->getWordForms();
+  assert(wordsForms != NULL);
+  assert(wordsForms->elt->getMeaning() != NULL);
+  assert(wordsForms->elt->getMeaning()->getLemme()->getWord() == "abaissant");
+  assert(wordsForms->elt->getMeaning()->getGram() == AL::LING_GRAM_ADJECTIVE);
+  wordsForms = wordsForms->next;
+  assert(wordsForms != NULL);
+  assert(wordsForms->elt->getMeaning() != NULL);
+  assert(wordsForms->elt->getMeaning()->getLemme()->getWord() == "abaisser");
+  assert(wordsForms->elt->getMeaning()->getGram() == AL::LING_GRAM_VERB);
+  wordsForms = wordsForms->next;
+  assert(wordsForms == NULL);
+
+
+  for (std::size_t i= 0; i < tdl.getWords().size(); ++i)
+    if (words.doesWordExist(tdl.getWords()[i]) == false)
+      std::cout << "Mot non trouvé: " << tdl.getWords()[i] << std::endl;
+
+  w2.exportInStaticBinary("autoannotDatabase.bin");
+
+  struct timespec timeStart, tmeFinish;
+  clock_gettime(CLOCK_MONOTONIC, &timeStart);
+
+  AL::ALLingSyntacticAnalyzerBinaryDatabase bd;
+  bd.load("autoannotDatabase.bin");
+
+  clock_gettime(CLOCK_MONOTONIC, &tmeFinish);
+
+  std::cout << "Get loading time: " << getElapsedTime(timeStart, tmeFinish) << std::endl;
+
+  assert(bd.doesWordExist("Abaza"));
+
+
+  clock_gettime(CLOCK_MONOTONIC, &timeStart);
+
+  for (std::size_t i= 0; i < tdl.getWords().size(); ++i)
+  {
+    if (bd.doesWordExist(tdl.getWords()[i]) == false)
+    {
+      bd.doesWordExist(tdl.getWords()[i]);
+      std::cout << "Mot non trouvé dans bin: " << tdl.getWords()[i] << std::endl;
+      assert(false);
+    }
+//    std::vector<AL::ALAutomaticAnnotationBinaryDatabase::InfosGram> grams;
+//    bd.getGramPossibilities(grams, AL::DicoLoader::getwds()[i]);
+//    for (std::size_t j = 0; j < grams.size(); ++j)
+//    {
+//      if (AL::AUTO_ANNOTATION_UNKNOWN + grams[j].gram == AL::AUTO_ANNOTATION_UNKNOWN)
+//      {
+//        std::cout << "Gram UNKNOWN for word: " << AL::DicoLoader::getwds()[i] << std::endl;
+//        assert(false);
+//      }
+//    }
+
+  }
+
+  clock_gettime(CLOCK_MONOTONIC, &tmeFinish);
+  double elaps = getElapsedTime(timeStart, tmeFinish);
+  std::cout << "Get request time total: " << elaps << std::endl;
+  std::cout << "Nb loops: " << tdl.getWords().size() << std::endl;
+  std::cout << "Average request time: "
+            << elaps / static_cast<float>(tdl.getWords().size()) << std::endl;
+
+
+  assert(bd.doesWordExist("Abemmm") == false);
+  assert(bd.doesWordExist("mang") == false);
+  assert(bd.doesWordExist("mangé"));
+  assert(bd.doesWordExist("mangée"));
+
+  std::list<AL::ALLingSyntacticAnalyzerInfosGram> grams;
+  bd.getGramPossibilities(grams, "tout");
+  for (std::list<AL::ALLingSyntacticAnalyzerInfosGram>::iterator it = grams.begin();
+       it != grams.end(); ++it)
+  {
+    std::cout << "gram: " << AL::grammaticalTypeName[it->gram] << std::endl;
+    for (std::list<unsigned char>::iterator flIt = it->flexions.begin(); flIt != it->flexions.end(); ++flIt)
+    {
+      std::cout << "\tflexion: " << AL::grammaticalTypeName[*flIt] << std::endl;
+    }
+  }
+  std::cout << std::endl;
+  bd.getGramPossibilities(grams, "manger");
+  for (std::list<AL::ALLingSyntacticAnalyzerInfosGram>::iterator it = grams.begin();
+       it != grams.end(); ++it)
+  {
+    std::cout << "gram: " << AL::grammaticalTypeName[it->gram] << std::endl;
+    for (std::list<unsigned char>::iterator flIt = it->flexions.begin(); flIt != it->flexions.end(); ++flIt)
+    {
+      std::cout << "\tflexion: " << AL::grammaticalTypeName[*flIt] << std::endl;
+    }
+  }
+
+  std::string stringName;
+  bd.getATag(stringName, "mangé", AL::LING_GRAM_VERB);
+  assert(stringName == myTagName);
+
+  std::cout << "Test4: OK" << std::endl;
+  */
+}
+
+
+
+void test_TextSaver()
+{
+  // Create Dynamic dictionnary
+  AL::ALLinguisticDataBase words;
+
+  // Load dictionnary
+  AL::ALDelaDatabaseLoader delaLoader(true);
+  delaLoader.merge("input_ressources/dela_dic.tdb", words);
+
+  // some tests
+  assert(words.doesWordExist("Abemmm") == false);
+  assert(words.doesWordExist("mangée"));
+
+  AL::ALXmlDatabaseSaver tds;
+  tds.save("", "test", "tdb", words);
+
+  // Create Dynamic dictionnary
+  AL::ALLinguisticDataBase w2;
+
+  AL::ALDelaDatabaseLoader tdl;
+  tdl.merge("test.tdb", w2);
+
+  std::cout << "Test textDatabazeSaver: OK" << std::endl;
+}
+
+

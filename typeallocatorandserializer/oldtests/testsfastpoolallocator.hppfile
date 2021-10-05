@@ -1,0 +1,13 @@
+#ifndef TESTSFASTPOOLALLOCATOR_H
+#define TESTSFASTPOOLALLOCATOR_H
+
+
+void test1();
+void test2();
+void test3();
+void testDealloc();
+void test4();
+void test_TextSaver();
+
+
+#endif // TESTSFASTPOOLALLOCATOR_H
