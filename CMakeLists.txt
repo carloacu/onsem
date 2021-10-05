@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "-std=gnu++11" CACHE STRING "" FORCE)
 # cmake -DBUILD_ONSEM_DATABASE=ON -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
 
 ## Command line for compilation
-# cmake  -DBUILD_ONSEM_DATABASE=OFF -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
+# cmake  -DBUILD_ONSEM_DATABASE=OFF -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_TESTS=ON ../ && make -j4
 
 
 include(onsem-config.cmake)
@@ -46,8 +46,11 @@ if (NOT BUILD_ONSEM_DATABASE)
   add_subdirectory(semantictotext)
   add_subdirectory(streamdatabaseaccessor)
   add_subdirectory(semanticdebugger)
-  add_subdirectory(tests)
-  add_subdirectory(voicebotgui)
+
+  if (BUILD_ONSEM_TESTS)
+    add_subdirectory(tests)
+    add_subdirectory(voicebotgui)
+  endif()
 
 endif()
 
