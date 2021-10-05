@@ -53,6 +53,7 @@ public:
   }
 
   static std::string generateUuid();
+  static std::string generateUuidWithoutHyphen();
 
 private:
   static std::atomic<int> _currentNumber;

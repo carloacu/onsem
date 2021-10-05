@@ -52,10 +52,19 @@ std::string Random::generateUuid() {
   ss << "-";
   for (i = 0; i < 12; i++) {
     ss << dis(gen);
-  };
+  }
   return ss.str();
 }
 
+
+std::string Random::generateUuidWithoutHyphen() {
+  std::stringstream ss;
+  int i;
+  ss << std::hex;
+  for (i = 0; i < 30; i++)
+    ss << dis(gen);
+  return "u" + ss.str();
+}
 
 
 } // End of namespace onsem
