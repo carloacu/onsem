@@ -1,0 +1,424 @@
+#include "operator_addATrigger.hpp"
+#include "operator_answer.hpp"
+#include <onsem/semantictotext/semanticconverter.hpp>
+#include <onsem/semantictotext/semexpoperators.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include "../../semanticreasonergtests.hpp"
+#include "../../util/util.hpp"
+#include "operator_check.hpp"
+#include "operator_inform.hpp"
+#include <onsem/tester/reactOnTexts.hpp>
+#include <onsem/tester/detailedreactionanswer.hpp>
+
+
+namespace onsem
+{
+
+void operator_addATrigger(const std::string& pTriggerText,
+                          const std::string& pAnswerText,
+                          SemanticMemory& pSemanticMemory,
+                          const linguistics::LinguisticDatabase& pLingDb,
+                          const std::list<std::string>& pReferences)
+{
+  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           SemanticLanguageEnum::UNKNOWN);
+  auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
+
+  TextProcessingContext answerProcContext(SemanticAgentGrounding::me,
+                                          SemanticAgentGrounding::currentUser,
+                                          SemanticLanguageEnum::UNKNOWN);
+  answerProcContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
+        std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
+  auto answerSemExp =
+      converter::textToContextualSemExp(pAnswerText, answerProcContext, SemanticSourceEnum::WRITTENTEXT,
+                                        pLingDb, &pReferences);
+
+  memoryOperation::addATrigger(std::move(triggerSemExp), std::move(answerSemExp),
+                               pSemanticMemory, pLingDb);
+}
+
+} // End of namespace onsem
+
+
+using namespace onsem;
+
+
+
+TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  ReactionOptions canReactToANoun;
+  canReactToANoun.canReactToANoun = true;
+
+  // simple scenario
+  {
+    const std::string howCanIBeHappy = "how can I be happy";
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know how you can be happy.",
+                            operator_answer(howCanIBeHappy, semMem, lingDb));
+    const std::string answerStr = "I suggest to sing.";
+    operator_addATrigger(howCanIBeHappy, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_answer(howCanIBeHappy, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_react(howCanIBeHappy, semMem, lingDb));
+  }
+
+  // simple scenario in french
+  {
+    const std::string whatIsAMushroom = "qu'est-ce que c'est un champignon";
+    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas ce que c'est un champignon.", operator_react(whatIsAMushroom, semMem, lingDb));
+    const std::string answerStr = "C'est un eucaryote pluricellulaire ou unicellulaire.";
+    operator_addATrigger(whatIsAMushroom, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_answer(whatIsAMushroom, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_react(whatIsAMushroom, semMem, lingDb));
+  }
+
+  // a question about subject that is a list of elements
+  {
+    const std::string areWeHappy = "are we happy";
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know if we are happy.", operator_answer(areWeHappy, semMem, lingDb));
+    const std::string answerStr = "It's probably sunday.";
+    operator_addATrigger(areWeHappy, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_answer(areWeHappy, semMem, lingDb));
+  }
+
+  // a question about object that is a list of elements
+  {
+    const std::string questionStr = "Does Paul like banana and bear?";
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know if Paul likes banana and the bear.",
+                            operator_answer(questionStr, semMem, lingDb));
+    const std::string answerStr = "Paul is a nice guy.";
+    operator_addATrigger(questionStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know if Paul likes banana.",
+                            operator_answer("Does Paul like banana ?", semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_answer(questionStr, semMem, lingDb));
+  }
+
+  // a question with an undefined subject
+  {
+    const std::string questionStr = "What does it mean to raise the left arm?";
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know what it means to raise the left arm.",
+                            operator_answer(questionStr, semMem, lingDb));
+    const std::string answerStr = "It means to run the animation called raise_the_left_arm.";
+    operator_addATrigger(questionStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_answer(questionStr, semMem, lingDb));
+  }
+
+  // many trigger questions
+  {
+    const std::string question1Str = "What do you like?";
+    const std::string question2Str = "Do you like soccer?";
+    const std::string bothQuestionsStr = question1Str + " " + question2Str;
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know what I like.",
+                            operator_answer(question1Str, semMem, lingDb));
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know if I like soccer.",
+                            operator_answer(question2Str, semMem, lingDb));
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know what I like. I don't know if I like soccer.",
+                            operator_answer(bothQuestionsStr, semMem, lingDb));
+    const std::string answer1Str = "I like Soccer.";
+    const std::string answer2Str = "Soccer is very nice.";
+    const std::string bothAnswerStr = "Exactly. Yes. I like Soccer.";
+    operator_addATrigger(question1Str, answer1Str, semMem, lingDb);
+    operator_addATrigger(question2Str, answer2Str, semMem, lingDb);
+    operator_addATrigger(bothQuestionsStr, bothAnswerStr, semMem, lingDb);
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know if Paul likes banana.",
+                            operator_answer("Does Paul like banana ?", semMem, lingDb));
+    ONSEM_ANSWER_EQ(answer1Str, operator_answer(question1Str, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answer2Str, operator_answer(question2Str, semMem, lingDb));
+    ONSEM_ANSWER_EQ(bothAnswerStr, operator_react(bothQuestionsStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(bothAnswerStr, operator_answer(bothQuestionsStr, semMem, lingDb));
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know if I like tennis.",
+                            operator_answer("Do you like tennis?", semMem, lingDb));
+  }
+
+  // a where question
+  {
+    const std::string questionsStr = "Où est la clé abîmée ?";
+    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas où est la clé abîmée.",
+                            operator_react(questionsStr, semMem, lingDb));
+    operator_addATrigger(questionsStr, "Elle est dans la cuisine", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Elle est dans la cuisine.", operator_react(questionsStr, semMem, lingDb));
+  }
+
+  // question about a sentence
+  {
+    const std::string questionsStr = "A quoi ça sert une tablette";
+    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas à quoi une tablette sert.",
+                            operator_react(questionsStr, semMem, lingDb));
+    const std::string answerStr = "Ça sert à afficher des choses.";
+    operator_addATrigger(questionsStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(questionsStr, semMem, lingDb));
+  }
+
+  // must question
+  {
+    const std::string questionsStr = "Que faut-il faire?";
+    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas ce que nous devons faire.",
+                            operator_answer(questionsStr, semMem, lingDb));
+    const std::string answerStr = "Rien de spécial";
+    operator_addATrigger(questionsStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_answer(questionsStr, semMem, lingDb));
+  }
+
+  // infinitive question trigger
+  {
+    const std::string questionsStr = "comment formuler cette question";
+    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas comment formuler cette question.",
+                            operator_answer(questionsStr, semMem, lingDb));
+    operator_addATrigger(questionsStr, "Il faut regarder dans un livre de grammaire.", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Nous devons regarder dans un livre de grammaire.",
+                    operator_answer(questionsStr, semMem, lingDb));
+  }
+
+  // affirmation trigger
+  {
+    const std::string affirmationStr = "Paul is a nice guy";
+    ONSEM_QUESTION_EQ("Why is Paul a nice guy?",
+                      operator_react(affirmationStr, semMem, lingDb));
+    const std::string answerStr = "Yes. Do you want to hear a fun story about him?";
+    operator_addATrigger(affirmationStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(affirmationStr, semMem, lingDb));
+    ONSEM_FEEDBACK_EQ("Ok, you want to hear a fun story about him.", operator_react("yes", semMem, lingDb));
+    ONSEM_NOANSWER(operator_answer(affirmationStr, semMem, lingDb));
+  }
+
+  // sentence not completed
+  {
+    const std::string affirmationStr = "je dis que";
+    ONSEM_FEEDBACK_EQ("Ok, tu dis.",
+                      operator_react(affirmationStr, semMem, lingDb));
+    const std::string answerStr = "Oui, que dis-tu ?";
+    operator_addATrigger(affirmationStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(affirmationStr, semMem, lingDb));
+  }
+
+  // affirmation trigger + question trigger
+  {
+    const std::string triggerStr = "Do you like to jump? Dede is a nice guy.";
+    const std::string customAnswerStr = "I am a nice chatbot.";
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know if I like to jump.",
+                            operator_answer("Do you like to jump?", semMem, lingDb));
+    operator_addATrigger(triggerStr, customAnswerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(customAnswerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(customAnswerStr, operator_answer(triggerStr, semMem, lingDb));
+    ONSEM_NOANSWER(operator_answer("Dede is a nice guy.", semMem, lingDb));
+  }
+
+  // order trigger
+  {
+    const std::string order1Str = "Donne-moi ta main";
+    ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas te donner ma main.",
+                              operator_react(order1Str, semMem, lingDb));
+    operator_addATrigger(order1Str, "Laquelle", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Lequel ?", operator_react(order1Str, semMem, lingDb));
+    const std::string order2Str = "Donne-moi ta main mouillée";
+    ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas te donner ma main mouillée.",
+                              operator_react(order2Str, semMem, lingDb));
+    operator_addATrigger(order2Str, "Ok la voilà", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Ok. Le voilà", operator_react(order2Str, semMem, lingDb));
+  }
+
+  // infinitive trigger
+  {
+    const std::string inStr = "Accéder à mon espace Carrefour dédié";
+    ONSEM_NOANSWER(operator_react(inStr, semMem, lingDb));
+    operator_addATrigger(inStr, "Voilà votre espace personnel", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Voilà ton espace personnel", operator_react(inStr, semMem, lingDb));
+  }
+
+  // nominal group trigger
+  {
+    const std::string inStr = "Mon espace Carrefour dédié";
+    ONSEM_QUESTION_EQ("Quel est ton espace Carrefour d\xC3\xA9" "di\xC3\xA9 ?",
+                      operator_react(inStr, semMem, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                     &canReactToANoun));
+    ONSEM_NOANSWER(operator_react("je ne sais pas", semMem, lingDb));
+    operator_addATrigger(inStr, "Le service est pour le moment inaccessible", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Le service est pour le moment inaccessible.", operator_react(inStr, semMem, lingDb));
+  }
+
+  // nominal corss language trigger
+  {
+    const std::string inStr = "Je veux une assurance habitation";
+    operator_addATrigger(inStr, "c'est cher.", semMem, lingDb);
+    ONSEM_ANSWER_EQ("C'est cher.", operator_react(inStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ("It's dear.", operator_react("I want a home insurance", semMem, lingDb));
+  }
+
+  // condition trigger
+  {
+    const std::string triggerStr = "Si tu veux, regarde à droite";
+    ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas regarder à droite.",
+                              operator_react(triggerStr, semMem, lingDb));
+    const std::string answerStr = "Je ne peux pas. J'ai mal au coup.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+  }
+
+  // trigger from context
+  {
+    const std::string triggerStr = "Je ne sais pas quelle est la différence entre un amant et un mari.";
+    const std::string answerStr = "C'est le jour et la nuit.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    memoryOperation::learnSayCommand(semMem, lingDb);
+    ONSEM_BEHAVIOR_EQ("Quelle est la différence entre un amant et un mari ?",
+                      operator_react("demande quelle est la différence entre un amant et un mari", semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_react("je ne sais pas", semMem, lingDb));
+  }
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_addATrigger_checkReferences)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+
+  const std::string howCanITeachYou = "how can I teach you";
+  const std::list<std::string> debugReferences{"/path/file.txt", "line 12"};
+  operator_addATrigger(howCanITeachYou,
+                       "for example, you can say \"to salute is to say hello\"", semMem, lingDb,
+                       debugReferences);
+  compareWithRef("For example, you can say \"to salute is to say hello\".", debugReferences,
+                 operator_react(howCanITeachYou, semMem, lingDb));
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_addATrigger_subMemory_question)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  static const std::string questionsStr = "Comment t'apprendre quelque chose?";
+  static const std::string customAnswerStr = "Essaie de me dire quelque chose !";
+  SemanticMemory subSemMem;
+  operator_addATrigger(questionsStr, customAnswerStr, subSemMem, lingDb);
+
+  SemanticMemory semMem;
+  ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas comment m'apprendre quelque chose.",
+                          operator_react(questionsStr, semMem, lingDb));
+  semMem.memBloc.subBlockPtr = &subSemMem.memBloc;
+  ONSEM_ANSWER_EQ(customAnswerStr, operator_react(questionsStr, semMem, lingDb));
+  // 2 levels of depth
+  {
+    SemanticMemory semMemTopLevel;
+    semMemTopLevel.memBloc.subBlockPtr = &semMem.memBloc;
+    ONSEM_ANSWER_EQ(customAnswerStr, operator_react(questionsStr, semMemTopLevel, lingDb));
+  }
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_addATrigger_subMemory_affirmation)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  static const std::string affirmationStr = "Paul est content";
+  SemanticMemory subSemMem;
+  operator_addATrigger(affirmationStr, "Effectivement, demain c'est son anniversaire", subSemMem, lingDb);
+
+  SemanticMemory semMem;
+  ONSEM_NOANSWER(operator_react(affirmationStr, semMem, lingDb));
+  semMem.memBloc.subBlockPtr = &subSemMem.memBloc;
+  ONSEM_ANSWER_EQ("Effectivement. Demain. C'est son anniversaire.",
+                  operator_react(affirmationStr, semMem, lingDb));
+  // 2 levels of depth
+  {
+    SemanticMemory semMemTopLevel;
+    semMemTopLevel.memBloc.subBlockPtr = &semMem.memBloc;
+    ONSEM_ANSWER_EQ("Effectivement. Demain. C'est son anniversaire.",
+                    operator_react(affirmationStr, semMemTopLevel, lingDb));
+  }
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_addATrigger_subMemory_nominalGroup)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  ReactionOptions canReactToANoun;
+  canReactToANoun.canReactToANoun = true;
+  static const std::string propernounStr = "Paul";
+  static const std::string nounStr = "la Box du mois";
+  SemanticMemory subSemMem;
+  operator_addATrigger(propernounStr, "Demain c'est son anniversaire", subSemMem, lingDb);
+  operator_addATrigger("c'est quoi " + nounStr, "C'est des nems", subSemMem, lingDb);
+
+  SemanticMemory semMem;
+  semMem.defaultLanguage = SemanticLanguageEnum::FRENCH;
+  ONSEM_QUESTION_EQ("Qui est Paul ?", operator_react(propernounStr, semMem, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                     &canReactToANoun));
+  ONSEM_NOANSWER(operator_react("Je ne sais pas", semMem, lingDb));
+  semMem.memBloc.subBlockPtr = &subSemMem.memBloc;
+  ONSEM_ANSWER_EQ("Demain. C'est son anniversaire.",
+                  operator_react(propernounStr, semMem, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                 &canReactToANoun));
+  ONSEM_ANSWER_EQ("C'est des nems.",
+                  operator_react(nounStr, semMem, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                 &canReactToANoun));
+
+  // 2 levels of depth
+  {
+    SemanticMemory semMemTopLevel;
+    semMem.defaultLanguage = SemanticLanguageEnum::ENGLISH;
+    semMemTopLevel.memBloc.subBlockPtr = &semMem.memBloc;
+    ONSEM_ANSWER_EQ("Tomorrow. It's his birthday.",
+                    operator_react(propernounStr, semMemTopLevel, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                   &canReactToANoun));
+  }
+}
+
+
+
+TEST_F(SemanticReasonerGTests, operator_reply_by_the_trigger_the_closer_to_the_input)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  static const std::string affirmation1Str = "Paul1 est content";
+  static const std::string affirmation2Str = "Paul2 est content";
+  static const std::string questionStr = "qui est Paul1";
+  SemanticMemory semMem;
+  operator_mergeAndInform("Paul1 est Paul2", semMem, lingDb);
+  operator_addATrigger(affirmation1Str, "Réponse1", semMem, lingDb);
+  operator_addATrigger(affirmation2Str, "Réponse2", semMem, lingDb);
+  operator_addATrigger(questionStr, "Réponse3", semMem, lingDb);
+
+  ONSEM_UNKNOWN(operator_check(affirmation2Str, semMem, lingDb));
+  ONSEM_ANSWER_EQ("Réponse1", operator_react(affirmation1Str, semMem, lingDb));
+  ONSEM_TRUE(operator_check(affirmation2Str, semMem, lingDb));
+  ONSEM_ANSWER_EQ("Réponse2", operator_react(affirmation2Str, semMem, lingDb));
+  ONSEM_ANSWER_EQ("Réponse3", operator_react(questionStr, semMem, lingDb));
+}
+
+
+
+TEST_F(SemanticReasonerGTests, operator_trigger_with_a_coreference)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  static const std::string affirmation1Str = "Paul1 est content";
+  SemanticMemory semMem;
+  operator_addATrigger("Ils portent un bracelet", "Réponse1", semMem, lingDb);
+
+  ONSEM_ANSWER_EQ("Réponse1", operator_react("Ils portent un bracelet", semMem, lingDb));
+  operator_addATrigger("Paul porte un masque", "Réponse2", semMem, lingDb);
+  ONSEM_ANSWER_EQ("Réponse1", operator_react("Ils portent un bracelet", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Réponse2", operator_react("Paul porte un masque", semMem, lingDb));
+  ONSEM_NOANSWER(operator_react("Elles portent un masque", semMem, lingDb));
+  semMem.clear();
+  operator_addATrigger("Paul porte un masque", "Réponse2", semMem, lingDb);
+  ONSEM_NOANSWER(operator_react("Elles portent un masque", semMem, lingDb));
+}
+
+
+
+TEST_F(SemanticReasonerGTests, operator_react_only_one_time_if_2_similar_trigger)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  static const std::string affirmation1Str = "Paul1 est content";
+  static const std::string affirmation2Str = "Paul2 est content";
+  static const std::string questionStr = "qui est Paul1";
+  SemanticMemory semMem;
+  operator_mergeAndInform("Paul1 est Paul2", semMem, lingDb);
+  operator_addATrigger(affirmation1Str, "Réponse1", semMem, lingDb);
+  operator_addATrigger(affirmation2Str, "Réponse2", semMem, lingDb);
+  operator_addATrigger(questionStr, "Réponse3", semMem, lingDb);
+
+  ONSEM_UNKNOWN(operator_check(affirmation2Str, semMem, lingDb));
+  ONSEM_ANSWER_EQ("Réponse1", operator_react(affirmation1Str, semMem, lingDb));
+  ONSEM_TRUE(operator_check(affirmation2Str, semMem, lingDb));
+  ONSEM_ANSWER_EQ("Réponse2", operator_react(affirmation2Str, semMem, lingDb));
+  ONSEM_ANSWER_EQ("Réponse3", operator_react(questionStr, semMem, lingDb));
+}

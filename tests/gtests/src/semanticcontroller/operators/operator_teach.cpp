@@ -1,0 +1,190 @@
+#include "../../semanticreasonergtests.hpp"
+#include "operator_answer.hpp"
+#include "operator_inform.hpp"
+#include "operator_resolveCommand.hpp"
+#include "operator_executeFromTrigger.hpp"
+#include <gtest/gtest.h>
+#include <onsem/common/utility/noresult.hpp>
+#include <onsem/tester/reactOnTexts.hpp>
+#include <onsem/semantictotext/type/naturallanguageexpression.hpp>
+#include <onsem/texttosemantic/tool/semexpgetter.hpp>
+#include <onsem/texttosemantic/languagedetector.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/semantictotext/semanticconverter.hpp>
+#include <onsem/semantictotext/semexpoperators.hpp>
+#include <onsem/semantictotext/executor/textexecutor.hpp>
+
+using namespace onsem;
+namespace
+{
+
+
+DetailedReactionAnswer _operator_teach(
+    const std::string& pText,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    memoryOperation::SemanticActionOperatorEnum pActionOperator,
+    SemanticLanguageEnum pTextLanguage = SemanticLanguageEnum::UNKNOWN)
+{
+  SemanticLanguageEnum textLanguage = pTextLanguage == SemanticLanguageEnum::UNKNOWN ?
+      linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
+  TextProcessingContext inContext(SemanticAgentGrounding::currentUser,
+                                  SemanticAgentGrounding::me,
+                                  textLanguage);
+  auto semExp =
+      converter::textToContextualSemExp(pText, inContext,
+                                        SemanticSourceEnum::ASR, pLingDb);
+  memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
+
+  if (textLanguage == SemanticLanguageEnum::UNKNOWN)
+    textLanguage = pSemanticMemory.defaultLanguage;
+  mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
+  memoryOperation::teach(reaction, pSemanticMemory, std::move(semExp), pLingDb,
+                         pActionOperator);
+  DetailedReactionAnswer res;
+  if (!reaction)
+    return res;
+  SemExpGetter::extractReferences(res.references, **reaction);
+  res.reactionType = SemExpGetter::extractContextualAnnotation(**reaction);
+
+  TextProcessingContext outContext(SemanticAgentGrounding::me,
+                                   SemanticAgentGrounding::currentUser,
+                                   pTextLanguage);
+  auto execContext = std::make_shared<ExecutorContext>(outContext);
+  DefaultExecutorLogger logger(res.answer);
+  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
+  textExec.runSemExp(std::move(*reaction), execContext);
+  return res;
+}
+
+
+DetailedReactionAnswer operator_teachBehavior(
+    const std::string& pText,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pTextLanguage = SemanticLanguageEnum::UNKNOWN)
+{
+  return _operator_teach(pText, pSemanticMemory, pLingDb,
+                         memoryOperation::SemanticActionOperatorEnum::BEHAVIOR, pTextLanguage);
+}
+
+DetailedReactionAnswer operator_teachCondition(
+    const std::string& pText,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pTextLanguage = SemanticLanguageEnum::UNKNOWN)
+{
+  return _operator_teach(pText, pSemanticMemory, pLingDb,
+                         memoryOperation::SemanticActionOperatorEnum::CONDITION, pTextLanguage);
+}
+
+DetailedReactionAnswer operator_teachInformation(
+    const std::string& pText,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pTextLanguage = SemanticLanguageEnum::UNKNOWN)
+{
+  return _operator_teach(pText, pSemanticMemory, pLingDb,
+                         memoryOperation::SemanticActionOperatorEnum::INFORMATION, pTextLanguage);
+}
+
+
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_teachBehavior_basic)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  memoryOperation::learnSayCommand(semMem, lingDb);
+
+  ONSEM_NOANSWER(operator_teachBehavior("Hello", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachBehavior("Look left", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachBehavior("Paul likes chocolate", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachBehavior("Gustave likes chocolate", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachBehavior("I am Paul", semMem, lingDb));
+  ONSEM_ANSWERNOTFOUND_EQ("I don't know who you are.",
+                          operator_answer("Who am I", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachBehavior("say hi when you see me", semMem, lingDb));
+  EXPECT_EQ("", operator_resolveCommand("smile", semMem, lingDb));
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok, to smile is to say I am smiling.", operator_teachBehavior("to smile is to say I am smiling", semMem, lingDb));
+  EXPECT_EQ("I am smiling.",
+            operator_resolveCommand("smile", semMem, lingDb));
+  EXPECT_EQ("I am smiling.",
+            operator_execute("smile", semMem, lingDb));
+  EXPECT_EQ("", operator_executeFromTrigger("smile", semMem, lingDb));
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_teachCondition_basic)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  memoryOperation::learnSayCommand(semMem, lingDb);
+
+  ONSEM_NOANSWER(operator_teachCondition("Hello", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachCondition("Look left", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachCondition("Paul likes chocolate", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachCondition("Gustave likes chocolate", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachCondition("I am Paul", semMem, lingDb));
+  ONSEM_ANSWERNOTFOUND_EQ("I don't know who you are.",
+                          operator_answer("Who am I", semMem, lingDb));
+  ONSEM_NOTIFYSOMETHINGWILLBEDONE_EQ("Ok, I will say hi whenever I see you.",
+                                     operator_teachCondition("say hi when you see me", semMem, lingDb));
+  static const std::string helloPaulQuote = "\"Bonjour Paul!!\"";
+  ONSEM_NOTIFYSOMETHINGWILLBEDONE_EQ("Ok, I will say " + helloPaulQuote + " whenever I see Paul.",
+                                     operator_teachCondition("Say " + helloPaulQuote + " when you see Paul", semMem, lingDb));
+  EXPECT_EQ(helloPaulQuote, operator_executeFromTrigger("You see Paul", semMem, lingDb));
+  EXPECT_EQ("Hi", operator_executeFromTrigger("You see me", semMem, lingDb));
+  EXPECT_EQ("", operator_executeFromTrigger("You don't see me", semMem, lingDb));
+  EXPECT_EQ("Hi", operator_execute("You see me", semMem, lingDb));
+  EXPECT_EQ("", operator_executeFromTrigger("You don't see me", semMem, lingDb));
+  EXPECT_EQ("", operator_resolveCommand("You see me", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachCondition("to smile is to say I am smiling", semMem, lingDb));
+  EXPECT_EQ("", operator_resolveCommand("smile", semMem, lingDb));
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_teachCondition_fromInform)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  const std::string commandResource = "\\" + resourceLabelForTests_cmd + "=presentCompany()\\";
+  operator_inform("to present the company means " + commandResource + ". "
+                  "Present the company when somebody is interested", semMem, lingDb);
+  // trigger it from a text
+  EXPECT_EQ(commandResource, operator_executeFromTrigger("Somebody is interested", semMem, lingDb));
+  // trigger it from a natural language expression
+  NaturalLanguageExpression nle;
+  nle.word.text = "interest";
+  nle.word.type = NaturalLanguageTypeOfText::VERB;
+  nle.word.language = SemanticLanguageEnum::ENGLISH;
+  nle.verbTense = SemanticVerbTense::PRESENT;
+  NaturalLanguageExpression totoNle;
+  totoNle.word.text = "toto";
+  totoNle.word.type = NaturalLanguageTypeOfText::AGENT;
+  totoNle.word.language = SemanticLanguageEnum::ENGLISH;
+  nle.children.emplace(GrammaticalType::OBJECT, std::move(totoNle));
+  auto totoInterestedSemExp = converter::naturalLanguageExpressionToSemanticExpression(nle, lingDb);
+  EXPECT_EQ(commandResource, operator_executeFromSemExpTrigger(*totoInterestedSemExp, SemanticLanguageEnum::ENGLISH, semMem, lingDb));
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_teachInformation_basic)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  memoryOperation::learnSayCommand(semMem, lingDb);
+
+  ONSEM_NOANSWER(operator_teachInformation("Hello", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachInformation("Look left", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachInformation("Paul likes chocolate", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachInformation("Gustave likes chocolate", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachInformation("I am Paul", semMem, lingDb));
+  ONSEM_ANSWER_EQ("You are Paul.",
+                  operator_answer("Who am I", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachInformation("say hi when you see me", semMem, lingDb));
+  ONSEM_NOANSWER(operator_teachInformation("to smile is to say I am smiling", semMem, lingDb));
+  EXPECT_EQ("", operator_resolveCommand("smile", semMem, lingDb));
+}
+
