@@ -1,0 +1,4 @@
+in: "un poète est un romancier"
+in: "qui est Dede"
+in: "Victor Hugo est un poète lyrique avec des recueils comme Odes et Ballades (1826), Les Feuilles d'automne (1831) ou Les Contemplations (1856)."
+in: "qui est Victor Hugo"

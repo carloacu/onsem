@@ -1,0 +1,28 @@
+<linguisticdatabase>
+ <concept name="degree_*">
+  <linkedMeaning lemme="almost" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="absolutely" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="barely" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="completely" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="deeply" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="enough" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="enormously" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="extremely" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="fairly" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="fully" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="greatly" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="half" relationToConcept="4"/>
+  <linkedMeaning lemme="hardly" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="incredibly" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="nearly" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="practically" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="quite" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="really" relationToConcept="4"/>
+  <linkedMeaning lemme="scarcely" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="so" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="somewhat" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="terribly" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="very" relationToConcept="4"/>
+  <linkedMeaning lemme="virtually" gram="adverb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

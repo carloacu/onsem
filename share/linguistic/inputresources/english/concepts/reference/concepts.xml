@@ -1,0 +1,26 @@
+<linguisticdatabase>
+ <concept name="reference_definite">
+  <linkedMeaning lemme="the" gram="determiner" relationToConcept="4"/>
+  <linkedMeaning lemme="this" gram="determiner" relationToConcept="4"/>
+ </concept>
+ <concept name="reference_indefinite">
+  <linkedMeaning lemme="a" gram="determiner" relationToConcept="4"/>
+  <linkedMeaning lemme="another" relationToConcept="4"/>
+  <linkedMeaning lemme="any" relationToConcept="4"/>
+  <linkedMeaning lemme="anybody" relationToConcept="4"/>
+  <linkedMeaning lemme="anyone" relationToConcept="4"/>
+  <linkedMeaning lemme="anything" relationToConcept="5"/>
+  <linkedMeaning lemme="somebody" relationToConcept="4"/>
+  <linkedMeaning lemme="someone" relationToConcept="4"/>
+  <linkedMeaning lemme="something" relationToConcept="4"/>
+  <linkedMeaning lemme="someplace" relationToConcept="4"/>
+  <linkedMeaning lemme="someday" relationToConcept="4"/>
+  <linkedMeaning lemme="sometime" relationToConcept="4"/>
+  <linkedMeaning lemme="sometimes" relationToConcept="4"/>
+  <linkedMeaning lemme="somewhere" relationToConcept="4"/>
+ </concept>
+ <concept name="reference_other">
+  <linkedMeaning lemme="another" relationToConcept="4"/>
+  <linkedMeaning lemme="other" relationToConcept="5"/>
+ </concept>
+</linguisticdatabase>

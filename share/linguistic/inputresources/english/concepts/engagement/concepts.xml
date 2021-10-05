@@ -1,0 +1,14 @@
+<linguisticdatabase>
+ <concept name="engagement_engage">
+  <linkedMeaning lemme="hallo" gram="interjection" relationToConcept="4"/>
+  <linkedMeaning lemme="hello" relationToConcept="5"/>
+  <linkedMeaning lemme="hi" relationToConcept="4"/>
+  <linkedMeaning lemme="hullo" relationToConcept="4"/>
+  <linkedMeaning lemme="welcome" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="engagement_disengage">
+  <linkedMeaning lemme="goodbye" relationToConcept="4"/>
+  <linkedMeaning lemme="bye" relationToConcept="4"/>
+  <linkedMeaning lemme="bye-bye" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

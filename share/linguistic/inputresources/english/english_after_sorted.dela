@@ -1,0 +1,120 @@
+#where,.CONJS
+#who,.CONJS
+#what,.CONJS
+#why,.CONJS
+#without,.CONJS
+#how,.CONJS
+#how much,.CONJS
+#how many,.CONJS
+#how far,.CONJS
+
+-that.CONJS
+#that,.CONJS
+
+-likes.V
+#likes,like.V:P3s
+
+-means.V
+#means,mean.V:P3s
+
+-half.A
+#half,.A
+
+-like.PREP
+#like,.PREP
+
+-off.PREP
+-off.A
+#off,.PREP
+#off,.A
+
+#english,English.N
+#french,French.N
+
+#after,.CONJS
+#if,.CONJS
+#in order,.CONJS
+#when,.CONJS
+#whenever,.CONJS
+#which,.CONJS
+#but,.CONJS
+#while,.CONJS
+-since.CONJ
+#since,.CONJS
+-until.CONJ
+#until,.CONJS
+-whereas.CONJ
+#whereas,.CONJS
+
+-no.INTJ
+-no.DET
+#no,.INTJ
+#no,.DET
+
+
+#of,.PARTITIVE
+
+-alright.A
+#alright,.A
+
+-left.A
+#left,.A
+
+-ok.A
+#ok,.A
+-well.INTJ
+#well,.INTJ
+#ok,.INTJ
+#okey,ok.INTJ
+#okay,ok.INTJ
+#please,.INTJ
+#perfect,.INTJ
+#hello,.INTJ
+#sorry,.INTJ
+#cool,.INTJ
+#thanks,.INTJ
+#thank,.INTJ
+#nice,.INTJ
+#goodbye,.INTJ
+#bye,.INTJ
+#bye-bye,.INTJ
+#true,.INTJ
+#false,.INTJ
+#all of them,.INTJ
+#none of them,.INTJ
+#of course,.INTJ
+#of course not,.INTJ
+#for example,.INTJ
+#nice to meet you,.INTJ
+#actually,.INTJ
+#alright,.INTJ
+#yep,yes.INTJ
+#yeah,.INTJ
+
+#nothing,.A
+-nothing.PRO
+#nothing,.PRO:s
+
+-born.A
+#born,.A
+
+-English.N
+#English,.N
+
+
+-mus,.V
+#must,.V:P1s:P2s:P3s:P1p:P2p:P3p
+
+-then.CONJ
+#then,.CONJ
+#else,.CONJ
+
+-than.PREP
+#than,.PREP
+#in case of,.PREP
+
+-many.DET
+#many,.DET+Dadj:p
+
+-several.DET
+#several,.DET+Dadj:p

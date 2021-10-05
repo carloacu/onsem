@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="ne" gram="adverb">
+    <contextInfo val="cannotBeAfterVerb" />
+  </existingMeaning>
+</linguisticdatabase>

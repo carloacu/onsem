@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<linguisticdatabase>
+    <tag name="yeah">
+        <meaning lemme="ok" gram="unknown" />
+        <meaning lemme="si" gram="unknown" />
+        <meaning lemme="eso es" gram="unknown" />
+        <meaning lemme="exacto" gram="unknown" />
+        <meaning lemme="exactamente" gram="unknown" />
+        <meaning lemme="si quieres" gram="unknown" />
+        <meaning lemme="porqué no" gram="unknown" />
+        <meaning lemme="de acuerdo" gram="unknown" />
+        <meaning lemme="bien visto" gram="unknown" />
+        <meaning lemme="es un placer" gram="unknown" />
+        <meaning lemme="en efecto" gram="unknown" />
+        <meaning lemme="no hay problema" gram="unknown" />
+        <meaning lemme="está bien" gram="unknown" />
+        <meaning lemme="absolutamente" gram="unknown" />
+        <meaning lemme="seguramente" gram="unknown" />
+        <meaning lemme="por supuesto" gram="unknown" />
+        <meaning lemme="claramente" gram="unknown" />
+        <meaning lemme="comprendo" gram="unknown" />
+        <meaning lemme="entiendo" gram="unknown" />
+        <meaning lemme="fantástico" gram="unknown" />
+        <meaning lemme="yep" gram="unknown" />
+        <meaning lemme="si" gram="unknown" />
+        <meaning lemme="perfecto" gram="unknown" />
+        <meaning lemme="parfectamente" gram="unknown" />
+        <meaning lemme="precisamente" gram="unknown" />
+        <meaning lemme="genial" gram="unknown" />
+        <meaning lemme="seguramente" gram="unknown" />
+        <meaning lemme="muy bien" gram="unknown" />
+        <meaning lemme="evidentemente" gram="unknown" />
+	<meaning lemme="claro" gram="unknown" />
+	<meaning lemme="venga" gram="unknown" />
+	<meaning lemme="vale" gram="unknown" />
+	<meaning lemme="de acuerdo" gram="unknown" />
+	<meaning lemme="justo" gram="unknown" />
+    </tag>
+    <tag name="oppose">
+        <meaning lemme="la verdad es que no" gram="unknown" />
+        <meaning lemme="no" gram="unknown" />
+        <meaning lemme="nop" gram="unknown" />
+        <meaning lemme="no gracias" gram="unknown" />
+        <meaning lemme="nu" gram="unknown" />
+        <meaning lemme="mejor no" gram="unknown" />
+        <meaning lemme="en absoluto" gram="unknown" />
+    </tag>
+    <tag name="unknown">
+        <meaning lemme="no estoy seguro" gram="unknown" />
+        <meaning lemme="no es seguro" gram="unknown" />
+        <meaning lemme="ni idea" gram="unknown" />
+        <meaning lemme="no se" gram="unknown" />
+        <meaning lemme="no lo se" gram="unknown" />
+        <meaning lemme="a saber" gram="unknown" />
+    </tag>
+    <tag name="nothing">
+        <meaning lemme="nada" gram="unknown" />
+        <meaning lemme="ningún" gram="unknown" />
+    </tag>
+    <tag name="everything">
+        <meaning lemme="mucho" gram="unknown" />
+        <meaning lemme="mucho tiempo" gram="unknown" />
+        <meaning lemme="todo" gram="unknown" />
+        <meaning lemme="todos" gram="unknown" />
+        <meaning lemme="bastantes" gram="unknown" />
+        <meaning lemme="muchísimos" gram="unknown" />
+        <meaning lemme="amplio" gram="unknown" />
+        <meaning lemme="numeroso" gram="unknown" />
+    </tag>
+    <tag name="indicate">
+        <meaning lemme="tú" gram="unknown" />
+        <meaning lemme="tus" gram="unknown" />
+    </tag>
+    <tag name="meditate">
+        <meaning lemme="creer" gram="unknown" />
+        <meaning lemme="pensar" gram="unknown" />
+        <meaning lemme="reflexionar" gram="unknown" />
+        <meaning lemme="me parece" gram="unknown" />
+    </tag>
+    <tag name="these">
+        <meaning lemme="éste" gram="unknown" />
+        <meaning lemme="ésta" gram="unknown" />
+        <meaning lemme="ese" gram="unknown" />
+        <meaning lemme="esa" gram="unknown" />
+    </tag>
+    <tag name="myself">
+        <meaning lemme="me" gram="unknown" />
+        <meaning lemme="yo" gram="unknown" />
+        <meaning lemme="mi" gram="unknown" />
+        <meaning lemme="mis" gram="unknown" />
+    </tag>
+    <tag name="hello">
+        <meaning lemme="hola" gram="unknown" />
+        <meaning lemme="encantado" gram="unknown" />
+        <meaning lemme="buenas" gram="unknown" />
+    </tag>
+    <tag name="supplicate">
+        <meaning lemme="perdón" gram="unknown" />
+        <meaning lemme="pardone" gram="unknown" />
+        <meaning lemme="disculpe" gram="unknown" />
+    </tag>
+    <tag name="explain">
+        <meaning lemme="digo" gram="unknown" />
+        <meaning lemme="dicho" gram="unknown" />
+        <meaning lemme="explico" gram="unknown" />
+        <meaning lemme="explicado" gram="unknown" />
+        <meaning lemme="cuento" gram="unknown" />
+        <meaning lemme="contado" gram="unknown" />
+        <meaning lemme="sé" gram="unknown" />
+        <meaning lemme="sabido" gram="unknown" />
+    </tag>
+    <tag name="calm">
+        <meaning lemme="tranquilizar" gram="unknown" />
+        <meaning lemme="tranquilizado" gram="unknown" />
+        <meaning lemme="tranquilizo" gram="unknown" />
+        <meaning lemme="tranquilízate" gram="unknown" />
+	<meaning lemme="tranquilo" gram="unknown" />
+    </tag>
+    <tag name="far">
+        <meaning lemme="lejos" gram="unknown" />
+        <meaning lemme="allí" gram="unknown" />
+    </tag>
+    <tag name="offer">
+        <meaning lemme="dado" gram="unknown" />
+        <meaning lemme="doy" gram="unknown" />
+        <meaning lemme="ofrezco" gram="unknown" />
+        <meaning lemme="ofrecido" gram="unknown" />
+    </tag>
+    <tag name="WhatSThis">
+        <meaning lemme="?" gram="unknown" />
+    </tag>
+    <tag name="furious">
+        <meaning lemme="furioso" gram="unknown" />
+        <meaning lemme="enfurecido" gram="unknown" />
+        <meaning lemme="enfurezco" gram="unknown" />
+        <meaning lemme="molestado" gram="unknown" />
+        <meaning lemme="molesto" gram="unknown" />
+    </tag>
+    <tag name="unless">
+        <meaning lemme="pero" gram="unknown" />
+        <meaning lemme="a menos que" gram="unknown" />
+        <meaning lemme="salvo que" gram="unknown" />
+    </tag>
+    <tag name="pick">
+        <meaning lemme="o" gram="unknown" />
+    </tag>
+    <tag name="desperate">
+        <meaning lemme="desespero" gram="unknown" />
+        <meaning lemme="desesperado" gram="unknown" />
+        <meaning lemme="desesperadamente" gram="unknown" />
+    </tag>
+    <tag name="excited">
+        <meaning lemme="excitado" gram="unknown" />
+        <meaning lemme="nervioso" gram="unknown" />
+    </tag>
+    <tag name="hate">
+        <meaning lemme="detesto" gram="unknown" />
+        <meaning lemme="detestado" gram="unknown" />
+        <meaning lemme="odiado" gram="unknown" />
+        <meaning lemme="odio" gram="unknown" />
+    </tag>
+    <tag name="earth">
+        <meaning lemme="tierra" gram="unknown" />
+        <meaning lemme="parquet" gram="unknown" />
+        <meaning lemme="suelo" gram="unknown" />
+        <meaning lemme="caigo" gram="unknown" />
+        <meaning lemme="caído" gram="unknown" />
+    </tag>
+    <tag name="sky">
+        <meaning lemme="arriba" gram="unknown" />
+        <meaning lemme="subo" gram="unknown" />
+        <meaning lemme="subido" gram="unknown" />
+        <meaning lemme="levanto" gram="unknown" />
+        <meaning lemme="levantado" gram="unknown" />
+    </tag>
+    <tag name="surprise">
+        <meaning lemme="dónde" gram="unknown" />
+        <meaning lemme="asombrado" gram="unknown" />
+        <meaning lemme="asombroso" gram="unknown" />
+    </tag>
+</linguisticdatabase>

@@ -1,0 +1,23 @@
+<semantictreeconversions formalism="1">
+
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" request="subject" concept="verb_have">
+        <subject id="2" grounding="generic" concept="age" />
+        <object id="3" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1"  grounding="statement" notRequest="subject" request="object" concept="verb_equal_be" notConcept="verb_have" word="" >
+        <subject id="2" grounding="generic" concept="age" reference="definite">
+          <owner id="3" />
+        </subject>
+        <notobject />
+      </root>
+    </tree>
+  </conversion>
+
+
+
+</semantictreeconversions>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<linguisticdatabase>
+    <separatorsBetweenWords val="1" />
+    <word name=" ">
+        <wordForm gram="interspace" />
+    </word>
+    <word name="&apos;">
+        <wordForm gram="interspace" />
+    </word>
+    <word name="-">
+        <wordForm gram="interspace" />
+    </word>
+    <word name=",">
+        <wordForm gram="linkbetweenwords" />
+    </word>
+    <word name=";">
+        <wordForm gram="linkbetweenwords" />
+    </word>
+    <word name=":">
+        <wordForm gram="linkbetweenwords" />
+    </word>
+    <word name=".">
+        <wordForm gram="punctuation" />
+    </word>
+    <word name="...">
+        <wordForm gram="punctuation" />
+    </word>
+    <word name="!">
+        <wordForm gram="punctuation" />
+    </word>
+    <word name="?">
+        <wordForm gram="punctuation" />
+    </word>
+</linguisticdatabase>

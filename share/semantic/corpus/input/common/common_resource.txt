@@ -1,0 +1,5 @@
+\any_resource=MyService.method()\
+\any_url=http://www.lequipe.fr/\
+\any_url=#fr_FR#http://www.lequipe.fr/\
+\any_url=#unonkwn_language#http://www.lequipe.fr/\
+\unknown_label=http://www.lequipe.fr/\

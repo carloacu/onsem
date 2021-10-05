@@ -6,3 +6,4 @@ CMakeLists.txt.user*
 *.pyc
 *.swp
 *.orig
+french_sentences_from_srts.txt

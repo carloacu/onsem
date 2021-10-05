@@ -1,0 +1,49 @@
+say hello if Paul is happy
+for example say hello
+ask him if he wants to play
+ask me what you like
+ask who is happy
+say how much water you want
+ask him how many doors he has
+say where you live
+say why you are crying
+say when you will come
+say which phone you want
+tell me how far is Paris from here
+ask Franck what he likes
+ask Paul in French what he likes
+Check hands
+say that you have installed a chess game and ask him if he wants to play
+if you see a red ball, stand up
+Say hi man
+say that you are happy three times
+look left 3 times
+look left until you see somebody
+increment three times
+loop until my left hand is not touched.
+On February 11th, say happy birthday to Taylor.
+show me a woman singing
+show me a woman who is singing
+show me a woman who sings
+please repeat
+repeat please
+look left please
+say that you like animals please
+look at me please
+Do a ballet spin
+Do a shift step
+Watch the house until 7pm.
+tell me what my job is
+stand up and then move back
+stand up, then raise your left hand and then move back
+alright repeat
+Alright repeat
+Do a totem pole
+Do a flying eagle and say poop 2 times
+welcome then say hello
+eat the cucumber
+Spin left and raise your arms then spin left and spread your arms
+Spin left then raise your arms and spin left then spread your arms
+Say hi and spin left then raise your arms and spin left then spread your arms and say end
+say toto in 500 milliseconds
+Remove all conditions

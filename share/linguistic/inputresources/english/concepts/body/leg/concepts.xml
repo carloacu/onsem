@@ -1,0 +1,17 @@
+<linguisticdatabase>
+ <concept name="body_leg">
+  <linkedMeaning lemme="leg" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_leg_ankle">
+  <linkedMeaning lemme="ankle" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_leg_hip">
+  <linkedMeaning lemme="hip" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_leg_knee">
+  <linkedMeaning lemme="knee" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_leg_wheel">
+  <linkedMeaning lemme="wheel" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

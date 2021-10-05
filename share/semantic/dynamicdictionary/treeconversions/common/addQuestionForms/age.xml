@@ -1,0 +1,22 @@
+<semantictreeconversions formalism="1">
+
+
+  <addPossibleTrees>
+    <from>
+      <root id="1" grounding="statement" concept="verb_equal_be" request="object" notRequest="time">
+        <subject concept="age">
+	  <owner id="2" />
+	</subject>
+      </root>
+    </from>
+    <to>
+      <root id="1" grounding="statement" concept="predicate_hasAge" request="object" notConcept="verb_equal_be|verb_equal_mean" notRequest="object" word="">
+	<subject id="2" />
+      </root>
+    </to>
+  </addPossibleTrees>
+
+
+
+
+</semantictreeconversions>

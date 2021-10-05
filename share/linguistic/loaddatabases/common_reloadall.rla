@@ -1,0 +1,16 @@
+% Version of the database
+open [inputresources]/common/common_header.xml
+
+% Declare concepts (english_dela.dela fills some concepts)
+merge [inputresources]/common/declare_concepts.xml
+
+% Load words
+merge [inputresources]/common/rla/load_words.rla
+merge common/load_propernouns.dela
+
+% Fill concepts
+merge common/concepts.xml
+
+% Save the database
+save
+

@@ -1,0 +1,19 @@
+<linguisticdatabase>
+ <concept name="location">
+  <linkedMeaning lemme="là" relationToConcept="3"/>
+  <linkedMeaning lemme="quelque part" relationToConcept="4"/>
+ </concept>
+ <concept name="location_*">
+  <linkedMeaning lemme="ailleurs" relationToConcept="4"/>
+ </concept>
+ <concept name="location_floor">
+  <linkedMeaning lemme="sol" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="terre" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="carrelage" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="parquet" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="tapis" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="location_sky">
+  <linkedMeaning lemme="ciel" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

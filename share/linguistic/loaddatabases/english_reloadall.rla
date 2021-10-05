@@ -1,0 +1,24 @@
+% Version of the database
+open [inputresources]/english/english_header.xml
+
+% Declare concepts (english_dela.dela fills some concepts)
+merge [inputresources]/common/declare_concepts.xml
+
+% Load words
+merge [inputresources]/english/rla/load_words.rla
+
+% Fill context infos
+merge [inputresources]/english/english_contextinfos.xml
+
+% Fill concepts
+merge [inputresources]/english/rla/load_concepts.rla
+
+% Identify question words
+merge [inputresources]/english/english_questionWords.xml
+
+% Fill animations
+merge [inputresources]/english/english_animations.xml
+
+% Save the database
+save
+

@@ -1,0 +1,12 @@
+<linguisticdatabase>
+ <concept name="health">
+  <linkedMeaning lemme="santé" gram="noun" relationToConcept="4" />
+ </concept>
+ <concept name="health_good">
+  <linkedMeaning lemme="ok" relationToConcept="4" />
+  <linkedMeaning lemme="bien" relationToConcept="3" />
+ </concept>
+ <concept name="health_bad">
+  <linkedMeaning lemme="blessé" gram="adjective" relationToConcept="3" />
+ </concept>
+</linguisticdatabase>

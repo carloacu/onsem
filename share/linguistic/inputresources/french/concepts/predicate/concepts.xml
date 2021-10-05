@@ -1,0 +1,10 @@
+<linguisticdatabase>
+ <concept name="predicate_hasName">
+  <linkedMeaning lemme="appeler~se" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="nommer" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="prénommer" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="predicate_hasName_call">
+  <linkedMeaning lemme="appeler" gram="verb" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

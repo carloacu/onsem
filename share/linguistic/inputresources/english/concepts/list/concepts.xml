@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="list_and">
+  <linkedMeaning lemme="and" gram="conjunctive" relationToConcept="4"/>
+ </concept>
+ <concept name="list_or">
+  <linkedMeaning lemme="or" gram="conjunctive" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

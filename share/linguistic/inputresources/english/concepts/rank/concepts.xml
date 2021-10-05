@@ -1,0 +1,39 @@
+<linguisticdatabase>
+ <concept name="rank_1">
+  <linkedMeaning lemme="first" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_2">
+  <linkedMeaning lemme="second" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="second" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="second" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="rank_3">
+  <linkedMeaning lemme="third" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_4">
+  <linkedMeaning lemme="fourth" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_5">
+  <linkedMeaning lemme="fifth" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_6">
+  <linkedMeaning lemme="sixth" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_7">
+  <linkedMeaning lemme="seventh" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_8">
+  <linkedMeaning lemme="eighth" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_9">
+  <linkedMeaning lemme="ninth" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_10">
+  <linkedMeaning lemme="tenth" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_inverse_1">
+  <linkedMeaning lemme="last" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="last" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="last" gram="adverb" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

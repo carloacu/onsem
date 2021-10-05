@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="story">
+  <linkedMeaning lemme="histoire" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="story_joke">
+  <linkedMeaning lemme="blague" gram="noun" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

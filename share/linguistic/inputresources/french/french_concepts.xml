@@ -1,0 +1,4 @@
+<linguisticdatabase>
+ <include folder="readonly/concepts"/>
+ <include folder="concepts"/>
+</linguisticdatabase>

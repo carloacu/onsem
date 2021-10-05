@@ -1,0 +1,11 @@
+<linguisticdatabase>
+ <concept name="gas">
+  <linkedMeaning lemme="gas" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="gas_*">
+  <linkedMeaning lemme="air" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="carbon dioxide" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="oxygen" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="propane" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

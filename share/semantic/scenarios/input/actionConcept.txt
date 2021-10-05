@@ -1,0 +1,7 @@
+in: "je marche"
+in: "qu'est ce que je fais"
+in: "qu'est ce que tu fais"
+in: "je fais un gâteau"
+in: "qu'est ce que je fais"
+in: "what am I doing ?"
+in: "what are you doing ?"

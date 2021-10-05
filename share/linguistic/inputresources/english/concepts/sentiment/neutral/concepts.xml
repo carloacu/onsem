@@ -1,0 +1,13 @@
+<linguisticdatabase>
+ <concept name="sentiment_neutral_desire">
+  <linkedMeaning lemme="desire" relationToConcept="5"/>
+  <linkedMeaning lemme="desirable" relationToConcept="4"/>
+  <linkedMeaning lemme="interest" relationToConcept="3"/>
+  <linkedMeaning lemme="interesting" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="keen on" relationToConcept="3"/>
+ </concept>
+ <concept name="sentiment_neutral_surprise">
+  <linkedMeaning lemme="surprise" relationToConcept="5"/>
+  <linkedMeaning lemme="surprising" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

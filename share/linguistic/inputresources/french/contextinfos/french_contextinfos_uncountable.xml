@@ -1,0 +1,7 @@
+<linguisticdatabase>
+ <existingMeaning lemme="du" gram="determiner"><contextInfo val="uncountable" /></existingMeaning>
+ <existingMeaning lemme="du" gram="partitive"><contextInfo val="uncountable" /></existingMeaning>
+ <existingMeaning lemme="de" gram="determiner"><contextInfo val="uncountable" /></existingMeaning>
+ <existingMeaning lemme="de" gram="preposition"><contextInfo val="uncountable" /></existingMeaning>
+ <existingMeaning lemme="foi" gram="noun"><contextInfo val="uncountable" /></existingMeaning>
+</linguisticdatabase>

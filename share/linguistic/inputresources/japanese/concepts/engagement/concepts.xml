@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="engagement_disengage">
+  <linkedMeaning lemme="バイバイ　ペッパー" relationToConcept="4"/>
+  <linkedMeaning lemme="じゃぁね" relationToConcept="4"/>
+  <linkedMeaning lemme="さようなら" relationToConcept="4"/>
+  <linkedMeaning lemme="またね" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,96 @@
+<dictionary_modification language="french">
+  <any_verb>
+    <bookmark name="" />
+    <child chunkLinkType="location" condition="followedByConceptOrHyponym(location_relative_here)" />
+    <child lemma="en" pos="preposition" chunkLinkType="location" condition="locationEn_fr" />
+    <bookmark name="au-avant-lieu-condition" />
+    <child chunkLinkType="location" condition="followedByPartOfSpeech(adverb)&followedByConceptOrHyponym(location)" />
+    <child lemma="au" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(country_)|[followedByBeginOfConcept(location_,, ms)&!followedByVowel]" />
+    <child chunkLinkType="time" condition="followedByBeginOfConcept(time_relative_)|followedByBeginOfConcept(time_relativeDay_)" />
+    <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, have_number_before)" />
+    <child chunkLinkType="time" condition="followedByDefiniteNoun&followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="en" pos="preposition" chunkLinkType="time" condition="[followedByBeginOfConcept(time_, skip_determiners)&!followedByQuantityEverything]|followedByBeginOfConcept(number_)" />
+    <child chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />
+    <child lemma="parce que" pos="sub_conj" chunkLinkType="cause" />
+    <child lemma="quand" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="ici :" pos="preposition" chunkLinkType="location" condition="followedByResource" />
+    <child lemma="depuis" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="depuis" pos="preposition" chunkLinkType="starting point" />
+
+    <bookmark name="après-prep-prioritaires" />
+    <child lemma="alors que" pos="sub_conj" chunkLinkType="despite contraint" />
+    <child lemma="après" pos="preposition" chunkLinkType="time" />
+    <child lemma="à" pos="preposition" chunkLinkType="subordinate clause" condition="followedByInfinitiveVerb" />
+    <bookmark name="à-avant-lieu" />
+    <child lemma="à" pos="preposition" chunkLinkType="location" />
+    <child lemma="à chaque fois que" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="à partir de" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="à partir de" pos="preposition" chunkLinkType="starting point" />
+    <child lemma="au" pos="preposition" chunkLinkType="location" />
+    <child lemma="avant" pos="preposition" chunkLinkType="time" />
+    <child lemma="avec" pos="preposition" chunkLinkType="with" />
+    <child lemma="car" chunkLinkType="cause" />
+    <child lemma="chaque fois" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="chez" pos="preposition" chunkLinkType="location" />
+    <child lemma="comme" pos="sub_conj" chunkLinkType="similarity" />
+    <child lemma="contre" pos="preposition" chunkLinkType="against" />
+    <child lemma="dans" pos="preposition" chunkLinkType="location" />
+    <child lemma="depuis" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="derrière" pos="preposition" chunkLinkType="location" />
+    <child lemma="dès" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="dès" pos="preposition" chunkLinkType="starting point" />
+    <child lemma="devant" pos="preposition" chunkLinkType="location" />
+    <child lemma="dont" pos="sub_conj" chunkLinkType="object of" />
+    <child lemma="en" chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
+    <child lemma="en cas de" pos="preposition" chunkLinkType="in case of" />
+    <child lemma="en termes de" chunkLinkType="topic" />
+    <child lemma="grâce à" pos="preposition" chunkLinkType="thanks to" />
+    <child lemma="jusqu'à ce que" pos="sub_conj" chunkLinkType="duration" />
+    <child lemma="juste après" pos="preposition" chunkLinkType="time" />
+    <child lemma="juste avant" pos="preposition" chunkLinkType="time" />
+    <child lemma="mais" pos="sub_conj" chunkLinkType="mitigation" />
+    <child lemma="même si" pos="sub_conj" chunkLinkType="mitigation" />
+    <child lemma="par" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_)" />
+    <child lemma="par" pos="preposition" chunkLinkType="way" />
+    <child lemma="pendant que" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="pour" pos="preposition" chunkLinkType="occurrence rank" condition="followedByOccurenceRank" />
+    <child lemma="pour" pos="preposition" chunkLinkType="purpose" />
+    <child lemma="pour cela que" pos="sub_conj" chunkLinkType="reason of" />
+    <child lemma="près" pos="preposition" chunkLinkType="location" />
+    <child lemma="sans" pos="preposition" chunkLinkType="without" />
+    <child lemma="selon" pos="preposition" chunkLinkType="according to" />
+    <child lemma="sous" pos="preposition" chunkLinkType="location" />
+    <child lemma="suite à" pos="preposition" chunkLinkType="time" />
+    <child lemma="sur" pos="preposition" chunkLinkType="location" />
+    <child lemma="vers" pos="preposition" chunkLinkType="location" />
+    <child chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
+  </any_verb>
+
+  <no_verb>
+    <child lemma="à" pos="preposition" chunkLinkType="todo" condition="followedByInfinitiveVerb" />
+    <child lemma="à" pos="preposition" chunkLinkType="location" condition="!followedByBeginOfConcept(abstract_)" />
+    <child lemma="à chaque fois que" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="après" pos="preposition" chunkLinkType="time" />
+    <child lemma="avec" pos="preposition" chunkLinkType="with" />
+    <child lemma="car" pos="sub_conj" chunkLinkType="cause" />
+    <child lemma="chaque fois" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="de" pos="partitive" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="depuis" pos="preposition" chunkLinkType="time" />
+    <child lemma="du" pos="partitive" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="dont" pos="sub_conj" chunkLinkType="object of" />
+    <child lemma="en" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(country_)" />
+    <child lemma="entre" pos="preposition" chunkLinkType="between" />
+    <child lemma="grâce à" pos="preposition" chunkLinkType="thanks to" />
+    <child lemma="mais" pos="sub_conj" chunkLinkType="mitigation" />
+    <child lemma="parce que" pos="sub_conj" chunkLinkType="cause" />
+    <child lemma="pour" pos="preposition" chunkLinkType="purpose" />
+    <child lemma="quand" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="sans" pos="preposition" chunkLinkType="without" />
+    <child lemma="suite à" pos="preposition" chunkLinkType="time" />
+  </no_verb>
+
+  <child_list_template name="à-coi">
+    <child bookmark="à-avant-lieu" lemma="à" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_, skip_determiners)" />
+    <child bookmark="à-avant-lieu" lemma="à" pos="preposition" chunkLinkType="indirect object"/>
+  </child_list_template>
+</dictionary_modification>

@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="time_hour_am">
+  <linkedMeaning lemme="am" relationToConcept="4"/>
+ </concept>
+ <concept name="time_hour_pm">
+  <linkedMeaning lemme="pm" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

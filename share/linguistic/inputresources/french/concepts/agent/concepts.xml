@@ -1,0 +1,30 @@
+<linguisticdatabase>
+ <concept name="agent">
+  <linkedMeaning lemme="leur" gram="pronoun_comp" relationToConcept="3"/>
+  <linkedMeaning lemme="leur" gram="pronoun" relationToConcept="3"/>
+  <linkedMeaning lemme="lui" gram="pronoun_comp" relationToConcept="3"/>
+  <linkedMeaning lemme="lui" gram="pronoun" relationToConcept="3"/>
+  <linkedMeaning lemme="n'importe qui" relationToConcept="3"/>
+  <linkedMeaning lemme="tout le monde" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_*">
+  <linkedMeaning lemme="étoile" relationToConcept="0"/>
+  <linkedMeaning lemme="objet" relationToConcept="0"/>
+ </concept>
+ <concept name="agent_human">
+  <linkedMeaning lemme="humain" relationToConcept="4"/>
+  <linkedMeaning lemme="personne" relationToConcept="3"/>
+  <linkedMeaning lemme="quelqu'un" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_parent">
+  <linkedMeaning lemme="maman" relationToConcept="3"/>
+  <linkedMeaning lemme="mère" relationToConcept="3"/>
+  <linkedMeaning lemme="papa" relationToConcept="3"/>
+  <linkedMeaning lemme="parent" relationToConcept="4"/>
+  <linkedMeaning lemme="père" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_sibling">
+  <linkedMeaning lemme="frère" relationToConcept="4"/>
+  <linkedMeaning lemme="soeur" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

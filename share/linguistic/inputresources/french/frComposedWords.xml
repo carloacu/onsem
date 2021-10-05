@@ -1,0 +1,45 @@
+<linguisticdatabase>
+ <words lemme="avoir" gram="verb">
+  <nextMeaning lemme="envie" gram="noun"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="avoir" gram="verb">
+  <nextMeaning lemme="raison" gram="noun"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="être" gram="verb">
+  <nextMeaning lemme="d'accord" gram="adverb"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="être" gram="verb">
+  <prevMeaning lemme="ce" gram="pronoun_subject"/>
+  <nextMeaning lemme="ça" gram="pronoun"/>
+  <wordForm gram="adverb"/>
+ </words>
+ <words lemme="regarder" gram="verb">
+  <nextMeaning lemme="devant" gram="adverb"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="regarder" gram="verb">
+  <nextMeaning lemme="en" gram="preposition"/>
+  <nextMeaning lemme="haut" gram="adjective"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="regarder" gram="verb">
+  <nextMeaning lemme="en" gram="preposition"/>
+  <nextMeaning lemme="bas" gram="adjective"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="regarder" gram="verb">
+  <nextMeaning lemme="devant" gram="adverb"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="vouloir" gram="verb">
+  <nextMeaning lemme="dire" gram="verb"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="arrière" gram="noun">
+  <nextMeaning lemme="latéral" gram="adjective"/>
+  <wordForm gram="noun"/>
+ </words>
+</linguisticdatabase>

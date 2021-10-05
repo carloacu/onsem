@@ -1,0 +1,8 @@
+in: "j'aime bien jouer au foot"
+out: "Pourquoi aimes-tu bien jouer au foot ?"
+in: "qu'est-ce que j'aime"
+out: "Tu aimes jouer au foot."
+in: "j'aime bien regarder la télé"
+out: "Pourquoi aimes-tu bien regarder la télé ?"
+in: "qu'est-ce que j'aime"
+out: "Tu aimes jouer au foot et regarder la télé."

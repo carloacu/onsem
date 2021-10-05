@@ -1,0 +1,12 @@
+in: "je suis un artiste"
+in: "qui est un artiste ?"
+in: "qui suis-je ?"
+in: "je suis un chanteur"
+in: "qui suis-je ?"
+in: "comment je m'appelle?"
+in: "quel est mon nom"
+in: "je suis Pierre"
+in: "qui suis-je ?"
+in: "comment je m'appelle?"
+in: "quel est mon nom"
+

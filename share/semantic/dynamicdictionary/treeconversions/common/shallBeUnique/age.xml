@@ -1,0 +1,20 @@
+<semantictreeconversions formalism="1">
+
+
+  <shallBeUnique childThatIsUnique="object">
+    <root grounding="statement" concept="verb_equal_be">
+      <subject concept="age">
+        <owner beginOfConcept="agent_" />
+      </subject>
+      <object grounding="generic" type="number" />
+    </root>
+  </shallBeUnique>
+
+  <shallBeUnique childThatIsUnique="object">
+    <root grounding="statement" concept="predicate_hasAge">
+      <subject beginOfConcept="agent_" />
+      <object beginOfConcept="age_" />
+    </root>
+  </shallBeUnique>
+
+</semantictreeconversions>

@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="color">
+  <linkedMeaning lemme="color" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,20 @@
+<linguisticdatabase>
+  <existingMeaning lemme="mais" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+  <existingMeaning lemme="si" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+  <existingMeaning lemme="quand" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+  <existingMeaning lemme="à chaque fois que" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+  <existingMeaning lemme="chaque fois" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+  <existingMeaning lemme="où" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+</linguisticdatabase>

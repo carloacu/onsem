@@ -1,0 +1,47 @@
+<linguisticdatabase>
+  <existingMeaning lemme="he" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="she" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="they" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="his" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="her" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="him" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="himself" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="me" gram="pronoun_comp">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="my" gram="determiner">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="your" gram="determiner">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="somebody" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="someone" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="you" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="you" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="who" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+</linguisticdatabase>

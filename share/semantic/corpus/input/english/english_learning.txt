@@ -1,0 +1,59 @@
+To do nothing
+to look and smile
+to stop breathing
+to rest is to sleep
+to rest it is to sleep
+to raise the right arm and say hello
+to greet a customer is to raise your arms and say hello
+to greet is to raise the right arm and say hello
+to greet is to raise the right arm, smile and say hello
+to help is to raise the left arm and ask how you can help
+to greet is to say hello and raise your left arm and lower your left arm
+to fuck off is to say sorry and move back
+to be a crappy host is to greet a customer and fuck off
+to do exercise is to raise your left arm and lower your left arm and  to raise your left arm and lower your left arm and  to raise your left arm and lower your left arm
+to cook is to go to the kitchen then to take a pan
+to cook is to go to the kitchen then take a pan then put water on the pan
+to compose means to loop until Paul smiles then to say Paul smiled
+to show something is to go to it and point at it
+if you are happy then take the bottle then look left
+if you are happy take the bottle else take the wine bottle then look left
+to go somewhere is to go there and to explore
+to be happy is to turn right to breathe and to raise your arms
+to be happy is to turn right breathe and raise your arms
+to be happy is to turn right to breathe to raise your arms look up and have green eyes
+to give something to someone is to look at him and then to say hello
+to laugh is to raise your arms, stop breathing, have green eyes and look down
+to look bad is to stop breathing, to look down and to have red eyes
+to introduce yourself is to say hello and to say I'm Asimo
+to meet is to say hello and to say what's your name
+to be upset is to say no and move back
+to be excited is to say yes yes yes yes yes
+to love is to say I love you and raise your arms
+to love is to be happy, to say I love you and to raise your arms
+to love is to be happy, say I love you and raise your arms
+to search is to say help me
+to search for help is to turn away and say help me
+to dance is to twist and then move back
+to be ashamed is to turn away and to look forward
+to stand up means \any_resource=ALRobotPosture.goToPosture("Stand", 0.8)\
+to stop breathing means \any_resource=ALAutonomousMoves.setBackgroundStrategy("none")\
+to raise your left hand, to wait until your left hand is touched then to move forward
+to raise your left hand then to wait until your left hand is touched then to move forward
+to walk with me means to raise your left hand, to wait until your left hand is touched then to move forward
+to walk with me means to raise your left hand then to wait until your left hand is touched then to move forward
+to raise the right arm and to say hello is
+To do a ballet spin is to say I do a ballet spin
+To slide back is to back up and raise your arms
+to invite to sit
+to invite to sit and to say hello
+to invite to sit is to say hello
+to go somewhere go there
+to go somewhere go there and go there
+to go somewhere, go there and go there
+to go somewhere go there and explore
+to go somewhere, go there and explore
+to go somewhere explore
+to go somewhere explore and say hi
+
+

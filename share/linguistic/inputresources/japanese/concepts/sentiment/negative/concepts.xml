@@ -1,0 +1,56 @@
+<linguisticdatabase>
+ <concept name="sentiment_negative_*">
+   <meaning lemme="他愛ない" relationToConcept="3" />
+   <meaning lemme="他愛無い" relationToConcept="3" />
+   <meaning lemme="他愛のない" relationToConcept="3" />
+   <meaning lemme="他愛の無い" relationToConcept="3" />
+   <meaning lemme="他愛もない" relationToConcept="3" />
+   <meaning lemme="他愛も無い" relationToConcept="3" />
+   <meaning lemme="他愛ない" relationToConcept="3" />
+   <meaning lemme="恥ずかし" relationToConcept="3" />
+   <meaning lemme="羞恥" relationToConcept="3" />
+   <meaning lemme="恩着せがまし" relationToConcept="3" />
+   <meaning lemme="混乱" relationToConcept="3" />
+   <meaning lemme="煩" relationToConcept="4" />
+   <meaning lemme="切ない" relationToConcept="4" />
+   <meaning lemme="下らぬ" relationToConcept="4" />
+   <meaning lemme="下らん" relationToConcept="4" />
+   <meaning lemme="下らない" relationToConcept="4" />
+ </concept>
+ <concept name="sentiment_negative_anger">
+   <meaning lemme="バカ" relationToConcept="4" />
+   <meaning lemme="イライラ" relationToConcept="4" />
+   <meaning lemme="怒" relationToConcept="4" />
+   <meaning lemme="気が動転" relationToConcept="3" />
+   <meaning lemme="侮辱" relationToConcept="2" />
+   <meaning lemme="まごまご" relationToConcept="3" />
+   <meaning lemme="苛苛" relationToConcept="4" />
+ </concept>
+ <concept name="sentiment_negative_disgust">
+   <meaning lemme="いやだ" relationToConcept="4" />
+   <meaning lemme="呆" relationToConcept="4" />
+ </concept>
+ <concept name="sentiment_negative_fear">
+   <meaning lemme="怖" relationToConcept="4" />
+   <meaning lemme="心配" relationToConcept="3" />
+   <meaning lemme="悩" relationToConcept="2" />
+ </concept>
+ <concept name="sentiment_negative_sadness">
+   <meaning lemme="悲し" relationToConcept="4" />
+   <meaning lemme="ホームシック" relationToConcept="2" />
+   <meaning lemme="寂し" relationToConcept="3" />
+   <meaning lemme="不快" relationToConcept="3" />
+   <meaning lemme="傷" relationToConcept="2" />
+   <meaning lemme="陰気" relationToConcept="2" />
+   <meaning lemme="惨" relationToConcept="3" />
+ </concept>
+ <concept name="sentiment_negative_tiredness">
+   <meaning lemme="疲れた" relationToConcept="4" />
+   <meaning lemme="落胆" relationToConcept="2" />
+   <meaning lemme="飽き飽き" relationToConcept="3" />
+   <meaning lemme="厭き厭き" relationToConcept="4" />
+   <meaning lemme="落胆" relationToConcept="3" />
+   <meaning lemme="疲" relationToConcept="4" />
+   <meaning lemme="匆々" relationToConcept="2" />
+ </concept>
+</linguisticdatabase>

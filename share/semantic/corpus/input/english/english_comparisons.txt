@@ -1,0 +1,12 @@
+1 is greater than 0
+I am taller than Paul
+I was taller than Paul
+I am less small than Paul
+I was less small than Paul
+
+1 is greater than 0?
+
+0 is equal to 0
+1 is equal to 1
+1 equals 1
+1 equals 1 ?

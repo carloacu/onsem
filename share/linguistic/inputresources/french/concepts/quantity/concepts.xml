@@ -1,0 +1,33 @@
+<linguisticdatabase>
+ <concept name="quantity_anything">
+  <linkedMeaning lemme="n'importe qui" relationToConcept="4"/>
+  <linkedMeaning lemme="n'importe quoi" relationToConcept="4"/>
+ </concept>
+ <concept name="quantity_everything">
+  <linkedMeaning lemme="tout" relationToConcept="4"/>
+  <linkedMeaning lemme="tout le monde" relationToConcept="3"/>
+ </concept>
+ <concept name="quantity_less">
+  <linkedMeaning lemme="moins de" gram="determiner" relationToConcept="4"/>
+ </concept>
+ <concept name="quantity_maxNumber">
+  <linkedMeaning lemme="tous" relationToConcept="4"/>
+ </concept>
+ <concept name="quantity_1">
+  <linkedMeaning lemme="quelqu'un" relationToConcept="4"/>
+ </concept>
+ <concept name="quantity_many">
+  <linkedMeaning lemme="beaucoup de" relationToConcept="4"/>
+ </concept>
+ <concept name="quantity_more">
+  <linkedMeaning lemme="plus de" gram="determiner" relationToConcept="4"/>
+ </concept>
+ <concept name="quantity_nothing">
+  <linkedMeaning lemme="néant" relationToConcept="4"/>
+  <linkedMeaning lemme="personne" gram="pronoun" relationToConcept="4"/>
+  <linkedMeaning lemme="rien" gram="pronoun" relationToConcept="4"/>
+ </concept>
+ <concept name="quantity_some">
+  <linkedMeaning lemme="certains" gram="determiner" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

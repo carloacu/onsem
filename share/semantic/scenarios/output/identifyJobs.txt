@@ -1,0 +1,4 @@
+in: "je suis un artiste, un homme dévoué et un chanteur"
+out: "(	Je suis content de l'entendre.	THEN	Pourquoi es-tu un homme dévoué ?	)"
+in: "quel est mon métier"
+out: "Ton métier est un artiste et un chanteur."

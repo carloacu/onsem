@@ -1,0 +1,50 @@
+<linguisticdatabase>
+  <existingMeaning lemme="her" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="hers" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="his" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="his" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="its" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="its" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="mine" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="my" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="our" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="ours" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="their" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="theirs" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="thine" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="thy" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="your" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="yours" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+</linguisticdatabase>

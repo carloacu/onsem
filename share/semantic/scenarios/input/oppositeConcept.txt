@@ -1,0 +1,8 @@
+in: "Paul is a boy"
+in: "Is Paul a boy?"
+in: "Is Paul a girl?"
+in: "Paul is a girl"
+in: "Is Paul a boy?"
+in: "Is Paul a girl?"
+in: "who is a boy?"
+in: "who is a girl?"

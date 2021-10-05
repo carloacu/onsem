@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="so" gram="adverb">
+    <contextInfo val="sentenceCannotBeginWith" />
+  </existingMeaning>
+</linguisticdatabase>

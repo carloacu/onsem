@@ -75,7 +75,7 @@ bool SubordinateExtractor::process
   { return false; }
 
   /**
-   * Ex: "je suis un robot créé par Aldébaran"
+   * Ex: "je suis un robot créé par Honda"
    *        suis           créé
    *       /    \            \
    *      je    un robot     par Honda

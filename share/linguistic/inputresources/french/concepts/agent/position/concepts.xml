@@ -1,0 +1,20 @@
+<linguisticdatabase>
+ <concept name="agent_position_goalkeeper">
+  <linkedMeaning lemme="gardien de but" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_position_defender">
+  <linkedMeaning lemme="défenseur" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="arrière centrale" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="arrière~latéral" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_position_midfielder">
+  <linkedMeaning lemme="milieu de terrain" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_position_midfielder_winger">
+  <linkedMeaning lemme="ailier" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_position_striker">
+  <linkedMeaning lemme="avant-centre" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="attaquant" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

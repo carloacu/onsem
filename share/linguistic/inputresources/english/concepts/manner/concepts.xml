@@ -1,0 +1,79 @@
+<linguisticdatabase>
+ <concept name="manner_*">
+  <linkedMeaning lemme="carefully" relationToConcept="3"/>
+  <linkedMeaning lemme="quickly" relationToConcept="3"/>
+ </concept>
+ <concept name="manner_stronger">
+  <linkedMeaning lemme="absolutely" relationToConcept="4"/>
+  <linkedMeaning lemme="amazingly" relationToConcept="4"/>
+  <linkedMeaning lemme="certainly" relationToConcept="4"/>
+  <linkedMeaning lemme="clearly" relationToConcept="4"/>
+  <linkedMeaning lemme="completely" relationToConcept="4"/>
+  <linkedMeaning lemme="considerably" relationToConcept="4"/>
+  <linkedMeaning lemme="constantly" relationToConcept="4"/>
+  <linkedMeaning lemme="deeply" relationToConcept="4"/>
+  <linkedMeaning lemme="definitely" relationToConcept="4"/>
+  <linkedMeaning lemme="easily" relationToConcept="4"/>
+  <linkedMeaning lemme="endlessly" relationToConcept="4"/>
+  <linkedMeaning lemme="enormously" relationToConcept="4"/>
+  <linkedMeaning lemme="exceptionally" relationToConcept="4"/>
+  <linkedMeaning lemme="extraordinarily" relationToConcept="4"/>
+  <linkedMeaning lemme="extremely" relationToConcept="4"/>
+  <linkedMeaning lemme="fucking" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="fully" relationToConcept="4"/>
+  <linkedMeaning lemme="greatly" relationToConcept="4"/>
+  <linkedMeaning lemme="heavily" relationToConcept="4"/>
+  <linkedMeaning lemme="highly" relationToConcept="4"/>
+  <linkedMeaning lemme="hugely" relationToConcept="4"/>
+  <linkedMeaning lemme="immensely" relationToConcept="4"/>
+  <linkedMeaning lemme="impressively" relationToConcept="4"/>
+  <linkedMeaning lemme="incredibly" relationToConcept="4"/>
+  <linkedMeaning lemme="indubitably" relationToConcept="4"/>
+  <linkedMeaning lemme="infinitely" relationToConcept="4"/>
+  <linkedMeaning lemme="intensely" relationToConcept="4"/>
+  <linkedMeaning lemme="interesting" relationToConcept="4"/>
+  <linkedMeaning lemme="mostly" relationToConcept="4"/>
+  <linkedMeaning lemme="obviously" relationToConcept="4"/>
+  <linkedMeaning lemme="particularly" relationToConcept="4"/>
+  <linkedMeaning lemme="passionately" relationToConcept="4"/>
+  <linkedMeaning lemme="perfectly" relationToConcept="4"/>
+  <linkedMeaning lemme="perpetually" relationToConcept="4"/>
+  <linkedMeaning lemme="persistently" relationToConcept="4"/>
+  <linkedMeaning lemme="powerfully" relationToConcept="4"/>
+  <linkedMeaning lemme="repeatedly" relationToConcept="4"/>
+  <linkedMeaning lemme="significantly" relationToConcept="4"/>
+  <linkedMeaning lemme="sincerely" relationToConcept="4"/>
+  <linkedMeaning lemme="spectacularly" relationToConcept="4"/>
+  <linkedMeaning lemme="striking" relationToConcept="4"/>
+  <linkedMeaning lemme="strongly" relationToConcept="4"/>
+  <linkedMeaning lemme="substantially" relationToConcept="4"/>
+  <linkedMeaning lemme="supremely" relationToConcept="4"/>
+  <linkedMeaning lemme="surely" relationToConcept="4"/>
+  <linkedMeaning lemme="systematically" relationToConcept="4"/>
+  <linkedMeaning lemme="terribly" relationToConcept="4"/>
+  <linkedMeaning lemme="thoroughly" relationToConcept="4"/>
+  <linkedMeaning lemme="totally" relationToConcept="4"/>
+  <linkedMeaning lemme="tremendously" relationToConcept="4"/>
+  <linkedMeaning lemme="truly" relationToConcept="4"/>
+  <linkedMeaning lemme="unbelievably" relationToConcept="4"/>
+  <linkedMeaning lemme="unexpectedly" relationToConcept="4"/>
+  <linkedMeaning lemme="utterly" relationToConcept="4"/>
+  <linkedMeaning lemme="vigorously" relationToConcept="4"/>
+ </concept>
+ <concept name="manner_together">
+  <linkedMeaning lemme="together" relationToConcept="3"/>
+ </concept>
+ <concept name="manner_well">
+  <linkedMeaning lemme="well" relationToConcept="4"/>
+ </concept>
+ <concept name="manner_notwell">
+  <linkedMeaning lemme="awfully" relationToConcept="4"/>
+  <linkedMeaning lemme="badly" relationToConcept="4"/>
+  <linkedMeaning lemme="brutally" relationToConcept="4"/>
+  <linkedMeaning lemme="dangerously" relationToConcept="4"/>
+  <linkedMeaning lemme="dramatically" relationToConcept="4"/>
+  <linkedMeaning lemme="imperfectly" relationToConcept="4"/>
+  <linkedMeaning lemme="ridiculously" relationToConcept="4"/>
+  <linkedMeaning lemme="violently" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

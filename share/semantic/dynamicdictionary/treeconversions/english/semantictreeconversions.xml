@@ -1,0 +1,59 @@
+<semantictreeconversions formalism="1">
+
+  <conversion>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="verb_can">
+        <specifier id="2" grounding="statement" time="unknown" />
+      </root>
+    </tree>
+    <tree outText="true">
+      <root id="1" grounding="statement" concept="verb_can">
+        <specifier id="2" grounding="statement" time="present" />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true" outText="true">
+      <root id="1" grounding="generic" concept="time" notConcept="occurrenceRank">
+        <specifier id="2" beginOfConcept="rank_" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="generic" concept="occurrenceRank" notConcept="time" word="">
+        <specifier id="2" beginOfConcept="rank_" />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" concept="verb_equal_be">
+        <location id="2" />
+        <object id="3" grounding="statement" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="verb_equal_be">
+        <location id="2" />
+        <notobject/>
+        <purpose id="3" grounding="statement" />
+      </root>
+    </tree>
+  </conversion>
+
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" concept="verb_action_lookat">
+        <object id="2" grounding="generic" type="modifier" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="verb_equal_seem" notConcept="verb_action_lookat|verb_equal_be" word="">
+        <object id="2" grounding="generic" type="modifier" />
+      </root>
+    </tree>
+  </conversion>
+
+</semantictreeconversions>

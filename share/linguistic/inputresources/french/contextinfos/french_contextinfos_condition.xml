@@ -1,0 +1,11 @@
+<linguisticdatabase>
+  <existingMeaning lemme="si" gram="sub_conj">
+    <contextInfo val="condition" />
+  </existingMeaning>
+  <existingMeaning lemme="alors" gram="conjunctive">
+    <contextInfo val="then" />
+  </existingMeaning>
+  <existingMeaning lemme="sinon" gram="conjunctive">
+    <contextInfo val="else" />
+  </existingMeaning>
+</linguisticdatabase>

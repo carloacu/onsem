@@ -1,0 +1,95 @@
+<linguisticdatabase>
+ <concept name="location_relative_above">
+  <linkedMeaning lemme="above" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_behind">
+  <linkedMeaning lemme="behind" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_below">
+  <linkedMeaning lemme="below" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_close">
+  <linkedMeaning lemme="close" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="close" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="close" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="close~to" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="near" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="next~to" gram="preposition" relationToConcept="5"/>
+ </concept>
+ <concept name="location_relative_east">
+  <linkedMeaning lemme="east" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="east" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="east" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_inFrontOf">
+  <linkedMeaning lemme="front~in~of" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_inside">
+  <linkedMeaning lemme="inside" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="inside" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="inside" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="inside" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="in" gram="preposition" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_far">
+  <linkedMeaning lemme="away" relationToConcept="4"/>
+  <linkedMeaning lemme="away~from" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="distant" relationToConcept="3"/>
+  <linkedMeaning lemme="far" relationToConcept="4"/>
+  <linkedMeaning lemme="far~from" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="far away~from" gram="preposition" relationToConcept="5"/>
+  <linkedMeaning lemme="faraway" relationToConcept="4"/>
+  <linkedMeaning lemme="faraway~from" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_high">
+  <linkedMeaning lemme="high" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="high" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="high" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_here">
+  <linkedMeaning lemme="here" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_left">
+  <linkedMeaning lemme="left" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="left" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="left" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_low">
+  <linkedMeaning lemme="low" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="low" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="low" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_north">
+  <linkedMeaning lemme="north" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="north" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="north" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_on">
+  <linkedMeaning lemme="on" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="over" gram="*" relationToConcept="0"/>
+ </concept>
+ <concept name="location_relative_outside">
+  <linkedMeaning lemme="outside" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="outside" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="outside" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="outside" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_right">
+  <linkedMeaning lemme="right" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="right" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="right" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_south">
+  <linkedMeaning lemme="south" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="south" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="south" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_under">
+  <linkedMeaning lemme="under" gram="*" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_west">
+  <linkedMeaning lemme="west" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="west" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="west" gram="adverb" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

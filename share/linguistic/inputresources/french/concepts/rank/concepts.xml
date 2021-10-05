@@ -1,0 +1,35 @@
+<linguisticdatabase>
+ <concept name="rank_1">
+  <linkedMeaning lemme="premier" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_2">
+  <linkedMeaning lemme="deuxième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_3">
+  <linkedMeaning lemme="troisième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_4">
+  <linkedMeaning lemme="quatrième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_5">
+  <linkedMeaning lemme="cinquième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_6">
+  <linkedMeaning lemme="sixième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_7">
+  <linkedMeaning lemme="septième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_8">
+  <linkedMeaning lemme="huitième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_9">
+  <linkedMeaning lemme="neuvième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_10">
+  <linkedMeaning lemme="dixième" relationToConcept="4"/>
+ </concept>
+ <concept name="rank_inverse_1">
+  <linkedMeaning lemme="dernier" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

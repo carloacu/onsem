@@ -1,0 +1,50 @@
+<linguisticdatabase>
+  <existingMeaning lemme="il" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="elle" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="elles" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="on" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="ils" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="lui" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="lui-même" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="moi" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="toi" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="mon" gram="determiner">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="ton" gram="determiner">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="son" gram="determiner">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="notre" gram="determiner">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="votre" gram="determiner">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="quelqu'un" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="qui" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+</linguisticdatabase>

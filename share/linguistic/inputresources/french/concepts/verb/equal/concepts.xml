@@ -1,0 +1,18 @@
+<linguisticdatabase>
+ <concept name="verb_equal">
+  <linkedMeaning lemme="égaler" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_equal_be">
+  <linkedMeaning lemme="être" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="devenir" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="regarder" gram="verb" relationToConcept="0"/>
+ </concept>
+ <concept name="verb_equal_mean">
+  <linkedMeaning lemme="signifier" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="vouloir~dire" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="être" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_equal_seem">
+  <linkedMeaning lemme="sembler" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

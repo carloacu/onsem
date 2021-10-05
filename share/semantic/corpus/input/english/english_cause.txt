@@ -1,0 +1,7 @@
+I stopped Macarena because it exited by itself
+
+I stopped \p_meta=0_PreviousActivityName\ because if \p_meta=0_PreviousActivityStopReason\ equals "self-stop" then it exited by itself
+
+I stopped \p_meta=0_PreviousActivityName\ because if \p_meta=0_PreviousActivityStopReason\ equals "self-stop" then it exited by itself else if \p_meta=0_PreviousActivityStopReason\ equals "user-stop" then you stopped it with the head tactile gesture
+
+I stopped \p_meta=0_PreviousActivityName\ because if \p_meta=0_PreviousActivityStopReason\ equals "self-stop" then it exited by itself else if \p_meta=0_PreviousActivityStopReason\ equals "user-stop" then you stopped it with the head tactile gesture else if \p_meta=0_PreviousActivityStopReason\ equals "users-lost" then no users were present else if \p_meta=0_PreviousActivityStopReason\ equals "disabled-state" then I stopped to live else if \p_meta=0_PreviousActivityStopReason\ equals "safeguard-state" then I was injured else if \p_meta=0_PreviousActivityStopReason\ equals "permission-context" then the context was incompatible else if \p_meta=0_PreviousActivityStopReason\ equals "switchfocus-api-interrupt" then an external program started another activity else if \p_meta=0_PreviousActivityStopReason\ equals "unknown-api-caller" then an external program stopped it.

@@ -1,0 +1,10 @@
+<linguisticdatabase>
+ <concept name="body_head">
+  <linkedMeaning lemme="tête" gram="noun" relationToConcept="5"/>
+ </concept>
+ <concept name="body_head_mouth">
+  <linkedMeaning lemme="bouche" gram="noun" relationToConcept="5"/>
+  <linkedMeaning lemme="clapet" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="gueule" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

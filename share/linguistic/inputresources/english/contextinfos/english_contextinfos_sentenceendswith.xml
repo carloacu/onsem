@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="what~or" gram="pronoun">
+    <contextInfo val="sentenceEndsWith" />
+  </existingMeaning>
+</linguisticdatabase>

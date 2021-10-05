@@ -1,0 +1,98 @@
+<semantictreeconversions formalism="1">
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" beginOfConcept="verb_equal_" request="object" >
+        <subject grounding="generic" hasToBeCompletedFromContext="true" />
+        <object id="2" grounding="statement" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" request="subject" notRequest="object" >
+        <notsubject />
+        <object id="2" grounding="statement" />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" beginOfConcept="verb_equal_" request="object" >
+        <subject id="2" grounding="generic" hasToBeCompletedFromContext="true" type="thing" />
+        <object id="3"  grounding="generic" type="human" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1">
+        <subject id="2" grounding="generic" type="human" />
+        <object id="3" />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" >
+        <time concept="sequence_relative_next" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" >
+        <notobject />
+        <time grounding="relativeTime" timeType="justAfter" >
+          <specifier grounding="generic" hasToBeCompletedFromContext="true" type="thing" />
+        </time>
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" concept="verb_equal_be" request="object" >
+        <subject id="2" grounding="generic" notType="agentOrThing" reference="indefinite" />
+        <object id="3" grounding="generic" word="" concept="agent" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" request="subject" notRequest="object" >
+        <subject id="3" />
+        <object id="2" />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" beginOfConcept="verb_equal_" request="object" >
+        <notsubject />
+        <object id="2" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" request="subject" notRequest="object" >
+        <notsubject />
+        <object id="2" />
+      </root>
+    </tree>
+  </conversion>
+
+
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" concept="verb_action_close">
+        <object concept="body_head_mouth">
+          <owner />
+	</object>
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="verb_action_stopTalking" notConcept="verb_action_close" word="">
+	<notobject />
+      </root>
+    </tree>
+  </conversion>
+
+
+
+</semantictreeconversions>

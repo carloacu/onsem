@@ -1,0 +1,79 @@
+<linguisticdatabase>
+ <words lemme="away" gram="noun" >
+  <nextMeaning lemme="from" gram="preposition" />
+  <wordForm gram="preposition"/>
+ </words>
+ <words lemme="be" gram="verb" >
+  <nextMeaning lemme="fond of" gram="adjective" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="be" gram="verb" >
+  <nextMeaning lemme="pissed" gram="adjective" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="be" gram="verb" >
+  <nextMeaning lemme="right" gram="adjective" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="close" gram="adjective" >
+  <nextMeaning lemme="to" gram="preposition" />
+  <wordForm gram="preposition"/>
+ </words>
+ <words lemme="far" gram="adverb" >
+  <nextMeaning lemme="from" gram="preposition" />
+  <wordForm gram="preposition"/>
+ </words>
+ <words lemme="far away" gram="adjective" >
+  <nextMeaning lemme="from" gram="preposition" />
+  <wordForm gram="preposition"/>
+ </words>
+ <words lemme="faraway" gram="adjective" >
+  <nextMeaning lemme="from" gram="preposition" />
+  <wordForm gram="preposition"/>
+ </words>
+ <words lemme="front" gram="noun" >
+  <prevMeaning lemme="in" gram="preposition" />
+  <nextMeaning lemme="of" gram="preposition" />
+  <wordForm gram="preposition"/>
+ </words>
+ <words lemme="know" gram="verb" >
+  <nextMeaning lemme="as" gram="preposition" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="move" gram="verb" >
+  <nextMeaning lemme="back" gram="adjective" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="move" gram="verb" >
+  <nextMeaning lemme="backward" gram="adverb" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="move" gram="verb" >
+  <nextMeaning lemme="backwards" gram="adverb" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="next" gram="preposition" >
+  <nextMeaning lemme="to" gram="preposition" />
+  <wordForm gram="preposition"/>
+ </words>
+ <words lemme="something" gram="pronoun">
+  <nextMeaning lemme="like" gram="preposition"/>
+  <wordForm gram="preposition"/>
+ </words>
+ <words lemme="time" gram="noun">
+  <prevMeaning lemme="every" gram="determiner"/>
+  <wordForm gram="adverb"/>
+ </words>
+ <words lemme="thank" gram="interjection">
+  <nextMeaning lemme="you" gram="pronoun"/>
+  <wordForm gram="interjection"/>
+ </words>
+ <words lemme="use" gram="verb">
+  <nextMeaning lemme="to" gram="preposition"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="what" gram="pronoun">
+  <prevMeaning lemme="or" gram="conjunctive"/>
+  <wordForm gram="pronoun"/>
+ </words>
+</linguisticdatabase>

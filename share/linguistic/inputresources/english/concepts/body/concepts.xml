@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="body">
+  <linkedMeaning lemme="body" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

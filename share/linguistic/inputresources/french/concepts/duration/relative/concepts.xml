@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="duration_relative_until">
+  <linkedMeaning lemme="jusqu'à ce que" gram="sub_conj" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

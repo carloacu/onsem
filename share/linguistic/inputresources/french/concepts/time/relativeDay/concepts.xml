@@ -1,0 +1,17 @@
+<linguisticdatabase>
+ <concept name="time_relativeDay_dayAfterTomorrow">
+  <linkedMeaning lemme="après-demain" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relativeDay_dayBeforeYesterday">
+  <linkedMeaning lemme="avant-hier" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relativeDay_yesterday">
+  <linkedMeaning lemme="hier" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relativeDay_today">
+  <linkedMeaning lemme="aujourd'hui" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relativeDay_tomorrow">
+  <linkedMeaning lemme="demain" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,33 @@
+<semantictreeconversions formalism="1">
+
+
+  <conversion>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="predicate_hasName">
+        <notobject />
+      </root>
+    </tree>
+    <tree outText="true">
+      <root id="1" grounding="statement" word="" concept="verb_equal_be" notConcept="predicate_hasName">
+        <object id="2" grounding="generic" type="human" concept="agent" />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="predicate_hasName">
+        <subject id="2" />
+        <object id="3" />
+      </root>
+    </tree>
+    <tree outText="true">
+      <root id="1" grounding="statement" word="" concept="verb_equal_be" notConcept="predicate_hasName">
+        <subject id="2" />
+        <object id="3" />
+      </root>
+    </tree>
+  </conversion>
+
+
+</semantictreeconversions>

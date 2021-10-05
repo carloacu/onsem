@@ -1,0 +1,20 @@
+<linguisticdatabase>
+ <concept name="body_head">
+  <linkedMeaning lemme="head" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_head_brain">
+  <linkedMeaning lemme="brain" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_head_ear">
+  <linkedMeaning lemme="ear" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_head_eye">
+  <linkedMeaning lemme="eye" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_head_mouth">
+  <linkedMeaning lemme="mouth" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_head_neck">
+  <linkedMeaning lemme="neck" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

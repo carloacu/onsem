@@ -1,0 +1,36 @@
+<linguisticdatabase>
+ <concept name="agent">
+  <linkedMeaning lemme="someone" relationToConcept="3"/>
+  <linkedMeaning lemme="anybody" relationToConcept="3"/>
+  <linkedMeaning lemme="anyone" relationToConcept="3"/>
+  <linkedMeaning lemme="everybody" relationToConcept="3"/>
+  <linkedMeaning lemme="everyone" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_*">
+  <linkedMeaning lemme="you" relationToConcept="3"/>
+  <linkedMeaning lemme="yours" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_human">
+  <linkedMeaning lemme="human" relationToConcept="3"/>
+  <linkedMeaning lemme="people" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_parent">
+  <linkedMeaning lemme="dad" relationToConcept="3"/>
+  <linkedMeaning lemme="father" relationToConcept="3"/>
+  <linkedMeaning lemme="ma" relationToConcept="3"/>
+  <linkedMeaning lemme="mama" relationToConcept="3"/>
+  <linkedMeaning lemme="mom" relationToConcept="3"/>
+  <linkedMeaning lemme="mother" relationToConcept="3"/>
+  <linkedMeaning lemme="mum" relationToConcept="3"/>
+  <linkedMeaning lemme="mummy" relationToConcept="3"/>
+  <linkedMeaning lemme="parent" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_robot">
+  <linkedMeaning lemme="robot" relationToConcept="5"/>
+ </concept>
+ <concept name="agent_sibling">
+  <linkedMeaning lemme="sibling" relationToConcept="5"/>
+  <linkedMeaning lemme="brother" relationToConcept="4"/>
+  <linkedMeaning lemme="sister" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

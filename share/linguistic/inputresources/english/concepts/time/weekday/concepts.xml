@@ -1,0 +1,23 @@
+<linguisticdatabase>
+ <concept name="time_weekday_sunday">
+  <linkedMeaning lemme="Sunday" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_monday">
+  <linkedMeaning lemme="Monday" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_tuesday">
+  <linkedMeaning lemme="Tuesday" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_wednesday">
+  <linkedMeaning lemme="Wednesday" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_thursday">
+  <linkedMeaning lemme="Thursday" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_friday">
+  <linkedMeaning lemme="Friday" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_saturday">
+  <linkedMeaning lemme="Saturday" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

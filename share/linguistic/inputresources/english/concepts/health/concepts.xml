@@ -1,0 +1,13 @@
+<linguisticdatabase>
+ <concept name="health">
+  <linkedMeaning lemme="health" gram="noun" relationToConcept="4" />
+ </concept>
+ <concept name="health_good">
+  <linkedMeaning lemme="alright" gram="adjective" relationToConcept="5" />
+  <linkedMeaning lemme="ok" gram="adjective" relationToConcept="4" />
+ </concept>
+ <concept name="health_bad">
+  <linkedMeaning lemme="hot" gram="adjective" relationToConcept="3" />
+  <linkedMeaning lemme="injured" gram="adjective" relationToConcept="5" />
+ </concept>
+</linguisticdatabase>

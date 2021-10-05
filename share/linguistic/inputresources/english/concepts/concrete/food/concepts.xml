@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="concrete_food">
+  <linkedMeaning lemme="food" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

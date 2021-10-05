@@ -1,0 +1,40 @@
+<linguisticdatabase>
+ <concept name="concrete_food_fruit">
+  <linkedMeaning lemme="fruit" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="concrete_food_fruit_*">
+  <linkedMeaning lemme="apple" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="apricot" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="avocado" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="banana" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="blackberry" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="blackcurrant" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="blueberry" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="boysenberry" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="cherry" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="coconut" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="fig" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="grape" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="grapefruit" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="kiwifruit" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="lemon" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="lime" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="lychee" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="mandarin" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="mango" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="melon" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="nectarine" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="orange" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="papaya" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="passionfruit" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="peach" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="pear" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="pineapple" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="plum" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="pomegranate" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="quince" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="raspberry" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="strawberry" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="watermelon" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

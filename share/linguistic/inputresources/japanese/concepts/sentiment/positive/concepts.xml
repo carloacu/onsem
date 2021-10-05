@@ -1,0 +1,17 @@
+<linguisticdatabase>
+ <concept name="sentiment_positive_*">
+   <meaning lemme="いいね" relationToConcept="4" />
+   <meaning lemme="嬉し" relationToConcept="4" />
+   <meaning lemme="大喜び" relationToConcept="4" />
+   <meaning lemme="こうぜん" relationToConcept="4" />
+   <meaning lemme="喜" relationToConcept="4" />
+   <meaning lemme="幸" relationToConcept="4" />
+   <meaning lemme="すうっと" relationToConcept="3" />
+   <meaning lemme="快適" relationToConcept="3" />
+   <meaning lemme="安心" relationToConcept="3" />
+ </concept>
+ <concept name="sentiment_positive_funny">
+   <meaning lemme="面白" relationToConcept="4" />
+   <meaning lemme="楽し" relationToConcept="4" />
+ </concept>
+</linguisticdatabase>

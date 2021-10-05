@@ -1,0 +1,14 @@
+<linguisticdatabase>
+  <existingMeaning lemme="but" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+  <existingMeaning lemme="if" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+  <existingMeaning lemme="when" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+  <existingMeaning lemme="whenever" gram="sub_conj">
+    <contextInfo val="sentenceCanBeginWith" />
+  </existingMeaning>
+</linguisticdatabase>

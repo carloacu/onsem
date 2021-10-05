@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="ip">
+  <linkedMeaning lemme="ip" gram="noun" relationToConcept="4" />
+ </concept>
+</linguisticdatabase>

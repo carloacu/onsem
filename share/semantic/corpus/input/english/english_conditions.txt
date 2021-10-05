@@ -1,0 +1,60 @@
+if true then I am happy
+if false then I am sad
+
+When you see my wife today, ask her to take the bottle of wine out of the fridge
+when your head is touched look right
+whenever your right hand is touched look right
+when I look at you ask what can I do for you
+whenever I look at you ask what can I do for you
+when your left hand is touched ask what can I do for you
+say my name if I say hello
+if you are not sure ask me
+if you know my name say it
+
+if you eat banana you like chocolate
+if you eat banana, you like chocolate
+if you eat banana, you like chocolate and you like beer
+if you eat banana then you like chocolate
+if you eat banana, then you like chocolate
+if you eat banana and you eat salad then you like chocolate and you like beer
+if you eat banana then you like chocolate else you like beer
+if you eat banana and you eat salad then you like chocolate and you like beer else you like coffee and you like water
+if I say dog say dog
+if I say hello say dog and say cat
+when I say dog say dog
+whenever your left hand is touched have green eyes else have red eyes
+
+if your right arm and your left arm are touched say hello
+if your right arm is touched and your left arm is touched say hello
+if your hand is touched and you are happy say hello
+
+If 1 is greater than 0 then a chocolate else a banana.
+if \p_meta=0\ is greater than 0 then the user \p_meta=0\ else a user
+if "condition" equals "default-activity" then I was turned on
+if 5 is greater than 1 then you are happy else if 3 is greater than 1 then you are sad else you are confused
+
+if I say sing launch the thriller application
+if I say sing then launch the thriller application
+if I say you sing well thriller then launch the thriller application
+
+if Paul is happy look left else if Paul likes chocolate say hello
+if Paul is smiling then Paul is happy else if Jacques is similing then Jacques is happy else if Gustave is smiling then Gustave is happy
+if Paul is smiling then Paul is happy else if Jacques is similing then Jacques is happy else if Gustave is smiling then Gustave is happy else nobody is happy
+
+whenever you are happy, say what I like
+whenever your left hand is touched, sleep
+whenever your left hand is touched, smile at me
+whenever your left hand is touched sleep
+whenever your left hand is touched smile at me
+when you are happy jump
+if you see me salute me
+if you see a man jump
+if you see fsdf jump
+
+If your left hand is touched say hello and raise your right hand
+If your left hand is touched say hello then raise your right hand
+If I touch your left hand say hello then raise your right hand
+whenever somebody leaves say byebye
+whenever somebody comes say byebye
+Whenever you see me stand up and raise your right hand
+

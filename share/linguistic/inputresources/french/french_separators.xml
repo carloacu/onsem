@@ -1,0 +1,40 @@
+<linguisticdatabase>
+    <separatorsBetweenWords val="true" />
+    <word name="&#x0A;">
+        <wordForm gram="interspace" />
+    </word>
+    <word name=" ">
+        <wordForm gram="interspace" />
+    </word>
+    <word name="'">
+        <wordForm gram="interspace" />
+    </word>
+    <word name="’">
+        <wordForm gram="interspace" />
+    </word>
+    <word name="-">
+        <wordForm gram="interspace" />
+    </word>
+    <word name=",">
+        <wordForm gram="linkbetweenwords" />
+    </word>
+    <word name=";">
+        <wordForm gram="linkbetweenwords" />
+    </word>
+    <word name=":">
+        <wordForm gram="linkbetweenwords" />
+    </word>
+    <word name=".">
+        <wordForm gram="punctuation" />
+    </word>
+    <word name="...">
+        <wordForm gram="punctuation" />
+    </word>
+    <word name="!">
+        <wordForm gram="punctuation" />
+    </word>
+    <word name="?">
+        <wordForm gram="punctuation" />
+    </word>
+
+</linguisticdatabase>

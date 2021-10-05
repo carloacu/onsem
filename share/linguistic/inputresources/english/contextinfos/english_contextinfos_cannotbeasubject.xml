@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="what" gram="pronoun">
+    <contextInfo val="cannotBeASubject" />
+  </existingMeaning>
+</linguisticdatabase>

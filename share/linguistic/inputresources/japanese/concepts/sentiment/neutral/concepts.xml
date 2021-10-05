@@ -1,0 +1,10 @@
+<linguisticdatabase>
+ <concept name="sentiment_neutral_desire">
+   <meaning lemme="ほしい" relationToConcept="4" />
+   <meaning lemme="激昂" relationToConcept="3" />
+   <meaning lemme="切なる" relationToConcept="4" />
+ </concept>
+ <concept name="sentiment_neutral_surprise">
+   <meaning lemme="びっくり" relationToConcept="4" />
+ </concept>
+</linguisticdatabase>

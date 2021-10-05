@@ -1,0 +1,728 @@
+<linguisticdatabase>
+ <existingMeaning lemme="abuser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="accepter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="accompagner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="accorder" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="accuser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="acheter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="advenir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="agir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="ajouter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="amener" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="apporter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="apprendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="approcher" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="armer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="atteindre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="attendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="attirer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="avancer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="avoir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="avoir~envie" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="baisser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="bannir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="battre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="boire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="bouffer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="bouillir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="bourrer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="brûler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="bénéficier" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="cacher" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="causer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="cesser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="changer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="charger" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="chausser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="chercher" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="choisir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="commander" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="commettre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="composer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="conduire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="connaître" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="conseiller" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="contenir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="contenter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="convaincre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="convenir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="couler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="couper" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="courir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="couvrir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="cracher" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="craindre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="crever" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="créer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="dater" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="demander" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="descendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="discuter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="disposer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="donner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="doter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="douter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="durer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="débarrasser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="déborder" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="décider" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="décéder" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="dégager" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="dépendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="déposer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="emparer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="employer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="empêcher" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="engager" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="enlever" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="entendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="entourer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="envisager" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="envoyer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="essayer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="exclure" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="exiger" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="exister" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="extraire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="fabriquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="faire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="falloir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="fatiguer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="filer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="forcer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="fournir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="foutre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="fréquenter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="fumer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="gagner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="garder" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="habiter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="honorer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="hériter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="ignorer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="impliquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="inculper" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="informer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="inspirer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="interdire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="jeter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="jouer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="lancer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="libérer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="lire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="manger" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="manquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="marquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="menacer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="mettre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="montrer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="moquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="mourir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="munir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="méfier" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="mériter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="mêler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="naître" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="nourrir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="obliger" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="obtenir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="occuper" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="offrir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="opérer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="parler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="partager" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="partir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="passer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="perdre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="permettre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="piquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="placer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="pointer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="porter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="poser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="posséder" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="pousser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="prendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="prescrire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="priver" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="produire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="profiter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="promettre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="proposer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="provenir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="préférer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="prélever" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="préoccuper" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="préparer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="prévoir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="prêter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="qualifier" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="raconter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="radier" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="ramener" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rappeler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rapporter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rapprocher" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="ravir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="recevoir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rechercher" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="recouvrir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="refuser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="regorger" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="relever" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="remettre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="remplir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rentrer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="renverser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="reparler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="reprendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="ressentir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="ressortir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rester" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="retirer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="revenir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="risquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="récupérer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="résulter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="révéler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="rêver" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="saigner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="satisfaire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="sauter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="sauver" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="savoir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="sentir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="servir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="sortir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="soucier" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="souffrir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="souhaiter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="soupçonner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="souvenir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="subir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="suffire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="suggérer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="suivre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="surprendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="suspecter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="séparer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="taper" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="tirer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="tomber" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="toucher" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="traiter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="transporter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="traverser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="tromper" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="troubler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="trouver" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="typer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="témoigner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="user" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="utiliser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="vendre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="vener" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="venir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="verser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="virer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="vivre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="voir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="voler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="vouloir" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="écarter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="écrire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="éjecter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="éloigner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="émaner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="équiper" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="étayer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="étonner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="éviter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="être" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+</linguisticdatabase>

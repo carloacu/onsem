@@ -1,0 +1,27 @@
+<linguisticdatabase>
+ <concept name="time_day">
+  <linkedMeaning lemme="day" relationToConcept="4"/>
+  <linkedMeaning lemme="someday" relationToConcept="3"/>
+  <linkedMeaning lemme="everyday" relationToConcept="3"/>
+ </concept>
+ <concept name="time_day_morning">
+  <linkedMeaning lemme="morning" relationToConcept="4"/>
+ </concept>
+ <concept name="time_day_noon">
+  <linkedMeaning lemme="noon" relationToConcept="4"/>
+  <linkedMeaning lemme="midday" relationToConcept="3"/>
+ </concept>
+ <concept name="time_day_afternoon">
+  <linkedMeaning lemme="afternoon" relationToConcept="4"/>
+ </concept>
+ <concept name="time_day_evening">
+  <linkedMeaning lemme="evening" relationToConcept="4"/>
+ </concept>
+ <concept name="time_day_midnight">
+  <linkedMeaning lemme="midnight" relationToConcept="4"/>
+ </concept>
+ <concept name="time_day_night">
+  <linkedMeaning lemme="night" relationToConcept="4"/>
+  <linkedMeaning lemme="tonight" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

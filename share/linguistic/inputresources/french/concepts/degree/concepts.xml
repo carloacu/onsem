@@ -1,0 +1,12 @@
+<linguisticdatabase>
+ <concept name="degree_*">
+  <linkedMeaning lemme="à moitié" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="même" relationToConcept="3"/>
+  <linkedMeaning lemme="très" relationToConcept="3"/>
+  <linkedMeaning lemme="trop" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="partiellement" relationToConcept="3"/>
+  <linkedMeaning lemme="rarement" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="véritablement" relationToConcept="3"/>
+  <linkedMeaning lemme="vraiment" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

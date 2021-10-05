@@ -1,0 +1,10 @@
+<linguisticdatabase>
+ <concept name="emotion_*">
+  <linkedMeaning lemme="like" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="love" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="need" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="prefer" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="want" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="wish" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,23 @@
+<linguisticdatabase>
+ <concept name="reference_definite">
+  <linkedMeaning lemme="le" gram="determiner" relationToConcept="4"/>
+  <linkedMeaning lemme="au" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="ce" gram="determiner" relationToConcept="4"/>
+  <linkedMeaning lemme="du" relationToConcept="3"/>
+  <linkedMeaning lemme="là" relationToConcept="3"/>
+ </concept>
+ <concept name="reference_indefinite">
+  <linkedMeaning lemme="des" relationToConcept="4"/>
+  <linkedMeaning lemme="en" gram="pronoun_comp" relationToConcept="4"/>
+  <linkedMeaning lemme="n'importe qui" relationToConcept="4"/>
+  <linkedMeaning lemme="n'importe quoi" relationToConcept="4"/>
+  <linkedMeaning lemme="quelque chose" relationToConcept="5"/>
+  <linkedMeaning lemme="quelqu'un" relationToConcept="4"/>
+  <linkedMeaning lemme="quelque part" relationToConcept="4"/>
+  <linkedMeaning lemme="parfois" relationToConcept="4"/>
+  <linkedMeaning lemme="un" gram="determiner" relationToConcept="4"/>
+ </concept>
+ <concept name="reference_other">
+  <linkedMeaning lemme="autre" relationToConcept="5"/>
+ </concept>
+</linguisticdatabase>

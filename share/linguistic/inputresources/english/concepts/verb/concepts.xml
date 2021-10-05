@@ -1,0 +1,77 @@
+<linguisticdatabase>
+ <concept name="verb_able">
+  <linkedMeaning lemme="can" gram="auxiliary" relationToConcept="3"/>
+  <linkedMeaning lemme="can" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_agree">
+  <linkedMeaning lemme="agree" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_beRight">
+  <linkedMeaning lemme="be~right" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_born">
+  <linkedMeaning lemme="born" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_can">
+  <linkedMeaning lemme="can" gram="auxiliary" relationToConcept="3"/>
+  <linkedMeaning lemme="can" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_die">
+  <linkedMeaning lemme="dead" relationToConcept="4"/>
+  <linkedMeaning lemme="die" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_dislike">
+  <linkedMeaning lemme="dislike" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_find">
+  <linkedMeaning lemme="find" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_hate">
+  <linkedMeaning lemme="detest" relationToConcept="4"/>
+  <linkedMeaning lemme="dismiss" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="hate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="reject" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="repulse" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="scorn" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_have">
+  <linkedMeaning lemme="have" gram="verb" relationToConcept="5"/>
+ </concept>
+ <concept name="verb_haveto">
+  <linkedMeaning lemme="have~to" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="must" gram="auxiliary" relationToConcept="4"/>
+  <linkedMeaning lemme="must" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_install">
+  <linkedMeaning lemme="install" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_like">
+  <linkedMeaning lemme="like" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="be~fond of" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_need">
+  <linkedMeaning lemme="need" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_offer">
+  <linkedMeaning lemme="donate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="give" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="hand" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="offer" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="present" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_return">
+  <linkedMeaning lemme="return" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_should">
+  <linkedMeaning lemme="shall" gram="auxiliary" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_think">
+  <linkedMeaning lemme="think" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_want">
+  <linkedMeaning lemme="want" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_would">
+  <linkedMeaning lemme="would" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

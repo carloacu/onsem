@@ -1,0 +1,15 @@
+<linguisticdatabase>
+ <concept name="duration_hour">
+  <linkedMeaning lemme="hour" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="time" relationToConcept="0"/>
+ </concept>
+ <concept name="duration_minute">
+  <linkedMeaning lemme="minute" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="duration_second">
+  <linkedMeaning lemme="second" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="duration_millisecond">
+  <linkedMeaning lemme="millisecond" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

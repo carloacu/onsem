@@ -1,0 +1,4 @@
+in: "j'aime bien jouer au foot"
+in: "qu'est-ce que j'aime"
+in: "j'aime bien regarder la télé"
+in: "qu'est-ce que j'aime"

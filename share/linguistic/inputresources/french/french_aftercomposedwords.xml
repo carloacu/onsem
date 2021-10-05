@@ -1,0 +1,32 @@
+<linguisticdatabase>
+ <words lemme="aller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="date" gram="noun">
+  <nextMeaning lemme="de" gram="partitive"/>
+  <nextMeaning lemme="naissance" gram="noun"/>
+  <wordForm gram="noun"/>
+ </words>
+ <words lemme="désenregistrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enregistrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="introduire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mettre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <nextMeaning lemme="debout" gram="adverb"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="venir" gram="verb">
+  <nextMeaning lemme="ici" gram="adverb"/>
+  <wordForm gram="verb"/>
+ </words>
+</linguisticdatabase>

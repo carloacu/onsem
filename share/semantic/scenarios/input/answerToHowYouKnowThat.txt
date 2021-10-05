@@ -1,0 +1,6 @@
+in: "I am Paul"
+in: "I am Paul ?"
+in: "who am I ?"
+in: "how do you know that ?"
+in: "who am I ?"
+in: "Comment sais-tu ça ?"

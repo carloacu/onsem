@@ -1,0 +1,18 @@
+<linguisticdatabase>
+ <concept name="level">
+  <linkedMeaning lemme="niveau" relationToConcept="4" />
+ </concept>
+ <concept name="level_empty">
+  <linkedMeaning lemme="vide" gram="adjective" relationToConcept="4" />
+  <linkedMeaning lemme="vide" gram="noun" relationToConcept="3" />
+ </concept>
+ <concept name="level_low">
+  <linkedMeaning lemme="faible" gram="adjective" relationToConcept="4" />
+  <linkedMeaning lemme="faible" gram="noun" relationToConcept="3" />
+ </concept>
+ <concept name="level_full">
+  <linkedMeaning lemme="plein" gram="adjective" relationToConcept="4" />
+  <linkedMeaning lemme="plein" gram="noun" relationToConcept="3" />
+  <linkedMeaning lemme="plein" gram="adverb" relationToConcept="3" />
+ </concept>
+</linguisticdatabase>

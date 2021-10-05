@@ -1,0 +1,45 @@
+<linguisticdatabase>
+
+  <genericRule name="questionWords">
+    <list>
+      <questionWord lemme="être~ce~ça" gram="adverb" beforeVerb="no" afterVerb="yes" canBeAlone="no" request="yes or no" />
+      <questionWord lemme="ce que" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="combien" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
+      <questionWord lemme="combien" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="quantity" />
+      <questionWord lemme="à combien" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
+      <questionWord lemme="à combien" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="quantity" />
+      <questionWord lemme="combien de fois" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="times" />
+      <questionWord lemme="comment" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="manner" />
+      <questionWord lemme="comment" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="manner" />
+      <questionWord lemme="d'où" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="no" request="location" />
+      <questionWord lemme="est-ce que" gram="adverb" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="yes or no" />
+      <questionWord lemme="est-ce qui" gram="adverb" beforeVerb="only_next_to_the_verb" afterVerb="no" canBeAlone="no" request="yes or no" />
+      <questionWord lemme="qu'est-ce que" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="qu'est-ce qui" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="pourquoi" gram="adverb" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="cause" />
+      <questionWord lemme="pourquoi" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="cause" />
+      <questionWord lemme="quand" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="time" />
+      <questionWord lemme="quand" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="time" />
+      <questionWord lemme="où" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="location" />
+      <questionWord lemme="où" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="location" />
+      <questionWord lemme="que" gram="pronoun" beforeVerb="only_next_to_the_verb" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="quel" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" followedByRequestedWord="yes" />
+      <questionWord lemme="quel" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="qui" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="subject" />
+      <questionWord lemme="qui" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="subject" />
+      <questionWord lemme="à qui" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="no" request="subject" />
+      <questionWord lemme="à quoi" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="no" request="object" />
+      <questionWord lemme="en quoi" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="way" />
+      <questionWord lemme="lequel" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="object" />
+      <questionWord lemme="lequel" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="quoi" gram="pronoun" beforeVerb="no" afterVerb="only_next_to_the_verb" canBeAlone="no" request="object" />
+      <questionWord lemme="si" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="yes or no" />
+      <questionWord lemme="à" gram="preposition" beforeVerb="no" afterVerb="no" canBeAlone="no" request="subject" />
+      <questionWord lemme="ou bien" gram="pronoun" beforeVerb="no" afterVerb="yes" canBeAlone="no" request="yes or no" />
+      <questionWord lemme="ou quoi" gram="pronoun" beforeVerb="no" afterVerb="yes" canBeAlone="no" request="yes or no" />
+      <questionWord lemme="ou pas" gram="pronoun" beforeVerb="no" afterVerb="yes" canBeAlone="no" request="yes or no" />
+    </list>
+  </genericRule>
+
+</linguisticdatabase>
+

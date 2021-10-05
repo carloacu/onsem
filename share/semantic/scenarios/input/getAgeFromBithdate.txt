@@ -1,0 +1,7 @@
+in: "je suis né le 8 juillet 1985"
+in: "quel est mon age ?"
+in: "what is my age ?"
+in: "Aa est né le 8 juillet 1980"
+in: "what is Aa's age ?"
+in: "quel est l'age de Aa ?"
+in: "quel age a Aa ?"

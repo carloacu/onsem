@@ -1,0 +1,11 @@
+<linguisticdatabase>
+  <existingMeaning lemme="aller" gram="verb">
+    <contextInfo val="cannotBePassive" />
+  </existingMeaning>
+  <existingMeaning lemme="nommer" gram="verb">
+    <contextInfo val="cannotBePassive" />
+  </existingMeaning>
+  <existingMeaning lemme="partir" gram="verb">
+    <contextInfo val="cannotBePassive" />
+  </existingMeaning>
+</linguisticdatabase>

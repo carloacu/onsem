@@ -1,0 +1,8 @@
+<linguisticdatabase>
+  <existingMeaning lemme="à quoi" gram="pronoun">
+    <contextInfo val="refToASentence" />
+  </existingMeaning>
+  <existingMeaning lemme="ce" gram="pronoun_subject">
+    <contextInfo val="refToASentence" />
+  </existingMeaning>
+</linguisticdatabase>

@@ -1,0 +1,206 @@
+<linguisticdatabase>
+ <concept name="concrete_food_vegetable">
+  <linkedMeaning lemme="vegetable" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="concrete_food_vegetable_*">
+  <linkedMeaning lemme="artichoke" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="aubergine" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="asparagus" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="broccoflower" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="broccoli" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="Brussel's sprout" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="cauliflower" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="celery" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="endive" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="fiddlehead" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="frisee" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="fennel" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="mushroom" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="nettle" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="New Zealand spinach" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="okra" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="parsley" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="radicchio" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="rhubarb" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="salad" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="salsify" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="skirret" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="sweet corn" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="topinambur" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="tat soi" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="tomato" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="watercress" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="eggplant" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_cabbage">
+  <linkedMeaning lemme="cabbage" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_cabbage_*">
+  <linkedMeaning lemme="kohlrabi" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_green">
+  <linkedMeaning lemme="green" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_green_*">
+  <linkedMeaning lemme="beet green" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="chard" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="bok choy" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="collard green" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="kale" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="mustard green" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="spinach" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_herb">
+  <linkedMeaning lemme="herb" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_herb_*">
+  <linkedMeaning lemme="anise" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="basil" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="caraway" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="cilantro" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="coriander" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="chamomile" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="dill" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="fennel" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="lavender" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="lemon grass" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="marjoram" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="oregano" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="parsley" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="rosemary" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="sage" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="thyme" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_legume">
+  <linkedMeaning lemme="legume" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_legume_*">
+  <linkedMeaning lemme="alfalfa" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="azuki bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="adzuki" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="bean sprout" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="black bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="black-eyed pea" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="borlotti bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="broad bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="chickpea" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="garbanzo" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="ceci bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="green bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="kidney bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="lentil" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="lima bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="butter bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="mung bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="navy bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="pinto bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="runner bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="split pea" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="soy bean" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="pea" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="mangetout" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="snap pea" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_lettuce">
+  <linkedMeaning lemme="lettuce" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_lettuce_*">
+  <linkedMeaning lemme="arugula" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_onion">
+  <linkedMeaning lemme="onion" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_onion_*">
+  <linkedMeaning lemme="chive" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="garlic" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="leek" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="onion" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="shallot" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="scallion" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="spring onion" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="green onion" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_pepper">
+  <linkedMeaning lemme="pepper" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_pepper_*">
+  <linkedMeaning lemme="bell pepper" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_pepper_chiliPepper">
+  <linkedMeaning lemme="chili pepper" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_pepper_chiliPepper_*">
+  <linkedMeaning lemme="jalapeño" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="habanero" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="paprika" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="tabasco pepper" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="cayenne pepper" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_rootVegetable">
+  <linkedMeaning lemme="root vegetable" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_rootVegetable_*">
+  <linkedMeaning lemme="beetroot" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="beet" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="mangel-wurzel" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="carrot" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="celeriac" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="ginger" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="parsnip" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="rutabaga" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="turnip" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_rootVegetable_corm">
+  <linkedMeaning lemme="corm" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_rootVegetable_corm_*">
+  <linkedMeaning lemme="eddoe" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="konjac" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="taro" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="water chestnut" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_rootVegetable_radish">
+  <linkedMeaning lemme="radish" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_rootVegetable_radish_*">
+  <linkedMeaning lemme="wasabi" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="horseradish" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="white radish" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="daikon" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_rootVegetable_tuber">
+  <linkedMeaning lemme="tuber" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_rootVegetable_tuber_*">
+  <linkedMeaning lemme="jicama" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="jerusalem artichoke" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="potato" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="sunchoke" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="sweet potato" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="yam" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_squash">
+  <linkedMeaning lemme="squash" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="concrete_food_vegetable_squash_*">
+  <linkedMeaning lemme="acorn squash" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="bitter melon" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="butternut squash" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="banana squash" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="courgette" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="zucchini" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="cucumber" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="delicata" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="gem squash" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="hubbard squash" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="marrow" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="squash" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="patty pan" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="pumpkin" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="patty pan" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="spaghetti squash" gram="noun" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>
+
+
+

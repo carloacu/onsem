@@ -1,0 +1,20 @@
+<linguisticdatabase>
+  <existingMeaning lemme="lui" gram="pronoun">
+    <contextInfo val="cannotBeASubject" />
+  </existingMeaning>
+  <existingMeaning lemme="lui-même" gram="pronoun">
+    <contextInfo val="cannotBeASubject" />
+  </existingMeaning>
+  <existingMeaning lemme="moi" gram="pronoun">
+    <contextInfo val="cannotBeASubject" />
+  </existingMeaning>
+  <existingMeaning lemme="toi" gram="pronoun">
+    <contextInfo val="cannotBeASubject" />
+  </existingMeaning>
+  <existingMeaning lemme="qu'est-ce que" gram="pronoun">
+    <contextInfo val="cannotBeASubject" />
+  </existingMeaning>
+  <existingMeaning lemme="que" gram="pronoun">
+    <contextInfo val="cannotBeASubject" />
+  </existingMeaning>
+</linguisticdatabase>

@@ -1,0 +1,410 @@
+<linguisticdatabase>
+ <word name="ほしい">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="びっくり">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="疲れた">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="いやだ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="バカ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="あぁー">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ああ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="あなた">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="あの">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ありがたい">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="あれ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="いいえ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="いいですね">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="いいね">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="いいや">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="いらない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="うううん">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ううん">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="うん、">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="うん。">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="うんとね">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="うーむ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="うーん">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ええ、">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ええ。">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ええええ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="えーと">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="お願い">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="お願いします。">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="きみ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="こうぜん">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="この">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="これ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="しりません">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="すうっと">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="すばらしい">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="すべて">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうかなあ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうしましょう">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうしよう">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうするか">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうだなぁ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうだね">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうです">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうですね">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="そうですねぇ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="その">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="それ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ちょっとまって">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="どうかなあ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="どうだろうか">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="どうなんだろう">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="なにかなぁ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="なんかなあ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="なんだろう">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="はい　">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="はい、">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="はい。">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="まごまご">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="むずかしい">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="もちろん">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="よろしく。">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="よろしくお願いします。">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="わからない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="わからないよ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="わかりません">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="わかんない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="わたくし">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="んとねぇ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="んんんん">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="イエス">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="イライラ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ノー">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="ホームシック">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="下らない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="下らぬ">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="下らん">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="不快">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="他愛ない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="他愛のない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="他愛の無い">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="他愛もない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="他愛も無い">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="他愛無い">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="何ですか">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="侮辱">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="傷">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="僕">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="全部">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="切ない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="切なる">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="匆々">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="厭き厭き">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="君">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="呆">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="喜">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="大喜び">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="嬉し">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="安心">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="寂し">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="幸">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="心配">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="快適">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="怒">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="怖">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="恥ずかし">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="恩着せがまし">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="悩">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="悲し">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="惨">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="是非">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="楽し">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="気が動転">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="気が向かない">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="混乱">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="激昂">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="煩">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="疲">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="私">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="羞恥">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="考えています">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="考えてみます">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="考えます">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="考える">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="自分">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="苛苛">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="落胆">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="違います">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="違う">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="陰気">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="面白">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="飽き飽き">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="バイバイ　ペッパー">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="じゃぁね">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="さようなら">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+ <word name="またね">
+  <wordForm frequency="4" gram="unknown"/>
+ </word>
+</linguisticdatabase>

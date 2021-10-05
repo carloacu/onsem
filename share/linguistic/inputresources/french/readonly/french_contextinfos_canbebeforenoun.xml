@@ -1,0 +1,287 @@
+<linguisticdatabase>
+ <existingMeaning lemme="affreux" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="ami" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="ancien" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="autre" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="beau" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="bel" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="bon" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="brave" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="certain" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="charmant" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="cher" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="chouette" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="cinquième" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="court" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="célèbre" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="demi" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="dernier" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="deuxième" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="divers" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="donné" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="double" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="excellent" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="faible" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="fait" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="fameux" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="faux" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="fichu" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="fin" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="foutu" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="futur" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="gentil" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="grand" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="grave" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="gros" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="haut" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="horrible" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="immense" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="jeune" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="joli" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="juré" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="juste" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="long" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="léger" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="légitime" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="magnifique" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="maudit" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="mauvais" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="meilleur" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="merveilleux" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="moindre" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="multiple" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="méchant" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="même" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="neuf" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="nombreux" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="nouveau" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="nouvel" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="nul" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="pauvre" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="petit" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="pire" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="plein" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="porte" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="premier" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="pris" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="prochain" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="propre" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="prêté" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="pur" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="quatrième" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="quelconque" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="rendu" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="sacré" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="sage" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="saint" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="sale" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="satané" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="sauté" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="second" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="seul" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="simple" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="super" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="superbe" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="tel" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="tenu" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="terrible" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="tiré" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="tombé" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="troisième" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="vieil" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="vieux" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="vilain" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="vrai" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="véritable" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+ <existingMeaning lemme="énorme" gram="adjective">
+  <contextInfo val="canBeBeforeNoun"/>
+ </existingMeaning>
+</linguisticdatabase>

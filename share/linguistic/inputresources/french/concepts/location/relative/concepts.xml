@@ -1,0 +1,74 @@
+<linguisticdatabase>
+ <concept name="location_relative_above">
+  <linkedMeaning lemme="au dessus" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="au dessus de" gram="preposition" relationToConcept="3"/>
+  <linkedMeaning lemme="dessus" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_behind">
+  <linkedMeaning lemme="sous" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_below">
+  <linkedMeaning lemme="en dessous" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="en dessous de" gram="preposition" relationToConcept="3"/>
+  <linkedMeaning lemme="dessous" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_close">
+  <linkedMeaning lemme="près" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="à" relationToConcept="0"/>
+ </concept>
+ <concept name="location_relative_east">
+  <linkedMeaning lemme="est" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="est" gram="adjective" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_inFrontOf">
+  <linkedMeaning lemme="devant" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="devant" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="devant" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_inside">
+  <linkedMeaning lemme="dans" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="dedans" gram="*" relationToConcept="3"/>
+  <linkedMeaning lemme="intérieur" gram="*" relationToConcept="3"/>
+  <linkedMeaning lemme="à" gram="*" relationToConcept="0"/>
+  <linkedMeaning lemme="en" gram="*" relationToConcept="0"/>
+ </concept>
+ <concept name="location_relative_far">
+  <linkedMeaning lemme="là-bas" relationToConcept="3"/>
+  <linkedMeaning lemme="loin" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_high">
+  <linkedMeaning lemme="haut" gram="*" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_here">
+  <linkedMeaning lemme="ici" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_left">
+  <linkedMeaning lemme="gauche" gram="*" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_low">
+  <linkedMeaning lemme="bas" gram="*" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_north">
+  <linkedMeaning lemme="nord" gram="*" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_on">
+  <linkedMeaning lemme="sur" gram="*" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_outside">
+  <linkedMeaning lemme="extérieur" gram="*" relationToConcept="4"/>
+  <linkedMeaning lemme="dehors" gram="*" relationToConcept="3"/>
+ </concept>
+ <concept name="location_relative_right">
+  <linkedMeaning lemme="droit" relationToConcept="3"/>
+  <linkedMeaning lemme="droite" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_south">
+  <linkedMeaning lemme="sud" gram="*" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_under">
+  <linkedMeaning lemme="sous" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_west">
+  <linkedMeaning lemme="ouest" gram="*" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

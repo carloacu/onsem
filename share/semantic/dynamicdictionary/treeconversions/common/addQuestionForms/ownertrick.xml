@@ -1,0 +1,45 @@
+<semantictreeconversions formalism="1">
+
+
+  <addPossibleTrees>
+    <from>
+      <root id="1" grounding="statement" concept="verb_equal_be" >
+        <subject id="2" grounding="generic" notType="agentOrThing">
+	  <owner id="3" />
+	</subject>
+        <notobject />
+      </root>
+    </from>
+    <to>
+      <root id="1" grounding="statement" concept="verb_equal_be" >
+        <subject id="3" />
+        <object id="2" grounding="generic" notType="agentOrThing">
+	  <notowner />
+	</object>
+      </root>
+    </to>
+  </addPossibleTrees>
+
+
+  <addPossibleTrees>
+    <from>
+      <root id="1" grounding="statement" concept="verb_equal_be" >
+        <subject id="2" grounding="generic" notType="agentOrThing">
+	  <specifier id="3" />
+	</subject>
+        <notobject />
+      </root>
+    </from>
+    <to>
+      <root id="1" grounding="statement" concept="verb_equal_be" >
+        <subject id="3" />
+        <object id="2" grounding="generic" notType="agentOrThing">
+	  <notspecifier />
+	</object>
+      </root>
+    </to>
+  </addPossibleTrees>
+
+
+
+</semantictreeconversions>

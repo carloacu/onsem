@@ -1,0 +1,5 @@
+in: "Paul est footballeur anglais"
+in: "quelle est la nationalité de Paul"
+out: "La nationalité de Paul est anglaise."
+in: "what's Paul's nationality?"
+out: "Paul's nationality is English."

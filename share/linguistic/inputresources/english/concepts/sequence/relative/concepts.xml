@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="sequence_relative_next">
+  <linkedMeaning lemme="next" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

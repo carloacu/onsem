@@ -1,0 +1,5 @@
+in: "ton coude est trop chaud"
+in: "est-ce que ton bras est trop chaud ?"
+in: "qu'est-ce qui est trop chaud ?"
+in: "ta main droite est trop chaude"
+in: "qu'est-ce qui est trop chaud ?"

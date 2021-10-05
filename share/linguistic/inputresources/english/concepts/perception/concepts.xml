@@ -1,0 +1,13 @@
+<linguisticdatabase>
+ <concept name="perception_*">
+  <linkedMeaning lemme="feel" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="hear" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="see" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="smell" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="sound" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="taste" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="perception_hear">
+  <linkedMeaning lemme="hear" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,10 @@
+<semantictreeconversions formalism="1">
+
+
+  <shallBeUnique childThatIsUnique="object">
+    <root grounding="statement" concept="verb_equal_be">
+      <object beginOfConcept="gender_" />
+    </root>
+  </shallBeUnique>
+
+</semantictreeconversions>

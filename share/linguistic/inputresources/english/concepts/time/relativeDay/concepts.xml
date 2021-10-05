@@ -1,0 +1,17 @@
+<linguisticdatabase>
+ <concept name="time_relativeDay_dayAfterTomorrow">
+  <linkedMeaning lemme="day after tomorrow" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relativeDay_dayBeforeYesterday">
+  <linkedMeaning lemme="day before yesterday" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relativeDay_yesterday">
+  <linkedMeaning lemme="yesterday" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relativeDay_today">
+  <linkedMeaning lemme="today" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relativeDay_tomorrow">
+  <linkedMeaning lemme="tomorrow" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

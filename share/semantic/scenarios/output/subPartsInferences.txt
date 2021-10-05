@@ -1,0 +1,8 @@
+in: "ton coude est trop chaud"
+in: "est-ce que ton bras est trop chaud ?"
+out: "Oui, mon bras est trop chaud."
+in: "qu'est-ce qui est trop chaud ?"
+out: "Mon coude"
+in: "ta main droite est trop chaude"
+in: "qu'est-ce qui est trop chaud ?"
+out: "Mon coude et ma main droite"

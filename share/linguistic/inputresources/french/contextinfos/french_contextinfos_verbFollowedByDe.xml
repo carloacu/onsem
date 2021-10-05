@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <existingMeaning lemme="débiter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="mêler~se" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+</linguisticdatabase>

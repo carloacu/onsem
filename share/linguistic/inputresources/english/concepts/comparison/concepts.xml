@@ -1,0 +1,18 @@
+<linguisticdatabase>
+ <concept name="comparison">
+  <linkedMeaning lemme="comparison" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="comparison_equal">
+  <linkedMeaning lemme="equal" relationToConcept="4"/>
+  <linkedMeaning lemme="same" gram="adjective" relationToConcept="3"/>
+ </concept>
+ <concept name="comparison_different">
+  <linkedMeaning lemme="differ" relationToConcept="4"/>
+ </concept>
+ <concept name="comparison_more">
+  <linkedMeaning lemme="more" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="comparison_less">
+  <linkedMeaning lemme="less" gram="adverb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

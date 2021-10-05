@@ -1,0 +1,278 @@
+<linguisticdatabase>
+<existingMeaning lemme="accustom" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="acquaint" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="acquit" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="addict" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="adjourn" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="agitate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="amaze" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="attract" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="baffle" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="bias" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="bind" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="blacklist" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="bore" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="born" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="build~on" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="classify" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="clog" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="complicate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="concern" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="confuse" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="crook" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="decease" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="delight" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="deplete" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="depress" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="destine" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="devastate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="disappoint" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="doom" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="electrocute" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="embarrass" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="enchant" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="encrypt" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="entitle" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="equip" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="excite" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="exhaust" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="extinct" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="famish" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="fascinate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="finish~with" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="flatter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="flaw" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="frustrate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="hole~up" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="honour" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="impress" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="incarcerate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="incline" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="indispose" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="injure" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="insure" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="interest" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="intrigue" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="lock~out" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="marry" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="misinform" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="mistake" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="mortify" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="name~after" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="obligate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="obsess" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="overrate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="overrun" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="paralyze" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="poise" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="preoccupy" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="relieve" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="restrict" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="satisfy" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="scare" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="shake~up" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="shock" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="sophisticate" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="stoke" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="strand" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="stress~out" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="suppose" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="suppose~to" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="surprise" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="surround" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="swamp" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="terrify" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="thrill" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="tire" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="trap" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="trap~in" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="unarm" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="upset" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="wet" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="wound" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="write~in" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+</linguisticdatabase>

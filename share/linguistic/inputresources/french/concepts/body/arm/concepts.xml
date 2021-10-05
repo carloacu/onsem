@@ -1,0 +1,9 @@
+<linguisticdatabase>
+ <concept name="body_arm">
+  <linkedMeaning lemme="bras" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_arm_hand">
+  <linkedMeaning lemme="main" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="pâte" gram="noun" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

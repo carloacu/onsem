@@ -1,0 +1,6 @@
+<linguisticdatabase>
+ <concept name="mentalState_know">
+  <linkedMeaning lemme="connaître" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="savoir" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

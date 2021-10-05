@@ -1,0 +1,33 @@
+<semantictreeconversions formalism="1">
+
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" request="action" concept="verb_action_comeHere" notConcept="sentiment_positive_*" />
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="sentiment_positive_*,2" />
+    </tree>
+  </conversion>
+
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" request="action" concept="verb_action_stopTalking" notConcept="sentiment_positive_*" />
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="sentiment_positive_*,-3" />
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" request="action" concept="verb_action_goaway" notConcept="sentiment_positive_*" />
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="sentiment_positive_*,-3" />
+    </tree>
+  </conversion>
+
+
+</semantictreeconversions>

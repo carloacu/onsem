@@ -1,0 +1,44 @@
+<linguisticdatabase>
+  <existingMeaning lemme="apprendre" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="assurer" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="demander" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="dire" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="donner" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="conter" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="falloir" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="marcher" gram="verb">
+    <contextInfo val="canBeFollowedByLocation" />
+  </existingMeaning>
+  <existingMeaning lemme="montrer" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="parler" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="plaire" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="prêter" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="proposer" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="raconter" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+</linguisticdatabase>

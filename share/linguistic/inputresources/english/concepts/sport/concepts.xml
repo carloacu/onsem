@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="sport">
+  <linkedMeaning lemme="sport" gram="noun" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

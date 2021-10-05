@@ -1,0 +1,9 @@
+clear alldatabases
+
+open common_reloadall.rla
+open english_reloadall.rla
+open french_reloadall.rla
+open japanese_reloadall.rla
+
+exec [inputresources]/common/fillconceptswithtraductions.wlks
+

@@ -1,0 +1,6 @@
+in: "Paul regarde Pierre"
+in: "Paul regarde qui"
+in: "Paul regarde André"
+in: "Paul regarde qui"
+in: "qui regarde Pierre"
+in: "qui regarde Paul"

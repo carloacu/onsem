@@ -1,0 +1,10 @@
+<linguisticdatabase>
+ <concept name="agent_robot_*">
+  <linkedMeaning lemme="Asimo" gram="proper_noun" relationToConcept="5"/>
+  <linkedMeaning lemme="Astro" gram="proper_noun" relationToConcept="5"/>
+  <linkedMeaning lemme="Buddy" gram="proper_noun" relationToConcept="5"/>
+  <linkedMeaning lemme="Nao" gram="proper_noun" relationToConcept="5"/>
+  <linkedMeaning lemme="Pepper" gram="proper_noun" relationToConcept="5"/>
+  <linkedMeaning lemme="Romeo" gram="proper_noun" relationToConcept="5"/>
+ </concept>
+</linguisticdatabase>

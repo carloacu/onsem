@@ -1,0 +1,24 @@
+% Version of the database
+open [inputresources]/french/french_header.xml
+
+% Declare concepts (french_dela.dela fills some concepts)
+merge [inputresources]/common/declare_concepts.xml
+
+% Load words
+merge [inputresources]/french/rla/load_concepts.rla
+
+% Fill context infos
+merge [inputresources]/french/french_contextinfos.xml
+
+% Fill concepts
+merge [inputresources]/french/french_concepts.xml
+
+% Identify question words
+merge [inputresources]/french/french_questionWords.xml
+
+% Fill animations
+merge [inputresources]/french/french_animations.xml
+
+% Save the database
+save
+

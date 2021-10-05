@@ -1,0 +1,16 @@
+<linguisticdatabase>
+ <concept name="manner_stronger">
+  <linkedMeaning lemme="si" relationToConcept="3"/>
+  <linkedMeaning lemme="totalement" relationToConcept="3"/>
+ </concept>
+ <concept name="manner_together">
+  <linkedMeaning lemme="ensemble" relationToConcept="3"/>
+ </concept>
+ <concept name="manner_well">
+  <linkedMeaning lemme="bien" relationToConcept="4"/>
+  <linkedMeaning lemme="parfaitement" relationToConcept="3"/>
+ </concept>
+ <concept name="manner_notwell">
+  <linkedMeaning lemme="mal" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

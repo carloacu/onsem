@@ -1,0 +1,30 @@
+<linguisticdatabase>
+ <concept name="time_relative_after">
+  <linkedMeaning lemme="after" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relative_before">
+  <linkedMeaning lemme="before" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relative_justAfter">
+  <linkedMeaning lemme="just after" relationToConcept="4"/>
+  <linkedMeaning lemme="right after" relationToConcept="3"/>
+ </concept>
+ <concept name="time_relative_justBefore">
+  <linkedMeaning lemme="just before" relationToConcept="4"/>
+  <linkedMeaning lemme="right before" relationToConcept="3"/>
+ </concept>
+ <concept name="time_relative_now">
+  <linkedMeaning lemme="now" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relative_rightAway">
+  <linkedMeaning lemme="right away" relationToConcept="4"/>
+  <linkedMeaning lemme="right now" relationToConcept="3"/>
+ </concept>
+ <concept name="time_relative_since">
+  <linkedMeaning lemme="since" gram="sub_conj" relationToConcept="4"/>
+  <linkedMeaning lemme="from" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="time_relative_soon">
+  <linkedMeaning lemme="soon" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,28 @@
+<linguisticdatabase>
+ <include file="readonly/french_contextinfos_beauxiliary.xml"/>
+ <include file="readonly/french_contextinfos_haveauxiliary.xml"/>
+ <include file="readonly/french_contextinfos_canbebeforenoun.xml"/>
+ <include file="readonly/french_contextinfos_verbFollowedByDe.xml"/>
+ <include file="contextinfos/french_contextinfos_canbebeforedeterminer.xml"/>
+ <include file="contextinfos/french_contextinfos_cannotbebeforenoun.xml"/>
+ <include file="contextinfos/french_contextinfos_cannotbeafterverb.xml"/>
+ <include file="contextinfos/french_contextinfos_beauxiliary.xml"/>
+ <include file="contextinfos/french_contextinfos_haveauxiliary.xml"/>
+
+ <include file="contextinfos/french_contextinfos_verbFollowedByDe.xml"/>
+ <include file="contextinfos/french_contextinfos_cannotbeacoreference.xml"/>
+ <include file="contextinfos/french_contextinfos_any.xml"/>
+ <include file="contextinfos/french_contextinfos_transitiveverb.xml"/>
+ <include file="contextinfos/french_contextinfos_canbebeforenoun.xml"/>
+ <include file="contextinfos/french_contextinfos_canbebeforeverb.xml"/>
+ <include file="contextinfos/french_contextinfos_cannotbeasubject.xml"/>
+ <include file="contextinfos/french_contextinfos_cannotbepassive.xml"/>
+ <include file="contextinfos/french_contextinfos_condition.xml"/>
+ <include file="contextinfos/french_contextinfos_negation.xml"/>
+ <include file="contextinfos/french_contextinfos_possessive.xml"/>
+ <include file="contextinfos/french_contextinfos_reftoaperson.xml"/>
+ <include file="contextinfos/french_contextinfos_reftoasentence.xml"/>
+ <include file="contextinfos/french_contextinfos_sentencecanbeginwith.xml"/>
+ <include file="contextinfos/french_contextinfos_uncountable.xml"/>
+ <include file="contextinfos/french_contextinfos_verbfollowedby.xml"/>
+</linguisticdatabase>

@@ -1,0 +1,8 @@
+<linguisticdatabase>
+  <existingMeaning lemme="not" gram="adverb">
+    <contextInfo val="negation" />
+  </existingMeaning>
+  <existingMeaning lemme="never" gram="adverb">
+    <contextInfo val="negation" />
+  </existingMeaning>
+</linguisticdatabase>

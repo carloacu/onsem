@@ -1,0 +1,23 @@
+<linguisticdatabase>
+ <concept name="time_weekday_sunday">
+  <linkedMeaning lemme="dimanche" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_monday">
+  <linkedMeaning lemme="lundi" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_tuesday">
+  <linkedMeaning lemme="mardi" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_wednesday">
+  <linkedMeaning lemme="mercredi" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_thursday">
+  <linkedMeaning lemme="jeudi" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_friday">
+  <linkedMeaning lemme="vendredi" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="time_weekday_saturday">
+  <linkedMeaning lemme="samedi" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

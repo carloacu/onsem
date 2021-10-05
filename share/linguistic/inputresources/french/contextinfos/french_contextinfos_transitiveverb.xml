@@ -1,0 +1,56 @@
+<linguisticdatabase>
+  <existingMeaning lemme="aimer" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="adorer" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="avaler" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="avoir" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="boire" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="connaître" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="emmener" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="entendre" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="falloir" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="mettre" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="passer" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="perdre" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="porter" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="poser" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="regarder" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="trouver" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="voir" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="vouloir" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+</linguisticdatabase>

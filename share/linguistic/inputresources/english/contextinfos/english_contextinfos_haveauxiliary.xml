@@ -1,0 +1,8 @@
+<linguisticdatabase>
+<existingMeaning lemme="press" gram="verb">
+  <contextInfo val="haveIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="born" gram="verb">
+  <contextInfo val="haveIsTheAuxiliary"/>
+</existingMeaning>
+</linguisticdatabase>

@@ -1,0 +1,226 @@
+<linguisticdatabase>
+ <concept name="verb_action">
+  <linkedMeaning lemme="do" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="happen" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_*">
+  <linkedMeaning lemme="achieve" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="activate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="adjust" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="analyze" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="announce" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="arrange" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="ask" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="assist" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="authorize" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="bake" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="begin" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="bike" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="build" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="buy" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="categorize" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="chat" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="check" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="close" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="come" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="communicate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="compare" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="complete" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="construct" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="convince" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="cook" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="create" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="cry" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="cut" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="dance" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="decide" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="discover" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="divide" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="do" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="doodle" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="earn" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="eat" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="educate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="eliminate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="encourage" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="exit" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="explain" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="explore" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="fly" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="gather" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="go" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="guide" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="help" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="identify" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="imagine" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="inform" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="inspire" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="install" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="joke" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="jump" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="kick" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="kid" gram="verb" relationToConcept="2"/>
+  <linkedMeaning lemme="learn" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="listen" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="load" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="match" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="meet" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="motivate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="obtain" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="open" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="organize" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="place" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="prepare" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="preserve" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="print" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="program" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="programme" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="read" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="run" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="save" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="separate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="sleep" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="sharpen" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="shop" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="show" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="sing" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="skate" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="sneeze" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="speak" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="specialize" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="start" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="study" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="succeed" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="suggest" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="swim" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="teach" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="throw" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="travel" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="upload" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="view" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="visit" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="volunteer" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="wake~up" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="wait" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="walk" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="wash" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="win" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="work" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="write" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_close">
+  <linkedMeaning lemme="close" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="shut" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_action_comeHere">
+  <linkedMeaning lemme="come" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_deregister">
+  <linkedMeaning lemme="deregister" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="check~out" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_action_execute">
+  <linkedMeaning lemme="execute" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="run" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_goaway">
+  <linkedMeaning lemme="go~away" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_go">
+  <linkedMeaning lemme="go" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_improve">
+  <linkedMeaning lemme="improve" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_leave">
+  <linkedMeaning lemme="leave" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="check~out" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_lookat">
+  <linkedMeaning lemme="look~at" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="look" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_action_moveBack">
+  <linkedMeaning lemme="back~away" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="move~back" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="move~backward" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="move~backwards" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="recede" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="recoil" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="retire" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="step~back" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_moveForward">
+  <linkedMeaning lemme="advance" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="move~forward" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="walk" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_action_notify">
+  <linkedMeaning lemme="notify" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_raise">
+  <linkedMeaning lemme="raise" relationToConcept="5"/>
+  <linkedMeaning lemme="lift" relationToConcept="4"/>
+  <linkedMeaning lemme="lift~up" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="raise~up" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_register">
+  <linkedMeaning lemme="register" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="check~in" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_action_remove">
+  <linkedMeaning lemme="delete" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="remove" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_say">
+  <linkedMeaning lemme="say" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="tell" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="talk" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_action_show">
+  <linkedMeaning lemme="show" gram="verb" relationToConcept="5"/>
+ </concept>
+ <concept name="verb_action_sleep">
+  <linkedMeaning lemme="sleep" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_smile">
+  <linkedMeaning lemme="smile" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_standup">
+  <linkedMeaning lemme="stand~up" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_stopTalking">
+  <linkedMeaning lemme="shut~up" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_subscribe">
+  <linkedMeaning lemme="subscribe" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_teach">
+  <linkedMeaning lemme="teach" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_touch">
+  <linkedMeaning lemme="touch" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="caress" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="press" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="rub" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_try">
+  <linkedMeaning lemme="try" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_turnAway">
+  <linkedMeaning lemme="turn~around" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="turn~away" gram="verb" relationToConcept="5"/>
+ </concept>
+ <concept name="verb_action_use">
+  <linkedMeaning lemme="use" gram="verb" relationToConcept="5"/>
+ </concept>
+ <concept name="verb_action_wakeUp">
+  <linkedMeaning lemme="wake~up" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_wear">
+  <linkedMeaning lemme="wear" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_write">
+  <linkedMeaning lemme="write" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

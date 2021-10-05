@@ -1,0 +1,38 @@
+<linguisticdatabase>
+ <concept name="time_month_january">
+  <linkedMeaning lemme="janvier" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_february">
+  <linkedMeaning lemme="février" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_march">
+  <linkedMeaning lemme="mars" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_april">
+  <linkedMeaning lemme="avril" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_may">
+  <linkedMeaning lemme="mai" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_june">
+  <linkedMeaning lemme="juin" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_july">
+  <linkedMeaning lemme="juillet" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_august">
+  <linkedMeaning lemme="août" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_september">
+  <linkedMeaning lemme="septembre" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_october">
+  <linkedMeaning lemme="octobre" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_november">
+  <linkedMeaning lemme="novembre" relationToConcept="4"/>
+ </concept>
+ <concept name="time_month_december">
+  <linkedMeaning lemme="décembre" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,12 @@
+merge [inputresources]/english/english_separators.xml
+merge [inputresources]/english/readonly/english_simplified_dela.dela
+merge [inputresources]/english/english_modifs.dela
+merge [inputresources]/english/readonly/english_gramfreqs.gfs
+merge [inputresources]/english/contextinfos/english_gramfreqs.gfs
+merge [inputresources]/english/english_after_sorted.dela
+merge [inputresources]/english/readonly/enComposedWords.xml
+merge [inputresources]/english/enComposedWords_modifs.dela
+merge [inputresources]/english/enComposedWords.xml
+merge [inputresources]/english/english_aftercomposedwords.dela
+
+

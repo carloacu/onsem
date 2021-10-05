@@ -1,0 +1,35 @@
+<linguisticdatabase>
+
+  <genericRule name="questionWords">
+    <list>
+      <questionWord lemme="how much" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
+      <questionWord lemme="how much" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="quantity" />
+      <questionWord lemme="how many" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
+      <questionWord lemme="how many" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="quantity" />
+      <questionWord lemme="how many times" gram="adverb" beforeVerb="yes" afterVerb="yes"  canBeAlone="yes" request="times" />
+      <questionWord lemme="how" gram="adverb" beforeVerb="yes" afterVerb="yes"  canBeAlone="yes" request="manner" />
+      <questionWord lemme="how" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="yes" request="manner" />
+      <questionWord lemme="if" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="yes or no" />
+      <questionWord lemme="where" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="location" />
+      <questionWord lemme="where" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="location" />
+      <questionWord lemme="why" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="cause" />
+      <questionWord lemme="why" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="cause" />
+      <questionWord lemme="when" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="time" />
+      <questionWord lemme="when" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="time" />
+      <questionWord lemme="what" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="object" />
+      <questionWord lemme="what" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="which" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="object" followedByRequestedWord="yes" />
+      <questionWord lemme="which" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="who" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="subject" />
+      <questionWord lemme="who" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="subject" />
+      <questionWord lemme="how far" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
+      <questionWord lemme="how far" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="quantity" />
+      <questionWord lemme="how long" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="duration" />
+      <questionWord lemme="how often" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
+      <questionWord lemme="for what purpose" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="purpose" />
+      <questionWord lemme="what~or" gram="pronoun" beforeVerb="no" afterVerb="yes" canBeAlone="no" request="yes or no" />
+    </list>
+  </genericRule>
+
+</linguisticdatabase>
+

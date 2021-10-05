@@ -1,0 +1,8 @@
+<linguisticdatabase>
+  <existingMeaning lemme="ne" gram="adverb">
+    <contextInfo val="cannotBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="par défaut" gram="adverb">
+    <contextInfo val="cannotBeBeforeNoun" />
+  </existingMeaning>
+</linguisticdatabase>

@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="language_french">
+  <linkedMeaning lemme="français" grem="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="language_english">
+  <linkedMeaning lemme="anglais" grem="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

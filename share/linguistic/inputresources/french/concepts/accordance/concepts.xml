@@ -1,0 +1,72 @@
+<linguisticdatabase>
+ <concept name="accordance_agreement_*">
+  <linkedMeaning lemme="absolument" relationToConcept="4"/>
+  <linkedMeaning lemme="assurément" relationToConcept="4"/>
+  <linkedMeaning lemme="avec plaisir" relationToConcept="4"/>
+  <linkedMeaning lemme="bien sûr" relationToConcept="3"/>
+  <linkedMeaning lemme="être~ce~ça" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="carrément" relationToConcept="4"/>
+  <linkedMeaning lemme="certainement" relationToConcept="4"/>
+  <linkedMeaning lemme="certes" relationToConcept="4"/>
+  <linkedMeaning lemme="en effet" relationToConcept="4"/>
+  <linkedMeaning lemme="entendu" gram="interjection" relationToConcept="4"/>
+  <linkedMeaning lemme="fantastique" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="parfait" gram="interjection" relationToConcept="4"/>
+  <linkedMeaning lemme="parfaitement" relationToConcept="4"/>
+  <linkedMeaning lemme="pas de problème" relationToConcept="4"/>
+  <linkedMeaning lemme="pas de souci" relationToConcept="4"/>
+  <linkedMeaning lemme="pourquoi pas" relationToConcept="4"/>
+  <linkedMeaning lemme="précisément" relationToConcept="4"/>
+  <linkedMeaning lemme="sans problème" relationToConcept="4"/>
+  <linkedMeaning lemme="sisi" relationToConcept="4"/>
+  <linkedMeaning lemme="super" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="sûrement" relationToConcept="4"/>
+  <linkedMeaning lemme="tout à fait" relationToConcept="4"/>
+  <linkedMeaning lemme="très bien" relationToConcept="4"/>
+  <linkedMeaning lemme="bien vu" relationToConcept="4"/>
+  <linkedMeaning lemme="évidemment" relationToConcept="4"/>
+  <linkedMeaning lemme="grand" relationToConcept="0"/>
+ </concept>
+ <concept name="accordance_agreement_yes">
+  <linkedMeaning lemme="oui" relationToConcept="5"/>
+  <linkedMeaning lemme="ouais" relationToConcept="4"/>
+ </concept>
+ <concept name="accordance_agreement_true">
+  <linkedMeaning lemme="vrai" relationToConcept="4"/>
+ </concept>
+ <concept name="accordance_agreement_ok">
+  <linkedMeaning lemme="d'accord" relationToConcept="5"/>
+  <linkedMeaning lemme="ok" relationToConcept="4"/>
+ </concept>
+ <concept name="accordance_agreement_allOfThem">
+  <linkedMeaning lemme="tous" relationToConcept="4"/>
+ </concept>
+ <concept name="accordance_disagreement_*">
+  <linkedMeaning lemme="aucunement" relationToConcept="4"/>
+  <linkedMeaning lemme="bien sûr que non" relationToConcept="4"/>
+  <linkedMeaning lemme="n" relationToConcept="4"/>
+  <linkedMeaning lemme="ne" relationToConcept="4"/>
+  <linkedMeaning lemme="ni" relationToConcept="4"/>
+  <linkedMeaning lemme="nullement" relationToConcept="4"/>
+  <linkedMeaning lemme="pas" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="pas encore" relationToConcept="4"/>
+  <linkedMeaning lemme="pas vraiment" relationToConcept="4"/>
+  <linkedMeaning lemme="surtout pas" relationToConcept="4"/>
+ </concept>
+ <concept name="accordance_disagreement_no">
+  <linkedMeaning lemme="non" relationToConcept="5"/>
+  <linkedMeaning lemme="nan" relationToConcept="4"/>
+  <linkedMeaning lemme="pas du tout" relationToConcept="4"/>
+ </concept>
+ <concept name="accordance_disagreement_false">
+  <linkedMeaning lemme="faux" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="faux" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="faux" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="accordance_disagreement_neither">
+  <linkedMeaning lemme="ni l'un ni l'autre" relationToConcept="4"/>
+ </concept>
+ <concept name="accordance_disagreement_noneOfThem">
+  <linkedMeaning lemme="aucun d'entre eux" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,10 @@
+<semantictreeconversions formalism="1">
+
+
+  <shallBeUnique childThatIsUnique="time">
+    <root grounding="statement" concept="verb_born" time="punctual_past">
+      <object beginOfConcept="agent_" />
+    </root>
+  </shallBeUnique>
+
+</semantictreeconversions>

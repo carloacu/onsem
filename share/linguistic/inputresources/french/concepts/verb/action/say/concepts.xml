@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="verb_action_say_answer">
+  <linkedMeaning lemme="répondre" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_say_ask">
+  <linkedMeaning lemme="demander" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

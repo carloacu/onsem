@@ -1,0 +1,41 @@
+<linguisticdatabase>
+  <existingMeaning lemme="past" gram="adjective">
+    <contextInfo val="en_timeWord" />
+  </existingMeaning>
+  <existingMeaning lemme="past" gram="adjective">
+    <contextInfo val="en_timeWordPast" />
+  </existingMeaning>
+  <existingMeaning lemme="past" gram="noun">
+    <contextInfo val="en_timeWord" />
+  </existingMeaning>
+  <existingMeaning lemme="past" gram="noun">
+    <contextInfo val="en_timeWordPast" />
+  </existingMeaning>
+
+  <existingMeaning lemme="to" gram="preposition">
+    <contextInfo val="en_timeWord" />
+  </existingMeaning>
+  <existingMeaning lemme="to" gram="preposition">
+    <contextInfo val="en_timeWordTo" />
+  </existingMeaning>
+
+  <existingMeaning lemme="half" gram="adjective">
+    <contextInfo val="en_timeWord" />
+  </existingMeaning>
+  <existingMeaning lemme="half" gram="adjective">
+    <contextInfo val="en_timeWordHalf" />
+  </existingMeaning>
+  <existingMeaning lemme="half" gram="noun">
+    <contextInfo val="en_timeWord" />
+  </existingMeaning>
+  <existingMeaning lemme="half" gram="noun">
+    <contextInfo val="en_timeWordHalf" />
+  </existingMeaning>
+
+  <existingMeaning lemme="quarter" gram="noun">
+    <contextInfo val="en_timeWord" />
+  </existingMeaning>
+  <existingMeaning lemme="quarter" gram="noun">
+    <contextInfo val="en_timeWordQuarter" />
+  </existingMeaning>
+</linguisticdatabase>

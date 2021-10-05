@@ -1,0 +1,7 @@
+<linguisticdatabase>
+ <concept name="name">
+  <linkedMeaning lemme="name" gram="noun" relationToConcept="5"/>
+  <linkedMeaning lemme="nickname" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="surname" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

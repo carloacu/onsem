@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="agent_profession">
+  <linkedMeaning lemme="emploi" relationToConcept="3"/>
+  <linkedMeaning lemme="job" relationToConcept="3"/>
+  <linkedMeaning lemme="métier" relationToConcept="3"/>
+  <linkedMeaning lemme="profession" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,6 @@
+<sentencesTester>
+    <include file="common_parentheses.txt" />
+    <include file="common_quotationMarks.txt" />
+    <include file="common_resource.txt" />
+    <include file="common_unknownWord.txt" />
+</sentencesTester>

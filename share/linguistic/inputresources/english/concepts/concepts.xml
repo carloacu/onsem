@@ -1,0 +1,125 @@
+<linguisticdatabase>
+ <concept name="age">
+  <linkedMeaning lemme="age" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="alone">
+  <linkedMeaning lemme="alone" relationToConcept="4"/>
+ </concept>
+ <concept name="already">
+  <linkedMeaning lemme="already" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="also">
+  <linkedMeaning lemme="also" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="too" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="answer">
+  <linkedMeaning lemme="answer" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="anything">
+  <linkedMeaning lemme="stuff" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="approximately">
+  <linkedMeaning lemme="about" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="approximately" gram="adverb" relationToConcept="3"/>
+ </concept>
+ <concept name="ball">
+  <linkedMeaning lemme="ball" gram="noun" relationToConcept="5"/>
+ </concept>
+ <concept name="because">
+  <linkedMeaning lemme="because" gram="sub_conj" relationToConcept="5"/>
+ </concept>
+ <concept name="calm">
+  <linkedMeaning lemme="calm" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="condition">
+  <linkedMeaning lemme="condition" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="country">
+  <linkedMeaning lemme="country" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="desperate">
+  <linkedMeaning lemme="despair" relationToConcept="4"/>
+  <linkedMeaning lemme="desperate" relationToConcept="4"/>
+  <linkedMeaning lemme="desperately" relationToConcept="4"/>
+ </concept>
+ <concept name="excited">
+  <linkedMeaning lemme="excitation" relationToConcept="4"/>
+  <linkedMeaning lemme="excite" relationToConcept="4"/>
+ </concept>
+ <concept name="forExample">
+  <linkedMeaning lemme="for example" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="fromRecentContext">
+  <linkedMeaning lemme="this" gram="determiner" relationToConcept="4"/>
+  <linkedMeaning lemme="tonight" gram="adverb" relationToConcept="2"/>
+ </concept>
+ <concept name="game">
+  <linkedMeaning lemme="game" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="home">
+  <linkedMeaning lemme="home" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="dwelling" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="longtime">
+  <linkedMeaning lemme="longtime" relationToConcept="4"/>
+ </concept>
+ <concept name="news">
+  <linkedMeaning lemme="news" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="niceToMeetYou">
+  <linkedMeaning lemme="nice to meet you" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="please">
+  <linkedMeaning lemme="please" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="opposite">
+  <linkedMeaning lemme="contrary" relationToConcept="3"/>
+  <linkedMeaning lemme="inverse" relationToConcept="3"/>
+  <linkedMeaning lemme="opposite" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="opposite" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="opposite" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="opposite" gram="preposition" relationToConcept="3"/>
+ </concept>
+ <concept name="reading">
+  <linkedMeaning lemme="reading" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="lecture" gram="noun" relationToConcept="2"/>
+ </concept>
+ <concept name="reflexive">
+  <linkedMeaning lemme="myself" gram="pronoun" relationToConcept="4"/>
+  <linkedMeaning lemme="yourself" gram="pronoun" relationToConcept="4"/>
+  <linkedMeaning lemme="herself" gram="pronoun" relationToConcept="4"/>
+  <linkedMeaning lemme="himself" gram="pronoun" relationToConcept="4"/>
+  <linkedMeaning lemme="itself" gram="pronoun" relationToConcept="5"/>
+  <linkedMeaning lemme="ourself" gram="pronoun" relationToConcept="4"/>
+  <linkedMeaning lemme="themselves" gram="pronoun" relationToConcept="4"/>
+ </concept>
+ <concept name="soFar">
+  <linkedMeaning lemme="so far" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="sorry">
+  <linkedMeaning lemme="sorry" relationToConcept="4"/>
+ </concept>
+ <concept name="surprise.i">
+  <linkedMeaning lemme="ho" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="tablet">
+  <linkedMeaning lemme="tablet" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="times">
+  <linkedMeaning lemme="times" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="unless">
+  <linkedMeaning lemme="but" relationToConcept="4"/>
+  <linkedMeaning lemme="unless" relationToConcept="4"/>
+ </concept>
+ <concept name="value">
+  <linkedMeaning lemme="value" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="wide">
+  <linkedMeaning lemme="wide" relationToConcept="4"/>
+ </concept>
+ <concept name="youAreWelcome">
+  <linkedMeaning lemme="you're welcome" relationToConcept="4"/>
+ </concept>
+
+</linguisticdatabase>

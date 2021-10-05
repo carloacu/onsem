@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="perception_hear">
+  <linkedMeaning lemme="entendre" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

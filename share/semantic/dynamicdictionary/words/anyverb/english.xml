@@ -1,0 +1,71 @@
+<dictionary_modification language="english">
+  <any_verb>
+    <bookmark name="" />
+    <child lemma="on" pos="preposition" chunkLinkType="time" condition="followedByDate(with_day_value)" />
+    <child chunkLinkType="location" condition="followedByBeginOfConcept(location_)&!followedByBeginOfConcept(level_)" />
+    <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
+    <child lemma="in order" pos="sub_conj" chunkLinkType="purpose" condition="followedByInfinitiveVerb" />
+    <child lemma="when" pos="sub_conj" chunkLinkType="time" condition="followedBySubordinate" />
+    <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(number_, skip_determiners)|followedByDate" />
+    <child lemma="in" pos="preposition" chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
+    <child lemma="in" pos="preposition" chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
+    <child chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
+    <child chunkLinkType="location" condition="[followedByPartOfSpeech(adverb)|followedByPartOfSpeech(pronoun)]&followedByConceptOrHyponym(location)" />
+    <bookmark name="after-adverb-location" />
+    <child chunkLinkType="direct object" condition="!followedByPartOfSpeech(adverb)&!followedByPartOfSpeech(interjection)" />
+    <bookmark name="before-indirectObject" />
+    <child chunkLinkType="indirect object" condition="followedByBeginOfConcept(agent_)" />
+    <child lemma="here:" pos="preposition" chunkLinkType="location" condition="followedByResource" />
+    <child lemma="in" pos="preposition" chunkLinkType="location" condition="followedByPartOfSpeech(proper_noun)" />
+
+    <child lemma="about" pos="preposition" chunkLinkType="topic" />
+    <child lemma="according to" pos="preposition" chunkLinkType="according to" />
+    <child lemma="against" pos="preposition" chunkLinkType="against" />
+    <child lemma="after" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="at" pos="preposition" chunkLinkType="time"  condition="followedByBeginOfConcept(time_, skip_determiners)|followedByHour" />
+    <child lemma="at" pos="preposition" chunkLinkType="location" />
+    <child lemma="because" pos="sub_conj" chunkLinkType="cause" />
+    <child lemma="before" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="but" pos="sub_conj" chunkLinkType="mitigation" />
+    <child lemma="by" pos="preposition" chunkLinkType="way" />
+    <child lemma="for" pos="preposition" chunkLinkType="occurrence rank" condition="followedByOccurenceRank" />
+    <child lemma="for" pos="preposition" chunkLinkType="purpose" />
+    <child lemma="from" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="from" pos="preposition" chunkLinkType="starting point" />
+    <child lemma="in case of" pos="preposition" chunkLinkType="in case of" />
+    <child lemma="just after" pos="preposition" chunkLinkType="time" />
+    <child lemma="just before" pos="preposition" chunkLinkType="time" />
+    <child lemma="on" pos="preposition" chunkLinkType="location" />
+    <child lemma="like" pos="preposition" chunkLinkType="similarity" />
+    <child lemma="in" pos="preposition" chunkLinkType="location" />
+    <child lemma="in terms of" pos="preposition" chunkLinkType="topic" />
+    <child lemma="next" pos="preposition" chunkLinkType="location" />
+    <child lemma="since" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="to" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />
+    <child lemma="to" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_)" />
+    <child lemma="until" pos="sub_conj" chunkLinkType="duration" />
+    <child lemma="when" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="whenever" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="whereas" pos="sub_conj" chunkLinkType="despite contraint" />
+    <child lemma="while" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="with" pos="preposition" chunkLinkType="with" />
+    <child lemma="without" pos="sub_conj" chunkLinkType="without" />
+    <child lemma="why" pos="sub_conj" chunkLinkType="reason of" />
+  </any_verb>
+
+  <no_verb>
+    <child chunkLinkType="time" condition="followedByBeginOfConcept(time_relative_)|followedByBeginOfConcept(time_relativeDay_)" />
+    <child lemma="after" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="at" pos="preposition" chunkLinkType="time" condition="followedByHour" />
+    <child lemma="at" pos="preposition" chunkLinkType="location" />
+    <child lemma="because" pos="sub_conj" chunkLinkType="cause" />
+    <child lemma="before" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="but" pos="sub_conj" chunkLinkType="mitigation" />
+    <child lemma="in order" pos="sub_conj" chunkLinkType="purpose" condition="followedByInfinitiveVerb" />
+    <child lemma="of" pos="partitive" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="since" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="whenever" pos="sub_conj" chunkLinkType="time" />
+    <child lemma="with" pos="preposition" chunkLinkType="with" />
+  </no_verb>
+</dictionary_modification>

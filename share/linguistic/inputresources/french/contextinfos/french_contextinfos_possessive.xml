@@ -1,0 +1,38 @@
+<linguisticdatabase>
+  <existingMeaning lemme="son" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="mien" gram="adjective">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="mien" gram="noun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="mon" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="notre" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="votre" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="leur" gram="pronoun_comp">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="leur" gram="pronoun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="leur" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="ton" gram="determiner">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="tien" gram="noun">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+  <existingMeaning lemme="tien" gram="adjective">
+    <contextInfo val="possessive" />
+  </existingMeaning>
+</linguisticdatabase>

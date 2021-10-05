@@ -1,0 +1,8 @@
+in: "I look at chocolate"
+in: "what do I look at ?"
+in: "I look at beer"
+in: "qu'est ce que je regarde ?"
+in: "Je ne regarde pas le chocolat"
+in: "what do I look at ?"
+in: "Je ne regarde pas la bière"
+in: "qu'est ce que je regarde ?"

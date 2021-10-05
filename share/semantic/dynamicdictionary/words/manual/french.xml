@@ -1,0 +1,150 @@
+<dictionary_modification language="french">
+  <child_list_template name="de+infinitif->cod">
+    <child lemma="de" pos="preposition" chunkLinkType="direct object" condition="followedByInfinitiveVerb" />
+  </child_list_template>
+  <child_list_template name="de->cod">
+    <child bookmark="après-prep-prioritaires" lemma="de" pos="preposition" chunkLinkType="direct object" />
+  </child_list_template>
+  <child_list_template name="à->cod">
+    <child lemma="à" pos="preposition" chunkLinkType="direct object" />
+  </child_list_template>
+  <child_list_template name="de+cod">
+    <child bookmark="après-prep-prioritaires" chunkLinkType="direct object" />
+    <child bookmark="après-prep-prioritaires" lemma="de" pos="preposition" chunkLinkType="direct object" />
+  </child_list_template>
+  <child_list_template name="à+infinitive">
+    <child lemma="à" pos="preposition" chunkLinkType="direct object" condition="followedByInfinitiveVerb" />
+  </child_list_template>
+
+
+  <word lemma="accéder" pos="verb">
+    <include_child_list_template name="à->cod"/>
+  </word>
+  <word lemma="aller" pos="verb">
+    <child bookmark="au-avant-lieu-condition" lemma="au" pos="preposition" chunkLinkType="direct object" condition="followedByBeginOfConcept(sport_)|followedByConceptOrHyponym(game)" />
+  </word>
+  <word lemma="avoir" pos="verb">
+    <include_child_list_template name="de+cod"/>
+  </word>
+  <word lemma="appeler" pos="verb">
+    <child lemma="par" pos="preposition" chunkLinkType="manner" />
+  </word>
+  <word lemma="apprendre" pos="verb">
+    <child lemma="à" pos="preposition" chunkLinkType="direct object" condition="followedByInfinitiveVerb" />
+  </word>
+  <word lemma="arriver" pos="verb">
+    <child lemma="par" pos="preposition" chunkLinkType="manner" />
+    <include_child_list_template name="à+infinitive"/>
+  </word>
+  <word lemma="avoir~envie" pos="verb">
+    <include_child_list_template name="de+infinitif->cod"/>
+  </word>
+  <word lemma="bénéficier" pos="verb">
+    <include_child_list_template name="de->cod"/>
+  </word>
+  <word lemma="concentrer~se" pos="verb">
+    <child lemma="sur" pos="preposition" chunkLinkType="direct object" />
+  </word>
+  <word lemma="connaître" pos="verb">
+    <child lemma="sur" pos="preposition" chunkLinkType="topic" />
+  </word>
+  <word lemma="continuer" pos="verb">
+    <include_child_list_template name="à+infinitive"/>
+  </word>
+  <word lemma="créer" pos="verb">
+    <child lemma="par" pos="preposition" chunkLinkType="direct object" condition="followedByPartOfSpeech(proper_noun)" />
+    <child lemma="par" pos="preposition" chunkLinkType="purpose" />
+  </word>
+  <word lemma="demander" pos="verb">
+    <include_child_list_template name="de+infinitif->cod"/>
+  </word>
+  <word lemma="dire" pos="verb">
+    <child lemma="sur" pos="preposition" chunkLinkType="topic" />
+  </word>
+  <word lemma="élever~se" pos="verb">
+    <include_child_list_template name="à->cod"/>
+  </word>
+  <word lemma="essayer" pos="verb">
+    <include_child_list_template name="de+infinitif->cod"/>
+  </word>
+  <word lemma="être" pos="verb">
+    <child lemma="pourquoi" pos="sub_conj" chunkLinkType="reason of" />
+    <child bookmark="à-avant-lieu" lemma="à" pos="preposition" chunkLinkType="indirect object" />
+    <child bookmark="à-avant-lieu" lemma="en" chunkLinkType="direct object" condition="followedByUndefinedRef"><remove_verb_concept val="verb_equal_mean" /></child>
+  </word>
+  <word lemma="exceller" pos="verb">
+    <include_child_list_template name="à+infinitive"/>
+  </word>
+  <word lemma="expédier" pos="verb">
+    <child lemma="sous" pos="preposition" chunkLinkType="time" condition="followedByInfinitiveVerb" />
+  </word>
+  <word lemma="faire" pos="verb">
+    <include_child_list_template name="de+cod"/>
+  </word>
+  <word lemma="interdire" pos="verb">
+    <include_child_list_template name="de+infinitif->cod"/>
+  </word>
+  <word lemma="jouer" pos="verb">
+    <child lemma="au" pos="preposition" chunkLinkType="direct object" condition="followedByBeginOfConcept(sport_)|followedByConceptOrHyponym(game)" />
+  </word>
+  <word lemma="livrer" pos="verb">
+    <child lemma="sous" pos="preposition" chunkLinkType="time" condition="followedByInfinitiveVerb" />
+  </word>
+  <word lemma="mêler~se" pos="verb">
+    <include_child_list_template name="de->cod"/>
+  </word>
+  <word lemma="obtenir" pos="verb">
+    <child lemma="sur" pos="preposition" chunkLinkType="topic" />
+  </word>
+  <word lemma="offrir" pos="verb">
+    <include_child_list_template name="à+infinitive"/>
+  </word>
+  <word lemma="parler" pos="verb">
+    <child lemma="au" pos="preposition" chunkLinkType="manner" />
+    <child lemma="de" pos="preposition" chunkLinkType="topic" />
+  </word>
+  <word lemma="parvenir" pos="verb">
+    <include_child_list_template name="à+infinitive"/>
+  </word>
+  <word lemma="passer" pos="verb">
+    <child lemma="par" pos="preposition" chunkLinkType="location" />
+  </word>
+  <word lemma="permettre" pos="verb">
+    <include_child_list_template name="de+infinitif->cod"/>
+  </word>
+  <word lemma="prendre" pos="verb">
+    <child lemma="en" pos="preposition" chunkLinkType="way" />
+  </word>
+  <word lemma="ravir" pos="verb">
+    <include_child_list_template name="de+infinitif->cod"/>
+  </word>
+  <word lemma="regarder" pos="verb">
+    <child lemma="à" pos="preposition" chunkLinkType="location" />
+  </word>
+  <word lemma="revenir" pos="verb">
+    <include_child_list_template name="à+infinitive"/>
+  </word>
+  <word lemma="savoir" pos="verb">
+    <child lemma="sur" pos="preposition" chunkLinkType="topic" />
+  </word>
+  <word lemma="servir" pos="verb">
+    <include_child_list_template name="à->cod"/>
+  </word>
+  <word lemma="souscrire" pos="verb">
+    <include_child_list_template name="à->cod"/>
+  </word>
+  <word lemma="tourner" pos="verb">
+    <child lemma="à" pos="preposition" chunkLinkType="location" />
+  </word>
+  <word lemma="traiter" pos="verb">
+    <child lemma="sous" pos="preposition" chunkLinkType="time" condition="followedByInfinitiveVerb" />
+  </word>
+  <word lemma="venir" pos="verb">
+    <child lemma="de" chunkLinkType="time" condition="followedByInfinitiveVerb" />
+    <child lemma="de" chunkLinkType="starting point" />
+  </word>
+  <word lemma="voir" pos="verb">
+    <child chunkLinkType="direct object" condition="followedByDefiniteNoun&followedByConceptOrHyponym(time_day, skip_determiners)" />
+    <include_child_list_template name="de+cod"/>
+  </word>
+</dictionary_modification>

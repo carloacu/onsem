@@ -1,0 +1,8 @@
+in: "je suis un artiste"
+out: "Ok, tu es un artiste."
+in: "quel est mon métier"
+out: "Ton métier est un artiste."
+in: "mon métier est dedzzz"
+out: "C'est pas faux."
+in: "quel est mon métier"
+out: "Ton métier est dedzzz et un artiste."

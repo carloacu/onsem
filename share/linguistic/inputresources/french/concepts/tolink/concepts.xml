@@ -1,0 +1,28 @@
+<linguisticdatabase>
+ <concept name="tolink_1s">
+  <linkedMeaning lemme="je" gram="pronoun_subject" relationToConcept="4"/>
+  <linkedMeaning lemme="mon" gram="determiner" relationToConcept="3"/>
+ </concept>
+ <concept name="tolink_2s">
+  <linkedMeaning lemme="tu" gram="pronoun_subject" relationToConcept="4"/>
+  <linkedMeaning lemme="ton" gram="determiner" relationToConcept="3"/>
+ </concept>
+ <concept name="tolink_3s">
+  <linkedMeaning lemme="il" gram="pronoun_subject" relationToConcept="4"/>
+  <linkedMeaning lemme="elle" gram="pronoun_subject" relationToConcept="3"/>
+  <linkedMeaning lemme="son" gram="determiner" relationToConcept="3"/>
+ </concept>
+ <concept name="tolink_1p">
+  <linkedMeaning lemme="nous" gram="pronoun_subject" relationToConcept="4"/>
+  <linkedMeaning lemme="notre" gram="determiner" relationToConcept="3"/>
+ </concept>
+ <concept name="tolink_2p">
+  <linkedMeaning lemme="vous" gram="pronoun_subject" relationToConcept="4"/>
+  <linkedMeaning lemme="votre" gram="determiner" relationToConcept="3"/>
+ </concept>
+ <concept name="tolink_3p">
+  <linkedMeaning lemme="ils" gram="pronoun_subject" relationToConcept="4"/>
+  <linkedMeaning lemme="elles" gram="pronoun_subject" relationToConcept="3"/>
+  <linkedMeaning lemme="leur" gram="determiner" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

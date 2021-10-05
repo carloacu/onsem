@@ -1,0 +1,2 @@
+in: "je suis un artiste, un homme dévoué et un chanteur"
+in: "quel est mon métier"

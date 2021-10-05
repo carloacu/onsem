@@ -1,0 +1,420 @@
+<linguisticdatabase>
+
+  <declareconcept name="age" />
+  <declareconcept name="alone" />
+  <declareconcept name="already" />
+  <declareconcept name="also" />
+  <declareconcept name="answer" />
+  <declareconcept name="anything" />
+  <declareconcept name="approximately" />
+  <declareconcept name="ball" />
+  <declareconcept name="because" />
+  <declareconcept name="calm" />
+  <declareconcept name="condition" />
+  <declareconcept name="country" />
+  <declareconcept name="desperate" />
+  <declareconcept name="excited" />
+  <declareconcept name="forExample" />
+  <declareconcept name="fromRecentContext" />
+  <declareconcept name="game" />
+  <declareconcept name="home" />
+  <declareconcept name="ip" />
+  <declareconcept name="longtime" />
+  <declareconcept name="name" />
+  <declareconcept name="nationality" />
+  <declareconcept name="news" />
+  <declareconcept name="niceToMeetYou" />
+  <declareconcept name="please" />
+  <declareconcept name="opposite" />
+  <declareconcept name="reading" />
+  <declareconcept name="reflexive" autofill="false" />
+  <declareconcept name="resource" />
+  <declareconcept name="soFar" />
+  <declareconcept name="sorry" />
+  <declareconcept name="surprise.i" />
+  <declareconcept name="tablet" />
+  <declareconcept name="times" autofill="false" />
+  <declareconcept name="unless" />
+  <declareconcept name="url" />
+  <declareconcept name="value" />
+  <declareconcept name="wide" />
+  <declareconcept name="youAreWelcome" />
+
+  <declareconcept name="abstract_psychology" />
+
+  <declareconcept name="accordance_agreement" />
+  <declareconcept name="accordance_agreement_yes" />
+  <declareconcept name="accordance_agreement_true" />
+  <declareconcept name="accordance_agreement_ok" />
+  <declareconcept name="accordance_agreement_both" />
+  <declareconcept name="accordance_agreement_allOfThem" autofill="false" />
+  <declareconcept name="accordance_disagreement" />
+  <declareconcept name="accordance_disagreement_no" />
+  <declareconcept name="accordance_disagreement_false" />
+  <declareconcept name="accordance_disagreement_neither" />
+  <declareconcept name="accordance_disagreement_noneOfThem" />
+  <nearlyequalconcepts concept1="accordance_agreement_*" concept2="accordance_agreement_yes" />
+  <nearlyequalconcepts concept1="accordance_agreement_*" concept2="accordance_agreement_true" />
+  <nearlyequalconcepts concept1="accordance_agreement_yes" concept2="accordance_agreement_true" />
+  <nearlyequalconcepts concept1="accordance_disagreement_*" concept2="accordance_disagreement_no" />
+  <nearlyequalconcepts concept1="accordance_disagreement_*" concept2="accordance_disagreement_false" />
+  <nearlyequalconcepts concept1="accordance_disagreement_no" concept2="accordance_disagreement_false" />
+
+  <declareconcept name="agent" />
+  <declareconcept name="agent_human" />
+  <declareconcept name="agent_parent" />
+  <declareconcept name="agent_robot" />
+  <declareconcept name="agent_sibling" />
+  <declareconcept name="agent_animal" />
+  <declareconcept name="agent_profession" />
+
+  <declareconcept name="agent_position_goalkeeper" />
+  <declareconcept name="agent_position_defender" />
+  <declareconcept name="agent_position_midfielder" />
+  <declareconcept name="agent_position_midfielder_winger" />
+  <declareconcept name="agent_position_striker" />
+
+  <declareconcept name="application" />
+  <declareconcept name="application_dance" />
+
+
+  <declareconcept name="body" />
+  <declareconcept name="body_arm" />
+  <declareconcept name="body_arm_elbow" />
+  <declareconcept name="body_arm_hand" />
+  <declareconcept name="body_arm_shoulder" />
+  <declareconcept name="body_arm_wrist" />
+  <declareconcept name="body_head" />
+  <declareconcept name="body_head_brain" />
+  <declareconcept name="body_head_ear" />
+  <declareconcept name="body_head_eye" />
+  <declareconcept name="body_head_mouth" />
+  <declareconcept name="body_head_neck" />
+  <declareconcept name="body_leg" />
+  <declareconcept name="body_leg_ankle" />
+  <declareconcept name="body_leg_hip" />
+  <declareconcept name="body_leg_knee" />
+  <declareconcept name="body_leg_wheel" />
+
+  <declareconcept name="color" />
+
+  <declareconcept name="comparison" autofill="false" />
+  <declareconcept name="comparison_equal" autofill="false" />
+  <declareconcept name="comparison_different" autofill="false" />
+  <declareconcept name="comparison_more" autofill="false" />
+  <declareconcept name="comparison_less" autofill="false" />
+  <oppositeconcepts concept1="comparison_more" concept2="comparison_less" />
+
+  <declareconcept name="concrete" />
+  <declareconcept name="concrete_food" />
+  <declareconcept name="concrete_food_fruit" />
+
+  <declareconcept name="concrete_food_vegetable" />
+  <declareconcept name="concrete_food_vegetable_cabbage" />
+  <declareconcept name="concrete_food_vegetable_green" />
+  <declareconcept name="concrete_food_vegetable_herb" />
+  <declareconcept name="concrete_food_vegetable_legume" />
+  <declareconcept name="concrete_food_vegetable_lettuce" />
+  <declareconcept name="concrete_food_vegetable_onion" />
+  <declareconcept name="concrete_food_vegetable_pepper" />
+  <declareconcept name="concrete_food_vegetable_pepper_chiliPepper" />
+  <declareconcept name="concrete_food_vegetable_rootVegetable" />
+  <declareconcept name="concrete_food_vegetable_rootVegetable_corm" />
+  <declareconcept name="concrete_food_vegetable_rootVegetable_radish" />
+  <declareconcept name="concrete_food_vegetable_rootVegetable_tuber" />
+  <declareconcept name="concrete_food_vegetable_squash" />
+
+  <declareconcept name="degree" />
+
+  <declareconcept name="duration_hour" />
+  <declareconcept name="duration_minute" />
+  <declareconcept name="duration_second" />
+  <declareconcept name="duration_millisecond" />
+
+  <declareconcept name="duration_relative_delayedStart" />
+  <declareconcept name="duration_relative_until" />
+
+  <declareconcept name="emotion" />
+
+  <declareconcept name="engagement_engage" />
+  <declareconcept name="engagement_disengage" />
+
+  <declareconcept name="gas" />
+
+  <declareconcept name="gender_male" />
+  <declareconcept name="gender_female" />
+  <declareconcept name="gender_neutral" />
+  <oppositeconcepts concept1="gender_male" concept2="gender_female" />
+
+  <declareconcept name="health" />
+  <declareconcept name="health_good" />
+  <declareconcept name="health_bad" />
+  <oppositeconcepts concept1="health_good" concept2="health_bad" />
+
+  <declareconcept name="language_french" />
+  <declareconcept name="language_english" />
+
+  <declareconcept name="level" />
+  <declareconcept name="level_empty" />
+  <declareconcept name="level_low" />
+  <declareconcept name="level_full" />
+
+  <declareconcept name="liquid" />
+
+  <declareconcept name="list_and" autofill="false" />
+  <declareconcept name="list_or" autofill="false" />
+  <declareconcept name="list_then" autofill="false" />
+
+  <declareconcept name="location" />
+  <declareconcept name="location_floor" />
+  <declareconcept name="location_sky" />
+  <declareconcept name="location_relative_above" />
+  <declareconcept name="location_relative_behind" />
+  <declareconcept name="location_relative_below" />
+  <declareconcept name="location_relative_close" />
+  <declareconcept name="location_relative_east" />
+  <declareconcept name="location_relative_inFrontOf" />
+  <declareconcept name="location_relative_inside" />
+  <declareconcept name="location_relative_far" />
+  <declareconcept name="location_relative_high" />
+  <declareconcept name="location_relative_here" />
+  <declareconcept name="location_relative_left" />
+  <declareconcept name="location_relative_low" />
+  <declareconcept name="location_relative_north" />
+  <declareconcept name="location_relative_on" />
+  <declareconcept name="location_relative_outside" />
+  <declareconcept name="location_relative_right" />
+  <declareconcept name="location_relative_south" />
+  <declareconcept name="location_relative_under" />
+  <declareconcept name="location_relative_west" />
+
+  <declareconcept name="manner" />
+  <declareconcept name="manner_stronger" autofill="false" />
+  <declareconcept name="manner_together" />
+  <declareconcept name="manner_well" />
+  <declareconcept name="manner_notwell" />
+
+  <declareconcept name="mentalState" />
+  <declareconcept name="mentalState_know" />
+
+  <declareconcept name="number" />
+  <declareconcept name="number_0" autofill="false" />
+  <declareconcept name="number_1" autofill="false" />
+  <declareconcept name="number_2" autofill="false" />
+  <declareconcept name="number_3" autofill="false" />
+  <declareconcept name="number_4" autofill="false" />
+  <declareconcept name="number_5" autofill="false" />
+  <declareconcept name="number_6" autofill="false" />
+  <declareconcept name="number_7" autofill="false" />
+  <declareconcept name="number_8" autofill="false" />
+  <declareconcept name="number_9" autofill="false" />
+  <declareconcept name="number_10" autofill="false" />
+  <declareconcept name="number_11" autofill="false" />
+  <declareconcept name="number_12" autofill="false" />
+  <declareconcept name="number_13" autofill="false" />
+  <declareconcept name="number_14" autofill="false" />
+  <declareconcept name="number_15" autofill="false" />
+  <declareconcept name="number_16" autofill="false" />
+  <declareconcept name="number_17" autofill="false" />
+  <declareconcept name="number_18" autofill="false" />
+  <declareconcept name="number_19" autofill="false" />
+  <declareconcept name="number_20" autofill="false" />
+  <declareconcept name="number_30" autofill="false" />
+  <declareconcept name="number_40" autofill="false" />
+  <declareconcept name="number_50" autofill="false" />
+  <declareconcept name="number_60" autofill="false" />
+  <declareconcept name="number_70" autofill="false" />
+  <declareconcept name="number_80" autofill="false" />
+  <declareconcept name="number_90" autofill="false" />
+  <declareconcept name="number_100" autofill="false" />
+  <declareconcept name="number_1000" autofill="false" />
+  <declareconcept name="number_10000" autofill="false" />
+  <declareconcept name="number_100000" autofill="false" />
+
+  <declareconcept name="perception" />
+  <declareconcept name="perception_hear" />
+
+  <declareconcept name="predicate_hasAge" />
+  <declareconcept name="predicate_hasName" autofill="false" />
+  <declareconcept name="predicate_hasName_call" autofill="false" />
+
+  <declareconcept name="quantity_anything" />
+  <declareconcept name="quantity_everything" autofill="false" />
+  <declareconcept name="quantity_less" autofill="false" />
+  <declareconcept name="quantity_many" />
+  <declareconcept name="quantity_maxNumber" autofill="false" />
+  <declareconcept name="quantity_more" autofill="false" />
+  <declareconcept name="quantity_1" />
+  <declareconcept name="quantity_nothing" />
+  <declareconcept name="quantity_some" />
+
+  <declareconcept name="rank_1" />
+  <declareconcept name="rank_2" />
+  <declareconcept name="rank_3" />
+  <declareconcept name="rank_4" />
+  <declareconcept name="rank_5" />
+  <declareconcept name="rank_6" />
+  <declareconcept name="rank_7" />
+  <declareconcept name="rank_8" />
+  <declareconcept name="rank_9" />
+  <declareconcept name="rank_10" />
+  <declareconcept name="rank_inverse_1" />
+
+  <declareconcept name="reference_definite" autofill="false" />
+  <declareconcept name="reference_indefinite" autofill="false" />
+  <declareconcept name="reference_other" autofill="false" />
+
+  <declareconcept name="sentiment"/>
+  <declareconcept name="sentiment_negative"/>
+  <declareconcept name="sentiment_negative_anger"/>
+  <declareconcept name="sentiment_negative_bad" />
+  <declareconcept name="sentiment_negative_disgust"/>
+  <declareconcept name="sentiment_negative_fear"/>
+  <declareconcept name="sentiment_negative_sadness"/>
+  <declareconcept name="sentiment_negative_tiredness"/>
+  <declareconcept name="sentiment_neutral_desire"/>
+  <declareconcept name="sentiment_neutral_surprise"/>
+  <declareconcept name="sentiment_positive"/>
+  <declareconcept name="sentiment_positive_funny"/>
+  <declareconcept name="sentiment_positive_happiness"/>
+  <declareconcept name="sentiment_positive_joy"/>
+  <declareconcept name="sentiment_positive_kind"/>
+  <declareconcept name="sentiment_positive_thanks"/>
+  <oppositeconcepts concept1="sentiment_positive_happiness" concept2="sentiment_negative_sadness" />
+
+  <declareconcept name="sequence_relative_next" />
+
+  <declareconcept name="sport" />
+
+  <declareconcept name="story" />
+  <declareconcept name="story_joke" />
+
+  <declareconcept name="time" />
+  <declareconcept name="time_birthdate" />
+  <declareconcept name="time_birthday" />
+  <declareconcept name="time_date" />
+  <declareconcept name="time_everyTime" />
+  <declareconcept name="time_year" />
+
+  <declareconcept name="time_day" />
+  <declareconcept name="time_day_morning" />
+  <declareconcept name="time_day_noon" />
+  <declareconcept name="time_day_afternoon" />
+  <declareconcept name="time_day_evening" />
+  <declareconcept name="time_day_midnight" />
+  <declareconcept name="time_day_night" />
+
+  <declareconcept name="time_hour_am" />
+  <declareconcept name="time_hour_pm" />
+
+  <declareconcept name="time_month_january" />
+  <declareconcept name="time_month_february" />
+  <declareconcept name="time_month_march" />
+  <declareconcept name="time_month_april" />
+  <declareconcept name="time_month_may" />
+  <declareconcept name="time_month_june" />
+  <declareconcept name="time_month_july" />
+  <declareconcept name="time_month_august" />
+  <declareconcept name="time_month_september" />
+  <declareconcept name="time_month_october" />
+  <declareconcept name="time_month_november" />
+  <declareconcept name="time_month_december" />
+ 
+  <declareconcept name="time_relative_after" autofill="false" />
+  <declareconcept name="time_relative_before" autofill="false" />
+  <declareconcept name="time_relative_justAfter" autofill="false" />
+  <declareconcept name="time_relative_justBefore" autofill="false" />
+  <declareconcept name="time_relative_now" autofill="false" />
+  <declareconcept name="time_relative_rightAway" autofill="false" />
+  <nearlyequalconcepts concept1="time_relative_now" concept2="time_relative_rightAway" />
+  <declareconcept name="time_relative_since" autofill="false" />
+  <declareconcept name="time_relative_soon" autofill="false" />
+
+  <declareconcept name="time_relativeDay_dayAfterTomorrow" />
+  <declareconcept name="time_relativeDay_dayBeforeYesterday" />
+  <declareconcept name="time_relativeDay_yesterday" />
+  <declareconcept name="time_relativeDay_today" />
+  <declareconcept name="time_relativeDay_tomorrow" />
+
+  <declareconcept name="time_weekday_sunday" />
+  <declareconcept name="time_weekday_monday" />
+  <declareconcept name="time_weekday_tuesday" />
+  <declareconcept name="time_weekday_wednesday" />
+  <declareconcept name="time_weekday_thursday" />
+  <declareconcept name="time_weekday_friday" />
+  <declareconcept name="time_weekday_saturday" />
+
+
+  <declareconcept name="tolink_1s" autofill="false" />
+  <declareconcept name="tolink_2s" autofill="false" />
+  <declareconcept name="tolink_3s" autofill="false" />
+  <declareconcept name="tolink_1p" autofill="false" />
+  <declareconcept name="tolink_2p" autofill="false" />
+  <declareconcept name="tolink_3p" autofill="false" />
+
+  <declareconcept name="verb_able" autofill="false" />
+  <declareconcept name="verb_agree" autofill="false" />
+  <declareconcept name="verb_beRight" autofill="false" />
+  <declareconcept name="verb_born" />
+  <declareconcept name="verb_can" />
+  <declareconcept name="verb_die" />
+  <declareconcept name="verb_dislike" autofill="false" />
+  <declareconcept name="verb_find" />
+  <declareconcept name="verb_go" />
+  <declareconcept name="verb_hate" />
+  <declareconcept name="verb_have" />
+  <declareconcept name="verb_haveto" autofill="false" />
+  <declareconcept name="verb_install" />
+  <declareconcept name="verb_like" />
+  <declareconcept name="verb_need" />
+  <declareconcept name="verb_offer" />
+  <declareconcept name="verb_return" autofill="false" />
+  <declareconcept name="verb_should" autofill="false" />
+  <declareconcept name="verb_think" />
+  <declareconcept name="verb_want" />
+  <declareconcept name="verb_would" autofill="false" />
+  <oppositeconcepts concept1="verb_like" concept2="verb_dislike" />
+
+  <declareconcept name="verb_action" />
+  <declareconcept name="verb_action_close" />
+  <declareconcept name="verb_action_comeHere" />
+  <declareconcept name="verb_action_deregister" />
+  <declareconcept name="verb_action_execute" />
+  <declareconcept name="verb_action_goaway" />
+  <declareconcept name="verb_action_go" autofill="false" />
+  <declareconcept name="verb_action_improve" />
+  <declareconcept name="verb_action_leave" />
+  <declareconcept name="verb_action_lookat" />
+  <declareconcept name="verb_action_moveBack" />
+  <declareconcept name="verb_action_moveForward" />
+  <declareconcept name="verb_action_notify" />
+  <declareconcept name="verb_action_raise" />
+  <declareconcept name="verb_action_register" />
+  <declareconcept name="verb_action_remove" />
+  <declareconcept name="verb_action_say" />
+  <declareconcept name="verb_action_say_answer" />
+  <declareconcept name="verb_action_say_ask" />
+  <declareconcept name="verb_action_show" />
+  <declareconcept name="verb_action_sleep" />
+  <declareconcept name="verb_action_smile" />
+  <declareconcept name="verb_action_standup" />
+  <declareconcept name="verb_action_stopTalking" />
+  <declareconcept name="verb_action_subscribe" />
+  <declareconcept name="verb_action_teach" />
+  <declareconcept name="verb_action_touch" />
+  <declareconcept name="verb_action_try" />
+  <declareconcept name="verb_action_turnAway" />
+  <declareconcept name="verb_action_use" />
+  <declareconcept name="verb_action_wakeUp" />
+  <declareconcept name="verb_action_wear" />
+  <declareconcept name="verb_action_write" />
+  <declareconcept name="verb_action_write_answer" />
+  <declareconcept name="verb_action_write_ask" />
+
+  <declareconcept name="verb_equal" />
+  <declareconcept name="verb_equal_be" />
+  <declareconcept name="verb_equal_mean" />
+  <declareconcept name="verb_equal_seem" />
+
+
+</linguisticdatabase>

@@ -1,0 +1,5 @@
+in: "Your ip is 127.0.0.1."
+in: "what is your ip?"
+in: "what is your ip address?"
+in: "quel est ton ip ?"
+in: "quel est ton adresse ip ?"

@@ -1,0 +1,16 @@
+<linguisticdatabase>
+ <concept name="verb_equal">
+  <linkedMeaning lemme="equal" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_equal_be">
+  <linkedMeaning lemme="be" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="look" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_equal_mean">
+  <linkedMeaning lemme="mean" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="be" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_equal_seem">
+  <linkedMeaning lemme="seem" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

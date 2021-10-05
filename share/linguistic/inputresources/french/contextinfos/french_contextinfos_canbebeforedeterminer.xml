@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="de" gram="determiner">
+    <contextInfo val="canBeBeforeDeterminer" />
+  </existingMeaning>
+</linguisticdatabase>

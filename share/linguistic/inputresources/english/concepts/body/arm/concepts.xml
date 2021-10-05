@@ -1,0 +1,17 @@
+<linguisticdatabase>
+ <concept name="body_arm">
+  <linkedMeaning lemme="arm" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_arm_elbow">
+  <linkedMeaning lemme="elbow" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_arm_hand">
+  <linkedMeaning lemme="hand" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_arm_shoulder">
+  <linkedMeaning lemme="shoulder" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="body_arm_wrist">
+  <linkedMeaning lemme="wrist" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

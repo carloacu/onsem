@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="que" gram="pronoun">
+    <contextInfo val="cannotBeACoreference" />
+  </existingMeaning>
+</linguisticdatabase>

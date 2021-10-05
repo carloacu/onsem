@@ -1,0 +1,54 @@
+<semantictreeconversions formalism="1">
+
+
+  <conversion>
+    <tree inText="true" outText="true">
+      <root id="1" grounding="generic" concept="times" notConcept="occurrenceRank">
+        <specifier id="2" beginOfConcept="rank_" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="generic" concept="occurrenceRank" notConcept="times" word="">
+        <specifier id="2" beginOfConcept="rank_" />
+      </root>
+    </tree>
+  </conversion>
+
+
+  <conversion>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="mentalState_know" word="know|verb|en_US">
+        <object id="2" grounding="generic" />
+      </root>
+    </tree>
+    <tree outText="true">
+      <root id="1" grounding="statement" concept="mentalState_know" word="connaître|verb|fr_FR" >
+        <object id="2" grounding="generic" />
+      </root>
+    </tree>
+  </conversion>
+
+
+  <conversion>
+    <tree inText="true" outText="true">
+      <root id="1" grounding="statement" concept="verb_born" time="present">
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="verb_born" time="punctual_past">
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true" outText="true">
+      <root id="1" grounding="statement" concept="verb_die" time="present">
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="verb_die" time="punctual_past">
+      </root>
+    </tree>
+  </conversion>
+
+</semantictreeconversions>

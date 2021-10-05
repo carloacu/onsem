@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="duration_relative_delayedStart">
+  <linkedMeaning lemme="in" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="duration_relative_until">
+  <linkedMeaning lemme="until" gram="sub_conj" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

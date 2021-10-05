@@ -1,0 +1,3 @@
+in: "Paul is a man"
+in: "Paul is a man"
+out: "Yes, I know Paul is a man."

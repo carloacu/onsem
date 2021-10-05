@@ -1,0 +1,15 @@
+<linguisticdatabase>
+ <concept name="location">
+  <linkedMeaning lemme="anywhere" relationToConcept="4"/>
+  <linkedMeaning lemme="someplace" relationToConcept="3"/>
+  <linkedMeaning lemme="somewhere" relationToConcept="4"/>
+  <linkedMeaning lemme="there" gram="pronoun" relationToConcept="2"/>
+ </concept>
+ <concept name="location_floor">
+  <linkedMeaning lemme="floor" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="ground" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="location_sky">
+  <linkedMeaning lemme="sky" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

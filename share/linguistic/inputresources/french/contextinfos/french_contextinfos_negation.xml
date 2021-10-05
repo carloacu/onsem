@@ -1,0 +1,17 @@
+<linguisticdatabase>
+  <existingMeaning lemme="ne" gram="adverb">
+    <contextInfo val="negation" />
+  </existingMeaning>
+  <existingMeaning lemme="même pas" gram="adverb">
+    <contextInfo val="negation" />
+  </existingMeaning>
+  <existingMeaning lemme="pas" gram="adverb">
+    <contextInfo val="negation" />
+  </existingMeaning>
+  <existingMeaning lemme="pas vraiment" gram="adverb">
+    <contextInfo val="negation" />
+  </existingMeaning>
+  <existingMeaning lemme="pas encore" gram="adverb">
+    <contextInfo val="negation" />
+  </existingMeaning>
+</linguisticdatabase>

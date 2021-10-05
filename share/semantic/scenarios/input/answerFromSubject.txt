@@ -1,0 +1,5 @@
+in: "je regarde Paul"
+in: "qui je regarde"
+in: "qui regarde Paul"
+in: "André looks at Paul"
+in: "qui regarde Paul"

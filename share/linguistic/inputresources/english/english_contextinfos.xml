@@ -1,0 +1,23 @@
+<linguisticdatabase>
+ <include file="readonly/english_contextinfos_beauxiliary.xml"/>
+ <include file="readonly/english_contextinfos_haveauxiliary.xml"/>
+ <include file="readonly/english_contextinfos_transitiveverb.xml"/>
+ <include file="contextinfos/english_contextinfos_any.xml"/>
+ <include file="contextinfos/english_contextinfos_condition.xml"/>
+ <include file="contextinfos/english_contextinfos_canbebeforenoun.xml"/>
+ <include file="contextinfos/english_contextinfos_canbebeforeverb.xml"/>
+ <include file="contextinfos/english_contextinfos_cannotbeasubject.xml"/>
+ <include file="contextinfos/english_contextinfos_cannotbecontinuous.xml"/>
+ <include file="contextinfos/english_contextinfos_haveauxiliary.xml"/>
+ <include file="contextinfos/english_contextinfos_negation.xml"/>
+ <include file="contextinfos/english_contextinfos_possessive.xml"/>
+ <include file="contextinfos/english_contextinfos_reftoaperson.xml"/>
+ <include file="contextinfos/english_contextinfos_sentencecanbeginwith.xml"/>
+ <include file="contextinfos/english_contextinfos_sentencecannotbeginwith.xml"/>
+ <include file="contextinfos/english_contextinfos_sentenceendswith.xml"/>
+ <include file="contextinfos/english_contextinfos_sentencecannotendwith.xml"/>
+ <include file="contextinfos/english_contextinfos_timeword.xml"/>
+ <include file="contextinfos/english_contextinfos_passive.xml"/>
+ <include file="contextinfos/english_contextinfos_uncountable.xml"/>
+ <include file="contextinfos/english_contextinfos_verbfollowedby.xml"/>
+</linguisticdatabase>

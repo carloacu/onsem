@@ -1,0 +1,12 @@
+<linguisticdatabase>
+ <concept name="list_and">
+  <linkedMeaning lemme="et" gram="conjunctive" relationToConcept="4"/>
+ </concept>
+ <concept name="list_or">
+  <linkedMeaning lemme="ou" gram="conjunctive" relationToConcept="4"/>
+ </concept>
+ <concept name="list_then">
+  <linkedMeaning lemme="puis" gram="conjunctive" relationToConcept="4"/>
+  <linkedMeaning lemme="ensuite" gram="conjunctive" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

@@ -1,0 +1,17 @@
+% Version of the database
+open [inputresources]/japanese/japanese_header.xml
+
+% Load words
+merge [inputresources]/japanese/japanese_separators.xml
+merge [inputresources]/japanese/japanese_words.xml
+
+% Fill concepts
+merge [inputresources]/common/declare_concepts.xml
+merge [inputresources]/japanese/japanese_concepts.xml
+
+% Fill animations
+merge [inputresources]/japanese/japanese_animations.xml
+
+% Save the database
+save
+

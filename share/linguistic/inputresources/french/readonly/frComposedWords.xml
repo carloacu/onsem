@@ -1,0 +1,4218 @@
+<linguisticdatabase>
+ <words lemme="abaisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abandonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abattre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abeausir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ablater" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aboucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abouter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abriter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abrutir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="absenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abstenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abstraire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abuter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abâtardir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="abîmer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accaparer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accointer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accommoder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accompagner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accorder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accoter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accouder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accourcir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accoutumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accouver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accrocher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accroître" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accroupetonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accroupir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="accumuler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="acenser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="acharner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="achever" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="acliquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="acoquiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="acquitter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="adenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="adoniser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="adonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="adoucir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="adresser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="affaiblir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="affairer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="affaisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="affaler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="afficher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="affoler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="affronter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="agenouiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aggraver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="agir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="agiter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="agrandir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="agresser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="agriffer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="agripper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aguerrir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ahaner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aheurter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aigretter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aiguiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aimer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ajuster" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="alanguir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aligner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="alimenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aliter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="allonger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="allumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="amollir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="amuser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="amuïr" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="améliorer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="anastomoser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="angliciser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="animaliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="anuiter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="anéantir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="anémier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="apercevoir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="apitoyer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="apparenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="appauvrir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="appeler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="applaudir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="appliquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="apprivoiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="approcher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="approprier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="appuyer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="arquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="arracher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="arranger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="arriérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="arroger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="arrondir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="arrêter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="asseoir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="assimiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="associer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="assombrir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="assoupir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="assumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="assurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="atermoyer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="atrophier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="attabler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="attacher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="attifer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="attribuer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="attrouper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="augmenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoadapter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoagglomérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoagglutiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoallumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoamorcer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoamortir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoamputer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoassembler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autocasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autocastrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoconcurrencer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autocongratuler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoconserver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autocontester" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autodissoudre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autodupliquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autodécontracter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autodécrasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autodéterminer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autodétruire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoenseigner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoentretenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoexciter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autofertiliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autolubrifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autolyser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="automasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="automodifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="automutiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="automédiquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autopolliniser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autopositionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoproclamer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autopunir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autorelaxer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autorenforcer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autorégler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoréférer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoréguler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoréparer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autostabiliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autostimuler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autosuffire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autotracter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autovacciner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="autoépurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="avachir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="avaler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="avancer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aventurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aveulir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="aviser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="avérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bagarrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="baigner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="baiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="baisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="balader" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="balancer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bander" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="barrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="barricader" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="battre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bauger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bauxitiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bidonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="biler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bitturer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="blanchir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="blesser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="blottir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="boire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="boiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bomber" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="borner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bosseler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="boucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bougner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="boutonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bowaliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="boyauter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="brandiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="branler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="briser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bronzer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="brunir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="brûler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="buter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="bécoter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="caboter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cabrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cacher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="caler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="caleter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="calfeutrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="calmer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="calter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="camer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cambrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="candir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="canter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cantonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="capillariser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="caractériser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="carapater" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="carnifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="carrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="caser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="casser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="castiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cataracter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="chamailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="changer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="chevaucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ciller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="clapir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="claquemurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cloîtrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="coaliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="coassocier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cogner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="colleter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="coltiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="commettre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="communiquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="complaire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="complexer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="comporter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="composer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="compénétrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="concentrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="concerter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="conchier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="concréter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="conduire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="confesser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="confier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="conformer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="confédérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="congratuler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="conjointer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="conjouir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="connaître" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="consacrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="conseiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="consommer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="consonantifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="consumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="contenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="contorsionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="contrefoutre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="convenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="copier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="coquelucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="corser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cotir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cotiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cotonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="coucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="couler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="couper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="courber" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="couronner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cramponner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="creuser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="crisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="croire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="croiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="crosser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cuirasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="cuiter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="daguer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="damner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="damouritiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dandiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="demander" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="densifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dessiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dessécher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="destiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="diffuser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dilater" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="diriger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dispenser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="disperser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="disponibiliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="disposer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="disputer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dissiper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dissoudre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="distraire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="diviser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="doigter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dolenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="donner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="doucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="douter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="draper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dresser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="durcir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déballonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débander" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débarrasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débattre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débaucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débonder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déborder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déboutonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débrailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débrider" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="débrouiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="décarcasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="décarêmer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="décharger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déchaîner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déchirer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="décider" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déclarer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déclasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="décliner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="décoller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déconcentrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="décontenancer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="découdre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="découvrir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dédire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dédorer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="défaire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="défausser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="défendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="défenestrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="défier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="défiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="défouler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="défâcher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déganter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dégarnir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dégauchir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dégeler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dégonfler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déhaler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déhancher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déjuger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="délasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="délecter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="délicoter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déliter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="démarquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="démarrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dématérialiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="démener" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="démerder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="démonter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="démunir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dénuder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dépageoter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="départir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dépayser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dépiter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déplacer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déplaire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déplumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dépoitrailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dépouiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déprendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dépêcher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dérober" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dérougir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dérouler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désaffectionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désassibiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désenclaver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désenticher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désespérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déshabiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déshabituer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désinscrire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désintéresser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désinvestir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désister" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="désoler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="détacher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="détendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="déterminer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="détruire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dévaloriser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="développer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dévisager" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dévoiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dévouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="dévêtir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="eczématiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="effaroucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="effilocher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="effondrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="efforcer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="effranger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="effriter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emballer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="embarquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="embarrasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emboucaner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emboucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="embourgeoiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="embrouiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="embrumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="embusquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="embêter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emmailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emmancher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emmerder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="empaqueter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emparer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="empiffrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emplir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="emporter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="empresser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="empuantir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="empâter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="empêtrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="encadrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="encapricer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="encapuchonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="encasteler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enchevêtrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enclouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="encrouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="encroûter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enculer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="endetter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="endimancher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="endormir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enfermer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enferrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enfiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enfoncer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enforcir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enfouir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enfricher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enfuir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="engager" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="englacer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="engouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="engouffrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="engourdir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="engueuler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enivrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enjuponner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enkikiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ennuyer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enquérir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enrailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="enrôler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ensuivre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entortiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entourer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entraccorder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entraccuser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entradmirer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entraider" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entraîner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entrebattre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entrecouper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entrecroiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entredonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entremanger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entremettre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entretailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entretenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entretuer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entrevoir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="entêter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="envaser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="envoler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="esbaudir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="esbroufer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="escamper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="esclaffer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="esquiver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="essorer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="estropier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="exaspérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="exclamer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="excuser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="exfolier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="exhiber" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="exiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="expatrier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="exprimer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="extasier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="extravaser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="extérioriser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="exécuter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="failler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="faire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="faisander" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="farcir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ficher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="figer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="figurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fissurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fixer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="flatter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="focaliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="foliariser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="forcer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="formaliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fortifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fouler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fourvoyer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="foutre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fracturer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="frayer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="frapper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="froisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fusiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="fâcher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="féminiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="galvauder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="garer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gargariser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gaudir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gausser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gaver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gendarmer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="glacer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="glisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gober" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="goberger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="goinfrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gonfler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gourer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="grabatiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="graciliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gratter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gripper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="grossir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="grouiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="grouper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="grumeler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="grésifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="guider" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gâter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="généraliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="gêner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="habiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="habituer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="harpailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="hasarder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="heurter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="hisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="honorer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="humaniser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="hypnotiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="hâler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="hâter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="hérisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="illusionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="imaginer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="imbiber" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="immerger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="immiscer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="impaluder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="impatienter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="impatroniser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="implanter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="impliquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="improviser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="impétiginiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="incarner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="incliner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="incruster" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="indigner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="infatuer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="infiltrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="informer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="inféoder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ingérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ingénier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="injecter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="inquiéter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="inscrire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="insinuer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="inspirer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="installer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="institutionnaliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="instruire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="insurger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="interféconder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="interpolliniser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="intersectionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="intituler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="intéresser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="investir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="invétérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="irruer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="jeter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="jouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="jucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lamenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lancer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="languir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lapiazer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lapidifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="latéritiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="laver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="leurrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lever" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="libérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lignifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="linger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="livrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lombaliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="louer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="louper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lover" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lunetter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lutéiniser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="lézarder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="magner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="maintenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="manier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="manifester" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="manquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="marier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="marrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="masser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="masturber" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mentir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mettre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="meubler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="meuliériser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mourir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mouvoir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="microplisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mirer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mithridatiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="moinifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="moisir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="momifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="montrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="moquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="morfondre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="motter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="moucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mouiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="moutonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="multiplier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="musser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mutiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="méconnaître" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="méfier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="méprendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="métamictiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mêler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="nantir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="noyer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="noircir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="nommer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="nouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="nourrir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="nuire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="nymphoser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="négliger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="négocier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="obliger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="obscurcir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="observer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="obstiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="occuper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="offenser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="offusquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="oindre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="opiniâtrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="opposer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="orienter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="oublier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="paddocker" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pager" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pajoter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="panader" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="parer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="parjurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="parler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="particulariser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="passer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="passionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="paumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pavaner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="peigner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="peindre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="peler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pelotonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pencher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="percher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="perdre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="perfectionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="permettre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="persuader" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pervertir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="peupler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pignoler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="piquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pisser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="piéter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="placer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="plaindre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="plaire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="planter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="plonger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pocharder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pochetronner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pochtronner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="poiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pointer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="polluer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pomponner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="porter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="poser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="posséder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pourlécher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="poursuivre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pourvoir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="prendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="prescrire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="presser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="priver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="procurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="prodiguer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="produire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="projeter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="promener" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="promettre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="prononcer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="proposer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="prosterner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="protéger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="précautionner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="précipiter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="préciser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="prélasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="préoccuper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="préparer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="présenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="prêter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="purifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pâmer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="péter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="pénétrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="quereller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rabattre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="raccourcir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="raccrocher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="racquitter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rafraîchir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="raidir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="railler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="raisonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rajeunir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rajuster" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ralentir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rallier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ramasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ramener" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ramifier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ranger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rappeler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rapporter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rapproprier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="raser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rassembler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ratatiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rationner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rattraper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="raviser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rebeller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rebiffer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reblottir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reboutonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="recharger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="recoiffer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reconnaître" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reconvertir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="recoquiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="recouper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="recroqueviller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="recruter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="recueillir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="redresser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="refrogner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="refuser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="regourer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rejeter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="relaxer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="relever" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="relire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="relâcher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="remarier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rembrunir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rembucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="remiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="remonter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="remparer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="remplumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="remuer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="remémorer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rencogner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rencontrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rendetter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rendormir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="renfrogner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rengorger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="renseigner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="renvoler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reparler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="repentir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reporter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reposer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reprendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="reproduire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="requinquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="respecter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ressembler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ressentir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="resserrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ressouvenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="restaurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retaper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retirer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retourner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retracer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retrancher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retrousser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retrouver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="retâter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="revancher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="revendiquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rhabiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ridiculiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="risquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="roder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rompre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ronger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ruer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rusher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réapproprier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réclamer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="récolliger" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réconcilier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="récrier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="récupérer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rédimer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réduire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réengouffrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réenvoler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réfugier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="référer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réimmiscer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réincarner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réjouir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="répandre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="répercuter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="répéter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="résigner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="résoudre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="résumer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rétracter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rétrécir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réunir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="réveiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="révéler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="rôtir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="saigner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="saisir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="saouler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="satisfaire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="saucer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="saussuritiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="sauver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="savonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="scandaliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="scratcher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="secouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="sentir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="seoir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="servir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="shooter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="signer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="signaler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="silhouetter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="singulariser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="sortir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="soucier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="souder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="soulager" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="soumettre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="sourire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="soutenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="souvenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="soûler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="soûlotter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="spécialiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="succéder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="suffire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="suicider" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="supprimer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="surficher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="surpasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="survivre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="sustenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="syndiquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="séparer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="séquestrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="taire" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="taler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="taper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tapir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="targuer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tasser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="taxer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tenir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ternir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="terrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="thromboser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tirer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="toquer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="torcher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tordre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tortiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="touer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="toucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tourmenter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tourner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="trahir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="transfigurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="transformer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="transporter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="travailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="traverser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="traîner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tremper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="trimbaler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tromper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="troubler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="trouver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="truiter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="trémousser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tuer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="tâter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="vacher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="valoir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="vanter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="vautrer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="vendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="voir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="verrouiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="vouloir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="viander" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="violacer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="volatiliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="voûter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="vêtir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ébattre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ébranler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="ébrouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="écailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="échapper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="échauffer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="échiner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="échouer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éclaircir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éclipser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="écouler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="écouter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="écraser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="écrier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="écrouler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="égailler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="égarer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="égosiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="égrener" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="élancer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="élargir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="élever" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éloigner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="émanciper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="émerillonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="émerveiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="émietter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="énamourer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="énerver" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="énoncer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éoliser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épaissir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épancher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épanouir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éparpiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épartir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épiler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épithélialiser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éplucher" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épouffer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="époumoner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épouvanter" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éprendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="épurer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="équiper" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="établir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="étaler" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éteindre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="étendre" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éterniser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="étirer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="étoffer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="étonner" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="étourdir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="étrécir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="étudier" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="évader" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="évaguer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="évanouir" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="évaporer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="évaser" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="éveiller" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="évertuer" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
+</linguisticdatabase>

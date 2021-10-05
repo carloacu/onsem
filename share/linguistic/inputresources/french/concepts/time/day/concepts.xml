@@ -1,0 +1,21 @@
+<linguisticdatabase>
+ <concept name="time_day">
+  <linkedMeaning lemme="jour" relationToConcept="4"/>
+ </concept>
+ <concept name="time_day_morning">
+  <linkedMeaning lemme="matin" relationToConcept="4"/>
+ </concept>
+ <concept name="time_day_noon">
+  <linkedMeaning lemme="midi" relationToConcept="4"/>
+ </concept>
+ <concept name="time_day_afternoon">
+  <linkedMeaning lemme="après-midi" relationToConcept="4"/>
+ </concept>
+ <concept name="time_day_evening">
+  <linkedMeaning lemme="soir" relationToConcept="4"/>
+  <linkedMeaning lemme="soirée" relationToConcept="3"/>
+ </concept>
+ <concept name="time_day_night">
+  <linkedMeaning lemme="nuit" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

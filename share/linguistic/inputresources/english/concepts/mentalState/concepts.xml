@@ -1,0 +1,13 @@
+<linguisticdatabase>
+ <concept name="mentalState_*">
+  <linkedMeaning lemme="believe" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="care" relationToConcept="4"/>
+  <linkedMeaning lemme="doubt" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="think" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="understand" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="mentalState_know">
+  <linkedMeaning lemme="know" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="wist" gram="verb" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

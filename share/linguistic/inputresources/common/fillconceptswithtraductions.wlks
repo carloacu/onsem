@@ -1,0 +1,11 @@
+> nextswillbe traduction english to french
+> include readonly/english_to_french.wlks
+> include english_to_french.wlks
+
+> nextswillbe traduction french to english
+> include readonly/french_to_english.wlks
+> include french_to_english.wlks
+
+
+
+> fillconceptsofotherlanguages

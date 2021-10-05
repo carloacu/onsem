@@ -1,0 +1,12 @@
+<linguisticdatabase>
+    <separatorsBetweenWords val="false"/>
+    <word name="。">
+        <wordForm gram="punctuation" />
+    </word>
+    <word name="！">
+        <wordForm gram="punctuation" />
+    </word>
+    <word name="？">
+        <wordForm gram="punctuation" />
+    </word>
+</linguisticdatabase>

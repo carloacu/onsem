@@ -1,0 +1,59 @@
+<linguisticdatabase>
+ <concept name="verb_able">
+  <linkedMeaning lemme="savoir" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_agree">
+  <linkedMeaning lemme="être~d'accord" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_beRight">
+  <linkedMeaning lemme="avoir~raison" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_born">
+  <linkedMeaning lemme="naissance" relationToConcept="4"/>
+  <linkedMeaning lemme="naître" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_can">
+  <linkedMeaning lemme="pouvoir"  gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_die">
+  <linkedMeaning lemme="mourir" relationToConcept="4"/>
+  <linkedMeaning lemme="décéder" relationToConcept="3"/>
+  <linkedMeaning lemme="mort" gram="noun" relationToConcept="2"/>
+ </concept>
+ <concept name="verb_find">
+  <linkedMeaning lemme="trouver" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_hate">
+  <linkedMeaning lemme="détester" relationToConcept="4"/>
+  <linkedMeaning lemme="rejeter" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_have">
+  <linkedMeaning lemme="avoir" gram="verb" relationToConcept="5"/>
+ </concept>
+ <concept name="verb_haveto">
+  <linkedMeaning lemme="devoir" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="falloir" gram="verb" relationToConcept="3"/>
+ </concept>
+ <concept name="verb_install">
+  <linkedMeaning lemme="installer" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_like">
+  <linkedMeaning lemme="aimer" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="adorer" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="apprécier" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_offer">
+  <linkedMeaning lemme="donner" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_return">
+  <linkedMeaning lemme="retourner" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_think">
+  <linkedMeaning lemme="penser" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_want">
+  <linkedMeaning lemme="vouloir" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="avoir~envie" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="souhaiter" gram="verb" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

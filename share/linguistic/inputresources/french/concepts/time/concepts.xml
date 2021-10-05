@@ -1,0 +1,23 @@
+<linguisticdatabase>
+ <concept name="time">
+  <linkedMeaning lemme="temps" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="parfois" relationToConcept="3"/>
+ </concept>
+ <concept name="time_birthdate">
+  <linkedMeaning lemme="date~de~naissance" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="time_birthday">
+  <linkedMeaning lemme="anniversaire" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="time_date">
+  <linkedMeaning lemme="date" relationToConcept="4"/>
+  <linkedMeaning lemme="dater" relationToConcept="4"/>
+ </concept>
+ <concept name="time_everyTime">
+  <linkedMeaning lemme="à chaque fois" relationToConcept="3"/>
+ </concept>
+ <concept name="time_year">
+  <linkedMeaning lemme="an" relationToConcept="5"/>
+  <linkedMeaning lemme="année" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

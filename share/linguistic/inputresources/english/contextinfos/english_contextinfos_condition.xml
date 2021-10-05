@@ -1,0 +1,17 @@
+<linguisticdatabase>
+  <existingMeaning lemme="if" gram="sub_conj">
+    <contextInfo val="condition" />
+  </existingMeaning>
+  <existingMeaning lemme="when" gram="sub_conj">
+    <contextInfo val="condition" />
+  </existingMeaning>
+  <existingMeaning lemme="whenever" gram="sub_conj">
+    <contextInfo val="condition" />
+  </existingMeaning>
+  <existingMeaning lemme="then" gram="conjunctive">
+    <contextInfo val="then" />
+  </existingMeaning>
+  <existingMeaning lemme="else" gram="conjunctive">
+    <contextInfo val="else" />
+  </existingMeaning>
+</linguisticdatabase>

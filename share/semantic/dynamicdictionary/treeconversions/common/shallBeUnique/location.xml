@@ -1,0 +1,9 @@
+<semantictreeconversions formalism="1">
+
+  <shallBeUnique childThatIsUnique="location">
+    <root grounding="statement" concept="verb_equal_be">
+      <location />
+    </root>
+  </shallBeUnique>
+
+</semantictreeconversions>

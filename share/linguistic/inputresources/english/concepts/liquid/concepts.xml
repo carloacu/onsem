@@ -1,0 +1,16 @@
+<linguisticdatabase>
+ <concept name="liquid">
+  <linkedMeaning lemme="liquid" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="liquid_*">
+  <linkedMeaning lemme="beer" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="blood" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="coffee" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="juice" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="milk" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="oil" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="tea" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="water" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="wine" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

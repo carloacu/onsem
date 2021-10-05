@@ -1,0 +1,88 @@
+<linguisticdatabase>
+ <concept name="number_1">
+  <linkedMeaning lemme="one" relationToConcept="4"/>
+  <linkedMeaning lemme="a" gram="determiner" relationToConcept="2"/>
+ </concept>
+ <concept name="number_2">
+  <linkedMeaning lemme="two" relationToConcept="4"/>
+ </concept>
+ <concept name="number_3">
+  <linkedMeaning lemme="three" relationToConcept="4"/>
+ </concept>
+ <concept name="number_4">
+  <linkedMeaning lemme="four" relationToConcept="4"/>
+ </concept>
+ <concept name="number_5">
+  <linkedMeaning lemme="five" relationToConcept="4"/>
+ </concept>
+ <concept name="number_6">
+  <linkedMeaning lemme="six" relationToConcept="4"/>
+ </concept>
+ <concept name="number_7">
+  <linkedMeaning lemme="seven" gram="determiner" relationToConcept="4"/>
+  <linkedMeaning lemme="seven" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="number_8">
+  <linkedMeaning lemme="eight" relationToConcept="4"/>
+ </concept>
+ <concept name="number_9">
+  <linkedMeaning lemme="nine" relationToConcept="4"/>
+ </concept>
+ <concept name="number_10">
+  <linkedMeaning lemme="ten" relationToConcept="4"/>
+ </concept>
+ <concept name="number_11">
+  <linkedMeaning lemme="eleven" relationToConcept="4"/>
+ </concept>
+ <concept name="number_12">
+  <linkedMeaning lemme="twelve" relationToConcept="4"/>
+ </concept>
+ <concept name="number_13">
+  <linkedMeaning lemme="thirteen" relationToConcept="4"/>
+ </concept>
+ <concept name="number_14">
+  <linkedMeaning lemme="fourteen" relationToConcept="4"/>
+ </concept>
+ <concept name="number_15">
+  <linkedMeaning lemme="fifteen" relationToConcept="4"/>
+ </concept>
+ <concept name="number_16">
+  <linkedMeaning lemme="sixteen" relationToConcept="4"/>
+ </concept>
+ <concept name="number_17">
+  <linkedMeaning lemme="seventeen" relationToConcept="4"/>
+ </concept>
+ <concept name="number_18">
+  <linkedMeaning lemme="eighteen" relationToConcept="4"/>
+ </concept>
+ <concept name="number_19">
+  <linkedMeaning lemme="nineteen" relationToConcept="4"/>
+ </concept>
+ <concept name="number_20">
+  <linkedMeaning lemme="twenty" relationToConcept="4"/>
+ </concept>
+ <concept name="number_30">
+  <linkedMeaning lemme="thirty" relationToConcept="4"/>
+ </concept>
+ <concept name="number_40">
+  <linkedMeaning lemme="forty" relationToConcept="4"/>
+ </concept>
+ <concept name="number_50">
+  <linkedMeaning lemme="fifty" relationToConcept="4"/>
+ </concept>
+ <concept name="number_60">
+  <linkedMeaning lemme="sixty" relationToConcept="4"/>
+ </concept>
+ <concept name="number_70">
+  <linkedMeaning lemme="seventy" relationToConcept="4"/>
+ </concept>
+ <concept name="number_80">
+  <linkedMeaning lemme="eighty" relationToConcept="4"/>
+ </concept>
+ <concept name="number_90">
+  <linkedMeaning lemme="ninety" relationToConcept="4"/>
+ </concept>
+ <concept name="number_100">
+  <linkedMeaning lemme="hundred" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

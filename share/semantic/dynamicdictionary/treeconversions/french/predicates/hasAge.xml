@@ -1,0 +1,47 @@
+<semantictreeconversions formalism="1">
+
+  <conversion>
+    <tree inText="true" outText="true">
+      <root id="1" grounding="statement" concept="verb_have" notConcept="predicate_hasAge">
+        <object id="2" grounding="generic" type="thing" concept="time_year" notConcept="age_*" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" word="" concept="predicate_hasAge">
+        <object id="2" concept="age_*" notConcept="time_year" />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree outText="true">
+      <root id="1" grounding="statement" concept="verb_have" notConcept="predicate_hasAge">
+        <object id="2" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" word="" concept="predicate_hasAge" request="object">
+        <object id="2" concept="age" />
+      </root>
+    </tree>
+  </conversion>
+
+
+  <conversion>
+    <tree outText="true">
+      <root id="1" grounding="statement" word="" concept="verb_have" notConcept="verb_equal_be|verb_equal_mean" >
+        <subject id="3" />
+        <object id="4" grounding="generic" type="thing" concept="time_year" notConcept="age_*" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="verb_equal_be|verb_equal_mean">
+        <subject id="2" concept="age" >
+          <owner id="3" beginOfConcept="agent_" />
+        </subject>
+        <object id="4" grounding="generic" type="number" />
+      </root>
+    </tree>
+  </conversion>
+
+</semantictreeconversions>

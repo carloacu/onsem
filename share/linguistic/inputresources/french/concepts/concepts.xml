@@ -1,0 +1,120 @@
+<linguisticdatabase>
+ <concept name="age">
+  <linkedMeaning lemme="age" relationToConcept="4"/>
+ </concept>
+ <concept name="alone">
+  <linkedMeaning lemme="seul" relationToConcept="4"/>
+ </concept>
+ <concept name="already">
+  <linkedMeaning lemme="déjà" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="also">
+  <linkedMeaning lemme="aussi" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="answer">
+  <linkedMeaning lemme="réponse" relationToConcept="4"/>
+ </concept>
+ <concept name="anything">
+  <linkedMeaning lemme="chose" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="approximately">
+  <linkedMeaning lemme="environ" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="ball">
+  <linkedMeaning lemme="balle" gram="noun" relationToConcept="5"/>
+  <linkedMeaning lemme="ballon" relationToConcept="4"/>
+  <linkedMeaning lemme="boule" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="because">
+  <linkedMeaning lemme="parce que" gram="sub_conj" relationToConcept="5"/>
+ </concept>
+ <concept name="calm">
+  <linkedMeaning lemme="calmer" relationToConcept="4"/>
+ </concept>
+ <concept name="condition">
+  <linkedMeaning lemme="condition" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="country">
+  <linkedMeaning lemme="pays" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="desperate">
+  <linkedMeaning lemme="désespérer" relationToConcept="4"/>
+  <linkedMeaning lemme="désespéré" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="désespérément" relationToConcept="4"/>
+ </concept>
+ <concept name="niceToMeetYou">
+  <linkedMeaning lemme="enchanté" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="excited">
+  <linkedMeaning lemme="excitation" relationToConcept="4"/>
+  <linkedMeaning lemme="exciter" relationToConcept="4"/>
+  <linkedMeaning lemme="excité" gram="adjective" relationToConcept="4"/>
+ </concept>
+ <concept name="forExample">
+  <linkedMeaning lemme="par exemple" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="fromRecentContext">
+  <linkedMeaning lemme="ce" gram="determiner" relationToConcept="4"/>
+  <linkedMeaning lemme="en" gram="pronoun_comp" relationToConcept="4"/>
+  <linkedMeaning lemme="là" relationToConcept="4"/>
+  <linkedMeaning lemme="tous" gram="pronoun" relationToConcept="4"/>
+ </concept>
+ <concept name="game">
+  <linkedMeaning lemme="jeu" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="home">
+  <linkedMeaning lemme="maison" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="habitation" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="logement" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="longtime">
+  <linkedMeaning lemme="longtemps" relationToConcept="4"/>
+ </concept>
+ <concept name="news">
+  <linkedMeaning lemme="nouvelle" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="opposite">
+  <linkedMeaning lemme="contraire" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="contraire" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="inverse" relationToConcept="3"/>
+ </concept>
+ <concept name="please">
+  <linkedMeaning lemme="s'il te plaît" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="reading">
+  <linkedMeaning lemme="lecture" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="reflexive">
+  <linkedMeaning lemme="lui-même" gram="pronoun" relationToConcept="4"/>
+ </concept>
+ <concept name="soFar">
+  <linkedMeaning lemme="pour autant" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="sorry">
+  <linkedMeaning lemme="désolé" relationToConcept="4"/>
+ </concept>
+ <concept name="surprise.i">
+  <linkedMeaning lemme="ho" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="tablet">
+  <linkedMeaning lemme="tablette" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="times">
+  <linkedMeaning lemme="fois" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="unless">
+  <linkedMeaning lemme="mais" gram="interjection" relationToConcept="4"/>
+  <linkedMeaning lemme="mais" gram="conjunctive" relationToConcept="4"/>
+ </concept>
+ <concept name="value">
+  <linkedMeaning lemme="valeur" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="wide">
+  <linkedMeaning lemme="large" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="large" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="vaste" gram="adjective" relationToConcept="4"/>
+ </concept>
+ <concept name="youAreWelcome">
+  <linkedMeaning lemme="de rien" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

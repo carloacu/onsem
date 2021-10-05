@@ -1,0 +1,361 @@
+#born,.V:W:P1s:P2s:P1p:P2p:P3p:K:I1s:I2s:I3s:I1p:I2p:I3p
+#borns,born.V:P3s
+#borned,born.V+z2:K:I1s:I2s:I3s:I1p:I2p:I3p
+#borning,born.V:G
+
+#increment,.V:W:P1s:P2s:P1p:P2p:P3p
+#incremented,increment.V:K:I1s:I2s:I3s:I1p:I2p:I3p
+#incrementing,increment.V:G
+#increments,increment.V:P3s
+
+>addToAtBeginOfVerbsForEnglish
+
+#wanna,want.V+z2:P1s:P2s:P1p:P2p:P3p
+
+#out\-of\-date,.A
+#more and more,.A
+#more or less,.A
+#charging,.A
+
+#user id,.N:ms
+
+#ip,.N:ms
+#ip address,ip.N:ms
+
+#hip-hop,.N:ms
+#hip hop,hip-hop.N:ms
+
+#m,be.V:P1s
+#re,be.V:P2s:P1p:P2p:P3p
+#s,be.V:P3s
+#ve,have.V:P1s:P2s:P1p:P2p:P3p
+
+#ll,will.V:P1s:P2s:P3s:P1p:P2p:P3p
+#according to,.PREP
+#for what purpose,.PRO
+
+-Don.N
+#aren't,be.V:P2s:P1p:P2p:P3p
+#isn't,be.V:P3s
+#weren't,be.V:I2s:I1p:I2p:I3p
+#shouldn't,shall.V:I1s:I2s:I3s:I1p:I2p:I3p
+#can't,can.V:Y:P1s:P2s:P3s:P1p:P2p:P3p
+#don't,do.V:Y:P1s:P2s:P1p:P2p:P3p
+#doesn't,do.V:P3s
+#dunno,.V:P1s:P2s:P3s:P1p:P2p:P3p
+#didn't,do.V:I1s:I2s:I3s:I1p:I2p:I3p
+#haven't,have.V:Y:P1s:P2s:P1p:P2p:P3p
+#hadn't,have.V:K:I1s:I2s:I3s:I1p:I2p:I3p
+#hasn't,have.V:P3s
+
+-would.V
+#would,.AUX:P1s:P2s:P3s:P1p:P2p:P3p
+#d,would.AUX+z2:P1s:P2s:P3s:P1p:P2p:P3p
+#won't,would.AUX+z2:P1s:P2s:P3s:P1p:P2p:P3p
+#wouldn't,would.AUX+z2:P1s:P2s:P3s:P1p:P2p:P3p
+
+%have.V.AUX
+%be.V.AUX
+%can.V.AUX
+%will.V.AUX
+%shall.V.AUX
+%do.V.AUX
+%may.V.AUX
+%must.V.AUX
+-to do.AUX
+#be,.AUX:W
+
+#let's,let.V:Y
+
+#how much,.ADV
+#how many,.ADV
+#how many times,.ADV
+#how far,.ADV
+#how long,.ADV
+#how often,.ADV
+#right away,.ADV
+#right now,.ADV
+
+#day after tomorrow,.PREP
+#day before yesterday,.PREP
+
+#just after,.PREP
+#just before,.PREP
+#right after,.PREP
+#right before,.PREP
+#here:,.PREP
+
+-then.N
+-and.V
+-us.N
+-true.V
+
+-a.N
+-b.N
+-c.N
+-d.N
+-e.N
+-f.N
+-g.N
+-h.N
+-i.N
+-j.N
+-k.N
+-l.N
+-m.N
+-n.N
+-o.N
+-p.N
+-q.N
+-r.N
+-s.N
+-t.N
+-u.N
+-v.N
+-w.N
+-x.N
+-y.N
+-z.N
+
+-people.N
+#people,.N+Hum:p
+
+#fond of,.A
+#keen on,.A
+#asshole,.N
+#asshole,.A
+#half-witted,halfwitted.A
+
+#or any other kind of,or.CONJ
+
+#tomorrow,.A
+#yesterday,.A
+
+-you.PRO
+#you,.PRO:2s
+
+#I,.PROS:1s
+#you,.PROS:2s:2p
+#he,.PROS:3ms
+#she,.PROS:3fs
+#we,.PROS:1p
+#they,.PROS:3p
+
+#i,I.PROS:1s
+
+-I.PRO
+-he.PRO
+-she.PRO
+-we.PRO
+-they.PRO
+
+-me.PRO
+#me,.PROC:1s
+
+#time,times.N:s
+#times,times.N:p
+
+#ice cream,.N:s
+#ice creams,ice cream.N:p
+#carbon dioxide,.N:s
+#Carbon dioxide,.N:s
+#carbon dioxides,carbon dioxide.N:p
+#Carbon dioxides,Carbon dioxide.N:p
+#toilet paper,.N:s
+
+#bike rack,.N+Conc:s
+#bike racks,bike rack.N+Conc:p
+
+#am,.N
+#a.m,am.N
+#AM,am.N
+#in the morning,am.N
+
+#pm,.N
+#p.m,pm.N
+#PM,pm.N
+#in the afternoon,pm.N
+
+#kiwifruit,.N+XN+Conc+z1:s
+#kiwifruits,kiwifruit.N+XN+Conc+z1:p
+#kiwi fruit,kiwifruit.N+XN+Conc+z1:s
+#kiwi fruits,kiwifruit.N+XN+Conc+z1:p
+
+#passionfruit,.N+XN+z1:s
+#passionfruits,passionfruit.N+XN+z1:p
+#passion fruit,passionfruit.N+XN+z1:s
+#passion fruits,passionfruit.N+XN+z1:p
+
+-people.N
+#people,.N+Hum:p
+-person.N
+-persons.N
+#person,people.N+Hum:s
+#persons,people.N+Hum+z2:p
+
+#awesome,.INTJ
+#you're welcome,.INTJ
+#you are welcome,you're welcome.INTJ
+#so far,.INTJ
+#see you soon,.INTJ
+
+
+#broccoflower,.N:s
+#broccoflowers,broccoflower.N:p
+#frisee,.N:s
+#frisees,frisee.N:p
+#New Zealand spinach,.N:s
+#New Zealand spinachs,New Zealand spinach.N:p
+#topinambur,.N:s
+#topinamburs,topinambur.N:p
+#tat soi,.N:s
+#tat sois,tat soi.N:p
+#beet green,.N:s
+#beet greens,beet green.N:p
+#bok choy,.N:s
+#bok choys,bok choy.N:p
+#collard green,.N:s
+#collard greens,collard green.N:p
+#mustard green,.N:s
+#mustard greens,mustard green.N:p
+#lemon grass,.N:s
+#lemon grasses,lemon grass.N:p
+#azuki bean,.N:s
+#azuki beans,azuki bean.N:p
+#adzuki,.N:s
+#adzukis,adzuki.N:p
+#bean sprout,.N:s
+#bean sprouts,bean sprout.N:p
+#borlotti bean,.N:s
+#borlotti beans,borlotti bean.N:p
+#ceci bean,.N:s
+#ceci beans,ceci bean.N:p
+#butter bean,.N:s
+#butter beans,butter bean.N:p
+#soy bean,.N:s
+#soy beans,soy bean.N:p
+#snap pea,.N:s
+#snap peas,snap pea.N:p
+#arugula,.N:s
+#arugulas,arugula.N:p
+#jalapeño,.N:s
+#jalapeños,jalapeño.N:p
+#habanero,.N:s
+#habaneros,habanero.N:p
+#tabasco pepper,.N:s
+#tabasco peppers,tabasco pepper.N:p
+#eddoe,.N:s
+#eddoes,eddoe.N:p
+#konjac,.N:s
+#konjacs,konjac.N:p
+#wasabi,.N:s
+#wasabis,wasabi.N:p
+#white radish,.N:s
+#white radishs,white radish.N:p
+#jicama,.N:s
+#jicamas,jicama.N:p
+#jerusalem artichoke,.N:s
+#jerusalem artichokes,jerusalem artichoke.N:p
+#sunchoke,.N:s
+#sunchokes,sunchoke.N:p
+#butternut squash,.N:s
+#butternut squashs,butternut squash.N:p
+#delicata,.N:s
+#delicatas,delicata.N:p
+#gem squash,.N:s
+#gem squashs,gem squash.N:p
+#hubbard squash,.N:s
+#hubbard squashs,hubbard squash.N:p
+#patty pan,.N:s
+#patty pans,patty pan.N:p
+#spaghetti squash,.N:s
+#spaghetti squashs,spaghetti squash.N:p
+
+#computer scientist,.N+XN+z1:s
+#computer scientists,computer scientist.N+XN+z1:p
+
+-actor.N
+#actor,.N+Hum:ms
+-actors.N
+#actors,actor.N+Hum:mp
+-actress.N
+#actress,actor.N+Hum:fs
+-actresses.N
+#actresses,actor.N+Hum:fp
+
+-author.N
+#author,.N+Hum:ms
+-authors.N
+#authors,author.N+Hum:mp
+-authoress.N
+#authoress,author.N+Hum:fs
+-authoresses.N
+#authoresses,author.N+Hum:fp
+
+-bridegroom.N
+#bridegroom,.N+Hum:ms
+-bridegroom.N
+#bridegrooms,bridegroom.N+Hum:mp
+-bride.N
+#bride,bridegroom.N+Hum:fs
+-brides.N
+#brides,bridegroom.N+Hum:fp
+
+-heir.N
+#heir,.N+Hum:ms
+-heirs.N
+#heirs,heir.N+Hum:mp
+-heiress.N
+#heiress,heir.N+Hum:fs
+-heiresses.N
+#heiresses,heir.N+Hum:fp
+
+-murderer.N
+#murderer,.N+Hum:ms
+-murderers.N
+#murderers,murderer.N+Hum:mp
+-murderess.N
+#murderess,murderer.N+Hum:fs
+-murderesses.N
+#murderesses,murderer.N+Hum:fp
+
+-poet.N
+#poet,.N+Hum:ms
+-poets.N
+#poets,poet.N+Hum:mp
+-poetess.N
+#poetess,poet.N+Hum:fs
+-poetesses.N
+#poetesses,poet.N+Hum:fp
+
+-prince.N
+#prince,.N+Hum:ms
+-princes.N
+#princes,prince.N+Hum:mp
+-princess.N
+#princess,prince.N+Hum:fs
+-princesses.N
+#princesses,prince.N+Hum:fp
+
+#centre-back,.N:s
+#centre-backs,centre-back.N:p
+#full-back,.N:s
+#full-backs,full-back.N:p
+#wing-back,.N:s
+#wing-backs,wing-back.N:p
+#left-back,.N:s
+#left-backs,left-back.N:p
+#right-back,.N:s
+#right-backs,right-back.N:p
+
+#well-being,.N:s
+#well-beings,well-being.N:p
+
+
+-information.N
+#information,.N:p
+#piece of information,information.N:s
+
+
+#in terms of,.PREP
+

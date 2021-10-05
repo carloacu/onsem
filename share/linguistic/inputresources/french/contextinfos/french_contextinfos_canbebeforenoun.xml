@@ -1,0 +1,92 @@
+<linguisticdatabase>
+  <existingMeaning lemme="centième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="chic" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="cinquantième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="curieux" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="différent" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="dixième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="douzième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="drôle" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="huitième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="intéressant" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="joyeux" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="milliardième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="millième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="millionième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="neuvième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="nouveau" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="nul" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="onzième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="porte" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="principal" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="quatorzième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="quinzième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="seizième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="septième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="sixième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="soixantième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="treizième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="trentième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="troisième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+  <existingMeaning lemme="vingtième" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+</linguisticdatabase>

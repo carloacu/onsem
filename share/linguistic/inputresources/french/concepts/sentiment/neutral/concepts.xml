@@ -1,0 +1,11 @@
+<linguisticdatabase>
+ <concept name="sentiment_neutral_desire">
+  <linkedMeaning lemme="vouloir" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="sentiment_neutral_surprise">
+  <linkedMeaning lemme="étonner" relationToConcept="4"/>
+  <linkedMeaning lemme="étonné" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="surprenant" relationToConcept="4"/>
+  <linkedMeaning lemme="surprendre" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

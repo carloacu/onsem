@@ -1,0 +1,82 @@
+<semantictreeconversions formalism="1">
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" concept="verb_equal_be" >
+        <object id="2" concept="age_*" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" word="" concept="predicate_hasAge" notConcept="verb_equal_be|verb_equal_mean">
+        <object id="2" />
+      </root>
+    </tree>
+  </conversion>
+
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" concept="verb_equal_be" notConcept="verb_have" >
+	<subject id="3" grounding="generic" notType="thing" />
+        <object id="2" grounding="generic" type="number" word="" notConcept="age_*"/>
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1">
+	<subject id="3" />
+        <object id="2" grounding="generic" type="thing" concept="age_*" />
+	<notobject />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" concept="verb_equal_be" notConcept="verb_have" >
+	<subject id="3" beginOfConcept="agent_" />
+        <object id="2" grounding="generic" type="number" word="" notConcept="age_*"/>
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1">
+	<subject id="3" />
+        <object id="2" grounding="generic" concept="age_*" />
+	<notobject />
+      </root>
+    </tree>
+  </conversion>
+
+  <conversion>
+    <tree inText="true" outText="true">
+      <root id="1" grounding="statement" concept="verb_equal_be" request="manner" notRequest="object" >
+	<subject id="3" beginOfConcept="agent_" />
+        <manner id="2" grounding="generic" word="old|adjective|en_US" notConcept="age" />
+        <notobject />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" word="" concept="predicate_hasAge" notConcept="verb_equal_be|verb_equal_mean" request="object" notRequest="manner">
+	<subject id="3" />
+        <object id="2" grounding="generic" word="" concept="age" />
+        <notmanner />
+      </root>
+    </tree>
+  </conversion>
+
+
+  <conversion>
+    <tree outText="true">
+      <root id="1" grounding="statement" concept="verb_equal_be" notConcept="verb_have" >
+        <object id="2" grounding="generic" type="number" word="" notConcept="age_*"/>
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" concept="predicate_hasAge" word="" notConcept="verb_equal_be">
+        <object id="2" concept="age_*" />
+      </root>
+    </tree>
+  </conversion>
+
+
+
+</semantictreeconversions>

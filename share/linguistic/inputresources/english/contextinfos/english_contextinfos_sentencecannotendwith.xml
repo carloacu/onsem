@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="well" gram="interjection">
+    <contextInfo val="sentenceCannotEndWith" />
+  </existingMeaning>
+</linguisticdatabase>

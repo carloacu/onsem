@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<syntacticAnalysisResults>
+  <text str="よよろしくンの法則です。">
+    <tokens>
+      <token str="よよろしくンの法則です" tokenPos="0">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="。" tokenPos="1">
+        <contextualInfosGramList>
+          <infosGram lemma="。" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+    </tokens>
+    <initialGramPossibilities>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+    </initialGramPossibilities>
+    <syntGraph str="1 [label=&quot; よよろしくンの法則です\nhead: よよろしくンの法則です &quot; ]
+0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+2 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
+0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <animations/>
+    <semExps str="text(&quot;よよろしくンの法則です&quot;)&lt;br&gt;"/>
+    <sentiments str=""/>
+    <completeness bool="true"/>
+    <reformulations str="French:
+よよろしくンの法則です
+
+English:
+よよろしくンの法則です"/>
+  </text>
+  <text str="僕は食べれないんで、何も食べてません。">
+    <tokens>
+      <token str="僕" tokenPos="0">
+        <contextualInfosGramList>
+          <infosGram lemma="僕" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="は食べれないんで、何も食べてません" tokenPos="1">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="。" tokenPos="2">
+        <contextualInfosGramList>
+          <infosGram lemma="。" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+    </tokens>
+    <initialGramPossibilities>
+      <gramPoss newTok="true" str="unknown, 僕 (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+    </initialGramPossibilities>
+    <syntGraph str="1 [label=&quot; 僕は食べれないんで、何も食べてません\nhead: 僕 &quot; ]
+0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+2 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
+0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <animations>
+      <animation name="myself" pos="0"/>
+    </animations>
+    <semExps str="text(&quot;僕&quot;)&lt;br&gt;"/>
+    <sentiments str=""/>
+    <completeness bool="true"/>
+    <reformulations str="French:
+僕
+
+English:
+僕"/>
+  </text>
+  <text str="僕にはどうも出来ませんね。そこは、自力で頑張りましょう。">
+    <tokens>
+      <token str="僕" tokenPos="0">
+        <contextualInfosGramList>
+          <infosGram lemma="僕" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="にはどうも出来ませんね" tokenPos="1">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="。" tokenPos="2">
+        <contextualInfosGramList>
+          <infosGram lemma="。" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="そこは、自力で頑張りましょう" tokenPos="3">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="。" tokenPos="4">
+        <contextualInfosGramList>
+          <infosGram lemma="。" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+    </tokens>
+    <initialGramPossibilities>
+      <gramPoss newTok="true" str="unknown, 僕 (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+    </initialGramPossibilities>
+    <syntGraph str="1 [label=&quot; 僕にはどうも出来ませんね\nhead: 僕 &quot; ]
+0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+2 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
+0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+3 [label=&quot; そこは、自力で頑張りましょう\nhead: そこは、自力で頑張りましょう &quot; ]
+0-&gt;3 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+4 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
+0-&gt;4 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <animations>
+      <animation name="myself" pos="0"/>
+    </animations>
+    <semExps str="text(&quot;僕&quot;)&lt;br&gt;"/>
+    <sentiments str=""/>
+    <completeness bool="true"/>
+    <reformulations str="French:
+僕
+
+English:
+僕"/>
+  </text>
+  <text str="あなたは誰かいらっしゃるんですか？">
+    <tokens>
+      <token str="あなた" tokenPos="0">
+        <contextualInfosGramList>
+          <infosGram lemma="あなた" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="は誰かいらっしゃるんですか" tokenPos="1">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="？" tokenPos="2">
+        <contextualInfosGramList>
+          <infosGram lemma="？" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+    </tokens>
+    <initialGramPossibilities>
+      <gramPoss newTok="true" str="unknown, あなた (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+    </initialGramPossibilities>
+    <syntGraph str="1 [label=&quot; あなたは誰かいらっしゃるんですか\nhead: あなた &quot; ]
+0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+2 [label=&quot; ？\nhead: ？ &quot; ,color=yellow]
+0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <animations>
+      <animation name="indicate" pos="0"/>
+    </animations>
+    <semExps str="text(&quot;あなた&quot;)&lt;br&gt;"/>
+    <sentiments str=""/>
+    <completeness bool="true"/>
+    <reformulations str="French:
+あなた
+
+English:
+あなた"/>
+  </text>
+  <text str="持てる男は常にポジティブ。イケメンの法則です。自身を持ってください。">
+    <tokens>
+      <token str="持てる男は常にポジティブ" tokenPos="0">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="。" tokenPos="1">
+        <contextualInfosGramList>
+          <infosGram lemma="。" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="イケメンの法則です" tokenPos="2">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="。" tokenPos="3">
+        <contextualInfosGramList>
+          <infosGram lemma="。" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="自身を持ってください" tokenPos="4">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="。" tokenPos="5">
+        <contextualInfosGramList>
+          <infosGram lemma="。" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+    </tokens>
+    <initialGramPossibilities>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+    </initialGramPossibilities>
+    <syntGraph str="1 [label=&quot; 持てる男は常にポジティブ\nhead: 持てる男は常にポジティブ &quot; ]
+0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+2 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
+0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+3 [label=&quot; イケメンの法則です\nhead: イケメンの法則です &quot; ]
+0-&gt;3 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+4 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
+0-&gt;4 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+5 [label=&quot; 自身を持ってください\nhead: 自身を持ってください &quot; ]
+0-&gt;5 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+6 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
+0-&gt;6 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <animations/>
+    <semExps str="text(&quot;持てる男は常にポジティブ&quot;)&lt;br&gt;"/>
+    <sentiments str=""/>
+    <completeness bool="true"/>
+    <reformulations str="French:
+持てる男は常にポジティブ
+
+English:
+持てる男は常にポジティブ"/>
+  </text>
+  <text str="ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシバカリニオバーサンワカワエセンタクニイキマシタ">
+    <tokens>
+      <token str="ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシ" tokenPos="0">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="バカ" tokenPos="1">
+        <contextualInfosGramList>
+          <infosGram lemma="バカ" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="リニオバーサンワカワエセンタクニイキマシタ" tokenPos="2">
+        <contextualInfosGramList>
+          <infosGram lemma="リニオバーサンワカワエセンタクニイキマシタ" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+    </tokens>
+    <initialGramPossibilities>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown, バカ (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown, リニオバーサンワカワエセンタクニイキマシタ (ms,mp,fs,fp)"/>
+    </initialGramPossibilities>
+    <syntGraph str="1 [label=&quot; ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシバカリニオバーサンワカワエセンタクニイキマシタ\nhead: ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシ &quot; ]
+0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <animations/>
+    <semExps str="text(&quot;ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシ&quot;)&lt;br&gt;"/>
+    <sentiments str=""/>
+    <completeness bool="true"/>
+    <reformulations str="French:
+ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシ
+
+English:
+ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシ"/>
+  </text>
+  <text str="&lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア!ルトコロニ$2_2オ^ジ!ーサント|0オ^バ!ーサンガ|0イ^マ!シタ&lt;F&gt;&lt;S&gt;オ^ジ!ーサンワ$2_2ヤ^マ!エ|0シ^バカ!リニ$2_2オ^バ!ーサンワ$2_2カ^ワ!エ|0セ^ンタクニ|0イ^キマ!シタ&lt;F&gt;|0|0 (PITCH REVERT)&lt;F&gt;">
+    <tokens>
+      <token str="&lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア" tokenPos="0">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="1">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="ルトコロニ$2_2オ^ジ" tokenPos="2">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="3">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="ーサント|0オ^バ" tokenPos="4">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="5">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="ーサンガ|0イ^マ" tokenPos="6">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="7">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="シタ&lt;F&gt;&lt;S&gt;オ^ジ" tokenPos="8">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="9">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="ーサンワ$2_2ヤ^マ" tokenPos="10">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="11">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="エ|0シ^" tokenPos="12">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="バカ" tokenPos="13">
+        <contextualInfosGramList>
+          <infosGram lemma="バカ" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="14">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="リニ$2_2オ^バ" tokenPos="15">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="16">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="ーサンワ$2_2カ^ワ" tokenPos="17">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="18">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="エ|0セ^ンタクニ|0イ^キマ" tokenPos="19">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="!" tokenPos="20">
+        <contextualInfosGramList>
+          <infosGram lemma="!" partOfSpeech="punctuation"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="シタ&lt;F&gt;|0|0" tokenPos="21">
+        <contextualInfosGramList>
+          <infosGram lemma="" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+      <token str="&#32;" tokenPos="22">
+        <contextualInfosGramList>
+          <infosGram lemma="&#32;" partOfSpeech="interspace"/>
+        </contextualInfosGramList>
+        <concepts/>
+        <tokens>
+          <token str="(" tokenPos="22_0">
+            <contextualInfosGramList>
+              <infosGram lemma="" partOfSpeech="linkbetweenwords"/>
+            </contextualInfosGramList>
+            <concepts/>
+          </token>
+          <token str="PITCH" tokenPos="22_1">
+            <contextualInfosGramList>
+              <infosGram lemma="PITCH" partOfSpeech="proper_noun"/>
+            </contextualInfosGramList>
+            <concepts/>
+          </token>
+          <token str="&#32;" tokenPos="22_2">
+            <contextualInfosGramList>
+              <infosGram lemma="&#32;" partOfSpeech="interspace"/>
+            </contextualInfosGramList>
+            <concepts/>
+          </token>
+          <token str="REVERT" tokenPos="22_3">
+            <contextualInfosGramList>
+              <infosGram lemma="REVERT" partOfSpeech="proper_noun"/>
+            </contextualInfosGramList>
+            <concepts/>
+          </token>
+          <token str=")" tokenPos="22_4">
+            <contextualInfosGramList>
+              <infosGram lemma="" partOfSpeech="linkbetweenwords"/>
+            </contextualInfosGramList>
+            <concepts/>
+          </token>
+        </tokens>
+      </token>
+      <token str="&lt;F&gt;" tokenPos="23">
+        <contextualInfosGramList>
+          <infosGram lemma="&lt;F&gt;" partOfSpeech="unknown" inflections="ms,mp,fs,fp"/>
+        </contextualInfosGramList>
+        <concepts/>
+      </token>
+    </tokens>
+    <initialGramPossibilities>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown, バカ (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="unknown (ms,mp,fs,fp)"/>
+      <gramPoss newTok="true" str="proper_noun, PITCH ()"/>
+      <gramPoss newTok="true" str="proper_noun, REVERT ()"/>
+      <gramPoss newTok="true" str="unknown, &lt;F&gt; (ms,mp,fs,fp)"/>
+    </initialGramPossibilities>
+    <syntGraph str="1 [label=&quot; &lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア\nhead: &lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア &quot; ]
+0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+2 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+3 [label=&quot; ルトコロニ$2_2オ^ジ\nhead: ルトコロニ$2_2オ^ジ &quot; ]
+0-&gt;3 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+4 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;4 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+5 [label=&quot; ーサント|0オ^バ\nhead: ーサント|0オ^バ &quot; ]
+0-&gt;5 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+6 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;6 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+7 [label=&quot; ーサンガ|0イ^マ\nhead: ーサンガ|0イ^マ &quot; ]
+0-&gt;7 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+8 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;8 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+9 [label=&quot; シタ&lt;F&gt;&lt;S&gt;オ^ジ\nhead: シタ&lt;F&gt;&lt;S&gt;オ^ジ &quot; ]
+0-&gt;9 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+10 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;10 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+11 [label=&quot; ーサンワ$2_2ヤ^マ\nhead: ーサンワ$2_2ヤ^マ &quot; ]
+0-&gt;11 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+12 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;12 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+13 [label=&quot; エ|0シ^バカ\nhead: エ|0シ^ &quot; ]
+0-&gt;13 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+14 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;14 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+15 [label=&quot; リニ$2_2オ^バ\nhead: リニ$2_2オ^バ &quot; ]
+0-&gt;15 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+16 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;16 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+17 [label=&quot; ーサンワ$2_2カ^ワ\nhead: ーサンワ$2_2カ^ワ &quot; ]
+0-&gt;17 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+18 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;18 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+19 [label=&quot; エ|0セ^ンタクニ|0イ^キマ\nhead: エ|0セ^ンタクニ|0イ^キマ &quot; ]
+0-&gt;19 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+20 [label=&quot; !\nhead: ! &quot; ,color=yellow]
+0-&gt;20 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+21 [label=&quot; シタ&lt;F&gt;|0|0 &lt;F&gt;\nhead: シタ&lt;F&gt;|0|0 &quot; ]
+0-&gt;21 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+22 [label=&quot; PITCH REVERT\nhead: PITCH &quot; ]
+21-&gt;22 [label=&quot; complement &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <animations/>
+    <semExps str="text(&quot;&lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア&quot;)&lt;br&gt;"/>
+    <sentiments str=""/>
+    <completeness bool="true"/>
+    <reformulations str="French:
+&lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア
+
+English:
+&lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア"/>
+  </text>
+</syntacticAnalysisResults>

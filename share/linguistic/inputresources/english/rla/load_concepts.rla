@@ -1,0 +1,4 @@
+merge [inputresources]/english/readonly/words.cpts
+merge [inputresources]/english/readonly/sports.cpts
+merge [inputresources]/english/english_concepts.xml
+

@@ -1,0 +1,410 @@
+<linguisticdatabase>
+<existingMeaning lemme="abasourdir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="abonner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="absenter~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="abîmer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="ajourner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="approprier" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="associer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="assoiffer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="assortir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="avérer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="bannir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="blesser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="bonder" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="borner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="bouleverser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="bourrer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="briser~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="cerner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="cingler" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="cogner~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="coincer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="confiner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="connecter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="consigner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="contrarier" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="corrompre" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="couper~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="croiser~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="crypter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="cuire" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="damner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="destiner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="dilater" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="diplômer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="documenter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="douer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="déborder" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="déchaîner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="décéder" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="défoncer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="déguiser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="démener" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="déprimer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="dérouler" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="désespérer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="déshydrater" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="désoler" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="désorienter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="détraquer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="dévaster" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="effondrer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="endetter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="enfermer~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="enfuir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="enfuir~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="engourdir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="engueuler~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="enrayer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="entourer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="exciter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="exténuer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="fatiguer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="faucher" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="fiancer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="flatter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="frustrer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="fâcher" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="glisser~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="habiliter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="habiller" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="habituer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="handicaper" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="honorer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="immuniser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="impressionner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="indisposer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="infecter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="infester" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="inonder" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="inspirer~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="introduire~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="lier" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="ligoter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="marier" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="marrer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="mouiller" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="mourir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="navrer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="naître" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="noyer~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="obliger" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="obséder" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="occuper" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="paralyser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="passionner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="paumer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="pendre~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="persuader" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="priver" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="procurer~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="promettre~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="préméditer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="qualifier" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="ravir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="rebeller~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="remarier" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="remarier~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="rencontrer~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="renseigner" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="rouiller" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="réconcilier" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="satisfaire" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="saturer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="shooter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="sidérer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="spécialiser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="suicider~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="surexciter" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="suspendre" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="sécuriser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="terminer" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="terrifier" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="tomber" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="tordre" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="traumatiser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="tuer~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="volatiliser~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="échapper~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="écouler" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="écraser~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="émouvoir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="épuiser" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="évader" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="évader~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="évanouir" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+<existingMeaning lemme="évanouir~se" gram="verb">
+  <contextInfo val="beIsTheAuxiliary"/>
+</existingMeaning>
+</linguisticdatabase>

@@ -1,0 +1,201 @@
+-ton.DET
+#ton,.DET:ms
+
+-tu.PROS
+#tu,.PROS:2s
+
+-certains.DET
+-certaines.DET
+#certains,.DET+z1:mp
+#certaines,certains.DET+z1:fp
+
+-tous.DET
+-toutes.DET
+#tous,.DET+z1:mp
+#toutes,tous.DET+z1:fp
+
+#que,.INTJ
+-que.CONJS
+#que,.CONJS+z1
+-que.PRO
+#que,.PRO+z1
+#mais,.CONJS
+#car,.CONJS
+#qui,.CONJS
+
+-pourquoi.CONJS
+#pourquoi,.CONJS
+
+#combien,.CONJS
+#à combien,.ADV
+#à combien,.CONJS
+#a combien,à combien.ADV
+#a combien,à combien.CONJS
+
+#lequel,lequel.CONJS
+#lesquels,lequel.CONJS
+#laquelle,lequel.CONJS
+#lesquelles,lequel.CONJS
+
+-quel.PRO
+#quel,.PRO:ms
+#en quel,quel.PRO:ms
+-quelle.PRO
+#quelle,quel.PRO:fs
+#en quelle,quel.PRO:fs
+-quels.PRO
+#quels,quel.PRO:mp
+-quelles.PRO
+#quelles,quel.PRO:fp
+#en quelles,quel.PRO:fp
+
+#quel,quel.CONJS
+#quels,quel.CONJS
+#quelle,quel.CONJS
+#quelles,quel.CONJS
+
+#de quel,quel.PRO+z2:ms
+#de quels,quel.PRO+z2:mp
+#de quelle,quel.PRO+z2:fs
+#de quelles,quel.PRO+z2:fp
+
+#droite,.A:fs
+
+
+#à qui,.PRO
+#a qui,à qui.PRO
+#à qui,.CONJS
+
+#à quoi,.PRO
+#a quoi,à quoi.PRO
+#à quoi,.CONJS
+
+
+-le.PRO
+#le,.PROC:3ms
+#l,le.PROC:3ms
+#la,le.PROC:3fs
+#les,le.PROC:3mp:3fp
+#lui,.PROC:3ms:3fs
+#leur,.PROC:3mp:3fp
+
+
+-en.PRO
+-en.PREP
+#en,.PARTITIVE
+#en,.PREP+z1
+#en,.PROC
+
+-quand.CONJS
+#quand,.CONJS
+#à quel moment,quand.ADV+z2
+#a quel moment,quand.ADV+z2
+#à quel moment,quand.CONJS+z2
+#a quel moment,quand.CONJS+z2
+
+-comme.CONJS
+#comme,.CONJS
+
+-où.PRO
+#où,.ADV
+#où,.CONJS
+
+-dont.PRO
+#dont,.CONJS
+
+-pose.N
+#pose,.N:fs
+
+
+-de.DET
+#de,.DET
+#de,.PN
+-de.PREP
+#de,.PREP
+#de,.PARTITIVE
+
+#d,de.PREP
+#d,de.DET
+#d,de.PARTITIVE
+
+#du,.PN
+#du,.PARTITIVE:ms
+#des,.PARTITIVE:p
+
+-nous.PROS
+#nous,.PROC:1p
+#nous,.PROS:1p
+
+-vous.PROS
+#vous,.PROC:2p
+#vous,.PROS:2p
+
+-enchanté.INTJ
+#enchanté,.INTJ
+-désolé.INTJ
+#désolé,.INTJ
+-entendu.INTJ
+#entendu,.INTJ
+-parfait.INTJ
+#parfait,.INTJ
+#au revoir,.INTJ
+#bien sûr,.INTJ
+#bien sur,bien sûr.INTJ
+#bien sûr que non,.INTJ
+#bien sur que non,bien sûr que non.INTJ
+#par exemple,.INTJ
+#en effet,.INTJ
+#en fait,.INTJ
+#d'accord,.INTJ
+#non seulement,.INTJ
+#eh bien,.INTJ
+#allez,.INTJ
+#ouep,oui.INTJ+z2
+#ouai,oui.INTJ+z2
+#ouaip,oui.INTJ+z2
+#ouais,oui.INTJ+z2
+#wouais,oui.INTJ+z2
+#nope,non.INTJ+z2
+#voilà,.ADV
+#voila,voilà.ADV+z2
+#voilà,.INTJ
+#voila,voilà.INTJ+z2
+
+-mesure.V
+#mesure,mesurer.V:P1s:P3s:S1s:S3s:Y2s
+
+
+-si.CONJS
+#si,.CONJS
+
+-coucou.INTJ
+#coucou,.INTJ
+
+-salut.INTJ
+#salut,.INTJ
+
+#bonjour,.INTJ
+#hé bien,.INTJ
+#pas du tout,.INTJ
+#oui,.INTJ
+#non,.INTJ
+#ni l'un ni l'autre,.INTJ
+#aucun d'entre eux,.INTJ
+
+-alors.CONJ
+#alors,.CONJ
+-sinon.CONJS
+#sinon,.CONJ
+#ensuite,.CONJ
+
+#en cas de,.PREP
+#en cas d,en cas de.PREP
+
+#s'il te plaît,.INTJ
+#s'il te plait,s'il te plaît.INTJ
+#s'il vous plait,s'il te plaît.INTJ
+#s'il vous plaît,s'il te plaît.INTJ
+
+
+
+>findQueAddQu

@@ -1,0 +1,25 @@
+<linguisticdatabase>
+ <concept name="agent_position_goalkeeper">
+  <linkedMeaning lemme="goalkeeper" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_position_defender">
+  <linkedMeaning lemme="defender" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="centre-back" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="full-back" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="wing-back" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="left-back" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="right-back" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="sweeper" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="libero" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_position_midfielder">
+  <linkedMeaning lemme="midfielder" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_position_midfielder_winger">
+  <linkedMeaning lemme="winger" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_position_striker">
+  <linkedMeaning lemme="forward" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="striker" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

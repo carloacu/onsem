@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="captain" gram="noun">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
+</linguisticdatabase>

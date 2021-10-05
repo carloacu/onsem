@@ -1,0 +1,6 @@
+in: "je suis né le 12 mai 1967"
+out: "Où es-tu né le 12 mai 1967 ?"
+in: "à Paris"
+out: "Ok, c'était un vendredi."
+in: "Comment sais-tu ça ?"
+out: "Je ne sais pas comment je le sais."

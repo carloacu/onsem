@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="seem" gram="verb">
+    <contextInfo val="cannotBeContinuous" />
+  </existingMeaning>
+</linguisticdatabase>

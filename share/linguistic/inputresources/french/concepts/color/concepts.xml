@@ -1,0 +1,27 @@
+<linguisticdatabase>
+ <concept name="color">
+  <linkedMeaning lemme="couleur" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="color_*">
+  <linkedMeaning lemme="blanc" relationToConcept="4"/>
+  <linkedMeaning lemme="bleu" relationToConcept="4"/>
+  <linkedMeaning lemme="blond" relationToConcept="4"/>
+  <linkedMeaning lemme="brun" relationToConcept="4"/>
+  <linkedMeaning lemme="cyan" relationToConcept="4"/>
+  <linkedMeaning lemme="gris" relationToConcept="4"/>
+  <linkedMeaning lemme="indigo" relationToConcept="4"/>
+  <linkedMeaning lemme="jaune" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="jaune" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="kaki" relationToConcept="4"/>
+  <linkedMeaning lemme="magenta" relationToConcept="4"/>
+  <linkedMeaning lemme="marron" relationToConcept="4"/>
+  <linkedMeaning lemme="mauve" relationToConcept="4"/>
+  <linkedMeaning lemme="noir" relationToConcept="4"/>
+  <linkedMeaning lemme="orange" relationToConcept="4"/>
+  <linkedMeaning lemme="rose" relationToConcept="4"/>
+  <linkedMeaning lemme="rouge" relationToConcept="4"/>
+  <linkedMeaning lemme="roux" relationToConcept="4"/>
+  <linkedMeaning lemme="vert" relationToConcept="4"/>
+  <linkedMeaning lemme="violet" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

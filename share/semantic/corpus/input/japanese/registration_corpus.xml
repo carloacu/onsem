@@ -1,0 +1,3 @@
+<sentencesTester>
+    <include file="japanese_sentences.txt" />
+</sentencesTester>

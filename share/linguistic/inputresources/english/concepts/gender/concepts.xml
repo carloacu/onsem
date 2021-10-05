@@ -1,0 +1,25 @@
+<linguisticdatabase>
+ <concept name="gender_male">
+  <linkedMeaning lemme="boy" relationToConcept="4"/>
+  <linkedMeaning lemme="brother" relationToConcept="4"/>
+  <linkedMeaning lemme="dad" relationToConcept="4"/>
+  <linkedMeaning lemme="father" relationToConcept="4"/>
+  <linkedMeaning lemme="guy" relationToConcept="4"/>
+  <linkedMeaning lemme="man" relationToConcept="5"/>
+  <linkedMeaning lemme="masculine" relationToConcept="4"/>
+ </concept>
+ <concept name="gender_female">
+  <linkedMeaning lemme="feminine" relationToConcept="4"/>
+  <linkedMeaning lemme="girl" relationToConcept="5"/>
+  <linkedMeaning lemme="ma" relationToConcept="4"/>
+  <linkedMeaning lemme="mama" relationToConcept="4"/>
+  <linkedMeaning lemme="mom" relationToConcept="4"/>
+  <linkedMeaning lemme="mother" relationToConcept="4"/>
+  <linkedMeaning lemme="mum" relationToConcept="4"/>
+  <linkedMeaning lemme="mummy" relationToConcept="4"/>
+  <linkedMeaning lemme="sister" relationToConcept="4"/>
+ </concept>
+ <concept name="gender_neutral">
+  <linkedMeaning lemme="robot" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

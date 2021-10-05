@@ -1,0 +1,28 @@
+<dictionary_modification language="english">
+  <child_list_template name="agent->indirectObject">
+    <child chunkLinkType="indirect object" condition="followedByBeginOfConcept(agent_)" />
+  </child_list_template>
+  <word lemma="be" pos="verb">
+    <child lemma="to" pos="preposition" chunkLinkType="subordinate" />
+  </word>
+  <word lemma="come~from" pos="verb">
+    <child chunkLinkType="location" />
+  </word>
+  <word lemma="give" pos="verb">
+    <child lemma="to" pos="preposition" chunkLinkType="indirect object" condition="followedByPartOfSpeech(proper_noun)" />
+    <include_child_list_template name="agent->indirectObject"/>
+    <child bookmark="before-indirectObject" lemma="to" pos="preposition" chunkLinkType="indirect object" />
+  </word>
+  <word lemma="go" pos="verb">
+    <child chunkLinkType="location" condition="followedByBeginOfConcept(location_)&!followedByBeginOfConcept(level_)" />
+    <child chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
+    <child bookmark="after-adverb-location" lemma="to" pos="preposition" chunkLinkType="location" />
+    <child bookmark="after-adverb-location" chunkLinkType="location" />
+  </word>
+  <word lemma="hear" pos="verb">
+    <include_child_list_template name="agent->indirectObject"/>
+  </word>
+  <word lemma="say" pos="verb">
+    <child bookmark="before-indirectObject" lemma="to" pos="preposition" chunkLinkType="indirect object" condition="followedByBeginOfConcept(agent_)" />
+  </word>
+</dictionary_modification>
