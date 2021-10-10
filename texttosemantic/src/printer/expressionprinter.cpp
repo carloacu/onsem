@@ -33,12 +33,12 @@ struct PrinterBuffer
   std::size_t offsetCurrLine;
   std::size_t offsetNewLine;
 };
-void _prettyPrintSemExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintSemExp(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const SemanticExpression& pSemExp);
 
 
-void _flushStringStream(std::list<ALSemLineToPrint>& pLines,
+void _flushStringStream(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const SemanticExpression* pSemExp)
 {
@@ -75,7 +75,7 @@ void _prettyPrintWord(PrinterBuffer& pPrinterBuff,
 }
 
 
-void _prettyPrintDuration(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintDuration(std::list<SemLineToPrint>& pLines,
                           PrinterBuffer& pPrinterBuff,
                           const std::string& pDurationLabelName,
                           const SemanticDuration& pDuration)
@@ -85,7 +85,7 @@ void _prettyPrintDuration(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticConceptualGrounding& pGrounding)
 {
@@ -96,7 +96,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticLanguageGrounding& pGrounding)
 {
@@ -105,7 +105,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticTextGrounding& pGrounding)
 {
@@ -140,7 +140,7 @@ void _prettyPrintPossibleGenders(PrinterBuffer& pPrinterBuff,
   }
 }
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticNameGrounding& pGrounding)
 {
@@ -164,7 +164,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
   _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticResourceGrounding& pGrounding)
 {
@@ -179,7 +179,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticMetaGrounding& pGrounding)
 {
@@ -205,7 +205,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticRelativeLocationGrounding& pGrounding)
 {
@@ -219,7 +219,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticRelativeTimeGrounding& pGrounding)
 {
@@ -229,7 +229,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
   _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticRelativeDurationGrounding& pGrounding)
 {
@@ -240,7 +240,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticStatementGrounding& pGrounding)
 {
@@ -303,7 +303,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticAgentGrounding& pGrounding)
 {
@@ -323,7 +323,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticGenericGrounding& pGrounding)
 {
@@ -396,7 +396,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticTimeGrounding& pGroundings)
 {
@@ -408,7 +408,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticDurationGrounding& pGrounding)
 {
@@ -416,7 +416,7 @@ void _prettyPrintTypedGroundings(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintGroundings(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
                             PrinterBuffer& pPrinterBuff,
                             const SemanticGrounding& pGroundings)
 {
@@ -516,7 +516,7 @@ void _printLabel(PrinterBuffer& pPrinterBuff,
   pPrinterBuff.elts.push_back(pLabel);
 }
 
-void _prettyPrintListOfSemExps(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintListOfSemExps(std::list<SemLineToPrint>& pLines,
                                PrinterBuffer& pPrinterBuff,
                                const std::list<UniqueSemanticExpression>& pSemExps)
 {
@@ -544,7 +544,7 @@ void _prettyPrintListOfSemExps(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintGrdExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintGrdExp(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const GroundedExpression& pGrdExp)
 {
@@ -570,7 +570,7 @@ void _prettyPrintGrdExp(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintCondExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintCondExp(std::list<SemLineToPrint>& pLines,
                          PrinterBuffer& pPrinterBuff,
                          const ConditionExpression& pCondExp)
 {
@@ -638,7 +638,7 @@ void _prettyPrintCondExp(std::list<ALSemLineToPrint>& pLines,
   }
 }
 
-void _prettyPrintCompExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintCompExp(std::list<SemLineToPrint>& pLines,
                          PrinterBuffer& pPrinterBuff,
                          const ComparisonExpression& pCompExp)
 {
@@ -697,7 +697,7 @@ void _prettyPrintCompExp(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintIntExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintIntExp(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const InterpretationExpression& pIntExp)
 {
@@ -728,7 +728,7 @@ void _prettyPrintIntExp(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintAnnExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintAnnExp(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const AnnotatedExpression& pAnnExp)
 {
@@ -762,7 +762,7 @@ void _prettyPrintAnnExp(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintFdkExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintFdkExp(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const FeedbackExpression& pFdkExp)
 {
@@ -792,7 +792,7 @@ void _prettyPrintFdkExp(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintListExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintListExp(std::list<SemLineToPrint>& pLines,
                          PrinterBuffer& pPrinterBuff,
                          const ListExpression& pListExp)
 {
@@ -804,7 +804,7 @@ void _prettyPrintListExp(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintMetadataExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintMetadataExp(std::list<SemLineToPrint>& pLines,
                              PrinterBuffer& pPrinterBuff,
                              const MetadataExpression& pMetadataExp)
 {
@@ -845,7 +845,7 @@ void _prettyPrintMetadataExp(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintCmdExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintCmdExp(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const CommandExpression& pCmdExp)
 {
@@ -876,7 +876,7 @@ void _prettyPrintCmdExp(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _prettyPrintFSynthExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintFSynthExp(std::list<SemLineToPrint>& pLines,
                            PrinterBuffer& pPrinterBuff,
                            const FixedSynthesisExpression& pFSynthExp)
 {
@@ -907,7 +907,7 @@ void _prettyPrintFSynthExp(std::list<ALSemLineToPrint>& pLines,
   }
 }
 
-void _prettyPrintSetOfFormsExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintSetOfFormsExp(std::list<SemLineToPrint>& pLines,
                                PrinterBuffer& pPrinterBuff,
                                const SetOfFormsExpression& pSetOfFormsExp)
 {
@@ -947,7 +947,7 @@ void _prettyPrintSetOfFormsExp(std::list<ALSemLineToPrint>& pLines,
 
 
 
-void _prettyPrintSemExp(std::list<ALSemLineToPrint>& pLines,
+void _prettyPrintSemExp(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const SemanticExpression& pSemExp)
 {
@@ -1102,7 +1102,7 @@ void oneWordPrint(std::string& pRes,
 }
 
 
-void prettyPrintSemExp(std::list<ALSemLineToPrint>& pLines,
+void prettyPrintSemExp(std::list<SemLineToPrint>& pLines,
                        const SemanticExpression& pSemExp)
 {
   PrinterBuffer printerBuff;

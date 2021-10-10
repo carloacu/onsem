@@ -221,7 +221,7 @@ std::size_t SemanticMemoryBlock::nbOfKnowledges() const
 }
 
 
-void SemanticMemoryBlock::print(std::list<ALSemLineToPrint>& pLines,
+void SemanticMemoryBlock::print(std::list<SemLineToPrint>& pLines,
                                 const mystd::optional<std::size_t>& pMaxNbOfSemanticExpressionsToPrint) const
 {
   std::size_t idOfLoop = 1;
@@ -235,7 +235,7 @@ void SemanticMemoryBlock::print(std::list<ALSemLineToPrint>& pLines,
     }
     pLines.emplace_front();
     pLines.emplace_front();
-    std::list<ALSemLineToPrint> localLines;
+    std::list<SemLineToPrint> localLines;
     printer::prettyPrintSemExp(localLines, *(*it)->semExp);
     pLines.splice(pLines.begin(), localLines);
   }

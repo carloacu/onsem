@@ -25,16 +25,16 @@ public:
 
   void printAlternativelySemExpAndDiffOfSemExps
   (std::string& pSemExpPrettyPrint,
-   const std::list<std::list<ALSemLineToPrint> >& pConvOutputs) const;
+   const std::list<std::list<SemLineToPrint> >& pConvOutputs) const;
 
   void printLines
   (std::string& pSemExpPrettyPrint,
-   const std::list<ALSemLineToPrint>& pSemExpToPrint) const;
+   const std::list<SemLineToPrint>& pSemExpToPrint) const;
 
   void comparedPrint
   (std::string& pSemExpPrettyPrint,
-   const std::list<ALSemLineToPrint>& pSemExpToPrint,
-   const std::list<ALSemLineToPrint>* pLastSemExpToPrint,
+   const std::list<SemLineToPrint>& pSemExpToPrint,
+   const std::list<SemLineToPrint>* pLastSemExpToPrint,
    bool pWeArePrintingASemExp) const;
 
 private:
@@ -59,8 +59,8 @@ private:
 
   void _printDiffComparedToLastSemExp
   (std::string& pSemExpPrettyPrint,
-   const std::list<ALSemLineToPrint>& pSemExpToPrint,
-   const std::list<ALSemLineToPrint>& pLastSemExpToPrint) const;
+   const std::list<SemLineToPrint>& pSemExpToPrint,
+   const std::list<SemLineToPrint>& pLastSemExpToPrint) const;
 
   void _printDiffComparedToLastLine
   (std::string& pSemExpPrettyPrint,
@@ -81,9 +81,9 @@ private:
    const std::list<std::string>& pList) const;
 
   int _nbLinesWeShouldSkip
-  (const ALSemLineToPrint& pRefLine,
-   std::list<ALSemLineToPrint>::const_iterator pListIt,
-   const std::list<ALSemLineToPrint>& pList) const;
+  (const SemLineToPrint& pRefLine,
+   std::list<SemLineToPrint>::const_iterator pListIt,
+   const std::list<SemLineToPrint>& pList) const;
 };
 
 

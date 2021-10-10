@@ -19,7 +19,7 @@ void getNextParameterPossibilities
 
 ONSEMSEMANTICDEBUGGER_API
 void print
-(std::list<ALSemLineToPrint>& pLines,
+(std::list<SemLineToPrint>& pLines,
  const std::vector<std::string>& pModes,
  const SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb);

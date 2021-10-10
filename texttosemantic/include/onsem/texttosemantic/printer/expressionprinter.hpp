@@ -19,7 +19,7 @@ void oneWordPrint(std::string& pRes,
                   const std::string& pCurrentUserId);
 
 ONSEM_TEXTTOSEMANTIC_API
-void prettyPrintSemExp(std::list<ALSemLineToPrint>& pLines,
+void prettyPrintSemExp(std::list<SemLineToPrint>& pLines,
                        const SemanticExpression& pSemExp);
 
 

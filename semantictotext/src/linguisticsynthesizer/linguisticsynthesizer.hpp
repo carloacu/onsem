@@ -15,7 +15,7 @@ struct UniqueSemanticExpression;
 struct SemanticMemoryBlock;
 struct TextProcessingContext;
 struct CommandExpression;
-struct ALSemLineToPrint;
+struct SemLineToPrint;
 
 
 void synthesize(std::list<std::unique_ptr<SynthesizerResult>>& pNaturalLanguageResult,
@@ -25,7 +25,7 @@ void synthesize(std::list<std::unique_ptr<SynthesizerResult>>& pNaturalLanguageR
                 const std::string& pCurrentUserId,
                 const TextProcessingContext& pTextProcContext,
                 const linguistics::LinguisticDatabase& pLingDb,
-                std::list<std::list<ALSemLineToPrint> >* pDebugOutput);
+                std::list<std::list<SemLineToPrint> >* pDebugOutput);
 
 void writeCommand(std::string& pRes,
                   const CommandExpression& pCommandExp);

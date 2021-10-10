@@ -11,7 +11,7 @@ namespace onsem
 class SemExpTreeConversionDatabase;
 struct SemanticExpression;
 struct GroundedExpression;
-struct ALSemLineToPrint;
+struct SemLineToPrint;
 struct SemanticMemory;
 
 
@@ -24,12 +24,12 @@ public:
                       TreePatternConventionEnum pFromConvention,
                       TreePatternConventionEnum pToConvention,
                       SemanticLanguageEnum pLanguage,
-                      std::list<std::list<ALSemLineToPrint> >* pDebugOutput = nullptr) const;
+                      std::list<std::list<SemLineToPrint> >* pDebugOutput = nullptr) const;
 
   void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
                                      SemanticLanguageEnum pLanguage,
                                      bool pAllOrJustTheOneThatAreInBothDirections,
-                                     std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+                                     std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
   GrammaticalType getChildThatShouldBeUnique(mystd::unique_propagate_const<UniqueSemanticExpression>& pChildThatShouldBeUnique,
                                              const GroundedExpression& pGrdExp) const;
@@ -44,27 +44,27 @@ private:
    const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
    int pCurrPrio,
    const SemanticExpression& pRootSemExpForDebug,
-   std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+   std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
   void xSearchRootOfSplitPossOfQuestions
   (UniqueSemanticExpression& pSemExp,
    SemanticLanguageEnum pLanguage,
    bool pAllOrJustTheOneThatAreInBothDirections,
    const SemanticExpression& pRootSemExpForDebug,
-   std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+   std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
   void xRefactorQuestionsOfExpressionForALanguage
   (UniqueSemanticExpression& pSemExp,
    bool pAllOrJustTheOneThatAreInBothDirections,
    const SemanticExpression& pRootSemExpForDebug,
-   std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+   std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
   void xPrintAConversionInfos
-  (std::list<std::list<ALSemLineToPrint> >& pDebugOutput,
+  (std::list<std::list<SemLineToPrint> >& pDebugOutput,
    const ConversionRule& pConvInfos) const;
 
   void xPrintAPatternNode
-  (std::list<ALSemLineToPrint>& pOutLines,
+  (std::list<SemLineToPrint>& pOutLines,
    std::stringstream& pSs,
    std::size_t pOffsetNewLine,
    const SemExpTreePatternNode& pRootPattern) const;
@@ -76,10 +76,10 @@ private:
    const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
    int pCurrPrio,
    const SemanticExpression& pRootSemExpForDebug,
-   std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+   std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
   static void xAddExpsToDebugOutput
-  (std::list<std::list<ALSemLineToPrint> >& pDebugOutput,
+  (std::list<std::list<SemLineToPrint> >& pDebugOutput,
    const SemanticExpression& pSemExp);
 
   void xRefactorSemExpForALanguage
@@ -87,7 +87,7 @@ private:
    TreePatternConventionEnum pFromConvention,
    TreePatternConventionEnum pToConvention,
    SemanticLanguageEnum pLanguage,
-   std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+   std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
   void xApplyModifsOnSemExp
   (SemanticExpression& pRootInSemExp,
@@ -119,14 +119,14 @@ private:
    std::map<const ConversionRule*, std::set<const SemanticExpression*> >& pAlreadyDoneConv,
    const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
    const SemanticExpression& pRootSemExpForDebug,
-   std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+   std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
   void xRefactSemExp
   (UniqueSemanticExpression& pSemExp,
    std::map<const ConversionRule*, std::set<const SemanticExpression*> >& pAlreadyDoneConv,
    const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
    const SemanticExpression& pRootSemExpForDebug,
-   std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+   std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
   UniqueSemanticExpression xPatternNodeToSemExp(const SemExpTreePatternNode& pTreePattern,
                                                 const std::map<std::string, std::list<std::shared_ptr<SemanticExpression>>>& pRepLinks,

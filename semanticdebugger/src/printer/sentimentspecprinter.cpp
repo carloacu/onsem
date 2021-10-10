@@ -7,7 +7,7 @@ namespace onsem
 {
 
 
-void ALSentimentSpecPrinter::printSentimentContext
+void SentimentSpecPrinter::printSentimentContext
 (std::stringstream& pRes,
  const SentimentContext& pSentimentContext,
  const std::string& pFromStr,

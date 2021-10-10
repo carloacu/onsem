@@ -7,7 +7,7 @@ namespace onsem
 {
 struct SentimentContext;
 
-class ALSentimentSpecPrinter
+class SentimentSpecPrinter
 {
 public:
   static void printSentimentContext

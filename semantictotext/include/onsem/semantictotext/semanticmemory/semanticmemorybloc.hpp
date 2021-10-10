@@ -28,7 +28,7 @@ namespace linguistics
 {
 struct LinguisticDatabase;
 }
-struct ALSemLineToPrint;
+struct SemLineToPrint;
 struct RelatedContextAxiom;
 struct SemanticMemoryBlockPrivate;
 struct SemanticBehaviorDefinition;
@@ -98,7 +98,7 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
   const SemanticExpression* getBeforeLastSemExpOfNotAnAuthor(const SemanticExpression& pAuthor,
                                                              const linguistics::LinguisticDatabase& pLingDb) const;
 
-  void print(std::list<ALSemLineToPrint>& pLines,
+  void print(std::list<SemLineToPrint>& pLines,
              const mystd::optional<std::size_t>& pMaxNbOfSemanticExpressionsToPrint) const;
 
   SemanticGenderType getGender(const std::string& pUser) const;

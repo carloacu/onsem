@@ -46,7 +46,7 @@ void _syntSemExpWithDebugInfosIfAsked(std::string& pRes,
   if ((pLanguage == SemanticLanguageEnum::FRENCH && pSemanticAnalysisDebugOptions.convOutput == CONV_OUTPUT_MIND_TO_FRENCH) ||
       (pLanguage == SemanticLanguageEnum::ENGLISH && pSemanticAnalysisDebugOptions.convOutput == CONV_OUTPUT_MIND_TO_ENGLISH))
   {
-    std::list<std::list<ALSemLineToPrint> > convOutputs;
+    std::list<std::list<SemLineToPrint> > convOutputs;
     converter::semExpToText(pRes, std::move(pSemExp), textPorcContext, true,
                             pMemBlock, textPorcContext.author.userId, pLingDb, &convOutputs);
     pPrintSemExpDiffs.printAlternativelySemExpAndDiffOfSemExps
@@ -145,7 +145,7 @@ void fillSemAnalResult
     textProcCont.cmdGrdExtractorPtr = cmdGrdExtractorPtr;
     if (pSemanticAnalysisDebugOptions.convOutput == CONV_OUTPUT_CURRLANG_TO_MIND)
     {
-      std::list<std::list<ALSemLineToPrint> > convOutputs;
+      std::list<std::list<SemLineToPrint> > convOutputs;
       auto res = converter::syntGraphToSemExp(pResults.syntGraph, textProcCont, &convOutputs);
       semExpLinesToStr.printAlternativelySemExpAndDiffOfSemExps
           (pHighLevelResults.semExpStr, convOutputs);
@@ -158,7 +158,7 @@ void fillSemAnalResult
 
   if (pSemanticAnalysisDebugOptions.convOutput == CONV_OUTPUT_MIND)
   {
-    std::list<ALSemLineToPrint> semExpStrs;
+    std::list<SemLineToPrint> semExpStrs;
     printer::prettyPrintSemExp(semExpStrs, *semExp);
     semExpLinesToStr.printLines(pHighLevelResults.semExpStr, semExpStrs);
   }

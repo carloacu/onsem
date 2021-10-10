@@ -15,7 +15,7 @@ include(onsem-config.cmake)
 add_subdirectory(common)
 
 add_subdirectory(typeallocatorandserializer)
-add_subdirectory(lingdbeditor)
+add_subdirectory(compilermodel)
 add_subdirectory(databasegenerator)
 
 if (NOT BUILD_ONSEM_DATABASE)

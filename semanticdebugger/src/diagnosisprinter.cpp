@@ -15,7 +15,7 @@ namespace
 {
 const std::size_t _maxNbOfSemanticExpressionsToPrint = 50;
 
-void _printPkgMemory(std::list<ALSemLineToPrint>& pLines,
+void _printPkgMemory(std::list<SemLineToPrint>& pLines,
                      const linguistics::LinguisticDatabase& pLingDb)
 {
   std::string text = "";
@@ -24,7 +24,7 @@ void _printPkgMemory(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-bool _prettyPrintMemory(std::list<ALSemLineToPrint>& pLines,
+bool _prettyPrintMemory(std::list<SemLineToPrint>& pLines,
                         const std::string& pMemoryZone,
                         const SemanticMemory& pSemanticMemory)
 {
@@ -39,7 +39,7 @@ bool _prettyPrintMemory(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _print_text_lang_convOutput(std::list<ALSemLineToPrint>& pLines,
+void _print_text_lang_convOutput(std::list<SemLineToPrint>& pLines,
                                  const linguistics::LinguisticDatabase& pLingDb,
                                  SemanticLanguageEnum pLanguageType,
                                  ConvertionOutputEnum pConvOutput,
@@ -67,7 +67,7 @@ void _print_text_lang_convOutput(std::list<ALSemLineToPrint>& pLines,
 
 
 
-void _print_text_lang_tokens(std::list<ALSemLineToPrint>& pLines,
+void _print_text_lang_tokens(std::list<SemLineToPrint>& pLines,
                              const linguistics::LinguisticDatabase& pLingDb,
                              SemanticLanguageEnum pLanguageType,
                              std::vector<std::string>::const_iterator pItMode,
@@ -97,7 +97,7 @@ void _print_text_lang_tokens(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _print_text_lang(std::list<ALSemLineToPrint>& pLines,
+void _print_text_lang(std::list<SemLineToPrint>& pLines,
                       const linguistics::LinguisticDatabase& pLingDb,
                       SemanticLanguageEnum pLanguageType,
                       std::vector<std::string>::const_iterator pItMode,
@@ -124,7 +124,7 @@ void _print_text_lang(std::list<ALSemLineToPrint>& pLines,
   pLines.emplace_back("thing_to_check => KO");
 }
 
-void _print_text(std::list<ALSemLineToPrint>& pLines,
+void _print_text(std::list<SemLineToPrint>& pLines,
                  std::vector<std::string>::const_iterator pItMode,
                  const std::vector<std::string>& pModes,
                  const linguistics::LinguisticDatabase& pLingDb)
@@ -154,7 +154,7 @@ void _print_text(std::list<ALSemLineToPrint>& pLines,
 }
 
 
-void _printRootLevel(std::list<ALSemLineToPrint>& pLines,
+void _printRootLevel(std::list<SemLineToPrint>& pLines,
                      std::vector<std::string>::const_iterator pItMode,
                      const std::vector<std::string>& pModes,
                      const SemanticMemory& pSemanticMemory,
@@ -194,7 +194,7 @@ void _printRootLevel(std::list<ALSemLineToPrint>& pLines,
   pLines.emplace_back("text: debug a syntactic analysis");
 }
 
-void _diagnosis(std::list<ALSemLineToPrint>& pLines,
+void _diagnosis(std::list<SemLineToPrint>& pLines,
                 const std::vector<std::string>& pModes,
                 const SemanticMemory& pSemanticMemory,
                 const linguistics::LinguisticDatabase& pLingDb)
@@ -264,7 +264,7 @@ void getNextParameterPossibilities(std::list<std::string>& pNextParameterPossibi
 }
 
 
-void print(std::list<ALSemLineToPrint>& pLines,
+void print(std::list<SemLineToPrint>& pLines,
            const std::vector<std::string>& pModes,
            const SemanticMemory& pSemanticMemory,
            const linguistics::LinguisticDatabase& pLingDb)
@@ -278,7 +278,7 @@ std::string diagnosis
  const SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb)
 {
-  std::list<ALSemLineToPrint> lines;
+  std::list<SemLineToPrint> lines;
   _diagnosis(lines, pModes, pSemanticMemory, pLingDb);
   std::string result;
   SemExpLinesToStr::getInstance(PrintSemExpDiffsOutPutFormat::CONSOLE).

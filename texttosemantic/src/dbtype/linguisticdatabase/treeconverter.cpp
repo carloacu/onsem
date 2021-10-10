@@ -28,7 +28,7 @@ void TreeConverter::refactorSemExp
  TreePatternConventionEnum pFromConvention,
  TreePatternConventionEnum pToConvention,
  SemanticLanguageEnum pLanguage,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   _statDb.refactorSemExp(pUSemExp, pFromConvention, pToConvention, pLanguage, pDebugOutput);
 }
@@ -36,7 +36,7 @@ void TreeConverter::refactorSemExp
 void TreeConverter::splitPossibilitiesOfQuestions
 (UniqueSemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
- std::list<std::list<ALSemLineToPrint>>* pDebugOutput) const
+ std::list<std::list<SemLineToPrint>>* pDebugOutput) const
 {
   _statDb.splitPossibilitiesOfQuestions(pSemExp, pLanguage, true, pDebugOutput);
 }
@@ -44,7 +44,7 @@ void TreeConverter::splitPossibilitiesOfQuestions
 void TreeConverter::splitEquivalentQuestions
 (UniqueSemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
- std::list<std::list<ALSemLineToPrint>>* pDebugOutput) const
+ std::list<std::list<SemLineToPrint>>* pDebugOutput) const
 {
   _statDb.splitPossibilitiesOfQuestions(pSemExp, pLanguage, false, pDebugOutput);
 }

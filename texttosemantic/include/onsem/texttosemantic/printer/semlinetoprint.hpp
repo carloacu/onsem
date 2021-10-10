@@ -17,9 +17,9 @@ struct SemanticExpression;
 static const std::size_t semLineToPrint_subLabelOffsets = 3;
 
 
-struct ONSEM_TEXTTOSEMANTIC_API ALSemLineToPrint
+struct ONSEM_TEXTTOSEMANTIC_API SemLineToPrint
 {
-  ALSemLineToPrint
+  SemLineToPrint
   (const std::string& pLine)
     : offset(0),
       elts(1, pLine),
@@ -29,7 +29,7 @@ struct ONSEM_TEXTTOSEMANTIC_API ALSemLineToPrint
   {
   }
 
-  ALSemLineToPrint
+  SemLineToPrint
   (std::size_t pOffset,
    const std::string& pLine)
     : offset(pOffset),
@@ -40,7 +40,7 @@ struct ONSEM_TEXTTOSEMANTIC_API ALSemLineToPrint
   {
   }
 
-  ALSemLineToPrint
+  SemLineToPrint
   (std::size_t pOffset,
    std::list<std::string>& pElts,
    const SemanticExpression* pSemExp = nullptr)
@@ -53,7 +53,7 @@ struct ONSEM_TEXTTOSEMANTIC_API ALSemLineToPrint
     elts.splice(elts.begin(), pElts);
   }
 
-  ALSemLineToPrint()
+  SemLineToPrint()
     : offset(0),
       elts(),
       inGrey(false),
@@ -62,8 +62,8 @@ struct ONSEM_TEXTTOSEMANTIC_API ALSemLineToPrint
   {
   }
 
-  ALSemLineToPrint(const ALSemLineToPrint&) = delete;
-  ALSemLineToPrint& operator=(const ALSemLineToPrint&) = delete;
+  SemLineToPrint(const SemLineToPrint&) = delete;
+  SemLineToPrint& operator=(const SemLineToPrint&) = delete;
 
   void removeOneOffset()
   {

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <onsem/lingdbeditor/allingdbtree.hpp>
+#include <onsem/compilermodel/lingdbtree.hpp>
 
 
 
@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
   const auto loadDatabasesDir(shareDir + "/linguistic/loaddatabases");
   const auto dynamicdictionaryPath(shareDir + "/semantic/dynamicdictionary");
 
-  onsem::ALLingdbTree lingdbTree(inputResourcesDir);
+  onsem::LingdbTree lingdbTree(inputResourcesDir);
   lingdbTree.update(ontDatabaseDir, loadDatabasesDir, dynamicdictionaryPath, true);
   return 0;
 }

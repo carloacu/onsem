@@ -7,8 +7,8 @@ if(BUILD_ONSEM_DATABASE)
   if(NOT ONSEMCOMMON_FOUND)
     find_package(onsemcommon)
   endif()
-  if(NOT ONSEMLINGDBEDITOR_FOUND)
-    find_package(onsemlingdbeditor)
+  if(NOT ONSEMCOMPILERMODEL_FOUND)
+    find_package(onsemcompilermodel)
   endif()
 
   add_executable(onsemdatabasegenerator
@@ -16,11 +16,11 @@ if(BUILD_ONSEM_DATABASE)
   )
   include_directories(
     ${ONSEMCOMMON_INCLUDE_DIRS}
-    ${ONSEMLINGDBEDITOR_INCLUDE_DIRS}
+    ${ONSEMCOMPILERMODEL_INCLUDE_DIRS}
   )
   target_link_libraries(onsemdatabasegenerator
     ${ONSEMCOMMON_LIBRARIES}
-    ${ONSEMLINGDBEDITOR_LIBRARIES}
+    ${ONSEMCOMPILERMODEL_LIBRARIES}
   )
 
 else(BUILD_ONSEM_DATABASE)

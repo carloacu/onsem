@@ -21,7 +21,7 @@ void StaticTreeConverter::refactorSemExp
  TreePatternConventionEnum pFromConvention,
  TreePatternConventionEnum pToConvention,
  SemanticLanguageEnum pLanguage,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   if (pDebugOutput != nullptr)
   {
@@ -42,7 +42,7 @@ void StaticTreeConverter::splitPossibilitiesOfQuestions
 (UniqueSemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
  bool pAllOrJustTheOneThatAreInBothDirections,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   if (pDebugOutput != nullptr)
     xAddExpsToDebugOutput(*pDebugOutput, *pSemExp);
@@ -93,7 +93,7 @@ void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
  SemanticLanguageEnum pLanguage,
  bool pAllOrJustTheOneThatAreInBothDirections,
  const SemanticExpression& pRootSemExpForDebug,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   switch (pSemExp->type)
   {
@@ -180,7 +180,7 @@ void StaticTreeConverter::xRefactorQuestionsOfExpressionForALanguage
 (UniqueSemanticExpression& pSemExp,
  bool pAllOrJustTheOneThatAreInBothDirections,
  const SemanticExpression& pRootSemExpForDebug,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   std::set<std::string> alreadyDoneConvIds;
   std::list<std::pair<int, UniqueSemanticExpression> > newFormsOfTheExp;
@@ -215,7 +215,7 @@ void StaticTreeConverter::xRecurssivelyAddQuestionForm
  const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
  int pCurrPrio,
  const SemanticExpression& pRootSemExpForDebug,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   std::list<std::pair<int, UniqueSemanticExpression>> provNewFormsOfTheExp;
   xExtractNewQuestionForms(provNewFormsOfTheExp, pSemExp, pAlreadyDoneConvIds, pTreeOfConvs,
@@ -236,7 +236,7 @@ void StaticTreeConverter::xRecurssivelyAddQuestionForm
 
 
 void StaticTreeConverter::xAddExpsToDebugOutput
-(std::list<std::list<ALSemLineToPrint> >& pDebugOutput,
+(std::list<std::list<SemLineToPrint> >& pDebugOutput,
  const SemanticExpression& pSemExp)
 {
   pDebugOutput.emplace_back();
@@ -249,7 +249,7 @@ void StaticTreeConverter::xRefactorSemExpForALanguage
  TreePatternConventionEnum pFromConvention,
  TreePatternConventionEnum pToConvention,
  SemanticLanguageEnum pLanguage,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   auto itConvForLang = fConversions.find(pLanguage);
   if (itConvForLang == fConversions.end())
@@ -286,7 +286,7 @@ void StaticTreeConverter::xRefactSemExpRec
  std::map<const ConversionRule*, std::set<const SemanticExpression*> >& pAlreadyDoneConv,
  const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
  const SemanticExpression& pRootSemExpForDebug,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   switch (pSemExp->type)
   {
@@ -364,7 +364,7 @@ void StaticTreeConverter::xRefactSemExp
  std::map<const ConversionRule*, std::set<const SemanticExpression*> >& pAlreadyDoneConv,
  const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
  const SemanticExpression& pRootSemExpForDebug,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   bool conversionHasBeenDone = false;
   do
@@ -417,7 +417,7 @@ void StaticTreeConverter::xExtractNewQuestionForms
  const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
  int pCurrPrio,
  const SemanticExpression& pRootSemExpForDebug,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const
+ std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   // get sem exp concepts
   // TODO: do it only one time for current language and unknown language
@@ -465,11 +465,11 @@ void StaticTreeConverter::xExtractNewQuestionForms
 
 
 void StaticTreeConverter::xPrintAConversionInfos
-(std::list<std::list<ALSemLineToPrint> >& pDebugOutput,
+(std::list<std::list<SemLineToPrint> >& pDebugOutput,
  const ConversionRule& pConvInfos) const
 {
   pDebugOutput.emplace_back();
-  std::list<ALSemLineToPrint>& outLines = pDebugOutput.back();
+  std::list<SemLineToPrint>& outLines = pDebugOutput.back();
   {
     std::stringstream ss;
     ss << "Conversion: " << pConvInfos.filename << " (" << pConvInfos.convesionNb << ")";
@@ -489,7 +489,7 @@ void StaticTreeConverter::xPrintAConversionInfos
 
 
 void StaticTreeConverter::xPrintAPatternNode
-(std::list<ALSemLineToPrint>& pOutLines,
+(std::list<SemLineToPrint>& pOutLines,
  std::stringstream& pSs,
  std::size_t pOffsetNewLine,
  const SemExpTreePatternNode& pRootPattern) const

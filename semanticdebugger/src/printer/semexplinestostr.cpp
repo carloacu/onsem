@@ -76,11 +76,11 @@ void SemExpLinesToStr::_setOutputFormat(PrintSemExpDiffsOutPutFormat pOutputForm
 
 void SemExpLinesToStr::printAlternativelySemExpAndDiffOfSemExps
 (std::string& pSemExpPrettyPrint,
- const std::list<std::list<ALSemLineToPrint> >& pConvOutputs) const
+ const std::list<std::list<SemLineToPrint> >& pConvOutputs) const
 {
   bool weArePrintingASemExp = true;
-  const std::list<ALSemLineToPrint>* lastSemExp = nullptr;
-  for (std::list<std::list<ALSemLineToPrint> >::const_iterator
+  const std::list<SemLineToPrint>* lastSemExp = nullptr;
+  for (std::list<std::list<SemLineToPrint> >::const_iterator
        it = pConvOutputs.begin();
        it != pConvOutputs.end(); ++it)
   {
@@ -106,9 +106,9 @@ void SemExpLinesToStr::printAlternativelySemExpAndDiffOfSemExps
 
 void SemExpLinesToStr::printLines
 (std::string& pSemExpPrettyPrint,
- const std::list<ALSemLineToPrint>& pSemExpToPrint) const
+ const std::list<SemLineToPrint>& pSemExpToPrint) const
 {
-  for (std::list<ALSemLineToPrint>::const_iterator
+  for (std::list<SemLineToPrint>::const_iterator
        itLine = pSemExpToPrint.begin();
        itLine != pSemExpToPrint.end(); ++itLine)
   {
@@ -140,8 +140,8 @@ void SemExpLinesToStr::printLines
 
 void SemExpLinesToStr::comparedPrint
 (std::string& pSemExpPrettyPrint,
- const std::list<ALSemLineToPrint>& pSemExpToPrint,
- const std::list<ALSemLineToPrint>* pLastSemExpToPrint,
+ const std::list<SemLineToPrint>& pSemExpToPrint,
+ const std::list<SemLineToPrint>* pLastSemExpToPrint,
  bool pWeArePrintingASemExp) const
 {
   if (pWeArePrintingASemExp)
@@ -183,11 +183,11 @@ void SemExpLinesToStr::comparedPrint
 
 void SemExpLinesToStr::_printDiffComparedToLastSemExp
 (std::string& pSemExpPrettyPrint,
- const std::list<ALSemLineToPrint>& pSemExpToPrint,
- const std::list<ALSemLineToPrint>& pLastSemExpToPrint) const
+ const std::list<SemLineToPrint>& pSemExpToPrint,
+ const std::list<SemLineToPrint>& pLastSemExpToPrint) const
 {
-  std::list<ALSemLineToPrint>::const_iterator itLastLine = pLastSemExpToPrint.begin();
-  for (std::list<ALSemLineToPrint>::const_iterator itLine = pSemExpToPrint.begin();
+  std::list<SemLineToPrint>::const_iterator itLastLine = pLastSemExpToPrint.begin();
+  for (std::list<SemLineToPrint>::const_iterator itLine = pSemExpToPrint.begin();
        itLine != pSemExpToPrint.end(); )
   {
     if (itLastLine == pLastSemExpToPrint.end())
@@ -408,9 +408,9 @@ int SemExpLinesToStr::_nbEltsWeShouldSkip
 
 
 int SemExpLinesToStr::_nbLinesWeShouldSkip
-(const ALSemLineToPrint& pRefLine,
- std::list<ALSemLineToPrint>::const_iterator pListIt,
- const std::list<ALSemLineToPrint>& pList) const
+(const SemLineToPrint& pRefLine,
+ std::list<SemLineToPrint>::const_iterator pListIt,
+ const std::list<SemLineToPrint>& pList) const
 {
   int nbOfSkippedElts = 1;
   for (++pListIt; pListIt != pList.end(); ++pListIt)

@@ -119,7 +119,7 @@ UniqueSemanticExpression _syntGraphToSemExp(const linguistics::SyntacticGraph& p
                                             const TextProcessingContext& pLocutionContext,
                                             const SemanticTimeGrounding& pNowTimeGrd,
                                             bool pDoWeSplitQuestions,
-                                            std::list<std::list<ALSemLineToPrint> >* pDebugOutput,
+                                            std::list<std::list<SemLineToPrint> >* pDebugOutput,
                                             std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>())
 {
   auto semExp  = linguistics::convertToSemExp(pSyntGraph, pLocutionContext, pNowTimeGrd,
@@ -152,7 +152,7 @@ void _naturalLanguageTextToSemanticWord(
 
 void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
                                    const linguistics::LinguisticDatabase& pLingDb,
-                                   std::list<std::list<ALSemLineToPrint>>* pDebugOutput)
+                                   std::list<std::list<SemLineToPrint>>* pDebugOutput)
 {
   semanticOccurrenceRankConverter::process(pSemExp);
   // TODO: do a refactor inside splitPossibilitiesOfQuestion to not make difference between languages
@@ -163,7 +163,7 @@ void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
 
 void splitEquivalentQuestions(UniqueSemanticExpression& pSemExp,
                               const linguistics::LinguisticDatabase& pLingDb,
-                              std::list<std::list<ALSemLineToPrint>>* pDebugOutput)
+                              std::list<std::list<SemLineToPrint>>* pDebugOutput)
 {
   pLingDb.treeConverter.splitEquivalentQuestions(pSemExp, SemanticLanguageEnum::UNKNOWN,
                                                  pDebugOutput);
@@ -424,7 +424,7 @@ UniqueSemanticExpression agentIdWithNameToSemExp(const std::string& pAgentId,
 
 UniqueSemanticExpression syntGraphToSemExp(const linguistics::SyntacticGraph& pSyntGraph,
                                            const TextProcessingContext& pLocutionContext,
-                                           std::list<std::list<ALSemLineToPrint> >* pDebugOutput)
+                                           std::list<std::list<SemLineToPrint> >* pDebugOutput)
 {
   auto nowTimeGrd = SemanticTimeGrounding::nowInstance();
   return _syntGraphToSemExp(pSyntGraph, pLocutionContext, *nowTimeGrd, false, pDebugOutput);
@@ -451,7 +451,7 @@ void semExpToText(std::string& pResStr,
                   const SemanticMemoryBlock& pMemBlock,
                   const std::string& pCurrentUserId,
                   const linguistics::LinguisticDatabase& pLingDb,
-                  std::list<std::list<ALSemLineToPrint> >* pDebugOutput)
+                  std::list<std::list<SemLineToPrint> >* pDebugOutput)
 {
   std::list<std::unique_ptr<SynthesizerResult>> res;
   synthesize(res, std::move(pSemExp), pOneLinePerSentence,
@@ -483,7 +483,7 @@ void semExpToText(std::string& pResStr,
                   bool pOneLinePerSentence,
                   const SemanticMemory& pSemanticMemory,
                   const linguistics::LinguisticDatabase& pLingDb,
-                  std::list<std::list<ALSemLineToPrint> >* pDebugOutput)
+                  std::list<std::list<SemLineToPrint> >* pDebugOutput)
 {
   semExpToText(pResStr, std::move(pSemExp),pTextProcContext, pOneLinePerSentence,
                pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId(), pLingDb, pDebugOutput);

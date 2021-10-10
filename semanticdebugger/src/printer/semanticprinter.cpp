@@ -29,7 +29,7 @@ void printSentiments(std::string& pRes,
       std::stringstream ss;
       for (const auto& currSentContext : sentContext)
       {
-        ALSentimentSpecPrinter::printSentimentContext
+        SentimentSpecPrinter::printSentimentContext
             (ss, *currSentContext,
              semanticSourceEnum_toStr(pFrom),
              pCurrentUserId);

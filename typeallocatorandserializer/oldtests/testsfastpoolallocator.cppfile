@@ -2,14 +2,14 @@
 #include <assert.h>
 #include <time.h>
 #include <altypeallocatorandserializer/altypeallocatorandserializer.h>
-#include <allingdbeditor/allinguisticdatabase.h>
-#include <allingdbeditor/savers/albinarydatabasesaver.h>
-#include <allingdbeditor/savers/alxmldatabasesaver.h>
-#include <allingdbeditor/loaders/aldeladatabaseloader.h>
-#include <allingdbeditor/allingdbdynamictrienode.h>
-#include <allingdbeditor/allingdbtypes.h>
-#include <allingdbeditor/allingdbmeaning.h>
-#include <allingdbeditor/allingdbwordforms.h>
+#include <onsem/compilermodel/linguisticdatabase.h>
+#include <onsem/compilermodel/savers/binarydatabasesaver.h>
+#include <onsem/compilermodel/savers/xmldatabasesaver.h>
+#include <onsem/compilermodel/loaders/deladatabaseloader.h>
+#include <onsem/compilermodel/lingdbdynamictrienode.h>
+#include <onsem/compilermodel/lingdbtypes.h>
+#include <onsem/compilermodel/lingdbmeaning.hpp>
+#include <onsem/compilermodel/lingdbwordforms.h>
 #include <alsyntacticanalyzer/advanced/alsyntacticanalyzerbinarydatabase.h>
 
 #define SIZE_MEMORY 8

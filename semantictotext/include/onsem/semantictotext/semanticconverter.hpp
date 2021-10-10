@@ -20,7 +20,7 @@ struct TextProcessingContext;
 struct SemanticMemory;
 struct SemanticMemoryBlock;
 struct SentimentContext;
-struct ALSemLineToPrint;
+struct SemLineToPrint;
 class ConceptSet;
 struct NaturalLanguageExpression;
 
@@ -30,12 +30,12 @@ namespace converter
 ONSEMSEMANTICTOTEXT_API
 void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
                                    const linguistics::LinguisticDatabase& pLingDb,
-                                   std::list<std::list<ALSemLineToPrint>>* pDebugOutput = nullptr);
+                                   std::list<std::list<SemLineToPrint>>* pDebugOutput = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 void splitEquivalentQuestions(UniqueSemanticExpression& pSemExp,
                               const linguistics::LinguisticDatabase& pLingDb,
-                              std::list<std::list<ALSemLineToPrint>>* pDebugOutput = nullptr);
+                              std::list<std::list<SemLineToPrint>>* pDebugOutput = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 void unsplitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp);
@@ -81,7 +81,7 @@ void semExpToText(std::string& pResStr,
                   const SemanticMemoryBlock& pMemBlock,
                   const std::string& pCurrentUserId,
                   const linguistics::LinguisticDatabase& pLingDb,
-                  std::list<std::list<ALSemLineToPrint> >* pDebugOutput);
+                  std::list<std::list<SemLineToPrint> >* pDebugOutput);
 
 
 ONSEMSEMANTICTOTEXT_API
@@ -91,7 +91,7 @@ void semExpToText(std::string& pRes,
                   bool pOneLinePerSentence,
                   const SemanticMemory& pSemanticMemory,
                   const linguistics::LinguisticDatabase& pLingDb,
-                  std::list<std::list<ALSemLineToPrint> >* pDebugOutput);
+                  std::list<std::list<SemLineToPrint> >* pDebugOutput);
 
 
 
@@ -121,7 +121,7 @@ UniqueSemanticExpression agentIdWithNameToSemExp(const std::string& pAgentId,
 ONSEMSEMANTICTOTEXT_API
 UniqueSemanticExpression syntGraphToSemExp(const linguistics::SyntacticGraph& pSyntGraph,
                                            const TextProcessingContext& pLocutionContext,
-                                           std::list<std::list<ALSemLineToPrint> >* pDebugOutput);
+                                           std::list<std::list<SemLineToPrint> >* pDebugOutput);
 
 
 

@@ -173,7 +173,7 @@ UniqueSemanticExpression pSemExp,
  const std::string& pCurrentUserId,
  const TextProcessingContext& pTextProcContext,
  const linguistics::LinguisticDatabase& pLingDb,
- std::list<std::list<ALSemLineToPrint> >* pDebugOutput)
+ std::list<std::list<SemLineToPrint> >* pDebugOutput)
 {
   pLingDb.treeConverter.refactorSemExp(pSemExp,
                                        TREEPATTERN_MIND, TREEPATTERN_OUTTEXT,

@@ -10,7 +10,7 @@
 namespace onsem
 {
 class StaticTreeConverter;
-struct ALSemLineToPrint;
+struct SemLineToPrint;
 
 
 class ONSEM_TEXTTOSEMANTIC_API TreeConverter
@@ -22,14 +22,14 @@ public:
                       TreePatternConventionEnum pFromConvention,
                       TreePatternConventionEnum pToConvention,
                       SemanticLanguageEnum pLanguage,
-                      std::list<std::list<ALSemLineToPrint> >* pDebugOutput = nullptr) const;
+                      std::list<std::list<SemLineToPrint> >* pDebugOutput = nullptr) const;
 
   void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
                                      SemanticLanguageEnum pLanguage,
-                                     std::list<std::list<ALSemLineToPrint> >* pDebugOutput) const;
+                                     std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
   void splitEquivalentQuestions(UniqueSemanticExpression& pSemExp,
                                 SemanticLanguageEnum pLanguage,
-                                std::list<std::list<ALSemLineToPrint>>* pDebugOutput) const;
+                                std::list<std::list<SemLineToPrint>>* pDebugOutput) const;
 
   GrammaticalType getChildThatShouldBeUnique(mystd::unique_propagate_const<UniqueSemanticExpression>& pChildThatShouldBeUnique,
                                              const GroundedExpression& pGrdExp) const;
