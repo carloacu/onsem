@@ -10,7 +10,9 @@ Install dependencies
 
 ### Install boost
 
+```bash
 sudo apt-get install libboost-all-dev
+```
 
 
 ### Install gtest
@@ -54,10 +56,14 @@ Execution
 
 ### Execution of the debug gui (from QtCreator IDE)
 
+```bash
 ./voicebotgui --databases ../linguistic/databases --share_semantic ../../share/semantic
+```
 
 
 ### Execution of the tests (from QtCreator IDE)
 
+```bash
 ./semanticreasoner_gtests --databases ../../linguistic/databases --share_semantic ../../../share/semantic
+```
 
