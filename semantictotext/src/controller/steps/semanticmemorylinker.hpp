@@ -6,7 +6,7 @@
 #include <onsem/common/enum/semanticverbtense.hpp>
 #include <onsem/common/enum/verbgoalenum.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp>
-#include "type/alsemexpcontrollertypes.hpp"
+#include "type/semcontrollerworkingstruct.hpp"
 #include "../../semanticmemory/sentenceslinks.hpp"
 
 

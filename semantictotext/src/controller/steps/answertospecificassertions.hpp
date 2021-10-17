@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_ANSWERTOSPECIFICASSERTIONS_HPP
 
 #include <onsem/common/enum/semanticrequesttype.hpp>
-#include "type/alsemexpcontrollertypes.hpp"
+#include "type/semcontrollerworkingstruct.hpp"
 
 namespace onsem
 {

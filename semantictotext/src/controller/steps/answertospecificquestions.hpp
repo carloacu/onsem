@@ -3,7 +3,7 @@
 
 #include <functional>
 #include <onsem/common/enum/semanticrequesttype.hpp>
-#include "type/alsemexpcontrollertypes.hpp"
+#include "type/semcontrollerworkingstruct.hpp"
 
 namespace onsem
 {

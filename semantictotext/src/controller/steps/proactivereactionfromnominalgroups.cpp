@@ -8,7 +8,7 @@
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
 #include <onsem/semantictotext/tool/semexpagreementdetector.hpp>
-#include "type/alsemexpcontrollertypes.hpp"
+#include "type/semcontrollerworkingstruct.hpp"
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../../utility/semexpcreator.hpp"
 #include "../semexpcontroller.hpp"

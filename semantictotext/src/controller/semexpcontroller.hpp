@@ -8,7 +8,7 @@
 #include <onsem/semantictotext/type/reactionoptions.hpp>
 #include "../type/enum/semanticoperatorenum.hpp"
 #include "../type/semanticdetailledanswer.hpp"
-#include "steps/type/alsemexpcontrollertypes.hpp"
+#include "steps/type/semcontrollerworkingstruct.hpp"
 
 namespace onsem
 {

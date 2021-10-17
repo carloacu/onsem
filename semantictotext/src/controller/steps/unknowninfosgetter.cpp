@@ -13,7 +13,7 @@
 #include "../../type/referencesfiller.hpp"
 #include "../../type/semanticdetailledanswer.hpp"
 #include "../../utility/semexpcreator.hpp"
-#include "type/alsemexpcontrollertypes.hpp"
+#include "type/semcontrollerworkingstruct.hpp"
 #include "semanticmemorylinker.hpp"
 
 namespace onsem

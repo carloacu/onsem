@@ -1,7 +1,7 @@
 #ifndef ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_SIMILARITIESWITHMEMORYFINDER_HPP
 #define ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_SIMILARITIESWITHMEMORYFINDER_HPP
 
-#include "type/alsemexpcontrollertypes.hpp"
+#include "type/semcontrollerworkingstruct.hpp"
 
 namespace onsem
 {

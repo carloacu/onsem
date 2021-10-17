@@ -1,7 +1,7 @@
 #ifndef ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_GETPROACTIVEREACTION_HPP
 #define ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_GETPROACTIVEREACTION_HPP
 
-#include "type/alsemexpcontrollertypes.hpp"
+#include "type/semcontrollerworkingstruct.hpp"
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
 
 namespace onsem

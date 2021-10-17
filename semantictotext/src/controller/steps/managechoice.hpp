@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_MANAGECHOICE_HPP
 
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
-#include "type/alsemexpcontrollertypes.hpp"
+#include "type/semcontrollerworkingstruct.hpp"
 
 namespace onsem
 {

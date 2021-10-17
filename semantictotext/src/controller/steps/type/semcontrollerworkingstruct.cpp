@@ -1,4 +1,4 @@
-#include "alsemexpcontrollertypes.hpp"
+#include "semcontrollerworkingstruct.hpp"
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
