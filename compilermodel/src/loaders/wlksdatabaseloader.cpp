@@ -74,7 +74,7 @@ void WlksDatabaseLoader::load
     {
       switch (pWorkState.nextLinesSpec)
       {
-      case ALWLKSDBLOADER_NEXTLINES_TRADUCTION:
+      case NextLineSpec::TRADUCTION:
       {
         WlksDatabaseLoader_TradSpec& tradSpec = pWorkState.tradSpecs.back();
         LingdbMeaning* inMeaning = nullptr;
@@ -162,7 +162,7 @@ void WlksDatabaseLoader::load
           xLoadDynNewDb(pWorkState, outputLanguage);
           pWorkState.tradSpecs.emplace_back(pWorkState.strToLangSpecs[inputLanguage],
                                             pWorkState.strToLangSpecs[outputLanguage]);
-          pWorkState.nextLinesSpec = ALWLKSDBLOADER_NEXTLINES_TRADUCTION;
+          pWorkState.nextLinesSpec = NextLineSpec::TRADUCTION;
         }
       }
       else if (instruction == "include")

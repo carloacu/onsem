@@ -1,5 +1,5 @@
-#ifndef ALSEMEXPMODEL_SEMANTICGROUNDINGS_ALLINCLUDES_H
-#define ALSEMEXPMODEL_SEMANTICGROUNDINGS_ALLINCLUDES_H
+#ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDINGS_HPP
+#define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDINGS_HPP
 
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
@@ -18,4 +18,4 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticconceptualgrounding.hpp>
 
 
-#endif // ALSEMEXPMODEL_SEMANTICGROUNDINGS_ALLINCLUDES_H
+#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDINGS_HPP

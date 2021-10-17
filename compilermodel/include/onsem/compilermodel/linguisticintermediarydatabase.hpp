@@ -308,8 +308,6 @@ private:
   friend class LingdbDynamicTrieNode;
   friend class LingdbWordForms;
   friend class LingdbMeaning;
-  //friend class ALLingdbModifier;
-  //friend class ALBinaryDatabaseDicoSaver;
   friend class XmlDatabaseLoader;
 
   /// Initilyze an empty database.

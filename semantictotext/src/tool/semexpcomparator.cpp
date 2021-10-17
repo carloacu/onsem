@@ -1230,6 +1230,6 @@ bool grdExpsReferToSameInstance(const GroundedExpression& pGrdExp1,
 }
 
 
-} // End of namespace ALSemExpComparator
+} // End of namespace SemExpComparator
 
 } // End of namespace onsem

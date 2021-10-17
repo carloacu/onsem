@@ -1,5 +1,5 @@
-#ifndef ALSEMANTICANALYZER_ALSEMANTICDEBUG_H
-#define ALSEMANTICANALYZER_ALSEMANTICDEBUG_H
+#ifndef ONSEM_SEMANTCDEBUGGER_SEMANTICDEBUG_HPP
+#define ONSEM_SEMANTCDEBUGGER_SEMANTICDEBUG_HPP
 
 #include <string>
 #include <list>
@@ -159,4 +159,4 @@ void semAnalResultToStructToDisplay(SyntacticAnalysisResultToDisplay& pAutoAnnot
 } // End of namespace SemanticDebug
 } // End of namespace onsem
 
-#endif // !ALSEMANTICANALYZER_ALSEMANTICDEBUG_H
+#endif // ONSEM_SEMANTCDEBUGGER_SEMANTICDEBUG_HPP

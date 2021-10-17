@@ -154,7 +154,7 @@ protected:
     std::list<std::string> concepts;
   };
   typedef std::map<TreePatternConventionEnum,
-                   std::list<RootNodeWithRelatedCpts> > ALPatternWorkStruct;
+                   std::list<RootNodeWithRelatedCpts> > PatternWorkStruct;
 
 
   bool isLoaded;
@@ -200,7 +200,7 @@ protected:
    std::list<std::pair<std::list<std::string>, RULE> >& pCptToCvs) const;
 
   void xAddConversionTreePattern
-  (ALPatternWorkStruct& pPatternWkStruct,
+  (PatternWorkStruct& pPatternWkStruct,
    const boost::property_tree::ptree& pTree) const;
 
   void xAddTreePattern
@@ -209,7 +209,7 @@ protected:
 
   void xGetGroupsOfConversions
   (std::map<TreePatternEnumPair, std::list<std::pair<std::list<std::string>, ConversionRule> > >& pRes,
-   ALPatternWorkStruct& pPatternWkStruct) const;
+   PatternWorkStruct& pPatternWkStruct) const;
 
   void xLoadConvFile
   (SemanticLanguageEnum pLangEnum,

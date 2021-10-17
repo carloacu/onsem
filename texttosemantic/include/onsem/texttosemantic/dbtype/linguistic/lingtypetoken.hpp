@@ -1,5 +1,5 @@
-#ifndef ALLINGTYPETOKEN_H
-#define ALLINGTYPETOKEN_H
+#ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_LINGTYPETOKEN_HPP
+#define ONSEM_TEXTTOSEMANTIC_DBTYPE_LINGTYPETOKEN_HPP
 
 #include <string>
 #include <list>
@@ -348,4 +348,4 @@ bool tokListHaveSameInflectedFormThan
 
 #include "detail/lingtypetoken.hxx"
 
-#endif // ALLINGTYPETOKEN_H
+#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_LINGTYPETOKEN_HPP

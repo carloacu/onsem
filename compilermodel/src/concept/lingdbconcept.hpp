@@ -51,7 +51,6 @@ private:
 
 private:
   friend class LinguisticIntermediaryDatabase;
-  //friend class ALLingdbLinkToAConcept;
 
   /**
    * @brief Get the position of the pointers for the allocator.

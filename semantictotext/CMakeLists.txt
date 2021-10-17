@@ -55,8 +55,8 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/io/savemodel.hpp
     src/io/savemodel.cpp
     src/serialization.cpp
-    src/controller/steps/type/alsemexpcontrollertypes.hpp
-    src/controller/steps/type/alsemexpcontrollertypes.cpp
+    src/controller/steps/type/semcontrollerworkingstruct.hpp
+    src/controller/steps/type/semcontrollerworkingstruct.cpp
     src/controller/steps/answerfromdatastoredinsidethequestion.hpp
     src/controller/steps/answerfromdatastoredinsidethequestion.cpp
     src/controller/steps/answertospecificassertions.hpp

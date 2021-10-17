@@ -1,5 +1,5 @@
-#ifndef ALSEMEXPMODEL_SEMANTICEXPRESSIONS_ALLINCLUDES_H
-#define ALSEMEXPMODEL_SEMANTICEXPRESSIONS_ALLINCLUDES_H
+#ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICEXPRESSIONS_HPP
+#define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICEXPRESSIONS_HPP
 
 #include <onsem/texttosemantic/dbtype/semanticexpression/annotatedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/commandexpression.hpp>
@@ -15,4 +15,4 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/setofformsexpression.hpp>
 
 
-#endif // ALSEMEXPMODEL_SEMANTICEXPRESSIONS_ALLINCLUDES_H
+#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICEXPRESSIONS_HPP

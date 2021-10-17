@@ -21,10 +21,10 @@ struct MeaningAndConfidence;
 class WlksDatabaseLoader
 {
 public:
-  enum WordsLinksDatabaseLoader_NextLineSpec
+  enum class NextLineSpec
   {
-    ALWLKSDBLOADER_NEXTLINES_TRADUCTION,
-    ALWLKSDBLOADER_NEXTLINES_NOTDEFINED
+    TRADUCTION,
+    NOTDEFINED
   };
   struct WlksDatabaseLoader_LangSpec
   {
@@ -59,7 +59,7 @@ public:
       : lingbTree(pLingbTree),
         strToLangSpecs(),
         tradSpecs(),
-        nextLinesSpec(ALWLKSDBLOADER_NEXTLINES_NOTDEFINED)
+        nextLinesSpec(NextLineSpec::NOTDEFINED)
     {
     }
 
@@ -70,7 +70,7 @@ public:
     const LingdbTree& lingbTree;
     std::map<std::string, WlksDatabaseLoader_LangSpec> strToLangSpecs;
     std::list<WlksDatabaseLoader_TradSpec> tradSpecs;
-    WordsLinksDatabaseLoader_NextLineSpec nextLinesSpec;
+    NextLineSpec nextLinesSpec;
   };
 
 

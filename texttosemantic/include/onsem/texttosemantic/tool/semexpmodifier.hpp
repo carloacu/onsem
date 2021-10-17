@@ -1,5 +1,5 @@
-#ifndef ALSEMEXPMODIFIER_H
-#define ALSEMEXPMODIFIER_H
+#ifndef ONSEM_TEXTTOSEMANTIC_SRC_TOOL_SEMEXPMODIFIER_HPP
+#define ONSEM_TEXTTOSEMANTIC_SRC_TOOL_SEMEXPMODIFIER_HPP
 
 #include <functional>
 #include <list>
@@ -318,4 +318,4 @@ void addChild(GroundedExpression& pGrdExp,
 
 } // End of namespace onsem
 
-#endif // ALSEMEXPMODIFIER_H
+#endif // ONSEM_TEXTTOSEMANTIC_SRC_TOOL_SEMEXPMODIFIER_HPP

@@ -19,7 +19,7 @@ void BinaryTradSaver::save
   binarymasks::Ptr mem = ::operator new(pTrads.maxOccupatedSize());
   if (mem.ptr == nullptr)
   {
-    throw std::runtime_error("Bad allocation in ALBinaryTradSaver.");
+    throw std::runtime_error("Bad allocation in BinaryTradSaver.");
   }
 
   for (std::list<WlksDatabaseLoader::WlksDatabaseLoader_TradSpec>::const_iterator

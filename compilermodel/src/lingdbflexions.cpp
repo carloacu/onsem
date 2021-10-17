@@ -116,7 +116,7 @@ void LingdbFlexions::writeInStream
  PartOfSpeech pGram) const
 {
   //std::list<unsigned char> flexions;
-  //pOs << ALLinguisticFlexionsChecker::printInflections
+  //pOs << LinguisticFlexionsChecker::printInflections
   //       (flexions, pGram);
 }
 

@@ -1,5 +1,5 @@
-#ifndef SEMANTICSTATEMENTGROUNDING_H
-#define SEMANTICSTATEMENTGROUNDING_H
+#ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICSTATEMENTGROUNDING_HPP
+#define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICSTATEMENTGROUNDING_HPP
 
 #include <onsem/common/utility/optional.hpp>
 #include <onsem/common/enum/semanticverbtense.hpp>
@@ -85,4 +85,4 @@ inline std::unique_ptr<SemanticStatementGrounding> SemanticStatementGrounding::m
 
 } // End of namespace onsem
 
-#endif // SEMANTICSTATEMENTGROUNDING_H
+#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICSTATEMENTGROUNDING_HPP

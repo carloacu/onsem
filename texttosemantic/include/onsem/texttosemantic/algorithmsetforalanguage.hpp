@@ -9,7 +9,6 @@
 
 namespace onsem
 {
-class ALLingSyntacticAnalyzerSyntAnalysis;
 namespace linguistics
 {
 struct LinguisticDatabase;

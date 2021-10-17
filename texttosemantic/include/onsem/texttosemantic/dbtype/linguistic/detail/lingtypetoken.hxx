@@ -1,5 +1,5 @@
-#ifndef ALLINGTYPETOKEN_HXX
-#define ALLINGTYPETOKEN_HXX
+#ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_LINGTYPETOKEN_HXX
+#define ONSEM_TEXTTOSEMANTIC_DBTYPE_LINGTYPETOKEN_HXX
 
 #include "../lingtypetoken.hpp"
 #include <sstream>
@@ -341,4 +341,4 @@ inline bool tokListHaveSameInflectedFormThan
 } // End of namespace onsem
 
 
-#endif // ALLINGTYPETOKEN_HXX
+#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_LINGTYPETOKEN_HXX

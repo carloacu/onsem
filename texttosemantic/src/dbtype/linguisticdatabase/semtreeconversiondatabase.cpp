@@ -100,7 +100,7 @@ void SemExpTreeConversionDatabase::xLoadConvFile
     if (beaconName == "conversion")
     {
       ++fCurrConversionNb;
-      ALPatternWorkStruct patternWkStruct;
+      PatternWorkStruct patternWkStruct;
       if (!childTree.empty())
       {
         for (const auto& currElt : childTree)
@@ -312,7 +312,7 @@ void SemExpTreeConversionDatabase::xFillTreeOfConvs
 void SemExpTreeConversionDatabase::xGetGroupsOfConversions
 (std::map<TreePatternEnumPair,
           std::list<std::pair<std::list<std::string>, ConversionRule> > >& pRes,
- ALPatternWorkStruct& pPatternWkStruct) const
+ PatternWorkStruct& pPatternWkStruct) const
 {
   // iterate through "from step" conversions
   for (std::map<TreePatternConventionEnum, std::list<RootNodeWithRelatedCpts> >::iterator
@@ -355,7 +355,7 @@ void SemExpTreeConversionDatabase::xGetGroupsOfConversions
 
 
 void SemExpTreeConversionDatabase::xAddConversionTreePattern
-(ALPatternWorkStruct& pPatternWkStruct,
+(PatternWorkStruct& pPatternWkStruct,
  const boost::property_tree::ptree& pTree) const
 {
   std::list<TreePatternConventionEnum> convEnums;
