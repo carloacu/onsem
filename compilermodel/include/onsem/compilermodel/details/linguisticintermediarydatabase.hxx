@@ -7,13 +7,13 @@
 namespace onsem
 {
 
-inline const ALCompositePoolAllocator& LinguisticIntermediaryDatabase::getFPAlloc
+inline const CompositePoolAllocator& LinguisticIntermediaryDatabase::getFPAlloc
 () const
 {
   return fAlloc;
 }
 
-inline ALCompositePoolAllocator& LinguisticIntermediaryDatabase::xGetFPAlloc
+inline CompositePoolAllocator& LinguisticIntermediaryDatabase::xGetFPAlloc
 ()
 {
   return fAlloc;

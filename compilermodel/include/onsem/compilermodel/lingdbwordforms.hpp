@@ -8,7 +8,7 @@
 
 namespace onsem
 {
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 class LingdbDynamicTrieNode;
 template <typename T>
 struct ForwardPtrList;
@@ -94,7 +94,7 @@ private:
    * @param pFPAlloc The allocator.
    */
   void xDeallocate
-  (ALCompositePoolAllocator& pFPAlloc);
+  (CompositePoolAllocator& pFPAlloc);
 
   /**
    * @brief Add flexions to this wordform.
@@ -103,7 +103,7 @@ private:
    * @param pFlexions The flexions.
    */
   void xAddFlexions
-  (ALCompositePoolAllocator& pFPAlloc,
+  (CompositePoolAllocator& pFPAlloc,
    PartOfSpeech pGram,
    const std::vector<std::string>& pFlexions);
 

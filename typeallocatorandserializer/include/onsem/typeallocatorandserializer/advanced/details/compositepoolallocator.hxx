@@ -11,7 +11,7 @@ namespace onsem
 
 
 template<typename T>
-inline bool ALCompositePoolAllocator::isAllocated
+inline bool CompositePoolAllocator::isAllocated
 (T* pPtr) const
 {
   return xGetLeaf<T>()->isAllocated(pPtr);
@@ -19,7 +19,7 @@ inline bool ALCompositePoolAllocator::isAllocated
 
 
 template<typename T>
-inline void ALCompositePoolAllocator::reserve
+inline void CompositePoolAllocator::reserve
 (std::size_t pNbElts)
 {
   return xGetLeaf<T>()->reserve(pNbElts);
@@ -27,14 +27,14 @@ inline void ALCompositePoolAllocator::reserve
 
 
 template <typename T>
-inline T* ALCompositePoolAllocator::allocate
+inline T* CompositePoolAllocator::allocate
 (std::size_t pNbElts)
 {
   return xGetLeaf<T>()->allocate(pNbElts);
 }
 
 template <typename T>
-inline void ALCompositePoolAllocator::deallocate
+inline void CompositePoolAllocator::deallocate
 (T* pPointer, std::size_t pNbElts)
 {
   return xGetLeaf<T>()->deallocate(pPointer, pNbElts);
@@ -42,7 +42,7 @@ inline void ALCompositePoolAllocator::deallocate
 
 
 template<typename T>
-inline T* ALCompositePoolAllocator::first
+inline T* CompositePoolAllocator::first
 () const
 {
   return xGetLeaf<T>()->first();
@@ -50,7 +50,7 @@ inline T* ALCompositePoolAllocator::first
 
 
 template<typename T>
-inline T* ALCompositePoolAllocator::next
+inline T* CompositePoolAllocator::next
 (T* pElt) const
 {
   return xGetLeaf<T>()->next(pElt);
@@ -59,12 +59,12 @@ inline T* ALCompositePoolAllocator::next
 
 template<typename T>
 inline void
-ALCompositePoolAllocator::addANewLeaf
+CompositePoolAllocator::addANewLeaf
 (const std::string& pName,
  unsigned char pMemoryAlignment,
  get_pointers pFunc)
 {
-  fPoolAllocators.emplace_back(new ALLeafPoolAllocator<T>(pName, pMemoryAlignment, pFunc));
+  fPoolAllocators.emplace_back(new LeafPoolAllocator<T>(pName, pMemoryAlignment, pFunc));
 }
 
 
@@ -72,13 +72,13 @@ ALCompositePoolAllocator::addANewLeaf
 
 
 template<typename T>
-inline ALLeafPoolAllocator<T>* ALCompositePoolAllocator::xGetLeaf
+inline LeafPoolAllocator<T>* CompositePoolAllocator::xGetLeaf
 () const
 {
   for (std::size_t i = 0; i < fPoolAllocators.size(); ++i)
   {
-    ALLeafPoolAllocator<T>* leafPool =
-        dynamic_cast<ALLeafPoolAllocator<T>* > (fPoolAllocators[i]);
+    LeafPoolAllocator<T>* leafPool =
+        dynamic_cast<LeafPoolAllocator<T>* > (fPoolAllocators[i]);
     if (leafPool)
     {
       return leafPool;

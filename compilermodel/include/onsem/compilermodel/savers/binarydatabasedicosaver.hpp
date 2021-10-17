@@ -11,7 +11,7 @@
 namespace onsem
 {
 class LinguisticIntermediaryDatabase;
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 class LingdbMeaning;
 class LingdbDynamicTrieNode;
 class LingdbAnimationsTag;
@@ -79,7 +79,7 @@ private:
   (int& pNbAnimTags,
    const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
    const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
-   const ALCompositePoolAllocator& pFPAlloc,
+   const CompositePoolAllocator& pFPAlloc,
    binarymasks::Ptr pEndMemory) const;
 
   void xWriteLemmeOfMeanings
@@ -126,12 +126,12 @@ private:
   (std::map<const LingdbMeaning*, int>& pMeaningsPtr,
    std::map<const LingdbConcept*, std::set<MeaningAndConfidence> >& pConceptToMeanings,
    const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
-   const ALCompositePoolAllocator& pFPAlloc,
+   const CompositePoolAllocator& pFPAlloc,
    const binarymasks::Ptr pBeginMemory, binarymasks::Ptr pEndMemory) const;
 
   binarymasks::Ptr xAddSomeFlexions
   (std::map<std::string, unsigned char>& pFlexionsPtr,
-   const ALCompositePoolAllocator& pFPAlloc,
+   const CompositePoolAllocator& pFPAlloc,
    const binarymasks::Ptr pBeginMemory, binarymasks::Ptr pEndMemory) const;
 
 

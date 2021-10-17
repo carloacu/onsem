@@ -6,11 +6,11 @@
 
 namespace onsem
 {
-class ALTreeMemoryPrettyPrinter;
+class TreeMemoryPrettyPrinter;
 
 /// Pool allocator for a single data type.
 template <typename T>
-class ALLeafPoolAllocator : public ALComponentPoolAllocator
+class LeafPoolAllocator : public ComponentPoolAllocator
 {
 public:
 
@@ -24,7 +24,7 @@ public:
    * @param pMemoryAlignment Memory alignement of the elements.
    * @param pFunc Function to get the pointers inside the type of the elements.
    */
-  ALLeafPoolAllocator
+  LeafPoolAllocator
   (const std::string& pName,
    unsigned char pMemoryAlignment,
    get_pointers pFunc = nullptr);
@@ -104,7 +104,7 @@ public:
    * @param pV The pretty printer visitor.
    */
   virtual void accept
-  (ALTreeMemoryPrettyPrinter& pV) const;
+  (TreeMemoryPrettyPrinter& pV) const;
 
 
 

@@ -16,7 +16,7 @@ LingdbConcept::LingdbConcept()
 
 
 void LingdbConcept::xInit
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  const std::string& pName,
  bool pAutoFill)
 {
@@ -29,7 +29,7 @@ void LingdbConcept::xInit
 
 
 void LingdbConcept::xDeallocate
-(ALCompositePoolAllocator& pAlloc)
+(CompositePoolAllocator& pAlloc)
 {
   fName->xDeallocate(pAlloc);
   fOppositeConcepts->clearWithoutDesallocateElts(pAlloc);
@@ -51,7 +51,7 @@ void LingdbConcept::xGetPointers
 
 
 void LingdbConcept::addAnOppositeConcept
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  LingdbConcept* pOppositeConcept)
 {
   ForwardPtrList<LingdbConcept>* newOppCpt =
@@ -67,7 +67,7 @@ void LingdbConcept::addAnOppositeConcept
 
 
 void LingdbConcept::addANearlyEqualConcept
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  LingdbConcept* pNearlyEqualConcept)
 {
   ForwardPtrList<LingdbConcept>* newEquCpt =

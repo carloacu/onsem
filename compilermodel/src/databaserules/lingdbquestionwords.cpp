@@ -25,7 +25,7 @@ void LingdbQuestionWords::init()
 }
 
 void LingdbQuestionWords::load
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  const boost::property_tree::ptree& pXml)
 {
   xClear(pAlloc);
@@ -89,7 +89,7 @@ signed char* LingdbQuestionWords::exportToBin(
 
 
 void LingdbQuestionWords::xClear
-(ALCompositePoolAllocator& pAlloc)
+(CompositePoolAllocator& pAlloc)
 {
   if (fQWords != nullptr)
   {
@@ -100,7 +100,7 @@ void LingdbQuestionWords::xClear
 
 
 void LingdbQuestionWords::xDeallocate
-(ALCompositePoolAllocator& pAlloc)
+(CompositePoolAllocator& pAlloc)
 {
   xClear(pAlloc);
   pAlloc.deallocate<LingdbQuestionWords>(this);

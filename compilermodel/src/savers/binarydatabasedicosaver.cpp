@@ -34,7 +34,7 @@ void BinaryDatabaseDicoSaver::save
 
   boost::filesystem::ofstream debufInfosFile(boost::filesystem::path(languageStr + "_db.txt"));
 
-  const ALCompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();
+  const CompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();
   std::size_t maxSize = alloc.getOccupatedSize() + (4 * pConceptsOffsets.size());
   binarymasks::Ptr mem = ::operator new(maxSize);
 
@@ -151,7 +151,7 @@ void BinaryDatabaseDicoSaver::xSaveAnimations
  const LinguisticIntermediaryDatabase& pLingDatabase,
  binarymasks::Ptr pMem) const
 {
-  const ALCompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();
+  const CompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();
   int nbAnimTags = 0;
   binarymasks::Ptr endMemory = xAddAnimationsTags(nbAnimTags, pConceptsOffsets,
                                                 pMeaningsPtr, alloc, pMem);
@@ -444,7 +444,7 @@ binarymasks::Ptr BinaryDatabaseDicoSaver::xAddAnimationsTags
 (int& pNbAnimTags,
  const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
  const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
- const ALCompositePoolAllocator& pFPAlloc,
+ const CompositePoolAllocator& pFPAlloc,
  binarymasks::Ptr pEndMemory) const
 {
   pNbAnimTags = 0;
@@ -519,7 +519,7 @@ binarymasks::Ptr BinaryDatabaseDicoSaver::xAddMeanings
 (std::map<const LingdbMeaning*, int>& pMeaningsPtr,
  std::map<const LingdbConcept*, std::set<MeaningAndConfidence> >& pConceptToMeanings,
  const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
- const ALCompositePoolAllocator& pFPAlloc,
+ const CompositePoolAllocator& pFPAlloc,
  const binarymasks::Ptr pBeginMemory, binarymasks::Ptr pEndMemory) const
 {
   std::map<LingdbMeaning*, std::list<binarymasks::Ptr> > meaningsPointersToWrite;
@@ -668,7 +668,7 @@ binarymasks::Ptr BinaryDatabaseDicoSaver::xAddMeanings
 
 binarymasks::Ptr BinaryDatabaseDicoSaver::xAddSomeFlexions
 (std::map<std::string, unsigned char>& pFlexionsPtr,
- const ALCompositePoolAllocator& pFPAlloc,
+ const CompositePoolAllocator& pFPAlloc,
  const binarymasks::Ptr pBeginMemory, binarymasks::Ptr pEndMemory) const
 {
   LingdbFlexions* flexion = pFPAlloc.first<LingdbFlexions>();

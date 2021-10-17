@@ -9,15 +9,15 @@ namespace onsem
 {
 
 
-inline ALTreeMemoryPrettyPrinter::ALTreeMemoryPrettyPrinter
+inline TreeMemoryPrettyPrinter::TreeMemoryPrettyPrinter
 (std::ostream& pOs)
   : fOs(pOs)
 {
 }
 
 
-inline void ALTreeMemoryPrettyPrinter::operator()
-(const ALCompositePoolAllocator& pC)
+inline void TreeMemoryPrettyPrinter::operator()
+(const CompositePoolAllocator& pC)
 {
   fOs << "\"" << pC.getName() << "\" occSize: ";
   prettyPrintSizeNbInBytes(fOs, pC.getOccupatedSize());
@@ -26,8 +26,8 @@ inline void ALTreeMemoryPrettyPrinter::operator()
 
 
 template <typename T>
-inline void ALTreeMemoryPrettyPrinter::operator()
-(const ALLeafPoolAllocator<T>& pL)
+inline void TreeMemoryPrettyPrinter::operator()
+(const LeafPoolAllocator<T>& pL)
 {
   std::size_t occSize = pL.getOccupatedSize();
   fOs << " -> \"" << pL.getName() << "\" occSize: ";

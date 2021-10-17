@@ -8,25 +8,25 @@
 
 namespace onsem
 {
-class ALTreeMemoryPrettyPrinter;
-class ALCompositePoolAllocator;
+class TreeMemoryPrettyPrinter;
+class CompositePoolAllocator;
 
 /// Allocator for pooled memory allocation
-class ALComponentPoolAllocator
+class ComponentPoolAllocator
 {
 public:
   /**
    * @brief Constructor.
    * @param name Name of the pool allocator.
    */
-  ALComponentPoolAllocator(const boost::filesystem::path& name);
+  ComponentPoolAllocator(const boost::filesystem::path& name);
 
 
   /**
    * @brief Virtual destructor.
    * (because this is a virtual class)
    */
-  virtual ~ALComponentPoolAllocator()
+  virtual ~ComponentPoolAllocator()
   {}
 
 
@@ -98,10 +98,10 @@ public:
    * @brief Accept the pretty printer visitor.
    * @param pV The pretty printer visitor.
    */
-  virtual void accept(ALTreeMemoryPrettyPrinter& pV) const = 0;
+  virtual void accept(TreeMemoryPrettyPrinter& pV) const = 0;
 
 
-  friend class ALCompositePoolAllocator;
+  friend class CompositePoolAllocator;
 protected:
   /// Union that hold a pointer
   union FPAPtr

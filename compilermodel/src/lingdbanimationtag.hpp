@@ -9,7 +9,7 @@ namespace onsem
 {
 template <typename T>
 struct ForwardPtrList;
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 class LingdbString;
 class LingdbMeaning;
 
@@ -52,12 +52,12 @@ public:
   { return fLinksToConcept == nullptr && fMeanings == nullptr; }
 
   void addConcept
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    LingdbConcept* pConcept,
    char pMinValue);
 
   void addMeaning
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    LingdbMeaning* pMeaning,
    char pRelation);
 
@@ -89,7 +89,7 @@ private:
    * @param pTagName The tag name.
    */
   void xInit
-  (ALCompositePoolAllocator& pFPAlloc,
+  (CompositePoolAllocator& pFPAlloc,
    const std::string& pTagName);
 
   /**
@@ -97,7 +97,7 @@ private:
    * @param pFPAlloc The allocator.
    */
   void xDeallocate
-  (ALCompositePoolAllocator& pFPAlloc);
+  (CompositePoolAllocator& pFPAlloc);
 };
 
 

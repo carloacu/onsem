@@ -14,7 +14,7 @@ namespace onsem
 class LinguisticIntermediaryDatabase;
 class LingdbMeaning;
 class LingdbWordForms;
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 template<typename T>
 struct ForwardPtrList;
 
@@ -252,7 +252,7 @@ private:
    * @param pAlloc The allocator of the database.
    */
   void xRemoveAllWordForms
-  (ALCompositePoolAllocator& pAlloc);
+  (CompositePoolAllocator& pAlloc);
 
   /**
    * @brief Remove a WordFrom.
@@ -260,7 +260,7 @@ private:
    * @param pGram The grammatical type of the WordFrom.
    */
   void xRemoveWordForm
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    PartOfSpeech pPartOfSpeech);
 
 
@@ -295,7 +295,7 @@ private:
    * @param pGram The grammatical type of the meaning.
    */
   void xRemoveMeaning
-  (ALCompositePoolAllocator& pFPAlloc,
+  (CompositePoolAllocator& pFPAlloc,
    PartOfSpeech pPartOfSpeech);
 
   /**
@@ -306,11 +306,11 @@ private:
    * @return The node at the end of the new word inserted.
    */
   LingdbDynamicTrieNode* xInsertWord
-  (ALCompositePoolAllocator& pFPAlloc, const std::string& pWord,
+  (CompositePoolAllocator& pFPAlloc, const std::string& pWord,
    std::size_t pOffset);
 
   LingdbWordForms* xAddWordFormFromMeaning
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    LingdbMeaning& pMeaning,
    bool pAtFront);
 
@@ -321,7 +321,7 @@ private:
    * @return The new meaning added.
    */
   LingdbMeaning* xAddMeaning
-  (ALCompositePoolAllocator& pFPAlloc,
+  (CompositePoolAllocator& pFPAlloc,
    PartOfSpeech pPartOfSpeech);
 
   /**
@@ -329,18 +329,18 @@ private:
    * @param pFPAlloc The allocator.
    */
   void xRemoveWordIfNoLongerAWord
-  (ALCompositePoolAllocator& pFPAlloc);
+  (CompositePoolAllocator& pFPAlloc);
 
   /**
    * @brief Recursively deallocate, if possible, the node.
    * @param pFPAlloc The allocator.
    */
   void xTryToDeallocateNodes
-  (ALCompositePoolAllocator& pFPAlloc);
+  (CompositePoolAllocator& pFPAlloc);
 
 
   LingdbDynamicTrieNode* xAddMultiMeaningsNode
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    LingdbMeaning* pRootMeaning,
    std::list<std::pair<LingdbMeaning*, LinkedMeaningDirection> >& pLinkedMeanings);
 

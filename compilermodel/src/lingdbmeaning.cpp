@@ -62,7 +62,7 @@ void LingdbMeaning::removeContextInfo
   if (fContextInfos != nullptr)
   {
     char contextInfoChar = static_cast<char>(pContextInfo);
-    ALCompositePoolAllocator& typeAlloc = pLingDatabase.xGetFPAlloc();
+    CompositePoolAllocator& typeAlloc = pLingDatabase.xGetFPAlloc();
     fContextInfos = fContextInfos->remove(contextInfoChar, typeAlloc);
   }
 }
@@ -74,7 +74,7 @@ ForwardPtrList<char>* LingdbMeaning::xPushBackContextInfo
  char pContextInfo)
 {
   // Add the new link to context info
-  ALCompositePoolAllocator& typeAlloc = pLingDatabase.xGetFPAlloc();
+  CompositePoolAllocator& typeAlloc = pLingDatabase.xGetFPAlloc();
   char* newContextInfo = typeAlloc.allocate<char>(1);
   *newContextInfo = pContextInfo;
 
@@ -122,7 +122,7 @@ void LingdbMeaning::addLinkToConcept
  char pRelatedToConcept,
  bool pReplaceIfAlreadyExist)
 {
-  ALCompositePoolAllocator& typeAlloc = pLingDatabase.xGetFPAlloc();
+  CompositePoolAllocator& typeAlloc = pLingDatabase.xGetFPAlloc();
   {
     // Check if the link to concept don't already exist for this meaning
     ForwardPtrList<LingdbLinkToAConcept>* prevConcept = nullptr;
@@ -225,7 +225,7 @@ bool LingdbMeaning::xIsSecondConceptMorePrecise
 
 
 void LingdbMeaning::xDeallocate
-(ALCompositePoolAllocator& pFPAlloc)
+(CompositePoolAllocator& pFPAlloc)
 {
   fLemma->xRemoveMeaning(pFPAlloc, getPartOfSpeech());
   if (fLinkToConcepts != nullptr)

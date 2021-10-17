@@ -72,7 +72,7 @@ struct ForwardPtrList
   }
 
   ForwardPtrList<ELT>* remove(const ELT& pElt,
-                              ALCompositePoolAllocator& pAlloc)
+                              CompositePoolAllocator& pAlloc)
   {
     ForwardPtrList<ELT>* prev = nullptr;
     ForwardPtrList<ELT>* it = this;
@@ -95,7 +95,7 @@ struct ForwardPtrList
 
   static void clearNextElt
   (ForwardPtrList<ELT>*& pListToModify,
-   ALCompositePoolAllocator& pAlloc)
+   CompositePoolAllocator& pAlloc)
   {
     assert(pListToModify != nullptr);
     ForwardPtrList<ELT>* eltToDel = pListToModify;
@@ -106,7 +106,7 @@ struct ForwardPtrList
 
   static void clearNextComposedElt
   (ForwardPtrList<ELT>*& pListToModify,
-   ALCompositePoolAllocator& pAlloc)
+   CompositePoolAllocator& pAlloc)
   {
     assert(pListToModify != nullptr);
     ForwardPtrList<ELT>* eltToDel = pListToModify;
@@ -116,7 +116,7 @@ struct ForwardPtrList
   }
 
   void clear
-  (ALCompositePoolAllocator& pFPAlloc)
+  (CompositePoolAllocator& pFPAlloc)
   {
     ForwardPtrList<ELT>* it = this;
     do
@@ -132,7 +132,7 @@ struct ForwardPtrList
 
 
   void clearComposedElts
-  (ALCompositePoolAllocator& pFPAlloc)
+  (CompositePoolAllocator& pFPAlloc)
   {
     ForwardPtrList<ELT>* it = this;
     do
@@ -148,7 +148,7 @@ struct ForwardPtrList
 
 
   void clearWithoutDesallocateElts
-  (ALCompositePoolAllocator& pFPAlloc)
+  (CompositePoolAllocator& pFPAlloc)
   {
     ForwardPtrList<ELT>* it = this;
     do
@@ -180,7 +180,7 @@ struct ForwardPtrList
 
 template <typename ELT>
 void forwardListPushFront
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  ForwardPtrList<ELT>** pList,
  ELT* pNewElt)
 {

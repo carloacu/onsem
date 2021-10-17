@@ -9,7 +9,7 @@
 namespace onsem
 {
 class LinguisticIntermediaryDatabase;
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 class LingdbTree;
 class LingdbMeaning;
 

@@ -239,7 +239,7 @@ public:
    * @brief Get the allocator used to store the database.
    * @return The allocator used to store the database.
    */
-  const ALCompositePoolAllocator& getFPAlloc() const;
+  const CompositePoolAllocator& getFPAlloc() const;
 
 
 
@@ -296,7 +296,7 @@ private:
 
 
   /// The allocator and serializer object.
-  ALCompositePoolAllocator fAlloc;
+  CompositePoolAllocator fAlloc;
   /// The root of the dynamic trie that store the words.
   LingdbDynamicTrieNode* fRoot;
   LingdbInfos* fInfos;
@@ -329,7 +329,7 @@ private:
    * @brief Get the allocator used to store the database.
    * @return The allocator used to store the database.
    */
-  ALCompositePoolAllocator& xGetFPAlloc();
+  CompositePoolAllocator& xGetFPAlloc();
 };
 
 

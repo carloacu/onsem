@@ -7,7 +7,7 @@
 
 namespace onsem
 {
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 
 
 /// Class that hold a tag in the database.
@@ -68,7 +68,7 @@ private:
    * @param pTagName The tag name.
    */
   void xInit
-  (ALCompositePoolAllocator& pFPAlloc,
+  (CompositePoolAllocator& pFPAlloc,
    const std::string& pTagName);
 
   /**
@@ -76,7 +76,7 @@ private:
    * @param pFPAlloc The allocator.
    */
   void xDeallocate
-  (ALCompositePoolAllocator& pFPAlloc);
+  (CompositePoolAllocator& pFPAlloc);
 };
 
 

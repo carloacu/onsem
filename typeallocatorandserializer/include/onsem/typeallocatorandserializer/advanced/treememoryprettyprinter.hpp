@@ -7,25 +7,25 @@
 
 namespace onsem
 {
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 template <typename T>
-class ALLeafPoolAllocator;
+class LeafPoolAllocator;
 
 
-class ALTreeMemoryPrettyPrinter
+class TreeMemoryPrettyPrinter
 {
 public:
   /**
    * @brief Constructor.
    * @param pOs Stream where we will print the memory.
    */
-  ALTreeMemoryPrettyPrinter(std::ostream& pOs);
+  TreeMemoryPrettyPrinter(std::ostream& pOs);
 
   /**
    * @brief Print a composite pool allocator object.
    * @param pC The composite pool allocator object to print.
    */
-  void operator() (const ALCompositePoolAllocator& pC);
+  void operator() (const CompositePoolAllocator& pC);
 
 
   /**
@@ -33,7 +33,7 @@ public:
    * @param pL The leaf pool allocator object to print.
    */
   template <typename T>
-  void operator() (const ALLeafPoolAllocator<T>& pL);
+  void operator() (const LeafPoolAllocator<T>& pL);
 
 
 private:

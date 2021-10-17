@@ -22,7 +22,7 @@ public:
   void init();
 
   void load
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    const boost::property_tree::ptree& pXml);
 
 
@@ -48,7 +48,7 @@ private:
     }
 
     void init
-    (ALCompositePoolAllocator& pFPAlloc,
+    (CompositePoolAllocator& pFPAlloc,
      const std::string& pWord,
      char pGram,
      WordToVerbRelation pCanBeBeforeVerb,
@@ -68,7 +68,7 @@ private:
     }
 
     void xDeallocate
-    (ALCompositePoolAllocator& pAlloc)
+    (CompositePoolAllocator& pAlloc)
     {
       word->xDeallocate(pAlloc);
       pAlloc.deallocate<AQuestionWord>(this);
@@ -92,10 +92,10 @@ private:
   ForwardPtrList<AQuestionWord>* fQWords;
 
   void xClear
-  (ALCompositePoolAllocator& pAlloc);
+  (CompositePoolAllocator& pAlloc);
 
   void xDeallocate
-  (ALCompositePoolAllocator& pAlloc);
+  (CompositePoolAllocator& pAlloc);
 
   /**
    * @brief Get the position of the pointers for the allocator.

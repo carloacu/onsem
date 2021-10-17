@@ -6,7 +6,7 @@
 
 namespace onsem
 {
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 class LingdbConcept;
 
 

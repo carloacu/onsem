@@ -9,7 +9,7 @@
 
 namespace onsem
 {
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 
 /**
  * This class allow to allocate/deallocate some datas.\n
@@ -41,7 +41,7 @@ class ALCompositePoolAllocator;
  * -> Very explicit error feedbacks if a pointer is not valid or if you
  * allocate a data without having declared his type previously.
  */
-class ALTypeAllocatorAndSerializer
+class TypeAllocatorAndSerializer
 {
 public:
 
@@ -49,7 +49,7 @@ public:
    * @brief Constructor.
    * @param pName Name of this allocator.
    */
-  ALTypeAllocatorAndSerializer(const std::string& pName);
+  TypeAllocatorAndSerializer(const std::string& pName);
 
 
   /// Type of the function used to get the pointer(s) inside a type.
@@ -183,11 +183,11 @@ public:
    * @brief Get the composite allocator hold by this class.
    * @return The composite allocator hold by this class.
    */
-  const ALCompositePoolAllocator* getCompositePoolAllocator() const;
+  const CompositePoolAllocator* getCompositePoolAllocator() const;
 
 private:
   /// The composite pool allocator.
-  ALCompositePoolAllocator* fCompPoolAllocator;
+  CompositePoolAllocator* fCompPoolAllocator;
 };
 
 
@@ -198,9 +198,9 @@ private:
  * @return The stream in result.
  */
 inline std::ostream& operator<<
-(std::ostream& pOs, const ALTypeAllocatorAndSerializer& pFPA)
+(std::ostream& pOs, const TypeAllocatorAndSerializer& pFPA)
 {
-  ALTreeMemoryPrettyPrinter printer(pOs);
+  TreeMemoryPrettyPrinter printer(pOs);
   pFPA.getCompositePoolAllocator()->accept(printer);
   return pOs;
 }

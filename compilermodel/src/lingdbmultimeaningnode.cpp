@@ -28,7 +28,7 @@ LingdbMultiMeaningsNode::LingdbMultiMeaningsNode
 
 
 void LingdbMultiMeaningsNode::xInit
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  LingdbMeaning* pRootMeaning,
  std::list<std::pair<LingdbMeaning*, LinkedMeaningDirection> >& pLinkedMeanings)
 {

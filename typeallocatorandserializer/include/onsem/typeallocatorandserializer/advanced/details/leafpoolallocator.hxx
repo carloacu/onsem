@@ -13,11 +13,11 @@ namespace onsem
 {
 
 template <typename T>
-ALLeafPoolAllocator<T>::ALLeafPoolAllocator
+LeafPoolAllocator<T>::LeafPoolAllocator
 (const std::string& pName,
  unsigned char pMemoryAlignment,
  get_pointers pFunc)
-  : ALComponentPoolAllocator(pName), fMemoryAlignment(pMemoryAlignment),
+  : ComponentPoolAllocator(pName), fMemoryAlignment(pMemoryAlignment),
     fSizeStructAligned(xCalculateSizeStructAligned(pMemoryAlignment)),
     fFunc(pFunc),
     fPools()
@@ -27,7 +27,7 @@ ALLeafPoolAllocator<T>::ALLeafPoolAllocator
 
 
 template<typename T>
-void ALLeafPoolAllocator<T>::reserve
+void LeafPoolAllocator<T>::reserve
 (std::size_t pNbElts)
 {
   if (pNbElts == 0)
@@ -51,7 +51,7 @@ void ALLeafPoolAllocator<T>::reserve
 
 
 template <typename T>
-T* ALLeafPoolAllocator<T>::allocate(std::size_t pNbElts)
+T* LeafPoolAllocator<T>::allocate(std::size_t pNbElts)
 {
   if (pNbElts <= 0)
   {
@@ -99,7 +99,7 @@ T* ALLeafPoolAllocator<T>::allocate(std::size_t pNbElts)
 
 
 template <typename T>
-void ALLeafPoolAllocator<T>::deallocate
+void LeafPoolAllocator<T>::deallocate
 (T* pPointer, std::size_t pNbElts)
 {
   if (pPointer == nullptr)
@@ -127,7 +127,7 @@ void ALLeafPoolAllocator<T>::deallocate
 
 
 template<typename T>
-void ALLeafPoolAllocator<T>::clear
+void LeafPoolAllocator<T>::clear
 ()
 {
   // remove all pools and put the memory at this initial state
@@ -145,7 +145,7 @@ void ALLeafPoolAllocator<T>::clear
 
 
 template<typename T>
-T* ALLeafPoolAllocator<T>::first
+T* LeafPoolAllocator<T>::first
 () const
 {
   return reinterpret_cast<T*>(xGetFirstAlloc());
@@ -154,7 +154,7 @@ T* ALLeafPoolAllocator<T>::first
 
 
 template<typename T>
-T* ALLeafPoolAllocator<T>::next
+T* LeafPoolAllocator<T>::next
 (T* elt) const
 {
   return reinterpret_cast<T*>(xGetNext(elt));
@@ -163,7 +163,7 @@ T* ALLeafPoolAllocator<T>::next
 
 
 template<typename T>
-std::size_t ALLeafPoolAllocator<T>::getOccupatedSize
+std::size_t LeafPoolAllocator<T>::getOccupatedSize
 () const
 {
   std::size_t res = 0;
@@ -177,7 +177,7 @@ std::size_t ALLeafPoolAllocator<T>::getOccupatedSize
 
 
 template<typename T>
-std::size_t ALLeafPoolAllocator<T>::getTotalSize
+std::size_t LeafPoolAllocator<T>::getTotalSize
 () const
 {
   std::size_t res = 0;
@@ -191,7 +191,7 @@ std::size_t ALLeafPoolAllocator<T>::getTotalSize
 
 
 template<typename T>
-void ALLeafPoolAllocator<T>::xWriteMemoryInAStream
+void LeafPoolAllocator<T>::xWriteMemoryInAStream
 (std::ostream& pOstr) const
 {
   // Give the size occupated
@@ -224,7 +224,7 @@ void ALLeafPoolAllocator<T>::xWriteMemoryInAStream
 
 
 template<typename T>
-void ALLeafPoolAllocator<T>::xReadMemoryFromAStream
+void LeafPoolAllocator<T>::xReadMemoryFromAStream
 (std::set<FPAShift>& pShifts,
  std::istream& pIstr,
  float pCoef)
@@ -277,7 +277,7 @@ void ALLeafPoolAllocator<T>::xReadMemoryFromAStream
 
 
 template<typename T>
-void ALLeafPoolAllocator<T>::xFindShiftsForDefragmentation
+void LeafPoolAllocator<T>::xFindShiftsForDefragmentation
 (std::set<FPAShift>& pShifts) const
 {
   // The goal of this function is to add a shift for every continuous part of every pool.
@@ -333,7 +333,7 @@ void ALLeafPoolAllocator<T>::xFindShiftsForDefragmentation
 
 
 template<typename T>
-void ALLeafPoolAllocator<T>::xChangePointers
+void LeafPoolAllocator<T>::xChangePointers
 (const std::set<FPAShift>& pShifts)
 {
   // The goal of this function is to adapt the pointers to the given shifts
@@ -383,7 +383,7 @@ void ALLeafPoolAllocator<T>::xChangePointers
 
 
 template<typename T>
-std::size_t ALLeafPoolAllocator<T>::xCalculateSizeStructAligned
+std::size_t LeafPoolAllocator<T>::xCalculateSizeStructAligned
 (unsigned char pMemoryAlignment)
 {
   std::size_t size_of = sizeof(T);
@@ -408,7 +408,7 @@ std::size_t ALLeafPoolAllocator<T>::xCalculateSizeStructAligned
 
 
 template <typename T>
-bool ALLeafPoolAllocator<T>::isAllocated
+bool LeafPoolAllocator<T>::isAllocated
 (T* pPtr) const
 {
   // Find the good pool
@@ -430,15 +430,15 @@ bool ALLeafPoolAllocator<T>::isAllocated
 
 
 template <typename T>
-void ALLeafPoolAllocator<T>::accept
-(ALTreeMemoryPrettyPrinter& pV) const
+void LeafPoolAllocator<T>::accept
+(TreeMemoryPrettyPrinter& pV) const
 {
   pV (*this);
 }
 
 
 template <typename T>
-void* ALLeafPoolAllocator<T>::xGetFirstAlloc
+void* LeafPoolAllocator<T>::xGetFirstAlloc
 () const
 {
   for (std::size_t i = 0; i < fPools.size(); ++i)
@@ -459,7 +459,7 @@ void* ALLeafPoolAllocator<T>::xGetFirstAlloc
 
 
 template <typename T>
-void* ALLeafPoolAllocator<T>::xGetNext
+void* LeafPoolAllocator<T>::xGetNext
 (FPAPtr pPtr) const
 {
   std::size_t firstPoolPtr = xGetPool(pPtr);
@@ -488,7 +488,7 @@ void* ALLeafPoolAllocator<T>::xGetNext
 
 
 template <typename T>
-inline std::size_t ALLeafPoolAllocator<T>::xGetPool
+inline std::size_t LeafPoolAllocator<T>::xGetPool
 (FPAPtr pPtr) const
 {
   for (std::size_t i = 0; i < fPools.size(); ++i)
@@ -506,7 +506,7 @@ inline std::size_t ALLeafPoolAllocator<T>::xGetPool
 
 
 template<typename T>
-inline std::size_t ALLeafPoolAllocator<T>::xGetPoolOccupatedSize
+inline std::size_t LeafPoolAllocator<T>::xGetPoolOccupatedSize
 (const FPAPool& pPool) const
 {
   return pPool.newAlloc.val - pPool.mem.val -
@@ -516,7 +516,7 @@ inline std::size_t ALLeafPoolAllocator<T>::xGetPoolOccupatedSize
 
 
 template<typename T>
-inline std::size_t ALLeafPoolAllocator<T>::xModifyAPtr
+inline std::size_t LeafPoolAllocator<T>::xModifyAPtr
 (std::set<FPAShift>::const_iterator& pRefPool,
  FPAPtr pPptr,
  const std::set<FPAShift>& pShifts)
@@ -538,7 +538,7 @@ inline std::size_t ALLeafPoolAllocator<T>::xModifyAPtr
 
 
 template<typename T>
-std::size_t ALLeafPoolAllocator<T>::getSizeStructAligned
+std::size_t LeafPoolAllocator<T>::getSizeStructAligned
 () const
 {
   return fSizeStructAligned;

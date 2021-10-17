@@ -9,7 +9,7 @@ namespace onsem
 
 
 void LingdbFlexions::xDeallocate
-(ALCompositePoolAllocator& pFPAlloc)
+(CompositePoolAllocator& pFPAlloc)
 {
   pFPAlloc.deallocate<unsigned char>(fFlexions, fNbFlexions);
   pFPAlloc.deallocate<LingdbFlexions>(this);
@@ -17,7 +17,7 @@ void LingdbFlexions::xDeallocate
 
 
 LingdbFlexions* LingdbFlexions::xClone
-(ALCompositePoolAllocator& pFPAlloc) const
+(CompositePoolAllocator& pFPAlloc) const
 {
   LingdbFlexions* newFlexions = pFPAlloc.allocate<LingdbFlexions>(1);
   newFlexions->fNbFlexions = fNbFlexions;
@@ -36,7 +36,7 @@ LingdbFlexions::LingdbFlexions()
 
 
 void LingdbFlexions::xInit
-(ALCompositePoolAllocator& pFPAlloc,
+(CompositePoolAllocator& pFPAlloc,
  PartOfSpeech pGram,
  const std::vector<std::string>& pFlexions,
  LingdbWordForms* pWFForErrorLog)
@@ -52,7 +52,7 @@ void LingdbFlexions::xInit
 
 
 void LingdbFlexions::xAddNewFlexions
-(ALCompositePoolAllocator& pFPAlloc,
+(CompositePoolAllocator& pFPAlloc,
  PartOfSpeech pGram,
  const std::vector<std::string>& pFlexions,
  LingdbWordForms* pWFForErrorLog)

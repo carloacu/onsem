@@ -15,7 +15,7 @@ void LingdbSaverTraductionWriter::writeTranslations
   boost::filesystem::ofstream outfile(pFilnename);
 
   std::map<const LingdbMeaning*, std::set<MeaningAndConfidence> > allTrads;
-  const ALCompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();
+  const CompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();
   LingdbMeaning* meaning = alloc.first<LingdbMeaning>();
   while (meaning != nullptr)
   {

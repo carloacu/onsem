@@ -6,7 +6,7 @@
 
 namespace onsem
 {
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 class LingdbString;
 template <typename T>
 struct ForwardPtrList;
@@ -28,7 +28,7 @@ public:
   { return fNearlyEqualConcepts; }
 
   void addAnOppositeConcept
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    LingdbConcept* pOppositeConcept);
 
   /**
@@ -37,7 +37,7 @@ public:
    * @param pNearlyEqualConcept The concept that is nearly equal to the one contained in this object.
    */
   void addANearlyEqualConcept
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    LingdbConcept* pNearlyEqualConcept);
 
   static bool conceptNameFinishWithAStar
@@ -66,7 +66,7 @@ private:
 
 
   void xInit
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    const std::string& pName,
    bool pAutoFill);
 
@@ -75,7 +75,7 @@ private:
    * @param pFPAlloc The allocator.
    */
   void xDeallocate
-  (ALCompositePoolAllocator& pAlloc);
+  (CompositePoolAllocator& pAlloc);
 
 };
 

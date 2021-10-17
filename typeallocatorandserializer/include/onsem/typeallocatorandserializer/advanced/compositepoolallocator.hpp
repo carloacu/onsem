@@ -8,12 +8,12 @@
 
 namespace onsem
 {
-class ALTreeMemoryPrettyPrinter;
+class TreeMemoryPrettyPrinter;
 template<typename T>
-class ALLeafPoolAllocator;
+class LeafPoolAllocator;
 
 /// Class that hold 0 or many pool allocators
-class ALCompositePoolAllocator : public ALComponentPoolAllocator
+class CompositePoolAllocator : public ComponentPoolAllocator
 {
 public:
 
@@ -21,7 +21,7 @@ public:
    * @brief Constructor.
    * @param name Name of this composite pool allocator.
    */
-  ALCompositePoolAllocator(const std::string& pName);
+  CompositePoolAllocator(const std::string& pName);
 
 
   /**
@@ -102,11 +102,11 @@ public:
   void addANewComposite(const std::string& pName);
 
 
-  ALCompositePoolAllocator* getComposite(const std::string& pName) const;
+  CompositePoolAllocator* getComposite(const std::string& pName) const;
 
 
   void getComposites
-  (std::vector<ALCompositePoolAllocator*>& pComposites);
+  (std::vector<CompositePoolAllocator*>& pComposites);
 
 
   /// Type of the function used to get the pointer(s) inside a type.
@@ -131,7 +131,7 @@ public:
    * @param pV The pretty printer visitor.
    */
   virtual void accept
-  (ALTreeMemoryPrettyPrinter& pV) const;
+  (TreeMemoryPrettyPrinter& pV) const;
 
 
 
@@ -175,18 +175,18 @@ protected:
 
 private:
   /// Every pool allocators hold in this composite.
-  std::vector<ALComponentPoolAllocator*> fPoolAllocators;
+  std::vector<ComponentPoolAllocator*> fPoolAllocators;
 
   /**
    * @brief Get the leaf corresponding of a type.
    * @return The leaf corresponding of a type.
    */
   template<typename T>
-  ALLeafPoolAllocator<T>* xGetLeaf() const;
+  LeafPoolAllocator<T>* xGetLeaf() const;
 };
 
 
-std::ostream& operator<<(std::ostream& pOs, const ALCompositePoolAllocator& pFPA);
+std::ostream& operator<<(std::ostream& pOs, const CompositePoolAllocator& pFPA);
 
 
 } // End of namespace onsem

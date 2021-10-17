@@ -8,14 +8,14 @@
 namespace onsem
 {
 
-  ALComponentPoolAllocator::ALComponentPoolAllocator
+  ComponentPoolAllocator::ComponentPoolAllocator
   (const boost::filesystem::path& name)
     : fName(name.string())
   {
   }
 
 
-  void ALComponentPoolAllocator::serialize
+  void ComponentPoolAllocator::serialize
   (const std::string& pFilename)
   {
     std::set<FPAShift> shifts;
@@ -32,7 +32,7 @@ namespace onsem
   }
 
 
-  void ALComponentPoolAllocator::serializeAndClear
+  void ComponentPoolAllocator::serializeAndClear
   (const std::string& pFilename)
   {
     std::set<FPAShift> shifts;
@@ -41,7 +41,7 @@ namespace onsem
   }
 
 
-  void ALComponentPoolAllocator::deserialize
+  void ComponentPoolAllocator::deserialize
   (std::string& pErrorMessage,
    const std::string& pFilename, float pCoef)
   {
@@ -60,7 +60,7 @@ namespace onsem
   }
 
 
-  void ALComponentPoolAllocator::xSerialize
+  void ComponentPoolAllocator::xSerialize
   (std::set<FPAShift>& pShifts,
    const std::string& pFilename)
   {
@@ -73,7 +73,7 @@ namespace onsem
   }
 
 
-  void ALComponentPoolAllocator::xInvertShifts
+  void ComponentPoolAllocator::xInvertShifts
   (std::set<FPAShift>& pNewShifts,
    const std::set<FPAShift>& pPrevShifts) const
   {
@@ -89,7 +89,7 @@ namespace onsem
   }
 
 
-  void ALComponentPoolAllocator::xDefragmentMemory
+  void ComponentPoolAllocator::xDefragmentMemory
   (const std::set<FPAShift>& pShifts)
   {
     for (std::set<FPAShift>::const_reverse_iterator it = pShifts.rbegin();
@@ -113,7 +113,7 @@ namespace onsem
   }
 
 
-  void ALComponentPoolAllocator::xFragmentMemory
+  void ComponentPoolAllocator::xFragmentMemory
   (const std::set<FPAShift>& pShifts)
   {
     for (std::set<FPAShift>::const_iterator it = pShifts.begin();

@@ -14,7 +14,7 @@ LingdbString::LingdbString()
 
 
 void LingdbString::xInit
-(ALCompositePoolAllocator& pFPAlloc,
+(CompositePoolAllocator& pFPAlloc,
  const std::string& pTagName)
 {
   fNbCharacters = static_cast<unsigned char>(pTagName.size());
@@ -26,7 +26,7 @@ void LingdbString::xInit
 }
 
 void LingdbString::xDeallocate
-(ALCompositePoolAllocator& pFPAlloc)
+(CompositePoolAllocator& pFPAlloc)
 {
   pFPAlloc.deallocate<char>(fCharacters, fNbCharacters);
   pFPAlloc.deallocate<LingdbString>(this);

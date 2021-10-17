@@ -9,7 +9,7 @@
 
 namespace onsem
 {
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 class LingdbWordForms;
 class LingdbDynamicTrieNode;
 
@@ -162,7 +162,7 @@ private:
    * @param pWFForErrorLog Corresponding wordform for the error logs.
    */
   void xInit
-  (ALCompositePoolAllocator& pFPAlloc,
+  (CompositePoolAllocator& pFPAlloc,
    PartOfSpeech pGram,
    const std::vector<std::string>& pFlexions,
    LingdbWordForms* pWFForErrorLog);
@@ -181,7 +181,7 @@ private:
    * @param pWFForErrorLog Corresponding wordform for the error logs.
    */
   void xAddNewFlexions
-  (ALCompositePoolAllocator& pFPAlloc,
+  (CompositePoolAllocator& pFPAlloc,
    PartOfSpeech pGram,
    const std::vector<std::string>& pFlexions,
    LingdbWordForms* pWFForErrorLog);
@@ -192,7 +192,7 @@ private:
    * @param pFPAlloc The allocator.
    */
   void xDeallocate
-  (ALCompositePoolAllocator& pFPAlloc);
+  (CompositePoolAllocator& pFPAlloc);
 
   /**
    * @brief Get a copy of the flexions.
@@ -200,7 +200,7 @@ private:
    * @return A copy of the flexions.
    */
   LingdbFlexions* xClone
-  (ALCompositePoolAllocator& pFPAlloc) const;
+  (CompositePoolAllocator& pFPAlloc) const;
 
 
   /**

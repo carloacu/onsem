@@ -7,23 +7,23 @@ namespace onsem
 {
 
 std::ostream& operator<<
-(std::ostream& pOs, const ALCompositePoolAllocator& pFPA)
+(std::ostream& pOs, const CompositePoolAllocator& pFPA)
 {
-  ALTreeMemoryPrettyPrinter printer(pOs);
+  TreeMemoryPrettyPrinter printer(pOs);
   pFPA.accept(printer);
   return pOs;
 }
 
 
-  ALCompositePoolAllocator::ALCompositePoolAllocator
+  CompositePoolAllocator::CompositePoolAllocator
   (const std::string& pName)
-    : ALComponentPoolAllocator(pName),
+    : ComponentPoolAllocator(pName),
       fPoolAllocators()
   {
   }
 
 
-  void ALCompositePoolAllocator::clear
+  void CompositePoolAllocator::clear
   ()
   {
     for (std::size_t i = 0; i < fPoolAllocators.size(); ++i)
@@ -33,7 +33,7 @@ std::ostream& operator<<
   }
 
 
-  std::size_t ALCompositePoolAllocator::getOccupatedSize
+  std::size_t CompositePoolAllocator::getOccupatedSize
   () const
   {
     std::size_t res = 0;
@@ -45,7 +45,7 @@ std::ostream& operator<<
   }
 
 
-  std::size_t ALCompositePoolAllocator::getTotalSize
+  std::size_t CompositePoolAllocator::getTotalSize
   () const
   {
     std::size_t res = 0;
@@ -58,15 +58,15 @@ std::ostream& operator<<
 
 
 
-  void ALCompositePoolAllocator::addANewComposite
+  void CompositePoolAllocator::addANewComposite
   (const std::string& pName)
   {
-    fPoolAllocators.emplace_back(new ALCompositePoolAllocator(pName));
+    fPoolAllocators.emplace_back(new CompositePoolAllocator(pName));
   }
 
 
-  void ALCompositePoolAllocator::accept
-  (ALTreeMemoryPrettyPrinter& pV) const
+  void CompositePoolAllocator::accept
+  (TreeMemoryPrettyPrinter& pV) const
   {
     pV (*this);
     for (std::size_t i = 0; i < fPoolAllocators.size(); ++i)
@@ -76,7 +76,7 @@ std::ostream& operator<<
   }
 
 
-  void ALCompositePoolAllocator::xWriteMemoryInAStream
+  void CompositePoolAllocator::xWriteMemoryInAStream
   (std::ostream& pOstr) const
   {
     for (std::size_t i = 0; i < fPoolAllocators.size(); ++i)
@@ -86,7 +86,7 @@ std::ostream& operator<<
   }
 
 
-  void ALCompositePoolAllocator::xReadMemoryFromAStream
+  void CompositePoolAllocator::xReadMemoryFromAStream
   (std::set<FPAShift>& pShifts,
    std::istream& pIstr, float pCoef)
   {
@@ -97,7 +97,7 @@ std::ostream& operator<<
   }
 
 
-  void ALCompositePoolAllocator::xFindShiftsForDefragmentation
+  void CompositePoolAllocator::xFindShiftsForDefragmentation
   (std::set<FPAShift>& pShifts) const
   {
     for (std::size_t i = 0; i < fPoolAllocators.size(); ++i)
@@ -107,7 +107,7 @@ std::ostream& operator<<
   }
 
 
-  void ALCompositePoolAllocator::xChangePointers
+  void CompositePoolAllocator::xChangePointers
   (const std::set<FPAShift>& pShifts)
   {
     for (std::size_t i = 0; i < fPoolAllocators.size(); ++i)
@@ -117,13 +117,13 @@ std::ostream& operator<<
   }
 
 
-  ALCompositePoolAllocator* ALCompositePoolAllocator::getComposite
+  CompositePoolAllocator* CompositePoolAllocator::getComposite
   (const std::string& pName) const
   {
     for (std::size_t i = 0; i < fPoolAllocators.size(); ++i)
     {
-      ALCompositePoolAllocator* leafPool =
-          dynamic_cast<ALCompositePoolAllocator*> (fPoolAllocators[i]);
+      CompositePoolAllocator* leafPool =
+          dynamic_cast<CompositePoolAllocator*> (fPoolAllocators[i]);
       if (leafPool && leafPool->getName() == pName)
       {
         return leafPool;
@@ -133,13 +133,13 @@ std::ostream& operator<<
   }
 
 
-  void ALCompositePoolAllocator::getComposites
-  (std::vector<ALCompositePoolAllocator*>& pComposites)
+  void CompositePoolAllocator::getComposites
+  (std::vector<CompositePoolAllocator*>& pComposites)
   {
     for (std::size_t i = 0; i < fPoolAllocators.size(); ++i)
     {
-      ALCompositePoolAllocator* leafPool =
-          dynamic_cast<ALCompositePoolAllocator*> (fPoolAllocators[i]);
+      CompositePoolAllocator* leafPool =
+          dynamic_cast<CompositePoolAllocator*> (fPoolAllocators[i]);
       if (leafPool)
       {
         pComposites.emplace_back(leafPool);

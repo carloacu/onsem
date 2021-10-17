@@ -7,14 +7,14 @@
 namespace onsem
 {
 
-inline ALTypeAllocatorAndSerializer::ALTypeAllocatorAndSerializer
+inline TypeAllocatorAndSerializer::TypeAllocatorAndSerializer
 (const std::string& pName)
-  : fCompPoolAllocator(new ALCompositePoolAllocator(pName))
+  : fCompPoolAllocator(new CompositePoolAllocator(pName))
 {
 }
 
 template<typename T>
-inline void ALTypeAllocatorAndSerializer::declareANewType
+inline void TypeAllocatorAndSerializer::declareANewType
 (const std::string& pName,
  unsigned char pMemoryAlignment,
  get_pointers pFunc)
@@ -23,53 +23,53 @@ inline void ALTypeAllocatorAndSerializer::declareANewType
 }
 
 template<typename T>
-inline T* ALTypeAllocatorAndSerializer::allocate
+inline T* TypeAllocatorAndSerializer::allocate
 (std::size_t pNbElts)
 {
   return fCompPoolAllocator->allocate<T>(pNbElts);
 }
 
 template<typename T>
-inline void ALTypeAllocatorAndSerializer::deallocate
+inline void TypeAllocatorAndSerializer::deallocate
 (T* pPointer, std::size_t pNbElts)
 {
   fCompPoolAllocator->deallocate<T>(pPointer, pNbElts);
 }
 
 template<typename T>
-bool ALTypeAllocatorAndSerializer::isAllocated
+bool TypeAllocatorAndSerializer::isAllocated
 (T* pPtr) const
 {
   return fCompPoolAllocator->isAllocated<T>(pPtr);
 }
 
 template<typename T>
-inline T* ALTypeAllocatorAndSerializer::first
+inline T* TypeAllocatorAndSerializer::first
 () const
 {
   return fCompPoolAllocator->first<T>();
 }
 
 template<typename T>
-inline T* ALTypeAllocatorAndSerializer::next
+inline T* TypeAllocatorAndSerializer::next
 (T* pElt) const
 {
   return fCompPoolAllocator->next<T>(pElt);
 }
 
-inline void ALTypeAllocatorAndSerializer::serialize
+inline void TypeAllocatorAndSerializer::serialize
 (const std::string& pFilename)
 {
   fCompPoolAllocator->serialize(pFilename);
 }
 
-inline void ALTypeAllocatorAndSerializer::serializeAndClear
+inline void TypeAllocatorAndSerializer::serializeAndClear
 (const std::string& pFilename)
 {
   fCompPoolAllocator->serializeAndClear(pFilename);
 }
 
-inline void ALTypeAllocatorAndSerializer::deserialize
+inline void TypeAllocatorAndSerializer::deserialize
 (std::string& pErrorMessage,
  const std::string& pFilename, float pCoef)
 {
@@ -77,44 +77,44 @@ inline void ALTypeAllocatorAndSerializer::deserialize
       (pErrorMessage, pFilename, pCoef);
 }
 
-inline void ALTypeAllocatorAndSerializer::clear
+inline void TypeAllocatorAndSerializer::clear
 ()
 {
   fCompPoolAllocator->clear();
 }
 
-inline const std::string& ALTypeAllocatorAndSerializer::getName
+inline const std::string& TypeAllocatorAndSerializer::getName
 () const
 {
   return fCompPoolAllocator->getName();
 }
 
-inline std::size_t ALTypeAllocatorAndSerializer::getOccupatedSize
+inline std::size_t TypeAllocatorAndSerializer::getOccupatedSize
 () const
 {
   return fCompPoolAllocator->getOccupatedSize();
 }
 
-inline std::size_t ALTypeAllocatorAndSerializer::getTotalSize
+inline std::size_t TypeAllocatorAndSerializer::getTotalSize
 () const
 {
   return fCompPoolAllocator->getTotalSize();
 }
 
-inline void ALTypeAllocatorAndSerializer::setName
+inline void TypeAllocatorAndSerializer::setName
 (std::string pName)
 {
   fCompPoolAllocator->setName(pName);
 }
 
 template<typename T>
-inline void ALTypeAllocatorAndSerializer::reserve
+inline void TypeAllocatorAndSerializer::reserve
 (std::size_t pNbElts)
 {
   fCompPoolAllocator->reserve<T>(pNbElts);
 }
 
-inline const ALCompositePoolAllocator* ALTypeAllocatorAndSerializer::getCompositePoolAllocator
+inline const CompositePoolAllocator* TypeAllocatorAndSerializer::getCompositePoolAllocator
 () const
 {
   return fCompPoolAllocator;

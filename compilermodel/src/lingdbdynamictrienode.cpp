@@ -174,7 +174,7 @@ void LingdbDynamicTrieNode::getWordFormsAndMeanings
 
 
 LingdbDynamicTrieNode* LingdbDynamicTrieNode::xAddMultiMeaningsNode
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  LingdbMeaning* pRootMeaning,
  std::list<std::pair<LingdbMeaning*, LinkedMeaningDirection> >& pLinkedMeanings)
 {
@@ -195,7 +195,7 @@ LingdbDynamicTrieNode* LingdbDynamicTrieNode::xAddMultiMeaningsNode
 
 
 LingdbMeaning* LingdbDynamicTrieNode::xAddMeaning
-(ALCompositePoolAllocator& pFPAlloc,
+(CompositePoolAllocator& pFPAlloc,
  PartOfSpeech pPartOfSpeech)
 {
   LingdbMeaning* meaning = getMeaning(pPartOfSpeech);
@@ -226,7 +226,7 @@ LingdbWordForms* LingdbDynamicTrieNode::addWordForm
   LingdbWordForms* wordForm = getWordForm(pLemma, pPartOfSpeech);
   if (wordForm == nullptr)
   {
-    ALCompositePoolAllocator& alloc = pLingDatabase.xGetFPAlloc();
+    CompositePoolAllocator& alloc = pLingDatabase.xGetFPAlloc();
     return xAddWordFormFromMeaning
         (alloc,
          *pLingDatabase.getRoot()->xInsertWord(alloc, pLemma, 0)->xAddMeaning(alloc, pPartOfSpeech),
@@ -256,7 +256,7 @@ LingdbWordForms* LingdbDynamicTrieNode::addWordFormFromMeaning
 
 
 LingdbWordForms* LingdbDynamicTrieNode::xAddWordFormFromMeaning
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  LingdbMeaning& pMeaning,
  bool pAtFront)
 {
@@ -289,7 +289,7 @@ LingdbWordForms* LingdbDynamicTrieNode::xAddWordFormFromMeaning
 
 
 LingdbDynamicTrieNode* LingdbDynamicTrieNode::xInsertWord
-(ALCompositePoolAllocator& pFPAlloc,
+(CompositePoolAllocator& pFPAlloc,
  const std::string& pWord,
  std::size_t pOffset)
 {
@@ -345,7 +345,7 @@ LingdbDynamicTrieNode* LingdbDynamicTrieNode::xInsertWord
 
 
 void LingdbDynamicTrieNode::xRemoveMeaning
-(ALCompositePoolAllocator& pFPAlloc,
+(CompositePoolAllocator& pFPAlloc,
  PartOfSpeech pPartOfSpeech)
 {
   ForwardPtrList<LingdbMeaning>* prev = nullptr;
@@ -374,7 +374,7 @@ void LingdbDynamicTrieNode::xRemoveMeaning
 
 
 void LingdbDynamicTrieNode::xRemoveAllWordForms
-(ALCompositePoolAllocator& pAlloc)
+(CompositePoolAllocator& pAlloc)
 {
   assert(fEndOfWord);
   if (fWordForms != nullptr)
@@ -388,7 +388,7 @@ void LingdbDynamicTrieNode::xRemoveAllWordForms
 
 
 void LingdbDynamicTrieNode::xRemoveWordForm
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  PartOfSpeech pPartOfSpeech)
 {
   assert(fEndOfWord);
@@ -447,7 +447,7 @@ LingdbDynamicTrieNode* LingdbDynamicTrieNode::advanceInTrie
 
 
 void LingdbDynamicTrieNode::xRemoveWordIfNoLongerAWord
-(ALCompositePoolAllocator& pFPAlloc)
+(CompositePoolAllocator& pFPAlloc)
 {
   if (fEndOfWord && fMeaningsAtThisLemme == nullptr && fWordForms == nullptr &&
       fMultiMeaningsNodes == nullptr)
@@ -458,7 +458,7 @@ void LingdbDynamicTrieNode::xRemoveWordIfNoLongerAWord
 }
 
 void LingdbDynamicTrieNode::xTryToDeallocateNodes
-(ALCompositePoolAllocator& pFPAlloc)
+(CompositePoolAllocator& pFPAlloc)
 {
   if (fEndOfWord || fFirstChild != nullptr ||
       pFPAlloc.first<LingdbDynamicTrieNode>() == this)

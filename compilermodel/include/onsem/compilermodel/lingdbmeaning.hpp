@@ -13,7 +13,7 @@ template <typename T>
 struct ForwardPtrList;
 class LingdbDynamicTrieNode;
 class LingdbWordForms;
-class ALCompositePoolAllocator;
+class CompositePoolAllocator;
 class LinguisticIntermediaryDatabase;
 class LingdbLinkToAConcept;
 class LingdbConcept;
@@ -116,7 +116,7 @@ private:
    * @brief Deallocate the meaning.
    * @param pFPAlloc The allocator.
    */
-  void xDeallocate(ALCompositePoolAllocator& pFPAlloc);
+  void xDeallocate(CompositePoolAllocator& pFPAlloc);
 
 
   bool xIsSecondConceptMorePrecise

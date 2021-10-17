@@ -86,7 +86,7 @@ private:
   LingdbMultiMeaningsNode(LingdbMeaning* pRootMeaning);
 
   void xInit
-  (ALCompositePoolAllocator& pAlloc,
+  (CompositePoolAllocator& pAlloc,
    LingdbMeaning* pRootMeaning,
    std::list<std::pair<LingdbMeaning*, LinkedMeaningDirection> >& pLinkedMeanings);
 };

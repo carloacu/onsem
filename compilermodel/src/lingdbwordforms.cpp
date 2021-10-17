@@ -26,7 +26,7 @@ void LingdbWordForms::xInit
 
 
 void LingdbWordForms::xAddFlexions
-(ALCompositePoolAllocator& pFPAlloc,
+(CompositePoolAllocator& pFPAlloc,
  PartOfSpeech pGram,
  const std::vector<std::string>& pFlexions)
 {
@@ -60,7 +60,7 @@ void LingdbWordForms::copyFlexions
 
 
 void LingdbWordForms::xDeallocate
-(ALCompositePoolAllocator& pFPAlloc)
+(CompositePoolAllocator& pFPAlloc)
 {
   if (pFPAlloc.isAllocated(fMeaning) &&
       fMeaning->xRemoveAPtrToThisMeaning() == 0)

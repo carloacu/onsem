@@ -26,7 +26,7 @@ LingdbAnimationsTag::LingdbAnimationsTag()
 
 
 void LingdbAnimationsTag::xInit
-(ALCompositePoolAllocator& pFPAlloc,
+(CompositePoolAllocator& pFPAlloc,
  const std::string& pTagName)
 {
   fTag = pFPAlloc.allocate<LingdbString>(1);
@@ -37,7 +37,7 @@ void LingdbAnimationsTag::xInit
 
 
 void LingdbAnimationsTag::xDeallocate
-(ALCompositePoolAllocator& pFPAlloc)
+(CompositePoolAllocator& pFPAlloc)
 {
   pFPAlloc.deallocate<LingdbString>(fTag);
   if (fLinksToConcept != nullptr)
@@ -60,7 +60,7 @@ void LingdbAnimationsTag::xGetPointers
 
 
 void LingdbAnimationsTag::addConcept
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  LingdbConcept* pConcept,
  char pMinValue)
 {
@@ -76,7 +76,7 @@ void LingdbAnimationsTag::addConcept
 
 
 void LingdbAnimationsTag::addMeaning
-(ALCompositePoolAllocator& pAlloc,
+(CompositePoolAllocator& pAlloc,
  LingdbMeaning* pMeaning,
  char pRelation)
 {
