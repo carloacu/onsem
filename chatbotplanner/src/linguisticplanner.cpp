@@ -1,7 +1,8 @@
 #include <onsem/chatbotplanner/linguisticplanner.hpp>
-#include <boost/algorithm/string.hpp>
-#include <boost/lexical_cast.hpp>
 #include <assert.h>
+#include <sstream>
+#include <onsem/common/utility/lexical_cast.hpp>
+#include <onsem/common/utility/string.hpp>
 #include <onsem/chatbotplanner/arithmeticevaluator.hpp>
 
 namespace onsem
@@ -41,7 +42,7 @@ void _incrementStr(std::string& pStr)
     try
     {
       std::stringstream ss;
-      ss << boost::lexical_cast<int>(pStr) + 1;
+      ss << mystd::lexical_cast<int>(pStr) + 1;
       pStr = ss.str();
     }
     catch (...) {}
@@ -443,7 +444,7 @@ SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
                                const std::string& pSeparator)
 {
   std::vector<std::string> vect;
-  boost::split(vect, pStr, boost::is_any_of(pSeparator));
+  mystd::split(vect, pStr, pSeparator);
   SetOfFacts res;
 
   for (const auto& currStr : vect)
@@ -850,7 +851,7 @@ std::vector<lp::Fact> factsFromString(const std::string& pStr,
                                       const std::string& pSeparator)
 {
   std::vector<lp::Fact> res;
-  boost::split(res, pStr, boost::is_any_of(pSeparator));
+  mystd::split(res, pStr, pSeparator);
   for (auto it = res.begin(); it != res.end(); )
   {
     if (it->empty())
