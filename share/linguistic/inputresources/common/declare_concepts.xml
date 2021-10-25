@@ -194,6 +194,12 @@
   <declareconcept name="manner_well" />
   <declareconcept name="manner_notwell" />
 
+  <declareconcept name="meal" />
+  <declareconcept name="meal_breakfast" />
+  <declareconcept name="meal_lunch" />
+  <declareconcept name="meal_snack" />
+  <declareconcept name="meal_dinner" />
+
   <declareconcept name="mentalState" />
   <declareconcept name="mentalState_know" />
 

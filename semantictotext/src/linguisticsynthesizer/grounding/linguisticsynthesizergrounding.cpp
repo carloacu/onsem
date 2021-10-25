@@ -597,7 +597,7 @@ bool Linguisticsynthesizergrounding::_needToWriteDeterminer
       case SemanticLanguageEnum::ENGLISH:
       {
         if (!pContext.requests.has(SemanticRequestType::ACTION) &&
-            ConceptSet::haveAConceptThatBeginWithAnyOf(pGrounding.concepts, {"concrete_food_", "gas_", "liquid_", "sport_", "number_", "url_"}))
+            ConceptSet::haveAConceptThatBeginWithAnyOf(pGrounding.concepts, {"concrete_food_", "gas_", "liquid_", "sport_", "meal_", "number_", "time_day_", "url_"}))
           return false;
         auto isUncountable = SemExpGetter::isUncountableFromGrd(pGrounding, pLingDb);
         return !isUncountable || !*isUncountable;

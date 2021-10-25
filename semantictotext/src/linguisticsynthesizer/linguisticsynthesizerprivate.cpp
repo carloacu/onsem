@@ -509,19 +509,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
   if (pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTAFTERVERB)
   {
     if (pRequests.has(SemanticRequestType::YESORNO))
-    {
       pRequests.clear();
-    }
-    else if (pRequests.has(SemanticRequestType::ACTION) &&
-             pContext.verbContextOpt &&
-             ConceptSet::verbSyntesisIsFollowedByAnInfinitiveThatMeansAnImperative(pContext.verbContextOpt->verbInflWord.infos.concepts))
-    {
-      pRequests.clear();
-      sentWorkStruct.outs.verbTense = SemanticVerbTense::UNKNOWN;
-      sentWorkStruct.subjectPtr = nullptr;
-      if (_language == SemanticLanguageEnum::FRENCH)
-        _strWithApostropheToOut(pOut, PartOfSpeech::SUBORDINATING_CONJONCTION, "d'", "de");
-    }
   }
   else if ((pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERNOUN ||
             pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERADJECTIVE) &&

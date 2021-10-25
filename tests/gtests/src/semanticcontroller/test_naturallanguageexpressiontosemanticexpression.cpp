@@ -9,7 +9,26 @@
 
 using namespace onsem;
 
+NaturalLanguageExpression _somethingTime(const std::string& pLemma)
+{
+  NaturalLanguageExpression res;
+  res.word = NaturalLanguageText("time", NaturalLanguageTypeOfText::NOUN, SemanticLanguageEnum::ENGLISH);
+  res.reference = SemanticReferenceType::DEFINITE;
+  res.children.emplace(GrammaticalType::SPECIFIER, [&] {
+    NaturalLanguageExpression specifier;
+    specifier.word = NaturalLanguageText(pLemma, NaturalLanguageTypeOfText::NOUN, SemanticLanguageEnum::ENGLISH);
+    return specifier;
+  }());
+  return res;
+}
 
+NaturalLanguageExpression _constructEnWord(const std::string& pLemma, SemanticReferenceType pReferenceType)
+{
+  NaturalLanguageExpression res;
+  res.word = NaturalLanguageText(pLemma, NaturalLanguageTypeOfText::NOUN, SemanticLanguageEnum::ENGLISH);
+  res.reference = pReferenceType;
+  return res;
+}
 
 
 TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpression)
@@ -30,9 +49,9 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
   getNaulHands.quantity.setPlural();
   getNaulHands.reference = SemanticReferenceType::DEFINITE;
   getNaulHands.children.emplace(GrammaticalType::OWNER, paulNle);
-  NaturalLanguageExpression getAnUmbrella;
-  getAnUmbrella.word = NaturalLanguageText("umbrella", NaturalLanguageTypeOfText::NOUN, SemanticLanguageEnum::ENGLISH);
-  getAnUmbrella.reference = SemanticReferenceType::INDEFINITE;
+  NaturalLanguageExpression getAnUmbrella = _constructEnWord("umbrella", SemanticReferenceType::INDEFINITE);
+  NaturalLanguageExpression morningExp = _constructEnWord("morning", SemanticReferenceType::DEFINITE);
+  NaturalLanguageExpression lunchExp = _somethingTime("lunch");
 
   NaturalLanguageExpression paulWantsToGetCompanyInfoNle;
   paulWantsToGetCompanyInfoNle.word = NaturalLanguageText("want", NaturalLanguageTypeOfText::VERB, SemanticLanguageEnum::ENGLISH);
@@ -65,6 +84,12 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
   paulShouldWearAnUmbrellaNle.verbGoal = VerbGoalEnum::ADVICE;
   paulShouldWearAnUmbrellaNle.children.emplace(GrammaticalType::SUBJECT, paulNle);
   paulShouldWearAnUmbrellaNle.children.emplace(GrammaticalType::OBJECT, getAnUmbrella);
+
+  NaturalLanguageExpression lunchIsAfterMorningNle;
+  lunchIsAfterMorningNle.word = NaturalLanguageText("be~after", NaturalLanguageTypeOfText::VERB, SemanticLanguageEnum::ENGLISH);
+  lunchIsAfterMorningNle.verbTense = SemanticVerbTense::PRESENT;
+  lunchIsAfterMorningNle.children.emplace(GrammaticalType::SUBJECT, lunchExp);
+  lunchIsAfterMorningNle.children.emplace(GrammaticalType::OBJECT, morningExp);
 
   NaturalLanguageExpression aRandomQuoteNle;
   aRandomQuoteNle.word = NaturalLanguageText("Aa bb ok ffsgsg", NaturalLanguageTypeOfText::QUOTE, SemanticLanguageEnum::UNKNOWN);
@@ -176,5 +201,13 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
   TextExecutor textExec(semMem, lingDb, logger);
   textExec.runSemExp(std::move(semExp7), execContext);
   EXPECT_EQ("\\resLabel=resValue\\", logStr);
+
+  auto semExp8 = converter::naturalLanguageExpressionToSemanticExpression(lunchIsAfterMorningNle, lingDb);
+  EXPECT_EQ("Lunch time is after morning.",
+            semExpToText(semExp8->clone(),
+                         SemanticLanguageEnum::ENGLISH, semMem, lingDb));
+  EXPECT_EQ("Le temps de déjeuner est après le matin.",
+            semExpToText(semExp8->clone(),
+                         SemanticLanguageEnum::FRENCH, semMem, lingDb));
 }
 

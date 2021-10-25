@@ -1,0 +1,18 @@
+<linguisticdatabase>
+ <concept name="meal">
+  <linkedMeaning lemme="meal" relationToConcept="4"/>
+ </concept>
+ <concept name="meal_breakfast">
+  <linkedMeaning lemme="breakfast" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="meal_lunch">
+  <linkedMeaning lemme="lunch" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="meal_snack">
+  <linkedMeaning lemme="snack" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="afternoon tea" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="meal_dinner">
+  <linkedMeaning lemme="dinner" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>
