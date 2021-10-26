@@ -8,6 +8,10 @@
   <wordForm gram="verb"/>
  </words>
  <words lemme="être" gram="verb">
+  <nextMeaning lemme="après" gram="preposition"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="être" gram="verb">
   <nextMeaning lemme="d'accord" gram="adverb"/>
   <wordForm gram="verb"/>
  </words>
