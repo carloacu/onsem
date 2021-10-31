@@ -1,0 +1,7 @@
+#ifndef TEST_ARITHMETICEVALUATOR_HPP
+#define TEST_ARITHMETICEVALUATOR_HPP
+
+void test_arithmeticEvaluator();
+
+#endif // TEST_ARITHMETICEVALUATOR_HPP
+

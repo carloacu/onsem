@@ -38,4 +38,5 @@ install(TARGETS onsemchatbotplanner DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
 
 
+add_subdirectory(tests)
 
