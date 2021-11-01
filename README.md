@@ -39,7 +39,7 @@ cd ${ONSEM_ROOT}/build
 
 ### Command line for databases compilation
 
-:warning: **This step is mandatory before the compilation**. It should be done in the same build folder than the compilation.
+:warning: This step is mandatory before the compilation. It should be done in the same build folder than the compilation.
 
 ```bash
 cmake -DBUILD_ONSEM_DATABASE=ON ../ && make -j4
@@ -51,6 +51,7 @@ cmake -DBUILD_ONSEM_DATABASE=ON ../ && make -j4
 ```bash
 cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_DATABASE=OFF -DBUILD_ONSEM_TESTS=ON ../ && make -j4
 ```
+
 
 
 Install runtime dependencies
@@ -74,13 +75,15 @@ pip3 install vosk
 Execution (from command line)
 -----------------------------
 
+The following command lines should be run from the root of the build folder.
 
 ### Execution of the debug gui
+
+:warning: To have the micro working [go to the "Start the STT" chapter](#start-the-stt-(speech-to-text))
 
 ```bash
 ./voicebotgui/voicebotgui --databases linguistic/databases --share_semantic ../share/semantic
 ```
-
 
 ### Execution of the tests
 
@@ -127,6 +130,8 @@ Start the STT (Speech To Text)
 
 To have the "micro" button working in the gui, you need to start the Speech To Text either
 in french or in english but not in both languages at the same time.
+
+The following command lines should be run from the repository root folder.
 
 
 ### To start it in french
