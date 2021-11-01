@@ -125,8 +125,8 @@ Projects > Run > Command line arguments > Copy past the arguments below<br />
 
 
 
-Start the STT (Speech To Text)
-------------------------------
+#Start the STT (Speech To Text)
+-------------------------------
 
 To have the "micro" button working in the gui, you need to start the Speech To Text either
 in french or in english but not in both languages at the same time.
