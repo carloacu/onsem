@@ -59,11 +59,15 @@ Install runtime dependencies
 
 ### Install dot
 
+It is to print the structure of the analyzed texts.
+
 ```bash
 sudo apt-get install graphviz
 ```
 
 ### Install vosk
+
+It is for the Speech To Text in the gui. To make it run, go to the [Start the STT (Speech To Text)](#start-the-stt) heading.
 
 ```bash
 pip3 install vosk
@@ -79,7 +83,7 @@ The following command lines should be run from the root of the build folder.
 
 ### Execution of the debug gui
 
-:warning: To have the micro working [go to the "Start the STT" chapter](#start-the-stt)
+:warning: To have the micro working, go to the [Start the STT (Speech To Text)](#start-the-stt) heading.
 
 ```bash
 ./voicebotgui/voicebotgui --databases linguistic/databases --share_semantic ../share/semantic
@@ -105,6 +109,8 @@ The arguments have to be set here:<br />
 Projects > Build & Run > Run<br />
 Projects > Run > Run configuration > Select "voicegui"<br />
 Projects > Run > Command line arguments > Copy past the arguments below<br />
+
+:warning: To have the micro working, go to the [Start the STT (Speech To Text)](#start-the-stt) heading.
 
 ```bash
 --databases ../linguistic/databases --share_semantic ../../share/semantic
@@ -132,6 +138,14 @@ To have the "micro" button working in the gui, you need to start the Speech To T
 in french or in english but not in both languages at the same time.
 
 The following command lines should be run from the repository root folder.
+
+
+
+### Before to start any Speech to text, install vosk
+
+```bash
+pip3 install vosk
+```
 
 
 ### To start it in french
