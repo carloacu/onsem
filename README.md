@@ -79,7 +79,7 @@ The following command lines should be run from the root of the build folder.
 
 ### Execution of the debug gui
 
-:warning: To have the micro working [go to the "Start the STT" chapter](#start-the-stt-(speech-to-text))
+:warning: To have the micro working [go to the "Start the STT" chapter](#start-the-stt)
 
 ```bash
 ./voicebotgui/voicebotgui --databases linguistic/databases --share_semantic ../share/semantic
@@ -124,7 +124,7 @@ Projects > Run > Command line arguments > Copy past the arguments below<br />
 ```
 
 
-
+<span id="start-the-stt"></span>
 #Start the STT (Speech To Text)
 -------------------------------
 
