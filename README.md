@@ -1,7 +1,9 @@
 onsem
 =====
 
-NLP C++ tools
+
+This repository gather some Natural Language Processing (NLP) tools written in C++.
+To test it, launch the executable viocebotgui.
 
 
 
@@ -16,8 +18,6 @@ sudo apt-get install libboost-all-dev
 
 
 ### Install gtest
-
-Look at readme/install_gtest.txt for more details
 
 ```bash
 sudo apt-get install libgtest-dev
@@ -67,7 +67,7 @@ sudo apt-get install graphviz
 
 ### Install vosk
 
-It is for the Speech To Text in the gui. To make it run, go to the [Start the STT (Speech To Text)](#start-the-stt) heading.
+It is for the Speech To Text in the gui. To make it run, look at the [Start the STT (Speech To Text)](#start-the-stt) heading.
 
 ```bash
 pip3 install vosk
@@ -83,7 +83,7 @@ The following command lines should be run from the root of the build folder.
 
 ### Execution of the debug gui
 
-:warning: To have the micro working, go to the [Start the STT (Speech To Text)](#start-the-stt) heading.
+:warning: To have the micro working, look at the [Start the STT (Speech To Text)](#start-the-stt) heading.
 
 ```bash
 ./voicebotgui/voicebotgui --databases linguistic/databases --share_semantic ../share/semantic
@@ -110,7 +110,7 @@ Projects > Build & Run > Run<br />
 Projects > Run > Run configuration > Select "voicegui"<br />
 Projects > Run > Command line arguments > Copy past the arguments below<br />
 
-:warning: To have the micro working, go to the [Start the STT (Speech To Text)](#start-the-stt) heading.
+:warning: To have the micro working, look at the [Start the STT (Speech To Text)](#start-the-stt) heading.
 
 ```bash
 --databases ../linguistic/databases --share_semantic ../../share/semantic
@@ -134,11 +134,10 @@ Projects > Run > Command line arguments > Copy past the arguments below<br />
 #Start the STT (Speech To Text)
 -------------------------------
 
+The following command lines should be run from this repository root folder.
+
 To have the "micro" button working in the gui, you need to start the Speech To Text either
 in french or in english but not in both languages at the same time.
-
-The following command lines should be run from the repository root folder.
-
 
 
 ### Before to start any Speech to text, install vosk
@@ -148,13 +147,13 @@ pip3 install vosk
 ```
 
 
-### To start it in french
+### To start the STT in french
 
 ```bash
 sh run_stt.sh fr
 ```
 
-### To start it in english
+### To start the STT in english
 
 ```bash
 sh run_stt.sh en
