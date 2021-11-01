@@ -1,0 +1,9 @@
+Kaldi models: https://alphacephei.com/vosk/models
+
+
+
+
+fr = vosk-model-fr-0.6-linto-2.2.0 (https://alphacephei.com/vosk/models/vosk-model-fr-0.6-linto-2.2.0.zip) - AGPL
+
+
+en = vosk-model-en-us-daanzu-20200905 (https://alphacephei.com/vosk/models/vosk-model-en-us-daanzu-20200905.zip) - AGPL
