@@ -131,8 +131,8 @@ Projects > Run > Command line arguments > Copy past the arguments below<br />
 
 
 <span id="start-the-stt"></span>
-#Start the STT (Speech To Text)
--------------------------------
+Start the STT (Speech To Text)
+------------------------------
 
 The following command lines should be run from this repository root folder.
 
