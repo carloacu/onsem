@@ -35,6 +35,14 @@ sudo apt-get install cmake
 sudo apt-get install build-essential
 ```
 
+### Install qt5
+
+It is usefull if you enable BUILD_ONSEM_TESTS. It allows to compile the tests and the gui.
+
+```bash
+sudo apt-get install qtbase5-dev
+```
+
 
 
 Compilation
