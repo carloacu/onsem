@@ -99,6 +99,13 @@ If you need to install pip3, run the command
 sudo apt-get -y install python3-pip
 ```
 
+And here are some dependancies for vosk
+
+```bash
+pip install sounddevice
+sudo apt-get install libportaudio2
+```
+
 
 
 
