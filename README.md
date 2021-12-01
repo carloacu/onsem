@@ -93,6 +93,12 @@ It is for the Speech To Text in the gui. To make it run, look at the [Start the 
 pip3 install vosk
 ```
 
+If you need to install pip3, run the command
+
+```bash
+sudo apt-get -y install python3-pip
+```
+
 
 
 
