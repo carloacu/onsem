@@ -23,6 +23,18 @@ sudo apt-get install libboost-all-dev
 sudo apt-get install libgtest-dev
 ```
 
+### Insall cmake
+
+```bash
+sudo apt-get install cmake
+```
+
+### Install g++
+
+```bash
+sudo apt-get install build-essential
+```
+
 
 
 Compilation
