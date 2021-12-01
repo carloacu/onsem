@@ -94,7 +94,7 @@ struct ONSEMSEMANTICDEBUGGER_API SyntacticAnalysisResultToDisplay
   SyntacticAnalysisResultToDisplay()
     : tokens(), finalGramPossibilities(), finalConcepts(), taggedTokens(),
       taggedTokensTagsPossibilities(), highLevelResults(), performances(),
-      resultingSentence(), isReformulationOk(true)
+      isReformulationOk(true)
   {
   }
 
@@ -109,7 +109,6 @@ struct ONSEMSEMANTICDEBUGGER_API SyntacticAnalysisResultToDisplay
   std::list<std::list<std::string> > taggedTokensTagsPossibilities;
   SemanticAnalysisHighLevelResults highLevelResults;
   std::string performances;
-  std::string resultingSentence;
   bool isReformulationOk;
 };
 

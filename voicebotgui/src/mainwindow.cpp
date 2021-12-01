@@ -526,8 +526,8 @@ void MainWindow::xDisplayResult
        tokensIt != pAutoAnnotToDisplay.taggedTokens.end();
        ++tokensIt, ++tagsIt)
   {
-    fTaggedTokens << new QLabel(_ui->tab_AATester_Logs_Animations);
-    fTokenTagsPossibilities << new QComboBox(_ui->tab_AATester_Logs_Animations);
+    fTaggedTokens << new QLabel(_ui->tabWidget_AATester_Logs);
+    fTokenTagsPossibilities << new QComboBox(_ui->tabWidget_AATester_Logs);
     fTaggedTokens[idToken]->setGeometry(10, 45 + idToken * 30, 150, 25);
     fTokenTagsPossibilities[idToken]->setGeometry(170, 45 + idToken * 30, 110, 25);
     fTaggedTokens[idToken]->setText(QString::fromUtf8(tokensIt->c_str()));
@@ -538,8 +538,6 @@ void MainWindow::xDisplayResult
     ++idToken;
   }
 
-  _ui->label_AATester_ResultSentence->setText
-      (QString::fromUtf8(pAutoAnnotToDisplay.resultingSentence.c_str()));
   _ui->label_AATester_Logs_Performances->setText
       (QString::fromUtf8(pAutoAnnotToDisplay.performances.c_str()));
 
@@ -729,8 +727,6 @@ void MainWindow::onRescaleLinguisticAnalyzerPanel()
                                                     textEditW, _ui->lineEdit_AATester_InputSentence->height());
   _ui->pushButton_micro->setGeometry(textEditX + textEditW + 10, _ui->pushButton_micro->y(),
                                      _ui->pushButton_micro->width(), _ui->pushButton_micro->height());
-  _ui->label_AATester_ResultSentence->setGeometry(0, _ui->label_AATester_ResultSentence->y(),
-                                                  _ui->tab_AATester->width(), _ui->label_AATester_ResultSentence->height());
 
   _ui->tabWidget_AATester_Logs->setGeometry(10, _ui->tabWidget_AATester_Logs->y(), _ui->tab_AATester->width() - 20,
                                             _ui->tab_AATester->height() - _ui->tabWidget_AATester_Logs->y() - 10);
