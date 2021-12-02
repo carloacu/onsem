@@ -165,12 +165,12 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                       operator_react("dis la blague du jour", semMem, lingDb));
     const std::string jokeStr = "\"j'ai une blague sur les magasins mais elle n'a pas super marchée\"";
     ONSEM_NOANSWER(operator_react("la blague d'aujourd'hui c'est " + jokeStr, semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ(jokeStr, operator_react("say the joke of today", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ(jokeStr, operator_react("say the joke of the day", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ(jokeStr, operator_react("raconte la blague d'aujourd'hui", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ(jokeStr, operator_react("raconte la blague du jour", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ(jokeStr, operator_react("raconte-moi la blague du jour", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ(jokeStr, operator_react("dis la blague du jour", semMem, lingDb));
+    ONSEM_ANSWER_EQ(jokeStr, operator_react("say the joke of today", semMem, lingDb));
+    ONSEM_ANSWER_EQ(jokeStr, operator_react("say the joke of the day", semMem, lingDb));
+    ONSEM_ANSWER_EQ(jokeStr, operator_react("raconte la blague d'aujourd'hui", semMem, lingDb));
+    ONSEM_ANSWER_EQ(jokeStr, operator_react("raconte la blague du jour", semMem, lingDb));
+    ONSEM_ANSWER_EQ(jokeStr, operator_react("raconte-moi la blague du jour", semMem, lingDb));
+    ONSEM_ANSWER_EQ(jokeStr, operator_react("dis la blague du jour", semMem, lingDb));
     ONSEM_ANSWER_EQ("La blague d'aujourd'hui est " + jokeStr + ".", operator_react("quel est la blague du jour", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\t)",
                       operator_react("Say \"a1\" then say \"a2\" and say \"a3\" then say \"a4\"", semMem, lingDb));
@@ -184,6 +184,8 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                               operator_react("that is to be nice", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("Thanks",
                       operator_react("be nice", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("Thanks",
+                      operator_react("I want you to be nice", semMem, lingDb));
   }
 
   // action labeling after execution of a sequence of actions
@@ -821,6 +823,8 @@ TEST_F(SemanticReasonerGTests, operator_react_checkReactionType)
                                      operator_react("si quelqu'un touche ta tête, dis miaouh", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(raiseHeadCommandStr, operator_react("lève la tête", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("Super", operator_react("sois content", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("Super", operator_react("sois content s'il te plaît", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("Super", operator_react("Je veux que tu sois content", semMem, lingDb));
   ONSEM_ANSWER_EQ("Noé est ton frère.", operator_react("Qui est Noé ?", semMem, lingDb));
   ONSEM_QUESTION_EQ("Qui est Paul ?", operator_react("Dis à Paul que je suis content pour lui", semMem, lingDb));
   ONSEM_QUESTION_EQ("Qui est Jacques ?", operator_react("Si tu es content dis bonjour à Jacques", semMem, lingDb));

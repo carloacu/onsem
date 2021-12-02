@@ -30,39 +30,52 @@ bool _processWantSentences(SemControllerWorkingStruct& pWorkStruct,
   auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
   if (itObject != pGrdExp.children.end())
   {
-    auto knowGrdExPtr = itObject->second->getGrdExpPtr_SkipWrapperPtrs();
-    if (knowGrdExPtr == nullptr)
+    auto objGrdExPtr = itObject->second->getGrdExpPtr_SkipWrapperPtrs();
+    if (objGrdExPtr == nullptr)
       return false;
 
-    const SemanticStatementGrounding* knowStatGrdPtr = knowGrdExPtr->grounding().getStatementGroundingPtr();
-    if (knowStatGrdPtr == nullptr ||
-        knowStatGrdPtr->verbTense != SemanticVerbTense::UNKNOWN ||
-        knowStatGrdPtr->concepts.count("mentalState_know") == 0)
+    const SemanticStatementGrounding* objStatGrdPtr = objGrdExPtr->grounding().getStatementGroundingPtr();
+    if (objStatGrdPtr == nullptr)
       return false;
 
-    auto itKnowObject = knowGrdExPtr->children.find(GrammaticalType::OBJECT);
-    if (itKnowObject != knowGrdExPtr->children.end())
+    if (objStatGrdPtr->concepts.count("mentalState_know") != 0)
     {
-      auto questionGrdExPtr = itKnowObject->second->getGrdExpPtr_SkipWrapperPtrs();
-      if (questionGrdExPtr == nullptr)
+      if (objStatGrdPtr->verbTense != SemanticVerbTense::UNKNOWN)
         return false;
 
-      const GroundedExpression& questionGrdExp = *questionGrdExPtr;
-      const SemanticStatementGrounding* questionStatGrdPtr = questionGrdExp->getStatementGroundingPtr();
-      if (questionStatGrdPtr != nullptr)
+      auto itKnowObject = objGrdExPtr->children.find(GrammaticalType::OBJECT);
+      if (itKnowObject != objGrdExPtr->children.end())
       {
-        auto& questionRequests = questionStatGrdPtr->requests;
-        if (questionRequests.has(SemanticRequestType::NOTHING) ||
-            questionRequests.has(SemanticRequestType::ACTION))
+        auto questionGrdExPtr = itKnowObject->second->getGrdExpPtr_SkipWrapperPtrs();
+        if (questionGrdExPtr == nullptr)
           return false;
-        SemControllerWorkingStruct subWorkStruct(pWorkStruct);
-        if (subWorkStruct.askForNewRecursion())
+
+        const GroundedExpression& questionGrdExp = *questionGrdExPtr;
+        const SemanticStatementGrounding* questionStatGrdPtr = questionGrdExp->getStatementGroundingPtr();
+        if (questionStatGrdPtr != nullptr)
         {
-          controller::manageQuestion(subWorkStruct, pMemViewer, questionRequests,
-                                     questionGrdExp, {}, questionGrdExp);
-          pWorkStruct.addAnswers(subWorkStruct);
-          return true;
+          auto& questionRequests = questionStatGrdPtr->requests;
+          if (questionRequests.has(SemanticRequestType::NOTHING) ||
+              questionRequests.has(SemanticRequestType::ACTION))
+            return false;
+          SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+          if (subWorkStruct.askForNewRecursion())
+          {
+            controller::manageQuestion(subWorkStruct, pMemViewer, questionRequests,
+                                       questionGrdExp, {}, questionGrdExp);
+            pWorkStruct.addAnswers(subWorkStruct);
+            return true;
+          }
         }
+      }
+    }
+    else if (SemExpGetter::agentIsTheSubject(*objGrdExPtr, SemanticAgentGrounding::me))
+    {
+      SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+      if (subWorkStruct.askForNewRecursion())
+      {
+        controller::manageAction(subWorkStruct, pMemViewer, *objStatGrdPtr, *objGrdExPtr, *objGrdExPtr);
+        pWorkStruct.addAnswers(subWorkStruct);
       }
     }
   }
@@ -93,8 +106,11 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
   const SemanticStatementGrounding* statGrdPtr = pGrdExp->getStatementGroundingPtr();
   if (statGrdPtr == nullptr)
     return false;
+  auto& statGrd = *statGrdPtr;
+  if (!statGrd.polarity)
+    return false;
 
-  for (const auto& currCpt : statGrdPtr->concepts)
+  for (const auto& currCpt : statGrd.concepts)
   {
     if (currCpt.first == "verb_want")
       return _processWantSentences(pWorkStruct, pMemViewer, pGrdExp);

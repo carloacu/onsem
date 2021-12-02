@@ -3,6 +3,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/metadataexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/common/utility/random.hpp>
 #include "../../type/referencesfiller.hpp"
 #include "../../type/semanticdetailledanswer.hpp"
@@ -22,13 +23,15 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
 {
   for (const auto& verbCpt : pGrdExpStatement.concepts)
   {
-    if (verbCpt.first == "verb_action_show")
+    if (verbCpt.first == "verb_action_show" || verbCpt.first == "verb_action_say")
     {
       auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
       if (itObject != pGrdExp.children.end())
       {
         const GroundedExpression* ojectGrdExp = itObject->second->getGrdExpPtr_SkipWrapperPtrs();
-        if (ojectGrdExp != nullptr)
+        if (ojectGrdExp != nullptr &&
+            (verbCpt.first == "verb_action_show" ||
+             SemExpGetter::getReferenceTypeFromGrd(ojectGrdExp->grounding()) == SemanticReferenceType::DEFINITE))
         {
           SemControllerWorkingStruct subWorkStruct(pWorkStruct);
           if (subWorkStruct.askForNewRecursion())

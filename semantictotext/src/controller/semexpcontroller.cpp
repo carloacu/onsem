@@ -683,11 +683,11 @@ void applyOperatorOnSemExpConstMem(std::unique_ptr<CompositeSemAnswer>& pComposi
 }
 
 
-void _manageAction(SemControllerWorkingStruct& pWorkStruct,
-                   SemanticMemoryBlockViewer& pMemViewer,
-                   const SemanticStatementGrounding& pStatementStruct,
-                   const GroundedExpression& pGrdExp,
-                   const GroundedExpression& pOriginalGrdExp)
+void manageAction(SemControllerWorkingStruct& pWorkStruct,
+                  SemanticMemoryBlockViewer& pMemViewer,
+                  const SemanticStatementGrounding& pStatementStruct,
+                  const GroundedExpression& pGrdExp,
+                  const GroundedExpression& pOriginalGrdExp)
 {
   switch (pWorkStruct.reactOperator)
   {
@@ -1133,7 +1133,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
     // handle the requests
     if (statementGrd.requests.has(SemanticRequestType::ACTION))
     {
-      _manageAction(pWorkStruct, pMemViewer, statementGrd, pGrdExp, pOriginalGrdExp);
+      manageAction(pWorkStruct, pMemViewer, statementGrd, pGrdExp, pOriginalGrdExp);
       break;
     }
     if (!statementGrd.requests.empty())

@@ -90,6 +90,12 @@ void linkConditionalReactions(std::list<std::unique_ptr<SemAnswer> >& pSemAnswer
 void convertToDetalledAnswer(std::list<std::unique_ptr<SemAnswer>>& pDetailledAnswers,
                              SemControllerWorkingStruct& pWorkStruct);
 
+void manageAction(SemControllerWorkingStruct& pWorkStruct,
+                  SemanticMemoryBlockViewer& pMemViewer,
+                  const SemanticStatementGrounding& pStatementStruct,
+                  const GroundedExpression& pGrdExp,
+                  const GroundedExpression& pOriginalGrdExp);
+
 void manageQuestion(SemControllerWorkingStruct& pWorkStruct,
                     SemanticMemoryBlockViewer& pMemViewer,
                     const SemanticRequests& pRequests,

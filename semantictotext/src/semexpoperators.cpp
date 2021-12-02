@@ -983,12 +983,12 @@ void pingTime(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction
 
 
 
-std::shared_ptr<ExpressionHandleInMemory> react
-(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
- SemanticMemory& pSemanticMemory,
- UniqueSemanticExpression pSemExp,
- const linguistics::LinguisticDatabase& pLingDb,
- const ReactionOptions* pReactionOptions)
+std::shared_ptr<ExpressionHandleInMemory> react(
+    mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+    SemanticMemory& pSemanticMemory,
+    UniqueSemanticExpression pSemExp,
+    const linguistics::LinguisticDatabase& pLingDb,
+    const ReactionOptions* pReactionOptions)
 {
   converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
   conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
