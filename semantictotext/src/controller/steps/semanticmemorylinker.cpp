@@ -1068,13 +1068,14 @@ bool addTriggerSentencesAnswer
  const RequestLinks& pReqLinks,
  SemanticExpressionCategory pExpCategory,
  const SemanticTriggerAxiomId& pAxiomId,
- const GroundedExpression& pInputGrdExp)
+ const GroundedExpression& pInputGrdExp,
+ ContextualAnnotation pContAnnotation)
 {
   std::set<const ExpressionHandleInMemory*> semExpWrapperPtrs;
   _matchGrdExpTrigger(semExpWrapperPtrs, pWorkStruct, pMemViewer,
                       pReqLinks, pExpCategory, pAxiomId, pInputGrdExp);
   return _addTriggerThatMatchTheMost(pWorkStruct, pAnAnswerHasBeenAdded, semExpWrapperPtrs,
-                                     pMemViewer, ContextualAnnotation::ANSWER, pInputGrdExp);
+                                     pMemViewer, pContAnnotation, pInputGrdExp);
 }
 
 
@@ -1098,7 +1099,8 @@ bool satisfyAnAction(SemControllerWorkingStruct& pWorkStruct,
   bool anAnswerHasBeenAdded = false;
   if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
       addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinks,
-                                SemanticExpressionCategory::COMMAND, _emptyAxiomId, pGrdExp))
+                                SemanticExpressionCategory::COMMAND, _emptyAxiomId, pGrdExp,
+                                ContextualAnnotation::BEHAVIOR))
     return true;
 
   if (specificActionsHandler::process(pWorkStruct, pMemViewer, pGrdExp, pGrdExpStatement))
@@ -1556,7 +1558,8 @@ bool matchAffirmationTrigger
 {
   bool anAnswerHasBeenAdded = false;
   bool res = addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, pReqLinks,
-                                       SemanticExpressionCategory::AFFIRMATION, _emptyAxiomId, pInputGrdExp);
+                                       SemanticExpressionCategory::AFFIRMATION, _emptyAxiomId, pInputGrdExp,
+                                       ContextualAnnotation::ANSWER);
 
   if (!res && pWorkStruct.callbackToSentencesCanBeAnsweredPtr != nullptr)
   {
@@ -2055,7 +2058,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
     getLinksOfAGrdExp(reqLinksOfOriginalGrdExp, pWorkStruct, pMemViewer, pOriginalGrdExp, false);
     if (addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinksOfOriginalGrdExp,
                                   SemanticExpressionCategory::QUESTION, _emptyAxiomId,
-                                  pOriginalGrdExp))
+                                  pOriginalGrdExp, ContextualAnnotation::ANSWER))
       return true;
   }
 

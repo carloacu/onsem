@@ -277,12 +277,12 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=aDpywB8pHJ4\\";
   operator_addATrigger(questionTrigger3Str, videoResource3Str, semMem, lingDb);
 
-  ONSEM_ANSWER_EQ(videoResource3Str,
-                  operator_react(questionTrigger3Str, semMem, lingDb,
-                                 SemanticLanguageEnum::FRENCH, &cannnotMergeTextAndResourceReaction));
-  ONSEM_ANSWER_EQ(videoResource3Str,
-                  operator_react(questionTrigger3Str, semMem, lingDb,
-                                 SemanticLanguageEnum::FRENCH, &canMergeTextAndResourceReaction));
+  ONSEM_BEHAVIOR_EQ(videoResource3Str,
+                    operator_react(questionTrigger3Str, semMem, lingDb,
+                                   SemanticLanguageEnum::FRENCH, &cannnotMergeTextAndResourceReaction));
+  ONSEM_BEHAVIOR_EQ(videoResource3Str,
+                    operator_react(questionTrigger3Str, semMem, lingDb,
+                                   SemanticLanguageEnum::FRENCH, &canMergeTextAndResourceReaction));
 
 
   const std::string questionTrigger4Str = "Je veux voir une vidéo de Gad";

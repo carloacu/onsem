@@ -210,12 +210,12 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas te donner ma main.",
                               operator_react(order1Str, semMem, lingDb));
     operator_addATrigger(order1Str, "Laquelle", semMem, lingDb);
-    ONSEM_ANSWER_EQ("Lequel ?", operator_react(order1Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("Lequel ?", operator_react(order1Str, semMem, lingDb));
     const std::string order2Str = "Donne-moi ta main mouillée";
     ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas te donner ma main mouillée.",
                               operator_react(order2Str, semMem, lingDb));
     operator_addATrigger(order2Str, "Ok la voilà", semMem, lingDb);
-    ONSEM_ANSWER_EQ("Ok. Le voilà", operator_react(order2Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("Ok. Le voilà", operator_react(order2Str, semMem, lingDb));
   }
 
   // infinitive trigger
@@ -264,6 +264,15 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIOR_EQ("Quelle est la différence entre un amant et un mari ?",
                       operator_react("demande quelle est la différence entre un amant et un mari", semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_react("je ne sais pas", semMem, lingDb));
+  }
+
+  // action trigger
+  {
+    const std::string triggerStr = "lance akinator";
+    const std::string answerStr = "Nous sommes dans akinator.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    memoryOperation::learnSayCommand(semMem, lingDb);
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react("lance akinator", semMem, lingDb));
   }
 }
 

@@ -1159,7 +1159,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
       if (pWorkStruct.reactionOptions.canAnswerWithATrigger &&
           semanticMemoryLinker::addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinks,
                                                           SemanticExpressionCategory::NOMINALGROUP,
-                                                          _emptyAxiomId, pGrdExp))
+                                                          _emptyAxiomId, pGrdExp, ContextualAnnotation::ANSWER))
         break;
 
       proactiveReactionFromNominalGroup::react(pWorkStruct, pMemViewer, pGrdExp);

@@ -106,7 +106,8 @@ bool addTriggerSentencesAnswer(SemControllerWorkingStruct& pWorkStruct,
                                const RequestLinks& pReqLinks,
                                SemanticExpressionCategory pExpCategory,
                                const SemanticTriggerAxiomId& pAxiomId,
-                               const GroundedExpression& pInputGrdExp);
+                               const GroundedExpression& pInputGrdExp,
+                               ContextualAnnotation pContAnnotation);
 
 void getInformationsLinkedToCondition(std::set<const SemanticMemorySentence*>& pNewInformations,
                                       SemControllerWorkingStruct& pWorkStruct,
