@@ -269,10 +269,11 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
   // action trigger
   {
     const std::string triggerStr = "lance akinator";
-    const std::string answerStr = "Nous sommes dans akinator.";
+    const std::string answerStr = "Je lance akinatorApp.";
     operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
     memoryOperation::learnSayCommand(semMem, lingDb);
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("lance akinator", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu lances akinator", semMem, lingDb));
   }
 }
 

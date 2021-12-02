@@ -1004,7 +1004,7 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
       if (pWorkStruct.expHandleInMemory != nullptr &&
           isNewInformationRevelant)
         newContextAxiom = pWorkStruct.expHandleInMemory->addAxiomFromGrdExp(pWorkStruct.informationType, pGrdExp,
-                                                                              pWorkStruct.annotatedExps, pWorkStruct.lingDb);
+                                                                            pWorkStruct.annotatedExps, pWorkStruct.lingDb);
 
       // Consider the new informations that become true because they are linked to a condition that is satistied by the input.
       // Recurssively this new informations can trigger new answers.

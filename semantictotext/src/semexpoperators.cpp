@@ -182,6 +182,19 @@ void addATrigger(UniqueSemanticExpression pTriggerSemExp,
                  SemanticMemory& pSemanticMemory,
                  const linguistics::LinguisticDatabase& pLingDb)
 {
+  if (memoryOperation::categorize(*pTriggerSemExp) == SemanticExpressionCategory::COMMAND)
+  {
+    auto* triggerGrdExpPtr = pTriggerSemExp->getGrdExpPtr();
+    if (triggerGrdExpPtr != nullptr)
+    {
+      auto triggerGrdExpInfForm =
+          SemExpCreator::getImperativeInfinitiveForm(*triggerGrdExpPtr);
+      auto definitionSemExp =
+          SemExpCreator::subjMeansObject(std::move(triggerGrdExpInfForm), pAnswerSemExp->clone());
+      informAxiom(std::move(definitionSemExp), pSemanticMemory, pLingDb, nullptr, nullptr);
+    }
+  }
+
   resolveAgentAccordingToTheContext(pTriggerSemExp, pSemanticMemory, pLingDb);
   converter::splitEquivalentQuestions(pTriggerSemExp, pLingDb);
   auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pTriggerSemExp), pLingDb);
@@ -726,9 +739,9 @@ void learnSayCommand(SemanticMemory& pSemanticMemory,
                      const linguistics::LinguisticDatabase& pLingDb)
 {
   _informAxioms({"to say \\p_meta=0\\ means \\p_meta=0\\",
-                       "to ask \\p_meta=0_#dontanswer\\ means \\p_meta=0_#dontanswer\\",
-                       "to repeat means to say the last thing that I said"},
-                      SemanticLanguageEnum::ENGLISH, pSemanticMemory, pLingDb);
+                 "to ask \\p_meta=0_#dontanswer\\ means \\p_meta=0_#dontanswer\\",
+                 "to repeat means to say the last thing that I said"},
+                SemanticLanguageEnum::ENGLISH, pSemanticMemory, pLingDb);
 }
 
 void allowToInformTheUserHowToTeach(SemanticMemory& pSemanticMemory)

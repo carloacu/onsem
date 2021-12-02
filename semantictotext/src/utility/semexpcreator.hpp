@@ -47,6 +47,7 @@ UniqueSemanticExpression sentenceFromTriple(UniqueSemanticExpression pSemExpSubj
                                             UniqueSemanticExpression pSemExpObject);
 
 std::unique_ptr<SemanticExpression> getImperativeAssociateFrom(const GroundedExpression& pGrdExp);
+std::unique_ptr<SemanticExpression> getImperativeInfinitiveForm(const GroundedExpression& pGrdExp);
 
 UniqueSemanticExpression askWhatIs(const SemanticExpression& pSubjectSemExp);
 
@@ -182,6 +183,10 @@ UniqueSemanticExpression generateYesOrNoAnswerFromMemory(
     UniqueSemanticExpression pSemExp,
     bool pSamePolarity,
     const std::map<GrammaticalType, const SemanticExpression*>& pAnnotationsOfTheAnswer);
+
+UniqueSemanticExpression subjMeansObject(
+    UniqueSemanticExpression pSubject,
+    UniqueSemanticExpression pObject);
 
 
 } // End of namespace SemExpCreator

@@ -338,6 +338,21 @@ std::unique_ptr<SemanticExpression> getImperativeAssociateFrom(
 }
 
 
+std::unique_ptr<SemanticExpression> getImperativeInfinitiveForm(
+    const GroundedExpression& pGrdExp)
+{
+  auto rootGrdExp = pGrdExp.clone();
+  SemanticStatementGrounding* statementGrd = (*rootGrdExp)->getStatementGroundingPtr();
+  if (statementGrd != nullptr)
+  {
+    statementGrd->verbGoal = VerbGoalEnum::NOTIFICATION;
+    statementGrd->requests.clear();
+    statementGrd->verbTense = SemanticVerbTense::UNKNOWN;
+  }
+  rootGrdExp->children.erase(GrammaticalType::SUBJECT);
+  return std::move(rootGrdExp);
+}
+
 UniqueSemanticExpression askIfTrue(const GroundedExpression& pOriginalGrdExp,
                                    const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -1395,6 +1410,23 @@ UniqueSemanticExpression generateYesOrNoAnswerFromMemory(
   return answerSemExp;
 }
 
+
+UniqueSemanticExpression subjMeansObject(
+    UniqueSemanticExpression pSubject,
+    UniqueSemanticExpression pObject)
+{
+  auto rootGrdExp = mystd::make_unique<GroundedExpression>
+      ([]()
+  {
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::PRESENT;
+    statementGrd->concepts["verb_equal_mean"] = 4;
+    return statementGrd;
+  }());
+  rootGrdExp->children.emplace(GrammaticalType::SUBJECT, std::move(pSubject));
+  rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pObject));
+  return rootGrdExp;
+}
 
 
 } // End of namespace SemExpCreator
