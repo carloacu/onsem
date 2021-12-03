@@ -288,6 +288,11 @@
 #nickel,.INTJ
 #pour autant,.INTJ
 
+#vas-y,aller.V+z2:Y2s
+#vas-y,.INTJ
+#vas y,aller.V+z2:Y2s
+#vas y,vas-y.INTJ
+
 #quelque chose,.PRO:ms
 #grand-chose,.PRO:ms
 #grand chose,grand-chose.PRO:ms

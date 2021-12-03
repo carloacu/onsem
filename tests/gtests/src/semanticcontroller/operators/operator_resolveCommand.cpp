@@ -202,6 +202,8 @@ TEST_F(SemanticReasonerGTests, operator_resolveCommand_say)
 
   EXPECT_EQ("Bonjour",
             operator_resolveCommand("dis bonjour", semMem, lingDb));
+  EXPECT_EQ("Bonjour",
+            operator_resolveCommand("Vas-y dis bonjour", semMem, lingDb));
   EXPECT_EQ("Je suis content.",
             operator_resolveCommand("dis je suis content", semMem, lingDb));
   EXPECT_EQ("Je suis sympa.",
