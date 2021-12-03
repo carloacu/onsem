@@ -184,7 +184,7 @@ void addATrigger(UniqueSemanticExpression pTriggerSemExp,
 {
   if (memoryOperation::categorize(*pTriggerSemExp) == SemanticExpressionCategory::COMMAND)
   {
-    auto* triggerGrdExpPtr = pTriggerSemExp->getGrdExpPtr();
+    auto* triggerGrdExpPtr = pTriggerSemExp->getGrdExpPtr_SkipWrapperPtrs();
     if (triggerGrdExpPtr != nullptr)
     {
       auto triggerGrdExpInfForm =
