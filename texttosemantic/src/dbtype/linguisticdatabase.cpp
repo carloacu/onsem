@@ -215,6 +215,13 @@ void SpecificLinguisticDatabase::addInfosToAWord
 }
 
 
+void SpecificLinguisticDatabase::removeAWord(const SemanticWord& pWord)
+{
+  lingDico.removeAWord(pWord);
+}
+
+
+
 void SpecificLinguisticDatabase::reset()
 {
   lingDico.reset();

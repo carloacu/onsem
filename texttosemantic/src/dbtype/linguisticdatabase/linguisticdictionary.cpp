@@ -120,6 +120,7 @@ LinguisticDictionary::LinguisticDictionary(std::istream& pDictIStream,
   : statDb(_getStatDbInstance(pDictIStream, pStaticConceptSet, pLangEnum)),
     _language(pLangEnum),
     _wordToAssocInfos(),
+    _lemmaToPosOfWordToRemoveFromStaticDico(mystd::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>()),
     _inflectedCharaters(mystd::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>()),
     _beAux(statDb),
     _haveAux(statDb),
@@ -145,6 +146,7 @@ LinguisticDictionary::LinguisticDictionary(std::istream& pDictIStream,
 LinguisticDictionary::LinguisticDictionary(const LinguisticDictionary& pOther)
   : statDb(pOther.statDb),
     _wordToAssocInfos(pOther._wordToAssocInfos),
+    _lemmaToPosOfWordToRemoveFromStaticDico(mystd::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>(*pOther._lemmaToPosOfWordToRemoveFromStaticDico)),
     _inflectedCharaters(mystd::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>(*pOther._inflectedCharaters)),
     _beAux(pOther._beAux),
     _haveAux(pOther._haveAux),
@@ -161,6 +163,7 @@ LinguisticDictionary::~LinguisticDictionary()
 LinguisticDictionary& LinguisticDictionary::operator=(const LinguisticDictionary& pOther)
 {
   _wordToAssocInfos = pOther._wordToAssocInfos;
+  _lemmaToPosOfWordToRemoveFromStaticDico = mystd::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>(*pOther._lemmaToPosOfWordToRemoveFromStaticDico);
   _inflectedCharaters = mystd::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>(*pOther._inflectedCharaters);
   return *this;
 }
@@ -182,6 +185,14 @@ void LinguisticDictionary::addInfosToAWord(const SemanticWord& pWord,
   _wordToAssocInfos.emplace(pWord, pWordAssociatedInfos);
 }
 
+void LinguisticDictionary::removeAWord(const SemanticWord& pWord)
+{
+  _wordToAssocInfos.erase(pWord);
+  auto statMeaning = statDb.getLingMeaning(pWord.lemma, pWord.partOfSpeech, true);
+  if (!statMeaning.isEmpty())
+    (*_lemmaToPosOfWordToRemoveFromStaticDico)[pWord.lemma].emplace_back(pWord.partOfSpeech);
+}
+
 
 void LinguisticDictionary::getInfoGram(InflectedWord& pIGram,
                                        const LinguisticMeaning& pMeaning) const
@@ -191,12 +202,17 @@ void LinguisticDictionary::getInfoGram(InflectedWord& pIGram,
   case LinguisticMeaningType::ID:
   {
     const auto& statLingMeaning = pMeaning.getStaticMeaning();
-      statDb.getInfoGram(pIGram, statLingMeaning);
+    InflectedWord inflWord;
+    statDb.getInfoGram(inflWord, statLingMeaning);
+    if (!_isARemovedWord(inflWord.word))
+      pIGram = std::move(inflWord);
     break;
   }
   case LinguisticMeaningType::WORD:
   {
     const auto& word = pMeaning.getWord();
+    if (_isARemovedWord(word))
+      break;
 
     {
       auto statLingMeaning = statDb.getLingMeaning(word.lemma,
@@ -239,6 +255,9 @@ void LinguisticDictionary::getInfoGram(InflectedWord& pIGram,
 void LinguisticDictionary::getConcepts(std::map<std::string, char>& pConcepts,
                                        const SemanticWord& pWord) const
 {
+  if (_isARemovedWord(pWord))
+    return;
+
   {
     auto statLingMeaning = statDb.getLingMeaning(pWord.lemma,
                                                  pWord.partOfSpeech, true);
@@ -272,6 +291,7 @@ void LinguisticDictionary::getConcepts(std::map<std::string, char>& pConcepts,
 void LinguisticDictionary::reset()
 {
   _wordToAssocInfos.clear();
+  _lemmaToPosOfWordToRemoveFromStaticDico->clear();
   _inflectedCharaters->clear();
 }
 
@@ -279,6 +299,9 @@ void LinguisticDictionary::reset()
 bool LinguisticDictionary::hasContextualInfo(WordContextualInfos pContextualInfo,
                                              const SemanticWord& pWord) const
 {
+  if (_isARemovedWord(pWord))
+    return false;
+
   StaticLinguisticMeaning statLingMeaning = statDb.getLingMeaning(pWord.lemma,
                                                                   pWord.partOfSpeech, true);
   if (!statLingMeaning.isEmpty() &&
@@ -356,18 +379,24 @@ void LinguisticDictionary::getGramPossibilitiesAndPutUnknownIfNothingFound
 
 
 void LinguisticDictionary::getGramPossibilities
-(std::list<InflectedWord>& pInfosGram,
+(std::list<InflectedWord>& pInfWords,
  const std::string& pWord,
  std::size_t pBeginPos,
  std::size_t pSizeOfWord) const
 {
-  statDb.getGramPossibilities(pInfosGram, pWord, pBeginPos, pSizeOfWord);
+  statDb.getGramPossibilities(pInfWords, pWord, pBeginPos, pSizeOfWord);
 
-  for (InflectedWord& currIGram : pInfosGram)
+  for (auto it = pInfWords.begin(); it != pInfWords.end(); )
   {
-    auto itWordToInfosGram = _wordToAssocInfos.find(currIGram.word);
+    if (_isARemovedWord(it->word))
+    {
+      it = pInfWords.erase(it);
+      continue;
+    }
+    auto itWordToInfosGram = _wordToAssocInfos.find(it->word);
     if (itWordToInfosGram != _wordToAssocInfos.end())
-      currIGram.infos.mergeWith(*itWordToInfosGram->second);
+      it->infos.mergeWith(*itWordToInfosGram->second);
+    ++it;
   }
 
   const std::list<InflectedInfos>* dynInfosGram =
@@ -379,7 +408,7 @@ void LinguisticDictionary::getGramPossibilities
     {
       const auto& currWord = currInfleForms.wordAndInfos->word();
       bool iGramIsMerged = false;
-      for (InflectedWord& currIGram : pInfosGram)
+      for (InflectedWord& currIGram : pInfWords)
       {
         if (currIGram.word == currWord)
         {
@@ -392,8 +421,8 @@ void LinguisticDictionary::getGramPossibilities
       }
       if (!iGramIsMerged)
       {
-        pInfosGram.emplace_front();
-        auto& newInflWord = pInfosGram.front();
+        pInfWords.emplace_front();
+        auto& newInflWord = pInfWords.front();
         auto statLingDb = statDb.getLingMeaning(currWord.lemma, currWord.partOfSpeech, true);
         if (!statLingDb.isEmpty())
           statDb.getInfoGram(newInflWord, statLingDb);
@@ -403,6 +432,15 @@ void LinguisticDictionary::getGramPossibilities
   }
 }
 
+bool LinguisticDictionary::_isARemovedWord(const SemanticWord& pWord) const
+{
+  auto* listOfPosToRemove = _lemmaToPosOfWordToRemoveFromStaticDico->find_ptr(pWord.lemma, 0, pWord.lemma.size());
+  if (listOfPosToRemove != nullptr)
+    for (auto currPos : *listOfPosToRemove)
+      if (currPos == pWord.partOfSpeech)
+        return true;
+  return false;
+}
 
 } // End of namespace linguistics
 } // End of namespace onsem

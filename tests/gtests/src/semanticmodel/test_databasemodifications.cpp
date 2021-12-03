@@ -544,3 +544,32 @@ TEST_F(SemanticReasonerGTests, considerInflectedWordFrequency)
   EXPECT_EQ("I like Dede test_bla_bla2.", _getTranslation("I like Dede test_bla_bla2", lingDb, SemanticLanguageEnum::ENGLISH));
 }
 
+
+
+
+TEST_F(SemanticReasonerGTests, removeAWord)
+{
+  auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+  linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
+  iStreams.close();
+  SemanticMemory semMem;
+
+  auto& commonDico = lingDb.langToSpec[SemanticLanguageEnum::UNKNOWN].lingDico;
+  SemanticWord word;
+  word.lemma = "Paul";
+  word.partOfSpeech = PartOfSpeech::PROPER_NOUN;
+
+  {
+    std::list<linguistics::InflectedWord> infosGram;
+    commonDico.getGramPossibilities(infosGram, word.lemma, 0, word.lemma.size());
+    EXPECT_EQ(1, infosGram.size());
+  }
+
+  commonDico.removeAWord(word);
+
+  {
+    std::list<linguistics::InflectedWord> infosGram;
+    commonDico.getGramPossibilities(infosGram, word.lemma, 0, word.lemma.size());
+    EXPECT_EQ(0, infosGram.size());
+  }
+}

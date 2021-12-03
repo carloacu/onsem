@@ -46,6 +46,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SpecificLinguisticDatabase
   void addProperNoun(const std::string& pWordLemma);
   void addInfosToAWord(const SemanticWord& pWord,
                        const WordAssociatedInfos& pWordInfos);
+  void removeAWord(const SemanticWord& pWord);
   void reset();
 
   const InflectionsChecker& inflectionsChecker() const

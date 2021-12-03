@@ -43,6 +43,7 @@ public:
 
   void addInfosToAWord(const SemanticWord& pWord,
                        const WordAssociatedInfos* pWordAssociatedInfos);
+  void removeAWord(const SemanticWord& pWord);
 
   void getInfoGram(InflectedWord& pIGram,
                    const LinguisticMeaning& pMeaning) const;
@@ -135,6 +136,7 @@ private:
   };
   SemanticLanguageEnum _language;
   std::map<SemanticWord, const WordAssociatedInfos*> _wordToAssocInfos;
+  std::unique_ptr<mystd::radix_map_str<std::list<PartOfSpeech>>> _lemmaToPosOfWordToRemoveFromStaticDico;
   std::unique_ptr<mystd::radix_map_str<std::list<InflectedInfos>>> _inflectedCharaters;
   StaticWord _beAux;
   StaticWord _haveAux;
@@ -147,6 +149,7 @@ private:
   static StaticLinguisticDictionary& _getStatDbInstance(std::istream& pDictIStream,
                                                         const StaticConceptSet& pStaticConceptSet,
                                                         SemanticLanguageEnum pLangEnum);
+  bool _isARemovedWord(const SemanticWord& pWord) const;
 };
 
 

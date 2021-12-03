@@ -47,7 +47,9 @@ using namespace onsem;
 
 TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
 {
-  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+  linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
+  iStreams.close();
   SemanticMemory semMem;
   ReactionOptions canReactToANoun;
   canReactToANoun.canReactToANoun = true;
@@ -274,6 +276,16 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     memoryOperation::learnSayCommand(semMem, lingDb);
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("lance akinator", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu lances akinator", semMem, lingDb));
+    {
+      std::stringstream ss;
+      ss << "<dictionary_modification language=\"french\">\n"
+         << "  <word lemma=\"paul\" pos=\"interjection\">\n"
+         << "    <inflectedWord />\n"
+         << "  </word>\n"
+         << "</dictionary_modification>";
+      lingDb.addDynamicContent(ss);
+    }
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react("Paul lance akinator", semMem, lingDb));
   }
 }
 
