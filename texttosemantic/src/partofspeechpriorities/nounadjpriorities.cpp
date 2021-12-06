@@ -288,6 +288,7 @@ void NounPrioritiesFr(std::vector<Token>& pTokens,
           if ((itInflWord->word.partOfSpeech == PartOfSpeech::DETERMINER &&
                !ConceptSet::haveAConceptThatBeginWith(itInflWord->infos.concepts, "number_")) ||
               itInflWord->word.partOfSpeech == PartOfSpeech::INTERJECTION ||
+              (isAtBeginOfASentence(pTokens, itTok) && pInflsCheker.verbCanBeAtImperative(*itInflWord)) ||
               pInflsCheker.verbIsAtInfinitive(*itInflWord))
           {
             putOnTop(inflWords, itInflWord);
@@ -614,7 +615,7 @@ void partitivePrioritiesFr(std::vector<Token>& pTokens,
                 nextPartOfSpeech != PartOfSpeech::PRONOUN_COMPLEMENT &&
                 !ConceptSet::haveAConcept(currInflWord.infos.concepts, "reference_definite"))
             {
-              putOnBottom(itPrev->inflWords, itPrevFirstInfl);
+              delAPartOfSpeechfPossible(itPrev->inflWords, itPrevFirstInfl);
             }
           }
         }

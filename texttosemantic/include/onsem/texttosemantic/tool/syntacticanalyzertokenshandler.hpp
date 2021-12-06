@@ -109,6 +109,11 @@ ONSEM_TEXTTOSEMANTIC_API void putOnBottom
 ONSEM_TEXTTOSEMANTIC_API bool canBeAFrenchReflexiveVerb(const WordAssociatedInfos& pWordAssInfos);
 
 ONSEM_TEXTTOSEMANTIC_API
+bool isAtBeginOfASentence(
+    std::vector<Token>& pTokens,
+    TokIt pItTok);
+
+ONSEM_TEXTTOSEMANTIC_API
 bool hasBefore(std::vector<Token>& pTokens,
                TokIt pItTok,
                const std::set<PartOfSpeech>& pPartOfSpeechsToFind,

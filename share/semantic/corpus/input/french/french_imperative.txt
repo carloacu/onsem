@@ -16,7 +16,7 @@ donne moi le stylo et la trousse
 donne-moi le stylo et la trousse
 donne
 Montre moi une vidéo qui décrit N5
-
+Affiche les images
 lève la main si tu vois une balle rouge
 lève-toi si tu ne vois pas une balle rouge
 

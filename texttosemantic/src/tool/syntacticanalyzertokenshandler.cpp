@@ -379,6 +379,17 @@ bool canBeAFrenchReflexiveVerb(const WordAssociatedInfos& pWordAssInfos)
 }
 
 
+bool isAtBeginOfASentence(
+    std::vector<Token>& pTokens,
+    TokIt pItTok)
+{
+  auto itPrev = getPrevToken(pItTok, pTokens.begin(), pTokens.end());
+  if (itPrev != pTokens.end())
+    return itPrev->getPartOfSpeech() == PartOfSpeech::PUNCTUATION;
+  return true;
+}
+
+
 bool hasBefore(std::vector<Token>& pTokens,
                TokIt pItTok,
                const std::set<PartOfSpeech>& pPartOfSpeechsToFind,
