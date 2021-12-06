@@ -1084,14 +1084,6 @@ bool satisfyAnAction(SemControllerWorkingStruct& pWorkStruct,
                      const GroundedExpression& pGrdExp,
                      const SemanticStatementGrounding& pGrdExpStatement)
 {
-  if (!pGrdExpStatement.polarity)
-  {
-    pWorkStruct.addAnswerWithoutReferences
-        (ContextualAnnotation::BEHAVIORNOTFOUND,
-         SemExpCreator::confirmInformation(pGrdExp));
-    return true;
-  }
-
   // get links of the current sentence
   RequestLinks reqLinks;
   getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
@@ -1102,6 +1094,14 @@ bool satisfyAnAction(SemControllerWorkingStruct& pWorkStruct,
                                 SemanticExpressionCategory::COMMAND, _emptyAxiomId, pGrdExp,
                                 ContextualAnnotation::BEHAVIOR))
     return true;
+
+  if (!pGrdExpStatement.polarity)
+  {
+    pWorkStruct.addAnswerWithoutReferences
+        (ContextualAnnotation::BEHAVIORNOTFOUND,
+         SemExpCreator::confirmInformation(pGrdExp));
+    return true;
+  }
 
   if (specificActionsHandler::process(pWorkStruct, pMemViewer, pGrdExp, pGrdExpStatement))
     return true;

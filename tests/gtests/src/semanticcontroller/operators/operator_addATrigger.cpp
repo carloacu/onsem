@@ -274,7 +274,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "Je lance akinatorApp.";
     operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
     memoryOperation::learnSayCommand(semMem, lingDb);
-    ONSEM_BEHAVIOR_EQ(answerStr, operator_react("lance akinator", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu lances akinator", semMem, lingDb));
     {
       std::stringstream ss;
@@ -286,6 +286,14 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
       lingDb.addDynamicContent(ss);
     }
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("Paul lance akinator", semMem, lingDb));
+  }
+
+  // negative action trigger
+  {
+    const std::string triggerStr = "ne bouge pas";
+    const std::string answerStr = "Je suis une statue.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
   }
 }
 
