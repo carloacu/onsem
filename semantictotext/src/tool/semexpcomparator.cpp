@@ -23,6 +23,28 @@ struct ListExpPtr
   ListExpressionType listType = ListExpressionType::UNRELATED;
 };
 
+bool _verbTenseAreNearlyEqual(SemanticVerbTense pVerbTense1,
+                              SemanticVerbTense pVerbTense2)
+{
+  if (isAPastTense(pVerbTense1))
+    return isAPastTense(pVerbTense2);
+  if (isAPresentTense(pVerbTense1))
+    return isAPresentTense(pVerbTense2);
+  return pVerbTense1 == pVerbTense2;
+}
+
+bool _verbGoalAreNearlyEqual(VerbGoalEnum pVerbGoal1,
+                             VerbGoalEnum pVerbGoal2)
+{
+  if (pVerbGoal1 == VerbGoalEnum::NOTIFICATION &&
+      pVerbGoal2 == VerbGoalEnum::CONDITIONAL)
+    return true;
+  if (pVerbGoal2 == VerbGoalEnum::NOTIFICATION &&
+      pVerbGoal1 == VerbGoalEnum::CONDITIONAL)
+    return true;
+  return pVerbGoal1 == pVerbGoal2;
+}
+
 bool _isAnyHuman(const SemanticGenericGrounding& pGenGrd)
 {
   return pGenGrd.entityType == SemanticEntityType::HUMAN &&
@@ -152,10 +174,10 @@ ImbricationType _getStatementGrdsImbrications(const SemanticStatementGrounding& 
                                               const ComparisonExceptions* pExceptionsPtr)
 {
   if ((pExceptionsPtr == nullptr || !pExceptionsPtr->verbTense) &&
-      !verbTenseAreNearlyEqual(pStatGrd1.verbTense, pStatGrd2.verbTense))
+      !_verbTenseAreNearlyEqual(pStatGrd1.verbTense, pStatGrd2.verbTense))
     return ImbricationType::DIFFERS;
 
-  if (pStatGrd1.verbGoal != pStatGrd2.verbGoal)
+  if (!_verbGoalAreNearlyEqual(pStatGrd1.verbGoal, pStatGrd2.verbGoal))
     return ImbricationType::DIFFERS;
 
   if ((pExceptionsPtr == nullptr || !pExceptionsPtr->request) &&
@@ -1203,16 +1225,6 @@ ComparisonOperator numberComparisonOfSemExps(const SemanticExpression& pSemExp1,
   return ComparisonOperator::DIFFERENT;
 }
 
-
-bool verbTenseAreNearlyEqual(SemanticVerbTense pVerbTense1,
-                             SemanticVerbTense pVerbTense2)
-{
-  if (isAPastTense(pVerbTense1))
-    return isAPastTense(pVerbTense2);
-  if (isAPresentTense(pVerbTense1))
-    return isAPresentTense(pVerbTense2);
-  return pVerbTense1 == pVerbTense2;
-}
 
 bool grdExpsReferToSameInstance(const GroundedExpression& pGrdExp1,
                                 const GroundedExpression& pGrdExp2,

@@ -152,11 +152,6 @@ ComparisonOperator numberComparisonOfSemExps(const SemanticExpression& pSemExp1,
 
 
 ONSEMSEMANTICTOTEXT_API
-bool verbTenseAreNearlyEqual(SemanticVerbTense pVerbTense1,
-                             SemanticVerbTense pVerbTense2);
-
-
-ONSEMSEMANTICTOTEXT_API
 bool grdExpsReferToSameInstance(const GroundedExpression& pGrdExp1,
                                 const GroundedExpression& pGrdExp2,
                                 const SemanticMemoryBlock& pMemBlock,

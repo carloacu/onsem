@@ -257,6 +257,14 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWER_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
   }
 
+  // present conditional trigger
+  {
+    const std::string triggerStr = "Je veux";
+    const std::string answerStr = "Je suis content pour toi.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react("Je voudrais", semMem, lingDb));
+  }
+
   // trigger from context
   {
     const std::string triggerStr = "Je ne sais pas quelle est la différence entre un amant et un mari.";
