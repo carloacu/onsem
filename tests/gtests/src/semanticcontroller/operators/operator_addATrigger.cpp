@@ -296,6 +296,16 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("Paul lance akinator", semMem, lingDb));
   }
 
+  // action trigger 2
+  {
+    const std::string triggerStr = "suis moi";
+    const std::string answerStr = "Je te suis mon ami.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    memoryOperation::learnSayCommand(semMem, lingDb);
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu me suives", semMem, lingDb));
+  }
+
   // negative action trigger
   {
     const std::string triggerStr = "ne bouge pas";

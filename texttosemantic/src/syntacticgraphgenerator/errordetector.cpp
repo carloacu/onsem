@@ -717,6 +717,22 @@ bool ErrorDetector::xTryToCorrectVerbsWithoutSubject
       --itVerbBefore;
     }
 
+    if (!haveASubject(verbChunk) &&
+        !InflectionsChecker::verbCanHaveNoSubject(verbChunk.head->inflWords.front()))
+    {
+      // remove this verb if another verb can have no subject
+      auto it = verbChunk.head->inflWords.begin();
+      assert(it != verbChunk.head->inflWords.end()); // because "verbChunk.head->inflWords.size() > 1" on previous condition
+      ++it;
+      while (it != verbChunk.head->inflWords.end())
+      {
+        if (partOfSpeech_isVerbal(it->word.partOfSpeech) &&
+            InflectionsChecker::verbCanHaveNoSubject(*it))
+          return delAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::VERB);
+        ++it;
+      }
+    }
+
     // if it's the first token maybe the subject was in a previous text
     bool canHaveASubjectBefore =
         verbChunk.head->tokenPos.isAtBegin() &&
