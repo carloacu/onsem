@@ -72,6 +72,7 @@
  </concept>
  <concept name="verb_action_show">
   <linkedMeaning lemme="montrer" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="présenter" gram="verb" relationToConcept="4"/>
  </concept>
  <concept name="verb_action_sleep">
   <linkedMeaning lemme="dormir" gram="verb" relationToConcept="4"/>
