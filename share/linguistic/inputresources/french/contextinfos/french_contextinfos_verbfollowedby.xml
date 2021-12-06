@@ -32,6 +32,9 @@
   <existingMeaning lemme="plaire" gram="verb">
     <contextInfo val="canBeFollowedByIndirectObject" />
   </existingMeaning>
+  <existingMeaning lemme="présenter" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
   <existingMeaning lemme="prêter" gram="verb">
     <contextInfo val="canBeFollowedByIndirectObject" />
   </existingMeaning>
