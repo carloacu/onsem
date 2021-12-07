@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 2.8)
 project(onsem)
 
 
-set(CMAKE_CXX_FLAGS "-std=gnu++11" CACHE STRING "" FORCE)
-
 ## Command line for database compilation
 # cmake -DBUILD_ONSEM_DATABASE=ON -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
 
