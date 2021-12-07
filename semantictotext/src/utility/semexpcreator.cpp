@@ -1425,7 +1425,7 @@ UniqueSemanticExpression subjMeansObject(
   }());
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT, std::move(pSubject));
   rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pObject));
-  return rootGrdExp;
+  return std::move(rootGrdExp);
 }
 
 
