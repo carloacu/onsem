@@ -16,7 +16,9 @@ if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
 
-find_package(Boost REQUIRED COMPONENTS system filesystem)
+if (USE_BOOST_FROM_SYSTEM)
+  find_package(Boost REQUIRED COMPONENTS system filesystem)
+endif ()
 
 add_library(onsemstreamdatabaseaccessor SHARED
   ${ONSEMSTREADATABASEACCESSOR_HPPS}

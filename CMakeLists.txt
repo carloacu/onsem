@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 2.8)
 project(onsem)
 
 
+option(
+  USE_BOOST_FROM_SYSTEM
+  "Build with the dependency of the boost installed in the system."
+  ON)
+
+
 ## Command line for database compilation
 # cmake -DBUILD_ONSEM_DATABASE=ON -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
 
