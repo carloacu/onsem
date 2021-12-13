@@ -26,6 +26,7 @@
  <concept name="verb_action_execute">
   <linkedMeaning lemme="exécuter" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="lancer" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="démarrer" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="ouvrir" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_action_goaway">
