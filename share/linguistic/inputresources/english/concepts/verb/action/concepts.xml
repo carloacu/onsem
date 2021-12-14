@@ -164,6 +164,10 @@
   <linkedMeaning lemme="lift~up" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="raise~up" gram="verb" relationToConcept="4"/>
  </concept>
+   <concept name="verb_action_repeat">
+  <linkedMeaning lemme="repeat" relationToConcept="4"/>
+  <linkedMeaning lemme="redo" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_register">
   <linkedMeaning lemme="register" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="check~in" gram="verb" relationToConcept="3"/>

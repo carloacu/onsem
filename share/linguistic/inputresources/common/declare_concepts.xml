@@ -395,6 +395,7 @@
   <declareconcept name="verb_action_moveForward" />
   <declareconcept name="verb_action_notify" />
   <declareconcept name="verb_action_raise" />
+  <declareconcept name="verb_action_repeat" />
   <declareconcept name="verb_action_register" />
   <declareconcept name="verb_action_remove" />
   <declareconcept name="verb_action_say" />
