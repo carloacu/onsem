@@ -1,4 +1,5 @@
 #include <onsem/chatbotplanner/linguisticplanner.hpp>
+#include <algorithm>
 #include <assert.h>
 #include <sstream>
 #include <onsem/common/utility/lexical_cast.hpp>
@@ -16,6 +17,26 @@ const std::map<std::string, ExpressionOperator> _strToBeginOfTextOperators
 {{"++", ExpressionOperator::PLUSPLUS}};
 const std::map<char, ExpressionOperator> _charToOperators
 {{'=', ExpressionOperator::EQUAL}, {'+', ExpressionOperator::PLUS}, {'+', ExpressionOperator::MINUS}};
+
+// trim from left
+inline std::string& _ltrim(std::string& s, const char* t = " \t\n\r\f\v")
+{
+    s.erase(0, s.find_first_not_of(t));
+    return s;
+}
+
+// trim from right
+inline std::string& _rtrim(std::string& s, const char* t = " \t\n\r\f\v")
+{
+    s.erase(s.find_last_not_of(t) + 1);
+    return s;
+}
+
+// trim from left & right
+inline std::string& _trim(std::string& s, const char* t = " \t\n\r\f\v")
+{
+    return _ltrim(_rtrim(s, t), t);
+}
 
 struct FactsAlreadychecked
 {
@@ -491,7 +512,6 @@ std::string SetOfFacts::toStr(const std::string& pSeparator) const
 }
 
 
-
 SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
                                const std::string& pSeparator)
 {
@@ -499,8 +519,9 @@ SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
   mystd::split(vect, pStr, pSeparator);
   SetOfFacts res;
 
-  for (const auto& currStr : vect)
+  for (auto& currStr : vect)
   {
+    _trim(currStr);
     if (currStr.empty())
       continue;
     std::string currentToken;

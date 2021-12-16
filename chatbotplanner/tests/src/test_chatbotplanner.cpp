@@ -97,6 +97,21 @@ std::string _lookForAnActionToDoConst(const lp::State& pState,
 }
 
 
+void _test_setOfFactsFromStr()
+{
+  {
+    lp::SetOfFacts sOfFacts = lp::SetOfFacts::fromStr("a,b", ",");
+    assert(sOfFacts.facts.count("a") == 1);
+    assert(sOfFacts.facts.count("b") == 1);
+  }
+  {
+    lp::SetOfFacts sOfFacts = lp::SetOfFacts::fromStr(" a, b , c  ", ",");
+    assert(sOfFacts.facts.count("a") == 1);
+    assert(sOfFacts.facts.count("b") == 1);
+    assert(sOfFacts.facts.count("c") == 1);
+  }
+}
+
 void _noPreconditionGolalImmediatlyReached()
 {
   std::map<lp::ActionId, lp::Action> actions;
@@ -539,6 +554,7 @@ void _triggerActionThatRemoveAFact()
 int main(int argc, char *argv[])
 {
   test_arithmeticEvaluator();
+  _test_setOfFactsFromStr();
   _noPreconditionGolalImmediatlyReached();
   _noPlanWithALengthOf2();
   _noPlanWithALengthOf3();
