@@ -89,7 +89,7 @@ void loadChatbotDomain(ChatbotDomain& pChatbotDomain,
           currChatbotAction.inputPtr->effect = lp::SetOfFacts::fromStr(inputTreeOpt->get("effect", ""), ",");
         }
 
-        currChatbotAction.precondition = lp::SetOfFacts::fromStr(currActionTree.second.get("preconditionForProactivity", ""), ",");
+        currChatbotAction.precondition = lp::SetOfFacts::fromStr(currActionTree.second.get("precondition", ""), ",");
         currChatbotAction.preferInContext = lp::SetOfFacts::fromStr(currActionTree.second.get("preferInContext", ""), ",");
         currChatbotAction.effect = lp::SetOfFacts::fromStr(currActionTree.second.get("effect", ""), ",");
         currChatbotAction.potentialEffect = lp::SetOfFacts::fromStr(currActionTree.second.get("potentialEffect", ""), ",");
