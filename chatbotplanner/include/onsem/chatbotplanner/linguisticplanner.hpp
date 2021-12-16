@@ -169,6 +169,7 @@ struct ONSEMCHATBOTPLANNER_API CompiledProblem
   std::map<ActionId, Action> actions;
   std::map<Fact, std::set<ActionId>> preconditionToActions;
   std::map<Fact, std::set<ActionId>> preconditionToActionsExps;
+  std::map<Fact, std::set<ActionId>> notPreconditionToActions;
   std::set<ActionId> actionsWithoutPrecondition;
 };
 
@@ -207,6 +208,7 @@ struct ONSEMCHATBOTPLANNER_API State
   bool modifyFacts(const SetOfFacts& pSetOfFacts);
   void setFacts(const std::set<Fact>& pFacts);
   void addReachableFacts(const std::set<Fact>& pFacts);
+  void addRemovableFacts(const std::set<Fact>& pFacts);
   void removeGoal(const Fact& pGoal);
   void noNeedToAddReachableFacts() { _needToAddReachableFacts = false; }
   bool needToAddReachableFacts() const { return _needToAddReachableFacts; }
@@ -217,17 +219,20 @@ struct ONSEMCHATBOTPLANNER_API State
   const std::set<Fact>& facts() const { return _facts; }
   const std::map<Fact, std::string>& factsToValue() const { return _factsToValue; }
   const std::set<Fact>& reachableFacts() const { return _reachableFacts; }
+  const std::set<Fact>& removableFacts() const { return _removableFacts; }
 
 private:
   std::vector<Fact> _goals{};
   std::map<Fact, std::string> _factsToValue{};
   std::set<Fact> _facts{};
   std::set<Fact> _reachableFacts{};
+  std::set<Fact> _removableFacts{};
   bool _needToAddReachableFacts = true;
 
   template<typename FACTS>
   bool _addFactsWithoutFactNotification(const FACTS& pFacts);
   void _removeDoneGoals();
+  void _clearRechableAndRemovableFacts();
 };
 
 

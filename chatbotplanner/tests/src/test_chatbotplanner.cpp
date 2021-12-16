@@ -17,6 +17,7 @@ const std::string _fact_is_close = "is_close";
 const std::string _fact_hasQrCode = "has_qrcode";
 const std::string _fact_hasCheckInPasword = "has_check_in_password";
 const std::string _fact_checkedIn = "checked_in";
+const std::string _fact_beSad = "be_sad";
 const std::string _fact_beHappy = "be_happy";
 const std::string _fact_askAllTheQuestions = "ask_all_the_questions";
 const std::string _fact_finishToAskQuestions = "finished_to_ask_questions";
@@ -29,6 +30,7 @@ const std::string _action_sayQuestionBilan = "say_question_bilan";
 const std::string _action_greet = "greet";
 const std::string _action_advertise = "advertise";
 const std::string _action_checkIn = "check_in";
+const std::string _action_joke = "joke";
 const std::string _action_checkInWithQrCode = "check_in_with_qrcode";
 const std::string _action_checkInWithPassword = "check_in_with_password";
 const std::string _action_goodBoy = "good_boy";
@@ -515,6 +517,21 @@ void _circularDependencies()
   assert_eq<std::string>("", _lookForAnActionToDoConst(state, problem));
 }
 
+
+void _triggerActionThatRemoveAFact()
+{
+  std::map<std::string, lp::Action> actions;
+  actions.emplace(_action_joke, lp::Action({_fact_beSad}, lp::SetOfFacts({}, {_fact_beSad})));
+  actions.emplace(_action_goodBoy, lp::Action(lp::SetOfFacts({}, {_fact_beSad}), {_fact_beHappy}));
+
+  lp::Historical historical;
+  lp::State state;
+  state.addFact(_fact_beSad);
+  state.setGoals({_fact_beHappy});
+  assert_eq(_action_joke + _sep +
+            _action_goodBoy, _solveStrConst(state, actions, &historical));
+}
+
 }
 
 
@@ -543,6 +560,7 @@ int main(int argc, char *argv[])
   _testIncrementOfVariables();
   _precoditionEqualEffect();
   _circularDependencies();
+  _triggerActionThatRemoveAFact();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;
