@@ -1,4 +1,4 @@
-#include <onsem/chatbotplanner/linguisticplanner.hpp>
+#include <onsem/chatbotplanner/chatbotplanner.hpp>
 #include <iostream>
 #include <assert.h>
 #include "test_arithmeticevaluator.hpp"

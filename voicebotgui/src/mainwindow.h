@@ -15,7 +15,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/tester/sentencesloader.hpp>
 #include <onsem/tester/scenariocontainer.hpp>
-#include <onsem/chatbotplanner/linguisticplanner.hpp>
+#include <onsem/chatbotplanner/chatbotplanner.hpp>
 #include <onsem/semantictotext/io/loadchatbot.hpp>
 #include "qobject/scrollpanel.hpp"
 

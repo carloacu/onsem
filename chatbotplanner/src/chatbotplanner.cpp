@@ -1,4 +1,4 @@
-#include <onsem/chatbotplanner/linguisticplanner.hpp>
+#include <onsem/chatbotplanner/chatbotplanner.hpp>
 #include <algorithm>
 #include <assert.h>
 #include <sstream>

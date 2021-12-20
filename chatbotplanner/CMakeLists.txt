@@ -6,13 +6,13 @@ cmake_minimum_required(VERSION 2.8)
 set(CHATBOTPLANNER_HPPS
     include/onsem/chatbotplanner/api.hpp
     include/onsem/chatbotplanner/alias.hpp
-    include/onsem/chatbotplanner/linguisticplanner.hpp
+    include/onsem/chatbotplanner/chatbotplanner.hpp
     include/onsem/chatbotplanner/arithmeticevaluator.hpp
 )
 
 
 set(CHATBOTPLANNER_SRCS
-    src/linguisticplanner.cpp
+    src/chatbotplanner.cpp
     src/arithmeticevaluator.cpp
 )
 

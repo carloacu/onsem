@@ -1,5 +1,5 @@
-#ifndef ONSEM_CHATBOTPLANNER_HPP
-#define ONSEM_CHATBOTPLANNER_HPP
+#ifndef ONSEM_CHATBOTPLANNER_CHATBOTPLANNER_HPP
+#define ONSEM_CHATBOTPLANNER_CHATBOTPLANNER_HPP
 
 #include <map>
 #include <set>
@@ -271,4 +271,4 @@ std::list<ActionId> solve(State& pState,
 } // !onsem
 
 
-#endif // ONSEM_CHATBOTPLANNER_HPP
+#endif // ONSEM_CHATBOTPLANNER_CHATBOTPLANNER_HPP

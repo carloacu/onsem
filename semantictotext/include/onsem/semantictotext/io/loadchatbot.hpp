@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_IO_LOADCHATBOT_HPP
 
 #include <istream>
-#include <onsem/chatbotplanner/linguisticplanner.hpp>
+#include <onsem/chatbotplanner/chatbotplanner.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include "../api.hpp"
