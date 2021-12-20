@@ -603,6 +603,35 @@ SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
 }
 
 
+
+Domain::Domain(const std::map<ActionId, Action>& pActions)
+{
+  for (const auto& currAction : pActions)
+  {
+    if (currAction.second.preconditions == currAction.second.effects ||
+        currAction.second.effects.empty())
+      continue;
+    _actions.emplace(currAction.first, currAction.second);
+    for (const auto& currPrecondition : currAction.second.preferInContext.facts)
+      _preconditionToActions[currPrecondition].insert(currAction.first);
+    for (const auto& currPrecondition : currAction.second.preconditions.facts)
+      _preconditionToActions[currPrecondition].insert(currAction.first);
+
+    for (const auto& currPrecondition : currAction.second.preferInContext.notFacts)
+      _notPreconditionToActions[currPrecondition].insert(currAction.first);
+    for (const auto& currPrecondition : currAction.second.preconditions.notFacts)
+      _notPreconditionToActions[currPrecondition].insert(currAction.first);
+
+    for (auto& currExp : currAction.second.preconditions.exps)
+      for (auto& currElt : currExp.elts)
+        if (currElt.type == ExpressionElementType::FACT)
+          _preconditionToActionsExps[currElt.value].insert(currAction.first);
+    if (currAction.second.preconditions.facts.empty() && currAction.second.preconditions.exps.empty())
+      _actionsWithoutPrecondition.insert(currAction.first);
+  }
+}
+
+
 void Historical::setMutex(std::shared_ptr<std::mutex> pMutex)
 {
   _mutexPtr = std::move(pMutex);
@@ -881,6 +910,7 @@ void State::pushBackGoal(const Fact& pGoal)
 
 
 
+
 void replaceVariables(std::string& pStr,
                       const State& pState)
 {
@@ -939,33 +969,6 @@ std::vector<cp::Fact> factsFromString(const std::string& pStr,
       ++it;
   }
   return res;
-}
-
-Domain::Domain(const std::map<ActionId, Action>& pActions)
-{
-  for (const auto& currAction : pActions)
-  {
-    if (currAction.second.preconditions == currAction.second.effects ||
-        currAction.second.effects.empty())
-      continue;
-    _actions.emplace(currAction.first, currAction.second);
-    for (const auto& currPrecondition : currAction.second.preferInContext.facts)
-      _preconditionToActions[currPrecondition].insert(currAction.first);
-    for (const auto& currPrecondition : currAction.second.preconditions.facts)
-      _preconditionToActions[currPrecondition].insert(currAction.first);
-
-    for (const auto& currPrecondition : currAction.second.preferInContext.notFacts)
-      _notPreconditionToActions[currPrecondition].insert(currAction.first);
-    for (const auto& currPrecondition : currAction.second.preconditions.notFacts)
-      _notPreconditionToActions[currPrecondition].insert(currAction.first);
-
-    for (auto& currExp : currAction.second.preconditions.exps)
-      for (auto& currElt : currExp.elts)
-        if (currElt.type == ExpressionElementType::FACT)
-          _preconditionToActionsExps[currElt.value].insert(currAction.first);
-    if (currAction.second.preconditions.facts.empty() && currAction.second.preconditions.exps.empty())
-      _actionsWithoutPrecondition.insert(currAction.first);
-  }
 }
 
 
