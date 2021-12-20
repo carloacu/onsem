@@ -51,7 +51,7 @@ struct ONSEMSEMANTICTOTEXT_API ChatbotDomain
 struct ONSEMSEMANTICTOTEXT_API ChatbotProblem
 {
   SemanticLanguageEnum language{SemanticLanguageEnum::UNKNOWN};
-  cp::State state{};
+  cp::Problem problem{};
 };
 
 

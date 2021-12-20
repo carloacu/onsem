@@ -124,7 +124,7 @@ void loadChatbotProblem(ChatbotProblem& pChatbotProblem,
     else if (currChatbotAttr.first == "goals")
     {
       for (auto& currGoalTree : currChatbotAttr.second)
-        pChatbotProblem.state.pushBackGoal(currGoalTree.second.get_value<std::string>());
+        pChatbotProblem.problem.pushBackGoal(currGoalTree.second.get_value<std::string>());
     }
   }
 }

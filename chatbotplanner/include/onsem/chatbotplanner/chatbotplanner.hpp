@@ -200,10 +200,10 @@ private:
 };
 
 
-struct ONSEMCHATBOTPLANNER_API State
+struct ONSEMCHATBOTPLANNER_API Problem
 {
-  State() = default;
-  State(const State& pOther);
+  Problem() = default;
+  Problem(const Problem& pOther);
   Historical historical{};
   mystd::observable::ObservableUnsafe<void (const std::map<Fact, std::string>&)> onFactsToValueChanged{};
   mystd::observable::ObservableUnsafe<void (const std::set<std::string>&)> onFactsChanged{};
@@ -247,7 +247,7 @@ private:
 
 ONSEMCHATBOTPLANNER_API
 void replaceVariables(std::string& pStr,
-                      const State& pState);
+                      const Problem& pProblem);
 
 ONSEMCHATBOTPLANNER_API
 std::vector<cp::Fact> factsFromString(const std::string& pStr,
@@ -256,21 +256,21 @@ std::vector<cp::Fact> factsFromString(const std::string& pStr,
 
 
 ONSEMCHATBOTPLANNER_API
-void fillReachableFacts(State& pState,
+void fillReachableFacts(Problem& pProblem,
                         const Domain& pDomain);
 
 
 ONSEMCHATBOTPLANNER_API
 bool areFactsTrue(const SetOfFacts& pSetOfFacts,
-                  const State& pState);
+                  const Problem& pProblem);
 
 ONSEMCHATBOTPLANNER_API
-ActionId lookForAnActionToDo(State& pState,
+ActionId lookForAnActionToDo(Problem& pProblem,
                              const Domain& pDomain,
                              const Historical* pGlobalHistorical = nullptr);
 
 ONSEMCHATBOTPLANNER_API
-std::list<ActionId> solve(State& pState,
+std::list<ActionId> solve(Problem& pProblem,
                           const Domain& pDomain,
                           Historical* pGlobalHistorical = nullptr);
 } // !cp

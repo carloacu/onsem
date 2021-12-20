@@ -993,12 +993,12 @@ std::string MainWindow::_operator_react(
     pTextLanguage = semMemory.defaultLanguage;
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
   if (_effectAfterCurrentInput && _chatbotProblem)
-    _chatbotProblem->state.modifyFacts(*_effectAfterCurrentInput);
+    _chatbotProblem->problem.modifyFacts(*_effectAfterCurrentInput);
   if (paramSelectedPtr != nullptr && _chatbotProblem)
   {
     if (!paramSelectedPtr->goalsToAdd.empty())
-      _chatbotProblem->state.addGoals(paramSelectedPtr->goalsToAdd);
-    _chatbotProblem->state.modifyFacts(paramSelectedPtr->effect);
+      _chatbotProblem->problem.addGoals(paramSelectedPtr->goalsToAdd);
+    _chatbotProblem->problem.modifyFacts(paramSelectedPtr->effect);
   }
   else
   {
@@ -1094,7 +1094,7 @@ void MainWindow::_proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSa
   _effectAfterCurrentInput.reset();
   if (_chatbotDomain && _chatbotProblem)
   {
-    auto actionId = cp::lookForAnActionToDo(_chatbotProblem->state, *_chatbotDomain->compiledDomain, &_plannerHistorical);
+    auto actionId = cp::lookForAnActionToDo(_chatbotProblem->problem, *_chatbotDomain->compiledDomain, &_plannerHistorical);
     if (!actionId.empty() && pActionIdsToSkip.count(actionId) == 0)
     {
       auto itAction = _chatbotDomain->actions.find(actionId);
@@ -1102,7 +1102,7 @@ void MainWindow::_proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSa
       {
         auto& action = itAction->second;
         std::string text = action.text;
-        cp::replaceVariables(text, _chatbotProblem->state);
+        cp::replaceVariables(text, _chatbotProblem->problem);
         _printChatRobotMessage(text);
         pTextsToSay.emplace_back(text, action.language);
 
@@ -1161,9 +1161,9 @@ void MainWindow::_printParametersAndNotifyPlanner(const ChatbotAction& pAction,
     _ui->textBrowser_chat_history->append(QString::fromUtf8(paramLines.c_str()));
   }
 
-  _chatbotProblem->state.modifyFacts(pAction.effect);
+  _chatbotProblem->problem.modifyFacts(pAction.effect);
   if (!pAction.goalsToAdd.empty())
-    _chatbotProblem->state.addGoals(pAction.goalsToAdd);
+    _chatbotProblem->problem.addGoals(pAction.goalsToAdd);
   _plannerHistorical.notifyActionDone(pActionId);
 }
 

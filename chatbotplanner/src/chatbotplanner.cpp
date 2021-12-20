@@ -90,7 +90,7 @@ struct PotentialNextAction
   const Action* actionPtr;
 
   bool isMoreImportantThan(const PotentialNextAction& pOther,
-                           const State& pState,
+                           const Problem& pProblem,
                            const Historical* pGlobalHistorical) const;
 };
 
@@ -120,7 +120,7 @@ void _getPrecoditionStatistics(std::size_t& nbOfPreconditionsSatisfied,
 
 
 bool PotentialNextAction::isMoreImportantThan(const PotentialNextAction& pOther,
-                                              const State& pState,
+                                              const Problem& pProblem,
                                               const Historical* pGlobalHistorical) const
 {
   if (actionPtr == nullptr)
@@ -132,17 +132,17 @@ bool PotentialNextAction::isMoreImportantThan(const PotentialNextAction& pOther,
     return true;
   auto& otherAction = *pOther.actionPtr;
 
-  auto nbOfTimesAlreadyDone = pState.historical.getNbOfTimeAnActionHasAlreadyBeenDone(actionId);
-  auto otherNbOfTimesAlreadyDone = pState.historical.getNbOfTimeAnActionHasAlreadyBeenDone(pOther.actionId);
+  auto nbOfTimesAlreadyDone = pProblem.historical.getNbOfTimeAnActionHasAlreadyBeenDone(actionId);
+  auto otherNbOfTimesAlreadyDone = pProblem.historical.getNbOfTimeAnActionHasAlreadyBeenDone(pOther.actionId);
   if (nbOfTimesAlreadyDone != otherNbOfTimesAlreadyDone)
     return nbOfTimesAlreadyDone < otherNbOfTimesAlreadyDone;
 
   std::size_t nbOfPreconditionsSatisfied = 0;
   std::size_t nbOfPreconditionsNotSatisfied = 0;
-  _getPrecoditionStatistics(nbOfPreconditionsSatisfied, nbOfPreconditionsNotSatisfied, action, pState.facts());
+  _getPrecoditionStatistics(nbOfPreconditionsSatisfied, nbOfPreconditionsNotSatisfied, action, pProblem.facts());
   std::size_t otherNbOfPreconditionsSatisfied = 0;
   std::size_t otherNbOfPreconditionsNotSatisfied = 0;
-  _getPrecoditionStatistics(otherNbOfPreconditionsSatisfied, otherNbOfPreconditionsNotSatisfied, otherAction, pState.facts());
+  _getPrecoditionStatistics(otherNbOfPreconditionsSatisfied, otherNbOfPreconditionsNotSatisfied, otherAction, pProblem.facts());
   if (nbOfPreconditionsSatisfied != otherNbOfPreconditionsSatisfied)
     return nbOfPreconditionsSatisfied > otherNbOfPreconditionsSatisfied;
   if (nbOfPreconditionsNotSatisfied != otherNbOfPreconditionsNotSatisfied)
@@ -212,20 +212,20 @@ bool _areExpsValid(const std::list<Expression>& pExps,
 
 
 bool _canFactsBecomeTrue(const SetOfFacts& pSetOfFacts,
-                         const State& pState)
+                         const Problem& pProblem)
 {
-  auto& facts = pState.facts();
-  auto& reachableFacts = pState.reachableFacts();
+  auto& facts = pProblem.facts();
+  auto& reachableFacts = pProblem.reachableFacts();
   for (const auto& currPrecond : pSetOfFacts.facts)
     if (facts.count(currPrecond) == 0 &&
         reachableFacts.count(currPrecond) == 0)
       return false;
-  auto& removableFacts = pState.removableFacts();
+  auto& removableFacts = pProblem.removableFacts();
   for (const auto& currPrecond : pSetOfFacts.notFacts)
     if (facts.count(currPrecond) > 0 &&
         removableFacts.count(currPrecond) == 0)
       return false;
-  return _areExpsValid(pSetOfFacts.exps, pState.factsToValue());
+  return _areExpsValid(pSetOfFacts.exps, pProblem.factsToValue());
 }
 
 
@@ -266,7 +266,7 @@ void _getTheFactsToRemoveFromTheActionEffects(std::set<Fact>& pFactsToRemove,
 
 bool _lookForAPossibleEffect(const SetOfFacts& pEffectsToCheck,
                              const Fact& pEffectToLookFor,
-                             const State& pState,
+                             const Problem& pProblem,
                              const Domain& pDomain,
                              FactsAlreadychecked& pFactsAlreadychecked);
 
@@ -275,7 +275,7 @@ bool _lookForAPossibleExistingOrNotFact(
     const std::set<Fact>& pFacts,
     const std::map<Fact, std::set<ActionId>>& pPreconditionToActions,
     const Fact& pEffectToLookFor,
-    const State& pState,
+    const Problem& pProblem,
     const Domain& pDomain,
     FactsAlreadychecked& pFactsAlreadychecked)
 {
@@ -292,9 +292,9 @@ bool _lookForAPossibleExistingOrNotFact(
         if (itAction != pDomain.actions().end())
         {
           auto& action = itAction->second;
-          if (_canFactsBecomeTrue(action.preconditions, pState) &&
-              _willTheActionAddOrRemoveAFact(action, pState.facts()) &&
-              _lookForAPossibleEffect(action.effects, pEffectToLookFor, pState, pDomain, pFactsAlreadychecked))
+          if (_canFactsBecomeTrue(action.preconditions, pProblem) &&
+              _willTheActionAddOrRemoveAFact(action, pProblem.facts()) &&
+              _lookForAPossibleEffect(action.effects, pEffectToLookFor, pProblem, pDomain, pFactsAlreadychecked))
             return true;
         }
       }
@@ -307,26 +307,26 @@ bool _lookForAPossibleExistingOrNotFact(
 
 bool _lookForAPossibleEffect(const SetOfFacts& pEffectsToCheck,
                              const Fact& pEffectToLookFor,
-                             const State& pState,
+                             const Problem& pProblem,
                              const Domain& pDomain,
                              FactsAlreadychecked& pFactsAlreadychecked)
 {
   if (pEffectsToCheck.facts.count(pEffectToLookFor) > 0)
     return true;
   if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.facts, pDomain.preconditionToActions(), pEffectToLookFor,
-                                         pState, pDomain, pFactsAlreadychecked))
+                                         pProblem, pDomain, pFactsAlreadychecked))
     return true;
   if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.notFacts, pDomain.notPreconditionToActions(), pEffectToLookFor,
-                                         pState, pDomain, pFactsAlreadychecked))
+                                         pProblem, pDomain, pFactsAlreadychecked))
     return true;
   return false;
 }
 
-void _feedReachableFacts(State& pState,
+void _feedReachableFacts(Problem& pProblem,
                          const Fact& pFact,
                          const Domain& pDomain);
 
-void _feedReachableFactsFromSetOfActions(State& pState,
+void _feedReachableFactsFromSetOfActions(Problem& pProblem,
                                          const std::set<ActionId>& pActions,
                                          const Domain& pDomain)
 {
@@ -336,20 +336,20 @@ void _feedReachableFactsFromSetOfActions(State& pState,
     if (itAction != pDomain.actions().end())
     {
       auto& action = itAction->second;
-      if (_canFactsBecomeTrue(action.preconditions, pState))
+      if (_canFactsBecomeTrue(action.preconditions, pProblem))
       {
         std::set<Fact> reachableFactsToAdd;
-        _getTheFactsToAddFromTheActionEffects(reachableFactsToAdd, action, pState.facts(), pState.reachableFacts());
+        _getTheFactsToAddFromTheActionEffects(reachableFactsToAdd, action, pProblem.facts(), pProblem.reachableFacts());
         std::set<Fact> removableFactsToAdd;
-        _getTheFactsToRemoveFromTheActionEffects(removableFactsToAdd, action, pState.facts(), pState.removableFacts());
+        _getTheFactsToRemoveFromTheActionEffects(removableFactsToAdd, action, pProblem.facts(), pProblem.removableFacts());
         if (!reachableFactsToAdd.empty() || !removableFactsToAdd.empty())
         {
-          pState.addReachableFacts(reachableFactsToAdd);
-          pState.addRemovableFacts(removableFactsToAdd);
+          pProblem.addReachableFacts(reachableFactsToAdd);
+          pProblem.addRemovableFacts(removableFactsToAdd);
           for (const auto& currNewFact : reachableFactsToAdd)
-            _feedReachableFacts(pState, currNewFact, pDomain);
+            _feedReachableFacts(pProblem, currNewFact, pDomain);
           for (const auto& currNewFact : removableFactsToAdd)
-            _feedReachableFacts(pState, currNewFact, pDomain);
+            _feedReachableFacts(pProblem, currNewFact, pDomain);
         }
       }
     }
@@ -357,20 +357,20 @@ void _feedReachableFactsFromSetOfActions(State& pState,
 }
 
 
-void _feedReachableFacts(State& pState,
+void _feedReachableFacts(Problem& pProblem,
                          const Fact& pFact,
                          const Domain& pDomain)
 {
   auto itPrecToActions = pDomain.preconditionToActions().find(pFact);
   if (itPrecToActions != pDomain.preconditionToActions().end())
-    _feedReachableFactsFromSetOfActions(pState, itPrecToActions->second, pDomain);
+    _feedReachableFactsFromSetOfActions(pProblem, itPrecToActions->second, pDomain);
 }
 
 
 bool _nextStepOfTheProblemForAGoalAndSetOfActions(PotentialNextAction& pCurrentResult,
                                                   const std::set<ActionId>& pActions,
                                                   const Fact& pGoal,
-                                                  const State& pState,
+                                                  const Problem& pProblem,
                                                   const Domain& pDomain,
                                                   const Historical* pGlobalHistorical)
 {
@@ -382,12 +382,12 @@ bool _nextStepOfTheProblemForAGoalAndSetOfActions(PotentialNextAction& pCurrentR
     {
       auto& action = itAction->second;
       FactsAlreadychecked factsAlreadychecked;
-      if (areFactsTrue(action.preconditions, pState) &&
-          _willTheActionAddOrRemoveAFact(action, pState.facts()) &&
-          _lookForAPossibleEffect(action.effects, pGoal, pState, pDomain, factsAlreadychecked))
+      if (areFactsTrue(action.preconditions, pProblem) &&
+          _willTheActionAddOrRemoveAFact(action, pProblem.facts()) &&
+          _lookForAPossibleEffect(action.effects, pGoal, pProblem, pDomain, factsAlreadychecked))
       {
         auto newPotRes = PotentialNextAction(currAction, action);
-        if (newPotRes.isMoreImportantThan(newPotNextAction, pState, pGlobalHistorical))
+        if (newPotRes.isMoreImportantThan(newPotNextAction, pProblem, pGlobalHistorical))
         {
           assert(newPotRes.actionPtr != nullptr);
           newPotNextAction = newPotRes;
@@ -398,7 +398,7 @@ bool _nextStepOfTheProblemForAGoalAndSetOfActions(PotentialNextAction& pCurrentR
     }
   }
 
-  if (newPotNextAction.isMoreImportantThan(pCurrentResult, pState, pGlobalHistorical))
+  if (newPotNextAction.isMoreImportantThan(pCurrentResult, pProblem, pGlobalHistorical))
   {
     assert(newPotNextAction.actionPtr != nullptr);
     pCurrentResult = newPotNextAction;
@@ -410,28 +410,28 @@ bool _nextStepOfTheProblemForAGoalAndSetOfActions(PotentialNextAction& pCurrentR
 
 
 ActionId _nextStepOfTheProblemForAGoal(const Fact& pGoal,
-                                       const State& pState,
+                                       const Problem& pProblem,
                                        const Domain& pDomain,
                                        const Historical* pGlobalHistorical)
 {
   PotentialNextAction res;
-  for (const auto& currFact : pState.facts())
+  for (const auto& currFact : pProblem.facts())
   {
     auto itPrecToActions = pDomain.preconditionToActions().find(currFact);
     if (itPrecToActions != pDomain.preconditionToActions().end() &&
-        _nextStepOfTheProblemForAGoalAndSetOfActions(res, itPrecToActions->second, pGoal, pState,
+        _nextStepOfTheProblemForAGoalAndSetOfActions(res, itPrecToActions->second, pGoal, pProblem,
                                                      pDomain, pGlobalHistorical))
       return res.actionId;
   }
-  for (const auto& currFact : pState.factsToValue())
+  for (const auto& currFact : pProblem.factsToValue())
   {
     auto itPrecToActions = pDomain.preconditionToActionsExps().find(currFact.first);
     if (itPrecToActions != pDomain.preconditionToActionsExps().end() &&
-        _nextStepOfTheProblemForAGoalAndSetOfActions(res, itPrecToActions->second, pGoal, pState,
+        _nextStepOfTheProblemForAGoalAndSetOfActions(res, itPrecToActions->second, pGoal, pProblem,
                                                      pDomain, pGlobalHistorical))
       return res.actionId;
   }
-  _nextStepOfTheProblemForAGoalAndSetOfActions(res, pDomain.actionsWithoutPrecondition(), pGoal, pState,
+  _nextStepOfTheProblemForAGoalAndSetOfActions(res, pDomain.actionsWithoutPrecondition(), pGoal, pProblem,
                                                pDomain, pGlobalHistorical);
   return res.actionId;
 }
@@ -691,7 +691,7 @@ std::size_t Historical::_getNbOfTimeAnActionHasAlreadyBeenDone(const ActionId& p
 }
 
 
-State::State(const State& pOther)
+Problem::Problem(const Problem& pOther)
  : historical(pOther.historical),
    onFactsToValueChanged(),
    onFactsChanged(),
@@ -706,12 +706,12 @@ State::State(const State& pOther)
 }
 
 
-std::string State::getCurrentGoal() const
+std::string Problem::getCurrentGoal() const
 {
   return _goals.empty() ? "" : _goals.front();
 }
 
-void State::addFactsToValue(const std::map<Fact, std::string>& pFactsToValue)
+void Problem::addFactsToValue(const std::map<Fact, std::string>& pFactsToValue)
 {
   if (!pFactsToValue.empty())
     for (const auto& currFactToVal : pFactsToValue)
@@ -719,13 +719,13 @@ void State::addFactsToValue(const std::map<Fact, std::string>& pFactsToValue)
   onFactsToValueChanged(_factsToValue);
 }
 
-bool State::addFact(const Fact& pFact)
+bool Problem::addFact(const Fact& pFact)
 {
   return addFacts(std::vector<Fact>{pFact});
 }
 
 template<typename FACTS>
-bool State::addFacts(const FACTS& pFacts)
+bool Problem::addFacts(const FACTS& pFacts)
 {
   bool res = _addFactsWithoutFactNotification(pFacts);
   if (res)
@@ -733,12 +733,12 @@ bool State::addFacts(const FACTS& pFacts)
   return res;
 }
 
-template bool State::addFacts<std::set<Fact>>(const std::set<Fact>&);
-template bool State::addFacts<std::vector<Fact>>(const std::vector<Fact>&);
+template bool Problem::addFacts<std::set<Fact>>(const std::set<Fact>&);
+template bool Problem::addFacts<std::vector<Fact>>(const std::vector<Fact>&);
 
 
 template<typename FACTS>
-bool State::_addFactsWithoutFactNotification(const FACTS& pFacts)
+bool Problem::_addFactsWithoutFactNotification(const FACTS& pFacts)
 {
   bool res = false;
   bool aGoalHasBeenRemoved = false;
@@ -765,18 +765,18 @@ bool State::_addFactsWithoutFactNotification(const FACTS& pFacts)
   return res;
 }
 
-template bool State::_addFactsWithoutFactNotification<std::set<Fact>>(const std::set<Fact>&);
-template bool State::_addFactsWithoutFactNotification<std::vector<Fact>>(const std::vector<Fact>&);
+template bool Problem::_addFactsWithoutFactNotification<std::set<Fact>>(const std::set<Fact>&);
+template bool Problem::_addFactsWithoutFactNotification<std::vector<Fact>>(const std::vector<Fact>&);
 
 
-void State::_clearRechableAndRemovableFacts()
+void Problem::_clearRechableAndRemovableFacts()
 {
   _needToAddReachableFacts = true;
   _reachableFacts.clear();
   _removableFacts.clear();
 }
 
-bool State::modifyFacts(const SetOfFacts& pSetOfFacts)
+bool Problem::modifyFacts(const SetOfFacts& pSetOfFacts)
 {
   bool factsChanged = _addFactsWithoutFactNotification(pSetOfFacts.facts);
   for (const auto& currFact : pSetOfFacts.notFacts)
@@ -831,7 +831,7 @@ bool State::modifyFacts(const SetOfFacts& pSetOfFacts)
 }
 
 
-void State::setFacts(const std::set<Fact>& pFacts)
+void Problem::setFacts(const std::set<Fact>& pFacts)
 {
   if (_facts != pFacts)
   {
@@ -841,18 +841,18 @@ void State::setFacts(const std::set<Fact>& pFacts)
   }
 }
 
-void State::addReachableFacts(const std::set<Fact>& pFacts)
+void Problem::addReachableFacts(const std::set<Fact>& pFacts)
 {
   _reachableFacts.insert(pFacts.begin(), pFacts.end());
 }
 
-void State::addRemovableFacts(const std::set<Fact>& pFacts)
+void Problem::addRemovableFacts(const std::set<Fact>& pFacts)
 {
   _removableFacts.insert(pFacts.begin(), pFacts.end());
 }
 
 
-void State::_removeDoneGoals()
+void Problem::_removeDoneGoals()
 {
   bool hasRemovedAGoal = false;
   for (auto itGoal = _goals.begin(); itGoal != _goals.end(); )
@@ -872,7 +872,7 @@ void State::_removeDoneGoals()
 }
 
 
-void State::removeGoal(const Fact& pGoal)
+void Problem::removeGoal(const Fact& pGoal)
 {
   for (auto itGoal = _goals.begin(); itGoal != _goals.end(); ++itGoal)
   {
@@ -885,7 +885,7 @@ void State::removeGoal(const Fact& pGoal)
   }
 }
 
-void State::setGoals(const std::vector<Fact>& pGoals)
+void Problem::setGoals(const std::vector<Fact>& pGoals)
 {
   if (_goals != pGoals)
   {
@@ -894,7 +894,7 @@ void State::setGoals(const std::vector<Fact>& pGoals)
   }
 }
 
-void State::addGoals(const std::vector<Fact>& pGoals)
+void Problem::addGoals(const std::vector<Fact>& pGoals)
 {
   if (pGoals.empty())
     return;
@@ -902,7 +902,7 @@ void State::addGoals(const std::vector<Fact>& pGoals)
   onGoalsChanged(_goals);
 }
 
-void State::pushBackGoal(const Fact& pGoal)
+void Problem::pushBackGoal(const Fact& pGoal)
 {
   _goals.push_back(pGoal);
   onGoalsChanged(_goals);
@@ -912,7 +912,7 @@ void State::pushBackGoal(const Fact& pGoal)
 
 
 void replaceVariables(std::string& pStr,
-                      const State& pState)
+                      const Problem& pProblem)
 {
   // replace variable
   auto currentPos = pStr.find_first_of("${");
@@ -924,7 +924,7 @@ void replaceVariables(std::string& pStr,
     {
       auto varName = pStr.substr(beginOfVarName, endVarPos - beginOfVarName);
 
-      auto& factsToValue = pState.factsToValue();
+      auto& factsToValue = pProblem.factsToValue();
       auto it = factsToValue.find(varName);
       if (it != factsToValue.end())
       {
@@ -972,73 +972,73 @@ std::vector<cp::Fact> factsFromString(const std::string& pStr,
 }
 
 
-void fillReachableFacts(State& pState,
+void fillReachableFacts(Problem& pProblem,
                         const Domain& pDomain)
 {
-  if (!pState.needToAddReachableFacts())
+  if (!pProblem.needToAddReachableFacts())
     return;
-  for (const auto& currFact : pState.facts())
+  for (const auto& currFact : pProblem.facts())
   {
-    if (pState.reachableFacts().count(currFact) == 0)
-      _feedReachableFacts(pState, currFact, pDomain);
+    if (pProblem.reachableFacts().count(currFact) == 0)
+      _feedReachableFacts(pProblem, currFact, pDomain);
   }
-  _feedReachableFactsFromSetOfActions(pState, pDomain.actionsWithoutPrecondition(), pDomain);
-  pState.noNeedToAddReachableFacts();
+  _feedReachableFactsFromSetOfActions(pProblem, pDomain.actionsWithoutPrecondition(), pDomain);
+  pProblem.noNeedToAddReachableFacts();
 }
 
 
 bool areFactsTrue(const SetOfFacts& pSetOfFacts,
-                  const State& pState)
+                  const Problem& pProblem)
 {
-  auto& facts = pState.facts();
+  auto& facts = pProblem.facts();
   for (const auto& currPrecond : pSetOfFacts.facts)
     if (facts.count(currPrecond) == 0)
       return false;
   for (const auto& currPrecond : pSetOfFacts.notFacts)
     if (facts.count(currPrecond) > 0)
       return false;
-  return _areExpsValid(pSetOfFacts.exps, pState.factsToValue());
+  return _areExpsValid(pSetOfFacts.exps, pProblem.factsToValue());
 }
 
 
-ActionId lookForAnActionToDo(State& pState,
+ActionId lookForAnActionToDo(Problem& pProblem,
                              const Domain& pDomain,
                              const Historical* pGlobalHistorical)
 {
-  fillReachableFacts(pState, pDomain);
-  while (!pState.goals().empty())
+  fillReachableFacts(pProblem, pDomain);
+  while (!pProblem.goals().empty())
   {
-    auto& currGoal = pState.goals().front();
-    if (pState.facts().count(currGoal) == 0)
+    auto& currGoal = pProblem.goals().front();
+    if (pProblem.facts().count(currGoal) == 0)
     {
-      auto res = _nextStepOfTheProblemForAGoal(currGoal, pState,
+      auto res = _nextStepOfTheProblemForAGoal(currGoal, pProblem,
                                                pDomain, pGlobalHistorical);
       if (!res.empty())
         return res;
     }
-    pState.removeGoal(currGoal);
+    pProblem.removeGoal(currGoal);
   }
   return "";
 }
 
 
-std::list<ActionId> solve(State& pState,
+std::list<ActionId> solve(Problem& pProblem,
                           const Domain& pDomain,
                           Historical* pGlobalHistorical)
 {
   std::list<std::string> res;
-  while (!pState.goals().empty())
+  while (!pProblem.goals().empty())
   {
-    auto actionToDo = lookForAnActionToDo(pState, pDomain, pGlobalHistorical);
+    auto actionToDo = lookForAnActionToDo(pProblem, pDomain, pGlobalHistorical);
     if (actionToDo.empty())
       break;
     res.emplace_back(actionToDo);
-    pState.historical.notifyActionDone(actionToDo);
+    pProblem.historical.notifyActionDone(actionToDo);
     if (pGlobalHistorical != nullptr)
       pGlobalHistorical->notifyActionDone(actionToDo);
     auto itAction = pDomain.actions().find(actionToDo);
     if (itAction != pDomain.actions().end())
-      pState.modifyFacts(itAction->second.effects);
+      pProblem.modifyFacts(itAction->second.effects);
   }
   return res;
 }
