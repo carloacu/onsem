@@ -177,7 +177,7 @@ void addChatbotDomaintoASemanticMemory(
       action.effects.add(currAction.inputPtr->effect);
     actions.emplace(currActionWithId.first, std::move(action));
   }
-  pChatbotDomain.compiledDomain = mystd::make_unique<cp::CompiledProblem>(cp::compileProblem(actions));
+  pChatbotDomain.compiledDomain = mystd::make_unique<cp::Domain>(actions);
 }
 
 

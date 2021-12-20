@@ -44,7 +44,7 @@ struct ONSEMSEMANTICTOTEXT_API ChatbotDomain
 {
   std::map<SemanticLanguageEnum, std::vector<std::string>> inform{};
   std::map<cp::ActionId, ChatbotAction> actions{};
-  std::unique_ptr<cp::CompiledProblem> compiledDomain{};
+  std::unique_ptr<cp::Domain> compiledDomain{};
 };
 
 

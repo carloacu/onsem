@@ -164,13 +164,22 @@ struct ONSEMCHATBOTPLANNER_API Action
   bool shouldBeDoneAsapWithoutHistoryCheck;
 };
 
-struct ONSEMCHATBOTPLANNER_API CompiledProblem
+struct ONSEMCHATBOTPLANNER_API Domain
 {
-  std::map<ActionId, Action> actions;
-  std::map<Fact, std::set<ActionId>> preconditionToActions;
-  std::map<Fact, std::set<ActionId>> preconditionToActionsExps;
-  std::map<Fact, std::set<ActionId>> notPreconditionToActions;
-  std::set<ActionId> actionsWithoutPrecondition;
+  Domain(const std::map<ActionId, Action>& pActions);
+
+  const std::map<ActionId, Action>& actions() const { return _actions; }
+  const std::map<Fact, std::set<ActionId>>& preconditionToActions() const { return _preconditionToActions; }
+  const std::map<Fact, std::set<ActionId>>& preconditionToActionsExps() const { return _preconditionToActionsExps; }
+  const std::map<Fact, std::set<ActionId>>& notPreconditionToActions() const { return _notPreconditionToActions; }
+  const std::set<ActionId>& actionsWithoutPrecondition() const { return _actionsWithoutPrecondition; }
+
+private:
+  std::map<ActionId, Action> _actions;
+  std::map<Fact, std::set<ActionId>> _preconditionToActions;
+  std::map<Fact, std::set<ActionId>> _preconditionToActionsExps;
+  std::map<Fact, std::set<ActionId>> _notPreconditionToActions;
+  std::set<ActionId> _actionsWithoutPrecondition;
 };
 
 
@@ -245,13 +254,10 @@ std::vector<cp::Fact> factsFromString(const std::string& pStr,
                                       const std::string& pSeparator);
 
 
-ONSEMCHATBOTPLANNER_API
-CompiledProblem compileProblem(const std::map<ActionId, Action>& pActions);
-
 
 ONSEMCHATBOTPLANNER_API
 void fillReachableFacts(State& pState,
-                        const CompiledProblem& pProblem);
+                        const Domain& pDomain);
 
 
 ONSEMCHATBOTPLANNER_API
@@ -260,12 +266,12 @@ bool areFactsTrue(const SetOfFacts& pSetOfFacts,
 
 ONSEMCHATBOTPLANNER_API
 ActionId lookForAnActionToDo(State& pState,
-                             const CompiledProblem& pProblem,
+                             const Domain& pDomain,
                              const Historical* pGlobalHistorical = nullptr);
 
 ONSEMCHATBOTPLANNER_API
 std::list<ActionId> solve(State& pState,
-                          const CompiledProblem& pProblem,
+                          const Domain& pDomain,
                           Historical* pGlobalHistorical = nullptr);
 } // !cp
 } // !onsem

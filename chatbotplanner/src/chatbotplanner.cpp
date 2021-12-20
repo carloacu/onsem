@@ -267,7 +267,7 @@ void _getTheFactsToRemoveFromTheActionEffects(std::set<Fact>& pFactsToRemove,
 bool _lookForAPossibleEffect(const SetOfFacts& pEffectsToCheck,
                              const Fact& pEffectToLookFor,
                              const State& pState,
-                             const CompiledProblem& pProblem,
+                             const Domain& pDomain,
                              FactsAlreadychecked& pFactsAlreadychecked);
 
 
@@ -276,7 +276,7 @@ bool _lookForAPossibleExistingOrNotFact(
     const std::map<Fact, std::set<ActionId>>& pPreconditionToActions,
     const Fact& pEffectToLookFor,
     const State& pState,
-    const CompiledProblem& pProblem,
+    const Domain& pDomain,
     FactsAlreadychecked& pFactsAlreadychecked)
 {
   for (const auto& currEffect : pFacts)
@@ -288,13 +288,13 @@ bool _lookForAPossibleExistingOrNotFact(
     {
       for (const auto& currActionId : it->second)
       {
-        auto itAction = pProblem.actions.find(currActionId);
-        if (itAction != pProblem.actions.end())
+        auto itAction = pDomain.actions().find(currActionId);
+        if (itAction != pDomain.actions().end())
         {
           auto& action = itAction->second;
           if (_canFactsBecomeTrue(action.preconditions, pState) &&
               _willTheActionAddOrRemoveAFact(action, pState.facts()) &&
-              _lookForAPossibleEffect(action.effects, pEffectToLookFor, pState, pProblem, pFactsAlreadychecked))
+              _lookForAPossibleEffect(action.effects, pEffectToLookFor, pState, pDomain, pFactsAlreadychecked))
             return true;
         }
       }
@@ -308,32 +308,32 @@ bool _lookForAPossibleExistingOrNotFact(
 bool _lookForAPossibleEffect(const SetOfFacts& pEffectsToCheck,
                              const Fact& pEffectToLookFor,
                              const State& pState,
-                             const CompiledProblem& pProblem,
+                             const Domain& pDomain,
                              FactsAlreadychecked& pFactsAlreadychecked)
 {
   if (pEffectsToCheck.facts.count(pEffectToLookFor) > 0)
     return true;
-  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.facts, pProblem.preconditionToActions, pEffectToLookFor,
-                                         pState, pProblem, pFactsAlreadychecked))
+  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.facts, pDomain.preconditionToActions(), pEffectToLookFor,
+                                         pState, pDomain, pFactsAlreadychecked))
     return true;
-  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.notFacts, pProblem.notPreconditionToActions, pEffectToLookFor,
-                                         pState, pProblem, pFactsAlreadychecked))
+  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.notFacts, pDomain.notPreconditionToActions(), pEffectToLookFor,
+                                         pState, pDomain, pFactsAlreadychecked))
     return true;
   return false;
 }
 
 void _feedReachableFacts(State& pState,
                          const Fact& pFact,
-                         const CompiledProblem& pProblem);
+                         const Domain& pDomain);
 
 void _feedReachableFactsFromSetOfActions(State& pState,
                                          const std::set<ActionId>& pActions,
-                                         const CompiledProblem& pProblem)
+                                         const Domain& pDomain)
 {
   for (const auto& currAction : pActions)
   {
-    auto itAction = pProblem.actions.find(currAction);
-    if (itAction != pProblem.actions.end())
+    auto itAction = pDomain.actions().find(currAction);
+    if (itAction != pDomain.actions().end())
     {
       auto& action = itAction->second;
       if (_canFactsBecomeTrue(action.preconditions, pState))
@@ -347,9 +347,9 @@ void _feedReachableFactsFromSetOfActions(State& pState,
           pState.addReachableFacts(reachableFactsToAdd);
           pState.addRemovableFacts(removableFactsToAdd);
           for (const auto& currNewFact : reachableFactsToAdd)
-            _feedReachableFacts(pState, currNewFact, pProblem);
+            _feedReachableFacts(pState, currNewFact, pDomain);
           for (const auto& currNewFact : removableFactsToAdd)
-            _feedReachableFacts(pState, currNewFact, pProblem);
+            _feedReachableFacts(pState, currNewFact, pDomain);
         }
       }
     }
@@ -359,11 +359,11 @@ void _feedReachableFactsFromSetOfActions(State& pState,
 
 void _feedReachableFacts(State& pState,
                          const Fact& pFact,
-                         const CompiledProblem& pProblem)
+                         const Domain& pDomain)
 {
-  auto itPrecToActions = pProblem.preconditionToActions.find(pFact);
-  if (itPrecToActions != pProblem.preconditionToActions.end())
-    _feedReachableFactsFromSetOfActions(pState, itPrecToActions->second, pProblem);
+  auto itPrecToActions = pDomain.preconditionToActions().find(pFact);
+  if (itPrecToActions != pDomain.preconditionToActions().end())
+    _feedReachableFactsFromSetOfActions(pState, itPrecToActions->second, pDomain);
 }
 
 
@@ -371,20 +371,20 @@ bool _nextStepOfTheProblemForAGoalAndSetOfActions(PotentialNextAction& pCurrentR
                                                   const std::set<ActionId>& pActions,
                                                   const Fact& pGoal,
                                                   const State& pState,
-                                                  const CompiledProblem& pProblem,
+                                                  const Domain& pDomain,
                                                   const Historical* pGlobalHistorical)
 {
   PotentialNextAction newPotNextAction;
   for (const auto& currAction : pActions)
   {
-    auto itAction = pProblem.actions.find(currAction);
-    if (itAction != pProblem.actions.end())
+    auto itAction = pDomain.actions().find(currAction);
+    if (itAction != pDomain.actions().end())
     {
       auto& action = itAction->second;
       FactsAlreadychecked factsAlreadychecked;
       if (areFactsTrue(action.preconditions, pState) &&
           _willTheActionAddOrRemoveAFact(action, pState.facts()) &&
-          _lookForAPossibleEffect(action.effects, pGoal, pState, pProblem, factsAlreadychecked))
+          _lookForAPossibleEffect(action.effects, pGoal, pState, pDomain, factsAlreadychecked))
       {
         auto newPotRes = PotentialNextAction(currAction, action);
         if (newPotRes.isMoreImportantThan(newPotNextAction, pState, pGlobalHistorical))
@@ -411,28 +411,28 @@ bool _nextStepOfTheProblemForAGoalAndSetOfActions(PotentialNextAction& pCurrentR
 
 ActionId _nextStepOfTheProblemForAGoal(const Fact& pGoal,
                                        const State& pState,
-                                       const CompiledProblem& pProblem,
+                                       const Domain& pDomain,
                                        const Historical* pGlobalHistorical)
 {
   PotentialNextAction res;
   for (const auto& currFact : pState.facts())
   {
-    auto itPrecToActions = pProblem.preconditionToActions.find(currFact);
-    if (itPrecToActions != pProblem.preconditionToActions.end() &&
+    auto itPrecToActions = pDomain.preconditionToActions().find(currFact);
+    if (itPrecToActions != pDomain.preconditionToActions().end() &&
         _nextStepOfTheProblemForAGoalAndSetOfActions(res, itPrecToActions->second, pGoal, pState,
-                                                     pProblem, pGlobalHistorical))
+                                                     pDomain, pGlobalHistorical))
       return res.actionId;
   }
   for (const auto& currFact : pState.factsToValue())
   {
-    auto itPrecToActions = pProblem.preconditionToActionsExps.find(currFact.first);
-    if (itPrecToActions != pProblem.preconditionToActionsExps.end() &&
+    auto itPrecToActions = pDomain.preconditionToActionsExps().find(currFact.first);
+    if (itPrecToActions != pDomain.preconditionToActionsExps().end() &&
         _nextStepOfTheProblemForAGoalAndSetOfActions(res, itPrecToActions->second, pGoal, pState,
-                                                     pProblem, pGlobalHistorical))
+                                                     pDomain, pGlobalHistorical))
       return res.actionId;
   }
-  _nextStepOfTheProblemForAGoalAndSetOfActions(res, pProblem.actionsWithoutPrecondition, pGoal, pState,
-                                               pProblem, pGlobalHistorical);
+  _nextStepOfTheProblemForAGoalAndSetOfActions(res, pDomain.actionsWithoutPrecondition(), pGoal, pState,
+                                               pDomain, pGlobalHistorical);
   return res.actionId;
 }
 
@@ -941,47 +941,45 @@ std::vector<cp::Fact> factsFromString(const std::string& pStr,
   return res;
 }
 
-CompiledProblem compileProblem(const std::map<ActionId, Action>& pActions)
+Domain::Domain(const std::map<ActionId, Action>& pActions)
 {
-  CompiledProblem res;
   for (const auto& currAction : pActions)
   {
     if (currAction.second.preconditions == currAction.second.effects ||
         currAction.second.effects.empty())
       continue;
-    res.actions.emplace(currAction.first, currAction.second);
+    _actions.emplace(currAction.first, currAction.second);
     for (const auto& currPrecondition : currAction.second.preferInContext.facts)
-      res.preconditionToActions[currPrecondition].insert(currAction.first);
+      _preconditionToActions[currPrecondition].insert(currAction.first);
     for (const auto& currPrecondition : currAction.second.preconditions.facts)
-      res.preconditionToActions[currPrecondition].insert(currAction.first);
+      _preconditionToActions[currPrecondition].insert(currAction.first);
 
     for (const auto& currPrecondition : currAction.second.preferInContext.notFacts)
-      res.notPreconditionToActions[currPrecondition].insert(currAction.first);
+      _notPreconditionToActions[currPrecondition].insert(currAction.first);
     for (const auto& currPrecondition : currAction.second.preconditions.notFacts)
-      res.notPreconditionToActions[currPrecondition].insert(currAction.first);
+      _notPreconditionToActions[currPrecondition].insert(currAction.first);
 
     for (auto& currExp : currAction.second.preconditions.exps)
       for (auto& currElt : currExp.elts)
         if (currElt.type == ExpressionElementType::FACT)
-          res.preconditionToActionsExps[currElt.value].insert(currAction.first);
+          _preconditionToActionsExps[currElt.value].insert(currAction.first);
     if (currAction.second.preconditions.facts.empty() && currAction.second.preconditions.exps.empty())
-      res.actionsWithoutPrecondition.insert(currAction.first);
+      _actionsWithoutPrecondition.insert(currAction.first);
   }
-  return res;
 }
 
 
 void fillReachableFacts(State& pState,
-                        const CompiledProblem& pProblem)
+                        const Domain& pDomain)
 {
   if (!pState.needToAddReachableFacts())
     return;
   for (const auto& currFact : pState.facts())
   {
     if (pState.reachableFacts().count(currFact) == 0)
-      _feedReachableFacts(pState, currFact, pProblem);
+      _feedReachableFacts(pState, currFact, pDomain);
   }
-  _feedReachableFactsFromSetOfActions(pState, pProblem.actionsWithoutPrecondition, pProblem);
+  _feedReachableFactsFromSetOfActions(pState, pDomain.actionsWithoutPrecondition(), pDomain);
   pState.noNeedToAddReachableFacts();
 }
 
@@ -1001,17 +999,17 @@ bool areFactsTrue(const SetOfFacts& pSetOfFacts,
 
 
 ActionId lookForAnActionToDo(State& pState,
-                             const CompiledProblem& pProblem,
+                             const Domain& pDomain,
                              const Historical* pGlobalHistorical)
 {
-  fillReachableFacts(pState, pProblem);
+  fillReachableFacts(pState, pDomain);
   while (!pState.goals().empty())
   {
     auto& currGoal = pState.goals().front();
     if (pState.facts().count(currGoal) == 0)
     {
       auto res = _nextStepOfTheProblemForAGoal(currGoal, pState,
-                                               pProblem, pGlobalHistorical);
+                                               pDomain, pGlobalHistorical);
       if (!res.empty())
         return res;
     }
@@ -1022,21 +1020,21 @@ ActionId lookForAnActionToDo(State& pState,
 
 
 std::list<ActionId> solve(State& pState,
-                          const CompiledProblem& pProblem,
+                          const Domain& pDomain,
                           Historical* pGlobalHistorical)
 {
   std::list<std::string> res;
   while (!pState.goals().empty())
   {
-    auto actionToDo = lookForAnActionToDo(pState, pProblem, pGlobalHistorical);
+    auto actionToDo = lookForAnActionToDo(pState, pDomain, pGlobalHistorical);
     if (actionToDo.empty())
       break;
     res.emplace_back(actionToDo);
     pState.historical.notifyActionDone(actionToDo);
     if (pGlobalHistorical != nullptr)
       pGlobalHistorical->notifyActionDone(actionToDo);
-    auto itAction = pProblem.actions.find(actionToDo);
-    if (itAction != pProblem.actions.end())
+    auto itAction = pDomain.actions().find(actionToDo);
+    if (itAction != pDomain.actions().end())
       pState.modifyFacts(itAction->second.effects);
   }
   return res;
