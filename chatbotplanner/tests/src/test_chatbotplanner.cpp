@@ -364,16 +364,15 @@ void _takeHistoricalIntoAccount()
   actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
   actions.emplace(_action_goodBoy, lp::Action({_fact_presented, _fact_checkedIn}, {_fact_beHappy}));
 
-  lp::Historical historical;
   lp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq(_action_checkIn + _sep +
             _action_greet + _sep +
-            _action_goodBoy, _solveStrConst(state, actions, &historical));
+            _action_goodBoy, _solveStrConst(state, actions, &state.historical));
 
   assert_eq(_action_presentation + _sep +
             _action_checkIn + _sep +
-            _action_goodBoy, _solveStrConst(state, actions, &historical));
+            _action_goodBoy, _solveStrConst(state, actions, &state.historical));
 }
 
 
