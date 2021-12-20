@@ -14,14 +14,14 @@ const std::string beginOfActionId = "actionId-";
 struct ONSEMSEMANTICTOTEXT_API ChatbotParam
 {
   std::string text{};
-  lp::SetOfFacts effect{};
-  std::vector<lp::Fact> goalsToAdd{};
+  cp::SetOfFacts effect{};
+  std::vector<cp::Fact> goalsToAdd{};
 };
 
 struct ONSEMSEMANTICTOTEXT_API ChatbotInput
 {
-  lp::Fact fact{};
-  lp::SetOfFacts effect{};
+  cp::Fact fact{};
+  cp::SetOfFacts effect{};
 };
 
 
@@ -32,26 +32,26 @@ struct ONSEMSEMANTICTOTEXT_API ChatbotAction
   std::string text{};
   std::vector<ChatbotParam> parameters{};
   std::unique_ptr<ChatbotInput> inputPtr{};
-  lp::SetOfFacts precondition{};
-  lp::SetOfFacts preferInContext{};
-  lp::SetOfFacts effect{};
-  lp::SetOfFacts potentialEffect{};
-  std::vector<lp::Fact> goalsToAdd{};
+  cp::SetOfFacts precondition{};
+  cp::SetOfFacts preferInContext{};
+  cp::SetOfFacts effect{};
+  cp::SetOfFacts potentialEffect{};
+  std::vector<cp::Fact> goalsToAdd{};
   bool shouldBeDoneAsapWithoutHistoryCheck{};
 };
 
 struct ONSEMSEMANTICTOTEXT_API ChatbotDomain
 {
   std::map<SemanticLanguageEnum, std::vector<std::string>> inform{};
-  std::map<lp::ActionId, ChatbotAction> actions{};
-  std::unique_ptr<lp::CompiledProblem> compiledDomain{};
+  std::map<cp::ActionId, ChatbotAction> actions{};
+  std::unique_ptr<cp::CompiledProblem> compiledDomain{};
 };
 
 
 struct ONSEMSEMANTICTOTEXT_API ChatbotProblem
 {
   SemanticLanguageEnum language{SemanticLanguageEnum::UNKNOWN};
-  lp::State state{};
+  cp::State state{};
 };
 
 

@@ -5,12 +5,12 @@
 
 namespace onsem
 {
-namespace lp
+namespace cp
 {
 using Fact = std::string;
 using ActionId = std::string;
 
-} // !lp
+} // !cp
 } // !onsem
 
 

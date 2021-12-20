@@ -8,7 +8,7 @@
 
 namespace onsem
 {
-namespace lp
+namespace cp
 {
 
 namespace
@@ -926,10 +926,10 @@ void replaceVariables(std::string& pStr,
 }
 
 
-std::vector<lp::Fact> factsFromString(const std::string& pStr,
+std::vector<cp::Fact> factsFromString(const std::string& pStr,
                                       const std::string& pSeparator)
 {
-  std::vector<lp::Fact> res;
+  std::vector<cp::Fact> res;
   mystd::split(res, pStr, pSeparator);
   for (auto it = res.begin(); it != res.end(); )
   {
@@ -1043,5 +1043,5 @@ std::list<ActionId> solve(State& pState,
 }
 
 
-} // !lp
+} // !cp
 } // !onsem

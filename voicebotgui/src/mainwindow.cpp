@@ -1094,7 +1094,7 @@ void MainWindow::_proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSa
   _effectAfterCurrentInput.reset();
   if (_chatbotDomain && _chatbotProblem)
   {
-    auto actionId = lp::lookForAnActionToDo(_chatbotProblem->state, *_chatbotDomain->compiledDomain, &_plannerHistorical);
+    auto actionId = cp::lookForAnActionToDo(_chatbotProblem->state, *_chatbotDomain->compiledDomain, &_plannerHistorical);
     if (!actionId.empty() && pActionIdsToSkip.count(actionId) == 0)
     {
       auto itAction = _chatbotDomain->actions.find(actionId);
@@ -1102,7 +1102,7 @@ void MainWindow::_proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSa
       {
         auto& action = itAction->second;
         std::string text = action.text;
-        lp::replaceVariables(text, _chatbotProblem->state);
+        cp::replaceVariables(text, _chatbotProblem->state);
         _printChatRobotMessage(text);
         pTextsToSay.emplace_back(text, action.language);
 
@@ -1154,7 +1154,7 @@ void MainWindow::_printParametersAndNotifyPlanner(const ChatbotAction& pAction,
     actionParam.goalsToAdd = currParameter.goalsToAdd;
   }
   if (pAction.inputPtr)
-    _effectAfterCurrentInput = mystd::make_unique<lp::SetOfFacts>(pAction.inputPtr->effect);
+    _effectAfterCurrentInput = mystd::make_unique<cp::SetOfFacts>(pAction.inputPtr->effect);
   if (!paramLines.empty())
   {
     _ui->textBrowser_chat_history->setTextColor(_outFontColor);
@@ -1331,7 +1331,7 @@ void MainWindow::_clearLoadedScenarios()
   {
     _chatbotDomain.reset();
     _chatbotProblem.reset();
-    _plannerHistorical = lp::Historical();
+    _plannerHistorical = cp::Historical();
     _currentActionParameters.clear();
     _effectAfterCurrentInput.reset();
   }

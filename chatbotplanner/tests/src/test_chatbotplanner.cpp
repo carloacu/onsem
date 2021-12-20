@@ -71,41 +71,41 @@ std::string _listOfStrToStr(const std::list<std::string>& pStrs)
 }
 
 
-std::string _solveStrConst(const lp::State& pState,
-                           const std::map<std::string, lp::Action>& pActions,
-                           lp::Historical* pGlobalHistorical = nullptr)
+std::string _solveStrConst(const cp::State& pState,
+                           const std::map<std::string, cp::Action>& pActions,
+                           cp::Historical* pGlobalHistorical = nullptr)
 {
   auto state = pState;
-  auto problem = lp::compileProblem(pActions);
-  return _listOfStrToStr(lp::solve(state, problem, pGlobalHistorical));
+  auto problem = cp::compileProblem(pActions);
+  return _listOfStrToStr(cp::solve(state, problem, pGlobalHistorical));
 }
 
-std::string _solveStr(lp::State& pState,
-                      const std::map<std::string, lp::Action>& pActions,
-                      lp::Historical* pGlobalHistorical = nullptr)
+std::string _solveStr(cp::State& pState,
+                      const std::map<std::string, cp::Action>& pActions,
+                      cp::Historical* pGlobalHistorical = nullptr)
 {
-  auto problem = lp::compileProblem(pActions);
-  return _listOfStrToStr(lp::solve(pState, problem, pGlobalHistorical));
+  auto problem = cp::compileProblem(pActions);
+  return _listOfStrToStr(cp::solve(pState, problem, pGlobalHistorical));
 }
 
 
-std::string _lookForAnActionToDoConst(const lp::State& pState,
-                                      const lp::CompiledProblem& pProblem)
+std::string _lookForAnActionToDoConst(const cp::State& pState,
+                                      const cp::CompiledProblem& pProblem)
 {
   auto state = pState;
-  return lp::lookForAnActionToDo(state, pProblem);
+  return cp::lookForAnActionToDo(state, pProblem);
 }
 
 
 void _test_setOfFactsFromStr()
 {
   {
-    lp::SetOfFacts sOfFacts = lp::SetOfFacts::fromStr("a,b", ",");
+    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr("a,b", ",");
     assert(sOfFacts.facts.count("a") == 1);
     assert(sOfFacts.facts.count("b") == 1);
   }
   {
-    lp::SetOfFacts sOfFacts = lp::SetOfFacts::fromStr(" a, b , c  ", ",");
+    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr(" a, b , c  ", ",");
     assert(sOfFacts.facts.count("a") == 1);
     assert(sOfFacts.facts.count("b") == 1);
     assert(sOfFacts.facts.count("c") == 1);
@@ -114,13 +114,13 @@ void _test_setOfFactsFromStr()
 
 void _noPreconditionGolalImmediatlyReached()
 {
-  std::map<lp::ActionId, lp::Action> actions;
-  actions.emplace(_action_goodBoy, lp::Action({}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<cp::ActionId, cp::Action> actions;
+  actions.emplace(_action_goodBoy, cp::Action({}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
-  assert_eq(_action_goodBoy, lp::lookForAnActionToDo(state, problem));
+  assert_eq(_action_goodBoy, cp::lookForAnActionToDo(state, problem));
   assert_true(!state.goals().empty());
   state.addFact(_fact_beHappy);
   assert_true(state.goals().empty());
@@ -129,12 +129,12 @@ void _noPreconditionGolalImmediatlyReached()
 
 void _noPlanWithALengthOf2()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_greeted}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_greeted}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq(_action_greet, _lookForAnActionToDoConst(state, problem));
   assert_eq(_action_greet + _sep +
@@ -144,13 +144,13 @@ void _noPlanWithALengthOf2()
 
 void _noPlanWithALengthOf3()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_checkIn, lp::Action({_fact_greeted}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_checkedIn}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkIn, cp::Action({_fact_greeted}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_checkedIn}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq(_action_greet, _lookForAnActionToDoConst(state, problem));
   assert_eq(_action_greet + _sep +
@@ -160,13 +160,13 @@ void _noPlanWithALengthOf3()
 
 void _2preconditions()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq(_action_checkIn, _lookForAnActionToDoConst(state, problem));
   assert_eq(_action_checkIn + _sep +
@@ -176,13 +176,13 @@ void _2preconditions()
 
 void _2Goals()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_greeted, _fact_beHappy});
   assert_eq(_action_greet, _lookForAnActionToDoConst(state, problem));
   assert_eq(_action_greet + _sep +
@@ -192,13 +192,13 @@ void _2Goals()
 
 void _2UnrelatedGoals()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_checkedIn}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_checkedIn}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_greeted, _fact_beHappy});
   assert_eq(_action_greet, _lookForAnActionToDoConst(state, problem));
   assert_eq(_action_greet + _sep +
@@ -209,12 +209,12 @@ void _2UnrelatedGoals()
 
 void _impossibleGoal()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_checkedIn}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_checkedIn}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_greeted, _fact_beHappy});
   assert_eq(_action_checkIn, _lookForAnActionToDoConst(state, problem));
   assert_eq(_action_checkIn + _sep +
@@ -224,15 +224,15 @@ void _impossibleGoal()
 
 void _privigelizeTheActionsThatHaveManyPreconditions()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
-  actions.emplace(_action_checkInWithQrCode, lp::Action({_fact_hasQrCode}, {_fact_checkedIn}));
-  actions.emplace(_action_checkInWithPassword, lp::Action({_fact_hasCheckInPasword}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_checkInWithQrCode, cp::Action({_fact_hasQrCode}, {_fact_checkedIn}));
+  actions.emplace(_action_checkInWithPassword, cp::Action({_fact_hasCheckInPasword}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_greeted, _fact_beHappy});
   assert_eq(_action_greet, _lookForAnActionToDoConst(state, problem));
   assert_eq(_action_greet + _sep +
@@ -254,28 +254,28 @@ void _privigelizeTheActionsThatHaveManyPreconditions()
 
 void _preconditionThatCannotBeSolved()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_checkInWithQrCode, lp::Action({_fact_hasQrCode}, {_fact_checkedIn}));
-  actions.emplace(_action_checkInWithPassword, lp::Action({_fact_hasCheckInPasword}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkInWithQrCode, cp::Action({_fact_hasQrCode}, {_fact_checkedIn}));
+  actions.emplace(_action_checkInWithPassword, cp::Action({_fact_hasCheckInPasword}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
-  assert_true(lp::lookForAnActionToDo(state, problem).empty());
+  assert_true(cp::lookForAnActionToDo(state, problem).empty());
 }
 
 
 void _preferInContext()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_checkInWithQrCode, lp::Action({}, {_fact_checkedIn}, {_fact_hasQrCode}));
-  actions.emplace(_action_checkInWithPassword, lp::Action({}, {_fact_checkedIn}, {_fact_hasCheckInPasword}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkInWithQrCode, cp::Action({}, {_fact_checkedIn}, {_fact_hasQrCode}));
+  actions.emplace(_action_checkInWithPassword, cp::Action({}, {_fact_checkedIn}, {_fact_hasCheckInPasword}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq(_action_greet + _sep +
             _action_checkInWithPassword + _sep +
@@ -291,7 +291,7 @@ void _preferInContext()
             _action_greet + _sep +
             _action_goodBoy, _solveStrConst(state, actions));
 
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
   state.setFacts({});
   assert_eq(_action_checkIn + _sep +
             _action_greet + _sep +
@@ -312,13 +312,13 @@ void _preferInContext()
 
 void _preferWhenPreconditionAreCloserToTheRealFacts()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted, _fact_presented}, {_fact_beginOfConversation}));
-  actions.emplace(_action_presentation, lp::Action({}, {_fact_presented}));
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_presented, _fact_checkedIn}, {_fact_beHappy}));
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted, _fact_presented}, {_fact_beginOfConversation}));
+  actions.emplace(_action_presentation, cp::Action({}, {_fact_presented}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_presented, _fact_checkedIn}, {_fact_beHappy}));
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq(_action_checkIn + _sep +
             _action_presentation + _sep +
@@ -333,13 +333,13 @@ void _preferWhenPreconditionAreCloserToTheRealFacts()
 
 void _avoidToDo2TimesTheSameActionIfPossble()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted, _fact_presented}));
-  actions.emplace(_action_presentation, lp::Action({}, {_fact_presented}, {_fact_beginOfConversation}));
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_presented, _fact_checkedIn}, {_fact_beHappy}));
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted, _fact_presented}));
+  actions.emplace(_action_presentation, cp::Action({}, {_fact_presented}, {_fact_beginOfConversation}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_presented, _fact_checkedIn}, {_fact_beHappy}));
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq(_action_checkIn + _sep +
             _action_greet + _sep +
@@ -358,13 +358,13 @@ void _avoidToDo2TimesTheSameActionIfPossble()
 
 void _takeHistoricalIntoAccount()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted, _fact_presented}));
-  actions.emplace(_action_presentation, lp::Action({}, {_fact_presented}));
-  actions.emplace(_action_checkIn, lp::Action({}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_presented, _fact_checkedIn}, {_fact_beHappy}));
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted, _fact_presented}));
+  actions.emplace(_action_presentation, cp::Action({}, {_fact_presented}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_presented, _fact_checkedIn}, {_fact_beHappy}));
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq(_action_checkIn + _sep +
             _action_greet + _sep +
@@ -378,27 +378,27 @@ void _takeHistoricalIntoAccount()
 
 void _goDoTheActionThatHaveTheMostPrerequisitValidated()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_advertise, lp::Action({}, {_fact_advertised}));
-  actions.emplace(_action_checkIn, lp::Action({_fact_is_close}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_advertised, _fact_checkedIn}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_advertise, cp::Action({}, {_fact_advertised}));
+  actions.emplace(_action_checkIn, cp::Action({_fact_is_close}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_advertised, _fact_checkedIn}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setFacts({_fact_is_close});
   state.setGoals({_fact_beHappy});
-  assert_eq(_action_checkIn, lp::lookForAnActionToDo(state, problem));
+  assert_eq(_action_checkIn, cp::lookForAnActionToDo(state, problem));
 }
 
 
 void _checkShouldBeDoneAsap()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}, {}, true));
-  actions.emplace(_action_checkIn, lp::Action({_fact_is_close}, {_fact_checkedIn}));
-  actions.emplace(_action_goodBoy, lp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}, {}, true));
+  actions.emplace(_action_checkIn, cp::Action({_fact_is_close}, {_fact_checkedIn}));
+  actions.emplace(_action_goodBoy, cp::Action({_fact_greeted, _fact_checkedIn}, {_fact_beHappy}));
 
-  lp::State state;
+  cp::State state;
   state.setFacts({_fact_is_close});
   state.setGoals({_fact_beHappy});
   assert_eq(_action_greet + _sep +
@@ -409,11 +409,11 @@ void _checkShouldBeDoneAsap()
 
 void _checkNotInAPrecondition()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action(lp::SetOfFacts({}, {_fact_checkedIn}), {_fact_greeted}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action(cp::SetOfFacts({}, {_fact_checkedIn}), {_fact_greeted}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_greeted});
   assert_eq(_action_greet, _lookForAnActionToDoConst(state, problem));
   state.modifyFacts({_fact_checkedIn});
@@ -423,15 +423,15 @@ void _checkNotInAPrecondition()
 
 void _checkClearGoalsWhenItsAlreadySatisfied()
 {
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_greeted, _fact_checkedIn});
   assert_eq<std::size_t>(2, state.goals().size());
-  state.addFacts(std::vector<lp::Fact>{_fact_greeted, _fact_checkedIn});
+  state.addFacts(std::vector<cp::Fact>{_fact_greeted, _fact_checkedIn});
   assert_eq<std::size_t>(0, state.goals().size());
   state.setFacts({});
   state.setGoals({_fact_greeted, _fact_checkedIn});
   assert_eq<std::size_t>(2, state.goals().size());
-  state.addFacts(std::vector<lp::Fact>{_fact_checkedIn, _fact_greeted});
+  state.addFacts(std::vector<cp::Fact>{_fact_checkedIn, _fact_greeted});
   assert_eq<std::size_t>(0, state.goals().size());
 }
 
@@ -439,10 +439,10 @@ void _checkClearGoalsWhenItsAlreadySatisfied()
 void _fromAndToStrOfSetOfFacts()
 {
   std::string sep = "\n";
-  auto setOfFacts = lp::SetOfFacts::fromStr("++${var-name}", sep);
+  auto setOfFacts = cp::SetOfFacts::fromStr("++${var-name}", sep);
   setOfFacts.rename("var-name", "var-new-name");
   assert_eq<std::string>("++${var-new-name}", setOfFacts.toStr(sep));
-  setOfFacts = lp::SetOfFacts::fromStr("${var-name-to-check}=10", sep);
+  setOfFacts = cp::SetOfFacts::fromStr("${var-name-to-check}=10", sep);
   setOfFacts.rename("var-name-to-check", "var-name-to-check-new");
   assert_eq<std::string>("${var-name-to-check-new}=10", setOfFacts.toStr(sep));
 }
@@ -450,32 +450,32 @@ void _fromAndToStrOfSetOfFacts()
 
 void _testIncrementOfVariables()
 {
-  std::map<std::string, lp::Action> actions;
-  const lp::Action actionQ1({}, lp::SetOfFacts::fromStr(_fact_askAllTheQuestions + "\n++${number-of-question}", "\n"));
-  const lp::Action actionFinishToActActions(lp::SetOfFacts::fromStr("${number-of-question}=${max-number-of-questions}", "\n"), {_fact_askAllTheQuestions}, {}, true);
-  const lp::Action actionSayQuestionBilan({_fact_askAllTheQuestions}, {_fact_finishToAskQuestions});
+  std::map<std::string, cp::Action> actions;
+  const cp::Action actionQ1({}, cp::SetOfFacts::fromStr(_fact_askAllTheQuestions + "\n++${number-of-question}", "\n"));
+  const cp::Action actionFinishToActActions(cp::SetOfFacts::fromStr("${number-of-question}=${max-number-of-questions}", "\n"), {_fact_askAllTheQuestions}, {}, true);
+  const cp::Action actionSayQuestionBilan({_fact_askAllTheQuestions}, {_fact_finishToAskQuestions});
   actions.emplace(_action_askQuestion1, actionQ1);
-  actions.emplace(_action_askQuestion2, lp::Action({}, lp::SetOfFacts::fromStr(_fact_askAllTheQuestions + "\n++${number-of-question}", "\n")));
+  actions.emplace(_action_askQuestion2, cp::Action({}, cp::SetOfFacts::fromStr(_fact_askAllTheQuestions + "\n++${number-of-question}", "\n")));
   actions.emplace(_action_finisehdToAskQuestions, actionFinishToActActions);
   actions.emplace(_action_sayQuestionBilan, actionSayQuestionBilan);
-  auto problem = lp::compileProblem(actions);
+  auto problem = cp::compileProblem(actions);
 
   std::string initFactsStr = "${number-of-question}=0\n${max-number-of-questions}=3";
-  auto initFacts = lp::SetOfFacts::fromStr(initFactsStr, "\n");
+  auto initFacts = cp::SetOfFacts::fromStr(initFactsStr, "\n");
   assert_eq(initFactsStr, initFacts.toStr("\n"));
-  lp::State state;
+  cp::State state;
   state.modifyFacts(initFacts);
-  assert(lp::areFactsTrue(initFacts, state));
-  assert(lp::areFactsTrue(actionQ1.preconditions, state));
-  assert(!lp::areFactsTrue(actionFinishToActActions.preconditions, state));
-  assert(!lp::areFactsTrue(actionSayQuestionBilan.preconditions, state));
-  assert(lp::areFactsTrue(lp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+3", "\n"), state));
-  assert(!lp::areFactsTrue(lp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+4", "\n"), state));
-  assert(lp::areFactsTrue(lp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+4-1", "\n"), state));
+  assert(cp::areFactsTrue(initFacts, state));
+  assert(cp::areFactsTrue(actionQ1.preconditions, state));
+  assert(!cp::areFactsTrue(actionFinishToActActions.preconditions, state));
+  assert(!cp::areFactsTrue(actionSayQuestionBilan.preconditions, state));
+  assert(cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+3", "\n"), state));
+  assert(!cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+4", "\n"), state));
+  assert(cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+4-1", "\n"), state));
   for (std::size_t i = 0; i < 3; ++i)
   {
     state.setGoals({_fact_finishToAskQuestions});
-    auto actionToDo = lp::lookForAnActionToDo(state, problem);
+    auto actionToDo = cp::lookForAnActionToDo(state, problem);
     if (i == 0 || i == 2)
       assert_eq<std::string>(_action_askQuestion1, actionToDo);
     else
@@ -484,49 +484,49 @@ void _testIncrementOfVariables()
     auto itAction = problem.actions.find(actionToDo);
     assert(itAction != problem.actions.end());
     state.modifyFacts(itAction->second.effects);
-    state.modifyFacts(lp::SetOfFacts({}, {_fact_askAllTheQuestions}));
+    state.modifyFacts(cp::SetOfFacts({}, {_fact_askAllTheQuestions}));
   }
-  assert(lp::areFactsTrue(actionQ1.preconditions, state));
-  assert(lp::areFactsTrue(actionFinishToActActions.preconditions, state));
-  assert(!lp::areFactsTrue(actionSayQuestionBilan.preconditions, state));
+  assert(cp::areFactsTrue(actionQ1.preconditions, state));
+  assert(cp::areFactsTrue(actionFinishToActActions.preconditions, state));
+  assert(!cp::areFactsTrue(actionSayQuestionBilan.preconditions, state));
   state.setGoals({_fact_finishToAskQuestions});
-  auto actionToDo = lp::lookForAnActionToDo(state, problem);
+  auto actionToDo = cp::lookForAnActionToDo(state, problem);
   assert_eq<std::string>(_action_finisehdToAskQuestions, actionToDo);
   state.historical.notifyActionDone(actionToDo);
   auto itAction = problem.actions.find(actionToDo);
   assert(itAction != problem.actions.end());
   state.modifyFacts(itAction->second.effects);
-  assert_eq<std::string>(_action_sayQuestionBilan, lp::lookForAnActionToDo(state, problem));
-  assert(lp::areFactsTrue(actionQ1.preconditions, state));
-  assert(lp::areFactsTrue(actionFinishToActActions.preconditions, state));
-  assert(lp::areFactsTrue(actionSayQuestionBilan.preconditions, state));
+  assert_eq<std::string>(_action_sayQuestionBilan, cp::lookForAnActionToDo(state, problem));
+  assert(cp::areFactsTrue(actionQ1.preconditions, state));
+  assert(cp::areFactsTrue(actionFinishToActActions.preconditions, state));
+  assert(cp::areFactsTrue(actionSayQuestionBilan.preconditions, state));
   state.modifyFacts(actionSayQuestionBilan.effects);
   assert(state.goals().empty());
 }
 
 void _precoditionEqualEffect()
 {
-  std::map<lp::ActionId, lp::Action> actions;
-  actions.emplace(_action_goodBoy, lp::Action({_fact_beHappy}, {_fact_beHappy}));
-  auto problem = lp::compileProblem(actions);
+  std::map<cp::ActionId, cp::Action> actions;
+  actions.emplace(_action_goodBoy, cp::Action({_fact_beHappy}, {_fact_beHappy}));
+  auto problem = cp::compileProblem(actions);
   assert_true(problem.actions.empty());
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
-  assert_true(lp::lookForAnActionToDo(state, problem).empty());
+  assert_true(cp::lookForAnActionToDo(state, problem).empty());
 }
 
 
 void _circularDependencies()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_greet, lp::Action({}, {_fact_greeted}));
-  actions.emplace(_action_checkIn, lp::Action({_fact_greeted}, {_fact_checkedIn}));
-  actions.emplace("check-in-pwd", lp::Action({_fact_hasCheckInPasword}, {_fact_checkedIn}));
-  actions.emplace("inverse-of-check-in-pwd", lp::Action({_fact_checkedIn}, {_fact_hasCheckInPasword}));
-  auto problem = lp::compileProblem(actions);
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkIn, cp::Action({_fact_greeted}, {_fact_checkedIn}));
+  actions.emplace("check-in-pwd", cp::Action({_fact_hasCheckInPasword}, {_fact_checkedIn}));
+  actions.emplace("inverse-of-check-in-pwd", cp::Action({_fact_checkedIn}, {_fact_hasCheckInPasword}));
+  auto problem = cp::compileProblem(actions);
 
-  lp::State state;
+  cp::State state;
   state.setGoals({_fact_beHappy});
   assert_eq<std::string>("", _lookForAnActionToDoConst(state, problem));
 }
@@ -534,12 +534,12 @@ void _circularDependencies()
 
 void _triggerActionThatRemoveAFact()
 {
-  std::map<std::string, lp::Action> actions;
-  actions.emplace(_action_joke, lp::Action({_fact_beSad}, lp::SetOfFacts({}, {_fact_beSad})));
-  actions.emplace(_action_goodBoy, lp::Action(lp::SetOfFacts({}, {_fact_beSad}), {_fact_beHappy}));
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_joke, cp::Action({_fact_beSad}, cp::SetOfFacts({}, {_fact_beSad})));
+  actions.emplace(_action_goodBoy, cp::Action(cp::SetOfFacts({}, {_fact_beSad}), {_fact_beHappy}));
 
-  lp::Historical historical;
-  lp::State state;
+  cp::Historical historical;
+  cp::State state;
   state.addFact(_fact_beSad);
   state.setGoals({_fact_beHappy});
   assert_eq(_action_joke + _sep +

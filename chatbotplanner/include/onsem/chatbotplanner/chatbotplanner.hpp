@@ -15,7 +15,7 @@
 
 namespace onsem
 {
-namespace lp
+namespace cp
 {
 
 
@@ -241,7 +241,7 @@ void replaceVariables(std::string& pStr,
                       const State& pState);
 
 ONSEMCHATBOTPLANNER_API
-std::vector<lp::Fact> factsFromString(const std::string& pStr,
+std::vector<cp::Fact> factsFromString(const std::string& pStr,
                                       const std::string& pSeparator);
 
 
@@ -267,7 +267,7 @@ ONSEMCHATBOTPLANNER_API
 std::list<ActionId> solve(State& pState,
                           const CompiledProblem& pProblem,
                           Historical* pGlobalHistorical = nullptr);
-} // !lp
+} // !cp
 } // !onsem
 
 

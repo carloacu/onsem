@@ -138,8 +138,8 @@ private:
     std::string urlizeInput{};
     UniqueSemanticExpression semExp{};
     UniqueSemanticExpression semExpMergedWithContext{};
-    lp::SetOfFacts effect{};
-    std::vector<lp::Fact> goalsToAdd{};
+    cp::SetOfFacts effect{};
+    std::vector<cp::Fact> goalsToAdd{};
   };
   struct TextWithLanguage
   {
@@ -170,9 +170,9 @@ private:
   std::unique_ptr<onsem::SemanticMemory> _semMemoryBinaryPtr;
   std::unique_ptr<onsem::ChatbotDomain> _chatbotDomain;
   std::unique_ptr<onsem::ChatbotProblem> _chatbotProblem;
-  onsem::lp::Historical _plannerHistorical;
+  onsem::cp::Historical _plannerHistorical;
   std::list<ChatbotSemExpParam> _currentActionParameters;
-  std::unique_ptr<lp::SetOfFacts> _effectAfterCurrentInput;
+  std::unique_ptr<cp::SetOfFacts> _effectAfterCurrentInput;
   ScenarioContainer _scenarioContainer;
   const std::string _inLabel;
   QColor _outFontColor;
