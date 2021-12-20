@@ -1,6 +1,6 @@
 #include "../semanticreasonergtests.hpp"
 #include <gtest/gtest.h>
-#include <onsem/semantictotext/io/loadchatbot.hpp>
+#include <onsem/tester/loadchatbot.hpp>
 
 using namespace onsem;
 

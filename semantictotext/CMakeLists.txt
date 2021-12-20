@@ -19,7 +19,6 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp
     include/onsem/semantictotext/semanticmemory/semantictracker.hpp
     include/onsem/semantictotext/greet.hpp
-    include/onsem/semantictotext/io/loadchatbot.hpp
     include/onsem/semantictotext/semexpoperators.hpp
     include/onsem/semantictotext/semanticconverter.hpp
     include/onsem/semantictotext/semanticintent.hpp
@@ -49,7 +48,6 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/utility/semexpcreator.hpp
     src/utility/semexpcreator.cpp
     src/utility/futurevoid.cpp
-    src/io/loadchatbot.cpp
     src/io/loadmodel.hpp
     src/io/loadmodel.cpp
     src/io/savemodel.hpp
@@ -184,9 +182,7 @@ include_directories(include)
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
-if(NOT ONSEMCHATBOTPLANNER_FOUND)
-  find_package(onsemchatbotplanner)
-endif()
+
 if(NOT ONSEMTEXTTOSEMANTIC_FOUND)
   find_package(onsemtexttosemantic)
 endif()
@@ -199,14 +195,12 @@ add_library(onsemsemantictotext SHARED
 include_directories(
   ${BOOST_INCLUDE_DIRS}
   ${ONSEMCOMMON_INCLUDE_DIRS}
-  ${ONSEMCHATBOTPLANNER_INCLUDE_DIRS}
   ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}
 )
 target_link_libraries(onsemsemantictotext
   z
   ${BOOST_LIBRARIES}
   ${ONSEMCOMMON_LIBRARIES}
-  ${ONSEMCHATBOTPLANNER_LIBRARIES}
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
 )
 install(TARGETS onsemsemantictotext DESTINATION lib)

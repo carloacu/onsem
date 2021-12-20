@@ -7,6 +7,13 @@ option(
   "Build with the dependency of the boost installed in the system."
   ON)
 
+option(
+  BUILD_ONSEM_CHATBOTPLANNER
+  "Build the chatbot planner."
+  ON)
+
+
+
 
 ## Command line for database compilation
 # cmake -DBUILD_ONSEM_DATABASE=ON -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
@@ -45,11 +52,14 @@ if (NOT BUILD_ONSEM_DATABASE)
   install(DIRECTORY "${SEMANTICDATABASE_OUTDIR}/linguistic/databases" DESTINATION share/linguistic)
   install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/share/semantic/dynamicdictionary" DESTINATION share/semantic)
 
-  add_subdirectory(chatbotplanner)
   add_subdirectory(texttosemantic)
   add_subdirectory(semantictotext)
   add_subdirectory(streamdatabaseaccessor)
   add_subdirectory(semanticdebugger)
+
+  if (BUILD_ONSEM_CHATBOTPLANNER)
+    add_subdirectory(chatbotplanner)
+  endif()
 
   if (BUILD_ONSEM_TESTS)
     add_subdirectory(tests)

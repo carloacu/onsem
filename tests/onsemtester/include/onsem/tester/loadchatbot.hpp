@@ -5,27 +5,27 @@
 #include <onsem/chatbotplanner/chatbotplanner.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include "../api.hpp"
+#include "api.hpp"
 
 namespace onsem
 {
 const std::string beginOfActionId = "actionId-";
 
-struct ONSEMSEMANTICTOTEXT_API ChatbotParam
+struct ONSEMTESTER_API ChatbotParam
 {
   std::string text{};
   cp::SetOfFacts effect{};
   std::vector<cp::Fact> goalsToAdd{};
 };
 
-struct ONSEMSEMANTICTOTEXT_API ChatbotInput
+struct ONSEMTESTER_API ChatbotInput
 {
   cp::Fact fact{};
   cp::SetOfFacts effect{};
 };
 
 
-struct ONSEMSEMANTICTOTEXT_API ChatbotAction
+struct ONSEMTESTER_API ChatbotAction
 {
   SemanticLanguageEnum language{SemanticLanguageEnum::UNKNOWN};
   std::string trigger{};
@@ -40,7 +40,7 @@ struct ONSEMSEMANTICTOTEXT_API ChatbotAction
   bool shouldBeDoneAsapWithoutHistoryCheck{};
 };
 
-struct ONSEMSEMANTICTOTEXT_API ChatbotDomain
+struct ONSEMTESTER_API ChatbotDomain
 {
   std::map<SemanticLanguageEnum, std::vector<std::string>> inform{};
   std::map<cp::ActionId, ChatbotAction> actions{};
@@ -48,25 +48,25 @@ struct ONSEMSEMANTICTOTEXT_API ChatbotDomain
 };
 
 
-struct ONSEMSEMANTICTOTEXT_API ChatbotProblem
+struct ONSEMTESTER_API ChatbotProblem
 {
   SemanticLanguageEnum language{SemanticLanguageEnum::UNKNOWN};
   cp::Problem problem{};
 };
 
 
-ONSEMSEMANTICTOTEXT_API
+ONSEMTESTER_API
 void loadChatbotDomain(ChatbotDomain& pChatbotDomain,
                        std::istream& pIstream);
 
 
-ONSEMSEMANTICTOTEXT_API
+ONSEMTESTER_API
 void loadChatbotProblem(ChatbotProblem& pChatbotProblem,
                         std::istream& pIstream);
 
 
 
-ONSEMSEMANTICTOTEXT_API
+ONSEMTESTER_API
 void addChatbotDomaintoASemanticMemory(
     SemanticMemory& pSemanticMemory,
     ChatbotDomain& pChatbotDomain,

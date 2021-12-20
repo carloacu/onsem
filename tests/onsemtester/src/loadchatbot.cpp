@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/io/loadchatbot.hpp>
+#include <onsem/tester/loadchatbot.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <onsem/common/utility/make_unique.hpp>

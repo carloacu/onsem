@@ -14,6 +14,7 @@ set(ONSEMTESTER_HPPS
   include/onsem/tester/sentencesloader.hpp
   include/onsem/tester/syntacticanalysisxmlloader.hpp
   include/onsem/tester/syntacticanalysisxmlsaver.hpp
+  include/onsem/tester/loadchatbot.hpp
 )
 
 set(ONSEMTESTER_SRCS
@@ -24,6 +25,7 @@ set(ONSEMTESTER_SRCS
   src/sentencesloader.cpp
   src/syntacticanalysisxmlloader.cpp
   src/syntacticanalysisxmlsaver.cpp
+  src/loadchatbot.cpp
 )
 
 include_directories(include)
@@ -41,7 +43,9 @@ endif()
 if(NOT ONSEMSEMANTOCDEBUGGER_FOUND)
   find_package(onsemsemanticdebugger)
 endif()
-
+if(NOT ONSEMCHATBOTPLANNER_FOUND)
+  find_package(onsemchatbotplanner)
+endif()
 
 add_library(onsemtester SHARED
   ${ONSEMTESTER_HPPS}
@@ -53,6 +57,7 @@ include_directories(
   ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}
   ${ONSEMSEMANTICTOTEXT_INCLUDE_DIRS}
   ${ONSEMSEMANTOCDEBUGGER_INCLUDE_DIRS}
+  ${ONSEMCHATBOTPLANNER_INCLUDE_DIRS}
 )
 
 target_link_libraries(onsemtester
@@ -60,6 +65,7 @@ target_link_libraries(onsemtester
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
   ${ONSEMSEMANTICTOTEXT_LIBRARIES}
   ${ONSEMSEMANTOCDEBUGGER_LIBRARIES}
+  ${ONSEMCHATBOTPLANNER_LIBRARIES}
 )
 
 
