@@ -940,6 +940,18 @@ void Problem::pushBackGoal(const Fact& pGoal)
 }
 
 
+void Problem::notifyActionDone(
+    const std::string& pActionId,
+    const cp::SetOfFacts& effect,
+    const std::vector<cp::Fact>* pGoalsToAdd)
+{
+    historical.notifyActionDone(pActionId);
+    modifyFacts(effect);
+    if (pGoalsToAdd != nullptr && !pGoalsToAdd->empty())
+      addGoals(*pGoalsToAdd);
+}
+
+
 
 
 void replaceVariables(std::string& pStr,
@@ -1064,15 +1076,19 @@ std::list<ActionId> solve(Problem& pProblem,
     if (actionToDo.empty())
       break;
     res.emplace_back(actionToDo);
-    pProblem.historical.notifyActionDone(actionToDo);
-    if (pGlobalHistorical != nullptr)
-      pGlobalHistorical->notifyActionDone(actionToDo);
+
     auto itAction = pDomain.actions().find(actionToDo);
     if (itAction != pDomain.actions().end())
-      pProblem.modifyFacts(itAction->second.effects);
+    {
+      if (pGlobalHistorical != nullptr)
+        pGlobalHistorical->notifyActionDone(actionToDo);
+      pProblem.notifyActionDone(actionToDo, itAction->second.effects, nullptr);
+    }
   }
   return res;
 }
+
+
 
 
 } // !cp

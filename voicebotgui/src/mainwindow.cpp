@@ -76,7 +76,6 @@ MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
   _semMemoryBinaryPtr(mystd::make_unique<SemanticMemory>()),
   _chatbotDomain(),
   _chatbotProblem(),
-  _plannerHistorical(),
   _currentActionParameters(),
   _effectAfterCurrentInput(),
   _scenarioContainer(),
@@ -1094,7 +1093,7 @@ void MainWindow::_proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSa
   _effectAfterCurrentInput.reset();
   if (_chatbotDomain && _chatbotProblem)
   {
-    auto actionId = cp::lookForAnActionToDo(_chatbotProblem->problem, *_chatbotDomain->compiledDomain, &_plannerHistorical);
+    auto actionId = cp::lookForAnActionToDo(_chatbotProblem->problem, *_chatbotDomain->compiledDomain, &_chatbotProblem->problem.historical);
     if (!actionId.empty() && pActionIdsToSkip.count(actionId) == 0)
     {
       auto itAction = _chatbotDomain->actions.find(actionId);
@@ -1161,10 +1160,7 @@ void MainWindow::_printParametersAndNotifyPlanner(const ChatbotAction& pAction,
     _ui->textBrowser_chat_history->append(QString::fromUtf8(paramLines.c_str()));
   }
 
-  _chatbotProblem->problem.modifyFacts(pAction.effect);
-  if (!pAction.goalsToAdd.empty())
-    _chatbotProblem->problem.addGoals(pAction.goalsToAdd);
-  _plannerHistorical.notifyActionDone(pActionId);
+  _chatbotProblem->problem.notifyActionDone(pActionId, pAction.effect, &pAction.goalsToAdd);
 }
 
 
@@ -1331,7 +1327,6 @@ void MainWindow::_clearLoadedScenarios()
   {
     _chatbotDomain.reset();
     _chatbotProblem.reset();
-    _plannerHistorical = cp::Historical();
     _currentActionParameters.clear();
     _effectAfterCurrentInput.reset();
   }

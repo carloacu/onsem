@@ -170,7 +170,6 @@ private:
   std::unique_ptr<onsem::SemanticMemory> _semMemoryBinaryPtr;
   std::unique_ptr<onsem::ChatbotDomain> _chatbotDomain;
   std::unique_ptr<onsem::ChatbotProblem> _chatbotProblem;
-  onsem::cp::Historical _plannerHistorical;
   std::list<ChatbotSemExpParam> _currentActionParameters;
   std::unique_ptr<cp::SetOfFacts> _effectAfterCurrentInput;
   ScenarioContainer _scenarioContainer;

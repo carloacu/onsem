@@ -224,6 +224,10 @@ struct ONSEMCHATBOTPLANNER_API Problem
   void setGoals(const std::vector<Fact>& pGoals);
   void addGoals(const std::vector<Fact>& pGoals);
   void pushBackGoal(const Fact& pGoal);
+  void notifyActionDone(
+      const std::string& pActionId,
+      const cp::SetOfFacts& effect,
+      const std::vector<cp::Fact>* pGoalsToAdd);
   const std::vector<Fact>& goals() const { return _goals; }
   const std::set<Fact>& facts() const { return _facts; }
   const std::map<Fact, std::string>& factsToValue() const { return _factsToValue; }
