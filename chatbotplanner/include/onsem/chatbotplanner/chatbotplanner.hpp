@@ -8,9 +8,9 @@
 #include <memory>
 #include <mutex>
 #include <assert.h>
-#include <onsem/common/utility/observable/observableunsafe.hpp>
 #include "api.hpp"
 #include <onsem/chatbotplanner/alias.hpp>
+#include <onsem/chatbotplanner/observableunsafe.hpp>
 
 
 namespace onsem
@@ -205,9 +205,9 @@ struct ONSEMCHATBOTPLANNER_API Problem
   Problem() = default;
   Problem(const Problem& pOther);
   Historical historical{};
-  mystd::observable::ObservableUnsafe<void (const std::map<Fact, std::string>&)> onFactsToValueChanged{};
-  mystd::observable::ObservableUnsafe<void (const std::set<std::string>&)> onFactsChanged{};
-  mystd::observable::ObservableUnsafe<void (const std::vector<std::string>&)> onGoalsChanged{};
+  cpstd::observable::ObservableUnsafe<void (const std::map<Fact, std::string>&)> onFactsToValueChanged{};
+  cpstd::observable::ObservableUnsafe<void (const std::set<std::string>&)> onFactsChanged{};
+  cpstd::observable::ObservableUnsafe<void (const std::vector<std::string>&)> onGoalsChanged{};
 
   std::string getCurrentGoal() const;
   void addFactsToValue(const std::map<Fact, std::string>& pFactsToValue);

@@ -1,0 +1,15 @@
+#ifndef ONSEM_CHATBOTPLANNER_EXPORTSYMBOLS_MACRO_HPP
+#define ONSEM_CHATBOTPLANNER_EXPORTSYMBOLS_MACRO_HPP
+
+#if defined _WIN32 || defined __CYGWIN__
+#  define CHATBOTPLANNER_LIB_API_EXPORTS(LIBRARY_NAME) __declspec(dllexport)
+#  define CHATBOTPLANNER_LIB_API(LIBRARY_NAME)         __declspec(dllimport)
+#elif __GNUC__ >= 4
+#  define CHATBOTPLANNER_LIB_API_EXPORTS(LIBRARY_NAME) __attribute__ ((visibility("default")))
+#  define CHATBOTPLANNER_LIB_API(LIBRARY_NAME)        __attribute__ ((visibility("default")))
+#else
+#  define CHATBOTPLANNER_LIB_API_EXPORTS(LIBRARY_NAME)
+#  define CHATBOTPLANNER_LIB_API(LIBRARY_NAME)
+#endif
+
+#endif // ONSEM_CHATBOTPLANNER_EXPORTSYMBOLS_MACRO_HPP

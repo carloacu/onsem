@@ -57,7 +57,7 @@ if (NOT BUILD_ONSEM_DATABASE)
   add_subdirectory(streamdatabaseaccessor)
   add_subdirectory(semanticdebugger)
 
-  if (BUILD_ONSEM_CHATBOTPLANNER)
+  if (BUILD_ONSEM_CHATBOTPLANNER OR BUILD_ONSEM_TESTS)
     add_subdirectory(chatbotplanner)
   endif()
 

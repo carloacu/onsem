@@ -2,8 +2,6 @@
 #include <algorithm>
 #include <assert.h>
 #include <sstream>
-#include <onsem/common/utility/lexical_cast.hpp>
-#include <onsem/common/utility/string.hpp>
 #include <onsem/chatbotplanner/arithmeticevaluator.hpp>
 
 namespace onsem
@@ -38,6 +36,39 @@ inline std::string& _trim(std::string& s, const char* t = " \t\n\r\f\v")
     return _ltrim(_rtrim(s, t), t);
 }
 
+template <typename T>
+T _lexical_cast(const std::string& pStr)
+{
+  bool firstChar = true;
+  for (const auto& currChar : pStr)
+  {
+    if ((currChar < '0' || currChar > '9') &&
+        !(firstChar && currChar == '-'))
+      throw std::runtime_error("bad lexical cast: source type value could not be interpreted as target");
+    firstChar = false;
+  }
+  return atoi(pStr.c_str());
+}
+
+
+void _split(
+    std::vector<std::string>& pStrs,
+    const std::string& pStr,
+    const std::string& pSeparator)
+{
+  std::string::size_type lastPos = 0u;
+  std::string::size_type pos = lastPos;
+  std::size_t separatorSize = pSeparator.size();
+  while ((pos = pStr.find(pSeparator, pos)) != std::string::npos)
+  {
+    pStrs.emplace_back(pStr.substr(lastPos, pos - lastPos));
+    pos += separatorSize;
+    lastPos = pos;
+  }
+  pStrs.emplace_back(pStr.substr(lastPos, pos - lastPos));
+}
+
+
 struct FactsAlreadychecked
 {
   std::set<Fact> factsToAdd;
@@ -69,7 +100,7 @@ void _incrementStr(std::string& pStr)
     try
     {
       std::stringstream ss;
-      ss << mystd::lexical_cast<int>(pStr) + 1;
+      ss << _lexical_cast<int>(pStr) + 1;
       pStr = ss.str();
     }
     catch (...) {}
@@ -516,7 +547,7 @@ SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
                                const std::string& pSeparator)
 {
   std::vector<std::string> vect;
-  mystd::split(vect, pStr, pSeparator);
+  _split(vect, pStr, pSeparator);
   SetOfFacts res;
 
   for (auto& currStr : vect)
@@ -960,7 +991,7 @@ std::vector<cp::Fact> factsFromString(const std::string& pStr,
                                       const std::string& pSeparator)
 {
   std::vector<cp::Fact> res;
-  mystd::split(res, pStr, pSeparator);
+  _split(res, pStr, pSeparator);
   for (auto it = res.begin(); it != res.end(); )
   {
     if (it->empty())
