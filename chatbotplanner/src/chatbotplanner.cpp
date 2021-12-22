@@ -54,19 +54,41 @@ T _lexical_cast(const std::string& pStr)
 void _split(
     std::vector<std::string>& pStrs,
     const std::string& pStr,
-    const std::string& pSeparator)
+    char pSeparator)
 {
   std::string::size_type lastPos = 0u;
   std::string::size_type pos = lastPos;
-  std::size_t separatorSize = pSeparator.size();
   while ((pos = pStr.find(pSeparator, pos)) != std::string::npos)
   {
     pStrs.emplace_back(pStr.substr(lastPos, pos - lastPos));
-    pos += separatorSize;
+    ++pos;
     lastPos = pos;
   }
   pStrs.emplace_back(pStr.substr(lastPos, pos - lastPos));
 }
+
+
+
+void _splitFacts(
+    std::vector<cp::Fact>& pFacts,
+    const std::string& pStr,
+    char pSeparator)
+{
+  std::size_t pos = 0u;
+  cp::Fact currFact;
+  while (pos < pStr.size())
+  {
+    pos = currFact.fillFactFromStr(pStr, pos, pSeparator);
+    if (!currFact.name.empty())
+    {
+      pFacts.emplace_back(std::move(currFact));
+      currFact = cp::Fact();
+    }
+  }
+  if (!currFact.name.empty())
+    pFacts.emplace_back(std::move(currFact));
+}
+
 
 
 struct FactsAlreadychecked
@@ -476,7 +498,7 @@ bool SetOfFacts::containsFact(const Fact& pFact) const
     return true;
   for (auto& currExp : exps)
     for (auto& currElt : currExp.elts)
-      if (currElt.type == ExpressionElementType::FACT && currElt.value == pFact)
+      if (currElt.type == ExpressionElementType::FACT && currElt.value == pFact.toStr())
         return true;
   return false;
 }
@@ -498,8 +520,8 @@ void SetOfFacts::rename(const Fact& pOldFact,
   }
   for (auto& currExp : exps)
     for (auto& currElt : currExp.elts)
-      if (currElt.type == ExpressionElementType::FACT && currElt.value == pOldFact)
-        currElt.value = pNewFact;
+      if (currElt.type == ExpressionElementType::FACT && currElt.value == pOldFact.toStr())
+        currElt.value = pNewFact.toStr();
 }
 
 
@@ -508,18 +530,20 @@ std::list<std::pair<std::string, std::string>> SetOfFacts::toFactsStrs() const
 {
   std::list<std::pair<std::string, std::string>> res;
   for (const auto& currFact : facts)
-    res.emplace_back(currFact, currFact);
+    res.emplace_back(currFact.toStr(), currFact.toStr());
   for (const auto& currNotFact : notFacts)
-    res.emplace_back(currNotFact, "!" + currNotFact);
+    res.emplace_back(currNotFact.toStr(), "!" + currNotFact.toStr());
   return res;
 }
 
 
 std::list<std::string> SetOfFacts::toStrs() const
 {
-  std::list<std::string> res(facts.begin(), facts.end());
+  std::list<std::string> res;
+  for (const auto& currFact : facts)
+    res.emplace_back(currFact.toStr());
   for (const auto& currNotFact : notFacts)
-    res.emplace_back("!" + currNotFact);
+    res.emplace_back("!" + currNotFact.toStr());
   for (const auto& currExp : exps)
   {
     std::string ExpStr;
@@ -544,7 +568,7 @@ std::string SetOfFacts::toStr(const std::string& pSeparator) const
 
 
 SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
-                               const std::string& pSeparator)
+                               char pSeparator)
 {
   std::vector<std::string> vect;
   _split(vect, pStr, pSeparator);
@@ -739,7 +763,7 @@ Problem::Problem(const Problem& pOther)
 
 std::string Problem::getCurrentGoal() const
 {
-  return _goals.empty() ? "" : _goals.front();
+  return _goals.empty() ? "" : _goals.front().toStr();
 }
 
 void Problem::addFactsToValue(const std::map<Fact, std::string>& pFactsToValue)
@@ -1024,17 +1048,10 @@ void replaceVariables(std::string& pStr,
 
 
 std::vector<cp::Fact> factsFromString(const std::string& pStr,
-                                      const std::string& pSeparator)
+                                      char pSeparator)
 {
   std::vector<cp::Fact> res;
-  _split(res, pStr, pSeparator);
-  for (auto it = res.begin(); it != res.end(); )
-  {
-    if (it->empty())
-      it = res.erase(it);
-    else
-      ++it;
-  }
+  _splitFacts(res, pStr, pSeparator);
   return res;
 }
 

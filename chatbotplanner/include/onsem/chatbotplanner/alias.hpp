@@ -7,8 +7,8 @@ namespace onsem
 {
 namespace cp
 {
-using Fact = std::string;
 using ActionId = std::string;
+
 
 } // !cp
 } // !onsem

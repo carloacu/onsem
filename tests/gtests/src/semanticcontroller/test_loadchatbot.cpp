@@ -46,7 +46,7 @@ TEST_F(SemanticReasonerGTests, test_loadchatbotDomain)
   auto& firstActionfirstParam = firstAction.parameters[0];
   EXPECT_EQ("oui", firstActionfirstParam.text);
   ASSERT_TRUE(firstAction.inputPtr.operator bool());
-  EXPECT_EQ("a-fact", firstAction.inputPtr->fact);
+  EXPECT_EQ(cp::Fact("a-fact"), firstAction.inputPtr->fact);
   ++itAction;
   auto& secondActionWithId = *itAction;
   auto& secondAction = secondActionWithId.second;
@@ -70,6 +70,6 @@ TEST_F(SemanticReasonerGTests, test_loadchatbotProblem)
   loadChatbotProblem(chatbotProblem, ss);
   EXPECT_EQ(SemanticLanguageEnum::FRENCH, chatbotProblem.language);
   ASSERT_EQ(1, chatbotProblem.problem.goals().size());
-  EXPECT_EQ("remonter-le-moral", chatbotProblem.problem.goals()[0]);
+  EXPECT_EQ(cp::Fact("remonter-le-moral"), chatbotProblem.problem.goals()[0]);
 }
 

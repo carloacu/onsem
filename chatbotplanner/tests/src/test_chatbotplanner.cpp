@@ -100,15 +100,15 @@ std::string _lookForAnActionToDoConst(const cp::Problem& pProblem,
 void _test_setOfFactsFromStr()
 {
   {
-    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr("a,b", ",");
-    assert(sOfFacts.facts.count("a") == 1);
-    assert(sOfFacts.facts.count("b") == 1);
+    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr("a,b", ',');
+    assert(sOfFacts.facts.count(cp::Fact("a")) == 1);
+    assert(sOfFacts.facts.count(cp::Fact("b")) == 1);
   }
   {
-    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr(" a, b , c  ", ",");
-    assert(sOfFacts.facts.count("a") == 1);
-    assert(sOfFacts.facts.count("b") == 1);
-    assert(sOfFacts.facts.count("c") == 1);
+    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr(" a, b , c  ", ',');
+    assert(sOfFacts.facts.count(cp::Fact("a")) == 1);
+    assert(sOfFacts.facts.count(cp::Fact("b")) == 1);
+    assert(sOfFacts.facts.count(cp::Fact("c")) == 1);
   }
 }
 
@@ -438,30 +438,30 @@ void _checkClearGoalsWhenItsAlreadySatisfied()
 
 void _fromAndToStrOfSetOfFacts()
 {
-  std::string sep = "\n";
+  char sep = '\n';
   auto setOfFacts = cp::SetOfFacts::fromStr("++${var-name}", sep);
-  setOfFacts.rename("var-name", "var-new-name");
-  assert_eq<std::string>("++${var-new-name}", setOfFacts.toStr(sep));
+  setOfFacts.rename(cp::Fact::fromStr("var-name"), cp::Fact::fromStr("var-new-name"));
+  assert_eq<std::string>("++${var-new-name}", setOfFacts.toStr("\n"));
   setOfFacts = cp::SetOfFacts::fromStr("${var-name-to-check}=10", sep);
-  setOfFacts.rename("var-name-to-check", "var-name-to-check-new");
-  assert_eq<std::string>("${var-name-to-check-new}=10", setOfFacts.toStr(sep));
+  setOfFacts.rename(cp::Fact::fromStr("var-name-to-check"), cp::Fact::fromStr("var-name-to-check-new"));
+  assert_eq<std::string>("${var-name-to-check-new}=10", setOfFacts.toStr("\n"));
 }
 
 
 void _testIncrementOfVariables()
 {
   std::map<std::string, cp::Action> actions;
-  const cp::Action actionQ1({}, cp::SetOfFacts::fromStr(_fact_askAllTheQuestions + "\n++${number-of-question}", "\n"));
-  const cp::Action actionFinishToActActions(cp::SetOfFacts::fromStr("${number-of-question}=${max-number-of-questions}", "\n"), {_fact_askAllTheQuestions}, {}, true);
+  const cp::Action actionQ1({}, cp::SetOfFacts::fromStr(_fact_askAllTheQuestions + "\n++${number-of-question}", '\n'));
+  const cp::Action actionFinishToActActions(cp::SetOfFacts::fromStr("${number-of-question}=${max-number-of-questions}", '\n'), {_fact_askAllTheQuestions}, {}, true);
   const cp::Action actionSayQuestionBilan({_fact_askAllTheQuestions}, {_fact_finishToAskQuestions});
   actions.emplace(_action_askQuestion1, actionQ1);
-  actions.emplace(_action_askQuestion2, cp::Action({}, cp::SetOfFacts::fromStr(_fact_askAllTheQuestions + "\n++${number-of-question}", "\n")));
+  actions.emplace(_action_askQuestion2, cp::Action({}, cp::SetOfFacts::fromStr(_fact_askAllTheQuestions + "\n++${number-of-question}", '\n')));
   actions.emplace(_action_finisehdToAskQuestions, actionFinishToActActions);
   actions.emplace(_action_sayQuestionBilan, actionSayQuestionBilan);
   cp::Domain domain(actions);
 
   std::string initFactsStr = "${number-of-question}=0\n${max-number-of-questions}=3";
-  auto initFacts = cp::SetOfFacts::fromStr(initFactsStr, "\n");
+  auto initFacts = cp::SetOfFacts::fromStr(initFactsStr, '\n');
   assert_eq(initFactsStr, initFacts.toStr("\n"));
   cp::Problem problem;
   problem.modifyFacts(initFacts);
@@ -469,9 +469,9 @@ void _testIncrementOfVariables()
   assert(cp::areFactsTrue(actionQ1.preconditions, problem));
   assert(!cp::areFactsTrue(actionFinishToActActions.preconditions, problem));
   assert(!cp::areFactsTrue(actionSayQuestionBilan.preconditions, problem));
-  assert(cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+3", "\n"), problem));
-  assert(!cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+4", "\n"), problem));
-  assert(cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+4-1", "\n"), problem));
+  assert(cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+3", '\n'), problem));
+  assert(!cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+4", '\n'), problem));
+  assert(cp::areFactsTrue(cp::SetOfFacts::fromStr("${max-number-of-questions}=${number-of-question}+4-1", '\n'), problem));
   for (std::size_t i = 0; i < 3; ++i)
   {
     problem.setGoals({_fact_finishToAskQuestions});

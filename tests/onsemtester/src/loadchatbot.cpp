@@ -75,8 +75,8 @@ void loadChatbotDomain(ChatbotDomain& pChatbotDomain,
             currChatbotAction.parameters.emplace_back();
             auto& currParam = currChatbotAction.parameters.back();
             currParam.text = currParameterTree.second.get("text", "");
-            currParam.effect = cp::SetOfFacts::fromStr(currParameterTree.second.get("effect", ""), ",");
-            currParam.goalsToAdd = cp::factsFromString(currParameterTree.second.get("goalsToAdd", ""), ",");
+            currParam.effect = cp::SetOfFacts::fromStr(currParameterTree.second.get("effect", ""), ',');
+            currParam.goalsToAdd = cp::factsFromString(currParameterTree.second.get("goalsToAdd", ""), ',');
           }
         }
 
@@ -86,14 +86,14 @@ void loadChatbotDomain(ChatbotDomain& pChatbotDomain,
         {
           currChatbotAction.inputPtr = mystd::make_unique<ChatbotInput>();
           currChatbotAction.inputPtr->fact = inputTreeOpt->get("fact", "");
-          currChatbotAction.inputPtr->effect = cp::SetOfFacts::fromStr(inputTreeOpt->get("effect", ""), ",");
+          currChatbotAction.inputPtr->effect = cp::SetOfFacts::fromStr(inputTreeOpt->get("effect", ""), ',');
         }
 
-        currChatbotAction.precondition = cp::SetOfFacts::fromStr(currActionTree.second.get("precondition", ""), ",");
-        currChatbotAction.preferInContext = cp::SetOfFacts::fromStr(currActionTree.second.get("preferInContext", ""), ",");
-        currChatbotAction.effect = cp::SetOfFacts::fromStr(currActionTree.second.get("effect", ""), ",");
-        currChatbotAction.potentialEffect = cp::SetOfFacts::fromStr(currActionTree.second.get("potentialEffect", ""), ",");
-        currChatbotAction.goalsToAdd = cp::factsFromString(currActionTree.second.get("goalsToAdd", ""), ",");
+        currChatbotAction.precondition = cp::SetOfFacts::fromStr(currActionTree.second.get("precondition", ""), ',');
+        currChatbotAction.preferInContext = cp::SetOfFacts::fromStr(currActionTree.second.get("preferInContext", ""), ',');
+        currChatbotAction.effect = cp::SetOfFacts::fromStr(currActionTree.second.get("effect", ""), ',');
+        currChatbotAction.potentialEffect = cp::SetOfFacts::fromStr(currActionTree.second.get("potentialEffect", ""), ',');
+        currChatbotAction.goalsToAdd = cp::factsFromString(currActionTree.second.get("goalsToAdd", ""), ',');
         currChatbotAction.shouldBeDoneAsapWithoutHistoryCheck = currActionTree.second.get("shouldBeDoneAsapWithoutHistoryCheck", false);
       }
     }

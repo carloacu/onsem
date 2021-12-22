@@ -10,6 +10,7 @@
 #include <assert.h>
 #include "api.hpp"
 #include <onsem/chatbotplanner/alias.hpp>
+#include <onsem/chatbotplanner/fact.hpp>
 #include <onsem/chatbotplanner/observableunsafe.hpp>
 
 
@@ -135,7 +136,7 @@ struct ONSEMCHATBOTPLANNER_API SetOfFacts
   std::list<std::string> toStrs() const;
   std::string toStr(const std::string& pSeparator) const;
   static SetOfFacts fromStr(const std::string& pStr,
-                            const std::string& pSeparator);
+                            char pSeparator);
 
   std::set<Fact> facts;
   std::set<Fact> notFacts;
@@ -206,8 +207,8 @@ struct ONSEMCHATBOTPLANNER_API Problem
   Problem(const Problem& pOther);
   Historical historical{};
   cpstd::observable::ObservableUnsafe<void (const std::map<Fact, std::string>&)> onFactsToValueChanged{};
-  cpstd::observable::ObservableUnsafe<void (const std::set<std::string>&)> onFactsChanged{};
-  cpstd::observable::ObservableUnsafe<void (const std::vector<std::string>&)> onGoalsChanged{};
+  cpstd::observable::ObservableUnsafe<void (const std::set<Fact>&)> onFactsChanged{};
+  cpstd::observable::ObservableUnsafe<void (const std::vector<Fact>&)> onGoalsChanged{};
 
   std::string getCurrentGoal() const;
   void addFactsToValue(const std::map<Fact, std::string>& pFactsToValue);
@@ -264,7 +265,7 @@ void replaceVariables(std::string& pStr,
 
 ONSEMCHATBOTPLANNER_API
 std::vector<cp::Fact> factsFromString(const std::string& pStr,
-                                      const std::string& pSeparator);
+                                      char pSeparator);
 
 
 
