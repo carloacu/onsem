@@ -214,6 +214,11 @@ struct ONSEMCHATBOTPLANNER_API Problem
   bool addFact(const Fact& pFact);
   template<typename FACTS>
   bool addFacts(const FACTS& pFacts);
+
+  bool removeFact(const Fact& pFact);
+  template<typename FACTS>
+  bool removeFacts(const FACTS& pFacts);
+
   bool modifyFacts(const SetOfFacts& pSetOfFacts);
   void setFacts(const std::set<Fact>& pFacts);
   void addReachableFacts(const std::set<Fact>& pFacts);
@@ -244,6 +249,10 @@ private:
 
   template<typename FACTS>
   bool _addFactsWithoutFactNotification(const FACTS& pFacts);
+
+  template<typename FACTS>
+  bool _removeFactsWithoutFactNotification(const FACTS& pFacts);
+
   void _removeDoneGoals();
   void _clearRechableAndRemovableFacts();
 };

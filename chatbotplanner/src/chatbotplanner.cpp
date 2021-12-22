@@ -764,6 +764,20 @@ bool Problem::addFacts(const FACTS& pFacts)
   return res;
 }
 
+bool Problem::removeFact(const Fact& pFact)
+{
+  return addFacts(std::vector<Fact>{pFact});
+}
+
+template<typename FACTS>
+bool Problem::removeFacts(const FACTS& pFacts)
+{
+  bool res = _removeFactsWithoutFactNotification(pFacts);
+  if (res)
+    onFactsChanged(_facts);
+  return res;
+}
+
 template bool Problem::addFacts<std::set<Fact>>(const std::set<Fact>&);
 template bool Problem::addFacts<std::vector<Fact>>(const std::vector<Fact>&);
 
@@ -796,6 +810,24 @@ bool Problem::_addFactsWithoutFactNotification(const FACTS& pFacts)
   return res;
 }
 
+
+template<typename FACTS>
+bool Problem::_removeFactsWithoutFactNotification(const FACTS& pFacts)
+{
+  bool res = false;
+  for (const auto& currFact : pFacts)
+  {
+    auto it = _facts.find(currFact);
+    if (it == _facts.end())
+      continue;
+    res = true;
+    _facts.erase(it);
+    _clearRechableAndRemovableFacts();
+  }
+  return res;
+}
+
+
 template bool Problem::_addFactsWithoutFactNotification<std::set<Fact>>(const std::set<Fact>&);
 template bool Problem::_addFactsWithoutFactNotification<std::vector<Fact>>(const std::vector<Fact>&);
 
@@ -810,15 +842,7 @@ void Problem::_clearRechableAndRemovableFacts()
 bool Problem::modifyFacts(const SetOfFacts& pSetOfFacts)
 {
   bool factsChanged = _addFactsWithoutFactNotification(pSetOfFacts.facts);
-  for (const auto& currFact : pSetOfFacts.notFacts)
-  {
-    auto it = _facts.find(currFact);
-    if (it == _facts.end())
-      continue;
-    factsChanged = true;
-    _facts.erase(it);
-    _clearRechableAndRemovableFacts();
-  }
+  factsChanged = _removeFactsWithoutFactNotification(pSetOfFacts.notFacts) || factsChanged;
   bool factsToValueChanged = false;
   for (auto& currExp : pSetOfFacts.exps)
   {
