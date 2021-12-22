@@ -766,7 +766,7 @@ bool Problem::addFacts(const FACTS& pFacts)
 
 bool Problem::removeFact(const Fact& pFact)
 {
-  return addFacts(std::vector<Fact>{pFact});
+  return removeFacts(std::vector<Fact>{pFact});
 }
 
 template<typename FACTS>
