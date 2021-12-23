@@ -968,12 +968,15 @@ const GroundedExpression* getOriginalGrdExpForm(const SetOfFormsExpression& pSet
 
 const GroundedExpression* splitMainGrdAndOtherOnes
 (std::list<const GroundedExpression*>& pOtherGrdExps,
+ bool& pHasOriginalForm,
  const std::list<std::unique_ptr<QuestExpressionFrom>>& pForms)
 {
   const GroundedExpression* mainGrd = nullptr;
   bool firstIteration = true;
   for (const auto& currForm : pForms)
   {
+    if (currForm->isOriginalForm)
+      pHasOriginalForm = true;
     const GroundedExpression* subGrd = currForm->exp->getGrdExpPtr_SkipWrapperPtrs();
     if (firstIteration)
     {

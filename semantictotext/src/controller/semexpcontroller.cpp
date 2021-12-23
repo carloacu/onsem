@@ -488,16 +488,22 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
     if (originalGrdExpForm != nullptr)
     {
       std::list<SemControllerWorkingStruct> textAnalyzes;
+      SemControllerWorkingStruct* textAnalyzesOfOriginalFromPtr = nullptr;
       for (const auto& currForms : setOfFormsExp.prioToForms)
       {
         std::list<const GroundedExpression*> otherGrdExps;
+        bool hasOriginalForm = false;
+        const GroundedExpression* mainGrdExp =
+            SemExpGetter::splitMainGrdAndOtherOnes(otherGrdExps, hasOriginalForm, currForms.second);
+
         textAnalyzes.emplace_back(pWorkStruct);
         SemControllerWorkingStruct& lastTextAnalyze = textAnalyzes.back();
+        if (textAnalyzesOfOriginalFromPtr == nullptr || hasOriginalForm)
+          textAnalyzesOfOriginalFromPtr = &lastTextAnalyze;
         lastTextAnalyze.reactionOptions.canAnswerIDontKnow = canAnswerIDontKnow;
         lastTextAnalyze.reactionOptions.canAnswerWithATrigger = canAnswerWithATrigger;
         lastTextAnalyze.reactionOptions.canAnswerWithExternalEngines = canAnswerWithExternalEngines;
-        const GroundedExpression* mainGrdExp =
-            SemExpGetter::splitMainGrdAndOtherOnes(otherGrdExps, currForms.second);
+
         if (mainGrdExp != nullptr)
         {
           applyOperatorOnGrdExp(lastTextAnalyze, pMemViewer, *mainGrdExp,
@@ -525,13 +531,10 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
           }
         }
       }
-      if (!pWorkStruct.haveAnAnswer())
+      if (!pWorkStruct.haveAnAnswer() && textAnalyzesOfOriginalFromPtr != nullptr)
       {
-        for (auto& currTextAnal : textAnalyzes)
-        {
-          pWorkStruct.addAnswers(currTextAnal);
-          return;
-        }
+        pWorkStruct.addAnswers(*textAnalyzesOfOriginalFromPtr);
+        return;
       }
     }
     else

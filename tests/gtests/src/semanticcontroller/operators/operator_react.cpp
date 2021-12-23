@@ -42,6 +42,8 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                           operator_react("Quelle langue tu sais parler", semMem, lingDb));
   ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas quelle est la consigne.",
                           operator_react("Quelle est la consigne ?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tQui es-tu ?\t)",
+                    operator_react("qui suis je", semMem, lingDb));
 
   EXPECT_EQ("", trackSemMemoryNotifications.getInfActions());
   EXPECT_EQ("", trackSemMemoryNotifications.getConditionToActions());

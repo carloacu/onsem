@@ -207,6 +207,7 @@ const GroundedExpression* getOriginalGrdExpForm(const SetOfFormsExpression& pSet
 ONSEM_TEXTTOSEMANTIC_API
 const GroundedExpression* splitMainGrdAndOtherOnes
 (std::list<const GroundedExpression*>& pOtherGrdExps,
+ bool& pHasOriginalForm,
  const std::list<std::unique_ptr<QuestExpressionFrom>>& pForms);
 
 ONSEM_TEXTTOSEMANTIC_API
