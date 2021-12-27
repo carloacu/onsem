@@ -34,6 +34,7 @@ const std::string _action_joke = "joke";
 const std::string _action_checkInWithQrCode = "check_in_with_qrcode";
 const std::string _action_checkInWithPassword = "check_in_with_password";
 const std::string _action_goodBoy = "good_boy";
+const std::string _action_navigate = "navigate";
 
 
 template <typename TYPE>
@@ -89,11 +90,22 @@ std::string _solveStr(cp::Problem& pProblem,
 }
 
 
+std::string _lookForAnActionToDo(cp::Problem& pProblem,
+                                 const cp::Domain& pDomain)
+{
+  std::map<std::string, std::string> parameters;
+  auto actionId = cp::lookForAnActionToDo(parameters, pProblem, pDomain);
+  return cp::printActionIdWithParameters(actionId, parameters);
+}
+
+
 std::string _lookForAnActionToDoConst(const cp::Problem& pProblem,
                                       const cp::Domain& pDomain)
 {
   auto problem = pProblem;
-  return cp::lookForAnActionToDo(problem, pDomain);
+  std::map<std::string, std::string> parameters;
+  auto actionId = cp::lookForAnActionToDo(parameters, problem, pDomain);
+  return cp::printActionIdWithParameters(actionId, parameters);
 }
 
 
@@ -135,7 +147,7 @@ void _noPreconditionGolalImmediatlyReached()
 
   cp::Problem problem;
   problem.setGoals({_fact_beHappy});
-  assert_eq(_action_goodBoy, cp::lookForAnActionToDo(problem, domain));
+  assert_eq(_action_goodBoy, _lookForAnActionToDo(problem, domain));
   assert_true(!problem.goals().empty());
   problem.addFact(_fact_beHappy);
   assert_true(problem.goals().empty());
@@ -278,7 +290,7 @@ void _preconditionThatCannotBeSolved()
 
   cp::Problem problem;
   problem.setGoals({_fact_beHappy});
-  assert_true(cp::lookForAnActionToDo(problem, domain).empty());
+  assert_true(_lookForAnActionToDo(problem, domain).empty());
 }
 
 
@@ -402,7 +414,7 @@ void _goDoTheActionThatHaveTheMostPrerequisitValidated()
   cp::Problem problem;
   problem.setFacts({_fact_is_close});
   problem.setGoals({_fact_beHappy});
-  assert_eq(_action_checkIn, cp::lookForAnActionToDo(problem, domain));
+  assert_eq(_action_checkIn, _lookForAnActionToDo(problem, domain));
 }
 
 
@@ -490,7 +502,7 @@ void _testIncrementOfVariables()
   for (std::size_t i = 0; i < 3; ++i)
   {
     problem.setGoals({_fact_finishToAskQuestions});
-    auto actionToDo = cp::lookForAnActionToDo(problem, domain);
+    auto actionToDo = _lookForAnActionToDo(problem, domain);
     if (i == 0 || i == 2)
       assert_eq<std::string>(_action_askQuestion1, actionToDo);
     else
@@ -505,13 +517,13 @@ void _testIncrementOfVariables()
   assert(cp::areFactsTrue(actionFinishToActActions.preconditions, problem));
   assert(!cp::areFactsTrue(actionSayQuestionBilan.preconditions, problem));
   problem.setGoals({_fact_finishToAskQuestions});
-  auto actionToDo = cp::lookForAnActionToDo(problem, domain);
+  auto actionToDo = _lookForAnActionToDo(problem, domain);
   assert_eq<std::string>(_action_finisehdToAskQuestions, actionToDo);
   problem.historical.notifyActionDone(actionToDo);
   auto itAction = domain.actions().find(actionToDo);
   assert(itAction != domain.actions().end());
   problem.modifyFacts(itAction->second.effects);
-  assert_eq<std::string>(_action_sayQuestionBilan, cp::lookForAnActionToDo(problem, domain));
+  assert_eq<std::string>(_action_sayQuestionBilan, _lookForAnActionToDo(problem, domain));
   assert(cp::areFactsTrue(actionQ1.preconditions, problem));
   assert(cp::areFactsTrue(actionFinishToActActions.preconditions, problem));
   assert(cp::areFactsTrue(actionSayQuestionBilan.preconditions, problem));
@@ -528,7 +540,7 @@ void _precoditionEqualEffect()
 
   cp::Problem problem;
   problem.setGoals({_fact_beHappy});
-  assert_true(cp::lookForAnActionToDo(problem, domain).empty());
+  assert_true(_lookForAnActionToDo(problem, domain).empty());
 }
 
 
@@ -561,6 +573,33 @@ void _triggerActionThatRemoveAFact()
             _action_goodBoy, _solveStrConst(problem, actions, &historical));
 }
 
+
+void _actionWithConstantValue()
+{
+  std::map<std::string, cp::Action> actions;
+  cp::Action navigate({}, {cp::Fact::fromStr("place=kitchen")});
+  actions.emplace(_action_navigate, navigate);
+
+  cp::Historical historical;
+  cp::Problem problem;
+  problem.setGoals({cp::Fact::fromStr("place=kitchen")});
+  assert_eq(_action_navigate, _solveStrConst(problem, actions, &historical));
+}
+
+
+void _actionWithParameterizedValue()
+{
+  std::map<std::string, cp::Action> actions;
+  cp::Action navigate({}, {cp::Fact::fromStr("place=target")});
+  navigate.parameters.emplace_back("target");
+  actions.emplace(_action_navigate, navigate);
+
+  cp::Historical historical;
+  cp::Problem problem;
+  problem.setGoals({cp::Fact::fromStr("place=kitchen")});
+  assert_eq(_action_navigate + "(target -> kitchen)", _solveStrConst(problem, actions, &historical));
+}
+
 }
 
 
@@ -591,6 +630,8 @@ int main(int argc, char *argv[])
   _precoditionEqualEffect();
   _circularDependencies();
   _triggerActionThatRemoveAFact();
+  _actionWithConstantValue();
+  _actionWithParameterizedValue();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;

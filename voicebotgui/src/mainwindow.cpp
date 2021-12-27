@@ -1093,7 +1093,8 @@ void MainWindow::_proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSa
   _effectAfterCurrentInput.reset();
   if (_chatbotDomain && _chatbotProblem)
   {
-    auto actionId = cp::lookForAnActionToDo(_chatbotProblem->problem, *_chatbotDomain->compiledDomain, &_chatbotProblem->problem.historical);
+    std::map<std::string, std::string> parameters;
+    auto actionId = cp::lookForAnActionToDo(parameters, _chatbotProblem->problem, *_chatbotDomain->compiledDomain, &_chatbotProblem->problem.historical);
     if (!actionId.empty() && pActionIdsToSkip.count(actionId) == 0)
     {
       auto itAction = _chatbotDomain->actions.find(actionId);

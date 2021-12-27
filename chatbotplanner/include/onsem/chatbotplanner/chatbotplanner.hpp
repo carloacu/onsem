@@ -150,13 +150,15 @@ struct ONSEMCHATBOTPLANNER_API Action
          const SetOfFacts& pEffects,
          const SetOfFacts& pPreferInContext = {},
          bool pShouldBeDoneAsapWithoutHistoryCheck = false)
-    : preconditions(pPreconditions),
+    : parameters(),
+      preconditions(pPreconditions),
       preferInContext(pPreferInContext),
       effects(pEffects),
       shouldBeDoneAsapWithoutHistoryCheck(pShouldBeDoneAsapWithoutHistoryCheck)
   {
   }
 
+  std::vector<std::string> parameters;
   SetOfFacts preconditions;
   SetOfFacts preferInContext;
   SetOfFacts effects;
@@ -279,9 +281,15 @@ bool areFactsTrue(const SetOfFacts& pSetOfFacts,
                   const Problem& pProblem);
 
 ONSEMCHATBOTPLANNER_API
-ActionId lookForAnActionToDo(Problem& pProblem,
+ActionId lookForAnActionToDo(std::map<std::string, std::string>& pParameters,
+                             Problem& pProblem,
                              const Domain& pDomain,
                              const Historical* pGlobalHistorical = nullptr);
+
+ONSEMCHATBOTPLANNER_API
+std::string printActionIdWithParameters(
+    const std::string& pActionId,
+    const std::map<std::string, std::string>& pParameters);
 
 ONSEMCHATBOTPLANNER_API
 std::list<ActionId> solve(Problem& pProblem,
