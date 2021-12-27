@@ -238,6 +238,7 @@ struct ONSEMCHATBOTPLANNER_API Problem
       const std::vector<cp::Fact>* pGoalsToAdd);
   const std::vector<Fact>& goals() const { return _goals; }
   const std::set<Fact>& facts() const { return _facts; }
+  const std::map<std::string, std::size_t>& factNamesToNbOfFactOccurences() const { return _factNamesToNbOfFactOccurences; }
   const std::map<Fact, std::string>& factsToValue() const { return _factsToValue; }
   const std::set<Fact>& reachableFacts() const { return _reachableFacts; }
   const std::set<Fact>& removableFacts() const { return _removableFacts; }
@@ -246,6 +247,7 @@ private:
   std::vector<Fact> _goals{};
   std::map<Fact, std::string> _factsToValue{};
   std::set<Fact> _facts{};
+  std::map<std::string, std::size_t> _factNamesToNbOfFactOccurences{};
   std::set<Fact> _reachableFacts{};
   std::set<Fact> _removableFacts{};
   bool _needToAddReachableFacts = true;
@@ -258,6 +260,7 @@ private:
 
   void _removeDoneGoals();
   void _clearRechableAndRemovableFacts();
+  void _addFactNameRef(const std::string& pFactName);
 };
 
 

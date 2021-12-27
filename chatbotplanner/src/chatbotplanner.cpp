@@ -527,9 +527,9 @@ ActionId _nextStepOfTheProblemForAGoal(
     const Historical* pGlobalHistorical)
 {
   PotentialNextAction res;
-  for (const auto& currFact : pProblem.facts())
+  for (const auto& currFact : pProblem.factNamesToNbOfFactOccurences())
   {
-    auto itPrecToActions = pDomain.preconditionToActions().find(currFact.name);
+    auto itPrecToActions = pDomain.preconditionToActions().find(currFact.first);
     if (itPrecToActions != pDomain.preconditionToActions().end() &&
         _nextStepOfTheProblemForAGoalAndSetOfActions(res, itPrecToActions->second, pGoal, pProblem,
                                                      pDomain, pGlobalHistorical))
@@ -820,6 +820,7 @@ Problem::Problem(const Problem& pOther)
    _goals(pOther._goals),
    _factsToValue(pOther._factsToValue),
    _facts(pOther._facts),
+   _factNamesToNbOfFactOccurences(pOther._factNamesToNbOfFactOccurences),
    _reachableFacts(pOther._reachableFacts),
    _removableFacts(pOther._removableFacts),
    _needToAddReachableFacts(pOther._needToAddReachableFacts)
@@ -872,6 +873,15 @@ template bool Problem::addFacts<std::set<Fact>>(const std::set<Fact>&);
 template bool Problem::addFacts<std::vector<Fact>>(const std::vector<Fact>&);
 
 
+void Problem::_addFactNameRef(const std::string& pFactName)
+{
+  auto itFactName = _factNamesToNbOfFactOccurences.find(pFactName);
+  if (itFactName == _factNamesToNbOfFactOccurences.end())
+    _factNamesToNbOfFactOccurences[pFactName] = 1;
+  else
+    ++itFactName->second;
+}
+
 template<typename FACTS>
 bool Problem::_addFactsWithoutFactNotification(const FACTS& pFacts)
 {
@@ -883,6 +893,7 @@ bool Problem::_addFactsWithoutFactNotification(const FACTS& pFacts)
       continue;
     res = true;
     _facts.insert(currFact);
+    _addFactNameRef(currFact.name);
     if (!_goals.empty() && currFact == _goals.front())
     {
       removeGoal(currFact);
@@ -912,6 +923,15 @@ bool Problem::_removeFactsWithoutFactNotification(const FACTS& pFacts)
       continue;
     res = true;
     _facts.erase(it);
+    {
+      auto itFactName = _factNamesToNbOfFactOccurences.find(currFact.name);
+      if (itFactName == _factNamesToNbOfFactOccurences.end())
+        assert(false);
+      else if (itFactName->second == 1)
+        _factNamesToNbOfFactOccurences.erase(itFactName);
+      else
+        --itFactName->second;
+    }
     _clearRechableAndRemovableFacts();
   }
   return res;
@@ -981,6 +1001,9 @@ void Problem::setFacts(const std::set<Fact>& pFacts)
   if (_facts != pFacts)
   {
     _facts = pFacts;
+    _factNamesToNbOfFactOccurences.clear();
+    for (const auto& currFact : pFacts)
+      _addFactNameRef(currFact.name);
     _clearRechableAndRemovableFacts();
     onFactsChanged(_facts);
   }
