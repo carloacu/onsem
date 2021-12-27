@@ -35,6 +35,7 @@ const std::string _action_checkInWithQrCode = "check_in_with_qrcode";
 const std::string _action_checkInWithPassword = "check_in_with_password";
 const std::string _action_goodBoy = "good_boy";
 const std::string _action_navigate = "navigate";
+const std::string _action_welcome = "welcome";
 
 
 template <typename TYPE>
@@ -644,6 +645,21 @@ void _actionWithParametersInPreconditionsAndEffectsWithoutSolution()
   assert_eq<std::string>("", _solveStrConst(problem, actions, &historical));
 }
 
+void _actionWithParametersInsideThePath()
+{
+  std::map<std::string, cp::Action> actions;
+  cp::Action navigateAction({}, {cp::Fact::fromStr("place=target")});
+  navigateAction.parameters.emplace_back("target");
+  actions.emplace(_action_navigate, navigateAction);
+
+  actions.emplace(_action_welcome, cp::Action({cp::Fact::fromStr("place=entrance")}, {cp::Fact::fromStr("welcomePeople")}));
+
+  cp::Historical historical;
+  cp::Problem problem;
+  problem.setGoals({cp::Fact::fromStr("welcomePeople")});
+  assert_eq<std::string>(_action_welcome, _solveStrConst(problem, actions, &historical));
+}
+
 }
 
 
@@ -679,6 +695,7 @@ int main(int argc, char *argv[])
   _actionWithParameterizedParameter();
   _actionWithParametersInPreconditionsAndEffects();
   _actionWithParametersInPreconditionsAndEffectsWithoutSolution();
+  _actionWithParametersInsideThePath();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;
