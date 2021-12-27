@@ -21,9 +21,9 @@ bool Fact::operator<(const Fact& pOther) const
   if (value != pOther.value)
     return value < pOther.value;
   std::string paramStr;
-  _parametersToStr(paramStr);
+  _parametersToStr(paramStr, parameters);
   std::string otherParamStr;
-  _parametersToStr(otherParamStr);
+  _parametersToStr(otherParamStr, pOther.parameters);
   return paramStr < otherParamStr;
 }
 
@@ -38,7 +38,7 @@ std::string Fact::toStr() const
   if (!parameters.empty())
   {
     res += "(";
-    _parametersToStr(res);
+    _parametersToStr(res, parameters);
     res += ")";
   }
   if (!value.empty())
@@ -108,10 +108,11 @@ Fact Fact::fromStr(const std::string& pStr)
 }
 
 
-void Fact::_parametersToStr(std::string& pStr) const
+void Fact::_parametersToStr(std::string& pStr,
+                            const std::vector<Fact>& pParameters)
 {
   bool firstIteration = true;
-  for (auto& param : parameters)
+  for (auto& param : pParameters)
   {
     if (firstIteration)
       firstIteration = false;
@@ -120,6 +121,7 @@ void Fact::_parametersToStr(std::string& pStr) const
     pStr += param.toStr();
   }
 }
+
 
 
 } // !cp

@@ -172,16 +172,16 @@ struct ONSEMCHATBOTPLANNER_API Domain
   Domain(const std::map<ActionId, Action>& pActions);
 
   const std::map<ActionId, Action>& actions() const { return _actions; }
-  const std::map<Fact, std::set<ActionId>>& preconditionToActions() const { return _preconditionToActions; }
-  const std::map<Fact, std::set<ActionId>>& preconditionToActionsExps() const { return _preconditionToActionsExps; }
-  const std::map<Fact, std::set<ActionId>>& notPreconditionToActions() const { return _notPreconditionToActions; }
+  const std::map<std::string, std::set<ActionId>>& preconditionToActions() const { return _preconditionToActions; }
+  const std::map<std::string, std::set<ActionId>>& preconditionToActionsExps() const { return _preconditionToActionsExps; }
+  const std::map<std::string, std::set<ActionId>>& notPreconditionToActions() const { return _notPreconditionToActions; }
   const std::set<ActionId>& actionsWithoutPrecondition() const { return _actionsWithoutPrecondition; }
 
 private:
   std::map<ActionId, Action> _actions;
-  std::map<Fact, std::set<ActionId>> _preconditionToActions;
-  std::map<Fact, std::set<ActionId>> _preconditionToActionsExps;
-  std::map<Fact, std::set<ActionId>> _notPreconditionToActions;
+  std::map<std::string, std::set<ActionId>> _preconditionToActions;
+  std::map<std::string, std::set<ActionId>> _preconditionToActionsExps;
+  std::map<std::string, std::set<ActionId>> _notPreconditionToActions;
   std::set<ActionId> _actionsWithoutPrecondition;
 };
 

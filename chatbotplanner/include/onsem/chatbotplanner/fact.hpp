@@ -32,7 +32,8 @@ struct Fact
 
 private:
 
-  void _parametersToStr(std::string& pStr) const;
+  static void _parametersToStr(std::string& pStr,
+                               const std::vector<Fact>& pParameters);
 
 };
 

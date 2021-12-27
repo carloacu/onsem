@@ -614,6 +614,36 @@ void _actionWithParameterizedParameter()
   assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions, &historical));
 }
 
+
+void _actionWithParametersInPreconditionsAndEffects()
+{
+  std::map<std::string, cp::Action> actions;
+  cp::Action joke({cp::Fact::fromStr("isEngaged(human)")}, {cp::Fact::fromStr("isHappy(human)")});
+  joke.parameters.emplace_back("human");
+  actions.emplace(_action_joke, joke);
+
+  cp::Historical historical;
+  cp::Problem problem;
+  problem.addFact(cp::Fact::fromStr("isEngaged(1)"));
+  problem.setGoals({cp::Fact::fromStr("isHappy(1)")});
+  assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions, &historical));
+}
+
+
+void _actionWithParametersInPreconditionsAndEffectsWithoutSolution()
+{
+  std::map<std::string, cp::Action> actions;
+  cp::Action joke({cp::Fact::fromStr("isEngaged(human)")}, {cp::Fact::fromStr("isHappy(human)")});
+  joke.parameters.emplace_back("human");
+  actions.emplace(_action_joke, joke);
+
+  cp::Historical historical;
+  cp::Problem problem;
+  problem.addFact(cp::Fact::fromStr("isEngaged(2)"));
+  problem.setGoals({cp::Fact::fromStr("isHappy(1)")});
+  assert_eq<std::string>("", _solveStrConst(problem, actions, &historical));
+}
+
 }
 
 
@@ -647,6 +677,8 @@ int main(int argc, char *argv[])
   _actionWithConstantValue();
   _actionWithParameterizedValue();
   _actionWithParameterizedParameter();
+  _actionWithParametersInPreconditionsAndEffects();
+  _actionWithParametersInPreconditionsAndEffectsWithoutSolution();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;
