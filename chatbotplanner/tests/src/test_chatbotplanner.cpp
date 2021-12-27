@@ -105,7 +105,7 @@ void _test_setOfFactsFromStr()
     assert(sOfFacts.facts.count(cp::Fact("b")) == 1);
   }
   {
-    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr(" a, b=ok , c(r)=t , d  ", ',');
+    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr(" a, b=ok , c(r)=t , d(b=ok, c(r)=t)=val , e ", ',');
     assert(sOfFacts.facts.count(cp::Fact("a")) == 1);
     cp::Fact bFact;
     bFact.name = "b";
@@ -116,8 +116,14 @@ void _test_setOfFactsFromStr()
     cFact.parameters.emplace_back(cp::Fact("r"));
     cFact.value = "t";
     assert(sOfFacts.facts.count(cFact) == 1);
-    assert(sOfFacts.facts.count(cp::Fact("d")) == 1);
-    assert(sOfFacts.facts.count(cp::Fact("e")) == 0);
+    cp::Fact dFact;
+    dFact.name = "d";
+    dFact.parameters.emplace_back(bFact);
+    dFact.parameters.emplace_back(cFact);
+    dFact.value = "val";
+    assert(sOfFacts.facts.count(dFact) == 1);
+    assert(sOfFacts.facts.count(cp::Fact("e")) == 1);
+    assert(sOfFacts.facts.count(cp::Fact("f")) == 0);
   }
 }
 

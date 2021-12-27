@@ -40,7 +40,7 @@ void _splitFacts(
   cp::Fact currFact;
   while (pos < pStr.size())
   {
-    pos = currFact.fillFactFromStr(pStr, pos, pSeparator);
+    pos = currFact.fillFactFromStr(pStr, pos, pSeparator) + 1;
     if (!currFact.name.empty())
     {
       pFacts.emplace_back(std::move(currFact));

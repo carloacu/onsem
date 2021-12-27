@@ -60,13 +60,17 @@ std::size_t Fact::fillFactFromStr(
       continue;
     }
     if (pStr[pos] == pSeparator || pStr[pos] == ')')
-      return pos + 1;
+      return pos;
 
+    bool insideParenthesis = false;
     auto beginPos = pos;
-    while (pos < pStr.size() && pStr[pos] != ' ' && pStr[pos] != pSeparator && pStr[pos] != ')')
+    while (pos < pStr.size())
     {
-      if (pStr[pos] == '(')
+      if (!insideParenthesis && (pStr[pos] == pSeparator || pStr[pos] == ' ' || pStr[pos] == ')'))
+        break;
+      if (pStr[pos] == '(' || pStr[pos] == pSeparator)
       {
+        insideParenthesis = true;
         if (name.empty())
           name = pStr.substr(beginPos, pos - beginPos);
         parameters.emplace_back();
@@ -75,8 +79,9 @@ std::size_t Fact::fillFactFromStr(
         beginPos = pos;
         continue;
       }
-      if (pStr[pos] == '=')
+      if (pStr[pos] == ')' || pStr[pos] == '=')
       {
+        insideParenthesis = false;
         if (name.empty())
           name = pStr.substr(beginPos, pos - beginPos);
         ++pos;
