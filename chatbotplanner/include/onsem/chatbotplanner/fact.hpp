@@ -27,7 +27,7 @@ struct Fact
   static Fact fromStr(const std::string& pStr);
 
   std::string name;
-  std::vector<std::string> parameters;
+  std::vector<Fact> parameters;
   std::string value;
 
 private:

@@ -59,12 +59,22 @@ std::size_t Fact::fillFactFromStr(
       ++pos;
       continue;
     }
-    if (pStr[pos] == pSeparator)
+    if (pStr[pos] == pSeparator || pStr[pos] == ')')
       return pos + 1;
 
     auto beginPos = pos;
-    while (pos < pStr.size() && pStr[pos] != ' ' && pStr[pos] != pSeparator)
+    while (pos < pStr.size() && pStr[pos] != ' ' && pStr[pos] != pSeparator && pStr[pos] != ')')
     {
+      if (pStr[pos] == '(')
+      {
+        if (name.empty())
+          name = pStr.substr(beginPos, pos - beginPos);
+        parameters.emplace_back();
+        ++pos;
+        pos = parameters.back().fillFactFromStr(pStr, pos, ',');
+        beginPos = pos;
+        continue;
+      }
       if (pStr[pos] == '=')
       {
         if (name.empty())
@@ -102,7 +112,7 @@ void Fact::_parametersToStr(std::string& pStr) const
       firstIteration = false;
     else
       pStr += ", ";
-    pStr += param;
+    pStr += param.toStr();
   }
 }
 
