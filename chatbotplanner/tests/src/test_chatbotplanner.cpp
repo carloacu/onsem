@@ -105,9 +105,12 @@ void _test_setOfFactsFromStr()
     assert(sOfFacts.facts.count(cp::Fact("b")) == 1);
   }
   {
-    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr(" a, b , c  ", ',');
+    cp::SetOfFacts sOfFacts = cp::SetOfFacts::fromStr(" a, b=ok , c  ", ',');
     assert(sOfFacts.facts.count(cp::Fact("a")) == 1);
-    assert(sOfFacts.facts.count(cp::Fact("b")) == 1);
+    cp::Fact bFact;
+    bFact.name = "b";
+    bFact.value = "ok";
+    assert(sOfFacts.facts.count(bFact) == 1);
     assert(sOfFacts.facts.count(cp::Fact("c")) == 1);
   }
 }

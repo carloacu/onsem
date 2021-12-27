@@ -15,6 +15,7 @@ struct Fact
 
   bool operator<(const Fact& pOther) const;
   bool operator==(const Fact& pOther) const;
+  bool operator!=(const Fact& pOther) const { return !operator==(pOther); }
 
   std::string toStr() const;
 

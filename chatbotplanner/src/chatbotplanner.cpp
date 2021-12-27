@@ -16,26 +16,6 @@ const std::map<std::string, ExpressionOperator> _strToBeginOfTextOperators
 const std::map<char, ExpressionOperator> _charToOperators
 {{'=', ExpressionOperator::EQUAL}, {'+', ExpressionOperator::PLUS}, {'+', ExpressionOperator::MINUS}};
 
-// trim from left
-inline std::string& _ltrim(std::string& s, const char* t = " \t\n\r\f\v")
-{
-    s.erase(0, s.find_first_not_of(t));
-    return s;
-}
-
-// trim from right
-inline std::string& _rtrim(std::string& s, const char* t = " \t\n\r\f\v")
-{
-    s.erase(s.find_last_not_of(t) + 1);
-    return s;
-}
-
-// trim from left & right
-inline std::string& _trim(std::string& s, const char* t = " \t\n\r\f\v")
-{
-    return _ltrim(_rtrim(s, t), t);
-}
-
 template <typename T>
 T _lexical_cast(const std::string& pStr)
 {
@@ -49,24 +29,6 @@ T _lexical_cast(const std::string& pStr)
   }
   return atoi(pStr.c_str());
 }
-
-
-void _split(
-    std::vector<std::string>& pStrs,
-    const std::string& pStr,
-    char pSeparator)
-{
-  std::string::size_type lastPos = 0u;
-  std::string::size_type pos = lastPos;
-  while ((pos = pStr.find(pSeparator, pos)) != std::string::npos)
-  {
-    pStrs.emplace_back(pStr.substr(lastPos, pos - lastPos));
-    ++pos;
-    lastPos = pos;
-  }
-  pStrs.emplace_back(pStr.substr(lastPos, pos - lastPos));
-}
-
 
 
 void _splitFacts(
@@ -570,14 +532,13 @@ std::string SetOfFacts::toStr(const std::string& pSeparator) const
 SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
                                char pSeparator)
 {
-  std::vector<std::string> vect;
-  _split(vect, pStr, pSeparator);
+  std::vector<cp::Fact> vect;
+  _splitFacts(vect, pStr, pSeparator);
   SetOfFacts res;
 
-  for (auto& currStr : vect)
+  for (auto& currFact : vect)
   {
-    _trim(currStr);
-    if (currStr.empty())
+    if (currFact.name.empty())
       continue;
     std::string currentToken;
     Expression exp;
@@ -590,6 +551,22 @@ SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
       }
     };
 
+    if (!currFact.parameters.empty() ||
+        (currFact.name[0] != '+' && currFact.name[0] != '$'))
+    {
+      if (currFact.name[0] == '!')
+      {
+        currFact.name = currFact.name.substr(1, currFact.name.size() - 1);
+        res.notFacts.insert(currFact);
+      }
+      else
+      {
+        res.facts.insert(currFact);
+      }
+      continue;
+    }
+
+    auto currStr = currFact.toStr();
     for (std::size_t i = 0; i < currStr.size();)
     {
       bool needToContinue = false;
@@ -637,22 +614,7 @@ SetOfFacts SetOfFacts::fromStr(const std::string& pStr,
       currentToken += currStr[i++];
     }
     fillCurrentToken();
-
-    if (exp.elts.size() == 1)
-    {
-      auto& token = exp.elts.front().value;
-      if (!token.empty())
-      {
-        if (token[0] == '!')
-          res.notFacts.insert(token.substr(1, token.size() - 1));
-        else
-          res.facts.insert(token);
-      }
-    }
-    else
-    {
-      res.exps.emplace_back(std::move(exp));
-    }
+    res.exps.emplace_back(std::move(exp));
   }
   return res;
 }

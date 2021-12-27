@@ -64,9 +64,21 @@ std::size_t Fact::fillFactFromStr(
 
     auto beginPos = pos;
     while (pos < pStr.size() && pStr[pos] != ' ' && pStr[pos] != pSeparator)
+    {
+      if (pStr[pos] == '=')
+      {
+        if (name.empty())
+          name = pStr.substr(beginPos, pos - beginPos);
+        ++pos;
+        beginPos = pos;
+        continue;
+      }
       ++pos;
+    }
     if (name.empty())
       name = pStr.substr(beginPos, pos - beginPos);
+    else
+      value = pStr.substr(beginPos, pos - beginPos);
   }
   return pos;
 }
