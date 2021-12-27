@@ -600,6 +600,20 @@ void _actionWithParameterizedValue()
   assert_eq(_action_navigate + "(target -> kitchen)", _solveStrConst(problem, actions, &historical));
 }
 
+
+void _actionWithParameterizedParameter()
+{
+  std::map<std::string, cp::Action> actions;
+  cp::Action joke({}, {cp::Fact::fromStr("isHappy(human)")});
+  joke.parameters.emplace_back("human");
+  actions.emplace(_action_joke, joke);
+
+  cp::Historical historical;
+  cp::Problem problem;
+  problem.setGoals({cp::Fact::fromStr("isHappy(1)")});
+  assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions, &historical));
+}
+
 }
 
 
@@ -632,6 +646,7 @@ int main(int argc, char *argv[])
   _triggerActionThatRemoveAFact();
   _actionWithConstantValue();
   _actionWithParameterizedValue();
+  _actionWithParameterizedParameter();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;

@@ -339,27 +339,53 @@ bool _lookForAPossibleEffect(std::map<std::string, std::string>& pParameters,
   for (const auto& currFact : pEffectsToCheck.facts)
   {
     if (currFact.name != pEffectToLookFor.name ||
-        currFact.parameters != pEffectToLookFor.parameters)
-      continue;
-    if (currFact.value == pEffectToLookFor.value)
-      return true;
-    if (pParameters.empty())
+        currFact.parameters.size() != pEffectToLookFor.parameters.size())
       continue;
 
-    auto itParam = pParameters.find(currFact.value);
-    if (itParam != pParameters.end())
-    {
-      if (!itParam->second.empty())
-      {
-        if (itParam->second == pEffectToLookFor.value)
-          return true;
-      }
-      else
-      {
-        pParameters[currFact.value] = pEffectToLookFor.value;
+    auto doesItMatch = [&](const std::string& pFactValue, const std::string& pValueToLookFor) {
+      if (pFactValue == pValueToLookFor)
         return true;
+      if (pParameters.empty())
+        return false;
+
+      auto itParam = pParameters.find(pFactValue);
+      if (itParam != pParameters.end())
+      {
+        if (!itParam->second.empty())
+        {
+          if (itParam->second == pValueToLookFor)
+            return true;
+        }
+        else
+        {
+          pParameters[pFactValue] = pValueToLookFor;
+          return true;
+        }
+      }
+      return false;
+    };
+
+    {
+      auto itFactParameters = currFact.parameters.begin();
+      auto itLookForParameters = pEffectToLookFor.parameters.begin();
+      while (itFactParameters != currFact.parameters.end())
+      {
+        if (*itFactParameters != *itLookForParameters)
+        {
+          if (!itFactParameters->parameters.empty() ||
+              !itFactParameters->value.empty() ||
+              !itLookForParameters->parameters.empty() ||
+              !itLookForParameters->value.empty() ||
+              !doesItMatch(itFactParameters->name, itLookForParameters->name))
+            return false;
+        }
+        ++itFactParameters;
+        ++itLookForParameters;
       }
     }
+
+    if (doesItMatch(currFact.value, pEffectToLookFor.value))
+      return true;
   }
 
   if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.facts, pDomain.preconditionToActions(), pEffectToLookFor,
