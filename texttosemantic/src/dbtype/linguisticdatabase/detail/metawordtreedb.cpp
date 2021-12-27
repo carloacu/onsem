@@ -86,7 +86,7 @@ const signed char* MetaWordTreeDb::xSearchInPatriciaTrie
         // Check all the letters of the node
         for (unsigned char j = 0; j < xNbLetters(currNode); ++j, ++offWord)
         {
-          if (pString[pBeginOfString + offWord] != xGetLetter(currNode, j))
+          if (static_cast<signed char>(pString[pBeginOfString + offWord]) != xGetLetter(currNode, j))
           {
             return nullptr;
           }
