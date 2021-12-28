@@ -20,6 +20,8 @@ struct Goal
   bool isPersistent() const { return _isPersistent; }
   const Fact& fact() const { return _fact; }
 
+  static const std::string persistFunctionName;
+
 private:
   bool _isPersistent;
   Fact _fact;

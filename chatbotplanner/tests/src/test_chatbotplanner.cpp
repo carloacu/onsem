@@ -577,10 +577,9 @@ void _actionWithConstantValue()
   cp::Action navigate({}, {cp::Fact::fromStr("place=kitchen")});
   actions.emplace(_action_navigate, navigate);
 
-  cp::Historical historical;
   cp::Problem problem;
   problem.setGoals({cp::Goal("place=kitchen")});
-  assert_eq(_action_navigate, _solveStrConst(problem, actions, &historical));
+  assert_eq(_action_navigate, _solveStrConst(problem, actions));
 }
 
 
@@ -591,10 +590,9 @@ void _actionWithParameterizedValue()
   navigate.parameters.emplace_back("target");
   actions.emplace(_action_navigate, navigate);
 
-  cp::Historical historical;
   cp::Problem problem;
   problem.setGoals({cp::Goal("place=kitchen")});
-  assert_eq(_action_navigate + "(target -> kitchen)", _solveStrConst(problem, actions, &historical));
+  assert_eq(_action_navigate + "(target -> kitchen)", _solveStrConst(problem, actions));
 }
 
 
@@ -605,10 +603,9 @@ void _actionWithParameterizedParameter()
   joke.parameters.emplace_back("human");
   actions.emplace(_action_joke, joke);
 
-  cp::Historical historical;
   cp::Problem problem;
   problem.setGoals({cp::Goal("isHappy(1)")});
-  assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions, &historical));
+  assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions));
 }
 
 
@@ -619,11 +616,10 @@ void _actionWithParametersInPreconditionsAndEffects()
   joke.parameters.emplace_back("human");
   actions.emplace(_action_joke, joke);
 
-  cp::Historical historical;
   cp::Problem problem;
   problem.addFact(cp::Fact::fromStr("isEngaged(1)"));
   problem.setGoals({cp::Goal("isHappy(1)")});
-  assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions, &historical));
+  assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions));
 }
 
 
@@ -634,11 +630,10 @@ void _actionWithParametersInPreconditionsAndEffectsWithoutSolution()
   joke.parameters.emplace_back("human");
   actions.emplace(_action_joke, joke);
 
-  cp::Historical historical;
   cp::Problem problem;
   problem.addFact(cp::Fact::fromStr("isEngaged(2)"));
   problem.setGoals({cp::Goal("isHappy(1)")});
-  assert_eq<std::string>("", _solveStrConst(problem, actions, &historical));
+  assert_eq<std::string>("", _solveStrConst(problem, actions));
 }
 
 void _actionWithParametersInsideThePath()
@@ -650,12 +645,35 @@ void _actionWithParametersInsideThePath()
 
   actions.emplace(_action_welcome, cp::Action({cp::Fact::fromStr("place=entrance")}, {cp::Fact::fromStr("welcomePeople")}));
 
-  cp::Historical historical;
   cp::Problem problem;
   problem.setGoals({cp::Goal("welcomePeople")});
   assert_eq<std::string>(_action_navigate + "(target -> entrance)" + _sep +
-                         _action_welcome, _solveStrConst(problem, actions, &historical));
+                         _action_welcome, _solveStrConst(problem, actions));
 }
+
+
+void _testPersistGoal()
+{
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_welcome, cp::Action({}, {cp::Fact::fromStr("welcomePeople")}));
+
+  cp::Problem problem;
+  problem.setGoals({cp::Goal("welcomePeople")});
+  assert_eq<std::size_t>(1, problem.goals().size());
+  assert_eq<std::string>(_action_welcome, _solveStr(problem, actions));
+  assert_eq<std::size_t>(0, problem.goals().size());
+  assert_eq<std::string>("", _solveStr(problem, actions));
+  assert_eq<std::size_t>(0, problem.goals().size());
+
+  problem = cp::Problem();
+  problem.setGoals({cp::Goal("persist(welcomePeople)")});
+  assert_eq<std::size_t>(1, problem.goals().size());
+  assert_eq<std::string>(_action_welcome, _solveStr(problem, actions));
+  assert_eq<std::size_t>(1, problem.goals().size());
+  assert_eq<std::string>("", _solveStr(problem, actions));
+  assert_eq<std::size_t>(1, problem.goals().size());
+}
+
 
 }
 
@@ -693,6 +711,7 @@ int main(int argc, char *argv[])
   _actionWithParametersInPreconditionsAndEffects();
   _actionWithParametersInPreconditionsAndEffectsWithoutSolution();
   _actionWithParametersInsideThePath();
+  _testPersistGoal();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;
