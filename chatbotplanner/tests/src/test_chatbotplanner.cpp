@@ -675,6 +675,20 @@ void _testPersistGoal()
 }
 
 
+void _testImplyGoal()
+{
+  std::map<std::string, cp::Action> actions;
+  actions.emplace(_action_greet, cp::Action({}, {_fact_greeted}));
+  actions.emplace(_action_checkIn, cp::Action({}, {_fact_checkedIn}));
+
+  cp::Problem problem;
+  problem.setGoals({cp::Goal("persist(imply(" + _fact_greeted + ", " + _fact_checkedIn + "))")});
+  assert_eq<std::string>("", _solveStr(problem, actions));
+  problem.addFact(_fact_greeted);
+  assert_eq<std::string>(_action_checkIn, _solveStr(problem, actions));
+}
+
+
 }
 
 
@@ -712,6 +726,7 @@ int main(int argc, char *argv[])
   _actionWithParametersInPreconditionsAndEffectsWithoutSolution();
   _actionWithParametersInsideThePath();
   _testPersistGoal();
+  _testImplyGoal();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;

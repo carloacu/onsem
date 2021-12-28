@@ -1236,12 +1236,18 @@ ActionId lookForAnActionToDo(
 
   ActionId res;
   auto tryToFindAnActionTowardGoal = [&](const Goal& pGoal){
-    auto& goalFact = pGoal.fact();
-    if (pProblem.facts().count(goalFact) == 0)
+    auto& facts = pProblem.facts();
+    auto* goalConditionFactPtr = pGoal.conditionFactPtr();
+    if (goalConditionFactPtr == nullptr ||
+        facts.count(*goalConditionFactPtr) > 0)
     {
-      res = _nextStepOfTheProblemForAGoal(pParameters, goalFact, pProblem,
-                                          pDomain, pGlobalHistorical);
-      return !res.empty();
+      auto& goalFact = pGoal.fact();
+      if (facts.count(goalFact) == 0)
+      {
+        res = _nextStepOfTheProblemForAGoal(pParameters, goalFact, pProblem,
+                                            pDomain, pGlobalHistorical);
+        return !res.empty();
+      }
     }
     return false;
   };
