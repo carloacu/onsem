@@ -225,6 +225,7 @@ struct ONSEMCHATBOTPLANNER_API Problem
   bool modifyFacts(const SetOfFacts& pSetOfFacts);
   void setFacts(const std::set<Fact>& pFacts);
   void addReachableFacts(const std::set<Fact>& pFacts);
+  void addReachableFactsWithAnyValues(const std::vector<Fact>& pFacts);
   void addRemovableFacts(const std::set<Fact>& pFacts);
   void removeGoal(const Fact& pGoal);
   void noNeedToAddReachableFacts() { _needToAddReachableFacts = false; }
@@ -232,15 +233,16 @@ struct ONSEMCHATBOTPLANNER_API Problem
   void setGoals(const std::vector<Fact>& pGoals);
   void addGoals(const std::vector<Fact>& pGoals);
   void pushBackGoal(const Fact& pGoal);
-  void notifyActionDone(
-      const std::string& pActionId,
-      const cp::SetOfFacts& effect,
-      const std::vector<cp::Fact>* pGoalsToAdd);
+  void notifyActionDone(const std::string& pActionId,
+                        const std::map<std::string, std::string>& pParameters,
+                        const cp::SetOfFacts& pEffect,
+                        const std::vector<cp::Fact>* pGoalsToAdd);
   const std::vector<Fact>& goals() const { return _goals; }
   const std::set<Fact>& facts() const { return _facts; }
   const std::map<std::string, std::size_t>& factNamesToNbOfFactOccurences() const { return _factNamesToNbOfFactOccurences; }
   const std::map<Fact, std::string>& factsToValue() const { return _factsToValue; }
   const std::set<Fact>& reachableFacts() const { return _reachableFacts; }
+  const std::set<Fact>& reachableFactsWithAnyValues() const { return _reachableFactsWithAnyValues; }
   const std::set<Fact>& removableFacts() const { return _removableFacts; }
 
 private:
@@ -249,6 +251,7 @@ private:
   std::set<Fact> _facts{};
   std::map<std::string, std::size_t> _factNamesToNbOfFactOccurences{};
   std::set<Fact> _reachableFacts{};
+  std::set<Fact> _reachableFactsWithAnyValues{};
   std::set<Fact> _removableFacts{};
   bool _needToAddReachableFacts = true;
 

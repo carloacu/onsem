@@ -5,6 +5,7 @@ namespace onsem
 {
 namespace cp
 {
+const std::string Fact::anyValue = "<any>_it_is_a_language_token_for_the_planner_engine";
 
 
 Fact::Fact(const std::string& pName)
@@ -31,6 +32,85 @@ bool Fact::operator==(const Fact& pOther) const
 {
   return name == pOther.name && value == pOther.value && parameters == pOther.parameters;
 }
+
+bool Fact::areEqualExceptAnyValues(const Fact& pOther) const
+{
+  if (!(name == pOther.name &&
+        (value == pOther.value || value == anyValue || pOther.value == anyValue) &&
+        parameters.size() == pOther.parameters.size()))
+    return false;
+
+  auto itParam = parameters.begin();
+  auto itOtherParam = parameters.begin();
+  while (itParam != parameters.end())
+  {
+    if (*itParam != *itOtherParam && *itParam != anyValue && *itOtherParam != anyValue)
+      return false;
+    ++itParam;
+    ++itOtherParam;
+  }
+  return true;
+}
+
+
+std::string Fact::tryToExtractParameterValueFromExemple(
+    const std::string& pParameter,
+    const Fact& pOther) const
+{
+  if (name != pOther.name ||
+      parameters.size() != pOther.parameters.size())
+    return "";
+
+  std::string res;
+  if (value != pOther.value)
+  {
+    if (value == pParameter)
+      res = pOther.value;
+    else
+      return "";
+  }
+
+  auto itParam = parameters.begin();
+  auto itOtherParam = parameters.begin();
+  while (itParam != parameters.end())
+  {
+    if (*itParam != *itOtherParam)
+    {
+      if (itParam->name == pParameter)
+        res = itOtherParam->name;
+      else
+        return "";
+    }
+    ++itParam;
+    ++itOtherParam;
+  }
+  return res;
+}
+
+
+void Fact::fillParameters(
+    const std::map<std::string, std::string>& pParameters)
+{
+  auto itValueParam = pParameters.find(value);
+  if (itValueParam != pParameters.end())
+    value = itValueParam->second;
+
+  for (auto& currParam : parameters)
+  {
+    if (currParam.value.empty() && currParam.parameters.empty())
+    {
+      auto itValueParam = pParameters.find(currParam.name);
+      if (itValueParam != pParameters.end())
+        currParam.name = itValueParam->second;
+    }
+    else
+    {
+      currParam.fillParameters(pParameters);
+    }
+  }
+}
+
+
 
 std::string Fact::toStr() const
 {
@@ -104,6 +184,29 @@ Fact Fact::fromStr(const std::string& pStr)
   auto endPos = res.fillFactFromStr(pStr, 0, ',');
   assert(!res.name.empty());
   assert(endPos == pStr.size());
+  return res;
+}
+
+
+bool Fact::replaceParametersByAny(const std::vector<std::string>& pParameters)
+{
+  bool res = false;
+  for (const auto& currParam : pParameters)
+  {
+    for (auto& currFactParam : parameters)
+    {
+      if (currFactParam == currParam)
+      {
+        currFactParam = anyValue;
+        res = true;
+      }
+    }
+    if (value == currParam)
+    {
+      value = anyValue;
+      res = true;
+    }
+  }
   return res;
 }
 

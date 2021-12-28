@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 namespace onsem
 {
@@ -16,6 +17,12 @@ struct Fact
   bool operator<(const Fact& pOther) const;
   bool operator==(const Fact& pOther) const;
   bool operator!=(const Fact& pOther) const { return !operator==(pOther); }
+  bool areEqualExceptAnyValues(const Fact& pOther) const;
+  std::string tryToExtractParameterValueFromExemple(
+      const std::string& pParameter,
+      const Fact& pOther) const;
+  void fillParameters(
+      const std::map<std::string, std::string>& pParameters);
 
   std::string toStr() const;
 
@@ -25,11 +32,13 @@ struct Fact
       char pSeparator);
 
   static Fact fromStr(const std::string& pStr);
+  bool replaceParametersByAny(const std::vector<std::string>& pParameters);
 
   std::string name;
   std::vector<Fact> parameters;
   std::string value;
 
+  const static std::string anyValue;
 private:
 
   static void _parametersToStr(std::string& pStr,

@@ -1057,7 +1057,8 @@ void MainWindow::_onNewTextSubmitted(const std::string& pText)
             auto& action = itAction->second;
             _currentActionParameters.clear();
             _effectAfterCurrentInput.reset();
-            _printParametersAndNotifyPlanner(action, actionId);
+            std::map<std::string, std::string> parameters;
+            _printParametersAndNotifyPlanner(action, actionId, parameters);
             actinHasBeenPrinted = true;
             break;
           }
@@ -1117,7 +1118,7 @@ void MainWindow::_proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSa
           memoryOperation::mergeWithContext(semExp, *_semMemoryPtr, _lingDb);
           memoryOperation::inform(std::move(semExp), *_semMemoryPtr, _lingDb);
         }
-        _printParametersAndNotifyPlanner(action, actionId);
+        _printParametersAndNotifyPlanner(action, actionId, parameters);
         if (action.parameters.empty() && !action.inputPtr)
         {
           pActionIdsToSkip.insert(actionId);
@@ -1130,7 +1131,8 @@ void MainWindow::_proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSa
 
 
 void MainWindow::_printParametersAndNotifyPlanner(const ChatbotAction& pAction,
-                                                  const std::string& pActionId)
+                                                  const std::string& pActionId,
+                                                  const std::map<std::string, std::string>& pParameters)
 {
   std::string paramLines;
   for (const auto& currParameter : pAction.parameters)
@@ -1161,7 +1163,7 @@ void MainWindow::_printParametersAndNotifyPlanner(const ChatbotAction& pAction,
     _ui->textBrowser_chat_history->append(QString::fromUtf8(paramLines.c_str()));
   }
 
-  _chatbotProblem->problem.notifyActionDone(pActionId, pAction.effect, &pAction.goalsToAdd);
+  _chatbotProblem->problem.notifyActionDone(pActionId, pParameters, pAction.effect, &pAction.goalsToAdd);
 }
 
 

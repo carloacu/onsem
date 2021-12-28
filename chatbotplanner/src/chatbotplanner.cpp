@@ -236,14 +236,29 @@ bool _canFactsBecomeTrue(const SetOfFacts& pSetOfFacts,
 {
   auto& facts = pProblem.facts();
   auto& reachableFacts = pProblem.reachableFacts();
-  for (const auto& currPrecond : pSetOfFacts.facts)
-    if (facts.count(currPrecond) == 0 &&
-        reachableFacts.count(currPrecond) == 0)
-      return false;
+  auto& reachableFactsWithAnyValues = pProblem.reachableFactsWithAnyValues();
+  for (const auto& currFact : pSetOfFacts.facts)
+  {
+    if (facts.count(currFact) == 0 &&
+        reachableFacts.count(currFact) == 0)
+    {
+      bool reableFactFound = false;
+      for (const auto& currReachableFact : reachableFactsWithAnyValues)
+      {
+        if (currFact.areEqualExceptAnyValues(currReachableFact))
+        {
+          reableFactFound = true;
+          break;
+        }
+      }
+      if (!reableFactFound)
+        return false;
+    }
+  }
   auto& removableFacts = pProblem.removableFacts();
-  for (const auto& currPrecond : pSetOfFacts.notFacts)
-    if (facts.count(currPrecond) > 0 &&
-        removableFacts.count(currPrecond) == 0)
+  for (const auto& currFact : pSetOfFacts.notFacts)
+    if (facts.count(currFact) > 0 &&
+        removableFacts.count(currFact) == 0)
       return false;
   return _areExpsValid(pSetOfFacts.exps, pProblem.factsToValue());
 }
@@ -347,14 +362,23 @@ bool _willTheActionAddOrRemoveAFact(const Action& pAction,
 
 
 void _getTheFactsToAddFromTheActionEffects(std::set<Fact>& pNewFacts,
+                                           std::vector<Fact>& pNewFactsWithAnyValues,
                                            const Action& pAction,
                                            const std::set<Fact>& pFacts1,
                                            const std::set<Fact>& pFacts2)
 {
-  for (const auto& currPrecond : pAction.effects.facts)
-    if (pFacts1.count(currPrecond) == 0 &&
-        pFacts2.count(currPrecond) == 0)
-      pNewFacts.insert(currPrecond);
+  for (const auto& currFact : pAction.effects.facts)
+  {
+    if (pFacts1.count(currFact) == 0 &&
+        pFacts2.count(currFact) == 0)
+    {
+      auto factToInsert = currFact;
+      if (factToInsert.replaceParametersByAny(pAction.parameters))
+        pNewFactsWithAnyValues.push_back(std::move(factToInsert));
+      else
+        pNewFacts.insert(std::move(factToInsert));
+    }
+  }
 }
 
 void _getTheFactsToRemoveFromTheActionEffects(std::set<Fact>& pFactsToRemove,
@@ -378,6 +402,7 @@ bool _lookForAPossibleEffect(std::map<std::string, std::string>& pParameters,
 
 bool _lookForAPossibleExistingOrNotFact(
     const std::set<Fact>& pFacts,
+    std::map<std::string, std::string>& pParentParameters,
     const std::map<std::string, std::set<ActionId>>& pPreconditionToActions,
     const Fact& pEffectToLookFor,
     const Problem& pProblem,
@@ -403,7 +428,34 @@ bool _lookForAPossibleExistingOrNotFact(
           if (_canFactsBecomeTrue(action.preconditions, pProblem) &&
               _willTheActionAddOrRemoveAFact(action, pProblem.facts()) &&
               _lookForAPossibleEffect(parameters, action.effects, pEffectToLookFor, pProblem, pDomain, pFactsAlreadychecked))
-            return true;
+          {
+            bool actionIsAPossibleFollowUp = true;
+            // fill parent parameters
+            for (auto& currParentParam : pParentParameters)
+            {
+              if (currParentParam.second.empty())
+              {
+                for (const auto& currFact : pFacts)
+                {
+                  for (const auto& currActionPreconditionFact : action.preconditions.facts)
+                  {
+                    currParentParam.second = currFact.tryToExtractParameterValueFromExemple(currParentParam.first, currActionPreconditionFact);
+                    if (!currParentParam.second.empty())
+                      break;
+                  }
+                  if (!currParentParam.second.empty())
+                    break;
+                }
+                if (currParentParam.second.empty())
+                {
+                  actionIsAPossibleFollowUp = false;
+                  break;
+                }
+              }
+            }
+            if (actionIsAPossibleFollowUp)
+              return true;
+          }
         }
       }
     }
@@ -423,10 +475,12 @@ bool _lookForAPossibleEffect(std::map<std::string, std::string>& pParameters,
   if (_doesFactInFacts(pParameters, pEffectToLookFor, pEffectsToCheck.facts, false))
     return true;
 
-  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.facts, pDomain.preconditionToActions(), pEffectToLookFor,
+  auto& preconditionToActions = pDomain.preconditionToActions();
+  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.facts, pParameters, preconditionToActions, pEffectToLookFor,
                                          pProblem, pDomain, pFactsAlreadychecked))
     return true;
-  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.notFacts, pDomain.notPreconditionToActions(), pEffectToLookFor,
+  auto& notPreconditionToActions = pDomain.notPreconditionToActions();
+  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.notFacts, pParameters, notPreconditionToActions, pEffectToLookFor,
                                          pProblem, pDomain, pFactsAlreadychecked))
     return true;
   return false;
@@ -449,12 +503,14 @@ void _feedReachableFactsFromSetOfActions(Problem& pProblem,
       if (_canFactsBecomeTrue(action.preconditions, pProblem))
       {
         std::set<Fact> reachableFactsToAdd;
-        _getTheFactsToAddFromTheActionEffects(reachableFactsToAdd, action, pProblem.facts(), pProblem.reachableFacts());
+        std::vector<Fact> reachableFactsToAddWithAnyValues;
+        _getTheFactsToAddFromTheActionEffects(reachableFactsToAdd, reachableFactsToAddWithAnyValues, action, pProblem.facts(), pProblem.reachableFacts());
         std::set<Fact> removableFactsToAdd;
         _getTheFactsToRemoveFromTheActionEffects(removableFactsToAdd, action, pProblem.facts(), pProblem.removableFacts());
-        if (!reachableFactsToAdd.empty() || !removableFactsToAdd.empty())
+        if (!reachableFactsToAdd.empty() || !reachableFactsToAddWithAnyValues.empty() || !removableFactsToAdd.empty())
         {
           pProblem.addReachableFacts(reachableFactsToAdd);
+          pProblem.addReachableFactsWithAnyValues(reachableFactsToAddWithAnyValues);
           pProblem.addRemovableFacts(removableFactsToAdd);
           for (const auto& currNewFact : reachableFactsToAdd)
             _feedReachableFacts(pProblem, currNewFact, pDomain);
@@ -549,7 +605,8 @@ ActionId _nextStepOfTheProblemForAGoal(
       return res.actionId;
     }
   }
-  _nextStepOfTheProblemForAGoalAndSetOfActions(res, pDomain.actionsWithoutPrecondition(), pGoal, pProblem,
+  auto& actionsWithoutPrecondition = pDomain.actionsWithoutPrecondition();
+  _nextStepOfTheProblemForAGoalAndSetOfActions(res, actionsWithoutPrecondition, pGoal, pProblem,
                                                pDomain, pGlobalHistorical);
   pParameters = std::move(res.parameters);
   return res.actionId;
@@ -822,6 +879,7 @@ Problem::Problem(const Problem& pOther)
    _facts(pOther._facts),
    _factNamesToNbOfFactOccurences(pOther._factNamesToNbOfFactOccurences),
    _reachableFacts(pOther._reachableFacts),
+   _reachableFactsWithAnyValues(pOther._reachableFactsWithAnyValues),
    _removableFacts(pOther._removableFacts),
    _needToAddReachableFacts(pOther._needToAddReachableFacts)
 {
@@ -946,6 +1004,7 @@ void Problem::_clearRechableAndRemovableFacts()
 {
   _needToAddReachableFacts = true;
   _reachableFacts.clear();
+  _reachableFactsWithAnyValues.clear();
   _removableFacts.clear();
 }
 
@@ -1014,6 +1073,11 @@ void Problem::addReachableFacts(const std::set<Fact>& pFacts)
   _reachableFacts.insert(pFacts.begin(), pFacts.end());
 }
 
+void Problem::addReachableFactsWithAnyValues(const std::vector<Fact>& pFacts)
+{
+  _reachableFactsWithAnyValues.insert(pFacts.begin(), pFacts.end());
+}
+
 void Problem::addRemovableFacts(const std::set<Fact>& pFacts)
 {
   _removableFacts.insert(pFacts.begin(), pFacts.end());
@@ -1079,11 +1143,28 @@ void Problem::pushBackGoal(const Fact& pGoal)
 
 void Problem::notifyActionDone(
     const std::string& pActionId,
-    const cp::SetOfFacts& effect,
+    const std::map<std::string, std::string>& pParameters,
+    const cp::SetOfFacts& pEffect,
     const std::vector<cp::Fact>* pGoalsToAdd)
 {
     historical.notifyActionDone(pActionId);
-    modifyFacts(effect);
+    if (pParameters.empty())
+    {
+      modifyFacts(pEffect);
+    }
+    else
+    {
+      cp::SetOfFacts effect;
+      effect.notFacts = pEffect.notFacts;
+      effect.exps = pEffect.exps;
+      for (auto& currFact : pEffect.facts)
+      {
+        auto fact = currFact;
+        fact.fillParameters(pParameters);
+        effect.facts.insert(std::move(fact));
+      }
+      modifyFacts(effect);
+    }
     if (pGoalsToAdd != nullptr && !pGoalsToAdd->empty())
       addGoals(*pGoalsToAdd);
 }
@@ -1232,7 +1313,7 @@ std::list<ActionId> solve(Problem& pProblem,
     {
       if (pGlobalHistorical != nullptr)
         pGlobalHistorical->notifyActionDone(actionToDo);
-      pProblem.notifyActionDone(actionToDo, itAction->second.effects, nullptr);
+      pProblem.notifyActionDone(actionToDo, parameters, itAction->second.effects, nullptr);
     }
   }
   return res;

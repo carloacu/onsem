@@ -236,7 +236,8 @@ private:
   void _proactivityFromPlanner(std::list<TextWithLanguage>& pTextsToSay,
                                std::set<std::string>& pActionIdsToSkip);
   void _printParametersAndNotifyPlanner(const ChatbotAction& pAction,
-                                        const std::string& pActionId);
+                                        const std::string& pActionId,
+                                        const std::map<std::string, std::string>& pParameters);
   void _printChatRobotMessage(const std::string& pText);
   void _sayText(std::list<TextWithLanguage>& pTextsToSay);
   void _loadCurrScenario();

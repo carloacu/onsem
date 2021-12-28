@@ -657,7 +657,8 @@ void _actionWithParametersInsideThePath()
   cp::Historical historical;
   cp::Problem problem;
   problem.setGoals({cp::Fact::fromStr("welcomePeople")});
-  assert_eq<std::string>(_action_welcome, _solveStrConst(problem, actions, &historical));
+  assert_eq<std::string>(_action_navigate + "(target -> entrance)" + _sep +
+                         _action_welcome, _solveStrConst(problem, actions, &historical));
 }
 
 }
