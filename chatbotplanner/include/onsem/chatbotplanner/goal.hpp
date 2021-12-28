@@ -25,10 +25,12 @@ struct Goal
   const Fact& fact() const { return _fact; }
 
   static const std::string persistFunctionName;
+  static const std::string forallFunctionName;
   static const std::string implyFunctionName;
 
 private:
   bool _isPersistent;
+  std::string _parameter;
   std::unique_ptr<Fact> _conditionFactPtr;
   Fact _fact;
 };
