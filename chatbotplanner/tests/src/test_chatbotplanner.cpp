@@ -567,7 +567,7 @@ void _triggerActionThatRemoveAFact()
   problem.addFact(_fact_beSad);
   problem.setGoals({_fact_beHappy});
   assert_eq(_action_joke + _sep +
-            _action_goodBoy, _solveStrConst(problem, actions, &historical));
+            _action_goodBoy, _solveStr(problem, actions, &historical));
 }
 
 
@@ -579,7 +579,7 @@ void _actionWithConstantValue()
 
   cp::Problem problem;
   problem.setGoals({cp::Goal("place=kitchen")});
-  assert_eq(_action_navigate, _solveStrConst(problem, actions));
+  assert_eq(_action_navigate, _solveStr(problem, actions));
 }
 
 
@@ -592,7 +592,7 @@ void _actionWithParameterizedValue()
 
   cp::Problem problem;
   problem.setGoals({cp::Goal("place=kitchen")});
-  assert_eq(_action_navigate + "(target -> kitchen)", _solveStrConst(problem, actions));
+  assert_eq(_action_navigate + "(target -> kitchen)", _solveStr(problem, actions));
 }
 
 
@@ -605,7 +605,7 @@ void _actionWithParameterizedParameter()
 
   cp::Problem problem;
   problem.setGoals({cp::Goal("isHappy(1)")});
-  assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions));
+  assert_eq(_action_joke + "(human -> 1)", _solveStr(problem, actions));
 }
 
 
@@ -619,7 +619,7 @@ void _actionWithParametersInPreconditionsAndEffects()
   cp::Problem problem;
   problem.addFact(cp::Fact::fromStr("isEngaged(1)"));
   problem.setGoals({cp::Goal("isHappy(1)")});
-  assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions));
+  assert_eq(_action_joke + "(human -> 1)", _solveStr(problem, actions));
 }
 
 
@@ -633,7 +633,7 @@ void _actionWithParametersInPreconditionsAndEffectsWithoutSolution()
   cp::Problem problem;
   problem.addFact(cp::Fact::fromStr("isEngaged(2)"));
   problem.setGoals({cp::Goal("isHappy(1)")});
-  assert_eq<std::string>("", _solveStrConst(problem, actions));
+  assert_eq<std::string>("", _solveStr(problem, actions));
 }
 
 void _actionWithParametersInsideThePath()
@@ -648,7 +648,7 @@ void _actionWithParametersInsideThePath()
   cp::Problem problem;
   problem.setGoals({cp::Goal("welcomePeople")});
   assert_eq<std::string>(_action_navigate + "(target -> entrance)" + _sep +
-                         _action_welcome, _solveStrConst(problem, actions));
+                         _action_welcome, _solveStr(problem, actions));
 }
 
 
