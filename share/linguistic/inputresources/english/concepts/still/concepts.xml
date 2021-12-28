@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="still_*">
+  <linkedMeaning lemme="still" gram="adverb" relationToConcept="4"/>
+ </concept>
+ <concept name="still_time">
+  <linkedMeaning lemme="again" gram="adverb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

@@ -1093,6 +1093,14 @@ bool _timeToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   bool res = false;
   SemanticDuration beginTimeLimit;
 
+  if (!pTimeGrd.concepts.empty())
+  {
+    OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
+    // add semantic expressions that have a concept in common
+    res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pTimeGrd.concepts, &pGrdExpToLookFor,
+                                         pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+  }
+
   if (pRelativeTimePtr != nullptr)
   {
     switch (*pRelativeTimePtr)
@@ -1571,7 +1579,6 @@ bool _getRelationsFromSemExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     if (SemExpGetter::isAnything(grdExpToLookFor))
     {
       pRelations.res.dynamicLinks.insert(pAlreadyMatchedSentences.dynamicLinks.begin(), pAlreadyMatchedSentences.dynamicLinks.end());
-      //pRelations.staticLinks.insert(pAlreadyMatchedSentences.staticLinks.begin(), pAlreadyMatchedSentences.staticLinks.end());
       return !pRelations.empty();
     }
     return _getRelationsFromGrdExp(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, grdExpToLookFor, pChildSemExpsToSkip,

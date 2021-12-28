@@ -1079,9 +1079,9 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
     _fillUserCenteredLinks(newMemGrdExp, pGrdExp);
 
   // link the concepts
-  std::string userId;
-  for (const auto& currCpt : pGrounding.concepts)
-    _links.reqToGrdExps[pRequType].conceptsToSemExps[currCpt.first].emplace_back(newMemGrdExp);
+  if (pGrounding.type != SemanticGroudingType::TIME)
+    for (const auto& currCpt : pGrounding.concepts)
+      _links.reqToGrdExps[pRequType].conceptsToSemExps[currCpt.first].emplace_back(newMemGrdExp);
 
   switch (pGrounding.type)
   {

@@ -292,6 +292,9 @@
 
   <declareconcept name="sport" />
 
+  <declareconcept name="still" />
+  <declareconcept name="still_time" autofill="false" />
+
   <declareconcept name="story" />
   <declareconcept name="story_joke" />
 

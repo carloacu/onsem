@@ -138,7 +138,8 @@ ONSEMSEMANTICTOTEXT_API
 bool grdExpsAreEqual(const GroundedExpression& pGrdExp1,
                      const GroundedExpression& pGrdExp2,
                      const SemanticMemoryBlock& pMemBlock,
-                     const linguistics::LinguisticDatabase& pLingDb);
+                     const linguistics::LinguisticDatabase& pLingDb,
+                     const ComparisonExceptions* pExceptionsPtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 bool groundingsAreEqual(const SemanticGrounding& pGrounding1,
@@ -192,9 +193,10 @@ inline bool semExpsAreEqualOrIsContainedFromMemBlock(const SemanticExpression& p
 inline bool grdExpsAreEqual(const GroundedExpression& pGrdExp1,
                             const GroundedExpression& pGrdExp2,
                             const SemanticMemoryBlock& pMemBlock,
-                            const linguistics::LinguisticDatabase& pLingDb)
+                            const linguistics::LinguisticDatabase& pLingDb,
+                            const ComparisonExceptions* pExceptionsPtr)
 {
-  return getGrdExpsImbrications(pGrdExp1, pGrdExp2, pMemBlock, pLingDb, nullptr) == ImbricationType::EQUALS;
+  return getGrdExpsImbrications(pGrdExp1, pGrdExp2, pMemBlock, pLingDb, pExceptionsPtr) == ImbricationType::EQUALS;
 }
 
 } // End of namespace SemExpComparator

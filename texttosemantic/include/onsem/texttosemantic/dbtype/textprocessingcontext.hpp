@@ -32,6 +32,7 @@ struct ONSEM_TEXTTOSEMANTIC_API TextProcessingContext
   const SemanticAgentGrounding author;
   const SemanticAgentGrounding receiver;
   SemanticLanguageEnum langType;
+  bool isTimeDependent;
   UniqueSemanticExpression usSemExp;
   bool vouvoiement;
   std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;

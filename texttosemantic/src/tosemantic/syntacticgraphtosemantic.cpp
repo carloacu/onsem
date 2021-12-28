@@ -993,6 +993,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
         (ConceptSet::haveAnyOfConcepts(headConcepts, {"time_relative_now", "time_relative_rightAway"})))
       return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTimeGrounding>(pGeneral.syntGraphTime));
 
+    if (pGeneral.textProcContext.isTimeDependent)
     {
       std::map<std::string, char> timeRelConcepts;
       ConceptSet::extractConceptsThatBeginWith(timeRelConcepts, headConcepts, "time_relativeDay_");
@@ -1004,6 +1005,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
         if (_modifyTimeGrdAccordingToARelativeDay(*timeGrounding, relCptStr))
         {
           timeGrounding->length.add(SemanticTimeUnity::DAY, 1);
+          timeGrounding->concepts = std::move(timeRelConcepts);
           return mystd::make_unique<GroundedExpression>(std::move(timeGrounding));
         }
       }

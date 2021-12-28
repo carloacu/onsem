@@ -6,6 +6,7 @@
     <bookmark name="au-avant-lieu-condition" />
     <child chunkLinkType="location" condition="followedByPartOfSpeech(adverb)&followedByConceptOrHyponym(location)" />
     <child lemma="au" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(country_)|[followedByBeginOfConcept(location_,, ms)&!followedByVowel]" />
+    <child chunkLinkType="" condition="followedByBeginOfConcept(still_)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_relative_)|followedByBeginOfConcept(time_relativeDay_)" />
     <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, have_number_before)" />
     <child chunkLinkType="time" condition="followedByDefiniteNoun&followedByBeginOfConcept(time_, skip_determiners)" />

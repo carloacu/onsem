@@ -23,11 +23,13 @@ void operator_addATrigger(const std::string& pTriggerText,
   TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
                                            SemanticAgentGrounding::me,
                                            SemanticLanguageEnum::UNKNOWN);
+  triggerProcContext.isTimeDependent = false;
   auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
 
   TextProcessingContext answerProcContext(SemanticAgentGrounding::me,
                                           SemanticAgentGrounding::currentUser,
                                           SemanticLanguageEnum::UNKNOWN);
+  answerProcContext.isTimeDependent = false;
   answerProcContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
   auto answerSemExp =
@@ -470,4 +472,24 @@ TEST_F(SemanticReasonerGTests, operator_react_only_one_time_if_2_similar_trigger
   ONSEM_TRUE(operator_check(affirmation2Str, semMem, lingDb));
   ONSEM_ANSWER_EQ("Réponse2", operator_react(affirmation2Str, semMem, lingDb));
   ONSEM_ANSWER_EQ("Réponse3", operator_react(questionStr, semMem, lingDb));
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_trigger_with_relative_time)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  onsem::SemanticTimeGrounding::setAnHardCodedTimeElts(true, false);
+  static const std::string questionStr = "Quelle est la blague d'aujourd'hui ?";
+  static const std::string answerStr = "Blague1";
+  SemanticMemory semMem;
+  operator_addATrigger(questionStr, answerStr, semMem, lingDb);
+  onsem::SemanticTimeGrounding::setAnHardCodedTimeElts(false, false);
+  ONSEM_ANSWER_EQ(answerStr, operator_react(questionStr, semMem, lingDb));
+  onsem::SemanticTimeGrounding::setAnHardCodedTimeElts(true, false);
+
+  static const std::string question2Str = "Y a-t-il encore des moulins aujourd'hui ?";
+  static const std::string answer2Str = "Answer2";
+  operator_addATrigger(question2Str, answer2Str, semMem, lingDb);
+  onsem::SemanticTimeGrounding::setAnHardCodedTimeElts(false, false);
+  ONSEM_ANSWER_EQ(answer2Str, operator_react(question2Str, semMem, lingDb));
 }

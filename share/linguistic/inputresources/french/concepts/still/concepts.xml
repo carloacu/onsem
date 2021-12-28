@@ -1,0 +1,6 @@
+<linguisticdatabase>
+ <concept name="still_*">
+  <linkedMeaning lemme="encore" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="toujours" gram="adverb" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>
