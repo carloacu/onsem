@@ -139,7 +139,7 @@ private:
     UniqueSemanticExpression semExp{};
     UniqueSemanticExpression semExpMergedWithContext{};
     cp::SetOfFacts effect{};
-    std::vector<cp::Fact> goalsToAdd{};
+    std::vector<cp::Goal> goalsToAdd{};
   };
   struct TextWithLanguage
   {

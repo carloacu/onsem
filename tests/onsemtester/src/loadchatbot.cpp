@@ -76,7 +76,11 @@ void loadChatbotDomain(ChatbotDomain& pChatbotDomain,
             auto& currParam = currChatbotAction.parameters.back();
             currParam.text = currParameterTree.second.get("text", "");
             currParam.effect = cp::SetOfFacts::fromStr(currParameterTree.second.get("effect", ""), ',');
-            currParam.goalsToAdd = cp::factsFromString(currParameterTree.second.get("goalsToAdd", ""), ',');
+
+            auto goalsToAddTreeOpt = currParameterTree.second.get_child_optional("goalsToAdd");
+            if (goalsToAddTreeOpt)
+              for (auto& currGoalTree : *goalsToAddTreeOpt)
+                currParam.goalsToAdd.push_back(currGoalTree.second.get_value<std::string>());
           }
         }
 
@@ -93,8 +97,13 @@ void loadChatbotDomain(ChatbotDomain& pChatbotDomain,
         currChatbotAction.preferInContext = cp::SetOfFacts::fromStr(currActionTree.second.get("preferInContext", ""), ',');
         currChatbotAction.effect = cp::SetOfFacts::fromStr(currActionTree.second.get("effect", ""), ',');
         currChatbotAction.potentialEffect = cp::SetOfFacts::fromStr(currActionTree.second.get("potentialEffect", ""), ',');
-        currChatbotAction.goalsToAdd = cp::factsFromString(currActionTree.second.get("goalsToAdd", ""), ',');
         currChatbotAction.shouldBeDoneAsapWithoutHistoryCheck = currActionTree.second.get("shouldBeDoneAsapWithoutHistoryCheck", false);
+
+        auto goalsToAddTreeOpt = currActionTree.second.get_child_optional("goalsToAdd");
+        if (goalsToAddTreeOpt)
+          for (auto& currGoalTree : *goalsToAddTreeOpt)
+            currChatbotAction.goalsToAdd.push_back(currGoalTree.second.get_value<std::string>());
+
       }
     }
   }

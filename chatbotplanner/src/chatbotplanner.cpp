@@ -944,7 +944,6 @@ template<typename FACTS>
 bool Problem::_addFactsWithoutFactNotification(const FACTS& pFacts)
 {
   bool res = false;
-  bool aGoalHasBeenRemoved = false;
   for (const auto& currFact : pFacts)
   {
     if (_facts.count(currFact) > 0)
@@ -952,11 +951,6 @@ bool Problem::_addFactsWithoutFactNotification(const FACTS& pFacts)
     res = true;
     _facts.insert(currFact);
     _addFactNameRef(currFact.name);
-    if (!_goals.empty() && currFact == _goals.front())
-    {
-      removeGoal(currFact);
-      aGoalHasBeenRemoved = true;
-    }
 
     auto itReachable = _reachableFacts.find(currFact);
     if (itReachable != _reachableFacts.end())
@@ -964,8 +958,6 @@ bool Problem::_addFactsWithoutFactNotification(const FACTS& pFacts)
     else
       _clearRechableAndRemovableFacts();
   }
-  if (aGoalHasBeenRemoved)
-    _removeDoneGoals();
   return res;
 }
 
@@ -1084,40 +1076,26 @@ void Problem::addRemovableFacts(const std::set<Fact>& pFacts)
 }
 
 
-void Problem::_removeDoneGoals()
+void Problem::iterateOnGoalAndRemoveNonPersistent(
+    const std::function<bool(const Goal&)>& pManageGoal)
 {
-  bool hasRemovedAGoal = false;
   for (auto itGoal = _goals.begin(); itGoal != _goals.end(); )
   {
-    if (_facts.count(*itGoal) > 0)
+    if (pManageGoal(*itGoal))
+      return;
+    if (itGoal->isPersistent())
     {
-      itGoal = _goals.erase(itGoal);
-      hasRemovedAGoal = true;
+      ++itGoal;
     }
     else
     {
-      break;
-    }
-  }
-  if (hasRemovedAGoal)
-    onGoalsChanged(_goals);
-}
-
-
-void Problem::removeGoal(const Fact& pGoal)
-{
-  for (auto itGoal = _goals.begin(); itGoal != _goals.end(); ++itGoal)
-  {
-    if (*itGoal == pGoal)
-    {
-      _goals.erase(itGoal);
+      itGoal = _goals.erase(itGoal);
       onGoalsChanged(_goals);
-      break;
     }
   }
 }
 
-void Problem::setGoals(const std::vector<Fact>& pGoals)
+void Problem::setGoals(const std::vector<Goal>& pGoals)
 {
   if (_goals != pGoals)
   {
@@ -1126,7 +1104,7 @@ void Problem::setGoals(const std::vector<Fact>& pGoals)
   }
 }
 
-void Problem::addGoals(const std::vector<Fact>& pGoals)
+void Problem::addGoals(const std::vector<Goal>& pGoals)
 {
   if (pGoals.empty())
     return;
@@ -1134,18 +1112,17 @@ void Problem::addGoals(const std::vector<Fact>& pGoals)
   onGoalsChanged(_goals);
 }
 
-void Problem::pushBackGoal(const Fact& pGoal)
+void Problem::pushBackGoal(const Goal& pGoal)
 {
   _goals.push_back(pGoal);
   onGoalsChanged(_goals);
 }
 
 
-void Problem::notifyActionDone(
-    const std::string& pActionId,
+void Problem::notifyActionDone(const std::string& pActionId,
     const std::map<std::string, std::string>& pParameters,
-    const cp::SetOfFacts& pEffect,
-    const std::vector<cp::Fact>* pGoalsToAdd)
+    const SetOfFacts& pEffect,
+    const std::vector<Goal>* pGoalsToAdd)
 {
     historical.notifyActionDone(pActionId);
     if (pParameters.empty())
@@ -1256,19 +1233,21 @@ ActionId lookForAnActionToDo(
     const Historical* pGlobalHistorical)
 {
   fillReachableFacts(pProblem, pDomain);
-  while (!pProblem.goals().empty())
-  {
-    auto& currGoal = pProblem.goals().front();
-    if (pProblem.facts().count(currGoal) == 0)
+
+  ActionId res;
+  auto tryToFindAnActionTowardGoal = [&](const Goal& pGoal){
+    auto& goalFact = pGoal.fact();
+    if (pProblem.facts().count(goalFact) == 0)
     {
-      auto res = _nextStepOfTheProblemForAGoal(pParameters, currGoal, pProblem,
-                                               pDomain, pGlobalHistorical);
-      if (!res.empty())
-        return res;
+      res = _nextStepOfTheProblemForAGoal(pParameters, goalFact, pProblem,
+                                          pDomain, pGlobalHistorical);
+      return !res.empty();
     }
-    pProblem.removeGoal(currGoal);
-  }
-  return "";
+    return false;
+  };
+
+  pProblem.iterateOnGoalAndRemoveNonPersistent(tryToFindAnActionTowardGoal);
+  return res;
 }
 
 

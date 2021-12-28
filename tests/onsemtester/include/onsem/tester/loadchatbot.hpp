@@ -15,7 +15,7 @@ struct ONSEMTESTER_API ChatbotParam
 {
   std::string text{};
   cp::SetOfFacts effect{};
-  std::vector<cp::Fact> goalsToAdd{};
+  std::vector<cp::Goal> goalsToAdd{};
 };
 
 struct ONSEMTESTER_API ChatbotInput
@@ -36,7 +36,7 @@ struct ONSEMTESTER_API ChatbotAction
   cp::SetOfFacts preferInContext{};
   cp::SetOfFacts effect{};
   cp::SetOfFacts potentialEffect{};
-  std::vector<cp::Fact> goalsToAdd{};
+  std::vector<cp::Goal> goalsToAdd{};
   bool shouldBeDoneAsapWithoutHistoryCheck{};
 };
 

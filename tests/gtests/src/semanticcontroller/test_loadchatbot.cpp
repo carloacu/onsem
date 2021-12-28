@@ -70,6 +70,6 @@ TEST_F(SemanticReasonerGTests, test_loadchatbotProblem)
   loadChatbotProblem(chatbotProblem, ss);
   EXPECT_EQ(SemanticLanguageEnum::FRENCH, chatbotProblem.language);
   ASSERT_EQ(1, chatbotProblem.problem.goals().size());
-  EXPECT_EQ(cp::Fact("remonter-le-moral"), chatbotProblem.problem.goals()[0]);
+  EXPECT_EQ(cp::Goal("remonter-le-moral"), chatbotProblem.problem.goals()[0]);
 }
 

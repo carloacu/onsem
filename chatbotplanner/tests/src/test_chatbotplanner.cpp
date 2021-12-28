@@ -140,7 +140,7 @@ void _test_setOfFactsFromStr()
   }
 }
 
-void _noPreconditionGolalImmediatlyReached()
+void _noPreconditionGoalImmediatlyReached()
 {
   std::map<cp::ActionId, cp::Action> actions;
   actions.emplace(_action_goodBoy, cp::Action({}, {_fact_beHappy}));
@@ -151,7 +151,6 @@ void _noPreconditionGolalImmediatlyReached()
   assert_eq(_action_goodBoy, _lookForAnActionToDo(problem, domain));
   assert_true(!problem.goals().empty());
   problem.addFact(_fact_beHappy);
-  assert_true(problem.goals().empty());
 }
 
 
@@ -451,15 +450,13 @@ void _checkNotInAPrecondition()
 
 void _checkClearGoalsWhenItsAlreadySatisfied()
 {
+  std::map<std::string, cp::Action> actions;
+  cp::Domain domain(actions);
   cp::Problem problem;
-  problem.setGoals({_fact_greeted, _fact_checkedIn});
-  assert_eq<std::size_t>(2, problem.goals().size());
-  problem.addFacts(std::vector<cp::Fact>{_fact_greeted, _fact_checkedIn});
-  assert_eq<std::size_t>(0, problem.goals().size());
-  problem.setFacts({});
-  problem.setGoals({_fact_greeted, _fact_checkedIn});
-  assert_eq<std::size_t>(2, problem.goals().size());
-  problem.addFacts(std::vector<cp::Fact>{_fact_checkedIn, _fact_greeted});
+  problem.setFacts({_fact_greeted});
+  problem.setGoals({_fact_greeted});
+  assert_eq<std::size_t>(1, problem.goals().size());
+  _lookForAnActionToDo(problem, domain);
   assert_eq<std::size_t>(0, problem.goals().size());
 }
 
@@ -529,7 +526,6 @@ void _testIncrementOfVariables()
   assert(cp::areFactsTrue(actionFinishToActActions.preconditions, problem));
   assert(cp::areFactsTrue(actionSayQuestionBilan.preconditions, problem));
   problem.modifyFacts(actionSayQuestionBilan.effects);
-  assert(problem.goals().empty());
 }
 
 void _precoditionEqualEffect()
@@ -583,7 +579,7 @@ void _actionWithConstantValue()
 
   cp::Historical historical;
   cp::Problem problem;
-  problem.setGoals({cp::Fact::fromStr("place=kitchen")});
+  problem.setGoals({cp::Goal("place=kitchen")});
   assert_eq(_action_navigate, _solveStrConst(problem, actions, &historical));
 }
 
@@ -597,7 +593,7 @@ void _actionWithParameterizedValue()
 
   cp::Historical historical;
   cp::Problem problem;
-  problem.setGoals({cp::Fact::fromStr("place=kitchen")});
+  problem.setGoals({cp::Goal("place=kitchen")});
   assert_eq(_action_navigate + "(target -> kitchen)", _solveStrConst(problem, actions, &historical));
 }
 
@@ -611,7 +607,7 @@ void _actionWithParameterizedParameter()
 
   cp::Historical historical;
   cp::Problem problem;
-  problem.setGoals({cp::Fact::fromStr("isHappy(1)")});
+  problem.setGoals({cp::Goal("isHappy(1)")});
   assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions, &historical));
 }
 
@@ -626,7 +622,7 @@ void _actionWithParametersInPreconditionsAndEffects()
   cp::Historical historical;
   cp::Problem problem;
   problem.addFact(cp::Fact::fromStr("isEngaged(1)"));
-  problem.setGoals({cp::Fact::fromStr("isHappy(1)")});
+  problem.setGoals({cp::Goal("isHappy(1)")});
   assert_eq(_action_joke + "(human -> 1)", _solveStrConst(problem, actions, &historical));
 }
 
@@ -641,7 +637,7 @@ void _actionWithParametersInPreconditionsAndEffectsWithoutSolution()
   cp::Historical historical;
   cp::Problem problem;
   problem.addFact(cp::Fact::fromStr("isEngaged(2)"));
-  problem.setGoals({cp::Fact::fromStr("isHappy(1)")});
+  problem.setGoals({cp::Goal("isHappy(1)")});
   assert_eq<std::string>("", _solveStrConst(problem, actions, &historical));
 }
 
@@ -656,7 +652,7 @@ void _actionWithParametersInsideThePath()
 
   cp::Historical historical;
   cp::Problem problem;
-  problem.setGoals({cp::Fact::fromStr("welcomePeople")});
+  problem.setGoals({cp::Goal("welcomePeople")});
   assert_eq<std::string>(_action_navigate + "(target -> entrance)" + _sep +
                          _action_welcome, _solveStrConst(problem, actions, &historical));
 }
@@ -669,7 +665,7 @@ int main(int argc, char *argv[])
 {
   test_arithmeticEvaluator();
   _test_setOfFactsFromStr();
-  _noPreconditionGolalImmediatlyReached();
+  _noPreconditionGoalImmediatlyReached();
   _noPlanWithALengthOf2();
   _noPlanWithALengthOf3();
   _2preconditions();

@@ -11,6 +11,7 @@
 #include "api.hpp"
 #include <onsem/chatbotplanner/alias.hpp>
 #include <onsem/chatbotplanner/fact.hpp>
+#include <onsem/chatbotplanner/goal.hpp>
 #include <onsem/chatbotplanner/observableunsafe.hpp>
 
 
@@ -210,7 +211,7 @@ struct ONSEMCHATBOTPLANNER_API Problem
   Historical historical{};
   cpstd::observable::ObservableUnsafe<void (const std::map<Fact, std::string>&)> onFactsToValueChanged{};
   cpstd::observable::ObservableUnsafe<void (const std::set<Fact>&)> onFactsChanged{};
-  cpstd::observable::ObservableUnsafe<void (const std::vector<Fact>&)> onGoalsChanged{};
+  cpstd::observable::ObservableUnsafe<void (const std::vector<Goal>&)> onGoalsChanged{};
 
   std::string getCurrentGoal() const;
   void addFactsToValue(const std::map<Fact, std::string>& pFactsToValue);
@@ -227,17 +228,18 @@ struct ONSEMCHATBOTPLANNER_API Problem
   void addReachableFacts(const std::set<Fact>& pFacts);
   void addReachableFactsWithAnyValues(const std::vector<Fact>& pFacts);
   void addRemovableFacts(const std::set<Fact>& pFacts);
-  void removeGoal(const Fact& pGoal);
   void noNeedToAddReachableFacts() { _needToAddReachableFacts = false; }
   bool needToAddReachableFacts() const { return _needToAddReachableFacts; }
-  void setGoals(const std::vector<Fact>& pGoals);
-  void addGoals(const std::vector<Fact>& pGoals);
-  void pushBackGoal(const Fact& pGoal);
+  void iterateOnGoalAndRemoveNonPersistent(
+      const std::function<bool(const Goal&)>& pManageGoal);
+  void setGoals(const std::vector<Goal>& pGoals);
+  void addGoals(const std::vector<Goal>& pGoals);
+  void pushBackGoal(const Goal& pGoal);
   void notifyActionDone(const std::string& pActionId,
                         const std::map<std::string, std::string>& pParameters,
-                        const cp::SetOfFacts& pEffect,
-                        const std::vector<cp::Fact>* pGoalsToAdd);
-  const std::vector<Fact>& goals() const { return _goals; }
+                        const SetOfFacts& pEffect,
+                        const std::vector<Goal>* pGoalsToAdd);
+  const std::vector<Goal>& goals() const { return _goals; }
   const std::set<Fact>& facts() const { return _facts; }
   const std::map<std::string, std::size_t>& factNamesToNbOfFactOccurences() const { return _factNamesToNbOfFactOccurences; }
   const std::map<Fact, std::string>& factsToValue() const { return _factsToValue; }
@@ -246,7 +248,7 @@ struct ONSEMCHATBOTPLANNER_API Problem
   const std::set<Fact>& removableFacts() const { return _removableFacts; }
 
 private:
-  std::vector<Fact> _goals{};
+  std::vector<Goal> _goals{};
   std::map<Fact, std::string> _factsToValue{};
   std::set<Fact> _facts{};
   std::map<std::string, std::size_t> _factNamesToNbOfFactOccurences{};
@@ -261,7 +263,6 @@ private:
   template<typename FACTS>
   bool _removeFactsWithoutFactNotification(const FACTS& pFacts);
 
-  void _removeDoneGoals();
   void _clearRechableAndRemovableFacts();
   void _addFactNameRef(const std::string& pFactName);
 };
