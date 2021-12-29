@@ -129,9 +129,16 @@ void _getPrecoditionStatistics(std::size_t& nbOfPreconditionsSatisfied,
                                const std::set<Fact>& pFacts)
 {
   nbOfPreconditionsSatisfied = pAction.preconditions.facts.size();
-  for (const auto& currOptPrecond : pAction.preferInContext.facts)
+  for (const auto& currFact : pAction.preferInContext.facts)
   {
-    if (pFacts.count(currOptPrecond) > 0)
+    if (pFacts.count(currFact) > 0)
+      ++nbOfPreconditionsSatisfied;
+    else
+      ++nbOfPreconditionsNotSatisfied;
+  }
+  for (const auto& currFact : pAction.preferInContext.notFacts)
+  {
+    if (pFacts.count(currFact) == 0)
       ++nbOfPreconditionsSatisfied;
     else
       ++nbOfPreconditionsNotSatisfied;

@@ -34,6 +34,7 @@ const std::string _action_greet = "greet";
 const std::string _action_advertise = "advertise";
 const std::string _action_checkIn = "check_in";
 const std::string _action_joke = "joke";
+const std::string _action_checkInWithRealPerson = "check_in_with_real_person";
 const std::string _action_checkInWithQrCode = "check_in_with_qrcode";
 const std::string _action_checkInWithPassword = "check_in_with_password";
 const std::string _action_goodBoy = "good_boy";
@@ -336,6 +337,12 @@ void _preferInContext()
             _action_greet + _sep +
             _action_goodBoy, _solveStrConst(problem, actions));
 
+  auto dontHaveAQrCode = cp::SetOfFacts::fromStr("!" + _fact_hasQrCode, ',');
+  actions.emplace(_action_checkInWithRealPerson, cp::Action({}, {_fact_checkedIn}, dontHaveAQrCode));
+  problem.setFacts({});
+  assert_eq(_action_checkInWithRealPerson + _sep +
+            _action_greet + _sep +
+            _action_goodBoy, _solveStrConst(problem, actions));
 }
 
 
