@@ -780,13 +780,8 @@ Domain::Domain(const std::map<ActionId, Action>& pActions)
         currAction.second.effects.empty())
       continue;
     _actions.emplace(currAction.first, currAction.second);
-    for (const auto& currPrecondition : currAction.second.preferInContext.facts)
-      _preconditionToActions[currPrecondition.name].insert(currAction.first);
     for (const auto& currPrecondition : currAction.second.preconditions.facts)
       _preconditionToActions[currPrecondition.name].insert(currAction.first);
-
-    for (const auto& currPrecondition : currAction.second.preferInContext.notFacts)
-      _notPreconditionToActions[currPrecondition.name].insert(currAction.first);
     for (const auto& currPrecondition : currAction.second.preconditions.notFacts)
       _notPreconditionToActions[currPrecondition.name].insert(currAction.first);
 

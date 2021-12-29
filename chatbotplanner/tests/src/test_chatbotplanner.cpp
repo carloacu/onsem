@@ -691,8 +691,6 @@ void _testImplyGoal()
 }
 
 
-
-
 void _checkPreviousBugAboutSelectingAnInappropriateAction()
 {
   std::map<std::string, cp::Action> actions;
@@ -710,6 +708,21 @@ void _checkPreviousBugAboutSelectingAnInappropriateAction()
   assert_eq<std::string>(_action_askQuestion1, _solveStr(problem, actions));
 }
 
+
+void _dontLinkActionWithPreferredInContext()
+{
+  std::map<std::string, cp::Action> actions;
+  auto removeLearntBehavior = cp::SetOfFacts::fromStr("!" + _fact_robotLearntABehavior, ',');
+  actions.emplace(_action_askQuestion1, cp::Action({}, {_fact_userSatisfied}, {_fact_checkedIn}));
+  actions.emplace(_action_checkIn, cp::Action({_fact_engagedWithUser}, {_fact_checkedIn}));
+  cp::Domain domain(actions);
+
+  cp::Historical historical;
+  cp::Problem problem;
+  problem.setFacts({_fact_engagedWithUser});
+  problem.setGoals({_fact_userSatisfied});
+  assert_eq<std::string>(_action_askQuestion1, _solveStr(problem, actions));
+}
 
 
 }
@@ -751,6 +764,7 @@ int main(int argc, char *argv[])
   _testPersistGoal();
   _testImplyGoal();
   _checkPreviousBugAboutSelectingAnInappropriateAction();
+  _dontLinkActionWithPreferredInContext();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;
