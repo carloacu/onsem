@@ -686,31 +686,32 @@ void ListExtractor::extractSubordonates
         else if (recInListConst(chunkIsVerbal, currChunk))
         {
           bool needToSkip = false;
-          bool isPrevChunkAnInfChunk = hasAChunkTypeOrAListOfChunkTypes(*prevPhrase->chunk, ChunkType::INFINITVE_VERB_CHUNK);
-          bool isPrevChunkAnQuestionVerbChunk = recInListConst([&](const Chunk& pChunk)
+          if (language == SemanticLanguageEnum::ENGLISH)
           {
-            return pChunk.type == ChunkType::VERB_CHUNK && pChunk.requests.isAQuestion();
-          }, *prevPhrase->chunk);
-          bool isSayVerb = ConceptSet::haveAConcept(currChunk.getHeadConcepts(), "verb_action_say");
-          if ((language == SemanticLanguageEnum::ENGLISH &&
-               !recInListConst(chunkIsVerbal, *prevPhrase->chunk)) ||
-              (language == SemanticLanguageEnum::FRENCH &&
-               !(isPrevChunkAnInfChunk || isPrevChunkAnQuestionVerbChunk ||
-                 (recInListConst(chunkIsVerbal, *prevPhrase->chunk) && isSayVerb))))
-          {
-            needToSkip = true;
-          }
-          else if (language == SemanticLanguageEnum::ENGLISH &&
-                   !isPrevChunkAnInfChunk &&
-                   nextPhrase != pWorkingZone.end() &&
-                   nextPhrase->chunk->type == ChunkType::SEPARATOR_CHUNK)
-          {
-            const auto& iGramOfHeadOfNextPhrase = nextPhrase->chunk->head->inflWords.front();
-            if (iGramOfHeadOfNextPhrase.infos.hasContextualInfo(WordContextualInfos::CONDITION))
+            if (!recInListConst(chunkIsVerbal, *prevPhrase->chunk))
             {
-              currListType.reset();
               needToSkip = true;
             }
+            else if (!hasAChunkTypeOrAListOfChunkTypes(*prevPhrase->chunk, ChunkType::INFINITVE_VERB_CHUNK) &&
+                     nextPhrase != pWorkingZone.end() &&
+                     nextPhrase->chunk->type == ChunkType::SEPARATOR_CHUNK)
+            {
+              const auto& iGramOfHeadOfNextPhrase = nextPhrase->chunk->head->inflWords.front();
+              if (iGramOfHeadOfNextPhrase.infos.hasContextualInfo(WordContextualInfos::CONDITION))
+              {
+                currListType.reset();
+                needToSkip = true;
+              }
+            }
+          }
+          else if (language == SemanticLanguageEnum::FRENCH)
+          {
+            needToSkip = recInListConst([&](const Chunk& pChunk)
+            {
+              return pChunk.type != ChunkType::INFINITVE_VERB_CHUNK &&
+                  (pChunk.type != ChunkType::VERB_CHUNK ||
+                  (!pChunk.requests.isAQuestion() && !ConceptSet::haveAConcept(currChunk.getHeadConcepts(), "verb_action_say")));
+            }, *prevPhrase->chunk);
           }
 
           // if there is a phrase before, we add this subordonates the current list
