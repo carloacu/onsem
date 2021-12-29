@@ -693,7 +693,7 @@ void _testImplyGoal()
 
 
 
-void _dd()
+void _checkPreviousBugAboutSelectingAnInappropriateAction()
 {
   std::map<std::string, cp::Action> actions;
   auto removeLearntBehavior = cp::SetOfFacts::fromStr("!" + _fact_robotLearntABehavior, ',');
@@ -750,7 +750,7 @@ int main(int argc, char *argv[])
   _actionWithParametersInsideThePath();
   _testPersistGoal();
   _testImplyGoal();
-  _dd();
+  _checkPreviousBugAboutSelectingAnInappropriateAction();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;
