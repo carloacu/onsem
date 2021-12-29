@@ -45,6 +45,7 @@ SemanticMemoryBlock::SemanticMemoryBlock
     expressionThatWillBeRemoved(),
     semExpAdded(),
     expressionRemoved(),
+    infActionAdded(),
     infActionChanged(),
     conditionToActionChanged(),
     subBlockPtr(nullptr),

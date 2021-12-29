@@ -16,7 +16,7 @@ struct Connection
   Connection(int pId,
              std::function<void()>&& pDisconnect): _id(pId), _disconnect(pDisconnect) {}
   int getId() const { return _id; }
-  void disconnect() { return _disconnect(); }
+  void disconnect() { if (_id != -1) _disconnect(); }
 
 private:
   int _id;

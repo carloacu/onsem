@@ -168,6 +168,7 @@ private:
   bool _newOrOldVersion;
   std::unique_ptr<onsem::SemanticMemory> _semMemoryPtr;
   std::unique_ptr<onsem::SemanticMemory> _semMemoryBinaryPtr;
+  mystd::observable::Connection _infActionAddedConnection;
   std::unique_ptr<onsem::ChatbotDomain> _chatbotDomain;
   std::unique_ptr<onsem::ChatbotProblem> _chatbotProblem;
   std::list<ChatbotSemExpParam> _currentActionParameters;

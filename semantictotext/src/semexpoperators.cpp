@@ -182,6 +182,7 @@ void addATrigger(UniqueSemanticExpression pTriggerSemExp,
                  SemanticMemory& pSemanticMemory,
                  const linguistics::LinguisticDatabase& pLingDb)
 {
+  /*
   if (memoryOperation::categorize(*pTriggerSemExp) == SemanticExpressionCategory::COMMAND)
   {
     auto* triggerGrdExpPtr = pTriggerSemExp->getGrdExpPtr_SkipWrapperPtrs();
@@ -194,6 +195,7 @@ void addATrigger(UniqueSemanticExpression pTriggerSemExp,
       informAxiom(std::move(definitionSemExp), pSemanticMemory, pLingDb, nullptr, nullptr);
     }
   }
+  */
 
   resolveAgentAccordingToTheContext(pTriggerSemExp, pSemanticMemory, pLingDb);
   converter::splitEquivalentQuestions(pTriggerSemExp, pLingDb);

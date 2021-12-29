@@ -74,6 +74,7 @@ MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
   _newOrOldVersion(true),
   _semMemoryPtr(mystd::make_unique<SemanticMemory>()),
   _semMemoryBinaryPtr(mystd::make_unique<SemanticMemory>()),
+  _infActionAddedConnection(),
   _chatbotDomain(),
   _chatbotProblem(),
   _currentActionParameters(),
@@ -98,9 +99,9 @@ MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
   fSentenceLoader(),
   _lineEditHistorical()
 {
-  memoryOperation::defaultKnowledge(*_semMemoryPtr, _lingDb);
   _ui->setupUi(this);
   resize(1267, 750);
+  _clearLoadedScenarios();
 
   _ui->pushButton_micro->setText(microStr);
   _ui->pushButton_history_microForChat->setText(microStr);
@@ -180,6 +181,7 @@ MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
 
 MainWindow::~MainWindow()
 {
+  _infActionAddedConnection.disconnect();
   delete _ui;
   _ui = nullptr;
 }
@@ -1324,7 +1326,8 @@ void MainWindow::_appendLogs(const std::list<std::string>& pLogs)
 void MainWindow::_clearLoadedScenarios()
 {
   this->setWindowTitle("Semantic reasoner viewer");
-  _semMemoryPtr->clear();
+  auto& semMemory = *_semMemoryPtr;
+  semMemory.clear();
   _semMemoryBinaryPtr->clear();
   // clear the planner
   {
@@ -1334,7 +1337,18 @@ void MainWindow::_clearLoadedScenarios()
     _effectAfterCurrentInput.reset();
   }
   _lingDb.reset();
-  memoryOperation::defaultKnowledge(*_semMemoryPtr, _lingDb);
+  memoryOperation::defaultKnowledge(semMemory, _lingDb);
+
+  _infActionAddedConnection.disconnect();
+  _infActionAddedConnection =
+      semMemory.memBloc.infActionAdded.connectUnsafe([this](intSemId pId, const SemanticMemorySentence* pMemorySentencePtr)
+  {
+    if (_chatbotProblem)
+    {
+      _chatbotProblem->problem.addFact(cp::Fact("robot_learnt_a_behavior"));
+    }
+  });
+
   _scenarioContainer.clear();
   _ui->textBrowser_chat_history->clear();
   _ui->pushButton_Chat_PrevScenario->setEnabled(false);

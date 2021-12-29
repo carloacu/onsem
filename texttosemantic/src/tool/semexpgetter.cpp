@@ -1414,7 +1414,13 @@ void extractSubjectAndObjectOfAVerbDefinition(
   if (itObject == pGrdExp.children.end())
     return;
 
-  // TODO: check that is a list of imperative verbs or a resource!!!!
+  std::list<const GroundedExpression*> objectGrdExpPtrs;
+  itObject->second->getGrdExpPtrs_SkipWrapperLists(objectGrdExpPtrs);
+  for (const auto& currObjPtr : objectGrdExpPtrs)
+    if (!isAnInfinitiveGrdExp(*currObjPtr) &&
+        currObjPtr->grounding().getMetaGroundingPtr() == nullptr &&
+        currObjPtr->grounding().getResourceGroundingPtr() == nullptr)
+      return;
 
   pSubjectGrdPtr = subjGrdExpPtr;
   pInfCommandToDo = &*itObject->second;

@@ -261,6 +261,7 @@ void SemanticMemoryBlockPrivate::addConditionToAnAction(const SemanticMemorySent
 void SemanticMemoryBlockPrivate::addInfAction(const SemanticMemorySentence& pMemSent)
 {
   infActions.emplace(pMemSent.id, &pMemSent);
+  _memBlock.infActionAdded(pMemSent.id, &pMemSent);
   _memBlock.infActionChanged(infActions);
 }
 

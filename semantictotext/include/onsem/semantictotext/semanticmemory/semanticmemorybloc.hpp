@@ -133,7 +133,11 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
   mystd::observable::Observable<void(const ExpressionHandleInMemory&)> expressionThatWillBeRemoved;
   mystd::observable::ObservableUnsafe<void(const SemanticExpression&)> semExpAdded;
   mystd::observable::ObservableUnsafe<void(const SemanticExpression&)> expressionRemoved;
+
+  // When a behavior is learnt (ex: "To salute is to say hi")
+  mystd::observable::ObservableUnsafe<void(intSemId, const SemanticMemorySentence*)> infActionAdded;
   mystd::observable::ObservableUnsafe<void(const std::map<intSemId, const SemanticMemorySentence*>&)> infActionChanged;
+
   mystd::observable::ObservableUnsafe<void(const std::set<const SemanticMemorySentence*>&)> conditionToActionChanged;
   mystd::observable::ObservableUnsafe<void(const GroundedExpression&, std::list<const GroundedExpression*>)> grdExpReplacedGrdExps;
 
