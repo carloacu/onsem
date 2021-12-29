@@ -687,11 +687,15 @@ void ListExtractor::extractSubordonates
         {
           bool needToSkip = false;
           bool isPrevChunkAnInfChunk = hasAChunkTypeOrAListOfChunkTypes(*prevPhrase->chunk, ChunkType::INFINITVE_VERB_CHUNK);
+          bool isPrevChunkAnQuestionVerbChunk = recInListConst([&](const Chunk& pChunk)
+          {
+            return pChunk.type == ChunkType::VERB_CHUNK && pChunk.requests.isAQuestion();
+          }, *prevPhrase->chunk);
           bool isSayVerb = ConceptSet::haveAConcept(currChunk.getHeadConcepts(), "verb_action_say");
           if ((language == SemanticLanguageEnum::ENGLISH &&
                !recInListConst(chunkIsVerbal, *prevPhrase->chunk)) ||
               (language == SemanticLanguageEnum::FRENCH &&
-               !(isPrevChunkAnInfChunk ||
+               !(isPrevChunkAnInfChunk || isPrevChunkAnQuestionVerbChunk ||
                  (recInListConst(chunkIsVerbal, *prevPhrase->chunk) && isSayVerb))))
           {
             needToSkip = true;

@@ -178,6 +178,14 @@ struct ONSEM_COMMON_API SemanticRequests
   }
   std::vector<SemanticRequestType> types;
 
+  bool isAQuestion() const
+  {
+    bool res = false;
+    for (const auto& type : types)
+      if (type != SemanticRequestType::ACTION)
+        res = true;
+    return res;
+  }
   bool has(SemanticRequestType pRequest) const
   {
     for (const auto& currRequest : types)
