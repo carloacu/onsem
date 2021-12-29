@@ -125,6 +125,16 @@ UniqueSemanticExpression syntGraphToSemExp(const linguistics::SyntacticGraph& pS
 
 
 
+
+
+ONSEMSEMANTICTOTEXT_API
+void getInfinitiveToTwoDifferentPossibleWayToAskForIt(UniqueSemanticExpression& pOut1,
+                                                      UniqueSemanticExpression& pOut2,
+                                                      UniqueSemanticExpression pUSemExp);
+
+ONSEMSEMANTICTOTEXT_API
+UniqueSemanticExpression getFutureIndicativeFromInfinitive(UniqueSemanticExpression pUSemExp);
+
 } // End of namespace converter
 } // End of namespace onsem
 

@@ -144,6 +144,7 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
   const std::map<intSemId, const SemanticMemorySentence*>& getInfActions() const;
   const std::set<const SemanticMemorySentence*>& getConditionToActions() const;
 
+  static SemanticBehaviorDefinition extractActionFromMemorySentence(const SemanticMemorySentence& pMemorySentence);
   static void extractActions(std::list<SemanticBehaviorDefinition>& pActionDefinitions,
                              const std::map<intSemId, const SemanticMemorySentence*>& pInfActions);
   static void extractConditionToActions(

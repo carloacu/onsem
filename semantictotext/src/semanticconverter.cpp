@@ -22,6 +22,7 @@
 #include "conversion/reasonofrefactor.hpp"
 #include "interpretation/completewithcontext.hpp"
 #include "linguisticsynthesizer/synthesizerresulttypes.hpp"
+#include "utility/semexpcreator.hpp"
 
 namespace onsem
 {
@@ -485,8 +486,37 @@ void semExpToText(std::string& pResStr,
                   const linguistics::LinguisticDatabase& pLingDb,
                   std::list<std::list<SemLineToPrint> >* pDebugOutput)
 {
-  semExpToText(pResStr, std::move(pSemExp),pTextProcContext, pOneLinePerSentence,
+  semExpToText(pResStr, std::move(pSemExp), pTextProcContext, pOneLinePerSentence,
                pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId(), pLingDb, pDebugOutput);
+}
+
+
+
+
+void getInfinitiveToTwoDifferentPossibleWayToAskForIt(UniqueSemanticExpression& pOut1,
+                                                      UniqueSemanticExpression& pOut2,
+                                                      UniqueSemanticExpression pUSemExp)
+{
+  {
+    auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExpPtr != nullptr)
+     pOut1 = SemExpCreator::getImperativeAssociateFrom(*grdExpPtr);
+  }
+
+  {
+    auto* grdExpPtr = pOut1->getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExpPtr != nullptr)
+      pOut2 = SemExpCreator::iWantThatYou(SemanticAgentGrounding::currentUser, SemExpCreator::getIndicativeFromImperative(*grdExpPtr));
+  }
+}
+
+
+UniqueSemanticExpression getFutureIndicativeFromInfinitive(UniqueSemanticExpression pUSemExp)
+{
+  auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+    return SemExpCreator::getFutureIndicativeFromInfinitive(*grdExpPtr);
+  return UniqueSemanticExpression();
 }
 
 

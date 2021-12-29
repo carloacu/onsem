@@ -24,6 +24,7 @@
 #include <onsem/semantictotext/executor/textexecutor.hpp>
 #include <onsem/semantictotext/serialization.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semanticdebugger/dotsaver.hpp>
@@ -1341,10 +1342,24 @@ void MainWindow::_clearLoadedScenarios()
 
   _infActionAddedConnection.disconnect();
   _infActionAddedConnection =
-      semMemory.memBloc.infActionAdded.connectUnsafe([this](intSemId pId, const SemanticMemorySentence* pMemorySentencePtr)
+      semMemory.memBloc.infActionAdded.connectUnsafe([&](intSemId pId, const SemanticMemorySentence* pMemorySentencePtr)
   {
-    if (_chatbotProblem)
+    if (_chatbotProblem && pMemorySentencePtr != nullptr)
     {
+      auto textProcToRobot = TextProcessingContext::getTextProcessingContextToRobot(SemanticLanguageEnum::FRENCH);
+      auto textProcFromRobot = TextProcessingContext::getTextProcessingContextFromRobot(SemanticLanguageEnum::FRENCH);
+      auto behaviorDef = SemanticMemoryBlock::extractActionFromMemorySentence(*pMemorySentencePtr);
+      UniqueSemanticExpression formulation1;
+      UniqueSemanticExpression formulation2;
+      converter::getInfinitiveToTwoDifferentPossibleWayToAskForIt(formulation1, formulation2, std::move(behaviorDef.label));
+      std::map<std::string, std::string> varToValue;
+      converter::semExpToText(varToValue["comportement_appris"], std::move(formulation1),
+                              textProcToRobot, false, semMemory, _lingDb, nullptr);
+      converter::semExpToText(varToValue["comportement_appris_2"], std::move(formulation2),
+                              textProcToRobot, false, semMemory, _lingDb, nullptr);
+      converter::semExpToText(varToValue["comportement_appris_resultat"], converter::getFutureIndicativeFromInfinitive(std::move(behaviorDef.composition)),
+                              textProcFromRobot, false, semMemory, _lingDb, nullptr);
+      _chatbotProblem->problem.addFactsToValue(varToValue);
       _chatbotProblem->problem.addFact(cp::Fact("robot_learnt_a_behavior"));
     }
   });

@@ -530,29 +530,29 @@ const std::set<const SemanticMemorySentence*>& SemanticMemoryBlock::getCondition
 }
 
 
+SemanticBehaviorDefinition SemanticMemoryBlock::extractActionFromMemorySentence(
+    const SemanticMemorySentence& pMemorySentence)
+{
+  if (pMemorySentence.getContextAxiom().infCommandToDo != nullptr)
+  {
+    bool isAComposedAction = !SemExpGetter::hasGroundingType(*pMemorySentence.getContextAxiom().infCommandToDo,
+                                                             {SemanticGroudingType::RESOURCE, SemanticGroudingType::META});
+    if (isAComposedAction)
+      return SemanticBehaviorDefinition(pMemorySentence.grdExp.clone(), pMemorySentence.getContextAxiom().infCommandToDo->clone());
+    return SemanticBehaviorDefinition(pMemorySentence.grdExp.clone());
+  }
+  else
+  {
+    assert(false);
+  }
+  return SemanticBehaviorDefinition();
+}
+
 void SemanticMemoryBlock::extractActions(std::list<SemanticBehaviorDefinition>& pActionDefinitions,
                                          const std::map<intSemId, const SemanticMemorySentence*>& pInfActions)
 {
   for (const auto& currElt : pInfActions)
-  {
-    const SemanticMemorySentence& currInfAction = *currElt.second;
-    if (currInfAction.getContextAxiom().infCommandToDo != nullptr)
-    {
-      bool isAComposedAction = !SemExpGetter::hasGroundingType(*currInfAction.getContextAxiom().infCommandToDo,
-      {SemanticGroudingType::RESOURCE, SemanticGroudingType::META});
-
-      if (isAComposedAction)
-        pActionDefinitions.emplace_back(currInfAction.grdExp.clone(),
-                                        currInfAction.getContextAxiom().infCommandToDo->clone());
-      else
-        pActionDefinitions.emplace_back(currInfAction.grdExp.clone(),
-                                        UniqueSemanticExpression());
-    }
-    else
-    {
-      assert(false);
-    }
-  }
+    pActionDefinitions.push_back(extractActionFromMemorySentence(*currElt.second));
 }
 
 

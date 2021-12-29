@@ -46,7 +46,9 @@ UniqueSemanticExpression sentenceFromTriple(UniqueSemanticExpression pSemExpSubj
                                             const std::string& pVerbConcept,
                                             UniqueSemanticExpression pSemExpObject);
 
-std::unique_ptr<SemanticExpression> getImperativeAssociateFrom(const GroundedExpression& pGrdExp);
+UniqueSemanticExpression getImperativeAssociateFrom(const GroundedExpression& pGrdExp);
+UniqueSemanticExpression getFutureIndicativeFromInfinitive(const GroundedExpression& pGrdExp);
+UniqueSemanticExpression getIndicativeFromImperative(const GroundedExpression& pGrdExp);
 std::unique_ptr<SemanticExpression> getImperativeInfinitiveForm(const GroundedExpression& pGrdExp);
 
 UniqueSemanticExpression askWhatIs(const SemanticExpression& pSubjectSemExp);
@@ -65,6 +67,10 @@ UniqueSemanticExpression askIfTrue(const GroundedExpression& pOriginalGrdExp,
 UniqueSemanticExpression askDoYouWantMeToDoItNow(
     const SemanticAgentGrounding& pSubjectGrounding,
     const GroundedExpression& pActionGrdExp);
+
+UniqueSemanticExpression iWantThatYou(
+    const std::string& pSubjectId,
+    UniqueSemanticExpression pObject);
 
 UniqueSemanticExpression sayYesOrNo(bool pAnswerPolarity);
 

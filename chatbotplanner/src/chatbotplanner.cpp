@@ -180,7 +180,7 @@ bool PotentialNextAction::isMoreImportantThan(const PotentialNextAction& pOther,
 }
 
 std::string _expressionEltToValue(const ExpressionElement& pExpElt,
-                                  const std::map<Fact, std::string>& pFactsToValue)
+                                  const std::map<std::string, std::string>& pFactsToValue)
 {
   if (pExpElt.type == ExpressionElementType::FACT)
   {
@@ -193,7 +193,7 @@ std::string _expressionEltToValue(const ExpressionElement& pExpElt,
 }
 
 bool _areExpsValid(const std::list<Expression>& pExps,
-                   const std::map<Fact, std::string>& pFactsToValue)
+                   const std::map<std::string, std::string>& pFactsToValue)
 {
   for (const auto& currExp : pExps)
   {
@@ -300,6 +300,7 @@ bool _doesFactInFacts(
     };
 
     {
+      bool doesParametersMatches = true;
       auto itFactParameters = currFact.parameters.begin();
       auto itLookForParameters = pFact.parameters.begin();
       while (itFactParameters != currFact.parameters.end())
@@ -312,11 +313,13 @@ bool _doesFactInFacts(
               !itLookForParameters->value.empty() ||
               (!pParametersAreForTheFact && !doesItMatch(itFactParameters->name, itLookForParameters->name)) ||
               (pParametersAreForTheFact && !doesItMatch(itLookForParameters->name, itFactParameters->name)))
-            return false;
+            doesParametersMatches = false;
         }
         ++itFactParameters;
         ++itLookForParameters;
       }
+      if (!doesParametersMatches)
+        continue;
     }
 
     if (pParametersAreForTheFact)
@@ -346,18 +349,6 @@ bool _areFactsTrue(std::map<std::string, std::string>& pParameters,
     if (_doesFactInFacts(pParameters, currPrecond, facts, true))
       return false;
   return _areExpsValid(pSetOfFacts.exps, pProblem.factsToValue());
-}
-
-bool _willTheActionAddOrRemoveAFact(const Action& pAction,
-                                    const std::set<Fact>& pFacts)
-{
-  for (const auto& currPrecond : pAction.effects.facts)
-    if (pFacts.count(currPrecond) == 0)
-      return true;
-  for (const auto& currPrecond : pAction.effects.notFacts)
-    if (pFacts.count(currPrecond) > 0)
-      return true;
-  return false;
 }
 
 
@@ -401,7 +392,7 @@ bool _lookForAPossibleEffect(std::map<std::string, std::string>& pParameters,
 
 
 bool _lookForAPossibleExistingOrNotFact(
-    const std::set<Fact>& pFacts,
+    const Fact& pFact,
     std::map<std::string, std::string>& pParentParameters,
     const std::map<std::string, std::set<ActionId>>& pPreconditionToActions,
     const Fact& pEffectToLookFor,
@@ -409,53 +400,49 @@ bool _lookForAPossibleExistingOrNotFact(
     const Domain& pDomain,
     FactsAlreadychecked& pFactsAlreadychecked)
 {
-  for (const auto& currEffect : pFacts)
+  if (!pFactsAlreadychecked.factsToAdd.insert(pFact).second)
+    return false;
+  auto it = pPreconditionToActions.find(pFact.name);
+  if (it != pPreconditionToActions.end())
   {
-    if (!pFactsAlreadychecked.factsToAdd.insert(currEffect).second)
-      continue;
-    auto it = pPreconditionToActions.find(currEffect.name);
-    if (it != pPreconditionToActions.end())
+    for (const auto& currActionId : it->second)
     {
-      for (const auto& currActionId : it->second)
+      auto itAction = pDomain.actions().find(currActionId);
+      if (itAction != pDomain.actions().end())
       {
-        auto itAction = pDomain.actions().find(currActionId);
-        if (itAction != pDomain.actions().end())
+        auto& action = itAction->second;
+        std::map<std::string, std::string> parameters;
+        for (const auto& currParam : action.parameters)
+          parameters[currParam];
+        if (_canFactsBecomeTrue(action.preconditions, pProblem) &&
+            _lookForAPossibleEffect(parameters, action.effects, pEffectToLookFor, pProblem, pDomain, pFactsAlreadychecked))
         {
-          auto& action = itAction->second;
-          std::map<std::string, std::string> parameters;
-          for (const auto& currParam : action.parameters)
-            parameters[currParam];
-          if (_canFactsBecomeTrue(action.preconditions, pProblem) &&
-              _willTheActionAddOrRemoveAFact(action, pProblem.facts()) &&
-              _lookForAPossibleEffect(parameters, action.effects, pEffectToLookFor, pProblem, pDomain, pFactsAlreadychecked))
+          bool actionIsAPossibleFollowUp = true;
+          // fill parent parameters
+          for (auto& currParentParam : pParentParameters)
           {
-            bool actionIsAPossibleFollowUp = true;
-            // fill parent parameters
-            for (auto& currParentParam : pParentParameters)
+            if (currParentParam.second.empty())
             {
-              if (currParentParam.second.empty())
+              //for (const auto& currFact : pFacts)
               {
-                for (const auto& currFact : pFacts)
+                for (const auto& currActionPreconditionFact : action.preconditions.facts)
                 {
-                  for (const auto& currActionPreconditionFact : action.preconditions.facts)
-                  {
-                    currParentParam.second = currFact.tryToExtractParameterValueFromExemple(currParentParam.first, currActionPreconditionFact);
-                    if (!currParentParam.second.empty())
-                      break;
-                  }
+                  currParentParam.second = /*currFact*/ pFact.tryToExtractParameterValueFromExemple(currParentParam.first, currActionPreconditionFact);
                   if (!currParentParam.second.empty())
                     break;
                 }
-                if (currParentParam.second.empty())
-                {
-                  actionIsAPossibleFollowUp = false;
+                if (!currParentParam.second.empty())
                   break;
-                }
+              }
+              if (currParentParam.second.empty())
+              {
+                actionIsAPossibleFollowUp = false;
+                break;
               }
             }
-            if (actionIsAPossibleFollowUp)
-              return true;
           }
+          if (actionIsAPossibleFollowUp)
+            return true;
         }
       }
     }
@@ -476,13 +463,17 @@ bool _lookForAPossibleEffect(std::map<std::string, std::string>& pParameters,
     return true;
 
   auto& preconditionToActions = pDomain.preconditionToActions();
-  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.facts, pParameters, preconditionToActions, pEffectToLookFor,
-                                         pProblem, pDomain, pFactsAlreadychecked))
-    return true;
+  for (auto& currFact : pEffectsToCheck.facts)
+    if (pProblem.facts().count(currFact) == 0)
+      if (_lookForAPossibleExistingOrNotFact(currFact, pParameters, preconditionToActions, pEffectToLookFor,
+                                             pProblem, pDomain, pFactsAlreadychecked))
+        return true;
   auto& notPreconditionToActions = pDomain.notPreconditionToActions();
-  if (_lookForAPossibleExistingOrNotFact(pEffectsToCheck.notFacts, pParameters, notPreconditionToActions, pEffectToLookFor,
-                                         pProblem, pDomain, pFactsAlreadychecked))
-    return true;
+  for (auto& currFact : pEffectsToCheck.notFacts)
+    if (pProblem.facts().count(currFact) > 0)
+      if (_lookForAPossibleExistingOrNotFact(currFact, pParameters, notPreconditionToActions, pEffectToLookFor,
+                                             pProblem, pDomain, pFactsAlreadychecked))
+      return true;
   return false;
 }
 
@@ -550,7 +541,6 @@ bool _nextStepOfTheProblemForAGoalAndSetOfActions(PotentialNextAction& pCurrentR
       FactsAlreadychecked factsAlreadychecked;
       auto newPotRes = PotentialNextAction(currAction, action);
       if (_areFactsTrue(newPotRes.parameters, action.preconditions, pProblem) &&
-          _willTheActionAddOrRemoveAFact(action, pProblem.facts()) &&
           _lookForAPossibleEffect(newPotRes.parameters, action.effects, pGoal, pProblem, pDomain, factsAlreadychecked))
       {
         if (newPotRes.isMoreImportantThan(newPotNextAction, pProblem, pGlobalHistorical))
@@ -596,7 +586,7 @@ ActionId _nextStepOfTheProblemForAGoal(
   }
   for (const auto& currFact : pProblem.factsToValue())
   {
-    auto itPrecToActions = pDomain.preconditionToActionsExps().find(currFact.first.name);
+    auto itPrecToActions = pDomain.preconditionToActionsExps().find(currFact.first);
     if (itPrecToActions != pDomain.preconditionToActionsExps().end() &&
         _nextStepOfTheProblemForAGoalAndSetOfActions(res, itPrecToActions->second, pGoal, pProblem,
                                                      pDomain, pGlobalHistorical))
@@ -891,7 +881,7 @@ std::string Problem::getCurrentGoal() const
   return _goals.empty() ? "" : _goals.front().toStr();
 }
 
-void Problem::addFactsToValue(const std::map<Fact, std::string>& pFactsToValue)
+void Problem::addFactsToValue(const std::map<std::string, std::string>& pFactsToValue)
 {
   if (!pFactsToValue.empty())
     for (const auto& currFactToVal : pFactsToValue)

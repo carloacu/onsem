@@ -319,7 +319,7 @@ UniqueSemanticExpression askWhoIs(const SemanticExpression& pSubjecSemExp)
 }
 
 
-std::unique_ptr<SemanticExpression> getImperativeAssociateFrom(
+UniqueSemanticExpression getImperativeAssociateFrom(
     const GroundedExpression& pGrdExp)
 {
   auto rootGrdExp = pGrdExp.clone();
@@ -334,6 +334,32 @@ std::unique_ptr<SemanticExpression> getImperativeAssociateFrom(
   {
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
   }
+  return std::move(rootGrdExp);
+}
+
+
+UniqueSemanticExpression getFutureIndicativeFromInfinitive(
+    const GroundedExpression& pGrdExp)
+{
+  auto rootGrdExp = pGrdExp.clone();
+  SemanticStatementGrounding* statementGrd = (*rootGrdExp)->getStatementGroundingPtr();
+  if (statementGrd != nullptr)
+  {
+    statementGrd->verbGoal = VerbGoalEnum::NOTIFICATION;
+    statementGrd->verbTense = SemanticVerbTense::FUTURE;
+  }
+  if (rootGrdExp->children.find(GrammaticalType::SUBJECT) == rootGrdExp->children.end())
+    rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
+  return std::move(rootGrdExp);
+}
+
+UniqueSemanticExpression getIndicativeFromImperative(
+    const GroundedExpression& pGrdExp)
+{
+  auto rootGrdExp = pGrdExp.clone();
+  SemanticStatementGrounding* statementGrd = (*rootGrdExp)->getStatementGroundingPtr();
+  if (statementGrd != nullptr)
+    statementGrd->requests.clear();
   return std::move(rootGrdExp);
 }
 
@@ -401,6 +427,31 @@ UniqueSemanticExpression askDoYouWantMeToDoItNow(
   }());
   return std::move(rootGrdExp);
 }
+
+
+UniqueSemanticExpression iWantThatYou(
+    const std::string& pSubjectId,
+    UniqueSemanticExpression pObject)
+{
+  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  {
+    // verb
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::PRESENT;
+    statementGrd->concepts.emplace("verb_want", 4);
+    return statementGrd;
+  }());
+
+  // subject
+  rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
+                               mystd::make_unique<GroundedExpression>
+                               (mystd::make_unique<SemanticAgentGrounding>(pSubjectId)));
+
+  // object
+  rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pObject));
+  return std::move(rootGrdExp);
+}
+
 
 UniqueSemanticExpression sayYesOrNo(bool pAnswerPolarity)
 {

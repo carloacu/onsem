@@ -10,8 +10,8 @@ namespace onsem
 
 struct ONSEMSEMANTICTOTEXT_API SemanticBehaviorDefinition
 {
-  SemanticBehaviorDefinition(UniqueSemanticExpression pLabel,
-                             UniqueSemanticExpression pComposition)
+  SemanticBehaviorDefinition(UniqueSemanticExpression pLabel = UniqueSemanticExpression(),
+                             UniqueSemanticExpression pComposition = UniqueSemanticExpression())
     : label(std::move(pLabel)),
       composition(std::move(pComposition))
   {

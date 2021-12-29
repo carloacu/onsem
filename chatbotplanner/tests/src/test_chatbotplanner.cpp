@@ -21,6 +21,9 @@ const std::string _fact_beSad = "be_sad";
 const std::string _fact_beHappy = "be_happy";
 const std::string _fact_askAllTheQuestions = "ask_all_the_questions";
 const std::string _fact_finishToAskQuestions = "finished_to_ask_questions";
+const std::string _fact_engagedWithUser = "engaged_with_user";
+const std::string _fact_userSatisfied = "user_satisfied";
+const std::string _fact_robotLearntABehavior = "robot_learnt_a_behavior";
 
 const std::string _action_presentation = "presentation";
 const std::string _action_askQuestion1 = "ask_question_1";
@@ -36,7 +39,6 @@ const std::string _action_checkInWithPassword = "check_in_with_password";
 const std::string _action_goodBoy = "good_boy";
 const std::string _action_navigate = "navigate";
 const std::string _action_welcome = "welcome";
-
 
 template <typename TYPE>
 void assert_eq(const TYPE& pExpected,
@@ -689,6 +691,27 @@ void _testImplyGoal()
 }
 
 
+
+
+void _dd()
+{
+  std::map<std::string, cp::Action> actions;
+  auto removeLearntBehavior = cp::SetOfFacts::fromStr("!" + _fact_robotLearntABehavior, ',');
+  actions.emplace(_action_askQuestion1, cp::Action({_fact_engagedWithUser}, {_fact_userSatisfied}, removeLearntBehavior));
+  actions.emplace(_action_checkIn, cp::Action({}, cp::SetOfFacts::fromStr("!" + _fact_robotLearntABehavior + ", " + _fact_advertised, ',')));
+  cp::Domain domain(actions);
+
+  cp::Historical historical;
+  cp::Problem problem;
+  problem.setFacts({_fact_engagedWithUser});
+  problem.setGoals({"persist(" + _fact_userSatisfied + ")"});
+  assert_eq<std::string>(_action_askQuestion1, _solveStr(problem, actions));
+  problem.removeFact(_fact_userSatisfied);
+  assert_eq<std::string>(_action_askQuestion1, _solveStr(problem, actions));
+}
+
+
+
 }
 
 
@@ -727,6 +750,7 @@ int main(int argc, char *argv[])
   _actionWithParametersInsideThePath();
   _testPersistGoal();
   _testImplyGoal();
+  _dd();
 
   std::cout << "chatbot planner is ok !!!!" << std::endl;
   return 0;

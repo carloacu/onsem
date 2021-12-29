@@ -29,12 +29,8 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
       const GroundedExpression* objectGrdExpPtr = SemExpGetter::getGrdExpToDo(grdExp, statGrd, pUserId);
       if (objectGrdExpPtr != nullptr)
       {
-        auto rootSemExp = SemExpCreator::getImperativeAssociateFrom(*objectGrdExpPtr);
-        if (rootSemExp)
-        {
-          pSemExp = std::move(rootSemExp);
-          return addConditonsForSomeTimedGrdExp(pSemExp, pUserId);
-        }
+        pSemExp = SemExpCreator::getImperativeAssociateFrom(*objectGrdExpPtr);
+        return addConditonsForSomeTimedGrdExp(pSemExp, pUserId);
       }
 
 
