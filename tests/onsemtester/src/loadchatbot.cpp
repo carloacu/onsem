@@ -130,6 +130,11 @@ void loadChatbotProblem(ChatbotProblem& pChatbotProblem,
       else
         pChatbotProblem.language = SemanticLanguageEnum::UNKNOWN;
     }
+    else if (currChatbotAttr.first == "facts")
+    {
+      for (auto& currFactTree : currChatbotAttr.second)
+        pChatbotProblem.problem.addFact(cp::Fact::fromStr(currFactTree.second.get_value<std::string>()));
+    }
     else if (currChatbotAttr.first == "goals")
     {
       for (auto& currGoalTree : currChatbotAttr.second)
