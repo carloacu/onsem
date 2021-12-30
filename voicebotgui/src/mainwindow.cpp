@@ -1342,7 +1342,7 @@ void MainWindow::_clearLoadedScenarios()
 
   _infActionAddedConnection.disconnect();
   _infActionAddedConnection =
-      semMemory.memBloc.infActionAdded.connectUnsafe([&](intSemId pId, const SemanticMemorySentence* pMemorySentencePtr)
+      semMemory.memBloc.infActionAdded.connectUnsafe([&](intSemId, const SemanticMemorySentence* pMemorySentencePtr)
   {
     if (_chatbotProblem && pMemorySentencePtr != nullptr)
     {
@@ -1359,7 +1359,7 @@ void MainWindow::_clearLoadedScenarios()
                               textProcToRobot, false, semMemory, _lingDb, nullptr);
       converter::semExpToText(varToValue["comportement_appris_resultat"], converter::getFutureIndicativeFromInfinitive(std::move(behaviorDef.composition)),
                               textProcFromRobot, false, semMemory, _lingDb, nullptr);
-      _chatbotProblem->problem.addFactsToValue(varToValue);
+      _chatbotProblem->problem.addVariablesToValue(varToValue);
       _chatbotProblem->problem.addFact(cp::Fact("robot_learnt_a_behavior"));
     }
   });

@@ -169,7 +169,7 @@ void addChatbotDomaintoASemanticMemory(
       auto textProcToRobot = TextProcessingContext::getTextProcessingContextToRobot(currAction.language);
       auto triggerSemExp = converter::textToContextualSemExp(currAction.trigger, textProcToRobot, SemanticSourceEnum::UNKNOWN, pLingDb);
 
-      auto textProcFromRobot = TextProcessingContext::getTextProcessingContextToRobot(currAction.language);
+      auto textProcFromRobot = TextProcessingContext::getTextProcessingContextFromRobot(currAction.language);
       const std::list<std::string> references{1, beginOfActionId + currActionWithId.first};
       auto semExpWithFiexedSynthesis = mystd::make_unique<FixedSynthesisExpression>(
             converter::textToContextualSemExp(currAction.text, textProcFromRobot, SemanticSourceEnum::UNKNOWN, pLingDb, &references));

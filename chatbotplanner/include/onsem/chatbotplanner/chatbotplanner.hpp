@@ -209,12 +209,12 @@ struct ONSEMCHATBOTPLANNER_API Problem
   Problem() = default;
   Problem(const Problem& pOther);
   Historical historical{};
-  cpstd::observable::ObservableUnsafe<void (const std::map<std::string, std::string>&)> onFactsToValueChanged{};
+  cpstd::observable::ObservableUnsafe<void (const std::map<std::string, std::string>&)> onVariablesToValueChanged{};
   cpstd::observable::ObservableUnsafe<void (const std::set<Fact>&)> onFactsChanged{};
   cpstd::observable::ObservableUnsafe<void (const std::vector<Goal>&)> onGoalsChanged{};
 
   std::string getCurrentGoal() const;
-  void addFactsToValue(const std::map<std::string, std::string>& pFactsToValue);
+  void addVariablesToValue(const std::map<std::string, std::string>& pVariablesToValue);
   bool addFact(const Fact& pFact);
   template<typename FACTS>
   bool addFacts(const FACTS& pFacts);
@@ -242,14 +242,14 @@ struct ONSEMCHATBOTPLANNER_API Problem
   const std::vector<Goal>& goals() const { return _goals; }
   const std::set<Fact>& facts() const { return _facts; }
   const std::map<std::string, std::size_t>& factNamesToNbOfFactOccurences() const { return _factNamesToNbOfFactOccurences; }
-  const std::map<std::string, std::string>& factsToValue() const { return _factsToValue; }
+  const std::map<std::string, std::string>& variablesToValue() const { return _variablesToValue; }
   const std::set<Fact>& reachableFacts() const { return _reachableFacts; }
   const std::set<Fact>& reachableFactsWithAnyValues() const { return _reachableFactsWithAnyValues; }
   const std::set<Fact>& removableFacts() const { return _removableFacts; }
 
 private:
   std::vector<Goal> _goals{};
-  std::map<std::string, std::string> _factsToValue{};
+  std::map<std::string, std::string> _variablesToValue{};
   std::set<Fact> _facts{};
   std::map<std::string, std::size_t> _factNamesToNbOfFactOccurences{};
   std::set<Fact> _reachableFacts{};

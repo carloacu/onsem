@@ -187,12 +187,12 @@ bool PotentialNextAction::isMoreImportantThan(const PotentialNextAction& pOther,
 }
 
 std::string _expressionEltToValue(const ExpressionElement& pExpElt,
-                                  const std::map<std::string, std::string>& pFactsToValue)
+                                  const std::map<std::string, std::string>& pVariablesToValue)
 {
   if (pExpElt.type == ExpressionElementType::FACT)
   {
-    auto it = pFactsToValue.find(pExpElt.value);
-    if (it != pFactsToValue.end())
+    auto it = pVariablesToValue.find(pExpElt.value);
+    if (it != pVariablesToValue.end())
       return it->second;
     return "";
   }
@@ -200,20 +200,20 @@ std::string _expressionEltToValue(const ExpressionElement& pExpElt,
 }
 
 bool _areExpsValid(const std::list<Expression>& pExps,
-                   const std::map<std::string, std::string>& pFactsToValue)
+                   const std::map<std::string, std::string>& pVariablesToValue)
 {
   for (const auto& currExp : pExps)
   {
     if (currExp.elts.size() >= 3)
     {
       auto it = currExp.elts.begin();
-      auto val1 = _expressionEltToValue(*it, pFactsToValue);
+      auto val1 = _expressionEltToValue(*it, pVariablesToValue);
       ++it;
       if (it->type != ExpressionElementType::OPERATOR ||
           it->value != "=")
         return false;
       ++it;
-      auto val2 = _expressionEltToValue(*it, pFactsToValue);
+      auto val2 = _expressionEltToValue(*it, pVariablesToValue);
       ++it;
       while (it != currExp.elts.end())
       {
@@ -223,7 +223,7 @@ bool _areExpsValid(const std::list<Expression>& pExps,
         ++it;
         if (it == currExp.elts.end())
           break;
-        auto val3 = _expressionEltToValue(*it, pFactsToValue);
+        auto val3 = _expressionEltToValue(*it, pVariablesToValue);
         if (op == "+" || op == "-")
           val2 = evaluteToStr(val2 + op + val3);
         else
@@ -267,7 +267,7 @@ bool _canFactsBecomeTrue(const SetOfFacts& pSetOfFacts,
     if (facts.count(currFact) > 0 &&
         removableFacts.count(currFact) == 0)
       return false;
-  return _areExpsValid(pSetOfFacts.exps, pProblem.factsToValue());
+  return _areExpsValid(pSetOfFacts.exps, pProblem.variablesToValue());
 }
 
 
@@ -355,7 +355,7 @@ bool _areFactsTrue(std::map<std::string, std::string>& pParameters,
   for (const auto& currPrecond : pSetOfFacts.notFacts)
     if (_doesFactInFacts(pParameters, currPrecond, facts, true))
       return false;
-  return _areExpsValid(pSetOfFacts.exps, pProblem.factsToValue());
+  return _areExpsValid(pSetOfFacts.exps, pProblem.variablesToValue());
 }
 
 
@@ -591,7 +591,7 @@ ActionId _nextStepOfTheProblemForAGoal(
       return res.actionId;
     }
   }
-  for (const auto& currFact : pProblem.factsToValue())
+  for (const auto& currFact : pProblem.variablesToValue())
   {
     auto itPrecToActions = pDomain.preconditionToActionsExps().find(currFact.first);
     if (itPrecToActions != pDomain.preconditionToActionsExps().end() &&
@@ -863,11 +863,11 @@ std::size_t Historical::_getNbOfTimeAnActionHasAlreadyBeenDone(const ActionId& p
 
 Problem::Problem(const Problem& pOther)
  : historical(pOther.historical),
-   onFactsToValueChanged(),
+   onVariablesToValueChanged(),
    onFactsChanged(),
    onGoalsChanged(),
    _goals(pOther._goals),
-   _factsToValue(pOther._factsToValue),
+   _variablesToValue(pOther._variablesToValue),
    _facts(pOther._facts),
    _factNamesToNbOfFactOccurences(pOther._factNamesToNbOfFactOccurences),
    _reachableFacts(pOther._reachableFacts),
@@ -883,12 +883,12 @@ std::string Problem::getCurrentGoal() const
   return _goals.empty() ? "" : _goals.front().toStr();
 }
 
-void Problem::addFactsToValue(const std::map<std::string, std::string>& pFactsToValue)
+void Problem::addVariablesToValue(const std::map<std::string, std::string>& pVariablesToValue)
 {
-  if (!pFactsToValue.empty())
-    for (const auto& currFactToVal : pFactsToValue)
-      _factsToValue[currFactToVal.first] = currFactToVal.second;
-  onFactsToValueChanged(_factsToValue);
+  if (!pVariablesToValue.empty())
+    for (const auto& currFactToVal : pVariablesToValue)
+      _variablesToValue[currFactToVal.first] = currFactToVal.second;
+  onVariablesToValueChanged(_variablesToValue);
 }
 
 bool Problem::addFact(const Fact& pFact)
@@ -996,7 +996,7 @@ bool Problem::modifyFacts(const SetOfFacts& pSetOfFacts)
 {
   bool factsChanged = _addFactsWithoutFactNotification(pSetOfFacts.facts);
   factsChanged = _removeFactsWithoutFactNotification(pSetOfFacts.notFacts) || factsChanged;
-  bool factsToValueChanged = false;
+  bool variablesToValueChanged = false;
   for (auto& currExp : pSetOfFacts.exps)
   {
     if (currExp.elts.size() >= 2)
@@ -1009,8 +1009,8 @@ bool Problem::modifyFacts(const SetOfFacts& pSetOfFacts)
         if (op == "++" &&
             it->type == ExpressionElementType::FACT)
         {
-          _incrementStr(_factsToValue[it->value]);
-          factsToValueChanged = true;
+          _incrementStr(_variablesToValue[it->value]);
+          variablesToValueChanged = true;
         }
       }
       else if (it->type == ExpressionElementType::FACT)
@@ -1024,8 +1024,8 @@ bool Problem::modifyFacts(const SetOfFacts& pSetOfFacts)
           if (op == "=" &&
               it->type == ExpressionElementType::VALUE)
           {
-            _factsToValue[factToSet] = it->value;
-            factsToValueChanged = true;
+            _variablesToValue[factToSet] = it->value;
+            variablesToValueChanged = true;
           }
         }
       }
@@ -1033,8 +1033,8 @@ bool Problem::modifyFacts(const SetOfFacts& pSetOfFacts)
   }
   if (factsChanged)
     onFactsChanged(_facts);
-  if (factsToValueChanged)
-    onFactsToValueChanged(_factsToValue);
+  if (variablesToValueChanged)
+    onVariablesToValueChanged(_variablesToValue);
   return factsChanged;
 }
 
@@ -1154,9 +1154,9 @@ void replaceVariables(std::string& pStr,
     {
       auto varName = pStr.substr(beginOfVarName, endVarPos - beginOfVarName);
 
-      auto& factsToValue = pProblem.factsToValue();
-      auto it = factsToValue.find(varName);
-      if (it != factsToValue.end())
+      auto& variablesToValue = pProblem.variablesToValue();
+      auto it = variablesToValue.find(varName);
+      if (it != variablesToValue.end())
       {
         auto& varValue = it->second;
         pStr.replace(currentPos, endVarPos - currentPos + 1, varValue);
