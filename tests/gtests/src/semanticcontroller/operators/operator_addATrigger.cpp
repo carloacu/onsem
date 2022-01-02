@@ -7,6 +7,7 @@
 #include "../../util/util.hpp"
 #include "operator_check.hpp"
 #include "operator_inform.hpp"
+#include "operator_reactFromTrigger.hpp"
 #include <onsem/tester/reactOnTexts.hpp>
 #include <onsem/tester/detailedreactionanswer.hpp>
 
@@ -65,6 +66,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     operator_addATrigger(howCanIBeHappy, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_answer(howCanIBeHappy, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_react(howCanIBeHappy, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(howCanIBeHappy, semMem, lingDb));
   }
 
   // simple scenario in french
@@ -75,6 +77,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     operator_addATrigger(whatIsAMushroom, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_answer(whatIsAMushroom, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_react(whatIsAMushroom, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(whatIsAMushroom, semMem, lingDb));
   }
 
   // a question about subject that is a list of elements
@@ -84,6 +87,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "It's probably sunday.";
     operator_addATrigger(areWeHappy, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_answer(areWeHappy, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(areWeHappy, semMem, lingDb));
   }
 
   // a question about object that is a list of elements
@@ -96,6 +100,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWERNOTFOUND_EQ("I don't know if Paul likes banana.",
                             operator_answer("Does Paul like banana ?", semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_answer(questionStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(questionStr, semMem, lingDb));
   }
 
   // a question with an undefined subject
@@ -106,6 +111,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "It means to run the animation called raise_the_left_arm.";
     operator_addATrigger(questionStr, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_answer(questionStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(questionStr, semMem, lingDb));
   }
 
   // many trigger questions
@@ -131,6 +137,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWER_EQ(answer2Str, operator_answer(question2Str, semMem, lingDb));
     ONSEM_ANSWER_EQ(bothAnswerStr, operator_react(bothQuestionsStr, semMem, lingDb));
     ONSEM_ANSWER_EQ(bothAnswerStr, operator_answer(bothQuestionsStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(bothAnswerStr, operator_reactFromTrigger(bothQuestionsStr, semMem, lingDb));
     ONSEM_ANSWERNOTFOUND_EQ("I don't know if I like tennis.",
                             operator_answer("Do you like tennis?", semMem, lingDb));
   }
@@ -141,7 +148,9 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas où est la clé abîmée.",
                             operator_react(questionsStr, semMem, lingDb));
     operator_addATrigger(questionsStr, "Elle est dans la cuisine", semMem, lingDb);
-    ONSEM_ANSWER_EQ("Elle est dans la cuisine.", operator_react(questionsStr, semMem, lingDb));
+    const std::string answerStr = "Elle est dans la cuisine.";
+    ONSEM_ANSWER_EQ(answerStr, operator_react(questionsStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(questionsStr, semMem, lingDb));
   }
 
   // question about a sentence
@@ -152,6 +161,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "Ça sert à afficher des choses.";
     operator_addATrigger(questionsStr, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_react(questionsStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(questionsStr, semMem, lingDb));
   }
 
   // must question
@@ -162,6 +172,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "Rien de spécial";
     operator_addATrigger(questionsStr, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_answer(questionsStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(questionsStr, semMem, lingDb));
   }
 
   // infinitive question trigger
@@ -170,8 +181,9 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas comment formuler cette question.",
                             operator_answer(questionsStr, semMem, lingDb));
     operator_addATrigger(questionsStr, "Il faut regarder dans un livre de grammaire.", semMem, lingDb);
-    ONSEM_ANSWER_EQ("Nous devons regarder dans un livre de grammaire.",
-                    operator_answer(questionsStr, semMem, lingDb));
+    const std::string answerStr = "Nous devons regarder dans un livre de grammaire.";
+    ONSEM_ANSWER_EQ(answerStr, operator_answer(questionsStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(questionsStr, semMem, lingDb));
   }
 
   // affirmation trigger
@@ -184,6 +196,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWER_EQ(answerStr, operator_react(affirmationStr, semMem, lingDb));
     ONSEM_FEEDBACK_EQ("Ok, you want to hear a fun story about him.", operator_react("yes", semMem, lingDb));
     ONSEM_NOANSWER(operator_answer(affirmationStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(affirmationStr, semMem, lingDb));
   }
 
   // sentence not completed
@@ -194,18 +207,22 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "Oui, que dis-tu ?";
     operator_addATrigger(affirmationStr, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_react(affirmationStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(affirmationStr, semMem, lingDb));
   }
 
   // affirmation trigger + question trigger
   {
-    const std::string triggerStr = "Do you like to jump? Dede is a nice guy.";
+    const std::string partOfTriggerStr = "Dede is a nice guy.";
+    const std::string triggerStr = "Do you like to jump? " + partOfTriggerStr;
     const std::string customAnswerStr = "I am a nice chatbot.";
     ONSEM_ANSWERNOTFOUND_EQ("I don't know if I like to jump.",
                             operator_answer("Do you like to jump?", semMem, lingDb));
     operator_addATrigger(triggerStr, customAnswerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(customAnswerStr, operator_react(triggerStr, semMem, lingDb));
     ONSEM_ANSWER_EQ(customAnswerStr, operator_answer(triggerStr, semMem, lingDb));
-    ONSEM_NOANSWER(operator_answer("Dede is a nice guy.", semMem, lingDb));
+    ONSEM_ANSWER_EQ(customAnswerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
+    ONSEM_NOANSWER(operator_answer(partOfTriggerStr, semMem, lingDb));
+    ONSEM_NOANSWER(operator_reactFromTrigger(partOfTriggerStr, semMem, lingDb));
   }
 
   // order trigger
@@ -220,6 +237,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
                               operator_react(order2Str, semMem, lingDb));
     operator_addATrigger(order2Str, "Ok la voilà", semMem, lingDb);
     ONSEM_BEHAVIOR_EQ("Ok. Le voilà", operator_react(order2Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("Ok. Le voilà", operator_reactFromTrigger(order2Str, semMem, lingDb));
   }
 
   // infinitive trigger
@@ -227,26 +245,35 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string inStr = "Accéder à mon espace Carrefour dédié";
     ONSEM_NOANSWER(operator_react(inStr, semMem, lingDb));
     operator_addATrigger(inStr, "Voilà votre espace personnel", semMem, lingDb);
-    ONSEM_ANSWER_EQ("Voilà ton espace personnel", operator_react(inStr, semMem, lingDb));
+    const std::string answerStr = "Voilà ton espace personnel";
+    ONSEM_ANSWER_EQ(answerStr, operator_react(inStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(inStr, semMem, lingDb));
   }
 
   // nominal group trigger
   {
     const std::string inStr = "Mon espace Carrefour dédié";
-    ONSEM_QUESTION_EQ("Quel est ton espace Carrefour d\xC3\xA9" "di\xC3\xA9 ?",
+    ONSEM_QUESTION_EQ("Quel est ton espace Carrefour dédié ?",
                       operator_react(inStr, semMem, lingDb, SemanticLanguageEnum::UNKNOWN,
                                      &canReactToANoun));
     ONSEM_NOANSWER(operator_react("je ne sais pas", semMem, lingDb));
-    operator_addATrigger(inStr, "Le service est pour le moment inaccessible", semMem, lingDb);
-    ONSEM_ANSWER_EQ("Le service est pour le moment inaccessible.", operator_react(inStr, semMem, lingDb));
+    const std::string answerStr = "Le service est pour le moment inaccessible.";
+    operator_addATrigger(inStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(inStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(inStr, semMem, lingDb));
   }
 
   // nominal corss language trigger
   {
     const std::string inStr = "Je veux une assurance habitation";
-    operator_addATrigger(inStr, "c'est cher.", semMem, lingDb);
-    ONSEM_ANSWER_EQ("C'est cher.", operator_react(inStr, semMem, lingDb));
-    ONSEM_ANSWER_EQ("It's dear.", operator_react("I want a home insurance", semMem, lingDb));
+    const std::string frAnswerStr = "C'est cher.";
+    const std::string enAnswerStr = "It's dear.";
+    operator_addATrigger(inStr, frAnswerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(frAnswerStr, operator_react(inStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(frAnswerStr, operator_reactFromTrigger(inStr, semMem, lingDb));
+    const std::string enTrigger = "I want a home insurance";
+    ONSEM_ANSWER_EQ(enAnswerStr, operator_react(enTrigger, semMem, lingDb));
+    ONSEM_ANSWER_EQ(enAnswerStr, operator_reactFromTrigger(enTrigger, semMem, lingDb));
   }
 
   // condition trigger
@@ -257,6 +284,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "Je ne peux pas. J'ai mal au coup.";
     operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
   }
 
   // present conditional trigger
@@ -265,6 +293,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "Je suis content pour toi.";
     operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_react("Je voudrais", semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger("Je voudrais", semMem, lingDb));
   }
 
   // trigger from context
@@ -285,6 +314,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
     memoryOperation::learnSayCommand(semMem, lingDb);
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("démarre akinator", semMem, lingDb));
     //ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu lances akinator", semMem, lingDb));
     {
@@ -297,6 +327,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
       lingDb.addDynamicContent(ss);
     }
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("Paul lance akinator", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger("Paul lance akinator", semMem, lingDb));
   }
 
   // action trigger 2
@@ -306,6 +337,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
     memoryOperation::learnSayCommand(semMem, lingDb);
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
     //ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu me suives", semMem, lingDb));
   }
 
@@ -315,6 +347,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "Je suis une statue.";
     operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
   }
 }
 

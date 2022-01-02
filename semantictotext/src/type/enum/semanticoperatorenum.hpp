@@ -18,13 +18,13 @@ enum class SemanticOperatorEnum
   HOWYOUKNOW,
   INFORM,
   REACT,
+  REACTFROMTRIGGER,
   SHOW,
   TEACHBEHAVIOR,
   TEACHCONDITION,
   TEACHINFORMATION,
   UNINFORM
 };
-
 
 
 } // End of namespace onsem

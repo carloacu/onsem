@@ -2212,6 +2212,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
     case SemanticOperatorEnum::EXECUTEBEHAVIOR:
     case SemanticOperatorEnum::EXECUTEFROMTRIGGER:
     case SemanticOperatorEnum::INFORM:
+    case SemanticOperatorEnum::REACTFROMTRIGGER:
     case SemanticOperatorEnum::SHOW:
     case SemanticOperatorEnum::TEACHBEHAVIOR:
     case SemanticOperatorEnum::TEACHCONDITION:

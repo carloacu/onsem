@@ -10,7 +10,6 @@ using namespace onsem;
 TEST_F(SemanticReasonerGTests, userDisambiguation_wikpedia)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
-  std::set<std::string> properNouns;
   SemanticLanguageEnum frLanguage = SemanticLanguageEnum::FRENCH;
   SemanticLanguageEnum enLanguage = SemanticLanguageEnum::ENGLISH;
   SemanticMemory semMem;
@@ -19,98 +18,98 @@ TEST_F(SemanticReasonerGTests, userDisambiguation_wikpedia)
   operator_inform_withAgentNameFilter
       ("Adolphe de Chesnel",
        "Pierre-François-Adolphe de Chesnel, né à Paris en 1791 et mort en 1862, est un polygraphe.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Alexander Prent",
        "Alexander Prent est un footballeur néerlandais né le 25 mai 1983 à Utrecht. Alexander Prent aime un footballeur né le 3 septembre 1988",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Anand Amritraj",
        "Anand Amritraj est le frère des deux joueurs de tennis Vijay Amritraj et le père du joueur Stephen Amritraj.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter(
         "Barack Obama",
         "Barack Hussein Obama II, né le 4 août 1961 à Honolulu (Hawaï), est un homme d'État américain.\n"
         "Paul aime chanter.",
-        properNouns, semMem, frLanguage, lingDb);
+        semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Barack Obama, Sr.",
        "Barack Hussein Obama, né en 1936 et mort d'un accident de la route le 24 novembre 1982, est un économiste travaillant pour le ministère des Finances kényan.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Emilio Nsue",
        "Emilio Nsue López est un footballeur international équato-guinéen, né le 30 septembre 1989 à Palma de Majorque en Espagne. Il évolue actuellement au poste d'attaquant à Middlesbrough.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Evandro Soldati",
        "Evandro Soldati a fait une apparition dans le clip Alejandro de Lady Gaga.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Fabien Barthez",
        "Fabien Barthez, né le 28 juin 1971 à Lavelanet (Ariège), est un ancien footballeur international français évoluant au poste de gardien de but entre 1990 et 2007.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Issa Gouo",
        "Issa Gouo est un footballeur burkinabé né le 9 septembre 1989 à Bobo-Dioulasso. Il évolue au poste de défenseur à l'AS Kaloum.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Jean-Charles Cirilli",
        "Jean-Charles Cirilli est un footballeur français né le 10 septembre 1982 à Saint-Étienne.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Joseph Camus",
        "Joseph is a computer scientist. He likes Barack Obama.",
-       properNouns, semMem, enLanguage, lingDb);
+       semMem, enLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Karim Boudjema",
        // the wrong spelling is on purpose!
        "Karim Boudjema est footballeur né le 8 septembre 1988. Footballeur né le 8 septembre 1988",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Kim Hyun-ki",
        "Hyun Ki KimFichier:Kim Hyun-ki Oslo 2011 (training) 2.jpg Kim Hyun-ki à Holmenkollen en 2011. Kim Hyun-ki (né le 9 février 1983 à Gangneung) est un sauteur à ski sud-coréen. "
        "Il a participé à cinq éditions des Jeux olympiques entre 1998 et 2014..",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Kim Hyun-seok",
        "Kim Hyun-seok est un footballeur sud-coréen né le 5 mai 1967.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Lady Gaga",
        "Stefani Joanne Angelina Germanotta dite Lady Gaga, née le 28 mars 1986 dans le quartier de Manhattan à New York (États-Unis), est une auteure-compositrice-interprète et actrice américaine.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Mesut Özil",
        "Mesut Özil, né le 15 octobre 1988 à Gelsenkirchen, est un footballeur international allemand.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Nuri Şahin",
        "Nuri Kazım Şahin,  né le 5 septembre 1988 à Lüdenscheid en Allemagne, est un footballeur international turc qui évolue au poste de milieu de terrain au Borussia Dortmund.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Santino Marella",
        "Santino Marella est la première et dernière personne à avoir détenu.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Sefyu",
        "je suis Sefyu",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Sébastien Chardonnet",
        "Sébastien Chardonnet (né le 17 octobre 1988 à Paris) est un pilote de rallye français.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Souleymane Oularé",
        "Souleymane Oularé, né le 16 octobre 1972 à Conakry, est un joueur de football international guinéen aujourd'hui retraité",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Takuya Aoki",
        "Takuya Aoki (青木 拓矢, Aoki Takuya) est un footballeur japonais né le 16 septembre 1989. Il évolue au poste de milieu défensif au Urawa Red Diamonds.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Yannick Boli",
        "Yannick Boli (né le 13 janvier 1988 à Saint-Maur-des-Fossés, France) est un footballeur franco-ivoirien. Il est le neveu de Basile et de Roger Boli. Il est par ailleurs le cousin de Kévin Boli.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   operator_inform_withAgentNameFilter
       ("Eminem",
        "Eminem (souvent stylisé EMINƎM), de son vrai nom Marshall Bruce Mathers III, né le 17 octobre 1972 à Saint Joseph dans l'État du Missouri, est un auteur-compositeur-interprète de rap américain, "
@@ -132,13 +131,13 @@ TEST_F(SemanticReasonerGTests, userDisambiguation_wikpedia)
        "actif. Il a notamment créé son propre label, Shady Records, une station de radio, Shade 45 et une fondation caritative. Eminem débute également une carrière d'acteur en 2002 avec le rôle de "
        "Jimmy Smith Jr. dans le film du réalisateur Curtis Hanson, 8 Mile. Pour ce rôle aux côtés de Kim Basinger, il obtient l'Oscar de la meilleure chanson originale pour la chanson Lose Yourself. "
        "Il devient ainsi un des premiers artistes hip-hop à remporter ce prix.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
 
   // has to be at the end
   operator_inform_withAgentNameFilter
       ("Hilaire de Chardonnet",
        "Louis Marie Hilaire Bernigaud de Grange, comte de Chardonnet (1er mai 1839 - 11 mars 1924), est un ingénieur scientifique et industriel de Besançon, inventeur de la soie artificielle et fondateur de la Société de la soie Chardonnet.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
   semMem.memBloc.disableOldContrarySentences = true;
 
 
@@ -207,7 +206,7 @@ TEST_F(SemanticReasonerGTests, userDisambiguation_wikpedia2)
   operator_inform_withAgentNameFilter
       ("Barack Obama",
        "Barack Hussein Obama II, communément appelé simplement Barack Obama, né le 4 août 1961 à Honolulu (Hawaï), est un homme d'État américain. Il est l'actuel et le 44e président des États-Unis, élu pour un premier mandat le 4 novembre 2008 et réélu le 6 novembre 2012.",
-       properNouns, semMem, frLanguage, lingDb);
+       semMem, frLanguage, lingDb);
 
   ONSEM_ANSWER_EQ("Barack Obama est un homme d'État américain et l'actuel et 44e président des États-Unis élu le 4 novembre 2008 pour un premier mandat et réélu le 6 novembre 2012.",
                   operator_react("qui est Barack Obama", semMem, lingDb));

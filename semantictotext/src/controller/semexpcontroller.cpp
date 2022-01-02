@@ -703,6 +703,18 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
            SemExpCreator::sayThatWeAreNotAbleToDoIt(pOriginalGrdExp));
     break;
   }
+  case SemanticOperatorEnum::REACTFROMTRIGGER:
+  {
+    // get links of the current sentence
+    semanticMemoryLinker::RequestLinks reqLinks;
+    getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
+
+    bool anAnswerHasBeenAdded = false;
+    addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinks,
+                                  SemanticExpressionCategory::COMMAND, _emptyAxiomId, pGrdExp,
+                                  ContextualAnnotation::BEHAVIOR);
+     break;
+  }
   case SemanticOperatorEnum::EXECUTEBEHAVIOR:
   case SemanticOperatorEnum::RESOLVECOMMAND:
   {
@@ -766,6 +778,18 @@ void manageQuestion(SemControllerWorkingStruct& pWorkStruct,
       if (reAskTheQuestion)
         pWorkStruct.addQuestion(SemExpCreator::copyAndReformateGrdExpToPutItInAnAnswer(pGrdExp));
     }
+    break;
+  }
+  case SemanticOperatorEnum::REACTFROMTRIGGER:
+  {
+    // get the triggers
+    bool anAnswerHasBeenAdded = false;
+    // TODO: get the links if the there is some triggers to optimize!
+    semanticMemoryLinker::RequestLinks reqLinksOfOriginalGrdExp;
+    getLinksOfAGrdExp(reqLinksOfOriginalGrdExp, pWorkStruct, pMemViewer, pOriginalGrdExp, false);
+    addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinksOfOriginalGrdExp,
+                              SemanticExpressionCategory::QUESTION, _emptyAxiomId,
+                              pOriginalGrdExp, ContextualAnnotation::ANSWER);
     break;
   }
   case SemanticOperatorEnum::ANSWER:
@@ -1084,6 +1108,16 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
     }
     break;
   }
+  case SemanticOperatorEnum::REACTFROMTRIGGER:
+  {
+    // get links of the input grounded expression
+    semanticMemoryLinker::RequestLinks reqLinks;
+    semanticMemoryLinker::getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
+
+    // try to react according to the triggers
+    semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinks, pGrdExp);
+    break;
+  }
   case SemanticOperatorEnum::GET:
   {
     // if it's an action label we replace it by his content
@@ -1166,6 +1200,16 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
         break;
 
       proactiveReactionFromNominalGroup::react(pWorkStruct, pMemViewer, pGrdExp);
+      break;
+    }
+    case SemanticOperatorEnum::REACTFROMTRIGGER:
+    {
+      semanticMemoryLinker::RequestLinks reqLinks;
+      semanticMemoryLinker::getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
+      bool anAnswerHasBeenAdded = false;
+      semanticMemoryLinker::addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinks,
+                                                      SemanticExpressionCategory::NOMINALGROUP,
+                                                      _emptyAxiomId, pGrdExp, ContextualAnnotation::ANSWER);
       break;
     }
     case SemanticOperatorEnum::FEEDBACK:

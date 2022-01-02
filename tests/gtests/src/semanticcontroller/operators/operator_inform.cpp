@@ -154,7 +154,6 @@ std::shared_ptr<ExpressionHandleInMemory> operator_addFallback(
 std::shared_ptr<ExpressionHandleInMemory> operator_inform_withAgentNameFilter(
     const std::string& pAgentName,
     const std::string& pText,
-    std::set<std::string>& pProperNouns,
     SemanticMemory& pSemanticMemory,
     SemanticLanguageEnum pLanguage,
     const linguistics::LinguisticDatabase& pLingDb)

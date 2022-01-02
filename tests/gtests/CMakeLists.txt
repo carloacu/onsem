@@ -48,6 +48,8 @@ set(ONSEM_GTESTS_SRCS
   src/semanticcontroller/operators/operator_mergeWithContext.cpp
   src/semanticcontroller/operators/operator_pingtime.cpp
   src/semanticcontroller/operators/operator_react.cpp
+  src/semanticcontroller/operators/operator_reactFromTrigger.hpp
+  src/semanticcontroller/operators/operator_reactFromTrigger.cpp
   src/semanticcontroller/operators/operator_resolveCommand.hpp
   src/semanticcontroller/operators/operator_resolveCommand.cpp
   src/semanticcontroller/operators/operator_sayFeedback.cpp

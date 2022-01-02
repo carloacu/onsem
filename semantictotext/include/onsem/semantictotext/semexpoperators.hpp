@@ -238,6 +238,14 @@ std::shared_ptr<ExpressionHandleInMemory> react(mystd::unique_propagate_const<Un
                                                   const ReactionOptions* pReactionOptions = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
+std::shared_ptr<ExpressionHandleInMemory> reactFromTrigger(
+    mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+    SemanticMemory& pSemanticMemory,
+    UniqueSemanticExpression pSemExp,
+    const linguistics::LinguisticDatabase& pLingDb,
+    const ReactionOptions* pReactionOptions = nullptr);
+
+ONSEMSEMANTICTOTEXT_API
 std::shared_ptr<ExpressionHandleInMemory> teach(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
                                                   SemanticMemory& pSemanticMemory,
                                                   UniqueSemanticExpression pSemExp,

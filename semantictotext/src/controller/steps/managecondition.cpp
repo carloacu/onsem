@@ -71,6 +71,7 @@ void manageCondition(SemControllerWorkingStruct& pWorkStruct,
             condSpec.conditionExp.clone(), std::move(*thenCommand)));
   }
   else if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT ||
+           pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER ||
            pWorkStruct.reactOperator == SemanticOperatorEnum::INFORM ||
            pWorkStruct.reactOperator == SemanticOperatorEnum::TEACHCONDITION)
   {
@@ -85,8 +86,12 @@ void manageCondition(SemControllerWorkingStruct& pWorkStruct,
     }
 
     if (pWorkStruct.reactionOptions.canAnswerWithATrigger &&
-        pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
+        (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT ||
+         pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER) &&
         semanticMemoryLinker::addTriggerCondExp(pWorkStruct, pMemViewer, pCondExp))
+      return;
+
+    if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER)
       return;
 
     TruenessValue truenessOfCondition = TruenessValue::UNKNOWN;

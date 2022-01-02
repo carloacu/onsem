@@ -1028,6 +1028,36 @@ std::shared_ptr<ExpressionHandleInMemory> react(
 }
 
 
+std::shared_ptr<ExpressionHandleInMemory> reactFromTrigger(
+    mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+    SemanticMemory& pSemanticMemory,
+    UniqueSemanticExpression pSemExp,
+    const linguistics::LinguisticDatabase& pLingDb,
+    const ReactionOptions* pReactionOptions)
+{
+  converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
+  conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
+
+  static const InformationType informationType = InformationType::INFORMATION;
+  std::unique_ptr<CompositeSemAnswer> compSemAnswers;
+  auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pSemExp), pLingDb);
+  ExpressionHandleInMemory& expForMemRef = *expForMem;
+  controller::applyOperatorOnExpHandleInMemory(compSemAnswers, expForMemRef,
+                                               SemanticOperatorEnum::REACTFROMTRIGGER,
+                                               informationType, pSemanticMemory, nullptr, pLingDb,
+                                               pReactionOptions);
+
+  if (compSemAnswers)
+  {
+    controller::linkConditionalReactions(compSemAnswers->semAnswers, expForMemRef,
+                                         pSemanticMemory, pLingDb, informationType);
+    _keepOnlyLastFeedback(*compSemAnswers);
+    controller::compAnswerToSemExp(pReaction, *compSemAnswers);
+  }
+  return expForMem;
+}
+
+
 std::shared_ptr<ExpressionHandleInMemory> teach
 (mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
  SemanticMemory& pSemanticMemory,
