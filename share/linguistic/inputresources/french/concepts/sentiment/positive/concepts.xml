@@ -11,9 +11,10 @@
         <linkedMeaning lemme="sympa" relationToConcept="4" />
     </concept>
     <concept name="sentiment_positive_funny">
+        <linkedMeaning lemme="amusant" relationToConcept="3"/>
+        <linkedMeaning lemme="drôle" relationToConcept="4" />
         <linkedMeaning lemme="marrant" relationToConcept="4" />
         <linkedMeaning lemme="marrer" relationToConcept="4" />
-        <linkedMeaning lemme="drôle" relationToConcept="4" />
     </concept>
     <concept name="sentiment_positive_happiness">
         <linkedMeaning lemme="content" relationToConcept="4" />
