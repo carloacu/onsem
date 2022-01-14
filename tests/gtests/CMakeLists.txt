@@ -7,6 +7,7 @@ set(ONSEM_GTESTS_SRCS
   src/util/util.cpp
   src/semanticreasonergtests.hpp
   src/semanticreasonergtests.cpp
+  src/bnfparser/test_bnfparser.cpp
   src/semanticmodel/test_conceptset.cpp
   src/semanticmodel/test_databasemodifications.cpp
   src/semanticmodel/test_serialization.cpp
