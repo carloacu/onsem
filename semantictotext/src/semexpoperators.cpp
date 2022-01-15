@@ -196,6 +196,7 @@ void addATrigger(UniqueSemanticExpression pTriggerSemExp,
     }
   }
   */
+  conditionsAdder::addConditonsForSomeTimedGrdExp(pTriggerSemExp);
 
   resolveAgentAccordingToTheContext(pTriggerSemExp, pSemanticMemory, pLingDb);
   converter::splitEquivalentQuestions(pTriggerSemExp, pLingDb);

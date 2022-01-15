@@ -349,6 +349,29 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
   }
+
+  // other concept
+  {
+    const std::string triggerStr = "raconte   une autre blague";
+    const std::string answerStr = "c'est une tomate qui traverse et ça fait paf la tomate";
+    operator_addATrigger("raconte une blague", answerStr, semMem, lingDb);
+    operator_addATrigger("raconte une autre blague", answerStr, semMem, lingDb);
+    const std::string answerReformulatedStr = "C'est une tomate qui fait traverse et cela paf la tomate.";
+    //ONSEM_BEHAVIOR_EQ(answerReformulatedStr, operator_react("raconte   une autre blague", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerReformulatedStr, operator_react("raconte   une blague", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerReformulatedStr, operator_react("raconte   une autre blague", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerReformulatedStr, operator_reactFromTrigger("raconte   une blague", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerReformulatedStr, operator_reactFromTrigger("raconte   une autre blague", semMem, lingDb));
+  }
+
+  {
+    const std::string triggerStr = "Montre quand tu es heureux";
+    const std::string answerStr = "Hiii";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
+  }
+
 }
 
 
