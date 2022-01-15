@@ -111,29 +111,9 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
     {
     case ChunkType::VERB_CHUNK:
     {
-      if (currChunk.requests.has(SemanticRequestType::SUBJECT))
-      {
-        ChunkLink* doChunkLinkPtr = getDOChunkLink(currChunk);
-        if (doChunkLinkPtr != nullptr)
-        {
-          Chunk* subjectChunkPtr = getSubjectChunk(currChunk);
-          if (subjectChunkPtr != nullptr)
-          {
-            Chunk& subjectChunk = *subjectChunkPtr;
-            Chunk& doChunk = *doChunkLinkPtr->chunk;
-            if (checkOrder(doChunk, currChunk) &&
-                checkOrder(subjectChunk, doChunk))
-            {
-              it->type = ChunkLinkType::NOTUNDERSTOOD;
-              Token& verbToken = *currChunk.head;
-              if (_tryToIncreaseOriginalVerbInflections(verbToken))
-                needToRestart = true;
-            }
-          }
-        }
-      }
-      else if (!currChunk.requests.has(SemanticRequestType::ACTION) &&
-               !haveASubject(currChunk))
+      if (!currChunk.requests.has(SemanticRequestType::SUBJECT) &&
+          !currChunk.requests.has(SemanticRequestType::ACTION) &&
+          !haveASubject(currChunk))
       {
         if (currChunk.requests.has(SemanticRequestType::OBJECT))
         {
