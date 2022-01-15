@@ -534,19 +534,37 @@ const ChildSpecification* _getChildSpecThatMatchFromTwoLists(const std::list<Chi
 }
 
 
+bool _ifWordWillBeChosenForSynthesisIsItTheSameLemma(
+    bool& pRes,
+    const ChildSpecification* pChildSpecPtr,
+    const ChildSpecification* pSpecChoosenForLingAnalysisPtr,
+    const ConstTokenIterator* pNextToken)
+{
+  if (pChildSpecPtr == pSpecChoosenForLingAnalysisPtr) // This is only for optimisation because if we are on the same child spec we already checked that the condition is true
+  {
+    pRes = true;
+    return true;
+  }
+  if (_areConditionSatisfied(pChildSpecPtr->conditionTree, pNextToken))
+  {
+    if (pChildSpecPtr->introWord.has_value() && pSpecChoosenForLingAnalysisPtr->introWord.has_value())
+      pRes = pChildSpecPtr->introWord->lemma == pSpecChoosenForLingAnalysisPtr->introWord->lemma;
+    else
+      pRes = pChildSpecPtr->introWord == pSpecChoosenForLingAnalysisPtr->introWord;
+    return true;
+  }
+  return false;
+}
+
+
 bool _willBeAbleToSynthesizeIt(const std::list<ChildSpecification*>& pChildSpecifications,
                                const ChildSpecification* pSpecChoosenForLingAnalysisPtr,
-                               const InflectedWord* pPrepInflWordPtr,
                                const ConstTokenIterator* pNextToken)
 {
+  bool res = false;
   for (const auto& currChildSpec : pChildSpecifications)
-  {
-    if (currChildSpec == pSpecChoosenForLingAnalysisPtr)
-      return true;
-    if (!_doesPrepIsChildSpecIntroWord(*currChildSpec, pPrepInflWordPtr) &&
-        _areConditionSatisfied(currChildSpec->conditionTree, pNextToken))
-      return false;
-  }
+    if (_ifWordWillBeChosenForSynthesisIsItTheSameLemma(res, currChildSpec, pSpecChoosenForLingAnalysisPtr, pNextToken))
+      return res;
   return false;
 }
 
@@ -554,47 +572,35 @@ bool _willBeAbleToSynthesizeIt(const std::list<ChildSpecification*>& pChildSpeci
 bool _willBeAbleToSynthesizeItFromTwoLists(const std::list<ChildSpecification*>& pChildSpecifications1,
                                            const std::list<ChildSpecification*>& pChildSpecifications2,
                                            const ChildSpecification* pSpecChoosenForLingAnalysisPtr,
-                                           const InflectedWord* pPrepInflWordPtr,
                                            const ConstTokenIterator* pNextToken)
 {
+  bool res = false;
   auto it1 = pChildSpecifications1.begin();
   auto it2 = pChildSpecifications2.begin();
   while (it1 != pChildSpecifications1.end() && it2 != pChildSpecifications2.end())
   {
     if ((*it1)->templatePos < (*it2)->templatePos)
     {
-      if (*it1 == pSpecChoosenForLingAnalysisPtr)
-        return true;
-      if (!_doesPrepIsChildSpecIntroWord(**it1, pPrepInflWordPtr) &&
-          _areConditionSatisfied((*it1)->conditionTree, pNextToken))
-        return false;
+      if (_ifWordWillBeChosenForSynthesisIsItTheSameLemma(res, *it1, pSpecChoosenForLingAnalysisPtr, pNextToken))
+        return res;
       ++it1;
       continue;
     }
-    if (*it2 == pSpecChoosenForLingAnalysisPtr)
-      return true;
-    if (!_doesPrepIsChildSpecIntroWord(**it2, pPrepInflWordPtr) &&
-        _areConditionSatisfied((*it2)->conditionTree, pNextToken))
-      return false;
+    if (_ifWordWillBeChosenForSynthesisIsItTheSameLemma(res, *it2, pSpecChoosenForLingAnalysisPtr, pNextToken))
+      return res;
     ++it2;
   }
 
   while (it1 != pChildSpecifications1.end())
   {
-    if (*it1 == pSpecChoosenForLingAnalysisPtr)
-      return true;
-    if (!_doesPrepIsChildSpecIntroWord(**it1, pPrepInflWordPtr) &&
-        _areConditionSatisfied((*it1)->conditionTree, pNextToken))
-      return false;
+    if (_ifWordWillBeChosenForSynthesisIsItTheSameLemma(res, *it1, pSpecChoosenForLingAnalysisPtr, pNextToken))
+      return res;
     ++it1;
   }
   while (it2 != pChildSpecifications2.end())
   {
-    if (*it2 == pSpecChoosenForLingAnalysisPtr)
-      return true;
-    if (!_doesPrepIsChildSpecIntroWord(**it2, pPrepInflWordPtr) &&
-        _areConditionSatisfied((*it2)->conditionTree, pNextToken))
-      return false;
+    if (_ifWordWillBeChosenForSynthesisIsItTheSameLemma(res, *it2, pSpecChoosenForLingAnalysisPtr, pNextToken))
+      return res;
     ++it2;
   }
   return false;
@@ -618,7 +624,6 @@ const ChildSpecification* _getChildSpecFromContainers(const ChildSpecificationsC
       if (itVerbLemmaToSpecs != pVerbChildsPtr->lemmaToChildSpecs.end())
         return _getChildSpecThatMatchFromTwoLists(itLemmaToSpecs->second, itVerbLemmaToSpecs->second,
                                                   pPrepInflWordPtr, pNextToken);
-      return _getChildSpecThatMatch(itLemmaToSpecs->second, pPrepInflWordPtr, pNextToken);
     }
     return _getChildSpecThatMatch(itLemmaToSpecs->second, pPrepInflWordPtr, pNextToken);
   }
@@ -652,28 +657,25 @@ mystd::optional<ChunkLinkType> _getChunkLinkFromSchildsSpecs(bool& pWillBeAbleTo
       {
         auto itVerbLemmaToSpecs = pVerbChildsPtr->chkLinkToChildSpecs.find(childSpecThatMatchPtr->chunkLinkType);
         if (itVerbLemmaToSpecs != pVerbChildsPtr->chkLinkToChildSpecs.end())
+        {
           pWillBeAbleToSynthesizeIt = _willBeAbleToSynthesizeItFromTwoLists(itLemmaToSpecs->second, itVerbLemmaToSpecs->second,
-                                                                            childSpecThatMatchPtr, pPrepInflWordPtr, pNextToken);
-        else
-          pWillBeAbleToSynthesizeIt = _willBeAbleToSynthesizeIt(itLemmaToSpecs->second, childSpecThatMatchPtr, pPrepInflWordPtr, pNextToken);
+                                                                            childSpecThatMatchPtr, pNextToken);
+          return childSpecThatMatchPtr->chunkLinkType;
+        }
       }
-      else
-      {
-        pWillBeAbleToSynthesizeIt = _willBeAbleToSynthesizeIt(itLemmaToSpecs->second, childSpecThatMatchPtr, pPrepInflWordPtr, pNextToken);
-      }
+      pWillBeAbleToSynthesizeIt = _willBeAbleToSynthesizeIt(itLemmaToSpecs->second, childSpecThatMatchPtr, pNextToken);
+      return childSpecThatMatchPtr->chunkLinkType;
     }
     else if (pVerbChildsPtr != nullptr)
     {
       auto itVerbLemmaToSpecs = pVerbChildsPtr->chkLinkToChildSpecs.find(childSpecThatMatchPtr->chunkLinkType);
       if (itVerbLemmaToSpecs != pVerbChildsPtr->chkLinkToChildSpecs.end())
-        pWillBeAbleToSynthesizeIt = _willBeAbleToSynthesizeIt(itVerbLemmaToSpecs->second, childSpecThatMatchPtr, pPrepInflWordPtr, pNextToken);
-      else
-        pWillBeAbleToSynthesizeIt = false;
+      {
+        pWillBeAbleToSynthesizeIt = _willBeAbleToSynthesizeIt(itVerbLemmaToSpecs->second, childSpecThatMatchPtr, pNextToken);
+        return childSpecThatMatchPtr->chunkLinkType;
+      }
     }
-    else
-    {
-      pWillBeAbleToSynthesizeIt = false;
-    }
+    pWillBeAbleToSynthesizeIt = false;
     return childSpecThatMatchPtr->chunkLinkType;
   }
   pWillBeAbleToSynthesizeIt = true;
