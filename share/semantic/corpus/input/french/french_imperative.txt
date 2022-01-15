@@ -41,3 +41,7 @@ dis-moi bonjour
 Supprime toutes les conditions
 
 Sois énervé
+
+Mets le son plus fort
+Mets le son moins fort
+
