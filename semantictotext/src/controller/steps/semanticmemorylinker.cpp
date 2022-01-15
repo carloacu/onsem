@@ -43,6 +43,11 @@ namespace
 {
 const SemanticTriggerAxiomId _emptyAxiomId;
 
+const SemExpComparator::ComparisonExceptions _triggerComparisonsExceptions = [] {
+  SemExpComparator::ComparisonExceptions res;
+  res.grammaticalTypes.emplace(GrammaticalType::SPECIFIER);
+  return res;
+}();
 
 template<typename GRDEXP, typename GENGRD>
 void _incrementNotDefiniteQuantitiesFromGrdExps(GRDEXP& pGrdExpRes,
@@ -511,7 +516,8 @@ void _matchAnyTrigger
   for (const auto& currRel : idsToSentences.res.dynamicLinks)
   {
     const SemanticMemorySentence& memSent = *currRel.second;
-    if (SemExpComparator::grdExpsAreEqual(pInputGrdExp, memSent.grdExp, pMemViewer.constView, pWorkStruct.lingDb))
+    if (SemExpComparator::grdExpsAreEqual(pInputGrdExp, memSent.grdExp, pMemViewer.constView,
+                                          pWorkStruct.lingDb, &_triggerComparisonsExceptions))
       pSemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
   }
 }

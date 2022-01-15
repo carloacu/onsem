@@ -393,6 +393,15 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIOR_EQ(answer2Str, operator_reactFromTrigger(trigger2Str, semMem, lingDb));
   }
 
+  {
+    const std::string triggerStr = "Baisse la température";
+    const std::string answerStr = "La température est basse maintenant.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    const std::string triggerToTestStr = "Baisse encore la température";
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerToTestStr, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerToTestStr, semMem, lingDb));
+  }
+
 }
 
 

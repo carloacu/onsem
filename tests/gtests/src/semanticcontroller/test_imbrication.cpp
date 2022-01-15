@@ -117,7 +117,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_for_opposite_concepts)
   {
     auto res = mystd::make_unique<SemanticGenericGrounding>();
     res->concepts.emplace(pConcept, 4);
-    return std::move(res);
+    return res;
   };
   EXPECT_EQ(ImbricationType::OPPOSES,
             SemExpComparator::getSemExpsImbrications(
