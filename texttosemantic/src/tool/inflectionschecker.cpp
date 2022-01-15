@@ -156,6 +156,11 @@ bool _isNounVerbCompatibles(const Inflections& pNomInflections,
   return false;
 }
 
+bool _isPronounCompDetCompatibles(const InflectedWord& pPronComp)
+{
+  return pPronComp.infos.hasContextualInfo(WordContextualInfos::CANBEBEFOREDETERMINER);
+}
+
 bool _isPronounNounCompatibles(const InflectedWord& pIGramPron,
                                const LinguisticDictionary& pLingDic)
 {
@@ -540,6 +545,20 @@ bool InflectionsChecker::areCompatibles
     }
   }
 
+  case PartOfSpeech::PRONOUN_COMPLEMENT:
+  {
+    switch (pIGram2.word.partOfSpeech)
+    {
+    case PartOfSpeech::DETERMINER:
+    {
+      return _isPronounCompDetCompatibles(pIGram1);
+    }
+    default:
+    {
+      return true;
+    }
+    }
+  }
 
   case PartOfSpeech::PRONOUN_SUBJECT:
   {
