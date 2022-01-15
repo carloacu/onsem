@@ -146,7 +146,6 @@ void SubordinateExtractor::xModifyTheVerbsOfAChunk
   {
     if (chunk.requests.empty() &&
         !haveASubject(chunk) &&
-        (!chunk.positive || !haveAnAuxiliary(chunk)) &&
         pPrevChunkType != ChunkType::INFINITVE_VERB_CHUNK)
     {
       const InflectedWord& verbIGram = chunk.head->inflWords.front();

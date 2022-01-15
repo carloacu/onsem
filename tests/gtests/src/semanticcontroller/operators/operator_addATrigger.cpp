@@ -372,6 +372,13 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
   }
 
+  {
+    const std::string triggerStr = "Sois énervé";
+    const std::string answerStr = "Tu es chiant. J'ai envie d'être heureux.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
+  }
 }
 
 

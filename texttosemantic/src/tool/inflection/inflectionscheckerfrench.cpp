@@ -1,4 +1,5 @@
 #include "inflectionscheckerfrench.hpp"
+#include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/adjectivalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/nominalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
@@ -19,6 +20,8 @@ InflectionsCheckerFrench::InflectionsCheckerFrench(const LinguisticDictionary& p
 bool InflectionsCheckerFrench::isAuxVerbCompatibles(const InflectedWord& pIGramAux,
                                                     const InflectedWord& pIGramVerb) const
 {
+  if (InflectionsChecker::verbCanBeAtImperative(pIGramAux))
+    return false;
   const Inflections& verbInfls = pIGramVerb.inflections();
   if (verbInfls.type == InflectionType::VERBAL)
     for (const auto& currVerbInfl : verbInfls.getVerbalI().inflections)

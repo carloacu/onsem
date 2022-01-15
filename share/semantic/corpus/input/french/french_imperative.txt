@@ -39,3 +39,5 @@ dis salut tout le monde
 dis-moi bonjour
 
 Supprime toutes les conditions
+
+Sois énervé
