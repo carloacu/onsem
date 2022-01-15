@@ -145,10 +145,11 @@ bool delAPartOfSpeech
 }
 
 
-void delPartOfSpeechs
+bool delPartOfSpeechs
 (std::list<InflectedWord>& pIGrams,
  const std::vector<PartOfSpeech>& pPartOfSpeechToDel)
 {
+  bool res = false;
   for (auto it = pIGrams.begin(); it != pIGrams.end(); )
   {
     if (pIGrams.size() <= 1)
@@ -163,10 +164,16 @@ void delPartOfSpeechs
       }
     }
     if (possibleGram)
+    {
       ++it;
+    }
     else
+    {
       it = pIGrams.erase(it);
+      return true;
+    }
   }
+  return res;
 }
 
 

@@ -3,7 +3,8 @@
   <linkedMeaning lemme="above" gram="preposition" relationToConcept="4"/>
  </concept>
  <concept name="location_relative_behind">
-  <linkedMeaning lemme="behind" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="behind" relationToConcept="4"/>
+  <linkedMeaning lemme="back" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_below">
   <linkedMeaning lemme="below" gram="preposition" relationToConcept="4"/>
@@ -22,7 +23,12 @@
   <linkedMeaning lemme="east" gram="adverb" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_inFrontOf">
-  <linkedMeaning lemme="front~in~of" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="forward" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="forward" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="forward" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="ahead" relationToConcept="3"/>
+  <linkedMeaning lemme="front~in~of" gram="preposition" relationToConcept="3"/>
+  <linkedMeaning lemme="onward" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_inside">
   <linkedMeaning lemme="inside" gram="preposition" relationToConcept="4"/>

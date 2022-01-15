@@ -23,6 +23,7 @@ namespace onsem
   ADD_LINGUISTICCONDITION(FOLLOWEDBYUNDEFINEDREF, "followedByUndefinedRef")              \
   ADD_LINGUISTICCONDITION(FOLLOWEDBYQUANTITYEVERYTHING, "followedByQuantityEverything")  \
   ADD_LINGUISTICCONDITION(FOLLOWEDBYVOWEL, "followedByVowel")                            \
+  ADD_LINGUISTICCONDITION(FOLLOWEDBYONEOFPREFIXES, "followedByOneOfPrefixes")            \
   ADD_LINGUISTICCONDITION(LOCATIONEN_FR, "locationEn_fr")
 
 

@@ -31,6 +31,7 @@ std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getImpSuccessions()
     {PartOfSpeech::PREPOSITION, PartOfSpeech::INTERJECTION},
     {PartOfSpeech::PRONOUN_SUBJECT, PartOfSpeech::NOUN},
     {PartOfSpeech::PRONOUN_COMPLEMENT, PartOfSpeech::ADJECTIVE},
+    {PartOfSpeech::PRONOUN_COMPLEMENT, PartOfSpeech::ADVERB},
     {PartOfSpeech::PRONOUN_COMPLEMENT, PartOfSpeech::NOUN},
     {PartOfSpeech::PRONOUN_COMPLEMENT, PartOfSpeech::UNKNOWN},
     {PartOfSpeech::PRONOUN_COMPLEMENT, PartOfSpeech::PROPER_NOUN},

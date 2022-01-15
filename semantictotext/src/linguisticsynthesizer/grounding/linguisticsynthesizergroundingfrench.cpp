@@ -489,7 +489,7 @@ void LinguisticsynthesizergroundingFrench::writeReLocationType
     _strWithApostropheToOut(pOut, perp, "au dessus d'", "au dessus de");
     return;
   case SemanticRelativeLocationType::L_BEHIND:
-    _strToOut(pOut, perp, "sous");
+    _strToOut(pOut, perp, "derrère");
     return;
   case SemanticRelativeLocationType::L_BELOW:
     _strWithApostropheToOut(pOut, perp, "en dessous d'", "en dessous de");

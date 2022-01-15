@@ -76,7 +76,7 @@ bool PartOfSpeechDelBigramImpossibilities::process
   }
   bool ifDel = false;
   // Delete impossible grammatical possibilities at the beginning
-  delPartOfSpeechs(prevIt->inflWords, fCantBeAtTheBeginning);
+  ifDel |= delPartOfSpeechs(prevIt->inflWords, fCantBeAtTheBeginning);
 
   // Check the compatibility of the first word
   for (std::size_t i = 0; i < fCheckCompatibilityAtTheBeginning.size(); ++i)
@@ -108,7 +108,7 @@ bool PartOfSpeechDelBigramImpossibilities::process
   }
 
   // Delete impossible grammatical possibilities at the ending
-  delPartOfSpeechs(prevIt->inflWords, fCantBeAtTheEnding);
+  ifDel |= delPartOfSpeechs(prevIt->inflWords, fCantBeAtTheEnding);
 
   // Check the compatibility of the last word
   for (std::size_t i = 0; i < fCheckCompatibilityAtTheEnding.size(); ++i)

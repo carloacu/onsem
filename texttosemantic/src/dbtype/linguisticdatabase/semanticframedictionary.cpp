@@ -217,6 +217,17 @@ bool _isConditionIsVerified(const LinguisticConditionTreeValue& pConditionValue,
     return pNextToken != nullptr && !pNextToken->atEnd() &&
         isFirstLetterAVowel(pNextToken->getToken().str, 0);
   }
+  case LinguisticCondition::FOLLOWEDBYONEOFPREFIXES:
+  {
+    if (pNextToken != nullptr && !pNextToken->atEnd())
+    {
+      const auto& tokenStr = pNextToken->getToken().str;
+      for (const auto& param : pConditionValue.parameters)
+        if (tokenStr.compare(0, param.size(), param) == 0)
+          return true;
+    }
+    return false;
+  }
   case LinguisticCondition::LOCATIONEN_FR:
   {
     if (pNextToken != nullptr && !pNextToken->atEnd())
@@ -440,6 +451,13 @@ bool _doesConditionMatchWithGrounding(const LinguisticConditionTreeValue& pCondi
   case LinguisticCondition::FOLLOWEDBYVOWEL:
   {
     return isFirstLetterAVowel(pInflWord.word.lemma, 0);
+  }
+  case LinguisticCondition::FOLLOWEDBYONEOFPREFIXES:
+  {
+    for (const auto& param : pConditionValue.parameters)
+      if (pInflWord.word.lemma.compare(0, param.size(), param) == 0)
+        return true;
+    return false;
   }
   case LinguisticCondition::LOCATIONEN_FR:
   {

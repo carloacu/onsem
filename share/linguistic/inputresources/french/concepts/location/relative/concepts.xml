@@ -5,7 +5,8 @@
   <linkedMeaning lemme="dessus" gram="noun" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_behind">
-  <linkedMeaning lemme="sous" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="arrière" relationToConcept="4"/>
+  <linkedMeaning lemme="derrière" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_below">
   <linkedMeaning lemme="en dessous" gram="adverb" relationToConcept="4"/>
@@ -21,7 +22,8 @@
   <linkedMeaning lemme="est" gram="adjective" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_inFrontOf">
-  <linkedMeaning lemme="devant" gram="preposition" relationToConcept="4"/>
+  <linkedMeaning lemme="avant" relationToConcept="4"/>
+  <linkedMeaning lemme="devant" gram="preposition" relationToConcept="3"/>
   <linkedMeaning lemme="devant" gram="adverb" relationToConcept="3"/>
   <linkedMeaning lemme="devant" gram="noun" relationToConcept="3"/>
  </concept>
@@ -36,7 +38,7 @@
   <linkedMeaning lemme="là-bas" relationToConcept="3"/>
   <linkedMeaning lemme="loin" gram="adverb" relationToConcept="4"/>
  </concept>
- <concept name="location_relative_high">
+s <concept name="location_relative_high">
   <linkedMeaning lemme="haut" gram="*" relationToConcept="4"/>
  </concept>
  <concept name="location_relative_here">

@@ -56,7 +56,7 @@ ONSEM_TEXTTOSEMANTIC_API bool delAPartOfSpeech
 (std::list<InflectedWord>& pIGrams,
  PartOfSpeech pPartOfSpeechToDel);
 
-ONSEM_TEXTTOSEMANTIC_API void delPartOfSpeechs
+ONSEM_TEXTTOSEMANTIC_API bool delPartOfSpeechs
 (std::list<InflectedWord>& pIGrams,
  const std::vector<PartOfSpeech>& pPartOfSpeechToDel);
 
