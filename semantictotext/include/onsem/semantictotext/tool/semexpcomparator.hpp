@@ -74,6 +74,15 @@ struct ComparisonErrorReporting
     else
       childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, 1);
   }
+
+  std::size_t nbOfErrors()
+  {
+    std::size_t res = 0;
+    for (auto& currGramChild : childrenThatAreNotEqual)
+      for (auto& currImbr : currGramChild.second)
+        res += currImbr.second;
+    return res;
+  }
 };
 
 

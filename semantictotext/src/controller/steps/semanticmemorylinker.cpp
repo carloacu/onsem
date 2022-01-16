@@ -508,7 +508,7 @@ void _matchAnyTrigger
                        pMemViewer, pReqLinks, semanticMemoryGetter::RequestContext::SENTENCE,
                        nullptr, SemanticRequestType::NOTHING, true, true);
 
-  std::set<const ExpressionHandleInMemory*> lowPrioritySemExpWrapperPtrs;
+  std::map<std::size_t, std::set<const ExpressionHandleInMemory*>> nbOfErrorsToLowPrioritySemExpWrapperPtrs;
   for (const auto& currRel : idsToSentences.res.dynamicLinks)
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
@@ -523,7 +523,8 @@ void _matchAnyTrigger
       bool canBeAtLowPriority = true;
       for (const auto& currChildrenError : comparisonErrorReporting.childrenThatAreNotEqual)
       {
-        if (currChildrenError.first != GrammaticalType::SPECIFIER &&
+        if (currChildrenError.first != GrammaticalType::RECEIVER &&
+            currChildrenError.first != GrammaticalType::SPECIFIER &&
             currChildrenError.first != GrammaticalType::OTHER_THAN)
         {
           canBeAtLowPriority = false;
@@ -531,11 +532,13 @@ void _matchAnyTrigger
         }
       }
       if (canBeAtLowPriority)
-        lowPrioritySemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
+        nbOfErrorsToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.nbOfErrors()].insert(
+              &memSent.getContextAxiom().getSemExpWrappedForMemory());
     }
   }
-  if (pSemExpWrapperPtrs.empty())
-    pSemExpWrapperPtrs = std::move(lowPrioritySemExpWrapperPtrs);
+  if (pSemExpWrapperPtrs.empty() &&
+      !nbOfErrorsToLowPrioritySemExpWrapperPtrs.empty())
+    pSemExpWrapperPtrs = std::move(nbOfErrorsToLowPrioritySemExpWrapperPtrs.begin()->second);
 }
 
 
