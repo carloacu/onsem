@@ -1029,7 +1029,11 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
        listExpPtr1.listType == ListExpressionType::THEN ||
        listExpPtr2.listType == ListExpressionType::OR ||
        listExpPtr2.listType == ListExpressionType::THEN))
+  {
+    if (pComparisonErrorReportingPtr != nullptr)
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, ImbricationType::DIFFERS);
     return ImbricationType::DIFFERS;
+  }
 
   const std::size_t size1 = listExpPtr1.elts.size();
   const std::size_t size2 = listExpPtr2.elts.size();
@@ -1038,13 +1042,17 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
     auto res = _getListExpsImbrications(listExpPtr1, listExpPtr2, pMemBlock, pLingDb, pExceptionsPtr,
                                         pComparisonErrorReportingPtr, pParentGrammaticalType);
     if (res == ImbricationType::EQUALS && size1 < size2)
-      return ImbricationType::LESS_DETAILED;
+      res = ImbricationType::LESS_DETAILED;
+    if (pComparisonErrorReportingPtr != nullptr && res != ImbricationType::EQUALS)
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res);
     return res;
   }
   auto res = _getListExpsImbrications(listExpPtr2, listExpPtr1, pMemBlock, pLingDb, pExceptionsPtr,
                                       pComparisonErrorReportingPtr, pParentGrammaticalType);
   if (res == ImbricationType::EQUALS)
-    return ImbricationType::MORE_DETAILED;
+    res = ImbricationType::MORE_DETAILED;
+  if (pComparisonErrorReportingPtr != nullptr)
+    pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res);
   return res;
 }
 

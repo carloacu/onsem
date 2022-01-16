@@ -167,6 +167,17 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
 
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::MORE_DETAILED, _getImbrication("Does Paul like banana and bear?",
+                                                              "Does Paul like banana?",
+                                                              semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                              &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::OBJECT, it->first);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
     EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Baisse la température",
                                                               "Baisse encore la température",
                                                               semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,

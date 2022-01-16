@@ -518,10 +518,20 @@ void _matchAnyTrigger
     {
       pSemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
     }
-    else if (comparisonErrorReporting.childrenThatAreNotEqual.size() == 1 &&
-             comparisonErrorReporting.childrenThatAreNotEqual.begin()->first == GrammaticalType::SPECIFIER)
+    else
     {
-      lowPrioritySemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
+      bool canBeAtLowPriority = true;
+      for (const auto& currChildrenError : comparisonErrorReporting.childrenThatAreNotEqual)
+      {
+        if (currChildrenError.first != GrammaticalType::SPECIFIER &&
+            currChildrenError.first != GrammaticalType::OTHER_THAN)
+        {
+          canBeAtLowPriority = false;
+          break;
+        }
+      }
+      if (canBeAtLowPriority)
+        lowPrioritySemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
     }
   }
   if (pSemExpWrapperPtrs.empty())
