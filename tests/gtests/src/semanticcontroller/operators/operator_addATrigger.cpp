@@ -401,6 +401,15 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerToTestStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerToTestStr, semMem, lingDb));
   }
+
+  {
+    const std::string triggerStr = "Peux-tu nous raconter une blague";
+    const std::string answerStr = "Je n'ai pas beaucoup de blagues.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    const std::string triggerToTestStr = "Peux-tu nous raconter une autre blague";
+    ONSEM_ANSWER_EQ(answerStr, operator_react(triggerToTestStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(triggerToTestStr, semMem, lingDb));
+  }
 }
 
 

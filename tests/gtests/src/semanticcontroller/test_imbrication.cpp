@@ -219,11 +219,21 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
     EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Raconte une histoire joyeuse",
-                                                       "Raconte une histoire triste",
-                                                       semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                        "Raconte une histoire triste",
+                                                        semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
                                                         &comparisonErrorReporting));
     ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
     EXPECT_EQ(GrammaticalType::SPECIFIER, comparisonErrorReporting.childrenThatAreNotEqual.begin()->first);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Peux-tu nous raconter une blague",
+                                                              "Peux-tu nous raconter une autre blague",
+                                                              semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                              &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    EXPECT_EQ(GrammaticalType::OTHER_THAN, comparisonErrorReporting.childrenThatAreNotEqual.begin()->first);
   }
 }
 

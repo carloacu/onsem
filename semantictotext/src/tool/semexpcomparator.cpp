@@ -759,7 +759,6 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
                                          const SemanticMemoryBlock& pMemBlock,
                                          const linguistics::LinguisticDatabase& pLingDb,
                                          const ComparisonExceptions* pExceptionsPtr,
-                                         ComparisonErrorReporting* pComparisonErrorReportingPtr,
                                          GrammaticalType pParentGrammaticalType)
 {
   for (const auto& currEltList1 : pListExpPtr1.elts)
@@ -768,7 +767,7 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
     for (const auto& currEltList2 : pListExpPtr2.elts)
     {
       auto optRes = _getSemExpsWithoutListImbrications(*currEltList1, *currEltList2, pMemBlock, pLingDb, pExceptionsPtr,
-                                                       pComparisonErrorReportingPtr, pParentGrammaticalType);
+                                                       nullptr, pParentGrammaticalType);
       if (optRes && *optRes == ImbricationType::EQUALS)
       {
         found = true;
@@ -1040,7 +1039,7 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   if (size1 <= size2)
   {
     auto res = _getListExpsImbrications(listExpPtr1, listExpPtr2, pMemBlock, pLingDb, pExceptionsPtr,
-                                        pComparisonErrorReportingPtr, pParentGrammaticalType);
+                                        pParentGrammaticalType);
     if (res == ImbricationType::EQUALS && size1 < size2)
       res = ImbricationType::LESS_DETAILED;
     if (pComparisonErrorReportingPtr != nullptr && res != ImbricationType::EQUALS)
@@ -1048,7 +1047,7 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
     return res;
   }
   auto res = _getListExpsImbrications(listExpPtr2, listExpPtr1, pMemBlock, pLingDb, pExceptionsPtr,
-                                      pComparisonErrorReportingPtr, pParentGrammaticalType);
+                                      pParentGrammaticalType);
   if (res == ImbricationType::EQUALS)
     res = ImbricationType::MORE_DETAILED;
   if (pComparisonErrorReportingPtr != nullptr)
