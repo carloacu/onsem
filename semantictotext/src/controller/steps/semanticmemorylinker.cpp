@@ -43,11 +43,6 @@ namespace
 {
 const SemanticTriggerAxiomId _emptyAxiomId;
 
-const SemExpComparator::ComparisonExceptions _triggerComparisonsExceptions = [] {
-  SemExpComparator::ComparisonExceptions res;
-  res.grammaticalTypes.emplace(GrammaticalType::SPECIFIER);
-  return res;
-}();
 
 template<typename GRDEXP, typename GENGRD>
 void _incrementNotDefiniteQuantitiesFromGrdExps(GRDEXP& pGrdExpRes,
@@ -513,14 +508,26 @@ void _matchAnyTrigger
                        pMemViewer, pReqLinks, semanticMemoryGetter::RequestContext::SENTENCE,
                        nullptr, SemanticRequestType::NOTHING, true, true);
 
+  std::set<const ExpressionHandleInMemory*> lowPrioritySemExpWrapperPtrs;
   for (const auto& currRel : idsToSentences.res.dynamicLinks)
   {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
     const SemanticMemorySentence& memSent = *currRel.second;
     if (SemExpComparator::grdExpsAreEqual(pInputGrdExp, memSent.grdExp, pMemViewer.constView,
-                                          pWorkStruct.lingDb, &_triggerComparisonsExceptions))
+                                          pWorkStruct.lingDb, nullptr, &comparisonErrorReporting))
+    {
       pSemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
+    }
+    else if (comparisonErrorReporting.childrenThatAreNotEqual.size() == 1 &&
+             comparisonErrorReporting.childrenThatAreNotEqual.begin()->first == GrammaticalType::SPECIFIER)
+    {
+      lowPrioritySemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
+    }
   }
+  if (pSemExpWrapperPtrs.empty())
+    pSemExpWrapperPtrs = std::move(lowPrioritySemExpWrapperPtrs);
 }
+
 
 bool _isAValidAnswerForTheQuestionFilter(const GroundedExpression& pGrdExp,
                                          const GroundedExpression* pQuestMetaGrdExp,

@@ -225,7 +225,10 @@ bool _checkSpecifierOfFirstGrdExpIfNeeded(ImbricationType& pRes,
                                           const GroundedExpression& pGrdExp1,
                                           const GroundedExpression& pGrdExp2,
                                           const SemanticMemoryBlock& pMemBlock,
-                                          const linguistics::LinguisticDatabase& pLingDb)
+                                          const linguistics::LinguisticDatabase& pLingDb,
+                                          const ComparisonExceptions* pExceptionsPtr,
+                                          ComparisonErrorReporting* pComparisonErrorReportingPtr,
+                                          GrammaticalType pParentGrammaticalType)
 {
   const SemanticGrounding& grd1 = pGrdExp1.grounding();
   const SemanticGrounding& grd2 = pGrdExp2.grounding();
@@ -237,7 +240,8 @@ bool _checkSpecifierOfFirstGrdExpIfNeeded(ImbricationType& pRes,
       const GroundedExpression* specGrdExpPtr = itSpecifier->second->getGrdExpPtr_SkipWrapperPtrs();
       if (specGrdExpPtr != nullptr)
       {
-        pRes = getGrdExpsImbrications(*specGrdExpPtr, pGrdExp2, pMemBlock, pLingDb, nullptr);
+        pRes = getGrdExpsImbrications(*specGrdExpPtr, pGrdExp2, pMemBlock, pLingDb,
+                                      pExceptionsPtr, pComparisonErrorReportingPtr, pParentGrammaticalType);
         return true;
       }
     }
@@ -567,7 +571,9 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
                                                                     const SemanticExpression& pSemExp2,
                                                                     const SemanticMemoryBlock& pMemBlock,
                                                                     const linguistics::LinguisticDatabase& pLingDb,
-                                                                    const ComparisonExceptions* pExceptionsPtr)
+                                                                    const ComparisonExceptions* pExceptionsPtr,
+                                                                    ComparisonErrorReporting* pComparisonErrorReportingPtr,
+                                                                    GrammaticalType pParentGrammaticalType)
 {
   switch (pSemExp1.type)
   {
@@ -583,52 +589,61 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
            pExceptionsPtr->semExps2ToSkip.count(&pSemExp2) == 0))
       {
         auto& grdExp1 = pSemExp1.getGrdExp();
-        return getGrdExpsImbrications(grdExp1, grdExp2, pMemBlock, pLingDb, pExceptionsPtr);
+        return getGrdExpsImbrications(grdExp1, grdExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                      pComparisonErrorReportingPtr, pParentGrammaticalType);
       }
       break;
     }
     case SemanticExpressionType::INTERPRETATION:
     {
       auto& intExp = *pSemExp2.getIntExp().interpretedExp;
-      return _getSemExpsWithoutListImbrications(pSemExp1, intExp, pMemBlock, pLingDb, pExceptionsPtr);
+      return _getSemExpsWithoutListImbrications(pSemExp1, intExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
     }
     case SemanticExpressionType::FEEDBACK:
     {
       auto& fdkExp = pSemExp2.getFdkExp();
-      auto subResult = _getSemExpsWithoutListImbrications(pSemExp1, *fdkExp.feedbackExp, pMemBlock, pLingDb, pExceptionsPtr);
+      auto subResult = _getSemExpsWithoutListImbrications(pSemExp1, *fdkExp.feedbackExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                          pComparisonErrorReportingPtr, pParentGrammaticalType);
       _getConvertResultIfSemExpEqualTheFeedbackOfTheOther(subResult, true);
       if (subResult)
         return subResult;
       auto& concernedExp = *fdkExp.concernedExp;
-      return _getSemExpsWithoutListImbrications(pSemExp1, concernedExp, pMemBlock, pLingDb, pExceptionsPtr);
+      return _getSemExpsWithoutListImbrications(pSemExp1, concernedExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
     }
     case SemanticExpressionType::ANNOTATED:
     {
       auto& semExp = *pSemExp2.getAnnExp().semExp;
-      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr);
+      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
     }
     case SemanticExpressionType::METADATA:
     {
       auto& semExp = *pSemExp2.getMetadataExp().semExp;
-      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr);
+      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
     }
     case SemanticExpressionType::COMMAND:
     {
       auto& semExp = *pSemExp2.getCmdExp().semExp;
-      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr);
+      return _getSemExpsWithoutListImbrications(pSemExp1, semExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
     }
     case SemanticExpressionType::SETOFFORMS:
     {
       UniqueSemanticExpression* originalFrom = pSemExp2.getSetOfFormsExp().getOriginalForm();
       if (originalFrom != nullptr)
-        return _getSemExpsWithoutListImbrications(pSemExp1, **originalFrom, pMemBlock, pLingDb, pExceptionsPtr);
+        return _getSemExpsWithoutListImbrications(pSemExp1, **originalFrom, pMemBlock, pLingDb, pExceptionsPtr,
+                                                  pComparisonErrorReportingPtr, pParentGrammaticalType);
       break;
     }
     case SemanticExpressionType::FIXEDSYNTHESIS:
     {
       auto* semExp = pSemExp2.getFSynthExp().getSemExpPtr();
       if (semExp != nullptr)
-        return _getSemExpsWithoutListImbrications(pSemExp1, *semExp, pMemBlock, pLingDb, pExceptionsPtr);
+        return _getSemExpsWithoutListImbrications(pSemExp1, *semExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                  pComparisonErrorReportingPtr, pParentGrammaticalType);
       break;
     }
     case SemanticExpressionType::COMPARISON:
@@ -641,45 +656,53 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
   case SemanticExpressionType::INTERPRETATION:
   {
     auto& interpretedExp = *pSemExp1.getIntExp().interpretedExp;
-    return _getSemExpsWithoutListImbrications(interpretedExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    return _getSemExpsWithoutListImbrications(interpretedExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                              pComparisonErrorReportingPtr, pParentGrammaticalType);
   }
   case SemanticExpressionType::FEEDBACK:
   {
     auto& fdkExp = pSemExp1.getFdkExp();
-    auto subResult = _getSemExpsWithoutListImbrications(*fdkExp.feedbackExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    auto subResult = _getSemExpsWithoutListImbrications(*fdkExp.feedbackExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                                        pComparisonErrorReportingPtr, pParentGrammaticalType);
     _getConvertResultIfSemExpEqualTheFeedbackOfTheOther(subResult, false);
     if (subResult)
       return subResult;
     auto& concernedExp = *fdkExp.concernedExp;
-    return _getSemExpsWithoutListImbrications(concernedExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    return _getSemExpsWithoutListImbrications(concernedExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                              pComparisonErrorReportingPtr, pParentGrammaticalType);
   }
   case SemanticExpressionType::ANNOTATED:
   {
     auto& semExp = *pSemExp1.getAnnExp().semExp;
-    return _getSemExpsWithoutListImbrications(semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    return _getSemExpsWithoutListImbrications(semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                              pComparisonErrorReportingPtr, pParentGrammaticalType);
   }
   case SemanticExpressionType::METADATA:
   {
     auto& semExp = *pSemExp1.getMetadataExp().semExp;
-    return _getSemExpsWithoutListImbrications(semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    return _getSemExpsWithoutListImbrications(semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                              pComparisonErrorReportingPtr, pParentGrammaticalType);
   }
   case SemanticExpressionType::COMMAND:
   {
     auto& cmdExp = *pSemExp1.getCmdExp().semExp;
-    return _getSemExpsWithoutListImbrications(cmdExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+    return _getSemExpsWithoutListImbrications(cmdExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                              pComparisonErrorReportingPtr, pParentGrammaticalType);
   }
   case SemanticExpressionType::SETOFFORMS:
   {
     UniqueSemanticExpression* originalFrom = pSemExp1.getSetOfFormsExp().getOriginalForm();
     if (originalFrom != nullptr)
-      return _getSemExpsWithoutListImbrications(**originalFrom, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+      return _getSemExpsWithoutListImbrications(**originalFrom, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
     break;
   }
   case SemanticExpressionType::FIXEDSYNTHESIS:
   {
     auto* semExp = pSemExp1.getFSynthExp().getSemExpPtr();
     if (semExp != nullptr)
-      return _getSemExpsWithoutListImbrications(*semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+      return _getSemExpsWithoutListImbrications(*semExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
     break;
   }
   case SemanticExpressionType::COMPARISON:
@@ -695,10 +718,12 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
          (pExceptionsPtr->semExps1ToSkip.count(&pSemExp1) == 0 &&
           pExceptionsPtr->semExps2ToSkip.count(&pSemExp2) == 0)))
     {
-      auto resCond = getSemExpsImbrications(*condExp1.conditionExp, *condExp2->conditionExp, pMemBlock, pLingDb, pExceptionsPtr);
+      auto resCond = getSemExpsImbrications(*condExp1.conditionExp, *condExp2->conditionExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                            pComparisonErrorReportingPtr, pParentGrammaticalType);
       if (resCond == ImbricationType::DIFFERS)
         return resCond;
-      auto resThen = getSemExpsImbrications(*condExp1.thenExp, *condExp2->thenExp, pMemBlock, pLingDb, pExceptionsPtr);
+      auto resThen = getSemExpsImbrications(*condExp1.thenExp, *condExp2->thenExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                            pComparisonErrorReportingPtr, pParentGrammaticalType);
       if (resThen == ImbricationType::DIFFERS)
         return resThen;
       if (resThen == ImbricationType::EQUALS)
@@ -708,7 +733,8 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
       {
         if (condExp2->elseExp)
         {
-          auto resElse = getSemExpsImbrications(*condExp1.thenExp, *condExp2->thenExp, pMemBlock, pLingDb, pExceptionsPtr);
+          auto resElse = getSemExpsImbrications(*condExp1.thenExp, *condExp2->thenExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
           return resElse == ImbricationType::EQUALS ? resThen : resElse;
         }
         else
@@ -732,14 +758,17 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
                                          const ListExpPtr& pListExpPtr2,
                                          const SemanticMemoryBlock& pMemBlock,
                                          const linguistics::LinguisticDatabase& pLingDb,
-                                         const ComparisonExceptions* pExceptionsPtr)
+                                         const ComparisonExceptions* pExceptionsPtr,
+                                         ComparisonErrorReporting* pComparisonErrorReportingPtr,
+                                         GrammaticalType pParentGrammaticalType)
 {
   for (const auto& currEltList1 : pListExpPtr1.elts)
   {
     bool found = false;
     for (const auto& currEltList2 : pListExpPtr2.elts)
     {
-      auto optRes = _getSemExpsWithoutListImbrications(*currEltList1, *currEltList2, pMemBlock, pLingDb, pExceptionsPtr);
+      auto optRes = _getSemExpsWithoutListImbrications(*currEltList1, *currEltList2, pMemBlock, pLingDb, pExceptionsPtr,
+                                                       pComparisonErrorReportingPtr, pParentGrammaticalType);
       if (optRes && *optRes == ImbricationType::EQUALS)
       {
         found = true;
@@ -981,9 +1010,12 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
                                        const SemanticExpression& pSemExp2,
                                        const SemanticMemoryBlock& pMemBlock,
                                        const linguistics::LinguisticDatabase& pLingDb,
-                                       const ComparisonExceptions* pExceptionsPtr)
+                                       const ComparisonExceptions* pExceptionsPtr,
+                                       ComparisonErrorReporting* pComparisonErrorReportingPtr,
+                                       GrammaticalType pParentGrammaticalType)
 {
-  auto optRes = _getSemExpsWithoutListImbrications(pSemExp1, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr);
+  auto optRes = _getSemExpsWithoutListImbrications(pSemExp1, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                                   pComparisonErrorReportingPtr, pParentGrammaticalType);
   if (optRes)
     return *optRes;
 
@@ -1003,12 +1035,14 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   const std::size_t size2 = listExpPtr2.elts.size();
   if (size1 <= size2)
   {
-    auto res = _getListExpsImbrications(listExpPtr1, listExpPtr2, pMemBlock, pLingDb, pExceptionsPtr);
+    auto res = _getListExpsImbrications(listExpPtr1, listExpPtr2, pMemBlock, pLingDb, pExceptionsPtr,
+                                        pComparisonErrorReportingPtr, pParentGrammaticalType);
     if (res == ImbricationType::EQUALS && size1 < size2)
       return ImbricationType::LESS_DETAILED;
     return res;
   }
-  auto res = _getListExpsImbrications(listExpPtr2, listExpPtr1, pMemBlock, pLingDb, pExceptionsPtr);
+  auto res = _getListExpsImbrications(listExpPtr2, listExpPtr1, pMemBlock, pLingDb, pExceptionsPtr,
+                                      pComparisonErrorReportingPtr, pParentGrammaticalType);
   if (res == ImbricationType::EQUALS)
     return ImbricationType::MORE_DETAILED;
   return res;
@@ -1020,13 +1054,17 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
                                        const GroundedExpression& pGrdExp2,
                                        const SemanticMemoryBlock& pMemBlock,
                                        const linguistics::LinguisticDatabase& pLingDb,
-                                       const ComparisonExceptions* pExceptionsPtr)
+                                       const ComparisonExceptions* pExceptionsPtr,
+                                       ComparisonErrorReporting* pComparisonErrorReportingPtr,
+                                       GrammaticalType pParentGrammaticalType)
 {
   {
     ImbricationType res = ImbricationType::EQUALS;
-    if (_checkSpecifierOfFirstGrdExpIfNeeded(res, pGrdExp1, pGrdExp2, pMemBlock, pLingDb))
+    if (_checkSpecifierOfFirstGrdExpIfNeeded(res, pGrdExp1, pGrdExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                             pComparisonErrorReportingPtr, pParentGrammaticalType))
       return res;
-    if (_checkSpecifierOfFirstGrdExpIfNeeded(res, pGrdExp2, pGrdExp1, pMemBlock, pLingDb))
+    if (_checkSpecifierOfFirstGrdExpIfNeeded(res, pGrdExp2, pGrdExp1, pMemBlock, pLingDb, pExceptionsPtr,
+                                             pComparisonErrorReportingPtr, pParentGrammaticalType))
       return res;
   }
 
@@ -1053,10 +1091,16 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
       if (rootImbrication == ImbricationType::EQUALS)
         groundingImbrication = ImbricationType::LESS_DETAILED;
     }
+    if (pComparisonErrorReportingPtr != nullptr)
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication);
     if (groundingImbrication == ImbricationType::DIFFERS)
       return groundingImbrication;
   }
-
+  else if (groundingImbrication != ImbricationType::EQUALS)
+  {
+    if (pComparisonErrorReportingPtr != nullptr)
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication);
+  }
 
   auto tryToAddSemExp = [&](std::map<GrammaticalType, ListExpPtr>& pChildrenForAGramType,
                             std::map<GrammaticalType, UniqueSemanticExpression>::const_iterator pItChild,
@@ -1105,7 +1149,8 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
         ++itChild1;
         continue;
       }
-      auto newChildImbr = getSemExpsImbrications(*itChild1->second, *itChild2->second, pMemBlock, pLingDb, pExceptionsPtr);
+      auto newChildImbr = getSemExpsImbrications(*itChild1->second, *itChild2->second, pMemBlock, pLingDb, pExceptionsPtr,
+                                                 pComparisonErrorReportingPtr, itChild1->first);
       childImbr = childImbr ? _mergeChildImbrications(newChildImbr, *childImbr) : newChildImbr;
     }
 
@@ -1144,7 +1189,9 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
         {
           if (itChildrenOnlyInOne->second.elts.size() == 1)
           {
-            auto newChildImbr = getSemExpsImbrications(*itChildrenOnlyInOne->second.elts.front(), *itSubject2->second, pMemBlock, pLingDb, pExceptionsPtr);
+            auto newChildImbr = getSemExpsImbrications(*itChildrenOnlyInOne->second.elts.front(), *itSubject2->second,
+                                                       pMemBlock, pLingDb, pExceptionsPtr,
+                                                       pComparisonErrorReportingPtr, itChildrenOnlyInOne->first);
             if (pNeedToInvertImbricationOrder)
               newChildImbr = switchOrderOfEltsImbrication(newChildImbr);
             childImbr = childImbr ? _mergeChildImbrications(newChildImbr, *childImbr) : newChildImbr;
@@ -1158,6 +1205,14 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
   };
   _matchReflexiveChildren(childrenOnlyIn1, grd2, pGrdExp2, false);
   _matchReflexiveChildren(childrenOnlyIn2, grd1, pGrdExp1, true);
+
+  if (pComparisonErrorReportingPtr != nullptr)
+  {
+    for (auto& currChild : childrenOnlyIn1)
+      pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::MORE_DETAILED);
+    for (auto& currChild : childrenOnlyIn2)
+      pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::LESS_DETAILED);
+  }
 
   if (!childrenOnlyIn1.empty() && !childrenOnlyIn2.empty())
     return ImbricationType::DIFFERS;

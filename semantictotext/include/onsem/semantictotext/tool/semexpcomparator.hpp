@@ -59,6 +59,24 @@ struct ComparisonExceptions
 };
 
 
+
+struct ComparisonErrorReporting
+{
+  std::map<GrammaticalType, std::map<ImbricationType, std::size_t>> childrenThatAreNotEqual;
+
+  void addError(GrammaticalType pGrammType,
+                ImbricationType pImpbricationType)
+  {
+    auto& childForAGram = childrenThatAreNotEqual[pGrammType];
+    auto it = childForAGram.find(pImpbricationType);
+    if (it != childForAGram.end())
+      ++it->second;
+    else
+      childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, 1);
+  }
+};
+
+
 ONSEMSEMANTICTOTEXT_API
 ImbricationType getQuantityImbrication(const SemanticQuantity& pQuantity1,
                                        const SemanticQuantity& pQuantity2);
@@ -125,21 +143,26 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
                                        const SemanticExpression& pSemExp2,
                                        const SemanticMemoryBlock& pMemBlock,
                                        const linguistics::LinguisticDatabase& pLingDb,
-                                       const ComparisonExceptions* pExceptionsPtr);
+                                       const ComparisonExceptions* pExceptionsPtr,
+                                       ComparisonErrorReporting* pComparisonErrorReportingPtr = nullptr,
+                                       GrammaticalType pParentGrammaticalType = GrammaticalType::UNKNOWN);
 
 ONSEMSEMANTICTOTEXT_API
 ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
                                        const GroundedExpression& pGrdExp2,
                                        const SemanticMemoryBlock& pMemBlock,
                                        const linguistics::LinguisticDatabase& pLingDb,
-                                       const ComparisonExceptions* pExceptionsPtr);
+                                       const ComparisonExceptions* pExceptionsPtr,
+                                       ComparisonErrorReporting* pComparisonErrorReportingPtr = nullptr,
+                                       GrammaticalType pParentGrammaticalType = GrammaticalType::UNKNOWN);
 
 ONSEMSEMANTICTOTEXT_API
 bool grdExpsAreEqual(const GroundedExpression& pGrdExp1,
                      const GroundedExpression& pGrdExp2,
                      const SemanticMemoryBlock& pMemBlock,
                      const linguistics::LinguisticDatabase& pLingDb,
-                     const ComparisonExceptions* pExceptionsPtr = nullptr);
+                     const ComparisonExceptions* pExceptionsPtr = nullptr,
+                     ComparisonErrorReporting* pComparisonErrorReportingPtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 bool groundingsAreEqual(const SemanticGrounding& pGrounding1,
@@ -194,9 +217,11 @@ inline bool grdExpsAreEqual(const GroundedExpression& pGrdExp1,
                             const GroundedExpression& pGrdExp2,
                             const SemanticMemoryBlock& pMemBlock,
                             const linguistics::LinguisticDatabase& pLingDb,
-                            const ComparisonExceptions* pExceptionsPtr)
+                            const ComparisonExceptions* pExceptionsPtr,
+                            ComparisonErrorReporting* pComparisonErrorReportingPtr)
 {
-  return getGrdExpsImbrications(pGrdExp1, pGrdExp2, pMemBlock, pLingDb, pExceptionsPtr) == ImbricationType::EQUALS;
+  return getGrdExpsImbrications(pGrdExp1, pGrdExp2, pMemBlock, pLingDb,
+                                pExceptionsPtr, pComparisonErrorReportingPtr, GrammaticalType::UNKNOWN) == ImbricationType::EQUALS;
 }
 
 } // End of namespace SemExpComparator

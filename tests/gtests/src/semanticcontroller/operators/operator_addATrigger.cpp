@@ -401,7 +401,30 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerToTestStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerToTestStr, semMem, lingDb));
   }
+}
 
+
+TEST_F(SemanticReasonerGTests, operator_addATrigger_priorityOverSpecifications)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+
+  {
+    const std::string trigger1Str = "Raconte une histoire";
+    const std::string answer1Str = "Je te dis un truc.";
+    const std::string trigger2Str = "Raconte une histoire triste";
+    const std::string answer2Str = "J'ai perdu mon vélo.";
+    operator_addATrigger(trigger1Str, answer1Str, semMem, lingDb);
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_react(trigger1Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_reactFromTrigger(trigger1Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_react(trigger2Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_reactFromTrigger(trigger2Str, semMem, lingDb));
+    operator_addATrigger(trigger2Str, answer2Str, semMem, lingDb);
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_react(trigger1Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_reactFromTrigger(trigger1Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer2Str, operator_react(trigger2Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer2Str, operator_reactFromTrigger(trigger2Str, semMem, lingDb));
+  }
 }
 
 

@@ -16,14 +16,17 @@ ImbricationType _getImbrication(const std::string& pStr1,
                                 const std::string& pStr2,
                                 const SemanticMemory& pSemanticMemory,
                                 const linguistics::LinguisticDatabase& pLingDb,
-                                SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN)
+                                SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN,
+                                SemExpComparator::ComparisonErrorReporting* pComparisonErrorReportingPtr = nullptr)
 {
   auto uSemExp1 = textToSemExp(pStr1, pLingDb, pLanguage);
   auto uSemExp2 = textToSemExp(pStr2, pLingDb, pLanguage);
   auto& semExp1 = *uSemExp1;
   auto& semExp2 = *uSemExp2;
-  auto res = SemExpComparator::getSemExpsImbrications(semExp1, semExp2, pSemanticMemory.memBloc, pLingDb, nullptr);
-  auto resOtherSide = SemExpComparator::getSemExpsImbrications(semExp2, semExp1, pSemanticMemory.memBloc, pLingDb, nullptr);
+  auto res = SemExpComparator::getSemExpsImbrications(semExp1, semExp2, pSemanticMemory.memBloc, pLingDb,
+                                                      nullptr, pComparisonErrorReportingPtr);
+  auto resOtherSide = SemExpComparator::getSemExpsImbrications(semExp2, semExp1, pSemanticMemory.memBloc, pLingDb,
+                                                               nullptr);
   auto resOtherSideExpected = SemExpComparator::switchOrderOfEltsImbrication(res);
   EXPECT_EQ(resOtherSideExpected, resOtherSide);
   return res;
@@ -125,3 +128,91 @@ TEST_F(SemanticReasonerGTests, test_imbrication_for_opposite_concepts)
               *mystd::make_unique<GroundedExpression>(cptToGenGrdWithThisConcept(badConcept)),
               semanticMemory.memBloc, lingDb, nullptr));
 }
+
+
+
+
+TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
+{
+  SemanticMemory semanticMemory;
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Paul is happy",
+                                                        "I am happy",
+                                                        semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                        &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::SUBJECT, it->first);
+    ASSERT_EQ(1, it->second.size());
+    auto it2 = it->second.begin();
+    EXPECT_EQ(ImbricationType::DIFFERS, it2->first);
+    EXPECT_EQ(1, it2->second);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Paul is happy",
+                                                        "I am sad",
+                                                        semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                        &comparisonErrorReporting));
+    ASSERT_EQ(2, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::SUBJECT, it->first);
+    ++it;
+    EXPECT_EQ(GrammaticalType::OBJECT, it->first);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Baisse la température",
+                                                              "Baisse encore la température",
+                                                              semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                              &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::SPECIFIER, it->first);
+    ASSERT_EQ(1, it->second.size());
+    auto it2 = it->second.begin();
+    EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
+    EXPECT_EQ(1, it2->second);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Baisse la température",
+                                                              "Baisse encore la température de la pièce",
+                                                              semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                              &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::SPECIFIER, it->first);
+    ASSERT_EQ(1, it->second.size());
+    auto it2 = it->second.begin();
+    EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
+    EXPECT_EQ(2, it2->second);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Raconte une histoire",
+                                                              "Raconte une histoire triste",
+                                                              semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                              &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    EXPECT_EQ(GrammaticalType::SPECIFIER, comparisonErrorReporting.childrenThatAreNotEqual.begin()->first);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Raconte une histoire joyeuse",
+                                                       "Raconte une histoire triste",
+                                                       semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                        &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    EXPECT_EQ(GrammaticalType::SPECIFIER, comparisonErrorReporting.childrenThatAreNotEqual.begin()->first);
+  }
+}
+
