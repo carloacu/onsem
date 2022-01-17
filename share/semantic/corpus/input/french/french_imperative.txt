@@ -43,8 +43,11 @@ Supprime toutes les conditions
 Sois énervé
 
 Mets le son plus fort
+Mets le son encore plus fort
 Mets le son moins fort
+Mets le son encore moins fort
 Raconte nous un truc
 Va en avant
 Va en arrière
-
+Parle encore plus fort
+Parle encore moins fort
