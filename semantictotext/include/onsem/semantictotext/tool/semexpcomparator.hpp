@@ -65,14 +65,15 @@ struct ComparisonErrorReporting
   std::map<GrammaticalType, std::map<ImbricationType, std::size_t>> childrenThatAreNotEqual;
 
   void addError(GrammaticalType pGrammType,
-                ImbricationType pImpbricationType)
+                ImbricationType pImpbricationType,
+                std::size_t pNbOfErrors = 1)
   {
     auto& childForAGram = childrenThatAreNotEqual[pGrammType];
     auto it = childForAGram.find(pImpbricationType);
     if (it != childForAGram.end())
-      ++it->second;
+      it->second += pNbOfErrors;
     else
-      childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, 1);
+      childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, pNbOfErrors);
   }
 
   std::size_t nbOfErrors()

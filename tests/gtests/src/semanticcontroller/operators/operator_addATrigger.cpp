@@ -439,6 +439,21 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_priorityOverSpecifications)
     ONSEM_BEHAVIOR_EQ(answer1Str, operator_reactFromTrigger("Raconte moi une histoire", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answer2Str, operator_reactFromTrigger("Raconte moi une histoire triste", semMem, lingDb));
   }
+
+  {
+    const std::string trigger1Str = "Parle plus fort";
+    const std::string answer1Str = "J'augmente le volume.";
+    const std::string trigger2Str = "Parle moins fort";
+    const std::string answer2Str = "Je diminue le volume.";
+    operator_addATrigger(trigger1Str, answer1Str, semMem, lingDb);
+    operator_addATrigger(trigger2Str, answer2Str, semMem, lingDb);
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_react(trigger1Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_reactFromTrigger(trigger1Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer2Str, operator_react(trigger2Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer2Str, operator_reactFromTrigger(trigger2Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer1Str, operator_reactFromTrigger("Parle encore plus fort", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answer2Str, operator_reactFromTrigger("Parle encore moins fort", semMem, lingDb));
+  }
 }
 
 

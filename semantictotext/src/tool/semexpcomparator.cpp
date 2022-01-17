@@ -1,4 +1,5 @@
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
+#include <stdlib.h>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>
@@ -759,8 +760,10 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
                                          const SemanticMemoryBlock& pMemBlock,
                                          const linguistics::LinguisticDatabase& pLingDb,
                                          const ComparisonExceptions* pExceptionsPtr,
+                                         std::size_t* pNbOfErrorsPtr,
                                          GrammaticalType pParentGrammaticalType)
 {
+  auto res = ImbricationType::EQUALS;
   for (const auto& currEltList1 : pListExpPtr1.elts)
   {
     bool found = false;
@@ -775,9 +778,14 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
       }
     }
     if (!found)
-      return ImbricationType::DIFFERS;
+    {
+      if (pNbOfErrorsPtr == nullptr)
+        return ImbricationType::DIFFERS;
+      ++(*pNbOfErrorsPtr);
+      res = ImbricationType::DIFFERS;
+    }
   }
-  return ImbricationType::EQUALS;
+  return res;
 }
 
 
@@ -1023,6 +1031,9 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   ListExpPtr listExpPtr2;
   _fillListExpPtr(listExpPtr2, pSemExp2, pExceptionsPtr, false, true);
 
+  const std::size_t size1 = listExpPtr1.elts.size();
+  const std::size_t size2 = listExpPtr2.elts.size();
+  std::size_t nbOfErrors = std::abs(static_cast<int>(size1) - static_cast<int>(size2));
   if (listExpPtr1.listType != listExpPtr2.listType &&
       (listExpPtr1.listType == ListExpressionType::OR ||
        listExpPtr1.listType == ListExpressionType::THEN ||
@@ -1030,28 +1041,28 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
        listExpPtr2.listType == ListExpressionType::THEN))
   {
     if (pComparisonErrorReportingPtr != nullptr)
-      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, ImbricationType::DIFFERS);
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, ImbricationType::DIFFERS,
+                                             nbOfErrors + 1 /* 1 for list type difference */);
     return ImbricationType::DIFFERS;
   }
 
-  const std::size_t size1 = listExpPtr1.elts.size();
-  const std::size_t size2 = listExpPtr2.elts.size();
+  std::size_t* nbOfErrorsPtr = pComparisonErrorReportingPtr != nullptr ? &nbOfErrors : nullptr;
   if (size1 <= size2)
   {
     auto res = _getListExpsImbrications(listExpPtr1, listExpPtr2, pMemBlock, pLingDb, pExceptionsPtr,
-                                        pParentGrammaticalType);
+                                        nbOfErrorsPtr, pParentGrammaticalType);
     if (res == ImbricationType::EQUALS && size1 < size2)
       res = ImbricationType::LESS_DETAILED;
-    if (pComparisonErrorReportingPtr != nullptr && res != ImbricationType::EQUALS)
-      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res);
+    if (pComparisonErrorReportingPtr != nullptr && nbOfErrors > 0)
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, nbOfErrors);
     return res;
   }
   auto res = _getListExpsImbrications(listExpPtr2, listExpPtr1, pMemBlock, pLingDb, pExceptionsPtr,
-                                      pParentGrammaticalType);
+                                      nbOfErrorsPtr, pParentGrammaticalType);
   if (res == ImbricationType::EQUALS)
     res = ImbricationType::MORE_DETAILED;
-  if (pComparisonErrorReportingPtr != nullptr)
-    pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res);
+  if (pComparisonErrorReportingPtr != nullptr && nbOfErrors > 0)
+    pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, nbOfErrors);
   return res;
 }
 
