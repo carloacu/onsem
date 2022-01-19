@@ -109,6 +109,10 @@
  <concept name="value">
   <linkedMeaning lemme="valeur" gram="noun" relationToConcept="4"/>
  </concept>
+ <concept name="volume">
+  <linkedMeaning lemme="volume" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="son" gram="noun" relationToConcept="2"/>
+ </concept>
  <concept name="wide">
   <linkedMeaning lemme="large" gram="adverb" relationToConcept="4"/>
   <linkedMeaning lemme="large" gram="adjective" relationToConcept="4"/>

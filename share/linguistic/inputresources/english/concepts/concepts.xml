@@ -115,6 +115,10 @@
  <concept name="value">
   <linkedMeaning lemme="value" gram="noun" relationToConcept="4"/>
  </concept>
+ <concept name="volume">
+  <linkedMeaning lemme="volume" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="sound" gram="noun" relationToConcept="2"/>
+ </concept>
  <concept name="wide">
   <linkedMeaning lemme="wide" relationToConcept="4"/>
  </concept>

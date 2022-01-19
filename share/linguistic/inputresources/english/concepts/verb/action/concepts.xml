@@ -119,6 +119,12 @@
   <linkedMeaning lemme="deregister" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="check~out" gram="verb" relationToConcept="3"/>
  </concept>
+ <concept name="verb_action_descend">
+  <linkedMeaning lemme="descend" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="come~down" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="get~down" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="go~down" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_execute">
   <linkedMeaning lemme="execute" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="run" gram="verb" relationToConcept="4"/>

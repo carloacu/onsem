@@ -388,6 +388,7 @@
   <declareconcept name="verb_action_close" />
   <declareconcept name="verb_action_comeHere" />
   <declareconcept name="verb_action_deregister" />
+  <declareconcept name="verb_action_descend" />
   <declareconcept name="verb_action_execute" />
   <declareconcept name="verb_action_goaway" />
   <declareconcept name="verb_action_go" autofill="false" />
@@ -425,6 +426,8 @@
   <declareconcept name="verb_equal_be" />
   <declareconcept name="verb_equal_mean" />
   <declareconcept name="verb_equal_seem" />
+
+  <declareconcept name="volume" />
 
 
 </linguisticdatabase>
