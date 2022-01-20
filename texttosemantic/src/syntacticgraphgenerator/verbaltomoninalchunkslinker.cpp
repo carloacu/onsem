@@ -570,7 +570,8 @@ void VerbalToNominalChunksLinker::_tryAddDirectObjectToImperativeVerb
   ChunkLink& subordonatesRootLink = *pWorkingZone.begin();
   const InflectedWord& iGramPotPron = subordonatesRootLink.chunk->tokRange.getItBegin()->inflWords.front();
   if (pVerbRoot.requests.empty() &&
-      iGramPotPron.word.partOfSpeech == PartOfSpeech::PRONOUN &&
+      (iGramPotPron.word.partOfSpeech == PartOfSpeech::PRONOUN ||
+       iGramPotPron.word.partOfSpeech == PartOfSpeech::PRONOUN_COMPLEMENT) &&
       fConf.getFlsChecker().verbCanBeAtImperative(iGramVerb) &&
       !haveASubject(pVerbRoot))
   {

@@ -514,6 +514,7 @@ void pronounPriorities(std::vector<Token>& pTokens,
                        const InflectionsChecker& pInflsCheker)
 {
   static const std::set<PartOfSpeech> verbAuxpPartOfSpeechsToFind{PartOfSpeech::AUX, PartOfSpeech::VERB};
+  static const std::set<PartOfSpeech> nounPartOfSpeechsToFind{PartOfSpeech::NOUN};
   for (TokIt itTok = pTokens.begin(); itTok != pTokens.end();
        itTok = getNextToken(itTok, pTokens.end()))
   {
@@ -567,11 +568,13 @@ void pronounPriorities(std::vector<Token>& pTokens,
       }
     }
     else if (currInflWord.word.partOfSpeech == PartOfSpeech::PRONOUN_COMPLEMENT &&
-             inflWords.size() > 1 &&
-             !hasBefore(pTokens, itTok, verbAuxpPartOfSpeechsToFind, pInflsCheker, PartOfSpeech::ADVERB) &&
-             !hasAfter(pTokens, itTok, verbAuxpPartOfSpeechsToFind, PartOfSpeech::ADVERB))
+             inflWords.size() > 1)
     {
-      putOnBottom(inflWords, inflWords.begin());
+      if (!hasBefore(pTokens, itTok, verbAuxpPartOfSpeechsToFind, pInflsCheker, PartOfSpeech::ADVERB) &&
+          !hasAfter(pTokens, itTok, verbAuxpPartOfSpeechsToFind, PartOfSpeech::ADVERB))
+        putOnBottom(inflWords, inflWords.begin());
+      else if (hasAfter(pTokens, itTok, nounPartOfSpeechsToFind, PartOfSpeech::ADVERB))
+        putOnBottom(inflWords, inflWords.begin());
     }
   }
 }
