@@ -162,7 +162,7 @@ void NominalChunker::xSplitAChunk(ChunkLinkIter& pItChunkLink) const
 {
   static const std::vector<PartOfSpeech> subChunkSeps =
   {PartOfSpeech::PARTITIVE, PartOfSpeech::PREPOSITION, PartOfSpeech::DETERMINER,
-   PartOfSpeech::ADVERB, PartOfSpeech::PRONOUN_COMPLEMENT};
+   PartOfSpeech::ADVERB};
   SemanticLanguageEnum language = fConf.getLanguageType();
 
   Chunk& currChunk = *pItChunkLink->chunk;
