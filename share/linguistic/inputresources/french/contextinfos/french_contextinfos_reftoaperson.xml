@@ -26,6 +26,9 @@
   <existingMeaning lemme="toi" gram="pronoun">
     <contextInfo val="refToAPerson" />
   </existingMeaning>
+  <existingMeaning lemme="nous" gram="pronoun_comp">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
   <existingMeaning lemme="mon" gram="determiner">
     <contextInfo val="refToAPerson" />
   </existingMeaning>

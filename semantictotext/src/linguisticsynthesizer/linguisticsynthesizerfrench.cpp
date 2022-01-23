@@ -332,8 +332,6 @@ bool LinguisticSynthesizerFrench::_putReceiverBeforeVerb
   if (objectGrdExpPtr != nullptr)
   {
     const GroundedExpression& objectGrdExp = *objectGrdExpPtr;
-    if (ConceptSet::haveAConcept(objectGrdExp->concepts, "tolink_1p"))
-      return true;
     const SemanticGrounding& objectGrd = objectGrdExp.grounding();
     if (!objectGrdExp.children.empty())
       return false;
@@ -352,8 +350,10 @@ bool LinguisticSynthesizerFrench::_putReceiverBeforeVerb
       return _syntGrounding.agentTypeToRelativePerson(agentGrd, pConf, true) != RelativePerson::THIRD_SING &&
           !pRequests.has(SemanticRequestType::ACTION);
     }
-    default:
+    case SemanticGroudingType::NAME:
       return false;
+    default:
+      return !pRequests.has(SemanticRequestType::ACTION);
     }
   }
   return false;

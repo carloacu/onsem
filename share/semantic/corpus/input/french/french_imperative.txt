@@ -51,3 +51,4 @@ Va en avant
 Va en arrière
 Parle encore plus fort
 Parle encore moins fort
+Donne nous l'heure

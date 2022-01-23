@@ -177,7 +177,8 @@ void Linguisticsynthesizergrounding::writeGroundingIntroduction
   }
   default:
   {
-    writePreposition(pBeforeOut.out, &pOut, pOutInfoGram, pContext, pConf, pGrounding, pHoldingGrdExp);
+    if (!ConceptSet::haveAConcept(pGrounding.concepts, "tolink_1p"))
+      writePreposition(pBeforeOut.out, &pOut, pOutInfoGram, pContext, pConf, pGrounding, pHoldingGrdExp);
     break;
   }
   }
