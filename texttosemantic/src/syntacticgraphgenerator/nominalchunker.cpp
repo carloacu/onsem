@@ -62,7 +62,8 @@ void NominalChunker::xSplitPronounToken(ChunkLinkWorkingZone& pWorkingZone) cons
     if (secondToken != endOfTokenList)
     {
       PartOfSpeech secondTokenPartOfSpeech = secondToken->inflWords.front().word.partOfSpeech;
-      if (secondTokenPartOfSpeech == PartOfSpeech::PRONOUN ||
+      if (secondTokenPartOfSpeech == PartOfSpeech::DETERMINER ||
+          secondTokenPartOfSpeech == PartOfSpeech::PRONOUN ||
           secondTokenPartOfSpeech == PartOfSpeech::ADJECTIVE ||
           secondTokenPartOfSpeech == PartOfSpeech::ADVERB)
         separateBeginOfAChunk(pWorkingZone.syntTree(), firstChunkLk, secondToken,
@@ -227,6 +228,18 @@ void NominalChunker::xSplitAChunk(ChunkLinkIter& pItChunkLink) const
         currChunk.type = ChunkType::NOMINAL_CHUNK;
         xSplitAChunk(pItChunkLink);
         return;
+      }
+      case PartOfSpeech::PROPER_NOUN:
+      {
+        if (!partOfSpeech_isNominal(tokenBeforeInflWord.word.partOfSpeech) &&
+            tokenBeforeInflWord.word.partOfSpeech != PartOfSpeech::ADJECTIVE)
+        {
+          separateBeginOfAChunk(pItChunkLink, itBeginOfWordGroup, currChunk.type, language);
+          currChunk.type = ChunkType::NOMINAL_CHUNK;
+          xSplitAChunk(pItChunkLink);
+          return;
+        }
+        break;
       }
       case PartOfSpeech::ADVERB:
       {

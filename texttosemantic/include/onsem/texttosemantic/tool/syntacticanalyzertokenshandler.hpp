@@ -152,6 +152,8 @@ mystd::optional<SemanticDate> extractDate(const TOKITTEMP& pTokenIt,
 ONSEM_TEXTTOSEMANTIC_API
 bool isAnHour(const linguistics::ConstTokenIterator& pNextToken);
 
+ONSEM_TEXTTOSEMANTIC_API
+bool canBeParentOfANominalGroup(const InflectedWord& pInflWord);
 
 
 template<typename T, typename T2>

@@ -1325,7 +1325,7 @@ void linkPartitives(Chunk& rootChunk,
 {
   const Chunk& nextChunk = *pItToPotentialPartitiveChunk->chunk;
   if ((rootChunk.type == ChunkType::NOMINAL_CHUNK || rootChunk.type == ChunkType::PREPOSITIONAL_CHUNK) &&
-      rootChunk.head->inflWords.front().word.partOfSpeech != PartOfSpeech::PRONOUN_SUBJECT &&
+      canBeParentOfANominalGroup(rootChunk.head->inflWords.front()) &&
       EntityRecognizer::isTheBeginOfAPartitive(nextChunk))
   {
     pItToPotentialPartitiveChunk->type = pEntityRecognizer.findNatureOfAChunkLink(*pItToPotentialPartitiveChunk, nullptr);

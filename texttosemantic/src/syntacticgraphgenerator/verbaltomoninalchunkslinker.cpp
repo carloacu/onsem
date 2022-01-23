@@ -566,33 +566,21 @@ void VerbalToNominalChunksLinker::_tryAddDirectObjectToImperativeVerb
 (Chunk& pVerbRoot,
  ChunkLinkWorkingZone& pWorkingZone) const
 {
-  const InflectedWord& iGramVerb = pVerbRoot.head->inflWords.front();
-  ChunkLink& subordonatesRootLink = *pWorkingZone.begin();
-  const InflectedWord& iGramPotPron = subordonatesRootLink.chunk->tokRange.getItBegin()->inflWords.front();
   if (pVerbRoot.requests.empty() &&
-      (iGramPotPron.word.partOfSpeech == PartOfSpeech::PRONOUN ||
-       iGramPotPron.word.partOfSpeech == PartOfSpeech::PRONOUN_COMPLEMENT) &&
-      fConf.getFlsChecker().verbCanBeAtImperative(iGramVerb) &&
       !haveASubject(pVerbRoot))
   {
-    pVerbRoot.requests.set(SemanticRequestType::ACTION);
-    TokIt nextTok = getNextToken(subordonatesRootLink.chunk->tokRange.getItBegin(),
-                                 subordonatesRootLink.chunk->tokRange.getItEnd());
-    pVerbRoot.children.emplace_back(ChunkLinkType::DIRECTOBJECT,
-                                    Chunk(TokenRange(subordonatesRootLink.chunk->tokRange.getTokList(),
-                                                     subordonatesRootLink.chunk->tokRange.getItBegin(),
-                                                     nextTok), ChunkType::NOMINAL_CHUNK));
-    if (nextTok == subordonatesRootLink.chunk->tokRange.getItEnd())
+    const InflectedWord& iGramVerb = pVerbRoot.head->inflWords.front();
+    if (fConf.getFlsChecker().verbCanBeAtImperative(iGramVerb))
     {
-      auto ChunkLinkToRemove = pWorkingZone.begin();
-      pWorkingZone.syntTree().splice(ChunkLinkToRemove, subordonatesRootLink.chunk->children);
-      pWorkingZone.syntTree().erase(ChunkLinkToRemove);
-    }
-    else
-    {
-      subordonatesRootLink.chunk->tokRange.setItBegin(nextTok);
-      subordonatesRootLink.chunk->head = getHeadOfNominalGroup(subordonatesRootLink.chunk->tokRange,
-                                                               fConf.getLanguageType());
+      auto itSubordonatesRootLink = pWorkingZone.begin();
+      ChunkLink& subordonatesRootLink = *itSubordonatesRootLink;
+      const InflectedWord& iGramPotPron = subordonatesRootLink.chunk->tokRange.getItBegin()->inflWords.front();
+      if (partOfSpeech_isPronominal(iGramPotPron.word.partOfSpeech))
+      {
+        pVerbRoot.requests.set(SemanticRequestType::ACTION);
+        subordonatesRootLink.type = ChunkLinkType::DIRECTOBJECT;
+        pVerbRoot.children.splice(pVerbRoot.children.end(), pWorkingZone.syntTree(), itSubordonatesRootLink);
+      }
     }
   }
 }
@@ -702,20 +690,21 @@ bool VerbalToNominalChunksLinker::_linkAVerbGroupToHisCOD
   }
 
   _tryAddDirectObjectToImperativeVerb(*pVerbChunk, pWorkingZone);
-  if (pWorkingZone.empty())
+  while (!pWorkingZone.empty())
   {
-    return true;
-  }
-  Chunk& subordonateChunk = *pWorkingZone.begin()->chunk;
-  if (subordonateChunk.type == ChunkType::INFINITVE_VERB_CHUNK)
-  {
-    pWorkingZone.begin()->type = ChunkLinkType::DIRECTOBJECT;
-    pVerbChunk->children.splice(pVerbChunk->children.end(),
-                                pWorkingZone.syntTree(), pWorkingZone.begin());
-  }
-  else if (chunkCanBeAnObject(subordonateChunk))
-  {
-    fConf.getEntityRecognizer().addSubordonatesToAVerb(*pVerbChunk, pWorkingZone);
+    Chunk& subordonateChunk = *pWorkingZone.begin()->chunk;
+    if (subordonateChunk.type == ChunkType::INFINITVE_VERB_CHUNK)
+    {
+      pWorkingZone.begin()->type = ChunkLinkType::DIRECTOBJECT;
+      pVerbChunk->children.splice(pVerbChunk->children.end(),
+                                  pWorkingZone.syntTree(), pWorkingZone.begin());
+    }
+    else if (chunkCanBeAnObject(subordonateChunk))
+    {
+      if (fConf.getEntityRecognizer().addSubordonatesToAVerb(*pVerbChunk, pWorkingZone))
+        break; // TODO: replace break by continue
+    }
+    break;
   }
   return true;
 }

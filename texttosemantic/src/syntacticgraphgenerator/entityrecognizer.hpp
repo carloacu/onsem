@@ -29,7 +29,7 @@ public:
    Chunk* pFirstVerbChunk,
    bool pFromEnglishPossessive = false) const;
 
-  void addSubordonatesToAVerb
+  bool addSubordonatesToAVerb
   (Chunk& pVerbRoot,
    ChunkLinkWorkingZone& pWorkingZone) const;
 

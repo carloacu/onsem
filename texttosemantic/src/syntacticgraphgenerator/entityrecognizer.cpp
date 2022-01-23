@@ -483,10 +483,11 @@ mystd::optional<ChunkLinkType> EntityRecognizer::getAppropriateChunkLink
 }
 
 
-void EntityRecognizer::addSubordonatesToAVerb
+bool EntityRecognizer::addSubordonatesToAVerb
 (Chunk& pVerbRoot,
  ChunkLinkWorkingZone& pWorkingZone) const
 {
+  bool res = false;
   ChunkLink* prevSubordonate = nullptr;
   ChunkLink* currSubordonate = &*pWorkingZone.begin();
   while (true)
@@ -535,6 +536,7 @@ void EntityRecognizer::addSubordonatesToAVerb
       else
         pVerbRoot.children.splice(pVerbRoot.children.end(),
                                 prevSubordonate->chunk->children, prevSubordonate->chunk->children.begin());
+      res = true;
     }
 
     bool isAList = chunkTypeIsAList(currSubordonate->chunk->type);
@@ -551,6 +553,7 @@ void EntityRecognizer::addSubordonatesToAVerb
     }
     break;
   }
+  return res;
 }
 
 

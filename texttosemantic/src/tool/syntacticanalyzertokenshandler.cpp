@@ -699,5 +699,13 @@ bool isAnHour(const linguistics::ConstTokenIterator& pNextToken)
   return false;
 }
 
+
+bool canBeParentOfANominalGroup(const InflectedWord& pInflWord)
+{
+  return !partOfSpeech_isPronominal(pInflWord.word.partOfSpeech) ||
+      (pInflWord.word.language == SemanticLanguageEnum::FRENCH &&
+       !pInflWord.infos.hasContextualInfo(WordContextualInfos::REFTOAPERSON));
+}
+
 } // End of namespace linguistics
 } // End of namespace onsem

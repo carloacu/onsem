@@ -1,4 +1,7 @@
 <linguisticdatabase>
+  <existingMeaning lemme="je" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
   <existingMeaning lemme="il" gram="pronoun_subject">
     <contextInfo val="refToAPerson" />
   </existingMeaning>
@@ -9,6 +12,12 @@
     <contextInfo val="refToAPerson" />
   </existingMeaning>
   <existingMeaning lemme="on" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="nous" gram="pronoun_subject">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="vous" gram="pronoun_subject">
     <contextInfo val="refToAPerson" />
   </existingMeaning>
   <existingMeaning lemme="ils" gram="pronoun_subject">
@@ -27,6 +36,9 @@
     <contextInfo val="refToAPerson" />
   </existingMeaning>
   <existingMeaning lemme="nous" gram="pronoun_comp">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
+  <existingMeaning lemme="vous" gram="pronoun_comp">
     <contextInfo val="refToAPerson" />
   </existingMeaning>
   <existingMeaning lemme="mon" gram="determiner">

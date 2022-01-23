@@ -390,7 +390,7 @@ bool ListExtractor::_addANewOneWordList
 
     // if there is a chunk before the list
     if (!chunkHasBeenRemoved &&
-        pNextIt->chunk->getHeadPartOfSpeech() != PartOfSpeech::PRONOUN_SUBJECT)
+        canBeParentOfANominalGroup(pNextIt->chunk->head->inflWords.front()))
     {
       _addAListToMove(pListsToMove, ListToMove(pNextIt, pIt, false));
     }

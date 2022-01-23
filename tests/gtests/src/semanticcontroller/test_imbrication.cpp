@@ -208,6 +208,28 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
 
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::MORE_DETAILED, _getImbrication("raconte moi quelque chose de joyeux",
+                                                              "Dis quelque chose",
+                                                              semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                              &comparisonErrorReporting));
+    EXPECT_EQ(2, comparisonErrorReporting.nbOfErrors());
+    ASSERT_EQ(2, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::RECEIVER, it->first);
+    ASSERT_EQ(1, it->second.size());
+    auto it2 = it->second.begin();
+    EXPECT_EQ(ImbricationType::MORE_DETAILED, it2->first);
+    EXPECT_EQ(1, it2->second);
+    ++it;
+    EXPECT_EQ(GrammaticalType::SPECIFIER, it->first);
+    ASSERT_EQ(1, it->second.size());
+    auto it3 = it->second.begin();
+    EXPECT_EQ(ImbricationType::MORE_DETAILED, it3->first);
+    EXPECT_EQ(1, it3->second);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
     EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Raconte une histoire",
                                                               "Raconte une histoire triste",
                                                               semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,

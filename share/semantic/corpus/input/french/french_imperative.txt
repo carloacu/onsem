@@ -16,10 +16,10 @@ donne moi le stylo et la trousse
 donne-moi le stylo et la trousse
 donne
 Montre moi une vidéo qui décrit N5
+Montre-moi Adrien-Marie Legendre
 Affiche les images
 lève la main si tu vois une balle rouge
 lève-toi si tu ne vois pas une balle rouge
-
 saute trois fois
 regarde à gauche 3 fois
 regarde à gauche jusqu'à que tu vois quelqu'un
@@ -37,7 +37,8 @@ montre-moi une femme chantant
 Pose moi des questions
 dis salut tout le monde
 dis-moi bonjour
-
+Dis moi quelque chose de joyeux
+Dis quelque chose de joyeux
 Supprime toutes les conditions
 
 Sois énervé

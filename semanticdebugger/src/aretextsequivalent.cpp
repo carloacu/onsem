@@ -20,9 +20,13 @@ std::string _removeSomeSpaces(std::string& pStr)
 {
   std::string res;
   for (std::size_t i = 0; i < pStr.size(); ++i)
-    if (!(pStr[i] == ' ' &&
-          ((i + 1) == pStr.size() || pStr[i + 1] == ' ')))
+  {
+    if (pStr[i] == '-')
+      res += ' ';
+    else if (!(pStr[i] == ' ' &&
+               ((i + 1) == pStr.size() || pStr[i + 1] == ' ')))
       res += pStr[i];
+  }
   return res;
 }
 
