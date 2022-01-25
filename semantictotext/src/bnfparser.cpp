@@ -36,17 +36,6 @@ bool _readRuleName(
   return false;
 }
 
-std::size_t _skipSpaces(
-    const std::string &pStr,
-    std::size_t pPos) {
-  for (std::size_t i = pPos; i < pStr.size(); ++i) {
-    if (pStr[i] == ' ')
-      continue;
-    return i;
-  }
-  return pStr.size();
-}
-
 enum class RegexTextType {
   RULE,
   TEXT
