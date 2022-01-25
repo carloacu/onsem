@@ -1,0 +1,12 @@
+<linguisticdatabase>
+ <concept name="stuff">
+  <linkedMeaning lemme="stuff" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="thing" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="stuff_any">
+  <linkedMeaning lemme="anything" relationToConcept="4"/>
+ </concept>
+ <concept name="stuff_specific">
+  <linkedMeaning lemme="something" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

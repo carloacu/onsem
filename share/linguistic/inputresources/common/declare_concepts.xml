@@ -5,7 +5,6 @@
   <declareconcept name="already" />
   <declareconcept name="also" />
   <declareconcept name="answer" />
-  <declareconcept name="anything" />
   <declareconcept name="approximately" />
   <declareconcept name="ball" />
   <declareconcept name="because" />
@@ -297,6 +296,10 @@
 
   <declareconcept name="story" />
   <declareconcept name="story_joke" />
+
+  <declareconcept name="stuff" />
+  <declareconcept name="stuff_any" />
+  <declareconcept name="stuff_specific" />
 
   <declareconcept name="time" />
   <declareconcept name="time_birthdate" />

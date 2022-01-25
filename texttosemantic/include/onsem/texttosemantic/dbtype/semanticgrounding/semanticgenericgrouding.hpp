@@ -106,14 +106,19 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticQuantity
     return type == SemanticQuantityType::UNKNOWN && nb == 0 && paramSpec.empty() && subjectiveValue == SemanticSubjectiveQuantity::UNKNOWN;
   }
 
+  bool isEqualTo(int pNb) const
+  {
+    return type == SemanticQuantityType::NUMBER && nb == pNb;
+  }
+
   bool isEqualToZero() const
   {
-    return type == SemanticQuantityType::NUMBER && nb == 0;
+    return isEqualTo(0);
   }
 
   bool isEqualToOne() const
   {
-    return type == SemanticQuantityType::NUMBER && nb == 1;
+    return isEqualTo(1);
   }
 
   void clear()

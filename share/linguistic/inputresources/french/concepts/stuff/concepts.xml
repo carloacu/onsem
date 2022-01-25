@@ -1,0 +1,12 @@
+<linguisticdatabase>
+ <concept name="stuff">
+  <linkedMeaning lemme="truc" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="chose" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="stuff_any">
+  <linkedMeaning lemme="n'importe quoi" gram="pronoun" relationToConcept="4"/>
+ </concept>
+ <concept name="stuff_specific">
+  <linkedMeaning lemme="quelque chose" gram="pronoun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

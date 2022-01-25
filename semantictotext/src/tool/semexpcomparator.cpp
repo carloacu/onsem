@@ -942,7 +942,7 @@ bool isAnInstanceOf(const GroundedExpression& pInstanceOfMetaDesc,
   if (doesGrdExpContainEverything(pMetaDesc))
     return true;
   const SemanticGrounding& metaDescGrounding = pMetaDesc.grounding();
-  if (ConceptSet::haveAConcept(metaDescGrounding.concepts, "anything"))
+  if (ConceptSet::haveAConceptOrAHyponym(metaDescGrounding.concepts, "stuff"))
     return true;
 
   for (const auto& currCpt : pInstanceOfMetaDesc.grounding().concepts)

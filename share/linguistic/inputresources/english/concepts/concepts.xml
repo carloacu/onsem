@@ -15,9 +15,6 @@
  <concept name="answer">
   <linkedMeaning lemme="answer" gram="noun" relationToConcept="4"/>
  </concept>
- <concept name="anything">
-  <linkedMeaning lemme="stuff" gram="noun" relationToConcept="4"/>
- </concept>
  <concept name="approximately">
   <linkedMeaning lemme="about" gram="adverb" relationToConcept="4"/>
   <linkedMeaning lemme="approximately" gram="adverb" relationToConcept="3"/>

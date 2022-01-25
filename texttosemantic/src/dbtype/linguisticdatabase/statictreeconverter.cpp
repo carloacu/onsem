@@ -508,6 +508,12 @@ void StaticTreeConverter::xPrintAPatternNode
     pSs << " notConcept(" << currNotCpt << ")";
   for (const auto& currBegOfCpt : pRootPattern.beginOfConcepts)
     pSs << " beginOfConcepts(" << currBegOfCpt << ")";
+  for (const auto& currCpt : pRootPattern.conceptsOrHyponyms)
+    pSs << " conceptOrHyponym(" << currCpt << ")";
+  for (const auto& currCpt : pRootPattern.notConceptsOrHyponyms)
+    pSs << " notConceptOrHyponym(" << currCpt << ")";
+  if (pRootPattern.nb)
+    pSs << " nb(" << *pRootPattern.nb << ")";
   for (const auto& currRequest : pRootPattern.requests.types)
   {
     pSs << " request(" << semanticRequestType_toStr(currRequest) << ")";
@@ -651,6 +657,14 @@ void StaticTreeConverter::xApplyModifsOnGrdExp
       }
     }
 
+    for (const auto& currCpt : pRootPattern.conceptsOrHyponyms)
+    {
+      if (ConceptSet::haveAConceptOrAHyponym(semExpGrd.concepts, currCpt))
+        semExpGrd.concepts[currCpt] = static_cast<char>(4);
+    }
+
+    for (const auto& currCpt : pRootPattern.notConceptsOrHyponyms)
+      ConceptSet::removeConceptsOrHyponyms(semExpGrd.concepts, currCpt);
 
     if (pRootPattern.groundingType)
     {
@@ -679,6 +693,8 @@ void StaticTreeConverter::xApplyModifsOnGrdExp
         if (genGrdPtr != nullptr)
         {
           SemanticGenericGrounding& genGrd = *genGrdPtr;
+          if (pRootPattern.nb.has_value())
+            genGrd.quantity.setNumber(*pRootPattern.nb);
           if (pRootPattern.type.has_value())
             genGrd.entityType = *pRootPattern.type;
           if (pRootPattern.reference.has_value())
@@ -885,6 +901,24 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
           }
         }
 
+        for (const auto& currCpt : pCurrNode.conceptsOrHyponyms)
+        {
+          if (!ConceptSet::haveAConceptOrAHyponym(grd.concepts, currCpt))
+          {
+            res = false;
+            break;
+          }
+        }
+
+        for (const auto& currCpt : pCurrNode.notConceptsOrHyponyms)
+        {
+          if (ConceptSet::haveAConceptOrAHyponym(grd.concepts, currCpt))
+          {
+            res = false;
+            break;
+          }
+        }
+
         if (res && pCurrNode.groundingType)
         {
           switch (*pCurrNode.groundingType)
@@ -928,6 +962,12 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
             {
               if (pCurrNode.type.has_value() &&
                   genGrd->entityType != *pCurrNode.type)
+              {
+                res = false;
+              }
+
+              if (pCurrNode.nb.has_value() &&
+                  !genGrd->quantity.isEqualTo(*pCurrNode.nb))
               {
                 res = false;
               }

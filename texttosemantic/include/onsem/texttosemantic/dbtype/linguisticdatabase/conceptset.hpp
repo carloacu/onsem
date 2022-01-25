@@ -71,6 +71,10 @@ public:
   (const std::map<std::string, char>& pInputConcepts,
    const std::string& pBeginOfConceptName);
 
+  static void removeConceptsOrHyponyms
+  (std::map<std::string, char>& pInputConcepts,
+   const std::string& pConcept);
+
   static bool haveAConceptOrAHyponym
   (const std::map<std::string, char>& pInputConcepts,
    const std::string& pConcept);

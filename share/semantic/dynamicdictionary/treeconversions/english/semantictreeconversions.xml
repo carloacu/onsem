@@ -56,4 +56,16 @@
     </tree>
   </conversion>
 
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="generic" concept="stuff_any" nb="0">
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="generic" notConcept="stuff_any" nb="0">
+      </root>
+    </tree>
+  </conversion>
+
 </semantictreeconversions>

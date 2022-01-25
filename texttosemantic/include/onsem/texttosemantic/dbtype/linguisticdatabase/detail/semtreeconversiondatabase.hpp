@@ -39,6 +39,9 @@ protected:
         concepts(),
         notConcepts(),
         beginOfConcepts(),
+        conceptsOrHyponyms(),
+        notConceptsOrHyponyms(),
+        nb(),
         requests(),
         notRequests(),
         time(),
@@ -58,6 +61,9 @@ protected:
     std::map<std::string, std::list<char> > concepts;
     std::set<std::string> notConcepts;
     std::set<std::string> beginOfConcepts;
+    std::set<std::string> conceptsOrHyponyms;
+    std::set<std::string> notConceptsOrHyponyms;
+    mystd::optional<int> nb;
     SemanticRequests requests;
     SemanticRequests notRequests;
     mystd::optional<SemanticVerbTense> time;

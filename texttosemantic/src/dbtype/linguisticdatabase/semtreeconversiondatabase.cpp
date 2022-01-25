@@ -473,6 +473,24 @@ void SemExpTreeConversionDatabase::xFillNode
     {
       pCurrNode.beginOfConcepts.insert(valStr);
     }
+    else if (attrName == "conceptOrHyponym")
+    {
+      std::vector<std::string> concepts;
+      mystd::split(concepts, valStr, "|");
+      for (const auto& currCpt : concepts)
+        pCurrNode.conceptsOrHyponyms.insert(currCpt);
+    }
+    else if (attrName == "notConceptOrHyponym")
+    {
+      std::vector<std::string> concepts;
+      mystd::split(concepts, valStr, "|");
+      for (const auto& currCpt : concepts)
+        pCurrNode.notConceptsOrHyponyms.insert(currCpt);
+    }
+    else if (attrName == "nb")
+    {
+      pCurrNode.nb.emplace(currAttribute.second.get_value<int>());
+    }
     else if (attrName == "request")
     {
       if (!pCurrNode.groundingType ||

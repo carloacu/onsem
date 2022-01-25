@@ -2001,7 +2001,7 @@ bool isAnything(const GroundedExpression& pGrdExpToLookFor)
     return false;
   }
 
-  return conceptOfTheGrdExp.find("anything") != conceptOfTheGrdExp.end();
+  return ConceptSet::haveAConceptOrAHyponym(conceptOfTheGrdExp, "stuff");
 }
 
 

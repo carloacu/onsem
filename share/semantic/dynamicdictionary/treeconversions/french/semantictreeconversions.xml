@@ -51,4 +51,33 @@
     </tree>
   </conversion>
 
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="generic" concept="story">
+        <specifier id="2" grounding="generic" concept="sentiment_positive_funny" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="generic" concept="story_joke" notConcept="story" word="">
+	<notspecifier />
+      </root>
+    </tree>
+  </conversion>
+
+
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="generic" conceptOrHyponym="stuff">
+        <specifier id="2" grounding="generic" concept="sentiment_positive_funny" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="generic" concept="story_joke" notConceptOrHyponym="stuff" word="">
+	<notspecifier />
+      </root>
+    </tree>
+  </conversion>
+
+
 </semantictreeconversions>

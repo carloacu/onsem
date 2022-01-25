@@ -212,6 +212,22 @@ bool ConceptSet::haveAConceptOrAHyponym
 }
 
 
+void ConceptSet::removeConceptsOrHyponyms
+(std::map<std::string, char>& pInputConcepts,
+ const std::string& pConcept)
+{
+  for (auto it = pInputConcepts.begin(); it != pInputConcepts.end(); )
+  {
+    if (doesConceptBeginWith(it->first, pConcept) &&
+        (it->first.size() <= pConcept.size() ||
+         it->first[pConcept.size()] == '_'))
+      it = pInputConcepts.erase(it);
+    else
+      ++it;
+  }
+}
+
+
 bool ConceptSet::haveAConceptThatBeginWithAnyOf
 (const std::map<std::string, char>& pInputConcepts,
  const std::vector<std::string>& pBeginOfConcepts)

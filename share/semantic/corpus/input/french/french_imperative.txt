@@ -53,3 +53,6 @@ Va en arrière
 Parle encore plus fort
 Parle encore moins fort
 Donne nous l'heure
+Raconte une histoire drôle
+Raconte quelque chose de drôle
+
