@@ -152,6 +152,13 @@ void _addChild
 {
   GrammaticalType childTypeToAnswerContext = semanticRequestType_toSemGram(pContextRequest);
 
+  // Check that pGrdExpToAdd can be added has a child of this type
+  if (childTypeToAnswerContext == GrammaticalType::MANNER)
+  {
+    if (!ConceptSet::haveAConceptThatBeginWith(pGrdExpToAdd->concepts, "manner_"))
+      return;
+  }
+
   auto grdRootExp = pContextGrdExp.clone();
   _removeFirstRequestGrdExp(*grdRootExp);
 

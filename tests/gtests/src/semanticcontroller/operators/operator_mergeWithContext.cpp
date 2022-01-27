@@ -172,6 +172,23 @@ TEST_F(SemanticReasonerGTests, operator_mergeWithContext_basic)
     EXPECT_EQ("Tu veux avoir la formule basique.",
               semExpToText(std::move(basicSemExp), frLanguage, semMem, lingDb));
   }
+
+  {
+    operator_inform_fromRobot("Comment ça va ?", semMem, lingDb);
+    auto helloSemExp = textToSemExp("salut", lingDb, frLanguage);
+    memoryOperation::mergeWithContext(helloSemExp, semMem, lingDb);
+    EXPECT_EQ("Salut",
+              semExpToText(std::move(helloSemExp), frLanguage, semMem, lingDb));
+  }
+
+  {
+    operator_inform_fromRobot("Comment ça va ?", semMem, lingDb);
+    auto helloSemExp = textToSemExp("bien", lingDb, frLanguage);
+    memoryOperation::mergeWithContext(helloSemExp, semMem, lingDb);
+    EXPECT_EQ("Tu vas bien.",
+              semExpToText(std::move(helloSemExp), frLanguage, semMem, lingDb));
+  }
+
 }
 
 
