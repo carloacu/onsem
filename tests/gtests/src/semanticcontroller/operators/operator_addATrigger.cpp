@@ -427,6 +427,15 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     operator_inform("tu es Talala", semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_react("bonjour Talala", semMem, lingDb));
   }
+
+  // "I want you to" use case
+  {
+    const std::string triggerStr = "Je voudrais que tu danses";
+    const std::string answerStr = "Ok, je danse.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
+  }
 }
 
 

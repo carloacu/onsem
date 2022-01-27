@@ -968,7 +968,19 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
   case SemanticOperatorEnum::TEACHCONDITION:
   case SemanticOperatorEnum::TEACHINFORMATION:
   {
-    if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
+    // get links of the input grounded expression
+    semanticMemoryLinker::RequestLinks reqLinks;
+    semanticMemoryLinker::getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
+
+    // try to react according to the triggers
+    bool isAnswered = false;
+    if (pWorkStruct.reactionOptions.canAnswerWithATrigger &&
+        pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
+        semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinks, pGrdExp))
+      isAnswered = true;
+
+    if (!isAnswered &&
+        pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
         answerToSpecificAssertions::process(pWorkStruct, pMemViewer, pGrdExp))
       break;
     if (!SemExpGetter::isGrdExpComplete(pGrdExp))
@@ -988,17 +1000,6 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
                                                        pWorkStruct.lingDb, pGrdExp);
       infoIsAlreadyAnAssertion = answersContextAxioms.isAnAssertion();
     }
-
-    // get links of the input grounded expression
-    semanticMemoryLinker::RequestLinks reqLinks;
-    semanticMemoryLinker::getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
-
-    // try to react according to the triggers
-    bool isAnswered = false;
-    if (pWorkStruct.reactionOptions.canAnswerWithATrigger &&
-        pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
-        semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinks, pGrdExp))
-      isAnswered = true;
 
     // if it's a new information link it to the memory
     SemanticContextAxiom* newContextAxiom = nullptr;
