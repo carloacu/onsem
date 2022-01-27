@@ -333,7 +333,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::process
     }
     else
     {
-      if (context.chunk.type != ChunkType::SEPARATOR_CHUNK)
+      if (context.chunk.type != ChunkType::SEPARATOR_CHUNK &&
+          (context.chunk.type != ChunkType::PREPOSITIONAL_CHUNK || context.chunk.getHeadPartOfSpeech() != PartOfSpeech::PREPOSITION))
       {
         mystd::unique_propagate_const<UniqueSemanticExpression> semExp;
 
