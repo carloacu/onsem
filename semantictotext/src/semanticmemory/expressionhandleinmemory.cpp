@@ -354,7 +354,19 @@ void ExpressionHandleInMemory::_addTriggerGrdExpsLinks(InformationType pInformat
   for (const auto& currGrdExpTriggerPtr : pTriggerGrdExpPtrs)
   {
     assert(currGrdExpTriggerPtr != nullptr);
-    _addTriggerGrdExpLinks(pInformationType, *currGrdExpTriggerPtr, pGetAxiomIdFromId, pLingDb, i++);
+    auto& currGrdExpTrigger = *currGrdExpTriggerPtr;
+    // If the grounding is empty, there is nothing to link for this grounding so we link only the children.
+    // This is used to link the not undertood semantic expression,
+    // because the pattern is an empty grounding with a NOT_UNDERTOOD child
+    if (currGrdExpTrigger.grounding().isEmpty())
+    {
+      for (const auto& currChild : currGrdExpTrigger.children)
+        addTriggerLinks(pInformationType, *currChild.second, pLingDb);
+    }
+    else
+    {
+      _addTriggerGrdExpLinks(pInformationType, currGrdExpTrigger, pGetAxiomIdFromId, pLingDb, i++);
+    }
   }
 }
 

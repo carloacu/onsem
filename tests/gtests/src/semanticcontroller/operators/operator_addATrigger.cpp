@@ -410,6 +410,15 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWER_EQ(answerStr, operator_react(triggerToTestStr, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(triggerToTestStr, semMem, lingDb));
   }
+
+  // not undertood
+  {
+    const std::string triggerStr = "tu faim"; // we expect this sentence to be not understood
+    const std::string answerStr = "Ok, tu as faim.";
+    operator_addATrigger(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
+  }
 }
 
 

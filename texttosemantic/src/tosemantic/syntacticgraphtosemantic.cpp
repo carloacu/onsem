@@ -320,9 +320,19 @@ UniqueSemanticExpression SyntacticGraphToSemantic::process
                           std::move(pAgentWeAreTalkingAbout));
   for (auto itChild = pSyntGraph.firstChildren.begin(); itChild != pSyntGraph.firstChildren.end(); ++itChild)
   {
-    if (itChild->type != ChunkLinkType::NOTUNDERSTOOD)
+    ToGenRepContext context(*itChild);
+    if (itChild->type == ChunkLinkType::NOTUNDERSTOOD)
     {
-      ToGenRepContext context(*itChild);
+      auto semExp = xFillSemExp(general, context);
+      if (semExp)
+      {
+        auto semExpWrapped = std::make_unique<GroundedExpression>();
+        semExpWrapped->children.emplace(GrammaticalType::NOT_UNDERSTOOD, std::move(*semExp));
+        xAddSemExpPtr(general.uSemExp, std::move(semExpWrapped));
+      }
+    }
+    else
+    {
       if (context.chunk.type != ChunkType::SEPARATOR_CHUNK)
       {
         mystd::unique_propagate_const<UniqueSemanticExpression> semExp;

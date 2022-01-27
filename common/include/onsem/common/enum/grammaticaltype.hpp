@@ -42,6 +42,7 @@ namespace onsem
   SEMANTIC_GRAMMATICALTYPE(WITHOUT, "without")                      \
   SEMANTIC_GRAMMATICALTYPE(SUBORDINATE, "subordinate")              \
   SEMANTIC_GRAMMATICALTYPE(INTRODUCTING_WORD, "introducting_word")  \
+  SEMANTIC_GRAMMATICALTYPE(NOT_UNDERSTOOD, "not_understood")        \
   SEMANTIC_GRAMMATICALTYPE(UNKNOWN, "unknown")
 
 

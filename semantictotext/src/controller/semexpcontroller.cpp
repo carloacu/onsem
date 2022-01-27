@@ -1186,6 +1186,28 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
 
   default: // if it has no verb
   {
+    // Grounding empty is a specific case for the not undertood children at root of a semantic expression.
+    // In this case we do no reactions except the triggers matches.
+    if (pGrdExp.grounding().isEmpty())
+    {
+      if (pWorkStruct.reactionOptions.canAnswerWithATrigger &&
+          (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT ||
+           pWorkStruct.reactOperator == SemanticOperatorEnum::ANSWER))
+      {
+        SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+        subWorkStruct.reactOperator = SemanticOperatorEnum::REACTFROMTRIGGER;
+        for (const auto& currChild : pGrdExp.children)
+          applyOperatorOnSemExp(subWorkStruct, pMemViewer, *currChild.second);
+        pWorkStruct.addAnswers(subWorkStruct);
+      }
+      else if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER)
+      {
+        for (const auto& currChild : pGrdExp.children)
+          applyOperatorOnSemExp(pWorkStruct, pMemViewer, *currChild.second);
+      }
+      break;
+    }
+
     switch (pWorkStruct.reactOperator)
     {
     case SemanticOperatorEnum::REACT:
