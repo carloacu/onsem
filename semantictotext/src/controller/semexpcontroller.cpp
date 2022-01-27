@@ -346,6 +346,17 @@ void _applyOperatorOnFeedbackExp(SemControllerWorkingStruct& pWorkStruct,
   const SemanticExpression& concernedSemExp = *pFdkExp.concernedExp;
   if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
   {
+    {
+      SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+      subWorkStruct.reactOperator = SemanticOperatorEnum::REACTFROMTRIGGER;
+      applyOperatorOnSemExp(subWorkStruct, pMemViewer, concernedSemExp);
+      if (subWorkStruct.haveAnAnswer())
+      {
+        pWorkStruct.addAnswers(subWorkStruct);
+        return;
+      }
+    }
+
     // answer "hello <user name>" to "hello <robot name>"
     // answer "bye <user name>" to "bye <robot name>"
     const GroundedExpression* fdkGrdExpPtr = pFdkExp.feedbackExp->getGrdExpPtr_SkipWrapperPtrs();

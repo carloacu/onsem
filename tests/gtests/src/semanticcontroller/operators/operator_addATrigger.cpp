@@ -419,6 +419,14 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_ANSWER_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
   }
+
+  // Triggers are more important than feedback reactions
+  {
+    const std::string answerStr = "Salut. Comment vas-tu ?";
+    operator_addATrigger("salut Talala", answerStr, semMem, lingDb);
+    operator_inform("tu es Talala", semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react("bonjour Talala", semMem, lingDb));
+  }
 }
 
 
