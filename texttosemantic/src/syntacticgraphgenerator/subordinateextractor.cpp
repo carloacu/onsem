@@ -486,10 +486,11 @@ void SubordinateExtractor::xLinkSubordonateVerbs
       continue;
     }
 
-    PartOfSpeech headOfChkPartOfSpeech = it->chunk->head->inflWords.front().word.partOfSpeech;
+    const auto& headOfChkInflWords = it->chunk->head->inflWords;
+    const auto& headOfChkWord = headOfChkInflWords.front().word;
     afterASeparator = it->chunk->type == ChunkType::SEPARATOR_CHUNK &&
-        (headOfChkPartOfSpeech == PartOfSpeech::LINKBETWEENWORDS ||
-         headOfChkPartOfSpeech == PartOfSpeech::SUBORDINATING_CONJONCTION);
+        (headOfChkWord.partOfSpeech == PartOfSpeech::LINKBETWEENWORDS ||
+         (headOfChkWord.partOfSpeech == PartOfSpeech::SUBORDINATING_CONJONCTION && fLingDico.statDb.inflWordsToQuestionWord(headOfChkInflWords, true, false) == nullptr));
     ++it;
   }
 }

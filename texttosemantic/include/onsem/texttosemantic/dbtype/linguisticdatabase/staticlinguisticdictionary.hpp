@@ -160,7 +160,9 @@ public:
   const QuestionWords* wordToQuestionWord(const SemanticWord& pWord,
                                           bool pAfterVerb,
                                           bool pIsCloseToTheVerb) const;
-
+  const StaticLinguisticDictionary::QuestionWords* inflWordsToQuestionWord(const std::list<InflectedWord>& pInflWords,
+                                                                           bool pAfterVerb,
+                                                                           bool pIsCloseToTheVerb) const;
   SemanticRequestType wordToSubordinateRequest(const SemanticWord& pWord) const;
   SemanticRequestType aloneWordToRequest(const SemanticWord& pWord) const;
   SemanticRequestType semWordToRequest(const SemanticWord& pWord) const;

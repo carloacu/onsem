@@ -176,6 +176,21 @@ const StaticLinguisticDictionary::QuestionWords* StaticLinguisticDictionary::wor
   return _wordToQuestionWord(pWord, fQuestWordsBefore, pIsCloseToTheVerb);
 }
 
+const StaticLinguisticDictionary::QuestionWords* StaticLinguisticDictionary::inflWordsToQuestionWord
+(const std::list<InflectedWord>& pInflWords,
+ bool pAfterVerb,
+ bool pIsCloseToTheVerb) const
+{
+  const StaticLinguisticDictionary::QuestionWords* res = nullptr;
+  for (const auto& currInflWord : pInflWords)
+  {
+    res = wordToQuestionWord(currInflWord.word, pAfterVerb, pIsCloseToTheVerb);
+    if (res != nullptr)
+      return res;
+  }
+  return res;
+}
+
 const StaticLinguisticDictionary::QuestionWords* StaticLinguisticDictionary::_aloneWordToQuestionWord
 (const SemanticWord& pWord) const
 {
