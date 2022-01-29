@@ -180,7 +180,7 @@ TEST_F(SemanticReasonerGTests, userDisambiguation_wikpedia)
   ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas si Paul aime chanter.",
                           operator_react("Paul aime chanter ?", semMem, lingDb));
   ONSEM_ANSWER_EQ("Kim Hyun-seok est née le 5 mai 1967.",
-                  operator_react("quand est né Kim Hyun-seok", semMem, lingDb));
+                  operator_react("Il est né quand Kim Hyun-seok", semMem, lingDb));
   ONSEM_ANSWER_EQ("Emilio Nsue, Issa Gouo, Jean-Charles Cirilli, Karim Boudjema, Nuri Şahin et Takuya Aoki",
                   operator_react("qui est un footballeur né en septembre", semMem, lingDb));
   ONSEM_ANSWER_EQ("Mesut \xC3\x96zil et Souleymane Oularé",
