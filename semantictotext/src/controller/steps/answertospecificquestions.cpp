@@ -106,7 +106,7 @@ bool _tryToAnswerAboutAbilities(SemControllerWorkingStruct& pWorkStruct,
   const SemanticStatementGrounding* statGrdPtr = pGrdExp->getStatementGroundingPtr();
   if (statGrdPtr == nullptr ||
       statGrdPtr->verbGoal != VerbGoalEnum::ABILITY ||
-      SemExpGetter::getUserIdOfChild(pGrdExp, GrammaticalType::SUBJECT) != SemanticAgentGrounding::me)
+      SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::me)
     return false;
 
   auto relatedCmdExp = pGrdExp.clone();
@@ -573,7 +573,7 @@ bool _tryToAnswerToWhatCanYouDo(SemControllerWorkingStruct& pWorkStruct,
   if (statGrdPtr == nullptr ||
       statGrdPtr->verbGoal != VerbGoalEnum::ABILITY ||
       statGrdPtr->concepts.count("verb_action") == 0 ||
-      SemExpGetter::getUserIdOfChild(pGrdExp, GrammaticalType::SUBJECT) != SemanticAgentGrounding::me)
+      SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::me)
     return false;
 
   const std::map<intSemId, const SemanticMemorySentence*>& infActions = pMemBlock.getInfActions();
@@ -614,7 +614,7 @@ bool _tryToAnswerToWhatDoYouKnowAbout(SemControllerWorkingStruct& pWorkStruct,
   if (statGrdPtr == nullptr ||
       statGrdPtr->verbGoal != VerbGoalEnum::NOTIFICATION ||
       statGrdPtr->concepts.count("mentalState_know") == 0 ||
-      SemExpGetter::getUserIdOfChild(pGrdExp, GrammaticalType::SUBJECT) != SemanticAgentGrounding::me)
+      SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::me)
     return false;
 
   bool res = false;

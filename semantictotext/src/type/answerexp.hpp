@@ -46,12 +46,6 @@ struct AnswerExpGenerated
   UniqueSemanticExpression genSemExp;
 };
 
-enum class AnswerInterestForRequester
-{
-  NEW_INFORMATION,
-  OBVIOUS_INFORMATION
-};
-
 
 struct AnswerExp
 {
@@ -60,12 +54,10 @@ public:
   (const RelatedContextAxiom& pRelatedContextAxioms,
    std::unique_ptr<GroundedExpressionContainer> pGrdExp,
    const SemanticExpression* pEqualitySemExp,
-   std::map<GrammaticalType, const SemanticExpression*>& pAnnotationsOfTheAnswer,
-   AnswerInterestForRequester pInterest)
+   std::map<GrammaticalType, const SemanticExpression*>& pAnnotationsOfTheAnswer)
     : relatedContextAxioms(pRelatedContextAxioms),
       equalitySemExp(pEqualitySemExp),
       annotationsOfTheAnswer(),
-      interest(pInterest),
       _grdExp(std::move(pGrdExp))
   {
     annotationsOfTheAnswer.swap(pAnnotationsOfTheAnswer);
@@ -75,12 +67,10 @@ public:
   (const SemanticContextAxiom& pContextAxiom,
    std::unique_ptr<GroundedExpressionContainer> pGrdExp,
    const SemanticExpression* pEqualitySemExp,
-   std::map<GrammaticalType, const SemanticExpression*>& pAnnotationsOfTheAnswer,
-   AnswerInterestForRequester pInterest)
+   std::map<GrammaticalType, const SemanticExpression*>& pAnnotationsOfTheAnswer)
     : relatedContextAxioms(),
       equalitySemExp(pEqualitySemExp),
       annotationsOfTheAnswer(),
-      interest(pInterest),
       _grdExp(std::move(pGrdExp))
   {
     relatedContextAxioms.constElts.emplace_back(&pContextAxiom);
@@ -93,7 +83,6 @@ public:
   RelatedContextAxiom relatedContextAxioms;
   const SemanticExpression* equalitySemExp;
   std::map<GrammaticalType, const SemanticExpression*> annotationsOfTheAnswer;
-  AnswerInterestForRequester interest;
 
 private:
   std::unique_ptr<GroundedExpressionContainer> _grdExp;

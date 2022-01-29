@@ -1159,7 +1159,6 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
                             const GroundedExpression* pQuestMetaGrdExp,
                             const SemControllerWorkingStruct& pWorkStruct,
                             const SemanticMemoryBlock& pMemBlock,
-                            AnswerInterestForRequester pInterest,
                             SemanticRequestType pRequest)
 {
   switch (pSemExpToAdd->type)
@@ -1205,7 +1204,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
     {
       auto grdExpContainer = makeGrdExpContainer(pSemExpToAdd);
       pSemExpsContainer[pId].emplace_back(pRelatedContextAxioms, std::move(grdExpContainer), pEqualityOfTheMemoryAnswer,
-                                          pAnnotationsOfTheAnswer, pInterest);
+                                          pAnnotationsOfTheAnswer);
     }
     else
     {
@@ -1214,7 +1213,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
       {
         _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(itEquChild->second),
                                          pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                         pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                         pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
       }
     }
     break;
@@ -1225,7 +1224,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
     for (auto& elt : listExp.elts)
       _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(elt),
                                        pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                       pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                       pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
     break;
   }
   case SemanticExpressionType::INTERPRETATION:
@@ -1233,7 +1232,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
     auto& intExp = pSemExpToAdd->getIntExp();
     _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(intExp.interpretedExp),
                                      pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
     break;
   }
   case SemanticExpressionType::FEEDBACK:
@@ -1241,7 +1240,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
     auto& fdkExp = pSemExpToAdd->getFdkExp();
     _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(fdkExp.concernedExp),
                                      pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
     break;
   }
   case SemanticExpressionType::ANNOTATED:
@@ -1249,7 +1248,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
     auto& annExp = pSemExpToAdd->getAnnExp();
     _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(annExp.semExp),
                                      pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
     break;
   }
   case SemanticExpressionType::METADATA:
@@ -1257,7 +1256,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
     auto& metadataExp = pSemExpToAdd->getMetadataExp();
     _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(metadataExp.semExp),
                                      pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
     break;
   }
   case SemanticExpressionType::CONDITION:
@@ -1271,12 +1270,12 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
       if (currSolvedCond.truenessValue == TruenessValue::VAL_TRUE)
         _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(condExp.thenExp),
                                          pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                         pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                         pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
       else if (currSolvedCond.truenessValue == TruenessValue::VAL_FALSE &&
                condExp.elseExp)
         _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(*condExp.elseExp),
                                          pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                         pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                         pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
     }
     break;
   }
@@ -1285,7 +1284,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
     auto& fSynthExp = pSemExpToAdd->getFSynthExp();
     _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(fSynthExp.getUSemExp()),
                                      pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pInterest, pRequest);
+                                     pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
     break;
   }
   case SemanticExpressionType::COMMAND:
@@ -1330,33 +1329,6 @@ void _extractAnnotationsFromAnswer(const SemanticExpression*& pEqualityOfTheMemo
   {
     pAnnotationsOfTheAnswer.emplace(pGrammaticalType, &pSemExp);
   });
-}
-
-
-AnswerInterestForRequester _semExpToInterestValue(const GroundedExpression& pAnswerGrdExp,
-                                                  GrammaticalType pGramTypeOfAnswer,
-                                                  const SemanticExpression& pSemExpGrdElt)
-{
-  if (pGramTypeOfAnswer != GrammaticalType::SUBJECT &&
-      pGramTypeOfAnswer != GrammaticalType::OBJECT)
-    return AnswerInterestForRequester::NEW_INFORMATION;
-
-  const SemanticStatementGrounding* statGrdPtr = pAnswerGrdExp->getStatementGroundingPtr();
-  if (statGrdPtr != nullptr &&
-      ConceptSet::haveAConcept(statGrdPtr->concepts, "verb_equal_be"))
-  {
-    std::string answerUserId = SemExpGetter::semExpToUserId(pSemExpGrdElt);
-    if (answerUserId != SemanticAgentGrounding::userNotIdentified)
-    {
-      GrammaticalType oppositeChildOfAnswer = pGramTypeOfAnswer == GrammaticalType::OBJECT ?
-            GrammaticalType::SUBJECT : GrammaticalType::OBJECT;
-      std::string oppChildUserId = SemExpGetter::getUserIdOfChild(pAnswerGrdExp, oppositeChildOfAnswer);
-      if (answerUserId == oppChildUserId)
-        return AnswerInterestForRequester::OBVIOUS_INFORMATION;
-    }
-  }
-
-  return AnswerInterestForRequester::NEW_INFORMATION;
 }
 
 
@@ -1461,8 +1433,7 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
       auto& semExpsContainer = hasSamePolarity ? semExpsWithSamePolarity : semExpsWithOtherPolarity;
       semExpsContainer[relSemExp.first].emplace_back(ansElt.relatedContextAxioms,
                                                      std::move(answGrdExpContainer), nullptr,
-                                                     annotationsOfTheAnswer,
-                                                     AnswerInterestForRequester::NEW_INFORMATION);
+                                                     annotationsOfTheAnswer);
     }
     else
     {
@@ -1471,20 +1442,10 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
           (childGramType, &pFromGrdExpQuestion, &pWorkStruct.lingDb, &hasSamePolarity);
       if (childSemExpPtr)
       {
-        const SemanticExpression& childSemExp = childSemExpPtr->getSemExp();
         const GroundedExpression* questMetaGrdExp = nullptr;
         const auto itQuestionMetaDesc = pFromGrdExpQuestion.children.find(childGramType);
         if (itQuestionMetaDesc != pFromGrdExpQuestion.children.end())
           questMetaGrdExp = itQuestionMetaDesc->second->getGrdExpPtr_SkipWrapperPtrs();
-
-        AnswerInterestForRequester interest = AnswerInterestForRequester::NEW_INFORMATION;
-        if (pWorkStruct.reactOperator == SemanticOperatorEnum::ANSWER ||
-            pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
-        {
-          interest = _semExpToInterestValue(pFromGrdExpQuestion, childGramType, childSemExp);
-          if (interest == AnswerInterestForRequester::OBVIOUS_INFORMATION)
-            continue;
-        }
 
         auto& semExpsContainer = hasSamePolarity ? semExpsWithSamePolarity : semExpsWithOtherPolarity;
         auto* uSemExp = dynamic_cast<UniqueSemanticExpression*>(&*childSemExpPtr);
@@ -1492,7 +1453,7 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
         {
           _addGrdExpsFromASemExp(semExpsContainer, relSemExp.first, *uSemExp, ansElt.relatedContextAxioms,
                                  equalityOfTheMemoryAnswer, annotationsOfTheAnswer, questMetaGrdExp,
-                                 pWorkStruct, pMemBlock, interest, pFormRequest);
+                                 pWorkStruct, pMemBlock, pFormRequest);
         }
         else
         {
@@ -1500,7 +1461,7 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
           if (semExpRef != nullptr)
             _addGrdExpsFromASemExp(semExpsContainer, relSemExp.first, *semExpRef, ansElt.relatedContextAxioms,
                                    equalityOfTheMemoryAnswer, annotationsOfTheAnswer, questMetaGrdExp,
-                                   pWorkStruct, pMemBlock, interest, pFormRequest);
+                                   pWorkStruct, pMemBlock, pFormRequest);
         }
       }
     }
@@ -1529,7 +1490,7 @@ void _addCauseResult(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
       std::map<GrammaticalType, const SemanticExpression*> annotationsOfTheAnswer;
       pAllAnswers[SemanticRequestType::CAUSE].answersFromMemory.emplace_back
           (currSent.getContextAxiom(), std::move(grdExpRef), nullptr,
-           annotationsOfTheAnswer, AnswerInterestForRequester::NEW_INFORMATION);
+           annotationsOfTheAnswer);
     }
   }
 }

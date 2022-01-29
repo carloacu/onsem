@@ -308,12 +308,9 @@ int wordToMeaningId(const SemanticWord& pWord,
                     const linguistics::LinguisticDatabase& pLingDb);
 
 
-ONSEM_TEXTTOSEMANTIC_API
-std::string semExpToUserId(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-std::string getUserIdOfChild(const GroundedExpression& pGrdExp,
-                             GrammaticalType pChildGramType);
+std::string getUserIdOfSubject(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 void extractSubjectAndObjectOfAVerbDefinition(

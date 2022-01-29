@@ -2987,8 +2987,7 @@ void SyntacticGraphToSemantic::xFillSubordonateClause
   if (sayRequest && pSubClauseChunkLink.tokRange.isEmpty() &&
       !pSubClauseChunkLink.chunk->requests.has(SemanticRequestType::ACTION))
   {
-    std::string subjectUserId = SemExpGetter::getUserIdOfChild(grdExp,
-                                                               GrammaticalType::SUBJECT);
+    std::string subjectUserId = SemExpGetter::getUserIdOfSubject(grdExp);
     if (subjectUserId == SemanticAgentGrounding::userNotIdentified)
       subjectUserId = pGeneral.textProcContext.receiver.userId;
     const std::string& newReceiverUserId = subjectUserId == SemanticAgentGrounding::me ?

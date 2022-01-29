@@ -173,7 +173,7 @@ bool isLookAtOtherOrder(const GroundedExpression& grdExp,
 {
   //TODO fix toPerson boolean
   const auto isLook = ConceptSet::haveAConceptThatBeginWith(grdExp->concepts, "verb_action_lookat");
-  const auto fromMe = SemExpGetter::getUserIdOfChild(grdExp, GrammaticalType::SUBJECT) == SemanticAgentGrounding::me;
+  const auto fromMe = SemExpGetter::getUserIdOfSubject(grdExp) == SemanticAgentGrounding::me;
   auto toPerson(true);
   const auto grdExpObjectPtr = SemExpGetter::getGrdExpChild(grdExp.getGrdExp(), GrammaticalType::OBJECT);
   if (grdExpObjectPtr != nullptr)

@@ -1371,24 +1371,20 @@ int32_t wordToMeaningId(const SemanticWord& pWord,
 }
 
 
-std::string semExpToUserId(const SemanticExpression& pSemExp)
-{
-  const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
-  if (grdExpPtr == nullptr)
-    return SemanticAgentGrounding::userNotIdentified;
-  const SemanticAgentGrounding* subjAgentGrdPtr = grdExpPtr->grounding().getAgentGroundingPtr();
-  if (subjAgentGrdPtr != nullptr)
-    return subjAgentGrdPtr->userId;
-  return SemanticAgentGrounding::userNotIdentified;
-}
-
-std::string getUserIdOfChild(const GroundedExpression& pGrdExp,
-                             GrammaticalType pChildGramType) // TODO: fix that
+std::string getUserIdOfSubject(const GroundedExpression& pGrdExp)
 {
   auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
-  if (itSubject == pGrdExp.children.end())
-    return SemanticAgentGrounding::userNotIdentified;
-  return semExpToUserId(*itSubject->second);
+  if (itSubject != pGrdExp.children.end())
+  {
+    const GroundedExpression* grdExpPtr = itSubject->second->getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExpPtr != nullptr)
+    {
+      const SemanticAgentGrounding* subjAgentGrdPtr = grdExpPtr->grounding().getAgentGroundingPtr();
+      if (subjAgentGrdPtr != nullptr)
+        return subjAgentGrdPtr->userId;
+    }
+  }
+  return SemanticAgentGrounding::userNotIdentified;
 }
 
 
