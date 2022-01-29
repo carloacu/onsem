@@ -204,6 +204,8 @@ Chunk* getAuxiliaryChunk(Chunk& pVerbChunk);
 
 Chunk* getChunkWithAQuestionWordChild(Chunk& pVerbChunk);
 
+bool haveAQuestionWordChildAfter(const Chunk& pVerbChunk);
+
 void forEachAuxiliaryChunks(const Chunk& pVerbChunk,
                             const std::function<void(const Chunk&)>& pCallback);
 
@@ -253,11 +255,11 @@ void getVerbComplements
 const ChunkLink* getChunkLinkWithAuxSkip(const Chunk& pVerbChunk,
                                          ChunkLinkType pChildChunkLink);
 
-ChunkLink* getSubjectChunkLink
-(Chunk& pVerbChunk);
+ChunkLink* getSubjectChunkLink(Chunk& pVerbChunk);
 
-Chunk* getSubjectChunk
-(const Chunk& pVerbChunk);
+ChunkLinkIter getSubjectChunkLkIterator(Chunk& pVerbChunk);
+
+Chunk* getSubjectChunk(const Chunk& pVerbChunk);
 
 ChunkLink* getChunkLinkWhereWeCanLinkASubodinate(Chunk& pVerbChunk);
 ChunkLink* getSubjectChunkLinkWhereWeCanLinkASubodinate(Chunk& pVerbChunk);

@@ -186,6 +186,15 @@ struct ONSEM_COMMON_API SemanticRequests
         res = true;
     return res;
   }
+  bool isAQuestionNotAskingAboutTheObject() const
+  {
+    bool res = false;
+    for (const auto& type : types)
+      if (type != SemanticRequestType::ACTION &&
+          type != SemanticRequestType::OBJECT)
+        res = true;
+    return res;
+  }
   bool has(SemanticRequestType pRequest) const
   {
     for (const auto& currRequest : types)

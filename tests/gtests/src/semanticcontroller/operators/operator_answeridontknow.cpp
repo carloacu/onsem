@@ -87,6 +87,7 @@ TEST_F(SemanticReasonerGTests, operator_answerIDontKnow_basic)
   EXPECT_EQ("Je ne sais pas ce que c'est une tomate.", operator_answerIDontKnow("C’est quoi une tomate ?", lingDb));
   EXPECT_EQ("Je ne sais pas quelle est la différence entre un bébé et un crocodile.", operator_answerIDontKnow("Quelle est la différence entre un bébé et un crocodile?", lingDb));
   EXPECT_EQ("Je ne sais pas quand et où Anne est née.", operator_answerIDontKnow("Quand et où est née Anne", lingDb));
+  EXPECT_EQ("Je ne sais pas où est mon père.", operator_answerIDontKnow("Il est où ton père", lingDb));
 }
 
 

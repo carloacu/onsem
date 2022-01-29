@@ -537,6 +537,18 @@ Chunk* getChunkWithAQuestionWordChild(Chunk& pVerbChunk)
 }
 
 
+bool haveAQuestionWordChildAfter(const Chunk& pVerbChunk)
+{
+  for (const auto& currChild : pVerbChunk.children)
+  {
+    if (currChild.type == ChunkLinkType::QUESTIONWORD &&
+        checkOrder(pVerbChunk, *currChild.chunk))
+      return true;
+  }
+  return false;
+}
+
+
 void forEachAuxiliaryChunks(const Chunk& pVerbChunk,
                             const std::function<void(const Chunk&)>& pCallback)
 {
@@ -555,14 +567,11 @@ std::list<ChunkLink>::iterator getChunkLink
  ChunkLinkType pLinkType)
 {
   for (auto it = pVerbChunk.children.begin(); it != pVerbChunk.children.end(); ++it)
-  {
     if (it->type == pLinkType)
-    {
       return it;
-    }
-  }
   return pVerbChunk.children.end();
 }
+
 
 std::list<ChunkLink>::const_iterator getChunkLink
 (const Chunk& pVerbChunk,
@@ -816,10 +825,22 @@ ChunkLink* getSubjectChunkLink(Chunk& pVerbChunk)
 }
 
 
+ChunkLinkIter getSubjectChunkLkIterator(Chunk& pVerbChunk)
+{
+  for (auto it = pVerbChunk.children.begin(); it != pVerbChunk.children.end(); ++it)
+  {
+    if (it->type == ChunkLinkType::SUBJECT)
+      return ChunkLinkIter(pVerbChunk.children, it);
+    if (it->type == ChunkLinkType::AUXILIARY)
+      return getSubjectChunkLkIterator(*it->chunk);
+  }
+  return ChunkLinkIter(pVerbChunk.children, pVerbChunk.children.end());
+}
+
+
 Chunk* getSubjectChunk(const Chunk& pVerbChunk)
 {
-  for (std::list<ChunkLink>::const_iterator it = pVerbChunk.children.begin();
-       it != pVerbChunk.children.end(); ++it)
+  for (auto it = pVerbChunk.children.begin(); it != pVerbChunk.children.end(); ++it)
   {
     if (it->type == ChunkLinkType::SUBJECT)
     {
@@ -832,7 +853,6 @@ Chunk* getSubjectChunk(const Chunk& pVerbChunk)
   }
   return nullptr;
 }
-
 
 Chunk* whereToLinkTheSubjectPtr(Chunk* pVerbChunk,
                                 const InflectionsChecker& pFls)

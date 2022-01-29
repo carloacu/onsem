@@ -144,10 +144,10 @@ bool _pronCanSubstituteAInflWord(const InflectedWord& pPronToSubstitute,
   {
     if (!InflectionsChecker::areInflectionsCompatibles(pPronToSubstitute.inflections(), pInflWord.inflections()))
       return false;
-    if (ConceptSet::haveAConceptThatBeginWith(pInflWord.infos.concepts, "agent_"))
-    {
+    if (ConceptSet::haveAConceptThatBeginWith(pInflWord.infos.concepts, "agent_profession_"))
       return false;
-    }
+    if (pPronToSubstitute.word == SemanticWord(SemanticLanguageEnum::FRENCH, "on", PartOfSpeech::PRONOUN_SUBJECT))
+      return false;
 
     if (pPronToSubstitute.infos.hasContextualInfo(WordContextualInfos::REFTOAPERSON))
     {

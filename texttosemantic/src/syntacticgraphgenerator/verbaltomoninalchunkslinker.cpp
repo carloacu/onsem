@@ -692,14 +692,33 @@ bool VerbalToNominalChunksLinker::_linkAVerbGroupToHisCOD
   _tryAddDirectObjectToImperativeVerb(*pVerbChunk, pWorkingZone);
   while (!pWorkingZone.empty())
   {
-    Chunk& subordonateChunk = *pWorkingZone.begin()->chunk;
+    auto& subordonateChunkLk = *pWorkingZone.begin();
+    Chunk& subordonateChunk = *subordonateChunkLk.chunk;
     if (subordonateChunk.type == ChunkType::INFINITVE_VERB_CHUNK)
     {
-      pWorkingZone.begin()->type = ChunkLinkType::DIRECTOBJECT;
+      subordonateChunkLk.type = ChunkLinkType::DIRECTOBJECT;
       pVerbChunk->children.splice(pVerbChunk->children.end(),
                                   pWorkingZone.syntTree(), pWorkingZone.begin());
+      break;
     }
-    else if (chunkCanBeAnObject(subordonateChunk))
+    if (subordonateChunk.type != ChunkType::PREPOSITIONAL_CHUNK &&
+        pVerbChunk->requests.isAQuestionNotAskingAboutTheObject() &&
+        haveAQuestionWordChildAfter(*pVerbChunk))
+    {
+      auto itSubjectChunkLk = getSubjectChunkLkIterator(*pVerbChunk);
+      if (!itSubjectChunkLk.atEnd() &&
+          (fConf.getLinker().canSubstituteAChunkByAnother(*itSubjectChunkLk, subordonateChunk, true)))
+      {
+        subordonateChunkLk.type = ChunkLinkType::SUBJECT;
+        subordonateChunkLk.tokRange = itSubjectChunkLk->chunk->tokRange;
+        itSubjectChunkLk.eraseIt();
+        pVerbChunk->children.splice(pVerbChunk->children.end(),
+                                    pWorkingZone.syntTree(), pWorkingZone.begin());
+        break;
+      }
+    }
+
+    if (chunkCanBeAnObject(subordonateChunk))
     {
       if (fConf.getEntityRecognizer().addSubordonatesToAVerb(*pVerbChunk, pWorkingZone))
         break; // TODO: replace break by continue
