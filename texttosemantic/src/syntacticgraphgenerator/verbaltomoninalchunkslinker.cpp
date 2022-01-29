@@ -276,23 +276,6 @@ void VerbalToNominalChunksLinker::_constructASyntGraphBetween2VerbChunks
       codAlreadyLinkToFirstVerb |= _linkAVerbGroupToHisCOD(workingZone, firstVerbChunk);
     }
 
-    if (!codAlreadyLinkToFirstVerb &&
-        firstVerbChunk->type == ChunkType::INFINITVE_VERB_CHUNK)
-    {
-      auto beforeFirstVerb = workingZone.begin();
-      --beforeFirstVerb;
-      if (beforeFirstVerb != workingZone.syntTree().begin())
-      {
-        --beforeFirstVerb;
-        if (beforeFirstVerb != workingZone.syntTree().begin() &&
-            beforeFirstVerb->chunk->type != ChunkType::VERB_CHUNK &&
-            beforeFirstVerb->chunk->type != ChunkType::SEPARATOR_CHUNK)
-        {
-          codAlreadyLinkToFirstVerb |= _linkAVerbGroupToHisCOD(workingZone, firstVerbChunk);
-        }
-      }
-    }
-
     if (language == SemanticLanguageEnum::FRENCH &&
         !codAlreadyLinkToFirstVerb &&
         subSecondVerbChunk != nullptr &&
