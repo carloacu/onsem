@@ -106,7 +106,7 @@ void ChunksLinker::_tryToLinkToAPrevWord(
     History& pHistory,
     std::list<Chunk*>& pStack) const
 {
-  auto _canLinkWith = [this, &pPronounChkLk, &pHistory, &pStack]
+  auto _canLinkWith = [this, &pPronounChkLk, &pStack]
       (ChunkLink& pPrevElt,
       bool pRefChunkIsAtRoot)
   {
@@ -151,6 +151,8 @@ bool _pronCanSubstituteAInflWord(const InflectedWord& pPronToSubstitute,
 
     if (pPronToSubstitute.infos.hasContextualInfo(WordContextualInfos::REFTOAPERSON))
     {
+      if (pInflWord.word.partOfSpeech == PartOfSpeech::VERB)
+        return false;
       if (partOfSpeech_isPronominal(pInflWord.word.partOfSpeech))
       {
         if (!pInflWord.infos.hasContextualInfo(WordContextualInfos::REFTOAPERSON))
