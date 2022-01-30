@@ -799,6 +799,29 @@ void getVerbComplements
 }
 
 
+bool haveOtherEltsBetterToLinkInAList(ChunkLinkIter& pBeforeLastElt,
+                                      ChunkLinkIter& pLastElt)
+{
+  auto& lastWord = pLastElt->chunk->getHeadWord();
+  if (pBeforeLastElt->chunk->getHeadWord() == lastWord)
+    return false;
+
+  auto beforeElt = pBeforeLastElt;
+  --beforeElt;
+  while (!beforeElt.atEnd())
+  {
+    auto& beforeEltChunkType = beforeElt->chunk->type;
+    if (chunkTypeIsAList(beforeEltChunkType) ||
+        (beforeEltChunkType == ChunkType::SEPARATOR_CHUNK && beforeElt->chunk->getHeadPartOfSpeech() != PartOfSpeech::SUBORDINATING_CONJONCTION))
+      return false;
+    if (beforeElt->chunk->getHeadWord() == lastWord)
+      return true;
+    --beforeElt;
+  }
+  return false;
+}
+
+
 const ChunkLink* getChunkLinkWithAuxSkip(const Chunk& pVerbChunk,
                                          ChunkLinkType pChildChunkLink)
 {

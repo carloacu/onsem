@@ -26,6 +26,7 @@ struct ONSEM_TEXTTOSEMANTIC_API Chunk
       const TokenRange& pTokRange,
       ChunkType pType);
 
+  const SemanticWord& getHeadWord() const;
   PartOfSpeech getHeadPartOfSpeech() const;
   const WordAssociatedInfos& getHeadAssInfos() const;
   const std::map<std::string, char>& getHeadConcepts() const;

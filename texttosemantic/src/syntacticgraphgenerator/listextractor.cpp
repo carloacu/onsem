@@ -309,6 +309,9 @@ bool ListExtractor::_addANewMultiWordsList
  ChunkLinkIter& pNextIt,
  bool pAllowToNotRepeatTheSubject) const
 {
+  if (haveOtherEltsBetterToLinkInAList(pNextIt, pPrevIt))
+    return false;
+
   const Chunk& prevChunk = *pPrevIt.getIt()->chunk;
   std::list<ChunkLink>::iterator nextChunk = pNextIt.getIt();
   const Chunk& nextChunkFirstElt = getFirstListEltChunk(*nextChunk->chunk);

@@ -252,6 +252,9 @@ void getVerbComplements
 (std::list<Chunk*>& pComplements,
  Chunk& pVerbChunk);
 
+bool haveOtherEltsBetterToLinkInAList(ChunkLinkIter& pBeforeLastElt,
+                                      ChunkLinkIter& pLastElt);
+
 const ChunkLink* getChunkLinkWithAuxSkip(const Chunk& pVerbChunk,
                                          ChunkLinkType pChildChunkLink);
 

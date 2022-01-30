@@ -25,6 +25,11 @@ Chunk::Chunk(
 {
 }
 
+const SemanticWord& Chunk::getHeadWord() const
+{
+  return head->inflWords.front().word;
+}
+
 PartOfSpeech Chunk::getHeadPartOfSpeech() const
 {
   return head->inflWords.front().word.partOfSpeech;
