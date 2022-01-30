@@ -5,6 +5,7 @@
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include "../tool/synthesizeradder.hpp"
+#include "../tool/synthesizergetter.hpp"
 
 namespace onsem
 {
@@ -378,7 +379,7 @@ bool LinguisticsynthesizergroundingFrench::_writeVerbGoal
  const SemanticStatementGrounding& pStatementGrd,
  const linguistics::InflectedWord&,
  const SynthesizerConfiguration& pConf,
- bool) const
+ const UniqueSemanticExpression* pSubjectPtr) const
 {
   switch (pStatementGrd.verbGoal)
   {
@@ -400,13 +401,16 @@ bool LinguisticsynthesizergroundingFrench::_writeVerbGoal
     const auto& statGrd = (*canGenGrd)->getStatementGrounding();
     OutSentence subOutSentence;
     linguistics::InflectedWord verbInfoGram;
-    getIGramOfAStatementMeaning(verbInfoGram, statGrd, pConf);
+    if (pStatementGrd.verbGoal == VerbGoalEnum::MANDATORY && synthGetter::hasGenericConcept(pSubjectPtr))
+      verbInfoGram.word = SemanticWord(SemanticLanguageEnum::FRENCH, "falloir", PartOfSpeech::VERB);
+    else
+      getIGramOfAStatementMeaning(verbInfoGram, statGrd, pConf);
     SynthesizerCurrentContext subContext(pVerbContext);
     subContext.isPassive = false;
     if (subContext.verbGoal == VerbGoalEnum::ABILITY)
       subContext.verbGoal = VerbGoalEnum::NOTIFICATION;
     statGroundingTranslation(subOutSentence, pConf, statGrd,
-                             verbInfoGram, *canGenGrd, subContext, false);
+                             verbInfoGram, *canGenGrd, subContext, nullptr);
     _chunksMerger.formulateSentence(pOutSentence.verbGoal.out, subOutSentence);
     return true;
   }

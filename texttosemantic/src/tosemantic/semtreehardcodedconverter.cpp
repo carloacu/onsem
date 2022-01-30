@@ -370,7 +370,7 @@ void refactorFrenchSentencesWithAGoal(std::unique_ptr<SemanticExpression>& pSemE
             auto itSubject = newGrdExpPtr->children.find(GrammaticalType::SUBJECT);
             if (itSubject != newGrdExpPtr->children.end() &&
                 SemExpGetter::isACoreference(*itSubject->second, CoreferenceDirectionEnum::BEFORE))
-              itSubject->second = pTextProcContext.usSemExp->clone();
+              itSubject->second = mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("generic"));
           }
         }
         return;

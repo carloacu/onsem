@@ -182,6 +182,7 @@ protected:
   (std::list<WordToSynthesize>& pOut) const = 0;
 
   virtual void _writeSubjectOfGeneralitySentence(OutSentence& pOutSentence) const = 0;
+  virtual void _writeGenericSubject(OutSentence& pOutSentence) const = 0;
   virtual void _getBeginOfBetweenSubordonate(std::list<WordToSynthesize>& pOut) const = 0;
   virtual void _getBeginOfCauseSubordonate(std::list<WordToSynthesize>& pOut) const = 0;
 

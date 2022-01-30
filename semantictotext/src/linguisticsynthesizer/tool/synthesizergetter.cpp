@@ -151,6 +151,15 @@ SemanticGenderType getGenderFromSemExp
 }
 
 
+bool hasGenericConcept(const UniqueSemanticExpression* pUSemExpPtr)
+{
+  if (pUSemExpPtr == nullptr)
+    return false;
+  auto* grdExpPtr = pUSemExpPtr->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+  return grdExpPtr != nullptr &&
+      ConceptSet::haveAConcept(grdExpPtr->grounding().concepts, "generic");
+}
+
 
 bool doesOutFinishedWithAS(const std::list<WordToSynthesize>& pOut)
 {

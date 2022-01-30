@@ -771,7 +771,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
       inflectedVerb.word.lemma = "tell";
     grdSynth.statGroundingTranslation(sentWorkStruct.outs, pConf, pStatementGrd, inflectedVerb,
                                       sentWorkStruct.grdExp, verbContext,
-                                      sentWorkStruct.subjectPtr != nullptr);
+                                      sentWorkStruct.subjectPtr);
 
     // write the negations
     if (!verbContext.isPositive)
@@ -1008,6 +1008,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
     case GrammaticalType::SUB_CONCEPT:
     case GrammaticalType::OTHER_THAN:
     case GrammaticalType::INTRODUCTING_WORD:
+    case GrammaticalType::NOT_UNDERSTOOD:
     case GrammaticalType::UNKNOWN:
       break;
     }
@@ -1537,6 +1538,18 @@ void LinguisticSynthesizerPrivate::_writeSubjectContext
  SynthesizerConfiguration& pConf,
  const SemanticRequests& pRequests) const
 {
+  const GroundedExpression* grdExpPtr = pSemExp->getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+  {
+    const GroundedExpression& grdExp = *grdExpPtr;
+    const SemanticGrounding& grounding = grdExp.grounding();
+    if (ConceptSet::haveAConcept(grounding.concepts, "generic"))
+    {
+      _writeGenericSubject(pOutSentence);
+      return;
+    }
+  }
+
   bool useLastSubject = false;
   if (*pLastSubject != nullptr)
   {
@@ -1569,19 +1582,16 @@ void LinguisticSynthesizerPrivate::_writeSubjectContext
                  *pSemExp, pConf, pSubjectContext);
     *pLastSubject = &*pSemExp;
 
-    if (_language == SemanticLanguageEnum::FRENCH)
+    if (_language == SemanticLanguageEnum::FRENCH &&
+        grdExpPtr != nullptr)
     {
-      const GroundedExpression* grdExpPtr = pSemExp->getGrdExpPtr_SkipWrapperPtrs();
-      if (grdExpPtr != nullptr)
-      {
-        const GroundedExpression& grdExp = *grdExpPtr;
-        const SemanticGrounding& grounding = grdExp.grounding();
-        const SemanticStatementGrounding* statGrdPtr = grounding.getStatementGroundingPtr();
-        // add "ce" when the subject is an infinitive verb
-        if (statGrdPtr != nullptr &&
-            statGrdPtr->verbTense == SemanticVerbTense::UNKNOWN)
-          _strWithApostropheToOut(pOutSentence.subject.out, PartOfSpeech::PRONOUN_SUBJECT, "c'", "ça");
-      }
+      const GroundedExpression& grdExp = *grdExpPtr;
+      const SemanticGrounding& grounding = grdExp.grounding();
+      const SemanticStatementGrounding* statGrdPtr = grounding.getStatementGroundingPtr();
+      // add "ce" when the subject is an infinitive verb
+      if (statGrdPtr != nullptr &&
+          statGrdPtr->verbTense == SemanticVerbTense::UNKNOWN)
+        _strWithApostropheToOut(pOutSentence.subject.out, PartOfSpeech::PRONOUN_SUBJECT, "c'", "ça");
     }
   }
 }

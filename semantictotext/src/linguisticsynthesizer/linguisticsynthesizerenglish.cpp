@@ -363,6 +363,11 @@ void LinguisticSynthesizerEnglish::_writeSubjectOfGeneralitySentence(OutSentence
   _strToOut(pOutSentence.subject.out, PartOfSpeech::PRONOUN, "there");
 }
 
+void LinguisticSynthesizerEnglish::_writeGenericSubject(OutSentence& pOutSentence) const
+{
+  _strToOut(pOutSentence.subject.out, PartOfSpeech::PRONOUN_SUBJECT, "we");
+}
+
 void LinguisticSynthesizerEnglish::_getBeginOfBetweenSubordonate
 (std::list<WordToSynthesize>& pOut) const
 {

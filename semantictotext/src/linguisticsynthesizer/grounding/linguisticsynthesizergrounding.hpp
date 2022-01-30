@@ -87,7 +87,7 @@ public:
    const linguistics::InflectedWord& pVerbInfoGram,
    const GroundedExpression& pHoldingGrdExp,
    const SynthesizerCurrentContext& pVerbContext,
-   bool pHasASubject) const;
+   const UniqueSemanticExpression* pSubjectPtr) const;
 
   void langGroundingTranslation
   (std::list<WordToSynthesize>& pOut,
@@ -313,7 +313,7 @@ protected:
                               const SemanticStatementGrounding& pStatementGrd,
                               const linguistics::InflectedWord& pOutInfoGram,
                               const SynthesizerConfiguration& pConf,
-                              bool pHaveASubject) const = 0;
+                              const UniqueSemanticExpression* pSubjectPtr) const = 0;
 
   virtual std::string _usRelativePersonToStr(SynthesizerCurrentContextType pContextType,
                                              LinguisticVerbTense pVerbTense) const = 0;

@@ -210,7 +210,7 @@ void Linguisticsynthesizergrounding::writeGrounding
     linguistics::InflectedWord verbInfoGram;
     getIGramOfAStatementMeaning(verbInfoGram, statementGrd, pConf);
     statGroundingTranslation(outSentence, pConf, statementGrd, verbInfoGram,
-                             pHoldingGrdExp, pContext, false);
+                             pHoldingGrdExp, pContext, nullptr);
     getChunksMerger().formulateSentence(pOutSemExp.out, outSentence);
     pOutSemExp.partOfSpeech = PartOfSpeech::VERB;
     break;
@@ -376,12 +376,12 @@ void Linguisticsynthesizergrounding::statGroundingTranslation
  const linguistics::InflectedWord& pVerbInfoGram,
  const GroundedExpression& pHoldingGrdExp,
  const SynthesizerCurrentContext& pVerbContext,
- bool pHasASubject) const
+ const UniqueSemanticExpression* pSubjectPtr) const
 {
   SynthesizerCurrentContext verbContext = pVerbContext;
   // write the auxiliary / verb goal
   if (_writeVerbGoal(pOutSentence, verbContext, pStatementGrd,
-                     pVerbInfoGram, pConf, pHasASubject))
+                     pVerbInfoGram, pConf, pSubjectPtr))
   {
     if (!verbContext.isPassive)
     {

@@ -4,6 +4,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticsynthesizerdictionary.hpp>
 #include "../tool/synthesizeradder.hpp"
+#include "../tool/synthesizergetter.hpp"
 
 namespace onsem
 {
@@ -244,7 +245,7 @@ bool LinguisticsynthesizergroundingEnglish::_writeVerbGoal
  const SemanticStatementGrounding& pStatementGrd,
  const linguistics::InflectedWord& pOutInfoGram,
  const SynthesizerConfiguration& pConf,
- bool pHaveASubject) const
+ const UniqueSemanticExpression* pSubjectPtr) const
 {
   static const PartOfSpeech auxPOF = PartOfSpeech::AUX;
 
@@ -274,8 +275,13 @@ bool LinguisticsynthesizergroundingEnglish::_writeVerbGoal
   }
   case VerbGoalEnum::MANDATORY:
   {
-    _strToOut(pOutSentence.aux.out, auxPOF,
-             pVerbContext.isPositive ? "must" : "must not");
+    if (pStatementGrd.verbGoal == VerbGoalEnum::MANDATORY && synthGetter::hasGenericConcept(pSubjectPtr) &&
+        pVerbContext.requests.empty())
+      _strToOut(pOutSentence.aux.out, auxPOF,
+                pVerbContext.isPositive ? "have to" : "have not to");
+    else
+      _strToOut(pOutSentence.aux.out, auxPOF,
+                pVerbContext.isPositive ? "must" : "must not");
     return true;
   }
   case VerbGoalEnum::POSSIBILITY:
@@ -288,7 +294,7 @@ bool LinguisticsynthesizergroundingEnglish::_writeVerbGoal
     break;
   }
 
-  if (pHaveASubject &&
+  if (pSubjectPtr != nullptr &&
       pOutSentence.verbGoal.out.empty() &&
       !pOutSentence.requests.empty() &&
       !pOutSentence.requests.has(SemanticRequestType::ACTION) &&

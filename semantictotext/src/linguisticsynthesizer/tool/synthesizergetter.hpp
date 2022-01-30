@@ -14,6 +14,7 @@ struct InflectedWord;
 struct LinguisticDatabase;
 class SynthesizerDictionary;
 }
+struct UniqueSemanticExpression;
 struct SemanticGenericGrounding;
 struct LinguisticMeaning;
 struct SemanticExpression;
@@ -49,6 +50,8 @@ SemanticGenderType getGenderFromSemExp(const SemanticExpression& pSemExp,
                                        const SynthesizerConfiguration& pConf,
                                        const SynthesizerCurrentContext& pContext,
                                        const Linguisticsynthesizergrounding& pGrdSynth);
+
+bool hasGenericConcept(const UniqueSemanticExpression* pUSemExpPtr);
 
 bool doesOutFinishedWithAS(const std::list<WordToSynthesize>& pOut);
 

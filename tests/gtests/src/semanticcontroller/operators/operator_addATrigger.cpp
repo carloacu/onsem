@@ -167,7 +167,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
   // must question
   {
     const std::string questionsStr = "Que faut-il faire?";
-    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas ce que nous devons faire.",
+    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas ce qu'il faut faire.",
                             operator_answer(questionsStr, semMem, lingDb));
     const std::string answerStr = "Rien de spécial";
     operator_addATrigger(questionsStr, answerStr, semMem, lingDb);
@@ -180,8 +180,8 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string questionsStr = "comment formuler cette question";
     ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas comment formuler cette question.",
                             operator_answer(questionsStr, semMem, lingDb));
-    operator_addATrigger(questionsStr, "Il faut regarder dans un livre de grammaire.", semMem, lingDb);
-    const std::string answerStr = "Nous devons regarder dans un livre de grammaire.";
+    const std::string answerStr = "Il faut regarder dans un livre de grammaire.";
+    operator_addATrigger(questionsStr, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_answer(questionsStr, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(questionsStr, semMem, lingDb));
   }

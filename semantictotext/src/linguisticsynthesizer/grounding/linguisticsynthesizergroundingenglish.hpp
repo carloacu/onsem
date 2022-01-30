@@ -91,7 +91,7 @@ protected:
                               const SemanticStatementGrounding& pStatementGrd,
                               const linguistics::InflectedWord& pOutInfoGram,
                               const SynthesizerConfiguration& pConf,
-                              bool pHaveASubject) const;
+                              const UniqueSemanticExpression* pSubjectPtr) const;
 
   virtual std::string _usRelativePersonToStr(SynthesizerCurrentContextType pContextType,
                                              LinguisticVerbTense pVerbTense) const;
