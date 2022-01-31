@@ -70,6 +70,8 @@ mystd::optional<ChunkLinkType> grammaticalTypeToChunkType(GrammaticalType pGramT
     return ChunkLinkType::WITHOUT;
   case GrammaticalType::SUBORDINATE:
     return ChunkLinkType::SUBORDINATE;
+  case GrammaticalType::NOT_UNDERSTOOD:
+    return ChunkLinkType::NOTUNDERSTOOD;
 
   case GrammaticalType::SUB_CONCEPT:
   case GrammaticalType::OTHER_THAN:
@@ -148,6 +150,8 @@ mystd::optional<GrammaticalType> chunkTypeToGrammaticalType
     return GrammaticalType::WITHOUT;
   case ChunkLinkType::SUBORDINATE:
     return GrammaticalType::SUBORDINATE;
+  case ChunkLinkType::NOTUNDERSTOOD:
+    return GrammaticalType::NOT_UNDERSTOOD;
 
   case ChunkLinkType::COMPARATOR_DIFFERENT:
   case ChunkLinkType::COMPARATOR_EQUAL:
@@ -163,7 +167,6 @@ mystd::optional<GrammaticalType> chunkTypeToGrammaticalType
   case ChunkLinkType::IF:
   case ChunkLinkType::ELSE:
   case ChunkLinkType::COMPLEMENT:
-  case ChunkLinkType::NOTUNDERSTOOD:
   case ChunkLinkType::SIMPLE:
     return mystd::optional<GrammaticalType>();
   }
