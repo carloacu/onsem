@@ -135,6 +135,11 @@ void getInfinitiveToTwoDifferentPossibleWayToAskForIt(UniqueSemanticExpression& 
 ONSEMSEMANTICTOTEXT_API
 UniqueSemanticExpression getFutureIndicativeFromInfinitive(UniqueSemanticExpression pUSemExp);
 
+
+ONSEMSEMANTICTOTEXT_API
+void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
+                                 const SemanticExpression& pSemExp);
+
 } // End of namespace converter
 } // End of namespace onsem
 

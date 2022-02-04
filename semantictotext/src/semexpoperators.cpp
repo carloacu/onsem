@@ -182,20 +182,6 @@ void addATrigger(UniqueSemanticExpression pTriggerSemExp,
                  SemanticMemory& pSemanticMemory,
                  const linguistics::LinguisticDatabase& pLingDb)
 {
-  /*
-  if (memoryOperation::categorize(*pTriggerSemExp) == SemanticExpressionCategory::COMMAND)
-  {
-    auto* triggerGrdExpPtr = pTriggerSemExp->getGrdExpPtr_SkipWrapperPtrs();
-    if (triggerGrdExpPtr != nullptr)
-    {
-      auto triggerGrdExpInfForm =
-          SemExpCreator::getImperativeInfinitiveForm(*triggerGrdExpPtr);
-      auto definitionSemExp =
-          SemExpCreator::subjMeansObject(std::move(triggerGrdExpInfForm), pAnswerSemExp->clone());
-      informAxiom(std::move(definitionSemExp), pSemanticMemory, pLingDb, nullptr, nullptr);
-    }
-  }
-  */
   conditionsAdder::addConditonsForSomeTimedGrdExp(pTriggerSemExp);
 
   resolveAgentAccordingToTheContext(pTriggerSemExp, pSemanticMemory, pLingDb);

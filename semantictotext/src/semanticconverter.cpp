@@ -24,6 +24,7 @@
 #include "linguisticsynthesizer/synthesizerresulttypes.hpp"
 #include "utility/semexpcreator.hpp"
 
+
 namespace onsem
 {
 namespace converter
@@ -519,6 +520,26 @@ UniqueSemanticExpression getFutureIndicativeFromInfinitive(UniqueSemanticExpress
   return UniqueSemanticExpression();
 }
 
+
+void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
+                                 const SemanticExpression& pSemExp)
+{
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+  {
+    auto* statGrdPtr = grdExpPtr->grounding().getStatementGroundingPtr();
+    if (statGrdPtr != nullptr)
+    {
+      auto& statGrd = *statGrdPtr;
+      if (statGrd.requests.has(SemanticRequestType::ACTION))
+      {
+        pRes.emplace_back(SemExpCreator::iWantThatYou(SemanticAgentGrounding::currentUser, SemExpCreator::getIndicativeFromImperative(*grdExpPtr)));
+        pRes.emplace_back(SemExpCreator::getInfinitiveFromImperativeForm(*grdExpPtr));
+      }
+    }
+  }
+
+}
 
 
 } // End of namespace converter

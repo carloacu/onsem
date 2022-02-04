@@ -15,6 +15,27 @@
 namespace onsem
 {
 
+void _operator_addATriggerFromSemExp(UniqueSemanticExpression& pTriggerSemExp,
+                                     const std::string& pAnswerText,
+                                     SemanticMemory& pSemanticMemory,
+                                     const linguistics::LinguisticDatabase& pLingDb,
+                                     const std::list<std::string>& pReferences)
+{
+  TextProcessingContext answerProcContext(SemanticAgentGrounding::me,
+                                          SemanticAgentGrounding::currentUser,
+                                          SemanticLanguageEnum::UNKNOWN);
+  answerProcContext.isTimeDependent = false;
+  answerProcContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
+        std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
+  auto answerSemExp =
+      converter::textToContextualSemExp(pAnswerText, answerProcContext, SemanticSourceEnum::WRITTENTEXT,
+                                        pLingDb, &pReferences);
+
+  memoryOperation::addATrigger(std::move(pTriggerSemExp), std::move(answerSemExp),
+                               pSemanticMemory, pLingDb);
+}
+
+
 void operator_addATrigger(const std::string& pTriggerText,
                           const std::string& pAnswerText,
                           SemanticMemory& pSemanticMemory,
@@ -26,20 +47,27 @@ void operator_addATrigger(const std::string& pTriggerText,
                                            SemanticLanguageEnum::UNKNOWN);
   triggerProcContext.isTimeDependent = false;
   auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
-
-  TextProcessingContext answerProcContext(SemanticAgentGrounding::me,
-                                          SemanticAgentGrounding::currentUser,
-                                          SemanticLanguageEnum::UNKNOWN);
-  answerProcContext.isTimeDependent = false;
-  answerProcContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
-        std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
-  auto answerSemExp =
-      converter::textToContextualSemExp(pAnswerText, answerProcContext, SemanticSourceEnum::WRITTENTEXT,
-                                        pLingDb, &pReferences);
-
-  memoryOperation::addATrigger(std::move(triggerSemExp), std::move(answerSemExp),
-                               pSemanticMemory, pLingDb);
+  _operator_addATriggerFromSemExp(triggerSemExp, pAnswerText, pSemanticMemory, pLingDb, pReferences);
 }
+
+
+void operator_addOtherTriggerFormulations(const std::string& pTriggerText,
+                                          const std::string& pAnswerText,
+                                          SemanticMemory& pSemanticMemory,
+                                          const linguistics::LinguisticDatabase& pLingDb,
+                                          const std::list<std::string>& pReferences = std::list<std::string>())
+{
+  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           SemanticLanguageEnum::UNKNOWN);
+  triggerProcContext.isTimeDependent = false;
+  auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
+  std::list<UniqueSemanticExpression> otherTriggerFormulations;
+  converter::addOtherTriggerFormulations(otherTriggerFormulations, *triggerSemExp);
+  for (auto& currOtherTriggerFormulation : otherTriggerFormulations)
+    _operator_addATriggerFromSemExp(currOtherTriggerFormulation, pAnswerText, pSemanticMemory, pLingDb, pReferences);
+}
+
 
 } // End of namespace onsem
 
@@ -316,7 +344,13 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("démarre akinator", semMem, lingDb));
-    //ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu lances akinator", semMem, lingDb));
+    const auto iWantYouToLaunchAkinator = "Je veux que tu lances akinator";
+    const auto toLaunchAkinator = "Lancer akinator";
+    ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas lancer akinator.", operator_react(iWantYouToLaunchAkinator, semMem, lingDb));
+    ONSEM_FEEDBACK_EQ("C'est pas faux.", operator_react(toLaunchAkinator, semMem, lingDb));
+    operator_addOtherTriggerFormulations(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(iWantYouToLaunchAkinator, semMem, lingDb));
+    ONSEM_ANSWER_EQ(answerStr, operator_react(toLaunchAkinator, semMem, lingDb));
     {
       std::stringstream ss;
       ss << "<dictionary_modification language=\"french\">\n"
@@ -338,7 +372,10 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     memoryOperation::learnSayCommand(semMem, lingDb);
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_reactFromTrigger(triggerStr, semMem, lingDb));
-    //ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu me suives", semMem, lingDb));
+    const auto iWantYouToFollowMe = "je veux que tu me suives";
+    ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas te suivre.", operator_react(iWantYouToFollowMe, semMem, lingDb));
+    operator_addOtherTriggerFormulations(triggerStr, answerStr, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answerStr, operator_react(iWantYouToFollowMe, semMem, lingDb));
   }
 
   // negative action trigger
