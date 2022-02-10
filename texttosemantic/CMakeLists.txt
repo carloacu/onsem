@@ -250,6 +250,9 @@ include_directories(
 target_link_libraries(onsemtexttosemantic
   ${ONSEMCOMMON_LIBRARIES}
 )
+target_compile_features(onsemtexttosemantic PRIVATE cxx_std_14)
+
+
 install(TARGETS onsemtexttosemantic DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
 

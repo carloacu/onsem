@@ -30,6 +30,8 @@ add_library(onsemchatbotplanner SHARED
   ${CHATBOTPLANNER_HPPS}
   ${CHATBOTPLANNER_SRCS}
 )
+target_compile_features(onsemchatbotplanner PRIVATE cxx_std_14)
+
 install(TARGETS onsemchatbotplanner DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
 

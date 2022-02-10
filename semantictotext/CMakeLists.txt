@@ -205,6 +205,9 @@ target_link_libraries(onsemsemantictotext
   ${ONSEMCOMMON_LIBRARIES}
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
 )
+target_compile_features(onsemsemantictotext PRIVATE cxx_std_14)
+
+
 install(TARGETS onsemsemantictotext DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
 

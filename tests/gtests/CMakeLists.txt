@@ -133,6 +133,7 @@ target_link_libraries(semanticreasoner_gtests
   ${ONSEMCHATBOTPLANNER_LIBRARIES}
   ${ONSEMTESTER_LIBRARIES}
 )
+target_compile_features(semanticreasoner_gtests PRIVATE cxx_std_14)
 
 
 add_test(

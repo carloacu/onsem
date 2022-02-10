@@ -90,6 +90,8 @@ include_directories(include)
 
 add_library(onsemcommon SHARED
             ${ONSEMCOMMON_SRCS} ${ONSEMCOMMON_HPPS})
+target_compile_features(onsemcommon PRIVATE cxx_std_14)
+
 install(TARGETS onsemcommon DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
 

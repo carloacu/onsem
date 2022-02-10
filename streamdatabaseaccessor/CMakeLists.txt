@@ -32,6 +32,8 @@ target_link_libraries(onsemstreamdatabaseaccessor
   Boost::filesystem
   ${ONSEMCOMMON_LIBRARIES}
 )
+target_compile_features(onsemstreamdatabaseaccessor PRIVATE cxx_std_14)
+
 
 install(TARGETS onsemstreamdatabaseaccessor DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)

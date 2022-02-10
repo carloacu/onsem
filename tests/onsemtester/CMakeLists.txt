@@ -67,5 +67,5 @@ target_link_libraries(onsemtester
   ${ONSEMSEMANTOCDEBUGGER_LIBRARIES}
   ${ONSEMCHATBOTPLANNER_LIBRARIES}
 )
-
+target_compile_features(onsemtester PRIVATE cxx_std_14)
 
