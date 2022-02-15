@@ -21,6 +21,7 @@
 #include "syntacticgraphgenerator/notunderstoodadder.hpp"
 #include "syntacticgraphgenerator/listextractor.hpp"
 #include "syntacticgraphgenerator/incompletelistsresolver.hpp"
+#include "syntacticgraphgenerator/teachingparser.hpp"
 #include "tosemantic/syntacticgraphtosemantic.hpp"
 #include "tool/chunkshandler.hpp"
 
@@ -154,6 +155,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
 {
   const ErrorDetector& errDetector = pLangConfig.getErrorDetector();
   const InflectionsChecker& inflChecker = pLangConfig.getFlsChecker();
+  const auto language = pLangConfig.getLanguageType();
 
   // Verb chunker
   pLangConfig.getVerbChunker().process(pTokensTree, pFirstChildren);
@@ -167,14 +169,14 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   { return; }
 
   // Verbal to nominal chunks linker
-  if (pLangConfig.getLanguageType() == SemanticLanguageEnum::ENGLISH)
+  if (language == SemanticLanguageEnum::ENGLISH)
     pLangConfig.getVerbToNounLinker().extractEnglishSubjectOf(pFirstChildren);
   pLangConfig.getVerbToNounLinker().process(pFirstChildren);
   if (pEndingStep.doWeShouldStopForDebug(LinguisticAnalysisFinishDebugStepEnum::VERBALTONOMINALCHUNKSLINKER))
   { return; }
 
   if (pIsRootLevel &&
-      pLangConfig.getLanguageType() == SemanticLanguageEnum::ENGLISH &&
+      language == SemanticLanguageEnum::ENGLISH &&
       errDetector.tryToConvertNounToImperativeVerbs(pFirstChildren))
   {
     SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
@@ -228,7 +230,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
       break;
     }
   }
-  if (pLangConfig.getLingDico().getLanguage() == SemanticLanguageEnum::FRENCH)
+  if (language == SemanticLanguageEnum::FRENCH)
   {
     errDetector.frFixOfVerbalChunks(pFirstChildren);
   }
@@ -248,6 +250,11 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   // Add interjection chunks
   addInterjections(pFirstChildren);
   if (pEndingStep.doWeShouldStopForDebug(LinguisticAnalysisFinishDebugStepEnum::INTERJECTIONS_ADDER))
+  { return; }
+
+  if (language == SemanticLanguageEnum::FRENCH)
+    teachingParserFr(pFirstChildren);
+  if (pEndingStep.doWeShouldStopForDebug(LinguisticAnalysisFinishDebugStepEnum::TEACH_PARSING))
   { return; }
 
 

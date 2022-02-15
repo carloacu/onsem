@@ -1309,10 +1309,10 @@ void LinguisticSynthesizerPrivate::_writeNominalChild(OutNominalGroup& outNomina
   }
   case GrammaticalType::PURPOSE:
   {
-    _getBeginOfForChild(outNominalGroup.subordinate.out, currSemExpChild);
+    _getBeginOfForChild(outNominalGroup.purpose.out, currSemExpChild);
     auto subRequests = pRequests;
     std::list<SemExpTypeEnumFormSynt> semExpSyntTypes;
-    _writeSemExp(semExpSyntTypes, outNominalGroup.subordinate, subRequests,
+    _writeSemExp(semExpSyntTypes, outNominalGroup.purpose, subRequests,
                  pLastSubject, currSemExpChild,
                  pConf, SynthesizerCurrentContext());
     break;

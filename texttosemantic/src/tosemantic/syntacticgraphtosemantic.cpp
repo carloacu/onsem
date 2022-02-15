@@ -1710,6 +1710,20 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     res = mystd::unique_propagate_const<UniqueSemanticExpression>(xConvertListChunk(pGeneral, pContext));
     break;
   }
+  case ChunkType::TEACH_CHUNK:
+  {
+    auto semExpWrapped = std::make_unique<GroundedExpression>();
+    for (const ChunkLink& currChkLk : pContext.chunk.children)
+    {
+      ToGenRepContext subContext(pContext, currChkLk, *currChkLk.chunk);
+      subContext.holdingGrdExpPtr = &*semExpWrapped;
+
+      auto gramTypeOptional = chunkTypeToGrammaticalType(currChkLk.type);
+      subContext.grammTypeFromParent = gramTypeOptional ? *gramTypeOptional : GrammaticalType::SUBORDINATE;
+      xAddNewGrammInfo(*semExpWrapped, pGeneral, subContext);
+    }
+    res = mystd::unique_propagate_const<UniqueSemanticExpression>(std::move(semExpWrapped));
+  }
   default:
     break;
   }

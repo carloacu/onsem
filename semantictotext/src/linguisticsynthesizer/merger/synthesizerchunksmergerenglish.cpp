@@ -7,6 +7,9 @@ namespace onsem
 void SynthesizerChunksMergerEnglish::formulateNominalGroup(std::list<WordToSynthesize>& pOut,
                                                            OutNominalGroup& pOutSentence) const
 {
+  bool puproseAtBeginning = pOutSentence.noun.empty();
+  if (puproseAtBeginning)
+    pOut.splice(pOut.end(), pOutSentence.purpose.out);
   pOut.splice(pOut.end(), pOutSentence.modifiersBeforeDeterminer.out);
   pOut.splice(pOut.end(), pOutSentence.determiner.out);
   pOut.splice(pOut.end(), pOutSentence.ownerBeforeMainWord.out);
@@ -18,6 +21,8 @@ void SynthesizerChunksMergerEnglish::formulateNominalGroup(std::list<WordToSynth
   pOut.splice(pOut.end(), pOutSentence.ownerAfterMainWord.out);
   pOut.splice(pOut.end(), pOutSentence.time.out);
   pOut.splice(pOut.end(), pOutSentence.location.out);
+  if (!puproseAtBeginning)
+    pOut.splice(pOut.end(), pOutSentence.purpose.out);
   pOut.splice(pOut.end(), pOutSentence.subordinate.out);
 }
 

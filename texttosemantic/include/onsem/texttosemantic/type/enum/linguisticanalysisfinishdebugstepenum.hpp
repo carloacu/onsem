@@ -31,6 +31,7 @@ static const std::string tokenizerDefaultEndingStep = "finish";
   LINGUISTICFINISHDEBUGSTEP(ERRORDETECTOR, "error detector")                                  \
   LINGUISTICFINISHDEBUGSTEP(LINKER, "linker")                                                 \
   LINGUISTICFINISHDEBUGSTEP(INTERJECTIONS_ADDER, "interjections adder")                       \
+  LINGUISTICFINISHDEBUGSTEP(TEACH_PARSING, "teach parsing")                                   \
   LINGUISTICFINISHDEBUGSTEP(FINISH, "finish")
 
 

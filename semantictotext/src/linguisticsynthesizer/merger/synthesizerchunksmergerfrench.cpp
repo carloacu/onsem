@@ -130,6 +130,9 @@ void _tryToAddHyphen(std::list<WordToSynthesize>& pOut,
 void SynthesizerChunksMergerFrench::formulateNominalGroup(std::list<WordToSynthesize>& pOut,
                                                           OutNominalGroup& pOutSentence) const
 {
+  bool puproseAtBeginning = pOutSentence.noun.empty();
+  if (puproseAtBeginning)
+    pOut.splice(pOut.end(), pOutSentence.purpose.out);
   pOut.splice(pOut.end(), pOutSentence.modifiersBeforeDeterminer.out);
   pOut.splice(pOut.end(), pOutSentence.determiner.out);
   pOut.splice(pOut.end(), pOutSentence.ownerBeforeMainWord.out);
@@ -141,6 +144,8 @@ void SynthesizerChunksMergerFrench::formulateNominalGroup(std::list<WordToSynthe
   pOut.splice(pOut.end(), pOutSentence.ownerAfterMainWord.out);
   pOut.splice(pOut.end(), pOutSentence.time.out);
   pOut.splice(pOut.end(), pOutSentence.location.out);
+  if (!puproseAtBeginning)
+    pOut.splice(pOut.end(), pOutSentence.purpose.out);
   pOut.splice(pOut.end(), pOutSentence.subordinate.out);
 }
 

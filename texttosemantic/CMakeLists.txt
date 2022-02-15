@@ -223,6 +223,8 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/syntacticgraphgenerator/verbaltomoninalchunkslinker.cpp
     src/syntacticgraphgenerator/notunderstoodadder.hpp
     src/syntacticgraphgenerator/notunderstoodadder.cpp
+    src/syntacticgraphgenerator/teachingparser.hpp
+    src/syntacticgraphgenerator/teachingparser.cpp
     src/tosemantic/syntacticgraphtosemantic.hpp
     src/tosemantic/syntacticgraphtosemantic.cpp
     src/tosemantic/syntacticgraphtosemantichourtimehandler.cpp

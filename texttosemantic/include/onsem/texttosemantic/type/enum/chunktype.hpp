@@ -18,7 +18,8 @@ enum class ChunkType
   INFINITVE_VERB_CHUNK,
   AND_CHUNK,
   OR_CHUNK,
-  THEN_CHUNK
+  THEN_CHUNK,
+  TEACH_CHUNK
 };
 
 

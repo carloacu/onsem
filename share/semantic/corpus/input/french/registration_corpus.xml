@@ -24,6 +24,7 @@
     <include file="french_sentiments.txt" />
     <include file="french_sentences.txt" />
     <include file="french_subordinates.txt" />
+    <include file="french_teach.txt" />
     <include file="french_texts.txt" />
     <include file="french_time.txt" />
     <include file="french_trash.txt" />

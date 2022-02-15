@@ -197,6 +197,7 @@ struct OutNominalGroup
   OutSemExp ownerAfterMainWord{};
   OutSemExp time{};
   OutSemExp location{};
+  OutSemExp purpose{};
   OutSemExp subordinate{};
 };
 
