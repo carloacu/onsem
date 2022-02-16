@@ -44,6 +44,11 @@ struct ONSEMSEMANTICTOTEXT_API ExpressionHandleInMemory
                                            const GroundedExpression& pGrdSemExpToAdd,
                                            const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
                                            const linguistics::LinguisticDatabase& pLingDb);
+  SemanticContextAxiom* tryToAddTeachFormulation(InformationType pInformationType,
+                                                 const GroundedExpression& pGrdSemExpToAdd,
+                                                 const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+                                                 const linguistics::LinguisticDatabase& pLingDb);
+
   void addAxiomWhereGatherAllTheLinks(const GroundedExpression& pGrdSemExpToAdd,
                                       const linguistics::LinguisticDatabase& pLingDb);
   void addTriggerLinks(InformationType pInformationType,

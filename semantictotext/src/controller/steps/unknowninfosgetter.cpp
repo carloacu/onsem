@@ -322,7 +322,7 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
           const SemanticStatementGrounding* statGrdExpPtr =
               listEltGrdExpPtr->grounding().getStatementGroundingPtr();
           if (statGrdExpPtr != nullptr &&
-              statGrdExpPtr->isAtInfinitive())
+              (statGrdExpPtr->isAtInfinitive() || statGrdExpPtr->isMandatoryInPresentTense()))
           {
             SemControllerWorkingStruct subWorkStruct(pWorkStruct);
             if (subWorkStruct.askForNewRecursion())

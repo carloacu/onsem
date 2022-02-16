@@ -1217,6 +1217,21 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
         for (const auto& currChild : pGrdExp.children)
           applyOperatorOnSemExp(pWorkStruct, pMemViewer, *currChild.second);
       }
+
+      if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT ||
+          pWorkStruct.reactOperator == SemanticOperatorEnum::TEACHBEHAVIOR)
+      {
+        auto* newContextAxiom =
+            pWorkStruct.expHandleInMemory->tryToAddTeachFormulation(pWorkStruct.informationType, pGrdExp,
+                                                                    pWorkStruct.annotatedExps, pWorkStruct.lingDb);
+        // check if the sentence was about learning a command
+        if (newContextAxiom != nullptr &&
+            newContextAxiom->infCommandToDo != nullptr)
+        {
+          pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::TEACHINGFEEDBACK,
+                                                 SemExpCreator::confirmInformation(pGrdExp));
+        }
+      }
       break;
     }
 

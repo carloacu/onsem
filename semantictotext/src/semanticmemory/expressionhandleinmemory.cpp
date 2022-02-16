@@ -318,6 +318,33 @@ SemanticContextAxiom* ExpressionHandleInMemory::addAxiomFromGrdExp
 }
 
 
+SemanticContextAxiom* ExpressionHandleInMemory::tryToAddTeachFormulation
+(InformationType pInformationType,
+ const GroundedExpression& pGrdSemExpToAdd,
+ const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+ const linguistics::LinguisticDatabase& pLingDb)
+{
+  const GroundedExpression* purposeGrdPtr = nullptr;
+  const SemanticExpression* objectSemExpPtr = nullptr;
+  SemExpGetter::extractTeachElements(purposeGrdPtr, objectSemExpPtr, pGrdSemExpToAdd);
+  if (purposeGrdPtr != nullptr)
+  {
+    assert(objectSemExpPtr != nullptr);
+    contextAxioms.emplace_back(pInformationType, *this);
+    SemanticContextAxiom& axiom = contextAxioms.back();
+    axiom.infCommandToDo = objectSemExpPtr;
+    _addGrdExpToAxiom(axiom, *purposeGrdPtr, pAnnotations, true, pLingDb);
+    if (axiom.memorySentences.elts.empty())
+    {
+      contextAxioms.pop_back();
+      return nullptr;
+    }
+    return &contextAxioms.back();
+  }
+  return nullptr;
+}
+
+
 void ExpressionHandleInMemory::addAxiomWhereGatherAllTheLinks
 (const GroundedExpression& pGrdSemExpToAdd,
  const linguistics::LinguisticDatabase& pLingDb)

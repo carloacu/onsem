@@ -39,6 +39,9 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticStatementGrounding : public SemanticGrou
   bool isEqual(const SemanticStatementGrounding& pOther) const;
 
   bool isAtInfinitive() const { return verbTense == SemanticVerbTense::UNKNOWN; }
+  bool isMandatoryInPresentTense() const {
+    return verbGoal == VerbGoalEnum::MANDATORY &&
+        verbTense == SemanticVerbTense::PRESENT; }
 
   SemanticRequests requests;
 

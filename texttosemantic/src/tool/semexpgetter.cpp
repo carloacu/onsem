@@ -1412,6 +1412,8 @@ void extractSubjectAndObjectOfAVerbDefinition(
 
   std::list<const GroundedExpression*> objectGrdExpPtrs;
   itObject->second->getGrdExpPtrs_SkipWrapperLists(objectGrdExpPtrs);
+  if (objectGrdExpPtrs.empty())
+    return;
   for (const auto& currObjPtr : objectGrdExpPtrs)
     if (!isAnInfinitiveGrdExp(*currObjPtr) &&
         currObjPtr->grounding().getMetaGroundingPtr() == nullptr &&
@@ -1422,6 +1424,37 @@ void extractSubjectAndObjectOfAVerbDefinition(
   pInfCommandToDo = &*itObject->second;
 }
 
+
+void extractTeachElements(
+    const GroundedExpression*& pPurposeGrdPtr,
+    const SemanticExpression*& pObjectSemExp,
+    const GroundedExpression& pGrdExp)
+{
+  auto itPurpose = pGrdExp.children.find(GrammaticalType::PURPOSE);
+  if (itPurpose == pGrdExp.children.end())
+    return;
+  const GroundedExpression* purposeGrdExpPtr = itPurpose->second->getGrdExpPtr_SkipWrapperPtrs();
+  if (purposeGrdExpPtr == nullptr ||
+      !isAnInfinitiveGrdExp(*purposeGrdExpPtr))
+    return;
+
+  auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
+  if (itObject == pGrdExp.children.end())
+    return;
+
+  std::list<const GroundedExpression*> objectGrdExpPtrs;
+  itObject->second->getGrdExpPtrs_SkipWrapperLists(objectGrdExpPtrs);
+  if (objectGrdExpPtrs.empty())
+    return;
+  for (const auto& currObjPtr : objectGrdExpPtrs)
+    if (!isAPresentImperativeGrdExp(*currObjPtr) &&
+        currObjPtr->grounding().getMetaGroundingPtr() == nullptr &&
+        currObjPtr->grounding().getResourceGroundingPtr() == nullptr)
+      return;
+
+  pPurposeGrdPtr = purposeGrdExpPtr;
+  pObjectSemExp = &*itObject->second;
+}
 
 bool isAnActionDefinition(const GroundedExpression& pGrdExp)
 {
@@ -1499,6 +1532,17 @@ bool isAnInfinitiveGrdExp(const GroundedExpression& pGrdExp)
       pGrdExp->getStatementGroundingPtr();
   if (statGrdPtr != nullptr &&
       statGrdPtr->isAtInfinitive())
+    return true;
+  return false;
+}
+
+
+bool isAPresentImperativeGrdExp(const GroundedExpression& pGrdExp)
+{
+  const SemanticStatementGrounding* statGrdPtr =
+      pGrdExp->getStatementGroundingPtr();
+  if (statGrdPtr != nullptr &&
+      statGrdPtr->isMandatoryInPresentTense())
     return true;
   return false;
 }

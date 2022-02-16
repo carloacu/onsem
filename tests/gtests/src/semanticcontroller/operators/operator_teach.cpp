@@ -49,7 +49,7 @@ DetailedReactionAnswer _operator_teach(
 
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
-                                   pTextLanguage);
+                                   textLanguage);
   auto execContext = std::make_shared<ExecutorContext>(outContext);
   DefaultExecutorLogger logger(res.answer);
   TextExecutor textExec(pSemanticMemory, pLingDb, logger);
@@ -187,4 +187,25 @@ TEST_F(SemanticReasonerGTests, operator_teachInformation_basic)
   ONSEM_NOANSWER(operator_teachInformation("to smile is to say I am smiling", semMem, lingDb));
   EXPECT_EQ("", operator_resolveCommand("smile", semMem, lingDb));
 }
+
+
+
+TEST_F(SemanticReasonerGTests, operator_teachInformation_frenchMainFormulation)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  memoryOperation::learnSayCommand(semMem, lingDb);
+
+  EXPECT_EQ("", operator_resolveCommand("marche", semMem, lingDb));
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour marcher il faut dire je marche",
+                            operator_teachBehavior("pour marcher il faut dire je marche", semMem, lingDb));
+  EXPECT_EQ("Je marche.", operator_resolveCommand("marche", semMem, lingDb));
+
+  EXPECT_EQ("", operator_resolveCommand("cours", semMem, lingDb));
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour courir il faut dire j'utilise mes jambes",
+                            operator_react("pour courir il faut dire j'utilise mes jambes", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("J'utilise mes jambes.", operator_react("cours", semMem, lingDb));
+}
+
+
 

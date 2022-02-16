@@ -319,6 +319,12 @@ void extractSubjectAndObjectOfAVerbDefinition(
     const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
+void extractTeachElements(
+    const GroundedExpression*& pPurposeGrdPtr,
+    const SemanticExpression*& pObjectSemExp,
+    const GroundedExpression& pGrdExp);
+
+ONSEM_TEXTTOSEMANTIC_API
 bool isAnActionDefinition(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
@@ -333,6 +339,9 @@ std::list<UniqueSemanticExpression*> iterateOnList(UniqueSemanticExpression& pUS
 
 ONSEM_TEXTTOSEMANTIC_API
 bool isAnInfinitiveGrdExp(const GroundedExpression& pGrdExp);
+
+ONSEM_TEXTTOSEMANTIC_API
+bool isAPresentImperativeGrdExp(const GroundedExpression& pGrdExp);
 
 
 ONSEM_TEXTTOSEMANTIC_API
