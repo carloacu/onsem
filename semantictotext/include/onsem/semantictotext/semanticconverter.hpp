@@ -137,8 +137,16 @@ UniqueSemanticExpression getFutureIndicativeFromInfinitive(UniqueSemanticExpress
 
 
 ONSEMSEMANTICTOTEXT_API
+std::unique_ptr<UniqueSemanticExpression> imperativeToIWantThatYou(const SemanticExpression& pSemExp);
+
+ONSEMSEMANTICTOTEXT_API
+std::unique_ptr<UniqueSemanticExpression> imperativeToInfinitive(const SemanticExpression& pSemExp);
+
+// Can be removed
+ONSEMSEMANTICTOTEXT_API
 void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
                                  const SemanticExpression& pSemExp);
+
 
 } // End of namespace converter
 } // End of namespace onsem
