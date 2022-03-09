@@ -7,7 +7,7 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
-#include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/tester/reactOnTexts.hpp>
 #include "operator_addATrigger.hpp"
 
 using namespace onsem;
@@ -27,20 +27,7 @@ DetailedReactionAnswer _operator_reactFromTrigger_fromSemExp(UniqueSemanticExpre
   memoryOperation::resolveAgentAccordingToTheContext(pSemExp, pSemanticMemory, pLingDb);
   memoryOperation::reactFromTrigger(reaction, pSemanticMemory, std::move(pSemExp), pLingDb,
                                     pReactionOptions);
-  DetailedReactionAnswer res;
-  if (!reaction)
-    return res;
-  SemExpGetter::extractReferences(res.references, **reaction);
-  res.reactionType = SemExpGetter::extractContextualAnnotation(**reaction);
-
-  TextProcessingContext outContext(SemanticAgentGrounding::me,
-                                   SemanticAgentGrounding::currentUser,
-                                   pTextLanguage);
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
-  DefaultExecutorLogger logger(res.answer);
-  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
-  textExec.runSemExp(std::move(*reaction), execContext);
-  return res;
+  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pTextLanguage);
 }
 
 }

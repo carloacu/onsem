@@ -6,7 +6,6 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
-#include <onsem/semantictotext/executor/textexecutor.hpp>
 
 
 using namespace onsem;
@@ -28,19 +27,10 @@ std::string operator_resolveCommand(const std::string& pText,
                                         SemanticSourceEnum::WRITTENTEXT,
                                         pLingDb);
   memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
-  std::string res;
   auto resSemExp = memoryOperation::resolveCommandFromMemBlock(*semExp, pSemanticMemory.memBloc, textProc.author.userId, pLingDb);
-  if (!resSemExp)
-    return res;
-
-  TextProcessingContext outContext(SemanticAgentGrounding::me,
-                                   SemanticAgentGrounding::currentUser,
-                                   pLanguage);
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
-  DefaultExecutorLogger logger(res);
-  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
-  textExec.runSemExp(std::move(*resSemExp), execContext);
-  return res;
+  if (resSemExp)
+    return semExpToTextExectionResult(std::move(*resSemExp), pLanguage, pSemanticMemory, pLingDb);
+  return "";
 }
 
 } // End of namespace onsem

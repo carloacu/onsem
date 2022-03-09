@@ -3,7 +3,6 @@
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
-#include <onsem/semantictotext/executor/textexecutor.hpp>
 
 
 using namespace onsem;
@@ -19,21 +18,12 @@ std::string _operator_execOrExecuteFromSemExpTrigger(const SemanticExpression& p
                                                      const linguistics::LinguisticDatabase& pLingDb,
                                                      bool pExecOrExecuteFromTrigger)
 {
-  std::string res;
   auto resSemExp = pExecOrExecuteFromTrigger ?
         memoryOperation::execute(pSemExp, pSemanticMemory, pLingDb) :
         memoryOperation::executeFromTrigger(pSemExp, pSemanticMemory, pLingDb);
-  if (!resSemExp)
-    return res;
-
-  TextProcessingContext outContext(SemanticAgentGrounding::me,
-                                   SemanticAgentGrounding::currentUser,
-                                   pLanguage);
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
-  DefaultExecutorLogger logger(res);
-  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
-  textExec.runSemExp(std::move(*resSemExp), execContext);
-  return res;
+  if (resSemExp)
+    return semExpToTextExectionResult(std::move(*resSemExp), pLanguage, pSemanticMemory, pLingDb);
+  return "";
 }
 
 std::string _operator_execOrExecuteFromTrigger(const std::string& pText,

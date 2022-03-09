@@ -3,7 +3,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
-#include <onsem/semantictotext/executor/textexecutor.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
@@ -21,20 +20,7 @@ DetailedReactionAnswer operator_pingtime(
 {
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
   memoryOperation::pingTime(reaction, pSemanticMemory, pSemDuration, pLingDb);
-  DetailedReactionAnswer res;
-  if (!reaction)
-    return res;
-  SemExpGetter::extractReferences(res.references, **reaction);
-  res.reactionType = SemExpGetter::extractContextualAnnotation(**reaction);
-
-  TextProcessingContext outContext(SemanticAgentGrounding::me,
-                                   SemanticAgentGrounding::currentUser,
-                                   pOutLanguage);
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
-  DefaultExecutorLogger logger(res.answer);
-  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
-  textExec.runSemExp(std::move(*reaction), execContext);
-  return res;
+  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pOutLanguage);
 }
 
 
