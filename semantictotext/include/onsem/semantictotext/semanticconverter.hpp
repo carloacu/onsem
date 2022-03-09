@@ -142,6 +142,13 @@ std::unique_ptr<UniqueSemanticExpression> imperativeToIWantThatYou(const Semanti
 ONSEMSEMANTICTOTEXT_API
 std::unique_ptr<UniqueSemanticExpression> imperativeToInfinitive(const SemanticExpression& pSemExp);
 
+
+ONSEMSEMANTICTOTEXT_API
+UniqueSemanticExpression constructTeachSemExp(
+    UniqueSemanticExpression pInfitiveLabelSemExp,
+    UniqueSemanticExpression pSemExpToDo);
+
+
 // Can be removed
 ONSEMSEMANTICTOTEXT_API
 void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,

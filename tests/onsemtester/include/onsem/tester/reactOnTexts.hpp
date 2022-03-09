@@ -4,6 +4,7 @@
 #include <list>
 #include <onsem/common/enum/contextualannotation.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/utility/unique_propagate_const.hpp>
 #include "api.hpp"
 #include "detailedreactionanswer.hpp"
 
@@ -20,6 +21,11 @@ namespace linguistics
 struct LinguisticDatabase;
 }
 
+ONSEMTESTER_API
+DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+                                        SemanticMemory& pSemanticMemory,
+                                        const linguistics::LinguisticDatabase& pLingDb,
+                                        SemanticLanguageEnum pLanguage);
 
 ONSEMTESTER_API
 DetailedReactionAnswer operator_react_fromSemExp(UniqueSemanticExpression pSemExp,

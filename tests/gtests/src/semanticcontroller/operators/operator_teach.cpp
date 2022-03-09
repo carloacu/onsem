@@ -9,6 +9,7 @@
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
@@ -190,7 +191,7 @@ TEST_F(SemanticReasonerGTests, operator_teachInformation_basic)
 
 
 
-TEST_F(SemanticReasonerGTests, operator_teachInformation_frenchMainFormulation)
+TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
@@ -208,4 +209,37 @@ TEST_F(SemanticReasonerGTests, operator_teachInformation_frenchMainFormulation)
 }
 
 
+
+TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  SemanticLanguageEnum language = SemanticLanguageEnum::FRENCH;
+
+  EXPECT_EQ("", operator_resolveCommand("saute", semMem, lingDb));
+
+  TextProcessingContext textProc(SemanticAgentGrounding::currentUser,
+                                 SemanticAgentGrounding::me,
+                                 language);
+  auto labelSemExp =
+      converter::textToContextualSemExp("saute", textProc,
+                                        SemanticSourceEnum::WRITTENTEXT,
+                                        lingDb);
+  auto infLabelSemExp = converter::imperativeToInfinitive(*labelSemExp);
+  ASSERT_TRUE(infLabelSemExp);
+
+  static const std::string cmdValue = "cmd_value";
+  auto answerSemExp = mystd::make_unique<GroundedExpression>(
+        mystd::make_unique<SemanticResourceGrounding>(resourceLabelForTests_cmd, language, cmdValue));
+
+  auto teachSemExp = converter::constructTeachSemExp(std::move(*infLabelSemExp), std::move(answerSemExp));
+  mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
+  memoryOperation::teach(reaction, semMem, std::move(teachSemExp), lingDb,
+                         memoryOperation::SemanticActionOperatorEnum::BEHAVIOR);
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour sauter \\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\",
+                            reactionToAnswer(reaction, semMem, lingDb, language));
+
+  EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\",
+            operator_resolveCommand("saute", semMem, lingDb));
+}
 

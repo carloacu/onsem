@@ -557,6 +557,17 @@ std::unique_ptr<UniqueSemanticExpression> imperativeToInfinitive(const SemanticE
 }
 
 
+UniqueSemanticExpression constructTeachSemExp(
+    UniqueSemanticExpression pInfitiveLabelSemExp,
+    UniqueSemanticExpression pSemExpToDo)
+{
+  auto res = std::make_unique<GroundedExpression>();
+  res->children.emplace(GrammaticalType::PURPOSE, std::move(pInfitiveLabelSemExp));
+  res->children.emplace(GrammaticalType::OBJECT, std::move(pSemExpToDo));
+  return std::move(res);
+}
+
+
 void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
                                  const SemanticExpression& pSemExp)
 {

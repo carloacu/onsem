@@ -42,6 +42,27 @@ bool _test_oneAnswerValue(const std::string& pInput,
 }
 
 
+DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+                                        SemanticMemory& pSemanticMemory,
+                                        const linguistics::LinguisticDatabase& pLingDb,
+                                        SemanticLanguageEnum pLanguage)
+{
+  DetailedReactionAnswer res;
+  if (!pReaction)
+    return res;
+  SemExpGetter::extractReferences(res.references, **pReaction);
+  res.reactionType = SemExpGetter::extractContextualAnnotation(**pReaction);
+
+  TextProcessingContext outContext(SemanticAgentGrounding::me,
+                                   SemanticAgentGrounding::currentUser,
+                                   pLanguage);
+  auto execContext = std::make_shared<ExecutorContext>(outContext);
+  DefaultExecutorLogger logger(res.answer);
+  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
+  textExec.runSemExp(std::move(*pReaction), execContext);
+  return res;
+}
+
 
 DetailedReactionAnswer operator_react_fromSemExp(UniqueSemanticExpression pSemExp,
                                                  SemanticMemory& pSemanticMemory,
@@ -54,20 +75,7 @@ DetailedReactionAnswer operator_react_fromSemExp(UniqueSemanticExpression pSemEx
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
   memoryOperation::react(reaction, pSemanticMemory, std::move(pSemExp), pLingDb,
                          pReactionOptions);
-  DetailedReactionAnswer res;
-  if (!reaction)
-    return res;
-  SemExpGetter::extractReferences(res.references, **reaction);
-  res.reactionType = SemExpGetter::extractContextualAnnotation(**reaction);
-
-  TextProcessingContext outContext(SemanticAgentGrounding::me,
-                                   SemanticAgentGrounding::currentUser,
-                                   pTextLanguage);
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
-  DefaultExecutorLogger logger(res.answer);
-  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
-  textExec.runSemExp(std::move(*reaction), execContext);
-  return res;
+  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pTextLanguage);
 }
 
 
