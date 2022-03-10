@@ -166,6 +166,14 @@ Projects > Run > Command line arguments > Copy past the arguments below<br />
 Execution (from VsCode)
 -----------------------
 
+To install vscode on linux:
+```bash
+sudo apt update
+sudo apt-get install build-essential gdb g++
+sudo apt-get install snap
+sudo snap install --classic code
+```
+
 2 configuations:<br />
 * "(gdb) voicebotgui" - to start voicebotgui<br />
 * "(gdb) semanticreasoner_gtests" - to start semanticreasoner_gtests<br />
