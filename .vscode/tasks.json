@@ -23,10 +23,7 @@
         ],
         "options": {
             "cwd": "${workspaceRoot}/build",
-          },
-        "dependsOn": [
-            "Create build directory"
-          ]
+          }
     },
     {
         "label": "Delete semanticreasoner_gtests",
@@ -43,7 +40,7 @@
     {
       "label": "CMake build databases",
       "type": "shell",
-      "command": "cmake -DBUILD_ONSEM_DATABASE=ON ../ && make -j4",
+      "command": "cmake -DBUILD_ONSEM_DATABASE=ON ../ && cmake --build . -j4",
       "options": {
         "cwd": "${workspaceRoot}/build",
       },
@@ -54,7 +51,7 @@
     {
       "label": "CMake build",
       "type": "shell",
-      "command": "cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_DATABASE=OFF -DBUILD_ONSEM_TESTS=ON ../ && make -j4",
+      "command": "cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_DATABASE=OFF -DBUILD_ONSEM_TESTS=ON ../ && cmake --build . -j4",
       "options": {
         "cwd": "${workspaceRoot}/build",
       },
