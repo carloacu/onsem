@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) voicebotgui",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/build/voicebotgui/voicebotgui",
+            "args": [
+                "--databases",
+                "../linguistic/databases",
+                "--share_semantic",
+                "../../share/semantic"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}/build/voicebotgui/",
+            "environment": [],
+            "visualizerFile": "/home/jocelyn/.config/Code/User/workspaceStorage/845d22459ba86a9d4b3a44f45e69e497/tonka3000.qtvsctools/qt.natvis.xml",
+            "preLaunchTask": "CMake build"
+        },
+        {
+            "name": "(gdb) semanticreasoner_gtests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/build/tests/gtests/semanticreasoner_gtests",
+            "args": [
+                "--databases",
+                "../../linguistic/databases",
+                "--share_semantic",
+                "../../../share/semantic"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}/build/tests/gtests/",
+            "environment": [],
+            "visualizerFile": "/home/jocelyn/.config/Code/User/workspaceStorage/845d22459ba86a9d4b3a44f45e69e497/tonka3000.qtvsctools/qt.natvis.xml",
+            "preLaunchTask": "CMake build"
+        }
+    ]
+}

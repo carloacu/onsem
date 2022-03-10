@@ -163,6 +163,21 @@ Projects > Run > Command line arguments > Copy past the arguments below<br />
 ```
 
 
+Execution (from VsCode)
+-----------------------
+
+2 configuations:<br />
+* "(gdb) voicebotgui" - to start voicebotgui<br />
+* "(gdb) semanticreasoner_gtests" - to start semanticreasoner_gtests<br />
+<br />
+
+Suggestion to have a nice theme:<br />
+CTRL + SHIFT + P<br />
+Click on open settings (JSON)<br />
+then add that<br />
+    "workbench.colorTheme": "Visual Studio Dark - C++"<br />
+
+
 <span id="start-the-stt"></span>
 Start the STT (Speech To Text)
 ------------------------------

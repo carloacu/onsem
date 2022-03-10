@@ -1,0 +1,68 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+        "label": "Create build directory",
+        "type": "shell",
+        "command": "mkdir",
+        "args": [
+            "-p",
+            "build"
+        ],
+        "options": {
+            "cwd": "${workspaceRoot}",
+          },
+    },
+    {
+        "label": "Delete voicebotgui",
+        "type": "shell",
+        "command": "rm",
+        "args": [
+            "-f",
+            "voicebotgui/voicebotgui"
+        ],
+        "options": {
+            "cwd": "${workspaceRoot}/build",
+          },
+        "dependsOn": [
+            "Create build directory"
+          ]
+    },
+    {
+        "label": "Delete semanticreasoner_gtests",
+        "type": "shell",
+        "command": "rm",
+        "args": [
+            "-f",
+            "tests/gtests/semanticreasoner_gtests"
+        ],
+        "options": {
+            "cwd": "${workspaceRoot}/build",
+          }
+    },
+    {
+      "label": "CMake build databases",
+      "type": "shell",
+      "command": "cmake -DBUILD_ONSEM_DATABASE=ON ../ && make -j4",
+      "options": {
+        "cwd": "${workspaceRoot}/build",
+      },
+      "dependsOn": [
+        "Create build directory"
+      ]
+    },
+    {
+      "label": "CMake build",
+      "type": "shell",
+      "command": "cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_DATABASE=OFF -DBUILD_ONSEM_TESTS=ON ../ && make -j4",
+      "options": {
+        "cwd": "${workspaceRoot}/build",
+      },
+      "dependsOn": [
+        "CMake build databases",
+        "Delete voicebotgui",
+        "Delete semanticreasoner_gtests"
+      ]
+    }
+  ]
+}
