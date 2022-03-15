@@ -364,9 +364,11 @@ void refactorFrenchSentencesWithAGoal(std::unique_ptr<SemanticExpression>& pSemE
                                            &_addMandatoryVerbGoal, false);
         if (isFalloirVerb && modifDone)
         {
-          GroundedExpression* newGrdExpPtr = pSemExp->getGrdExpPtr_SkipWrapperPtrs();
-          if (newGrdExpPtr != nullptr)
+          std::list<GroundedExpression*> gGrdExps;
+          pSemExp->getGrdExpPtrs_SkipWrapperLists(gGrdExps);
+          for (auto* newGrdExpPtr : gGrdExps)
           {
+            assert(newGrdExpPtr != nullptr);
             auto itSubject = newGrdExpPtr->children.find(GrammaticalType::SUBJECT);
             if (itSubject != newGrdExpPtr->children.end() &&
                 SemExpGetter::isACoreference(*itSubject->second, CoreferenceDirectionEnum::BEFORE))
