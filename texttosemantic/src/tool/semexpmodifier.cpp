@@ -87,6 +87,18 @@ void removeSpecificationsNotNecessaryForAnAnswerFromSemExp(SemanticExpression& p
     removeSpecificationsNotNecessaryForAnAnswer(*grdExpPtr);
 }
 
+void infGrdExpToMandatoryForm(GroundedExpression& pGrdExp)
+{
+  auto* statGrdPtr = pGrdExp.grounding().getStatementGroundingPtr();
+  if (statGrdPtr != nullptr)
+  {
+    auto& statGrd = *statGrdPtr;
+    statGrd.verbTense = SemanticVerbTense::PRESENT;
+    statGrd.verbGoal = VerbGoalEnum::MANDATORY;
+    pGrdExp.children.emplace(GrammaticalType::SUBJECT,
+                             std::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("generic")));
+  }
+}
 
 std::list<GroundedExpression*> listTopGroundedExpressionsPtr(SemanticExpression& pSemExp)
 {

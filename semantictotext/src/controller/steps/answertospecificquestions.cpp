@@ -842,8 +842,14 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
   if (actionDefPtr != nullptr)
   {
     auto& actionDef = *actionDefPtr;
-    pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER,
-                          converter::constructTeachSemExp(pGrdExp.clone(), actionDef.clone()));
+    auto actionDefCloned = actionDef.clone();
+    auto* actionDefClonedGrdExpPtr =  actionDefCloned->getGrdExpPtr_SkipWrapperPtrs();
+    if (actionDefClonedGrdExpPtr != nullptr)
+    {
+      SemExpModifier::infGrdExpToMandatoryForm(*actionDefClonedGrdExpPtr);
+      pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER,
+                            converter::constructTeachSemExp(pGrdExp.clone(), std::move(actionDefCloned)));
+    }
     return true;
   }
 

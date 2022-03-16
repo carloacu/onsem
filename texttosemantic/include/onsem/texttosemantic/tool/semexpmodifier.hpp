@@ -27,6 +27,10 @@ class LinguisticDatabase;
 
 namespace SemExpModifier
 {
+
+ONSEM_TEXTTOSEMANTIC_API
+void infToMandatoryForm(GroundedExpression& pGrdExp);
+
 /// Applies the given function to the top level grounded expressions.
 /// Wrappers are skipped to find the top level ground expression if there
 /// resolved by skipping wrappers, but it is not recursive.
@@ -38,6 +42,9 @@ void removeSpecificationsNotNecessaryForAnAnswer(GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 void removeSpecificationsNotNecessaryForAnAnswerFromSemExp(SemanticExpression& pSemExp);
+
+ONSEM_TEXTTOSEMANTIC_API
+void infGrdExpToMandatoryForm(GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 void setNumberFromSemExp(UniqueSemanticExpression& pSemExp, int pNumber);
