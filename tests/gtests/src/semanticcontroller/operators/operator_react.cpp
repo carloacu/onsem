@@ -344,6 +344,8 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                       operator_react("salute", semMem, lingDb));
     ONSEM_TEACHINGFEEDBACK_EQ("Ok, to salute you means to say hi man.",
                               operator_react("to salute me means to say hi man", semMem, lingDb));
+    ONSEM_ANSWER_EQ("Pour saluer de dire salut homme",
+                    operator_react("Comment saluer ?", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("Hi man",
                       operator_react("salute me", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("Paul smiled.",

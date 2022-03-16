@@ -137,6 +137,10 @@ bool satisfyAnAction(SemControllerWorkingStruct& pWorkStruct,
                      const GroundedExpression& pGrdExp,
                      const SemanticStatementGrounding& pGrdExpStatement);
 
+const SemanticExpression* getActionActionDefinition(SemControllerWorkingStruct& pWorkStruct,
+                                                    SemanticMemoryBlockViewer& pMemViewer,
+                                                    const GroundedExpression& pGrdExp);
+
 void checkNominalGrdExp(SemControllerWorkingStruct& pWorkStruct,
                         const GroundedExpression& pGrdExp);
 

@@ -822,6 +822,36 @@ bool _tryToAnswerToHowCanITeachYouSomething(SemControllerWorkingStruct& pWorkStr
 }
 
 
+bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
+                                   SemanticMemoryBlockViewer& pMemViewer,
+                                   const GroundedExpression& pGrdExp)
+{
+  if (pWorkStruct.reactOperator != SemanticOperatorEnum::REACT &&
+      pWorkStruct.reactOperator != SemanticOperatorEnum::ANSWER)
+    return false;
+
+  const SemanticStatementGrounding* statGrdPtr = pGrdExp->getStatementGroundingPtr();
+  if (statGrdPtr == nullptr ||
+      statGrdPtr->verbTense != SemanticVerbTense::UNKNOWN)
+    return false;
+
+  if (pGrdExp.children.count(GrammaticalType::SUBJECT) > 0)
+    return false;
+
+  auto* actionDefPtr = semanticMemoryLinker::getActionActionDefinition(pWorkStruct, pMemViewer, pGrdExp);
+  if (actionDefPtr != nullptr)
+  {
+    auto& actionDef = *actionDefPtr;
+    pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER,
+                          converter::constructTeachSemExp(pGrdExp.clone(), actionDef.clone()));
+    return true;
+  }
+
+  return false;
+}
+
+
+
 bool _tryToAnswerTheNameOfAUserId(SemControllerWorkingStruct& pWorkStruct,
                                   const SemanticMemoryBlockPrivate& pMemBlocPrivate,
                                   const std::string& pUserId,
@@ -923,7 +953,8 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
     return _tryToAnswerToBirthdateQuestion(pWorkStruct, pMemViewer, pGrdExp);
   case SemanticRequestType::MANNER:
     return _tryToAnswerToHowWeKnowSomething(pWorkStruct, pMemViewer, pGrdExp) ||
-        _tryToAnswerToHowCanITeachYouSomething(pWorkStruct, pGrdExp);
+        _tryToAnswerToHowCanITeachYouSomething(pWorkStruct, pGrdExp) ||
+        _tryToAnswerToHowToDoAnAction(pWorkStruct, pMemViewer, pGrdExp);
   case SemanticRequestType::SUBJECT:
     return _tryToAnswerToWhatIsAction(pWorkStruct, pMemViewer, pGrdExp);
   default:

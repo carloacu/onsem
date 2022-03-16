@@ -734,6 +734,34 @@ bool _getActionFromAMemblock(SemControllerWorkingStruct& pWorkStruct,
   return false;
 }
 
+const SemanticExpression* _getActionDefFromAMemblock(
+    SemControllerWorkingStruct& pWorkStruct,
+    SemanticMemoryBlockViewer& pMemViewer,
+    const RequestLinks& pReqLinks,
+    const GroundedExpression& pGrdExp)
+{
+  auto& memBlockPrivateViewer = pMemViewer.getConstViewPrivate();
+  RequestToMemoryLinks<false> reqToGrdExps(memBlockPrivateViewer.sentWithInfActionLinks.reqToGrdExps, nullptr);
+  RelationsThatMatch<false> idsToSentences;
+  MemoryBlockPrivateAccessorPtr<false> memBlockPrivateAccessor(&memBlockPrivateViewer);
+  _getResultFromMemory(idsToSentences, reqToGrdExps, pWorkStruct, memBlockPrivateAccessor, pMemViewer,
+                       pReqLinks, semanticMemoryGetter::RequestContext::COMMAND,
+                       nullptr, SemanticRequestType::NOTHING, false);
+
+  if (!idsToSentences.res.dynamicLinks.empty())
+  {
+    auto itFirstDynLinks = --idsToSentences.res.dynamicLinks.end();
+    return itFirstDynLinks->second->getContextAxiom().infCommandToDo;
+  }
+
+  if (pMemViewer.constView.subBlockPtr != nullptr)
+  {
+    SemanticMemoryBlockViewer subMemViewer(nullptr, *pMemViewer.constView.subBlockPtr, pMemViewer.currentUserId);
+    return _getActionDefFromAMemblock(pWorkStruct, subMemViewer, pReqLinks, pGrdExp);
+  }
+  return nullptr;
+}
+
 }
 
 
@@ -1139,6 +1167,15 @@ bool satisfyAnAction(SemControllerWorkingStruct& pWorkStruct,
       anAnswerHasBeenAdded;
 }
 
+
+const SemanticExpression* getActionActionDefinition(SemControllerWorkingStruct& pWorkStruct,
+                                                    SemanticMemoryBlockViewer& pMemViewer,
+                                                    const GroundedExpression& pGrdExp)
+{
+  RequestLinks reqLinks;
+  getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
+  return _getActionDefFromAMemblock(pWorkStruct, pMemViewer, reqLinks, pGrdExp);
+}
 
 void getSentsThatContain(RelationsThatMatch<false>& pRes,
                          const SemanticExpression& pNominalGroup,
