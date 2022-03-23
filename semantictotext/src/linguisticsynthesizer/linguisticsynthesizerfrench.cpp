@@ -19,6 +19,7 @@ namespace onsem
 
 namespace
 {
+const std::vector<std::string> _rootVerbsForSubjonctiveInSubordinate{"verb_like", "verb_want", "verb_doubt", "verb_require"};
 
 bool _doWeNeedToPutObjectGenGrdBeforeVerb(const SemanticGenericGrounding& pGenGrd,
                                           const SemanticRequests& pRequests)
@@ -64,7 +65,7 @@ LinguisticVerbTense LinguisticSynthesizerFrench::_semanticVerbTenseToLinguisticV
     {
       if (pRequests.empty() &&
           pRootStatementPtr != nullptr &&
-          ConceptSet::haveAnyOfConcepts(pRootStatementPtr->concepts, {"verb_want", "verb_doubt", "verb_require"}))
+          ConceptSet::haveAnyOfConcepts(pRootStatementPtr->concepts, _rootVerbsForSubjonctiveInSubordinate))
         return LinguisticVerbTense::PRESENT_SUBJONCTIVE;
     }
     return LinguisticVerbTense::PRESENT_CONTINUOUS;

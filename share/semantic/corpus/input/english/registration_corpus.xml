@@ -5,6 +5,7 @@
     <include file="english_bad_sentences.txt" />
     <include file="english_cause.txt" />
     <include file="english_comparisons.txt" />
+    <include file="english_conditional.txt" />
     <include file="english_conditions.txt" />
     <include file="english_duration.txt" />
     <include file="english_expressions.txt" />
