@@ -28,6 +28,9 @@ protected:
   { return _syntGrounding.getChunksMerger(); }
 
   virtual LinguisticVerbTense _semanticVerbTenseToLinguisticVerbTense(SemanticVerbTense pSemVerbTense,
+                                                                      SynthesizerCurrentContextType pContextType,
+                                                                      SemanticStatementGrounding const* pRootStatementPtr,
+                                                                      const SemanticRequests& pRequests,
                                                                       const linguistics::WordAssociatedInfos* pWordInfosPtr) const;
 
   virtual void _getPossessiveDeterminer

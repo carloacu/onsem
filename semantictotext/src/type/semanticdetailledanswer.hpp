@@ -13,11 +13,13 @@
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
 #include <onsem/semantictotext/semanticmemory/referencesgetter.hpp>
 #include "answerexp.hpp"
+#include "../semanticmemory/interactioncontext.hpp"
 
 namespace onsem
 {
 struct LeafSemAnswer;
 struct CompositeSemAnswer;
+
 
 
 
@@ -119,6 +121,9 @@ struct LeafSemAnswer : public SemAnswer
   // the condition to link
   mystd::optional<ConditionResult> condition{};
   ConditionForAUser conditionForAUser{};
+
+  // interaction context to start
+  std::unique_ptr<InteractionContextContainer> interactionContextContainer{};
 };
 
 

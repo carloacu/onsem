@@ -197,6 +197,9 @@ bool grdExpsReferToSameInstance(const GroundedExpression& pGrdExp1,
 
 
 
+
+// Implemenation
+
 namespace onsem
 {
 namespace SemExpComparator

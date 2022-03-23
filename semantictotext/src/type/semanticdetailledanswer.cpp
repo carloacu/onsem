@@ -43,7 +43,8 @@ LeafSemAnswer::LeafSemAnswer(ContextualAnnotation pType)
     reaction(),
     answerElts(),
     condition(),
-    conditionForAUser()
+    conditionForAUser(),
+    interactionContextContainer()
 {
 }
 
@@ -54,7 +55,8 @@ LeafSemAnswer::LeafSemAnswer(ContextualAnnotation pType,
     reaction(std::move(pReaction)),
     answerElts(),
     condition(),
-    conditionForAUser()
+    conditionForAUser(),
+    interactionContextContainer()
 {
 }
 
@@ -66,7 +68,8 @@ LeafSemAnswer::LeafSemAnswer(ContextualAnnotation pType,
     reaction(std::move(pReaction)),
     answerElts(),
     condition(pCondition),
-    conditionForAUser()
+    conditionForAUser(),
+    interactionContextContainer()
 {
 }
 
@@ -78,7 +81,8 @@ LeafSemAnswer::LeafSemAnswer(ContextualAnnotation pType,
     reaction(std::move(pReaction)),
     answerElts(),
     condition(),
-    conditionForAUser(std::move(pConditionForAUser))
+    conditionForAUser(std::move(pConditionForAUser)),
+    interactionContextContainer()
 {
 }
 

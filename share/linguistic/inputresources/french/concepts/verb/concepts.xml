@@ -20,6 +20,9 @@
   <linkedMeaning lemme="décéder" relationToConcept="3"/>
   <linkedMeaning lemme="mort" gram="noun" relationToConcept="2"/>
  </concept>
+ <concept name="verb_doubt">
+  <linkedMeaning lemme="douter" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_find">
   <linkedMeaning lemme="trouver" gram="verb" relationToConcept="4"/>
  </concept>
@@ -44,6 +47,13 @@
  </concept>
  <concept name="verb_offer">
   <linkedMeaning lemme="donner" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_require">
+  <linkedMeaning lemme="exiger" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="demander" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="nécessiter" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="réclamer" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="requérir" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_return">
   <linkedMeaning lemme="retourner" gram="verb" relationToConcept="4"/>

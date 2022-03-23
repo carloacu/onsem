@@ -113,6 +113,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/tool/userinfosfiller.cpp
     src/semanticmemory/answerelement.hpp
     src/semanticmemory/answerelement.cpp
+    src/semanticmemory/interactioncontext.hpp
     src/semanticmemory/semanticannotation.hpp
     src/semanticmemory/usernames.hpp
     src/semanticmemory/usernames.cpp

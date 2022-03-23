@@ -91,6 +91,7 @@ struct SynthesizerCurrentContext
   OutSentence* currSentence = nullptr;
   SemanticExpression const* parentSubject = nullptr;
   SemanticExpression const* rootSubject = nullptr;
+  SemanticStatementGrounding const* rootStatement = nullptr;
   bool isParentARelativeGrounding = false;
   bool isAtRoot = false;
   bool isPositive = true;

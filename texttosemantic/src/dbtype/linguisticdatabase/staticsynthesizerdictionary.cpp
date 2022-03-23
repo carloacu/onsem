@@ -496,7 +496,7 @@ void StaticSynthesizerDictionary::getVerbForm
       timeDecalage = 12; // future
     }
     else if (fLangEnum == SemanticLanguageEnum::FRENCH &&
-             pVerbTense == LinguisticVerbTense::INFINITIVE)
+             (pVerbTense == LinguisticVerbTense::PRESENT_SUBJONCTIVE || pVerbTense == LinguisticVerbTense::INFINITIVE))
     {
       timeDecalage = 32; // present of subjunctive /!\ IMPORTANT: present of subjunctive exists only on the french database !
     }

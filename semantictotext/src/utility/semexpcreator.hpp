@@ -33,6 +33,8 @@ std::unique_ptr<SemanticExpression> sayThat();
 
 std::unique_ptr<GroundedExpression> sayIKnow(bool pPolarity);
 
+std::unique_ptr<GroundedExpression> thereIsXSteps(int pNbOfSteps);
+
 UniqueSemanticExpression formulateConditionToAction(
     const GroundedExpression& pCondition,
     const SemanticExpression& pStuffToDo,

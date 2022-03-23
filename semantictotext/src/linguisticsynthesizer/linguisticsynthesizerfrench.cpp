@@ -42,6 +42,9 @@ LinguisticSynthesizerFrench::LinguisticSynthesizerFrench()
 
 
 LinguisticVerbTense LinguisticSynthesizerFrench::_semanticVerbTenseToLinguisticVerbTense(SemanticVerbTense pSemVerbTense,
+                                                                                         SynthesizerCurrentContextType pContextType,
+                                                                                         SemanticStatementGrounding const* pRootStatementPtr,
+                                                                                         const SemanticRequests& pRequests,
                                                                                          const linguistics::WordAssociatedInfos*) const
 {
   switch (pSemVerbTense)
@@ -51,9 +54,21 @@ LinguisticVerbTense LinguisticSynthesizerFrench::_semanticVerbTenseToLinguisticV
   case SemanticVerbTense::PAST:
     return LinguisticVerbTense::IMPERFECT_INDICATIVE;
   case SemanticVerbTense::PRESENT:
+  {
     return LinguisticVerbTense::PRESENT_INDICATIVE;
+  }
   case SemanticVerbTense::PUNCTUALPRESENT:
+  {
+    if (pContextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTBEFOREVERB ||
+        pContextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTAFTERVERB)
+    {
+      if (pRequests.empty() &&
+          pRootStatementPtr != nullptr &&
+          ConceptSet::haveAnyOfConcepts(pRootStatementPtr->concepts, {"verb_want", "verb_doubt", "verb_require"}))
+        return LinguisticVerbTense::PRESENT_SUBJONCTIVE;
+    }
     return LinguisticVerbTense::PRESENT_CONTINUOUS;
+  }
   case SemanticVerbTense::PUNCTUALPAST:
     return LinguisticVerbTense::SIMPLE_PAST_INDICATIVE;
   case SemanticVerbTense::UNKNOWN:

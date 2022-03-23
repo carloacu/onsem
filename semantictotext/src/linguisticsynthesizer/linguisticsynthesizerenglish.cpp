@@ -80,6 +80,9 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerEnglish::_getO
 
 
 LinguisticVerbTense LinguisticSynthesizerEnglish::_semanticVerbTenseToLinguisticVerbTense(SemanticVerbTense pSemVerbTense,
+                                                                                          SynthesizerCurrentContextType,
+                                                                                          const SemanticStatementGrounding*,
+                                                                                          const SemanticRequests&,
                                                                                           const linguistics::WordAssociatedInfos* pWordInfosPtr) const
 {
   switch (pSemVerbTense)

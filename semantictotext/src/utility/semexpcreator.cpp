@@ -242,6 +242,28 @@ std::unique_ptr<GroundedExpression> sayIKnow(bool pPolarity)
 }
 
 
+std::unique_ptr<GroundedExpression> thereIsXSteps(int pNbOfSteps)
+{
+  // verb
+  auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+  statementGrd->verbTense = SemanticVerbTense::PRESENT;
+  statementGrd->concepts.emplace("verb_generality", 4);
+  auto rootGrdExp =
+      mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+
+  // object
+  rootGrdExp->children.emplace(GrammaticalType::OBJECT, mystd::make_unique<GroundedExpression>([&]()
+  {
+    auto objGrounding = mystd::make_unique<SemanticGenericGrounding>();
+    objGrounding->referenceType = SemanticReferenceType::DEFINITE;
+    objGrounding->concepts.emplace("step", 4);
+    objGrounding->quantity.setNumber(pNbOfSteps);
+    return objGrounding;
+  }()));
+  return rootGrdExp;
+}
+
+
 UniqueSemanticExpression formulateConditionToAction(
     const GroundedExpression& pCondition,
     const SemanticExpression& pStuffToDo,

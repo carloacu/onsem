@@ -307,7 +307,7 @@ SemExpTypeEnumFormSynt LinguisticSynthesizerPrivate::_writeComparisonExp
 
   {
     SynthesizerCurrentContext verbContext;
-    verbContext.verbTense = _semanticVerbTenseToLinguisticVerbTense(pCompExp.tense);
+    verbContext.verbTense = _semanticVerbTenseToLinguisticVerbTense(pCompExp.tense, pContext.contextType, pContext.rootStatement, pRequests);
     verbContext.wordContext.relativePerson = subjectContext.wordContext.relativePerson;
     const SemanticWord& beWord = pConf.lingDb.langToSpec[_language].lingDico.getBeVerb().word;
     grdSynth.writeVerbalSemWord(outSentence.aux.out, outSentence.verb, outSentence.negation2.out,
@@ -543,7 +543,8 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
     verbContext.verbTense = LinguisticVerbTense::PRESENT_PARTICIPLE;
   else
   {
-    verbContext.verbTense = _semanticVerbTenseToLinguisticVerbTense(sentWorkStruct.outs.verbTense, &inflectedVerb.infos);
+    verbContext.verbTense = _semanticVerbTenseToLinguisticVerbTense(sentWorkStruct.outs.verbTense, pContext.contextType,
+                                                                    pContext.rootStatement, pStatementGrd.requests, &inflectedVerb.infos);
   }
   verbContext.verbContextOpt.emplace(inflectedVerb, pStatementGrd);
 
@@ -746,6 +747,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
     verbContext.hasASubject = sentWorkStruct.subjectPtr != nullptr;
     verbContext.parentSubject = pContext.parentSubject;
     verbContext.rootSubject = pContext.rootSubject;
+    verbContext.rootStatement = pContext.rootStatement;
     verbContext.isPassive = sentWorkStruct.outs.isPassive && !inflectedVerb.infos.hasContextualInfo(WordContextualInfos::PASSIVE);
 
     if (_language == SemanticLanguageEnum::ENGLISH &&
@@ -1519,6 +1521,7 @@ void LinguisticSynthesizerPrivate::_writeObjects
     objAfterVerbContext.currSentence = &pCurrSentence;
     objAfterVerbContext.rootSubject = pSentWorkStruct.subjectPtr != nullptr ?
           &**pSentWorkStruct.subjectPtr : pVerbContext.rootSubject;
+    objAfterVerbContext.rootStatement = &pStatementGrd;
     if (objectGrdExpPtr != nullptr)
       _beginOfSubordonateIfNeeded(objAfterVerbContext.isASubordinateWithoutPreposition,
                                   pOutSemExp, pSentWorkStruct, GrammaticalType::OBJECT,

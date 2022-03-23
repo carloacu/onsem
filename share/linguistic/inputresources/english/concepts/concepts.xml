@@ -96,6 +96,9 @@
  <concept name="sorry">
   <linkedMeaning lemme="sorry" relationToConcept="4"/>
  </concept>
+ <concept name="step">
+  <linkedMeaning lemme="step" relationToConcept="4"/>
+ </concept>
  <concept name="surprise.i">
   <linkedMeaning lemme="ho" gram="interjection" relationToConcept="4"/>
  </concept>

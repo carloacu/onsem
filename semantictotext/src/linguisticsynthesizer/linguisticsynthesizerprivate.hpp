@@ -78,6 +78,9 @@ protected:
 
   virtual const SynthesizerChunksMerger& _getChunksMerger() const = 0;
   virtual LinguisticVerbTense _semanticVerbTenseToLinguisticVerbTense(SemanticVerbTense pSemVerbTense,
+                                                                      SynthesizerCurrentContextType pContextType,
+                                                                      SemanticStatementGrounding const* pRootStatementPtr,
+                                                                      const SemanticRequests& pRequests,
                                                                       const linguistics::WordAssociatedInfos* pWordInfosPtr = nullptr) const  = 0;
 
   void _strToOut

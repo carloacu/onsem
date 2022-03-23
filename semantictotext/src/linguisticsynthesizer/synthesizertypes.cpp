@@ -21,6 +21,7 @@ SynthesizerCurrentContext::SynthesizerCurrentContext(const SynthesizerCurrentCon
     currSentence(pOther.currSentence),
     parentSubject(pOther.parentSubject),
     rootSubject(pOther.rootSubject),
+    rootStatement(pOther.rootStatement),
     isParentARelativeGrounding(pOther.isParentARelativeGrounding),
     isAtRoot(false),
     isPositive(pOther.isPositive),

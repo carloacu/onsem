@@ -23,6 +23,9 @@
  <concept name="verb_dislike">
   <linkedMeaning lemme="dislike" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_doubt">
+  <linkedMeaning lemme="doubt" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_find">
   <linkedMeaning lemme="find" gram="verb" relationToConcept="4"/>
  </concept>
@@ -58,6 +61,11 @@
   <linkedMeaning lemme="hand" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="offer" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="present" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_require">
+  <linkedMeaning lemme="require" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="demand" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="need" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_return">
   <linkedMeaning lemme="return" gram="verb" relationToConcept="4"/>

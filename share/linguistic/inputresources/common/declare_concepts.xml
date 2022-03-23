@@ -291,6 +291,8 @@
 
   <declareconcept name="sport" />
 
+  <declareconcept name="step" />
+
   <declareconcept name="still" />
   <declareconcept name="still_time" autofill="false" />
 
@@ -371,6 +373,7 @@
   <declareconcept name="verb_can" />
   <declareconcept name="verb_die" />
   <declareconcept name="verb_dislike" autofill="false" />
+  <declareconcept name="verb_doubt" />
   <declareconcept name="verb_find" />
   <declareconcept name="verb_go" />
   <declareconcept name="verb_hate" />
@@ -380,6 +383,7 @@
   <declareconcept name="verb_like" />
   <declareconcept name="verb_need" />
   <declareconcept name="verb_offer" />
+  <declareconcept name="verb_require" />
   <declareconcept name="verb_return" autofill="false" />
   <declareconcept name="verb_should" autofill="false" />
   <declareconcept name="verb_think" />

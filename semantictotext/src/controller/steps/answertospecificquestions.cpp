@@ -850,6 +850,19 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
       pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER,
                             converter::constructTeachSemExp(pGrdExp.clone(), std::move(actionDefCloned)));
     }
+    else
+    {
+      auto* listExpPtr = actionDefCloned->getListExpPtr_SkipWrapperPtrs();
+      if (listExpPtr != nullptr)
+      {
+        auto& listExp = *listExpPtr;
+        int nbOfElts = listExp.elts.size();
+        if (nbOfElts > 1)
+        {
+          pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER, SemExpCreator::thereIsXSteps(nbOfElts));
+        }
+      }
+    }
     return true;
   }
 
