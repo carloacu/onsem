@@ -9,6 +9,32 @@ namespace onsem
 namespace linguistics
 {
 
+namespace
+{
+bool _isATaughtElt(const Chunk& pChunk)
+{
+  return pChunk.type == ChunkType::VERB_CHUNK &&
+      ConceptSet::haveAConcept(pChunk.head->inflWords.begin()->infos.concepts, "verb_haveto");
+}
+
+bool _isATaughtList(const Chunk& pChunk)
+{
+  if (pChunk.type == ChunkType::AND_CHUNK)
+  {
+    bool res = false;
+    for (const auto& currChild : pChunk.children)
+    {
+      if (!_isATaughtElt(*currChild.chunk))
+        return false;
+      res = true;
+    }
+    return res;
+  }
+  return false;
+}
+}
+
+
 void teachingParserFr(std::list<ChunkLink>& pChunkList)
 {
   ChunkLinkWorkingZone workingZone(pChunkList, pChunkList.begin(), pChunkList.end());
@@ -36,20 +62,17 @@ void teachingParserFr(std::list<ChunkLink>& pChunkList)
         if (definitionIt == pChunkList.end())
           break;
         auto& definitionChunk = *definitionIt->chunk;
-        if (definitionChunk.type == ChunkType::VERB_CHUNK)
+
+        if (_isATaughtElt(definitionChunk) || _isATaughtList(definitionChunk))
         {
-          auto& definitionHeadCpts = definitionChunk.head->inflWords.begin()->infos.concepts;
-          if (ConceptSet::haveAConcept(definitionHeadCpts, "verb_haveto"))
-          {
-            chunk.type = ChunkType::TEACH_CHUNK;
-            it = definitionIt;
-            ++it;
-            purposeIt->type = ChunkLinkType::PURPOSE;
-            chunk.children.splice(chunk.children.end(), pChunkList, purposeIt);
-            definitionIt->type = ChunkLinkType::DIRECTOBJECT;
-            chunk.children.splice(chunk.children.end(), pChunkList, definitionIt);
-            continue;
-          }
+          chunk.type = ChunkType::TEACH_CHUNK;
+          it = definitionIt;
+          ++it;
+          purposeIt->type = ChunkLinkType::PURPOSE;
+          chunk.children.splice(chunk.children.end(), pChunkList, purposeIt);
+          definitionIt->type = ChunkLinkType::DIRECTOBJECT;
+          chunk.children.splice(chunk.children.end(), pChunkList, definitionIt);
+          continue;
         }
       }
     }
