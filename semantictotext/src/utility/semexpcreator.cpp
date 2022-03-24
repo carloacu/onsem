@@ -1306,6 +1306,7 @@ UniqueSemanticExpression sayThatWeAreNotAbleToDoIt(
     SemanticStatementGrounding* statGrd = (*specGrdExp)->getStatementGroundingPtr();
     if (statGrd != nullptr)
     {
+      statGrd->verbGoal = VerbGoalEnum::NOTIFICATION;
       statGrd->verbTense = SemanticVerbTense::UNKNOWN;
       statGrd->requests.clear();
     }

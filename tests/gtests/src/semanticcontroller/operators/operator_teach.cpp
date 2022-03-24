@@ -192,6 +192,11 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour courir il faut dire j'utilise mes jambes",
                             operator_react("pour courir il faut dire j'utilise mes jambes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("J'utilise mes jambes.", operator_react("cours", semMem, lingDb));
+
+  ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas grimper.", operator_react("grimpe", semMem, lingDb));
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour grimper il faut dire je marche et il faut sauter",
+                            operator_react("pour grimper il faut dire je marche et sauter", semMem, lingDb));
+  ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas sauter.", operator_react("grimpe", semMem, lingDb));
 }
 
 
