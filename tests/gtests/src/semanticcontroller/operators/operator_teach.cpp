@@ -197,6 +197,8 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour grimper il faut dire je marche et il faut sauter",
                             operator_react("pour grimper il faut dire je marche et sauter", semMem, lingDb));
   ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas sauter.", operator_react("grimpe", semMem, lingDb));
+  EXPECT_EQ("", operator_resolveCommand("grimpe", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il y a 2 étapes pour grimper. Veux-tu que je les dise une par une ?", operator_react("Comment grimper ?", semMem, lingDb));
 }
 
 

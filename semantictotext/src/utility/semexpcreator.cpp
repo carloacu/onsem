@@ -242,7 +242,9 @@ std::unique_ptr<GroundedExpression> sayIKnow(bool pPolarity)
 }
 
 
-std::unique_ptr<GroundedExpression> thereIsXSteps(int pNbOfSteps)
+std::unique_ptr<GroundedExpression> thereIsXStepsFor(
+    int pNbOfSteps,
+    UniqueSemanticExpression pPurposeSemExp)
 {
   // verb
   auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
@@ -255,13 +257,72 @@ std::unique_ptr<GroundedExpression> thereIsXSteps(int pNbOfSteps)
   rootGrdExp->children.emplace(GrammaticalType::OBJECT, mystd::make_unique<GroundedExpression>([&]()
   {
     auto objGrounding = mystd::make_unique<SemanticGenericGrounding>();
-    objGrounding->referenceType = SemanticReferenceType::DEFINITE;
+    objGrounding->referenceType = SemanticReferenceType::INDEFINITE;
     objGrounding->concepts.emplace("step", 4);
     objGrounding->quantity.setNumber(pNbOfSteps);
     return objGrounding;
   }()));
+
+  // purpose
+  rootGrdExp->children.emplace(GrammaticalType::PURPOSE, std::move(pPurposeSemExp));
+
   return rootGrdExp;
 }
+
+
+std::unique_ptr<GroundedExpression> doYouWantMeToSayThemOneByOne(const SemanticAgentGrounding& pSubjectGrounding)
+{
+  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  {
+    // verb
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::PRESENT;
+    statementGrd->concepts.emplace("verb_want", 4);
+    statementGrd->requests.set(SemanticRequestType::YESORNO);
+    return statementGrd;
+  }());
+
+  // subject
+  rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
+                               mystd::make_unique<GroundedExpression>
+                               (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+
+  // object
+  rootGrdExp->children.emplace(GrammaticalType::OBJECT,
+                               [] {
+    // verb
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::PUNCTUALPRESENT;
+    statementGrd->concepts.emplace("verb_action_say", 4);
+    auto childGrdExp =
+        mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+
+    // subject
+    childGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
+
+    // object
+    childGrdExp->children.emplace(GrammaticalType::OBJECT, mystd::make_unique<GroundedExpression>([&]()
+    {
+      auto objGrounding = mystd::make_unique<SemanticGenericGrounding>();
+      objGrounding->referenceType = SemanticReferenceType::DEFINITE;
+      objGrounding->coreference.emplace();
+      objGrounding->quantity.setPlural();
+      return objGrounding;
+    }()));
+
+    // specifier
+    childGrdExp->children.emplace(GrammaticalType::SPECIFIER, mystd::make_unique<GroundedExpression>([&]()
+    {
+      auto sepcGrounding = mystd::make_unique<SemanticGenericGrounding>();
+      sepcGrounding->word = SemanticWord(SemanticLanguageEnum::FRENCH , "une par une", PartOfSpeech::ADVERB);
+      return sepcGrounding;
+    }()));
+
+    return childGrdExp;
+  }());
+  return rootGrdExp;
+}
+
 
 
 UniqueSemanticExpression formulateConditionToAction(

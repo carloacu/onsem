@@ -859,7 +859,11 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
         int nbOfElts = listExp.elts.size();
         if (nbOfElts > 1)
         {
-          pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER, SemExpCreator::thereIsXSteps(nbOfElts));
+          auto listExp = mystd::make_unique<ListExpression>();
+          listExp->elts.emplace_back(SemExpCreator::thereIsXStepsFor(nbOfElts, pGrdExp.clone()));
+          if (pWorkStruct.author != nullptr)
+            listExp->elts.emplace_back(SemExpCreator::doYouWantMeToSayThemOneByOne(*pWorkStruct.author));
+          pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER, std::move(listExp));
         }
       }
     }
