@@ -859,11 +859,26 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
         int nbOfElts = listExp.elts.size();
         if (nbOfElts > 1)
         {
-          auto listExp = mystd::make_unique<ListExpression>();
-          listExp->elts.emplace_back(SemExpCreator::thereIsXStepsFor(nbOfElts, pGrdExp.clone()));
+          auto answerListExp = mystd::make_unique<ListExpression>();
+          answerListExp->elts.emplace_back(SemExpCreator::thereIsXStepsFor(nbOfElts, pGrdExp.clone()));
           if (pWorkStruct.author != nullptr)
-            listExp->elts.emplace_back(SemExpCreator::doYouWantMeToSayThemOneByOne(*pWorkStruct.author));
-          pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER, std::move(listExp));
+            answerListExp->elts.emplace_back(SemExpCreator::doYouWantMeToSayThemOneByOne(*pWorkStruct.author));
+          pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER, std::move(answerListExp));
+          auto* leafPtr = pWorkStruct.compositeSemAnswers->semAnswers.back()->getLeafPtr();
+          if (leafPtr != nullptr)
+          {
+            auto& leaf = *leafPtr;
+            leaf.interactionContextContainer = std::make_unique<InteractionContextContainer>();
+            int icAllDescriptionId = [&]{
+              InteractionContext icAllDescription;
+              icAllDescription.textToSay = listExp.clone();
+              return leaf.interactionContextContainer->addInteractionContext(std::move(icAllDescription));
+            }();
+
+            InteractionContext icMain;
+            icMain.answerPossibilities.emplace_back(SemExpCreator::generateYesOrNo(false), icAllDescriptionId);
+            leaf.interactionContextContainer->currentPosition.emplace(leaf.interactionContextContainer->addInteractionContext(std::move(icMain)));
+          }
         }
       }
     }

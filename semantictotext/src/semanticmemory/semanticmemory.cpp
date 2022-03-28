@@ -12,6 +12,7 @@ SemanticMemory::SemanticMemory()
     defaultLanguage(SemanticLanguageEnum::ENGLISH),
     callbackToSentencesCanBeAnswered(),
     proativeSpecifications(),
+    interactionContextContainer(),
     _newUserFocusedToSemExps(),
     _currUserId(SemanticAgentGrounding::currentUser),
     _externalFallback()

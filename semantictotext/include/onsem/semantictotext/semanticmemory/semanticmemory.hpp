@@ -1,9 +1,11 @@
 #ifndef ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICMEMORY_HPP
 #define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICMEMORY_HPP
 
+#include <memory>
 #include <onsem/common/utility/unique_propagate_const.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/texttosemantic/dbtype/misc/parameterswithvalue.hpp>
+#include <onsem/texttosemantic/dbtype/interactioncontext.hpp>
 #include <onsem/semantictotext/api.hpp>
 #include "semanticmemorybloc.hpp"
 
@@ -84,6 +86,7 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemory
   SemanticLanguageEnum defaultLanguage;
   std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback>> callbackToSentencesCanBeAnswered;
   ProativeSpecifications proativeSpecifications;
+  std::unique_ptr<InteractionContextContainer> interactionContextContainer;
 
 private:
   // things to do when a specific user comes

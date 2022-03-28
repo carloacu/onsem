@@ -128,7 +128,7 @@ protected:
    * @param pLimitOfRecursions Maximum number of looping before to stop.
    * @return A SharedExecutorResult finished when the execution of the expression in loop is completed.
    */
-  FutureVoid _doExecutionUntil(const AnnotatedExpression& pAnnExp,
+  FutureVoid _doExecutionUntil(AnnotatedExpression& pAnnExp,
                                std::shared_ptr<ExecutorContext> pExecutorContext,
                                const FutureVoid& pStopRequest,
                                std::shared_ptr<int> pLimitOfRecursions);
@@ -161,21 +161,21 @@ private:
   FutureVoid _waitUntil(const SemanticExpression& pSemExp,
                         const FutureVoid& pStopRequest);
 
-  FutureVoid _runSemExp(const UniqueSemanticExpression& pUSemExp,
+  FutureVoid _runSemExp(UniqueSemanticExpression& pUSemExp,
                         std::shared_ptr<ExecutorContext> pExecutorContext,
                         const FutureVoid& pStopRequest);
 
-  FutureVoid _handleAndList(const ListExpression& pListExp,
+  FutureVoid _handleAndList(ListExpression& pListExp,
                             std::shared_ptr<ExecutorContext> pExecutorContext,
                             const FutureVoid& pStopRequest);
-  FutureVoid _handleThenList(const ListExpression& pListExp,
+  FutureVoid _handleThenList(ListExpression& pListExp,
                              std::shared_ptr<ExecutorContext> pExecutorContext,
                              const FutureVoid& pStopRequest);
-  FutureVoid _runConditionExp(const ConditionExpression& pCondExp,
+  FutureVoid _runConditionExp(ConditionExpression& pCondExp,
                               std::shared_ptr<ExecutorContext> pExecutorContext,
                               const FutureVoid& pStopRequest);
 
-  FutureVoid _runSemExpNTimes(const UniqueSemanticExpression& pSemExp,
+  FutureVoid _runSemExpNTimes(UniqueSemanticExpression& pSemExp,
                               std::shared_ptr<ExecutorContext> pExecutorContext,
                               const FutureVoid& pStopRequest,
                               int pNbOfTimes);

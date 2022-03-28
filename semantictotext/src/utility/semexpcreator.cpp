@@ -1495,18 +1495,21 @@ UniqueSemanticExpression sayFalse()
 }
 
 
-UniqueSemanticExpression generateYesOrNoAnswer(UniqueSemanticExpression pSemExp,
-                                               bool pSamePolarity)
+UniqueSemanticExpression generateYesOrNo(bool pSamePolarity)
 {
-  return mystd::make_unique<FeedbackExpression>
-      (mystd::make_unique<GroundedExpression>([&pSamePolarity]{
+  return mystd::make_unique<GroundedExpression>([&pSamePolarity]{
     auto yesGenGr = mystd::make_unique<SemanticGenericGrounding>();
     yesGenGr->concepts.emplace(pSamePolarity ? "accordance_agreement_yes" : "accordance_disagreement_no", 4);
     return yesGenGr;
-  }()),
-       std::move(pSemExp));
+  }());
 }
 
+
+UniqueSemanticExpression generateYesOrNoAnswer(UniqueSemanticExpression pSemExp,
+                                               bool pSamePolarity)
+{
+  return mystd::make_unique<FeedbackExpression>(generateYesOrNo(pSamePolarity), std::move(pSemExp));
+}
 
 
 UniqueSemanticExpression generateYesOrNoAnswerFromQuestion(const GroundedExpression& pGrdExpQuestion,

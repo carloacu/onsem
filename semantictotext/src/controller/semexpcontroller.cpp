@@ -80,16 +80,50 @@ void applyOperatorOnExpHandleInMemory
  const linguistics::LinguisticDatabase& pLingDb,
  const ReactionOptions* pReactionOptions)
 {
+  const auto& semExp = *pExpressionHandleInMemory.semExp;
   SemControllerWorkingStruct workStruct
       (pInformationType, nullptr, SemanticLanguageEnum::UNKNOWN,
        &pExpressionHandleInMemory, pReactionOperator, &pSemanticMemory.proativeSpecifications,
        pSemanticMemory.getExternalFallback(), &pSemanticMemory.callbackToSentencesCanBeAnswered,
        pAxiomToConditionCurrentStatePtr, pLingDb);
-  if (pReactionOptions != nullptr)
-    workStruct.reactionOptions = *pReactionOptions;
-  SemanticMemoryBlockViewer memViewer(&pSemanticMemory.memBloc, pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId());
-  const auto& semExp = *pExpressionHandleInMemory.semExp;
-  applyOperatorOnSemExp(workStruct, memViewer, semExp);
+
+  if (pReactionOperator == SemanticOperatorEnum::REACT &&
+      pSemanticMemory.interactionContextContainer)
+  {
+    auto& interactionContextContainer = *pSemanticMemory.interactionContextContainer;
+    auto* currentInteractionContextPtr = interactionContextContainer.getCurrentInteractionContextPtr();
+    if (currentInteractionContextPtr != nullptr)
+    {
+      auto& currentInteractionContext = *currentInteractionContextPtr;
+      for (auto& currAnswPoss : currentInteractionContext.answerPossibilities)
+      {
+        auto* intPtr = semExp.getIntExpPtr_SkipWrapperPtrs();
+        if ((intPtr != nullptr && SemExpComparator::semExpsAreEqual(*currAnswPoss.first, *intPtr->originalExp, pSemanticMemory.memBloc, pLingDb)) ||
+            SemExpComparator::semExpsAreEqual(*currAnswPoss.first, semExp, pSemanticMemory.memBloc, pLingDb))
+        {
+          auto* answerInteractionContextPtr = interactionContextContainer.getInteractionContextPtr(currAnswPoss.second);
+          if (answerInteractionContextPtr != nullptr)
+          {
+            workStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER,
+                                                  answerInteractionContextPtr->textToSay->clone());
+            if (answerInteractionContextPtr->answerPossibilities.empty())
+              pSemanticMemory.interactionContextContainer.reset();
+            else
+              interactionContextContainer.currentPosition.emplace(currAnswPoss.second);
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  if (workStruct.compositeSemAnswers)
+  {
+    if (pReactionOptions != nullptr)
+      workStruct.reactionOptions = *pReactionOptions;
+    SemanticMemoryBlockViewer memViewer(&pSemanticMemory.memBloc, pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId());
+    applyOperatorOnSemExp(workStruct, memViewer, semExp);
+  }
   pCompositeSemAnswers = std::move(workStruct.compositeSemAnswers);
 }
 
@@ -1340,6 +1374,7 @@ void compAnswerToSemExp(mystd::unique_propagate_const<UniqueSemanticExpression>&
           auto metadataExp = mystd::make_unique<MetadataExpression>(std::move(*leafAnswer.reaction));
           metadataExp->from = SemanticSourceEnum::SEMREACTION;
           metadataExp->contextualAnnotation = leafAnswer.type;
+          metadataExp->interactionContextContainer = std::move(leafAnswer.interactionContextContainer);
           return mystd::unique_propagate_const<UniqueSemanticExpression>(std::move(metadataExp));
         }
       }

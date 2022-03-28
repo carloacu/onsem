@@ -11,9 +11,10 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/conditionexpression.hpp>
 #include <onsem/texttosemantic/dbtype/misc/conditionspecification.hpp>
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
+#include <onsem/texttosemantic/dbtype/interactioncontext.hpp>
 #include <onsem/semantictotext/semanticmemory/referencesgetter.hpp>
 #include "answerexp.hpp"
-#include "../semanticmemory/interactioncontext.hpp"
+
 
 namespace onsem
 {

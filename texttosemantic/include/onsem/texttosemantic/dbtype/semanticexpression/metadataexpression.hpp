@@ -5,6 +5,7 @@
 #include <memory>
 #include <onsem/common/enum/contextualannotation.hpp>
 #include <onsem/common/enum/semanticsourceenum.hpp>
+#include <onsem/texttosemantic/dbtype/interactioncontext.hpp>
 #include "../../api.hpp"
 
 
@@ -83,6 +84,8 @@ struct ONSEM_TEXTTOSEMANTIC_API MetadataExpression : public SemanticExpression
   mystd::unique_propagate_const<UniqueSemanticExpression> source;
 
   UniqueSemanticExpression semExp;
+
+  std::unique_ptr<InteractionContextContainer> interactionContextContainer;
 };
 
 

@@ -76,6 +76,7 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/binary/semexpsaver.hpp
     include/onsem/texttosemantic/dbtype/resourcegroundingextractor.hpp
     include/onsem/texttosemantic/dbtype/inflections.hpp
+    include/onsem/texttosemantic/dbtype/interactioncontext.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase.hpp
     include/onsem/texttosemantic/dbtype/inflectedword.hpp
     include/onsem/texttosemantic/dbtype/linguisticmeaning.hpp
@@ -157,6 +158,7 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/dbtype/binary/semexploader.cpp
     src/dbtype/binary/semexpsaver.cpp
     src/dbtype/sentiment/sentimentcontext.cpp
+    src/dbtype/interactioncontext.cpp
     src/dbtype/resourcegroundingextractor.cpp
     src/dbtype/linguisticdatabase.cpp
     src/dbtype/textprocessingcontext.cpp

@@ -181,6 +181,8 @@ UniqueSemanticExpression confirmInformation(
 
 UniqueSemanticExpression confirmInfoCondition(const ConditionSpecification& pCondSpec);
 
+UniqueSemanticExpression generateYesOrNo(bool pSamePolarity);
+
 UniqueSemanticExpression generateYesOrNoAnswer(UniqueSemanticExpression pSemExp,
                                                bool pSamePolarity);
 
