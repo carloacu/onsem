@@ -2219,9 +2219,9 @@ std::unique_ptr<SemanticExpression> SyntacticGraphToSemantic::xTranslateRelative
     bool cannotBeCompletedFromContext = (pContext.holdingSentenceRequests.has(SemanticRequestType::SUBJECT) &&
         pContext.grammTypeFromParent == GrammaticalType::SUBJECT) ||
         pIGram.infos.hasContextualInfo(WordContextualInfos::CANNOTBEACOREFRENCE);
-    if (!cannotBeCompletedFromContext && ConceptSet::haveAConcept(pIGram.infos.concepts, "fromRecentContext"))
-      hasToBeCompletedFromContext = true;
     bool quantityFilled = SemExpModifier::fillQuantityAndReferenceFromConcepts(quantity, referenceType, pIGram.infos.concepts);
+    if (!cannotBeCompletedFromContext && !quantityFilled && ConceptSet::haveAConcept(pIGram.infos.concepts, "fromRecentContext"))
+      hasToBeCompletedFromContext = true;
     if (ConceptSet::haveAConcept(pIGram.infos.concepts, "reference_indefinite"))
     {
       referenceType = SemanticReferenceType::INDEFINITE;
