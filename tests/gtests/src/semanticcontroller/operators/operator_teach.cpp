@@ -198,7 +198,17 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
                             operator_react("pour grimper il faut dire je marche et sauter", semMem, lingDb));
   ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas sauter.", operator_react("grimpe", semMem, lingDb));
   EXPECT_EQ("", operator_resolveCommand("grimpe", semMem, lingDb));
-  ONSEM_ANSWER_EQ("Il y a 2 étapes pour grimper. Veux-tu que je les dise une par une ?", operator_react("Comment grimper ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il y a 2 étapes pour grimper. Veux-tu que je les dise une par une ?",
+                  operator_react("Comment grimper ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il faut dire je marche et il faut sauter.",
+                  operator_react("non", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il y a 2 étapes pour grimper. Veux-tu que je les dise une par une ?",
+                  operator_react("Comment grimper ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il faut dire je marche. Dis et ensuite pour continuer !",
+                  operator_react("oui", semMem, lingDb));
+  ONSEM_NOANSWER(operator_react("et ensuite", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il faut sauter.",
+                  operator_react("et ensuite", semMem, lingDb));
 }
 
 

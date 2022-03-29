@@ -204,6 +204,36 @@ UniqueSemanticExpression _confirmWeAlreadyKnowIt(
 }
 
 
+std::unique_ptr<ListExpression> mergeInAList(UniqueSemanticExpression pSemExp1,
+                                             UniqueSemanticExpression pSemExp2)
+{
+  auto res = mystd::make_unique<ListExpression>();
+  res->elts.emplace_back(std::move(pSemExp1));
+  res->elts.emplace_back(std::move(pSemExp2));
+  return res;
+}
+
+
+std::unique_ptr<ListExpression> generateAndThen()
+{
+  auto listExp = mystd::make_unique<ListExpression>(ListExpressionType::THEN);
+  listExp->elts.emplace_back(mystd::make_unique<GroundedExpression>
+                             ([]()
+                         {
+                           auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+                           genGrd->coreference.emplace(CoreferenceDirectionEnum::BEFORE);
+                           return genGrd;
+                         }()));
+  listExp->elts.emplace_back(mystd::make_unique<GroundedExpression>
+                             ([]()
+                         {
+                           auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+                           genGrd->coreference.emplace(CoreferenceDirectionEnum::AFTER);
+                           return genGrd;
+                         }()));
+  return listExp;
+}
+
 std::unique_ptr<GroundedExpression> copyAndReformateGrdExpToPutItInAnAnswer
 (const GroundedExpression& pGrdExp)
 {
@@ -320,6 +350,39 @@ std::unique_ptr<GroundedExpression> doYouWantMeToSayThemOneByOne(const SemanticA
 
     return childGrdExp;
   }());
+  return rootGrdExp;
+}
+
+
+std::unique_ptr<GroundedExpression> sayAndThenToContinue()
+{
+  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  {
+    // verb
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::PUNCTUALPRESENT;
+    statementGrd->concepts.emplace("verb_action_say", 4);
+    statementGrd->requests.set(SemanticRequestType::ACTION);
+    return statementGrd;
+  }());
+
+  // subject
+  rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
+
+  // object
+  rootGrdExp->children.emplace(GrammaticalType::OBJECT,
+                               mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTextGrounding>("et ensuite")));
+
+  // purpose
+  rootGrdExp->children.emplace(GrammaticalType::PURPOSE,
+                               mystd::make_unique<GroundedExpression>([] {
+    // verb
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::UNKNOWN;
+    statementGrd->concepts.emplace("verb_continue", 4);
+    return statementGrd;
+  }()));
+
   return rootGrdExp;
 }
 

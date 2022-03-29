@@ -140,7 +140,7 @@ void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
   case SemanticExpressionType::INTERPRETATION:
   {
     InterpretationExpression& intExp = pSemExp->getIntExp();
-    xSearchRootOfSplitPossOfQuestions(intExp.originalExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+    xSearchRootOfSplitPossOfQuestions(intExp.interpretedExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                       pRootSemExpForDebug, pDebugOutput);
     break;
   }

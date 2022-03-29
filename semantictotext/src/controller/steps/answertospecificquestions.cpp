@@ -875,8 +875,29 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
               return leaf.interactionContextContainer->addInteractionContext(std::move(icAllDescription));
             }();
 
+            mystd::optional<int> nextId;
+            for (auto it = listExp.elts.rbegin(); it != listExp.elts.rend(); ++it)
+            {
+              bool isLastElt = it == listExp.elts.rbegin();
+              nextId.emplace([&]{
+                InteractionContext icEltDescription;
+                if (isLastElt)
+                  icEltDescription.textToSay = std::move(*it);
+                else
+                  icEltDescription.textToSay = SemExpCreator::mergeInAList(std::move(*it), SemExpCreator::sayAndThenToContinue());
+
+                if (nextId)
+                  icEltDescription.answerPossibilities.emplace_back(SemExpCreator::generateAndThen(), *nextId);
+                return leaf.interactionContextContainer->addInteractionContext(std::move(icEltDescription));
+              }());
+            }
+
             InteractionContext icMain;
             icMain.answerPossibilities.emplace_back(SemExpCreator::generateYesOrNo(false), icAllDescriptionId);
+            if (nextId)
+              icMain.answerPossibilities.emplace_back(SemExpCreator::generateYesOrNo(true), *nextId);
+            else
+              assert(false);
             leaf.interactionContextContainer->currentPosition.emplace(leaf.interactionContextContainer->addInteractionContext(std::move(icMain)));
           }
         }

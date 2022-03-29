@@ -371,6 +371,7 @@
   <declareconcept name="verb_beRight" autofill="false" />
   <declareconcept name="verb_born" />
   <declareconcept name="verb_can" />
+  <declareconcept name="verb_continue" />
   <declareconcept name="verb_die" />
   <declareconcept name="verb_dislike" autofill="false" />
   <declareconcept name="verb_doubt" />

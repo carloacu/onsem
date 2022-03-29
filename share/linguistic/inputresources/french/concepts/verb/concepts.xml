@@ -15,6 +15,9 @@
  <concept name="verb_can">
   <linkedMeaning lemme="pouvoir"  gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_continue">
+  <linkedMeaning lemme="continuer"  gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_die">
   <linkedMeaning lemme="mourir" relationToConcept="4"/>
   <linkedMeaning lemme="décéder" relationToConcept="3"/>

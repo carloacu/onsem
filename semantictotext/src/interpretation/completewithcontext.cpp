@@ -816,7 +816,11 @@ void _replaceRecentFromContext_fromSemExp
     ListExpression& listExp = pSemExp->getListExp();
     if (_hasToReplaceAndThenByQuestionWhatHappenedJustAfterThan(listExp, pContextSemExp, pSameAuthor))
     {
-      pSemExp = _generateSentenceWhatHappenedJustAfterThat();
+      pSemExp = mystd::make_unique<InterpretationExpression>
+          (InterpretationSource::ANDTHEN,
+           _generateSentenceWhatHappenedJustAfterThat(),
+           std::move(pSemExp));
+
       _replaceRecentFromContext_fromSemExp(pSemExp, pGramParentLink, pFatherGrdExpOfStatementPtr,  pContextSemExp, pSameAuthor,
                                            pAuthorPtr, pReceiverPtr, pMemBlock, pLingDb);
     }
