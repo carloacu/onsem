@@ -361,37 +361,44 @@ void LinguisticSynthesizerPrivate::_writeListExp
  SemanticExpression const** pLastSubject) const
 {
   std::size_t nbElts = pListExp.elts.size();
-  std::size_t currId = 0;
-  for (const auto& currElt : pListExp.elts)
+  if (nbElts > 0)
   {
-    ++currId;
-    if (pListExp.listType != ListExpressionType::UNRELATED && currId > 1)
-      getSyntGrounding().writeListSeparators(pOutSemExp.out, pListExp.listType, currId == nbElts);
-    if (currId == nbElts && SemExpGetter::isACoreference(*currElt, CoreferenceDirectionEnum::AFTER))
+    std::size_t currId = 0;
+    for (const auto& currElt : pListExp.elts)
     {
-      pSemExpSyntTypes.emplace_back(SEMEXPTYPEENUMFORSYNT_NOTHING);
-      continue;
-    }
-    else if (currId == 1 && nbElts == 2 && SemExpGetter::isACoreference(*currElt, CoreferenceDirectionEnum::BEFORE))
-    {
-      pSemExpSyntTypes.emplace_back(SEMEXPTYPEENUMFORSYNT_NOTHING);
-      continue;
-    }
-    SemanticRequests requests;
+      ++currId;
+      if (pListExp.listType != ListExpressionType::UNRELATED && currId > 1)
+        getSyntGrounding().writeListSeparators(pOutSemExp.out, pListExp.listType, currId == nbElts);
+      if (currId == nbElts && SemExpGetter::isACoreference(*currElt, CoreferenceDirectionEnum::AFTER))
+      {
+        pSemExpSyntTypes.emplace_back(SEMEXPTYPEENUMFORSYNT_NOTHING);
+        continue;
+      }
+      else if (currId == 1 && nbElts == 2 && SemExpGetter::isACoreference(*currElt, CoreferenceDirectionEnum::BEFORE))
+      {
+        pSemExpSyntTypes.emplace_back(SEMEXPTYPEENUMFORSYNT_NOTHING);
+        continue;
+      }
+      SemanticRequests requests;
 
-    if (pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBJECT)
-    {
-      SynthesizerCurrentContext subContext(pContext);
-      subContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTAFTERVERB;
-      _writeSemExp(pSemExpSyntTypes, pOutSemExp, requests, pLastSubject, *currElt,  pConf, subContext);
-    }
-    else
-    {
-      _writeSemExp(pSemExpSyntTypes, pOutSemExp, requests, pLastSubject, *currElt,  pConf, pContext);
-    }
+      if (pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBJECT)
+      {
+        SynthesizerCurrentContext subContext(pContext);
+        subContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTAFTERVERB;
+        _writeSemExp(pSemExpSyntTypes, pOutSemExp, requests, pLastSubject, *currElt,  pConf, subContext);
+      }
+      else
+      {
+        _writeSemExp(pSemExpSyntTypes, pOutSemExp, requests, pLastSubject, *currElt,  pConf, pContext);
+      }
 
-    if (pContext.isAtRoot && pListExp.listType == ListExpressionType::UNRELATED)
-      _addPunctuation(pOutSemExp.out, pSemExpSyntTypes, requests, pConf.oneLinePerSentence);
+      if (pContext.isAtRoot && pListExp.listType == ListExpressionType::UNRELATED)
+        _addPunctuation(pOutSemExp.out, pSemExpSyntTypes, requests, pConf.oneLinePerSentence);
+    }
+  }
+  else if (pListExp.listType != ListExpressionType::UNRELATED)
+  {
+    getSyntGrounding().writeListSeparators(pOutSemExp.out, pListExp.listType, true);
   }
 }
 
@@ -1437,21 +1444,27 @@ void LinguisticSynthesizerPrivate::_writeObjects
   if (objectListExpPtr != nullptr)
   {
     std::size_t nbElts = objectListExpPtr->elts.size();
-    std::size_t currId = 0;
-    for (const auto& currElt : objectListExpPtr->elts)
+    if (nbElts > 0)
     {
-      ++currId;
-      if (objectListExpPtr->listType != ListExpressionType::UNRELATED && currId > 1)
-        getSyntGrounding().writeListSeparators(pOutSemExp.out, objectListExpPtr->listType, currId == nbElts);
-      if (currId == nbElts && SemExpGetter::isACoreference(*currElt, CoreferenceDirectionEnum::AFTER))
-        continue;
-      else if (currId == 1 && nbElts == 2 && SemExpGetter::isACoreference(*currElt, CoreferenceDirectionEnum::BEFORE))
-        continue;
-      _writeObjects(pOutSemExp, pCurrSentence, pSentWorkStruct, pVerbContext, pStatementGrd,
-                    pObjectPosition, *currElt, pConf, pRequests, pIsANameAssignement,
-                    pLastSubject);
+      std::size_t currId = 0;
+      for (const auto& currElt : objectListExpPtr->elts)
+      {
+        ++currId;
+        if (objectListExpPtr->listType != ListExpressionType::UNRELATED && currId > 1)
+          getSyntGrounding().writeListSeparators(pOutSemExp.out, objectListExpPtr->listType, currId == nbElts);
+        if (currId == nbElts && SemExpGetter::isACoreference(*currElt, CoreferenceDirectionEnum::AFTER))
+          continue;
+        else if (currId == 1 && nbElts == 2 && SemExpGetter::isACoreference(*currElt, CoreferenceDirectionEnum::BEFORE))
+          continue;
+        _writeObjects(pOutSemExp, pCurrSentence, pSentWorkStruct, pVerbContext, pStatementGrd,
+                      pObjectPosition, *currElt, pConf, pRequests, pIsANameAssignement,
+                      pLastSubject);
+      }
     }
-
+    else if (objectListExpPtr->listType != ListExpressionType::UNRELATED)
+    {
+      getSyntGrounding().writeListSeparators(pOutSemExp.out, objectListExpPtr->listType, true);
+    }
     return;
   }
 

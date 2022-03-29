@@ -360,9 +360,9 @@ void removeEmptyListElements(UniqueSemanticExpression& pListExp)
     else
       ++itElt;
   }
-  if (listExp.elts.empty())
+  if (listExp.listType == ListExpressionType::UNRELATED && listExp.elts.empty())
     pListExp.clear();
-  else if (listExp.elts.size() == 1)
+  if (listExp.elts.size() == 1)
     pListExp = std::move(listExp.elts.front());
 }
 

@@ -545,9 +545,7 @@ void _tryToCompleteInputQuestion(UniqueSemanticExpression& pSemExp,
 bool _isAndThenListExp(const ListExpression& pListExp)
 {
   return pListExp.listType == ListExpressionType::THEN &&
-      pListExp.elts.size() == 2 &&
-      SemExpGetter::isACoreference(*pListExp.elts.front(), CoreferenceDirectionEnum::BEFORE) &&
-      SemExpGetter::isACoreference(*pListExp.elts.back(), CoreferenceDirectionEnum::UNKNOWN);
+      pListExp.elts.empty();
 }
 
 

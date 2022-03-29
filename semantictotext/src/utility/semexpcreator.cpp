@@ -213,27 +213,6 @@ std::unique_ptr<ListExpression> mergeInAList(UniqueSemanticExpression pSemExp1,
   return res;
 }
 
-
-std::unique_ptr<ListExpression> generateAndThen()
-{
-  auto listExp = mystd::make_unique<ListExpression>(ListExpressionType::THEN);
-  listExp->elts.emplace_back(mystd::make_unique<GroundedExpression>
-                             ([]()
-                         {
-                           auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
-                           genGrd->coreference.emplace(CoreferenceDirectionEnum::BEFORE);
-                           return genGrd;
-                         }()));
-  listExp->elts.emplace_back(mystd::make_unique<GroundedExpression>
-                             ([]()
-                         {
-                           auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
-                           genGrd->coreference.emplace(CoreferenceDirectionEnum::AFTER);
-                           return genGrd;
-                         }()));
-  return listExp;
-}
-
 std::unique_ptr<GroundedExpression> copyAndReformateGrdExpToPutItInAnAnswer
 (const GroundedExpression& pGrdExp)
 {

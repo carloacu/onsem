@@ -30,8 +30,6 @@ namespace SemExpCreator
 std::unique_ptr<ListExpression> mergeInAList(UniqueSemanticExpression pSemExp1,
                                              UniqueSemanticExpression pSemExp2);
 
-std::unique_ptr<ListExpression> generateAndThen();
-
 std::unique_ptr<GroundedExpression> copyAndReformateGrdExpToPutItInAnAnswer(const GroundedExpression& pGrdExp);
 
 std::unique_ptr<SemanticExpression> sayThat();

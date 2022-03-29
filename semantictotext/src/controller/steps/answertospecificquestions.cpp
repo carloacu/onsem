@@ -887,7 +887,7 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
                   icEltDescription.textToSay = SemExpCreator::mergeInAList(std::move(*it), SemExpCreator::sayAndThenToContinue());
 
                 if (nextId)
-                  icEltDescription.answerPossibilities.emplace_back(SemExpCreator::generateAndThen(), *nextId);
+                  icEltDescription.answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN), *nextId);
                 return leaf.interactionContextContainer->addInteractionContext(std::move(icEltDescription));
               }());
             }

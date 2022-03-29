@@ -206,7 +206,6 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
                   operator_react("Comment grimper ?", semMem, lingDb));
   ONSEM_ANSWER_EQ("Il faut dire je marche. Dis et ensuite pour continuer !",
                   operator_react("oui", semMem, lingDb));
-  ONSEM_NOANSWER(operator_react("et ensuite", semMem, lingDb));
   ONSEM_ANSWER_EQ("Il faut sauter.",
                   operator_react("et ensuite", semMem, lingDb));
 }

@@ -1859,7 +1859,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertListChunk
     {
       ToGenRepContext subContext(pContext, pContext.chLink, currChunk);
       auto newElt = xFillSemExp(pGeneral, subContext);
-      if (newElt)
+      if (newElt &&
+          (pContext.chunk.children.size() > 1 || !SemExpGetter::isACoreference(**newElt, CoreferenceDirectionEnum::UNKNOWN)))
       {
         SemanticRequestType requestofHoldingChunkLink =
             xSubBordinateChkLkToRequest(*it);
@@ -1888,7 +1889,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertListChunk
     }
   }
 
-  if (semExpBeforeListSeparator == nullptr || semExpAfterListSeparator == nullptr)
+  if (semExpBeforeListSeparator != nullptr || semExpAfterListSeparator != nullptr)
   {
     if (semExpBeforeListSeparator == nullptr)
     {
