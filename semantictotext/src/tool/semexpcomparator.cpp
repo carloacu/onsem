@@ -21,7 +21,7 @@ namespace
 struct ListExpPtr
 {
   std::list<const SemanticExpression*> elts;
-  ListExpressionType listType = ListExpressionType::UNRELATED;
+  mystd::optional<ListExpressionType> listType;
 };
 
 bool _verbTenseAreNearlyEqual(SemanticVerbTense pVerbTense1,
@@ -546,10 +546,9 @@ void _fillListExpPtr(ListExpPtr& pListExpPtr,
     for (const auto& currElt : listExpPtr->elts)
       _fillListExpPtr(pListExpPtr, *currElt, pExceptionsPtr,
                       pFirstOrSecondArg, pAllowGrdExpThatDoesntModifyAMeaning);
-    pListExpPtr.listType = listExpPtr->listType;
+    pListExpPtr.listType.emplace(listExpPtr->listType);
     return;
   }
-  pListExpPtr.listType = ListExpressionType::UNRELATED;
   _addSemExpPtr(pListExpPtr.elts, pSemExp, pExceptionsPtr,
                 pFirstOrSecondArg, pAllowGrdExpThatDoesntModifyAMeaning);
 }
@@ -1034,10 +1033,13 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   const std::size_t size1 = listExpPtr1.elts.size();
   const std::size_t size2 = listExpPtr2.elts.size();
   std::size_t nbOfErrors = std::abs(static_cast<int>(size1) - static_cast<int>(size2));
-  if (listExpPtr1.listType != listExpPtr2.listType &&
+  if ((listExpPtr1.listType.has_value() || listExpPtr2.listType.has_value()) &&
+      listExpPtr1.listType != listExpPtr2.listType &&
       (listExpPtr1.listType == ListExpressionType::OR ||
        listExpPtr1.listType == ListExpressionType::THEN ||
+       listExpPtr1.listType == ListExpressionType::THEN_REVERSED ||
        listExpPtr2.listType == ListExpressionType::OR ||
+       listExpPtr2.listType == ListExpressionType::THEN ||
        listExpPtr2.listType == ListExpressionType::THEN_REVERSED))
   {
     if (pComparisonErrorReportingPtr != nullptr)

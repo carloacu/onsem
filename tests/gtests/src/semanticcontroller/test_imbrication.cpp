@@ -56,6 +56,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("I bought N5", "I bought N5 robot", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Je veux une assurance habitation", "I want a home insurance", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Je veux une assurance habitation", "Je voudrais une assurance habitation", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("et puis", "Et après", semanticMemory, lingDb));
 
   EXPECT_EQ(ImbricationType::OPPOSES, _getImbrication("I like banana", "I don't like banana", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::OPPOSES, _getImbrication("I like banana", "I dislike banana", semanticMemory, lingDb));
@@ -87,6 +88,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I asked walk", "I said walk yesterday", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("oui", "Oui, allons-y !", semanticMemory, lingDb));
 
+  EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("et puis", "et avant", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Il est né en 1988", "Il est né le 5 mai 1986", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("le 3 septembre 1986", "septembre 1987", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("le 3 septembre 1986", "le 4 septembre 1986", semanticMemory, lingDb));

@@ -36,6 +36,7 @@ struct ONSEM_TEXTTOSEMANTIC_API InteractionContextContainer
   int addInteractionContext(InteractionContext pInteractionContext);
   const InteractionContext* getCurrentInteractionContextPtr() const;
   const InteractionContext* getInteractionContextPtr(int pId) const;
+  InteractionContext* getInteractionContextPtr(int pId);
 
 private:
   std::map<int, InteractionContext> _interactionContexts;

@@ -35,6 +35,16 @@ const InteractionContext* InteractionContextContainer::getInteractionContextPtr(
 }
 
 
+InteractionContext* InteractionContextContainer::getInteractionContextPtr(int pId)
+{
+  auto it = _interactionContexts.find(pId);
+  if (it != _interactionContexts.end())
+    return &it->second;
+  return nullptr;
+}
+
+
+
 
 } // End of namespace onsem
 

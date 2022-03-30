@@ -875,27 +875,45 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
               return leaf.interactionContextContainer->addInteractionContext(std::move(icAllDescription));
             }();
 
-            mystd::optional<int> nextId;
-            for (auto it = listExp.elts.rbegin(); it != listExp.elts.rend(); ++it)
+            std::list<int> icListIds;
+            auto nbOfElts = listExp.elts.size();
+            std::size_t i = 0;
+            for (auto& currElt : listExp.elts)
             {
-              bool isLastElt = it == listExp.elts.rbegin();
-              nextId.emplace([&]{
+              ++i;
+              bool isLastElt = i == nbOfElts;
+              icListIds.push_back([&]{
                 InteractionContext icEltDescription;
                 if (isLastElt)
-                  icEltDescription.textToSay = std::move(*it);
+                  icEltDescription.textToSay = std::move(currElt);
                 else
-                  icEltDescription.textToSay = SemExpCreator::mergeInAList(std::move(*it), SemExpCreator::sayAndThenToContinue());
-
-                if (nextId)
-                  icEltDescription.answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN), *nextId);
+                  icEltDescription.textToSay = SemExpCreator::mergeInAList(std::move(currElt), SemExpCreator::sayAndThenToContinue());
                 return leaf.interactionContextContainer->addInteractionContext(std::move(icEltDescription));
               }());
             }
 
+            mystd::optional<int> prevId;
+            for (auto it = icListIds.begin(); it != icListIds.end(); )
+            {
+              auto nextIt = it;
+              ++nextIt;
+              InteractionContext* icPtr = leaf.interactionContextContainer->getInteractionContextPtr(*it);
+              if (icPtr != nullptr)
+              {
+                auto& ic = *icPtr;
+                if (nextIt != icListIds.end())
+                  ic.answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN), *nextIt);
+                if (prevId)
+                  ic.answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN_REVERSED), *prevId);
+              }
+              prevId.emplace(*it);
+              it = nextIt;
+            }
+
             InteractionContext icMain;
             icMain.answerPossibilities.emplace_back(SemExpCreator::generateYesOrNo(false), icAllDescriptionId);
-            if (nextId)
-              icMain.answerPossibilities.emplace_back(SemExpCreator::generateYesOrNo(true), *nextId);
+            if (!icListIds.empty())
+              icMain.answerPossibilities.emplace_back(SemExpCreator::generateYesOrNo(true), icListIds.front());
             else
               assert(false);
             leaf.interactionContextContainer->currentPosition.emplace(leaf.interactionContextContainer->addInteractionContext(std::move(icMain)));

@@ -350,7 +350,7 @@ std::unique_ptr<GroundedExpression> sayAndThenToContinue()
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT,
-                               mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTextGrounding>("et ensuite")));
+                               mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTextGrounding>("et après")));
 
   // purpose
   rootGrdExp->children.emplace(GrammaticalType::PURPOSE,

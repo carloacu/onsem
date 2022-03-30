@@ -204,10 +204,12 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
                   operator_react("non", semMem, lingDb));
   ONSEM_ANSWER_EQ("Il y a 2 étapes pour grimper. Veux-tu que je les dise une par une ?",
                   operator_react("Comment grimper ?", semMem, lingDb));
-  ONSEM_ANSWER_EQ("Il faut dire je marche. Dis et ensuite pour continuer !",
+  ONSEM_ANSWER_EQ("Il faut dire je marche. Dis et après pour continuer !",
                   operator_react("oui", semMem, lingDb));
   ONSEM_ANSWER_EQ("Il faut sauter.",
-                  operator_react("et ensuite", semMem, lingDb));
+                  operator_react("et après", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il faut dire je marche. Dis et apr\xC3\xA8s pour continuer !",
+                  operator_react("et avant", semMem, lingDb));
 }
 
 
