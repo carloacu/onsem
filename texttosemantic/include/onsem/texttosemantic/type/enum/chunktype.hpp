@@ -19,6 +19,7 @@ enum class ChunkType
   AND_CHUNK,
   OR_CHUNK,
   THEN_CHUNK,
+  THEN_REVERSED_CHUNK,
   TEACH_CHUNK
 };
 
@@ -26,7 +27,7 @@ enum class ChunkType
 inline bool chunkTypeIsAList(ChunkType pChunkType)
 {
   return pChunkType == ChunkType::AND_CHUNK || pChunkType == ChunkType::OR_CHUNK ||
-      pChunkType == ChunkType::THEN_CHUNK;
+      pChunkType == ChunkType::THEN_CHUNK || pChunkType == ChunkType::THEN_REVERSED_CHUNK;
 }
 
 inline bool chunkTypeIsVerbal(ChunkType pChunkType)

@@ -88,6 +88,7 @@ bool isComplete_fromSyntGraph(const SyntacticGraph& pSyntGraph)
     case ChunkType::AND_CHUNK:
     case ChunkType::OR_CHUNK:
     case ChunkType::THEN_CHUNK:
+    case ChunkType::THEN_REVERSED_CHUNK:
     {
       if (currChunk.children.empty() ||
           !checkOrder(currChunk, *currChunk.children.back().chunk))

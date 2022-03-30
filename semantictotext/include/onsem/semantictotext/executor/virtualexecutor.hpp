@@ -171,6 +171,9 @@ private:
   FutureVoid _handleThenList(ListExpression& pListExp,
                              std::shared_ptr<ExecutorContext> pExecutorContext,
                              const FutureVoid& pStopRequest);
+  FutureVoid _handleThenReversedList(ListExpression& pListExp,
+                                     std::shared_ptr<ExecutorContext> pExecutorContext,
+                                     const FutureVoid& pStopRequest);
   FutureVoid _runConditionExp(ConditionExpression& pCondExp,
                               std::shared_ptr<ExecutorContext> pExecutorContext,
                               const FutureVoid& pStopRequest);

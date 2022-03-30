@@ -60,6 +60,12 @@ void resolveIncompleteLists(std::list<ChunkLink>& pChunkList,
             itLinkTowardLastListElt = nextIt;
             ++nextIt;
           }
+          else if (ConceptSet::haveAConcept(nextChunkHeadConcepts, "time_relative_before"))
+          {
+            chunkTypeOpt.emplace(ChunkType::THEN_REVERSED_CHUNK);
+            itLinkTowardLastListElt = nextIt;
+            ++nextIt;
+          }
         }
 
         bool hasAListEltBefore = !_hasOnlyInterjection(pChunkList.begin(), it);

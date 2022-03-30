@@ -35,7 +35,9 @@ ListExpressionType _chunkTypeToListExpType(ChunkType pChunkType)
     return ListExpressionType::AND;
   if (pChunkType == ChunkType::OR_CHUNK)
     return ListExpressionType::OR;
-  return ListExpressionType::THEN;
+  if (pChunkType == ChunkType::THEN_CHUNK)
+    return ListExpressionType::THEN;
+  return ListExpressionType::THEN_REVERSED;
 }
 
 std::unique_ptr<SemanticNameGrounding> _makeNameGrd(const std::list<std::string>& pNames,
@@ -1706,6 +1708,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
   case ChunkType::AND_CHUNK:
   case ChunkType::OR_CHUNK:
   case ChunkType::THEN_CHUNK:
+  case ChunkType::THEN_REVERSED_CHUNK:
   {
     res = mystd::unique_propagate_const<UniqueSemanticExpression>(xConvertListChunk(pGeneral, pContext));
     break;
@@ -2384,9 +2387,7 @@ void SyntacticGraphToSemantic::xAddSubjectOf(GroundedExpression& pNewGrdExp,
                                              ToGenRepContext& pContext,
                                              ListExpressionType pListExpType) const
 {
-  if (pContext.chunk.type == ChunkType::AND_CHUNK ||
-      pContext.chunk.type == ChunkType::OR_CHUNK ||
-      pContext.chunk.type == ChunkType::THEN_CHUNK)
+  if (chunkTypeIsAList(pContext.chunk.type))
   {
     pListExpType = _chunkTypeToListExpType(pContext.chunk.type);
     for (auto& currChild : pContext.chunk.children)

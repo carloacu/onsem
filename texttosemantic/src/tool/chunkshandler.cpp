@@ -1063,7 +1063,8 @@ bool canLinkVerbToASubject
     return false;
   }
   if (pSubjectChunk.type == ChunkType::AND_CHUNK ||
-      pSubjectChunk.type == ChunkType::THEN_CHUNK)
+      pSubjectChunk.type == ChunkType::THEN_CHUNK ||
+      pSubjectChunk.type == ChunkType::THEN_REVERSED_CHUNK)
   {
     return pFls.verbCanBePlural(*infGramVerb);
   }

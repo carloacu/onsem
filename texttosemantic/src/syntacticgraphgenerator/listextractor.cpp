@@ -35,6 +35,8 @@ bool _isAListSeparator(const InflectedWord& pIGram,
     return ConceptSet::haveAConcept(pIGram.infos.concepts, "list_or");
   if (pListType == ChunkType::THEN_CHUNK)
     return ConceptSet::haveAConcept(pIGram.infos.concepts, "list_then");
+  if (pListType == ChunkType::THEN_REVERSED_CHUNK)
+    return ConceptSet::haveAConcept(pIGram.infos.concepts, "list_then_reversed");
   return false;
 }
 
@@ -51,6 +53,8 @@ mystd::optional<ChunkType> getListType
       res.emplace(ChunkType::OR_CHUNK);
     else if (ConceptSet::haveAConcept(pConcepts, "list_then"))
       res.emplace(ChunkType::THEN_CHUNK);
+    else if (ConceptSet::haveAConcept(pConcepts, "list_then_reversed"))
+      res.emplace(ChunkType::THEN_REVERSED_CHUNK);
   }
   return res;
 }

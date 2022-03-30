@@ -69,6 +69,10 @@ bool _writeAChunkNode
   {
     pSs << pNewId << " [label=\"THEN\"]" << std::endl;
   }
+  else if (pNewNode.chunk->type == ChunkType::THEN_REVERSED_CHUNK)
+  {
+    pSs << pNewId << " [label=\"THEN_REVERSED\"]" << std::endl;
+  }
   else if (pNewNode.chunk->type == ChunkType::TEACH_CHUNK)
   {
     pSs << pNewId << " [label=\"TEACH\"]" << std::endl;

@@ -44,6 +44,10 @@ void Linguisticsynthesizergrounding::writeListSeparators
       _strToOut(pOut, PartOfSpeech::CONJUNCTIVE,
                 _language == SemanticLanguageEnum::FRENCH ? "et puis" : "and then");
       break;
+    case ListExpressionType::THEN_REVERSED:
+      _strToOut(pOut, PartOfSpeech::CONJUNCTIVE,
+                _language == SemanticLanguageEnum::FRENCH ? "et avant" : "and before");
+      break;
     default:
       break;
     };
@@ -54,6 +58,8 @@ void Linguisticsynthesizergrounding::writeListSeparators
     {
       if (pListType == ListExpressionType::THEN)
         return _language == SemanticLanguageEnum::FRENCH ? ", puis" : ", then";
+      if (pListType == ListExpressionType::THEN_REVERSED)
+        return _language == SemanticLanguageEnum::FRENCH ? ", avant" : ", before";
       return ",";
     }();
 

@@ -1038,7 +1038,7 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
       (listExpPtr1.listType == ListExpressionType::OR ||
        listExpPtr1.listType == ListExpressionType::THEN ||
        listExpPtr2.listType == ListExpressionType::OR ||
-       listExpPtr2.listType == ListExpressionType::THEN))
+       listExpPtr2.listType == ListExpressionType::THEN_REVERSED))
   {
     if (pComparisonErrorReportingPtr != nullptr)
       pComparisonErrorReportingPtr->addError(pParentGrammaticalType, ImbricationType::DIFFERS,

@@ -66,9 +66,7 @@ void addInterjections(std::list<ChunkLink>& pChunkList)
     }
     else if (chunk.type == ChunkType::VERB_CHUNK ||
              chunk.type == ChunkType::NOMINAL_CHUNK ||
-             chunk.type == ChunkType::OR_CHUNK ||
-             chunk.type == ChunkType::AND_CHUNK ||
-             chunk.type == ChunkType::THEN_CHUNK)
+             chunkTypeIsAList(chunk.type))
     {
       if (!itInterjections.empty())
       {

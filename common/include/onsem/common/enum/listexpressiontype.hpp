@@ -9,10 +9,11 @@
 namespace onsem
 {
 
-#define ADD_SEMANTIC_LISTEXPTYPE_TABLE               \
-  ADD_SEMANTIC_LISTEXPTYPE(AND, "and")               \
-  ADD_SEMANTIC_LISTEXPTYPE(OR, "or")                 \
-  ADD_SEMANTIC_LISTEXPTYPE(THEN, "then")             \
+#define ADD_SEMANTIC_LISTEXPTYPE_TABLE                         \
+  ADD_SEMANTIC_LISTEXPTYPE(AND, "and")                         \
+  ADD_SEMANTIC_LISTEXPTYPE(OR, "or")                           \
+  ADD_SEMANTIC_LISTEXPTYPE(THEN, "then")                       \
+  ADD_SEMANTIC_LISTEXPTYPE(THEN_REVERSED, "then_reversed")     \
   ADD_SEMANTIC_LISTEXPTYPE(UNRELATED, "unrelated")
 
 

@@ -161,6 +161,39 @@ FutureVoid VirtualExecutor::_handleThenList(ListExpression& pListExp,
 }
 
 
+FutureVoid VirtualExecutor::_handleThenReversedList(ListExpression& pListExp,
+    std::shared_ptr<ExecutorContext> pExecutorContext,
+    const FutureVoid& pStopRequest)
+{
+  FutureVoid res;
+  _addLogAutoSchedulingBeginOfScope();
+  bool firstIteration = true;
+  for (auto it = pListExp.elts.rbegin(); it != pListExp.elts.rend(); ++it)
+  {
+    auto& currElt = *it;
+    if (firstIteration)
+    {
+      res = res.then([this, &currElt, pExecutorContext, pStopRequest]() mutable
+      {
+        return _runSemExp(currElt, pExecutorContext, pStopRequest);
+      });
+      firstIteration = false;
+    }
+    else
+    {
+      res = res.then([this, &currElt, pExecutorContext, pStopRequest]() mutable
+      {
+        _addLogAutoScheduling("THEN_REVERSED");
+        return _runSemExp(currElt, pExecutorContext, pStopRequest);
+      });
+    }
+  }
+  _addLogAutoSchedulingEndOfScope();
+  return res;
+}
+
+
+
 FutureVoid VirtualExecutor::_runConditionExp(
     ConditionExpression& pCondExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
@@ -404,6 +437,10 @@ FutureVoid VirtualExecutor::_runSemExp(
     case ListExpressionType::UNRELATED:
     {
       return _handleThenList(listExp, pExecutorContext, pStopRequest);
+    }
+    case ListExpressionType::THEN_REVERSED:
+    {
+      return _handleThenReversedList(listExp, pExecutorContext, pStopRequest);
     }
     case ListExpressionType::OR:
     {

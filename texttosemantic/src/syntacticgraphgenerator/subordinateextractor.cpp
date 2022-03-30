@@ -161,8 +161,9 @@ void SubordinateExtractor::xModifyTheVerbsOfAChunk
     break;
   }
   case ChunkType::AND_CHUNK:
-  case ChunkType::THEN_CHUNK:
   case ChunkType::OR_CHUNK:
+  case ChunkType::THEN_CHUNK:
+  case ChunkType::THEN_REVERSED_CHUNK:
   {
     auto beginItChild = chunk.children.begin();
     if (beginItChild->chunk->type == ChunkType::INFINITVE_VERB_CHUNK &&
