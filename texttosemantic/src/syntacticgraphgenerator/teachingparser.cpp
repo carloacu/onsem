@@ -19,7 +19,8 @@ bool _isATaughtElt(const Chunk& pChunk)
 
 bool _isATaughtList(const Chunk& pChunk)
 {
-  if (pChunk.type == ChunkType::AND_CHUNK)
+  if (pChunk.type == ChunkType::AND_CHUNK ||
+      pChunk.type == ChunkType::THEN_CHUNK)
   {
     bool res = false;
     for (const auto& currChild : pChunk.children)

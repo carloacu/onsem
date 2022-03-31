@@ -163,8 +163,15 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(std::map<
 UniqueSemanticExpression sayThatWeDontKnowTheAnswer(const SemanticExpression& pSemExp);
 UniqueSemanticExpression sayThatWeDontKnowAnInstanceOf(const SemanticExpression& pSemExp);
 
-UniqueSemanticExpression sayThatWeAreNotAbleToDoIt(
+UniqueSemanticExpression sayThatTheRobotCannotDoIt(
     const SemanticExpression& pSemExp);
+
+UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(
+    const GroundedExpression& pGrdExp);
+
+std::unique_ptr<GroundedExpression> doYouWantMeToSayToTellYouHowTo(
+    const SemanticAgentGrounding& pSubjectGrounding,
+    const GroundedExpression& pGrdExp);
 
 UniqueSemanticExpression askForPrecision(
     const GroundedExpression& pGrdExp,

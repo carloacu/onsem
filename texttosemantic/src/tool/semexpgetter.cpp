@@ -1447,7 +1447,7 @@ void extractTeachElements(
   if (objectGrdExpPtrs.empty())
     return;
   for (const auto& currObjPtr : objectGrdExpPtrs)
-    if (!isAPresentImperativeGrdExp(*currObjPtr) &&
+    if (!isMandatoryGrdExp(*currObjPtr) &&
         currObjPtr->grounding().getMetaGroundingPtr() == nullptr &&
         currObjPtr->grounding().getResourceGroundingPtr() == nullptr)
       return;
@@ -1483,6 +1483,26 @@ void _recIterateOnList(std::list<UniqueSemanticExpression*>& pRes,
     return;
   }
 }
+
+void _recIterateOnList(std::list<const SemanticExpression*>& pRes,
+                       const SemanticExpression& pSemExp)
+{
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+  {
+    pRes.emplace_back(&pSemExp);
+    return;
+  }
+
+  auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs();
+  if (listExpPtr != nullptr)
+  {
+    for (auto& currElt : listExpPtr->elts)
+      _recIterateOnList(pRes, *currElt);
+    return;
+  }
+}
+
 
 template <typename TGRDEXP, typename TSEMEXP>
 void _recIterateOnListOfGrdExps(std::list<TGRDEXP*>& pRes,
@@ -1526,6 +1546,14 @@ std::list<UniqueSemanticExpression*> iterateOnList(UniqueSemanticExpression& pUS
 }
 
 
+std::list<const SemanticExpression*> iterateOnList(const SemanticExpression& pSemExp)
+{
+  std::list<const SemanticExpression*> res;
+  _recIterateOnList(res, pSemExp);
+  return res;
+}
+
+
 bool isAnInfinitiveGrdExp(const GroundedExpression& pGrdExp)
 {
   const SemanticStatementGrounding* statGrdPtr =
@@ -1537,14 +1565,12 @@ bool isAnInfinitiveGrdExp(const GroundedExpression& pGrdExp)
 }
 
 
-bool isAPresentImperativeGrdExp(const GroundedExpression& pGrdExp)
+bool isMandatoryGrdExp(const GroundedExpression& pGrdExp)
 {
-  const SemanticStatementGrounding* statGrdPtr =
-      pGrdExp->getStatementGroundingPtr();
-  if (statGrdPtr != nullptr &&
-      statGrdPtr->isMandatoryInPresentTense())
-    return true;
-  return false;
+  const auto* statGrdPtr = pGrdExp->getStatementGroundingPtr();
+  return statGrdPtr != nullptr &&
+      (statGrdPtr->isMandatoryInPresentTense() ||
+       ConceptSet::haveAConcept(statGrdPtr->concepts, "verb_haveto"));
 }
 
 

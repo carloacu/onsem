@@ -25,7 +25,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _answerIDontKnowFromGrdE
       if (requestType == SemanticRequestType::ACTION)
       {
         if (pForActions)
-          return mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpCreator::sayThatWeAreNotAbleToDoIt(pGrdExp));
+          return mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpCreator::sayThatTheRobotCannotDoIt(pGrdExp));
       }
       else if (pForQuestions)
         return mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpCreator::sayThatWeDontKnowTheAnswer(pGrdExp));

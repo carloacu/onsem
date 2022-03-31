@@ -1390,7 +1390,7 @@ UniqueSemanticExpression sayThatWeDontKnowAnInstanceOf(
 }
 
 
-UniqueSemanticExpression sayThatWeAreNotAbleToDoIt(
+UniqueSemanticExpression sayThatTheRobotCannotDoIt(
     const SemanticExpression& pSemExp)
 {
   auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
@@ -1422,6 +1422,108 @@ UniqueSemanticExpression sayThatWeAreNotAbleToDoIt(
   return std::move(rootGrdExp);
 }
 
+
+UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(
+    const GroundedExpression& pGrdExp)
+{
+  auto grdExpPtr = pGrdExp.clone();
+  auto* statGrdPtr = grdExpPtr->grounding().getStatementGroundingPtr();
+  if (statGrdPtr != nullptr)
+  {
+    auto& statGrd = *statGrdPtr;
+    statGrd.verbTense = SemanticVerbTense::PRESENT;
+    statGrd.polarity = false;
+    statGrd.verbGoal = VerbGoalEnum::ABILITY;
+    statGrd.requests.clear();
+  }
+
+  grdExpPtr->children.emplace(GrammaticalType::MITIGATION,
+                              []() {
+    auto mtgGrdExp = mystd::make_unique<GroundedExpression>
+        ([](){
+      auto knowStatGrd = mystd::make_unique<SemanticStatementGrounding>();
+      knowStatGrd->verbTense = SemanticVerbTense::PRESENT;
+      knowStatGrd->concepts.emplace("mentalState_know", 4);
+      return knowStatGrd;
+    }());
+
+    SemExpModifier::addChild(*mtgGrdExp, GrammaticalType::SUBJECT, _meSemExp());
+
+    mtgGrdExp->children.emplace(GrammaticalType::OBJECT,
+                                 mystd::make_unique<GroundedExpression>
+                                 ([]()
+    {
+      auto doStGr = mystd::make_unique<SemanticStatementGrounding>();
+      doStGr->verbTense = SemanticVerbTense::UNKNOWN;
+      doStGr->requests.add(SemanticRequestType::MANNER);
+      doStGr->concepts.emplace("verb_action", 4);
+      return doStGr;
+    }()));
+
+    return mtgGrdExp;
+  }());
+
+  return std::move(grdExpPtr);
+}
+
+
+std::unique_ptr<GroundedExpression> doYouWantMeToSayToTellYouHowTo(const SemanticAgentGrounding& pSubjectGrounding,
+                                                                   const GroundedExpression& pGrdExp)
+{
+  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  {
+    // verb
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::PRESENT;
+    statementGrd->concepts.emplace("verb_want", 4);
+    statementGrd->requests.set(SemanticRequestType::YESORNO);
+    return statementGrd;
+  }());
+
+  // subject
+  rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
+                               mystd::make_unique<GroundedExpression>
+                               (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+
+  // object
+  rootGrdExp->children.emplace(GrammaticalType::OBJECT,
+                               [&] {
+    // verb
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::PUNCTUALPRESENT;
+    statementGrd->concepts.emplace("verb_action_say", 4);
+    auto childGrdExp =
+        mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+
+    // subject
+    childGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
+
+    // receiver
+    childGrdExp->children.emplace(GrammaticalType::RECEIVER,
+                                  mystd::make_unique<GroundedExpression>
+                                  (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+
+    // object
+    childGrdExp->children.emplace(GrammaticalType::OBJECT, [&]() {
+      auto grdExpPtr = pGrdExp.clone();
+      auto* statGrdPtr = grdExpPtr->grounding().getStatementGroundingPtr();
+      if (statGrdPtr != nullptr)
+      {
+        auto& statGrd = *statGrdPtr;
+        statGrd.verbTense = SemanticVerbTense::UNKNOWN;
+        statGrd.requests.clear();
+        statGrd.requests.add(SemanticRequestType::MANNER);
+      }
+
+      grdExpPtr->children.erase(GrammaticalType::SUBJECT);
+
+      return grdExpPtr;
+    }());
+
+    return childGrdExp;
+  }());
+  return rootGrdExp;
+}
 
 UniqueSemanticExpression askForPrecision(
     const GroundedExpression& pGrdExp,

@@ -336,12 +336,14 @@ std::list<const GroundedExpression*> iterateOnListOfGrdExps(const SemanticExpres
 ONSEM_TEXTTOSEMANTIC_API
 std::list<UniqueSemanticExpression*> iterateOnList(UniqueSemanticExpression& pUSemExp);
 
+ONSEM_TEXTTOSEMANTIC_API
+std::list<const SemanticExpression*> iterateOnList(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool isAnInfinitiveGrdExp(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool isAPresentImperativeGrdExp(const GroundedExpression& pGrdExp);
+bool isMandatoryGrdExp(const GroundedExpression& pGrdExp);
 
 
 ONSEM_TEXTTOSEMANTIC_API

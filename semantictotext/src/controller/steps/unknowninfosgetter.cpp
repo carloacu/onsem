@@ -155,6 +155,8 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
             controller::applyOperatorOnSemExp(subWorkStruct, subMemView, childCorespondingToTheParam);
             if (subWorkStruct.compositeSemAnswers)
             {
+              // TODOOOOOOOOO: extract interaction context here!
+              // subWorkStruct.compositeSemAnswers->semAnswers.front()->getLeafPtr()->interactionContextContainer;
               auto paramSemExp = subWorkStruct.compositeSemAnswers->convertToSemExp();
               if (paramSemExp)
               {
@@ -310,49 +312,77 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
     {
       bool answerGenerated = false;
       const IndexToSubNameToParameterValue* paramsPtr = params ? &*params : nullptr;
-      UniqueSemanticExpression actionSemExp = contextAxiom.infCommandToDo->clone(paramsPtr);
 
-      for (const auto& currListElts : SemExpGetter::iterateOnList(actionSemExp))
+      for (const auto& currListElts : SemExpGetter::iterateOnList(*contextAxiom.infCommandToDo))
       {
         const GroundedExpression* listEltGrdExpPtr =
-            (*currListElts)->getGrdExpPtr_SkipWrapperPtrs();
+            currListElts->getGrdExpPtr_SkipWrapperPtrs();
         if (listEltGrdExpPtr != nullptr)
         {
           bool actionCanBeDone = false;
           const SemanticStatementGrounding* statGrdExpPtr =
               listEltGrdExpPtr->grounding().getStatementGroundingPtr();
           if (statGrdExpPtr != nullptr &&
-              (statGrdExpPtr->isAtInfinitive() || statGrdExpPtr->isMandatoryInPresentTense()))
+              !statGrdExpPtr->isAtInfinitive() && !statGrdExpPtr->isMandatoryInPresentTense())
           {
-            SemControllerWorkingStruct subWorkStruct(pWorkStruct);
-            if (subWorkStruct.askForNewRecursion())
+            if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT && pWorkStruct.author != nullptr)
             {
-              if (semanticMemoryLinker::satisfyAnAction(subWorkStruct, pMemViewer, *listEltGrdExpPtr, *statGrdExpPtr))
-              {
-                if (!subWorkStruct.compositeSemAnswers->semAnswers.empty())
-                {
-                  auto& semAnswer = subWorkStruct.compositeSemAnswers->semAnswers.front();
-                  LeafSemAnswer* leafAnswPtr = semAnswer->getLeafPtr();
-                  if (leafAnswPtr != nullptr && leafAnswPtr->reaction)
-                    *currListElts = std::move(*leafAnswPtr->reaction);
-                }
-                actionCanBeDone = true;
-              }
+              pWorkStruct.addAnswerWithoutReferences
+                  (ContextualAnnotation::TEACHINGFEEDBACK,
+                   SemExpCreator::mergeInAList(SemExpCreator::sayThatTheRobotIsNotAbleToDoIt(pGrdExp),
+                                               SemExpCreator::doYouWantMeToSayToTellYouHowTo(*pWorkStruct.author, pGrdExp)));
             }
-
-            if (!actionCanBeDone)
-            {
-              if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
-              {
-                pWorkStruct.addAnswerWithoutReferences
-                    (ContextualAnnotation::BEHAVIORNOTFOUND,
-                     SemExpCreator::sayThatWeAreNotAbleToDoIt(**currListElts));
-              }
-              answerGenerated = true;
-              break;
-            }
+            answerGenerated = true;
+            break;
           }
         }
+      }
+
+      if (!answerGenerated)
+      {
+        UniqueSemanticExpression actionSemExp = contextAxiom.infCommandToDo->clone(paramsPtr);
+
+        for (const auto& currListElts : SemExpGetter::iterateOnList(actionSemExp))
+        {
+          const GroundedExpression* listEltGrdExpPtr =
+              (*currListElts)->getGrdExpPtr_SkipWrapperPtrs();
+          if (listEltGrdExpPtr != nullptr)
+          {
+            bool actionCanBeDone = false;
+            const SemanticStatementGrounding* statGrdExpPtr =
+                listEltGrdExpPtr->grounding().getStatementGroundingPtr();
+            if (statGrdExpPtr != nullptr &&
+                (statGrdExpPtr->isAtInfinitive() || statGrdExpPtr->isMandatoryInPresentTense()))
+            {
+              SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+              if (subWorkStruct.askForNewRecursion())
+              {
+                if (semanticMemoryLinker::satisfyAnAction(subWorkStruct, pMemViewer, *listEltGrdExpPtr, *statGrdExpPtr))
+                {
+                  if (!subWorkStruct.compositeSemAnswers->semAnswers.empty())
+                  {
+                    auto& semAnswer = subWorkStruct.compositeSemAnswers->semAnswers.front();
+                    LeafSemAnswer* leafAnswPtr = semAnswer->getLeafPtr();
+                    if (leafAnswPtr != nullptr && leafAnswPtr->reaction)
+                      *currListElts = std::move(*leafAnswPtr->reaction);
+                  }
+                  actionCanBeDone = true;
+                }
+              }
+
+              if (!actionCanBeDone)
+              {
+                if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
+                {
+                  pWorkStruct.addAnswerWithoutReferences
+                      (ContextualAnnotation::BEHAVIORNOTFOUND,
+                       SemExpCreator::sayThatTheRobotCannotDoIt(**currListElts));
+                }
+                answerGenerated = true;
+                break;
+              }
+            }
+          }
         }
 
         if (!answerGenerated)
@@ -380,6 +410,7 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
           pWorkStruct.addAnswer(ContextualAnnotation::BEHAVIOR, std::move(cmdExp),
                                 ReferencesFiller(contextAxiom));
         }
+      }
 
       hasAddAReaction = true;
       break;

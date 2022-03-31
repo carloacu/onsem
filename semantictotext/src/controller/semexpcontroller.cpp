@@ -745,7 +745,7 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
         pWorkStruct.reactionOptions.canAnswerIDontKnow)
       pWorkStruct.addAnswerWithoutReferences
           (ContextualAnnotation::BEHAVIORNOTFOUND,
-           SemExpCreator::sayThatWeAreNotAbleToDoIt(pOriginalGrdExp));
+           SemExpCreator::sayThatTheRobotCannotDoIt(pOriginalGrdExp));
     break;
   }
   case SemanticOperatorEnum::REACTFROMTRIGGER:
