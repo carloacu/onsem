@@ -146,6 +146,7 @@ struct CompositeSemAnswer : public SemAnswer
 
   TruenessValue getAgreementValue() const;
   void keepOnlyTheResourcesOrTexts();
+  std::unique_ptr<InteractionContextContainer> getInteractionContextContainer();
 
   ListExpressionType listType;
   std::list<std::unique_ptr<SemAnswer>> semAnswers;

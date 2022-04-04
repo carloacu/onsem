@@ -1605,7 +1605,8 @@ bool matchAffirmationTrigger
       for (const auto& currRel : idsToSentences.res.dynamicLinks)
       {
         auto params = mystd::make_unique<IndexToSubNameToParameterValue>();
-        unknownInfosGetter::checkIfMatchAndGetParams(*params, nullptr, *currRel.second,
+        std::unique_ptr<InteractionContextContainer> subIntContext;
+        unknownInfosGetter::checkIfMatchAndGetParams(*params, subIntContext, nullptr, *currRel.second,
                                                      pInputGrdExp, pWorkStruct, subMemViewer);
 
         SemanticLanguageEnum searchLangType = pWorkStruct.fromLanguage;
@@ -2141,7 +2142,8 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
       for (const auto& currRel : idsToSentences.res.dynamicLinks)
       {
         auto params = mystd::make_unique<IndexToSubNameToParameterValue>();
-        unknownInfosGetter::checkIfMatchAndGetParams(*params, nullptr, *currRel.second,
+        std::unique_ptr<InteractionContextContainer> subIntContext;
+        unknownInfosGetter::checkIfMatchAndGetParams(*params, subIntContext, nullptr, *currRel.second,
                                                      pGrdExp, pWorkStruct, subMemViewer);
 
         SemanticLanguageEnum searchLangType = pWorkStruct.fromLanguage;

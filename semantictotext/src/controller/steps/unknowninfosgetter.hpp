@@ -19,6 +19,7 @@ struct GroundedExpression;
 struct SemanticExpression;
 struct SemControllerWorkingStruct;
 struct SemanticMemoryBlockViewer;
+struct InteractionContextContainer;
 // semExp -> childType to complete
 typedef std::map<intSemId, std::list<GrammaticalType> > GrdKnowToUnlinked;
 
@@ -26,6 +27,7 @@ namespace unknownInfosGetter
 {
 
 bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParam,
+                              std::unique_ptr<onsem::InteractionContextContainer>& pSubIntContext,
                               GrdKnowToUnlinked* pIncompleteRelations,
                               const SemanticMemorySentence& pSemMemSent,
                               const GroundedExpression& pGrdExp,

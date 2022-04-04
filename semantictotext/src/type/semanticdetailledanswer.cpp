@@ -227,8 +227,23 @@ void CompositeSemAnswer::keepOnlyTheResourcesOrTexts()
     else
       ++it;
   }
-
 }
+
+std::unique_ptr<InteractionContextContainer> CompositeSemAnswer::getInteractionContextContainer()
+{
+  for (auto& currSemAswer : semAnswers)
+  {
+    auto* leafPtr = currSemAswer->getLeafPtr();
+    if (leafPtr != nullptr && leafPtr->interactionContextContainer)
+    {
+      auto res = std::move(leafPtr->interactionContextContainer);
+      leafPtr->interactionContextContainer.reset();
+      return res;
+    }
+  }
+  return {};
+}
+
 
 
 } // End of namespace onsem

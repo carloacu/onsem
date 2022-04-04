@@ -210,8 +210,33 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
                   operator_react("et après", semMem, lingDb));
   ONSEM_ANSWER_EQ("Il faut dire je marche. Dis et apr\xC3\xA8s pour continuer !",
                   operator_react("et avant", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("Il y a 2 étapes pour grimper. Veux-tu que je les dise une par une ?",
+                    operator_react("Dis comment grimper", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il faut dire je marche. Dis et après pour continuer !",
+                  operator_react("oui", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il faut sauter.",
+                  operator_react("et après", semMem, lingDb));
 }
 
+
+TEST_F(SemanticReasonerGTests, operator_teachBehavior_cookingRecipe)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  memoryOperation::learnSayCommand(semMem, lingDb);
+
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire des pâtes il faut de l'eau et des pâtes et puis il faut faire bouillir les pâtes",
+                            operator_react("pour faire des pâtes il faut de l'eau et des pâtes puis il faut faire bouillir les pâtes", semMem, lingDb));
+  ONSEM_TEACHINGFEEDBACK_EQ("Je ne peux pas faire des pâtes mais je sais comment faire. Veux-tu que je te dise comment faire des pâtes ?",
+                            operator_react("fais des pâtes", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("Il y a 2 étapes pour faire des pâtes. Veux-tu que je les dise une par une ?",
+                    operator_react("Oui", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il faut de l'eau et des pâtes. Dis et après pour continuer !",
+                  operator_react("Oui", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Il faut faire bouillir les pâtes.",
+                  operator_react("Et après", semMem, lingDb));
+}
 
 
 TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)

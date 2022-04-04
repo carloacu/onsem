@@ -32,6 +32,7 @@ enum class ReplacingParamStrategy
 
 
 void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
+                                  std::unique_ptr<InteractionContextContainer>& pSubIntContext,
                                   GrdKnowToUnlinked* pIncompleteRelations,
                                   bool& pIsComplete,
                                   const SemanticMemorySentence& pSemMemSent,
@@ -66,8 +67,8 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
       const GroundedExpression* specGrdExpChild = itSpecSemExpChild->second->getGrdExpPtr_SkipWrapperPtrs();
       if (specGrdExpChild != nullptr)
       {
-        _recCheckIfMatchAndGetParams(pParams, pIncompleteRelations, pIsComplete, pSemMemSent, pMemChildType,
-                                     pCurrMemChild, *specGrdExpChild, pWorkStruct, pMemViewer);
+        _recCheckIfMatchAndGetParams(pParams, pSubIntContext, pIncompleteRelations, pIsComplete, pSemMemSent,
+                                     pMemChildType, pCurrMemChild, *specGrdExpChild, pWorkStruct, pMemViewer);
         return;
       }
     }
@@ -155,11 +156,11 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
             controller::applyOperatorOnSemExp(subWorkStruct, subMemView, childCorespondingToTheParam);
             if (subWorkStruct.compositeSemAnswers)
             {
-              // TODOOOOOOOOO: extract interaction context here!
-              // subWorkStruct.compositeSemAnswers->semAnswers.front()->getLeafPtr()->interactionContextContainer;
               auto paramSemExp = subWorkStruct.compositeSemAnswers->convertToSemExp();
               if (paramSemExp)
               {
+                if (!pSubIntContext)
+                  pSubIntContext = subWorkStruct.compositeSemAnswers->getInteractionContextContainer();
                 pParams[metaGr.paramId].emplace(metaGr.attibuteName, std::move(paramSemExp));
                 paramHasBeenInserted = true;
               }
@@ -203,7 +204,7 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
       {
         const GroundedExpression* grdExpChild = itSemExpChild->second->getGrdExpPtr_SkipWrapperPtrs();
         if (grdExpChild != nullptr)
-          _recCheckIfMatchAndGetParams(pParams, pIncompleteRelations, pIsComplete,
+          _recCheckIfMatchAndGetParams(pParams, pSubIntContext, pIncompleteRelations, pIsComplete,
                                        pSemMemSent, pMemChildType, currMemSubChild,
                                        *grdExpChild, pWorkStruct, pMemViewer);
       }
@@ -215,6 +216,7 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
 
 
 bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
+                              std::unique_ptr<InteractionContextContainer>& pSubIntContext,
                               GrdKnowToUnlinked* pIncompleteRelations,
                               const SemanticMemorySentence& pSemMemSent,
                               const GroundedExpression& pGrdExp,
@@ -226,7 +228,7 @@ bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
     return false;
   bool isComplete = true;
   for (const auto& currChild : pSemMemSent.grdExp.children)
-    _recCheckIfMatchAndGetParams(pParams, pIncompleteRelations, isComplete,
+    _recCheckIfMatchAndGetParams(pParams, pSubIntContext, pIncompleteRelations, isComplete,
                                  pSemMemSent, currChild.first, currChild,
                                  pGrdExp, pWorkStruct, pMemViewer);
   return isComplete;
@@ -245,7 +247,8 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
   {
     const SemanticMemorySentence& memSent = *itRel->second;
     auto params = mystd::make_unique<IndexToSubNameToParameterValue>();
-    if (!checkIfMatchAndGetParams(*params, &pIncompleteRelations, memSent, pGrdExp, pWorkStruct, pMemViewer))
+    std::unique_ptr<InteractionContextContainer> subIntContext;
+    if (!checkIfMatchAndGetParams(*params, subIntContext, &pIncompleteRelations, memSent, pGrdExp, pWorkStruct, pMemViewer))
     {
       continue;
     }
@@ -319,7 +322,6 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
             currListElts->getGrdExpPtr_SkipWrapperPtrs();
         if (listEltGrdExpPtr != nullptr)
         {
-          bool actionCanBeDone = false;
           const SemanticStatementGrounding* statGrdExpPtr =
               listEltGrdExpPtr->grounding().getStatementGroundingPtr();
           if (statGrdExpPtr != nullptr &&
@@ -409,6 +411,9 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
           cmdExp->description.emplace(SemExpModifier::fromImperativeToActionDescription(pGrdExp));
           pWorkStruct.addAnswer(ContextualAnnotation::BEHAVIOR, std::move(cmdExp),
                                 ReferencesFiller(contextAxiom));
+          auto* leafPtr = pWorkStruct.compositeSemAnswers->semAnswers.back()->getLeafPtr();
+          if (leafPtr != nullptr && subIntContext)
+            leafPtr->interactionContextContainer = std::move(subIntContext);
         }
       }
 
