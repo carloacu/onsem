@@ -7,12 +7,6 @@ option(
   "Build with the dependency of the boost installed in the system."
   ON)
 
-option(
-  BUILD_ONSEM_CHATBOTPLANNER
-  "Build the chatbot planner."
-  ON)
-
-
 
 
 ## Command line for database compilation
