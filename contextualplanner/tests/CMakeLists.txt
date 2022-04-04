@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(chatbotplanner_tests)
+project(contextualplanner_tests)
 
 include_directories(".")
 
