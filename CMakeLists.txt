@@ -58,7 +58,7 @@ if (NOT BUILD_ONSEM_DATABASE)
   add_subdirectory(semanticdebugger)
 
   if (BUILD_ONSEM_CHATBOTPLANNER OR BUILD_ONSEM_TESTS)
-    add_subdirectory(chatbotplanner)
+    add_subdirectory(contextualplanner)
   endif()
 
   if (BUILD_ONSEM_TESTS)

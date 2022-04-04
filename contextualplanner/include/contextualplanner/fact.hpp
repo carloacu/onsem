@@ -1,16 +1,16 @@
-#ifndef ONSEM_CHATBOTPLANNER_FACT_HPP
-#define ONSEM_CHATBOTPLANNER_FACT_HPP
+#ifndef INCLUDE_CONTEXTUALPLANNER_FACT_HPP
+#define INCLUDE_CONTEXTUALPLANNER_FACT_HPP
 
 #include <string>
 #include <vector>
 #include <map>
+#include "api.hpp"
 
-namespace onsem
-{
+
 namespace cp
 {
 
-struct Fact
+struct CONTEXTUALPLANNER_API Fact
 {
   Fact(const std::string& pName = "");
 
@@ -47,7 +47,6 @@ private:
 };
 
 } // !cp
-} // !onsem
 
 
-#endif // ONSEM_CHATBOTPLANNER_FACT_HPP
+#endif // INCLUDE_CONTEXTUALPLANNER_FACT_HPP

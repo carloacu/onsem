@@ -1,9 +1,8 @@
-#include <onsem/chatbotplanner/chatbotplanner.hpp>
+#include <contextualplanner/contextualplanner.hpp>
 #include <iostream>
 #include <assert.h>
 #include "test_arithmeticevaluator.hpp"
 
-using namespace onsem;
 
 namespace
 {

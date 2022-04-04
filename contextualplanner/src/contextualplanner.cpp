@@ -1,11 +1,10 @@
-#include <onsem/chatbotplanner/chatbotplanner.hpp>
+#include <contextualplanner/contextualplanner.hpp>
 #include <algorithm>
 #include <assert.h>
 #include <sstream>
-#include <onsem/chatbotplanner/arithmeticevaluator.hpp>
+#include <contextualplanner/arithmeticevaluator.hpp>
 
-namespace onsem
-{
+
 namespace cp
 {
 
@@ -1297,7 +1296,4 @@ std::list<ActionId> solve(Problem& pProblem,
 }
 
 
-
-
 } // !cp
-} // !onsem

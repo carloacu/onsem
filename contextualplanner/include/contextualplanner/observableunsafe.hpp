@@ -1,12 +1,11 @@
-#ifndef ONSEM_CHATBOTPLANNER_OBSERVABLEUNSAFE_HPP
-#define ONSEM_CHATBOTPLANNER_OBSERVABLEUNSAFE_HPP
+#ifndef INCLUDE_CONTEXTUALPLANNER_OBSERVABLEUNSAFE_HPP
+#define INCLUDE_CONTEXTUALPLANNER_OBSERVABLEUNSAFE_HPP
 
 #include <map>
 #include <iostream>
 #include <functional>
 
-namespace onsem
-{
+
 namespace cpstd
 {
 namespace observable
@@ -97,8 +96,7 @@ void ObservableUnsafe<FuncSignature>::operator()(Args&&... pArgs)
 
 } // End of namespace observable
 } // End of namespace cpstd
-} // End of namespace onsem
 
 
 
-#endif // ONSEM_CHATBOTPLANNER_OBSERVABLEUNSAFE_HPP
+#endif // INCLUDE_CONTEXTUALPLANNER_OBSERVABLEUNSAFE_HPP

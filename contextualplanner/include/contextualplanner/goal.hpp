@@ -1,16 +1,17 @@
-#ifndef ONSEM_CHATBOTPLANNER_GOAL_HPP
-#define ONSEM_CHATBOTPLANNER_GOAL_HPP
+#ifndef INCLUDE_CONTEXTUALPLANNER_GOAL_HPP
+#define INCLUDE_CONTEXTUALPLANNER_GOAL_HPP
 
 #include <memory>
 #include <string>
 #include "fact.hpp"
+#include "api.hpp"
 
-namespace onsem
-{
+
+
 namespace cp
 {
 
-struct Goal
+struct CONTEXTUALPLANNER_API Goal
 {
   Goal(const std::string& pStr);
   Goal(const Goal& pOther);
@@ -34,7 +35,6 @@ private:
 };
 
 } // !cp
-} // !onsem
 
 
-#endif // ONSEM_CHATBOTPLANNER_GOAL_HPP
+#endif // INCLUDE_CONTEXTUALPLANNER_GOAL_HPP

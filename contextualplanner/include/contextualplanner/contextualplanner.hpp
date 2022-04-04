@@ -1,5 +1,5 @@
-#ifndef ONSEM_CHATBOTPLANNER_CHATBOTPLANNER_HPP
-#define ONSEM_CHATBOTPLANNER_CHATBOTPLANNER_HPP
+#ifndef INCLUDE_CONTEXTUALPLANNER_CONTEXTUALPLANNER_HPP
+#define INCLUDE_CONTEXTUALPLANNER_CONTEXTUALPLANNER_HPP
 
 #include <map>
 #include <set>
@@ -9,14 +9,12 @@
 #include <mutex>
 #include <assert.h>
 #include "api.hpp"
-#include <onsem/chatbotplanner/alias.hpp>
-#include <onsem/chatbotplanner/fact.hpp>
-#include <onsem/chatbotplanner/goal.hpp>
-#include <onsem/chatbotplanner/observableunsafe.hpp>
+#include <contextualplanner/alias.hpp>
+#include <contextualplanner/fact.hpp>
+#include <contextualplanner/goal.hpp>
+#include <contextualplanner/observableunsafe.hpp>
 
 
-namespace onsem
-{
 namespace cp
 {
 
@@ -82,7 +80,7 @@ enum class ExpressionOperator
 
 
 
-struct ONSEMCHATBOTPLANNER_API ExpressionElement
+struct CONTEXTUALPLANNER_API ExpressionElement
 {
   ExpressionElement(ExpressionElementType pType,
                     const std::string& pValue)
@@ -98,7 +96,7 @@ struct ONSEMCHATBOTPLANNER_API ExpressionElement
 };
 
 
-struct ONSEMCHATBOTPLANNER_API Expression
+struct CONTEXTUALPLANNER_API Expression
 {
   bool operator==(const Expression& pOther) const { return elts == pOther.elts; }
   bool operator!=(const Expression& pOther) const { return !operator==(pOther); }
@@ -106,7 +104,7 @@ struct ONSEMCHATBOTPLANNER_API Expression
 };
 
 
-struct ONSEMCHATBOTPLANNER_API SetOfFacts
+struct CONTEXTUALPLANNER_API SetOfFacts
 {
   SetOfFacts()
     : facts(),
@@ -145,7 +143,7 @@ struct ONSEMCHATBOTPLANNER_API SetOfFacts
 };
 
 
-struct ONSEMCHATBOTPLANNER_API Action
+struct CONTEXTUALPLANNER_API Action
 {
   Action(const SetOfFacts& pPreconditions,
          const SetOfFacts& pEffects,
@@ -168,7 +166,7 @@ struct ONSEMCHATBOTPLANNER_API Action
   bool shouldBeDoneAsapWithoutHistoryCheck;
 };
 
-struct ONSEMCHATBOTPLANNER_API Domain
+struct CONTEXTUALPLANNER_API Domain
 {
   Domain(const std::map<ActionId, Action>& pActions);
 
@@ -188,7 +186,7 @@ private:
 
 
 
-struct ONSEMCHATBOTPLANNER_API Historical
+struct CONTEXTUALPLANNER_API Historical
 {
   void setMutex(std::shared_ptr<std::mutex> pMutex);
   void notifyActionDone(const ActionId& pActionId);
@@ -204,7 +202,7 @@ private:
 };
 
 
-struct ONSEMCHATBOTPLANNER_API Problem
+struct CONTEXTUALPLANNER_API Problem
 {
   Problem() = default;
   Problem(const Problem& pOther);
@@ -268,42 +266,41 @@ private:
 };
 
 
-ONSEMCHATBOTPLANNER_API
+CONTEXTUALPLANNER_API
 void replaceVariables(std::string& pStr,
                       const Problem& pProblem);
 
-ONSEMCHATBOTPLANNER_API
+CONTEXTUALPLANNER_API
 std::vector<cp::Fact> factsFromString(const std::string& pStr,
                                       char pSeparator);
 
 
 
-ONSEMCHATBOTPLANNER_API
+CONTEXTUALPLANNER_API
 void fillReachableFacts(Problem& pProblem,
                         const Domain& pDomain);
 
 
-ONSEMCHATBOTPLANNER_API
+CONTEXTUALPLANNER_API
 bool areFactsTrue(const SetOfFacts& pSetOfFacts,
                   const Problem& pProblem);
 
-ONSEMCHATBOTPLANNER_API
+CONTEXTUALPLANNER_API
 ActionId lookForAnActionToDo(std::map<std::string, std::string>& pParameters,
                              Problem& pProblem,
                              const Domain& pDomain,
                              const Historical* pGlobalHistorical = nullptr);
 
-ONSEMCHATBOTPLANNER_API
+CONTEXTUALPLANNER_API
 std::string printActionIdWithParameters(
     const std::string& pActionId,
     const std::map<std::string, std::string>& pParameters);
 
-ONSEMCHATBOTPLANNER_API
+CONTEXTUALPLANNER_API
 std::list<ActionId> solve(Problem& pProblem,
                           const Domain& pDomain,
                           Historical* pGlobalHistorical = nullptr);
 } // !cp
-} // !onsem
 
 
-#endif // ONSEM_CHATBOTPLANNER_CHATBOTPLANNER_HPP
+#endif // INCLUDE_CONTEXTUALPLANNER_CONTEXTUALPLANNER_HPP

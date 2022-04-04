@@ -1,8 +1,8 @@
-#include <onsem/chatbotplanner/arithmeticevaluator.hpp>
+#include <contextualplanner/arithmeticevaluator.hpp>
 #include <string>
 #include <sstream>
 
-namespace onsem
+namespace cp
 {
 
 class ArithmeticEvaluator

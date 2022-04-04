@@ -1,7 +1,6 @@
-#include <onsem/chatbotplanner/goal.hpp>
+#include <contextualplanner/goal.hpp>
 
-namespace onsem
-{
+
 namespace cp
 {
 const std::string Goal::persistFunctionName = "persist";
@@ -58,4 +57,3 @@ std::string Goal::toStr() const
 
 
 } // !cp
-} // !onsem

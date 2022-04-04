@@ -1,8 +1,7 @@
-#include <onsem/chatbotplanner/fact.hpp>
+#include <contextualplanner/fact.hpp>
 #include <assert.h>
 
-namespace onsem
-{
+
 namespace cp
 {
 const std::string Fact::anyValue = "<any>_it_is_a_language_token_for_the_planner_engine";
@@ -226,6 +225,4 @@ void Fact::_parametersToStr(std::string& pStr,
 }
 
 
-
 } // !cp
-} // !onsem

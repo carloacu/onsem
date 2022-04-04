@@ -4,13 +4,13 @@ project(chatbotplanner_tests)
 
 include_directories(".")
 
-if(NOT ONSEMCHATBOTPLANNER_FOUND)
-  find_package(onsemchatbotplanner)
+if(NOT CONTEXTUALPLANNER_FOUND)
+  find_package(contextualplanner)
 endif()
 
 
 add_executable(
-  chatbotplanner_tests
+  contextualplanner_tests
 
   src/test_chatbotplanner.cpp
   src/test_arithmeticevaluator.hpp
@@ -18,6 +18,6 @@ add_executable(
 )
 
 
-target_link_libraries(chatbotplanner_tests
-  ${ONSEMCHATBOTPLANNER_LIBRARIES}
+target_link_libraries(contextualplanner_tests
+  ${CONTEXTUALPLANNER_LIBRARIES}
 )

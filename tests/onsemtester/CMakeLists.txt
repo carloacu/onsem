@@ -43,8 +43,8 @@ endif()
 if(NOT ONSEMSEMANTOCDEBUGGER_FOUND)
   find_package(onsemsemanticdebugger)
 endif()
-if(NOT ONSEMCHATBOTPLANNER_FOUND)
-  find_package(onsemchatbotplanner)
+if(NOT CONTEXTUALPLANNER_FOUND)
+  find_package(contextualplanner)
 endif()
 
 add_library(onsemtester SHARED
@@ -57,7 +57,7 @@ include_directories(
   ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}
   ${ONSEMSEMANTICTOTEXT_INCLUDE_DIRS}
   ${ONSEMSEMANTOCDEBUGGER_INCLUDE_DIRS}
-  ${ONSEMCHATBOTPLANNER_INCLUDE_DIRS}
+  ${CONTEXTUALPLANNER_INCLUDE_DIRS}
 )
 
 target_link_libraries(onsemtester
@@ -65,7 +65,7 @@ target_link_libraries(onsemtester
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
   ${ONSEMSEMANTICTOTEXT_LIBRARIES}
   ${ONSEMSEMANTOCDEBUGGER_LIBRARIES}
-  ${ONSEMCHATBOTPLANNER_LIBRARIES}
+  ${CONTEXTUALPLANNER_LIBRARIES}
 )
 target_compile_features(onsemtester PRIVATE cxx_std_14)
 
