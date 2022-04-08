@@ -88,6 +88,9 @@
  <concept name="verb_think">
   <linkedMeaning lemme="think" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_try">
+  <linkedMeaning lemme="try" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_want">
   <linkedMeaning lemme="want" gram="verb" relationToConcept="4"/>
  </concept>

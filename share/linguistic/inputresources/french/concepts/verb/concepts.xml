@@ -67,6 +67,9 @@
  <concept name="verb_think">
   <linkedMeaning lemme="penser" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_try">
+  <linkedMeaning lemme="essayer" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_want">
   <linkedMeaning lemme="vouloir" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="avoir~envie" gram="verb" relationToConcept="3"/>

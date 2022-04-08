@@ -389,6 +389,7 @@
   <declareconcept name="verb_return" autofill="false" />
   <declareconcept name="verb_should" autofill="false" />
   <declareconcept name="verb_think" />
+  <declareconcept name="verb_try" />
   <declareconcept name="verb_want" />
   <declareconcept name="verb_would" autofill="false" />
   <oppositeconcepts concept1="verb_like" concept2="verb_dislike" />
@@ -422,7 +423,6 @@
   <declareconcept name="verb_action_subscribe" />
   <declareconcept name="verb_action_teach" />
   <declareconcept name="verb_action_touch" />
-  <declareconcept name="verb_action_try" />
   <declareconcept name="verb_action_turnAway" />
   <declareconcept name="verb_action_use" />
   <declareconcept name="verb_action_wakeUp" />

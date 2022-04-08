@@ -266,7 +266,6 @@ void SynthesizerChunksMergerFrench::_writEndOfSentence
  OutSentence& pOutSentence) const
 {
   pOut.splice(pOut.end(), pOutSentence.verb2.out);
-  pOut.splice(pOut.end(), pOutSentence.inCaseOf.out);
   pOut.splice(pOut.end(), pOutSentence.manner.out);
   if (pOutSentence.objectAfterVerb.partOfSpeech == PartOfSpeech::VERB ||
       pOutSentence.receiverAfterVerb.partOfSpeech == PartOfSpeech::PRONOUN)
@@ -279,7 +278,7 @@ void SynthesizerChunksMergerFrench::_writEndOfSentence
     pOut.splice(pOut.end(), pOutSentence.objectAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.receiverAfterVerb.out);
   }
-
+  pOut.splice(pOut.end(), pOutSentence.inCaseOf.out);
   pOut.splice(pOut.end(), pOutSentence.occurrenceRank.out);
   pOut.splice(pOut.end(), pOutSentence.startingPoint.out);
   _writeDurationLocationAndTimeInGoodOrder(pOut, pOutSentence);

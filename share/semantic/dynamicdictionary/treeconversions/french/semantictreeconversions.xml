@@ -30,6 +30,26 @@
 
 
   <conversion>
+    <tree mind="true">
+      <root id="1" grounding="statement" conceptOrHyponym="verb_action">
+        <object id="2" grounding="statement" time="unknown">
+          <object id="3" grounding="agent" />
+        </object>
+	<notreceiver />
+      </root>
+    </tree>
+    <tree outText="true">
+      <root id="1" grounding="statement" conceptOrHyponym="verb_action">
+        <object id="2" grounding="statement" time="unknown">
+          <notobject />
+        </object>
+	<receiver id="3" grounding="agent" />
+      </root>
+    </tree>
+  </conversion>
+
+
+  <conversion>
     <tree inText="true" outText="true">
       <root id="1" grounding="statement" concept="verb_born" time="present">
       </root>

@@ -1185,7 +1185,7 @@ UniqueSemanticExpression sorryIWillTryToImproveMyself()
   {
     auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::FUTURE;
-    statementGrd->concepts.emplace("verb_action_try", 4);
+    statementGrd->concepts.emplace("verb_try", 4);
     return statementGrd;
   }());
   res->children.emplace(GrammaticalType::SUBJECT, _meSemExp());

@@ -214,9 +214,6 @@
   <linkedMeaning lemme="press" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="rub" gram="verb" relationToConcept="4"/>
  </concept>
- <concept name="verb_action_try">
-  <linkedMeaning lemme="try" gram="verb" relationToConcept="4"/>
- </concept>
  <concept name="verb_action_turnAway">
   <linkedMeaning lemme="turn~around" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="turn~away" gram="verb" relationToConcept="5"/>

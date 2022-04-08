@@ -112,9 +112,6 @@
   <linkedMeaning lemme="frotter" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="presser" gram="verb" relationToConcept="4"/>
  </concept>
- <concept name="verb_action_try">
-  <linkedMeaning lemme="essayer" gram="verb" relationToConcept="4"/>
- </concept>
  <concept name="verb_action_turnAway">
   <linkedMeaning lemme="retourner~se" gram="verb" relationToConcept="5"/>
   <linkedMeaning lemme="tourner~se" gram="verb" relationToConcept="5"/>
