@@ -20,6 +20,16 @@ bool _hasOnlyInterjection(std::list<ChunkLink>::iterator pItBegin,
       return false;
   return true;
 }
+
+bool _hasOnlyInterjectionOrInterrogationMark(std::list<ChunkLink>::iterator pItBegin,
+                                             std::list<ChunkLink>::iterator pItEnd)
+{
+  for (auto it = pItBegin; it != pItEnd; ++it)
+    if (it->chunk->type != ChunkType::INTERJECTION_CHUNK &&
+        (it->chunk->type != ChunkType::SEPARATOR_CHUNK || it->chunk->head->inflWords.front().word.lemma != "?"))
+      return false;
+  return true;
+}
 }
 
 void resolveIncompleteLists(std::list<ChunkLink>& pChunkList,
@@ -69,7 +79,7 @@ void resolveIncompleteLists(std::list<ChunkLink>& pChunkList,
         }
 
         bool hasAListEltBefore = !_hasOnlyInterjection(pChunkList.begin(), it);
-        bool hasAListEltAfter = !_hasOnlyInterjection(nextIt, pChunkList.end());
+        bool hasAListEltAfter = !_hasOnlyInterjectionOrInterrogationMark(nextIt, pChunkList.end());
         if (!hasAListEltAfter && !hasAListEltBefore)
         {
           currChunk.type = *chunkTypeOpt;
