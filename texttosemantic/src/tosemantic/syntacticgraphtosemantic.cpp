@@ -1917,6 +1917,16 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertListChunk
   if (interjectionSemExp)
     resSemExp = mystd::make_unique<FeedbackExpression>(std::move(*interjectionSemExp),
                                                        std::move(resSemExp));
+  if (!pContext.chunk.requests.empty())
+  {
+    auto newRes = mystd::make_unique<GroundedExpression>([&]() {
+      auto statRes = mystd::make_unique<SemanticStatementGrounding>();
+      statRes->requests = pContext.chunk.requests;
+      return statRes;
+    }());
+    newRes->children.emplace(GrammaticalType::UNKNOWN, std::move(resSemExp));
+    resSemExp = std::move(newRes);
+  }
   return resSemExp;
 }
 
