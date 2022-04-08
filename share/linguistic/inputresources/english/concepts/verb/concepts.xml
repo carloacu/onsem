@@ -37,6 +37,10 @@
  <concept name="verb_find">
   <linkedMeaning lemme="find" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_finish">
+  <linkedMeaning lemme="finish" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="complete" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_hate">
   <linkedMeaning lemme="detest" relationToConcept="4"/>
   <linkedMeaning lemme="dismiss" gram="verb" relationToConcept="4"/>

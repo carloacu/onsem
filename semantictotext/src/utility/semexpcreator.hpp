@@ -42,6 +42,8 @@ std::unique_ptr<GroundedExpression> doYouWantMeToSayThemOneByOne(const SemanticA
 
 std::unique_ptr<GroundedExpression> sayAndThenToContinue();
 
+std::unique_ptr<GroundedExpression> itIsFinished();
+
 UniqueSemanticExpression formulateConditionToAction(
     const GroundedExpression& pCondition,
     const SemanticExpression& pStuffToDo,

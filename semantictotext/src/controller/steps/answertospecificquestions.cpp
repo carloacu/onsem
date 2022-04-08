@@ -913,9 +913,23 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
             InteractionContext icMain;
             icMain.answerPossibilities.emplace_back(SemExpCreator::generateYesOrNo(false), icAllDescriptionId);
             if (!icListIds.empty())
+            {
               icMain.answerPossibilities.emplace_back(SemExpCreator::generateYesOrNo(true), icListIds.front());
+
+              int lastEltId = icListIds.back();
+              InteractionContext icEltFinished;
+              icEltFinished.textToSay = SemExpCreator::itIsFinished();
+              icEltFinished.answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN_REVERSED), lastEltId);
+              int finishedEltId = leaf.interactionContextContainer->addInteractionContext(std::move(icEltFinished));
+
+              InteractionContext* lastIcPtr = leaf.interactionContextContainer->getInteractionContextPtr(lastEltId);
+              if (lastIcPtr != nullptr)
+                lastIcPtr->answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN), finishedEltId);
+            }
             else
+            {
               assert(false);
+            }
             leaf.interactionContextContainer->currentPosition.emplace(leaf.interactionContextContainer->addInteractionContext(std::move(icMain)));
           }
         }

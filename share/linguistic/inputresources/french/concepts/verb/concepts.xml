@@ -29,6 +29,9 @@
  <concept name="verb_find">
   <linkedMeaning lemme="trouver" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_finish">
+  <linkedMeaning lemme="finir" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_hate">
   <linkedMeaning lemme="détester" relationToConcept="4"/>
   <linkedMeaning lemme="rejeter" relationToConcept="4"/>

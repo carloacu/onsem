@@ -376,6 +376,7 @@
   <declareconcept name="verb_dislike" autofill="false" />
   <declareconcept name="verb_doubt" />
   <declareconcept name="verb_find" />
+  <declareconcept name="verb_finish" />
   <declareconcept name="verb_go" />
   <declareconcept name="verb_hate" />
   <declareconcept name="verb_have" />

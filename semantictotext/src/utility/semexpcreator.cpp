@@ -366,6 +366,32 @@ std::unique_ptr<GroundedExpression> sayAndThenToContinue()
 }
 
 
+std::unique_ptr<GroundedExpression> itIsFinished()
+{
+  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  {
+    // verb
+    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    statementGrd->verbTense = SemanticVerbTense::PRESENT;
+    statementGrd->concepts.emplace("verb_finish", 4);
+    statementGrd->isPassive.emplace(true);
+    return statementGrd;
+  }());
+
+  // object
+  rootGrdExp->children.emplace(GrammaticalType::OBJECT,
+                               mystd::make_unique<GroundedExpression>([] {
+    auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+    genGrd->referenceType = SemanticReferenceType::DEFINITE;
+    genGrd->coreference.emplace(CoreferenceDirectionEnum::BEFORE);
+    genGrd->quantity.setNumber(1);
+    genGrd->entityType = SemanticEntityType::SENTENCE;
+    return genGrd;
+  }()));
+
+  return rootGrdExp;
+}
+
 
 UniqueSemanticExpression formulateConditionToAction(
     const GroundedExpression& pCondition,
