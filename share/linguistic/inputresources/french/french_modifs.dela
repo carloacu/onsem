@@ -489,3 +489,12 @@
 #quatre-vingts dix,quatre-vingt-dix.N+z1:ms:mp
 #quatre-vingts dix,quatre-vingt-dix.DET+z1:mp:fp
 
+
+#couche\-tard,.N+VX+Hum:ms:fs:mp:fp
+#lève\-tard,.N+VX+Hum+z1:ms:fs:mp:fp
+#lève\-tôt,.N+VX+Hum+z1:ms:fs:mp:fp
+#passe\-partout,.N+VX+Conc:ms:mp
+#passe\-partout,.N+VX+Conc+z1:ms:mp
+#rendez\-vous,.N+VX:ms:mp
+#revenez\-y,.N+VX:ms:mp
+

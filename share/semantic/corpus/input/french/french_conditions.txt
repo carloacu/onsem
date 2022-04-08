@@ -19,7 +19,7 @@ si je dis bonjour lance l'application thriller
 si je dis chante alors lance l'application thriller
 si je dis chante lance l'application thriller
 si je dis tu chantes bien thriller alors lance l'application thriller
-
+si je dis j'ai un rendez-vous dis vas-y
 
 si tu as ta carte de cantine, donne la sinon si tu as ton badge d'entreprise tu peux le donner aussi
 Si ton pare-chocs gauche est appuyé et que tu es content, dis bonjour
