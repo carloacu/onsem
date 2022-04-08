@@ -51,8 +51,6 @@ SemanticGenderType getGenderFromSemExp(const SemanticExpression& pSemExp,
                                        const SynthesizerCurrentContext& pContext,
                                        const Linguisticsynthesizergrounding& pGrdSynth);
 
-bool hasGenericConcept(const UniqueSemanticExpression* pUSemExpPtr);
-
 bool doesOutFinishedWithAS(const std::list<WordToSynthesize>& pOut);
 
 } // End of namespace synthGetter

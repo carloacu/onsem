@@ -5,7 +5,6 @@
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include "../tool/synthesizeradder.hpp"
-#include "../tool/synthesizergetter.hpp"
 
 namespace onsem
 {
@@ -401,7 +400,7 @@ bool LinguisticsynthesizergroundingFrench::_writeVerbGoal
     const auto& statGrd = (*canGenGrd)->getStatementGrounding();
     OutSentence subOutSentence;
     linguistics::InflectedWord verbInfoGram;
-    if (pStatementGrd.verbGoal == VerbGoalEnum::MANDATORY && synthGetter::hasGenericConcept(pSubjectPtr))
+    if (pStatementGrd.verbGoal == VerbGoalEnum::MANDATORY && SemExpGetter::hasGenericConcept(pSubjectPtr))
       verbInfoGram.word = SemanticWord(SemanticLanguageEnum::FRENCH, "falloir", PartOfSpeech::VERB);
     else
       getIGramOfAStatementMeaning(verbInfoGram, statGrd, pConf);

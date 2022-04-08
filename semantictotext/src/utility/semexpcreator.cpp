@@ -473,8 +473,14 @@ UniqueSemanticExpression getFutureIndicativeFromInfinitive(
     statementGrd->verbGoal = VerbGoalEnum::NOTIFICATION;
     statementGrd->verbTense = SemanticVerbTense::FUTURE;
   }
-  if (rootGrdExp->children.find(GrammaticalType::SUBJECT) == rootGrdExp->children.end())
+  auto itSubject = rootGrdExp->children.find(GrammaticalType::SUBJECT);
+  if (itSubject == rootGrdExp->children.end() ||
+      SemExpGetter::hasGenericConcept(&itSubject->second))
+  {
+    if (itSubject != rootGrdExp->children.end())
+      rootGrdExp->children.erase(itSubject);
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
+  }
   return std::move(rootGrdExp);
 }
 

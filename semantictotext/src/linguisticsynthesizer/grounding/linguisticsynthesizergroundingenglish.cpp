@@ -275,7 +275,7 @@ bool LinguisticsynthesizergroundingEnglish::_writeVerbGoal
   }
   case VerbGoalEnum::MANDATORY:
   {
-    if (pStatementGrd.verbGoal == VerbGoalEnum::MANDATORY && synthGetter::hasGenericConcept(pSubjectPtr) &&
+    if (pStatementGrd.verbGoal == VerbGoalEnum::MANDATORY && SemExpGetter::hasGenericConcept(pSubjectPtr) &&
         pVerbContext.requests.empty())
       _strToOut(pOutSentence.aux.out, auxPOF,
                 pVerbContext.isPositive ? "have to" : "have not to");

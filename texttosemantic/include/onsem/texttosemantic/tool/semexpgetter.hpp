@@ -470,6 +470,9 @@ std::unique_ptr<GroundedExpression> getASimplifiedVersionFromGrdExp(const Ground
 ONSEM_TEXTTOSEMANTIC_API
 UniqueSemanticExpression getASimplifiedVersion(const SemanticExpression& pSemExp);
 
+ONSEM_TEXTTOSEMANTIC_API
+bool hasGenericConcept(const UniqueSemanticExpression* pUSemExpPtr);
+
 } // End of namespace SemExpGetter
 
 } // End of namespace onsem

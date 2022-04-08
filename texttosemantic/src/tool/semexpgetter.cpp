@@ -2223,6 +2223,18 @@ UniqueSemanticExpression getASimplifiedVersion(
   return {};
 }
 
+
+
+bool hasGenericConcept(const UniqueSemanticExpression* pUSemExpPtr)
+{
+  if (pUSemExpPtr == nullptr)
+    return false;
+  auto* grdExpPtr = pUSemExpPtr->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+  return grdExpPtr != nullptr &&
+      ConceptSet::haveAConcept(grdExpPtr->grounding().concepts, "generic");
+}
+
+
 } // End of namespace SemExpGetter
 
 } // End of namespace onsem
