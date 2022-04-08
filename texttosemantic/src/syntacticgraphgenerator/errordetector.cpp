@@ -293,7 +293,7 @@ void ErrorDetector::frFixOfVerbalChunks
 void ErrorDetector::addYesOrNoRequestForVerbsBeforeInterrogationPunctuation
 (std::list<ChunkLink>& pSyntTree)
 {
-  std::list<ChunkLink>::iterator itLastVerbalGroup = pSyntTree.end();
+  std::list<ChunkLink>::iterator itLastChunk = pSyntTree.end();
   for (std::list<ChunkLink>::iterator
        it = pSyntTree.begin(); it != pSyntTree.end(); ++it)
   {
@@ -301,24 +301,28 @@ void ErrorDetector::addYesOrNoRequestForVerbsBeforeInterrogationPunctuation
     if (currChunk.type == ChunkType::VERB_CHUNK)
     {
       if (haveASubject(currChunk))
-        itLastVerbalGroup = it;
+        itLastChunk = it;
       else
-        itLastVerbalGroup = pSyntTree.end();
+        itLastChunk = pSyntTree.end();
     }
     else if (currChunk.type == ChunkType::INFINITVE_VERB_CHUNK)
     {
-      itLastVerbalGroup = pSyntTree.end();
+      itLastChunk = pSyntTree.end();
+    }
+    else if (chunkTypeIsAList(currChunk.type))
+    {
+      itLastChunk = it;
     }
     else if (currChunk.type == ChunkType::SEPARATOR_CHUNK)
     {
       if (currChunk.head->str.find_first_of('?') != std::string::npos &&
-          itLastVerbalGroup != pSyntTree.end() &&
-          itLastVerbalGroup->chunk->requests.empty() &&
-          !haveAQuestionInDirectObject(*itLastVerbalGroup->chunk))
+          itLastChunk != pSyntTree.end() &&
+          itLastChunk->chunk->requests.empty() &&
+          !haveAQuestionInDirectObject(*itLastChunk->chunk))
       {
-        setChunkAtInterrogativeForm(*itLastVerbalGroup->chunk);
+        setChunkAtInterrogativeForm(*itLastChunk->chunk);
       }
-      itLastVerbalGroup = pSyntTree.end();
+      itLastChunk = pSyntTree.end();
     }
   }
 }

@@ -1727,7 +1727,8 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     }
     res = mystd::unique_propagate_const<UniqueSemanticExpression>(std::move(semExpWrapped));
   }
-  default:
+  case ChunkType::SEPARATOR_CHUNK:
+  case ChunkType::AUX_CHUNK:
     break;
   }
 

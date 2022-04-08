@@ -1326,6 +1326,12 @@ bool checkOrder(const Chunk& pChunkBefore, const Chunk& pChunkAfter)
 
 void setChunkAtInterrogativeForm(Chunk& pChunk)
 {
+  if (chunkTypeIsAList(pChunk.type))
+  {
+    if (pChunk.children.empty())
+      pChunk.requests.set(SemanticRequestType::YESORNO);
+    return;
+  }
   const ChunkLink* doChkLinkPtr = getDOChunkLink(pChunk);
   if (doChkLinkPtr != nullptr &&
       doChkLinkPtr->chunk->type == ChunkType::OR_CHUNK)

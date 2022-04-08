@@ -59,23 +59,23 @@ bool _writeAChunkNode
 
   if (pNewNode.chunk->type == ChunkType::AND_CHUNK)
   {
-    pSs << pNewId << " [label=\"AND\"]" << std::endl;
+    pSs << pNewId << " [label=\"AND";
   }
   else if (pNewNode.chunk->type == ChunkType::OR_CHUNK)
   {
-    pSs << pNewId << " [label=\"OR\"]" << std::endl;
+    pSs << pNewId << " [label=\"OR";
   }
   else if (pNewNode.chunk->type == ChunkType::THEN_CHUNK)
   {
-    pSs << pNewId << " [label=\"THEN\"]" << std::endl;
+    pSs << pNewId << " [label=\"THEN";
   }
   else if (pNewNode.chunk->type == ChunkType::THEN_REVERSED_CHUNK)
   {
-    pSs << pNewId << " [label=\"THEN_REVERSED\"]" << std::endl;
+    pSs << pNewId << " [label=\"THEN_REVERSED";
   }
   else if (pNewNode.chunk->type == ChunkType::TEACH_CHUNK)
   {
-    pSs << pNewId << " [label=\"TEACH\"]" << std::endl;
+    pSs << pNewId << " [label=\"TEACH";
   }
   else
   {
@@ -83,48 +83,51 @@ bool _writeAChunkNode
     std::string tokRangeStr;
     pNewNode.chunk->tokRange.getStr(tokRangeStr);
     tokRangeStr = _stringToPrintByDot(tokRangeStr);
-
     pSs << tokRangeStr << "\\nhead: " << _stringToPrintByDot(pNewNode.chunk->head->str);
-    if (chunkTypeIsVerbal(pNewNode.chunk->type))
-    {
-      if (!pNewNode.chunk->positive)
-      {
-        pSs << "\\nnegative form";
-      }
-      if (pNewNode.chunk->isPassive)
-      {
-        pSs << "\\npassive form";
-      }
-      if (!pNewNode.chunk->requests.empty())
-      {
-        pSs << "\\n";
-        bool firstIteration = true;
-        for (const auto& currRequest : pNewNode.chunk->requests.types)
-        {
-          if (firstIteration)
-            firstIteration = false;
-          else
-            pSs << " & ";
-          pSs << semanticRequestType_toStr(currRequest);
-        }
-      }
-    }
-    pSs << strToAvoidWarnings << "\" ";
-    if (pNewNode.chunk->type == ChunkType::VERB_CHUNK ||
-        pNewNode.chunk->type == ChunkType::AUX_CHUNK)
-    {
-      pSs << ",color=orange";
-    }
-    else if (pNewNode.chunk->type == ChunkType::SEPARATOR_CHUNK)
-    {
-      pSs << ",color=yellow";
-    }
-    else if (pNewNode.chunk->type == ChunkType::INFINITVE_VERB_CHUNK)
-    {
-      pSs << ",color=sandybrown";
-    }
-    pSs << "]" << std::endl;
   }
+  if (chunkTypeIsVerbal(pNewNode.chunk->type))
+  {
+    if (!pNewNode.chunk->positive)
+    {
+      pSs << "\\nnegative form";
+    }
+    if (pNewNode.chunk->isPassive)
+    {
+      pSs << "\\npassive form";
+    }
+  }
+  if (!pNewNode.chunk->requests.empty() && pNewNode.chunk->type != ChunkType::AUX_CHUNK)
+  {
+    pSs << "\\n";
+    bool firstIteration = true;
+    for (const auto& currRequest : pNewNode.chunk->requests.types)
+    {
+      if (firstIteration)
+        firstIteration = false;
+      else
+        pSs << " & ";
+      pSs << semanticRequestType_toStr(currRequest);
+    }
+  }
+  if (chunkTypeIsAList(pNewNode.chunk->type) || pNewNode.chunk->type == ChunkType::TEACH_CHUNK)
+    pSs << "\"";
+  else
+    pSs << strToAvoidWarnings << "\" ";
+  if (pNewNode.chunk->type == ChunkType::VERB_CHUNK ||
+      pNewNode.chunk->type == ChunkType::AUX_CHUNK)
+  {
+    pSs << ",color=orange";
+  }
+  else if (pNewNode.chunk->type == ChunkType::SEPARATOR_CHUNK)
+  {
+    pSs << ",color=yellow";
+  }
+  else if (pNewNode.chunk->type == ChunkType::INFINITVE_VERB_CHUNK)
+  {
+    pSs << ",color=sandybrown";
+  }
+
+  pSs << "]" << std::endl;
   return true;
 }
 
