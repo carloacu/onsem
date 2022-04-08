@@ -848,7 +848,7 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
     {
       SemExpModifier::infGrdExpToMandatoryForm(*actionDefClonedGrdExpPtr);
       pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::ANSWER,
-                            converter::constructTeachSemExp(pGrdExp.clone(), std::move(actionDefCloned)));
+                                             converter::constructTeachSemExp(pGrdExp.clone(), std::move(actionDefCloned)));
     }
     else
     {

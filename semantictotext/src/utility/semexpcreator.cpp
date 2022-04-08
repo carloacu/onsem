@@ -1613,6 +1613,19 @@ UniqueSemanticExpression confirmInformation(
 }
 
 
+UniqueSemanticExpression wrapWithStatementWithRequest(UniqueSemanticExpression pUSemExp,
+                                                      const SemanticRequests& pRequests)
+{
+    auto newRes = mystd::make_unique<GroundedExpression>([&]() {
+      auto statRes = mystd::make_unique<SemanticStatementGrounding>();
+      statRes->requests = pRequests;
+      return statRes;
+    }());
+    newRes->children.emplace(GrammaticalType::UNKNOWN, std::move(pUSemExp));
+    return std::move(newRes);
+}
+
+
 UniqueSemanticExpression confirmInfoCondition(
     const ConditionSpecification& pCondSpec)
 {

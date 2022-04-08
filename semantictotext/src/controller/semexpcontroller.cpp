@@ -1263,7 +1263,9 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
             newContextAxiom->infCommandToDo != nullptr)
         {
           pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::TEACHINGFEEDBACK,
-                                                 SemExpCreator::confirmInformation(pGrdExp));
+                                                 SemExpCreator::mergeInAList(
+                                                   SemExpCreator::confirmInformation(pGrdExp),
+                                                   SemExpCreator::wrapWithStatementWithRequest(mystd::make_unique<ListExpression>(ListExpressionType::THEN), SemanticRequests(SemanticRequestType::YESORNO))));
         }
       }
       break;

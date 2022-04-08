@@ -193,6 +193,9 @@ UniqueSemanticExpression sayFalse();
 UniqueSemanticExpression confirmInformation(
     const GroundedExpression& pGrdExp);
 
+UniqueSemanticExpression wrapWithStatementWithRequest(UniqueSemanticExpression pUSemExp,
+                                                      const SemanticRequests& pRequests);
+
 UniqueSemanticExpression confirmInfoCondition(const ConditionSpecification& pCondSpec);
 
 UniqueSemanticExpression generateYesOrNo(bool pSamePolarity);
