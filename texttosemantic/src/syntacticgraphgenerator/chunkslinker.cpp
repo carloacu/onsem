@@ -82,11 +82,14 @@ void ChunksLinker::_linkPronounToMorePreciseSubject(
     PartOfSpeech headPartOfSpeech = currChkLk.chunk->head->inflWords.front().word.partOfSpeech;
     if (currChkLk.type == ChunkLinkType::SUBJECT)
     {
-      if (headPartOfSpeech == PartOfSpeech::PRONOUN ||
-          headPartOfSpeech == PartOfSpeech::PRONOUN_SUBJECT)
-        _tryToLinkToAPrevWord(currChkLk, pHistory, pStack);
-      else
-        _saveTheLink(pHistory.prevSubject[0], currChkLk);
+      if (!pChunkLink.chunk->head->inflWords.front().infos.hasContextualInfo(WordContextualInfos::CANNOTLINKSUBJECT))
+      {
+        if (headPartOfSpeech == PartOfSpeech::PRONOUN ||
+            headPartOfSpeech == PartOfSpeech::PRONOUN_SUBJECT)
+          _tryToLinkToAPrevWord(currChkLk, pHistory, pStack);
+        else
+          _saveTheLink(pHistory.prevSubject[0], currChkLk);
+      }
     }
     else if (currChkLk.type == ChunkLinkType::DIRECTOBJECT ||
              currChkLk.type == ChunkLinkType::INDIRECTOBJECT)

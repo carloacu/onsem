@@ -9,6 +9,7 @@
  <include file="contextinfos/french_contextinfos_beauxiliary.xml"/>
  <include file="contextinfos/french_contextinfos_haveauxiliary.xml"/>
 
+ <include file="contextinfos/french_contextinfos_cannotLinkSubject.xml"/>
  <include file="contextinfos/french_contextinfos_verbFollowedByDe.xml"/>
  <include file="contextinfos/french_contextinfos_cannotbeacoreference.xml"/>
  <include file="contextinfos/french_contextinfos_any.xml"/>

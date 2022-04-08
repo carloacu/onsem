@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="falloir" gram="verb">
+    <contextInfo val="cannotLinkSubject" />
+  </existingMeaning>
+</linguisticdatabase>

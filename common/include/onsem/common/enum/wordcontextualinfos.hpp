@@ -20,6 +20,7 @@ namespace onsem
   ADD_WORDCONTEXTUALINFOS_TYPE(CANNOTBECONTINUOUS, "cannotBeContinuous")                                        \
   ADD_WORDCONTEXTUALINFOS_TYPE(CANNOTBEASUBJECT, "cannotBeASubject")                                            \
   ADD_WORDCONTEXTUALINFOS_TYPE(CANNOTBEACOREFRENCE, "cannotBeACoreference")                                     \
+  ADD_WORDCONTEXTUALINFOS_TYPE(CANNOTLINKSUBJECT, "cannotLinkSubject")                                          \
   ADD_WORDCONTEXTUALINFOS_TYPE(CONDITION, "condition")                                                          \
   ADD_WORDCONTEXTUALINFOS_TYPE(THEN, "then")                                                                    \
   ADD_WORDCONTEXTUALINFOS_TYPE(ELSE, "else")                                                                    \
