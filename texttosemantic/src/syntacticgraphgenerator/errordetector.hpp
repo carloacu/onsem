@@ -60,7 +60,8 @@ private:
   (Chunk& pVerbChunk) const;
 
   bool xTryToCorrectVerbsWithoutSubject
-  (ChunkLinkIter& pChkLkIter) const;
+  (ChunkLinkIter& pChkLkIter,
+   bool pFirstChunk) const;
 
   CarryOnFrom xRemoveSubordinatingConjonctionUnliked
   (ChunkLink& pItChLk,
@@ -70,7 +71,8 @@ private:
 
   CarryOnFrom xSolveBadVerbChunks(ChunkLinkIter& pChkLkIter,
                                   ChunkLinkType pParentChkLk,
-                                  ChunkType pPreviousChunkType) const;
+                                  ChunkType pPreviousChunkType,
+                                  bool pFirstChunk) const;
 
   CarryOnFrom xSolveConjunctionUnlinked(std::list<ChunkLink>::iterator pItChLk) const;
 

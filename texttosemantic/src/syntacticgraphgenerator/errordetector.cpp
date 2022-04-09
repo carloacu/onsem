@@ -91,6 +91,7 @@ CarryOnFrom ErrorDetector::falseGramPossibilitiesRemoved
 {
   CarryOnFrom res = CarryOnFrom::HERE;
   ChunkType previousChunkType = ChunkType::SEPARATOR_CHUNK;
+  bool firstChunk = true;
   for (ChunkLinkIter chkLkIter(pSyntTree, pSyntTree.begin());
        !chkLkIter.atEnd(); ++chkLkIter)
   {
@@ -123,11 +124,12 @@ CarryOnFrom ErrorDetector::falseGramPossibilitiesRemoved
     {
       _updateCarryOnValue(res, xRemoveInvalidPronouns(*chkLkIter.getIt()->chunk));
       _updateCarryOnValue(res,
-                          xSolveBadVerbChunks(chkLkIter, chkLkIter->type, previousChunkType));
+                          xSolveBadVerbChunks(chkLkIter, chkLkIter->type, previousChunkType, firstChunk));
       if (chkLkIter.atEnd())
         return res;
     }
     previousChunkType = currChunkType;
+    firstChunk = false;
   }
 
   _updateCarryOnValue(res, _adjNounLists(pSyntTree));
@@ -580,7 +582,8 @@ void ErrorDetector::xPutRepetitionChildToTheFatherNode(Chunk& pChunk) const
 CarryOnFrom ErrorDetector::xSolveBadVerbChunks
 (ChunkLinkIter& pChkLkIter,
  ChunkLinkType pParentChkLk,
- ChunkType pPreviousChunkType) const
+ ChunkType pPreviousChunkType,
+ bool pFirstChunk) const
 {
   CarryOnFrom res = CarryOnFrom::HERE;
   // remove participle without auxiliary
@@ -597,7 +600,7 @@ CarryOnFrom ErrorDetector::xSolveBadVerbChunks
       {
         ChunkLinkType subParentChkLk =
             it->type == ChunkLinkType::SIMPLE ? pParentChkLk : it->type;
-        res = xSolveBadVerbChunks(it, subParentChkLk, ChunkType::SEPARATOR_CHUNK);
+        res = xSolveBadVerbChunks(it, subParentChkLk, ChunkType::SEPARATOR_CHUNK, false);
         if (res != CarryOnFrom::HERE)
           break;
       }
@@ -625,7 +628,7 @@ CarryOnFrom ErrorDetector::xSolveBadVerbChunks
         res = CarryOnFrom::PARTOFSPEECH_FILTERS;
       }
     }
-    else if (xTryToCorrectVerbsWithoutSubject(pChkLkIter))
+    else if (xTryToCorrectVerbsWithoutSubject(pChkLkIter, pFirstChunk))
     {
       res = CarryOnFrom::PARTOFSPEECH_FILTERS;
     }
@@ -684,7 +687,8 @@ bool ErrorDetector::xSolveVerbThatHaveASubjectThatBeginsWithAPrep
 
 
 bool ErrorDetector::xTryToCorrectVerbsWithoutSubject
-(ChunkLinkIter& pChkLkIter) const
+(ChunkLinkIter& pChkLkIter,
+ bool pFirstChunk) const
 {
   Chunk& verbChunk = *pChkLkIter->chunk;
   auto language = fConfiguration.getLanguageType();
@@ -721,8 +725,7 @@ bool ErrorDetector::xTryToCorrectVerbsWithoutSubject
       --itVerbBefore;
     }
 
-    if (!haveASubject(verbChunk) &&
-        !InflectionsChecker::verbCanHaveNoSubject(verbChunk.head->inflWords.front()))
+    if (!InflectionsChecker::verbCanHaveNoSubject(verbChunk.head->inflWords.front()))
     {
       // remove this verb if another verb can have no subject
       auto it = verbChunk.head->inflWords.begin();
@@ -739,9 +742,10 @@ bool ErrorDetector::xTryToCorrectVerbsWithoutSubject
 
     // if it's the first token maybe the subject was in a previous text
     bool canHaveASubjectBefore =
-        verbChunk.head->tokenPos.isAtBegin() &&
+        pFirstChunk && !haveAChildBefore(verbChunk) &&
         !fConfiguration.getFlsChecker().verbIsOnlyAtPresentOrPastParticiple(verbChunk.head->inflWords.front());
-    if (!canHaveASubjectBefore)
+    if (linguistics::hasAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::CONJUNCTIVE) ||
+        !canHaveASubjectBefore)
       return delAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::VERB);
   }
   return false;

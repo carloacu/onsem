@@ -230,6 +230,8 @@ const Chunk& getFirstListEltChunk(const Chunk& pChunk);
 bool haveASubject(const Chunk& pVerbChunk);
 bool haveASubjectExceptQuestionWord(const Chunk& pVerbChunk);
 
+bool haveAChildBefore(const Chunk& pChunk);
+
 bool conditionIsTheFirstChildAndThereIsManyChildren
 (const Chunk& pVerbChunk);
 

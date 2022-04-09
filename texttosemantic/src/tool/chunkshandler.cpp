@@ -676,6 +676,14 @@ bool haveASubjectExceptQuestionWord(const Chunk& pVerbChunk)
 }
 
 
+bool haveAChildBefore(const Chunk& pChunk)
+{
+  for (const auto& currChild : pChunk.children)
+    if (checkOrder(*currChild.chunk, pChunk))
+      return true;
+  return false;
+}
+
 bool conditionIsTheFirstChildAndThereIsManyChildren
 (const Chunk& pVerbChunk)
 {
