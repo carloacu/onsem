@@ -12,6 +12,7 @@
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <onsem/semantictotext/tool/semexpagreementdetector.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/semantictotext/semanticconverter.hpp>
 
 
 namespace onsem
@@ -217,7 +218,7 @@ void _replaceYesOrNoQuestionAccordingToTheAgreement
 }
 
 
-void _checkAgreementAndReplaceYesOrNoQuestion
+bool _checkAgreementAndReplaceYesOrNoQuestion
 (UniqueSemanticExpression& pSemExp,
  const SemanticExpression& pContextSemExp,
  const GroundedExpression& pCurrGrdExp)
@@ -225,7 +226,11 @@ void _checkAgreementAndReplaceYesOrNoQuestion
   TruenessValue agreementVal =
       semExpAgreementDetector::getAgreementValue(pCurrGrdExp);
   if (agreementVal != TruenessValue::UNKNOWN)
+  {
     _replaceYesOrNoQuestionAccordingToTheAgreement(pSemExp, pContextSemExp, agreementVal);
+    return true;
+  }
+  return false;
 }
 
 UniqueSemanticExpression _generateSentenceWhatHappenedJustAfterThat()
@@ -253,15 +258,15 @@ UniqueSemanticExpression _generateSentenceWhatHappenedJustAfterThat()
   return std::move(rootGrdExp);
 }
 
-void _tryToCompleteAnswerWithTheQuestion
-(UniqueSemanticExpression& pSemExp,
- const SemanticExpression& pContextSemExp,
- const GroundedExpression& pContextGrdExp,
- const SemanticStatementGrounding& pContextStatementGr,
- SemanticRequestType pContextRequest,
- const linguistics::LinguisticDatabase& pLingDb);
+bool _tryToCompleteAnswerWithTheQuestion(
+    UniqueSemanticExpression& pSemExp,
+    const SemanticExpression& pContextSemExp,
+    const GroundedExpression& pContextGrdExp,
+    const SemanticStatementGrounding& pContextStatementGr,
+    SemanticRequestType pContextRequest,
+    const linguistics::LinguisticDatabase& pLingDb);
 
-void _tryToCompleteAnswerWithTheQuestionFromGrdExp
+bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
 (UniqueSemanticExpression& pSemExp,
  GroundedExpression& pGrdExp,
  const SemanticExpression& pContextSemExp,
@@ -276,27 +281,31 @@ void _tryToCompleteAnswerWithTheQuestionFromGrdExp
   {
     const SemanticStatementGrounding& answStatement = pGrdExp->getStatementGrounding();
     if (!answStatement.requests.empty())
-      return;
+      return false;
 
     // if fill a yes or no question
     if (answStatement.concepts.count("mentalState_know") > 0 &&
         pGrdExp.children.count(GrammaticalType::OBJECT) == 0)
     {
       pGrdExp.children.emplace(GrammaticalType::OBJECT, pContextSemExp.clone());
+      return true;
     }
     else if (pContextRequest == SemanticRequestType::YESORNO)
     {
       _checkAgreementAndReplaceYesOrNoQuestion(pSemExp, pContextSemExp, pGrdExp);
+      return true;
     }
     else if (answStatement.verbTense == SemanticVerbTense::UNKNOWN)
     {
       _addChild(pSemExp, pContextGrdExp, pContextRequest, pGrdExp, pLingDb);
+      return true;
     }
     // if not fill a yes or no question
     else if (semanticRequestType_toSemGram(pContextRequest) != GrammaticalType::UNKNOWN &&
              pContextStatementGr.concepts.count("verb_action") > 0)
     {
       _fillWithActionThatAskAboutAction(pSemExp, pContextGrdExp, pGrdExp);
+      return true;
     }
     // for sentences "it's X" the "X" should be considered has potential answer
     else if (answStatement.verbTense == pContextStatementGr.verbTense &&
@@ -317,6 +326,7 @@ void _tryToCompleteAnswerWithTheQuestionFromGrdExp
                                               pContextStatementGr, pContextRequest, pLingDb);
         }
       }
+      return true;
     }
     break;
   }
@@ -324,11 +334,12 @@ void _tryToCompleteAnswerWithTheQuestionFromGrdExp
   {
     if (pContextRequest == SemanticRequestType::YESORNO)
     {
-      _checkAgreementAndReplaceYesOrNoQuestion(pSemExp, pContextSemExp, pGrdExp);
+      return _checkAgreementAndReplaceYesOrNoQuestion(pSemExp, pContextSemExp, pGrdExp);
     }
     else
     {
       _addChild(pSemExp, pContextGrdExp, pContextRequest, pGrdExp, pLingDb);
+      return true;
     }
     break;
   }
@@ -337,13 +348,19 @@ void _tryToCompleteAnswerWithTheQuestionFromGrdExp
   {
     if (pContextRequest != SemanticRequestType::YESORNO &&
         pContextRequest != SemanticRequestType::TIME)
+    {
       _addChild(pSemExp, pContextGrdExp, pContextRequest, pGrdExp, pLingDb);
+      return true;
+    }
     break;
   }
   case SemanticGroudingType::TIME:
   {
     if (pContextRequest == SemanticRequestType::TIME)
+    {
       _addChild(pSemExp, pContextGrdExp, pContextRequest, pGrdExp, pLingDb);
+      return true;
+    }
     break;
   }
   case SemanticGroudingType::DURATION:
@@ -357,10 +374,11 @@ void _tryToCompleteAnswerWithTheQuestionFromGrdExp
   case SemanticGroudingType::CONCEPTUAL:
     break;
   }
+  return false;
 }
 
 
-void _tryToCompleteAnswerWithTheQuestion
+bool _tryToCompleteAnswerWithTheQuestion
 (UniqueSemanticExpression& pSemExp,
  const SemanticExpression& pContextSemExp,
  const GroundedExpression& pContextGrdExp,
@@ -373,18 +391,16 @@ void _tryToCompleteAnswerWithTheQuestion
   case SemanticExpressionType::GROUNDED:
   {
     auto& grdExp = pSemExp->getGrdExp();
-    _tryToCompleteAnswerWithTheQuestionFromGrdExp(pSemExp, grdExp, pContextSemExp,
-                                                  pContextGrdExp, pContextStatementGr,
-                                                  pContextRequest, pLingDb);
-    break;
+    return _tryToCompleteAnswerWithTheQuestionFromGrdExp(pSemExp, grdExp, pContextSemExp,
+                                                         pContextGrdExp, pContextStatementGr,
+                                                         pContextRequest, pLingDb);
   }
   case SemanticExpressionType::ANNOTATED:
   {
     auto& annExp = pSemExp->getAnnExp();
-    _tryToCompleteAnswerWithTheQuestion(annExp.semExp, pContextSemExp,
-                                        pContextGrdExp, pContextStatementGr,
-                                        pContextRequest, pLingDb);
-    break;
+    return _tryToCompleteAnswerWithTheQuestion(annExp.semExp, pContextSemExp,
+                                               pContextGrdExp, pContextStatementGr,
+                                               pContextRequest, pLingDb);
   }
   case SemanticExpressionType::FEEDBACK:
   {
@@ -405,45 +421,42 @@ void _tryToCompleteAnswerWithTheQuestion
         }
       }
     }
-    _tryToCompleteAnswerWithTheQuestion(fdkExp.concernedExp, pContextSemExp,
-                                        pContextGrdExp, pContextStatementGr,
-                                        pContextRequest, pLingDb);
-    break;
+    return _tryToCompleteAnswerWithTheQuestion(fdkExp.concernedExp, pContextSemExp,
+                                               pContextGrdExp, pContextStatementGr,
+                                               pContextRequest, pLingDb);
   }
   case SemanticExpressionType::INTERPRETATION:
   {
     auto& intExp = pSemExp->getIntExp();
-    _tryToCompleteAnswerWithTheQuestion(intExp.interpretedExp, pContextSemExp,
-                                        pContextGrdExp, pContextStatementGr,
-                                        pContextRequest, pLingDb);
-
-    break;
+    return _tryToCompleteAnswerWithTheQuestion(intExp.interpretedExp, pContextSemExp,
+                                               pContextGrdExp, pContextStatementGr,
+                                               pContextRequest, pLingDb);
   }
   case SemanticExpressionType::LIST:
   {
     auto& listExp = pSemExp->getListExp();
     if (!listExp.elts.empty())
-      _tryToCompleteAnswerWithTheQuestion(listExp.elts.front(), pContextSemExp,
-                                          pContextGrdExp, pContextStatementGr,
-                                          pContextRequest, pLingDb);
-    break;
+      return _tryToCompleteAnswerWithTheQuestion(listExp.elts.front(), pContextSemExp,
+                                                 pContextGrdExp, pContextStatementGr,
+                                                 pContextRequest, pLingDb);
+    return false;
   }
   case SemanticExpressionType::METADATA:
   {
     auto& metaExp = pSemExp->getMetadataExp();
-    _tryToCompleteAnswerWithTheQuestion(metaExp.semExp, pContextSemExp,
-                                        pContextGrdExp, pContextStatementGr,
-                                        pContextRequest, pLingDb);
+    return _tryToCompleteAnswerWithTheQuestion(metaExp.semExp, pContextSemExp,
+                                               pContextGrdExp, pContextStatementGr,
+                                               pContextRequest, pLingDb);
 
-    break;
   }
   case SemanticExpressionType::FIXEDSYNTHESIS:
   case SemanticExpressionType::COMMAND:
   case SemanticExpressionType::COMPARISON:
   case SemanticExpressionType::CONDITION:
   case SemanticExpressionType::SETOFFORMS:
-    break;
+    return false;
   }
+  return false;
 }
 
 
@@ -556,16 +569,18 @@ bool _mergeSemExp
  const linguistics::LinguisticDatabase& pLingDb)
 {
   const GroundedExpression* contextGrdExpPtr = pContextSemExp.getGrdExpPtr_SkipWrapperPtrs();
-  if (contextGrdExpPtr != nullptr &&
-      contextGrdExpPtr->grounding().type == SemanticGroudingType::STATEMENT)
+  if (contextGrdExpPtr == nullptr)
+    return false;
+  const GroundedExpression& contextGrdExp = *contextGrdExpPtr;
+
+  if (contextGrdExp->type == SemanticGroudingType::STATEMENT)
   {
-    const GroundedExpression& contextGrdExp = *contextGrdExpPtr;
     const SemanticStatementGrounding& contextStatementGr = contextGrdExp->getStatementGrounding();
     if (!pSameAuthor && !contextStatementGr.requests.empty())
     {
-      _tryToCompleteAnswerWithTheQuestion(pSemExp, pContextSemExp, contextGrdExp,
-                                          contextStatementGr,
-                                          contextStatementGr.requests.first(), pLingDb);
+      return _tryToCompleteAnswerWithTheQuestion(pSemExp, pContextSemExp, contextGrdExp,
+                                                 contextStatementGr,
+                                                 contextStatementGr.requests.first(), pLingDb);
     }
     else
     {
@@ -613,6 +628,57 @@ bool _mergeSemExp
     }
     return true;
   }
+
+  if (contextGrdExp->type == SemanticGroudingType::CONCEPTUAL)
+  {
+    auto itObject = contextGrdExp.children.find(GrammaticalType::OBJECT);
+    if (itObject == contextGrdExp.children.end())
+      return false;
+
+    auto itPurpose = contextGrdExp.children.find(GrammaticalType::PURPOSE);
+    if (itPurpose == contextGrdExp.children.end())
+      return false;
+
+    auto listExpPtr = pSemExp->getListExpPtr_SkipWrapperPtrs();
+    if (listExpPtr != nullptr)
+    {
+      auto& listExp = *listExpPtr;
+      if (listExp.elts.size() >= 2)
+      {
+        auto itListElt = listExp.elts.begin();
+        if (SemExpGetter::isACoreference(**itListElt, CoreferenceDirectionEnum::BEFORE, true))
+        {
+          ++itListElt;
+          auto grdExpPtr = itListElt->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+          if (grdExpPtr != nullptr)
+          {
+            auto* statGrdPtr = grdExpPtr->grounding().getStatementGroundingPtr();
+            if (statGrdPtr != nullptr)
+            {
+              UniqueSemanticExpression objectSemexp = itObject->second->clone();
+              SemExpModifier::addNewSemExp(objectSemexp, itListElt->getSemExp().clone(), ListExpressionType::THEN);
+
+              auto* metadataPtr = pSemExp->getMetadataPtr_SkipWrapperPtrs();
+              if (metadataPtr != nullptr)
+              {
+                metadataPtr->semExp = converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp));
+              }
+              else
+              {
+                pSemExp = mystd::make_unique<InterpretationExpression>
+                    (InterpretationSource::TEACHING_FOLLOW_UP,
+                     converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp)),
+                     std::move(pSemExp));
+              }
+              return true;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
   return false;
 }
 
