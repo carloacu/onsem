@@ -78,6 +78,15 @@ bool _isACoreferenceFromGrdExp(const GroundedExpression& pGrdExp,
   return genGrdPtr != nullptr && isACoreferenceFromGenericGrounding(*genGrdPtr, pDirection, pShouldNotHaveALemma);
 }
 
+
+bool _isMandatoryGrdExp(const GroundedExpression& pGrdExp)
+{
+  const auto* statGrdPtr = pGrdExp->getStatementGroundingPtr();
+  return statGrdPtr != nullptr &&
+      (statGrdPtr->isMandatoryInPresentTense() ||
+       ConceptSet::haveAConcept(statGrdPtr->concepts, "verb_haveto"));
+}
+
 }
 
 
@@ -1447,9 +1456,7 @@ void extractTeachElements(
   if (objectGrdExpPtrs.empty())
     return;
   for (const auto& currObjPtr : objectGrdExpPtrs)
-    if (!isMandatoryGrdExp(*currObjPtr) &&
-        currObjPtr->grounding().getMetaGroundingPtr() == nullptr &&
-        currObjPtr->grounding().getResourceGroundingPtr() == nullptr)
+    if (!isATeachingElement(*currObjPtr))
       return;
 
   pPurposeGrdPtr = purposeGrdExpPtr;
@@ -1565,14 +1572,12 @@ bool isAnInfinitiveGrdExp(const GroundedExpression& pGrdExp)
 }
 
 
-bool isMandatoryGrdExp(const GroundedExpression& pGrdExp)
+bool isATeachingElement(const GroundedExpression& pGrdExp)
 {
-  const auto* statGrdPtr = pGrdExp->getStatementGroundingPtr();
-  return statGrdPtr != nullptr &&
-      (statGrdPtr->isMandatoryInPresentTense() ||
-       ConceptSet::haveAConcept(statGrdPtr->concepts, "verb_haveto"));
+  return _isMandatoryGrdExp(pGrdExp) ||
+      pGrdExp->getMetaGroundingPtr() != nullptr ||
+      pGrdExp->getResourceGroundingPtr() != nullptr;
 }
-
 
 bool isNothing(const GroundedExpression& pGrdExp)
 {

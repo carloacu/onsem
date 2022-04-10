@@ -343,7 +343,7 @@ ONSEM_TEXTTOSEMANTIC_API
 bool isAnInfinitiveGrdExp(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool isMandatoryGrdExp(const GroundedExpression& pGrdExp);
+bool isATeachingElement(const GroundedExpression& pGrdExp);
 
 
 ONSEM_TEXTTOSEMANTIC_API

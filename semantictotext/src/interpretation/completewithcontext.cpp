@@ -292,8 +292,7 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
     }
     else if (pContextRequest == SemanticRequestType::YESORNO)
     {
-      _checkAgreementAndReplaceYesOrNoQuestion(pSemExp, pContextSemExp, pGrdExp);
-      return true;
+      return _checkAgreementAndReplaceYesOrNoQuestion(pSemExp, pContextSemExp, pGrdExp);
     }
     else if (answStatement.verbTense == SemanticVerbTense::UNKNOWN)
     {
@@ -639,43 +638,46 @@ bool _mergeSemExp
     if (itPurpose == contextGrdExp.children.end())
       return false;
 
-    auto listExpPtr = pSemExp->getListExpPtr_SkipWrapperPtrs();
-    if (listExpPtr != nullptr)
+    std::list<const GroundedExpression*> grdExpPtrs;
+    pSemExp->getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+    bool hasATeachingElt = false;
+    bool firstIteration = true;
+    bool isNotATeachingList = false;
+    UniqueSemanticExpression objectSemexp = itObject->second->clone();
+
+    for (auto& currGrdExp : grdExpPtrs)
     {
-      auto& listExp = *listExpPtr;
-      if (listExp.elts.size() >= 2)
+      if (firstIteration)
       {
-        auto itListElt = listExp.elts.begin();
-        if (SemExpGetter::isACoreference(**itListElt, CoreferenceDirectionEnum::BEFORE, true))
-        {
-          ++itListElt;
-          auto grdExpPtr = itListElt->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
-          if (grdExpPtr != nullptr)
-          {
-            auto* statGrdPtr = grdExpPtr->grounding().getStatementGroundingPtr();
-            if (statGrdPtr != nullptr)
-            {
-              UniqueSemanticExpression objectSemexp = itObject->second->clone();
-              SemExpModifier::addNewSemExp(objectSemexp, itListElt->getSemExp().clone(), ListExpressionType::THEN);
-
-              auto* metadataPtr = pSemExp->getMetadataPtr_SkipWrapperPtrs();
-              if (metadataPtr != nullptr)
-              {
-                metadataPtr->semExp = converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp));
-              }
-              else
-              {
-                pSemExp = mystd::make_unique<InterpretationExpression>
-                    (InterpretationSource::TEACHING_FOLLOW_UP,
-                     converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp)),
-                     std::move(pSemExp));
-              }
-              return true;
-            }
-          }
-        }
+        firstIteration = false;
+        if (SemExpGetter::isACoreference(*currGrdExp, CoreferenceDirectionEnum::BEFORE, true))
+          continue;
       }
+      if (SemExpGetter::isATeachingElement(*currGrdExp))
+      {
+        SemExpModifier::addNewSemExp(objectSemexp, currGrdExp->clone(), ListExpressionType::THEN);
+        hasATeachingElt = true;
+        continue;
+      }
+      isNotATeachingList = true;
+      break;
+    }
 
+    if (hasATeachingElt && !isNotATeachingList)
+    {
+      auto* metadataPtr = pSemExp->getMetadataPtr_SkipWrapperPtrs();
+      if (metadataPtr != nullptr)
+      {
+        metadataPtr->semExp = converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp));
+      }
+      else
+      {
+        pSemExp = mystd::make_unique<InterpretationExpression>
+            (InterpretationSource::TEACHING_FOLLOW_UP,
+             converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp)),
+             std::move(pSemExp));
+      }
+      return true;
     }
   }
 
