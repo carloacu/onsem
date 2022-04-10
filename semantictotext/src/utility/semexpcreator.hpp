@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include <list>
+#include <onsem/common/enum/interpretationsource.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/common/enum/semanticsourceenum.hpp>
 #include <onsem/texttosemantic/dbtype/misc/conditionspecification.hpp>
@@ -213,6 +214,10 @@ UniqueSemanticExpression generateYesOrNoAnswerFromMemory(
     bool pSamePolarity,
     const std::map<GrammaticalType, const SemanticExpression*>& pAnnotationsOfTheAnswer);
 
+void replaceSemExpOrAddInterpretation(
+    InterpretationSource pSource,
+    UniqueSemanticExpression& pSemExp,
+    UniqueSemanticExpression pInterpretedExp);
 
 } // End of namespace SemExpCreator
 } // End of namespace onsem

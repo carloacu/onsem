@@ -13,7 +13,7 @@
 #include <onsem/semantictotext/tool/semexpagreementdetector.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
-
+#include "../utility/semexpcreator.hpp"
 
 namespace onsem
 {
@@ -211,10 +211,8 @@ void _replaceYesOrNoQuestionAccordingToTheAgreement
   _replaceAnnotationSpecificationCoreferenceByTheActualValue(newSemExp);
   if (pAgreementVal == TruenessValue::VAL_FALSE)
     SemExpModifier::invertPolarity(*newSemExp);
-  pSemExp = mystd::make_unique<InterpretationExpression>
-      (InterpretationSource::YES_NO_REPLACEMENT,
-       std::move(newSemExp),
-       std::move(pSemExp));
+  SemExpCreator::replaceSemExpOrAddInterpretation(InterpretationSource::YES_NO_REPLACEMENT,
+                                                  pSemExp, std::move(newSemExp));
 }
 
 
@@ -319,8 +317,8 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
         if (itObject != pGrdExp.children.end())
         {
           auto newSemExp = itObject->second->clone();
-          pSemExp = mystd::make_unique<InterpretationExpression>(InterpretationSource::RESTRUCTURING,
-                                                                 std::move(newSemExp), std::move(pSemExp));
+          SemExpCreator::replaceSemExpOrAddInterpretation(InterpretationSource::RESTRUCTURING,
+                                                          pSemExp, std::move(newSemExp));
           _tryToCompleteAnswerWithTheQuestion(pSemExp, pContextSemExp, pContextGrdExp,
                                               pContextStatementGr, pContextRequest, pLingDb);
         }
@@ -665,18 +663,10 @@ bool _mergeSemExp
 
     if (hasATeachingElt && !isNotATeachingList)
     {
-      auto* metadataPtr = pSemExp->getMetadataPtr_SkipWrapperPtrs();
-      if (metadataPtr != nullptr)
-      {
-        metadataPtr->semExp = converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp));
-      }
-      else
-      {
-        pSemExp = mystd::make_unique<InterpretationExpression>
-            (InterpretationSource::TEACHING_FOLLOW_UP,
-             converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp)),
-             std::move(pSemExp));
-      }
+      SemExpCreator::replaceSemExpOrAddInterpretation(
+            InterpretationSource::TEACHING_FOLLOW_UP,
+            pSemExp,
+            converter::constructTeachSemExp(itPurpose->second->clone(), std::move(objectSemexp)));
       return true;
     }
   }
@@ -882,11 +872,10 @@ void _replaceRecentFromContext_fromSemExp
     ListExpression& listExp = pSemExp->getListExp();
     if (_hasToReplaceAndThenByQuestionWhatHappenedJustAfterThan(listExp, pContextSemExp, pSameAuthor))
     {
-      pSemExp = mystd::make_unique<InterpretationExpression>
-          (InterpretationSource::ANDTHEN,
-           _generateSentenceWhatHappenedJustAfterThat(),
-           std::move(pSemExp));
-
+      SemExpCreator::replaceSemExpOrAddInterpretation(
+            InterpretationSource::ANDTHEN,
+            pSemExp,
+            _generateSentenceWhatHappenedJustAfterThat());
       _replaceRecentFromContext_fromSemExp(pSemExp, pGramParentLink, pFatherGrdExpOfStatementPtr,  pContextSemExp, pSameAuthor,
                                            pAuthorPtr, pReceiverPtr, pMemBlock, pLingDb);
     }

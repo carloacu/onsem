@@ -1738,6 +1738,24 @@ UniqueSemanticExpression generateYesOrNoAnswerFromMemory(
 }
 
 
+void replaceSemExpOrAddInterpretation(
+    InterpretationSource pSource,
+    UniqueSemanticExpression& pSemExp,
+    UniqueSemanticExpression pInterpretedExp)
+{
+  auto* metadataPtr = pSemExp->getMetadataPtr_SkipWrapperPtrs();
+  if (metadataPtr != nullptr)
+  {
+    metadataPtr->semExp = std::move(pInterpretedExp);
+  }
+  else
+  {
+    pSemExp = mystd::make_unique<InterpretationExpression>
+        (pSource,
+         std::move(pInterpretedExp),
+         std::move(pSemExp));
+  }
+}
 
 } // End of namespace SemExpCreator
 } // End of namespace onsem
