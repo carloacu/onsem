@@ -59,7 +59,7 @@ UniqueSemanticExpression sentenceFromTriple(UniqueSemanticExpression pSemExpSubj
                                             UniqueSemanticExpression pSemExpObject);
 
 UniqueSemanticExpression getImperativeAssociateFrom(const GroundedExpression& pGrdExp);
-UniqueSemanticExpression getFutureIndicativeFromInfinitive(const GroundedExpression& pGrdExp);
+UniqueSemanticExpression getFutureIndicativeAssociatedForm(const GroundedExpression& pGrdExp);
 UniqueSemanticExpression getIndicativeFromImperative(const GroundedExpression& pGrdExp);
 UniqueSemanticExpression getInfinitiveFromImperativeForm(const GroundedExpression& pGrdExp);
 

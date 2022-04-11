@@ -133,7 +133,7 @@ void getInfinitiveToTwoDifferentPossibleWayToAskForIt(UniqueSemanticExpression& 
                                                       UniqueSemanticExpression pUSemExp);
 
 ONSEMSEMANTICTOTEXT_API
-UniqueSemanticExpression getFutureIndicativeFromInfinitive(UniqueSemanticExpression pUSemExp);
+UniqueSemanticExpression getFutureIndicativeAssociatedForm(UniqueSemanticExpression pUSemExp);
 
 
 ONSEMSEMANTICTOTEXT_API

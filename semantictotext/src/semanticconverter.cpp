@@ -512,11 +512,21 @@ void getInfinitiveToTwoDifferentPossibleWayToAskForIt(UniqueSemanticExpression& 
 }
 
 
-UniqueSemanticExpression getFutureIndicativeFromInfinitive(UniqueSemanticExpression pUSemExp)
+UniqueSemanticExpression getFutureIndicativeAssociatedForm(UniqueSemanticExpression pUSemExp)
 {
   auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
-    return SemExpCreator::getFutureIndicativeFromInfinitive(*grdExpPtr);
+    return SemExpCreator::getFutureIndicativeAssociatedForm(*grdExpPtr);
+
+  auto* listExpPtr = pUSemExp->getListExpPtr_SkipWrapperPtrs();
+  if (listExpPtr != nullptr)
+  {
+    auto& listExp = *listExpPtr;
+    auto res = std::make_unique<ListExpression>(listExp.listType);
+    for (auto& currElt : listExp.elts)
+      res->elts.push_back(getFutureIndicativeAssociatedForm(std::move(currElt)));
+    return std::move(res);
+  }
   return UniqueSemanticExpression();
 }
 

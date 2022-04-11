@@ -489,7 +489,7 @@ UniqueSemanticExpression getImperativeAssociateFrom(
 }
 
 
-UniqueSemanticExpression getFutureIndicativeFromInfinitive(
+UniqueSemanticExpression getFutureIndicativeAssociatedForm(
     const GroundedExpression& pGrdExp)
 {
   auto rootGrdExp = pGrdExp.clone();
