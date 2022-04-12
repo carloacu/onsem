@@ -1572,7 +1572,8 @@ bool _getRelationsFromSemExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                              bool pCheckChildren,
                              const SemanticRelativeTimeType* pRelativeTimePtr)
 {
-  const GroundedExpression* grdExpToLookForPtr = pSemExpToLookFor.getGrdExpPtr_SkipWrapperPtrs();
+  bool followInterpretations = pRequestContext != RequestContext::SENTENCE_TO_CONDITION;
+  const GroundedExpression* grdExpToLookForPtr = pSemExpToLookFor.getGrdExpPtr_SkipWrapperPtrs(followInterpretations);
   if (grdExpToLookForPtr != nullptr)
   {
     const GroundedExpression& grdExpToLookFor  = *grdExpToLookForPtr;
