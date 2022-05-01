@@ -17,10 +17,8 @@ if(BUILD_ONSEM_DATABASE)
   include_directories(
     ${ONSEMCOMMON_INCLUDE_DIRS}
     ${ONSEMCOMPILERMODEL_INCLUDE_DIRS}
-    ${BOOST_INCLUDE_DIRS}
   )
   target_link_libraries(onsemdatabasegenerator
-    ${BOOST_LIBRARIES}
     ${ONSEMCOMMON_LIBRARIES}
     ${ONSEMCOMPILERMODEL_LIBRARIES}
   )
