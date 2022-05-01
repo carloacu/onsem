@@ -98,8 +98,7 @@ include_directories(
 
 target_link_libraries(onsemcompilermodel
   ${BOOST_LIBRARIES}
-  Boost::system
-  Boost::filesystem
+  boost_filesystem
   ${ONSEMTYPEALLOCATORANDSERIALYZER_LIBRARIES}
   ${ONSEMCOMMON_LIBRARIES}
 )
