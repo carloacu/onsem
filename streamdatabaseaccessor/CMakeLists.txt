@@ -28,6 +28,7 @@ include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}
 )
 target_link_libraries(onsemstreamdatabaseaccessor
+  boost_system
   boost_filesystem
   ${ONSEMCOMMON_LIBRARIES}
 )
