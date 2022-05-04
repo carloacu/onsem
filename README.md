@@ -5,6 +5,7 @@ onsem
 This repository gather some Natural Language Processing (NLP) tools written in C++.<br />
 To test it, launch the executable viocebotgui.
 
+The project is also available on Android: https://github.com/carloacu/onsem-android
 
 
 Install compilation dependencies
