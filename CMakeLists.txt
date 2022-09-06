@@ -53,6 +53,7 @@ if (NOT BUILD_ONSEM_DATABASE)
 
   if (BUILD_ONSEM_TESTS)
     add_subdirectory(tests)
+    add_subdirectory(onsemgui)
   endif()
 
 endif()

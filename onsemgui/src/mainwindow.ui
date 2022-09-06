@@ -1,0 +1,1253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1272</width>
+    <height>813</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Semantic reasoner viewer</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
+     <number>5</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_AATester">
+       <attribute name="title">
+        <string>Linguistic Analyzer</string>
+       </attribute>
+       <widget class="QComboBox" name="comboBox_AATester_languageSelection">
+        <property name="geometry">
+         <rect>
+          <x>1100</x>
+          <y>10</y>
+          <width>131</width>
+          <height>27</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_AATester_PrevSentence">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>61</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;-</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_AATester_title">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>10</y>
+          <width>1251</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Linguistic Analyzer</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_AATester_InputSentence">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>50</y>
+          <width>571</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_AATester_SwitchVersion">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>131</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>new version</string>
+        </property>
+       </widget>
+       <widget class="QTabWidget" name="tabWidget_AATester_Logs">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>100</y>
+          <width>1231</width>
+          <height>631</height>
+         </rect>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tab_AATester_Logs_Words">
+         <attribute name="title">
+          <string>Words</string>
+         </attribute>
+         <widget class="QLabel" name="label_AATester_Logs_Words">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>20</y>
+            <width>131</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>words</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_AATester_Logs_InitGrams">
+          <property name="geometry">
+           <rect>
+            <x>170</x>
+            <y>20</y>
+            <width>181</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>inital gram. possibilities</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_AATester_Logs_FinalGrams">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>20</y>
+            <width>191</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>final gram. possibilities</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_AATester_Logs_Concepts">
+          <property name="geometry">
+           <rect>
+            <x>610</x>
+            <y>20</y>
+            <width>191</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>concepts</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_tokenizer_endingStep">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>1020</x>
+            <y>10</y>
+            <width>141</width>
+            <height>23</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_AATester_tokenizer_nbOfSteps">
+          <property name="geometry">
+           <rect>
+            <x>1180</x>
+            <y>10</y>
+            <width>41</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_AATester_Logs_ContInfos">
+          <property name="geometry">
+           <rect>
+            <x>740</x>
+            <y>20</y>
+            <width>181</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>contextual infos.</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_AATester_Logs_SyntacticGraph">
+         <attribute name="title">
+          <string>Syntactic Graph</string>
+         </attribute>
+         <widget class="QLabel" name="comboBox_AATester_syntGraph">
+          <property name="geometry">
+           <rect>
+            <x>480</x>
+            <y>20</y>
+            <width>131</width>
+            <height>121</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QWidget" name="widget_synthGraphEndingStep" native="true">
+          <property name="geometry">
+           <rect>
+            <x>960</x>
+            <y>10</y>
+            <width>221</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <widget class="QLineEdit" name="lineEdit_AATester_synthGraph_nbOfSteps">
+           <property name="geometry">
+            <rect>
+             <x>170</x>
+             <y>0</y>
+             <width>41</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </widget>
+          <widget class="QComboBox" name="comboBox_AATester_endingStep">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>0</y>
+             <width>141</width>
+             <height>23</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_AATester_Logs_GenRep">
+         <attribute name="title">
+          <string>Semantic Expressions (NLU)</string>
+         </attribute>
+         <widget class="QTextBrowser" name="textBrowser_genRep">
+          <property name="geometry">
+           <rect>
+            <x>80</x>
+            <y>40</y>
+            <width>221</width>
+            <height>71</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="cursor" stdset="0">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans Mono'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;textBrowser&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_AATester_convertionToShow">
+          <property name="geometry">
+           <rect>
+            <x>930</x>
+            <y>10</y>
+            <width>141</width>
+            <height>23</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_AATester_Logs_Reformulations">
+         <attribute name="title">
+          <string>Reformulations (NLG)</string>
+         </attribute>
+         <widget class="QTextBrowser" name="textBrowser_AATester_Logs_Reformulation">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>20</y>
+            <width>1001</width>
+            <height>541</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="cursor" stdset="0">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans Mono'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;textBrowser&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_addEquivalence_AATester_Logs_Reformulation">
+          <property name="geometry">
+           <rect>
+            <x>1050</x>
+            <y>30</y>
+            <width>141</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Add equivalence</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_AATester_Logs_Sentiments">
+         <attribute name="title">
+          <string>Sentiments</string>
+         </attribute>
+         <widget class="QTextBrowser" name="textBrowser_AATester_Logs_Sentiments">
+          <property name="geometry">
+           <rect>
+            <x>230</x>
+            <y>20</y>
+            <width>561</width>
+            <height>281</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="cursor" stdset="0">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans Mono'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;textBrowser&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_AATester_completeness">
+         <attribute name="title">
+          <string>Completeness</string>
+         </attribute>
+         <widget class="QTextBrowser" name="textBrowser_AATester_Completeness_Value">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>30</y>
+            <width>381</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="cursor" stdset="0">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans Mono'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;textBrowser&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_AATester_Logs_Compare">
+         <attribute name="title">
+          <string>Regression Tests</string>
+         </attribute>
+         <widget class="QPushButton" name="pushButton_AATester_Logs_Compare_OldXml">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>20</y>
+            <width>181</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>update reference results</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_AATester_Logs_Compare_NewXml">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>20</y>
+            <width>281</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>compare reference with current results</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="textBrowser_AATester_Logs_Compare">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>90</y>
+            <width>591</width>
+            <height>291</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="cursor" stdset="0">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans Mono'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_AATester_Logs_Performances">
+          <property name="geometry">
+           <rect>
+            <x>660</x>
+            <y>330</y>
+            <width>291</width>
+            <height>261</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_tokens">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>90</y>
+            <width>211</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check token lists</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_gramtags">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>110</y>
+            <width>211</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check grammatical tags</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_concepts">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>130</y>
+            <width>211</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check concepts</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_semexps">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>170</y>
+            <width>211</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check semantic expressions</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_syntgraph">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>150</y>
+            <width>211</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check syntactic graphs</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_reformulations">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>230</y>
+            <width>211</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check reformulations</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_completeness">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>210</y>
+            <width>211</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check completeness</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_sentimentsinfos">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>190</y>
+            <width>211</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check sentiments</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_regressiontests_inputReformulation">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>250</y>
+            <width>231</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>check reformulation as input</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="pushButton_AATester_NextSentence">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>10</y>
+          <width>61</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>-&gt;</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_micro">
+        <property name="geometry">
+         <rect>
+          <x>950</x>
+          <y>50</y>
+          <width>89</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>micro</string>
+        </property>
+       </widget>
+       <zorder>label_AATester_title</zorder>
+       <zorder>comboBox_AATester_languageSelection</zorder>
+       <zorder>pushButton_AATester_PrevSentence</zorder>
+       <zorder>lineEdit_AATester_InputSentence</zorder>
+       <zorder>pushButton_AATester_SwitchVersion</zorder>
+       <zorder>tabWidget_AATester_Logs</zorder>
+       <zorder>pushButton_AATester_NextSentence</zorder>
+       <zorder>pushButton_micro</zorder>
+      </widget>
+      <widget class="QWidget" name="tab_Chat">
+       <attribute name="title">
+        <string>Chat</string>
+       </attribute>
+       <widget class="QFrame" name="frame_history_asr">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>520</y>
+          <width>731</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="label_5">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>0</y>
+           <width>66</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Input</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEdit_history_newText">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>20</y>
+           <width>421</width>
+           <height>41</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QWidget" name="widgetRight_history" native="true">
+         <property name="geometry">
+          <rect>
+           <x>590</x>
+           <y>10</y>
+           <width>120</width>
+           <height>71</height>
+          </rect>
+         </property>
+         <widget class="QPushButton" name="pushButton_history_microForChat">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>25</y>
+            <width>90</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>micro</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QCheckBox" name="checkBox_enable_tts">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>111</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Enable TTS</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QTextBrowser" name="textBrowser_chat_history">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>250</y>
+          <width>531</width>
+          <height>101</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="cursor" stdset="0">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans Mono'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_chat_title">
+        <property name="geometry">
+         <rect>
+          <x>510</x>
+          <y>20</y>
+          <width>251</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Chat</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_Chat_NextScenario">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>20</y>
+          <width>61</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>-&gt;</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_Chat_PrevScenario">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>61</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;-</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_Chat_SwitchToReference">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>50</y>
+          <width>141</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="text">
+         <string>reference results</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_chatdiagnosis">
+       <attribute name="title">
+        <string>Chat Diagnosis</string>
+       </attribute>
+       <widget class="QTextBrowser" name="textBrowser_PrintMemory">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>150</y>
+          <width>611</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="cursor" stdset="0">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAsNeeded</enum>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustIgnored</enum>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans Mono'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="acceptRichText">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
+        <property name="tabStopWidth" stdset="0">
+         <number>80</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>580</x>
+          <y>30</y>
+          <width>99</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Refresh</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Chat Regression Tests</string>
+       </attribute>
+       <widget class="QPushButton" name="pushButton_History_compareResults">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>480</x>
+          <y>60</y>
+          <width>281</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>compare reference with current results</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_History_updateResults">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>60</y>
+          <width>281</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>update reference results</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="textBrowser_Chat_RegressionTests">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>150</y>
+          <width>741</width>
+          <height>461</height>
+         </rect>
+        </property>
+        <property name="cursor" stdset="0">
+         <cursorShape>IBeamCursor</cursorShape>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Memory</string>
+       </attribute>
+       <widget class="QTextBrowser" name="textBrowser_MemoryClearer_DisplayPkg">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>150</y>
+          <width>531</width>
+          <height>411</height>
+         </rect>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_MemoryClearer_RefreshPkg">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>110</y>
+          <width>211</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>refresh</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_MemoryClearer_Title">
+        <property name="geometry">
+         <rect>
+          <x>330</x>
+          <y>10</y>
+          <width>621</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Memory</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>110</y>
+          <width>201</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>PackageMemory state</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1272</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuTexts">
+     <property name="title">
+      <string>Texts</string>
+     </property>
+     <addaction name="separator"/>
+     <addaction name="texts_load"/>
+    </widget>
+    <widget class="QMenu" name="menuDictionaries">
+     <property name="title">
+      <string>Dictionaries</string>
+     </property>
+     <addaction name="actionExport_to_ldic"/>
+     <addaction name="actionImport_from_ldic"/>
+    </widget>
+    <widget class="QMenu" name="menuChat">
+     <property name="title">
+      <string>Chat</string>
+     </property>
+     <widget class="QMenu" name="menuMemory">
+      <property name="title">
+       <string>Memory</string>
+      </property>
+      <widget class="QMenu" name="menuText">
+       <property name="title">
+        <string>Text</string>
+       </property>
+       <addaction name="actionLoad_chat_content"/>
+      </widget>
+      <widget class="QMenu" name="menuDynamic_serialization">
+       <property name="title">
+        <string>Dynamic serialization</string>
+       </property>
+       <addaction name="actionSave_memory"/>
+       <addaction name="actionLoad_memory"/>
+      </widget>
+      <widget class="QMenu" name="menuStatic_serialization">
+       <property name="title">
+        <string>Static serialization</string>
+       </property>
+       <addaction name="actionload_a_smb"/>
+      </widget>
+      <addaction name="menuText"/>
+      <addaction name="menuDynamic_serialization"/>
+      <addaction name="menuStatic_serialization"/>
+     </widget>
+     <addaction name="actionNew"/>
+     <addaction name="actionSave"/>
+     <addaction name="scenarios_load"/>
+     <addaction name="menuMemory"/>
+    </widget>
+    <addaction name="menuDictionaries"/>
+    <addaction name="menuTexts"/>
+    <addaction name="menuChat"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <action name="texts_load">
+   <property name="text">
+    <string>Load</string>
+   </property>
+  </action>
+  <action name="actionExport_to_ldic">
+   <property name="text">
+    <string>Export</string>
+   </property>
+  </action>
+  <action name="actionImport_from_ldic">
+   <property name="text">
+    <string>Import</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save text</string>
+   </property>
+  </action>
+  <action name="scenarios_load">
+   <property name="text">
+    <string>Load text</string>
+   </property>
+  </action>
+  <action name="actionLoad_chat_content">
+   <property name="text">
+    <string>Load text memory</string>
+   </property>
+  </action>
+  <action name="actionLoad_memory">
+   <property name="text">
+    <string>Load zipped memory</string>
+   </property>
+  </action>
+  <action name="actionSave_memory">
+   <property name="text">
+    <string>Save zipped memory</string>
+   </property>
+  </action>
+  <action name="actionload_a_smb">
+   <property name="text">
+    <string>load a .smb</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

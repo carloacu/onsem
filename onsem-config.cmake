@@ -10,4 +10,5 @@ include(${_onsem_root}/semantictotext/onsemsemantictotext-config.cmake)
 include(${_onsem_root}/streamdatabaseaccessor/onsemstreamdatabaseaccessor-config.cmake)
 include(${_onsem_root}/semanticdebugger/onsemsemanticdebugger-config.cmake)
 include(${_onsem_root}/tests/onsemtester/onsemtester-config.cmake)
+include(${_onsem_root}/onsemgui/guiutility/guiutility-config.cmake)
 
