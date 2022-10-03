@@ -40,11 +40,6 @@ set(CMAKE_AUTOMOC ON)
 qt5_wrap_ui(${PROJECT_NAME}_UI_SRC ${${PROJECT_NAME}_UI})
 
 
-add_executable(${PROJECT_NAME}
-  ${${PROJECT_NAME}_SRC}
-  ${${PROJECT_NAME}_UI_SRC}
-)
-
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
@@ -63,6 +58,11 @@ endif()
 if(NOT ONSEMTESTER_FOUND)
   find_package(onsemtester)
 endif()
+
+add_executable(${PROJECT_NAME}
+  ${${PROJECT_NAME}_SRC}
+  ${${PROJECT_NAME}_UI_SRC}
+)
 
 include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}

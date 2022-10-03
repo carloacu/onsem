@@ -8,11 +8,11 @@ int main(int argc, char* argv[])
 {
   if (argc < 2)
   {
-    std::cerr << "Usage semanticdbgenerator <output_dir> <share_folder>" << std::endl;
+    std::cerr << "Usage databasegenerator <output_dir> <share_folder>" << std::endl;
     return 2;
   }
 
-  std::string ontDatabaseDir(argv[1]);
+  std::string outDatabaseDir(argv[1]);
   std::string shareDir(argv[2]);
 
   const auto inputResourcesDir(shareDir + "/linguistic/inputresources");
@@ -20,6 +20,6 @@ int main(int argc, char* argv[])
   const auto dynamicdictionaryPath(shareDir + "/semantic/dynamicdictionary");
 
   onsem::LingdbTree lingdbTree(inputResourcesDir);
-  lingdbTree.update(ontDatabaseDir, loadDatabasesDir, dynamicdictionaryPath, true);
+  lingdbTree.update(outDatabaseDir, loadDatabasesDir, dynamicdictionaryPath, true);
   return 0;
 }

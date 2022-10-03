@@ -51,6 +51,10 @@ if (NOT BUILD_ONSEM_DATABASE)
   add_subdirectory(streamdatabaseaccessor)
   add_subdirectory(semanticdebugger)
 
+  if (BUILD_DB_GENERATOR_PREPROCESSING)
+    add_subdirectory(databasegeneratorprepocessing)
+  endif()
+
   if (BUILD_ONSEM_TESTS)
     add_subdirectory(tests)
     add_subdirectory(onsemgui)

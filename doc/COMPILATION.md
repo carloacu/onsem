@@ -22,7 +22,7 @@ cmake -DBUILD_ONSEM_DATABASE=ON ../ && make -j4
 ## Command line for compilation
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_DATABASE=OFF -DBUILD_ONSEM_TESTS=ON ../ && make -j4
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_DATABASE=OFF -DBUILD_ONSEM_TESTS=ON -DBUILD_DB_GENERATOR_PREPROCESSING=ON ../ && make -j4
 ```
 
 

@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1311</width>
+    <height>708</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Semantic database viewer</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>1291</width>
+      <height>870</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="currentIndex">
+     <number>2</number>
+    </property>
+    <widget class="QWidget" name="tab_WordsToTags">
+     <attribute name="title">
+      <string>Words</string>
+     </attribute>
+     <widget class="QLabel" name="label_AATester_title_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>1251</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Words</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_WordsToTags_Word1">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>1221</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayout_4">
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <property name="horizontalSpacing">
+          <number>20</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>6</number>
+         </property>
+         <item row="0" column="3">
+          <widget class="QGroupBox" name="groupBox_WordsToTags_Word1_Tags">
+           <property name="title">
+            <string>Concepts</string>
+           </property>
+           <widget class="QListWidget" name="listWidget_WordsToTags_Word1_Concepts">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>30</y>
+              <width>371</width>
+              <height>171</height>
+             </rect>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox_WordsToTags_Word1_Word">
+           <property name="title">
+            <string>Word</string>
+           </property>
+           <widget class="QLineEdit" name="lineEdit_WordsToTags_Word1_Word">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>40</y>
+              <width>371</width>
+              <height>27</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_WordsToTags_Word1_Word_Suggestions">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>80</y>
+              <width>341</width>
+              <height>191</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QGroupBox" name="groupBox_WordsToTags_Word1_Meanings">
+           <property name="title">
+            <string>Meanings</string>
+           </property>
+           <widget class="QListWidget" name="listWidget_WordsToTags_Word1_Meanings">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>30</y>
+              <width>351</width>
+              <height>171</height>
+             </rect>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="pushButton_words_saveAs">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>20</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save As...</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_words_open">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>20</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Open</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_words_mergeWith">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>20</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Merge With...</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_WordsToTags_Conj">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>380</y>
+        <width>256</width>
+        <height>192</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_MemoryClearer">
+     <attribute name="title">
+      <string>Memory</string>
+     </attribute>
+     <widget class="QTextBrowser" name="textBrowser_MemoryClearer_Display">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>140</y>
+        <width>531</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>100</y>
+        <width>201</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <underline>true</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>DynamicMemory state</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_MemoryClearer_Refresh">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>100</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>refresh</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_MemoryClearer_Title">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>30</y>
+        <width>621</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Memory</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Extractors to fill the dictionnaries</string>
+     </attribute>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>110</y>
+        <width>541</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>out: </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>40</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Auxiliaries extractor:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_auxilitiesextractorInputPath">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>70</y>
+        <width>511</width>
+        <height>27</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_process_auxiliariesextractor">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>140</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Generate</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>70</y>
+        <width>31</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>in: </string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>50</y>
+        <width>251</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>frgrammarbookextractor</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>90</y>
+        <width>251</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>semutilities</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>130</y>
+        <width>251</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>textextractor</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>180</y>
+        <width>301</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>wikitionaryextractor -&gt; traductions</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>290</y>
+        <width>221</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>My_Data_Mining folder path:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_MyDataMiningPath">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>320</y>
+        <width>691</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>/home/jocelyn/Documents/My_Data_Mining</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>220</y>
+        <width>301</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>webtranslator</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>260</y>
+        <width>251</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>traductiongenerator</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>300</y>
+        <width>321</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>wikitionaryextractor -&gt; addComposedWords</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>340</y>
+        <width>251</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>firstnames extractor</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_9">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>380</y>
+        <width>321</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>wikitionaryextractor -&gt; addTransitiveVerbs</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_10">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>430</y>
+        <width>321</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>wikitionaryextractor -&gt; addConcepts</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Dbpedia xml to txt</string>
+     </attribute>
+     <widget class="QLineEdit" name="lineEdit_dbpedia_from_file">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>40</y>
+        <width>691</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_dbpedia_from_file">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>40</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>From file:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_dbpedia_to_path">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>90</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>To path:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_dbpedia_to_path">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>90</y>
+        <width>691</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_dbpedia_xml_to_txt">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>40</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Convert</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>170</y>
+        <width>671</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Example to generate dbpedia xml file&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Url&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;http://fr.dbpedia.org/sparql&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Query Text&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;select distinct ?person_name ?person_abstract_fr ?person_abstract_en ?wikiPageLength where {&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  { ?person a &amp;lt;http://dbpedia.org/ontology/Person&amp;gt; }&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  UNION&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  { ?person prop-fr:lieuDeNaissance ?person_birth }&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  ?person rdfs:label ?person_name .&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  ?person dbpedia-owl:wikiPageLength ?wikiPageLength .&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  OPTIONAL {&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  ?person dbpedia-owl:abstract ?person_abstract_fr .&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  ?person dbpedia-owl:abstract ?person_abstract_en .&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  }&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  FILTER (lang(?person_name) = 'fr') .&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  FILTER (lang(?person_abstract_fr) = 'fr') .&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  FILTER (lang(?person_abstract_en) = 'en') .&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;}&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;OFFSET 100000&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;LIMIT 100000&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1311</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

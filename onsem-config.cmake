@@ -12,3 +12,4 @@ include(${_onsem_root}/semanticdebugger/onsemsemanticdebugger-config.cmake)
 include(${_onsem_root}/tests/onsemtester/onsemtester-config.cmake)
 include(${_onsem_root}/onsemgui/guiutility/guiutility-config.cmake)
 
+include(${_onsem_root}/databasegeneratorprepocessing/misc/dictionaryextractor/onsemdictionaryextractor-config.cmake)

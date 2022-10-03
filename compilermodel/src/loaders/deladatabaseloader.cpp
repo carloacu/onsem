@@ -66,8 +66,8 @@ DelaDatabaseLoader::DelaDatabaseLoader
 
 
 void DelaDatabaseLoader::simplifyDelaFile
-(const boost::filesystem::path& pInFilename,
- const boost::filesystem::path& pOutFilename,
+(const std::string& pInFilename,
+ const std::string& pOutFilename,
  const std::set<std::string>& pLemmaToKeep,
  bool pRemoveHum,
  bool pRemoveDnum)
@@ -75,7 +75,7 @@ void DelaDatabaseLoader::simplifyDelaFile
   boost::filesystem::ifstream infile(pInFilename, boost::filesystem::ifstream::in);
   if (!infile.is_open())
   {
-    throw std::runtime_error("Can't open " + pInFilename.string() + " file !");
+    throw std::runtime_error("Can't open " + pInFilename + " file !");
   }
   boost::filesystem::ofstream outfile(pOutFilename);
 

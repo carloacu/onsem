@@ -26,8 +26,8 @@ public:
   DelaDatabaseLoader(bool pSaveWords = false);
 
   void simplifyDelaFile
-  (const boost::filesystem::path& pInFilename,
-   const boost::filesystem::path& pOutFilename,
+  (const std::string& pInFilename,
+   const std::string& pOutFilename,
    const std::set<std::string>& pLemmaToKeep,
    bool pRemoveHum,
    bool pRemoveDnum);
