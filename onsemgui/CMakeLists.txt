@@ -31,7 +31,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
-# This is called *before* any call to qi_use_lib() is made.
+# This is called *before* any call to target_link_libraries() is made.
 # Here we need to define the qt macros, such as qt5_wrap_cpp,
 # qt5_add_resources, qt5_wrap_ui
 set(CMAKE_AUTOMOC ON)
