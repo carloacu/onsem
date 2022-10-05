@@ -26,7 +26,13 @@
  <existingMeaning lemme="ajouter" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="alerter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="amener" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="analyser" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="apporter" gram="verb">
@@ -50,7 +56,7 @@
  <existingMeaning lemme="attirer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
- <existingMeaning lemme="avancer" gram="verb">
+ <existingMeaning lemme="avir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="avoir" gram="verb">
@@ -62,10 +68,10 @@
  <existingMeaning lemme="baisser" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
- <existingMeaning lemme="bannir" gram="verb">
+ <existingMeaning lemme="bander" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
- <existingMeaning lemme="battre" gram="verb">
+ <existingMeaning lemme="bannir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="boire" gram="verb">
@@ -89,10 +95,19 @@
  <existingMeaning lemme="cacher" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="carter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="causer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="centrer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="cesser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="chambrer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="changer" gram="verb">
@@ -110,6 +125,12 @@
  <existingMeaning lemme="choisir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="chuter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="coder" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="commander" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -117,6 +138,9 @@
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="composer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="concourir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="conduire" gram="verb">
@@ -134,13 +158,13 @@
  <existingMeaning lemme="contenter" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="contrôler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="convaincre" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="convenir" gram="verb">
-  <contextInfo val="fr_verbFollowedByWordDe"/>
- </existingMeaning>
- <existingMeaning lemme="couler" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="couper" gram="verb">
@@ -206,13 +230,16 @@
  <existingMeaning lemme="dégager" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="délivrer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="dépendre" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
- <existingMeaning lemme="déposer" gram="verb">
+ <existingMeaning lemme="emparer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
- <existingMeaning lemme="emparer" gram="verb">
+ <existingMeaning lemme="emplir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="employer" gram="verb">
@@ -224,13 +251,13 @@
  <existingMeaning lemme="engager" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
- <existingMeaning lemme="enlever" gram="verb">
-  <contextInfo val="fr_verbFollowedByWordDe"/>
- </existingMeaning>
  <existingMeaning lemme="entendre" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="entourer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="envier" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="envisager" gram="verb">
@@ -266,6 +293,9 @@
  <existingMeaning lemme="fatiguer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="fauter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="filer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -276,6 +306,9 @@
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="foutre" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="fracturer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="fréquenter" gram="verb">
@@ -294,6 +327,9 @@
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="honorer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="huiler" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="hériter" gram="verb">
@@ -329,7 +365,19 @@
  <existingMeaning lemme="libérer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="ligner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="limiter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="lire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="livrer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="luner" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="manger" gram="verb">
@@ -339,6 +387,9 @@
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="marquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="membrer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="menacer" gram="verb">
@@ -359,6 +410,9 @@
  <existingMeaning lemme="munir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="médailler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="méfier" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -369,6 +423,9 @@
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="naître" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="nombrer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="nourrir" gram="verb">
@@ -389,6 +446,9 @@
  <existingMeaning lemme="opérer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="panner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="parler" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -407,13 +467,22 @@
  <existingMeaning lemme="permettre" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="peupler" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="piquer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="placer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="plaquer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="pointer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="policer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="porter" gram="verb">
@@ -425,6 +494,9 @@
  <existingMeaning lemme="posséder" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="poster" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="pousser" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -432,6 +504,9 @@
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="prescrire" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="priser" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="priver" gram="verb">
@@ -518,9 +593,6 @@
  <existingMeaning lemme="remplir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
- <existingMeaning lemme="rendre" gram="verb">
-  <contextInfo val="fr_verbFollowedByWordDe"/>
- </existingMeaning>
  <existingMeaning lemme="rentrer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -587,6 +659,9 @@
  <existingMeaning lemme="servir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="signer" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="sortir" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -635,9 +710,6 @@
  <existingMeaning lemme="tomber" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
- <existingMeaning lemme="toucher" gram="verb">
-  <contextInfo val="fr_verbFollowedByWordDe"/>
- </existingMeaning>
  <existingMeaning lemme="traiter" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -659,6 +731,9 @@
  <existingMeaning lemme="typer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
+ <existingMeaning lemme="téléphoner" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
  <existingMeaning lemme="témoigner" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
@@ -678,6 +753,9 @@
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="verser" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="victimer" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="virer" gram="verb">
@@ -702,6 +780,9 @@
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="éjecter" gram="verb">
+  <contextInfo val="fr_verbFollowedByWordDe"/>
+ </existingMeaning>
+ <existingMeaning lemme="élever" gram="verb">
   <contextInfo val="fr_verbFollowedByWordDe"/>
  </existingMeaning>
  <existingMeaning lemme="éloigner" gram="verb">

@@ -1,1748 +1,1748 @@
 <dictionary_modification language="french">
- <word lemma="abaisser~se" pos="verb">
+ <word pos="verb" lemma="abaisser~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="abandonner~se" pos="verb">
+ <word pos="verb" lemma="abandonner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="abonner" pos="verb">
+ <word pos="verb" lemma="abonner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="abonner~se" pos="verb">
+ <word pos="verb" lemma="abonner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="aboutir" pos="verb">
+ <word pos="verb" lemma="aboutir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="accéder" pos="verb">
+ <word pos="verb" lemma="accéder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="accorder" pos="verb">
+ <word pos="verb" lemma="accorder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="accouder~se" pos="verb">
+ <word pos="verb" lemma="accouder~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="accoutumer" pos="verb">
+ <word pos="verb" lemma="accoutumer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="accoutumer~se" pos="verb">
+ <word pos="verb" lemma="accoutumer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="accrocher" pos="verb">
+ <word pos="verb" lemma="accrocher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="accrocher~se" pos="verb">
+ <word pos="verb" lemma="accrocher~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="acculer" pos="verb">
+ <word pos="verb" lemma="acculer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="acheter" pos="verb">
+ <word pos="verb" lemma="acheter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="acquiescer" pos="verb">
+ <word pos="verb" lemma="acquiescer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="adapter" pos="verb">
+ <word pos="verb" lemma="adapter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="adhérer" pos="verb">
+ <word pos="verb" lemma="adhérer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="adjoindre" pos="verb">
+ <word pos="verb" lemma="adjoindre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="adjuger" pos="verb">
+ <word pos="verb" lemma="adjuger">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="administrer" pos="verb">
+ <word pos="verb" lemma="administrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="adonner~se" pos="verb">
+ <word pos="verb" lemma="adonner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="adresser" pos="verb">
+ <word pos="verb" lemma="adresser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="adresser~se" pos="verb">
+ <word pos="verb" lemma="adresser~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="advenir" pos="verb">
+ <word pos="verb" lemma="advenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="affecter" pos="verb">
+ <word pos="verb" lemma="affecter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="agréer" pos="verb">
+ <word pos="verb" lemma="agréer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="agripper~se" pos="verb">
+ <word pos="verb" lemma="agripper~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="aider" pos="verb">
+ <word pos="verb" lemma="aider">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ajouter" pos="verb">
+ <word pos="verb" lemma="ajouter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ajuster" pos="verb">
+ <word pos="verb" lemma="ajuster">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ajuster~se" pos="verb">
+ <word pos="verb" lemma="ajuster~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="allier" pos="verb">
+ <word pos="verb" lemma="allier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="annoncer" pos="verb">
+ <word pos="verb" lemma="annoncer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="apparaître" pos="verb">
+ <word pos="verb" lemma="apparaître">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="appartenir" pos="verb">
+ <word pos="verb" lemma="appartenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="applaudir" pos="verb">
+ <word pos="verb" lemma="applaudir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="appliquer" pos="verb">
+ <word pos="verb" lemma="appliquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="appliquer~se" pos="verb">
+ <word pos="verb" lemma="appliquer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="apporter" pos="verb">
+ <word pos="verb" lemma="apporter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="apprendre" pos="verb">
+ <word pos="verb" lemma="apprendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="arracher" pos="verb">
+ <word pos="verb" lemma="arracher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="arracher~se" pos="verb">
+ <word pos="verb" lemma="arracher~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="arranger" pos="verb">
+ <word pos="verb" lemma="arranger">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="arrêter~se" pos="verb">
+ <word pos="verb" lemma="arrêter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="arriver" pos="verb">
+ <word pos="verb" lemma="arriver">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="aspirer" pos="verb">
+ <word pos="verb" lemma="aspirer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="assener" pos="verb">
+ <word pos="verb" lemma="assener">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="asséner" pos="verb">
+ <word pos="verb" lemma="asséner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="asservir" pos="verb">
+ <word pos="verb" lemma="asservir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="assigner" pos="verb">
+ <word pos="verb" lemma="assigner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="assimiler" pos="verb">
+ <word pos="verb" lemma="assimiler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="assister" pos="verb">
+ <word pos="verb" lemma="assister">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="associer" pos="verb">
+ <word pos="verb" lemma="associer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="associer~se" pos="verb">
+ <word pos="verb" lemma="associer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="assortir" pos="verb">
+ <word pos="verb" lemma="assortir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="assujettir" pos="verb">
+ <word pos="verb" lemma="assujettir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="assurer" pos="verb">
+ <word pos="verb" lemma="assurer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="astreindre" pos="verb">
+ <word pos="verb" lemma="astreindre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="attacher" pos="verb">
+ <word pos="verb" lemma="attacher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="attacher~se" pos="verb">
+ <word pos="verb" lemma="attacher~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="attenter" pos="verb">
+ <word pos="verb" lemma="attenter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="attirer" pos="verb">
+ <word pos="verb" lemma="attirer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="attribuer" pos="verb">
+ <word pos="verb" lemma="attribuer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="autoriser" pos="verb">
+ <word pos="verb" lemma="autoriser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="avancer" pos="verb">
+ <word pos="verb" lemma="avancer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="avouer" pos="verb">
+ <word pos="verb" lemma="avouer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="balancer" pos="verb">
+ <word pos="verb" lemma="balancer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="barrer" pos="verb">
+ <word pos="verb" lemma="barrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="blesser" pos="verb">
+ <word pos="verb" lemma="blesser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="bredouiller" pos="verb">
+ <word pos="verb" lemma="bredouiller">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="briser" pos="verb">
+ <word pos="verb" lemma="briser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="brouiller" pos="verb">
+ <word pos="verb" lemma="brouiller">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="cacher" pos="verb">
+ <word pos="verb" lemma="cacher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="cantonner~se" pos="verb">
+ <word pos="verb" lemma="cantonner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="casser" pos="verb">
+ <word pos="verb" lemma="casser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="causer" pos="verb">
+ <word pos="verb" lemma="causer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="céder" pos="verb">
+ <word pos="verb" lemma="céder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="certifier" pos="verb">
+ <word pos="verb" lemma="certifier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="chanter" pos="verb">
+ <word pos="verb" lemma="chanter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="chuchoter" pos="verb">
+ <word pos="verb" lemma="chuchoter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="claironner" pos="verb">
+ <word pos="verb" lemma="claironner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="clamer" pos="verb">
+ <word pos="verb" lemma="clamer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="cogner~se" pos="verb">
+ <word pos="verb" lemma="cogner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="collaborer" pos="verb">
+ <word pos="verb" lemma="collaborer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="coller" pos="verb">
+ <word pos="verb" lemma="coller">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="commander" pos="verb">
+ <word pos="verb" lemma="commander">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="communiquer" pos="verb">
+ <word pos="verb" lemma="communiquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="comparer" pos="verb">
+ <word pos="verb" lemma="comparer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="compatir" pos="verb">
+ <word pos="verb" lemma="compatir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="comprendre" pos="verb">
+ <word pos="verb" lemma="comprendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="conclure" pos="verb">
+ <word pos="verb" lemma="conclure">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="concourir" pos="verb">
+ <word pos="verb" lemma="concourir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="condamner" pos="verb">
+ <word pos="verb" lemma="condamner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="confesser" pos="verb">
+ <word pos="verb" lemma="confesser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="confesser~se" pos="verb">
+ <word pos="verb" lemma="confesser~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="confier" pos="verb">
+ <word pos="verb" lemma="confier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="confier~se" pos="verb">
+ <word pos="verb" lemma="confier~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="confirmer" pos="verb">
+ <word pos="verb" lemma="confirmer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="confisquer" pos="verb">
+ <word pos="verb" lemma="confisquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="confronter" pos="verb">
+ <word pos="verb" lemma="confronter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="connaître" pos="verb">
+ <word pos="verb" lemma="connaître">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="consacrer" pos="verb">
+ <word pos="verb" lemma="consacrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="consacrer~se" pos="verb">
+ <word pos="verb" lemma="consacrer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="conseiller" pos="verb">
+ <word pos="verb" lemma="conseiller">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="consentir" pos="verb">
+ <word pos="verb" lemma="consentir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="conspirer" pos="verb">
+ <word pos="verb" lemma="conspirer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="conter" pos="verb">
+ <word pos="verb" lemma="conter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="contester" pos="verb">
+ <word pos="verb" lemma="contester">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="contraindre" pos="verb">
+ <word pos="verb" lemma="contraindre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="contrevenir" pos="verb">
+ <word pos="verb" lemma="contrevenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="contribuer" pos="verb">
+ <word pos="verb" lemma="contribuer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="convenir" pos="verb">
+ <word pos="verb" lemma="convenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="convertir" pos="verb">
+ <word pos="verb" lemma="convertir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="convier" pos="verb">
+ <word pos="verb" lemma="convier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="coopérer" pos="verb">
+ <word pos="verb" lemma="coopérer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="correspondre" pos="verb">
+ <word pos="verb" lemma="correspondre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="cotiser" pos="verb">
+ <word pos="verb" lemma="cotiser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="couper" pos="verb">
+ <word pos="verb" lemma="couper">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="courir" pos="verb">
+ <word pos="verb" lemma="courir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="coûter" pos="verb">
+ <word pos="verb" lemma="coûter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="cramponner~se" pos="verb">
+ <word pos="verb" lemma="cramponner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="créer" pos="verb">
+ <word pos="verb" lemma="créer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="crier" pos="verb">
+ <word pos="verb" lemma="crier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="croire" pos="verb">
+ <word pos="verb" lemma="croire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="cuire" pos="verb">
+ <word pos="verb" lemma="cuire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="cuisiner" pos="verb">
+ <word pos="verb" lemma="cuisiner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="déballer" pos="verb">
+ <word pos="verb" lemma="déballer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="débiter" pos="verb">
+ <word pos="verb" lemma="débiter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="décerner" pos="verb">
+ <word pos="verb" lemma="décerner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="déchiffrer" pos="verb">
+ <word pos="verb" lemma="déchiffrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="déchirer" pos="verb">
+ <word pos="verb" lemma="déchirer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="déclarer" pos="verb">
+ <word pos="verb" lemma="déclarer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="décliner" pos="verb">
+ <word pos="verb" lemma="décliner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="décocher" pos="verb">
+ <word pos="verb" lemma="décocher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="décolorer" pos="verb">
+ <word pos="verb" lemma="décolorer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="déconseiller" pos="verb">
+ <word pos="verb" lemma="déconseiller">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="décrire" pos="verb">
+ <word pos="verb" lemma="décrire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dédicacer" pos="verb">
+ <word pos="verb" lemma="dédicacer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dédier" pos="verb">
+ <word pos="verb" lemma="dédier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="défendre" pos="verb">
+ <word pos="verb" lemma="défendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="défier" pos="verb">
+ <word pos="verb" lemma="défier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="déformer" pos="verb">
+ <word pos="verb" lemma="déformer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="déléguer" pos="verb">
+ <word pos="verb" lemma="déléguer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="délivrer" pos="verb">
+ <word pos="verb" lemma="délivrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="demander" pos="verb">
+ <word pos="verb" lemma="demander">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="démolir" pos="verb">
+ <word pos="verb" lemma="démolir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="démontrer" pos="verb">
+ <word pos="verb" lemma="démontrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="démordre" pos="verb">
+ <word pos="verb" lemma="démordre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dénoncer" pos="verb">
+ <word pos="verb" lemma="dénoncer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dépeindre" pos="verb">
+ <word pos="verb" lemma="dépeindre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="déplaire" pos="verb">
+ <word pos="verb" lemma="déplaire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dérober" pos="verb">
+ <word pos="verb" lemma="dérober">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dérober~se" pos="verb">
+ <word pos="verb" lemma="dérober~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="désigner" pos="verb">
+ <word pos="verb" lemma="désigner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="désobéir" pos="verb">
+ <word pos="verb" lemma="désobéir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dessécher" pos="verb">
+ <word pos="verb" lemma="dessécher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dessiner" pos="verb">
+ <word pos="verb" lemma="dessiner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="destiner" pos="verb">
+ <word pos="verb" lemma="destiner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="destiner~se" pos="verb">
+ <word pos="verb" lemma="destiner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="détacher" pos="verb">
+ <word pos="verb" lemma="détacher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="détailler" pos="verb">
+ <word pos="verb" lemma="détailler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dévoiler" pos="verb">
+ <word pos="verb" lemma="dévoiler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="devoir" pos="verb">
+ <word pos="verb" lemma="devoir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dévouer~se" pos="verb">
+ <word pos="verb" lemma="dévouer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dire" pos="verb">
+ <word pos="verb" lemma="dire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dispenser" pos="verb">
+ <word pos="verb" lemma="dispenser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="disputer" pos="verb">
+ <word pos="verb" lemma="disputer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dissimuler" pos="verb">
+ <word pos="verb" lemma="dissimuler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="distribuer" pos="verb">
+ <word pos="verb" lemma="distribuer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="divulguer" pos="verb">
+ <word pos="verb" lemma="divulguer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="donner" pos="verb">
+ <word pos="verb" lemma="donner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="donner~se" pos="verb">
+ <word pos="verb" lemma="donner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="dresser" pos="verb">
+ <word pos="verb" lemma="dresser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="durcir" pos="verb">
+ <word pos="verb" lemma="durcir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="durer" pos="verb">
+ <word pos="verb" lemma="durer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="échapper" pos="verb">
+ <word pos="verb" lemma="échapper">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="échauffer" pos="verb">
+ <word pos="verb" lemma="échauffer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="échoir" pos="verb">
+ <word pos="verb" lemma="échoir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="échouer" pos="verb">
+ <word pos="verb" lemma="échouer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="éclaircir" pos="verb">
+ <word pos="verb" lemma="éclaircir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="économiser" pos="verb">
+ <word pos="verb" lemma="économiser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="écorcher" pos="verb">
+ <word pos="verb" lemma="écorcher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="écraser" pos="verb">
+ <word pos="verb" lemma="écraser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="écrire" pos="verb">
+ <word pos="verb" lemma="écrire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="égaliser" pos="verb">
+ <word pos="verb" lemma="égaliser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="égratigner" pos="verb">
+ <word pos="verb" lemma="égratigner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="élargir" pos="verb">
+ <word pos="verb" lemma="élargir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="élever" pos="verb">
+ <word pos="verb" lemma="élever">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="élever~se" pos="verb">
+ <word pos="verb" lemma="élever~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="emballer" pos="verb">
+ <word pos="verb" lemma="emballer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="embrasser" pos="verb">
+ <word pos="verb" lemma="embrasser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="emprunter" pos="verb">
+ <word pos="verb" lemma="emprunter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="enfoncer" pos="verb">
+ <word pos="verb" lemma="enfoncer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="engager" pos="verb">
+ <word pos="verb" lemma="engager">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="engourdir" pos="verb">
+ <word pos="verb" lemma="engourdir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="enlaidir" pos="verb">
+ <word pos="verb" lemma="enlaidir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="enlever" pos="verb">
+ <word pos="verb" lemma="enlever">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ennuyer~se" pos="verb">
+ <word pos="verb" lemma="ennuyer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="enseigner" pos="verb">
+ <word pos="verb" lemma="enseigner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="entendre" pos="verb">
+ <word pos="verb" lemma="entendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="entraîner" pos="verb">
+ <word pos="verb" lemma="entraîner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="entraîner~se" pos="verb">
+ <word pos="verb" lemma="entraîner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="énumérer" pos="verb">
+ <word pos="verb" lemma="énumérer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="envier" pos="verb">
+ <word pos="verb" lemma="envier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="envoyer" pos="verb">
+ <word pos="verb" lemma="envoyer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="épargner" pos="verb">
+ <word pos="verb" lemma="épargner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="épiler" pos="verb">
+ <word pos="verb" lemma="épiler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="éplucher" pos="verb">
+ <word pos="verb" lemma="éplucher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="éponger" pos="verb">
+ <word pos="verb" lemma="éponger">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="équivaloir" pos="verb">
+ <word pos="verb" lemma="équivaloir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="érafler" pos="verb">
+ <word pos="verb" lemma="érafler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ériger" pos="verb">
+ <word pos="verb" lemma="ériger">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="escamoter" pos="verb">
+ <word pos="verb" lemma="escamoter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="escroquer" pos="verb">
+ <word pos="verb" lemma="escroquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="esquisser" pos="verb">
+ <word pos="verb" lemma="esquisser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="essuyer" pos="verb">
+ <word pos="verb" lemma="essuyer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="estimer" pos="verb">
+ <word pos="verb" lemma="estimer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="être" pos="verb">
+ <word pos="verb" lemma="être">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="étreindre" pos="verb">
+ <word pos="verb" lemma="étreindre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="évaluer" pos="verb">
+ <word pos="verb" lemma="évaluer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="éveiller" pos="verb">
+ <word pos="verb" lemma="éveiller">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="éveiller~se" pos="verb">
+ <word pos="verb" lemma="éveiller~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="éviter" pos="verb">
+ <word pos="verb" lemma="éviter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="évoquer" pos="verb">
+ <word pos="verb" lemma="évoquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="examiner" pos="verb">
+ <word pos="verb" lemma="examiner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="exceller" pos="verb">
+ <word pos="verb" lemma="exceller">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="exercer" pos="verb">
+ <word pos="verb" lemma="exercer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="exhiber" pos="verb">
+ <word pos="verb" lemma="exhiber">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="exhorter" pos="verb">
+ <word pos="verb" lemma="exhorter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="expédier" pos="verb">
+ <word pos="verb" lemma="expédier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="expliquer" pos="verb">
+ <word pos="verb" lemma="expliquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="exposer" pos="verb">
+ <word pos="verb" lemma="exposer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="exprimer" pos="verb">
+ <word pos="verb" lemma="exprimer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="extorquer" pos="verb">
+ <word pos="verb" lemma="extorquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="faciliter" pos="verb">
+ <word pos="verb" lemma="faciliter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="facturer" pos="verb">
+ <word pos="verb" lemma="facturer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="faillir" pos="verb">
+ <word pos="verb" lemma="faillir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="faire" pos="verb">
+ <word pos="verb" lemma="faire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="faire~se" pos="verb">
+ <word pos="verb" lemma="faire~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="falloir" pos="verb">
+ <word pos="verb" lemma="falloir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="faucher" pos="verb">
+ <word pos="verb" lemma="faucher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fausser" pos="verb">
+ <word pos="verb" lemma="fausser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fendre" pos="verb">
+ <word pos="verb" lemma="fendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fermer" pos="verb">
+ <word pos="verb" lemma="fermer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ficher" pos="verb">
+ <word pos="verb" lemma="ficher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fier~se" pos="verb">
+ <word pos="verb" lemma="fier~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="filer" pos="verb">
+ <word pos="verb" lemma="filer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="financer" pos="verb">
+ <word pos="verb" lemma="financer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fixer" pos="verb">
+ <word pos="verb" lemma="fixer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="flanquer" pos="verb">
+ <word pos="verb" lemma="flanquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fonctionner" pos="verb">
+ <word pos="verb" lemma="fonctionner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="forcer" pos="verb">
+ <word pos="verb" lemma="forcer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fournir" pos="verb">
+ <word pos="verb" lemma="fournir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fourrer" pos="verb">
+ <word pos="verb" lemma="fourrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fracasser" pos="verb">
+ <word pos="verb" lemma="fracasser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fracturer" pos="verb">
+ <word pos="verb" lemma="fracturer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="frapper" pos="verb">
+ <word pos="verb" lemma="frapper">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="fredonner" pos="verb">
+ <word pos="verb" lemma="fredonner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="frictionner" pos="verb">
+ <word pos="verb" lemma="frictionner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="friser" pos="verb">
+ <word pos="verb" lemma="friser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="frôler" pos="verb">
+ <word pos="verb" lemma="frôler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="frotter" pos="verb">
+ <word pos="verb" lemma="frotter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="gâcher" pos="verb">
+ <word pos="verb" lemma="gâcher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="gagner" pos="verb">
+ <word pos="verb" lemma="gagner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="garantir" pos="verb">
+ <word pos="verb" lemma="garantir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="garder" pos="verb">
+ <word pos="verb" lemma="garder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="gâter" pos="verb">
+ <word pos="verb" lemma="gâter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="généraliser" pos="verb">
+ <word pos="verb" lemma="généraliser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="glacer" pos="verb">
+ <word pos="verb" lemma="glacer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="glisser~se" pos="verb">
+ <word pos="verb" lemma="glisser~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="goûter" pos="verb">
+ <word pos="verb" lemma="goûter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="graisser" pos="verb">
+ <word pos="verb" lemma="graisser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="gratter" pos="verb">
+ <word pos="verb" lemma="gratter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="greffer" pos="verb">
+ <word pos="verb" lemma="greffer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="griffer" pos="verb">
+ <word pos="verb" lemma="griffer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="habituer" pos="verb">
+ <word pos="verb" lemma="habituer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="habituer~se" pos="verb">
+ <word pos="verb" lemma="habituer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="heurter~se" pos="verb">
+ <word pos="verb" lemma="heurter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="hisser~se" pos="verb">
+ <word pos="verb" lemma="hisser~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="humecter" pos="verb">
+ <word pos="verb" lemma="humecter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="hurler" pos="verb">
+ <word pos="verb" lemma="hurler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="immoler" pos="verb">
+ <word pos="verb" lemma="immoler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="importer" pos="verb">
+ <word pos="verb" lemma="importer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="imposer" pos="verb">
+ <word pos="verb" lemma="imposer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="imputer" pos="verb">
+ <word pos="verb" lemma="imputer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="inciter" pos="verb">
+ <word pos="verb" lemma="inciter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="incliner" pos="verb">
+ <word pos="verb" lemma="incliner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="incomber" pos="verb">
+ <word pos="verb" lemma="incomber">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="incorporer" pos="verb">
+ <word pos="verb" lemma="incorporer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="inculquer" pos="verb">
+ <word pos="verb" lemma="inculquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="indiquer" pos="verb">
+ <word pos="verb" lemma="indiquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="induire" pos="verb">
+ <word pos="verb" lemma="induire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="infliger" pos="verb">
+ <word pos="verb" lemma="infliger">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="initier" pos="verb">
+ <word pos="verb" lemma="initier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="inoculer" pos="verb">
+ <word pos="verb" lemma="inoculer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="inspirer" pos="verb">
+ <word pos="verb" lemma="inspirer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="insuffler" pos="verb">
+ <word pos="verb" lemma="insuffler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="insulter" pos="verb">
+ <word pos="verb" lemma="insulter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="intenter" pos="verb">
+ <word pos="verb" lemma="intenter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="interdire" pos="verb">
+ <word pos="verb" lemma="interdire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="intéresser" pos="verb">
+ <word pos="verb" lemma="intéresser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="intéresser~se" pos="verb">
+ <word pos="verb" lemma="intéresser~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="interpréter" pos="verb">
+ <word pos="verb" lemma="interpréter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="intimer" pos="verb">
+ <word pos="verb" lemma="intimer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="joindre" pos="verb">
+ <word pos="verb" lemma="joindre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="jouer" pos="verb">
+ <word pos="verb" lemma="jouer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="lacérer" pos="verb">
+ <word pos="verb" lemma="lacérer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="laisser" pos="verb">
+ <word pos="verb" lemma="laisser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="lancer" pos="verb">
+ <word pos="verb" lemma="lancer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="léguer" pos="verb">
+ <word pos="verb" lemma="léguer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="lier" pos="verb">
+ <word pos="verb" lemma="lier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ligaturer" pos="verb">
+ <word pos="verb" lemma="ligaturer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ligoter" pos="verb">
+ <word pos="verb" lemma="ligoter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="limiter" pos="verb">
+ <word pos="verb" lemma="limiter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="lire" pos="verb">
+ <word pos="verb" lemma="lire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="livrer" pos="verb">
+ <word pos="verb" lemma="livrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="livrer~se" pos="verb">
+ <word pos="verb" lemma="livrer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="louer" pos="verb">
+ <word pos="verb" lemma="louer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mâcher" pos="verb">
+ <word pos="verb" lemma="mâcher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="manquer" pos="verb">
+ <word pos="verb" lemma="manquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="marier" pos="verb">
+ <word pos="verb" lemma="marier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="marier~se" pos="verb">
+ <word pos="verb" lemma="marier~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="masquer" pos="verb">
+ <word pos="verb" lemma="masquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="masser" pos="verb">
+ <word pos="verb" lemma="masser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mêler" pos="verb">
+ <word pos="verb" lemma="mêler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mêler~se" pos="verb">
+ <word pos="verb" lemma="mêler~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mendier" pos="verb">
+ <word pos="verb" lemma="mendier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mener" pos="verb">
+ <word pos="verb" lemma="mener">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mentionner" pos="verb">
+ <word pos="verb" lemma="mentionner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mentir" pos="verb">
+ <word pos="verb" lemma="mentir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mettre" pos="verb">
+ <word pos="verb" lemma="mettre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mettre~se" pos="verb">
+ <word pos="verb" lemma="mettre~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="montrer" pos="verb">
+ <word pos="verb" lemma="montrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="mordre" pos="verb">
+ <word pos="verb" lemma="mordre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="murmurer" pos="verb">
+ <word pos="verb" lemma="murmurer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="narrer" pos="verb">
+ <word pos="verb" lemma="narrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="nommer" pos="verb">
+ <word pos="verb" lemma="nommer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="notifier" pos="verb">
+ <word pos="verb" lemma="notifier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="nourrir" pos="verb">
+ <word pos="verb" lemma="nourrir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="nuire" pos="verb">
+ <word pos="verb" lemma="nuire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="obéir" pos="verb">
+ <word pos="verb" lemma="obéir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="objecter" pos="verb">
+ <word pos="verb" lemma="objecter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="obtempérer" pos="verb">
+ <word pos="verb" lemma="obtempérer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="occasionner" pos="verb">
+ <word pos="verb" lemma="occasionner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="occuper" pos="verb">
+ <word pos="verb" lemma="occuper">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="octroyer" pos="verb">
+ <word pos="verb" lemma="octroyer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="offrir" pos="verb">
+ <word pos="verb" lemma="offrir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="opposer" pos="verb">
+ <word pos="verb" lemma="opposer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="opposer~se" pos="verb">
+ <word pos="verb" lemma="opposer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ordonner" pos="verb">
+ <word pos="verb" lemma="ordonner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="oser" pos="verb">
+ <word pos="verb" lemma="oser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ouvrir" pos="verb">
+ <word pos="verb" lemma="ouvrir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="pardonner" pos="verb">
+ <word pos="verb" lemma="pardonner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="parer" pos="verb">
+ <word pos="verb" lemma="parer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="parier" pos="verb">
+ <word pos="verb" lemma="parier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="parler" pos="verb">
+ <word pos="verb" lemma="parler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="participer" pos="verb">
+ <word pos="verb" lemma="participer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="parvenir" pos="verb">
+ <word pos="verb" lemma="parvenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="passer" pos="verb">
+ <word pos="verb" lemma="passer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="payer" pos="verb">
+ <word pos="verb" lemma="payer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="pêcher" pos="verb">
+ <word pos="verb" lemma="pêcher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="pendre" pos="verb">
+ <word pos="verb" lemma="pendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="penser" pos="verb">
+ <word pos="verb" lemma="penser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="perforer" pos="verb">
+ <word pos="verb" lemma="perforer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="permettre" pos="verb">
+ <word pos="verb" lemma="permettre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="peser" pos="verb">
+ <word pos="verb" lemma="peser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="péter~se" pos="verb">
+ <word pos="verb" lemma="péter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="picoter" pos="verb">
+ <word pos="verb" lemma="picoter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="piquer" pos="verb">
+ <word pos="verb" lemma="piquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="piquer~se" pos="verb">
+ <word pos="verb" lemma="piquer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="plaindre~se" pos="verb">
+ <word pos="verb" lemma="plaindre~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="plaire" pos="verb">
+ <word pos="verb" lemma="plaire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="plaire~se" pos="verb">
+ <word pos="verb" lemma="plaire~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="planter~se" pos="verb">
+ <word pos="verb" lemma="planter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="plâtrer" pos="verb">
+ <word pos="verb" lemma="plâtrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="plier" pos="verb">
+ <word pos="verb" lemma="plier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="porter" pos="verb">
+ <word pos="verb" lemma="porter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="poser" pos="verb">
+ <word pos="verb" lemma="poser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="postuler" pos="verb">
+ <word pos="verb" lemma="postuler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="poudrer" pos="verb">
+ <word pos="verb" lemma="poudrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="pourvoir" pos="verb">
+ <word pos="verb" lemma="pourvoir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="préciser" pos="verb">
+ <word pos="verb" lemma="préciser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prédestiner" pos="verb">
+ <word pos="verb" lemma="prédestiner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prédire" pos="verb">
+ <word pos="verb" lemma="prédire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prédisposer" pos="verb">
+ <word pos="verb" lemma="prédisposer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="préexister" pos="verb">
+ <word pos="verb" lemma="préexister">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="préférer" pos="verb">
+ <word pos="verb" lemma="préférer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prélever" pos="verb">
+ <word pos="verb" lemma="prélever">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="préluder" pos="verb">
+ <word pos="verb" lemma="préluder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prendre" pos="verb">
+ <word pos="verb" lemma="prendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="préparer" pos="verb">
+ <word pos="verb" lemma="préparer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="préparer~se" pos="verb">
+ <word pos="verb" lemma="préparer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="présenter" pos="verb">
+ <word pos="verb" lemma="présenter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="présenter~se" pos="verb">
+ <word pos="verb" lemma="présenter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="présider" pos="verb">
+ <word pos="verb" lemma="présider">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prétendre" pos="verb">
+ <word pos="verb" lemma="prétendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prêter" pos="verb">
+ <word pos="verb" lemma="prêter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prêter~se" pos="verb">
+ <word pos="verb" lemma="prêter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prévoir" pos="verb">
+ <word pos="verb" lemma="prévoir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="privilégier" pos="verb">
+ <word pos="verb" lemma="privilégier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="procéder" pos="verb">
+ <word pos="verb" lemma="procéder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="proclamer" pos="verb">
+ <word pos="verb" lemma="proclamer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="procurer" pos="verb">
+ <word pos="verb" lemma="procurer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prodiguer" pos="verb">
+ <word pos="verb" lemma="prodiguer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="proférer" pos="verb">
+ <word pos="verb" lemma="proférer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="profiter" pos="verb">
+ <word pos="verb" lemma="profiter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="promettre" pos="verb">
+ <word pos="verb" lemma="promettre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="promouvoir" pos="verb">
+ <word pos="verb" lemma="promouvoir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="proposer" pos="verb">
+ <word pos="verb" lemma="proposer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="prouver" pos="verb">
+ <word pos="verb" lemma="prouver">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="puiser" pos="verb">
+ <word pos="verb" lemma="puiser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="quémander" pos="verb">
+ <word pos="verb" lemma="quémander">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="raccorder" pos="verb">
+ <word pos="verb" lemma="raccorder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="raccrocher~se" pos="verb">
+ <word pos="verb" lemma="raccrocher~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="racheter" pos="verb">
+ <word pos="verb" lemma="racheter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="raconter" pos="verb">
+ <word pos="verb" lemma="raconter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="radiographier" pos="verb">
+ <word pos="verb" lemma="radiographier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rafraîchir" pos="verb">
+ <word pos="verb" lemma="rafraîchir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rallier~se" pos="verb">
+ <word pos="verb" lemma="rallier~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ramener" pos="verb">
+ <word pos="verb" lemma="ramener">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ramener~se" pos="verb">
+ <word pos="verb" lemma="ramener~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rapiécer" pos="verb">
+ <word pos="verb" lemma="rapiécer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rappeler" pos="verb">
+ <word pos="verb" lemma="rappeler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rappeler~se" pos="verb">
+ <word pos="verb" lemma="rappeler~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rapporter" pos="verb">
+ <word pos="verb" lemma="rapporter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rapporter~se" pos="verb">
+ <word pos="verb" lemma="rapporter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rattraper~se" pos="verb">
+ <word pos="verb" lemma="rattraper~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ravir" pos="verb">
+ <word pos="verb" lemma="ravir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réagir" pos="verb">
+ <word pos="verb" lemma="réagir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="recaler" pos="verb">
+ <word pos="verb" lemma="recaler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="récapituler" pos="verb">
+ <word pos="verb" lemma="récapituler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réchauffer" pos="verb">
+ <word pos="verb" lemma="réchauffer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réciter" pos="verb">
+ <word pos="verb" lemma="réciter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réclamer" pos="verb">
+ <word pos="verb" lemma="réclamer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="recommander" pos="verb">
+ <word pos="verb" lemma="recommander">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="reconnaître" pos="verb">
+ <word pos="verb" lemma="reconnaître">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="recourir" pos="verb">
+ <word pos="verb" lemma="recourir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="redire" pos="verb">
+ <word pos="verb" lemma="redire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réduire" pos="verb">
+ <word pos="verb" lemma="réduire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réduire~se" pos="verb">
+ <word pos="verb" lemma="réduire~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="référer" pos="verb">
+ <word pos="verb" lemma="référer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="référer~se" pos="verb">
+ <word pos="verb" lemma="référer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réfléchir" pos="verb">
+ <word pos="verb" lemma="réfléchir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="refuser" pos="verb">
+ <word pos="verb" lemma="refuser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="refuser~se" pos="verb">
+ <word pos="verb" lemma="refuser~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="regarder" pos="verb">
+ <word pos="verb" lemma="regarder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="régler" pos="verb">
+ <word pos="verb" lemma="régler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="relancer" pos="verb">
+ <word pos="verb" lemma="relancer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="relater" pos="verb">
+ <word pos="verb" lemma="relater">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="reléguer" pos="verb">
+ <word pos="verb" lemma="reléguer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="relier" pos="verb">
+ <word pos="verb" lemma="relier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="remarier~se" pos="verb">
+ <word pos="verb" lemma="remarier~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rembourser" pos="verb">
+ <word pos="verb" lemma="rembourser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="remédier" pos="verb">
+ <word pos="verb" lemma="remédier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="remettre" pos="verb">
+ <word pos="verb" lemma="remettre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="renâcler" pos="verb">
+ <word pos="verb" lemma="renâcler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="renaître" pos="verb">
+ <word pos="verb" lemma="renaître">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rendre" pos="verb">
+ <word pos="verb" lemma="rendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rendre~se" pos="verb">
+ <word pos="verb" lemma="rendre~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="renoncer" pos="verb">
+ <word pos="verb" lemma="renoncer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="renvoyer" pos="verb">
+ <word pos="verb" lemma="renvoyer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="repasser" pos="verb">
+ <word pos="verb" lemma="repasser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="répéter" pos="verb">
+ <word pos="verb" lemma="répéter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="répliquer" pos="verb">
+ <word pos="verb" lemma="répliquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="répondre" pos="verb">
+ <word pos="verb" lemma="répondre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="reporter~se" pos="verb">
+ <word pos="verb" lemma="reporter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="reprendre" pos="verb">
+ <word pos="verb" lemma="reprendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="reprocher" pos="verb">
+ <word pos="verb" lemma="reprocher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="répugner" pos="verb">
+ <word pos="verb" lemma="répugner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réserver" pos="verb">
+ <word pos="verb" lemma="réserver">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="résigner~se" pos="verb">
+ <word pos="verb" lemma="résigner~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="résister" pos="verb">
+ <word pos="verb" lemma="résister">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ressembler" pos="verb">
+ <word pos="verb" lemma="ressembler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="ressortir" pos="verb">
+ <word pos="verb" lemma="ressortir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rester" pos="verb">
+ <word pos="verb" lemma="rester">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="restituer" pos="verb">
+ <word pos="verb" lemma="restituer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="restreindre" pos="verb">
+ <word pos="verb" lemma="restreindre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="retenir" pos="verb">
+ <word pos="verb" lemma="retenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="retenir~se" pos="verb">
+ <word pos="verb" lemma="retenir~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="retirer" pos="verb">
+ <word pos="verb" lemma="retirer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rétorquer" pos="verb">
+ <word pos="verb" lemma="rétorquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="retourner" pos="verb">
+ <word pos="verb" lemma="retourner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="retracer" pos="verb">
+ <word pos="verb" lemma="retracer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rétrocéder" pos="verb">
+ <word pos="verb" lemma="rétrocéder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="réussir" pos="verb">
+ <word pos="verb" lemma="réussir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="révéler" pos="verb">
+ <word pos="verb" lemma="révéler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="revenir" pos="verb">
+ <word pos="verb" lemma="revenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rêver" pos="verb">
+ <word pos="verb" lemma="rêver">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="rimer" pos="verb">
+ <word pos="verb" lemma="rimer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="riposter" pos="verb">
+ <word pos="verb" lemma="riposter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sacrifier" pos="verb">
+ <word pos="verb" lemma="sacrifier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="saper" pos="verb">
+ <word pos="verb" lemma="saper">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="satisfaire" pos="verb">
+ <word pos="verb" lemma="satisfaire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sauter" pos="verb">
+ <word pos="verb" lemma="sauter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="savonner" pos="verb">
+ <word pos="verb" lemma="savonner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="secouer" pos="verb">
+ <word pos="verb" lemma="secouer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sectionner" pos="verb">
+ <word pos="verb" lemma="sectionner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sembler" pos="verb">
+ <word pos="verb" lemma="sembler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sensibiliser" pos="verb">
+ <word pos="verb" lemma="sensibiliser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="seriner" pos="verb">
+ <word pos="verb" lemma="seriner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="serrer" pos="verb">
+ <word pos="verb" lemma="serrer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="servir" pos="verb">
+ <word pos="verb" lemma="servir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="signaler" pos="verb">
+ <word pos="verb" lemma="signaler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="signifier" pos="verb">
+ <word pos="verb" lemma="signifier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="simplifier" pos="verb">
+ <word pos="verb" lemma="simplifier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="songer" pos="verb">
+ <word pos="verb" lemma="songer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sonner" pos="verb">
+ <word pos="verb" lemma="sonner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sortir" pos="verb">
+ <word pos="verb" lemma="sortir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="souffler" pos="verb">
+ <word pos="verb" lemma="souffler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="souhaiter" pos="verb">
+ <word pos="verb" lemma="souhaiter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="soumettre" pos="verb">
+ <word pos="verb" lemma="soumettre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="soumettre~se" pos="verb">
+ <word pos="verb" lemma="soumettre~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sourire" pos="verb">
+ <word pos="verb" lemma="sourire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="souscrire" pos="verb">
+ <word pos="verb" lemma="souscrire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="soustraire" pos="verb">
+ <word pos="verb" lemma="soustraire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="soutenir" pos="verb">
+ <word pos="verb" lemma="soutenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="soutirer" pos="verb">
+ <word pos="verb" lemma="soutirer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="spécifier" pos="verb">
+ <word pos="verb" lemma="spécifier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="subordonner" pos="verb">
+ <word pos="verb" lemma="subordonner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="subroger" pos="verb">
+ <word pos="verb" lemma="subroger">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="substituer" pos="verb">
+ <word pos="verb" lemma="substituer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="subtiliser" pos="verb">
+ <word pos="verb" lemma="subtiliser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="subvenir" pos="verb">
+ <word pos="verb" lemma="subvenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="succéder" pos="verb">
+ <word pos="verb" lemma="succéder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="succomber" pos="verb">
+ <word pos="verb" lemma="succomber">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="sucer" pos="verb">
+ <word pos="verb" lemma="sucer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="suffire" pos="verb">
+ <word pos="verb" lemma="suffire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="suggérer" pos="verb">
+ <word pos="verb" lemma="suggérer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="superposer" pos="verb">
+ <word pos="verb" lemma="superposer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="suppléer" pos="verb">
+ <word pos="verb" lemma="suppléer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="supprimer" pos="verb">
+ <word pos="verb" lemma="supprimer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="surseoir" pos="verb">
+ <word pos="verb" lemma="surseoir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="survenir" pos="verb">
+ <word pos="verb" lemma="survenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="survivre" pos="verb">
+ <word pos="verb" lemma="survivre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="suspendre" pos="verb">
+ <word pos="verb" lemma="suspendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="taillader" pos="verb">
+ <word pos="verb" lemma="taillader">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tailler" pos="verb">
+ <word pos="verb" lemma="tailler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="taire" pos="verb">
+ <word pos="verb" lemma="taire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tambouriner" pos="verb">
+ <word pos="verb" lemma="tambouriner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="taper" pos="verb">
+ <word pos="verb" lemma="taper">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tapoter" pos="verb">
+ <word pos="verb" lemma="tapoter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tarder" pos="verb">
+ <word pos="verb" lemma="tarder">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tâter" pos="verb">
+ <word pos="verb" lemma="tâter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="taxer" pos="verb">
+ <word pos="verb" lemma="taxer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="télégraphier" pos="verb">
+ <word pos="verb" lemma="télégraphier">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="téléphoner" pos="verb">
+ <word pos="verb" lemma="téléphoner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="témoigner" pos="verb">
+ <word pos="verb" lemma="témoigner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tendre" pos="verb">
+ <word pos="verb" lemma="tendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tenir" pos="verb">
+ <word pos="verb" lemma="tenir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tenir~se" pos="verb">
+ <word pos="verb" lemma="tenir~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tirer" pos="verb">
+ <word pos="verb" lemma="tirer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tondre" pos="verb">
+ <word pos="verb" lemma="tondre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="toquer" pos="verb">
+ <word pos="verb" lemma="toquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tordre" pos="verb">
+ <word pos="verb" lemma="tordre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="toucher" pos="verb">
+ <word pos="verb" lemma="toucher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tourner" pos="verb">
+ <word pos="verb" lemma="tourner">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tracer" pos="verb">
+ <word pos="verb" lemma="tracer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="traduire" pos="verb">
+ <word pos="verb" lemma="traduire">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="transmettre" pos="verb">
+ <word pos="verb" lemma="transmettre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="travailler" pos="verb">
+ <word pos="verb" lemma="travailler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tresser" pos="verb">
+ <word pos="verb" lemma="tresser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tricher" pos="verb">
+ <word pos="verb" lemma="tricher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tricoter" pos="verb">
+ <word pos="verb" lemma="tricoter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="trinquer" pos="verb">
+ <word pos="verb" lemma="trinquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="triompher" pos="verb">
+ <word pos="verb" lemma="triompher">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="trouer" pos="verb">
+ <word pos="verb" lemma="trouer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="trouver" pos="verb">
+ <word pos="verb" lemma="trouver">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="tuer~se" pos="verb">
+ <word pos="verb" lemma="tuer~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="unir" pos="verb">
+ <word pos="verb" lemma="unir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="valoir" pos="verb">
+ <word pos="verb" lemma="valoir">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="vanter" pos="verb">
+ <word pos="verb" lemma="vanter">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="vanter~se" pos="verb">
+ <word pos="verb" lemma="vanter~se">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="vaquer" pos="verb">
+ <word pos="verb" lemma="vaquer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="veiller" pos="verb">
+ <word pos="verb" lemma="veiller">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="vendre" pos="verb">
+ <word pos="verb" lemma="vendre">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="venger" pos="verb">
+ <word pos="verb" lemma="venger">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="verser" pos="verb">
+ <word pos="verb" lemma="verser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="virer" pos="verb">
+ <word pos="verb" lemma="virer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="viser" pos="verb">
+ <word pos="verb" lemma="viser">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="voler" pos="verb">
+ <word pos="verb" lemma="voler">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="vouer" pos="verb">
+ <word pos="verb" lemma="vouer">
   <include_child_list_template name="à-coi"/>
  </word>
- <word lemma="vouloir" pos="verb">
+ <word pos="verb" lemma="vouloir">
   <include_child_list_template name="à-coi"/>
  </word>
 </dictionary_modification>
