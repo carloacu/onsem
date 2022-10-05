@@ -11,7 +11,7 @@
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
 
 namespace Ui {
-class MainWindow;
+class DbGeneratorPreprocessingWindow;
 }
 namespace onsem
 {
@@ -37,7 +37,7 @@ public:
 
 
 private:
-  Ui::MainWindow* _ui;
+  Ui::DbGeneratorPreprocessingWindow* _ui;
   const onsem::LingdbTree& _lingDbTree;
   const std::string _shareDbFolder;
   const std::string _inputResourcesFolder;

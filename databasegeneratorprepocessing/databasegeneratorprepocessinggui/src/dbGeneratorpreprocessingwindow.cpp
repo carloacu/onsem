@@ -2,7 +2,7 @@
 #include <sstream>
 #include <QFileDialog>
 #include <QString>
-#include "ui_mainwindow.h"
+#include "ui_dbGeneratorpreprocessingwindow.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/filesystem.hpp>
@@ -42,7 +42,7 @@ DbGeneratorPreprocessingWindow::DbGeneratorPreprocessingWindow(
     linguistics::LinguisticDatabaseStreams& pIStreams,
     QWidget *parent) :
   QMainWindow(parent),
-  _ui(new Ui::MainWindow),
+  _ui(new Ui::DbGeneratorPreprocessingWindow),
   _lingDbTree(pLingDbTree),
   _shareDbFolder(pShareDbFolder),
   _inputResourcesFolder(pInputResourcesFolder),
