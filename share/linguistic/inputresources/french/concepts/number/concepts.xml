@@ -4,6 +4,7 @@
  </concept>
  <concept name="number_1">
   <linkedMeaning lemme="un" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="un" gram="determiner" relationToConcept="3"/>
  </concept>
  <concept name="number_2">
   <linkedMeaning lemme="deux" relationToConcept="4"/>

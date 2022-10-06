@@ -186,10 +186,10 @@ TEST_F(SemanticReasonerGTests, userDisambiguation_wikpedia)
   ONSEM_ANSWER_EQ("Mesut \xC3\x96zil et Souleymane Oularé",
                   operator_react("qui est un footballeur né en octobre", semMem, lingDb));
   ONSEM_ANSWER_EQ("Eminem est un auteur-compositeur-interprète de rap américain, producteur, acteur, aussi membre du groupe D12 dont il est le cofondateur "
-                  "et dont le duo Bad Meets Evil est composé avec Royce Da de 5 9\" et aussi un entrepreneur actif.",
+                  "et dont le duo Bad Meets Evil est composé avec Royce Da de 5 9\", aussi un entrepreneur actif et un premier ainsi artiste hip hop à remporter ce prix.",
                   operator_react("Qui est Eminem", semMem, lingDb));
   ONSEM_ANSWER_EQ("Eminem is an American rap interpreter, producer, actor, also member of the D12 group he is the cofondateur and the Bad Meets Evil duo "
-                  "is composed with Royce Da 5 9\" and an active also entrepreneur.",
+                  "is composed with Royce Da 5 9\", an active also entrepreneur and a first hip hop so artist to win this price.",
                   operator_react("Who is Eminem", semMem, lingDb));
 }
 

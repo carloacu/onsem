@@ -120,6 +120,9 @@
 
 #du,.PN
 #du,.PARTITIVE:ms
+
+-des.DET
+#des,.DET+z1:mp:fp
 #des,.PARTITIVE:p
 
 -nous.PROS

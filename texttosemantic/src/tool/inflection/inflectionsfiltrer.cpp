@@ -168,7 +168,8 @@ bool InflectionsChecker::filterIncompatibleInflections(Token& pToken1,
 {
   InflectedWord& inflWord1 = pToken1.inflWords.front();
   InflectedWord& inflWord2 = pToken2.inflWords.front();
-  if (ConceptSet::haveAConceptThatBeginWith(inflWord1.infos.concepts, "number_"))
+  if (ConceptSet::haveAConceptThatBeginWith(inflWord1.infos.concepts, "number_") &&
+      !ConceptSet::haveAConcept(inflWord1.infos.concepts, "number_1"))
     return false;
 
   switch (inflWord1.word.partOfSpeech)

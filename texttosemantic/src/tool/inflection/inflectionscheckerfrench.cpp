@@ -127,7 +127,8 @@ bool InflectionsCheckerFrench::areDetCompatibles(const InflectedWord& pInflDet1,
 {
   return pInflDet1.infos.hasContextualInfo(WordContextualInfos::CANBEBEFOREDETERMINER) ||
       ConceptSet::haveAConceptThatBeginWith(pInflDet1.infos.concepts, "quantity_") ||
-      ConceptSet::haveAConceptThatBeginWith(pInflDet2.infos.concepts, "number_");
+      (ConceptSet::haveAConceptThatBeginWith(pInflDet2.infos.concepts, "number_") &&
+       !ConceptSet::haveAConcept(pInflDet2.infos.concepts, "number_1"));
 }
 
 
