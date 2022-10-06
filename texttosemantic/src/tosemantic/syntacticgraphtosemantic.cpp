@@ -2342,6 +2342,12 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunk
  ToGenRepContext& pContext) const
 {
   {
+    auto optRes = xFillDistanceStruct(pContext);
+    if (optRes)
+      return std::move(*optRes);
+  }
+
+  {
     auto optRes = xFillTimeStruct(pContext);
     if (optRes)
       return std::move(*optRes);

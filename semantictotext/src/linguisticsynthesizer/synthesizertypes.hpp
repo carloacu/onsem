@@ -252,7 +252,10 @@ struct GroundingDistancePrettyPrintStruct
 {
   GroundingDistancePrettyPrintStruct(const SemanticDistance& pDistance)
     : kilometer(-1),
+      hectometer(-1),
+      decameter(-1),
       meter(-1),
+      decimeter(-1),
       centimeter(-1),
       millimeter(-1)
   {
@@ -263,8 +266,17 @@ struct GroundingDistancePrettyPrintStruct
       case SemanticDistanceUnity::KILOMETER:
         kilometer = currTimeInfo.second;
         break;
+      case SemanticDistanceUnity::HECTOMETER:
+        hectometer = currTimeInfo.second;
+        break;
+      case SemanticDistanceUnity::DECAMETER:
+        decameter = currTimeInfo.second;
+        break;
       case SemanticDistanceUnity::METER:
         meter = currTimeInfo.second;
+        break;
+      case SemanticDistanceUnity::DECIMETER:
+        decimeter = currTimeInfo.second;
         break;
       case SemanticDistanceUnity::CENTIMETER:
         centimeter = currTimeInfo.second;
@@ -279,7 +291,10 @@ struct GroundingDistancePrettyPrintStruct
   }
 
   int kilometer;
+  int hectometer;
+  int decameter;
   int meter;
+  int decimeter;
   int centimeter;
   int millimeter;
 };

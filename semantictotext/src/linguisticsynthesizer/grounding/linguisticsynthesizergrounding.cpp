@@ -980,17 +980,41 @@ bool Linguisticsynthesizergrounding::distanceTranslation
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
+  if (!finishedToPrint && distancePrint.hectometer != -1)
+  {
+    if (!ss.str().empty())
+      ss << " ";
+    _printValue(ss, distancePrint.hectometer, "distance_hectometer", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
+  }
+  if (!finishedToPrint && distancePrint.decameter != -1)
+  {
+    if (!ss.str().empty())
+      ss << " ";
+    _printValue(ss, distancePrint.decameter, "distance_decameter", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
+  }
   if (!finishedToPrint && distancePrint.meter != -1)
   {
-    if (distancePrint.kilometer != -1)
+    if (!ss.str().empty())
       ss << " ";
     _printValue(ss, distancePrint.meter, "distance_meter", pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
+  if (!finishedToPrint && distancePrint.decimeter != -1)
+  {
+    if (!ss.str().empty())
+      ss << " ";
+    _printValue(ss, distancePrint.decimeter, "distance_decimeter", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
+  }
   if (!finishedToPrint && distancePrint.centimeter != -1)
   {
-    if (distancePrint.kilometer != -1 || distancePrint.meter != -1)
+    if (!ss.str().empty())
       ss << " ";
     _printValue(ss, distancePrint.centimeter, "distance_centimeter", pStatSynthDico);
     if (!pPrintPrecisely)
@@ -998,7 +1022,7 @@ bool Linguisticsynthesizergrounding::distanceTranslation
   }
   if (!finishedToPrint && distancePrint.millimeter != -1)
   {
-    if (distancePrint.kilometer != -1 || distancePrint.meter != -1 || distancePrint.centimeter != -1)
+    if (!ss.str().empty())
       ss << " ";
     _printValue(ss, distancePrint.millimeter, "distance_millimeter", pStatSynthDico);
   }
@@ -1030,7 +1054,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   }
   if (!finishedToPrint && durationPrint.minute != -1)
   {
-    if (durationPrint.hour != -1)
+    if (!ss.str().empty())
       ss << " ";
     _printValue(ss, durationPrint.minute, "duration_minute", pStatSynthDico);
     if (!pPrintPrecisely)
@@ -1038,7 +1062,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   }
   if (!finishedToPrint && durationPrint.second != -1)
   {
-    if (durationPrint.hour != -1 || durationPrint.minute != -1)
+    if (!ss.str().empty())
       ss << " ";
     _printValue(ss, durationPrint.second, "duration_second", pStatSynthDico);
     if (!pPrintPrecisely)
@@ -1046,7 +1070,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   }
   if (!finishedToPrint && durationPrint.millisecond != -1)
   {
-    if (durationPrint.hour != -1 || durationPrint.minute != -1 || durationPrint.second != -1)
+    if (!ss.str().empty())
       ss << " ";
     _printValue(ss, durationPrint.millisecond, "duration_millisecond", pStatSynthDico);
   }

@@ -7,12 +7,37 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
-
+#include "../tool/chunkshandler.hpp"
 
 namespace onsem
 {
 namespace linguistics
 {
+namespace
+{
+bool _createDurationGrd(mystd::unique_propagate_const<UniqueSemanticExpression>& pRes,
+                        const SemanticTimeUnity& pTimeUnity,
+                        const std::string& pConceptName,
+                        const InflectedWord& pIGram,
+                        const Chunk& pChunk)
+{
+  if (ConceptSet::haveAConcept(pIGram.infos.concepts, pConceptName))
+  {
+    int number = 0;
+    if (getNumberBeforeHead(number, pChunk))
+    {
+      auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
+      newDuration->duration.sign = SemanticDurationSign::POSITIVE;
+      newDuration->duration.timeInfos[pTimeUnity] = number;
+      pRes = mystd::unique_propagate_const<UniqueSemanticExpression>
+          (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
+      return true;
+    }
+  }
+  return false;
+}
+}
+
 
 mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic::xFillTimeStruct
 (const ToGenRepContext& pContext) const
@@ -34,54 +59,12 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
     if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_"))
     {
-      if (ConceptSet::haveAConcept(iGram.infos.concepts, "duration_millisecond"))
-      {
-        int number = 0;
-        if (xGetNumberBeforeHead(number, pContext.chunk))
-        {
-          auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
-          newDuration->duration.sign = SemanticDurationSign::POSITIVE;
-          newDuration->duration.timeInfos[SemanticTimeUnity::MILLISECOND] = number;
-          return mystd::unique_propagate_const<UniqueSemanticExpression>
-              (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
-        }
-      }
-      if (ConceptSet::haveAConcept(iGram.infos.concepts, "duration_second"))
-      {
-        int number = 0;
-        if (xGetNumberBeforeHead(number, pContext.chunk))
-        {
-          auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
-          newDuration->duration.sign = SemanticDurationSign::POSITIVE;
-          newDuration->duration.timeInfos[SemanticTimeUnity::SECOND] = number;
-          return mystd::unique_propagate_const<UniqueSemanticExpression>
-              (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
-        }
-      }
-      else if (ConceptSet::haveAConcept(iGram.infos.concepts, "duration_minute"))
-      {
-        int number = 0;
-        if (xGetNumberBeforeHead(number, pContext.chunk))
-        {
-          auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
-          newDuration->duration.sign = SemanticDurationSign::POSITIVE;
-          newDuration->duration.timeInfos[SemanticTimeUnity::MINUTE] = number;
-          return mystd::unique_propagate_const<UniqueSemanticExpression>
-              (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
-        }
-      }
-      else if (ConceptSet::haveAConcept(iGram.infos.concepts, "duration_hour"))
-      {
-        int number = 0;
-        if (xGetNumberBeforeHead(number, pContext.chunk))
-        {
-          auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
-          newDuration->duration.sign = SemanticDurationSign::POSITIVE;
-          newDuration->duration.timeInfos[SemanticTimeUnity::HOUR] = number;
-          return mystd::unique_propagate_const<UniqueSemanticExpression>
-              (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
-        }
-      }
+      mystd::unique_propagate_const<UniqueSemanticExpression> res;
+      if (_createDurationGrd(res, SemanticTimeUnity::MILLISECOND, "duration_millisecond", iGram, pContext.chunk) ||
+          _createDurationGrd(res, SemanticTimeUnity::SECOND, "duration_second", iGram, pContext.chunk) ||
+          _createDurationGrd(res, SemanticTimeUnity::MINUTE, "duration_minute", iGram, pContext.chunk) ||
+          _createDurationGrd(res, SemanticTimeUnity::HOUR, "duration_hour", iGram, pContext.chunk))
+        return res;
     }
     else if (pContext.grammTypeFromParent == GrammaticalType::TIME &&
              ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "number_"))
@@ -105,20 +88,6 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
   }
   return mystd::unique_propagate_const<UniqueSemanticExpression>();
 }
-
-
-bool SyntacticGraphToSemantic::xGetNumberBeforeHead
-(int& pNumber,
- const Chunk& pChunk) const
-{
-  for (TokIt itToken = getPrevToken(pChunk.head, pChunk.tokRange.getItBegin(), pChunk.head);
-       itToken != pChunk.head;
-       itToken = getPrevToken(itToken, pChunk.tokRange.getItBegin(), pChunk.head))
-    if (getNumberHoldByTheInflWord(pNumber, itToken, pChunk.head, "number_"))
-      return true;
-  return false;
-}
-
 
 
 } // End of namespace linguistics

@@ -1434,5 +1434,18 @@ void moveChildren(std::list<ChunkLink>& pRootChildren,
 }
 
 
+bool getNumberBeforeHead(int& pNumber,
+                         const Chunk& pChunk)
+{
+  for (TokIt itToken = getPrevToken(pChunk.head, pChunk.tokRange.getItBegin(), pChunk.head);
+       itToken != pChunk.head;
+       itToken = getPrevToken(itToken, pChunk.tokRange.getItBegin(), pChunk.head))
+    if (getNumberHoldByTheInflWord(pNumber, itToken, pChunk.head, "number_"))
+      return true;
+  return false;
+}
+
+
+
 } // End of namespace linguistics
 } // End of namespace onsem

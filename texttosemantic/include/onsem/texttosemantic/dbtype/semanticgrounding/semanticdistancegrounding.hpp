@@ -14,11 +14,14 @@ namespace onsem
 // Distance Unity
 // ==============
 
-#define SEMANTIC_DISTANCE_UNITY_TABLE                                   \
-  SEMANTIC_DISTANCE_UNITY(KILOMETER, "kilometer", 1000000)              \
-  SEMANTIC_DISTANCE_UNITY(METER, "meter", 1000)                         \
-  SEMANTIC_DISTANCE_UNITY(CENTIMETER, "centimeter", 10)                 \
-  SEMANTIC_DISTANCE_UNITY(MILLIMETER, "millimeter", 1)
+#define SEMANTIC_DISTANCE_UNITY_TABLE                           \
+  SEMANTIC_DISTANCE_UNITY(KILOMETER, "km", 1000000)             \
+  SEMANTIC_DISTANCE_UNITY(HECTOMETER, "hm", 100000)             \
+  SEMANTIC_DISTANCE_UNITY(DECAMETER, "dam", 10000)              \
+  SEMANTIC_DISTANCE_UNITY(METER, "m", 1000)                     \
+  SEMANTIC_DISTANCE_UNITY(DECIMETER, "dm", 100)                 \
+  SEMANTIC_DISTANCE_UNITY(CENTIMETER, "cm", 10)                 \
+  SEMANTIC_DISTANCE_UNITY(MILLIMETER, "mm", 1)
 
 
 #define SEMANTIC_DISTANCE_UNITY(a, b, c) a,

@@ -369,6 +369,9 @@ void moveChildren(std::list<ChunkLink>& pRootChildren,
                   ChunkLinkType pNewChkLkType);
 
 
+bool getNumberBeforeHead(int& pNumber,
+                         const Chunk& pChunk);
+
 } // End of namespace linguistics
 } // End of namespace onsem
 

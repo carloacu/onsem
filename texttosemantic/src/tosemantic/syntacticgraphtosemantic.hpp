@@ -327,12 +327,9 @@ private:
    ListExpressionType pListExpType = ListExpressionType::UNRELATED,
    std::map<GrammaticalType, UniqueSemanticExpression>* pAdditionalChildren = nullptr) const;
 
+  mystd::unique_propagate_const<UniqueSemanticExpression> xFillDistanceStruct(const ToGenRepContext& pContext) const;
   mystd::unique_propagate_const<UniqueSemanticExpression> xFillHourTimeStruct(const ToGenRepContext& pContext) const;
   mystd::unique_propagate_const<UniqueSemanticExpression> xFillTimeStruct(const ToGenRepContext& pContext) const;
-
-  bool xGetNumberBeforeHead
-  (int& pNumber,
-   const Chunk& pChunk) const;
 };
 
 

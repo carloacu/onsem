@@ -126,7 +126,10 @@
   <declareconcept name="degree" />
 
   <declareconcept name="distance_kilometer" />
+  <declareconcept name="distance_hectometer" />
+  <declareconcept name="distance_decameter" />
   <declareconcept name="distance_meter" />
+  <declareconcept name="distance_decimeter" />
   <declareconcept name="distance_centimeter" />
   <declareconcept name="distance_millimeter" />
 
