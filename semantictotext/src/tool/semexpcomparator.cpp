@@ -366,6 +366,13 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
+  case SemanticGroudingType::DISTANCE:
+  {
+    const SemanticDistanceGrounding* distanceGrd2 = pGrounding2.getDistanceGroundingPtr();
+    if (distanceGrd2 != nullptr)
+      return bool_toImbricationType(pGrounding1.getDistanceGrounding().distance == distanceGrd2->distance);
+    break;
+  }
   case SemanticGroudingType::DURATION:
   {
     const SemanticDurationGrounding* durationGrd2 = pGrounding2.getDurationGroundingPtr();

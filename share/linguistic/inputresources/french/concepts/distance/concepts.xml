@@ -1,0 +1,14 @@
+<linguisticdatabase>
+ <concept name="distance_kilometer">
+  <linkedMeaning lemme="kilomètre" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="distance_meter">
+  <linkedMeaning lemme="mètre" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="distance_centimeter">
+  <linkedMeaning lemme="centimètre" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="distance_millimeter">
+  <linkedMeaning lemme="millimètre" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

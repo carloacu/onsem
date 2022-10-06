@@ -100,6 +100,13 @@ void _saveAgentGrd(boost::property_tree::ptree& pTree,
     _saveNameInfos(pTree.put_child("nameInfos", {}), *pAgentGrd.nameInfos);
 }
 
+void _saveSemanticDistance(boost::property_tree::ptree& pTree,
+                           const SemanticDistance& pSemanticDistance)
+{
+  for (const auto& currDistanceInfo : pSemanticDistance.distanceInfos)
+    pTree.put(semanticDistanceUnity_toStr(currDistanceInfo.first), currDistanceInfo.second);
+}
+
 void _saveSemanticDuration(boost::property_tree::ptree& pTree,
                            const SemanticDuration& pSemanticDuration)
 {
@@ -139,6 +146,13 @@ void _saveTextGrd(boost::property_tree::ptree& pTree,
     pTree.put("forLanguage", semanticLanguageEnum_toStr(pTextGrd.forLanguage));
   if (pTextGrd.hasQuotationMark)
     pTree.put("hasQuotationMark", trueStr);
+}
+
+void _saveDistanceGrd(boost::property_tree::ptree& pTree,
+                      const SemanticDistanceGrounding& pDistancenGrd)
+{
+  _saveGrd(pTree, pDistancenGrd);
+  _saveSemanticDistance(pTree.put_child("distance", {}), pDistancenGrd.distance);
 }
 
 void _saveDurationGrd(boost::property_tree::ptree& pTree,
@@ -284,6 +298,9 @@ void _saveGrounding(boost::property_tree::ptree& pTree,
     return;
   case SemanticGroudingType::TEXT:
     _saveTextGrd(pTree, pGrouding.getTextGrounding());
+    return;
+  case SemanticGroudingType::DISTANCE:
+    _saveDistanceGrd(pTree, pGrouding.getDistanceGrounding());
     return;
   case SemanticGroudingType::DURATION:
     _saveDurationGrd(pTree, pGrouding.getDurationGrounding());

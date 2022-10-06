@@ -230,7 +230,7 @@ void writeBilan(DeserializedTextResults& pDiffResults)
 
   if (pDiffResults.whatNeedToChecked.sentimentsInfos)
   {
-    ss << "Nb of different sentiments:\t\t" << sentInfos << " / "
+    ss << "Nb of different sentiments:\t" << sentInfos << " / "
        << pDiffResults.nbOfTexts << "\n";
   }
   else
@@ -240,7 +240,7 @@ void writeBilan(DeserializedTextResults& pDiffResults)
 
   if (pDiffResults.whatNeedToChecked.completeness)
   {
-    ss << "Nb of different completeness:\t\t" << completeness << " / "
+    ss << "Nb of different completeness:\t" << completeness << " / "
        << pDiffResults.nbOfTexts << "\n";
   }
   else

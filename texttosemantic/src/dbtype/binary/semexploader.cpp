@@ -149,6 +149,21 @@ int _loadCharOrInt(const unsigned char*& pPtr,
 }
 
 
+void _loadDistance(SemanticDistance& pDistance,
+                   const unsigned char*& pPtr)
+{
+  unsigned char nbOfDistanceInfos = binaryloader::loadChar_0To6(pPtr);
+  ++pPtr;
+  for (unsigned char i = 0; i < nbOfDistanceInfos; ++i)
+  {
+    const bool charOrInt = binaryloader::loadChar_0(pPtr);
+    auto distanceUnity = semanticDistanceUnity_fromChar(binaryloader::loadChar_1To7(pPtr));
+    ++pPtr;
+    pDistance.distanceInfos.emplace(distanceUnity, _loadCharOrInt(pPtr, charOrInt));
+  }
+}
+
+
 void _loadDuration(SemanticDuration& pDuration,
                    const unsigned char*& pPtr)
 {
@@ -257,6 +272,12 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
       timeGrd.date.day.emplace(_loadCharOrInt(pPtr, writeDayInAChar));
     _loadDuration(timeGrd.timeOfDay, pPtr);
     _loadDuration(timeGrd.length, pPtr);
+    return res;
+  }
+  case SemanticGroudingType::DISTANCE:
+  {
+    auto& distanceGrd = res->getDistanceGrounding();
+    _loadDistance(distanceGrd.distance, pPtr);
     return res;
   }
   case SemanticGroudingType::DURATION:

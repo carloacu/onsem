@@ -248,6 +248,42 @@ private:
 };
 
 
+struct GroundingDistancePrettyPrintStruct
+{
+  GroundingDistancePrettyPrintStruct(const SemanticDistance& pDistance)
+    : kilometer(-1),
+      meter(-1),
+      centimeter(-1),
+      millimeter(-1)
+  {
+    for (const auto& currTimeInfo : pDistance.distanceInfos)
+    {
+      switch (currTimeInfo.first)
+      {
+      case SemanticDistanceUnity::KILOMETER:
+        kilometer = currTimeInfo.second;
+        break;
+      case SemanticDistanceUnity::METER:
+        meter = currTimeInfo.second;
+        break;
+      case SemanticDistanceUnity::CENTIMETER:
+        centimeter = currTimeInfo.second;
+        break;
+      case SemanticDistanceUnity::MILLIMETER:
+        millimeter = currTimeInfo.second;
+        break;
+      default:
+        break;
+      }
+    }
+  }
+
+  int kilometer;
+  int meter;
+  int centimeter;
+  int millimeter;
+};
+
 struct GroundingDurationPrettyPrintStruct
 {
   GroundingDurationPrettyPrintStruct(const SemanticDuration& pDuration)

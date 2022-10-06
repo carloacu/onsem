@@ -457,7 +457,7 @@ std::unique_ptr<SemanticExpression> _getSourceInPresent(const MetadataExpression
 {
   auto presentTenseSource = (*pMetadataExp.source)->clone();
   SemExpModifier::modifyVerbTenseOfSemExp(*presentTenseSource, SemanticVerbTense::PUNCTUALPRESENT);
-  return std::move(presentTenseSource);
+  return presentTenseSource;
 }
 
 

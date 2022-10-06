@@ -14,6 +14,7 @@ struct SemanticGenericGrounding;
 struct SemanticStatementGrounding;
 struct SemanticAgentGrounding;
 struct SemanticTimeGrounding;
+struct SemanticDistanceGrounding;
 struct SemanticDurationGrounding;
 struct SemanticTextGrounding;
 struct SemanticLanguageGrounding;
@@ -33,6 +34,7 @@ struct SemanticResourceGrounding;
   SEMANTIC_GROUNGING_TYPE(STATEMENT, "statement")                      \
   SEMANTIC_GROUNGING_TYPE(TIME, "time")                                \
   SEMANTIC_GROUNGING_TYPE(TEXT, "text")                                \
+  SEMANTIC_GROUNGING_TYPE(DISTANCE, "distance")                        \
   SEMANTIC_GROUNGING_TYPE(DURATION, "duration")                        \
   SEMANTIC_GROUNGING_TYPE(LANGUAGE, "language")                        \
   SEMANTIC_GROUNGING_TYPE(RELATIVELOCATION, "relativeLocation")        \
@@ -152,6 +154,11 @@ public:
   virtual SemanticTimeGrounding& getTimeGrounding();
   virtual const SemanticTimeGrounding* getTimeGroundingPtr() const { return nullptr; }
   virtual SemanticTimeGrounding* getTimeGroundingPtr() { return nullptr; }
+
+  virtual const SemanticDistanceGrounding& getDistanceGrounding() const;
+  virtual SemanticDistanceGrounding& getDistanceGrounding();
+  virtual const SemanticDistanceGrounding* getDistanceGroundingPtr() const { return nullptr; }
+  virtual SemanticDistanceGrounding* getDistanceGroundingPtr() { return nullptr; }
 
   virtual const SemanticDurationGrounding& getDurationGrounding() const;
   virtual SemanticDurationGrounding& getDurationGrounding();

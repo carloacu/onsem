@@ -22,6 +22,26 @@
 
 namespace onsem
 {
+namespace
+{
+void _printValue(std::stringstream& pSs,
+                 int pValue,
+                 const std::string& pConceptName,
+                 const linguistics::SynthesizerDictionary& pStatSynthDico)
+{
+  pSs << pValue;
+  const auto& meaning = pStatSynthDico.conceptToMeaning(pConceptName);
+  if (!meaning.isEmpty())
+  {
+    std::string word;
+    SemanticNumberType number = pValue > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
+    SemanticGenderType gender = SemanticGenderType::UNKNOWN;
+    pStatSynthDico.getNounForm(word, meaning, gender, number);
+    pSs << " " << word;
+  }
+}
+}
+
 
 void Linguisticsynthesizergrounding::writeListSeparators
 (std::list<WordToSynthesize>& pOut,
@@ -237,6 +257,13 @@ void Linguisticsynthesizergrounding::writeGrounding
   {
     textGroundingTranslation(pOutSemExp.out, pGrounding.getTextGrounding(),
                              pContext);
+    break;
+  }
+  case SemanticGroudingType::DISTANCE:
+  {
+    const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
+    distanceTranslation(pOutSemExp.out, synthDico,
+                        pGrounding.getDistanceGrounding().distance, true);
     break;
   }
   case SemanticGroudingType::DURATION:
@@ -938,6 +965,53 @@ void Linguisticsynthesizergrounding::getIGramOfAWord
 }
 
 
+bool Linguisticsynthesizergrounding::distanceTranslation
+(std::list<WordToSynthesize>& pOut,
+ const linguistics::SynthesizerDictionary& pStatSynthDico,
+ const SemanticDistance& pDistance,
+ bool pPrintPrecisely) const
+{
+  GroundingDistancePrettyPrintStruct distancePrint(pDistance);
+  std::stringstream ss;
+  bool finishedToPrint = false;
+  if (distancePrint.kilometer != -1)
+  {
+    _printValue(ss, distancePrint.kilometer, "distance_kilometer", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
+  }
+  if (!finishedToPrint && distancePrint.meter != -1)
+  {
+    if (distancePrint.kilometer != -1)
+      ss << " ";
+    _printValue(ss, distancePrint.meter, "distance_meter", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
+  }
+  if (!finishedToPrint && distancePrint.centimeter != -1)
+  {
+    if (distancePrint.kilometer != -1 || distancePrint.meter != -1)
+      ss << " ";
+    _printValue(ss, distancePrint.centimeter, "distance_centimeter", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
+  }
+  if (!finishedToPrint && distancePrint.millimeter != -1)
+  {
+    if (distancePrint.kilometer != -1 || distancePrint.meter != -1 || distancePrint.centimeter != -1)
+      ss << " ";
+    _printValue(ss, distancePrint.millimeter, "distance_millimeter", pStatSynthDico);
+  }
+
+  const std::string timePrinted = ss.str();
+  if (!timePrinted.empty())
+  {
+    _strToOut(pOut, PartOfSpeech::NOUN, timePrinted);
+    return true;
+  }
+  return false;
+}
+
 
 bool Linguisticsynthesizergrounding::durationTranslation
 (std::list<WordToSynthesize>& pOut,
@@ -946,67 +1020,35 @@ bool Linguisticsynthesizergrounding::durationTranslation
  bool pPrintPrecisely) const
 {
   GroundingDurationPrettyPrintStruct durationPrint(pDuration);
-  SemanticGenderType gender = SemanticGenderType::UNKNOWN;
-
   std::stringstream ss;
   bool finishedToPrint = false;
   if (durationPrint.hour != -1)
   {
-    ss << durationPrint.hour;
-    const auto& meaning = pStatSynthDico.conceptToMeaning("duration_hour");
-    if (!meaning.isEmpty())
-    {
-      std::string hourWord;
-      SemanticNumberType number = durationPrint.hour > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
-      pStatSynthDico.getNounForm(hourWord, meaning, gender, number);
-      ss << " " << hourWord;
-      if (!pPrintPrecisely)
-        finishedToPrint = true;
-    }
+    _printValue(ss, durationPrint.hour, "duration_hour", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
   }
   if (!finishedToPrint && durationPrint.minute != -1)
   {
     if (durationPrint.hour != -1)
       ss << " ";
-    ss << durationPrint.minute;
-    const auto& meaning = pStatSynthDico.conceptToMeaning("duration_minute");
-    if (!meaning.isEmpty())
-    {
-      std::string minuteWord;
-      SemanticNumberType number = durationPrint.minute > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
-      pStatSynthDico.getNounForm(minuteWord, meaning, gender, number);
-      ss << " " << minuteWord;
-      if (!pPrintPrecisely)
-        finishedToPrint = true;
-    }
+    _printValue(ss, durationPrint.minute, "duration_minute", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
   }
   if (!finishedToPrint && durationPrint.second != -1)
   {
     if (durationPrint.hour != -1 || durationPrint.minute != -1)
       ss << " ";
-    ss << durationPrint.second;
-    const auto& meaning = pStatSynthDico.conceptToMeaning("duration_second");
-    if (!meaning.isEmpty())
-    {
-      std::string secondWord;
-      SemanticNumberType number = durationPrint.second > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
-      pStatSynthDico.getNounForm(secondWord, meaning, gender, number);
-      ss << " " << secondWord;
-    }
+    _printValue(ss, durationPrint.second, "duration_second", pStatSynthDico);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
   }
   if (!finishedToPrint && durationPrint.millisecond != -1)
   {
     if (durationPrint.hour != -1 || durationPrint.minute != -1 || durationPrint.second != -1)
       ss << " ";
-    ss << durationPrint.millisecond;
-    const auto& meaning = pStatSynthDico.conceptToMeaning("duration_millisecond");
-    if (!meaning.isEmpty())
-    {
-      std::string millisecondWord;
-      SemanticNumberType number = durationPrint.millisecond > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
-      pStatSynthDico.getNounForm(millisecondWord, meaning, gender, number);
-      ss << " " << millisecondWord;
-    }
+    _printValue(ss, durationPrint.millisecond, "duration_millisecond", pStatSynthDico);
   }
 
   const std::string timePrinted = ss.str();

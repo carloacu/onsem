@@ -165,6 +165,22 @@ void _writeCharOrInt(binarymasks::Ptr& pPtr,
     binarysaver::writeInt(pPtr.pint++, pVal);
 }
 
+void _writeDistance(binarymasks::Ptr& pPtr,
+                    const SemanticDistance& pDistance)
+{
+  unsigned char nbOfTimeInfos = binarysaver::sizet_to_uchar(pDistance.distanceInfos.size());
+  binarysaver::writeChar_0To6(pPtr.pchar, nbOfTimeInfos);
+  ++pPtr.pchar;
+  for (const auto& currDistanceInfo : pDistance.distanceInfos)
+  {
+    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currDistanceInfo.second);
+    binarysaver::writeChar_0(pPtr.pchar, charOrInt);
+    binarysaver::writeChar_1To7(pPtr.pchar, semanticDistanceUnity_toChar(currDistanceInfo.first));
+    ++pPtr.pchar;
+    _writeCharOrInt(pPtr, currDistanceInfo.second, charOrInt);
+  }
+}
+
 
 void _writeDuration(binarymasks::Ptr& pPtr,
                     const SemanticDuration& pDuration)
@@ -287,6 +303,12 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
       _writeCharOrInt(pPtr, *timeGrd.date.day, writeDayInAChar);
     _writeDuration(pPtr, timeGrd.timeOfDay);
     _writeDuration(pPtr, timeGrd.length);
+    return;
+  }
+  case SemanticGroudingType::DISTANCE:
+  {
+    auto& distanceGrd = pGrd.getDistanceGrounding();
+    _writeDistance(pPtr, distanceGrd.distance);
     return;
   }
   case SemanticGroudingType::DURATION:

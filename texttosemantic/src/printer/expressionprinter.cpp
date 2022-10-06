@@ -74,6 +74,14 @@ void _prettyPrintWord(PrinterBuffer& pPrinterBuff,
   }
 }
 
+void _prettyPrintDistance(std::list<SemLineToPrint>& pLines,
+                          PrinterBuffer& pPrinterBuff,
+                          const std::string& pLabelName,
+                          const SemanticDistance& pDistance)
+{
+  pDistance.printDistance(pPrinterBuff.elts, pLabelName);
+  _flushStringStream(pLines, pPrinterBuff, nullptr);
+}
 
 void _prettyPrintDuration(std::list<SemLineToPrint>& pLines,
                           PrinterBuffer& pPrinterBuff,
@@ -410,6 +418,14 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
+                                 const SemanticDistanceGrounding& pGrounding)
+{
+  _prettyPrintDistance(pLines, pPrinterBuff, "distance", pGrounding.distance);
+}
+
+
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
+                                 PrinterBuffer& pPrinterBuff,
                                  const SemanticDurationGrounding& pGrounding)
 {
   _prettyPrintDuration(pLines, pPrinterBuff, "duration", pGrounding.duration);
@@ -450,6 +466,12 @@ void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getTextGrounding());
+    break;
+  }
+  case SemanticGroudingType::DISTANCE:
+  {
+    _prettyPrintTypedGroundings(pLines, pPrinterBuff,
+                                pGroundings.getDistanceGrounding());
     break;
   }
   case SemanticGroudingType::DURATION:

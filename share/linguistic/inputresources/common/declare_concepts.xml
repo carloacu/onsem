@@ -125,6 +125,11 @@
 
   <declareconcept name="degree" />
 
+  <declareconcept name="distance_kilometer" />
+  <declareconcept name="distance_meter" />
+  <declareconcept name="distance_centimeter" />
+  <declareconcept name="distance_millimeter" />
+
   <declareconcept name="duration_hour" />
   <declareconcept name="duration_minute" />
   <declareconcept name="duration_second" />

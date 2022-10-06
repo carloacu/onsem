@@ -1552,6 +1552,7 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     return res;
   }
   case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroudingType::DISTANCE:
   case SemanticGroudingType::DURATION:
   case SemanticGroudingType::META:
     return false;

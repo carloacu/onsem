@@ -91,7 +91,7 @@ static inline SemanticTimeUnity semanticTimeUnity_fromUnorderredChar(unsigned ch
 
 static inline char semanticTimeUnity_fromUnorderredChar(SemanticTimeUnity pTimeUnity)
 {
-  return _semanticTimeUnity_toStr.size() - static_cast<char>(pTimeUnity);
+  return _semanticTimeUnity_size - static_cast<char>(pTimeUnity);
 }
 
 static inline std::string semanticTimeUnity_toStr(SemanticTimeUnity pTimeUnity)

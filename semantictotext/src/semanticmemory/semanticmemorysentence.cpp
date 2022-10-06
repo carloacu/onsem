@@ -1216,6 +1216,7 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
     break;
   }
   case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroudingType::DISTANCE:
   case SemanticGroudingType::DURATION:
      break;
   }

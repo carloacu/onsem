@@ -53,6 +53,7 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgrouding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp
+    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticdistancegrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticconceptualgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp
@@ -149,6 +150,7 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/dbtype/semanticexpression/setofformsexpression.cpp
     src/dbtype/semanticgrounding/semanticgrounding.cpp
     src/dbtype/semanticgrounding/semantictimegrounding.cpp
+    src/dbtype/semanticgrounding/semanticdistancegrounding.cpp
     src/dbtype/semanticgrounding/semanticdurationgrounding.cpp
     src/dbtype/semanticgrounding/semanticgenericgrouding.cpp
     src/dbtype/semanticgrounding/semanticagentgrounding.cpp
@@ -237,6 +239,19 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/linguisticanalyzer.cpp
     src/languagedetector.cpp
 )
+
+if(MSVC)
+  # Force to always compile with W4
+  if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+    string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+  endif()
+elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  # Update if necessary
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic")
+endif()
+
 
 include_directories(include)
 

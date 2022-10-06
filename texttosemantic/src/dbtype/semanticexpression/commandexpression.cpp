@@ -38,7 +38,7 @@ std::unique_ptr<CommandExpression> CommandExpression::clone
       (semExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
   if (description)
     res->description.emplace((*description)->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
-  return std::move(res);
+  return res;
 }
 
 } // End of namespace onsem

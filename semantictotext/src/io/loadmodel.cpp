@@ -150,6 +150,20 @@ std::unique_ptr<SemanticAgentGrounding> _loadAgentGrd(const boost::property_tree
 }
 
 
+void _loadSemanticDistance(SemanticDistance& pSemanticDistance,
+                           const boost::property_tree::ptree& pTree)
+{
+  if (!pTree.empty())
+    for (const auto& currDistanceInfo : pTree)
+    {
+      const std::string label = currDistanceInfo.first.data();
+      pSemanticDistance.distanceInfos.emplace
+          (semanticDistanceUnity_fromStr(label),
+           currDistanceInfo.second.get_value<int>());
+    }
+}
+
+
 void _loadSemanticDuration(SemanticDuration& pSemanticDuration,
                            const boost::property_tree::ptree& pTree)
 {
@@ -250,6 +264,13 @@ std::unique_ptr<SemanticTextGrounding> _loadTextGrd(const boost::property_tree::
   return res;
 }
 
+std::unique_ptr<SemanticDistanceGrounding> _loadDistanceGrd(const boost::property_tree::ptree& pTree)
+{
+  auto res = mystd::make_unique<SemanticDistanceGrounding>();
+  _loadGrd(*res, pTree);
+  _loadSemanticDistance(res->distance, pTree.get_child("distance"));
+  return res;
+}
 
 std::unique_ptr<SemanticDurationGrounding> _loadDurationGrd(const boost::property_tree::ptree& pTree)
 {
@@ -330,6 +351,8 @@ std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::pt
     return _loadTimeGrd(pTree);
   case SemanticGroudingType::TEXT:
     return _loadTextGrd(pTree);
+  case SemanticGroudingType::DISTANCE:
+    return _loadDistanceGrd(pTree);
   case SemanticGroudingType::DURATION:
     return _loadDurationGrd(pTree);
   case SemanticGroudingType::LANGUAGE:
