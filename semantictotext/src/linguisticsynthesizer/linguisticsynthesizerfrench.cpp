@@ -472,6 +472,11 @@ void LinguisticSynthesizerFrench::_getQuestionWord
       _strToOut(pOut, PartOfSpeech::ADVERB, "combien");
       break;
     }
+    case SemanticRequestType::DISTANCE:
+    {
+      _strToOut(pOut, PartOfSpeech::ADVERB, "combien");
+      break;
+    }
     case SemanticRequestType::DURATION:
     {
       if (pChildToPutBeforeSubject != nullptr)

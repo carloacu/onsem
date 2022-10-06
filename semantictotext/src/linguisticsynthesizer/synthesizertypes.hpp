@@ -173,6 +173,7 @@ struct OutSentence
   OutSemExp manner{};
   OutSemExp other{};
   OutSemExp time{};
+  OutSemExp distance{};
   OutSemExp duration{};
   OutSemExp location{};
   OutSemExp occurrenceRank{};

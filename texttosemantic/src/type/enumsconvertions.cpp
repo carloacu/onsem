@@ -22,6 +22,8 @@ mystd::optional<ChunkLinkType> grammaticalTypeToChunkType(GrammaticalType pGramT
     return ChunkLinkType::SPECIFICATION;
   case GrammaticalType::TIME:
     return ChunkLinkType::TIME;
+  case GrammaticalType::DISTANCE:
+    return ChunkLinkType::DISTANCE;
   case GrammaticalType::DURATION:
     return ChunkLinkType::DURATION;
   case GrammaticalType::MANNER:
@@ -102,6 +104,8 @@ mystd::optional<GrammaticalType> chunkTypeToGrammaticalType
     return GrammaticalType::SPECIFIER;
   case ChunkLinkType::TIME:
     return GrammaticalType::TIME;
+  case ChunkLinkType::DISTANCE:
+    return GrammaticalType::DISTANCE;
   case ChunkLinkType::DURATION:
     return GrammaticalType::DURATION;
   case ChunkLinkType::MANNER:

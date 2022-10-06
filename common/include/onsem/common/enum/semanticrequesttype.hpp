@@ -49,6 +49,8 @@ namespace onsem
                             GrammaticalType::SUBJECT)       \
   ADD_SEMANTIC_REQUEST_TYPE(TIME, "time",                   \
                             GrammaticalType::TIME)          \
+  ADD_SEMANTIC_REQUEST_TYPE(DISTANCE, "distance",           \
+                            GrammaticalType::DISTANCE)      \
   ADD_SEMANTIC_REQUEST_TYPE(DURATION, "duration",           \
                             GrammaticalType::DURATION)      \
   ADD_SEMANTIC_REQUEST_TYPE(TOPIC, "topic",                 \

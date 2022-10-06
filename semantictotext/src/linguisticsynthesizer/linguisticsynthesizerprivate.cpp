@@ -877,6 +877,14 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
                             childContextType, verbContext, pLastSubject);
       break;
     }
+    case GrammaticalType::DISTANCE:
+    {
+      OutSemExp& outSE = sentWorkStruct.outs.distance;
+      _writeObjectAfterVerb(sentWorkStruct, outSE, currChild.first, pStatementGrd,
+                            inflectedVerb, pGrdExp, currSemExpChild, pConf, pRequests,
+                            childContextType, verbContext, pLastSubject);
+      break;
+    }
     case GrammaticalType::DURATION:
     {
       OutSemExp& outSE = sentWorkStruct.outs.duration;

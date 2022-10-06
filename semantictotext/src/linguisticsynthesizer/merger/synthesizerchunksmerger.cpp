@@ -10,6 +10,8 @@ void SynthesizerChunksMerger::_writeDurationLocationAndTimeInGoodOrder(
     OutSentence& pOutSentence)
 {
   std::map<std::size_t, std::list<std::list<WordToSynthesize>*>> priorities;
+  priorities[pOutSentence.distance.getPriority()]
+      .emplace_back(&pOutSentence.distance.out);
   priorities[pOutSentence.duration.getPriority()]
       .emplace_back(&pOutSentence.duration.out);
   priorities[pOutSentence.time.getPriority()]

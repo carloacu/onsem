@@ -2763,6 +2763,7 @@ void SyntacticGraphToSemantic::xFillNewSentence
     case ChunkLinkType::BETWEEN:
     case ChunkLinkType::CAUSE:
     case ChunkLinkType::DESPITE_CONTRAINT:
+    case ChunkLinkType::DISTANCE:
     case ChunkLinkType::DURATION:
     case ChunkLinkType::STARTING_POINT:
     case ChunkLinkType::IN_CASE_OF:

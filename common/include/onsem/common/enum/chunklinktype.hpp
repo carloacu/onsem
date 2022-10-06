@@ -32,6 +32,7 @@ namespace linguistics
   SYNTACTIC_CHUNK_LINK(SPECIFICATION, "specification", "black")                \
   SYNTACTIC_CHUNK_LINK(COMPLEMENT, "complement", "black")                      \
   SYNTACTIC_CHUNK_LINK(TIME, "time", "green")                                  \
+  SYNTACTIC_CHUNK_LINK(DISTANCE, "distance", "green")                          \
   SYNTACTIC_CHUNK_LINK(DURATION, "duration", "green")                          \
   SYNTACTIC_CHUNK_LINK(MANNER, "manner", "green")                              \
   SYNTACTIC_CHUNK_LINK(LOCATION, "location", "green")                          \
