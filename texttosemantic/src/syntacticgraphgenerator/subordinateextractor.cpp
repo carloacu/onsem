@@ -318,7 +318,8 @@ void SubordinateExtractor::xResolveBadObjectRequests(std::list<ChunkLink>& pChun
       // we spot the case where is both a subject and an object and the subject is first
       const Chunk* subjectChunkPtr = nullptr;
       const Chunk* objectChunkPtr = nullptr;
-      for (const auto& currChild : currChunk.children)
+      ChunkLink* timeChunkLinkPtr = nullptr;
+      for (auto& currChild : currChunk.children)
       {
         switch (currChild.type)
         {
@@ -345,6 +346,11 @@ void SubordinateExtractor::xResolveBadObjectRequests(std::list<ChunkLink>& pChun
           }
           break;
         }
+        case ChunkLinkType::TIME:
+        {
+          timeChunkLinkPtr = &currChild;
+          break;
+        }
         default:
           break;
         }
@@ -352,11 +358,22 @@ void SubordinateExtractor::xResolveBadObjectRequests(std::list<ChunkLink>& pChun
           break;
       }
 
-      if (subjectChunkPtr != nullptr && objectChunkPtr != nullptr &&
-          checkOrder(*subjectChunkPtr, currChunk) &&
-          checkOrder(*subjectChunkPtr, *objectChunkPtr) &&
-          objectChunkPtr->type != ChunkType::OR_CHUNK)
-        currChunk.requests.set(SemanticRequestType::SUBJECT);
+      if (subjectChunkPtr != nullptr &&
+          checkOrder(*subjectChunkPtr, currChunk))
+      {
+        if (objectChunkPtr != nullptr &&
+            checkOrder(*subjectChunkPtr, *objectChunkPtr) &&
+            objectChunkPtr->type != ChunkType::OR_CHUNK)
+        {
+          currChunk.requests.set(SemanticRequestType::SUBJECT);
+        }
+        else if (timeChunkLinkPtr != nullptr &&
+                 ConceptSet::haveAConceptThatBeginWith(currChunk.head->inflWords.begin()->infos.concepts, "verb_equal_"))
+        {
+          timeChunkLinkPtr->type = ChunkLinkType::DIRECTOBJECT;
+          currChunk.requests.set(SemanticRequestType::SUBJECT);
+        }
+      }
     }
   }
 }

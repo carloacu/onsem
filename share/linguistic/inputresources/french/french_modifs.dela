@@ -176,6 +176,11 @@
 #ce,.PROS:3s:3p
 #c,ce.PROS:3s:3p
 
+#t-on,on.PROS:3s
+#t on,on.PROS:3s
+#t-il,il.PROS:3ms
+#t il,il.PROS:3ms
+
 
 #tout le monde,.PRO+z1:ms
 #tous le monde,tout le monde.PRO+z3:ms
