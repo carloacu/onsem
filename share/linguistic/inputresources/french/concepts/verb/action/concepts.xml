@@ -93,9 +93,6 @@
   <linkedMeaning lemme="mettre~se~debout" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="lever~se" gram="verb" relationToConcept="4"/>
  </concept>
- <concept name="verb_action_stopTalking">
-  <linkedMeaning lemme="taire~se" gram="verb" relationToConcept="4"/>
- </concept>
  <concept name="verb_action_subscribe">
   <linkedMeaning lemme="abonner" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="souscrire" gram="verb" relationToConcept="3"/>

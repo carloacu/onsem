@@ -62,9 +62,20 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
 
-  const std::string questionStr = "Qui es tu ?";
-  const std::string answerStr = "Je suis ton ami.";
-  ONSEM_NOANSWER(operator_reactFromTrigger(questionStr, semMem, lingDb));
-  operator_addATrigger(questionStr, answerStr, semMem, lingDb);
-  ONSEM_ANSWER_EQ(answerStr, operator_reactFromTrigger(questionStr, semMem, lingDb));
+  const std::string whoAreYou = "Qui es tu ?";
+  const std::string iAmYourFrined = "Je suis ton ami.";
+  const std::string stopApplication = "Arrête l'application";
+  const std::string itIsStopped = "Voilà, c'est arrêté.";
+  ONSEM_NOANSWER(operator_reactFromTrigger(whoAreYou, semMem, lingDb));
+  ONSEM_NOANSWER(operator_reactFromTrigger(stopApplication, semMem, lingDb));
+
+  operator_addATrigger(whoAreYou, iAmYourFrined, semMem, lingDb);
+  operator_addATrigger(stopApplication, itIsStopped, semMem, lingDb);
+
+  ONSEM_ANSWER_EQ(iAmYourFrined, operator_reactFromTrigger(whoAreYou, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger(stopApplication, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Ferme l'application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Quitte l'application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Stoppe l'application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Interromps l'application", semMem, lingDb));
 }

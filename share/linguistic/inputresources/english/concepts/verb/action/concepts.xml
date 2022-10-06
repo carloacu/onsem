@@ -199,9 +199,6 @@
  <concept name="verb_action_standup">
   <linkedMeaning lemme="stand~up" gram="verb" relationToConcept="4"/>
  </concept>
- <concept name="verb_action_stopTalking">
-  <linkedMeaning lemme="shut~up" gram="verb" relationToConcept="4"/>
- </concept>
  <concept name="verb_action_subscribe">
   <linkedMeaning lemme="subscribe" gram="verb" relationToConcept="4"/>
  </concept>

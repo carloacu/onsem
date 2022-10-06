@@ -419,7 +419,8 @@
   <declareconcept name="verb_action_sleep" />
   <declareconcept name="verb_action_smile" />
   <declareconcept name="verb_action_standup" />
-  <declareconcept name="verb_action_stopTalking" />
+  <declareconcept name="verb_action_stop" />
+  <declareconcept name="verb_action_stop_talk" />
   <declareconcept name="verb_action_subscribe" />
   <declareconcept name="verb_action_teach" />
   <declareconcept name="verb_action_touch" />

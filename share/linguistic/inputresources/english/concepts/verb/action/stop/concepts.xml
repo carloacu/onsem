@@ -1,0 +1,11 @@
+<linguisticdatabase>
+ <concept name="verb_action_stop">
+  <linkedMeaning lemme="stop" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="kill" gram="verb" relationToConcept="2"/>
+  <linkedMeaning lemme="close" gram="verb" relationToConcept="2"/>
+  <linkedMeaning lemme="quit" gram="verb" relationToConcept="2"/>
+ </concept>
+ <concept name="verb_action_stop_talk">
+  <linkedMeaning lemme="shut~up" gram="verb" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

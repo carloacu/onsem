@@ -87,7 +87,7 @@
       </root>
     </tree>
     <tree mind="true">
-      <root id="1" grounding="statement" concept="verb_action_stopTalking" notConcept="verb_action_close" word="">
+      <root id="1" grounding="statement" concept="verb_action_stop_talk" notConcept="verb_action_close" word="">
 	<notobject />
       </root>
     </tree>

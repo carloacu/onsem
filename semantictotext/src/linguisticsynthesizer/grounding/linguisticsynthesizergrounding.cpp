@@ -908,21 +908,26 @@ void Linguisticsynthesizergrounding::getIGramOfAWord
   const auto& specLingDb = pConf.lingDb.langToSpec[lingMeaning.language];
   if (lingMeaning.isEmpty())
   {
+    char currentPriority = 0;
     for (const auto& currCpt : pConcepts)
     {
-      lingMeaning = specLingDb.synthDico.statDb.conceptToMeaning(currCpt.first);
-      if (!lingMeaning.isEmpty())
-      {
-        break;
-      }
-      else if (currCpt.first == "verb_generality")
+      if (currCpt.second <= currentPriority)
+        continue;
+      auto newLingMeaning = specLingDb.synthDico.statDb.conceptToMeaning(currCpt.first);
+
+      if (newLingMeaning.isEmpty() &&
+          currCpt.first == "verb_generality")
       {
         if (_language == SemanticLanguageEnum::FRENCH)
-          lingMeaning = specLingDb.synthDico.statDb.conceptToMeaning("verb_have");
+          newLingMeaning = specLingDb.synthDico.statDb.conceptToMeaning("verb_have");
         else
-          lingMeaning = specLingDb.synthDico.statDb.conceptToMeaning("verb_equal_be");
-        if (!lingMeaning.isEmpty())
-          break;
+          newLingMeaning = specLingDb.synthDico.statDb.conceptToMeaning("verb_equal_be");
+      }
+
+      if (!newLingMeaning.isEmpty())
+      {
+        currentPriority = currCpt.second;
+        lingMeaning = newLingMeaning;
       }
     }
   }
