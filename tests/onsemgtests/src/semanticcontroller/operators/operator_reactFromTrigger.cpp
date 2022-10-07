@@ -66,11 +66,15 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string iAmYourFrined = "Je suis ton ami.";
   const std::string stopApplication = "Arrête l'application";
   const std::string itIsStopped = "Voilà, c'est arrêté.";
+  const std::string whatTimeItIs = "Quelle heure est-il ?";
+  const std::string itIs15h = "Il est 15 heures.";
   ONSEM_NOANSWER(operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(stopApplication, semMem, lingDb));
+  ONSEM_NOANSWER(operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
 
   operator_addATrigger(whoAreYou, iAmYourFrined, semMem, lingDb);
   operator_addATrigger(stopApplication, itIsStopped, semMem, lingDb);
+  operator_addATrigger(whatTimeItIs, itIs15h, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger(stopApplication, semMem, lingDb));
@@ -78,4 +82,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Quitte l'application", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Stoppe l'application", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Interromps l'application", semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("Quelle heure il est ?", semMem, lingDb));
+  //ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("C'est quoi l'heure", semMem, lingDb));
+  //ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("Il est quelle heure", semMem, lingDb));
 }

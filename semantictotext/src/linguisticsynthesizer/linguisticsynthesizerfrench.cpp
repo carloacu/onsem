@@ -509,7 +509,12 @@ void LinguisticSynthesizerFrench::_getQuestionWord
         else
         {
           if (pIsEquVerb)
-            _strToOut(pOut, PartOfSpeech::PREPOSITION, "de");
+          {
+            auto* objGrdExpPtr = objSemExp.getGrdExpPtr_SkipWrapperPtrs();
+            if (objGrdExpPtr != nullptr &&
+                !ConceptSet::haveAConceptOrAHyponym(objGrdExpPtr->grounding().concepts, "time"))
+              _strToOut(pOut, PartOfSpeech::PREPOSITION, "de");
+          }
           _writeQuel(pOut, objSemExp, pConf, pContext);
         }
       }

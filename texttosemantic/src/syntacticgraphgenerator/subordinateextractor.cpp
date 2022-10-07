@@ -371,7 +371,6 @@ void SubordinateExtractor::xResolveBadObjectRequests(std::list<ChunkLink>& pChun
                  ConceptSet::haveAConceptThatBeginWith(currChunk.head->inflWords.begin()->infos.concepts, "verb_equal_"))
         {
           timeChunkLinkPtr->type = ChunkLinkType::DIRECTOBJECT;
-          currChunk.requests.set(SemanticRequestType::SUBJECT);
         }
       }
     }

@@ -2687,6 +2687,7 @@ void SyntacticGraphToSemantic::xFillNewSentence
       if (language == SemanticLanguageEnum::FRENCH &&
           pContext.chunk.requests.has(SemanticRequestType::SUBJECT) &&
           (subContext.chunk.head->inflWords.front().infos.hasContextualInfo(WordContextualInfos::REFTOASENTENCE) ||
+           subContext.chunk.head->inflWords.front().infos.hasContextualInfo(WordContextualInfos::REFTOAPERSON) ||
            pGrdExpSentence.children.count(GrammaticalType::SUBJECT) > 0))
         break;
 

@@ -187,4 +187,5 @@ Tu veux que je les dise une par une ?
 C'est quoi l'heure ?
 où va-t-on manger ?
 Où va-t-il manger ?
-
+quelle heure il est ?
+Quelle heure est-il ?
