@@ -53,6 +53,8 @@ namespace onsem
                             GrammaticalType::DISTANCE)      \
   ADD_SEMANTIC_REQUEST_TYPE(DURATION, "duration",           \
                             GrammaticalType::DURATION)      \
+  ADD_SEMANTIC_REQUEST_TYPE(ABOUT, "about",                 \
+                            GrammaticalType::UNKNOWN)       \
   ADD_SEMANTIC_REQUEST_TYPE(TOPIC, "topic",                 \
                             GrammaticalType::TOPIC)         \
   ADD_SEMANTIC_REQUEST_TYPE(WAY, "way",                     \

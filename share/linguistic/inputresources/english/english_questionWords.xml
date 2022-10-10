@@ -18,6 +18,7 @@
       <questionWord lemme="when" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="time" />
       <questionWord lemme="what" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="object" />
       <questionWord lemme="what" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="what about" gram="pronoun" beforeVerb="no" afterVerb="no" canBeAlone="yes" request="about" />
       <questionWord lemme="which" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="object" followedByRequestedWord="yes" />
       <questionWord lemme="which" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
       <questionWord lemme="who" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="subject" />

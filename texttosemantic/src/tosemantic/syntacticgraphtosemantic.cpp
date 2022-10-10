@@ -16,7 +16,7 @@
 #include <onsem/texttosemantic/type/enumsconvertions.hpp>
 #include "semtreehardcodedconverter.hpp"
 #include "../tool/chunkshandler.hpp"
-
+#include "../tool/semexpgenerator.hpp"
 
 namespace onsem
 {
@@ -38,35 +38,6 @@ ListExpressionType _chunkTypeToListExpType(ChunkType pChunkType)
   if (pChunkType == ChunkType::THEN_CHUNK)
     return ListExpressionType::THEN;
   return ListExpressionType::THEN_REVERSED;
-}
-
-std::unique_ptr<SemanticNameGrounding> _makeNameGrd(const std::list<std::string>& pNames,
-                                                    const std::map<std::string, char>* pConceptsPtr = nullptr)
-{
-  auto nameGrd = mystd::make_unique<SemanticNameGrounding>(pNames);
-  if (pConceptsPtr != nullptr)
-    nameGrd->concepts.insert(pConceptsPtr->begin(), pConceptsPtr->end());
-  nameGrd->concepts["name_*"] = 4;
-  nameGrd->concepts["agent_*"] = 1;
-  return nameGrd;
-}
-
-UniqueSemanticExpression _makeCoreferenceExpression(CoreferenceDirectionEnum pDirection,
-                                                    const mystd::optional<SemanticEntityType>& pEntityType = mystd::optional<SemanticEntityType>())
-{
-  auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
-  genGrd->coreference.emplace(pDirection);
-  if (pEntityType)
-    genGrd->entityType = *pEntityType;
-  return mystd::make_unique<GroundedExpression>(std::move(genGrd));
-}
-
-UniqueSemanticExpression _makeHumanCoreferenceBefore()
-{
-  auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
-  genGrd->coreference.emplace(CoreferenceDirectionEnum::BEFORE);
-  genGrd->entityType = SemanticEntityType::HUMAN;
-  return mystd::make_unique<GroundedExpression>(std::move(genGrd));
 }
 
 void _refactorToAOtherThanGrd(SemanticGrounding& pGrd)
@@ -101,23 +72,6 @@ bool _verbChunkHasAnObjectWithAContxtualInfoAny(Chunk& pVerbChunk)
   return false;
 }
 
-UniqueSemanticExpression _whatIs(UniqueSemanticExpression pSubjectSemExp)
-{
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>
-                    ([]()
-  {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
-    statementGrd->requests.set(SemanticRequestType::OBJECT);
-    statementGrd->verbTense = SemanticVerbTense::PRESENT;
-    statementGrd->concepts.emplace("verb_equal_be", 4);
-    statementGrd->concepts.emplace("verb_equal_mean", 4);
-    return statementGrd;
-  }());
-
-  rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pSubjectSemExp));
-  return std::move(rootGrdExp);
-}
-
 bool _extractNumberOfAChunk(int& pNumber,
                             const Chunk& pChunk)
 {
@@ -145,11 +99,6 @@ UniqueSemanticExpression _whoSemExp()
  }());
 }
 
-UniqueSemanticExpression _emptyStatementSemExp()
-{
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticStatementGrounding>());
-}
 
 void _convertToGeneralitySentence(GroundedExpression& pGrdExpSentence,
                                   SemanticStatementGrounding& pStatementGrd)
@@ -341,21 +290,63 @@ UniqueSemanticExpression SyntacticGraphToSemantic::process
         mystd::unique_propagate_const<UniqueSemanticExpression> semExp;
 
         // handle french questions begining with "qu'est-ce que" without any other verb
-        if (language == SemanticLanguageEnum::FRENCH &&
-            context.chunk.type == ChunkType::NOMINAL_CHUNK &&
-            context.chunk.head->inflWords.front().word.lemma == "qu'est-ce que")
+        if (language == SemanticLanguageEnum::FRENCH)
         {
-          auto itNext = itChild;
-          ++itNext;
-          if (itNext != pSyntGraph.firstChildren.end() &&
-              itNext->chunk->type == ChunkType::NOMINAL_CHUNK)
+          if (context.chunk.type == ChunkType::NOMINAL_CHUNK)
           {
-            ToGenRepContext nextContext(*itNext);
-            auto nextSemExp = xFillSemExp(general, nextContext);
-            if (nextSemExp)
+            const auto& lemmaStr = context.chunk.head->inflWords.front().word.lemma;
+            if (lemmaStr == "qu'est-ce que")
             {
-              semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(_whatIs(std::move(*nextSemExp)));
-              itChild = itNext;
+              auto itNext = itChild;
+              ++itNext;
+              if (itNext != pSyntGraph.firstChildren.end() &&
+                  itNext->chunk->type == ChunkType::NOMINAL_CHUNK)
+              {
+                ToGenRepContext nextContext(*itNext);
+                auto nextSemExp = xFillSemExp(general, nextContext);
+                if (nextSemExp)
+                {
+                  semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpGenerator::whatIs(std::move(*nextSemExp)));
+                  itChild = itNext;
+                }
+              }
+            }
+            else if (lemmaStr == "qu'en est-il")
+            {
+              auto itFirstChild = context.chunk.children.begin();
+              if (itFirstChild != context.chunk.children.end() &&
+                  itFirstChild->chunk->type == ChunkType::NOMINAL_CHUNK)
+              {
+                ToGenRepContext nextContext(*itFirstChild);
+                auto nextSemExp = xFillSemExp(general, nextContext);
+                if (nextSemExp)
+                {
+                  semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpGenerator::whatAbout(std::move(*nextSemExp)));
+                }
+              }
+            }
+          }
+        }
+        else if (language == SemanticLanguageEnum::ENGLISH)
+        {
+          if (context.chunk.type == ChunkType::NOMINAL_CHUNK)
+          {
+            const auto& lemmaStr = context.chunk.head->inflWords.front().word.lemma;
+            if (lemmaStr == "what about")
+            {
+              auto itNext = itChild;
+              ++itNext;
+              if (itNext != pSyntGraph.firstChildren.end() &&
+                  itNext->chunk->type == ChunkType::NOMINAL_CHUNK)
+              {
+                ToGenRepContext nextContext(*itNext);
+                auto nextSemExp = xFillSemExp(general, nextContext);
+                if (nextSemExp)
+                {
+                  semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpGenerator::whatAbout(std::move(*nextSemExp)));
+                  itChild = itNext;
+                }
+              }
             }
           }
         }
@@ -921,7 +912,7 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
       if (ConceptSet::haveAConceptThatBeginWith(introInflWord.infos.concepts, "reference_"))
       {
         if (ConceptSet::haveAConcept(introInflWord.infos.concepts, "reference_other"))
-          SemExpModifier::addChild(pRootGrdExp, GrammaticalType::OTHER_THAN, _makeHumanCoreferenceBefore());
+          SemExpModifier::addChild(pRootGrdExp, GrammaticalType::OTHER_THAN, SemExpGenerator::makeHumanCoreferenceBefore());
       }
       else
       {
@@ -1195,7 +1186,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
       }
       else
       {
-        auto nameGrd = _makeNameGrd(names, &headConcepts);
+        auto nameGrd = SemExpGenerator::makeNameGrd(names, &headConcepts);
         fConfiguration.getFlsChecker().initGenderSetFromIGram
             (nameGrd->nameInfos.possibleGenders, headInflWord);
         return mystd::make_unique<GroundedExpression>(std::move(nameGrd));
@@ -1417,7 +1408,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
         std::list<std::string> names(1, introInflWord.word.lemma);
         _completeWithFollowingProperNouns(names, itTokBeforeHead, pChunk.head);
         SemExpModifier::addChild(*res, GrammaticalType::SUB_CONCEPT,
-                                 mystd::make_unique<GroundedExpression>(_makeNameGrd(names)));
+                                 mystd::make_unique<GroundedExpression>(SemExpGenerator::makeNameGrd(names)));
       }
       break;
     }
@@ -1449,7 +1440,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
 
   xAddModifiers(res, pContext, pChunk, true);
   if (askWhatIs)
-    return _whatIs(std::move(res));
+    return SemExpGenerator::whatIs(std::move(res));
   return std::move(res);
 }
 
@@ -1525,7 +1516,7 @@ void SyntacticGraphToSemantic::xAddModifiers
       {
         std::list<std::string> names(1, currTokInflWord.word.lemma);
         _completeWithFollowingProperNouns(names, it, pChunk.tokRange.getItEnd());
-        auto properNounGrdExp = mystd::make_unique<GroundedExpression>(_makeNameGrd(names));
+        auto properNounGrdExp = mystd::make_unique<GroundedExpression>(SemExpGenerator::makeNameGrd(names));
         if (firstIteration)
         {
           SemExpModifier::addChild(*pGrdExpPtr, GrammaticalType::SUB_CONCEPT, std::move(properNounGrdExp));
@@ -1667,7 +1658,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
         {
           if (statGrd.verbTense != SemanticVerbTense::UNKNOWN)
             sentenceGrdExp.children.emplace(subjectGrammType,
-                                            _makeCoreferenceExpression(CoreferenceDirectionEnum::BEFORE));
+                                            SemExpGenerator::makeCoreferenceExpression(CoreferenceDirectionEnum::BEFORE));
         }
       }
     }
@@ -1900,14 +1891,14 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertListChunk
       mystd::optional<SemanticEntityType> entityType;
       if (semExpAfterListSeparator != nullptr)
         entityType = SemExpGetter::getEntity(*semExpAfterListSeparator);
-      newListExp->elts.emplace_front(_makeCoreferenceExpression(CoreferenceDirectionEnum::BEFORE, entityType));
+      newListExp->elts.emplace_front(SemExpGenerator::makeCoreferenceExpression(CoreferenceDirectionEnum::BEFORE, entityType));
     }
     if (semExpAfterListSeparator == nullptr)
     {
       mystd::optional<SemanticEntityType> entityType;
       if (semExpBeforeListSeparator != nullptr)
         entityType = SemExpGetter::getEntity(*semExpBeforeListSeparator);
-      newListExp->elts.emplace_back(_makeCoreferenceExpression(CoreferenceDirectionEnum::AFTER, entityType));
+      newListExp->elts.emplace_back(SemExpGenerator::makeCoreferenceExpression(CoreferenceDirectionEnum::AFTER, entityType));
     }
   }
 
@@ -2421,7 +2412,7 @@ void SyntacticGraphToSemantic::xAddSubjectOf(GroundedExpression& pNewGrdExp,
       !haveASubordonateClause(pContext.chunk))
     gramTypeOfSubject = GrammaticalType::OBJECT;
   additionalChildren.emplace(gramTypeOfSubject,
-                             _makeCoreferenceExpression(CoreferenceDirectionEnum::PARENT));
+                             SemExpGenerator::makeCoreferenceExpression(CoreferenceDirectionEnum::PARENT));
   pContext.grammTypeFromParent = GrammaticalType::SPECIFIER;
   xAddNewGrammInfo(pNewGrdExp, pGeneral, pContext,
                    SemanticRequestType::NOTHING, pListExpType, &additionalChildren);
@@ -2818,7 +2809,7 @@ void SyntacticGraphToSemantic::xFillNewSentence
           {
             auto whoGrammType = semanticRequestType_toSemGram(request);
             SemExpModifier::addChild(pGrdExpSentence, whoGrammType,
-                                     refToAPerson ? _whoSemExp() : _emptyStatementSemExp());
+                                     refToAPerson ? _whoSemExp() : SemExpGenerator::emptyStatementSemExp());
           }
         }
       }

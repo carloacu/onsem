@@ -245,6 +245,9 @@ void LinguisticSynthesizerEnglish::_getQuestionWord
     case SemanticRequestType::TIMES:
       _strToOut(pOut, PartOfSpeech::PRONOUN, "how many times");
       break;
+    case SemanticRequestType::ABOUT:
+      _strToOut(pOut, PartOfSpeech::PRONOUN, "what about");
+      break;
     case SemanticRequestType::TOPIC:
       _strToOut(pOut, PartOfSpeech::PRONOUN, "what");
       break;

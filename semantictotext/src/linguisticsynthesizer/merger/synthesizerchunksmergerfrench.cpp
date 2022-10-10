@@ -81,7 +81,12 @@ void _tryToAddEstCeQue(std::list<WordToSynthesize>& pOut,
       (!pOutSentence.requests.has(SemanticRequestType::SUBJECT) ||
        pOut.empty() || (pOut.back().word.lemma != "qui" && pOut.back().word.lemma != "quel")))
   {
-    if (pOutSentence.subject.out.empty())
+    if (pOutSentence.requests.has(SemanticRequestType::ABOUT))
+    {
+      synthTool::strWithApostropheToOut(pOut, PartOfSpeech::DETERMINER,
+                                        "d'", "de", SemanticLanguageEnum::FRENCH);
+    }
+    else if (pOutSentence.subject.out.empty())
     {
       if (pOutSentence.verbTense != SemanticVerbTense::UNKNOWN)
         synthTool::strToOut(pOut, PartOfSpeech::ADVERB,

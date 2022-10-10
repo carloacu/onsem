@@ -599,6 +599,19 @@ void LinguisticSynthesizerFrench::_getQuestionWord
     case SemanticRequestType::TIMES:
       _strToOut(pOut, PartOfSpeech::ADVERB, "combien de fois");
       break;
+    case SemanticRequestType::ABOUT:
+    {
+      if (pHoldingContextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTAFTERVERB)
+      {
+        _strToOut(pOut, PartOfSpeech::SUBORDINATING_CONJONCTION, "ce qu'il en est");
+        _strWithApostropheToOut(pOut, PartOfSpeech::DETERMINER, "d'", "de");
+      }
+      else
+      {
+        _strToOut(pOut, PartOfSpeech::PRONOUN, "qu'en est-il");
+      }
+      break;
+    }
     case SemanticRequestType::TOPIC:
       _strToOut(pOut, PartOfSpeech::PRONOUN, "que");
       break;

@@ -176,6 +176,8 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/tool/isaurl.cpp
     src/tool/semexpmodifier.cpp
     src/tool/semexpgetter.cpp
+    src/tool/semexpgenerator.hpp
+    src/tool/semexpgenerator.cpp
     src/tool/syntacticanalyzertokenshandler.cpp
     src/tool/inflectionschecker.cpp
     src/tool/inflection/inflectionscheckervirtual.hpp
