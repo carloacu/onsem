@@ -176,7 +176,7 @@ std::unique_ptr<UniqueSemanticExpression> CompositeSemAnswer::convertToSemExp() 
         ++itGrdExp;
       }
     }
-    return mystd::make_unique<UniqueSemanticExpression>(std::move(res));
+    return std::make_unique<UniqueSemanticExpression>(std::move(res));
   }
   return std::unique_ptr<UniqueSemanticExpression>();
 }

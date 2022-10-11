@@ -96,7 +96,7 @@ void infGrdExpToMandatoryForm(GroundedExpression& pGrdExp)
     statGrd.verbTense = SemanticVerbTense::PRESENT;
     statGrd.verbGoal = VerbGoalEnum::MANDATORY;
     pGrdExp.children.emplace(GrammaticalType::SUBJECT,
-                             std::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("generic")));
+                             std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("generic")));
   }
 }
 
@@ -134,10 +134,10 @@ void setNumberFromSemExp(UniqueSemanticExpression& pSemExp, int pNumber)
       if (pNumber == 1)
       {
         genGrdPtr->quantity.clear();
-        auto res = mystd::make_unique<GroundedExpression>(
+        auto res = std::make_unique<GroundedExpression>(
               []
         {
-          auto newNumberGenGrd = mystd::make_unique<SemanticGenericGrounding>();
+          auto newNumberGenGrd = std::make_unique<SemanticGenericGrounding>();
           newNumberGenGrd->quantity.setNumber(1);
           newNumberGenGrd->entityType = SemanticEntityType::NUMBER;
           return newNumberGenGrd;
@@ -454,9 +454,9 @@ void setRequest(SemanticExpression& pSemExp,
 void addCoreferenceMotherSemExp(UniqueSemanticExpression& pSemExp,
                                 GrammaticalType pGrammaticalType)
 {
-  auto newRoot = mystd::make_unique<GroundedExpression>([]
+  auto newRoot = std::make_unique<GroundedExpression>([]
   {
-    auto coreferenceStatGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto coreferenceStatGrd = std::make_unique<SemanticStatementGrounding>();
     coreferenceStatGrd->coreference.emplace();
     return coreferenceStatGrd;
   }());
@@ -469,7 +469,7 @@ void addReferences(UniqueSemanticExpression& pSemExp,
                    const std::list<std::string>& pReferences)
 {
   assert(!pReferences.empty());
-  auto metaExp = mystd::make_unique<MetadataExpression>(std::move(pSemExp));
+  auto metaExp = std::make_unique<MetadataExpression>(std::move(pSemExp));
   metaExp->from = SemanticSourceEnum::SEMREACTION;
   metaExp->contextualAnnotation = ContextualAnnotation::ANSWER;
   metaExp->references = pReferences;
@@ -526,7 +526,7 @@ void replaceAgentOfSemExp(SemanticExpression& pSemExp,
     GroundedExpression& grdExp = pSemExp.getGrdExp();
     SemanticAgentGrounding* agentGrd = grdExp->getAgentGroundingPtr();
     if (agentGrd != nullptr && agentGrd->userId == pUserIdToReplace)
-      pSemExp.getGrdExp().moveGrounding(mystd::make_unique<SemanticAgentGrounding>(pNewUserId));
+      pSemExp.getGrdExp().moveGrounding(std::make_unique<SemanticAgentGrounding>(pNewUserId));
     for (auto& currChild : grdExp.children)
       replaceAgentOfSemExp(*currChild.second, pNewUserId, pUserIdToReplace);
     return;
@@ -688,9 +688,9 @@ void putInPastWithTimeAnnotation(UniqueSemanticExpression& pSemExp,
     }
   }
 
-  auto res = mystd::make_unique<AnnotatedExpression>(std::move(pSemExp));
+  auto res = std::make_unique<AnnotatedExpression>(std::move(pSemExp));
   res->annotations.emplace(GrammaticalType::TIME,
-                           mystd::make_unique<GroundedExpression>(std::move(pTimeGrd)));
+                           std::make_unique<GroundedExpression>(std::move(pTimeGrd)));
   pSemExp = std::move(res);
 }
 
@@ -712,7 +712,7 @@ void replaceSayByAskToRobot(SemanticExpression& pSemExp)
         statGrdPtr->concepts.emplace("verb_action_say_ask", itSayCpt->second);
         statGrdPtr->concepts.erase(itSayCpt);
         grdExp.children.emplace(GrammaticalType::RECEIVER,
-                                mystd::make_unique<GroundedExpression>
+                                std::make_unique<GroundedExpression>
                                 (SemanticAgentGrounding::getRobotAgentPtr()));
       }
     }
@@ -733,7 +733,7 @@ void addNewSemExp(UniqueSemanticExpression& pRootSemExp,
     return;
   }
 
-  auto newListExp = mystd::make_unique<ListExpression>(pListType);
+  auto newListExp = std::make_unique<ListExpression>(pListType);
   newListExp->elts.emplace_back(std::move(pRootSemExp));
   newListExp->elts.emplace_back(std::move(pSemExpToAdd));
   pRootSemExp = std::move(newListExp);
@@ -745,14 +745,14 @@ void addNewChildWithConcept
  GrammaticalType pGramOfChild,
  const std::string& pConceptName)
 {
-  auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+  auto genGrd = std::make_unique<SemanticGenericGrounding>();
   genGrd->concepts[pConceptName] = 4;
   if (pConceptName == "agent")
   {
     genGrd->entityType = SemanticEntityType::HUMAN;
   }
   pChildren.emplace(pGramOfChild,
-                  mystd::make_unique<GroundedExpression>(std::move(genGrd)));
+                  std::make_unique<GroundedExpression>(std::move(genGrd)));
 }
 
 
@@ -773,7 +773,7 @@ void addASemExp(UniqueSemanticExpression& pSemExp,
     return;
   }
 
-  auto newListExp = mystd::make_unique<ListExpression>();
+  auto newListExp = std::make_unique<ListExpression>();
   newListExp->elts.emplace_back(std::move(pSemExp));
   newListExp->elts.emplace_back(std::move(pSemExpToAdd));
   pSemExp = std::move(newListExp);
@@ -811,7 +811,7 @@ UniqueSemanticExpression grdExpsToUniqueSemExp(const std::list<const GroundedExp
     return pGrdExps.front()->clone();
   }
 
-  auto resListExp = mystd::make_unique<ListExpression>(ListExpressionType::AND);
+  auto resListExp = std::make_unique<ListExpression>(ListExpressionType::AND);
   for (const auto& currGrdExp : pGrdExps)
   {
     resListExp->elts.push_back(currGrdExp->clone());
@@ -845,7 +845,7 @@ UniqueSemanticExpression fromActionDescriptionToSentenceInPresentTense(const Gro
   if (!copiedGrdExp->children.count(GrammaticalType::SUBJECT))
     copiedGrdExp->children.emplace
         (GrammaticalType::SUBJECT,
-         mystd::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr()));
+         std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr()));
   return std::move(copiedGrdExp);
 }
 

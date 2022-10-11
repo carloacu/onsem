@@ -79,7 +79,7 @@ inline bool SemanticStatementGrounding::isEqual(const SemanticStatementGrounding
 
 inline std::unique_ptr<SemanticStatementGrounding> SemanticStatementGrounding::makeCoreference()
 {
-  auto coreferenceStatementGrdExp = mystd::make_unique<SemanticStatementGrounding>();
+  auto coreferenceStatementGrdExp = std::make_unique<SemanticStatementGrounding>();
   coreferenceStatementGrdExp->coreference.emplace();
   return coreferenceStatementGrdExp;
 }

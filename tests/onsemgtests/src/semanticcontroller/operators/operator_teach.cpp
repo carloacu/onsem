@@ -269,8 +269,8 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)
   ASSERT_TRUE(infLabelSemExp);
 
   static const std::string cmdValue = "cmd_value";
-  auto answerSemExp = mystd::make_unique<GroundedExpression>(
-        mystd::make_unique<SemanticResourceGrounding>(resourceLabelForTests_cmd, language, cmdValue));
+  auto answerSemExp = std::make_unique<GroundedExpression>(
+        std::make_unique<SemanticResourceGrounding>(resourceLabelForTests_cmd, language, cmdValue));
 
   auto teachSemExp = converter::constructTeachSemExp(std::move(*infLabelSemExp), std::move(answerSemExp));
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;

@@ -34,7 +34,7 @@ std::unique_ptr<CommandExpression> CommandExpression::clone
  bool pRemoveRecentContextInterpretations,
  const std::set<SemanticExpressionType>* pExpressionTypesToSkip) const
 {
-  auto res = mystd::make_unique<CommandExpression>
+  auto res = std::make_unique<CommandExpression>
       (semExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
   if (description)
     res->description.emplace((*description)->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));

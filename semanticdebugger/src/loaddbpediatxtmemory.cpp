@@ -104,7 +104,7 @@ void loadDbPediaMemory(std::size_t& pNbOfInforms,
                   auto agentWeAreTalkingAbout = SemanticMemoryBlock::generateNewAgentGrd(reference, language, pLingDb);
                   auto semExp = converter::textToSemExp
                       (text, textProcContext, pLingDb, false, nullptr, nullptr, pAddReferences ? &references : nullptr,
-                       mystd::make_unique<SemanticAgentGrounding>(*agentWeAreTalkingAbout));
+                       std::make_unique<SemanticAgentGrounding>(*agentWeAreTalkingAbout));
                   memoryOperation::addAgentInterpretations(semExp, pSemanticMemory, pLingDb);
                   SemExpModifier::removeSemExpPartsThatDoesntHaveAnAgent(semExp, *agentWeAreTalkingAbout);
                   memoryOperation::inform(std::move(semExp), pSemanticMemory, pLingDb);

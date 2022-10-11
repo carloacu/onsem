@@ -169,7 +169,7 @@ void fillSemAnalResult
   SemanticPrinter::printSentiments(pHighLevelResults.sentimentsInfos, *semExp,
                                    SemanticAgentGrounding::currentUser,
                                    pResults.syntGraph.langConfig.lingDb.conceptSet,
-                                   mystd::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::currentUser),
+                                   std::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::currentUser),
                                    SemanticSourceEnum::WRITTENTEXT);
   if (pSemanticAnalysisDebugOptions.timeChecker)
     pSemanticAnalysisDebugOptions.timeChecker->endOfTimeSlot("Sentiments extractor");

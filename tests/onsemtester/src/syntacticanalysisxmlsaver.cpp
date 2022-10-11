@@ -174,7 +174,7 @@ void compareResults(std::shared_ptr<syntacticAnalysisXmlLoader::DeserializedText
     SemanticAnalysisDebugOptions debugOptions;
     debugOptions.outputFormat = PrintSemExpDiffsOutPutFormat::HTML;
     if (pPerformancesPtr != nullptr)
-      debugOptions.timeChecker = mystd::make_unique<TimeChecker>();
+      debugOptions.timeChecker = std::make_unique<TimeChecker>();
 
     std::shared_ptr<syntacticAnalysisXmlLoader::SemanticAnalysisResult> newResult;
     _getTextToResult(newResult, oldResult->semAnal.inputText,

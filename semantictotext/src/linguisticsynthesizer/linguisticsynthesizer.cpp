@@ -179,7 +179,7 @@ UniqueSemanticExpression pSemExp,
                                        TREEPATTERN_MIND, TREEPATTERN_OUTTEXT,
                                        pTextProcContext.langType, pDebugOutput);
   _replaceSemExpThatNeedToBeReplaced(pSemExp, *pTextProcContext.usSemExp,
-                                     *mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("tolink_1p")),
+                                     *std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("tolink_1p")),
                                      pMemBlock, pLingDb);
 
   const LinguisticSynthesizerPrivate& synthPriv =

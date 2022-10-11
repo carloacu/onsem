@@ -158,10 +158,10 @@ TrackSemMemoryNotifications::TrackSemMemoryNotifications(SemanticMemory& pSemMem
       {
         if (currAction.composition->isEmpty())
           return currAction.label->clone();
-        auto rootGrdExp = mystd::make_unique<GroundedExpression>
+        auto rootGrdExp = std::make_unique<GroundedExpression>
             ([]()
         {
-          auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+          auto statementGrd = std::make_unique<SemanticStatementGrounding>();
           statementGrd->verbTense = SemanticVerbTense::PRESENT;
           statementGrd->concepts["verb_equal_mean"] = 4;
           return statementGrd;

@@ -204,7 +204,7 @@ bool _tryToMergeVerbs(ListExpression& pListExp,
     }
     if (itEndOfListToMerge != pListExp.elts.end())
     {
-      auto resStatGrd = mystd::make_unique<SemanticStatementGrounding>();
+      auto resStatGrd = std::make_unique<SemanticStatementGrounding>();
       std::unique_ptr<GroundedExpression> res;
 
       bool firstIt = true;
@@ -226,7 +226,7 @@ bool _tryToMergeVerbs(ListExpression& pListExp,
           resStatGrd->verbTense = currStatGrd.verbTense;
           resStatGrd->verbGoal = currStatGrd.verbGoal;
           resStatGrd->requests = currStatGrd.requests;
-          res = mystd::make_unique<GroundedExpression>(std::move(resStatGrd));
+          res = std::make_unique<GroundedExpression>(std::move(resStatGrd));
           res->children.emplace(GrammaticalType::SUBJECT, std::move(itSubject->second));
         }
         currEltGrdExpPtr->children.erase(itSubject);

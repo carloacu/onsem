@@ -1,6 +1,5 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
@@ -10,37 +9,37 @@ std::unique_ptr<SemanticGrounding> SemanticGrounding::make(SemanticGroundingType
   switch (pType)
   {
   case SemanticGroundingType::AGENT:
-    return mystd::make_unique<SemanticAgentGrounding>();
+    return std::make_unique<SemanticAgentGrounding>();
   case SemanticGroundingType::GENERIC:
-    return mystd::make_unique<SemanticGenericGrounding>();
+    return std::make_unique<SemanticGenericGrounding>();
   case SemanticGroundingType::STATEMENT:
-    return mystd::make_unique<SemanticStatementGrounding>();
+    return std::make_unique<SemanticStatementGrounding>();
   case SemanticGroundingType::TIME:
-    return mystd::make_unique<SemanticTimeGrounding>();
+    return std::make_unique<SemanticTimeGrounding>();
   case SemanticGroundingType::TEXT:
-    return mystd::make_unique<SemanticTextGrounding>("");
+    return std::make_unique<SemanticTextGrounding>("");
   case SemanticGroundingType::DURATION:
-    return mystd::make_unique<SemanticDurationGrounding>();
+    return std::make_unique<SemanticDurationGrounding>();
   case SemanticGroundingType::LANGUAGE:
-    return mystd::make_unique<SemanticLanguageGrounding>(SemanticLanguageEnum::UNKNOWN);
+    return std::make_unique<SemanticLanguageGrounding>(SemanticLanguageEnum::UNKNOWN);
   case SemanticGroundingType::RELATIVELOCATION:
-    return mystd::make_unique<SemanticRelativeLocationGrounding>(SemanticRelativeLocationType::L_ABOVE);
+    return std::make_unique<SemanticRelativeLocationGrounding>(SemanticRelativeLocationType::L_ABOVE);
   case SemanticGroundingType::RELATIVETIME:
-    return mystd::make_unique<SemanticRelativeTimeGrounding>(SemanticRelativeTimeType::AFTER);
+    return std::make_unique<SemanticRelativeTimeGrounding>(SemanticRelativeTimeType::AFTER);
   case SemanticGroundingType::RELATIVEDURATION:
-    return mystd::make_unique<SemanticRelativeDurationGrounding>(SemanticRelativeDurationType::UNTIL);
+    return std::make_unique<SemanticRelativeDurationGrounding>(SemanticRelativeDurationType::UNTIL);
   case SemanticGroundingType::RESOURCE:
-    return mystd::make_unique<SemanticResourceGrounding>("", SemanticLanguageEnum::UNKNOWN, "");
+    return std::make_unique<SemanticResourceGrounding>("", SemanticLanguageEnum::UNKNOWN, "");
   case SemanticGroundingType::LENGTH:
-    return mystd::make_unique<SemanticLengthGrounding>();
+    return std::make_unique<SemanticLengthGrounding>();
   case SemanticGroundingType::META:
-    return mystd::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0);
+    return std::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0);
   case SemanticGroundingType::NAME:
-    return mystd::make_unique<SemanticNameGrounding>("");
+    return std::make_unique<SemanticNameGrounding>("");
   case SemanticGroundingType::CONCEPTUAL:
-    return mystd::make_unique<SemanticConceptualGrounding>();
+    return std::make_unique<SemanticConceptualGrounding>();
   case SemanticGroundingType::UNITY:
-    return mystd::make_unique<SemanticUnityGrounding>(SemanticLengthUnity::CENTIMETER);
+    return std::make_unique<SemanticUnityGrounding>(SemanticLengthUnity::CENTIMETER);
   }
 
   assert(false);

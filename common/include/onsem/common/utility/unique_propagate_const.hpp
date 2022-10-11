@@ -2,7 +2,6 @@
 #define ONSEM_COMMON_UTILITY_UNIQUEPROPAGATECONST_HPP
 
 #include <memory>
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
@@ -46,7 +45,7 @@ private:
 template<typename T, typename... Args>
 unique_propagate_const<T> make_unique_pc(Args&&... args)
 {
-  return unique_propagate_const<T>(onsem::mystd::make_unique<T>(std::forward<Args>(args)...));
+  return unique_propagate_const<T>(std::make_unique<T>(std::forward<Args>(args)...));
 }
 
 
@@ -74,7 +73,7 @@ unique_propagate_const<T>::unique_propagate_const(unique_propagate_const&& pOthe
 template<typename T>
 template<typename... Args>
 unique_propagate_const<T>::unique_propagate_const(Args&&... args)
-  : _ptr(onsem::mystd::make_unique<T>(std::forward<Args>(args)...))
+  : _ptr(std::make_unique<T>(std::forward<Args>(args)...))
 {
 }
 
@@ -82,7 +81,7 @@ template<typename T>
 template<typename... Args>
 unique_propagate_const<T>& unique_propagate_const<T>::operator=(Args&&... args)
 {
-  _ptr = onsem::mystd::make_unique<T>(std::forward<Args>(args)...);
+  _ptr = std::make_unique<T>(std::forward<Args>(args)...);
   return *this;
 }
 
@@ -91,7 +90,7 @@ template<typename T>
 template<typename... Args>
 void unique_propagate_const<T>::emplace(Args&&... args)
 {
-  _ptr = onsem::mystd::make_unique<T>(std::forward<Args>(args)...);
+  _ptr = std::make_unique<T>(std::forward<Args>(args)...);
 }
 
 template<typename T>

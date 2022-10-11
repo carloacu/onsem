@@ -14,7 +14,7 @@ namespace SemExpGenerator
 std::unique_ptr<SemanticNameGrounding> makeNameGrd(const std::list<std::string>& pNames,
                                                    const std::map<std::string, char>* pConceptsPtr)
 {
-  auto nameGrd = mystd::make_unique<SemanticNameGrounding>(pNames);
+  auto nameGrd = std::make_unique<SemanticNameGrounding>(pNames);
   if (pConceptsPtr != nullptr)
     nameGrd->concepts.insert(pConceptsPtr->begin(), pConceptsPtr->end());
   nameGrd->concepts["name_*"] = 4;
@@ -25,34 +25,34 @@ std::unique_ptr<SemanticNameGrounding> makeNameGrd(const std::list<std::string>&
 UniqueSemanticExpression makeCoreferenceExpression(CoreferenceDirectionEnum pDirection,
                                                    const mystd::optional<SemanticEntityType>& pEntityType)
 {
-  auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+  auto genGrd = std::make_unique<SemanticGenericGrounding>();
   genGrd->coreference.emplace(pDirection);
   if (pEntityType)
     genGrd->entityType = *pEntityType;
-  return mystd::make_unique<GroundedExpression>(std::move(genGrd));
+  return std::make_unique<GroundedExpression>(std::move(genGrd));
 }
 
 UniqueSemanticExpression makeHumanCoreferenceBefore()
 {
-  auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+  auto genGrd = std::make_unique<SemanticGenericGrounding>();
   genGrd->coreference.emplace(CoreferenceDirectionEnum::BEFORE);
   genGrd->entityType = SemanticEntityType::HUMAN;
-  return mystd::make_unique<GroundedExpression>(std::move(genGrd));
+  return std::make_unique<GroundedExpression>(std::move(genGrd));
 }
 
 UniqueSemanticExpression emptyStatementSemExp()
 {
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticStatementGrounding>());
+  return std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticStatementGrounding>());
 }
 
 
 UniqueSemanticExpression whatIs(UniqueSemanticExpression pSubjectSemExp)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>
+  auto rootGrdExp = std::make_unique<GroundedExpression>
       ([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->requests.set(SemanticRequestType::OBJECT);
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_equal_be", 4);
@@ -66,10 +66,10 @@ UniqueSemanticExpression whatIs(UniqueSemanticExpression pSubjectSemExp)
 
 UniqueSemanticExpression whatAbout(UniqueSemanticExpression pSubjectSemExp)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>
+  auto rootGrdExp = std::make_unique<GroundedExpression>
       ([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->requests.set(SemanticRequestType::ABOUT);
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("aboutQuestion", 4);

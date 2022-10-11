@@ -27,7 +27,7 @@ StaticLinguisticDictionary& LinguisticDictionary::_getStatDbInstance(
     bool inserted = false;
     std::tie(itElt, inserted) = _pathToStatDbs.emplace
         (pLangEnum,
-         mystd::make_unique<StaticLinguisticDictionary>(pDictIStream, pStaticConceptSet, pLangEnum));
+         std::make_unique<StaticLinguisticDictionary>(pDictIStream, pStaticConceptSet, pLangEnum));
   }
   return *itElt->second;
 }
@@ -61,7 +61,7 @@ LinguisticDictionary::InflectedInfos::InflectedInfos
 (const SemanticWord& pWord,
  WordAssociatedInfos& pInfos,
  const Inflections* pInflections)
-  : wordAndInfos(mystd::make_unique<WordAndInfos>(&pWord, &pInfos)),
+  : wordAndInfos(std::make_unique<WordAndInfos>(&pWord, &pInfos)),
     inflections(pInflections)
 {
 }
@@ -69,7 +69,7 @@ LinguisticDictionary::InflectedInfos::InflectedInfos
 LinguisticDictionary::InflectedInfos::InflectedInfos
 (const WordAndInfos& pWordAndInfos,
  const Inflections* pInflections)
-  : wordAndInfos(mystd::make_unique<WordAndInfos>(&pWordAndInfos.word(), &pWordAndInfos.infos())),
+  : wordAndInfos(std::make_unique<WordAndInfos>(&pWordAndInfos.word(), &pWordAndInfos.infos())),
     inflections(pInflections)
 {
 }
@@ -89,7 +89,7 @@ LinguisticDictionary::InflectedInfos& LinguisticDictionary::InflectedInfos::oper
 }
 
 LinguisticDictionary::InflectedInfos::InflectedInfos(const InflectedInfos& pOther)
-  : wordAndInfos(mystd::make_unique<WordAndInfos>
+  : wordAndInfos(std::make_unique<WordAndInfos>
                  (&pOther.wordAndInfos->word(), &pOther.wordAndInfos->infos())),
     inflections(pOther.inflections)
 {
@@ -99,7 +99,7 @@ LinguisticDictionary::InflectedInfos& LinguisticDictionary::InflectedInfos::oper
 (const InflectedInfos& pOther)
 {
   assert(pOther.wordAndInfos);
-  wordAndInfos = mystd::make_unique<WordAndInfos>
+  wordAndInfos = std::make_unique<WordAndInfos>
       (&pOther.wordAndInfos->word(), &pOther.wordAndInfos->infos());
   inflections = pOther.inflections;
   return *this;
@@ -120,8 +120,8 @@ LinguisticDictionary::LinguisticDictionary(std::istream& pDictIStream,
   : statDb(_getStatDbInstance(pDictIStream, pStaticConceptSet, pLangEnum)),
     _language(pLangEnum),
     _wordToAssocInfos(),
-    _lemmaToPosOfWordToRemoveFromStaticDico(mystd::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>()),
-    _inflectedCharaters(mystd::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>()),
+    _lemmaToPosOfWordToRemoveFromStaticDico(std::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>()),
+    _inflectedCharaters(std::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>()),
     _beAux(statDb),
     _haveAux(statDb),
     _beVerb(statDb),
@@ -146,8 +146,8 @@ LinguisticDictionary::LinguisticDictionary(std::istream& pDictIStream,
 LinguisticDictionary::LinguisticDictionary(const LinguisticDictionary& pOther)
   : statDb(pOther.statDb),
     _wordToAssocInfos(pOther._wordToAssocInfos),
-    _lemmaToPosOfWordToRemoveFromStaticDico(mystd::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>(*pOther._lemmaToPosOfWordToRemoveFromStaticDico)),
-    _inflectedCharaters(mystd::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>(*pOther._inflectedCharaters)),
+    _lemmaToPosOfWordToRemoveFromStaticDico(std::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>(*pOther._lemmaToPosOfWordToRemoveFromStaticDico)),
+    _inflectedCharaters(std::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>(*pOther._inflectedCharaters)),
     _beAux(pOther._beAux),
     _haveAux(pOther._haveAux),
     _beVerb(pOther._beVerb),
@@ -163,8 +163,8 @@ LinguisticDictionary::~LinguisticDictionary()
 LinguisticDictionary& LinguisticDictionary::operator=(const LinguisticDictionary& pOther)
 {
   _wordToAssocInfos = pOther._wordToAssocInfos;
-  _lemmaToPosOfWordToRemoveFromStaticDico = mystd::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>(*pOther._lemmaToPosOfWordToRemoveFromStaticDico);
-  _inflectedCharaters = mystd::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>(*pOther._inflectedCharaters);
+  _lemmaToPosOfWordToRemoveFromStaticDico = std::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>(*pOther._lemmaToPosOfWordToRemoveFromStaticDico);
+  _inflectedCharaters = std::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>(*pOther._inflectedCharaters);
   return *this;
 }
 

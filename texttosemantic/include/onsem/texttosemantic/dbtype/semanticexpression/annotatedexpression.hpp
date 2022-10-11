@@ -72,7 +72,7 @@ inline std::unique_ptr<SemanticExpression> AnnotatedExpression::clone
       pExpressionTypesToSkip->count(SemanticExpressionType::ANNOTATED) > 0)
     return semExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip);
 
-  auto res = mystd::make_unique<AnnotatedExpression>
+  auto res = std::make_unique<AnnotatedExpression>
       (semExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
   res->synthesizeAnnotations = synthesizeAnnotations;
   for (const auto& currAnn : annotations)

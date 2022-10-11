@@ -701,7 +701,7 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone
   case SemanticExpressionType::COMPARISON:
   {
     const auto& compExp = getCompExp();
-    auto res = mystd::make_unique<ComparisonExpression>
+    auto res = std::make_unique<ComparisonExpression>
         (compExp.op,
          compExp.leftOperandExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
     res->tense = compExp.tense;
@@ -721,7 +721,7 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone
     if (pExpressionTypesToSkip != nullptr &&
         pExpressionTypesToSkip->count(SemanticExpressionType::INTERPRETATION) > 0)
       return intExp.originalExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip);
-    return mystd::make_unique<InterpretationExpression>
+    return std::make_unique<InterpretationExpression>
         (intExp.source,
          intExp.interpretedExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip),
          intExp.originalExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
@@ -729,7 +729,7 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone
   case SemanticExpressionType::FEEDBACK:
   {
     const auto& fdkExp = getFdkExp();
-    return mystd::make_unique<FeedbackExpression>
+    return std::make_unique<FeedbackExpression>
         (fdkExp.feedbackExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip),
          fdkExp.concernedExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
   }
@@ -881,26 +881,26 @@ void SemanticExpression::_assertChildrenEqual(const std::map<GrammaticalType, Un
 
 
 UniqueSemanticExpression::UniqueSemanticExpression()
-  : _semanticExpression(mystd::make_unique<GroundedExpression>())
+  : _semanticExpression(std::make_unique<GroundedExpression>())
 {
 }
 
 void UniqueSemanticExpression::clear()
 {
-  _semanticExpression = mystd::make_unique<GroundedExpression>();
+  _semanticExpression = std::make_unique<GroundedExpression>();
 }
 
 
 std::unique_ptr<GroundedExpressionContainer> makeGrdExpContainer(
     UniqueSemanticExpression& pUSemExp)
 {
-  return mystd::make_unique<GroundedExpressionFromSemExp>(std::move(pUSemExp));
+  return std::make_unique<GroundedExpressionFromSemExp>(std::move(pUSemExp));
 }
 
 std::unique_ptr<GroundedExpressionContainer> makeGrdExpContainer(
     const ReferenceOfSemanticExpressionContainer& pSemExpRef)
 {
-  return mystd::make_unique<GroundedExpressionRef>(pSemExpRef.getSemExp().getGrdExp());
+  return std::make_unique<GroundedExpressionRef>(pSemExpRef.getSemExp().getGrdExp());
 }
 
 } // End of namespace onsem

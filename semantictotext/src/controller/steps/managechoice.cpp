@@ -59,8 +59,8 @@ bool _isOnePolarityTrue(const std::list<TruenessValue>& pAnswersPolarities)
 
 UniqueSemanticExpression _neitherSemExp(std::size_t pNbOfElts)
 {
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticConceptualGrounding>(
+  return std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticConceptualGrounding>(
          pNbOfElts == 2 ? "accordance_disagreement_neither" :
                           "accordance_disagreement_noneOfThem"));
 }
@@ -68,8 +68,8 @@ UniqueSemanticExpression _neitherSemExp(std::size_t pNbOfElts)
 
 UniqueSemanticExpression _bothSemExp(std::size_t pNbOfElts)
 {
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticConceptualGrounding>(
+  return std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticConceptualGrounding>(
          pNbOfElts == 2 ? "accordance_agreement_both" :
                           "accordance_agreement_allOfThem"));
 }
@@ -83,7 +83,7 @@ void _addNeitherInterjection(SemAnswer& pSemAnswer,
   auto& leafAnsw = *leafPtr;
 
   if (leafAnsw.reaction)
-    leafAnsw.reaction.emplace(mystd::make_unique<FeedbackExpression>(
+    leafAnsw.reaction.emplace(std::make_unique<FeedbackExpression>(
                                 _neitherSemExp(pNbOfElts),
                                 std::move(*leafAnsw.reaction)));
 }
@@ -176,7 +176,7 @@ bool manageChoice(SemControllerWorkingStruct& pWorkStruct,
     {
       simplifier::processFromMemBlock(res, pMemViewer.constView, pWorkStruct.lingDb, true);
       if (_areAllPolaritiesTrue(answersPolarities))
-        res = mystd::make_unique<FeedbackExpression>(
+        res = std::make_unique<FeedbackExpression>(
               _bothSemExp(nbOfElts), std::move(res));
       pWorkStruct.addAnswer(ContextualAnnotation::ANSWER, std::move(res),
                             ReferencesFiller(relatedContextAxiom));
@@ -223,7 +223,7 @@ bool manageChoice(SemControllerWorkingStruct& pWorkStruct,
   {
     if (!answerElts.empty())
     {
-      auto newAnsw = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+      auto newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
       AllAnswerElts& allAnswElts = newAnsw->answerElts[SemanticRequestType::YESORNO];
       for (auto& currAnswerElt : answerElts)
         allAnswElts.answersGenerated.emplace_back(std::move(currAnswerElt));
@@ -237,7 +237,7 @@ bool manageChoice(SemControllerWorkingStruct& pWorkStruct,
     bool isTrue = _isOnePolarityTrue(answersPolarities);
     if (isTrue || _areAllPolaritiesFalse(answersPolarities))
     {
-      auto newAnsw = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+      auto newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
       AllAnswerElts& allAnswElts = newAnsw->answerElts[SemanticRequestType::YESORNO];
       allAnswElts.answersGenerated.emplace_back(SemExpCreator::sayYesOrNo(isTrue));
       pWorkStruct.compositeSemAnswers->semAnswers.emplace_back(std::move(newAnsw));

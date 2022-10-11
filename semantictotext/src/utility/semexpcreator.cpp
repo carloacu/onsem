@@ -19,8 +19,8 @@ namespace
 
 std::unique_ptr<GroundedExpression> _saySorry()
 {
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticConceptualGrounding>("sorry"));
+  return std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticConceptualGrounding>("sorry"));
 }
 
 std::unique_ptr<SemanticExpression> _copyAndReformateSemExpToPutItInAnAnswer
@@ -40,7 +40,7 @@ UniqueSemanticExpression _addAnnotationsToSemExp
   if (!pAnnotationsOfTheAnswer.empty())
   {
     if (!pAnnExp)
-      pAnnExp = mystd::make_unique<AnnotatedExpression>(std::move(pSemExp));
+      pAnnExp = std::make_unique<AnnotatedExpression>(std::move(pSemExp));
     for (const auto& currAnnChild : pAnnotationsOfTheAnswer)
       pAnnExp->annotations.emplace(currAnnChild.first, currAnnChild.second->clone());
   }
@@ -65,7 +65,7 @@ UniqueSemanticExpression _answerExpToSemExp(const AnswerExp& pAnswExp)
   if (!pAnswExp.annotationsOfTheAnswer.empty())
   {
     std::unique_ptr<AnnotatedExpression> annExp;
-    annExp = mystd::make_unique<AnnotatedExpression>(std::move(res));
+    annExp = std::make_unique<AnnotatedExpression>(std::move(res));
     for (const auto& currAnnChild : pAnswExp.annotationsOfTheAnswer)
       annExp->annotations.emplace(currAnnChild.first, currAnnChild.second->clone());
     return std::move(annExp);
@@ -87,7 +87,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _copyListOfGrdExps
   }
   else if (nbElts > 1)
   {
-    auto listExp = mystd::make_unique<ListExpression>(ListExpressionType::AND);
+    auto listExp = std::make_unique<ListExpression>(ListExpressionType::AND);
     for (const auto& currChild : pGrdExps)
       listExp->elts.emplace_back(_answerExpToSemExp(currChild));
     return UniqueSemanticExpression(std::move(listExp));
@@ -158,15 +158,15 @@ std::unique_ptr<GroundedExpression> _sayThatWeKnow(
 
 UniqueSemanticExpression _meSemExp()
 {
-  return mystd::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr());
+  return std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr());
 }
 
 std::unique_ptr<GroundedExpression> _statGrdExp(const std::string& pConcept)
 {
-  return mystd::make_unique<GroundedExpression>
+  return std::make_unique<GroundedExpression>
       ([&pConcept]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace(pConcept, 4);
     return statementGrd;
@@ -175,10 +175,10 @@ std::unique_ptr<GroundedExpression> _statGrdExp(const std::string& pConcept)
 
 std::unique_ptr<GroundedExpression> _whatIsGrdExp()
 {
-  return mystd::make_unique<GroundedExpression>
+  return std::make_unique<GroundedExpression>
       ([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
     statementGrd->concepts.emplace("verb_equal_mean", 4);
@@ -189,10 +189,10 @@ std::unique_ptr<GroundedExpression> _whatIsGrdExp()
 
 UniqueSemanticExpression _confirmSemExp(UniqueSemanticExpression pSemExp)
 {
-  auto yesGenGr = mystd::make_unique<SemanticGenericGrounding>();
+  auto yesGenGr = std::make_unique<SemanticGenericGrounding>();
   yesGenGr->concepts.emplace("accordance_agreement_yes", 4);
-  return mystd::make_unique<FeedbackExpression>
-      (mystd::make_unique<GroundedExpression>(std::move(yesGenGr)), std::move(pSemExp));
+  return std::make_unique<FeedbackExpression>
+      (std::make_unique<GroundedExpression>(std::move(yesGenGr)), std::move(pSemExp));
 }
 
 UniqueSemanticExpression _confirmWeAlreadyKnowIt(
@@ -207,7 +207,7 @@ UniqueSemanticExpression _confirmWeAlreadyKnowIt(
 std::unique_ptr<ListExpression> mergeInAList(UniqueSemanticExpression pSemExp1,
                                              UniqueSemanticExpression pSemExp2)
 {
-  auto res = mystd::make_unique<ListExpression>();
+  auto res = std::make_unique<ListExpression>();
   res->elts.emplace_back(std::move(pSemExp1));
   res->elts.emplace_back(std::move(pSemExp2));
   return res;
@@ -224,10 +224,10 @@ std::unique_ptr<GroundedExpression> copyAndReformateGrdExpToPutItInAnAnswer
 
 std::unique_ptr<SemanticExpression> sayThat()
 {
-  return mystd::make_unique<GroundedExpression>
+  return std::make_unique<GroundedExpression>
       ([]()
   {
-    auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto genGrd = std::make_unique<SemanticGenericGrounding>();
     genGrd->coreference.emplace();
     genGrd->entityType = SemanticEntityType::THING;
     return genGrd;
@@ -237,13 +237,13 @@ std::unique_ptr<SemanticExpression> sayThat()
 std::unique_ptr<GroundedExpression> sayIKnow(bool pPolarity)
 {
   // verb
-  auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+  auto statementGrd = std::make_unique<SemanticStatementGrounding>();
   statementGrd->verbTense = SemanticVerbTense::PRESENT;
   if (!pPolarity)
     statementGrd->polarity = false;
   statementGrd->concepts.emplace("mentalState_know", 4);
   auto rootGrdExp =
-      mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+      std::make_unique<GroundedExpression>(std::move(statementGrd));
 
   // subject
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
@@ -256,16 +256,16 @@ std::unique_ptr<GroundedExpression> thereIsXStepsFor(
     UniqueSemanticExpression pPurposeSemExp)
 {
   // verb
-  auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+  auto statementGrd = std::make_unique<SemanticStatementGrounding>();
   statementGrd->verbTense = SemanticVerbTense::PRESENT;
   statementGrd->concepts.emplace("verb_generality", 4);
   auto rootGrdExp =
-      mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+      std::make_unique<GroundedExpression>(std::move(statementGrd));
 
   // object
-  rootGrdExp->children.emplace(GrammaticalType::OBJECT, mystd::make_unique<GroundedExpression>([&]()
+  rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::make_unique<GroundedExpression>([&]()
   {
-    auto objGrounding = mystd::make_unique<SemanticGenericGrounding>();
+    auto objGrounding = std::make_unique<SemanticGenericGrounding>();
     objGrounding->referenceType = SemanticReferenceType::INDEFINITE;
     objGrounding->concepts.emplace("step", 4);
     objGrounding->quantity.setNumber(pNbOfSteps);
@@ -281,10 +281,10 @@ std::unique_ptr<GroundedExpression> thereIsXStepsFor(
 
 std::unique_ptr<GroundedExpression> doYouWantMeToSayThemOneByOne(const SemanticAgentGrounding& pSubjectGrounding)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_want", 4);
     statementGrd->requests.set(SemanticRequestType::YESORNO);
@@ -293,26 +293,26 @@ std::unique_ptr<GroundedExpression> doYouWantMeToSayThemOneByOne(const SemanticA
 
   // subject
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                               mystd::make_unique<GroundedExpression>
-                               (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                               std::make_unique<GroundedExpression>
+                               (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT,
                                [] {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PUNCTUALPRESENT;
     statementGrd->concepts.emplace("verb_action_say", 4);
     auto childGrdExp =
-        mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+        std::make_unique<GroundedExpression>(std::move(statementGrd));
 
     // subject
     childGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
 
     // object
-    childGrdExp->children.emplace(GrammaticalType::OBJECT, mystd::make_unique<GroundedExpression>([&]()
+    childGrdExp->children.emplace(GrammaticalType::OBJECT, std::make_unique<GroundedExpression>([&]()
     {
-      auto objGrounding = mystd::make_unique<SemanticGenericGrounding>();
+      auto objGrounding = std::make_unique<SemanticGenericGrounding>();
       objGrounding->referenceType = SemanticReferenceType::DEFINITE;
       objGrounding->coreference.emplace();
       objGrounding->quantity.setPlural();
@@ -320,9 +320,9 @@ std::unique_ptr<GroundedExpression> doYouWantMeToSayThemOneByOne(const SemanticA
     }()));
 
     // specifier
-    childGrdExp->children.emplace(GrammaticalType::SPECIFIER, mystd::make_unique<GroundedExpression>([&]()
+    childGrdExp->children.emplace(GrammaticalType::SPECIFIER, std::make_unique<GroundedExpression>([&]()
     {
-      auto sepcGrounding = mystd::make_unique<SemanticGenericGrounding>();
+      auto sepcGrounding = std::make_unique<SemanticGenericGrounding>();
       sepcGrounding->word = SemanticWord(SemanticLanguageEnum::FRENCH , "une par une", PartOfSpeech::ADVERB);
       return sepcGrounding;
     }()));
@@ -335,10 +335,10 @@ std::unique_ptr<GroundedExpression> doYouWantMeToSayThemOneByOne(const SemanticA
 
 std::unique_ptr<GroundedExpression> sayAndThenToContinue()
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PUNCTUALPRESENT;
     statementGrd->concepts.emplace("verb_action_say", 4);
     statementGrd->requests.set(SemanticRequestType::ACTION);
@@ -350,13 +350,13 @@ std::unique_ptr<GroundedExpression> sayAndThenToContinue()
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT,
-                               mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTextGrounding>("et après")));
+                               std::make_unique<GroundedExpression>(std::make_unique<SemanticTextGrounding>("et après")));
 
   // purpose
   rootGrdExp->children.emplace(GrammaticalType::PURPOSE,
-                               mystd::make_unique<GroundedExpression>([] {
+                               std::make_unique<GroundedExpression>([] {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::UNKNOWN;
     statementGrd->concepts.emplace("verb_continue", 4);
     return statementGrd;
@@ -368,10 +368,10 @@ std::unique_ptr<GroundedExpression> sayAndThenToContinue()
 
 std::unique_ptr<GroundedExpression> itIsFinished()
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_finish", 4);
     statementGrd->isPassive.emplace(true);
@@ -380,8 +380,8 @@ std::unique_ptr<GroundedExpression> itIsFinished()
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT,
-                               mystd::make_unique<GroundedExpression>([] {
-    auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+                               std::make_unique<GroundedExpression>([] {
+    auto genGrd = std::make_unique<SemanticGenericGrounding>();
     genGrd->referenceType = SemanticReferenceType::DEFINITE;
     genGrd->coreference.emplace(CoreferenceDirectionEnum::BEFORE);
     genGrd->quantity.setNumber(1);
@@ -399,7 +399,7 @@ UniqueSemanticExpression formulateConditionToAction(
     const SemanticExpression* pStuffToDoOtherwisePtr,
     bool pSemExpToDoIsAlwaysActive)
 {
-  auto condSemExp = mystd::make_unique<ConditionExpression>
+  auto condSemExp = std::make_unique<ConditionExpression>
       (pSemExpToDoIsAlwaysActive, false,
        pCondition.clone(), pStuffToDo.clone());
   if (pStuffToDoOtherwisePtr != nullptr)
@@ -442,8 +442,8 @@ UniqueSemanticExpression formulateActionDefinition(const GroundedExpression& pLa
                                                    const SemanticStatementGrounding& pEqualityStatement,
                                                    UniqueSemanticExpression pDefinition)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticStatementGrounding>(pEqualityStatement));
+  auto rootGrdExp = std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticStatementGrounding>(pEqualityStatement));
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT, pLabel.clone());
   rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pDefinition));
   return std::move(rootGrdExp);
@@ -451,10 +451,10 @@ UniqueSemanticExpression formulateActionDefinition(const GroundedExpression& pLa
 
 UniqueSemanticExpression whoSemExp()
 {
-  return mystd::make_unique<GroundedExpression>
+  return std::make_unique<GroundedExpression>
       ([]()
  {
-   auto anyHumanGrd = mystd::make_unique<SemanticGenericGrounding>();
+   auto anyHumanGrd = std::make_unique<SemanticGenericGrounding>();
    anyHumanGrd->entityType = SemanticEntityType::HUMAN;
    anyHumanGrd->concepts.emplace("agent", 4);
    return anyHumanGrd;
@@ -549,10 +549,10 @@ UniqueSemanticExpression askDoYouWantMeToDoItNow(
     const SemanticAgentGrounding& pSubjectGrounding,
     const GroundedExpression& pActionGrdExp)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_want", 4);
     statementGrd->requests.set(SemanticRequestType::YESORNO);
@@ -561,8 +561,8 @@ UniqueSemanticExpression askDoYouWantMeToDoItNow(
 
   // subject
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                               mystd::make_unique<GroundedExpression>
-                               (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                               std::make_unique<GroundedExpression>
+                               (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT,
@@ -577,7 +577,7 @@ UniqueSemanticExpression askDoYouWantMeToDoItNow(
 
     if (!SemExpGetter::hasChild(*subRootGrdExp, GrammaticalType::TIME))
       subRootGrdExp->children.emplace(GrammaticalType::TIME,
-                                      mystd::make_unique<GroundedExpression>
+                                      std::make_unique<GroundedExpression>
                                       (SemanticTimeGrounding::nowPtr()));
 
     return subRootGrdExp;
@@ -590,10 +590,10 @@ UniqueSemanticExpression iWantThatYou(
     const std::string& pSubjectId,
     UniqueSemanticExpression pObject)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_want", 4);
     return statementGrd;
@@ -601,8 +601,8 @@ UniqueSemanticExpression iWantThatYou(
 
   // subject
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                               mystd::make_unique<GroundedExpression>
-                               (mystd::make_unique<SemanticAgentGrounding>(pSubjectId)));
+                               std::make_unique<GroundedExpression>
+                               (std::make_unique<SemanticAgentGrounding>(pSubjectId)));
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pObject));
@@ -612,8 +612,8 @@ UniqueSemanticExpression iWantThatYou(
 
 UniqueSemanticExpression sayYesOrNo(bool pAnswerPolarity)
 {
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticConceptualGrounding>(pAnswerPolarity ? "accordance_agreement_true" : "accordance_disagreement_false"));
+  return std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticConceptualGrounding>(pAnswerPolarity ? "accordance_agreement_true" : "accordance_disagreement_false"));
 }
 
 
@@ -621,10 +621,10 @@ UniqueSemanticExpression formulateAge(
     UniqueSemanticExpression&& pSubject,
     std::unique_ptr<SemanticExpression> pAgeSemExp)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("predicate_hasAge", 4);
     return statementGrd;
@@ -659,9 +659,9 @@ UniqueSemanticExpression sayThatTheAssertionIsTrueOrFalse(
     SemExpModifier::invertPolarityFromGrdExp(*rootGrdExp);
 
   // interjection
-  return mystd::make_unique<FeedbackExpression>(mystd::make_unique<GroundedExpression>([&pTrueOrFalse]()
+  return std::make_unique<FeedbackExpression>(std::make_unique<GroundedExpression>([&pTrueOrFalse]()
   {
-    auto noGrounding = mystd::make_unique<SemanticGenericGrounding>();
+    auto noGrounding = std::make_unique<SemanticGenericGrounding>();
     noGrounding->concepts.emplace(pTrueOrFalse ? "accordance_agreement_yes" : "accordance_disagreement_no", 4);
     return noGrounding;
   }()), std::move(rootGrdExp));
@@ -671,10 +671,10 @@ UniqueSemanticExpression sayThatTheAssertionIsTrueOrFalse(
 std::unique_ptr<GroundedExpression> sayICan(bool pPolarity)
 {
   auto rootGrdExp =
-      mystd::make_unique<GroundedExpression>([pPolarity]()
+      std::make_unique<GroundedExpression>([pPolarity]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_can", 4);
     statementGrd->polarity = pPolarity;
@@ -692,10 +692,10 @@ UniqueSemanticExpression askDoYouWantToKnowHow(const SemanticAgentGrounding& pSu
                                                UniqueSemanticExpression pActionSemExp)
 {
   auto rootGrdExp =
-      mystd::make_unique<GroundedExpression>([]()
+      std::make_unique<GroundedExpression>([]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_want", 4);
     statementGrd->requests.set(SemanticRequestType::YESORNO);
@@ -704,15 +704,15 @@ UniqueSemanticExpression askDoYouWantToKnowHow(const SemanticAgentGrounding& pSu
 
   // subject
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                                mystd::make_unique<GroundedExpression>
-                                (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                                std::make_unique<GroundedExpression>
+                                (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
 
   rootGrdExp->children.emplace(GrammaticalType::OBJECT, [&]
   {
     auto knowGrdExp =
-        mystd::make_unique<GroundedExpression>([]
+        std::make_unique<GroundedExpression>([]
     {
-      auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+      auto statementGrd = std::make_unique<SemanticStatementGrounding>();
       statementGrd->verbTense = SemanticVerbTense::UNKNOWN;
       statementGrd->concepts.emplace("mentalState_know", 4);
       return statementGrd;
@@ -720,19 +720,19 @@ UniqueSemanticExpression askDoYouWantToKnowHow(const SemanticAgentGrounding& pSu
 
     knowGrdExp->children.emplace(GrammaticalType::OBJECT, [&]
     {
-      auto annExp = mystd::make_unique<AnnotatedExpression>(
-            mystd::make_unique<GroundedExpression>([]
+      auto annExp = std::make_unique<AnnotatedExpression>(
+            std::make_unique<GroundedExpression>([]
       {
-        auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+        auto statementGrd = std::make_unique<SemanticStatementGrounding>();
         statementGrd->coreference.emplace(CoreferenceDirectionEnum::ANNOTATION_SPECIFICATIONS);
         statementGrd->requests.set(SemanticRequestType::MANNER);
         return statementGrd;
       }()));
       annExp->annotations.emplace(GrammaticalType::SPECIFIER, [&]
       {
-        auto teachGrdExp = mystd::make_unique<GroundedExpression>([&]
+        auto teachGrdExp = std::make_unique<GroundedExpression>([&]
         {
-          auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+          auto statementGrd = std::make_unique<SemanticStatementGrounding>();
           statementGrd->verbTense = SemanticVerbTense::PRESENT;
           statementGrd->concepts.emplace("verb_action_teach", 4);
           statementGrd->verbGoal = VerbGoalEnum::ABILITY;
@@ -740,8 +740,8 @@ UniqueSemanticExpression askDoYouWantToKnowHow(const SemanticAgentGrounding& pSu
           return statementGrd;
         }());
         teachGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                                      mystd::make_unique<GroundedExpression>
-                                      (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                                      std::make_unique<GroundedExpression>
+                                      (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
         teachGrdExp->children.emplace(GrammaticalType::RECEIVER, _meSemExp());
         teachGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pActionSemExp));
         return teachGrdExp;
@@ -763,16 +763,16 @@ UniqueSemanticExpression askWhatIsYourName(const std::string& pSubjectId)
   // subject
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT, [&]
   {
-    auto nameGrdExp = mystd::make_unique<GroundedExpression>([]
+    auto nameGrdExp = std::make_unique<GroundedExpression>([]
     {
-      auto nameGenGrd = mystd::make_unique<SemanticGenericGrounding>();
+      auto nameGenGrd = std::make_unique<SemanticGenericGrounding>();
       nameGenGrd->entityType = SemanticEntityType::THING;
       nameGenGrd->concepts.emplace("name", 4);
       return nameGenGrd;
     }());
     nameGrdExp->children.emplace(GrammaticalType::OWNER,
-                                 mystd::make_unique<GroundedExpression>
-                                 (mystd::make_unique<SemanticAgentGrounding>(pSubjectId)));
+                                 std::make_unique<GroundedExpression>
+                                 (std::make_unique<SemanticAgentGrounding>(pSubjectId)));
     return nameGrdExp;
   }());
   return std::move(rootGrdExp);
@@ -786,10 +786,10 @@ void addButYouCanTeachMe(GroundedExpression& pRootGrdExp,
                                [&]
   {
     auto teachGrdExp =
-        mystd::make_unique<GroundedExpression>([]()
+        std::make_unique<GroundedExpression>([]()
     {
       // verb
-      auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+      auto statementGrd = std::make_unique<SemanticStatementGrounding>();
       statementGrd->verbTense = SemanticVerbTense::PRESENT;
       statementGrd->verbGoal = VerbGoalEnum::ABILITY;
       statementGrd->concepts.emplace("verb_action_teach", 4);
@@ -798,8 +798,8 @@ void addButYouCanTeachMe(GroundedExpression& pRootGrdExp,
 
     // subject
     teachGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                                  mystd::make_unique<GroundedExpression>
-                                  (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                                  std::make_unique<GroundedExpression>
+                                  (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
 
     // receiver
     teachGrdExp->children.emplace(GrammaticalType::RECEIVER, _meSemExp());
@@ -811,9 +811,9 @@ void addButYouCanTeachMe(GroundedExpression& pRootGrdExp,
 UniqueSemanticExpression sayIThoughtThat(UniqueSemanticExpression pObjectSemExp)
 {
   auto rootGrdExp =
-      mystd::make_unique<GroundedExpression>([]()
+      std::make_unique<GroundedExpression>([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PAST;
     statementGrd->concepts.emplace("verb_think", 4);
     return statementGrd;
@@ -827,10 +827,10 @@ UniqueSemanticExpression sayIThoughtThat(UniqueSemanticExpression pObjectSemExp)
 
 UniqueSemanticExpression sayThatWeThoughtTheContrary()
 {
-  return sayIThoughtThat(mystd::make_unique<GroundedExpression>
+  return sayIThoughtThat(std::make_unique<GroundedExpression>
                          ([]()
   {
-    auto contraryGrounding = mystd::make_unique<SemanticGenericGrounding>();
+    auto contraryGrounding = std::make_unique<SemanticGenericGrounding>();
     contraryGrounding->referenceType = SemanticReferenceType::DEFINITE;
     contraryGrounding->concepts.emplace("opposite", 4);
     return contraryGrounding;
@@ -841,9 +841,9 @@ UniqueSemanticExpression sayThatWeThoughtTheContrary()
 UniqueSemanticExpression formulateWeekDay(
     const std::string& pWeekDayConcept)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PAST;
     statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
     return statementGrd;
@@ -851,29 +851,29 @@ UniqueSemanticExpression formulateWeekDay(
 
   // subject
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                               mystd::make_unique<GroundedExpression>
+                               std::make_unique<GroundedExpression>
                                (SemanticGenericGrounding::makeThingThatHasToBeCompletedFromContext()));
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT,
-                               mystd::make_unique<GroundedExpression>([&pWeekDayConcept]()
+                               std::make_unique<GroundedExpression>([&pWeekDayConcept]()
   {
-    auto objectGrd = mystd::make_unique<SemanticGenericGrounding>(SemanticReferenceType::INDEFINITE,
+    auto objectGrd = std::make_unique<SemanticGenericGrounding>(SemanticReferenceType::INDEFINITE,
                                                                   SemanticEntityType::THING);
     objectGrd->concepts.emplace(pWeekDayConcept, 4);
     return objectGrd;
   }()));
 
   // interjection
-  return mystd::make_unique<FeedbackExpression>(sayOk(), std::move(rootGrdExp));
+  return std::make_unique<FeedbackExpression>(sayOk(), std::move(rootGrdExp));
 }
 
 
 UniqueSemanticExpression okIRemoveAllConditions()
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PUNCTUALPRESENT;
     statementGrd->concepts.emplace("verb_action_remove", 4);
     return statementGrd;
@@ -882,9 +882,9 @@ UniqueSemanticExpression okIRemoveAllConditions()
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT,
-                               mystd::make_unique<GroundedExpression>([]()
+                               std::make_unique<GroundedExpression>([]()
   {
-    auto objectGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto objectGrd = std::make_unique<SemanticGenericGrounding>();
     objectGrd->quantity.type = SemanticQuantityType::MAXNUMBER;
     objectGrd->referenceType = SemanticReferenceType::DEFINITE;
     objectGrd->entityType = SemanticEntityType::THING;
@@ -893,7 +893,7 @@ UniqueSemanticExpression okIRemoveAllConditions()
   }()));
 
   // interjection
-  return mystd::make_unique<FeedbackExpression>(sayOk(), std::move(rootGrdExp));
+  return std::make_unique<FeedbackExpression>(sayOk(), std::move(rootGrdExp));
 }
 
 
@@ -901,9 +901,9 @@ UniqueSemanticExpression formulateHowWeKnowSomething(
     const SemanticExpression& pWhatWeKnow,
     const SemanticExpression& pHowWeKnowThat)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("mentalState_know", 4);
     return statementGrd;
@@ -921,13 +921,13 @@ UniqueSemanticExpression forExampleSayToDoMeansToSayIDo(
     const SemanticAgentGrounding& pAuthor,
     const GroundedExpression& pActionGrdExp)
 {
-  return mystd::make_unique<FeedbackExpression>(
-        mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("forExample")),
+  return std::make_unique<FeedbackExpression>(
+        std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("forExample")),
         [&]
   {
-    auto rootGrdExp = mystd::make_unique<GroundedExpression>([]
+    auto rootGrdExp = std::make_unique<GroundedExpression>([]
     {
-      auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+      auto statementGrd = std::make_unique<SemanticStatementGrounding>();
       statementGrd->verbTense = SemanticVerbTense::PRESENT;
       statementGrd->verbGoal = VerbGoalEnum::ABILITY;
       statementGrd->concepts.emplace("verb_action_say", 4);
@@ -936,8 +936,8 @@ UniqueSemanticExpression forExampleSayToDoMeansToSayIDo(
     }());
 
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                                 mystd::make_unique<GroundedExpression>
-                                 (mystd::make_unique<SemanticAgentGrounding>(pAuthor)));
+                                 std::make_unique<GroundedExpression>
+                                 (std::make_unique<SemanticAgentGrounding>(pAuthor)));
 
     rootGrdExp->children.emplace(GrammaticalType::RECEIVER, _meSemExp());
 
@@ -948,9 +948,9 @@ UniqueSemanticExpression forExampleSayToDoMeansToSayIDo(
       meansGrdExp->children.emplace(GrammaticalType::SUBJECT, pActionGrdExp.clone());
       meansGrdExp->children.emplace(GrammaticalType::OBJECT, [&]
       {
-        auto sayGrdExp = mystd::make_unique<GroundedExpression>([&]
+        auto sayGrdExp = std::make_unique<GroundedExpression>([&]
         {
-          auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+          auto statementGrd = std::make_unique<SemanticStatementGrounding>();
           statementGrd->verbTense = SemanticVerbTense::UNKNOWN;
           statementGrd->concepts.emplace("verb_action_say", 4);
           return statementGrd;
@@ -973,9 +973,9 @@ std::unique_ptr<SemanticExpression> getSemExpThatSomebodyToldMeThat(
 {
   // verb
   auto grdExp =
-      mystd::make_unique<GroundedExpression>([]()
+      std::make_unique<GroundedExpression>([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PUNCTUALPAST;
     statementGrd->concepts.emplace("verb_action_say", 4);
     return statementGrd;
@@ -983,15 +983,15 @@ std::unique_ptr<SemanticExpression> getSemExpThatSomebodyToldMeThat(
 
   // subject
   grdExp->children.emplace(GrammaticalType::SUBJECT,
-                           mystd::make_unique<GroundedExpression>
-                           (mystd::make_unique<SemanticAgentGrounding>(pAuthor)));
+                           std::make_unique<GroundedExpression>
+                           (std::make_unique<SemanticAgentGrounding>(pAuthor)));
 
   // receiver
   grdExp->children.emplace(GrammaticalType::RECEIVER, _meSemExp());
 
   // object
   grdExp->children.emplace(GrammaticalType::OBJECT,
-                           mystd::make_unique<GroundedExpression>
+                           std::make_unique<GroundedExpression>
                            (SemanticGenericGrounding::makeThingThatHasToBeCompletedFromContext()));
 
   return std::move(grdExp);
@@ -1009,9 +1009,9 @@ std::unique_ptr<SemanticExpression> getSemExpOfEventValue(
   // subject
   grdExp->children.emplace(GrammaticalType::SUBJECT, [&pEventName]()
   {
-    auto subjectGrdExp = mystd::make_unique<GroundedExpression>([]()
+    auto subjectGrdExp = std::make_unique<GroundedExpression>([]()
     {
-      auto subjectGenGrd = mystd::make_unique<SemanticGenericGrounding>();
+      auto subjectGenGrd = std::make_unique<SemanticGenericGrounding>();
       subjectGenGrd->referenceType = SemanticReferenceType::DEFINITE;
       subjectGenGrd->entityType = SemanticEntityType::THING;
       subjectGenGrd->concepts.emplace("value", 4);
@@ -1020,15 +1020,15 @@ std::unique_ptr<SemanticExpression> getSemExpOfEventValue(
 
     // subject owner
     subjectGrdExp->children.emplace(GrammaticalType::OWNER,
-                                    mystd::make_unique<GroundedExpression>
-                                    (mystd::make_unique<SemanticTextGrounding>(pEventName)));
+                                    std::make_unique<GroundedExpression>
+                                    (std::make_unique<SemanticTextGrounding>(pEventName)));
     return subjectGrdExp;
   }());
 
   // object
   grdExp->children.emplace(GrammaticalType::OBJECT,
-                           mystd::make_unique<GroundedExpression>
-                           (mystd::make_unique<SemanticTextGrounding>(pEventValue)));
+                           std::make_unique<GroundedExpression>
+                           (std::make_unique<SemanticTextGrounding>(pEventValue)));
 
   return std::move(grdExp);
 }
@@ -1037,23 +1037,23 @@ std::unique_ptr<SemanticExpression> getSemExpOfEventValue(
 std::unique_ptr<SemanticExpression> sayThatOpNotifyInformedMeThat()
 {
   // verb
-  auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+  auto statementGrd = std::make_unique<SemanticStatementGrounding>();
   statementGrd->verbTense = SemanticVerbTense::PUNCTUALPAST;
   statementGrd->concepts.emplace("verb_action_notify", 4);
   auto grdExp =
-      mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+      std::make_unique<GroundedExpression>(std::move(statementGrd));
 
   // subject
   grdExp->children.emplace(GrammaticalType::SUBJECT,
-                           mystd::make_unique<GroundedExpression>
-                           (mystd::make_unique<SemanticTextGrounding>("operator_inform")));
+                           std::make_unique<GroundedExpression>
+                           (std::make_unique<SemanticTextGrounding>("operator_inform")));
 
   // receiver
   grdExp->children.emplace(GrammaticalType::RECEIVER, _meSemExp());
 
   // object
   grdExp->children.emplace(GrammaticalType::OBJECT,
-                           mystd::make_unique<GroundedExpression>
+                           std::make_unique<GroundedExpression>
                            (SemanticGenericGrounding::makeThingThatHasToBeCompletedFromContext()));
   return std::move(grdExp);
 }
@@ -1068,18 +1068,18 @@ UniqueSemanticExpression sayThanksThatsCool(
 
   // fill subject
   res->children.emplace(GrammaticalType::SUBJECT,
-                        mystd::make_unique<GroundedExpression>
-                        (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                        std::make_unique<GroundedExpression>
+                        (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
 
   // fill object
   {
-    auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto genGrd = std::make_unique<SemanticGenericGrounding>();
     genGrd->concepts.emplace("sentiment_positive_kind", 4);
     res->children.emplace(GrammaticalType::OBJECT,
-                          mystd::make_unique<GroundedExpression>(std::move(genGrd)));
+                          std::make_unique<GroundedExpression>(std::move(genGrd)));
   }
 
-  return mystd::make_unique<FeedbackExpression>(sayThanks(), std::move(res));
+  return std::make_unique<FeedbackExpression>(sayThanks(), std::move(res));
 }
 
 
@@ -1094,15 +1094,15 @@ UniqueSemanticExpression sayIAmHappyToHearThat()
   // fill object
   res->children.emplace(GrammaticalType::OBJECT,
   [] {
-    auto objGenGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto objGenGrd = std::make_unique<SemanticGenericGrounding>();
     objGenGrd->word = SemanticWord(SemanticLanguageEnum::ENGLISH, "happy", PartOfSpeech::ADJECTIVE);
-    auto objGrdExp = mystd::make_unique<GroundedExpression>(std::move(objGenGrd));
+    auto objGrdExp = std::make_unique<GroundedExpression>(std::move(objGenGrd));
     objGrdExp->children.emplace(GrammaticalType::SPECIFIER,
                           []
     {
-      auto subStatementGrd = mystd::make_unique<SemanticStatementGrounding>();
+      auto subStatementGrd = std::make_unique<SemanticStatementGrounding>();
       subStatementGrd->concepts.emplace("perception_hear", 4);
-      auto subRes = mystd::make_unique<GroundedExpression>(std::move(subStatementGrd));
+      auto subRes = std::make_unique<GroundedExpression>(std::move(subStatementGrd));
       subRes->children.emplace(GrammaticalType::OBJECT, sayThat());
       return subRes;
     }());
@@ -1125,18 +1125,18 @@ UniqueSemanticExpression itsMe()
 UniqueSemanticExpression itIsNotKind()
 {
   // fill verb
-  auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+  auto statementGrd = std::make_unique<SemanticStatementGrounding>();
   statementGrd->verbTense = SemanticVerbTense::PRESENT;
   statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
   statementGrd->polarity = false;
-  auto res = mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+  auto res = std::make_unique<GroundedExpression>(std::move(statementGrd));
 
   // fill subject
   res->children.emplace(GrammaticalType::SUBJECT, sayThat());
 
   // fill object
-  res->children.emplace(GrammaticalType::OBJECT, mystd::make_unique<GroundedExpression>
-                        (mystd::make_unique<SemanticConceptualGrounding>("sentiment_positive_kind")));
+  res->children.emplace(GrammaticalType::OBJECT, std::make_unique<GroundedExpression>
+                        (std::make_unique<SemanticConceptualGrounding>("sentiment_positive_kind")));
   return std::move(res);
 }
 
@@ -1150,16 +1150,16 @@ UniqueSemanticExpression itIsABadNews()
   res->children.emplace(GrammaticalType::SUBJECT, sayThat());
 
   // fill object
-  auto grdExpObject = mystd::make_unique<GroundedExpression>([]()
+  auto grdExpObject = std::make_unique<GroundedExpression>([]()
   {
-    auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto genGrd = std::make_unique<SemanticGenericGrounding>();
     genGrd->referenceType = SemanticReferenceType::INDEFINITE;
     genGrd->concepts.emplace("news", 4);
     genGrd->entityType = SemanticEntityType::THING;
     return genGrd;
   }());
-  grdExpObject->children.emplace(GrammaticalType::SPECIFIER, mystd::make_unique<GroundedExpression>
-                                 (mystd::make_unique<SemanticConceptualGrounding>("sentiment_negative_bad")));
+  grdExpObject->children.emplace(GrammaticalType::SPECIFIER, std::make_unique<GroundedExpression>
+                                 (std::make_unique<SemanticConceptualGrounding>("sentiment_negative_bad")));
   res->children.emplace(GrammaticalType::OBJECT, std::move(grdExpObject));
 
   return std::move(res);
@@ -1171,19 +1171,19 @@ UniqueSemanticExpression niceYouLikeIt(UniqueSemanticExpression pNiceSemExp,
 {
   auto res = _statGrdExp("verb_like");
   res->children.emplace(GrammaticalType::SUBJECT,
-                        mystd::make_unique<GroundedExpression>
-                        (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                        std::make_unique<GroundedExpression>
+                        (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
   res->children.emplace(GrammaticalType::OBJECT, sayThat());
-  return mystd::make_unique<FeedbackExpression>(std::move(pNiceSemExp), std::move(res));
+  return std::make_unique<FeedbackExpression>(std::move(pNiceSemExp), std::move(res));
 }
 
 
 UniqueSemanticExpression sorryIWillTryToImproveMyself()
 {
-  auto res = mystd::make_unique<GroundedExpression>
+  auto res = std::make_unique<GroundedExpression>
       ([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::FUTURE;
     statementGrd->concepts.emplace("verb_try", 4);
     return statementGrd;
@@ -1191,10 +1191,10 @@ UniqueSemanticExpression sorryIWillTryToImproveMyself()
   res->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
   res->children.emplace(GrammaticalType::OBJECT, []
   {
-    auto subRes = mystd::make_unique<GroundedExpression>
+    auto subRes = std::make_unique<GroundedExpression>
         ([]()
     {
-      auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+      auto statementGrd = std::make_unique<SemanticStatementGrounding>();
       statementGrd->verbTense = SemanticVerbTense::UNKNOWN;
       statementGrd->concepts.emplace("verb_action_improve", 4);
       return statementGrd;
@@ -1202,7 +1202,7 @@ UniqueSemanticExpression sorryIWillTryToImproveMyself()
     subRes->children.emplace(GrammaticalType::OBJECT, _meSemExp());
     return subRes;
   }());
-  return mystd::make_unique<FeedbackExpression>(_saySorry(), std::move(res));
+  return std::make_unique<FeedbackExpression>(_saySorry(), std::move(res));
 }
 
 
@@ -1216,9 +1216,9 @@ UniqueSemanticExpression iAmSorryToHearThat()
 
   // fill object
   auto grdExpObject = _saySorry();
-  auto hearStatement = mystd::make_unique<SemanticStatementGrounding>();
+  auto hearStatement = std::make_unique<SemanticStatementGrounding>();
   hearStatement->concepts.emplace("perception_hear", 4);
-  auto grdExpHear = mystd::make_unique<GroundedExpression>(std::move(hearStatement));
+  auto grdExpHear = std::make_unique<GroundedExpression>(std::move(hearStatement));
   grdExpHear->children.emplace(GrammaticalType::OBJECT, sayThat());
   grdExpObject->children.emplace(GrammaticalType::SPECIFIER, std::move(grdExpHear));
   res->children.emplace(GrammaticalType::OBJECT, std::move(grdExpObject));
@@ -1252,10 +1252,10 @@ UniqueSemanticExpression generateNumberOfTimesAnswer(
   if (statGr != nullptr)
     statGr->requests.clear();
   rootGrdExp->children.emplace(GrammaticalType::REPETITION,
-                               mystd::make_unique<GroundedExpression>
+                               std::make_unique<GroundedExpression>
                                ([pNbOfTimes]()
   {
-    auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto genGrd = std::make_unique<SemanticGenericGrounding>();
     genGrd->concepts.emplace("times", 4);
     genGrd->quantity.setNumber(static_cast<int>(pNbOfTimes));
     genGrd->entityType = SemanticEntityType::THING;
@@ -1269,7 +1269,7 @@ UniqueSemanticExpression generateNumberOfTimesAnswer(
 std::unique_ptr<GroundedExpression> _invertSubjectAndObject(
     const GroundedExpression& pGrdExp)
 {
-  auto res = mystd::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
+  auto res = std::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
   for (const auto& currChild : pGrdExp.children)
     res->children.emplace(SemExpGetter::invertGrammaticalType(currChild.first), currChild.second->clone());
   return res;
@@ -1384,7 +1384,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
         }
         else if (nbOfReqToAswers > 1)
         {
-          auto listExp = mystd::make_unique<ListExpression>();
+          auto listExp = std::make_unique<ListExpression>();
           for (auto& currAnswer : requestToAnswers)
             listExp->elts.emplace_back(std::move(currAnswer.second));
           res = std::move(listExp);
@@ -1425,12 +1425,12 @@ UniqueSemanticExpression sayThatWeDontKnowAnInstanceOf(
 UniqueSemanticExpression sayThatTheRobotCannotDoIt(
     const SemanticExpression& pSemExp)
 {
-  auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+  auto statementGrd = std::make_unique<SemanticStatementGrounding>();
   statementGrd->verbTense = SemanticVerbTense::PRESENT;
   statementGrd->polarity = false;
   statementGrd->concepts.emplace("verb_able", 4);
   auto rootGrdExp =
-      mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+      std::make_unique<GroundedExpression>(std::move(statementGrd));
 
   SemExpModifier::addChild(*rootGrdExp, GrammaticalType::SUBJECT, _meSemExp());
 
@@ -1471,9 +1471,9 @@ UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(
 
   grdExpPtr->children.emplace(GrammaticalType::MITIGATION,
                               []() {
-    auto mtgGrdExp = mystd::make_unique<GroundedExpression>
+    auto mtgGrdExp = std::make_unique<GroundedExpression>
         ([](){
-      auto knowStatGrd = mystd::make_unique<SemanticStatementGrounding>();
+      auto knowStatGrd = std::make_unique<SemanticStatementGrounding>();
       knowStatGrd->verbTense = SemanticVerbTense::PRESENT;
       knowStatGrd->concepts.emplace("mentalState_know", 4);
       return knowStatGrd;
@@ -1482,10 +1482,10 @@ UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(
     SemExpModifier::addChild(*mtgGrdExp, GrammaticalType::SUBJECT, _meSemExp());
 
     mtgGrdExp->children.emplace(GrammaticalType::OBJECT,
-                                 mystd::make_unique<GroundedExpression>
+                                 std::make_unique<GroundedExpression>
                                  ([]()
     {
-      auto doStGr = mystd::make_unique<SemanticStatementGrounding>();
+      auto doStGr = std::make_unique<SemanticStatementGrounding>();
       doStGr->verbTense = SemanticVerbTense::UNKNOWN;
       doStGr->requests.add(SemanticRequestType::MANNER);
       doStGr->concepts.emplace("verb_action", 4);
@@ -1502,10 +1502,10 @@ UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(
 std::unique_ptr<GroundedExpression> doYouWantMeToSayToTellYouHowTo(const SemanticAgentGrounding& pSubjectGrounding,
                                                                    const GroundedExpression& pGrdExp)
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>([]()
+  auto rootGrdExp = std::make_unique<GroundedExpression>([]()
   {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_want", 4);
     statementGrd->requests.set(SemanticRequestType::YESORNO);
@@ -1514,26 +1514,26 @@ std::unique_ptr<GroundedExpression> doYouWantMeToSayToTellYouHowTo(const Semanti
 
   // subject
   rootGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                               mystd::make_unique<GroundedExpression>
-                               (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                               std::make_unique<GroundedExpression>
+                               (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
 
   // object
   rootGrdExp->children.emplace(GrammaticalType::OBJECT,
                                [&] {
     // verb
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PUNCTUALPRESENT;
     statementGrd->concepts.emplace("verb_action_say", 4);
     auto childGrdExp =
-        mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+        std::make_unique<GroundedExpression>(std::move(statementGrd));
 
     // subject
     childGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
 
     // receiver
     childGrdExp->children.emplace(GrammaticalType::RECEIVER,
-                                  mystd::make_unique<GroundedExpression>
-                                  (mystd::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
+                                  std::make_unique<GroundedExpression>
+                                  (std::make_unique<SemanticAgentGrounding>(pSubjectGrounding)));
 
     // object
     childGrdExp->children.emplace(GrammaticalType::OBJECT, [&]() {
@@ -1581,7 +1581,7 @@ UniqueSemanticExpression sayWeWillDoIt_fromGrdExp(
   auto rootGrdExp = pGrdExp.clone();
   SemExpModifier::clearRequestList(*rootGrdExp);
   SemExpModifier::modifyVerbTense(*rootGrdExp, SemanticVerbTense::FUTURE);
-  return mystd::make_unique<FeedbackExpression>(sayOk(), std::move(rootGrdExp));
+  return std::make_unique<FeedbackExpression>(sayOk(), std::move(rootGrdExp));
 }
 
 
@@ -1600,7 +1600,7 @@ UniqueSemanticExpression sayWeWillDoIt(
     SemExpModifier::modifyVerbTenseOfSemExp(**rootCondExp.elseExp,
                                             SemanticVerbTense::FUTURE);
   }
-  return mystd::make_unique<FeedbackExpression>(sayOk(), std::move(condExp));
+  return std::make_unique<FeedbackExpression>(sayOk(), std::move(condExp));
 }
 
 
@@ -1609,15 +1609,15 @@ UniqueSemanticExpression confirmInformation(
 {
   auto rootGrdExp = pGrdExp.clone();
   SemExpModifier::clearRequestList(*rootGrdExp);
-  return mystd::make_unique<FeedbackExpression>(sayOk(), std::move(rootGrdExp));
+  return std::make_unique<FeedbackExpression>(sayOk(), std::move(rootGrdExp));
 }
 
 
 UniqueSemanticExpression wrapWithStatementWithRequest(UniqueSemanticExpression pUSemExp,
                                                       const SemanticRequests& pRequests)
 {
-    auto newRes = mystd::make_unique<GroundedExpression>([&]() {
-      auto statRes = mystd::make_unique<SemanticStatementGrounding>();
+    auto newRes = std::make_unique<GroundedExpression>([&]() {
+      auto statRes = std::make_unique<SemanticStatementGrounding>();
       statRes->requests = pRequests;
       return statRes;
     }());
@@ -1634,28 +1634,28 @@ UniqueSemanticExpression confirmInfoCondition(
   SemExpModifier::clearRequestListOfSemExp(*rootCondExp.thenExp);
   if (rootCondExp.elseExp)
     SemExpModifier::clearRequestListOfSemExp(**rootCondExp.elseExp);
-  return mystd::make_unique<FeedbackExpression>(sayOk(), std::move(condExp));
+  return std::make_unique<FeedbackExpression>(sayOk(), std::move(condExp));
 }
 
 
 UniqueSemanticExpression sayAlso()
 {
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticConceptualGrounding>("also"));
+  return std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticConceptualGrounding>("also"));
 }
 
 UniqueSemanticExpression sayThanks()
 {
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticConceptualGrounding>("sentiment_positive_thanks"));
+  return std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticConceptualGrounding>("sentiment_positive_thanks"));
 }
 
 UniqueSemanticExpression sayOk()
 {
-  return mystd::make_unique<GroundedExpression>
+  return std::make_unique<GroundedExpression>
       ([]()
   {
-    auto okGrounding = mystd::make_unique<SemanticGenericGrounding>();
+    auto okGrounding = std::make_unique<SemanticGenericGrounding>();
     okGrounding->word.language = SemanticLanguageEnum::ENGLISH;
     okGrounding->word.lemma = "ok";
     okGrounding->word.partOfSpeech = PartOfSpeech::ADVERB; // TODO: check that this meaning exists
@@ -1665,29 +1665,29 @@ UniqueSemanticExpression sayOk()
 
 UniqueSemanticExpression sayTrue()
 {
-  auto trueGrounding = mystd::make_unique<SemanticGenericGrounding>();
+  auto trueGrounding = std::make_unique<SemanticGenericGrounding>();
   trueGrounding->word.language = SemanticLanguageEnum::ENGLISH;
   trueGrounding->word.lemma = "true";
   trueGrounding->word.partOfSpeech = PartOfSpeech::ADVERB; // TODO: check that this meaning exists
   trueGrounding->concepts.emplace("accordance_agreement_true", 4);
-  return mystd::make_unique<GroundedExpression>(std::move(trueGrounding));
+  return std::make_unique<GroundedExpression>(std::move(trueGrounding));
 }
 
 UniqueSemanticExpression sayFalse()
 {
-  auto falseGrounding = mystd::make_unique<SemanticGenericGrounding>();
+  auto falseGrounding = std::make_unique<SemanticGenericGrounding>();
   falseGrounding->word.language = SemanticLanguageEnum::ENGLISH;
   falseGrounding->word.lemma = "false";
   falseGrounding->word.partOfSpeech = PartOfSpeech::ADVERB; // TODO: check that this meaning exists
   falseGrounding->concepts.emplace("accordance_disagreement_false", 4);
-  return mystd::make_unique<GroundedExpression>(std::move(falseGrounding));
+  return std::make_unique<GroundedExpression>(std::move(falseGrounding));
 }
 
 
 UniqueSemanticExpression generateYesOrNo(bool pSamePolarity)
 {
-  return mystd::make_unique<GroundedExpression>([&pSamePolarity]{
-    auto yesGenGr = mystd::make_unique<SemanticGenericGrounding>();
+  return std::make_unique<GroundedExpression>([&pSamePolarity]{
+    auto yesGenGr = std::make_unique<SemanticGenericGrounding>();
     yesGenGr->concepts.emplace(pSamePolarity ? "accordance_agreement_yes" : "accordance_disagreement_no", 4);
     return yesGenGr;
   }());
@@ -1697,7 +1697,7 @@ UniqueSemanticExpression generateYesOrNo(bool pSamePolarity)
 UniqueSemanticExpression generateYesOrNoAnswer(UniqueSemanticExpression pSemExp,
                                                bool pSamePolarity)
 {
-  return mystd::make_unique<FeedbackExpression>(generateYesOrNo(pSamePolarity), std::move(pSemExp));
+  return std::make_unique<FeedbackExpression>(generateYesOrNo(pSamePolarity), std::move(pSemExp));
 }
 
 
@@ -1750,7 +1750,7 @@ void replaceSemExpOrAddInterpretation(
   }
   else
   {
-    pSemExp = mystd::make_unique<InterpretationExpression>
+    pSemExp = std::make_unique<InterpretationExpression>
         (pSource,
          std::move(pInterpretedExp),
          std::move(pSemExp));

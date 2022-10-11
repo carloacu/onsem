@@ -167,7 +167,7 @@ std::shared_ptr<ExpressionHandleInMemory> operator_inform_withAgentNameFilter(
   auto semExp =
       converter::textToContextualSemExp(pText, inContext,
                                         SemanticSourceEnum::ASR, pLingDb, &references,
-                                        mystd::make_unique<SemanticAgentGrounding>(*agentWeAreTalkingAbout));
+                                        std::make_unique<SemanticAgentGrounding>(*agentWeAreTalkingAbout));
   memoryOperation::addAgentInterpretations(semExp, pSemanticMemory, pLingDb);
   SemExpModifier::removeSemExpPartsThatDoesntHaveAnAgent(semExp, *agentWeAreTalkingAbout);
   return memoryOperation::inform(std::move(semExp), pSemanticMemory, pLingDb, nullptr, nullptr);
@@ -305,7 +305,7 @@ TEST_F(SemanticReasonerGTests, operator_informWithAnnotations)
 
   {
     SemanticMemory semMem;
-    auto annExp = mystd::make_unique<AnnotatedExpression>(converter::textToSemExp("I said hello", inContext, lingDb));
+    auto annExp = std::make_unique<AnnotatedExpression>(converter::textToSemExp("I said hello", inContext, lingDb));
     annExp->annotations.emplace(GrammaticalType::TIME,
                                 converter::textToSemExp("Paul leaves", inContext, lingDb));
     UniqueSemanticExpression semExp(std::move(annExp));

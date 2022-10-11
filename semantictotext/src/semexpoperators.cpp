@@ -496,10 +496,10 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateDefintionFromAnO
   auto copyGrdExpAtImperative = [](const GroundedExpression& pGrdExp,
                                      const SemanticStatementGrounding& pStatGrd)
   {
-    auto res = mystd::make_unique<GroundedExpression>
+    auto res = std::make_unique<GroundedExpression>
         ([&pStatGrd]
     {
-      auto resStat = mystd::make_unique<SemanticStatementGrounding>(pStatGrd);
+      auto resStat = std::make_unique<SemanticStatementGrounding>(pStatGrd);
       resStat->requests.clear();
       resStat->verbTense = SemanticVerbTense::UNKNOWN;
       return resStat;
@@ -544,7 +544,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateDefintionFromAnO
   const ListExpression* listExpPtr = pOrderSemExp.getListExpPtr_SkipWrapperPtrs();
   if (listExpPtr != nullptr)
   {
-    auto res = mystd::make_unique<ListExpression>(listExpPtr->listType);
+    auto res = std::make_unique<ListExpression>(listExpPtr->listType);
     for (const auto& currElt : listExpPtr->elts)
     {
       auto subRes = generateDefintionFromAnOldOrder(*currElt, pNewLabel, pSemanticMemory, pLingDb);
@@ -589,7 +589,7 @@ void mergeWithContext(UniqueSemanticExpression& pSemExp,
           auto& beforeLastText = *beforeLastTextPtr;
           auto defSemExp = generateDefintionFromAnOldOrder(beforeLastText, actionLabel, pSemanticMemory, pLingDb);
           if (defSemExp)
-            pSemExp = mystd::make_unique<InterpretationExpression>
+            pSemExp = std::make_unique<InterpretationExpression>
                 (InterpretationSource::RECENTCONTEXT,
                  SemExpCreator::formulateActionDefinition(actionLabel, *equalityStatementPtr, std::move(*defSemExp)),
                  std::move(pSemExp));

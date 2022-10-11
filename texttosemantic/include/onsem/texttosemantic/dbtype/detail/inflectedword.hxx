@@ -2,7 +2,6 @@
 #define ONSEM_TEXTTOSEMANTIC_TYPE_LINGINFOSGRAM_HXX
 
 #include "../inflectedword.hpp"
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
@@ -10,7 +9,7 @@ namespace linguistics
 {
 
 inline LingWordsGroup::LingWordsGroup(const LingWordsGroup& pOther)
-  : rootWord(mystd::make_unique<SemanticWord>()),
+  : rootWord(std::make_unique<SemanticWord>()),
     linkedMeanings()
 {
   _set(pOther);
@@ -37,13 +36,13 @@ inline LingWordsGroup& LingWordsGroup::operator=(LingWordsGroup&& pOther)
 
 inline void LingWordsGroup::_set(const LingWordsGroup& pOther)
 {
-  rootWord = mystd::make_unique<SemanticWord>(*pOther.rootWord);
+  rootWord = std::make_unique<SemanticWord>(*pOther.rootWord);
 
   for (const auto& currLinkedMeanings : pOther.linkedMeanings)
   {
     linkedMeanings.emplace_back();
     auto& lastLinkedMeanings = linkedMeanings.back();
-    lastLinkedMeanings.first = mystd::make_unique<SemanticWord>(*currLinkedMeanings.first);
+    lastLinkedMeanings.first = std::make_unique<SemanticWord>(*currLinkedMeanings.first);
     lastLinkedMeanings.second = currLinkedMeanings.second;
   }
 }
@@ -79,7 +78,7 @@ inline bool WordAssociatedInfos::hasContextualInfo(WordContextualInfos pContextu
 inline InflectedWord::InflectedWord()
   : word(),
     infos(),
-    _inflections(mystd::make_unique<EmptyInflections>())
+    _inflections(std::make_unique<EmptyInflections>())
 {}
 
 inline InflectedWord::InflectedWord
@@ -134,7 +133,7 @@ inline void InflectedWord::clear(bool pExceptFlexions)
   word.clear();
   infos.clear();
   if (!pExceptFlexions)
-    _inflections = mystd::make_unique<EmptyInflections>();
+    _inflections = std::make_unique<EmptyInflections>();
 }
 
 inline void InflectedWord::moveInflections(std::unique_ptr<Inflections> pInflections)

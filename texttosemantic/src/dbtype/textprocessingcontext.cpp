@@ -3,7 +3,6 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 
 namespace onsem
@@ -13,11 +12,11 @@ std::unique_ptr<SemanticExpression> _getYouAndMeSemExp
 (const SemanticAgentGrounding& pAuthor,
  const SemanticAgentGrounding& pReceiver)
 {
-  auto agentList = mystd::make_unique<ListExpression>(ListExpressionType::AND);
-  agentList->elts.push_back(mystd::make_unique<GroundedExpression>
-                            (mystd::make_unique<SemanticAgentGrounding>(pAuthor)));
-  agentList->elts.push_back(mystd::make_unique<GroundedExpression>
-                            (mystd::make_unique<SemanticAgentGrounding>(pReceiver)));
+  auto agentList = std::make_unique<ListExpression>(ListExpressionType::AND);
+  agentList->elts.push_back(std::make_unique<GroundedExpression>
+                            (std::make_unique<SemanticAgentGrounding>(pAuthor)));
+  agentList->elts.push_back(std::make_unique<GroundedExpression>
+                            (std::make_unique<SemanticAgentGrounding>(pReceiver)));
   return std::move(agentList);
 }
 
@@ -77,9 +76,9 @@ void TextProcessingContext::setUsAsYouAndMe()
 
 void TextProcessingContext::setUsAsEverybody()
 {
-  usSemExp = mystd::make_unique<GroundedExpression>([]
+  usSemExp = std::make_unique<GroundedExpression>([]
   {
-    auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto genGrd = std::make_unique<SemanticGenericGrounding>();
     genGrd->concepts["agent_*"] = 4;
     genGrd->referenceType = SemanticReferenceType::INDEFINITE;
     genGrd->entityType = SemanticEntityType::HUMAN;

@@ -203,7 +203,7 @@ void _listOfTokensToVectorOfTokens(std::vector<Token>& pVectorOfkens,
     assert(currTok.linkedTokens.empty());
     if (currTok.subTokens)
     {
-      newTok.subTokens = mystd::make_unique<TokensTree>();
+      newTok.subTokens = std::make_unique<TokensTree>();
       _listOfTokensToVectorOfTokens(newTok.subTokens->tokens,
                                     currTok.subTokens->tokens,
                                     &newTok.tokenPos);
@@ -500,7 +500,7 @@ void _inParenthesis
       _fushPrevCharactersInAToken(pTokSent, true, pLingDico);
     if (pTokSent.tokens.empty())
       pTokSent.tokens.emplace_back("");
-    pTokSent.tokens.back().subTokens = mystd::make_unique<TokensTree>();
+    pTokSent.tokens.back().subTokens = std::make_unique<TokensTree>();
 
     std::size_t beginInsideParenthesis = pTokSent.currPos + 1;
     std::size_t lengthInsideParenthesis = endingFound - (pTokSent.currPos + 1);

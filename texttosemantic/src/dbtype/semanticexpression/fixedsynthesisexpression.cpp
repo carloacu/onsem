@@ -25,7 +25,7 @@ std::unique_ptr<FixedSynthesisExpression> FixedSynthesisExpression::clone
  bool pRemoveRecentContextInterpretations,
  const std::set<SemanticExpressionType>* pExpressionTypesToSkip) const
 {
-  auto res = mystd::make_unique<FixedSynthesisExpression>
+  auto res = std::make_unique<FixedSynthesisExpression>
       (_semExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
   res->langToSynthesis = langToSynthesis;
   return res;

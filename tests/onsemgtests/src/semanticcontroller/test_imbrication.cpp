@@ -114,20 +114,20 @@ TEST_F(SemanticReasonerGTests, test_imbrication_for_opposite_concepts)
 
   EXPECT_EQ(ImbricationType::OPPOSES,
             SemExpComparator::getSemExpsImbrications(
-              *mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>(goodConcept)),
-              *mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>(badConcept)),
+              *std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>(goodConcept)),
+              *std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>(badConcept)),
               semanticMemory.memBloc, lingDb, nullptr));
 
   auto cptToGenGrdWithThisConcept = [](const std::string& pConcept)
   {
-    auto res = mystd::make_unique<SemanticGenericGrounding>();
+    auto res = std::make_unique<SemanticGenericGrounding>();
     res->concepts.emplace(pConcept, 4);
     return res;
   };
   EXPECT_EQ(ImbricationType::OPPOSES,
             SemExpComparator::getSemExpsImbrications(
-              *mystd::make_unique<GroundedExpression>(cptToGenGrdWithThisConcept(goodConcept)),
-              *mystd::make_unique<GroundedExpression>(cptToGenGrdWithThisConcept(badConcept)),
+              *std::make_unique<GroundedExpression>(cptToGenGrdWithThisConcept(goodConcept)),
+              *std::make_unique<GroundedExpression>(cptToGenGrdWithThisConcept(badConcept)),
               semanticMemory.memBloc, lingDb, nullptr));
 }
 

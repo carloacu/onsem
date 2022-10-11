@@ -112,7 +112,7 @@ void _addProvider(std::set<InformationProvider>& pInfosProv,
       {
         const SemanticAgentGrounding* sourceSubjectPtr = metadataExp.getAuthorPtr();
         if (sourceSubjectPtr != nullptr)
-          newInfoProv.author = mystd::make_unique<SemanticAgentGrounding>(*sourceSubjectPtr);
+          newInfoProv.author = std::make_unique<SemanticAgentGrounding>(*sourceSubjectPtr);
       }
       pInfosProv.emplace(std::move(newInfoProv));
       return true;
@@ -168,7 +168,7 @@ void process(std::unique_ptr<LeafSemAnswer>& pLeafAnswer)
 
     if (howAnswerSemExp)
     {
-      pLeafAnswer = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+      pLeafAnswer = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
       pLeafAnswer->answerElts[SemanticRequestType::MANNER].answersGenerated.emplace_back(std::move(howAnswerSemExp));
     }
   }

@@ -23,7 +23,7 @@ std::unique_ptr<ListExpression> ListExpression::clone
  bool pRemoveRecentContextInterpretations,
  const std::set<SemanticExpressionType>* pExpressionTypesToSkip) const
 {
-  auto res = mystd::make_unique<ListExpression>(listType);
+  auto res = std::make_unique<ListExpression>(listType);
   for (const auto& currRefElt : elts)
     res->elts.emplace_back(currRefElt->clone(pParams, pRemoveRecentContextInterpretations,
                                              pExpressionTypesToSkip));

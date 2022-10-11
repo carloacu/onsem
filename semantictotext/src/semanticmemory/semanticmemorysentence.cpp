@@ -1375,7 +1375,7 @@ SemanticMemorySentence::SemanticMemorySentence
     _isEnabled(pIsEnabled),
     _isANoun(false),
     _isAConditionToSatisfy(pIsAConditionToSatisfy),
-    _impl(mystd::make_unique<SemanticMemorySentencePrivate>(*this, pAnnotations, pLingDb))
+    _impl(std::make_unique<SemanticMemorySentencePrivate>(*this, pAnnotations, pLingDb))
 {
 }
 

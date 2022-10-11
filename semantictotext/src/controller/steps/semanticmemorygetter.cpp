@@ -152,7 +152,7 @@ void _executeForLinksAlreadyMatched(const SentenceLinks<IS_MODIFIABLE>& pAlready
         {
           auto& memSentToAdd = currGrdExp.getMemSentence();
           pLinkManagementFunction(&memSentToAdd, nullptr, [&]() -> std::unique_ptr<GroundedExpressionContainer>
-          { return mystd::make_unique<GroundedExpressionRef>(currGrdExp.grdExp); });
+          { return std::make_unique<GroundedExpressionRef>(currGrdExp.grdExp); });
         }
       }
     }
@@ -166,7 +166,7 @@ void _executeForLinksAlreadyMatched(const SentenceLinks<IS_MODIFIABLE>& pAlready
           {
             auto& memSentToAdd = currGrdExp.getMemSentence();
             pLinkManagementFunction(&memSentToAdd, nullptr, [&]() -> std::unique_ptr<GroundedExpressionContainer>
-            { return mystd::make_unique<GroundedExpressionRef>(currGrdExp.grdExp); });
+            { return std::make_unique<GroundedExpressionRef>(currGrdExp.grdExp); });
           }
         }
       }
@@ -182,7 +182,7 @@ void _executeForLinksAlreadyMatched(const SentenceLinks<IS_MODIFIABLE>& pAlready
           {
             auto& memSentToAdd = currGrdExp.getMemSentence();
             pLinkManagementFunction(&memSentToAdd, nullptr, [&]() -> std::unique_ptr<GroundedExpressionContainer>
-            { return mystd::make_unique<GroundedExpressionRef>(currGrdExp.grdExp); });
+            { return std::make_unique<GroundedExpressionRef>(currGrdExp.grdExp); });
           }
         }
       }
@@ -195,7 +195,7 @@ void _executeForLinksAlreadyMatched(const SentenceLinks<IS_MODIFIABLE>& pAlready
       pLinkManagementFunction(nullptr, pMemorySentencePtr, [&pLingDb, pMemoryGrdExpPtr]() -> std::unique_ptr<GroundedExpressionContainer>
       {
         const unsigned char* grdExpPtr = SemanticMemoryBlockBinaryReader::memoryGrdExpToGrdExpPtr(pMemoryGrdExpPtr);
-        return mystd::make_unique<GroundedExpressionFromSemExp>(UniqueSemanticExpression(semexploader::loadGrdExp(grdExpPtr, pLingDb)));
+        return std::make_unique<GroundedExpressionFromSemExp>(UniqueSemanticExpression(semexploader::loadGrdExp(grdExpPtr, pLingDb)));
       });
     };
 

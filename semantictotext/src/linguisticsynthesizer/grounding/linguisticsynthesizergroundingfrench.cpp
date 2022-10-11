@@ -386,12 +386,12 @@ bool LinguisticsynthesizergroundingFrench::_writeVerbGoal
   case VerbGoalEnum::ADVICE:
   case VerbGoalEnum::MANDATORY:
   {
-    auto canGenGrd = mystd::make_unique<GroundedExpression>
+    auto canGenGrd = std::make_unique<GroundedExpression>
         ([&pStatementGrd]
     {
       const std::string newStatementConcept = pStatementGrd.verbGoal == VerbGoalEnum::ABILITY ?
             "verb_can" : "verb_haveto";
-      auto canStatementGrd = mystd::make_unique<SemanticStatementGrounding>();
+      auto canStatementGrd = std::make_unique<SemanticStatementGrounding>();
       canStatementGrd->concepts[newStatementConcept] = 4;
       return canStatementGrd;
     }());

@@ -92,10 +92,10 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _answerNiceToMeetYouIfTh
       onHumanHasGivenName(name);
     // N5 replies "Nice to meet you <name>"
     auto res =
-        mystd::make_unique<FeedbackExpression>(
-          mystd::make_unique<GroundedExpression>(
-            mystd::make_unique<SemanticConceptualGrounding>("niceToMeetYou")),
-          mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTextGrounding>(name)));
+        std::make_unique<FeedbackExpression>(
+          std::make_unique<GroundedExpression>(
+            std::make_unique<SemanticConceptualGrounding>("niceToMeetYou")),
+          std::make_unique<GroundedExpression>(std::make_unique<SemanticTextGrounding>(name)));
     return mystd::unique_propagate_const<UniqueSemanticExpression>(std::move(res));
   }
   return mystd::unique_propagate_const<UniqueSemanticExpression>();
@@ -149,7 +149,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _answerHelloBye(
       if (!pAuthorUserId.empty())
       {
         return UniqueSemanticExpression(
-              mystd::make_unique<FeedbackExpression>(
+              std::make_unique<FeedbackExpression>(
                 pEngagementSemExp.clone(),
                 SemExpCreator::askWhatIsYourName(pAuthorUserId)));
       }
@@ -159,7 +159,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _answerHelloBye(
   {
     // N5 replies "Hello/Bye <name>"
     return UniqueSemanticExpression(
-          mystd::make_unique<FeedbackExpression>(
+          std::make_unique<FeedbackExpression>(
             pEngagementSemExp.clone(),
             std::move(pInterlocutor)));
   }
@@ -355,9 +355,9 @@ UniqueSemanticExpression greet(
     const GreetCallbacks pCallbacks,
     std::unique_ptr<GroundedExpression> pInterlocutor)
 {
-  auto engagementGrounding = mystd::make_unique<SemanticGenericGrounding>();
+  auto engagementGrounding = std::make_unique<SemanticGenericGrounding>();
   engagementGrounding->concepts["engagement_engage"] = 5;
-  auto engagementExpression = mystd::make_unique<GroundedExpression>(std::move(engagementGrounding));
+  auto engagementExpression = std::make_unique<GroundedExpression>(std::move(engagementGrounding));
   auto response = _answerHelloBye(
         *engagementExpression, pSemanticMemory, pLingDb,
         pCallbacks, SemanticAgentGrounding::currentUser, std::move(pInterlocutor));
@@ -373,9 +373,9 @@ UniqueSemanticExpression bye(
     const GreetCallbacks pCallbacks,
     std::unique_ptr<GroundedExpression> pInterlocutor)
 {
-  auto engagementGrounding = mystd::make_unique<SemanticGenericGrounding>();
+  auto engagementGrounding = std::make_unique<SemanticGenericGrounding>();
   engagementGrounding->concepts["engagement_disengage"] = 5;
-  auto engagementExpression = mystd::make_unique<GroundedExpression>(std::move(engagementGrounding));
+  auto engagementExpression = std::make_unique<GroundedExpression>(std::move(engagementGrounding));
   auto response = _answerHelloBye(
         *engagementExpression, pSemanticMemory, pLingDb,
         pCallbacks, SemanticAgentGrounding::currentUser, std::move(pInterlocutor));

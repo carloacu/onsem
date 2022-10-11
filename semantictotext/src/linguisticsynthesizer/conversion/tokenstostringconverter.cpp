@@ -161,10 +161,10 @@ void TokensToStringConverter::writeOutputText
     {
       if (!currentText.empty())
       {
-        pNaturalLanguageResult.emplace_back(mystd::make_unique<SynthesizerText>(currentText));
+        pNaturalLanguageResult.emplace_back(std::make_unique<SynthesizerText>(currentText));
         currentText.clear();
       }
-      pNaturalLanguageResult.emplace_back(mystd::make_unique<SynthesizerTask>(inflToSynt.fromResourcePtr->resource));
+      pNaturalLanguageResult.emplace_back(std::make_unique<SynthesizerTask>(inflToSynt.fromResourcePtr->resource));
     }
     else
     {
@@ -174,7 +174,7 @@ void TokensToStringConverter::writeOutputText
     beginOfASentence = itBlocs->word.partOfSpeech == PartOfSpeech::PUNCTUATION;
   }
   if (!currentText.empty())
-    pNaturalLanguageResult.emplace_back(mystd::make_unique<SynthesizerText>(currentText));
+    pNaturalLanguageResult.emplace_back(std::make_unique<SynthesizerText>(currentText));
 }
 
 void TokensToStringConverter::_addAWord

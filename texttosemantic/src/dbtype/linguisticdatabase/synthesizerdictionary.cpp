@@ -1,5 +1,4 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/synthesizerdictionary.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/nominalinflections.hpp>
@@ -23,7 +22,7 @@ const StaticSynthesizerDictionary& SynthesizerDictionary::_getStatDbInstance(
   if (it == _statDbs.end())
   {
     auto& res = _statDbs[pLangEnum];
-    res = mystd::make_unique<StaticSynthesizerDictionary>(pIStream, pConceptsDb, pLinguisticDictionary, pLangEnum);
+    res = std::make_unique<StaticSynthesizerDictionary>(pIStream, pConceptsDb, pLinguisticDictionary, pLangEnum);
     return *res;
   }
   return *it->second;

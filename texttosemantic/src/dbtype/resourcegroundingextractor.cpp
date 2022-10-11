@@ -1,5 +1,4 @@
 #include <onsem/texttosemantic/dbtype/resourcegroundingextractor.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 
 namespace onsem
@@ -77,7 +76,7 @@ std::unique_ptr<SemanticResourceGrounding> ResourceGroundingExtractor::makeResou
         std::size_t beginOfLanguage = beginOfValue + 1;
         language = _readLanguageEnumStr(beginOfValue, beginOfLanguage, pStr);
       }
-      return mystd::make_unique<SemanticResourceGrounding>
+      return std::make_unique<SemanticResourceGrounding>
           (pLabelStr, language, pStr.substr(beginOfValue, endOfCommand - beginOfValue));
     }
   }

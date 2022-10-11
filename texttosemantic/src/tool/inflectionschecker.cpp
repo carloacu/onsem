@@ -290,9 +290,9 @@ InflectionsChecker::InflectionsChecker
     _impl()
 {
   if (pSpecLingDb.language == SemanticLanguageEnum::FRENCH)
-    _impl = mystd::make_unique<InflectionsCheckerFrench>(pSpecLingDb.lingDico);
+    _impl = std::make_unique<InflectionsCheckerFrench>(pSpecLingDb.lingDico);
   else
-    _impl = mystd::make_unique<InflectionsCheckerEnglish>(pSpecLingDb.lingDico);
+    _impl = std::make_unique<InflectionsCheckerEnglish>(pSpecLingDb.lingDico);
 }
 
 InflectionsChecker::~InflectionsChecker()

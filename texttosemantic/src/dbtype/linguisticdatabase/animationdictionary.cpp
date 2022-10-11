@@ -1,5 +1,4 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/animationdictionary.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
@@ -18,7 +17,7 @@ const StaticAnimationDictionary& AnimationDictionary::_getStatDbInstance(std::is
   if (it == _statDbs.end())
   {
     auto& res = _statDbs[pLangEnum];
-    res = mystd::make_unique<StaticAnimationDictionary>(pIstream, pConceptsDb, pLangEnum);
+    res = std::make_unique<StaticAnimationDictionary>(pIstream, pConceptsDb, pLangEnum);
     return *res;
   }
   return *it->second;

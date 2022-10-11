@@ -1,7 +1,6 @@
 #include "partofspeechrules_english.hpp"
 #include <list>
 #include <vector>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/common/enum/partofspeech.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/lingtypetoken.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
@@ -85,12 +84,12 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   std::list<std::unique_ptr<PartOfSpeechContextFilter>> rules;
 
   // remove meanings that cannot be at the beginning
-  rules.emplace_back(mystd::make_unique<PartOfSpeechCustomFilter>
+  rules.emplace_back(std::make_unique<PartOfSpeechCustomFilter>
                      ("remove meanings that cannot be at the beginning or at the ending",
                       pInfls, pSpecLingDb, "removeMeaningsThatCannotBeAtTheBeginning"));
 
   // del bigrams
-  rules.emplace_back(mystd::make_unique<PartOfSpeechDelBigramImpossibilities>
+  rules.emplace_back(std::make_unique<PartOfSpeechDelBigramImpossibilities>
                      ("del bigrams",
                       pInfls, _getImpSuccessions(), _getCheckCompatibility()));
 
@@ -98,7 +97,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // for-verb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("for-verb", pInfls,
          TaggerTokenCheck
                   ([](const InflectedWord& pInflWord)
@@ -134,7 +133,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // aux-noun-verb
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("aux-noun-verb", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::AUX, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -168,7 +167,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
 
 
   // gather linked meanings
-  rules.emplace_back(mystd::make_unique<PartOfSpeechCustomFilter>
+  rules.emplace_back(std::make_unique<PartOfSpeechCustomFilter>
                      ("gather linked meanings",
                       pInfls, pSpecLingDb, "gatherLinkedMeanings"));
 
@@ -176,7 +175,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // aux links
   rules.emplace_back([&pSpecLingDb, &pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("aux links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::AUX, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -313,7 +312,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // trans_verb-pron_subj links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("trans_verb-pron_subj links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::PRONOUN_SUBJECT, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
@@ -349,7 +348,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // pron_subj-verb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("pron_subj-verb links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::PRONOUN_SUBJECT, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
@@ -433,7 +432,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // verb-prep links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("verb-prep links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::VERB, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
@@ -468,7 +467,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // verb-pron_comp links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("verb-pron_comp links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::VERB, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -495,7 +494,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // propernoun-verb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("propernoun-verb links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::VERB, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -522,7 +521,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // sub_conj-verb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("sub_conj-verb links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::SUBORDINATING_CONJONCTION, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
@@ -554,7 +553,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // prep at end links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("prep at end links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::PREPOSITION, FinderConstraint::FIRST_ELT, CompatibilityCheck::DONT_CARE,
@@ -593,7 +592,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // adverb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("adverb links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::ADVERB, FinderConstraint::HAS, CompatibilityCheck::DONT_CARE,
@@ -646,7 +645,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // det-noun links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("det-noun links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::DETERMINER, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
@@ -690,7 +689,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // verb-interjection links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("verb-interjection links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::INTERJECTION, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
@@ -724,7 +723,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // adj links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("adj links", pInfls,
          TaggerTokenCheck
                   (PartOfSpeech::ADJECTIVE, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -824,7 +823,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // subconj-endOfSentence links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("subconj-endOfSentence links", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::SUBORDINATING_CONJONCTION, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,

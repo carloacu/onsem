@@ -1739,7 +1739,7 @@ std::unique_ptr<GroundedExpression> getCopyExceptChild
 (const GroundedExpression& pGrdExp,
  GrammaticalType pGrammaticalTypeToSkip)
 {
-  auto res = mystd::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
+  auto res = std::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
   for (const auto& currChild : pGrdExp.children)
     if (currChild.first != pGrammaticalTypeToSkip)
       res->children.emplace(currChild.first,
@@ -1989,7 +1989,7 @@ UniqueSemanticExpression returnAPositiveSemExpBasedOnAnInput(const GroundedExpre
   if (pInputGrdExp.children.empty() &&
       ConceptSet::haveAConceptThatBeginWith(pInputGrdExp.grounding().concepts, "sentiment_positive_"))
     return pInputGrdExp.clone();
-  return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("sentiment_positive_joy"));
+  return std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("sentiment_positive_joy"));
 }
 
 
@@ -2135,7 +2135,7 @@ GrammaticalType invertGrammaticalType(GrammaticalType pGrammaticalType)
 std::unique_ptr<GroundedExpression> getASimplifiedVersionFromGrdExp(
     const GroundedExpression& pGrdExp)
 {
-  auto res = mystd::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
+  auto res = std::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
   if (pGrdExp->type != SemanticGroundingType::AGENT &&
       pGrdExp->type != SemanticGroundingType::NAME)
     for (const auto& currChild : pGrdExp.children)
@@ -2156,7 +2156,7 @@ UniqueSemanticExpression getASimplifiedVersion(
   case SemanticExpressionType::LIST:
   {
     auto& listExp = pSemExp.getListExp();
-    auto res = mystd::make_unique<ListExpression>(listExp.listType);
+    auto res = std::make_unique<ListExpression>(listExp.listType);
     for (const auto& currRefElt : listExp.elts)
       res->elts.emplace_back(getASimplifiedVersion(*currRefElt));
     return std::move(res);
@@ -2164,7 +2164,7 @@ UniqueSemanticExpression getASimplifiedVersion(
   case SemanticExpressionType::CONDITION:
   {
     auto& condExp = pSemExp.getCondExp();
-    auto res = mystd::make_unique<ConditionExpression>
+    auto res = std::make_unique<ConditionExpression>
         (condExp.isAlwaysActive,
          condExp.conditionPointsToAffirmations,
          getASimplifiedVersion(*condExp.conditionExp),
@@ -2176,7 +2176,7 @@ UniqueSemanticExpression getASimplifiedVersion(
   case SemanticExpressionType::COMPARISON:
   {
     const auto& compExp = pSemExp.getCompExp();
-    auto res = mystd::make_unique<ComparisonExpression>
+    auto res = std::make_unique<ComparisonExpression>
         (compExp.op, getASimplifiedVersion(*compExp.leftOperandExp));
     res->tense = compExp.tense;
     res->request = compExp.request;

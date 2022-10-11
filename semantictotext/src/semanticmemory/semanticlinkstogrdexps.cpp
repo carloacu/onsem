@@ -251,7 +251,7 @@ std::unique_ptr<SemanticNameGrounding> SemanticUserCenteredMemoryLinks<LINKS_TYP
     if (_getNameWithoutConsideringEquivalences(res, *equUserPtr))
     {
       pLinks = &userIds.equivalentUserIdLinks.getLinks();
-      return mystd::make_unique<SemanticNameGrounding>(res, equUserId);
+      return std::make_unique<SemanticNameGrounding>(res, equUserId);
     }
   }
   return {};
@@ -472,7 +472,7 @@ std::unique_ptr<GroundedExpressionContainer> SemanticUserCenteredMemoryLinks<LIN
   {
     auto* grdExpPtr = userPtr->semExpLinks.getValue();
     if (grdExpPtr != nullptr)
-      return mystd::make_unique<GroundedExpressionRef>(*grdExpPtr);
+      return std::make_unique<GroundedExpressionRef>(*grdExpPtr);
   }
   return {};
 }

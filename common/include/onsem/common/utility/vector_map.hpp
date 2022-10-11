@@ -6,7 +6,6 @@
 #include <vector>
 #include <memory>
 #include <assert.h>
-#include <onsem/common/utility/make_unique.hpp>
 
 
 namespace onsem
@@ -91,7 +90,7 @@ struct vector_map_iterator
     : _mapPtr(&pMap),
       _index(0),
       _valuePtr(nullptr),
-      _reference(mystd::make_unique<reference>(KEY_TYPE(), *_valuePtr))
+      _reference(std::make_unique<reference>(KEY_TYPE(), *_valuePtr))
   {
   }
 
@@ -102,7 +101,7 @@ struct vector_map_iterator
     : _mapPtr(&pMap),
       _index(pIndex),
       _valuePtr(&pPair.second),
-      _reference(mystd::make_unique<reference>(pPair.first, pPair.second))
+      _reference(std::make_unique<reference>(pPair.first, pPair.second))
   {
   }
 
@@ -110,7 +109,7 @@ struct vector_map_iterator
     : _mapPtr(pOther._mapPtr),
       _index(pOther._index),
       _valuePtr(pOther._valuePtr),
-      _reference(mystd::make_unique<reference>(*pOther._reference))
+      _reference(std::make_unique<reference>(*pOther._reference))
   {
   }
 
@@ -119,7 +118,7 @@ struct vector_map_iterator
     _mapPtr = pOther._mapPtr;
     _index = pOther._index;
     _valuePtr = pOther._valuePtr;
-    _reference = mystd::make_unique<reference>(*pOther._reference);
+    _reference = std::make_unique<reference>(*pOther._reference);
     return *this;
   }
 

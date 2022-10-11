@@ -164,9 +164,9 @@ SpecificLinguisticDatabase::SpecificLinguisticDatabase(KeyToStreams& pIStreams,
     lingDb(pLingDb),
     lingDico(*pIStreams.mainDicToStream, pLingDb.conceptSet.statDb, pLanguage),
     synthDico(*pIStreams.synthesizerToStream, pLingDb.conceptSet.statDb, lingDico, pLanguage),
-    _semFrameDict(mystd::make_unique<SemanticFrameDictionary>()),
+    _semFrameDict(std::make_unique<SemanticFrameDictionary>()),
     _wordToSavedInfos(),
-    _inflectionsCheckerPtr(mystd::make_unique<InflectionsChecker>(*this)),
+    _inflectionsCheckerPtr(std::make_unique<InflectionsChecker>(*this)),
     _contextFilters(_langToContextFilter(*_inflectionsCheckerPtr, *this))
 {
 }
@@ -196,7 +196,7 @@ void SpecificLinguisticDatabase::addInflectedWord
 void SpecificLinguisticDatabase::addProperNoun(const std::string& pWordLemma)
 {
   SemanticWord word(SemanticLanguageEnum::UNKNOWN, pWordLemma, PartOfSpeech::PROPER_NOUN);
-  auto inflections = mystd::make_unique<EmptyInflections>();
+  auto inflections = std::make_unique<EmptyInflections>();
   addInflectedWord(pWordLemma, word, inflections->clone(), 4);
   std::string wordLemmaLowerCase = pWordLemma;
   lowerCaseFirstLetter(wordLemmaLowerCase);
@@ -248,7 +248,7 @@ std::map<SemanticWord, SpecificLinguisticDatabase::InflectionsInfosForAWord>::it
 
 LinguisticDatabase::LinguisticDatabase(LinguisticDatabaseStreams& pIStreams)
   : conceptSet(*pIStreams.concepts),
-    langToSpec(semanticLanguageEnum_size, [&](std::size_t i) { auto lang = semanticLanguageEnum_fromChar(static_cast<char>(i)); return mystd::make_unique<SpecificLinguisticDatabase>(pIStreams.languageToStreams[lang], *this, lang); }),
+    langToSpec(semanticLanguageEnum_size, [&](std::size_t i) { auto lang = semanticLanguageEnum_fromChar(static_cast<char>(i)); return std::make_unique<SpecificLinguisticDatabase>(pIStreams.languageToStreams[lang], *this, lang); }),
     transDict(pIStreams),
     treeConverter(pIStreams),
     langToAnimDic()
@@ -257,7 +257,7 @@ LinguisticDatabase::LinguisticDatabase(LinguisticDatabaseStreams& pIStreams)
   getAllLanguageTypes(languageTypes);
   for (const auto& currLang : languageTypes)
     langToAnimDic.emplace(currLang,
-                          mystd::make_unique<AnimationDictionary>
+                          std::make_unique<AnimationDictionary>
                           (*pIStreams.languageToStreams[currLang].animationsToStream, conceptSet.statDb, currLang));
   addDynamicContent(pIStreams.dynamicContentStreams);
 }

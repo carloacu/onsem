@@ -3,7 +3,6 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/info_parser.hpp>
 #include <onsem/common/utility/lexical_cast.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
@@ -127,7 +126,7 @@ void _loadNameInfos(NameInfos& pNameInfos,
 
 std::unique_ptr<SemanticNameGrounding> _loadNameGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticNameGrounding>();
+  auto res = std::make_unique<SemanticNameGrounding>();
   _loadGrd(*res, pTree);
   _loadNameInfos(res->nameInfos, pTree);
   return res;
@@ -136,7 +135,7 @@ std::unique_ptr<SemanticNameGrounding> _loadNameGrd(const boost::property_tree::
 
 std::unique_ptr<SemanticAgentGrounding> _loadAgentGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticAgentGrounding>(pTree.get("userId", SemanticAgentGrounding::userNotIdentified));
+  auto res = std::make_unique<SemanticAgentGrounding>(pTree.get("userId", SemanticAgentGrounding::userNotIdentified));
   res->concepts.clear();
   _loadGrd(*res, pTree);
 
@@ -193,7 +192,7 @@ void _loadSemanticDate(SemanticDate& pSemanticDate,
 
 std::unique_ptr<SemanticTimeGrounding> _loadTimeGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticTimeGrounding>();
+  auto res = std::make_unique<SemanticTimeGrounding>();
   _loadGrd(*res, pTree);
   _loadSemanticDate(res->date, pTree.get_child("date"));
   _loadSemanticDuration(res->timeOfDay, pTree.get_child("timeOfDay"));
@@ -219,7 +218,7 @@ void _loadSemanticWord(SemanticWord& pSemanticWord,
 
 std::unique_ptr<SemanticGenericGrounding> _loadGenericGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticGenericGrounding>();
+  auto res = std::make_unique<SemanticGenericGrounding>();
   _loadGrd(*res, pTree);
   res->referenceType = semanticReferenceType_fromStr
       (pTree.get("referenceType", semanticRefTypeDefaultStr));
@@ -237,7 +236,7 @@ std::unique_ptr<SemanticGenericGrounding> _loadGenericGrd(const boost::property_
 
 std::unique_ptr<SemanticStatementGrounding> _loadStatementGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticStatementGrounding>();
+  auto res = std::make_unique<SemanticStatementGrounding>();
   _loadGrd(*res, pTree);
   childLoop(pTree, currReq, "requestTypes")
     res->requests.addWithoutCollisionCheck(semanticRequestType_fromStr(currReq.second.get_value<std::string>()));
@@ -256,7 +255,7 @@ std::unique_ptr<SemanticStatementGrounding> _loadStatementGrd(const boost::prope
 
 std::unique_ptr<SemanticTextGrounding> _loadTextGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticTextGrounding>(pTree.get<std::string>("text"));
+  auto res = std::make_unique<SemanticTextGrounding>(pTree.get<std::string>("text"));
   res->concepts.clear();
   _loadGrd(*res, pTree);
   res->forLanguage = semanticLanguageEnum_fromStr(pTree.get("forLanguage", languageDefaultStr));
@@ -266,7 +265,7 @@ std::unique_ptr<SemanticTextGrounding> _loadTextGrd(const boost::property_tree::
 
 std::unique_ptr<SemanticLengthGrounding> _loadLengthGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticLengthGrounding>();
+  auto res = std::make_unique<SemanticLengthGrounding>();
   _loadGrd(*res, pTree);
   _loadSemanticLength(res->length, pTree.get_child("length"));
   return res;
@@ -274,7 +273,7 @@ std::unique_ptr<SemanticLengthGrounding> _loadLengthGrd(const boost::property_tr
 
 std::unique_ptr<SemanticDurationGrounding> _loadDurationGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticDurationGrounding>();
+  auto res = std::make_unique<SemanticDurationGrounding>();
   _loadGrd(*res, pTree);
   _loadSemanticDuration(res->duration, pTree.get_child("duration"));
   return res;
@@ -282,7 +281,7 @@ std::unique_ptr<SemanticDurationGrounding> _loadDurationGrd(const boost::propert
 
 std::unique_ptr<SemanticLanguageGrounding> _loadLanguageGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticLanguageGrounding>
+  auto res = std::make_unique<SemanticLanguageGrounding>
       (semanticLanguageEnum_fromStr(pTree.get("language", languageDefaultStr)));
   _loadGrd(*res, pTree);
   return res;
@@ -290,7 +289,7 @@ std::unique_ptr<SemanticLanguageGrounding> _loadLanguageGrd(const boost::propert
 
 std::unique_ptr<SemanticRelativeLocationGrounding> _loadRelLocationGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticRelativeLocationGrounding>
+  auto res = std::make_unique<SemanticRelativeLocationGrounding>
       (semanticRelativeLocationType_fromStr(pTree.get<std::string>("locationType")));
   _loadGrd(*res, pTree);
   return res;
@@ -298,7 +297,7 @@ std::unique_ptr<SemanticRelativeLocationGrounding> _loadRelLocationGrd(const boo
 
 std::unique_ptr<SemanticRelativeTimeGrounding> _loadRelTimeGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticRelativeTimeGrounding>
+  auto res = std::make_unique<SemanticRelativeTimeGrounding>
       (semanticRelativeTimeType_fromStr(pTree.get<std::string>("timeType")));
   _loadGrd(*res, pTree);
   return res;
@@ -306,7 +305,7 @@ std::unique_ptr<SemanticRelativeTimeGrounding> _loadRelTimeGrd(const boost::prop
 
 std::unique_ptr<SemanticRelativeDurationGrounding> _loadRelDurationGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticRelativeDurationGrounding>
+  auto res = std::make_unique<SemanticRelativeDurationGrounding>
       (semanticRelativeDurationType_fromStr(pTree.get<std::string>("durationType")));
   _loadGrd(*res, pTree);
   return res;
@@ -314,7 +313,7 @@ std::unique_ptr<SemanticRelativeDurationGrounding> _loadRelDurationGrd(const boo
 
 std::unique_ptr<SemanticResourceGrounding> _loadResourceGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticResourceGrounding>(pTree.get<std::string>("label"),
+  auto res = std::make_unique<SemanticResourceGrounding>(pTree.get<std::string>("label"),
                                                           semanticLanguageEnum_fromStr(pTree.get("language", languageDefaultStr)),
                                                           pTree.get<std::string>("value"));
   _loadGrd(*res, pTree);
@@ -323,7 +322,7 @@ std::unique_ptr<SemanticResourceGrounding> _loadResourceGrd(const boost::propert
 
 std::unique_ptr<SemanticMetaGrounding> _loadMetaGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticMetaGrounding>
+  auto res = std::make_unique<SemanticMetaGrounding>
       (semanticGroundingsType_fromStr(pTree.get<std::string>("refToType")),
        pTree.get<int>("paramId"), pTree.get<std::string>("attibuteName"));
   _loadGrd(*res, pTree);
@@ -332,14 +331,14 @@ std::unique_ptr<SemanticMetaGrounding> _loadMetaGrd(const boost::property_tree::
 
 std::unique_ptr<SemanticConceptualGrounding> _loadConceptualGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticConceptualGrounding>();
+  auto res = std::make_unique<SemanticConceptualGrounding>();
   _loadGrd(*res, pTree);
   return res;
 }
 
 std::unique_ptr<SemanticUnityGrounding> _loadUnityGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticUnityGrounding>
+  auto res = std::make_unique<SemanticUnityGrounding>
       (typeOfUnity_fromStr(pTree.get<std::string>("typeOfUnity")),
        pTree.get<std::string>("value"));
   _loadGrd(*res, pTree);
@@ -385,14 +384,14 @@ std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::pt
     return _loadUnityGrd(pTree);
   }
   assert(false);
-  return mystd::make_unique<SemanticConceptualGrounding>();
+  return std::make_unique<SemanticConceptualGrounding>();
 }
 
 
 std::unique_ptr<GroundedExpression> _loadGrdExp(const boost::property_tree::ptree& pTree,
                                                 LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<GroundedExpression>
+  auto res = std::make_unique<GroundedExpression>
       (_loadGrounding(pTree.get_child("grounding")));
   if (!pTree.empty())
     for (const auto& currChild : pTree)
@@ -405,7 +404,7 @@ std::unique_ptr<GroundedExpression> _loadGrdExp(const boost::property_tree::ptre
 std::unique_ptr<ListExpression> _loadListExp(const boost::property_tree::ptree& pTree,
                                              LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<ListExpression>
+  auto res = std::make_unique<ListExpression>
       (listExpressionType_fromStr(pTree.get("listType", listExpTypeDefaultStr)));
   if (!pTree.empty())
     for (const auto& currElt : pTree)
@@ -417,7 +416,7 @@ std::unique_ptr<ListExpression> _loadListExp(const boost::property_tree::ptree& 
 std::unique_ptr<ConditionExpression> _loadConditionExp(const boost::property_tree::ptree& pTree,
                                                        LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<ConditionExpression>
+  auto res = std::make_unique<ConditionExpression>
       (pTree.get("isAlwaysActive", falseStr) == trueStr,
        pTree.get("conditionPointsToAffirmations", falseStr) == trueStr,
        _loadSemExp(pTree.get_child("conditionExp"), pLinks),
@@ -431,7 +430,7 @@ std::unique_ptr<ConditionExpression> _loadConditionExp(const boost::property_tre
 std::unique_ptr<ComparisonExpression> _loadComparisonExp(const boost::property_tree::ptree& pTree,
                                                          LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<ComparisonExpression>
+  auto res = std::make_unique<ComparisonExpression>
       (ComparisonOperator_fromStr(pTree.get<std::string>("op")),
        _loadSemExp(pTree.get_child("leftOperandExp"), pLinks));
   res->tense = semanticVerbTense_fromStr(pTree.get("tense", verbTensePresentStr));
@@ -445,7 +444,7 @@ std::unique_ptr<ComparisonExpression> _loadComparisonExp(const boost::property_t
 std::unique_ptr<InterpretationExpression> _loadInterpretationExp(const boost::property_tree::ptree& pTree,
                                                                  LoaderSemExpLinks* pLinks)
 {
-  return mystd::make_unique<InterpretationExpression>
+  return std::make_unique<InterpretationExpression>
       (interpretationFrom_fromStr(pTree.get<std::string>("source")),
        _loadSemExp(pTree.get_child("interpretedExp"), pLinks),
        _loadSemExp(pTree.get_child("originalExp"), pLinks));
@@ -454,7 +453,7 @@ std::unique_ptr<InterpretationExpression> _loadInterpretationExp(const boost::pr
 std::unique_ptr<FeedbackExpression> _loadFeedbackExp(const boost::property_tree::ptree& pTree,
                                                      LoaderSemExpLinks* pLinks)
 {
-  return mystd::make_unique<FeedbackExpression>
+  return std::make_unique<FeedbackExpression>
       (_loadSemExp(pTree.get_child("feedbackExp"), pLinks),
        _loadSemExp(pTree.get_child("concernedExp"), pLinks));
 }
@@ -463,7 +462,7 @@ std::unique_ptr<FeedbackExpression> _loadFeedbackExp(const boost::property_tree:
 std::unique_ptr<AnnotatedExpression> _loadAnnotatedExp(const boost::property_tree::ptree& pTree,
                                                        LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<AnnotatedExpression>
+  auto res = std::make_unique<AnnotatedExpression>
       (_loadSemExp(pTree.get_child("semExp"), pLinks));
   res->synthesizeAnnotations = pTree.get<bool>("synthesizeAnnotations", false);
   if (!pTree.empty())
@@ -479,7 +478,7 @@ std::unique_ptr<AnnotatedExpression> _loadAnnotatedExp(const boost::property_tre
 std::unique_ptr<MetadataExpression> _loadMetadataExp(const boost::property_tree::ptree& pTree,
                                                      LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<MetadataExpression>
+  auto res = std::make_unique<MetadataExpression>
       (_loadSemExp(pTree.get_child("semExp"), pLinks));
   res->from = semanticSourceEnum_fromStr
       (pTree.get("from", sourceEnumDefaultStr));
@@ -500,7 +499,7 @@ std::unique_ptr<MetadataExpression> _loadMetadataExp(const boost::property_tree:
 std::unique_ptr<SetOfFormsExpression> _loadSetOfFormsExp(const boost::property_tree::ptree& pTree,
                                                          LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<SetOfFormsExpression>();
+  auto res = std::make_unique<SetOfFormsExpression>();
   if (!pTree.empty())
     for (const auto& currElt : pTree)
     {
@@ -508,7 +507,7 @@ std::unique_ptr<SetOfFormsExpression> _loadSetOfFormsExp(const boost::property_t
       {
         int prio = mystd::lexical_cast<int>(currElt.first);
         res->prioToForms[prio].emplace_back
-            (mystd::make_unique<QuestExpressionFrom>
+            (std::make_unique<QuestExpressionFrom>
              (_loadSemExp(currElt.second.get_child("exp"), pLinks),
               currElt.second.get("isOriginalForm", falseStr) == trueStr));
       }
@@ -520,7 +519,7 @@ std::unique_ptr<SetOfFormsExpression> _loadSetOfFormsExp(const boost::property_t
 std::unique_ptr<CommandExpression> _loadCommandExp(const boost::property_tree::ptree& pTree,
                                                    LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<CommandExpression>
+  auto res = std::make_unique<CommandExpression>
       (_loadSemExp(pTree.get_child("semExp"), pLinks));
   res->description = _loadOptionalSemExp(pTree, "description", pLinks);
   return res;
@@ -529,7 +528,7 @@ std::unique_ptr<CommandExpression> _loadCommandExp(const boost::property_tree::p
 std::unique_ptr<FixedSynthesisExpression> _loadFSynthExp(const boost::property_tree::ptree& pTree,
                                                          LoaderSemExpLinks* pLinks)
 {
-  auto res = mystd::make_unique<FixedSynthesisExpression>
+  auto res = std::make_unique<FixedSynthesisExpression>
       (_loadSemExp(pTree.get_child("semExp"), pLinks));
   auto langToSynthesisOptTree = pTree.get_child_optional("langToSynthesis");
   if (langToSynthesisOptTree)
@@ -582,7 +581,7 @@ std::unique_ptr<SemanticExpression> _loadSemExp(const boost::property_tree::ptre
       return _loadFSynthExp(pTree, pLinks);
     }
     assert(false);
-    return mystd::make_unique<GroundedExpression>();
+    return std::make_unique<GroundedExpression>();
   }();
 
   if (pLinks != nullptr)
@@ -648,7 +647,7 @@ std::unique_ptr<ExpressionHandleInMemory> _loadExpressionHandleInMemory
  const linguistics::LinguisticDatabase& pLingDb)
 {
   LoaderSemExpLinks links;
-  auto res = mystd::make_unique<ExpressionHandleInMemory>
+  auto res = std::make_unique<ExpressionHandleInMemory>
       (pParentMemoryBlock,
        _loadSemExp(pTree.get_child("semExp"), &links));
   {
@@ -744,7 +743,7 @@ std::unique_ptr<SemanticWord> _loadOptSemanticWord(const boost::property_tree::p
   auto optWordTree = pTree.get_child_optional(pLabelStr);
   if (optWordTree)
   {
-    res = mystd::make_unique<SemanticWord>();
+    res = std::make_unique<SemanticWord>();
     _loadSemanticWord(*res, *optWordTree);
   }
   return res;
@@ -798,7 +797,7 @@ void _loadInflectedFormInfos(const boost::property_tree::ptree& pTree,
                                         inflectionsTree.second.get_value<std::string>());
     }
     if (!inflections)
-      inflections = mystd::make_unique<EmptyInflections>();
+      inflections = std::make_unique<EmptyInflections>();
     char frequency = subTree.get<char>("frequency", 1u);
     pSpecLingDb.addInflectedWord(inflectedFrom, pWord, std::move(inflections), frequency);
   }

@@ -109,9 +109,9 @@ TEST_F(SemanticReasonerGTests, synthesizeManyCommands)
 {
   UniqueSemanticExpression semExp = []
   {
-    auto listExp = mystd::make_unique<ListExpression>();
-    auto textOfCommand = mystd::make_unique<GroundedExpression>
-        (mystd::make_unique<SemanticResourceGrounding>("aMethodCall",
+    auto listExp = std::make_unique<ListExpression>();
+    auto textOfCommand = std::make_unique<GroundedExpression>
+        (std::make_unique<SemanticResourceGrounding>("aMethodCall",
                                                                     SemanticLanguageEnum::UNKNOWN,
                                                                     "Service.method()"));
     listExp->elts.emplace_back(textOfCommand->clone());
@@ -179,7 +179,7 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
   {
     auto expToFill = textToSemExp("\\p_number=0\\", lingDb);
     IndexToSubNameToParameterValue params;
-    params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("13", lingDb)));
+    params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("13", lingDb)));
     UniqueSemanticExpression resExp = expToFill->clone(&params);
     EXPECT_EQ("13", semExpToText(std::move(resExp), SemanticLanguageEnum::UNKNOWN, semMem, lingDb));
   }
@@ -187,7 +187,7 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
   {
     auto expToFill = textToSemExp("\\p_number=0\\ arms", lingDb);
     IndexToSubNameToParameterValue params;
-    params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("28", lingDb)));
+    params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("28", lingDb)));
     UniqueSemanticExpression resExp = expToFill->clone(&params);
     EXPECT_EQ("28 arms", semExpToText(std::move(resExp), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
   }
@@ -195,7 +195,7 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
   {
     auto expToFill = textToSemExp("You are \\p_number=0\\", lingDb);
     IndexToSubNameToParameterValue params;
-    params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("32", lingDb)));
+    params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("32", lingDb)));
     UniqueSemanticExpression resExp = expToFill->clone(&params);
     EXPECT_EQ("I am 32.", semExpToText(resExp->clone(), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
     EXPECT_EQ("J'ai 32 ans.", semExpToText(std::move(resExp), SemanticLanguageEnum::FRENCH, semMem, lingDb));
@@ -204,7 +204,7 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
   {
     auto expToFill = textToSemExp("I see \\p_number=0\\ humans", lingDb);
     IndexToSubNameToParameterValue params;
-    params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("0", lingDb)));
+    params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("0", lingDb)));
     UniqueSemanticExpression resExp = expToFill->clone(&params);
     EXPECT_EQ("You don't see any human.", semExpToText(std::move(resExp), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
   }
@@ -212,7 +212,7 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
   {
     auto expToFill = textToSemExp("I see \\p_number=0\\ other humans", lingDb);
     IndexToSubNameToParameterValue params;
-    params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("0", lingDb)));
+    params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("0", lingDb)));
     UniqueSemanticExpression resExp = expToFill->clone(&params);
     EXPECT_EQ("You don't see any other human.", semExpToText(resExp->clone(), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
     EXPECT_EQ("Tu ne vois aucun autre humain.", semExpToText(std::move(resExp), SemanticLanguageEnum::FRENCH, semMem, lingDb));
@@ -221,7 +221,7 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
   {
     auto expToFill = textToSemExp("I see \\p_number=0\\ other humans", lingDb);
     IndexToSubNameToParameterValue params;
-    params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("1", lingDb)));
+    params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("1", lingDb)));
     UniqueSemanticExpression resExp = expToFill->clone(&params);
     EXPECT_EQ("You see another human.", semExpToText(resExp->clone(), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
     EXPECT_EQ("Tu vois un autre humain.", semExpToText(std::move(resExp), SemanticLanguageEnum::FRENCH, semMem, lingDb));
@@ -230,7 +230,7 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
   {
     auto expToFill = textToSemExp("I see \\p_number=0\\ other humans", lingDb);
     IndexToSubNameToParameterValue params;
-    params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("2", lingDb)));
+    params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("2", lingDb)));
     UniqueSemanticExpression resExp = expToFill->clone(&params);
     EXPECT_EQ("You see 2 other humans.", semExpToText(resExp->clone(), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
     EXPECT_EQ("Tu vois 2 autres humains.", semExpToText(std::move(resExp), SemanticLanguageEnum::FRENCH, semMem, lingDb));
@@ -240,14 +240,14 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
     auto expToFill = textToSemExp("If \\p_number=0\\ is equal to 1 then I see you else I don't see you.", lingDb);
     {
       IndexToSubNameToParameterValue params;
-      params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("1", lingDb)));
+      params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("1", lingDb)));
       UniqueSemanticExpression resExp = expToFill->clone(&params);
       simplifier::solveConditionsInplace(resExp, semMem.memBloc, lingDb);
       EXPECT_EQ("You see me.", semExpToText(std::move(resExp), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
     }
     {
       IndexToSubNameToParameterValue params;
-      params[0].emplace("", mystd::make_unique<UniqueSemanticExpression>(textToSemExp("0", lingDb)));
+      params[0].emplace("", std::make_unique<UniqueSemanticExpression>(textToSemExp("0", lingDb)));
       UniqueSemanticExpression resExp = expToFill->clone(&params);
       simplifier::solveConditionsInplace(resExp, semMem.memBloc, lingDb);
       EXPECT_EQ("You don't see me.", semExpToText(std::move(resExp), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
@@ -259,9 +259,9 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
 TEST_F(SemanticReasonerGTests, encodeDecodeASemanticExpressionInBinary)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
-  auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+  auto genGrd = std::make_unique<SemanticGenericGrounding>();
   genGrd->entityType = SemanticEntityType::ANIMAL;
-  UniqueSemanticExpression semExp = mystd::make_unique<GroundedExpression>(std::move(genGrd));
+  UniqueSemanticExpression semExp = std::make_unique<GroundedExpression>(std::move(genGrd));
 
   const std::size_t maxSize = 10000;
   binarymasks::Ptr mem = ::operator new(maxSize);

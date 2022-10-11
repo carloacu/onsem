@@ -913,8 +913,8 @@ void ChildSpecificationsContainer::addChildSpec(ChildSpecification&& pChildSpec)
 SemanticFrameDictionary::SemanticFrameDictionary()
   : _lastTemplatePos(0),
     _bookmarkToTemplatePos(),
-    _childSpecificationsByDefault(mystd::make_unique<ChildSpecificationsContainer>()),
-    _childSpecificationsWithoutVerbByDefault(mystd::make_unique<ChildSpecificationsContainer>()),
+    _childSpecificationsByDefault(std::make_unique<ChildSpecificationsContainer>()),
+    _childSpecificationsWithoutVerbByDefault(std::make_unique<ChildSpecificationsContainer>()),
     _templateNameToChildSpecifications(),
     _wordToChildSpecifications()
 {

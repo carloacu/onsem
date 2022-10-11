@@ -25,10 +25,10 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     auto dateOpt = extractDate(pContext.chunk.head, pContext.chunk.tokRange);
     if (dateOpt)
     {
-      auto newTime = mystd::make_unique<SemanticTimeGrounding>();
+      auto newTime = std::make_unique<SemanticTimeGrounding>();
       newTime->date = std::move(*dateOpt);
       return mystd::unique_propagate_const<UniqueSemanticExpression>
-          (mystd::make_unique<GroundedExpression>(std::move(newTime)));
+          (std::make_unique<GroundedExpression>(std::move(newTime)));
     }
 
     const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
@@ -42,11 +42,11 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
           int number = 0;
           if (getNumberBeforeHead(number, pContext.chunk))
           {
-            auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
+            auto newDuration = std::make_unique<SemanticDurationGrounding>();
             newDuration->duration.sign = SemanticDurationSign::POSITIVE;
             newDuration->duration.timeInfos[currTimeUnity] = number;
             return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
+                (std::make_unique<GroundedExpression>(std::move(newDuration)));
           }
         }
       }
@@ -58,10 +58,10 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       if (getNumberHoldByTheInflWord(year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_") &&
           hasNotMoreThanANumberOfDigits(year, 4))
       {
-        auto newTime = mystd::make_unique<SemanticTimeGrounding>();
+        auto newTime = std::make_unique<SemanticTimeGrounding>();
         newTime->date.year.emplace(year);
         return mystd::unique_propagate_const<UniqueSemanticExpression>
-            (mystd::make_unique<GroundedExpression>(std::move(newTime)));
+            (std::make_unique<GroundedExpression>(std::move(newTime)));
       }
     }
     break;

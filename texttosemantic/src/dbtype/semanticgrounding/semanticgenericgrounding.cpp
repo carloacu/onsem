@@ -1,5 +1,4 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 
 namespace onsem
@@ -40,7 +39,7 @@ bool SemanticGenericGrounding::isEqual(const SemanticGenericGrounding& pOther) c
 
 std::unique_ptr<SemanticGenericGrounding> SemanticGenericGrounding::makeThingThatHasToBeCompletedFromContext()
 {
-  auto res = mystd::make_unique<SemanticGenericGrounding>
+  auto res = std::make_unique<SemanticGenericGrounding>
       (SemanticReferenceType::DEFINITE, SemanticEntityType::THING);
   res->coreference.emplace();
   return res;

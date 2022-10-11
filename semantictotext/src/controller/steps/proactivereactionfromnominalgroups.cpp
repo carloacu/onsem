@@ -109,7 +109,7 @@ bool reactOnSentimentsFromNominalGroup(SemControllerWorkingStruct& pWorkStruct,
       {
         pWorkStruct.addAnswerWithoutReferences
             (ContextualAnnotation::FEEDBACK,
-             mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("youAreWelcome")));
+             std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("youAreWelcome")));
         return true;
       }
       if (sentimentSpec->sentiment == "sentiment_negative_*")

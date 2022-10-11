@@ -38,7 +38,7 @@ struct AnswerElementDynamic : public AnswerElement
   AnswerElementDynamic()
     : AnswerElement(),
       _memSentPtr(nullptr),
-      _annotations(mystd::make_unique<SemanticAnnotationsPtrs>())
+      _annotations(std::make_unique<SemanticAnnotationsPtrs>())
   {
   }
 
@@ -46,12 +46,12 @@ struct AnswerElementDynamic : public AnswerElement
   (const SemanticMemorySentence* pMemSentPtr)
     : AnswerElement(),
       _memSentPtr(pMemSentPtr),
-      _annotations(mystd::make_unique<SemanticAnnotationsPtrs>(&pMemSentPtr->getAnnotations()))
+      _annotations(std::make_unique<SemanticAnnotationsPtrs>(&pMemSentPtr->getAnnotations()))
   {
   }
 
   const GroundedExpression& getGrdExpRef() const override { return _memSentPtr->grdExp; }
-  std::unique_ptr<GroundedExpressionContainer> getGrdExpContainer() override { return mystd::make_unique<GroundedExpressionRef>(_memSentPtr->grdExp); }
+  std::unique_ptr<GroundedExpressionContainer> getGrdExpContainer() override { return std::make_unique<GroundedExpressionRef>(_memSentPtr->grdExp); }
   const SemanticAnnotations& getAnnotations() const override { return *_annotations; }
   std::unique_ptr<SemanticExpressionContainer> getSemExpForGrammaticalType(GrammaticalType pGrammType,
                                                                            const GroundedExpression* pFromGrdExpQuestion,

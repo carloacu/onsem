@@ -57,7 +57,7 @@ bool TaggerListOfTokenChecks::canBeAPunctuation() const
 {
   static const InflectedWord punctuation
       (PartOfSpeech::PUNCTUATION,
-       mystd::make_unique<EmptyInflections>());
+       std::make_unique<EmptyInflections>());
 
   for (const auto& currElt : elts)
     if (currElt.iGramMatcher(punctuation))

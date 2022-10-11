@@ -19,7 +19,7 @@ void _splitGrdExp
     assert(false);
     return;
   }
-  auto newListExp = mystd::make_unique<ListExpression>(pListType);
+  auto newListExp = std::make_unique<ListExpression>(pListType);
   auto endIt = pChildrenToPutInSepSentences.end();
   auto beginIt = pChildrenToPutInSepSentences.begin();
   auto itElt = endIt;

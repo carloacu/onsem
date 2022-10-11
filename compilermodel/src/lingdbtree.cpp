@@ -2,7 +2,6 @@
 #include <sstream>
 #include <fstream>
 #include <boost/filesystem.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/compilermodel/savers/binarydatabaseconceptssaver.hpp>
 #include <onsem/compilermodel/savers/binarydatabasedicosaver.hpp>
 #include <onsem/compilermodel/savers/binarytradsaver.hpp>
@@ -279,7 +278,7 @@ bool LingdbTree::xTryToLoadDynamicDbs()
   {
     std::string lang = semanticLanguageEnum_toLanguageFilenameStr(fLanguages[i].langGroundingsType);
 
-    fLanguages[i].dynDb = mystd::make_unique<LinguisticIntermediaryDatabase>();
+    fLanguages[i].dynDb = std::make_unique<LinguisticIntermediaryDatabase>();
     try
     {
       fLanguages[i].dynDb->load(getDynDbFilenameForLanguage(lang));

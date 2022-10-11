@@ -293,7 +293,7 @@ UniqueSemanticExpression textToSemExp(const std::string& pText,
 
   if (pReferencesPtr != nullptr)
   {
-    auto res = mystd::make_unique<MetadataExpression>
+    auto res = std::make_unique<MetadataExpression>
         (SemanticSourceEnum::UNKNOWN, UniqueSemanticExpression(), std::move(resSemExp));
       res->references = *pReferencesPtr;
     return std::move(res);
@@ -313,19 +313,19 @@ std::unique_ptr<MetadataExpression> wrapSemExpWithContextualInfos
 {
   assert(pNowTimeGrd);
   auto source = MetadataExpression::constructSourceFromSourceEnum(
-        mystd::make_unique<SemanticAgentGrounding>(pLocutionContext.author),
-        mystd::make_unique<SemanticAgentGrounding>(pLocutionContext.receiver),
+        std::make_unique<SemanticAgentGrounding>(pLocutionContext.author),
+        std::make_unique<SemanticAgentGrounding>(pLocutionContext.receiver),
         pFrom, std::move(pNowTimeGrd));
 
   IndexToSubNameToParameterValue params;
   params[0].emplace("",
-                    mystd::make_unique<ReferenceOfSemanticExpressionContainer>(*pSemExp));
+                    std::make_unique<ReferenceOfSemanticExpressionContainer>(*pSemExp));
   static const std::set<SemanticExpressionType> expressionTypesToSkip{SemanticExpressionType::SETOFFORMS};
   source = source->clone(&params, true, &expressionTypesToSkip);
   if (SemExpGetter::doesSemExpContainsOnlyARequest(*pSemExp))
     SemExpModifier::replaceSayByAskToRobot(*source);
 
-  auto res = mystd::make_unique<MetadataExpression>
+  auto res = std::make_unique<MetadataExpression>
       (pFrom, std::move(source), std::move(pSemExp));
   res->fromLanguage = pLanguage;
   res->fromText = pText;
@@ -364,12 +364,12 @@ UniqueSemanticExpression naturalLanguageExpressionToSemanticExpression(const Nat
     return textToSemExp(pNaturalLanguageExpression.word.text, textProc, pLingDb);
   }
 
-  auto res = mystd::make_unique<GroundedExpression>(
+  auto res = std::make_unique<GroundedExpression>(
         [&]() -> std::unique_ptr<SemanticGrounding>
         {
           if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::VERB)
           {
-            auto statGrd = mystd::make_unique<SemanticStatementGrounding>();
+            auto statGrd = std::make_unique<SemanticStatementGrounding>();
             _naturalLanguageTextToSemanticWord(statGrd->word, pNaturalLanguageExpression.word);
             statGrd->verbTense = pNaturalLanguageExpression.verbTense;
             statGrd->verbGoal = pNaturalLanguageExpression.verbGoal;
@@ -379,13 +379,13 @@ UniqueSemanticExpression naturalLanguageExpressionToSemanticExpression(const Nat
           }
           if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::AGENT)
           {
-            return mystd::make_unique<SemanticAgentGrounding>(pNaturalLanguageExpression.word.text);
+            return std::make_unique<SemanticAgentGrounding>(pNaturalLanguageExpression.word.text);
           }
           if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::QUOTE)
           {
-            return mystd::make_unique<SemanticTextGrounding>(pNaturalLanguageExpression.word.text);
+            return std::make_unique<SemanticTextGrounding>(pNaturalLanguageExpression.word.text);
           }
-          auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+          auto genGrd = std::make_unique<SemanticGenericGrounding>();
           _naturalLanguageTextToSemanticWord(genGrd->word, pNaturalLanguageExpression.word);
           genGrd->quantity = pNaturalLanguageExpression.quantity;
           genGrd->referenceType = pNaturalLanguageExpression.reference;
@@ -402,22 +402,22 @@ UniqueSemanticExpression agentIdWithNameToSemExp(const std::string& pAgentId,
                                                  const std::vector<std::string>& pNames)
 {
   // fill verb
-  auto res = mystd::make_unique<GroundedExpression>
+  auto res = std::make_unique<GroundedExpression>
       ([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
     return statementGrd;
   }());
 
   // fill subject
-  res->children.emplace(GrammaticalType::SUBJECT, mystd::make_unique<GroundedExpression>(
-                          mystd::make_unique<SemanticAgentGrounding>(pAgentId)));
+  res->children.emplace(GrammaticalType::SUBJECT, std::make_unique<GroundedExpression>(
+                          std::make_unique<SemanticAgentGrounding>(pAgentId)));
 
   // fill object
-  res->children.emplace(GrammaticalType::OBJECT, mystd::make_unique<GroundedExpression>(
-                          mystd::make_unique<SemanticNameGrounding>(pNames)));
+  res->children.emplace(GrammaticalType::OBJECT, std::make_unique<GroundedExpression>(
+                          std::make_unique<SemanticNameGrounding>(pNames)));
 
   return std::move(res);
 }

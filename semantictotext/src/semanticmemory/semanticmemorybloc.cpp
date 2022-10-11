@@ -54,7 +54,7 @@ SemanticMemoryBlock::SemanticMemoryBlock
     disableOldContrarySentences(true),
     _hardCodedUserIdResolution(),
     _fallbacksBlockPtr(),
-    _impl(mystd::make_unique<SemanticMemoryBlockPrivate>(*this))
+    _impl(std::make_unique<SemanticMemoryBlockPrivate>(*this))
 {
 }
 
@@ -133,7 +133,7 @@ void SemanticMemoryBlock::addTrackerSemExp
  std::shared_ptr<SemanticTracker>& pSemTracker,
  const linguistics::LinguisticDatabase& pLingDb)
 {
-  auto memKnow = mystd::make_unique<ExpressionHandleInMemory>(*this,
+  auto memKnow = std::make_unique<ExpressionHandleInMemory>(*this,
                                                                 std::move(pNewRootSemExp));
   memKnow->addAxiomListToMemory(*memKnow->semExp,
                                 &pSemTracker, InformationType::INFORMATION, true, nullptr, nullptr, nullptr, pLingDb);
@@ -506,7 +506,7 @@ std::unique_ptr<SemanticAgentGrounding> SemanticMemoryBlock::generateNewAgentGrd
 {
   std::vector<std::string> names;
   linguistics::extractProperNouns(names, pName, pLanguage, pLingDb);
-  return mystd::make_unique<SemanticAgentGrounding>(names);
+  return std::make_unique<SemanticAgentGrounding>(names);
 }
 
 

@@ -3,7 +3,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/statictranslationdictionary.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 
 namespace onsem
@@ -29,7 +28,7 @@ std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, const StaticTransl
           if (currOutLangEnum != SemanticLanguageEnum::UNKNOWN &&
               currInLangEnum != currOutLangEnum)
             _pathToStatDbs[currInLangEnum].emplace
-                (currOutLangEnum, mystd::make_unique<StaticTranslationDictionary>(pIStreams, currInLangEnum, currOutLangEnum));
+                (currOutLangEnum, std::make_unique<StaticTranslationDictionary>(pIStreams, currInLangEnum, currOutLangEnum));
         }
       }
     }

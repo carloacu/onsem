@@ -193,13 +193,13 @@ void StaticTreeConverter::xRefactorQuestionsOfExpressionForALanguage
 
   if (!newFormsOfTheExp.empty())
   {
-    auto setOfFormsExp = mystd::make_unique<SetOfFormsExpression>();
+    auto setOfFormsExp = std::make_unique<SetOfFormsExpression>();
     setOfFormsExp->prioToForms[-10].emplace_back
-        (mystd::make_unique<QuestExpressionFrom>(std::move(pSemExp), true));
+        (std::make_unique<QuestExpressionFrom>(std::move(pSemExp), true));
     for (auto& currForm : newFormsOfTheExp)
     {
       setOfFormsExp->prioToForms[-currForm.first].emplace_back
-          (mystd::make_unique<QuestExpressionFrom>(std::move(currForm.second), false));
+          (std::make_unique<QuestExpressionFrom>(std::move(currForm.second), false));
     }
     pSemExp = std::move(setOfFormsExp);
   }
@@ -827,7 +827,7 @@ void StaticTreeConverter::xApplyModifsForAChild
       }
       else if (itLk->second.size() > 1)
       {
-        auto newListExp = mystd::make_unique<ListExpression>();
+        auto newListExp = std::make_unique<ListExpression>();
         for (auto& currSemExpsToModify : itLk->second)
         {
           auto newElt = currSemExpsToModify->clone();
@@ -851,10 +851,10 @@ UniqueSemanticExpression StaticTreeConverter::xPatternNodeToSemExp
  const std::map<std::string, std::list<std::shared_ptr<SemanticExpression>>>& pRepLinks,
  bool pSetMotherConceptOfConceptsAny) const
 {
-  auto newChild = mystd::make_unique<GroundedExpression>
+  auto newChild = std::make_unique<GroundedExpression>
       (pTreePattern.groundingType ?
          SemanticGrounding::make(*pTreePattern.groundingType) :
-         mystd::make_unique<SemanticConceptualGrounding>());
+         std::make_unique<SemanticConceptualGrounding>());
   xApplyModifsOnGrdExp(*newChild, pRepLinks, pTreePattern, pSetMotherConceptOfConceptsAny);
   return std::move(newChild);
 }

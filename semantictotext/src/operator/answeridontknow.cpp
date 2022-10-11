@@ -47,7 +47,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> answerIDontKnow(const Se
   case SemanticExpressionType::LIST:
   {
     const ListExpression& listExp = pSemExp.getListExp();
-    auto resListExp = mystd::make_unique<ListExpression>();
+    auto resListExp = std::make_unique<ListExpression>();
     for (const auto& currElt : listExp.elts)
     {
       auto subRes = answerIDontKnow(*currElt, pForQuestions, pForActions);

@@ -37,8 +37,8 @@ std::unique_ptr<SemanticExpression> reactToAnExternalTeachingRequest(const Seman
   SemExpModifier::clearRequestListOfSemExp(*semExpToSay);
   converter::semExpToText(labelOfActionToLearn, std::move(semExpToSay), textProcContext, false,
                           pMemViewer.constView, pAuthorId, pLingDb, nullptr);
-  return mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticResourceGrounding>("learn", textProcContext.langType,
+  return std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticResourceGrounding>("learn", textProcContext.langType,
                                                      labelOfActionToLearn));
 }
 

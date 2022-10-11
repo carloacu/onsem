@@ -1,5 +1,4 @@
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
 #include <onsem/texttosemantic/dbtype/inflections.hpp>
@@ -246,7 +245,7 @@ bool InflectionsChecker::filterIncompatibleInflections(Token& pToken1,
     if (inflWord2.word.partOfSpeech == PartOfSpeech::VERB &&
         inflWord1.word.language == SemanticLanguageEnum::ENGLISH &&
         (pToken1.str == "wanna" || pToken1.str == "Wanna"))
-      inflWord2.moveInflections(mystd::make_unique<VerbalInflections>(std::vector<std::string>{"W"}));
+      inflWord2.moveInflections(std::make_unique<VerbalInflections>(std::vector<std::string>{"W"}));
     return false; // false because it's not sure that we decrease the number of inflections, if no it can cause an infinite loop
   }
 

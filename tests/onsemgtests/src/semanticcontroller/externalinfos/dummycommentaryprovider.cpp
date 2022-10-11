@@ -47,15 +47,15 @@ mystd::unique_propagate_const<UniqueSemanticExpression> DummyCommentaryProvider:
           if (pLanguageType == SemanticLanguageEnum::ENGLISH)
           {
             return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (mystd::make_unique<GroundedExpression>
-                 (mystd::make_unique<SemanticTextGrounding>
+                (std::make_unique<GroundedExpression>
+                 (std::make_unique<SemanticTextGrounding>
                   (englishCommentary(), SemanticLanguageEnum::ENGLISH)));
           }
           else if (pLanguageType == SemanticLanguageEnum::FRENCH)
           {
             return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (mystd::make_unique<GroundedExpression>
-                 (mystd::make_unique<SemanticTextGrounding>
+                (std::make_unique<GroundedExpression>
+                 (std::make_unique<SemanticTextGrounding>
                   (frenchCommentary(), SemanticLanguageEnum::FRENCH)));
           }
         }

@@ -12,7 +12,7 @@ const StaticTreeConverter& TreeConverter::_getStatDbInstance(linguistics::Lingui
 {
   std::lock_guard<std::mutex> lock(_pathToStatDbsMutex);
   if (!_statDbs)
-    _statDbs = mystd::make_unique<StaticTreeConverter>(pIStreams);
+    _statDbs = std::make_unique<StaticTreeConverter>(pIStreams);
   return *_statDbs;
 }
 

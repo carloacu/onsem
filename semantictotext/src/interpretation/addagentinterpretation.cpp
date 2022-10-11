@@ -56,7 +56,7 @@ void _addAgentInterpretations(UniqueSemanticExpression& pSemExp,
       std::string userId = pSemanticMemory.memBloc.getUserId(nameGrd.nameInfos.names);
       if (pSemanticMemory.memBloc.isItMe(userId))
         pIsMeFromMyName = true;
-      grdExp.moveGrounding(mystd::make_unique<SemanticAgentGrounding>(userId, nameGrd.nameInfos));
+      grdExp.moveGrounding(std::make_unique<SemanticAgentGrounding>(userId, nameGrd.nameInfos));
     }
     else if (grdExp.grounding().type == SemanticGroundingType::GENERIC)
     {
@@ -66,10 +66,10 @@ void _addAgentInterpretations(UniqueSemanticExpression& pSemExp,
         std::string userId = pSemanticMemory.memBloc.getUserIdFromGrdExp(grdExp, pLingDb);
         if (userId != SemanticAgentGrounding::userNotIdentified)
         {
-          pSemExp = mystd::make_unique<InterpretationExpression>
+          pSemExp = std::make_unique<InterpretationExpression>
               (InterpretationSource::AGENTGRDEXP,
-               UniqueSemanticExpression(mystd::make_unique<GroundedExpression>
-                                        (mystd::make_unique<SemanticAgentGrounding>(userId))),
+               UniqueSemanticExpression(std::make_unique<GroundedExpression>
+                                        (std::make_unique<SemanticAgentGrounding>(userId))),
                std::move(pSemExp));
           break;
         }

@@ -6,7 +6,6 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 
 namespace onsem
@@ -58,7 +57,7 @@ std::unique_ptr<MetadataExpression> MetadataExpression::clone
  bool pRemoveRecentContextInterpretations,
  const std::set<SemanticExpressionType>* pExpressionTypesToSkip) const
 {
-  auto res = mystd::make_unique<MetadataExpression>(semExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
+  auto res = std::make_unique<MetadataExpression>(semExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
   res->from = from;
   res->contextualAnnotation = contextualAnnotation;
   res->fromLanguage = fromLanguage;
@@ -151,10 +150,10 @@ UniqueSemanticExpression _constructSourceWithSpecificTime
  std::unique_ptr<SemanticAgentGrounding> pReceiver,
  std::unique_ptr<SemanticTimeGrounding> pTimeGrd)
 {
-  auto grdExpSource =  mystd::make_unique<GroundedExpression>(
+  auto grdExpSource =  std::make_unique<GroundedExpression>(
         [&pVerbConceptStr]
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     if (!pVerbConceptStr.empty())
     {
       statementGrd->verbTense = SemanticVerbTense::PUNCTUALPAST;
@@ -163,16 +162,16 @@ UniqueSemanticExpression _constructSourceWithSpecificTime
     return statementGrd;
   }());
   grdExpSource->children.emplace(GrammaticalType::SUBJECT,
-                                 mystd::make_unique<GroundedExpression>(std::move(pAuthor)));
+                                 std::make_unique<GroundedExpression>(std::move(pAuthor)));
   grdExpSource->children.emplace(GrammaticalType::RECEIVER,
-                                 mystd::make_unique<GroundedExpression>(std::move(pReceiver)));
+                                 std::make_unique<GroundedExpression>(std::move(pReceiver)));
   grdExpSource->children.emplace(GrammaticalType::OBJECT,
-                                 mystd::make_unique<GroundedExpression>
-                                 (mystd::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0)));
+                                 std::make_unique<GroundedExpression>
+                                 (std::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0)));
 
-  auto res = mystd::make_unique<AnnotatedExpression>(std::move(grdExpSource));
+  auto res = std::make_unique<AnnotatedExpression>(std::move(grdExpSource));
   res->annotations.emplace(GrammaticalType::TIME,
-                           mystd::make_unique<GroundedExpression>
+                           std::make_unique<GroundedExpression>
                            (std::move(pTimeGrd)));
   return std::move(res);
 }
@@ -182,19 +181,19 @@ UniqueSemanticExpression _constructSourceInPresent
 (std::unique_ptr<SemanticAgentGrounding> pAuthor,
  const std::string& pVerbConceptStr)
 {
-  auto grdExpSource =  mystd::make_unique<GroundedExpression>(
+  auto grdExpSource =  std::make_unique<GroundedExpression>(
         [&pVerbConceptStr]
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace(pVerbConceptStr, 4);
     return statementGrd;
   }());
   grdExpSource->children.emplace(GrammaticalType::SUBJECT,
-                                 mystd::make_unique<GroundedExpression>(std::move(pAuthor)));
+                                 std::make_unique<GroundedExpression>(std::move(pAuthor)));
   grdExpSource->children.emplace(GrammaticalType::OBJECT,
-                                 mystd::make_unique<GroundedExpression>
-                                 (mystd::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0)));
+                                 std::make_unique<GroundedExpression>
+                                 (std::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0)));
   return std::move(grdExpSource);
 }
 

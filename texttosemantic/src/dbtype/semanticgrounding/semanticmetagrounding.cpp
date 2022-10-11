@@ -1,6 +1,5 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
 #include <onsem/common/utility/lexical_cast.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 
 namespace onsem
@@ -105,7 +104,7 @@ std::unique_ptr<SemanticMetaGrounding> SemanticMetaGrounding::makeMetaGroundingF
   {
     SemanticGroundingType refToType = SemanticGroundingType::GENERIC;
     if (semanticGroundingsType_fromStrIfExist(refToType, label))
-      return mystd::make_unique<SemanticMetaGrounding>(refToType, paramId, attributeName);
+      return std::make_unique<SemanticMetaGrounding>(refToType, paramId, attributeName);
   }
   return std::unique_ptr<SemanticMetaGrounding>();
 }

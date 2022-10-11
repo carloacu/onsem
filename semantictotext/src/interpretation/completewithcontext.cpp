@@ -117,7 +117,7 @@ void _fillWithActionThatAskAboutAction
                                    currChild.second->clone());
     }
   }
-  pSemExp = mystd::make_unique<InterpretationExpression>
+  pSemExp = std::make_unique<InterpretationExpression>
       (InterpretationSource::RECENTCONTEXT,
        UniqueSemanticExpression(std::move(grdRootExp)),
        std::move(pSemExp));
@@ -135,9 +135,9 @@ UniqueSemanticExpression _copyGrdExpForAChild(GrammaticalType pGramType,
         genGrdPtr->quantity.type == SemanticQuantityType::NUMBER &&
         hasNotMoreThanANumberOfDigits(genGrdPtr->quantity.nb, 4))
     {
-      auto res = mystd::make_unique<SemanticTimeGrounding>();
+      auto res = std::make_unique<SemanticTimeGrounding>();
       res->date.year.emplace(genGrdPtr->quantity.nb);
-      return mystd::make_unique<GroundedExpression>(std::move(res));
+      return std::make_unique<GroundedExpression>(std::move(res));
     }
   }
   return pGrdExp.clone();
@@ -192,7 +192,7 @@ void _addChild
                                  _copyGrdExpForAChild(childTypeToAnswerContext, pGrdExpToAdd));
   }
 
-  pSemExp = mystd::make_unique<InterpretationExpression>
+  pSemExp = std::make_unique<InterpretationExpression>
       (InterpretationSource::RECENTCONTEXT,
        UniqueSemanticExpression(std::move(grdRootExp)),
        std::move(pSemExp));
@@ -233,10 +233,10 @@ bool _checkAgreementAndReplaceYesOrNoQuestion
 
 UniqueSemanticExpression _generateSentenceWhatHappenedJustAfterThat()
 {
-  auto rootGrdExp = mystd::make_unique<GroundedExpression>
+  auto rootGrdExp = std::make_unique<GroundedExpression>
       ([]()
   {
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PUNCTUALPAST;
     statementGrd->concepts["verb_action"] = 4;
     statementGrd->requests.set(SemanticRequestType::OBJECT);
@@ -246,10 +246,10 @@ UniqueSemanticExpression _generateSentenceWhatHappenedJustAfterThat()
 
   rootGrdExp->children.emplace(GrammaticalType::TIME, []()
   {
-    auto relTimeGrdExp = mystd::make_unique<GroundedExpression>
-        (mystd::make_unique<SemanticRelativeTimeGrounding>(SemanticRelativeTimeType::JUSTAFTER));
+    auto relTimeGrdExp = std::make_unique<GroundedExpression>
+        (std::make_unique<SemanticRelativeTimeGrounding>(SemanticRelativeTimeType::JUSTAFTER));
     relTimeGrdExp->children.emplace(GrammaticalType::SPECIFIER,
-                                    mystd::make_unique<GroundedExpression>
+                                    std::make_unique<GroundedExpression>
                                     (SemanticGenericGrounding::makeThingThatHasToBeCompletedFromContext()));
     return relTimeGrdExp;
   }());
@@ -539,7 +539,7 @@ void _tryToCompleteInputQuestion(UniqueSemanticExpression& pSemExp,
       if (contextStatement != nullptr &&
           contextStatement->requests.empty())
       {
-        pSemExp = mystd::make_unique<InterpretationExpression>
+        pSemExp = std::make_unique<InterpretationExpression>
                     (InterpretationSource::RECENTCONTEXT,
                      [&pContextGrdExp, &statGrd]
         {
@@ -613,7 +613,7 @@ bool _mergeSemExp
                 }
               }
               SemExpModifier::addChildrenOfAnotherSemExp(**newCorefSemExpPtr, **contextCorefSemExpPtr, ListExpressionType::UNRELATED);
-              pSemExp = mystd::make_unique<InterpretationExpression>
+              pSemExp = std::make_unique<InterpretationExpression>
                   (InterpretationSource::RECENTCONTEXT, std::move(newContextGrdExp),
                    std::move(pSemExp));
             }
@@ -787,7 +787,7 @@ void _replaceRecentFromContext_fromSemExp
             static const std::set<SemanticExpressionType> expressionTypesToSkip = {SemanticExpressionType::SETOFFORMS};
             auto contextGrdExpCloned = contextToAddPtr->clone(nullptr, false, &expressionTypesToSkip);
             SemExpModifier::removeSpecificationsNotNecessaryForAnAnswerFromSemExp(*contextGrdExpCloned);
-            pSemExp = mystd::make_unique<InterpretationExpression>
+            pSemExp = std::make_unique<InterpretationExpression>
                 (InterpretationSource::RECENTCONTEXT,
                  std::move(contextGrdExpCloned),
                  std::move(pSemExp));
@@ -817,7 +817,7 @@ void _replaceRecentFromContext_fromSemExp
             for (const auto& currChildFroContext : contextGrdExpPtr->children)
               SemExpModifier::addChild(*grdExpCopied, currChildFroContext.first,
                                        currChildFroContext.second->clone());
-            pSemExp = mystd::make_unique<InterpretationExpression>
+            pSemExp = std::make_unique<InterpretationExpression>
                 (InterpretationSource::RECENTCONTEXT,
                  std::move(grdExpCopied),
                  std::move(pSemExp));
@@ -843,7 +843,7 @@ void _replaceRecentFromContext_fromSemExp
             const SemanticExpression* timeContextInfo = SemExpGetter::getTimeInfo(pContextSemExp);
             if (timeContextInfo != nullptr)
             {
-              auto interpretation = mystd::make_unique<InterpretationExpression>
+              auto interpretation = std::make_unique<InterpretationExpression>
                   (InterpretationSource::RECENTCONTEXT,
                    timeContextInfo->clone(), std::move(itSpecificationChild->second));
               itSpecificationChild->second = std::move(interpretation);

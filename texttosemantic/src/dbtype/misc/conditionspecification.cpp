@@ -1,13 +1,12 @@
 #include <onsem/texttosemantic/dbtype/misc/conditionspecification.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/conditionexpression.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
 
 std::unique_ptr<ConditionExpression> ConditionSpecification::convertToConditionExpression() const
 {
-  auto condExp = mystd::make_unique<ConditionExpression>
+  auto condExp = std::make_unique<ConditionExpression>
       (isAlwaysActive, conditionShouldBeInformed,
        conditionExp.clone(), thenExp.clone());
   if (elseExpPtr != nullptr)

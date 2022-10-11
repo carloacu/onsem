@@ -55,7 +55,6 @@ set(ONSEMCOMMON_HPPS
     include/onsem/common/utility/enum_vector_initialized.hpp
     include/onsem/common/utility/getendofparenthesis.hpp
     include/onsem/common/utility/lexical_cast.hpp
-    include/onsem/common/utility/make_unique.hpp
     include/onsem/common/utility/optional.hpp
     include/onsem/common/utility/noresult.hpp
     include/onsem/common/utility/number.hpp

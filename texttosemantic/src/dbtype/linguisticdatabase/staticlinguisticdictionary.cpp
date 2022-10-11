@@ -6,7 +6,6 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/inflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticconceptset.hpp>
 
 
@@ -609,41 +608,41 @@ std::unique_ptr<Inflections> _getInflections(PartOfSpeech pPartOfSpeech,
                                              unsigned char pNbFlexions)
 {
   if (pNbFlexions == 0)
-    return mystd::make_unique<EmptyInflections>();
+    return std::make_unique<EmptyInflections>();
   switch (inflectionType_fromPartOfSpeech(pPartOfSpeech))
   {
   case InflectionType::ADJECTIVAL:
   {
-    auto inflections = mystd::make_unique<AdjectivalInflections>();
+    auto inflections = std::make_unique<AdjectivalInflections>();
     AdjectivalInflections& adjInfls = inflections->getAdjectivalI();
     _initAdjInflections(adjInfls.inflections, pFls, pNbFlexions);
     return std::move(inflections);
   }
   case InflectionType::NOMINAL:
   {
-    auto inflections = mystd::make_unique<NominalInflections>();
+    auto inflections = std::make_unique<NominalInflections>();
     NominalInflections& nomInfls = inflections->getNominalI();
     _initNomInflections(nomInfls.inflections, pFls, pNbFlexions);
     return std::move(inflections);
   }
   case InflectionType::VERBAL:
   {
-    auto inflections = mystd::make_unique<VerbalInflections>();
+    auto inflections = std::make_unique<VerbalInflections>();
     VerbalInflections& verbInfls = inflections->getVerbalI();
     _initVerbInflections(verbInfls.inflections, pFls, pNbFlexions);
     return std::move(inflections);
   }
   case InflectionType::PRONOMINAL:
   {
-    auto inflections = mystd::make_unique<PronominalInflections>();
+    auto inflections = std::make_unique<PronominalInflections>();
     PronominalInflections& pronInfls = inflections->getPronominalI();
     _initPronInflections(pronInfls.inflections, pFls, pNbFlexions);
     return std::move(inflections);
   }
   case InflectionType::EMPTY:
-    return mystd::make_unique<EmptyInflections>();
+    return std::make_unique<EmptyInflections>();
   }
-  return mystd::make_unique<EmptyInflections>();
+  return std::make_unique<EmptyInflections>();
 }
 
 
@@ -847,7 +846,7 @@ void StaticLinguisticDictionary::xGetMetaMeanings
     for (unsigned char i = 0; i < nbGatheringMeanings; ++i)
     {
       int rootMeaningId = binaryloader::alignedDecToInt(*currGatheringMeaning);
-      auto rootWord = mystd::make_unique<SemanticWord>();
+      auto rootWord = std::make_unique<SemanticWord>();
       xGetSemanticWord(*rootWord, rootMeaningId);
       LingWordsGroup meaningGroup(std::move(rootWord));
       xFillMeaningGroup(meaningGroup, rootMeaningId);
@@ -867,7 +866,7 @@ void StaticLinguisticDictionary::xFillMeaningGroup
   const int* currLinkedMeaning = xGetFirstLinkedMeaning(gatheringMeaningPtr);
   for (unsigned char i = 0; i < nbLinkedMeanings; ++i)
   {
-    auto rootWord = mystd::make_unique<SemanticWord>();
+    auto rootWord = std::make_unique<SemanticWord>();
     xGetSemanticWord(*rootWord, binaryloader::alignedDecToInt(*currLinkedMeaning));
     pMeaningGroup.linkedMeanings.emplace_back
         (std::move(rootWord),
@@ -884,7 +883,7 @@ void StaticLinguisticDictionary::xTryToFillMeaningGroup
   auto* meaningPtr = fPtrMeaning + pMeaningId;
   if (xIsAGatheringMeaning(meaningPtr))
   {
-    auto rootWord = mystd::make_unique<SemanticWord>();
+    auto rootWord = std::make_unique<SemanticWord>();
     xGetSemanticWord(*rootWord, pMeaningId);
     pLinkedMeanings = LingWordsGroup(std::move(rootWord));
     xFillMeaningGroup(*pLinkedMeanings, pMeaningId);

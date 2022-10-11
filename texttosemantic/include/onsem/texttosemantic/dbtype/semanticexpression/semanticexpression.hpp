@@ -12,7 +12,6 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/misc/parameterswithvalue.hpp>
 #include <onsem/common/utility/are_equals.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/common/utility/unique_propagate_const.hpp>
 #include "../../api.hpp"
 

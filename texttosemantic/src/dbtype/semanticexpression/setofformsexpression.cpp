@@ -34,12 +34,12 @@ std::unique_ptr<SemanticExpression> SetOfFormsExpression::clone
           return currRefForm->exp->clone(pParams, pRemoveRecentContextInterpretations,
                                          pExpressionTypesToSkip);
 
-  auto res = mystd::make_unique<SetOfFormsExpression>();
+  auto res = std::make_unique<SetOfFormsExpression>();
   for (const auto& currRefExp : prioToForms)
   {
     auto& formsToFill = res->prioToForms[currRefExp.first];
     for (const auto& currRefForm : currRefExp.second)
-      formsToFill.emplace_back(mystd::make_unique<QuestExpressionFrom>
+      formsToFill.emplace_back(std::make_unique<QuestExpressionFrom>
                                (currRefForm->exp->clone(pParams, pRemoveRecentContextInterpretations),
                                 currRefForm->isOriginalForm));
   }

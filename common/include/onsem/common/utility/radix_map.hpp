@@ -8,7 +8,6 @@
 #include <string>
 #include <assert.h>
 #include <initializer_list>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/common/utility/radix_map_forward_declaration.hpp>
 #include <onsem/common/utility/vector_map.hpp>
 #include "detail/searchendingpoint.hpp"
@@ -138,7 +137,7 @@ struct radix_map_iterator
   radix_map_iterator(MAP_TYPE& pMap)
     : _mapPtr(&pMap),
       _valuePtr(nullptr),
-      _reference(mystd::make_unique<reference>(KEY_CONTAINER_TYPE(), *_valuePtr))
+      _reference(std::make_unique<reference>(KEY_CONTAINER_TYPE(), *_valuePtr))
   {
   }
 
@@ -147,14 +146,14 @@ struct radix_map_iterator
                      VALUE_TYPE_OF_REF& pValue)
     : _mapPtr(&pMap),
       _valuePtr(&pValue),
-      _reference(mystd::make_unique<reference>(pKeyContainer, pValue))
+      _reference(std::make_unique<reference>(pKeyContainer, pValue))
   {
   }
 
   radix_map_iterator(const radix_map_iterator& pOther)
     : _mapPtr(pOther._mapPtr),
       _valuePtr(pOther._valuePtr),
-      _reference(mystd::make_unique<reference>(*pOther._reference))
+      _reference(std::make_unique<reference>(*pOther._reference))
   {
   }
 
@@ -162,7 +161,7 @@ struct radix_map_iterator
   {
     _mapPtr = pOther._mapPtr;
     _valuePtr = pOther._valuePtr;
-    _reference = mystd::make_unique<reference>(*pOther._reference);
+    _reference = std::make_unique<reference>(*pOther._reference);
     return *this;
   }
 
@@ -234,7 +233,7 @@ radix_map<KEY_TYPE, KEY_CONTAINER_TYPE, VALUE_TYPE>::radix_map(const radix_map& 
     _value_ptr()
 {
   if (pOther._value_ptr)
-    _value_ptr = mystd::make_unique<VALUE_TYPE>(*pOther._value_ptr);
+    _value_ptr = std::make_unique<VALUE_TYPE>(*pOther._value_ptr);
 }
 
 template<typename KEY_TYPE, typename KEY_CONTAINER_TYPE, typename VALUE_TYPE>
@@ -260,7 +259,7 @@ radix_map<KEY_TYPE, KEY_CONTAINER_TYPE, VALUE_TYPE>& radix_map<KEY_TYPE, KEY_CON
   _keys = pOther._keys;
   _children = pOther._children;
   if (pOther._value_ptr)
-    _value_ptr = mystd::make_unique<VALUE_TYPE>(*pOther._value_ptr);
+    _value_ptr = std::make_unique<VALUE_TYPE>(*pOther._value_ptr);
   return *this;
 }
 
@@ -628,7 +627,7 @@ VALUE_TYPE& radix_map<KEY_TYPE, KEY_CONTAINER_TYPE, VALUE_TYPE>::operator[](
 {
   auto& valPtr = _get(pKeys);
   if (!valPtr)
-    valPtr = mystd::make_unique<VALUE_TYPE>();
+    valPtr = std::make_unique<VALUE_TYPE>();
   return *valPtr;
 }
 
@@ -641,7 +640,7 @@ void radix_map<KEY_TYPE, KEY_CONTAINER_TYPE, VALUE_TYPE>::emplace(
 {
   auto& valPtr = _get(pKeys);
   if (!valPtr)
-    valPtr = mystd::make_unique<VALUE_TYPE>(std::forward<Args>(pArgs)...);
+    valPtr = std::make_unique<VALUE_TYPE>(std::forward<Args>(pArgs)...);
 }
 
 
@@ -653,7 +652,7 @@ std::pair<typename radix_map<KEY_TYPE, KEY_CONTAINER_TYPE, VALUE_TYPE>::iterator
   auto& valPtr = _get(pKeys);
   if (!valPtr)
   {
-    valPtr = mystd::make_unique<VALUE_TYPE>();
+    valPtr = std::make_unique<VALUE_TYPE>();
     inserted = true;
   }
   return {radix_map<KEY_TYPE, KEY_CONTAINER_TYPE, VALUE_TYPE>::iterator(*this, pKeys, *valPtr), inserted};

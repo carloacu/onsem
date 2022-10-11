@@ -172,7 +172,7 @@ void _applyOperatorOnComparisonExp(SemControllerWorkingStruct& pWorkStruct,
     {
       pWorkStruct.compositeSemAnswers->semAnswers.emplace_back([&resPolarity]
       {
-        auto newAnsw = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+        auto newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
         newAnsw->answerElts[SemanticRequestType::YESORNO].answersGenerated.emplace_back
             (SemExpCreator::sayYesOrNo(resPolarity));
         return newAnsw;
@@ -428,10 +428,10 @@ void _applyOperatorOnFeedbackExp(SemControllerWorkingStruct& pWorkStruct,
           }
           if (!userName)
           {
-            userName = mystd::make_unique<GroundedExpression>
+            userName = std::make_unique<GroundedExpression>
                        ([]
             {
-              auto res = mystd::make_unique<SemanticGenericGrounding>();
+              auto res = std::make_unique<SemanticGenericGrounding>();
               res->quantity.setNumber(1);
               res->word.setContent(SemanticLanguageEnum::ENGLISH, "human", PartOfSpeech::NOUN);
               return res;
@@ -440,7 +440,7 @@ void _applyOperatorOnFeedbackExp(SemControllerWorkingStruct& pWorkStruct,
 
           pWorkStruct.addAnswerWithoutReferences
               (ContextualAnnotation::FEEDBACK,
-               mystd::make_unique<FeedbackExpression>(pFdkExp.feedbackExp->clone(),
+               std::make_unique<FeedbackExpression>(pFdkExp.feedbackExp->clone(),
                                                       std::move(userName)));
           return;
         }
@@ -466,7 +466,7 @@ void _punctuallyAssertAboutTheSource(SemControllerWorkingStruct& pWorkStruct,
                                      const SemanticExpression& pSemExp,
                                      SemanticLanguageEnum pLanguage)
 {
-  auto robotAgent = mystd::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr());
+  auto robotAgent = std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr());
   SemControllerWorkingStruct subWorkStruct
       (InformationType::ASSERTION, &*robotAgent, pLanguage,
        nullptr, SemanticOperatorEnum::INFORM, pWorkStruct.proativeSpecificationsPtr,
@@ -1170,7 +1170,7 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
     const SemanticExpression* actionDefinitionPtr = semanticMemoryLinker::getActionComposition(pWorkStruct, pMemViewer, pGrdExp);
     if (actionDefinitionPtr != nullptr)
     {
-      auto newAnsw = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+      auto newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
       newAnsw->answerElts[SemanticRequestType::YESORNO].answersGenerated.emplace_back
           (actionDefinitionPtr->clone(nullptr, true));
       pWorkStruct.compositeSemAnswers->semAnswers.emplace_back(std::move(newAnsw));
@@ -1265,7 +1265,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
           pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::TEACHINGFEEDBACK,
                                                  SemExpCreator::mergeInAList(
                                                    SemExpCreator::confirmInformation(pGrdExp),
-                                                   SemExpCreator::wrapWithStatementWithRequest(mystd::make_unique<ListExpression>(ListExpressionType::THEN), SemanticRequests(SemanticRequestType::YESORNO))));
+                                                   SemExpCreator::wrapWithStatementWithRequest(std::make_unique<ListExpression>(ListExpressionType::THEN), SemanticRequests(SemanticRequestType::YESORNO))));
         }
       }
       break;
@@ -1373,7 +1373,7 @@ void compAnswerToSemExp(mystd::unique_propagate_const<UniqueSemanticExpression>&
         LeafSemAnswer& leafAnswer = *leafPtr;
         if (leafAnswer.reaction)
         {
-          auto metadataExp = mystd::make_unique<MetadataExpression>(std::move(*leafAnswer.reaction));
+          auto metadataExp = std::make_unique<MetadataExpression>(std::move(*leafAnswer.reaction));
           metadataExp->from = SemanticSourceEnum::SEMREACTION;
           metadataExp->contextualAnnotation = leafAnswer.type;
           metadataExp->interactionContextContainer = std::move(leafAnswer.interactionContextContainer);

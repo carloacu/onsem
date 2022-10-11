@@ -1,7 +1,6 @@
 #include "partofspeechrules_french.hpp"
 #include <list>
 #include <vector>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/common/enum/partofspeech.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/lingtypetoken.hpp>
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
@@ -82,14 +81,14 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   std::list<std::unique_ptr<PartOfSpeechContextFilter>> rules;
 
   // del bigrams
-  rules.emplace_back(mystd::make_unique<PartOfSpeechDelBigramImpossibilities>
+  rules.emplace_back(std::make_unique<PartOfSpeechDelBigramImpossibilities>
                      ("del bigrams",
                       pInfls, _getImpSuccessions(), _getCheckCompatibility()));
 
   // aux-verb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("aux-verb links", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::AUX, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -128,7 +127,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // impossible verb-verb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("impossible verb-verb links", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::VERB, FinderConstraint::ONLY_ONE_ELT, CompatibilityCheck::IS_COMPATIBLE));
@@ -181,7 +180,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // det-noun links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("det-noun links", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::DETERMINER, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -227,7 +226,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // det-det number links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("det-det number links", pInfls,
          TaggerTokenCheck
          ([](const InflectedWord& pInflWord)
@@ -258,7 +257,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // pronoun_comp-verb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("pronoun_comp/subject-verb links", pInfls,
          TaggerTokenCheck
                   ([](const InflectedWord& pIGram)
@@ -320,7 +319,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // det-noun links 2
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("det-noun links2", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::DETERMINER, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
@@ -365,7 +364,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // adj-conj-adj links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("adj-conj-adj links", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::ADJECTIVE, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
@@ -398,18 +397,18 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   }());
 
   // gather linked meanings
-  rules.emplace_back(mystd::make_unique<PartOfSpeechCustomFilter>
+  rules.emplace_back(std::make_unique<PartOfSpeechCustomFilter>
                      ("gather linked meanings", pInfls, pSpecLingDb, "gatherLinkedMeanings"));
 
   // noun at bottom if two times in a row
-  rules.emplace_back(mystd::make_unique<PartOfSpeechCustomFilter>
+  rules.emplace_back(std::make_unique<PartOfSpeechCustomFilter>
                      ("noun at bottom if two times in a row",
                       pInfls, pSpecLingDb, "nounAtBottomIfTwoTimesInARow"));
 
   // adj links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("adj links", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::ADJECTIVE, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -493,7 +492,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // remove adj impossibilities
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("remove adj impossibilities", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::ADJECTIVE, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -540,7 +539,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   // pron_subj-verb links
   rules.emplace_back([&pInfls]
   {
-    auto res = mystd::make_unique<PartOfSpeechPatternMatcher>
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
         ("pron_subj-verb links", pInfls,
          TaggerTokenCheck
          (PartOfSpeech::PRONOUN_SUBJECT, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,

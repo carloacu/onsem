@@ -14,10 +14,10 @@ using namespace onsem;
 
 TEST_F(SemanticReasonerGTests, sentimentWithoutContext)
 {
-  UniqueSemanticExpression meSemExp = mystd::make_unique<GroundedExpression>
+  UniqueSemanticExpression meSemExp = std::make_unique<GroundedExpression>
       (SemanticAgentGrounding::getRobotAgentPtr());
-  UniqueSemanticExpression userSemExp = mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::currentUser));
+  UniqueSemanticExpression userSemExp = std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::currentUser));
   EXPECT_NE(*meSemExp, *userSemExp);
 
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
@@ -250,11 +250,11 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext)
 
 TEST_F(SemanticReasonerGTests, sentimentWithContext)
 {
-  UniqueSemanticExpression meSemExp = mystd::make_unique<GroundedExpression>
+  UniqueSemanticExpression meSemExp = std::make_unique<GroundedExpression>
       (SemanticAgentGrounding::getRobotAgentPtr());
   SemanticAgentGrounding user(SemanticAgentGrounding::currentUser);
-  UniqueSemanticExpression userSemExp = mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticAgentGrounding>(user));
+  UniqueSemanticExpression userSemExp = std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticAgentGrounding>(user));
   EXPECT_NE(*meSemExp, *userSemExp);
 
 

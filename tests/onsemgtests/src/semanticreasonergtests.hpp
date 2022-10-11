@@ -7,7 +7,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/tester/resourcelabelfortests.hpp>
 #include "util/util.hpp"
 
@@ -25,7 +24,7 @@ public:
   static void SetUpTestCase()
   {
     auto iStreams = onsem::linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
-    lingDbPtr = onsem::mystd::make_unique<onsem::linguistics::LinguisticDatabase>(iStreams.linguisticDatabaseStreams);
+    lingDbPtr = std::make_unique<onsem::linguistics::LinguisticDatabase>(iStreams.linguisticDatabaseStreams);
     iStreams.close();
 
     _corpusInputFolder = corpusPath + "/input";

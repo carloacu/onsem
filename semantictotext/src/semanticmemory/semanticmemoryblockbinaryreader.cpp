@@ -395,7 +395,7 @@ std::unique_ptr<SemanticNameGrounding> SemanticMemoryBlockBinaryReader::getNameG
       auto* subPtr = userIdToNameLinksPtr(equUserId);
       if (subPtr != nullptr &&
           _getNameWithoutConsideringEquivalences(res, subPtr))
-        return mystd::make_unique<SemanticNameGrounding>(res, equUserId);
+        return std::make_unique<SemanticNameGrounding>(res, equUserId);
     }
   }
   return {};

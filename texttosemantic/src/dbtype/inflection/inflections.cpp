@@ -3,7 +3,6 @@
 #include <onsem/texttosemantic/dbtype/inflection/nominalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/pronominalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/verbalinflections.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/common/utility/string.hpp>
 #include <assert.h>
 
@@ -70,15 +69,15 @@ std::unique_ptr<Inflections> Inflections::create
   switch (pType)
   {
   case InflectionType::ADJECTIVAL:
-    return mystd::make_unique<AdjectivalInflections>(pInflectionalCodes);
+    return std::make_unique<AdjectivalInflections>(pInflectionalCodes);
   case InflectionType::NOMINAL:
-    return mystd::make_unique<NominalInflections>(pInflectionalCodes);
+    return std::make_unique<NominalInflections>(pInflectionalCodes);
   case InflectionType::PRONOMINAL:
-    return mystd::make_unique<PronominalInflections>(pInflectionalCodes);
+    return std::make_unique<PronominalInflections>(pInflectionalCodes);
   case InflectionType::VERBAL:
-    return mystd::make_unique<VerbalInflections>(pInflectionalCodes);
+    return std::make_unique<VerbalInflections>(pInflectionalCodes);
   case InflectionType::EMPTY:
-    return mystd::make_unique<EmptyInflections>();
+    return std::make_unique<EmptyInflections>();
   }
   assert(false);
   return std::unique_ptr<Inflections>();
@@ -103,15 +102,15 @@ std::unique_ptr<Inflections> Inflections::clone() const
   switch (type)
   {
   case InflectionType::ADJECTIVAL:
-    return mystd::make_unique<AdjectivalInflections>(getAdjectivalI());
+    return std::make_unique<AdjectivalInflections>(getAdjectivalI());
   case InflectionType::NOMINAL:
-    return mystd::make_unique<NominalInflections>(getNominalI());
+    return std::make_unique<NominalInflections>(getNominalI());
   case InflectionType::PRONOMINAL:
-    return mystd::make_unique<PronominalInflections>(getPronominalI());
+    return std::make_unique<PronominalInflections>(getPronominalI());
   case InflectionType::VERBAL:
-    return mystd::make_unique<VerbalInflections>(getVerbalI());
+    return std::make_unique<VerbalInflections>(getVerbalI());
   case InflectionType::EMPTY:
-    return mystd::make_unique<EmptyInflections>();
+    return std::make_unique<EmptyInflections>();
   }
   assert(false);
   return std::unique_ptr<Inflections>();
@@ -125,7 +124,7 @@ std::unique_ptr<Inflections> Inflections::getOtherInflectionsType(InflectionType
   {
     if (pType == InflectionType::NOMINAL)
     {
-      auto res = mystd::make_unique<NominalInflections>();
+      auto res = std::make_unique<NominalInflections>();
       const auto& inflections = getPronominalI().inflections;
       for (const auto& currInfl : inflections)
         res->inflections.emplace_back(currInfl.gender, currInfl.number);

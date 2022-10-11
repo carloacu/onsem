@@ -61,7 +61,7 @@ void debugTextAnalyze
 {
   SyntacticGraphResult results(pLingDb, pLanguageType);
   results.inputText = pSentence;
-  auto timeChecker = mystd::make_unique<TimeChecker>();
+  auto timeChecker = std::make_unique<TimeChecker>();
   linguistics::TextAnalyzeDebugger::fillSemAnalResult(results, pAutoAnnotToDisplay.highLevelResults,
                                                       pSpellingMistakeTypesPossible, pSemanticAnalysisDebugOptions);
   semAnalResultToStructToDisplay(pAutoAnnotToDisplay, results);

@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
@@ -349,7 +348,7 @@ std::string SemanticDate::getYearConcept() const
 
 std::unique_ptr<SemanticTimeGrounding> SemanticTimeGrounding::nowInstance()
 {
-  auto timeGrd = mystd::make_unique<SemanticTimeGrounding>();
+  auto timeGrd = std::make_unique<SemanticTimeGrounding>();
   timeGrd->equalToNow();
   return timeGrd;
 }
@@ -563,7 +562,7 @@ void SemanticTimeGrounding::mergeWith(const SemanticTimeGrounding& pOther)
 
 std::unique_ptr<SemanticTimeGrounding> SemanticTimeGrounding::nowPtr()
 {
-  auto res = mystd::make_unique<SemanticTimeGrounding>();
+  auto res = std::make_unique<SemanticTimeGrounding>();
   res->equalToNow();
   return res;
 }
@@ -600,11 +599,11 @@ void SemanticTimeGrounding::setAnHardCodedTimeElts
 {
   if (pDateAndTimeOfTheDay)
   {
-    SemanticDate::hardCodedCurrentDate = mystd::make_unique<SemanticDate>();
+    SemanticDate::hardCodedCurrentDate = std::make_unique<SemanticDate>();
     SemanticDate::hardCodedCurrentDate->year.emplace(2000);
     SemanticDate::hardCodedCurrentDate->month.emplace(1);
     SemanticDate::hardCodedCurrentDate->day.emplace(1);
-    hardCodedCurrentTimeOfDay = mystd::make_unique<SemanticDuration>();
+    hardCodedCurrentTimeOfDay = std::make_unique<SemanticDuration>();
     hardCodedCurrentTimeOfDay->add(SemanticTimeUnity::HOUR, 7);
   }
   else
@@ -613,7 +612,7 @@ void SemanticTimeGrounding::setAnHardCodedTimeElts
     hardCodedCurrentTimeOfDay.reset();
   }
   if (pLessThanASecond)
-    hardCodedLessThanASecondNextValue = mystd::make_unique<int>(0);
+    hardCodedLessThanASecondNextValue = std::make_unique<int>(0);
   else
     hardCodedLessThanASecondNextValue.reset();
 }
@@ -666,7 +665,7 @@ void SemanticTimeGrounding::_setToNow(
     }
     else
     {
-      _lastGivenTime = mystd::make_unique<SemanticDuration>(pTimeDuration);
+      _lastGivenTime = std::make_unique<SemanticDuration>(pTimeDuration);
       lessThanASecondNextValue = 0;
     }
   }

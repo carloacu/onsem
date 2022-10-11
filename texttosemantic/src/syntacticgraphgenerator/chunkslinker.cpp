@@ -1,6 +1,5 @@
 #include "chunkslinker.hpp"
 #include <algorithm>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/nominalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
@@ -38,19 +37,19 @@ void ChunksLinker::process(std::list<ChunkLink>& pFirstChildren) const
       if (headPartOfSpeech != PartOfSpeech::PRONOUN_SUBJECT &&
           headPartOfSpeech != PartOfSpeech::ADVERB &&
           headPartOfSpeech != PartOfSpeech::INTERJECTION)
-        history.prevNominal[0].chLk = mystd::make_unique<IterToChkLink>(pFirstChildren, it);
+        history.prevNominal[0].chLk = std::make_unique<IterToChkLink>(pFirstChildren, it);
       break;
     }
     case ChunkType::INFINITVE_VERB_CHUNK:
     {
-      history.prevNominal[0].chLk = mystd::make_unique<IterToChkLink>(pFirstChildren, it);
+      history.prevNominal[0].chLk = std::make_unique<IterToChkLink>(pFirstChildren, it);
       break;
     }
     case ChunkType::SEPARATOR_CHUNK:
     {
       if (headPartOfSpeech == PartOfSpeech::LINKBETWEENWORDS &&
           history.prevNominal[0].chLk)
-        history.prevNominal[0].sepToDelete = mystd::make_unique<IterToChkLink>(pFirstChildren, it);
+        history.prevNominal[0].sepToDelete = std::make_unique<IterToChkLink>(pFirstChildren, it);
       break;
     }
     default:

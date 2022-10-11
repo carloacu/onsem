@@ -156,10 +156,10 @@ void _refactorCaVaFrenchSentence(GroundedExpression& pGrdExp,
             pStatementGrd.requests.has(SemanticRequestType::YESORNO))
         {
           pGrdExp.children.emplace(GrammaticalType::MANNER,
-                                   mystd::make_unique<GroundedExpression>
+                                   std::make_unique<GroundedExpression>
                                    ([]
           {
-            auto res = mystd::make_unique<SemanticGenericGrounding>();
+            auto res = std::make_unique<SemanticGenericGrounding>();
             res->word = SemanticWord(SemanticLanguageEnum::FRENCH, "bien", PartOfSpeech::ADVERB);
             res->concepts.emplace("manner_well", 4);
             return res;
@@ -174,9 +174,9 @@ void _refactorCaVaFrenchSentence(GroundedExpression& pGrdExp,
       pStatementGrd.concepts.clear();
       pStatementGrd.concepts.emplace("verb_go", 4);
       if (pStatementGrd.requests.empty())
-        subjectGrdExpPtr->moveGrounding(mystd::make_unique<SemanticAgentGrounding>(pTextProcContext.author));
+        subjectGrdExpPtr->moveGrounding(std::make_unique<SemanticAgentGrounding>(pTextProcContext.author));
       else
-        subjectGrdExpPtr->moveGrounding(mystd::make_unique<SemanticAgentGrounding>(pTextProcContext.receiver));
+        subjectGrdExpPtr->moveGrounding(std::make_unique<SemanticAgentGrounding>(pTextProcContext.receiver));
     }
   }
 }
@@ -239,7 +239,7 @@ std::unique_ptr<SemanticExpression> convertEnglishSentenceToASemExp
           auto itObjectChild = pGrdExp->children.find(GrammaticalType::OBJECT);
           if (itObjectChild != pGrdExp->children.end())
           {
-            auto compExp = mystd::make_unique<ComparisonExpression>
+            auto compExp = std::make_unique<ComparisonExpression>
                 (compOperator,
                  std::move(itSubjectChild->second));
             compExp->rightOperandExp.emplace(std::move(itObjectChild->second));
@@ -372,7 +372,7 @@ void refactorFrenchSentencesWithAGoal(std::unique_ptr<SemanticExpression>& pSemE
             auto itSubject = newGrdExpPtr->children.find(GrammaticalType::SUBJECT);
             if (itSubject != newGrdExpPtr->children.end() &&
                 SemExpGetter::isACoreference(*itSubject->second, CoreferenceDirectionEnum::BEFORE))
-              itSubject->second = mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("generic"));
+              itSubject->second = std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("generic"));
           }
         }
         return;

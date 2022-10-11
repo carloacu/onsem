@@ -91,7 +91,7 @@ inline std::unique_ptr<ConditionExpression> ConditionExpression::clone
  bool pRemoveRecentContextInterpretations,
  const std::set<SemanticExpressionType>* pExpressionTypesToSkip) const
 {
-  auto res = mystd::make_unique<ConditionExpression>
+  auto res = std::make_unique<ConditionExpression>
       (isAlwaysActive,
        conditionPointsToAffirmations,
        conditionExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip),

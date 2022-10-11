@@ -35,7 +35,7 @@ FutureVoid VirtualExecutor::_sayAndAddDescriptionTree(
 {
   IndexToSubNameToParameterValue params;
   params[0][""] =
-      mystd::make_unique<ReferenceOfSemanticExpressionContainer>(*pUSemExp);
+      std::make_unique<ReferenceOfSemanticExpressionContainer>(*pUSemExp);
   auto descExp = MetadataExpression::constructSourceFromSourceEnumInPresent
       (SemanticAgentGrounding::getRobotAgentPtr(),
        pFrom, pContextualAnnotation);
@@ -44,7 +44,7 @@ FutureVoid VirtualExecutor::_sayAndAddDescriptionTree(
   descExp = descExp->clone(&params, true, &expressionTypesToSkip);
   _assertPunctually(*descExp);
   auto descExpWithMetadata = std::make_shared<std::unique_ptr<MetadataExpression>>
-      (mystd::make_unique<MetadataExpression>(SemanticSourceEnum::SEMREACTION,
+      (std::make_unique<MetadataExpression>(SemanticSourceEnum::SEMREACTION,
                                               std::move(descExp), pUSemExp->clone()));
   (*descExpWithMetadata)->contextualAnnotation = pContextualAnnotation;
 
@@ -99,7 +99,7 @@ FutureVoid VirtualExecutor::_sayWithAnnotations(
     return _sayAndAddDescriptionTree(pUSemExp, pExecutorContext, pStopRequest,
                                      pFrom, pContextualAnnotation);
 
-  auto annExp = mystd::make_unique<AnnotatedExpression>(pUSemExp->clone());
+  auto annExp = std::make_unique<AnnotatedExpression>(pUSemExp->clone());
   for (const auto& currAnnotation : *pExecutorContext->annotations)
     annExp->annotations.emplace(currAnnotation.first, currAnnotation.second->clone());
   UniqueSemanticExpression uSemExp(std::move(annExp));

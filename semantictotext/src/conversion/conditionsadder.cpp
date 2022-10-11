@@ -51,7 +51,7 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
               SemExpModifier::removeChildFromSemExp(*timeSemExp, GrammaticalType::INTRODUCTING_WORD);
               splitter::splitInVerySimpleSentences(timeSemExp, false);
               grdExp.children.erase(itTimeChild);
-              pSemExp = mystd::make_unique<ConditionExpression>
+              pSemExp = std::make_unique<ConditionExpression>
                   (timeGrdType == SemanticGroundingType::STATEMENT, false,
                    std::move(timeSemExp), std::move(pSemExp));
               break;
@@ -73,7 +73,7 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
               SemExpModifier::removeChildFromSemExp(*durationSemExp, GrammaticalType::INTRODUCTING_WORD);
               splitter::splitInVerySimpleSentences(durationSemExp, false);
               grdExp.children.erase(itDurationChild);
-              pSemExp = mystd::make_unique<ConditionExpression>(false, false,
+              pSemExp = std::make_unique<ConditionExpression>(false, false,
                                                                 std::move(durationSemExp), std::move(pSemExp));
               break;
             }

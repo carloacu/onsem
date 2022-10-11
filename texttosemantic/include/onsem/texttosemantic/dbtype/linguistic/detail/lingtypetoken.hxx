@@ -3,7 +3,6 @@
 
 #include "../lingtypetoken.hpp"
 #include <sstream>
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
@@ -312,7 +311,7 @@ inline TokenIteratorTemplate<TOKENSVECTOR, TOKENIT>& TokenIteratorTemplate<TOKEN
   else if (_itToken->subTokens != nullptr &&
            !_itToken->subTokens->tokens.empty())
   {
-    _subIterator = mystd::make_unique<TokenIteratorTemplate<TOKENSVECTOR, TOKENIT>>(_itToken->subTokens->tokens, _offset + 1);
+    _subIterator = std::make_unique<TokenIteratorTemplate<TOKENSVECTOR, TOKENIT>>(_itToken->subTokens->tokens, _offset + 1);
     return *this;
   }
 

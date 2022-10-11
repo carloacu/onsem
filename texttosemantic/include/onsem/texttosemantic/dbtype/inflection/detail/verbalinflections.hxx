@@ -3,7 +3,6 @@
 
 #include "../verbalinflections.hpp"
 #include <onsem/common/enum/relativepersonwithoutnumber.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
@@ -79,14 +78,14 @@ inline bool VerbalInflections::operator==(const VerbalInflections& pOther) const
 
 inline std::unique_ptr<VerbalInflections> VerbalInflections::get_inflections_infinitive()
 {
-  auto res = mystd::make_unique<VerbalInflections>();
+  auto res = std::make_unique<VerbalInflections>();
   res->inflections.emplace_back("W");
   return res;
 }
 
 inline std::unique_ptr<VerbalInflections> VerbalInflections::get_inflections_imperative()
 {
-  auto res = mystd::make_unique<VerbalInflections>();
+  auto res = std::make_unique<VerbalInflections>();
   res->inflections.emplace_back("Y");
   return res;
 }

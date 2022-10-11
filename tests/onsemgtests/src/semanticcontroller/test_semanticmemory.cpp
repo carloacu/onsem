@@ -24,7 +24,7 @@ struct MyStdSignalSpy
 
 UniqueSemanticExpression makeSemExpFromText(const std::string& text)
 {
-  return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTextGrounding>(text));
+  return std::make_unique<GroundedExpression>(std::make_unique<SemanticTextGrounding>(text));
 }
 
 
@@ -74,8 +74,8 @@ TEST_F(SemanticReasonerGTests, copyKnowledges)
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   auto getGrdExp = [](const std::string& pText)
   {
-    return mystd::make_unique<GroundedExpression>
-        (mystd::make_unique<SemanticTextGrounding>(pText));
+    return std::make_unique<GroundedExpression>
+        (std::make_unique<SemanticTextGrounding>(pText));
   };
 
   UniqueSemanticExpression semExp1 = getGrdExp("knowledge1");

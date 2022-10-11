@@ -338,7 +338,7 @@ void xLoadOneToken(DeserializedCurrWorkingStruct& pWkStruct,
   if (optChildTokens)
   {
     pWkStruct.currFinalTokensTree->tokens.back().subTokens =
-        mystd::make_unique<linguistics::TokensTree>();
+        std::make_unique<linguistics::TokensTree>();
 
     linguistics::TokensTree* finalTokensTreeSAVE = pWkStruct.currFinalTokensTree;
 

@@ -1,5 +1,4 @@
 #include "occurrencerankconverter.hpp"
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/common/enum/semanticreferencetype.hpp>
@@ -64,11 +63,11 @@ void process(UniqueSemanticExpression& pSemExp)
                         if (objectGrdExp.children.find(GrammaticalType::OBJECT) == objectGrdExp.children.end())
                         {
                           objectGrdExp.children.emplace(GrammaticalType::OBJECT,
-                                                        mystd::make_unique<GroundedExpression>(subjectGrdExp.cloneGrounding()));
+                                                        std::make_unique<GroundedExpression>(subjectGrdExp.cloneGrounding()));
                         }
                         subjectGrdExp.moveGrounding([]
                         {
-                          auto genGrd = mystd::make_unique<SemanticGenericGrounding>(SemanticReferenceType::DEFINITE,
+                          auto genGrd = std::make_unique<SemanticGenericGrounding>(SemanticReferenceType::DEFINITE,
                                                                                      SemanticEntityType::THING);
                           genGrd->concepts.emplace("occurrenceRank", 4);
                           return genGrd;
@@ -84,9 +83,9 @@ void process(UniqueSemanticExpression& pSemExp)
                       {
                         SemExpModifier::addChild(*newRootGrdExpPtr, GrammaticalType::OCCURRENCE_RANK,
                                                  std::move(itSubject->second));
-                        auto res = mystd::make_unique<SetOfFormsExpression>();
-                        res->prioToForms[-10].emplace_back(mystd::make_unique<QuestExpressionFrom>(std::move(cloneOfOldSemExp), true));
-                        res->prioToForms[-11].emplace_back(mystd::make_unique<QuestExpressionFrom>(std::move(newRoot), false));
+                        auto res = std::make_unique<SetOfFormsExpression>();
+                        res->prioToForms[-10].emplace_back(std::make_unique<QuestExpressionFrom>(std::move(cloneOfOldSemExp), true));
+                        res->prioToForms[-11].emplace_back(std::make_unique<QuestExpressionFrom>(std::move(newRoot), false));
                         pSemExp = std::move(res);
                       }
                     }

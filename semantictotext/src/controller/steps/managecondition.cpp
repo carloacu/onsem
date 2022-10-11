@@ -66,7 +66,7 @@ void manageCondition(SemControllerWorkingStruct& pWorkStruct,
     if (thenCommand)
       pWorkStruct.addAnswerWithoutReferences
           (ContextualAnnotation::BEHAVIOR,
-           mystd::make_unique<ConditionExpression>
+           std::make_unique<ConditionExpression>
            (condSpec.isAlwaysActive, condSpec.conditionShouldBeInformed,
             condSpec.conditionExp.clone(), std::move(*thenCommand)));
   }

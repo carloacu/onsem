@@ -29,15 +29,15 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
           int number = 0;
           if (getNumberBeforeHead(number, pContext.chunk))
           {
-            auto newLength = mystd::make_unique<SemanticLengthGrounding>();
+            auto newLength = std::make_unique<SemanticLengthGrounding>();
             newLength->length.lengthInfos[currLength] = number;
             return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (mystd::make_unique<GroundedExpression>(std::move(newLength)));
+                (std::make_unique<GroundedExpression>(std::move(newLength)));
           }
           else
           {
             return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticUnityGrounding>(currLength)));
+                (std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currLength)));
           }
         }
       }

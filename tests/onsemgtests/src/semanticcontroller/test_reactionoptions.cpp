@@ -186,7 +186,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_canAnswerWithExternalEng
   ReactionOptions cannnotAnswerWithExternalEnginesReaction;
   cannnotAnswerWithExternalEnginesReaction.canAnswerWithExternalEngines = false;
 
-  semMem.registerExternalInfosProvider(mystd::make_unique<DummyJokeProvider>(lingDb), lingDb);
+  semMem.registerExternalInfosProvider(std::make_unique<DummyJokeProvider>(lingDb), lingDb);
 
   const std::string question = "what is the joke of today ?";
   ONSEM_ANSWERNOTFOUND_EQ("I don't know what the joke of today is.",

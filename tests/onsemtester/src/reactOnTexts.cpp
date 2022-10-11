@@ -189,7 +189,7 @@ void loadOneFileInSemanticMemory(std::size_t& pNbOfInforms,
   {
     const auto textReplacedFilename = *pPathToWriteTextReplaced + "/text_replaced.txt";
     std::cout << "textReplacedFilename: " << textReplacedFilename << std::endl;
-    textReplacedFilePtr = mystd::make_unique<std::ofstream>(textReplacedFilename.c_str());
+    textReplacedFilePtr = std::make_unique<std::ofstream>(textReplacedFilename.c_str());
   }
 
   std::set<std::string> properNouns;

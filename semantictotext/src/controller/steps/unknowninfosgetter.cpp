@@ -138,7 +138,7 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
         case ReplacingParamStrategy::RETURN_PARAM:
         {
           pParams[metaGr.paramId].emplace(metaGr.attibuteName,
-                                          mystd::make_unique<UniqueSemanticExpression>(childCorespondingToTheParam.clone()));
+                                          std::make_unique<UniqueSemanticExpression>(childCorespondingToTheParam.clone()));
           break;
         }
         case ReplacingParamStrategy::ASK_WHAT_IS:
@@ -187,13 +187,13 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
           }
           if (!paramHasBeenInserted)
             pParams[metaGr.paramId].emplace(metaGr.attibuteName,
-                                            mystd::make_unique<UniqueSemanticExpression>(childCorespondingToTheParam.clone()));
+                                            std::make_unique<UniqueSemanticExpression>(childCorespondingToTheParam.clone()));
           break;
         }
         case ReplacingParamStrategy::RETURN_AN_INSTANCE:
         {
           pParams[metaGr.paramId].emplace(metaGr.attibuteName,
-                                          mystd::make_unique<UniqueSemanticExpression>(SemExpCreator::sayThatWeDontKnowAnInstanceOf(childCorespondingToTheParam)));
+                                          std::make_unique<UniqueSemanticExpression>(SemExpCreator::sayThatWeDontKnowAnInstanceOf(childCorespondingToTheParam)));
           break;
         }
         }
@@ -246,7 +246,7 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
   for (auto itRel = pIdsToSentences.dynamicLinks.rbegin(); itRel != pIdsToSentences.dynamicLinks.rend(); ++itRel)
   {
     const SemanticMemorySentence& memSent = *itRel->second;
-    auto params = mystd::make_unique<IndexToSubNameToParameterValue>();
+    auto params = std::make_unique<IndexToSubNameToParameterValue>();
     std::unique_ptr<InteractionContextContainer> subIntContext;
     if (!checkIfMatchAndGetParams(*params, subIntContext, &pIncompleteRelations, memSent, pGrdExp, pWorkStruct, pMemViewer))
     {
@@ -393,11 +393,11 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
               numberOfExcutionsSemExpPtr != nullptr ||
               durationSemExpPtr != nullptr)
           {
-            auto newAnnExp = mystd::make_unique<AnnotatedExpression>(std::move(actionSemExp));
+            auto newAnnExp = std::make_unique<AnnotatedExpression>(std::move(actionSemExp));
             if (behavLanguage != SemanticLanguageEnum::UNKNOWN)
               newAnnExp->annotations.emplace
                   (GrammaticalType::LANGUAGE,
-                   mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticLanguageGrounding>(behavLanguage)));
+                   std::make_unique<GroundedExpression>(std::make_unique<SemanticLanguageGrounding>(behavLanguage)));
             if (numberOfExcutionsSemExpPtr != nullptr)
               newAnnExp->annotations.emplace
                   (GrammaticalType::REPETITION, numberOfExcutionsSemExpPtr->clone());
@@ -407,7 +407,7 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
             actionSemExp = std::move(newAnnExp);
           }
 
-          auto cmdExp = mystd::make_unique<CommandExpression>(std::move(actionSemExp));
+          auto cmdExp = std::make_unique<CommandExpression>(std::move(actionSemExp));
           cmdExp->description.emplace(SemExpModifier::fromImperativeToActionDescription(pGrdExp));
           pWorkStruct.addAnswer(ContextualAnnotation::BEHAVIOR, std::move(cmdExp),
                                 ReferencesFiller(contextAxiom));

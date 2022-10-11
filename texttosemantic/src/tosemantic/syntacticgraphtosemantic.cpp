@@ -89,10 +89,10 @@ bool _extractNumberOfAChunk(int& pNumber,
 // TODO: use the one of SemExpCreator
 UniqueSemanticExpression _whoSemExp()
 {
-  return mystd::make_unique<GroundedExpression>
+  return std::make_unique<GroundedExpression>
       ([]()
  {
-   auto anyHumanGrd = mystd::make_unique<SemanticGenericGrounding>();
+   auto anyHumanGrd = std::make_unique<SemanticGenericGrounding>();
    anyHumanGrd->entityType = SemanticEntityType::HUMAN;
    anyHumanGrd->concepts.emplace("agent", 4);
    return anyHumanGrd;
@@ -207,9 +207,9 @@ void _tryToAddTheIntroductingWord(SemanticExpression& pSemExp,
     if (word.partOfSpeech == PartOfSpeech::PREPOSITION)
     {
       SemExpModifier::addChildFromSemExp(pSemExp, GrammaticalType::INTRODUCTING_WORD,
-                                         mystd::make_unique<GroundedExpression>([&word]
+                                         std::make_unique<GroundedExpression>([&word]
       {
-        auto res = mystd::make_unique<SemanticGenericGrounding>();
+        auto res = std::make_unique<SemanticGenericGrounding>();
         if (word.lemma == "au" &&
             word.language == SemanticLanguageEnum::FRENCH)
           res->word = SemanticWord(word.language, "à", PartOfSpeech::PREPOSITION);
@@ -230,8 +230,8 @@ std::unique_ptr<GroundedExpression> _tryToConvertLanguageChunk(const std::map<st
     const std::string& conceptName = currCpt.first;
     if (ConceptSet::doesConceptBeginWith(conceptName, langLabel))
     {
-      return mystd::make_unique<GroundedExpression>
-          (mystd::make_unique<SemanticLanguageGrounding>
+      return std::make_unique<GroundedExpression>
+          (std::make_unique<SemanticLanguageGrounding>
            (semanticLanguageTypeGroundingEnumFromStr
             (conceptName.substr(langLabel.size(),
                                 conceptName.size() - langLabel.size()))));
@@ -416,7 +416,7 @@ void SyntacticGraphToSemantic::xReplaceQuestWordByRequest
       {
         grdExp.moveGrounding([&requType]
         {
-          auto statGrd = mystd::make_unique<SemanticStatementGrounding>();
+          auto statGrd = std::make_unique<SemanticStatementGrounding>();
           statGrd->requests.set(requType);
           statGrd->coreference.emplace();
           return statGrd;
@@ -454,9 +454,9 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xAddSemExpWithMainSentimental
 
   if (mainToken != nullptr)
   {
-    auto textGrounding = mystd::make_unique<SemanticTextGrounding>(mainToken->str);
+    auto textGrounding = std::make_unique<SemanticTextGrounding>(mainToken->str);
     textGrounding->concepts = mainToken->inflWords.front().infos.concepts;
-    return UniqueSemanticExpression(mystd::make_unique<GroundedExpression>
+    return UniqueSemanticExpression(std::make_unique<GroundedExpression>
                                     (std::move(textGrounding)));
   }
   return UniqueSemanticExpression();
@@ -584,7 +584,7 @@ std::unique_ptr<GroundedExpression> _strToMetaOrResourceGrd(
     std::unique_ptr<SemanticMetaGrounding> metaGrd;
     metaGrd = SemanticMetaGrounding::makeMetaGroundingFromStr(pStr);
     if (metaGrd)
-      return mystd::make_unique<GroundedExpression>(std::move(metaGrd));
+      return std::make_unique<GroundedExpression>(std::move(metaGrd));
   }
   else if (pCmdGrdExtractorPtr)
   {
@@ -595,7 +595,7 @@ std::unique_ptr<GroundedExpression> _strToMetaOrResourceGrd(
       std::unique_ptr<SemanticResourceGrounding> resourceGrd;
       resourceGrd = ResourceGroundingExtractor::makeResourceGroundingFromStr(pStr, begOfTheResource);
       if (resourceGrd)
-        return mystd::make_unique<GroundedExpression>(std::move(resourceGrd));
+        return std::make_unique<GroundedExpression>(std::move(resourceGrd));
     }
   }
   return std::unique_ptr<GroundedExpression>();
@@ -691,13 +691,13 @@ void SyntacticGraphToSemantic::xAddOwnertTolink(GroundedExpression& pGrdExpParen
   }
   case RelativePerson::THIRD_SING:
   {
-    auto subGenGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto subGenGrd = std::make_unique<SemanticGenericGrounding>();
     subGenGrd->referenceType = SemanticReferenceType::DEFINITE;
     subGenGrd->entityType = SemanticEntityType::HUMAN;
     subGenGrd->coreference.emplace();
     subGenGrd->quantity.setNumber(1);
     SemExpModifier::addChild(pGrdExpParent, GrammaticalType::OWNER,
-                             mystd::make_unique<GroundedExpression>(std::move(subGenGrd)));
+                             std::make_unique<GroundedExpression>(std::move(subGenGrd)));
     break;
   }
   case RelativePerson::FIRST_PLUR:
@@ -708,13 +708,13 @@ void SyntacticGraphToSemantic::xAddOwnertTolink(GroundedExpression& pGrdExpParen
   }
   case RelativePerson::THIRD_PLUR:
   {
-    auto subGenGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto subGenGrd = std::make_unique<SemanticGenericGrounding>();
     subGenGrd->referenceType = SemanticReferenceType::DEFINITE;
     subGenGrd->entityType = SemanticEntityType::HUMAN;
     subGenGrd->coreference.emplace();
     subGenGrd->quantity.setPlural();
     SemExpModifier::addChild(pGrdExpParent, GrammaticalType::OWNER,
-                             mystd::make_unique<GroundedExpression>(std::move(subGenGrd)));
+                             std::make_unique<GroundedExpression>(std::move(subGenGrd)));
     break;
   }
   case RelativePerson::UNKNOWN:
@@ -806,7 +806,7 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
           auto corefGrounding = pRootGrdExp.cloneGrounding();
           _refactorToAOtherThanGrd(*corefGrounding);
           SemExpModifier::addChild(pRootGrdExp, GrammaticalType::OTHER_THAN,
-                                   mystd::make_unique<GroundedExpression>(std::move(corefGrounding)));
+                                   std::make_unique<GroundedExpression>(std::move(corefGrounding)));
         }
       }
 
@@ -942,7 +942,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     if (timeRelConcepts.size() == 1)
     {
       const std::string& relCptStr = timeRelConcepts.begin()->first;
-      auto timeGrounding = mystd::make_unique<SemanticTimeGrounding>();
+      auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
       timeGrounding->date = pGeneral.syntGraphTime.date;
       if (timeGrounding->modifyTimeGrdAccordingToADayPart(relCptStr))
       {
@@ -951,7 +951,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
             isAPastTense(pContext.holdingSentenceVerbTense) &&
             timeGrounding->isAfter(pGeneral.syntGraphTime))
           timeGrounding->date.moveOfANumberOfDaysInPast(1);
-        return mystd::unique_propagate_const<UniqueSemanticExpression>(mystd::make_unique<GroundedExpression>(std::move(timeGrounding)));
+        return mystd::unique_propagate_const<UniqueSemanticExpression>(std::make_unique<GroundedExpression>(std::move(timeGrounding)));
       }
     }
   }
@@ -967,10 +967,10 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       if ((introGram == PartOfSpeech::DETERMINER || introGram == PartOfSpeech::PARTITIVE) &&
           ConceptSet::haveAConcept(introInflWord.infos.concepts, "reference_definite"))
       {
-        auto timeGrounding = mystd::make_unique<SemanticTimeGrounding>();
+        auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
         timeGrounding->date = pGeneral.syntGraphTime.date;
         timeGrounding->length.add(SemanticTimeUnity::DAY, 1);
-        return mystd::unique_propagate_const<UniqueSemanticExpression>(mystd::make_unique<GroundedExpression>(std::move(timeGrounding)));
+        return mystd::unique_propagate_const<UniqueSemanticExpression>(std::make_unique<GroundedExpression>(std::move(timeGrounding)));
       }
       itTokBeforeHead = getNextToken(itTokBeforeHead, pChunk.head);
     }
@@ -986,7 +986,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
  const Chunk& pChunk) const
 {
   if (pChunk.tokRange.isEmpty())
-    return mystd::make_unique<GroundedExpression>();
+    return std::make_unique<GroundedExpression>();
 
   const auto& headConcepts = pChunk.head->inflWords.front().infos.concepts;
   bool headBeginWithTimeConcept = ConceptSet::haveAConceptThatBeginWith(headConcepts, "time_");
@@ -995,7 +995,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     if ((pContext.holdingSentenceVerbTense == SemanticVerbTense::UNKNOWN ||
          isAPresentTense(pContext.holdingSentenceVerbTense)) &&
         (ConceptSet::haveAnyOfConcepts(headConcepts, {"time_relative_now", "time_relative_rightAway"})))
-      return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTimeGrounding>(pGeneral.syntGraphTime));
+      return std::make_unique<GroundedExpression>(std::make_unique<SemanticTimeGrounding>(pGeneral.syntGraphTime));
 
     if (pGeneral.textProcContext.isTimeDependent)
     {
@@ -1004,13 +1004,13 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
       if (timeRelConcepts.size() >= 1)
       {
         const std::string& relCptStr = timeRelConcepts.begin()->first;
-        auto timeGrounding = mystd::make_unique<SemanticTimeGrounding>();
+        auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
         timeGrounding->date = pGeneral.syntGraphTime.date;
         if (_modifyTimeGrdAccordingToARelativeDay(*timeGrounding, relCptStr))
         {
           timeGrounding->length.add(SemanticTimeUnity::DAY, 1);
           timeGrounding->concepts = std::move(timeRelConcepts);
-          return mystd::make_unique<GroundedExpression>(std::move(timeGrounding));
+          return std::make_unique<GroundedExpression>(std::move(timeGrounding));
         }
       }
     }
@@ -1019,10 +1019,10 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     ConceptSet::extractConceptsThatBeginWith(weekDayConcepts, headConcepts, "time_weekday_");
     if (weekDayConcepts.size() == 1)
     {
-      auto timeGrounding = mystd::make_unique<SemanticTimeGrounding>();
+      auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
       timeGrounding->date.dayEqualToAWeekDayOfThisWeek
           (semanticTimeWeekdayEnum_fromStr(weekDayConcepts.begin()->first));
-      return mystd::make_unique<GroundedExpression>(std::move(timeGrounding));
+      return std::make_unique<GroundedExpression>(std::move(timeGrounding));
     }
 
     {
@@ -1031,7 +1031,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
       if (hourRelConcepts.size() >= 1)
       {
         const std::string& relHourCptStr = hourRelConcepts.begin()->first;
-        auto timeGrounding = mystd::make_unique<SemanticTimeGrounding>();
+        auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
 
         int hourNumber = 0;
         if (_extractNumberOfAChunk(hourNumber, pChunk))
@@ -1039,12 +1039,12 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
           if (relHourCptStr == "time_hour_am")
           {
             timeGrounding->timeOfDay.add(SemanticTimeUnity::HOUR, hourNumber);
-            return mystd::make_unique<GroundedExpression>(std::move(timeGrounding));
+            return std::make_unique<GroundedExpression>(std::move(timeGrounding));
           }
           if (relHourCptStr == "time_hour_pm")
           {
             timeGrounding->timeOfDay.add(SemanticTimeUnity::HOUR, 12 + hourNumber);
-            return mystd::make_unique<GroundedExpression>(std::move(timeGrounding));
+            return std::make_unique<GroundedExpression>(std::move(timeGrounding));
           }
         }
       }
@@ -1065,8 +1065,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
   {
     const std::string& headStr = pChunk.head->str;
     if (SemanticTextGrounding::isAQuotedText(headStr))
-      return mystd::make_unique<GroundedExpression>
-          (mystd::make_unique<SemanticTextGrounding>(SemanticTextGrounding::getTheUnquotedText(headStr), SemanticLanguageEnum::UNKNOWN, true));
+      return std::make_unique<GroundedExpression>
+          (std::make_unique<SemanticTextGrounding>(SemanticTextGrounding::getTheUnquotedText(headStr), SemanticLanguageEnum::UNKNOWN, true));
   }
   else if (chunkHeadIGram.word.partOfSpeech == PartOfSpeech::PRONOUN ||
            chunkHeadIGram.word.partOfSpeech == PartOfSpeech::PRONOUN_SUBJECT ||
@@ -1086,8 +1086,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
             !SemExpGetter::isACoreference(*itSubject->second, CoreferenceDirectionEnum::UNKNOWN))
           return itSubject->second->clone();
       }
-      return mystd::make_unique<GroundedExpression>
-          (mystd::make_unique<SemanticConceptualGrounding>("reflexive"));
+      return std::make_unique<GroundedExpression>
+          (std::make_unique<SemanticConceptualGrounding>("reflexive"));
     }
 
     // it's a pronoun that refer to to a person
@@ -1099,8 +1099,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
       if (pContext.grammTypeFromParent != GrammaticalType::RECEIVER &&
           chunkHeadIGram.infos.hasContextualInfo(WordContextualInfos::POSSESSIVE))
       {
-        auto corefGrdExp = mystd::make_unique<GroundedExpression>([] {
-          auto corefGenGrd = mystd::make_unique<SemanticGenericGrounding>();
+        auto corefGrdExp = std::make_unique<GroundedExpression>([] {
+          auto corefGenGrd = std::make_unique<SemanticGenericGrounding>();
           corefGenGrd->referenceType = SemanticReferenceType::DEFINITE;
           corefGenGrd->coreference.emplace();
           return corefGenGrd;
@@ -1122,8 +1122,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
            _shouldConceptsBeInsideAConceptualGrounding(ConceptSet::haveAConceptThatBeginWith(chunkHeadIGram.infos.concepts, "reference_"),
                                                        chunkHeadIGram.infos.concepts))
   {
-    auto res = mystd::make_unique<GroundedExpression>
-        (mystd::make_unique<SemanticConceptualGrounding>(chunkHeadIGram.infos.concepts));
+    auto res = std::make_unique<GroundedExpression>
+        (std::make_unique<SemanticConceptualGrounding>(chunkHeadIGram.infos.concepts));
     xAddModifiers(res, pContext, pChunk, true);
     if (headBeginWithTimeConcept &&
         (res->children.count(GrammaticalType::SPECIFIER) > 0 ||
@@ -1146,7 +1146,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     {
       std::string userId;
       if (ConceptSet::extractUserId(userId, chunkHeadIGram.infos.concepts))
-        return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticAgentGrounding>(userId));
+        return std::make_unique<GroundedExpression>(std::make_unique<SemanticAgentGrounding>(userId));
     }
     std::list<std::string> names(1, chunkHeadIGram.word.lemma);
     if (languageType == SemanticLanguageEnum::FRENCH)
@@ -1179,17 +1179,17 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     {
       if (hasASpecificUserId)
       {
-        auto agentGrd = mystd::make_unique<SemanticAgentGrounding>(pGeneral.agentWeAreTalkingAbout->userId, names);
+        auto agentGrd = std::make_unique<SemanticAgentGrounding>(pGeneral.agentWeAreTalkingAbout->userId, names);
         fConfiguration.getFlsChecker().initGenderSetFromIGram
             (agentGrd->nameInfos->possibleGenders, headInflWord);
-        return mystd::make_unique<GroundedExpression>(std::move(agentGrd));
+        return std::make_unique<GroundedExpression>(std::move(agentGrd));
       }
       else
       {
         auto nameGrd = SemExpGenerator::makeNameGrd(names, &headConcepts);
         fConfiguration.getFlsChecker().initGenderSetFromIGram
             (nameGrd->nameInfos.possibleGenders, headInflWord);
-        return mystd::make_unique<GroundedExpression>(std::move(nameGrd));
+        return std::make_unique<GroundedExpression>(std::move(nameGrd));
       }
     }();
     bool lookAtTokenAfterTheHead = languageType != SemanticLanguageEnum::FRENCH;
@@ -1200,9 +1200,9 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     {
       auto agentWeAreTalkingAbout = std::move(pGeneral.agentWeAreTalkingAbout);
       pGeneral.agentWeAreTalkingAbout.reset();
-      return mystd::make_unique<InterpretationExpression>
+      return std::make_unique<InterpretationExpression>
           (InterpretationSource::FIRSTAGENTOFTEXT,
-           mystd::make_unique<GroundedExpression>(std::move(agentWeAreTalkingAbout)),
+           std::make_unique<GroundedExpression>(std::move(agentWeAreTalkingAbout)),
            std::move(res));
     }
     return std::move(res);
@@ -1219,7 +1219,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
   }
 
 
-  auto res = mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticGenericGrounding>());
+  auto res = std::make_unique<GroundedExpression>(std::make_unique<SemanticGenericGrounding>());
   SemanticGenericGrounding& genGrounding = res->grounding().getGenericGrounding();
   PartOfSpeech headPartOfSpeech = chunkHeadIGram.word.partOfSpeech;
   SemExpModifier::fillSemanticConcepts(genGrounding.concepts, headConcepts);
@@ -1313,7 +1313,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
   }
   case PartOfSpeech::VERB:
   {
-    auto statementGr = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGr = std::make_unique<SemanticStatementGrounding>();
     statementGr->concepts = genGrounding.concepts;
     statementGr->polarity = genGrounding.polarity;
     statementGr->word = genGrounding.word;
@@ -1397,7 +1397,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     {
       if (genGrounding.referenceType == SemanticReferenceType::INDEFINITE)
       {
-        auto newGrdExp = mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticGenericGrounding>());
+        auto newGrdExp = std::make_unique<GroundedExpression>(std::make_unique<SemanticGenericGrounding>());
         SemanticGenericGrounding& genGrounding = newGrdExp->grounding().getGenericGrounding();
         xInitGenGroundingsFromToken(genGrounding, itTokBeforeHead, pChunk.head);
         SemExpModifier::addChild(*res, GrammaticalType::SUB_CONCEPT,
@@ -1408,7 +1408,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
         std::list<std::string> names(1, introInflWord.word.lemma);
         _completeWithFollowingProperNouns(names, itTokBeforeHead, pChunk.head);
         SemExpModifier::addChild(*res, GrammaticalType::SUB_CONCEPT,
-                                 mystd::make_unique<GroundedExpression>(SemExpGenerator::makeNameGrd(names)));
+                                 std::make_unique<GroundedExpression>(SemExpGenerator::makeNameGrd(names)));
       }
       break;
     }
@@ -1468,7 +1468,7 @@ void SyntacticGraphToSemantic::xAddModifiers
         auto corefGrounding = pGrdExpPtr->cloneGrounding();
         _refactorToAOtherThanGrd(*corefGrounding);
         SemExpModifier::addChild(*pGrdExpPtr, GrammaticalType::OTHER_THAN,
-                                 mystd::make_unique<GroundedExpression>(std::move(corefGrounding)));
+                                 std::make_unique<GroundedExpression>(std::move(corefGrounding)));
       }
       else
       {
@@ -1477,24 +1477,24 @@ void SyntacticGraphToSemantic::xAddModifiers
           auto* qWordPtr = fLingDico.statDb.wordToQuestionWord(currIGram.word, false, false);
           if (qWordPtr != nullptr)
           {
-            auto statGrd = mystd::make_unique<SemanticStatementGrounding>();
+            auto statGrd = std::make_unique<SemanticStatementGrounding>();
             statGrd->concepts.emplace("verb_generality", 4);
             statGrd->verbTense = SemanticVerbTense::PRESENT;
             statGrd->requests.set(qWordPtr->request);
-            auto newGrdExp = mystd::make_unique<GroundedExpression>(std::move(statGrd));
+            auto newGrdExp = std::make_unique<GroundedExpression>(std::move(statGrd));
             newGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pGrdExpPtr));
             pGrdExpPtr = std::move(newGrdExp);
             continue;
           }
         }
         SemExpModifier::addChild
-            (*pGrdExpPtr, GrammaticalType::SPECIFIER, mystd::make_unique<GroundedExpression>
+            (*pGrdExpPtr, GrammaticalType::SPECIFIER, std::make_unique<GroundedExpression>
              ([&]() -> std::unique_ptr<SemanticGrounding>
         {
                 // TODO: redo it but think of "droit" "droite" problem
                 //if (_shouldConceptsBeInsideAConcpetualGrounding(currIGram.infos.concepts))
-                //  return mystd::make_unique<SemanticConceptualGrounding>(currIGram.infos.concepts);
-                auto genGrounding = mystd::make_unique<SemanticGenericGrounding>();
+                //  return std::make_unique<SemanticConceptualGrounding>(currIGram.infos.concepts);
+                auto genGrounding = std::make_unique<SemanticGenericGrounding>();
                 SemExpModifier::fillSemanticConcepts(genGrounding->concepts, currIGram.infos.concepts);
                 xInitGenGroundingsFromToken(*genGrounding, it, pChunk.head);
                 return std::move(genGrounding);
@@ -1516,7 +1516,7 @@ void SyntacticGraphToSemantic::xAddModifiers
       {
         std::list<std::string> names(1, currTokInflWord.word.lemma);
         _completeWithFollowingProperNouns(names, it, pChunk.tokRange.getItEnd());
-        auto properNounGrdExp = mystd::make_unique<GroundedExpression>(SemExpGenerator::makeNameGrd(names));
+        auto properNounGrdExp = std::make_unique<GroundedExpression>(SemExpGenerator::makeNameGrd(names));
         if (firstIteration)
         {
           SemExpModifier::addChild(*pGrdExpPtr, GrammaticalType::SUB_CONCEPT, std::move(properNounGrdExp));
@@ -1548,7 +1548,7 @@ void SyntacticGraphToSemantic::xAddModifiersOfATokenAfterVerb
   {
     if (!firstTokIGram.infos.hasContextualInfo(WordContextualInfos::NEGATION))
     {
-      auto genGrounding = mystd::make_unique<SemanticGenericGrounding>();
+      auto genGrounding = std::make_unique<SemanticGenericGrounding>();
       SemExpModifier::fillSemanticConcepts(genGrounding->concepts, firstTokIGram.infos.concepts);
       xInitGenGroundingsFromToken(*genGrounding, pItToken, pItEndToken);
       GrammaticalType childGrammType = GrammaticalType::SPECIFIER;
@@ -1579,23 +1579,23 @@ void SyntacticGraphToSemantic::xAddModifiersOfATokenAfterVerb
       if (_shouldConceptsBeInsideAConceptualGrounding(hasReferenceConcept, firstTokIGram.infos.concepts))
       {
         SemExpModifier::addChild(rootGrdExp, childGrammType,
-                                 mystd::make_unique<GroundedExpression>(
-                                   mystd::make_unique<SemanticConceptualGrounding>(genGrounding->concepts)));
+                                 std::make_unique<GroundedExpression>(
+                                   std::make_unique<SemanticConceptualGrounding>(genGrounding->concepts)));
       }
       else
       {
         SemExpModifier::addChild(rootGrdExp, childGrammType,
-                                 mystd::make_unique<GroundedExpression>(std::move(genGrounding)));
+                                 std::make_unique<GroundedExpression>(std::move(genGrounding)));
       }
     }
   }
   else if (firstTokIGram.word.partOfSpeech != PartOfSpeech::PRONOUN &&
            firstTokIGram.word.partOfSpeech != PartOfSpeech::PRONOUN_COMPLEMENT)
   {
-    auto genGrounding = mystd::make_unique<SemanticGenericGrounding>();
+    auto genGrounding = std::make_unique<SemanticGenericGrounding>();
     SemExpModifier::fillSemanticConcepts(genGrounding->concepts, firstTokIGram.infos.concepts);
     xInitGenGroundingsFromToken(*genGrounding, pItToken, pItEndToken);
-    auto newSpecSGrdExp = mystd::make_unique<GroundedExpression>(std::move(genGrounding));
+    auto newSpecSGrdExp = std::make_unique<GroundedExpression>(std::move(genGrounding));
     SemExpModifier::addEmptyIntroductingWord(*newSpecSGrdExp);
     SemExpModifier::addChild(pGrdExp, GrammaticalType::SPECIFIER, std::move(newSpecSGrdExp));
   }
@@ -1739,13 +1739,13 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       switch (linguisticSubordinateId.chunkLinkType)
       {
       case ChunkLinkType::LOCATION:
-        return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticRelativeLocationGrounding>(
+        return std::make_unique<GroundedExpression>(std::make_unique<SemanticRelativeLocationGrounding>(
               semanticRelativeLocationType_fromChar(linguisticSubordinateId.relativeSubodinate)));
       case ChunkLinkType::TIME:
-        return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticRelativeTimeGrounding>(
+        return std::make_unique<GroundedExpression>(std::make_unique<SemanticRelativeTimeGrounding>(
               semanticRelativeTimeType_fromChar(linguisticSubordinateId.relativeSubodinate)));
       case ChunkLinkType::DURATION:
-        return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticRelativeDurationGrounding>(
+        return std::make_unique<GroundedExpression>(std::make_unique<SemanticRelativeDurationGrounding>(
               semanticRelativeDurationType_fromChar(linguisticSubordinateId.relativeSubodinate)));
       default:
         return std::unique_ptr<GroundedExpression>();
@@ -1760,9 +1760,9 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
   else if (pContext.chunk.introductingWordToSaveForSynthesis)
   {
     SemExpModifier::addChildFromSemExp(**res, GrammaticalType::INTRODUCTING_WORD,
-                                       mystd::make_unique<GroundedExpression>([&pContext]
+                                       std::make_unique<GroundedExpression>([&pContext]
     {
-      auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+      auto genGrd = std::make_unique<SemanticGenericGrounding>();
       if (*pContext.chunk.introductingWordToSaveForSynthesis != nullptr)
         genGrd->word = **pContext.chunk.introductingWordToSaveForSynthesis;
       genGrd->entityType = SemanticEntityType::MODIFIER;
@@ -1800,7 +1800,7 @@ void SyntacticGraphToSemantic::_refactorThEPurposeOfPatterns(UniqueSemanticExpre
             return;
           }
 
-          auto res = mystd::make_unique<AnnotatedExpression>(std::move(*purposeOfSemExpOpt));
+          auto res = std::make_unique<AnnotatedExpression>(std::move(*purposeOfSemExpOpt));
           res->synthesizeAnnotations = true;
           res->annotations.emplace(GrammaticalType::PURPOSE, std::move(pUSemExp));
           pUSemExp = std::move(res);
@@ -1841,7 +1841,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertListChunk
  ToGenRepContext& pContext) const
 {
   mystd::unique_propagate_const<UniqueSemanticExpression> interjectionSemExp;
-  auto newListExp = mystd::make_unique<ListExpression>
+  auto newListExp = std::make_unique<ListExpression>
       (_chunkTypeToListExpType(pContext.chunk.type));
   bool hasACondition = false;
   SemanticExpression* semExpBeforeListSeparator = nullptr;
@@ -1906,12 +1906,12 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertListChunk
   if (hasACondition)
     xTryToFillCondition(resSemExp, pGeneral, pContext);
   if (interjectionSemExp)
-    resSemExp = mystd::make_unique<FeedbackExpression>(std::move(*interjectionSemExp),
+    resSemExp = std::make_unique<FeedbackExpression>(std::move(*interjectionSemExp),
                                                        std::move(resSemExp));
   if (!pContext.chunk.requests.empty())
   {
-    auto newRes = mystd::make_unique<GroundedExpression>([&]() {
-      auto statRes = mystd::make_unique<SemanticStatementGrounding>();
+    auto newRes = std::make_unique<GroundedExpression>([&]() {
+      auto statRes = std::make_unique<SemanticStatementGrounding>();
       statRes->requests = pContext.chunk.requests;
       return statRes;
     }());
@@ -2061,7 +2061,7 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xInitNewSentence
 {
   std::unique_ptr<GroundedExpression> res;
   {
-    auto rootGrounding = mystd::make_unique<SemanticStatementGrounding>();
+    auto rootGrounding = std::make_unique<SemanticStatementGrounding>();
     rootGrounding->verbTense = xChunkToVerbTimeTense
         (rootGrounding->verbGoal, pVerbChunk, pContext.chLink.type);
     pContext.holdingSentenceVerbTense = rootGrounding->verbTense;
@@ -2075,7 +2075,7 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xInitNewSentence
       rootGrounding->isPassive.emplace(true);
     if (pContext.requestToSet != SemanticRequestType::NOTHING)
       _addARequest(rootGrounding->requests, pContext.requestToSet, pVerbChunk.isPassive);
-    res = mystd::make_unique<GroundedExpression>(std::move(rootGrounding));
+    res = std::make_unique<GroundedExpression>(std::move(rootGrounding));
   }
   xFillVerbChunk(res, pGeneral, pContext, pVerbChunk);
   return res;
@@ -2202,8 +2202,8 @@ std::unique_ptr<SemanticExpression> SyntacticGraphToSemantic::xTranslateRelative
   {
   case RelativePerson::FIRST_SING:
   {
-    return mystd::make_unique<GroundedExpression>
-        (mystd::make_unique<SemanticAgentGrounding>(xGetTextProcContext(pContext, pGeneral).author));
+    return std::make_unique<GroundedExpression>
+        (std::make_unique<SemanticAgentGrounding>(xGetTextProcContext(pContext, pGeneral).author));
   }
   case RelativePerson::SECOND_SING:
   case RelativePerson::SECOND_PLUR:
@@ -2263,12 +2263,12 @@ std::unique_ptr<SemanticExpression> SyntacticGraphToSemantic::xTranslateRelative
   if (referenceType == SemanticReferenceType::DEFINITE &&
       userId != SemanticAgentGrounding::anyUser)
   {
-    return mystd::make_unique<GroundedExpression>
-        (mystd::make_unique<SemanticAgentGrounding>(userId));
+    return std::make_unique<GroundedExpression>
+        (std::make_unique<SemanticAgentGrounding>(userId));
   }
 
   auto pronGenGrd =
-      mystd::make_unique<SemanticGenericGrounding>(referenceType, agentType);
+      std::make_unique<SemanticGenericGrounding>(referenceType, agentType);
   SemExpModifier::fillConceptsForPronouns(pronGenGrd->concepts, pIGram.infos.concepts);
   if (agentType == SemanticEntityType::HUMAN &&
       quantity.type == SemanticQuantityType::EVERYTHING)
@@ -2285,7 +2285,7 @@ std::unique_ptr<SemanticExpression> SyntacticGraphToSemantic::xTranslateRelative
     pronGenGrd->quantity.setPlural();
   else
     pronGenGrd->quantity = quantity;
-  return mystd::make_unique<GroundedExpression>(std::move(pronGenGrd));
+  return std::make_unique<GroundedExpression>(std::move(pronGenGrd));
 }
 
 
@@ -2301,10 +2301,10 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertInterjectionChunk
        currIt != chunkItEnd;
        currIt = getNextToken(currIt, pContext.chunk.tokRange.getItEnd(), SkipPartOfWord::YES))
   {
-    auto genGroundings = mystd::make_unique<SemanticGenericGrounding>();
+    auto genGroundings = std::make_unique<SemanticGenericGrounding>();
     genGroundings->concepts = currIt->inflWords.front().infos.concepts;
     xInitGenGroundingsFromToken(*genGroundings, currIt, chunkItEnd);
-    interjectionGrdExps.emplace_back(mystd::make_unique<GroundedExpression>(std::move(genGroundings)));
+    interjectionGrdExps.emplace_back(std::make_unique<GroundedExpression>(std::move(genGroundings)));
   }
 
   if (!interjectionGrdExps.empty())
@@ -2531,7 +2531,7 @@ void SyntacticGraphToSemantic::xIterateOnChildrenOfNominalChunk
       ToGenRepContext subContext(pContext, currChild, *currChild.chunk);
       auto childExp = xFillSemExp(pGeneral, subContext);
       if (childExp)
-        pNewSemExp = mystd::make_unique<FeedbackExpression>(std::move(*childExp),
+        pNewSemExp = std::make_unique<FeedbackExpression>(std::move(*childExp),
                                                             std::move(pNewSemExp));
     }
     else if (currChild.type == ChunkLinkType::SPECIFICATION)
@@ -2862,7 +2862,7 @@ void SyntacticGraphToSemantic::xFillSentenceSubordonates
           auto itSubject = grdExp.children.find(GrammaticalType::SUBJECT);
           if (itSubject != grdExp.children.end())
           {
-            auto compExp = mystd::make_unique<ComparisonExpression>
+            auto compExp = std::make_unique<ComparisonExpression>
                 (chunkLinkType_toCompPolarity(currChild.type),
                  std::move(itSubject->second));
             grdExp.children.erase(itSubject); // TODDO: also deal with other children of grdExp
@@ -2910,7 +2910,7 @@ void SyntacticGraphToSemantic::xFillSentenceSubordonates
       auto intjExp = xFillSemExp(pGeneral, subContext);
       if (intjExp)
       {
-        pSemExpSentence = mystd::make_unique<FeedbackExpression>
+        pSemExpSentence = std::make_unique<FeedbackExpression>
             (std::move(*intjExp), std::move(pSemExpSentence));
       }
     }
@@ -2963,7 +2963,7 @@ void SyntacticGraphToSemantic::xFillCondition
   auto conLinkToExp = xFillSemExp(pGeneral, subContext);
   if (conLinkToExp)
   {
-    auto condExp = mystd::make_unique<ConditionExpression>
+    auto condExp = std::make_unique<ConditionExpression>
         (isAlwaysActive, false,
          std::move(*conLinkToExp), UniqueSemanticExpression());
     auto itElse = getChunkLink(pContext.chunk, ChunkLinkType::ELSE);

@@ -22,8 +22,8 @@ TEST_F(SemanticReasonerGTests, test_textExecutor)
   }
 
 
-  auto lookLeftResource = mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticResourceGrounding>(resourceLabelForTests_cmd,
+  auto lookLeftResource = std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticResourceGrounding>(resourceLabelForTests_cmd,
                                                      SemanticLanguageEnum::UNKNOWN,
                                                      "methodToLookLeft()"));
 
@@ -45,8 +45,8 @@ TEST_F(SemanticReasonerGTests, test_textExecutor)
   // resource inside a location
   {
     auto semExpToExecute = textToSemExp("You can look at bugs", lingDb, enLanguage);
-    auto redmineResource = mystd::make_unique<GroundedExpression>
-        (mystd::make_unique<SemanticResourceGrounding>(resourceLabelForTests_url,
+    auto redmineResource = std::make_unique<GroundedExpression>
+        (std::make_unique<SemanticResourceGrounding>(resourceLabelForTests_url,
                                                        SemanticLanguageEnum::UNKNOWN,
                                                        "https://www.redmine.org/"));
     SemExpModifier::addChildFromSemExp(*semExpToExecute, GrammaticalType::LOCATION,

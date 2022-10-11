@@ -44,7 +44,7 @@ void SemControllerWorkingStruct::addAnswerWithoutReferences(
 {
   contAnnotationOfPreviousAnswers = pType;
   compositeSemAnswers->semAnswers.emplace_back
-      (mystd::make_unique<LeafSemAnswer>(pType, std::move(pReaction)));
+      (std::make_unique<LeafSemAnswer>(pType, std::move(pReaction)));
 }
 
 void SemControllerWorkingStruct::addQuestion(
@@ -61,7 +61,7 @@ void SemControllerWorkingStruct::addAnswer(
   contAnnotationOfPreviousAnswers = pType;
   pReferencesFiller.addReferences(pReaction);
   compositeSemAnswers->semAnswers.emplace_back
-      (mystd::make_unique<LeafSemAnswer>(pType, std::move(pReaction)));
+      (std::make_unique<LeafSemAnswer>(pType, std::move(pReaction)));
 }
 
 void SemControllerWorkingStruct::addConditionForAUserAnswer(
@@ -71,7 +71,7 @@ void SemControllerWorkingStruct::addConditionForAUserAnswer(
 {
   contAnnotationOfPreviousAnswers = pType;
   compositeSemAnswers->semAnswers.emplace_back
-      (mystd::make_unique<LeafSemAnswer>(pType, std::move(pReaction), std::move(pConditionForAUser)));
+      (std::make_unique<LeafSemAnswer>(pType, std::move(pReaction), std::move(pConditionForAUser)));
 }
 
 void SemControllerWorkingStruct::addConditionalAnswer(ContextualAnnotation pType,
@@ -80,7 +80,7 @@ void SemControllerWorkingStruct::addConditionalAnswer(ContextualAnnotation pType
 {
   contAnnotationOfPreviousAnswers = pType;
   compositeSemAnswers->semAnswers.emplace_back
-      (mystd::make_unique<LeafSemAnswer>(pType, std::move(pReaction), pCondition));
+      (std::make_unique<LeafSemAnswer>(pType, std::move(pReaction), pCondition));
 }
 
 void SemControllerWorkingStruct::addAnswers(
@@ -158,7 +158,7 @@ void SemControllerWorkingStruct::addAnswers(
 
   if (pOther.compositeSemAnswers->semAnswers.size() == 1)
   {
-    auto compSemExp = mystd::make_unique<CompositeSemAnswer>(pListExpType);
+    auto compSemExp = std::make_unique<CompositeSemAnswer>(pListExpType);
     compSemExp->semAnswers.emplace_back(std::move(compositeSemAnswers));
     compSemExp->semAnswers.splice(compSemExp->semAnswers.end(),
                                   pOther.compositeSemAnswers->semAnswers);
@@ -166,7 +166,7 @@ void SemControllerWorkingStruct::addAnswers(
     return;
   }
 
-  auto compSemExp = mystd::make_unique<CompositeSemAnswer>(pListExpType);
+  auto compSemExp = std::make_unique<CompositeSemAnswer>(pListExpType);
   compSemExp->semAnswers.emplace_back
       (std::move(compositeSemAnswers));
   compSemExp->semAnswers.emplace_back
@@ -317,7 +317,7 @@ SemControllerWorkingStruct::SemControllerWorkingStruct
     nbRecurssiveCallsRemaining(10),
     contAnnotationOfPreviousAnswers(),
     reactionOptions(),
-    compositeSemAnswers(mystd::make_unique<CompositeSemAnswer>(ListExpressionType::UNRELATED))
+    compositeSemAnswers(std::make_unique<CompositeSemAnswer>(ListExpressionType::UNRELATED))
 {
 }
 
@@ -343,7 +343,7 @@ SemControllerWorkingStruct::SemControllerWorkingStruct
     nbRecurssiveCallsRemaining(pOther.nbRecurssiveCallsRemaining),
     contAnnotationOfPreviousAnswers(pOther.contAnnotationOfPreviousAnswers),
     reactionOptions(pOther.reactionOptions),
-    compositeSemAnswers(mystd::make_unique<CompositeSemAnswer>(ListExpressionType::UNRELATED))
+    compositeSemAnswers(std::make_unique<CompositeSemAnswer>(ListExpressionType::UNRELATED))
 {
 }
 

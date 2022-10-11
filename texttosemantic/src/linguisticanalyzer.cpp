@@ -1,5 +1,4 @@
 #include <onsem/texttosemantic/linguisticanalyzer.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>

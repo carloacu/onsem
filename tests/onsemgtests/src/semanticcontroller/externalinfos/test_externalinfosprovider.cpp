@@ -1,6 +1,5 @@
 #include "../../semanticreasonergtests.hpp"
 #include <gtest/gtest.h>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
@@ -21,12 +20,12 @@ TEST_F(SemanticReasonerGTests, test_externalInfosProvider)
 
   ASSERT_TRUE(operator_get("what is the joke of today ?", semMem, lingDb).empty());
 
-  semMem.registerExternalInfosProvider(mystd::make_unique<DummyJokeProvider>(lingDb), lingDb);
+  semMem.registerExternalInfosProvider(std::make_unique<DummyJokeProvider>(lingDb), lingDb);
   semMem.unregisterExternalInfosProvider(DummyJokeProvider::idStrOfProv);
 
   ASSERT_TRUE(operator_get("what is the joke of today ?", semMem, lingDb).empty());
 
-  semMem.registerExternalInfosProvider(mystd::make_unique<DummyJokeProvider>(lingDb), lingDb);
+  semMem.registerExternalInfosProvider(std::make_unique<DummyJokeProvider>(lingDb), lingDb);
 
   {
     auto res = operator_get("what is the joke of today ?", semMem, lingDb);
@@ -40,7 +39,7 @@ TEST_F(SemanticReasonerGTests, test_externalInfosProvider)
 
   semMem.unregisterExternalInfosProvider(DummyJokeProvider::idStrOfProv);
   semMem.clear();
-  semMem.registerExternalInfosProvider(mystd::make_unique<DummyJokeProvider>(lingDb), lingDb);
+  semMem.registerExternalInfosProvider(std::make_unique<DummyJokeProvider>(lingDb), lingDb);
 
   {
     auto res = operator_show("the joke of today", semMem, lingDb);
@@ -50,7 +49,7 @@ TEST_F(SemanticReasonerGTests, test_externalInfosProvider)
 
   semMem.unregisterExternalInfosProvider(DummyJokeProvider::idStrOfProv);
   semMem.clear();
-  semMem.registerExternalInfosProvider(mystd::make_unique<DummyJokeProvider>(lingDb), lingDb);
+  semMem.registerExternalInfosProvider(std::make_unique<DummyJokeProvider>(lingDb), lingDb);
 
   {
     auto res = operator_get("quel est la blague du 1 janvier 2000 ?", semMem, lingDb);
@@ -63,7 +62,7 @@ TEST_F(SemanticReasonerGTests, test_externalInfosProvider)
   operator_inform_fromRobot("Est-ce que tu veux lire la blague du 1 janvier 2000 ?", semMem, lingDb);
   ONSEM_FEEDBACK_EQ("Je pensais le contraire.", operator_react("Non je ne veux pas", semMem, lingDb));
 
-  semMem.registerExternalInfosProvider(mystd::make_unique<DummyCommentaryProvider>(lingDb), lingDb);
+  semMem.registerExternalInfosProvider(std::make_unique<DummyCommentaryProvider>(lingDb), lingDb);
   {
     auto res = operator_get("quel est le commentaire du livre d'aujourd'hui", semMem, lingDb);
     ASSERT_EQ(1u, res.size());

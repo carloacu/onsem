@@ -7,7 +7,6 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/fixedsynthesisexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include "../semanticreasonergtests.hpp"
 #include "../util/util.hpp"
 
@@ -16,10 +15,10 @@ using namespace onsem;
 
 TEST_F(SemanticReasonerGTests, infinitiveVerb)
 {
-  auto statement = mystd::make_unique<SemanticStatementGrounding>();
+  auto statement = std::make_unique<SemanticStatementGrounding>();
   statement->word.setContent(SemanticLanguageEnum::ENGLISH, "greet", PartOfSpeech::VERB);
   statement->verbTense = SemanticVerbTense::UNKNOWN;
-  auto expression = mystd::make_unique<GroundedExpression>(std::move(statement));
+  auto expression = std::make_unique<GroundedExpression>(std::move(statement));
 
   TextProcessingContext textContext{
     SemanticAgentGrounding::me,
@@ -137,7 +136,7 @@ TEST_F(SemanticReasonerGTests, fixedSynthesis)
   SemanticLanguageEnum enLanguage = SemanticLanguageEnum::ENGLISH;
   auto semExp = textToSemExp("Who is Paul?", lingDb, enLanguage);
   const std::string fiexedSynthesisStr = "Whol is Paul ? (from fixed synthesis)";
-  auto fSynthExp = mystd::make_unique<FixedSynthesisExpression>(std::move(semExp));
+  auto fSynthExp = std::make_unique<FixedSynthesisExpression>(std::move(semExp));
   fSynthExp->langToSynthesis.emplace(enLanguage, fiexedSynthesisStr);
   EXPECT_EQ(fiexedSynthesisStr, semExpToText(std::move(fSynthExp), enLanguage, semMem, lingDb));
 }

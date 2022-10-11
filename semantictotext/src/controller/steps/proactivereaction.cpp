@@ -133,8 +133,8 @@ bool _sayItsNotFalseFromFrenchSentenceWhenObjectIsUnknown(SemControllerWorkingSt
   {
     pWorkStruct.addAnswerWithoutReferences
         (ContextualAnnotation::FEEDBACK,
-         mystd::make_unique<GroundedExpression>
-          (mystd::make_unique<SemanticTextGrounding>("C'est pas faux.")));
+         std::make_unique<GroundedExpression>
+          (std::make_unique<SemanticTextGrounding>("C'est pas faux.")));
     return true;
   }
   return false;
@@ -156,7 +156,7 @@ bool _sayOkIfTheUserIsTalkingAboutHim(SemControllerWorkingStruct& pWorkStruct,
 
     pWorkStruct.addAnswerWithoutReferences
         (ContextualAnnotation::FEEDBACK,
-         mystd::make_unique<FeedbackExpression>
+         std::make_unique<FeedbackExpression>
          (SemExpCreator::sayOk(), pGrdExp.clone()));
     return true;
   }
@@ -179,8 +179,8 @@ std::unique_ptr<SemanticExpression> _answerNiceToMeetYouIfTheUserSaysHisName(Sem
     std::string name = pNewContextAxiom->memorySentences.getName(authorUserId);
     if (name.empty())
       return {};
-    return mystd::make_unique<FeedbackExpression>(mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("niceToMeetYou")),
-                                                  mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticTextGrounding>(name)));
+    return std::make_unique<FeedbackExpression>(std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("niceToMeetYou")),
+                                                  std::make_unique<GroundedExpression>(std::make_unique<SemanticTextGrounding>(name)));
   }
   return {};
 }
@@ -215,7 +215,7 @@ bool _reactOnSentiments(SemControllerWorkingStruct& pWorkStruct,
                                        SemExpCreator::sayAlso(), ListExpressionType::UNRELATED, false, false);
               pWorkStruct.addAnswer
                   (ContextualAnnotation::FEEDBACK,
-                   mystd::make_unique<FeedbackExpression>(SemExpCreator::sayThanks(),
+                   std::make_unique<FeedbackExpression>(SemExpCreator::sayThanks(),
                                                           std::move(reverseGrdExp)),
                    ReferencesFiller(relatedContextAxioms));
             }
@@ -249,7 +249,7 @@ bool _reactOnSentiments(SemControllerWorkingStruct& pWorkStruct,
                 if (obectGrdExpPtr != nullptr)
                   return SemExpGetter::returnAPositiveSemExpBasedOnAnInput(*obectGrdExpPtr);
               }
-              return mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticConceptualGrounding>("sentiment_positive_joy"));
+              return std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("sentiment_positive_joy"));
             }();
 
             pWorkStruct.addAnswerWithoutReferences

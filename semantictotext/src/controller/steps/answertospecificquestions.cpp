@@ -77,7 +77,7 @@ bool _tryToAnswerToDoYouKnow(SemControllerWorkingStruct& pWorkStruct,
     {
       pWorkStruct.compositeSemAnswers->semAnswers.emplace_back([&]
       {
-        auto newAns = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+        auto newAns = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
         newAns->answerElts[SemanticRequestType::YESORNO].answersGenerated.emplace_back
             (SemExpCreator::sayYesOrNo(answerPolarity), nullptr);
         return newAns;
@@ -275,7 +275,7 @@ bool _checkNameBeVerb(SemControllerWorkingStruct& pWorkStruct,
       {
         pWorkStruct.compositeSemAnswers->semAnswers.emplace_back([&]
         {
-          auto newAns = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+          auto newAns = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
           newAns->answerElts[SemanticRequestType::YESORNO].answersGenerated.emplace_back
               (SemExpCreator::sayYesOrNo(pStatementIsPositive), &relContextAxiom);
           return newAns;
@@ -294,7 +294,7 @@ bool _checkNameBeVerb(SemControllerWorkingStruct& pWorkStruct,
   if (!nameGrd)
     return false;
   UniqueSemanticExpression nameSemExp =
-      mystd::make_unique<GroundedExpression>(std::move(nameGrd));
+      std::make_unique<GroundedExpression>(std::move(nameGrd));
   RelatedContextAxiom relContextAxiom;
   if (semMemoryGrdExpPtr != nullptr)
     relContextAxiom.add(*semMemoryGrdExpPtr);
@@ -313,7 +313,7 @@ bool _checkNameBeVerb(SemControllerWorkingStruct& pWorkStruct,
   {
     pWorkStruct.compositeSemAnswers->semAnswers.emplace_back([&]
     {
-      auto newAns = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+      auto newAns = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
       newAns->answerElts[SemanticRequestType::OBJECT].answersGenerated.emplace_back
           (SemExpCreator::sayYesOrNo(!pStatementIsPositive), &relContextAxiom);
       return newAns;
@@ -410,12 +410,12 @@ bool _iterateOnBornTimes(SemControllerWorkingStruct& pWorkStruct,
   if (subWorkStruct.askForNewRecursion())
   {
     // search for birthdate of the owner
-    auto statementGrd = mystd::make_unique<SemanticStatementGrounding>();
+    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PUNCTUALPAST;
     statementGrd->concepts.emplace("verb_born", 4);
     statementGrd->requests.set(SemanticRequestType::TIME);
     auto newRootExp =
-        mystd::make_unique<GroundedExpression>(std::move(statementGrd));
+        std::make_unique<GroundedExpression>(std::move(statementGrd));
     GrammaticalType agentBornedGrammType = GrammaticalType::OBJECT;
     newRootExp->children.emplace(agentBornedGrammType, std::move(pUserSemExp));
 
@@ -465,10 +465,10 @@ bool _tryToAnswerToAnAgeQuestion(SemControllerWorkingStruct& pWorkStruct,
                              const AnswerExp& pAnswExp,
                              UniqueSemanticExpression& pUserSemExp)
   {
-    auto ageGrd = mystd::make_unique<SemanticGenericGrounding>();
+    auto ageGrd = std::make_unique<SemanticGenericGrounding>();
     ageGrd->concepts.emplace("age_*", 4);
     ageGrd->quantity.setNumber(pTimeGrd.date.getAge());
-    auto ageSemExp = mystd::make_unique<GroundedExpression>(std::move(ageGrd));
+    auto ageSemExp = std::make_unique<GroundedExpression>(std::move(ageGrd));
 
     if (pWorkStruct.reactOperator == SemanticOperatorEnum::ANSWER ||
         pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
@@ -481,7 +481,7 @@ bool _tryToAnswerToAnAgeQuestion(SemControllerWorkingStruct& pWorkStruct,
     {
       pWorkStruct.compositeSemAnswers->semAnswers.emplace_back([&ageSemExp]
       {
-        auto newAns = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+        auto newAns = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
         newAns->answerElts[SemanticRequestType::OBJECT].answersGenerated.emplace_back(std::move(ageSemExp));
         return newAns;
       }());
@@ -526,13 +526,13 @@ bool _tryToAnswerToBirthdateQuestion(SemControllerWorkingStruct& pWorkStruct,
                              const AnswerExp& pAnswExp,
                              UniqueSemanticExpression&)
   {
-    auto timeGrd = mystd::make_unique<SemanticTimeGrounding>();
+    auto timeGrd = std::make_unique<SemanticTimeGrounding>();
     timeGrd->date = pTimeGrd.date;
     if (askForBirthday)
       timeGrd->date.year.reset();
     if (!timeGrd->date.empty())
     {
-      auto timeGrdExp = mystd::make_unique<GroundedExpression>(std::move(timeGrd));
+      auto timeGrdExp = std::make_unique<GroundedExpression>(std::move(timeGrd));
 
       if (pWorkStruct.reactOperator == SemanticOperatorEnum::ANSWER ||
           pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
@@ -546,7 +546,7 @@ bool _tryToAnswerToBirthdateQuestion(SemControllerWorkingStruct& pWorkStruct,
       {
         pWorkStruct.compositeSemAnswers->semAnswers.emplace_back([&]
         {
-          auto newAns = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+          auto newAns = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
           newAns->answerElts[SemanticRequestType::OBJECT].answersGenerated.emplace_back
               (std::move(timeGrdExp), &pAnswExp.relatedContextAxioms);
           return newAns;
@@ -588,7 +588,7 @@ bool _tryToAnswerToWhatCanYouDo(SemControllerWorkingStruct& pWorkStruct,
       statActionPtr->verbGoal = VerbGoalEnum::ABILITY;
     }
     actionGrdExp->children.emplace(GrammaticalType::SUBJECT,
-                                   mystd::make_unique<GroundedExpression>
+                                   std::make_unique<GroundedExpression>
                                    (SemanticAgentGrounding::getRobotAgentPtr()));
     if (res->isEmpty())
       res = std::move(actionGrdExp);
@@ -859,7 +859,7 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
         int nbOfElts = listExp.elts.size();
         if (nbOfElts > 1)
         {
-          auto answerListExp = mystd::make_unique<ListExpression>();
+          auto answerListExp = std::make_unique<ListExpression>();
           answerListExp->elts.emplace_back(SemExpCreator::thereIsXStepsFor(nbOfElts, pGrdExp.clone()));
           if (pWorkStruct.author != nullptr)
             answerListExp->elts.emplace_back(SemExpCreator::doYouWantMeToSayThemOneByOne(*pWorkStruct.author));
@@ -902,9 +902,9 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
               {
                 auto& ic = *icPtr;
                 if (nextIt != icListIds.end())
-                  ic.answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN), *nextIt);
+                  ic.answerPossibilities.emplace_back(std::make_unique<ListExpression>(ListExpressionType::THEN), *nextIt);
                 if (prevId)
-                  ic.answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN_REVERSED), *prevId);
+                  ic.answerPossibilities.emplace_back(std::make_unique<ListExpression>(ListExpressionType::THEN_REVERSED), *prevId);
               }
               prevId.emplace(*it);
               it = nextIt;
@@ -919,12 +919,12 @@ bool _tryToAnswerToHowToDoAnAction(SemControllerWorkingStruct& pWorkStruct,
               int lastEltId = icListIds.back();
               InteractionContext icEltFinished;
               icEltFinished.textToSay = SemExpCreator::itIsFinished();
-              icEltFinished.answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN_REVERSED), lastEltId);
+              icEltFinished.answerPossibilities.emplace_back(std::make_unique<ListExpression>(ListExpressionType::THEN_REVERSED), lastEltId);
               int finishedEltId = leaf.interactionContextContainer->addInteractionContext(std::move(icEltFinished));
 
               InteractionContext* lastIcPtr = leaf.interactionContextContainer->getInteractionContextPtr(lastEltId);
               if (lastIcPtr != nullptr)
-                lastIcPtr->answerPossibilities.emplace_back(mystd::make_unique<ListExpression>(ListExpressionType::THEN), finishedEltId);
+                lastIcPtr->answerPossibilities.emplace_back(std::make_unique<ListExpression>(ListExpressionType::THEN), finishedEltId);
             }
             else
             {
@@ -957,7 +957,7 @@ bool _tryToAnswerTheNameOfAUserId(SemControllerWorkingStruct& pWorkStruct,
   if (semMemoryGrdExpPtr != nullptr)
     relContextAxiom.add(*semMemoryGrdExpPtr);
   UniqueSemanticExpression nameSemExp =
-      mystd::make_unique<GroundedExpression>(std::move(nameGrd));
+      std::make_unique<GroundedExpression>(std::move(nameGrd));
   if (pWorkStruct.reactOperator == SemanticOperatorEnum::ANSWER ||
       pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
   {
@@ -971,7 +971,7 @@ bool _tryToAnswerTheNameOfAUserId(SemControllerWorkingStruct& pWorkStruct,
   {
     pWorkStruct.compositeSemAnswers->semAnswers.emplace_back([&]
     {
-      auto newAns = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+      auto newAns = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
       newAns->answerElts[SemanticRequestType::OBJECT].answersGenerated.emplace_back
           (std::move(nameSemExp), &relContextAxiom);
       return newAns;

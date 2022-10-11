@@ -1523,7 +1523,7 @@ void _addCauseResult(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
   {
     if (currSent.isAConditionToSatisfy())
     {
-      auto grdExpRef = mystd::make_unique<GroundedExpressionRef>(currSent.grdExp);
+      auto grdExpRef = std::make_unique<GroundedExpressionRef>(currSent.grdExp);
       std::map<GrammaticalType, const SemanticExpression*> annotationsOfTheAnswer;
       pAllAnswers[SemanticRequestType::CAUSE].answersFromMemory.emplace_back
           (currSent.getContextAxiom(), std::move(grdExpRef), nullptr,
@@ -1560,10 +1560,10 @@ void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerE
   if (res)
   {
     AllAnswerElts quantityAnswer;
-    quantityAnswer.answersGenerated.emplace_back(mystd::make_unique<GroundedExpression>
+    quantityAnswer.answersGenerated.emplace_back(std::make_unique<GroundedExpression>
                                                  ([&]()
                     {
-                      auto genGrd = mystd::make_unique<SemanticGenericGrounding>();
+                      auto genGrd = std::make_unique<SemanticGenericGrounding>();
                       genGrd->quantity.setNumber(static_cast<int>(*res));
                       genGrd->entityType = SemanticEntityType::THING;
                       return genGrd;
@@ -1604,7 +1604,7 @@ bool matchAffirmationTrigger
 
       for (const auto& currRel : idsToSentences.res.dynamicLinks)
       {
-        auto params = mystd::make_unique<IndexToSubNameToParameterValue>();
+        auto params = std::make_unique<IndexToSubNameToParameterValue>();
         std::unique_ptr<InteractionContextContainer> subIntContext;
         unknownInfosGetter::checkIfMatchAndGetParams(*params, subIntContext, nullptr, *currRel.second,
                                                      pInputGrdExp, pWorkStruct, subMemViewer);
@@ -1780,13 +1780,13 @@ void _getRelationsOfLinks
       const intMemBlockId& blockId = itMemMemBlock->first;
       for (auto& currMemSent : memSents.idsToDynamicSentences)
       {
-        auto newElt = mystd::make_unique<AnswerElementDynamic>(currMemSent.second);
+        auto newElt = std::make_unique<AnswerElementDynamic>(currMemSent.second);
         newElt->relatedContextAxioms.elts.emplace_back(&currMemSent.second->getContextAxiom());
         answElts[semIdAbs(blockId, currMemSent.first)] = std::move(newElt);
       }
       for (auto& currMemSent : memSents.idToConstDynamicSentences)
       {
-        auto newElt = mystd::make_unique<AnswerElementDynamic>(currMemSent.second);
+        auto newElt = std::make_unique<AnswerElementDynamic>(currMemSent.second);
         newElt->relatedContextAxioms.constElts.emplace_back(&currMemSent.second->getContextAxiom());
         answElts[semIdAbs(blockId, currMemSent.first)] = std::move(newElt);
       }
@@ -1935,7 +1935,7 @@ void checkNominalGrdExp
   {
     pWorkStruct.compositeSemAnswers->semAnswers.emplace_back([&agrementRes]
     {
-      auto leafAnsw = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+      auto leafAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
       leafAnsw->answerElts[SemanticRequestType::YESORNO].answersGenerated.emplace_back
           (SemExpCreator::sayYesOrNo(agrementRes == TruenessValue::VAL_TRUE));
       return leafAnsw;
@@ -2006,7 +2006,7 @@ bool _answerToYesOrNoQuestionIfTheSemExpCorrespondToUniquePatternThatAlreadyHave
               else
               {
                 //subSemAnswer.getSourceContextAxiom(relatedContextAxioms);
-                auto newAnsw = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+                auto newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
                 AllAnswerElts& allAnswElts = newAnsw->answerElts[SemanticRequestType::YESORNO];
                 allAnswElts.answersGenerated.emplace_back(SemExpCreator::sayYesOrNo(true), &relatedContextAxioms);
                 pWorkStruct.compositeSemAnswers->semAnswers.emplace_back(std::move(newAnsw));
@@ -2032,7 +2032,7 @@ bool _answerToYesOrNoQuestionIfTheSemExpCorrespondToUniquePatternThatAlreadyHave
           else
           {
 
-            auto newAnsw = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+            auto newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
             AllAnswerElts& allAnswElts = newAnsw->answerElts[SemanticRequestType::YESORNO];
             allAnswElts.answersGenerated.emplace_back(SemExpCreator::sayYesOrNo(false), &relatedContextAxioms);
             pWorkStruct.compositeSemAnswers->semAnswers.emplace_back(std::move(newAnsw));
@@ -2095,7 +2095,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
   RequestLinks reqLinks;
   getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp);
 
-  auto newAnsw = mystd::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+  auto newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
   std::map<SemanticRequestType, AllAnswerElts>& allAnswers = newAnsw->answerElts;
   for (const auto& currRequest : pRequests.types)
   {
@@ -2141,7 +2141,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
                            reqLinks, semanticMemoryGetter::RequestContext::SENTENCE);
       for (const auto& currRel : idsToSentences.res.dynamicLinks)
       {
-        auto params = mystd::make_unique<IndexToSubNameToParameterValue>();
+        auto params = std::make_unique<IndexToSubNameToParameterValue>();
         std::unique_ptr<InteractionContextContainer> subIntContext;
         unknownInfosGetter::checkIfMatchAndGetParams(*params, subIntContext, nullptr, *currRel.second,
                                                      pGrdExp, pWorkStruct, subMemViewer);

@@ -25,7 +25,7 @@ const StaticConceptSet& ConceptSet::_getStatDbInstance(std::istream& pIStream)
 {
   std::lock_guard<std::mutex> lock(_pathToStatConceptsMutex);
   if (!_statConcepts)
-    _statConcepts = mystd::make_unique<StaticConceptSet>(pIStream);
+    _statConcepts = std::make_unique<StaticConceptSet>(pIStream);
   return *_statConcepts;
 }
 

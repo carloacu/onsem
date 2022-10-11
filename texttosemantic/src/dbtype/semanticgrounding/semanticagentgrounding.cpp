@@ -1,5 +1,4 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/common/utility/string.hpp>
 
 
@@ -94,7 +93,7 @@ SemanticAgentGrounding::SemanticAgentGrounding(const SemanticAgentGrounding& pOt
 
 std::unique_ptr<SemanticAgentGrounding> SemanticAgentGrounding::getRobotAgentPtr()
 {
-  return mystd::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::me);
+  return std::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::me);
 }
 
 

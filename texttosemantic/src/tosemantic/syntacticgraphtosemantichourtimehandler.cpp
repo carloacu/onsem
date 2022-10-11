@@ -118,12 +118,12 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
               --*hourNumber;
               *number = 60 - *number;
             }
-            auto time = mystd::make_unique<SemanticTimeGrounding>();
+            auto time = std::make_unique<SemanticTimeGrounding>();
             time->timeOfDay.sign = SemanticDurationSign::POSITIVE;
             time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = *hourNumber;
             time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = *number;
             return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (mystd::make_unique<GroundedExpression>(std::move(time)));
+                (std::make_unique<GroundedExpression>(std::move(time)));
           }
         }
       }

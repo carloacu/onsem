@@ -46,9 +46,9 @@ void LinguisticSynthesizerPrivate::_initInstances()
     for (const auto& currLangEnum : semanticLanguageEnum_allValues)
     {
       if (currLangEnum == SemanticLanguageEnum::FRENCH)
-        _instances.emplace(currLangEnum, mystd::make_unique<LinguisticSynthesizerFrench>());
+        _instances.emplace(currLangEnum, std::make_unique<LinguisticSynthesizerFrench>());
       else
-        _instances.emplace(currLangEnum, mystd::make_unique<LinguisticSynthesizerEnglish>());
+        _instances.emplace(currLangEnum, std::make_unique<LinguisticSynthesizerEnglish>());
     }
   }
 }

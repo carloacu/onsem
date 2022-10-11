@@ -55,15 +55,15 @@ mystd::unique_propagate_const<UniqueSemanticExpression> DummyJokeProvider::getAn
           if (pLanguageType == SemanticLanguageEnum::ENGLISH)
           {
             return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (mystd::make_unique<GroundedExpression>
-                 (mystd::make_unique<SemanticTextGrounding>
+                (std::make_unique<GroundedExpression>
+                 (std::make_unique<SemanticTextGrounding>
                   (englishJoke(), SemanticLanguageEnum::ENGLISH)));
           }
           else if (pLanguageType == SemanticLanguageEnum::FRENCH)
           {
             return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (mystd::make_unique<GroundedExpression>
-                 (mystd::make_unique<SemanticTextGrounding>
+                (std::make_unique<GroundedExpression>
+                 (std::make_unique<SemanticTextGrounding>
                   (frenchJoke(), SemanticLanguageEnum::FRENCH)));
           }
         }

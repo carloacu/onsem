@@ -4,7 +4,6 @@
 #include <memory>
 #include <utility>
 #include <assert.h>
-#include <onsem/common/utility/make_unique.hpp>
 
 namespace onsem
 {
@@ -33,12 +32,12 @@ struct optional
     : _val()
   {
     if (pOther._val)
-      _val = mystd::make_unique<T>(*pOther._val);
+      _val = std::make_unique<T>(*pOther._val);
   }
 
 
   optional(const T& pOther)
-    : _val(mystd::make_unique<T>(pOther))
+    : _val(std::make_unique<T>(pOther))
   {
   }
 
@@ -55,7 +54,7 @@ struct optional
   void operator=(const optional<T>& pOther)
   {
     if (pOther._val)
-      _val = mystd::make_unique<T>(*pOther._val);
+      _val = std::make_unique<T>(*pOther._val);
     else
       _val.reset();
   }
@@ -84,7 +83,7 @@ struct optional
   template<typename... Args>
   void emplace(Args&&... args)
   {
-    _val = mystd::make_unique<T>(std::forward<Args>(args)...);
+    _val = std::make_unique<T>(std::forward<Args>(args)...);
   }
 
   void reset()

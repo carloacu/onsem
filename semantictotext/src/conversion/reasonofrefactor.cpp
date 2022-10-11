@@ -1,5 +1,4 @@
 #include "reasonofrefactor.hpp"
-#include <onsem/common/utility/make_unique.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
@@ -30,7 +29,7 @@ void process(UniqueSemanticExpression& pSemExp)
             UniqueSemanticExpression reasonOfExp = std::move(itReasonOf->second);
             grdExp.children.erase(itReasonOf);
             SemExpModifier::removeChildFromSemExp(*reasonOfExp, GrammaticalType::INTRODUCTING_WORD);
-            pSemExp = mystd::make_unique<ConditionExpression>
+            pSemExp = std::make_unique<ConditionExpression>
                 (true, true, std::move(iSubject->second), std::move(reasonOfExp));
           }
         }

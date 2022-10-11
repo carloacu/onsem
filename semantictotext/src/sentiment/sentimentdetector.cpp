@@ -62,8 +62,8 @@ void _sentimentFromAuthorToSubject
  const GroundedExpression& pGrdExp,
  const SemanticAgentGrounding& pAuthorGrd)
 {
-  pAuthor = mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticAgentGrounding>(pAuthorGrd));
+  pAuthor = std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticAgentGrounding>(pAuthorGrd));
   auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
   if (itSubject != pGrdExp.children.end())
   {
@@ -76,8 +76,8 @@ void _sentimentFromAuthorToContext
  std::unique_ptr<SemanticExpression>& pReceiver,
  const SemanticAgentGrounding& pAuthorGrd)
 {
-  pAuthor = mystd::make_unique<GroundedExpression>
-      (mystd::make_unique<SemanticAgentGrounding>(pAuthorGrd));
+  pAuthor = std::make_unique<GroundedExpression>
+      (std::make_unique<SemanticAgentGrounding>(pAuthorGrd));
   pReceiver = SemExpCreator::sayThat();
 }
 
@@ -118,15 +118,15 @@ void _addSent
  int pConfidence)
 {
   if (!pAuthor)
-    pAuthor = mystd::make_unique<GroundedExpression>
-        (mystd::make_unique<SemanticGenericGrounding>());
+    pAuthor = std::make_unique<GroundedExpression>
+        (std::make_unique<SemanticGenericGrounding>());
   if (!pReceiver)
     pReceiver = pAuthor->clone();
 
   std::unique_ptr<SentimentContext>& sentContextPtr = pSentTypeToSpec[pCptName];
   if (!sentContextPtr ||
       sentContextPtr->sentimentStrengh <= pConfidence)
-    sentContextPtr = mystd::make_unique<SentimentContext>
+    sentContextPtr = std::make_unique<SentimentContext>
         (std::move(pAuthor), pCptName, pConfidence, std::move(pReceiver));
 }
 
