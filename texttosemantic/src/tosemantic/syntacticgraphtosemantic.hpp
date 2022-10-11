@@ -46,15 +46,16 @@ using TokIt = std::vector<Token>::iterator;
 class SyntacticGraphToSemantic
 {
 public:
-  explicit SyntacticGraphToSemantic
-  (const AlgorithmSetForALanguage& pConfiguration);
+  SyntacticGraphToSemantic(const AlgorithmSetForALanguage& pConfiguration);
+
+  ~SyntacticGraphToSemantic();
 
   UniqueSemanticExpression process(const SyntacticGraph& pSyntGraph,
                                    const TextProcessingContext& pTextProcContext,
                                    const SemanticTimeGrounding& pTimeGrd,
                                    std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout) const;
 
-private:
+protected:
   struct ToGenRepContext
   {
     ToGenRepContext(const ChunkLink& pChLink)
@@ -138,6 +139,18 @@ private:
     std::unique_ptr<SemanticAgentGrounding> agentWeAreTalkingAbout;
     std::map<const Chunk*, std::shared_ptr<SemanticExpression> > prevChunks;
   };
+
+  mystd::unique_propagate_const<UniqueSemanticExpression> xFillSemExp(
+      ToGenRepGeneral& pGeneral,
+      ToGenRepContext& pContext) const;
+
+  virtual mystd::unique_propagate_const<UniqueSemanticExpression> _processQuestionWithoutVerb(
+        std::list<ChunkLink>::const_iterator& pItChild,
+        ToGenRepGeneral& pGeneral,
+        const Chunk& pChunk,
+        const SyntacticGraph& pSyntGraph) const = 0;
+
+private:
   const AlgorithmSetForALanguage& fConfiguration;
   const SemanticFrameDictionary& fSemFrameDict;
   const LinguisticDictionary& fLingDico;
@@ -208,9 +221,6 @@ private:
                                                         ToGenRepGeneral& pGeneral,
                                                         const ChunkLink& pChunkLink,
                                                         const Chunk& pChunk) const;
-
-  mystd::unique_propagate_const<UniqueSemanticExpression> xFillSemExp(ToGenRepGeneral& pGeneral,
-                                                        ToGenRepContext& pContext) const;
 
   SemanticVerbTense xChunkToVerbTimeTense
   (VerbGoalEnum& pVerbGoal,

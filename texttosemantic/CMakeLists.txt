@@ -233,6 +233,10 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/syntacticgraphgenerator/notunderstoodadder.cpp
     src/syntacticgraphgenerator/teachingparser.hpp
     src/syntacticgraphgenerator/teachingparser.cpp
+    src/tosemantic/perlanguage/tosemanticen.hpp
+    src/tosemantic/perlanguage/tosemanticen.cpp
+    src/tosemantic/perlanguage/tosemanticfr.hpp
+    src/tosemantic/perlanguage/tosemanticfr.cpp
     src/tosemantic/syntacticgraphtosemantic.hpp
     src/tosemantic/syntacticgraphtosemantic.cpp
     src/tosemantic/syntacticgraphtosemantichourtimehandler.cpp

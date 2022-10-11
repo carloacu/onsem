@@ -21,7 +21,8 @@
 #include "syntacticgraphgenerator/listextractor.hpp"
 #include "syntacticgraphgenerator/incompletelistsresolver.hpp"
 #include "syntacticgraphgenerator/teachingparser.hpp"
-#include "tosemantic/syntacticgraphtosemantic.hpp"
+#include "tosemantic/perlanguage/tosemanticen.hpp"
+#include "tosemantic/perlanguage/tosemanticfr.hpp"
 #include "tool/chunkshandler.hpp"
 
 namespace onsem
@@ -360,9 +361,13 @@ UniqueSemanticExpression convertToSemExp
  const SemanticTimeGrounding& pTimeGrd,
  std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout)
 {
-  SyntacticGraphToSemantic semTranslator(pSyntGraph.langConfig);
-  return semTranslator.process(pSyntGraph, pLocutionContext, pTimeGrd,
-                               std::move(pAgentWeAreTalkingAbout));
+  auto semTranslator = [&]() mutable -> std::unique_ptr<SyntacticGraphToSemantic> {
+    if (pSyntGraph.langConfig.getLanguageType() == SemanticLanguageEnum::FRENCH)
+      return std::make_unique<ToSemanticFr>(pSyntGraph.langConfig);
+    return std::make_unique<ToSemanticEn>(pSyntGraph.langConfig);
+  }();
+  return semTranslator->process(pSyntGraph, pLocutionContext, pTimeGrd,
+                                std::move(pAgentWeAreTalkingAbout));
 }
 
 

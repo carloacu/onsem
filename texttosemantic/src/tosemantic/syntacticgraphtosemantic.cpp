@@ -251,6 +251,9 @@ SyntacticGraphToSemantic::SyntacticGraphToSemantic
 {
 }
 
+SyntacticGraphToSemantic::~SyntacticGraphToSemantic()
+{
+}
 
 
 UniqueSemanticExpression SyntacticGraphToSemantic::process
@@ -287,69 +290,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::process
       if (context.chunk.type != ChunkType::SEPARATOR_CHUNK &&
           (context.chunk.type != ChunkType::PREPOSITIONAL_CHUNK || context.chunk.getHeadPartOfSpeech() != PartOfSpeech::PREPOSITION))
       {
-        mystd::unique_propagate_const<UniqueSemanticExpression> semExp;
-
-        // handle french questions begining with "qu'est-ce que" without any other verb
-        if (language == SemanticLanguageEnum::FRENCH)
-        {
-          if (context.chunk.type == ChunkType::NOMINAL_CHUNK)
-          {
-            const auto& lemmaStr = context.chunk.head->inflWords.front().word.lemma;
-            if (lemmaStr == "qu'est-ce que")
-            {
-              auto itNext = itChild;
-              ++itNext;
-              if (itNext != pSyntGraph.firstChildren.end() &&
-                  itNext->chunk->type == ChunkType::NOMINAL_CHUNK)
-              {
-                ToGenRepContext nextContext(*itNext);
-                auto nextSemExp = xFillSemExp(general, nextContext);
-                if (nextSemExp)
-                {
-                  semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpGenerator::whatIs(std::move(*nextSemExp)));
-                  itChild = itNext;
-                }
-              }
-            }
-            else if (lemmaStr == "qu'en est-il")
-            {
-              auto itFirstChild = context.chunk.children.begin();
-              if (itFirstChild != context.chunk.children.end() &&
-                  itFirstChild->chunk->type == ChunkType::NOMINAL_CHUNK)
-              {
-                ToGenRepContext nextContext(*itFirstChild);
-                auto nextSemExp = xFillSemExp(general, nextContext);
-                if (nextSemExp)
-                {
-                  semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpGenerator::whatAbout(std::move(*nextSemExp)));
-                }
-              }
-            }
-          }
-        }
-        else if (language == SemanticLanguageEnum::ENGLISH)
-        {
-          if (context.chunk.type == ChunkType::NOMINAL_CHUNK)
-          {
-            const auto& lemmaStr = context.chunk.head->inflWords.front().word.lemma;
-            if (lemmaStr == "what about")
-            {
-              auto itNext = itChild;
-              ++itNext;
-              if (itNext != pSyntGraph.firstChildren.end() &&
-                  itNext->chunk->type == ChunkType::NOMINAL_CHUNK)
-              {
-                ToGenRepContext nextContext(*itNext);
-                auto nextSemExp = xFillSemExp(general, nextContext);
-                if (nextSemExp)
-                {
-                  semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpGenerator::whatAbout(std::move(*nextSemExp)));
-                  itChild = itNext;
-                }
-              }
-            }
-          }
-        }
+        auto semExp = _processQuestionWithoutVerb(itChild, general, context.chunk, pSyntGraph);
 
         if (!semExp)
           semExp = xFillSemExp(general, context);
