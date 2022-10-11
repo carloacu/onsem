@@ -1,5 +1,5 @@
 ﻿#include "semexpgenerator.hpp"
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>

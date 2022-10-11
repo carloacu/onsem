@@ -7,7 +7,7 @@
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/texttosemantic/dbtype/misc/coreference.hpp>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
 

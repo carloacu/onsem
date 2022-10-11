@@ -1,6 +1,6 @@
 #include "syntacticgraphtosemantic.hpp"
 #include <onsem/common/utility/number.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>

@@ -1,4 +1,4 @@
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/common/utility/make_unique.hpp>
 

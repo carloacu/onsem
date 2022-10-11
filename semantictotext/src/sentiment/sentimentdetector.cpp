@@ -1,7 +1,7 @@
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>

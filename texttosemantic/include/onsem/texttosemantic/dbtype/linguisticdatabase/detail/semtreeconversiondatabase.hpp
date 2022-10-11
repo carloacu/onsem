@@ -15,7 +15,7 @@
 #include <onsem/common/enum/treepatternconventionenum.hpp>
 #include <onsem/common/enum/semanticrelativetimetype.hpp>
 #include <onsem/common/keytostreams.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/detail/virtualsembinarydatabase.hpp>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
 #include "../../../api.hpp"

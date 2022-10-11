@@ -1,6 +1,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticsynthesizerdictionary.hpp>
 #include <onsem/common/binary/binaryloader.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>

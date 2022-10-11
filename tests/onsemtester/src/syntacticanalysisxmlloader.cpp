@@ -1,6 +1,6 @@
 #include <onsem/tester/syntacticanalysisxmlloader.hpp>
 #include <iostream>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/semanticdebugger/aretextsequivalent.hpp>
 
 namespace onsem

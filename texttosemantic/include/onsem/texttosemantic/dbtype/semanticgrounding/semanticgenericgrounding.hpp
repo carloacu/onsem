@@ -13,7 +13,7 @@
 #include <onsem/common/enum/semanticsubjectivequantity.hpp>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
 #include <onsem/texttosemantic/dbtype/misc/coreference.hpp>
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
 namespace onsem

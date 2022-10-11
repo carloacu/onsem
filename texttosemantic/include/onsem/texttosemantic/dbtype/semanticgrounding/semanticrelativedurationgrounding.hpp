@@ -1,7 +1,7 @@
 #ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICRELATIVEDURATIONGROUNDING_HPP
 #define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICRELATIVEDURATIONGROUNDING_HPP
 
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include <onsem/common/enum/semanticrelativedurationtype.hpp>
 
 

@@ -6,7 +6,7 @@
 #include <list>
 #include <set>
 #include <onsem/common/enum/semanticgendertype.hpp>
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
 

@@ -5,8 +5,8 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>

@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <onsem/common/utility/optional.hpp>
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include "semanticnamegrounding.hpp"
 #include "../../api.hpp"
 

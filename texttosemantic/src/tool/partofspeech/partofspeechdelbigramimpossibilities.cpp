@@ -1,5 +1,5 @@
 #include "partofspeechdelbigramimpossibilities.hpp"
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/lingtypetoken.hpp>

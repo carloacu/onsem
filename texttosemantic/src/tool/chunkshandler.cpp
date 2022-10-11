@@ -1,6 +1,6 @@
 #include "chunkshandler.hpp"
 #include <assert.h>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>

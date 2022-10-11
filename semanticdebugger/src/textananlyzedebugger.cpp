@@ -1,6 +1,6 @@
 #include <onsem/semanticdebugger/textananlyzedebugger.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
 #include <onsem/texttosemantic/printer/expressionprinter.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>

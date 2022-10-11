@@ -3,7 +3,7 @@
 
 #include <list>
 #include <memory>
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include "../../api.hpp"
 

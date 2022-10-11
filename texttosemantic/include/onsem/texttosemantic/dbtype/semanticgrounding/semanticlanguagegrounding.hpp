@@ -1,7 +1,7 @@
 #ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICLANGUAGEGROUNDING_HPP
 #define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICLANGUAGEGROUNDING_HPP
 
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include <string>
 #include <map>
 #include <set>

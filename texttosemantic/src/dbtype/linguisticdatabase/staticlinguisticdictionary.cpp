@@ -3,7 +3,7 @@
 #include <fstream>
 #include <onsem/common/binary/binaryloader.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/inflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
 #include <onsem/common/utility/make_unique.hpp>

@@ -6,7 +6,7 @@
 #include <list>
 #include "../api.hpp"
 #include <onsem/common/enum/semanticlanguagetype.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 
 
 namespace onsem

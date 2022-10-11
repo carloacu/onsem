@@ -1,6 +1,6 @@
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <sstream>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/inflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>

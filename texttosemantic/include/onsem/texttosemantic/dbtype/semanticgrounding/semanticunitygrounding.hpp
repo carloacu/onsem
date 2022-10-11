@@ -4,7 +4,7 @@
 #include <list>
 #include <string>
 #include "../../api.hpp"
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include "semanticlengthgrounding.hpp"
 #include "semanticdurationgrounding.hpp"
 

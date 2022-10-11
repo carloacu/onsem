@@ -1,7 +1,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticconceptset.hpp>
 #include <onsem/common/binary/binaryloader.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>
 
 namespace onsem

@@ -4,7 +4,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/listexpression.hpp>
 #include <onsem/common/enum/semanticentitytype.hpp>
 #include <onsem/common/enum/semanticsourceenum.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/common/enum/lingenumlinkedmeaningdirection.hpp>
 #include "synthesizerresulttypes.hpp"
 #include "synthesizertypes.hpp"

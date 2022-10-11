@@ -1,7 +1,7 @@
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/listexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
 #include <onsem/common/utility/make_unique.hpp>
 

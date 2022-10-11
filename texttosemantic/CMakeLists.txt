@@ -50,8 +50,8 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/semanticexpression/interpretationexpression.hpp
     include/onsem/texttosemantic/dbtype/semanticexpression/setofformsexpression.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp
-    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgrouding.hpp
-    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp
+    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgrounding.hpp
+    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticconceptualgrounding.hpp

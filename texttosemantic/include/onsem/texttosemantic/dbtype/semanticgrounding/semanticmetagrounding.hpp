@@ -2,7 +2,7 @@
 #define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICMETAGROUNDING_HPP
 
 #include <memory>
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
 

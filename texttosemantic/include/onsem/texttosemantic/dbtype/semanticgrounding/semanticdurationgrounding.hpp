@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <onsem/common/utility/to_underlying.hpp>
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
 

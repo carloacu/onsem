@@ -1,7 +1,7 @@
 #ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICRELATIVELOCATIONGROUNDING_HPP
 #define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICRELATIVELOCATIONGROUNDING_HPP
 
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include <onsem/common/enum/semanticrelativelocationtype.hpp>
 
 

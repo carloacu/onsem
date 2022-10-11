@@ -5,7 +5,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictextgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/sentiment/sentimentcontext.hpp>
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>

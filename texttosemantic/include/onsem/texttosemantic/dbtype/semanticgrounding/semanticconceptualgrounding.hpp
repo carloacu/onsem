@@ -2,7 +2,7 @@
 #define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICCONCEPTUALGROUNDING_HPP
 
 #include <list>
-#include "semanticgrouding.hpp"
+#include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
 namespace onsem
