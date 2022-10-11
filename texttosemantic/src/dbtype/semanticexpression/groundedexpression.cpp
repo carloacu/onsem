@@ -92,6 +92,8 @@ std::unique_ptr<SemanticGrounding> GroundedExpression::cloneGrounding(const Inde
     return mystd::make_unique<SemanticNameGrounding>(_grounding->getNameGrounding());
   case SemanticGroudingType::CONCEPTUAL:
     return mystd::make_unique<SemanticConceptualGrounding>(_grounding->getConceptualGrounding());
+  case SemanticGroudingType::UNITY:
+    return mystd::make_unique<SemanticUnityGrounding>(_grounding->getUnityGrounding());
   }
   assert(false);
   return std::unique_ptr<SemanticGrounding>();

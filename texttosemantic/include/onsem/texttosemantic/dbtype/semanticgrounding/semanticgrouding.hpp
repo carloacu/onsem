@@ -25,6 +25,7 @@ struct SemanticRelativeTimeGrounding;
 struct SemanticRelativeDurationGrounding;
 struct SemanticConceptualGrounding;
 struct SemanticResourceGrounding;
+struct SemanticUnityGrounding;
 
 
 
@@ -43,6 +44,7 @@ struct SemanticResourceGrounding;
   SEMANTIC_GROUNGING_TYPE(RESOURCE, "resource")                        \
   SEMANTIC_GROUNGING_TYPE(META, "meta")                                \
   SEMANTIC_GROUNGING_TYPE(NAME, "name")                                \
+  SEMANTIC_GROUNGING_TYPE(UNITY, "unity")                              \
   SEMANTIC_GROUNGING_TYPE(CONCEPTUAL, "conceptual")
 
 #define SEMANTIC_GROUNGING_TYPE(a, b) a,
@@ -209,6 +211,11 @@ public:
   virtual SemanticConceptualGrounding& getConceptualGrounding();
   virtual const SemanticConceptualGrounding* getConceptualGroundingPtr() const { return nullptr; }
   virtual SemanticConceptualGrounding* getConceptualGroundingPtr() { return nullptr; }
+
+  virtual const SemanticUnityGrounding& getUnityGrounding() const;
+  virtual SemanticUnityGrounding& getUnityGrounding();
+  virtual const SemanticUnityGrounding* getUnityGroundingPtr() const { return nullptr; }
+  virtual SemanticUnityGrounding* getUnityGroundingPtr() { return nullptr; }
 
   bool operator==(const SemanticGrounding& pOther) const;
 

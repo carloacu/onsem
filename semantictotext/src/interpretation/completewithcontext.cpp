@@ -370,6 +370,7 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
   case SemanticGroudingType::META:
   case SemanticGroudingType::TEXT:
   case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroudingType::UNITY:
     break;
   }
   return false;

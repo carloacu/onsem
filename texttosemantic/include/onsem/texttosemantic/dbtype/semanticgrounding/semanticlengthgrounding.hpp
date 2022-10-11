@@ -14,41 +14,53 @@ namespace onsem
 // Length Unity
 // ============
 
-#define SEMANTIC_LENGTH_UNITY_TABLE                           \
-  SEMANTIC_LENGTH_UNITY(KILOMETER, "km", 1000000)             \
-  SEMANTIC_LENGTH_UNITY(HECTOMETER, "hm", 100000)             \
-  SEMANTIC_LENGTH_UNITY(DECAMETER, "dam", 10000)              \
-  SEMANTIC_LENGTH_UNITY(METER, "m", 1000)                     \
-  SEMANTIC_LENGTH_UNITY(DECIMETER, "dm", 100)                 \
-  SEMANTIC_LENGTH_UNITY(CENTIMETER, "cm", 10)                 \
-  SEMANTIC_LENGTH_UNITY(MILLIMETER, "mm", 1)
+#define SEMANTIC_LENGTH_UNITY_TABLE                                           \
+  SEMANTIC_LENGTH_UNITY(KILOMETER, "km", "length_kilometer", 1000000)         \
+  SEMANTIC_LENGTH_UNITY(HECTOMETER, "hm", "length_hectometer", 100000)        \
+  SEMANTIC_LENGTH_UNITY(DECAMETER, "dam", "length_decameter", 10000)          \
+  SEMANTIC_LENGTH_UNITY(METER, "m", "length_meter", 1000)                     \
+  SEMANTIC_LENGTH_UNITY(DECIMETER, "dm", "length_decimeter", 100)             \
+  SEMANTIC_LENGTH_UNITY(CENTIMETER, "cm", "length_centimeter", 10)            \
+  SEMANTIC_LENGTH_UNITY(MILLIMETER, "mm", "length_millimeter", 1)
 
 
-#define SEMANTIC_LENGTH_UNITY(a, b, c) a,
+#define SEMANTIC_LENGTH_UNITY(a, b, c, d) a,
 enum class SemanticLengthUnity : char
 {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
 #undef SEMANTIC_LENGTH_UNITY
 
-#define SEMANTIC_LENGTH_UNITY(a, b, c) b,
+#define SEMANTIC_LENGTH_UNITY(a, b, c, d) b,
 static const std::vector<std::string> _semanticLengthUnity_toStr = {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
 #undef SEMANTIC_LENGTH_UNITY
 
-#define SEMANTIC_LENGTH_UNITY(a, b, c) {b, SemanticLengthUnity::a},
+#define SEMANTIC_LENGTH_UNITY(a, b, c, d) c,
+static const std::vector<std::string> _semanticLengthUnity_toConcept = {
+  SEMANTIC_LENGTH_UNITY_TABLE
+};
+#undef SEMANTIC_LENGTH_UNITY
+
+#define SEMANTIC_LENGTH_UNITY(a, b, c, d) {b, SemanticLengthUnity::a},
 static const std::map<std::string, SemanticLengthUnity> _semanticLengthUnity_fromStr = {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
 #undef SEMANTIC_LENGTH_UNITY
 
-#define SEMANTIC_LENGTH_UNITY(a, b, c) c,
+#define SEMANTIC_LENGTH_UNITY(a, b, c, d) d,
 static const std::vector<int64_t> _semanticLengthUnity_toNbOfMillimeters = {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
 #undef SEMANTIC_LENGTH_UNITY
 static const std::size_t _semanticLengthUnity_size = _semanticLengthUnity_toStr.size();
+
+#define SEMANTIC_LENGTH_UNITY(a, b, c, d) SemanticLengthUnity::a,
+static const std::vector<SemanticLengthUnity> semanticLengthUnities = {
+  SEMANTIC_LENGTH_UNITY_TABLE
+};
+#undef SEMANTIC_LENGTH_UNITY
 #undef SEMANTIC_LENGTH_UNITY_TABLE
 
 
@@ -81,6 +93,11 @@ static inline char SemanticLengthUnity_fromUnorderredChar(SemanticLengthUnity pL
 static inline std::string semanticLengthUnity_toStr(SemanticLengthUnity pLengthUnity)
 {
   return _semanticLengthUnity_toStr[semanticLengthUnity_toChar(pLengthUnity)];
+}
+
+static inline std::string semanticLengthUnity_toConcept(SemanticLengthUnity pLengthUnity)
+{
+  return _semanticLengthUnity_toConcept[semanticLengthUnity_toChar(pLengthUnity)];
 }
 
 

@@ -65,6 +65,7 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semantictextgrounding.hpp
+    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticunitygrounding.hpp
     include/onsem/texttosemantic/dbtype/sentiment/sentimentcontext.hpp
     include/onsem/texttosemantic/dbtype/detail/inflectedword.hxx
     include/onsem/texttosemantic/dbtype/misc/imbricationType.hpp
@@ -151,12 +152,13 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/dbtype/semanticgrounding/semanticgrounding.cpp
     src/dbtype/semanticgrounding/semantictimegrounding.cpp
     src/dbtype/semanticgrounding/semanticdurationgrounding.cpp
-    src/dbtype/semanticgrounding/semanticgenericgrouding.cpp
+    src/dbtype/semanticgrounding/semanticgenericgrounding.cpp
     src/dbtype/semanticgrounding/semanticagentgrounding.cpp
     src/dbtype/semanticgrounding/semanticlengthgrounding.cpp
     src/dbtype/semanticgrounding/semanticmetagrounding.cpp
     src/dbtype/semanticgrounding/semanticnamegrounding.cpp
-    src/dbtype/semanticgrounding/semantictextgrouding.cpp
+    src/dbtype/semanticgrounding/semantictextgrounding.cpp
+    src/dbtype/semanticgrounding/semanticunitygrounding.cpp
     src/dbtype/binary/semexploader.cpp
     src/dbtype/binary/semexpsaver.cpp
     src/dbtype/sentiment/sentimentcontext.cpp

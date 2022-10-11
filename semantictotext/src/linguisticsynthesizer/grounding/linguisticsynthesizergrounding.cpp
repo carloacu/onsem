@@ -40,6 +40,22 @@ void _printValue(std::stringstream& pSs,
     pSs << " " << word;
   }
 }
+
+void _printLengthValue(std::stringstream& pSs,
+                       int pValue,
+                       SemanticLengthUnity pLength,
+                       const linguistics::SynthesizerDictionary& pStatSynthDico)
+{
+  _printValue(pSs, pValue, semanticLengthUnity_toConcept(pLength), pStatSynthDico);
+}
+
+void _printTimeValue(std::stringstream& pSs,
+                     int pValue,
+                     SemanticTimeUnity pTime,
+                     const linguistics::SynthesizerDictionary& pStatSynthDico)
+{
+  _printValue(pSs, pValue, semanticTimeUnity_toConcept(pTime), pStatSynthDico);
+}
 }
 
 
@@ -288,6 +304,12 @@ void Linguisticsynthesizergrounding::writeGrounding
     metaGroundingTranslation(pOutSemExp.out, pGrounding.getMetaGrounding());
     break;
   }
+  case SemanticGroudingType::UNITY:
+  {
+    const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
+    unityGroundingTranslation(pOutSemExp.out, pGrounding.getUnityGrounding(), synthDico);
+    break;
+  }
   case SemanticGroudingType::NAME:
   {
     if (!pOutInfoGram.word.lemma.empty())
@@ -380,6 +402,21 @@ void Linguisticsynthesizergrounding::resourceGroundingTranslation
   inflToSynt.fromResourcePtr = &pGrounding;
 }
 
+void Linguisticsynthesizergrounding::unityGroundingTranslation
+(std::list<WordToSynthesize>& pOut,
+ const SemanticUnityGrounding& pGrounding,
+ const linguistics::SynthesizerDictionary& pStatSynthDico) const
+{
+  const auto& meaning = pStatSynthDico.conceptToMeaning(pGrounding.getValueConcept());
+  if (!meaning.isEmpty())
+  {
+    std::string word;
+    SemanticNumberType number = SemanticNumberType::UNKNOWN;
+    SemanticGenderType gender = SemanticGenderType::UNKNOWN;
+    pStatSynthDico.getNounForm(word, meaning, gender, number);
+    _strToOut(pOut, PartOfSpeech::NOUN, word);
+  }
+}
 
 void Linguisticsynthesizergrounding::metaGroundingTranslation
 (std::list<WordToSynthesize>& pOut,
@@ -976,7 +1013,7 @@ bool Linguisticsynthesizergrounding::lengthTranslation
   bool finishedToPrint = false;
   if (lengthPrint.kilometer != -1)
   {
-    _printValue(ss, lengthPrint.kilometer, "length_kilometer", pStatSynthDico);
+    _printLengthValue(ss, lengthPrint.kilometer, SemanticLengthUnity::KILOMETER, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -984,7 +1021,7 @@ bool Linguisticsynthesizergrounding::lengthTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, lengthPrint.hectometer, "length_hectometer", pStatSynthDico);
+    _printLengthValue(ss, lengthPrint.hectometer, SemanticLengthUnity::HECTOMETER, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -992,7 +1029,7 @@ bool Linguisticsynthesizergrounding::lengthTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, lengthPrint.decameter, "length_decameter", pStatSynthDico);
+    _printLengthValue(ss, lengthPrint.decameter, SemanticLengthUnity::DECAMETER, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1000,7 +1037,7 @@ bool Linguisticsynthesizergrounding::lengthTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, lengthPrint.meter, "length_meter", pStatSynthDico);
+    _printLengthValue(ss, lengthPrint.meter, SemanticLengthUnity::METER, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1008,7 +1045,7 @@ bool Linguisticsynthesizergrounding::lengthTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, lengthPrint.decimeter, "length_decimeter", pStatSynthDico);
+    _printLengthValue(ss, lengthPrint.decimeter, SemanticLengthUnity::DECIMETER, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1016,7 +1053,7 @@ bool Linguisticsynthesizergrounding::lengthTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, lengthPrint.centimeter, "length_centimeter", pStatSynthDico);
+    _printLengthValue(ss, lengthPrint.centimeter, SemanticLengthUnity::CENTIMETER, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1024,7 +1061,7 @@ bool Linguisticsynthesizergrounding::lengthTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, lengthPrint.millimeter, "length_millimeter", pStatSynthDico);
+    _printLengthValue(ss, lengthPrint.millimeter, SemanticLengthUnity::MILLIMETER, pStatSynthDico);
   }
 
   const std::string timePrinted = ss.str();
@@ -1048,7 +1085,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   bool finishedToPrint = false;
   if (durationPrint.hour != -1)
   {
-    _printValue(ss, durationPrint.hour, "duration_hour", pStatSynthDico);
+    _printTimeValue(ss, durationPrint.hour, SemanticTimeUnity::HOUR, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1056,7 +1093,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, durationPrint.minute, "duration_minute", pStatSynthDico);
+    _printTimeValue(ss, durationPrint.minute, SemanticTimeUnity::MINUTE, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1064,7 +1101,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, durationPrint.second, "duration_second", pStatSynthDico);
+    _printTimeValue(ss, durationPrint.second, SemanticTimeUnity::SECOND, pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1072,7 +1109,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, durationPrint.millisecond, "duration_millisecond", pStatSynthDico);
+    _printTimeValue(ss, durationPrint.millisecond, SemanticTimeUnity::MILLISECOND, pStatSynthDico);
   }
 
   const std::string timePrinted = ss.str();

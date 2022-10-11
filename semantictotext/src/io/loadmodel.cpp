@@ -337,6 +337,16 @@ std::unique_ptr<SemanticConceptualGrounding> _loadConceptualGrd(const boost::pro
   return res;
 }
 
+std::unique_ptr<SemanticUnityGrounding> _loadUnityGrd(const boost::property_tree::ptree& pTree)
+{
+  auto res = mystd::make_unique<SemanticUnityGrounding>
+      (typeOfUnity_fromStr(pTree.get<std::string>("typeOfUnity")),
+       pTree.get<std::string>("value"));
+  _loadGrd(*res, pTree);
+  return res;
+}
+
+
 std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::ptree& pTree)
 {
   switch (semanticGroudingsType_fromStr(pTree.get<std::string>("type", semanticGroudingsType_toStr(SemanticGroudingType::GENERIC))))
@@ -371,6 +381,8 @@ std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::pt
     return _loadNameGrd(pTree);
   case SemanticGroudingType::CONCEPTUAL:
     return _loadConceptualGrd(pTree);
+  case SemanticGroudingType::UNITY:
+    return _loadUnityGrd(pTree);
   }
   assert(false);
   return mystd::make_unique<SemanticConceptualGrounding>();

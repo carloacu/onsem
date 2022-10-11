@@ -371,6 +371,13 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     binarysaver::writeChar(pPtr.pchar++, semanticRelativeLocationType_toChar(relLocationGrd.locationType));
     return;
   }
+  case SemanticGroudingType::UNITY:
+  {
+    auto& unityGrd = pGrd.getUnityGrounding();
+    binarysaver::writeChar(pPtr.pchar++, typeOfUnity_toChar(unityGrd.typeOfUnity));
+    binarysaver::writeChar(pPtr.pchar++, unityGrd.value);
+    return;
+  }
   }
   assert(false);
 }

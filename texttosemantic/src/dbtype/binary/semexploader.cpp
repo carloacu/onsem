@@ -339,6 +339,13 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     relLocationGrd.locationType = semanticRelativeLocationType_fromChar(*(pPtr++));
     return res;
   }
+  case SemanticGroudingType::UNITY:
+  {
+    auto& unityGrd = res->getUnityGrounding();
+    unityGrd.typeOfUnity = typeOfUnity_fromChar(*(pPtr++));
+    unityGrd.value = *(pPtr++);
+    return res;
+  }
   }
   assert(false);
   return res;

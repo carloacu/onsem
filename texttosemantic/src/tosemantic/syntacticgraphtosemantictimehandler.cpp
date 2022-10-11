@@ -13,31 +13,6 @@ namespace onsem
 {
 namespace linguistics
 {
-namespace
-{
-bool _createDurationGrd(mystd::unique_propagate_const<UniqueSemanticExpression>& pRes,
-                        const SemanticTimeUnity& pTimeUnity,
-                        const std::string& pConceptName,
-                        const InflectedWord& pIGram,
-                        const Chunk& pChunk)
-{
-  if (ConceptSet::haveAConcept(pIGram.infos.concepts, pConceptName))
-  {
-    int number = 0;
-    if (getNumberBeforeHead(number, pChunk))
-    {
-      auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
-      newDuration->duration.sign = SemanticDurationSign::POSITIVE;
-      newDuration->duration.timeInfos[pTimeUnity] = number;
-      pRes = mystd::unique_propagate_const<UniqueSemanticExpression>
-          (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
-      return true;
-    }
-  }
-  return false;
-}
-}
-
 
 mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic::xFillTimeStruct
 (const ToGenRepContext& pContext) const
@@ -60,11 +35,22 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_"))
     {
       mystd::unique_propagate_const<UniqueSemanticExpression> res;
-      if (_createDurationGrd(res, SemanticTimeUnity::MILLISECOND, "duration_millisecond", iGram, pContext.chunk) ||
-          _createDurationGrd(res, SemanticTimeUnity::SECOND, "duration_second", iGram, pContext.chunk) ||
-          _createDurationGrd(res, SemanticTimeUnity::MINUTE, "duration_minute", iGram, pContext.chunk) ||
-          _createDurationGrd(res, SemanticTimeUnity::HOUR, "duration_hour", iGram, pContext.chunk))
-        return res;
+      for (auto& currTimeUnity : semanticTimeUnities)
+      {
+        if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity)))
+        {
+          int number = 0;
+          if (getNumberBeforeHead(number, pContext.chunk))
+          {
+            auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
+            newDuration->duration.sign = SemanticDurationSign::POSITIVE;
+            newDuration->duration.timeInfos[currTimeUnity] = number;
+            res = mystd::unique_propagate_const<UniqueSemanticExpression>
+                (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
+            return res;
+          }
+        }
+      }
     }
     else if (pContext.grammTypeFromParent == GrammaticalType::TIME &&
              ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "number_"))

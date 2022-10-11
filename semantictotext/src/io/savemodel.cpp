@@ -90,6 +90,14 @@ void _saveNameGrd(boost::property_tree::ptree& pTree,
   _saveNameInfos(pTree, pNameGrd.nameInfos);
 }
 
+void _saveUnityGrd(boost::property_tree::ptree& pTree,
+                   const SemanticUnityGrounding& pUnityGrd)
+{
+  _saveGrd(pTree, pUnityGrd);
+  pTree.put("typeOfUnity", typeOfUnity_toStr(pUnityGrd.typeOfUnity));
+  pTree.put("value", pUnityGrd.getValueStr());
+}
+
 void _saveAgentGrd(boost::property_tree::ptree& pTree,
                    const SemanticAgentGrounding& pAgentGrd)
 {
@@ -328,6 +336,9 @@ void _saveGrounding(boost::property_tree::ptree& pTree,
     return;
   case SemanticGroudingType::CONCEPTUAL:
     _saveGrd(pTree, pGrouding);
+    return;
+  case SemanticGroudingType::UNITY:
+    _saveUnityGrd(pTree, pGrouding.getUnityGrounding());
     return;
   }
   assert(false);

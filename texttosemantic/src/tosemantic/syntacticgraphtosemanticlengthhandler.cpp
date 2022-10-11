@@ -8,29 +8,6 @@ namespace onsem
 {
 namespace linguistics
 {
-namespace
-{
-bool _createLengthGrd(mystd::unique_propagate_const<UniqueSemanticExpression>& pRes,
-                        const SemanticLengthUnity& pLengthUnity,
-                        const std::string& pConceptName,
-                        const InflectedWord& pIGram,
-                        const Chunk& pChunk)
-{
-  if (ConceptSet::haveAConcept(pIGram.infos.concepts, pConceptName))
-  {
-    int number = 0;
-    if (getNumberBeforeHead(number, pChunk))
-    {
-      auto newLength = mystd::make_unique<SemanticLengthGrounding>();
-      newLength->length.lengthInfos[pLengthUnity] = number;
-      pRes = mystd::unique_propagate_const<UniqueSemanticExpression>
-          (mystd::make_unique<GroundedExpression>(std::move(newLength)));
-      return true;
-    }
-  }
-  return false;
-}
-}
 
 
 mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic::xFillLengthStruct
@@ -45,14 +22,21 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "length_"))
     {
       mystd::unique_propagate_const<UniqueSemanticExpression> res;
-      if (_createLengthGrd(res, SemanticLengthUnity::MILLIMETER, "length_millimeter", iGram, pContext.chunk) ||
-          _createLengthGrd(res, SemanticLengthUnity::CENTIMETER, "length_centimeter", iGram, pContext.chunk) ||
-          _createLengthGrd(res, SemanticLengthUnity::DECIMETER, "length_decimeter", iGram, pContext.chunk) ||
-          _createLengthGrd(res, SemanticLengthUnity::METER, "length_meter", iGram, pContext.chunk) ||
-          _createLengthGrd(res, SemanticLengthUnity::DECAMETER, "length_decameter", iGram, pContext.chunk) ||
-          _createLengthGrd(res, SemanticLengthUnity::HECTOMETER, "length_hectometer", iGram, pContext.chunk) ||
-          _createLengthGrd(res, SemanticLengthUnity::KILOMETER, "length_kilometer", iGram, pContext.chunk))
-        return res;
+      for (const auto& currLength : semanticLengthUnities)
+      {
+        if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticLengthUnity_toConcept(currLength)))
+        {
+          int number = 0;
+          if (getNumberBeforeHead(number, pContext.chunk))
+          {
+            auto newLength = mystd::make_unique<SemanticLengthGrounding>();
+            newLength->length.lengthInfos[currLength] = number;
+            res = mystd::unique_propagate_const<UniqueSemanticExpression>
+                (mystd::make_unique<GroundedExpression>(std::move(newLength)));
+            return res;
+          }
+        }
+      }
     }
     break;
   }

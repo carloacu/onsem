@@ -39,6 +39,8 @@ std::unique_ptr<SemanticGrounding> SemanticGrounding::make(SemanticGroudingType 
     return mystd::make_unique<SemanticNameGrounding>("");
   case SemanticGroudingType::CONCEPTUAL:
     return mystd::make_unique<SemanticConceptualGrounding>();
+  case SemanticGroudingType::UNITY:
+    return mystd::make_unique<SemanticUnityGrounding>(SemanticLengthUnity::CENTIMETER);
   }
 
   assert(false);
@@ -238,6 +240,18 @@ SemanticConceptualGrounding& SemanticGrounding::getConceptualGrounding()
   return *dynamic_cast<SemanticConceptualGrounding*>(this);
 }
 
+const SemanticUnityGrounding& SemanticGrounding::getUnityGrounding() const
+{
+  assert(false);
+  return *dynamic_cast<const SemanticUnityGrounding*>(this);
+}
+
+SemanticUnityGrounding& SemanticGrounding::getUnityGrounding()
+{
+  assert(false);
+  return *dynamic_cast<SemanticUnityGrounding*>(this);
+}
+
 
 bool SemanticGrounding::operator==(const SemanticGrounding& pOther) const
 {
@@ -276,6 +290,8 @@ bool SemanticGrounding::operator==(const SemanticGrounding& pOther) const
     return getNameGrounding().isEqual(pOther.getNameGrounding());
   case SemanticGroudingType::CONCEPTUAL:
     return getConceptualGrounding().isEqual(pOther.getConceptualGrounding());
+  case SemanticGroudingType::UNITY:
+    return getUnityGrounding().isEqual(pOther.getUnityGrounding());
   }
   assert(false);
   return false;

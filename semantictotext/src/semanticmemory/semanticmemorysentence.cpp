@@ -1218,6 +1218,7 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
   case SemanticGroudingType::CONCEPTUAL:
   case SemanticGroudingType::DURATION:
   case SemanticGroudingType::LENGTH:
+  case SemanticGroudingType::UNITY:
      break;
   }
   return true;

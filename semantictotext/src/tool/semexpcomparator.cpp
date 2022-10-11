@@ -432,6 +432,15 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
       return ImbricationType::HYPERNYM;
     return ImbricationType::HYPONYM;
   }
+  case SemanticGroudingType::UNITY:
+  {
+    const auto& unityGrd1 = pGrounding1.getUnityGrounding();
+    const auto* unityGrd2 = pGrounding2.getUnityGroundingPtr();
+    if (unityGrd2 != nullptr)
+      return bool_toImbricationType(unityGrd1.typeOfUnity == unityGrd2->typeOfUnity &&
+                                    unityGrd1.value == unityGrd2->value);
+    break;
+  }
   case SemanticGroudingType::NAME:
   {
     switch (pGrounding2.type)

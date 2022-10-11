@@ -65,6 +65,13 @@ static const std::vector<int> _semanticTimeUnity_toNbOfDigits = {
 };
 #undef SEMANTIC_TIME_UNITY
 static const std::size_t _semanticTimeUnity_size = _semanticTimeUnity_toStr.size();
+
+
+#define SEMANTIC_TIME_UNITY(a, b, c, d, e) SemanticTimeUnity::a,
+static const std::vector<SemanticTimeUnity> semanticTimeUnities = {
+  SEMANTIC_TIME_UNITY_TABLE
+};
+#undef SEMANTIC_TIME_UNITY
 #undef SEMANTIC_TIME_UNITY_TABLE
 
 
@@ -99,6 +106,10 @@ static inline std::string semanticTimeUnity_toStr(SemanticTimeUnity pTimeUnity)
   return _semanticTimeUnity_toStr[semanticTimeUnity_toChar(pTimeUnity)];
 }
 
+static inline std::string semanticTimeUnity_toConcept(SemanticTimeUnity pTimeUnity)
+{
+  return "duration_" + _semanticTimeUnity_toStr[semanticTimeUnity_toChar(pTimeUnity)];
+}
 
 static inline SemanticTimeUnity semanticTimeUnity_fromStr
 (const std::string& pTimeUnityStr)

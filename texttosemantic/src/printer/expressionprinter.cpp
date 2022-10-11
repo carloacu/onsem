@@ -431,6 +431,14 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
   _prettyPrintDuration(pLines, pPrinterBuff, "duration", pGrounding.duration);
 }
 
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
+                                 PrinterBuffer& pPrinterBuff,
+                                 const SemanticUnityGrounding& pGrounding)
+{
+  pPrinterBuff.elts.emplace_back(typeOfUnity_toStr(pGrounding.typeOfUnity) + "(" +
+                                 pGrounding.getValueStr() + ")");
+  _flushStringStream(pLines, pPrinterBuff, nullptr);
+}
 
 void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
                             PrinterBuffer& pPrinterBuff,
@@ -526,6 +534,12 @@ void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getConceptualGrounding());
+    break;
+  }
+  case SemanticGroudingType::UNITY:
+  {
+    _prettyPrintTypedGroundings(pLines, pPrinterBuff,
+                                pGroundings.getUnityGrounding());
     break;
   }
   }

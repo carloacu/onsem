@@ -17,6 +17,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativetimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativedurationgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticconceptualgrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticunitygrounding.hpp>
 
 
 #endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDINGS_HPP

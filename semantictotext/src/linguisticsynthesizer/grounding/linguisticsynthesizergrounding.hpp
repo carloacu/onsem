@@ -112,6 +112,11 @@ public:
   (std::list<WordToSynthesize>& pOut,
    const SemanticResourceGrounding& pGrounding) const;
 
+  void unityGroundingTranslation
+  (std::list<WordToSynthesize>& pOut,
+   const SemanticUnityGrounding& pGrounding,
+   const linguistics::SynthesizerDictionary& pStatSynthDico) const;
+
   void metaGroundingTranslation
   (std::list<WordToSynthesize>& pOut,
    const SemanticMetaGrounding& pGrounding) const;

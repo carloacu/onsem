@@ -53,7 +53,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
 
     if (itToken != endIt)
     {
-      // skip minut word
+      // skip minute word
       const auto& tokenInfos = itToken->inflWords.front().infos;
       if (ConceptSet::haveAConcept(tokenInfos.concepts, "duration_minute"))
         itToken = getNextToken(itToken, endIt);
