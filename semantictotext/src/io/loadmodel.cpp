@@ -158,7 +158,7 @@ void _loadSemanticLength(SemanticLength& pSemanticLength,
     {
       const std::string label = currLengthInfo.first.data();
       pSemanticLength.lengthInfos.emplace
-          (semanticLengthUnity_fromStr(label),
+          (semanticLengthUnity_fromAbreviation(label),
            currLengthInfo.second.get_value<int>());
     }
 }

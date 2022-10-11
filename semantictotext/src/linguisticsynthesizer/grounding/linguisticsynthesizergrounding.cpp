@@ -411,7 +411,7 @@ void Linguisticsynthesizergrounding::unityGroundingTranslation
   if (!meaning.isEmpty())
   {
     std::string word;
-    SemanticNumberType number = SemanticNumberType::UNKNOWN;
+    SemanticNumberType number = SemanticNumberType::PLURAL;
     SemanticGenderType gender = SemanticGenderType::UNKNOWN;
     pStatSynthDico.getNounForm(word, meaning, gender, number);
     _strToOut(pOut, PartOfSpeech::NOUN, word);

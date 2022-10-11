@@ -14,14 +14,14 @@ namespace onsem
 // Length Unity
 // ============
 
-#define SEMANTIC_LENGTH_UNITY_TABLE                                           \
-  SEMANTIC_LENGTH_UNITY(KILOMETER, "km", "length_kilometer", 1000000)         \
-  SEMANTIC_LENGTH_UNITY(HECTOMETER, "hm", "length_hectometer", 100000)        \
-  SEMANTIC_LENGTH_UNITY(DECAMETER, "dam", "length_decameter", 10000)          \
-  SEMANTIC_LENGTH_UNITY(METER, "m", "length_meter", 1000)                     \
-  SEMANTIC_LENGTH_UNITY(DECIMETER, "dm", "length_decimeter", 100)             \
-  SEMANTIC_LENGTH_UNITY(CENTIMETER, "cm", "length_centimeter", 10)            \
-  SEMANTIC_LENGTH_UNITY(MILLIMETER, "mm", "length_millimeter", 1)
+#define SEMANTIC_LENGTH_UNITY_TABLE                                    \
+  SEMANTIC_LENGTH_UNITY(KILOMETER, "km", "kilometer", 1000000)         \
+  SEMANTIC_LENGTH_UNITY(HECTOMETER, "hm", "hectometer", 100000)        \
+  SEMANTIC_LENGTH_UNITY(DECAMETER, "dam", "decameter", 10000)          \
+  SEMANTIC_LENGTH_UNITY(METER, "m", "meter", 1000)                     \
+  SEMANTIC_LENGTH_UNITY(DECIMETER, "dm", "decimeter", 100)             \
+  SEMANTIC_LENGTH_UNITY(CENTIMETER, "cm", "centimeter", 10)            \
+  SEMANTIC_LENGTH_UNITY(MILLIMETER, "mm", "millimeter", 1)
 
 
 #define SEMANTIC_LENGTH_UNITY(a, b, c, d) a,
@@ -32,18 +32,24 @@ enum class SemanticLengthUnity : char
 #undef SEMANTIC_LENGTH_UNITY
 
 #define SEMANTIC_LENGTH_UNITY(a, b, c, d) b,
-static const std::vector<std::string> _semanticLengthUnity_toStr = {
+static const std::vector<std::string> _semanticLengthUnity_toAbreviation = {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
 #undef SEMANTIC_LENGTH_UNITY
 
 #define SEMANTIC_LENGTH_UNITY(a, b, c, d) c,
-static const std::vector<std::string> _semanticLengthUnity_toConcept = {
+static const std::vector<std::string> _semanticLengthUnity_toStr = {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
 #undef SEMANTIC_LENGTH_UNITY
 
 #define SEMANTIC_LENGTH_UNITY(a, b, c, d) {b, SemanticLengthUnity::a},
+static const std::map<std::string, SemanticLengthUnity> _semanticLengthUnity_fromAbreviation = {
+  SEMANTIC_LENGTH_UNITY_TABLE
+};
+#undef SEMANTIC_LENGTH_UNITY
+
+#define SEMANTIC_LENGTH_UNITY(a, b, c, d) {c, SemanticLengthUnity::a},
 static const std::map<std::string, SemanticLengthUnity> _semanticLengthUnity_fromStr = {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
@@ -54,7 +60,7 @@ static const std::vector<int64_t> _semanticLengthUnity_toNbOfMillimeters = {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
 #undef SEMANTIC_LENGTH_UNITY
-static const std::size_t _semanticLengthUnity_size = _semanticLengthUnity_toStr.size();
+static const std::size_t _semanticLengthUnity_size = _semanticLengthUnity_toAbreviation.size();
 
 #define SEMANTIC_LENGTH_UNITY(a, b, c, d) SemanticLengthUnity::a,
 static const std::vector<SemanticLengthUnity> semanticLengthUnities = {
@@ -90,22 +96,36 @@ static inline char SemanticLengthUnity_fromUnorderredChar(SemanticLengthUnity pL
   return _semanticLengthUnity_size - static_cast<char>(pLengthUnity);
 }
 
-static inline std::string semanticLengthUnity_toStr(SemanticLengthUnity pLengthUnity)
+static inline std::string semanticLengthUnity_toAbreviation(SemanticLengthUnity pLengthUnity)
 {
-  return _semanticLengthUnity_toStr[semanticLengthUnity_toChar(pLengthUnity)];
+  return _semanticLengthUnity_toAbreviation[semanticLengthUnity_toChar(pLengthUnity)];
 }
 
 static inline std::string semanticLengthUnity_toConcept(SemanticLengthUnity pLengthUnity)
 {
-  return _semanticLengthUnity_toConcept[semanticLengthUnity_toChar(pLengthUnity)];
+  return "length_" + _semanticLengthUnity_toStr[semanticLengthUnity_toChar(pLengthUnity)];
 }
 
+static inline std::string semanticLengthUnity_toStr(SemanticLengthUnity pLengthUnity)
+{
+  return _semanticLengthUnity_toStr[semanticLengthUnity_toChar(pLengthUnity)];
+}
 
 static inline SemanticLengthUnity semanticLengthUnity_fromStr
 (const std::string& pLengthUnityStr)
 {
   auto it = _semanticLengthUnity_fromStr.find(pLengthUnityStr);
   if (it != _semanticLengthUnity_fromStr.end())
+    return it->second;
+  assert(false);
+  return SemanticLengthUnity::MILLIMETER;
+}
+
+static inline SemanticLengthUnity semanticLengthUnity_fromAbreviation
+(const std::string& pLengthUnityStr)
+{
+  auto it = _semanticLengthUnity_fromAbreviation.find(pLengthUnityStr);
+  if (it != _semanticLengthUnity_fromAbreviation.end())
     return it->second;
   assert(false);
   return SemanticLengthUnity::MILLIMETER;

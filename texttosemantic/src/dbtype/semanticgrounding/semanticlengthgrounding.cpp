@@ -19,7 +19,7 @@ void SemanticLength::printLength
   std::stringstream ss;
   ss << pLabelName << "(";
   for (const auto& currElt : lengthInfos)
-    ss << currElt.second << semanticLengthUnity_toStr(currElt.first);
+    ss << currElt.second << semanticLengthUnity_toAbreviation(currElt.first);
   ss << ")";
   pListElts.emplace_back(ss.str());
 }

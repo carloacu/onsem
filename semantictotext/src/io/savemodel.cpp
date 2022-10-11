@@ -112,7 +112,7 @@ void _saveSemanticLength(boost::property_tree::ptree& pTree,
                          const SemanticLength& pSemanticLength)
 {
   for (const auto& currLengthInfo : pSemanticLength.lengthInfos)
-    pTree.put(semanticLengthUnity_toStr(currLengthInfo.first), currLengthInfo.second);
+    pTree.put(semanticLengthUnity_toAbreviation(currLengthInfo.first), currLengthInfo.second);
 }
 
 void _saveSemanticDuration(boost::property_tree::ptree& pTree,

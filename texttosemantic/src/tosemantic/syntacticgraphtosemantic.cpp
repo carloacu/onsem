@@ -2770,6 +2770,7 @@ void SyntacticGraphToSemantic::xFillNewSentence
     case ChunkLinkType::THANKS_TO:
     case ChunkLinkType::TIME:
     case ChunkLinkType::TOPIC:
+    case ChunkLinkType::UNITY:
     case ChunkLinkType::WAY:
     case ChunkLinkType::WITH:
     case ChunkLinkType::WITHOUT:

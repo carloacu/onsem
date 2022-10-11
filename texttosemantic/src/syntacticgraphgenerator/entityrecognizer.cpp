@@ -502,7 +502,7 @@ bool EntityRecognizer::addSubordonatesToAVerb
         newChkType == ChunkLinkType::WITH || newChkType == ChunkLinkType::ACCORDINGTO ||
         newChkType == ChunkLinkType::AGAINST || newChkType == ChunkLinkType::BETWEEN ||
         newChkType == ChunkLinkType::STARTING_POINT || newChkType == ChunkLinkType::INTERJECTION ||
-        newChkType == ChunkLinkType::SIMPLE)
+        newChkType == ChunkLinkType::UNITY || newChkType == ChunkLinkType::SIMPLE)
       currSubordonate->type = newChkType;
     else if (newChkType == ChunkLinkType::QUESTIONWORD)
     {

@@ -45,9 +45,8 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
             auto newDuration = mystd::make_unique<SemanticDurationGrounding>();
             newDuration->duration.sign = SemanticDurationSign::POSITIVE;
             newDuration->duration.timeInfos[currTimeUnity] = number;
-            res = mystd::unique_propagate_const<UniqueSemanticExpression>
+            return mystd::unique_propagate_const<UniqueSemanticExpression>
                 (mystd::make_unique<GroundedExpression>(std::move(newDuration)));
-            return res;
           }
         }
       }

@@ -64,6 +64,8 @@ mystd::optional<ChunkLinkType> grammaticalTypeToChunkType(GrammaticalType pGramT
     return ChunkLinkType::TODO;
   case GrammaticalType::TOPIC:
     return ChunkLinkType::TOPIC;
+  case GrammaticalType::UNITY:
+    return ChunkLinkType::UNITY;
   case GrammaticalType::WAY:
     return ChunkLinkType::WAY;
   case GrammaticalType::WITH:
@@ -146,6 +148,8 @@ mystd::optional<GrammaticalType> chunkTypeToGrammaticalType
     return GrammaticalType::TODO;
   case ChunkLinkType::TOPIC:
     return GrammaticalType::TOPIC;
+  case ChunkLinkType::UNITY:
+    return GrammaticalType::UNITY;
   case ChunkLinkType::WAY:
     return GrammaticalType::WAY;
   case ChunkLinkType::WITH:

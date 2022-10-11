@@ -58,6 +58,7 @@ namespace linguistics
   SYNTACTIC_CHUNK_LINK(THANKS_TO, "thanks to", "green")                        \
   SYNTACTIC_CHUNK_LINK(TODO, "todo", "green")                                  \
   SYNTACTIC_CHUNK_LINK(TOPIC, "topic", "green")                                \
+  SYNTACTIC_CHUNK_LINK(UNITY, "unity", "green")                                \
   SYNTACTIC_CHUNK_LINK(WAY, "way", "green")                                    \
   SYNTACTIC_CHUNK_LINK(WITH, "with", "green")                                  \
   SYNTACTIC_CHUNK_LINK(WITHOUT, "without", "green")                            \

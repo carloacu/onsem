@@ -38,6 +38,7 @@ namespace onsem
   SEMANTIC_GRAMMATICALTYPE(THANKS_TO, "thanks_to")                  \
   SEMANTIC_GRAMMATICALTYPE(TODO, "todo")                            \
   SEMANTIC_GRAMMATICALTYPE(TOPIC, "topic")                          \
+  SEMANTIC_GRAMMATICALTYPE(UNITY, "unity")                          \
   SEMANTIC_GRAMMATICALTYPE(WAY, "way")                              \
   SEMANTIC_GRAMMATICALTYPE(WITH, "with")                            \
   SEMANTIC_GRAMMATICALTYPE(WITHOUT, "without")                      \

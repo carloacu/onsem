@@ -1,6 +1,7 @@
 #include "syntacticgraphtosemantic.hpp"
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticunitygrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include "../tool/chunkshandler.hpp"
 
@@ -21,7 +22,6 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
     if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "length_"))
     {
-      mystd::unique_propagate_const<UniqueSemanticExpression> res;
       for (const auto& currLength : semanticLengthUnities)
       {
         if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticLengthUnity_toConcept(currLength)))
@@ -31,9 +31,13 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
           {
             auto newLength = mystd::make_unique<SemanticLengthGrounding>();
             newLength->length.lengthInfos[currLength] = number;
-            res = mystd::unique_propagate_const<UniqueSemanticExpression>
+            return mystd::unique_propagate_const<UniqueSemanticExpression>
                 (mystd::make_unique<GroundedExpression>(std::move(newLength)));
-            return res;
+          }
+          else
+          {
+            return mystd::unique_propagate_const<UniqueSemanticExpression>
+                (mystd::make_unique<GroundedExpression>(mystd::make_unique<SemanticUnityGrounding>(currLength)));
           }
         }
       }
