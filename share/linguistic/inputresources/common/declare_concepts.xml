@@ -125,14 +125,6 @@
 
   <declareconcept name="degree" />
 
-  <declareconcept name="distance_kilometer" />
-  <declareconcept name="distance_hectometer" />
-  <declareconcept name="distance_decameter" />
-  <declareconcept name="distance_meter" />
-  <declareconcept name="distance_decimeter" />
-  <declareconcept name="distance_centimeter" />
-  <declareconcept name="distance_millimeter" />
-
   <declareconcept name="duration_hour" />
   <declareconcept name="duration_minute" />
   <declareconcept name="duration_second" />
@@ -160,6 +152,14 @@
 
   <declareconcept name="language_french" />
   <declareconcept name="language_english" />
+
+  <declareconcept name="length_kilometer" />
+  <declareconcept name="length_hectometer" />
+  <declareconcept name="length_decameter" />
+  <declareconcept name="length_meter" />
+  <declareconcept name="length_decimeter" />
+  <declareconcept name="length_centimeter" />
+  <declareconcept name="length_millimeter" />
 
   <declareconcept name="level" />
   <declareconcept name="level_empty" />

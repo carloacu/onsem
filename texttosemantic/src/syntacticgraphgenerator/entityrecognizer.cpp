@@ -495,7 +495,7 @@ bool EntityRecognizer::addSubordonatesToAVerb
     auto newChkType = findNatureOfAChunkLink(*currSubordonate, &pVerbRoot);
     bool needToAddToVerbRoot = true;
     if (currSubordonate->chunk->type == ChunkType::PREPOSITIONAL_CHUNK || newChkType == ChunkLinkType::TIME ||
-        newChkType == ChunkLinkType::DISTANCE || newChkType == ChunkLinkType::DURATION ||
+        newChkType == ChunkLinkType::LENGTH || newChkType == ChunkLinkType::DURATION ||
         newChkType == ChunkLinkType::LOCATION || newChkType == ChunkLinkType::REPETITION ||
         newChkType == ChunkLinkType::MANNER || newChkType == ChunkLinkType::LANGUAGE ||
         newChkType == ChunkLinkType::INDIRECTOBJECT || newChkType == ChunkLinkType::PURPOSE ||

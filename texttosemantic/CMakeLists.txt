@@ -53,9 +53,9 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgrouding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp
-    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticdistancegrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticconceptualgrounding.hpp
+    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativedurationgrounding.hpp
@@ -150,10 +150,10 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/dbtype/semanticexpression/setofformsexpression.cpp
     src/dbtype/semanticgrounding/semanticgrounding.cpp
     src/dbtype/semanticgrounding/semantictimegrounding.cpp
-    src/dbtype/semanticgrounding/semanticdistancegrounding.cpp
     src/dbtype/semanticgrounding/semanticdurationgrounding.cpp
     src/dbtype/semanticgrounding/semanticgenericgrouding.cpp
     src/dbtype/semanticgrounding/semanticagentgrounding.cpp
+    src/dbtype/semanticgrounding/semanticlengthgrounding.cpp
     src/dbtype/semanticgrounding/semanticmetagrounding.cpp
     src/dbtype/semanticgrounding/semanticnamegrounding.cpp
     src/dbtype/semanticgrounding/semantictextgrouding.cpp
@@ -234,7 +234,7 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/tosemantic/syntacticgraphtosemantic.hpp
     src/tosemantic/syntacticgraphtosemantic.cpp
     src/tosemantic/syntacticgraphtosemantichourtimehandler.cpp
-    src/tosemantic/syntacticgraphtosemanticdistancehandler.cpp
+    src/tosemantic/syntacticgraphtosemanticlengthhandler.cpp
     src/tosemantic/syntacticgraphtosemantictimehandler.cpp
     src/tosemantic/semtreehardcodedconverter.hpp
     src/tosemantic/semtreehardcodedconverter.cpp

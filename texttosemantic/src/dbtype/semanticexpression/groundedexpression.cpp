@@ -72,8 +72,6 @@ std::unique_ptr<SemanticGrounding> GroundedExpression::cloneGrounding(const Inde
     return mystd::make_unique<SemanticTimeGrounding>(_grounding->getTimeGrounding());
   case SemanticGroudingType::TEXT:
     return mystd::make_unique<SemanticTextGrounding>(_grounding->getTextGrounding());
-  case SemanticGroudingType::DISTANCE:
-    return mystd::make_unique<SemanticDistanceGrounding>(_grounding->getDistanceGrounding());
   case SemanticGroudingType::DURATION:
     return mystd::make_unique<SemanticDurationGrounding>(_grounding->getDurationGrounding());
   case SemanticGroudingType::LANGUAGE:
@@ -86,6 +84,8 @@ std::unique_ptr<SemanticGrounding> GroundedExpression::cloneGrounding(const Inde
     return mystd::make_unique<SemanticRelativeDurationGrounding>(_grounding->getRelDurationGrounding());
   case SemanticGroudingType::RESOURCE:
     return mystd::make_unique<SemanticResourceGrounding>(_grounding->getResourceGrounding());
+  case SemanticGroudingType::LENGTH:
+    return mystd::make_unique<SemanticLengthGrounding>(_grounding->getLengthGrounding());
   case SemanticGroudingType::META:
     return mystd::make_unique<SemanticMetaGrounding>(_grounding->getMetaGrounding());
   case SemanticGroudingType::NAME:

@@ -1,0 +1,23 @@
+<linguisticdatabase>
+ <concept name="length_kilometer">
+  <linkedMeaning lemme="kilometer" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="length_hectometer">
+  <linkedMeaning lemme="hectometer" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="length_decameter">
+  <linkedMeaning lemme="decameter" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="length_meter">
+  <linkedMeaning lemme="meter" gram="noun" relationToConcept="4"/>
+ </concept>
+  <concept name="length_decimeter">
+  <linkedMeaning lemme="decimeter" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="length_centimeter">
+  <linkedMeaning lemme="centimeter" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="length_millimeter">
+  <linkedMeaning lemme="millimeter" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

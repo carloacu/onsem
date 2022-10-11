@@ -100,11 +100,11 @@ void _saveAgentGrd(boost::property_tree::ptree& pTree,
     _saveNameInfos(pTree.put_child("nameInfos", {}), *pAgentGrd.nameInfos);
 }
 
-void _saveSemanticDistance(boost::property_tree::ptree& pTree,
-                           const SemanticDistance& pSemanticDistance)
+void _saveSemanticLength(boost::property_tree::ptree& pTree,
+                         const SemanticLength& pSemanticLength)
 {
-  for (const auto& currDistanceInfo : pSemanticDistance.distanceInfos)
-    pTree.put(semanticDistanceUnity_toStr(currDistanceInfo.first), currDistanceInfo.second);
+  for (const auto& currLengthInfo : pSemanticLength.lengthInfos)
+    pTree.put(semanticLengthUnity_toStr(currLengthInfo.first), currLengthInfo.second);
 }
 
 void _saveSemanticDuration(boost::property_tree::ptree& pTree,
@@ -148,11 +148,11 @@ void _saveTextGrd(boost::property_tree::ptree& pTree,
     pTree.put("hasQuotationMark", trueStr);
 }
 
-void _saveDistanceGrd(boost::property_tree::ptree& pTree,
-                      const SemanticDistanceGrounding& pDistancenGrd)
+void _saveLengthGrd(boost::property_tree::ptree& pTree,
+                    const SemanticLengthGrounding& pLengthGrd)
 {
-  _saveGrd(pTree, pDistancenGrd);
-  _saveSemanticDistance(pTree.put_child("distance", {}), pDistancenGrd.distance);
+  _saveGrd(pTree, pLengthGrd);
+  _saveSemanticLength(pTree.put_child("length", {}), pLengthGrd.length);
 }
 
 void _saveDurationGrd(boost::property_tree::ptree& pTree,
@@ -299,9 +299,6 @@ void _saveGrounding(boost::property_tree::ptree& pTree,
   case SemanticGroudingType::TEXT:
     _saveTextGrd(pTree, pGrouding.getTextGrounding());
     return;
-  case SemanticGroudingType::DISTANCE:
-    _saveDistanceGrd(pTree, pGrouding.getDistanceGrounding());
-    return;
   case SemanticGroudingType::DURATION:
     _saveDurationGrd(pTree, pGrouding.getDurationGrounding());
     return;
@@ -319,6 +316,9 @@ void _saveGrounding(boost::property_tree::ptree& pTree,
     return;
   case SemanticGroudingType::RESOURCE:
     _saveResourceGrd(pTree, pGrouding.getResourceGrounding());
+    return;
+  case SemanticGroudingType::LENGTH:
+    _saveLengthGrd(pTree, pGrouding.getLengthGrounding());
     return;
   case SemanticGroudingType::META:
     _saveMetaGrd(pTree, pGrouding.getMetaGrounding());

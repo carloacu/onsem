@@ -221,7 +221,7 @@ void LinguisticSynthesizerEnglish::_getQuestionWord
     case SemanticRequestType::WAY:
       _strToOut(pOut, PartOfSpeech::PRONOUN, "how");
       break;
-    case SemanticRequestType::DISTANCE:
+    case SemanticRequestType::LENGTH:
     {
       _strToOut(pOut, PartOfSpeech::PRONOUN, "how much");
       break;

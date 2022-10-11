@@ -19,8 +19,6 @@ std::unique_ptr<SemanticGrounding> SemanticGrounding::make(SemanticGroudingType 
     return mystd::make_unique<SemanticTimeGrounding>();
   case SemanticGroudingType::TEXT:
     return mystd::make_unique<SemanticTextGrounding>("");
-  case SemanticGroudingType::DISTANCE:
-    return mystd::make_unique<SemanticDistanceGrounding>();
   case SemanticGroudingType::DURATION:
     return mystd::make_unique<SemanticDurationGrounding>();
   case SemanticGroudingType::LANGUAGE:
@@ -33,6 +31,8 @@ std::unique_ptr<SemanticGrounding> SemanticGrounding::make(SemanticGroudingType 
     return mystd::make_unique<SemanticRelativeDurationGrounding>(SemanticRelativeDurationType::UNTIL);
   case SemanticGroudingType::RESOURCE:
     return mystd::make_unique<SemanticResourceGrounding>("", SemanticLanguageEnum::UNKNOWN, "");
+  case SemanticGroudingType::LENGTH:
+    return mystd::make_unique<SemanticLengthGrounding>();
   case SemanticGroudingType::META:
     return mystd::make_unique<SemanticMetaGrounding>(SemanticGroudingType::META, 0);
   case SemanticGroudingType::NAME:
@@ -98,16 +98,16 @@ SemanticTimeGrounding& SemanticGrounding::getTimeGrounding()
 }
 
 
-const SemanticDistanceGrounding& SemanticGrounding::getDistanceGrounding() const
+const SemanticLengthGrounding& SemanticGrounding::getLengthGrounding() const
 {
   assert(false);
-  return *dynamic_cast<const SemanticDistanceGrounding*>(this);
+  return *dynamic_cast<const SemanticLengthGrounding*>(this);
 }
 
-SemanticDistanceGrounding& SemanticGrounding::getDistanceGrounding()
+SemanticLengthGrounding& SemanticGrounding::getLengthGrounding()
 {
   assert(false);
-  return *dynamic_cast<SemanticDistanceGrounding*>(this);
+  return *dynamic_cast<SemanticLengthGrounding*>(this);
 }
 
 const SemanticDurationGrounding& SemanticGrounding::getDurationGrounding() const
@@ -256,8 +256,6 @@ bool SemanticGrounding::operator==(const SemanticGrounding& pOther) const
     return getTimeGrounding().isEqual(pOther.getTimeGrounding());
   case SemanticGroudingType::TEXT:
     return getTextGrounding().isEqual(pOther.getTextGrounding());
-  case SemanticGroudingType::DISTANCE:
-    return getDistanceGrounding().isEqual(pOther.getDistanceGrounding());
   case SemanticGroudingType::DURATION:
     return getDurationGrounding().isEqual(pOther.getDurationGrounding());
   case SemanticGroudingType::LANGUAGE:
@@ -270,6 +268,8 @@ bool SemanticGrounding::operator==(const SemanticGrounding& pOther) const
     return getRelDurationGrounding().isEqual(pOther.getRelDurationGrounding());
   case SemanticGroudingType::RESOURCE:
     return getResourceGrounding().isEqual(pOther.getResourceGrounding());
+  case SemanticGroudingType::LENGTH:
+    return getLengthGrounding().isEqual(pOther.getLengthGrounding());
   case SemanticGroudingType::META:
     return getMetaGrounding().isEqual(pOther.getMetaGrounding());
   case SemanticGroudingType::NAME:

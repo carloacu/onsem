@@ -150,16 +150,16 @@ std::unique_ptr<SemanticAgentGrounding> _loadAgentGrd(const boost::property_tree
 }
 
 
-void _loadSemanticDistance(SemanticDistance& pSemanticDistance,
-                           const boost::property_tree::ptree& pTree)
+void _loadSemanticLength(SemanticLength& pSemanticLength,
+                         const boost::property_tree::ptree& pTree)
 {
   if (!pTree.empty())
-    for (const auto& currDistanceInfo : pTree)
+    for (const auto& currLengthInfo : pTree)
     {
-      const std::string label = currDistanceInfo.first.data();
-      pSemanticDistance.distanceInfos.emplace
-          (semanticDistanceUnity_fromStr(label),
-           currDistanceInfo.second.get_value<int>());
+      const std::string label = currLengthInfo.first.data();
+      pSemanticLength.lengthInfos.emplace
+          (semanticLengthUnity_fromStr(label),
+           currLengthInfo.second.get_value<int>());
     }
 }
 
@@ -264,11 +264,11 @@ std::unique_ptr<SemanticTextGrounding> _loadTextGrd(const boost::property_tree::
   return res;
 }
 
-std::unique_ptr<SemanticDistanceGrounding> _loadDistanceGrd(const boost::property_tree::ptree& pTree)
+std::unique_ptr<SemanticLengthGrounding> _loadLengthGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = mystd::make_unique<SemanticDistanceGrounding>();
+  auto res = mystd::make_unique<SemanticLengthGrounding>();
   _loadGrd(*res, pTree);
-  _loadSemanticDistance(res->distance, pTree.get_child("distance"));
+  _loadSemanticLength(res->length, pTree.get_child("length"));
   return res;
 }
 
@@ -351,8 +351,6 @@ std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::pt
     return _loadTimeGrd(pTree);
   case SemanticGroudingType::TEXT:
     return _loadTextGrd(pTree);
-  case SemanticGroudingType::DISTANCE:
-    return _loadDistanceGrd(pTree);
   case SemanticGroudingType::DURATION:
     return _loadDurationGrd(pTree);
   case SemanticGroudingType::LANGUAGE:
@@ -365,6 +363,8 @@ std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::pt
     return _loadRelDurationGrd(pTree);
   case SemanticGroudingType::RESOURCE:
     return _loadResourceGrd(pTree);
+  case SemanticGroudingType::LENGTH:
+    return _loadLengthGrd(pTree);
   case SemanticGroudingType::META:
     return _loadMetaGrd(pTree);
   case SemanticGroudingType::NAME:

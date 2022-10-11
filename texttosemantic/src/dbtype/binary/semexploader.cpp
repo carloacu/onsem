@@ -149,17 +149,17 @@ int _loadCharOrInt(const unsigned char*& pPtr,
 }
 
 
-void _loadDistance(SemanticDistance& pDistance,
-                   const unsigned char*& pPtr)
+void _loadLength(SemanticLength& pLength,
+                 const unsigned char*& pPtr)
 {
-  unsigned char nbOfDistanceInfos = binaryloader::loadChar_0To6(pPtr);
+  unsigned char nbOflengthInfos = binaryloader::loadChar_0To6(pPtr);
   ++pPtr;
-  for (unsigned char i = 0; i < nbOfDistanceInfos; ++i)
+  for (unsigned char i = 0; i < nbOflengthInfos; ++i)
   {
     const bool charOrInt = binaryloader::loadChar_0(pPtr);
-    auto distanceUnity = semanticDistanceUnity_fromChar(binaryloader::loadChar_1To7(pPtr));
+    auto lengthUnity = semanticLengthUnity_fromChar(binaryloader::loadChar_1To7(pPtr));
     ++pPtr;
-    pDistance.distanceInfos.emplace(distanceUnity, _loadCharOrInt(pPtr, charOrInt));
+    pLength.lengthInfos.emplace(lengthUnity, _loadCharOrInt(pPtr, charOrInt));
   }
 }
 
@@ -274,12 +274,6 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     _loadDuration(timeGrd.length, pPtr);
     return res;
   }
-  case SemanticGroudingType::DISTANCE:
-  {
-    auto& distanceGrd = res->getDistanceGrounding();
-    _loadDistance(distanceGrd.distance, pPtr);
-    return res;
-  }
   case SemanticGroudingType::DURATION:
   {
     auto& durationGrd = res->getDurationGrounding();
@@ -293,6 +287,12 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     textGrd.forLanguage = semanticLanguageEnum_fromChar(binaryloader::loadChar_0To6(pPtr));
     textGrd.hasQuotationMark = binaryloader::loadChar_7(pPtr);
     ++pPtr;
+    return res;
+  }
+  case SemanticGroudingType::LENGTH:
+  {
+    auto& lengthGrd = res->getLengthGrounding();
+    _loadLength(lengthGrd.length, pPtr);
     return res;
   }
   case SemanticGroudingType::META:

@@ -259,13 +259,6 @@ void Linguisticsynthesizergrounding::writeGrounding
                              pContext);
     break;
   }
-  case SemanticGroudingType::DISTANCE:
-  {
-    const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
-    distanceTranslation(pOutSemExp.out, synthDico,
-                        pGrounding.getDistanceGrounding().distance, true);
-    break;
-  }
   case SemanticGroudingType::DURATION:
   {
     const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
@@ -281,6 +274,13 @@ void Linguisticsynthesizergrounding::writeGrounding
   case SemanticGroudingType::RESOURCE:
   {
     resourceGroundingTranslation(pOutSemExp.out, pGrounding.getResourceGrounding());
+    break;
+  }
+  case SemanticGroudingType::LENGTH:
+  {
+    const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
+    lengthTranslation(pOutSemExp.out, synthDico,
+                      pGrounding.getLengthGrounding().length, true);
     break;
   }
   case SemanticGroudingType::META:
@@ -965,66 +965,66 @@ void Linguisticsynthesizergrounding::getIGramOfAWord
 }
 
 
-bool Linguisticsynthesizergrounding::distanceTranslation
+bool Linguisticsynthesizergrounding::lengthTranslation
 (std::list<WordToSynthesize>& pOut,
  const linguistics::SynthesizerDictionary& pStatSynthDico,
- const SemanticDistance& pDistance,
+ const SemanticLength& pLength,
  bool pPrintPrecisely) const
 {
-  GroundingDistancePrettyPrintStruct distancePrint(pDistance);
+  GroundingLengthPrettyPrintStruct lengthPrint(pLength);
   std::stringstream ss;
   bool finishedToPrint = false;
-  if (distancePrint.kilometer != -1)
+  if (lengthPrint.kilometer != -1)
   {
-    _printValue(ss, distancePrint.kilometer, "distance_kilometer", pStatSynthDico);
+    _printValue(ss, lengthPrint.kilometer, "length_kilometer", pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && distancePrint.hectometer != -1)
+  if (!finishedToPrint && lengthPrint.hectometer != -1)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, distancePrint.hectometer, "distance_hectometer", pStatSynthDico);
+    _printValue(ss, lengthPrint.hectometer, "length_hectometer", pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && distancePrint.decameter != -1)
+  if (!finishedToPrint && lengthPrint.decameter != -1)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, distancePrint.decameter, "distance_decameter", pStatSynthDico);
+    _printValue(ss, lengthPrint.decameter, "length_decameter", pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && distancePrint.meter != -1)
+  if (!finishedToPrint && lengthPrint.meter != -1)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, distancePrint.meter, "distance_meter", pStatSynthDico);
+    _printValue(ss, lengthPrint.meter, "length_meter", pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && distancePrint.decimeter != -1)
+  if (!finishedToPrint && lengthPrint.decimeter != -1)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, distancePrint.decimeter, "distance_decimeter", pStatSynthDico);
+    _printValue(ss, lengthPrint.decimeter, "length_decimeter", pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && distancePrint.centimeter != -1)
+  if (!finishedToPrint && lengthPrint.centimeter != -1)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, distancePrint.centimeter, "distance_centimeter", pStatSynthDico);
+    _printValue(ss, lengthPrint.centimeter, "length_centimeter", pStatSynthDico);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && distancePrint.millimeter != -1)
+  if (!finishedToPrint && lengthPrint.millimeter != -1)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printValue(ss, distancePrint.millimeter, "distance_millimeter", pStatSynthDico);
+    _printValue(ss, lengthPrint.millimeter, "length_millimeter", pStatSynthDico);
   }
 
   const std::string timePrinted = ss.str();

@@ -366,13 +366,6 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
-  case SemanticGroudingType::DISTANCE:
-  {
-    const SemanticDistanceGrounding* distanceGrd2 = pGrounding2.getDistanceGroundingPtr();
-    if (distanceGrd2 != nullptr)
-      return bool_toImbricationType(pGrounding1.getDistanceGrounding().distance == distanceGrd2->distance);
-    break;
-  }
   case SemanticGroudingType::DURATION:
   {
     const SemanticDurationGrounding* durationGrd2 = pGrounding2.getDurationGroundingPtr();
@@ -420,6 +413,13 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     const SemanticResourceGrounding* resGrd2 = pGrounding2.getResourceGroundingPtr();
     if (resGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getResourceGrounding().resource == resGrd2->resource);
+    break;
+  }
+  case SemanticGroudingType::LENGTH:
+  {
+    const SemanticLengthGrounding* lengthGrd2 = pGrounding2.getLengthGroundingPtr();
+    if (lengthGrd2 != nullptr)
+      return bool_toImbricationType(pGrounding1.getLengthGrounding().length == lengthGrd2->length);
     break;
   }
   case SemanticGroudingType::META:

@@ -360,13 +360,13 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
     }
     break;
   }
-  case SemanticGroudingType::DISTANCE:
   case SemanticGroudingType::DURATION:
   case SemanticGroudingType::LANGUAGE:
   case SemanticGroudingType::RELATIVELOCATION:
   case SemanticGroudingType::RELATIVETIME:
   case SemanticGroudingType::RELATIVEDURATION:
   case SemanticGroudingType::RESOURCE:
+  case SemanticGroudingType::LENGTH:
   case SemanticGroudingType::META:
   case SemanticGroudingType::TEXT:
   case SemanticGroudingType::CONCEPTUAL:

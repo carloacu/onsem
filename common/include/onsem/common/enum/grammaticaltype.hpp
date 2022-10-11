@@ -16,7 +16,7 @@ namespace onsem
   SEMANTIC_GRAMMATICALTYPE(LANGUAGE, "language")                    \
   SEMANTIC_GRAMMATICALTYPE(CAUSE, "cause")                          \
   SEMANTIC_GRAMMATICALTYPE(MANNER, "manner")                        \
-  SEMANTIC_GRAMMATICALTYPE(DISTANCE, "distance")                    \
+  SEMANTIC_GRAMMATICALTYPE(LENGTH, "length")                        \
   SEMANTIC_GRAMMATICALTYPE(DURATION, "duration")                    \
   SEMANTIC_GRAMMATICALTYPE(TIME, "time")                            \
   SEMANTIC_GRAMMATICALTYPE(SPECIFIER, "specifier")                  \

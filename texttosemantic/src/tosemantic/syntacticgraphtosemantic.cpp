@@ -2333,7 +2333,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunk
  ToGenRepContext& pContext) const
 {
   {
-    auto optRes = xFillDistanceStruct(pContext);
+    auto optRes = xFillLengthStruct(pContext);
     if (optRes)
       return std::move(*optRes);
   }
@@ -2755,7 +2755,7 @@ void SyntacticGraphToSemantic::xFillNewSentence
     case ChunkLinkType::BETWEEN:
     case ChunkLinkType::CAUSE:
     case ChunkLinkType::DESPITE_CONTRAINT:
-    case ChunkLinkType::DISTANCE:
+    case ChunkLinkType::LENGTH:
     case ChunkLinkType::DURATION:
     case ChunkLinkType::STARTING_POINT:
     case ChunkLinkType::IN_CASE_OF:

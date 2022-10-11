@@ -3,7 +3,7 @@
 
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdistancegrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrouding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgrouding.hpp>

@@ -11,7 +11,7 @@
     <child lemma="au" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(country_)|[followedByBeginOfConcept(location_,, ms)&!followedByVowel]" />
     <child chunkLinkType="" condition="followedByBeginOfConcept(still_)" />
 
-    <child chunkLinkType="distance" condition="followedByBeginOfConcept(distance_, have_number_before)" />
+    <child chunkLinkType="length" condition="followedByBeginOfConcept(length_, have_number_before)" />
     <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, have_number_before)" />
     <child chunkLinkType="time" condition="followedByDefiniteNoun&followedByBeginOfConcept(time_, skip_determiners)" />
     <child lemma="en" pos="preposition" chunkLinkType="time" condition="[followedByBeginOfConcept(time_, skip_determiners)&!followedByQuantityEverything]|followedByBeginOfConcept(number_)" />

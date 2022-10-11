@@ -165,19 +165,19 @@ void _writeCharOrInt(binarymasks::Ptr& pPtr,
     binarysaver::writeInt(pPtr.pint++, pVal);
 }
 
-void _writeDistance(binarymasks::Ptr& pPtr,
-                    const SemanticDistance& pDistance)
+void _writeLength(binarymasks::Ptr& pPtr,
+                  const SemanticLength& pLength)
 {
-  unsigned char nbOfTimeInfos = binarysaver::sizet_to_uchar(pDistance.distanceInfos.size());
+  unsigned char nbOfTimeInfos = binarysaver::sizet_to_uchar(pLength.lengthInfos.size());
   binarysaver::writeChar_0To6(pPtr.pchar, nbOfTimeInfos);
   ++pPtr.pchar;
-  for (const auto& currDistanceInfo : pDistance.distanceInfos)
+  for (const auto& currLengtheInfo : pLength.lengthInfos)
   {
-    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currDistanceInfo.second);
+    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currLengtheInfo.second);
     binarysaver::writeChar_0(pPtr.pchar, charOrInt);
-    binarysaver::writeChar_1To7(pPtr.pchar, semanticDistanceUnity_toChar(currDistanceInfo.first));
+    binarysaver::writeChar_1To7(pPtr.pchar, semanticLengthUnity_toChar(currLengtheInfo.first));
     ++pPtr.pchar;
-    _writeCharOrInt(pPtr, currDistanceInfo.second, charOrInt);
+    _writeCharOrInt(pPtr, currLengtheInfo.second, charOrInt);
   }
 }
 
@@ -305,10 +305,10 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     _writeDuration(pPtr, timeGrd.length);
     return;
   }
-  case SemanticGroudingType::DISTANCE:
+  case SemanticGroudingType::LENGTH:
   {
-    auto& distanceGrd = pGrd.getDistanceGrounding();
-    _writeDistance(pPtr, distanceGrd.distance);
+    auto& lengthGrd = pGrd.getLengthGrounding();
+    _writeLength(pPtr, lengthGrd.length);
     return;
   }
   case SemanticGroudingType::DURATION:

@@ -173,7 +173,7 @@ struct OutSentence
   OutSemExp manner{};
   OutSemExp other{};
   OutSemExp time{};
-  OutSemExp distance{};
+  OutSemExp length{};
   OutSemExp duration{};
   OutSemExp location{};
   OutSemExp occurrenceRank{};
@@ -249,9 +249,9 @@ private:
 };
 
 
-struct GroundingDistancePrettyPrintStruct
+struct GroundingLengthPrettyPrintStruct
 {
-  GroundingDistancePrettyPrintStruct(const SemanticDistance& pDistance)
+  GroundingLengthPrettyPrintStruct(const SemanticLength& pLength)
     : kilometer(-1),
       hectometer(-1),
       decameter(-1),
@@ -260,29 +260,29 @@ struct GroundingDistancePrettyPrintStruct
       centimeter(-1),
       millimeter(-1)
   {
-    for (const auto& currTimeInfo : pDistance.distanceInfos)
+    for (const auto& currTimeInfo : pLength.lengthInfos)
     {
       switch (currTimeInfo.first)
       {
-      case SemanticDistanceUnity::KILOMETER:
+      case SemanticLengthUnity::KILOMETER:
         kilometer = currTimeInfo.second;
         break;
-      case SemanticDistanceUnity::HECTOMETER:
+      case SemanticLengthUnity::HECTOMETER:
         hectometer = currTimeInfo.second;
         break;
-      case SemanticDistanceUnity::DECAMETER:
+      case SemanticLengthUnity::DECAMETER:
         decameter = currTimeInfo.second;
         break;
-      case SemanticDistanceUnity::METER:
+      case SemanticLengthUnity::METER:
         meter = currTimeInfo.second;
         break;
-      case SemanticDistanceUnity::DECIMETER:
+      case SemanticLengthUnity::DECIMETER:
         decimeter = currTimeInfo.second;
         break;
-      case SemanticDistanceUnity::CENTIMETER:
+      case SemanticLengthUnity::CENTIMETER:
         centimeter = currTimeInfo.second;
         break;
-      case SemanticDistanceUnity::MILLIMETER:
+      case SemanticLengthUnity::MILLIMETER:
         millimeter = currTimeInfo.second;
         break;
       default:

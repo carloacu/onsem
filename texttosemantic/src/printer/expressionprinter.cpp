@@ -74,12 +74,12 @@ void _prettyPrintWord(PrinterBuffer& pPrinterBuff,
   }
 }
 
-void _prettyPrintDistance(std::list<SemLineToPrint>& pLines,
-                          PrinterBuffer& pPrinterBuff,
-                          const std::string& pLabelName,
-                          const SemanticDistance& pDistance)
+void _prettyPrintLength(std::list<SemLineToPrint>& pLines,
+                        PrinterBuffer& pPrinterBuff,
+                        const std::string& pLabelName,
+                        const SemanticLength& pLength)
 {
-  pDistance.printDistance(pPrinterBuff.elts, pLabelName);
+  pLength.printLength(pPrinterBuff.elts, pLabelName);
   _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
@@ -418,9 +418,9 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticDistanceGrounding& pGrounding)
+                                 const SemanticLengthGrounding& pGrounding)
 {
-  _prettyPrintDistance(pLines, pPrinterBuff, "distance", pGrounding.distance);
+  _prettyPrintLength(pLines, pPrinterBuff, "length", pGrounding.length);
 }
 
 
@@ -468,12 +468,6 @@ void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
                                 pGroundings.getTextGrounding());
     break;
   }
-  case SemanticGroudingType::DISTANCE:
-  {
-    _prettyPrintTypedGroundings(pLines, pPrinterBuff,
-                                pGroundings.getDistanceGrounding());
-    break;
-  }
   case SemanticGroudingType::DURATION:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
@@ -490,6 +484,12 @@ void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getResourceGrounding());
+    break;
+  }
+  case SemanticGroudingType::LENGTH:
+  {
+    _prettyPrintTypedGroundings(pLines, pPrinterBuff,
+                                pGroundings.getLengthGrounding());
     break;
   }
   case SemanticGroudingType::META:

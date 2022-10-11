@@ -768,7 +768,7 @@ void LinguisticsynthesizergroundingFrench::_getDeterminer
   else if (pContext.wordContext.referenceType == SemanticReferenceType::UNDEFINED)
   {
     if ((pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTAFTERVERB ||
-         ((pContext.requests.has(SemanticRequestType::QUANTITY) || pContext.requests.has(SemanticRequestType::DISTANCE) ||
+         ((pContext.requests.has(SemanticRequestType::QUANTITY) || pContext.requests.has(SemanticRequestType::LENGTH) ||
            pContext.requests.has(SemanticRequestType::DURATION)) &&
           pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTBEFOREVERB)) &&
         pContext.grammaticalTypeFromParent != GrammaticalType::IN_CASE_OF &&
