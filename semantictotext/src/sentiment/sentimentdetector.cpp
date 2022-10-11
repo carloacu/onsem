@@ -256,11 +256,11 @@ void _extractSentFromSemExp
  const SemanticAgentGrounding& pAuthor,
  const ConceptSet& pConceptSet)
 {
-  SemanticGroudingType grdGroundingType = pGrdExp.grounding().type;
+  SemanticGroundingType grdGroundingType = pGrdExp.grounding().type;
 
   bool askSomething = false;
   float newGlobalConfidence = pGlobalConfidence;
-  if (grdGroundingType == SemanticGroudingType::STATEMENT)
+  if (grdGroundingType == SemanticGroundingType::STATEMENT)
   {
     const SemanticStatementGrounding& statementGrd = pGrdExp->getStatementGrounding();
     bool askAction = statementGrd.requests.has(SemanticRequestType::ACTION);
@@ -297,9 +297,9 @@ void _extractSentFromSemExp
         (pSentTypeToSpec, sentimentConcepts,
          pGrdExp, authorIsTheSubject, verbConfidence, pAuthor, pConceptSet);
   }
-  else if (grdGroundingType == SemanticGroudingType::GENERIC ||
-           grdGroundingType == SemanticGroudingType::NAME ||
-           grdGroundingType == SemanticGroudingType::CONCEPTUAL)
+  else if (grdGroundingType == SemanticGroundingType::GENERIC ||
+           grdGroundingType == SemanticGroundingType::NAME ||
+           grdGroundingType == SemanticGroundingType::CONCEPTUAL)
   {
     float wordConfidence = pGlobalConfidence;
     if (!pGrdExp.grounding().polarity)

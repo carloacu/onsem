@@ -18,7 +18,7 @@ namespace onsem
 struct ONSEM_TEXTTOSEMANTIC_API SemanticStatementGrounding : public SemanticGrounding
 {
   SemanticStatementGrounding()
-    : SemanticGrounding(SemanticGroudingType::STATEMENT),
+    : SemanticGrounding(SemanticGroundingType::STATEMENT),
       requests(),
       word(),
       verbTense(SemanticVerbTense::UNKNOWN),

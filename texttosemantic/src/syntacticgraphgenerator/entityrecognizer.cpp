@@ -300,10 +300,10 @@ bool _isMetaTimeChunk(Chunk& pChunk)
       pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStr &&
       SemanticMetaGrounding::isTheBeginOfAParam(pChunk.head->str))
   {
-    SemanticGroudingType refToType = SemanticGroudingType::GENERIC;
+    SemanticGroundingType refToType = SemanticGroundingType::GENERIC;
     return SemanticMetaGrounding::groundingTypeFromStr
         (refToType, pChunk.head->str) &&
-        refToType == SemanticGroudingType::TIME;
+        refToType == SemanticGroundingType::TIME;
   }
   return false;
 }

@@ -48,7 +48,7 @@ void _addAgentInterpretations(UniqueSemanticExpression& pSemExp,
   case SemanticExpressionType::GROUNDED:
   {
     GroundedExpression& grdExp = pSemExp->getGrdExp();
-    if (grdExp.grounding().type == SemanticGroudingType::NAME)
+    if (grdExp.grounding().type == SemanticGroundingType::NAME)
     {
       if (pParentGrammaticalType == GrammaticalType::LOCATION)
         break;
@@ -58,7 +58,7 @@ void _addAgentInterpretations(UniqueSemanticExpression& pSemExp,
         pIsMeFromMyName = true;
       grdExp.moveGrounding(mystd::make_unique<SemanticAgentGrounding>(userId, nameGrd.nameInfos));
     }
-    else if (grdExp.grounding().type == SemanticGroudingType::GENERIC)
+    else if (grdExp.grounding().type == SemanticGroundingType::GENERIC)
     {
       SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
       if (SemExpGetter::isASpecificHuman(genGrd))
@@ -81,14 +81,14 @@ void _addAgentInterpretations(UniqueSemanticExpression& pSemExp,
     {
       bool isMeFromMyName = false;
       auto subParentGrammaticalType = child.first;
-      if (semanticGroudingsType_isRelativeType(grounding.type))
+      if (semanticGroundingsType_isRelativeType(grounding.type))
         subParentGrammaticalType = pParentGrammaticalType;
       _addAgentInterpretations(child.second, pSemanticMemory, pLingDb, subParentGrammaticalType, isMeFromMyName);
       // if the author is the subject of the sentence and if it was named by his name,
       // then we consider that it the imperative form
       if (child.first == GrammaticalType::SUBJECT &&
           isMeFromMyName &&
-          grounding.type == SemanticGroudingType::STATEMENT)
+          grounding.type == SemanticGroundingType::STATEMENT)
       {
         SemanticStatementGrounding& statGrd = grounding.getStatementGrounding();
         if (isAPresentTense(statGrd.verbTense) &&

@@ -22,7 +22,7 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
   case SemanticExpressionType::GROUNDED:
   {
     GroundedExpression& grdExp = pSemExp->getGrdExp();
-    if (grdExp->type == SemanticGroudingType::STATEMENT)
+    if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
       const SemanticStatementGrounding& statGrd = grdExp->getStatementGrounding();
 
@@ -44,15 +44,15 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
           if (timeGrdExpPtr != nullptr)
           {
             auto timeGrdType = timeGrdExpPtr->grounding().type;
-            if (timeGrdType == SemanticGroudingType::STATEMENT ||
-                timeGrdType == SemanticGroudingType::TIME)
+            if (timeGrdType == SemanticGroundingType::STATEMENT ||
+                timeGrdType == SemanticGroundingType::TIME)
             {
               auto timeSemExp = itTimeChild->second.extractContent();
               SemExpModifier::removeChildFromSemExp(*timeSemExp, GrammaticalType::INTRODUCTING_WORD);
               splitter::splitInVerySimpleSentences(timeSemExp, false);
               grdExp.children.erase(itTimeChild);
               pSemExp = mystd::make_unique<ConditionExpression>
-                  (timeGrdType == SemanticGroudingType::STATEMENT, false,
+                  (timeGrdType == SemanticGroundingType::STATEMENT, false,
                    std::move(timeSemExp), std::move(pSemExp));
               break;
             }

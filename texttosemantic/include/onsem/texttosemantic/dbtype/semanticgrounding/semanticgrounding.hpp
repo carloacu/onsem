@@ -48,7 +48,7 @@ struct SemanticUnityGrounding;
   SEMANTIC_GROUNGING_TYPE(CONCEPTUAL, "conceptual")
 
 #define SEMANTIC_GROUNGING_TYPE(a, b) a,
-enum class SemanticGroudingType : char // TODO: rename in SemanticGrouNdingType
+enum class SemanticGroundingType : char // TODO: rename in SemanticGrouNdingType
 {
   SEMANTIC_GROUNDING_TYPE_TABLE
 };
@@ -56,63 +56,63 @@ enum class SemanticGroudingType : char // TODO: rename in SemanticGrouNdingType
 
 
 #define SEMANTIC_GROUNGING_TYPE(a, b) b,
-static const std::vector<std::string> _SemanticGroudingsType_toStr = {
+static const std::vector<std::string> _SemanticGroundingsType_toStr = {
   SEMANTIC_GROUNDING_TYPE_TABLE
 };
 #undef SEMANTIC_GROUNGING_TYPE
 
-#define SEMANTIC_GROUNGING_TYPE(a, b) {b, SemanticGroudingType::a},
-static std::map<std::string, SemanticGroudingType> _SemanticGroudingsType_fromStr = {
+#define SEMANTIC_GROUNGING_TYPE(a, b) {b, SemanticGroundingType::a},
+static std::map<std::string, SemanticGroundingType> _SemanticGroundingsType_fromStr = {
   SEMANTIC_GROUNDING_TYPE_TABLE
 };
 #undef SEMANTIC_GROUNGING_TYPE
 
-#define SEMANTIC_GROUNGING_TYPE(a, b) SemanticGroudingType::a,
-static const std::vector<SemanticGroudingType> semanticGroudingType_allValues = {
+#define SEMANTIC_GROUNGING_TYPE(a, b) SemanticGroundingType::a,
+static const std::vector<SemanticGroundingType> semanticGroundingType_allValues = {
   SEMANTIC_GROUNDING_TYPE_TABLE
 };
 #undef SEMANTIC_GROUNGING_TYPE
 
 #define SEMANTIC_GROUNGING_TYPE(a, b) 1 +
-static const std::size_t semanticGroudingType_size =
+static const std::size_t semanticGroundingType_size =
   SEMANTIC_GROUNDING_TYPE_TABLE
 0;
 #undef SEMANTIC_GROUNGING_TYPE
 #undef SEMANTIC_GROUNDING_TYPE_TABLE
 
 
-static inline char semanticGroudingsType_toChar(SemanticGroudingType pGroundingType)
+static inline char semanticGroundingsType_toChar(SemanticGroundingType pGroundingType)
 {
   return static_cast<char>(pGroundingType);
 }
 
-static inline SemanticGroudingType semanticGroudingsType_fromChar(unsigned char pGroundingType)
+static inline SemanticGroundingType semanticGroundingsType_fromChar(unsigned char pGroundingType)
 {
-  return static_cast<SemanticGroudingType>(pGroundingType);
+  return static_cast<SemanticGroundingType>(pGroundingType);
 }
 
-static inline std::string semanticGroudingsType_toStr(SemanticGroudingType pGroundingType)
+static inline std::string semanticGroundingsType_toStr(SemanticGroundingType pGroundingType)
 {
-  return _SemanticGroudingsType_toStr[semanticGroudingsType_toChar(pGroundingType)];
+  return _SemanticGroundingsType_toStr[semanticGroundingsType_toChar(pGroundingType)];
 }
 
-static inline SemanticGroudingType semanticGroudingsType_fromStr
+static inline SemanticGroundingType semanticGroundingsType_fromStr
 (const std::string& pGroundingStr)
 {
-  auto it = _SemanticGroudingsType_fromStr.find(pGroundingStr);
-  if (it != _SemanticGroudingsType_fromStr.end())
+  auto it = _SemanticGroundingsType_fromStr.find(pGroundingStr);
+  if (it != _SemanticGroundingsType_fromStr.end())
   {
     return it->second;
   }
-  return SemanticGroudingType::GENERIC;
+  return SemanticGroundingType::GENERIC;
 }
 
-static inline bool semanticGroudingsType_fromStrIfExist
-(SemanticGroudingType& pRes,
+static inline bool semanticGroundingsType_fromStrIfExist
+(SemanticGroundingType& pRes,
  const std::string& pGroundingStr)
 {
-  auto it = _SemanticGroudingsType_fromStr.find(pGroundingStr);
-  if (it != _SemanticGroudingsType_fromStr.end())
+  auto it = _SemanticGroundingsType_fromStr.find(pGroundingStr);
+  if (it != _SemanticGroundingsType_fromStr.end())
   {
     pRes = it->second;
     return true;
@@ -120,11 +120,11 @@ static inline bool semanticGroudingsType_fromStrIfExist
   return false;
 }
 
-static inline bool semanticGroudingsType_isRelativeType(SemanticGroudingType pRes)
+static inline bool semanticGroundingsType_isRelativeType(SemanticGroundingType pRes)
 {
-  return pRes == SemanticGroudingType::RELATIVETIME ||
-      pRes == SemanticGroudingType::RELATIVEDURATION ||
-      pRes == SemanticGroudingType::RELATIVELOCATION;
+  return pRes == SemanticGroundingType::RELATIVETIME ||
+      pRes == SemanticGroundingType::RELATIVEDURATION ||
+      pRes == SemanticGroundingType::RELATIVELOCATION;
 }
 
 
@@ -133,9 +133,9 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticGrounding
 public:
   virtual ~SemanticGrounding() {}
 
-  static std::unique_ptr<SemanticGrounding> make(SemanticGroudingType pType);
+  static std::unique_ptr<SemanticGrounding> make(SemanticGroundingType pType);
 
-  const SemanticGroudingType type;
+  const SemanticGroundingType type;
 
   virtual const SemanticGenericGrounding& getGenericGrounding() const;
   virtual SemanticGenericGrounding& getGenericGrounding();
@@ -229,13 +229,13 @@ public:
   std::map<std::string, char> concepts;
 
 protected:
-  SemanticGrounding(SemanticGroudingType pType)
+  SemanticGrounding(SemanticGroundingType pType)
     : type(pType),
       polarity(true),
       concepts()
   {
   }
-  SemanticGrounding(SemanticGroudingType pType,
+  SemanticGrounding(SemanticGroundingType pType,
                     const std::map<std::string, char>& pConcepts)
     : type(pType),
       polarity(true),

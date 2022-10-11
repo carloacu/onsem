@@ -86,7 +86,7 @@ SemanticExpressionCategory _categorizeRec(const SemanticExpression& pSemExp,
 SemanticExpressionCategory categorizeGrdExp(const GroundedExpression& pGrdExp,
                                             const std::string& pAuthorUserId)
 {
-  if (pGrdExp->type == SemanticGroudingType::STATEMENT)
+  if (pGrdExp->type == SemanticGroundingType::STATEMENT)
   {
     const SemanticStatementGrounding& statementGrd = pGrdExp->getStatementGrounding();
     SemanticRequestType requestType = statementGrd.requests.firstOrNothing();

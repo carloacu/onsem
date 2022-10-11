@@ -292,7 +292,7 @@ bool _addPotentialNewRelationsFromLinks(RelationsThatMatch<IS_MODIFIABLE>& pRela
     return res;
   }
 
-  if (pGrdExpToLookFor->grounding().type == SemanticGroudingType::STATEMENT)
+  if (pGrdExpToLookFor->grounding().type == SemanticGroundingType::STATEMENT)
   {
     _executeForLinksAlreadyMatched<IS_MODIFIABLE, MEMSENTENCES>
         (pAlreadyMatchedSentences, pLinksToGrdExp, pLinksToGrdExpFromBinary, pMemBlockPrivatePtr, pLingDb,
@@ -1445,43 +1445,43 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
 {
   switch (pGrdExpToLookFor->type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     auto& genGrd = pGrdExpToLookFor->getGenericGrounding();
     return _genGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, genGrd,
                                               pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     auto& statGrd = pGrdExpToLookFor->getStatementGrounding();
     return _statementGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, statGrd,
                                                     pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     auto& agentGrd = pGrdExpToLookFor->getAgentGrounding();
     return _agentGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, agentGrd,
                                                 pRequestContext, pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
   }
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
   {
     auto& textGrd = pGrdExpToLookFor->getTextGrounding();
     return _textGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, textGrd,
                                                pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
   }
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
   {
     auto& nameGrd = pGrdExpToLookFor->getNameGrounding();
     return _nameGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, nameGrd,
                                                pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
   }
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
   {
     const auto& timeGrd = pGrdExpToLookFor->getTimeGrounding();
     return _timeToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, timeGrd,
                                       pRequestContext, pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren, pRelativeTimePtr);
   }
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
   {
     const auto& relLocationGrd = pGrdExpToLookFor->getRelLocationGrounding();
     bool res = _relLocationGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, relLocationGrd,
@@ -1497,7 +1497,7 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     }
     return res;
   }
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
   {
     const auto& relTimeGrd = pGrdExpToLookFor->getRelTimeGrounding();
     bool res = false;
@@ -1513,20 +1513,20 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     }
     return res;
   }
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
   {
     auto& langGrd = pGrdExpToLookFor->getLanguageGrounding();
     return _languageGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, langGrd,
                                                    pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
   }
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
   {
     OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
     auto& concepts = pGrdExpToLookFor.grounding().concepts;
     return _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, concepts, &pGrdExpToLookFor,
                                           pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
   }
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
   {
     bool res = false;
     const auto& resGrd = pGrdExpToLookFor->getResourceGrounding();
@@ -1551,11 +1551,11 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     }
     return res;
   }
-  case SemanticGroudingType::RELATIVEDURATION:
-  case SemanticGroudingType::DURATION:
-  case SemanticGroudingType::LENGTH:
-  case SemanticGroudingType::META:
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::RELATIVEDURATION:
+  case SemanticGroundingType::DURATION:
+  case SemanticGroundingType::LENGTH:
+  case SemanticGroundingType::META:
+  case SemanticGroundingType::UNITY:
     return false;
   }
   return false;
@@ -1732,7 +1732,7 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
     // add children that can be anything
     if (linksGramToSemExp.d != nullptr)
     {
-      auto itMetaSemExp = linksGramToSemExp.d->grdTypeToSemExps.find(SemanticGroudingType::META);
+      auto itMetaSemExp = linksGramToSemExp.d->grdTypeToSemExps.find(SemanticGroundingType::META);
       if (itMetaSemExp != linksGramToSemExp.d->grdTypeToSemExps.end())
       {
         IntIdToMemSentenceAccessor<IS_MODIFIABLE> accessor(itMetaSemExp->second);
@@ -1745,8 +1745,8 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
     {
       const unsigned char* grdTypePtr = SemanticMemoryBlockBinaryReader::moveToGrdTypePtr(linksGramToSemExp.c);
       StaticBinaryLinks nodeLinks(readEnumMap(grdTypePtr,
-                                              semanticGroudingsType_toChar(SemanticGroudingType::META),
-                                              semanticGroudingType_size));
+                                              semanticGroundingsType_toChar(SemanticGroundingType::META),
+                                              semanticGroundingType_size));
       if (nodeLinks.linksToGrdExp != nullptr)
         _addPotentialNewRelationsFromLinks<IS_MODIFIABLE>
             (matchedSemExp, pRes.res, nullptr, &nodeLinks,
@@ -1921,7 +1921,7 @@ void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionHandleInMemo
         int coefOfGrdExp = 0;
         if (pGroundingCoef)
           coefOfGrdExp = *pGroundingCoef;
-        else if (pGrdExp->type == SemanticGroudingType::STATEMENT)
+        else if (pGrdExp->type == SemanticGroundingType::STATEMENT)
           coefOfGrdExp = 4;
         else if (SemExpGetter::isAModifierFromGrdExp(pGrdExp))
           coefOfGrdExp = 8;

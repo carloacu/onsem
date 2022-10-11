@@ -63,7 +63,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticResourceGrounding : public SemanticGroun
   SemanticResourceGrounding(const std::string& pLabel,
                             SemanticLanguageEnum pLanguage,
                             const std::string& pValue)
-    : SemanticGrounding(SemanticGroudingType::RESOURCE),
+    : SemanticGrounding(SemanticGroundingType::RESOURCE),
       resource(pLabel, pLanguage, pValue)
   {
     concepts["resource_*"] = 4;

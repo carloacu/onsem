@@ -16,8 +16,8 @@ void _writeGroundingMotherClass(binarymasks::Ptr& pPtr,
                                 const SemanticGrounding& pGrd,
                                 const StaticConceptSet& pCptSet)
 {
-  binarysaver::writeChar_0To4(pPtr.pchar, semanticGroudingsType_toChar(pGrd.type));
-  if (pGrd.type == SemanticGroudingType::AGENT)
+  binarysaver::writeChar_0To4(pPtr.pchar, semanticGroundingsType_toChar(pGrd.type));
+  if (pGrd.type == SemanticGroundingType::AGENT)
   {
     ++pPtr.pchar;
     return;
@@ -207,7 +207,7 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
   _writeGroundingMotherClass(pPtr, pGrd, pLingDb.conceptSet.statDb);
   switch (pGrd.type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     auto& genGrd = pGrd.getGenericGrounding();
     binarysaver::writeChar_0To2(pPtr.pchar, semanticReferenceType_tochar(genGrd.referenceType));
@@ -237,7 +237,7 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     _writeGenders(pPtr, genGrd.possibleGenders);
     return;
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     auto& statGrd = pGrd.getStatementGrounding();
     _writeWord(pPtr, statGrd.word, pLingDb);
@@ -261,7 +261,7 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
       binarysaver::writeChar(pPtr.pchar++, semanticRequestType_toChar(currRequest));
     return;
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     auto& agentGrd = pGrd.getAgentGrounding();
     binarysaver::writeString(pPtr, agentGrd.userId);
@@ -273,13 +273,13 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
       ++pPtr.pchar;
     return;
   }
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
   {
     auto& nameGrd = pGrd.getNameGrounding();
     _writeNameInfos(pPtr, nameGrd.nameInfos);
     return;
   }
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
   {
     auto& timeGrd = pGrd.getTimeGrounding();
     const bool writeYear = timeGrd.date.year.has_value();
@@ -305,19 +305,19 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     _writeDuration(pPtr, timeGrd.length);
     return;
   }
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
   {
     auto& lengthGrd = pGrd.getLengthGrounding();
     _writeLength(pPtr, lengthGrd.length);
     return;
   }
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
   {
     auto& durationGrd = pGrd.getDurationGrounding();
     _writeDuration(pPtr, durationGrd.duration);
     return;
   }
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
   {
     auto& textGrd = pGrd.getTextGrounding();
     binarysaver::writeString(pPtr, textGrd.text);
@@ -326,10 +326,10 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     ++pPtr.pchar;
     return;
   }
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
   {
     auto& metaGrd = pGrd.getMetaGrounding();
-    binarysaver::writeChar_0To6(pPtr.pchar, semanticGroudingsType_toChar(metaGrd.refToType));
+    binarysaver::writeChar_0To6(pPtr.pchar, semanticGroundingsType_toChar(metaGrd.refToType));
     const bool paramIdCanBeWrittenInAChar = binarysaver::intCanBeStoredInAChar(metaGrd.paramId);
     binarysaver::writeChar_7(pPtr.pchar, paramIdCanBeWrittenInAChar);
     ++pPtr.pchar;
@@ -337,7 +337,7 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     binarysaver::writeString(pPtr, metaGrd.attibuteName);
     return;
   }
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
   {
     auto& resGrd = pGrd.getResourceGrounding();
     binarysaver::writeString(pPtr, resGrd.resource.label);
@@ -345,33 +345,33 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     binarysaver::writeString(pPtr, resGrd.resource.value);
     return;
   }
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
   {
     auto& langGrd = pGrd.getLanguageGrounding();
     binarysaver::writeChar(pPtr.pchar++, semanticLanguageEnum_toChar(langGrd.language));
     return;
   }
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
     return;
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
   {
     auto& relTimeGrd = pGrd.getRelTimeGrounding();
     binarysaver::writeChar(pPtr.pchar++, semanticRelativeTimeType_toChar(relTimeGrd.timeType));
     return;
   }
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
   {
     auto& relDurationGrd = pGrd.getRelDurationGrounding();
     binarysaver::writeChar(pPtr.pchar++, semanticRelativeDurationType_toChar(relDurationGrd.durationType));
     return;
   }
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
   {
     auto& relLocationGrd = pGrd.getRelLocationGrounding();
     binarysaver::writeChar(pPtr.pchar++, semanticRelativeLocationType_toChar(relLocationGrd.locationType));
     return;
   }
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
   {
     auto& unityGrd = pGrd.getUnityGrounding();
     binarysaver::writeChar(pPtr.pchar++, typeOfUnity_toChar(unityGrd.typeOfUnity));

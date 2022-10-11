@@ -115,9 +115,9 @@ void _writeLinksGrdExps(binarymasks::Ptr& pPtr,
        semanticRelativeTimeType_allValues, _writeGrdExpLinks);
 
   offsets.pint[6] = pPtr.val - offsets.val;
-  writeEnumMap<SemanticGroudingType, MemoryGrdExpLinks>
+  writeEnumMap<SemanticGroundingType, MemoryGrdExpLinks>
       (pPtr, pLinksToGrdExpsMapPtr->grdTypeToSemExps,
-       semanticGroudingType_allValues, _writeGrdExpLinks);
+       semanticGroundingType_allValues, _writeGrdExpLinks);
 
   offsets.pint[7] = pPtr.val - offsets.val;
   pPtr = radixmap::write<MemoryGrdExpLinks>(pLinksToGrdExpsMapPtr->userIdToSemExps,

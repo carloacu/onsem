@@ -138,7 +138,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticQuantity
 struct ONSEM_TEXTTOSEMANTIC_API SemanticGenericGrounding : public SemanticGrounding
 {
   SemanticGenericGrounding()
-    : SemanticGrounding(SemanticGroudingType::GENERIC),
+    : SemanticGrounding(SemanticGroundingType::GENERIC),
       referenceType(SemanticReferenceType::UNDEFINED),
       coreference(),
       entityType(SemanticEntityType::UNKNOWN),

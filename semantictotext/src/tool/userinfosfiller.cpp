@@ -118,7 +118,7 @@ void tryToAddUserInfosWithTense
 {
   switch (pGrdExp->type)
   {
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     const auto& statGrd = pGrdExp->getStatementGrounding();
     if (pRootVerbTense == SemanticVerbTense::PRESENT)
@@ -143,7 +143,7 @@ void tryToAddUserInfosWithTense
     }
     break;
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     const SemanticAgentGrounding& agentGrd = pGrdExp->getAgentGrounding();
     if (agentGrd.nameInfos)

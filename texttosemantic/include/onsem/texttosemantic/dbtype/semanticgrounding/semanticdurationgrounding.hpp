@@ -303,7 +303,7 @@ private:
 struct ONSEM_TEXTTOSEMANTIC_API SemanticDurationGrounding : public SemanticGrounding
 {
   SemanticDurationGrounding()
-    : SemanticGrounding(SemanticGroudingType::DURATION),
+    : SemanticGrounding(SemanticGroundingType::DURATION),
       duration()
   {
   }

@@ -211,8 +211,8 @@ ImbricationType _getStatementGrdsImbrications(const SemanticStatementGrounding& 
 bool _needToCheckSpecifierOfFirstGrounding(const SemanticGrounding& pGrounding1,
                                            const SemanticGrounding& pGrounding2)
 {
-  if (pGrounding1.type == SemanticGroudingType::RELATIVELOCATION &&
-      pGrounding2.type != SemanticGroudingType::RELATIVELOCATION)
+  if (pGrounding1.type == SemanticGroundingType::RELATIVELOCATION &&
+      pGrounding2.type != SemanticGroundingType::RELATIVELOCATION)
   {
     const SemanticRelativeLocationGrounding& relLocationGrd1 = pGrounding1.getRelLocationGrounding();
     if (canBeSemanticallyEqualToLocationWithoutRelativeInformation(relLocationGrd1.locationType))
@@ -298,7 +298,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
 {
   switch (pGrounding1.type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     const SemanticGenericGrounding& genGrd1 = pGrounding1.getGenericGrounding();
     const SemanticGenericGrounding* genGrd2Ptr = pGrounding2.getGenericGroundingPtr();
@@ -314,7 +314,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     const SemanticStatementGrounding* statGrd2 = pGrounding2.getStatementGroundingPtr();
     if (statGrd2 != nullptr)
@@ -324,16 +324,16 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     switch (pGrounding2.type)
     {
-    case SemanticGroudingType::AGENT:
+    case SemanticGroundingType::AGENT:
     {
       return bool_toImbricationType(_userIdsAreEqual(pGrounding1.getAgentGrounding().userId, pGrounding2.getAgentGrounding().userId,
                                                      pMemBlock, pExceptionsPtr));
     }
-    case SemanticGroudingType::GENERIC:
+    case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd2 = pGrounding2.getGenericGrounding();
       if (_isAnyHuman(genGrd2))
@@ -347,7 +347,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
   {
     const auto* timeGrd2Ptr = pGrounding2.getTimeGroundingPtr();
     if (timeGrd2Ptr != nullptr)
@@ -366,63 +366,63 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
   {
     const SemanticDurationGrounding* durationGrd2 = pGrounding2.getDurationGroundingPtr();
     if (durationGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getDurationGrounding().duration == durationGrd2->duration);
     break;
   }
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
   {
     const SemanticTextGrounding* textGrd2 = pGrounding2.getTextGroundingPtr();
     if (textGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getTextGrounding().text == textGrd2->text);
     break;
   }
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
   {
     const SemanticLanguageGrounding* langGrd2 = pGrounding2.getLanguageGroundingPtr();
     if (langGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getLanguageGrounding().language == langGrd2->language);
     break;
   }
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
   {
     const SemanticRelativeLocationGrounding* relLocationGrd2 = pGrounding2.getRelLocationGroundingPtr();
     if (relLocationGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getRelLocationGrounding().locationType == relLocationGrd2->locationType);
     break;
   }
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
   {
     const SemanticRelativeTimeGrounding* relTimeGrd2 = pGrounding2.getRelTimeGroundingPtr();
     if (relTimeGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getRelTimeGrounding().timeType == relTimeGrd2->timeType);
     break;
   }
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
   {
     const SemanticRelativeDurationGrounding* relDurationGrd2 = pGrounding2.getRelDurationGroundingPtr();
     if (relDurationGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getRelDurationGrounding().durationType == relDurationGrd2->durationType);
     break;
   }
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
   {
     const SemanticResourceGrounding* resGrd2 = pGrounding2.getResourceGroundingPtr();
     if (resGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getResourceGrounding().resource == resGrd2->resource);
     break;
   }
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
   {
     const SemanticLengthGrounding* lengthGrd2 = pGrounding2.getLengthGroundingPtr();
     if (lengthGrd2 != nullptr)
       return bool_toImbricationType(pGrounding1.getLengthGrounding().length == lengthGrd2->length);
     break;
   }
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
   {
     const auto& metaGrd1 = pGrounding1.getMetaGrounding();
     const SemanticMetaGrounding* metaGrd2 = pGrounding2.getMetaGroundingPtr();
@@ -432,7 +432,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
       return ImbricationType::HYPERNYM;
     return ImbricationType::HYPONYM;
   }
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
   {
     const auto& unityGrd1 = pGrounding1.getUnityGrounding();
     const auto* unityGrd2 = pGrounding2.getUnityGroundingPtr();
@@ -441,11 +441,11 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
                                     unityGrd1.value == unityGrd2->value);
     break;
   }
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
   {
     switch (pGrounding2.type)
     {
-    case SemanticGroudingType::NAME:
+    case SemanticGroundingType::NAME:
     {
       const auto& grd1Names = pGrounding1.getNameGrounding().nameInfos.names;
       const auto& grd2Names = pGrounding2.getNameGrounding().nameInfos.names;
@@ -454,7 +454,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
           return ImbricationType::EQUALS;
       return ImbricationType::DIFFERS;
     }
-    case SemanticGroudingType::GENERIC:
+    case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd2 = pGrounding2.getGenericGrounding();
       if (_isAnyHuman(genGrd2))
@@ -468,7 +468,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
     break; // The concepts will be checked after
   }
 
@@ -870,8 +870,8 @@ bool grdsHaveSamePolarity(const SemanticGrounding& pGrd1,
                           const SemanticGrounding& pGrd2,
                           const ConceptSet& pConceptsDb)
 {
-  if ((pGrd1.type == SemanticGroudingType::STATEMENT && pGrd2.type == SemanticGroudingType::STATEMENT) ||
-      (pGrd1.type != SemanticGroudingType::STATEMENT && pGrd2.type != SemanticGroudingType::STATEMENT))
+  if ((pGrd1.type == SemanticGroundingType::STATEMENT && pGrd2.type == SemanticGroundingType::STATEMENT) ||
+      (pGrd1.type != SemanticGroundingType::STATEMENT && pGrd2.type != SemanticGroundingType::STATEMENT))
   {
     if (pConceptsDb.haveOppositeConcepts(pGrd1.concepts, pGrd2.concepts))
       return pGrd1.polarity != pGrd2.polarity;
@@ -888,8 +888,8 @@ bool haveSamePolarity(const GroundedExpression& pGrdExp1,
   const SemanticGrounding& pGrd1 = pGrdExp1.grounding();
   const SemanticGrounding& pGrd2 = pGrdExp2.grounding();
   bool samePolarity = grdsHaveSamePolarity(pGrd1, pGrd2, pConceptsDb);
-  bool bothAreNotASentence = pGrd1.type != SemanticGroudingType::STATEMENT &&
-      pGrd2.type != SemanticGroudingType::STATEMENT;
+  bool bothAreNotASentence = pGrd1.type != SemanticGroundingType::STATEMENT &&
+      pGrd2.type != SemanticGroundingType::STATEMENT;
   if (bothAreNotASentence &&
       (grdHaveNbSetToZero(pGrd1) && pGrdExp1.children.count(GrammaticalType::OTHER_THAN) == 0) !=
       (grdHaveNbSetToZero(pGrd2) && pGrdExp2.children.count(GrammaticalType::OTHER_THAN) == 0))

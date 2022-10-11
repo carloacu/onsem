@@ -17,7 +17,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticLanguageGrounding : public SemanticGroun
 {
   SemanticLanguageGrounding
   (SemanticLanguageEnum pLanguage)
-    : SemanticGrounding(SemanticGroudingType::LANGUAGE),
+    : SemanticGrounding(SemanticGroundingType::LANGUAGE),
       language(pLanguage)
   {
   }

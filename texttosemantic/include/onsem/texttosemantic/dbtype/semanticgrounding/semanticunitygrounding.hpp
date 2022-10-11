@@ -67,20 +67,20 @@ static inline TypeOfUnity typeOfUnity_fromStr(const std::string& pTypeOfUnityStr
 struct ONSEM_TEXTTOSEMANTIC_API SemanticUnityGrounding : public SemanticGrounding
 {
   SemanticUnityGrounding(SemanticLengthUnity pLengthUnity)
-    : SemanticGrounding(SemanticGroudingType::UNITY),
+    : SemanticGrounding(SemanticGroundingType::UNITY),
       typeOfUnity(TypeOfUnity::LENGTH),
       value(semanticLengthUnity_toChar(pLengthUnity))
   {
   }
   SemanticUnityGrounding(SemanticTimeUnity pTimeUnity)
-    : SemanticGrounding(SemanticGroudingType::UNITY),
+    : SemanticGrounding(SemanticGroundingType::UNITY),
       typeOfUnity(TypeOfUnity::TIME),
       value(semanticTimeUnity_toChar(pTimeUnity))
   {
   }
   SemanticUnityGrounding(TypeOfUnity pTypeOfUnity,
                          const std::string& pValueStr)
-    : SemanticGrounding(SemanticGroudingType::UNITY),
+    : SemanticGrounding(SemanticGroundingType::UNITY),
       typeOfUnity(TypeOfUnity::TIME),
       value(0)
   {

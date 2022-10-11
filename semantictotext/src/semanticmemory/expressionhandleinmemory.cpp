@@ -151,7 +151,7 @@ void _addGrdExpToAxiom
   pContextAxiom.memorySentences.elts.emplace_back(pContextAxiom, pGrdExpToAdd, false,
                                                   pAnnotations, pLingDb, pIsAConditionToSatisfy);
 
-  if (pGrdExpToAdd->type == SemanticGroudingType::STATEMENT)
+  if (pGrdExpToAdd->type == SemanticGroundingType::STATEMENT)
   {
     const auto& statGrd = pGrdExpToAdd->getStatementGrounding();
     for (const auto& currChild : pGrdExpToAdd.children)

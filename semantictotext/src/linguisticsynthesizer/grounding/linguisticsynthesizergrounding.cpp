@@ -115,11 +115,11 @@ void Linguisticsynthesizergrounding::modifyContextForAGrounding
 {
   switch (pGrounding.type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
     _modifyContextForAGenGrounding(pWordContext, pOutInfoGram, pConf,
                                    pGrounding.getGenericGrounding());
     break;
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
   {
     const SemanticConceptualGrounding& cptGrd = pGrounding.getConceptualGrounding();
     const auto& specLingDb = pConf.lingDb.langToSpec[_language];
@@ -140,13 +140,13 @@ void Linguisticsynthesizergrounding::modifyContextForAGrounding
     }
     break;
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     const SemanticAgentGrounding& agentGrd = pGrounding.getAgentGrounding();
     pWordContext.gender = pConf.memBlock.getGender(agentGrd.userId);
     break;
   }
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
   {
     const SemanticNameGrounding& nameGrd = pGrounding.getNameGrounding();
     std::set<SemanticGenderType> meaningPossGenders;
@@ -169,7 +169,7 @@ void Linguisticsynthesizergrounding::modifyContextForAGrounding
     }
     break;
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     pOutInfoGram.word.partOfSpeech = PartOfSpeech::VERB;
     break;
@@ -194,7 +194,7 @@ void Linguisticsynthesizergrounding::writeGroundingIntroduction
 {
   switch (pGrounding.type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     if (pContext.contextType != SynthesizerCurrentContextType::SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTBEFOREVERB)
       writePreposition(pBeforeOut.out, &pOut, pOutInfoGram, pContext, pConf, pGrounding, pHoldingGrdExp);
@@ -202,17 +202,17 @@ void Linguisticsynthesizergrounding::writeGroundingIntroduction
     beforeGenGroundingTranslation(pBeforeOut, pOutInfoGram, pContext, pConf, genGrd, pHoldingGrdExp);
     break;
   }
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
   {
     writeReLocationType(pBeforeOut.out, pGrounding.getRelLocationGrounding().locationType);
     break;
   }
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
   {
     _writeReTimeType(pBeforeOut.out, pGrounding.getRelTimeGrounding().timeType, pContext.verbTense);
     break;
   }
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
   {
     _writeReDurationType(pBeforeOut.out, pGrounding.getRelDurationGrounding().durationType, pHoldingGrdExp);
     break;
@@ -238,13 +238,13 @@ void Linguisticsynthesizergrounding::writeGrounding
 {
   switch (pGrounding.type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     const auto& genGrd = pGrounding.getGenericGrounding();
     genGroundingTranslation(pOutSemExp, pOutInfoGram, pContext, pConf.lingDb, genGrd);
     break;
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     const SemanticStatementGrounding& statementGrd =
         pGrounding.getStatementGrounding();
@@ -257,66 +257,66 @@ void Linguisticsynthesizergrounding::writeGrounding
     pOutSemExp.partOfSpeech = PartOfSpeech::VERB;
     break;
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     agentGroundingTranslation(pOutSemExp, pConf,
                               pGrounding.getAgentGrounding(),
                               pContext, pRequests);
     break;
   }
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
   {
     timeGroundingTranslation(pOutSemExp.out, pConf.lingDb, pGrounding.getTimeGrounding());
     break;
   }
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
   {
     textGroundingTranslation(pOutSemExp.out, pGrounding.getTextGrounding(),
                              pContext);
     break;
   }
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
   {
     const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
     durationTranslation(pOutSemExp.out, synthDico,
                         pGrounding.getDurationGrounding().duration, true);
     break;
   }
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
   {
     langGroundingTranslation(pOutSemExp.out, pGrounding.getLanguageGrounding());
     break;
   }
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
   {
     resourceGroundingTranslation(pOutSemExp.out, pGrounding.getResourceGrounding());
     break;
   }
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
   {
     const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
     lengthTranslation(pOutSemExp.out, synthDico,
                       pGrounding.getLengthGrounding().length, true);
     break;
   }
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
   {
     metaGroundingTranslation(pOutSemExp.out, pGrounding.getMetaGrounding());
     break;
   }
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
   {
     const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
     unityGroundingTranslation(pOutSemExp.out, pGrounding.getUnityGrounding(), synthDico);
     break;
   }
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
   {
     if (!pOutInfoGram.word.lemma.empty())
       _strToOut(pOutSemExp.out, pOutInfoGram.word.partOfSpeech, pOutInfoGram.word.lemma);
     break;
   }
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
   {
     if (ConceptSet::haveAConcept(pGrounding.concepts, "reflexive"))
     {
@@ -339,9 +339,9 @@ void Linguisticsynthesizergrounding::writeGrounding
     }
     break;
   }
-  case SemanticGroudingType::RELATIVELOCATION:
-  case SemanticGroudingType::RELATIVETIME:
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVEDURATION:
     break;
   }
 }
@@ -422,7 +422,7 @@ void Linguisticsynthesizergrounding::metaGroundingTranslation
 (std::list<WordToSynthesize>& pOut,
  const SemanticMetaGrounding& pGrounding) const
 {
-  if (pGrounding.refToType == SemanticGroudingType::AGENT)
+  if (pGrounding.refToType == SemanticGroundingType::AGENT)
   {
     if (_language == SemanticLanguageEnum::FRENCH)
       _strToOut(pOut, PartOfSpeech::PRONOUN, "quelqu'un");
@@ -723,7 +723,7 @@ void Linguisticsynthesizergrounding::writePreposition
       if (pContext.verbContextOpt)
       {
         if ((*chkLinkTypeOpt != linguistics::ChunkLinkType::DIRECTOBJECT ||
-             pGrounding.type != SemanticGroudingType::STATEMENT || pGrounding.getStatementGrounding().requests.empty()))
+             pGrounding.type != SemanticGroundingType::STATEMENT || pGrounding.getStatementGrounding().requests.empty()))
           frameDict.getIntroWord(introWord, *chkLinkTypeOpt,
                                  pContext.verbContextOpt->statGrd.concepts,
                                  pContext.verbContextOpt->verbInflWord,

@@ -82,7 +82,7 @@ bool _tryToMerge2SemExpsWithOnlyOneChildThatDiffer(UniqueSemanticExpression& pSe
           {
             auto firstGrdExpPtr = itDiffChild1->second->getGrdExpPtr_SkipWrapperPtrs();
             if (firstGrdExpPtr != nullptr &&
-                firstGrdExpPtr->grounding().type == SemanticGroudingType::STATEMENT &&
+                firstGrdExpPtr->grounding().type == SemanticGroundingType::STATEMENT &&
                 _tryToMerge2SemExpsWithOnlyOneChildThatDiffer(itDiffChild1->second, itDiffChild2->second,
                                                               pListType, pMemBlock, pLingDb))
               return true;

@@ -42,12 +42,12 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerEnglish::_getO
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
       return LinguisticSynthesizerPrivate::ObjectPosition::AFTERVERB;
     };
-    if (objectGrd.type == SemanticGroudingType::GENERIC)
+    if (objectGrd.type == SemanticGroundingType::GENERIC)
     {
       const SemanticGenericGrounding& objectGenGrd = objectGrdExp->getGenericGrounding();
       return getObjPositionOfGenericGrd(objectGenGrd);
     }
-    if (objectGrd.type == SemanticGroudingType::STATEMENT)
+    if (objectGrd.type == SemanticGroundingType::STATEMENT)
     {
       const SemanticStatementGrounding& objectStatGrd = objectGrdExp->getStatementGrounding();
       if (objectStatGrd.isAtInfinitive() &&
@@ -476,16 +476,16 @@ bool LinguisticSynthesizerEnglish::_doWeHaveToWriteBeginOfSpecifier
  const GroundedExpression& pGrdExpOfTheWord,
  const SemanticGrounding& pMotherGrounding) const
 {
-  if (pMotherGrounding.type == SemanticGroudingType::RELATIVEDURATION ||
-      pMotherGrounding.type == SemanticGroudingType::RELATIVELOCATION ||
-      pMotherGrounding.type == SemanticGroudingType::RELATIVETIME)
+  if (pMotherGrounding.type == SemanticGroundingType::RELATIVEDURATION ||
+      pMotherGrounding.type == SemanticGroundingType::RELATIVELOCATION ||
+      pMotherGrounding.type == SemanticGroundingType::RELATIVETIME)
     return false;
   if (pGrdExpOfTheWord.children.count(GrammaticalType::INTRODUCTING_WORD) > 0)
     return false;
   if (partOfSpeech_isNominal(pInflWord.word.partOfSpeech))
     return true;
   const auto& grdOfTheWord = pGrdExpOfTheWord.grounding();
-  if (grdOfTheWord.type == SemanticGroudingType::STATEMENT)
+  if (grdOfTheWord.type == SemanticGroundingType::STATEMENT)
   {
     if (grdOfTheWord.getStatementGrounding().verbTense != SemanticVerbTense::PUNCTUALPAST)
       return true;

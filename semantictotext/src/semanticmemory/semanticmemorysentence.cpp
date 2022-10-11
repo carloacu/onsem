@@ -1000,14 +1000,14 @@ bool SemanticMemorySentencePrivate::_linkChildSemExp
 
     const auto& childGrounding = childGrdExp->grounding();
 
-    if (childGrounding.type == SemanticGroudingType::AGENT)
+    if (childGrounding.type == SemanticGroundingType::AGENT)
     {
       auto* originalIntPtr = pSemExpression.getIntExpPtr();
       if (originalIntPtr != nullptr)
       {
         auto* originalGrdExpPtr = originalIntPtr->originalExp->getGrdExpPtr_SkipWrapperPtrs();
         if (originalGrdExpPtr != nullptr &&
-            originalGrdExpPtr->grounding().type == SemanticGroudingType::AGENT)
+            originalGrdExpPtr->grounding().type == SemanticGroundingType::AGENT)
         {
           _childGrdExpMemories.emplace_back(_memSent, *originalGrdExpPtr);
           SemanticMemoryGrdExp& newMemGrdExp = _childGrdExpMemories.back();
@@ -1022,7 +1022,7 @@ bool SemanticMemorySentencePrivate::_linkChildSemExp
     auto itEquChild = childGrdExp->children.find(GrammaticalType::SPECIFIER);
     if (itEquChild != childGrdExp->children.end())
     {
-      if (semanticGroudingsType_isRelativeType(childGrounding.type))
+      if (semanticGroundingsType_isRelativeType(childGrounding.type))
       {
         if (!_linkChildSemExp(*itEquChild->second, pFromRequest, pLingDb))
           return false;
@@ -1067,7 +1067,7 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
  const linguistics::LinguisticDatabase& pLingDb,
  bool pLinkNonSpecificStuffs)
 {
-  if (pGrounding.type == SemanticGroudingType::GENERIC &&
+  if (pGrounding.type == SemanticGroundingType::GENERIC &&
       pGrounding.getGenericGrounding().coreference &&
       pGrounding.getGenericGrounding().coreference->getDirection() == CoreferenceDirectionEnum::PARENT)
     return true;
@@ -1079,13 +1079,13 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
     _fillUserCenteredLinks(newMemGrdExp, pGrdExp);
 
   // link the concepts
-  if (pGrounding.type != SemanticGroudingType::TIME)
+  if (pGrounding.type != SemanticGroundingType::TIME)
     for (const auto& currCpt : pGrounding.concepts)
       _links.reqToGrdExps[pRequType].conceptsToSemExps[currCpt.first].emplace_back(newMemGrdExp);
 
   switch (pGrounding.type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     const SemanticGenericGrounding& genGrounding = pGrounding.getGenericGrounding();
     if (!ConceptSet::haveAConceptNotAny(genGrounding.concepts))
@@ -1120,7 +1120,7 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
     }
     break;
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     const SemanticStatementGrounding& statGrounding = pGrounding.getStatementGrounding();
     if (!ConceptSet::haveAConceptNotAny(statGrounding.concepts))
@@ -1135,26 +1135,26 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
     }
     break;
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     const SemanticAgentGrounding& agentGrounding = pGrounding.getAgentGrounding();
     _links.reqToGrdExps[pRequType].userIdToSemExps[agentGrounding.userId].emplace_back(newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
   {
     const SemanticTextGrounding& textGrounding = pGrounding.getTextGrounding();
     _links.reqToGrdExps[pRequType].textToSemExps[textGrounding.forLanguage][textGrounding.text].emplace_back(newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
   {
     const SemanticTimeGrounding& timeGrounding = pGrounding.getTimeGrounding();
     auto& linksToGrdExps = _links.reqToGrdExps[pRequType];
     _addTimeLinksFromGrounding(linksToGrdExps, timeGrounding, newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
   {
     const SemanticRelativeDurationGrounding& relDurationGrounding = pGrounding.getRelDurationGrounding();
     if (relDurationGrounding.durationType == SemanticRelativeDurationType::DELAYEDSTART)
@@ -1178,47 +1178,47 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
     }
     break;
   }
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
   {
     const SemanticRelativeLocationGrounding& relLocationGrounding = pGrounding.getRelLocationGrounding();
     _links.reqToGrdExps[pRequType].relLocationToSemExps[relLocationGrounding.locationType].emplace_back(newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
   {
     const SemanticRelativeTimeGrounding& relTimeGrounding = pGrounding.getRelTimeGrounding();
     _links.reqToGrdExps[pRequType].relTimeToSemExps[relTimeGrounding.timeType].emplace_back(newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
   {
     const SemanticMetaGrounding& metaGrounding = pGrounding.getMetaGrounding();
     _links.reqToGrdExps[pRequType].grdTypeToSemExps[metaGrounding.refToType].emplace_back(newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
   {
     const SemanticNameGrounding& nameGrounding = pGrounding.getNameGrounding();
     for (const auto& currName : nameGrounding.nameInfos.names)
       _links.reqToGrdExps[pRequType].textToSemExps[SemanticLanguageEnum::UNKNOWN][currName].emplace_back(newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
   {
     const SemanticLanguageGrounding& languageGrounding = pGrounding.getLanguageGrounding();
     _links.reqToGrdExps[pRequType].languageToSemExps[languageGrounding.language].emplace_back(newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
   {
     const auto& resGrd = pGrounding.getResourceGrounding();
     _links.reqToGrdExps[pRequType].resourceToSemExps[resGrd.resource].emplace_back(newMemGrdExp);
     break;
   }
-  case SemanticGroudingType::CONCEPTUAL:
-  case SemanticGroudingType::DURATION:
-  case SemanticGroudingType::LENGTH:
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::CONCEPTUAL:
+  case SemanticGroundingType::DURATION:
+  case SemanticGroundingType::LENGTH:
+  case SemanticGroundingType::UNITY:
      break;
   }
   return true;
@@ -1249,7 +1249,7 @@ void SemanticMemorySentencePrivate::_addGenderFromGrdExp
  const GroundedExpression& pGrdExp)
 {
   const SemanticGrounding& grounding = pGrdExp.grounding();
-  if (grounding.type == SemanticGroudingType::STATEMENT &&
+  if (grounding.type == SemanticGroundingType::STATEMENT &&
       ConceptSet::haveAConcept(grounding.concepts, "verb_equal_be"))
   {
     _tryToAddAgentGenderFromAStructureEqualityStatement(pNewMemGrdExp, pGrdExp);

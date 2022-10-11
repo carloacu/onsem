@@ -57,7 +57,7 @@ protected:
     }
 
     std::string id;
-    mystd::optional<SemanticGroudingType> groundingType;
+    mystd::optional<SemanticGroundingType> groundingType;
     std::map<std::string, std::list<char> > concepts;
     std::set<std::string> notConcepts;
     std::set<std::string> beginOfConcepts;

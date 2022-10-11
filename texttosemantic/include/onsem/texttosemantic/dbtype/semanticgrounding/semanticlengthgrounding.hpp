@@ -136,7 +136,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticLength
 struct ONSEM_TEXTTOSEMANTIC_API SemanticLengthGrounding : public SemanticGrounding
 {
   SemanticLengthGrounding()
-    : SemanticGrounding(SemanticGroudingType::LENGTH),
+    : SemanticGrounding(SemanticGroundingType::LENGTH),
       length()
   {
   }

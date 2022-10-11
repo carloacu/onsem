@@ -672,7 +672,7 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone
     const auto& grdExp = getGrdExp();
     // Fill the parameters
     if (pParams != nullptr &&
-        grdExp.grounding().type == SemanticGroudingType::META)
+        grdExp.grounding().type == SemanticGroundingType::META)
     {
       const SemanticMetaGrounding* metaGr = dynamic_cast<const SemanticMetaGrounding*>
           (&grdExp.grounding());

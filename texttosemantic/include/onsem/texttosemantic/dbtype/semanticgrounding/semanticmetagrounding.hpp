@@ -12,10 +12,10 @@ namespace onsem
 
 struct ONSEM_TEXTTOSEMANTIC_API SemanticMetaGrounding : public SemanticGrounding
 {
-  SemanticMetaGrounding(SemanticGroudingType pRefToType,
+  SemanticMetaGrounding(SemanticGroundingType pRefToType,
                         int pIdParam,
                         const std::string& pAttibuteName = "")
-    : SemanticGrounding(SemanticGroudingType::META),
+    : SemanticGrounding(SemanticGroundingType::META),
       refToType(pRefToType),
       paramId(pIdParam),
       attibuteName(pAttibuteName)
@@ -40,13 +40,13 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticMetaGrounding : public SemanticGrounding
   static std::unique_ptr<SemanticMetaGrounding> makeMetaGroundingFromStr
   (const std::string& pStr);
 
-  static bool groundingTypeFromStr(SemanticGroudingType& pRefToType,
+  static bool groundingTypeFromStr(SemanticGroundingType& pRefToType,
                                   const std::string& pStr);
 
   static const char firstCharOfStr;
   static const int returnId;
 
-  SemanticGroudingType refToType;
+  SemanticGroundingType refToType;
   int paramId;
   std::string attibuteName;
 };

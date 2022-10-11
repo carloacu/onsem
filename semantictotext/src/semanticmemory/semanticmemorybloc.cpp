@@ -536,7 +536,7 @@ SemanticBehaviorDefinition SemanticMemoryBlock::extractActionFromMemorySentence(
   if (pMemorySentence.getContextAxiom().infCommandToDo != nullptr)
   {
     bool isAComposedAction = !SemExpGetter::hasGroundingType(*pMemorySentence.getContextAxiom().infCommandToDo,
-                                                             {SemanticGroudingType::RESOURCE, SemanticGroudingType::META});
+                                                             {SemanticGroundingType::RESOURCE, SemanticGroundingType::META});
     if (isAComposedAction)
       return SemanticBehaviorDefinition(pMemorySentence.grdExp.clone(), pMemorySentence.getContextAxiom().infCommandToDo->clone());
     return SemanticBehaviorDefinition(pMemorySentence.grdExp.clone());

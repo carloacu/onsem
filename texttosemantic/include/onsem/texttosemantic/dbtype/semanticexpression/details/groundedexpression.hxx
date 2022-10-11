@@ -8,9 +8,9 @@ namespace onsem
 {
 
 
-template<typename TGROUDING>
+template<typename TGROUNDING>
 GroundedExpression::GroundedExpression
-(std::unique_ptr<TGROUDING> pGrounding)
+(std::unique_ptr<TGROUNDING> pGrounding)
   : SemanticExpression(SemanticExpressionType::GROUNDED),
     GroundedExpressionContainer(),
     children(),
@@ -32,9 +32,9 @@ inline bool GroundedExpression::isEqual(const GroundedExpression& pOther) const
 }
 
 
-template<typename TGROUDING>
+template<typename TGROUNDING>
 void GroundedExpression::moveGrounding
-(std::unique_ptr<TGROUDING> pGrounding)
+(std::unique_ptr<TGROUNDING> pGrounding)
 {
   _grounding = std::move(pGrounding);
   assert(_grounding);

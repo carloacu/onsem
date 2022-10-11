@@ -15,7 +15,7 @@ namespace onsem
 struct ONSEM_TEXTTOSEMANTIC_API SemanticRelativeLocationGrounding : public SemanticGrounding
 {
   SemanticRelativeLocationGrounding(SemanticRelativeLocationType pLocationType)
-    : SemanticGrounding(SemanticGroudingType::RELATIVELOCATION),
+    : SemanticGrounding(SemanticGroundingType::RELATIVELOCATION),
       locationType(pLocationType)
   {
   }

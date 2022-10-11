@@ -9,7 +9,7 @@ namespace onsem
 SemanticGenericGrounding::SemanticGenericGrounding
 (SemanticReferenceType pReferenceType,
  SemanticEntityType pAgentType)
-  : SemanticGrounding(SemanticGroudingType::GENERIC),
+  : SemanticGrounding(SemanticGroundingType::GENERIC),
     referenceType(pReferenceType),
     coreference(),
     entityType(pAgentType),

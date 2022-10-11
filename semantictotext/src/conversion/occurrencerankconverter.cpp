@@ -19,7 +19,7 @@ void process(UniqueSemanticExpression& pSemExp)
   case SemanticExpressionType::GROUNDED:
   {
     GroundedExpression& grdExp = pSemExp->getGrdExp();
-    if (grdExp->type == SemanticGroudingType::STATEMENT)
+    if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
       SemanticStatementGrounding& rootStatementGrd = grdExp->getStatementGrounding();
       if (rootStatementGrd.concepts.count("verb_equal_be") > 0 &&
@@ -47,7 +47,7 @@ void process(UniqueSemanticExpression& pSemExp)
                   if (objectGrdExpPtr != nullptr)
                   {
                     GroundedExpression& objectGrdExp = *objectGrdExpPtr;
-                    if (objectGrdExp->type == SemanticGroudingType::STATEMENT)
+                    if (objectGrdExp->type == SemanticGroundingType::STATEMENT)
                     {
                       // Pattern of the semantic expression found we add the new question form
                       UniqueSemanticExpression cloneOfOldSemExp(pSemExp->clone());

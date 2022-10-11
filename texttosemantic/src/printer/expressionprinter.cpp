@@ -191,7 +191,7 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticMetaGrounding& pGrounding)
 {
-  pPrinterBuff.elts.emplace_back("refToType(\"" + semanticGroudingsType_toStr(pGrounding.refToType) + "\")");
+  pPrinterBuff.elts.emplace_back("refToType(\"" + semanticGroundingsType_toStr(pGrounding.refToType) + "\")");
   {
     std::stringstream ssIdParam;
     ssIdParam << "paramId(" << pGrounding.paramId << ")";
@@ -446,97 +446,97 @@ void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
 {
   switch (pGroundings.type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getGenericGrounding());
     break;
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getStatementGrounding());
     break;
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getAgentGrounding());
     break;
   }
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getTimeGrounding());
     break;
   }
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getTextGrounding());
     break;
   }
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getDurationGrounding());
     break;
   }
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getLanguageGrounding());
     break;
   }
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getResourceGrounding());
     break;
   }
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getLengthGrounding());
     break;
   }
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getMetaGrounding());
     break;
   }
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getNameGrounding());
     break;
   }
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getRelLocationGrounding());
     break;
   }
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getRelTimeGrounding());
     break;
   }
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getRelDurationGrounding());
     break;
   }
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getConceptualGrounding());
     break;
   }
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getUnityGrounding());
@@ -1071,7 +1071,7 @@ void oneWordPrint(std::string& pRes,
     const SemanticGrounding& grdExpGrounding = grdExp->grounding();
     switch (grdExpGrounding.type)
     {
-    case SemanticGroudingType::GENERIC:
+    case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGr = grdExpGrounding.getGenericGrounding();
       if (genGr.entityType == SemanticEntityType::AGENTORTHING ||
@@ -1095,7 +1095,7 @@ void oneWordPrint(std::string& pRes,
       pRes = _thingResult;
       return;
     }
-    case SemanticGroudingType::AGENT:
+    case SemanticGroundingType::AGENT:
     {
       const SemanticAgentGrounding& agentGr = grdExpGrounding.getAgentGrounding();
       if (agentGr.userId == pCurrentUserId)
@@ -1111,12 +1111,12 @@ void oneWordPrint(std::string& pRes,
       pRes = _humanResult;
       return;
     }
-    case SemanticGroudingType::NAME:
+    case SemanticGroundingType::NAME:
     {
       pRes = _humanResult;
       return;
     }
-    case SemanticGroudingType::STATEMENT:
+    case SemanticGroundingType::STATEMENT:
     {
       pRes = _sentenceResult;
       return;

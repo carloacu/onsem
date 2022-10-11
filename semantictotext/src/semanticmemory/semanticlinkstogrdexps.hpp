@@ -65,7 +65,7 @@ struct SemanticLinksToGrdExpsTemplate
   // Meta grounding
   // --------------
   /// Grounding type -> part of texts
-  std::map<SemanticGroudingType, LINKS_TYPE> grdTypeToSemExps{};
+  std::map<SemanticGroundingType, LINKS_TYPE> grdTypeToSemExps{};
 
   // Agent grounding
   // ---------------

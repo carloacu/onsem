@@ -60,7 +60,7 @@ void _filterRevelantSimilarities(GroundedExpression& pGrdExp,
     const GroundedExpression& grdExp = currAnswer.getGrdExp();
     switch (grdExp->type)
     {
-    case SemanticGroudingType::AGENT:
+    case SemanticGroundingType::AGENT:
     {
       // remove if it's not a specific user
       const auto& agentGrd = grdExp->getAgentGrounding();
@@ -71,7 +71,7 @@ void _filterRevelantSimilarities(GroundedExpression& pGrdExp,
       }
       break;
     }
-    case SemanticGroudingType::GENERIC:
+    case SemanticGroundingType::GENERIC:
     {
       const auto& genGrd = grdExp->getGenericGrounding();
       if (genGrd.quantity.isEqualToZero())
@@ -81,7 +81,7 @@ void _filterRevelantSimilarities(GroundedExpression& pGrdExp,
       }
       break;
     }
-    case SemanticGroudingType::STATEMENT:
+    case SemanticGroundingType::STATEMENT:
     {
       itAnsw = pAnswers.erase(itAnsw);
       continue;
@@ -252,12 +252,12 @@ bool _reactOnChildSimilarities(SemControllerWorkingStruct& pWorkStruct,
   auto& childGrdExp = *childGrdExpPtr;
   switch (childGrdExp->type)
   {
-  case SemanticGroudingType::AGENT:
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::AGENT:
+  case SemanticGroundingType::NAME:
   {
     break;
   }
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     const auto& childGenGrd = childGrdExp->getGenericGrounding();
     if (childGenGrd.coreference || childGenGrd.quantity.isEqualToZero() ||

@@ -54,7 +54,7 @@ void splitInVerySimpleSentences(UniqueSemanticExpression& pSemExp,
   case SemanticExpressionType::GROUNDED:
   {
     GroundedExpression& grdExp = pSemExp->getGrdExp();
-    if (grdExp->type == SemanticGroudingType::STATEMENT)
+    if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
       if (SemExpGetter::isAnActionDefinition(grdExp) ||
           (!pDoWeSplitQuestions && SemExpGetter::getMainRequestTypeFromGrdExp(grdExp) != SemanticRequestType::NOTHING))

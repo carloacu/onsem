@@ -12,13 +12,13 @@ namespace onsem
 struct ONSEM_TEXTTOSEMANTIC_API SemanticConceptualGrounding : public SemanticGrounding
 {
   SemanticConceptualGrounding()
-    : SemanticGrounding(SemanticGroudingType::CONCEPTUAL)
+    : SemanticGrounding(SemanticGroundingType::CONCEPTUAL)
   {}
   SemanticConceptualGrounding(const std::map<std::string, char>& pConcepts)
-    : SemanticGrounding(SemanticGroudingType::CONCEPTUAL, pConcepts)
+    : SemanticGrounding(SemanticGroundingType::CONCEPTUAL, pConcepts)
   {}
   SemanticConceptualGrounding(const std::string& pConceptStr)
-    : SemanticGrounding(SemanticGroudingType::CONCEPTUAL, std::map<std::string, char>{{pConceptStr, 4}})
+    : SemanticGrounding(SemanticGroundingType::CONCEPTUAL, std::map<std::string, char>{{pConceptStr, 4}})
   {}
 
   const SemanticConceptualGrounding& getConceptualGrounding() const override { return *this; }

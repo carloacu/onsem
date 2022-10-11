@@ -59,8 +59,8 @@ void _saveConcepts(boost::property_tree::ptree& pTree,
 void _saveGrd(boost::property_tree::ptree& pTree,
               const SemanticGrounding& pGrd)
 {
-  if (pGrd.type != SemanticGroudingType::GENERIC)
-      pTree.put("type", semanticGroudingsType_toStr(pGrd.type));
+  if (pGrd.type != SemanticGroundingType::GENERIC)
+      pTree.put("type", semanticGroundingsType_toStr(pGrd.type));
   if (!pGrd.polarity)
     pTree.put("polarity", pGrd.polarity);
   _saveConcepts(pTree, pGrd.concepts);
@@ -213,7 +213,7 @@ void _saveMetaGrd(boost::property_tree::ptree& pTree,
                   const SemanticMetaGrounding& pMetaGrd)
 {
   _saveGrd(pTree, pMetaGrd);
-  pTree.put("refToType", semanticGroudingsType_toStr(pMetaGrd.refToType));
+  pTree.put("refToType", semanticGroundingsType_toStr(pMetaGrd.refToType));
   pTree.put("paramId", pMetaGrd.paramId);
   pTree.put("attibuteName", pMetaGrd.attibuteName);
 }
@@ -288,57 +288,57 @@ void _saveStatementGrd(boost::property_tree::ptree& pTree,
 
 
 void _saveGrounding(boost::property_tree::ptree& pTree,
-                    const SemanticGrounding& pGrouding)
+                    const SemanticGrounding& pGrounding)
 {
-  switch (pGrouding.type)
+  switch (pGrounding.type)
   {
-  case SemanticGroudingType::AGENT:
-    _saveAgentGrd(pTree, pGrouding.getAgentGrounding());
+  case SemanticGroundingType::AGENT:
+    _saveAgentGrd(pTree, pGrounding.getAgentGrounding());
     return;
-  case SemanticGroudingType::GENERIC:
-    _saveGenericGrd(pTree, pGrouding.getGenericGrounding());
+  case SemanticGroundingType::GENERIC:
+    _saveGenericGrd(pTree, pGrounding.getGenericGrounding());
     return;
-  case SemanticGroudingType::STATEMENT:
-    _saveStatementGrd(pTree, pGrouding.getStatementGrounding());
+  case SemanticGroundingType::STATEMENT:
+    _saveStatementGrd(pTree, pGrounding.getStatementGrounding());
     return;
-  case SemanticGroudingType::TIME:
-    _saveTimeGrd(pTree, pGrouding.getTimeGrounding());
+  case SemanticGroundingType::TIME:
+    _saveTimeGrd(pTree, pGrounding.getTimeGrounding());
     return;
-  case SemanticGroudingType::TEXT:
-    _saveTextGrd(pTree, pGrouding.getTextGrounding());
+  case SemanticGroundingType::TEXT:
+    _saveTextGrd(pTree, pGrounding.getTextGrounding());
     return;
-  case SemanticGroudingType::DURATION:
-    _saveDurationGrd(pTree, pGrouding.getDurationGrounding());
+  case SemanticGroundingType::DURATION:
+    _saveDurationGrd(pTree, pGrounding.getDurationGrounding());
     return;
-  case SemanticGroudingType::LANGUAGE:
-    _saveLanguageGrd(pTree, pGrouding.getLanguageGrounding());
+  case SemanticGroundingType::LANGUAGE:
+    _saveLanguageGrd(pTree, pGrounding.getLanguageGrounding());
     return;
-  case SemanticGroudingType::RELATIVELOCATION:
-    _saveRelativeLocationGrd(pTree, pGrouding.getRelLocationGrounding());
+  case SemanticGroundingType::RELATIVELOCATION:
+    _saveRelativeLocationGrd(pTree, pGrounding.getRelLocationGrounding());
     return;
-  case SemanticGroudingType::RELATIVETIME:
-    _saveRelativeTimeGrd(pTree, pGrouding.getRelTimeGrounding());
+  case SemanticGroundingType::RELATIVETIME:
+    _saveRelativeTimeGrd(pTree, pGrounding.getRelTimeGrounding());
     return;
-  case SemanticGroudingType::RELATIVEDURATION:
-    _saveRelativeDurationGrd(pTree, pGrouding.getRelDurationGrounding());
+  case SemanticGroundingType::RELATIVEDURATION:
+    _saveRelativeDurationGrd(pTree, pGrounding.getRelDurationGrounding());
     return;
-  case SemanticGroudingType::RESOURCE:
-    _saveResourceGrd(pTree, pGrouding.getResourceGrounding());
+  case SemanticGroundingType::RESOURCE:
+    _saveResourceGrd(pTree, pGrounding.getResourceGrounding());
     return;
-  case SemanticGroudingType::LENGTH:
-    _saveLengthGrd(pTree, pGrouding.getLengthGrounding());
+  case SemanticGroundingType::LENGTH:
+    _saveLengthGrd(pTree, pGrounding.getLengthGrounding());
     return;
-  case SemanticGroudingType::META:
-    _saveMetaGrd(pTree, pGrouding.getMetaGrounding());
+  case SemanticGroundingType::META:
+    _saveMetaGrd(pTree, pGrounding.getMetaGrounding());
     return;
-  case SemanticGroudingType::NAME:
-    _saveNameGrd(pTree, pGrouding.getNameGrounding());
+  case SemanticGroundingType::NAME:
+    _saveNameGrd(pTree, pGrounding.getNameGrounding());
     return;
-  case SemanticGroudingType::CONCEPTUAL:
-    _saveGrd(pTree, pGrouding);
+  case SemanticGroundingType::CONCEPTUAL:
+    _saveGrd(pTree, pGrounding);
     return;
-  case SemanticGroudingType::UNITY:
-    _saveUnityGrd(pTree, pGrouding.getUnityGrounding());
+  case SemanticGroundingType::UNITY:
+    _saveUnityGrd(pTree, pGrounding.getUnityGrounding());
     return;
   }
   assert(false);

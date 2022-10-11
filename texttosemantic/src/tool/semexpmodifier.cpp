@@ -18,7 +18,7 @@ void _setRequest(GroundedExpression& pGrdExp,
                  SemanticRequestType pRequestType)
 {
   auto& grd = pGrdExp.grounding();
-  if (grd.type == SemanticGroudingType::STATEMENT)
+  if (grd.type == SemanticGroundingType::STATEMENT)
     grd.getStatementGrounding().requests.set(pRequestType);
 }
 
@@ -49,7 +49,7 @@ void _removeContextualAdvebs(UniqueSemanticExpression& pSemExp)
 void removeSpecificationsNotNecessaryForAnAnswer(GroundedExpression& pGrdExp)
 {
   auto& grd = *pGrdExp.getGrdExp();
-  if (semanticGroudingsType_isRelativeType(grd.type))
+  if (semanticGroundingsType_isRelativeType(grd.type))
     return;
   auto* agentGrdPtr = grd.getAgentGroundingPtr();
   if (agentGrdPtr != nullptr)
@@ -213,7 +213,7 @@ void clearRequestList(GroundedExpression& pGrdExp)
 void swapRequests(GroundedExpression& pGrdExp,
                   SemanticRequests& pRequests)
 {
-  if (pGrdExp.grounding().type == SemanticGroudingType::STATEMENT)
+  if (pGrdExp.grounding().type == SemanticGroundingType::STATEMENT)
     pGrdExp->getStatementGrounding().requests.swap(pRequests);
 }
 
@@ -417,7 +417,7 @@ void setReferenceTypeOfSemExp(SemanticExpression& pSemExp,
 void addRequest(GroundedExpression& pGrdExp,
                 SemanticRequestType pRequestType)
 {
-  if (pGrdExp.grounding().type == SemanticGroudingType::STATEMENT)
+  if (pGrdExp.grounding().type == SemanticGroundingType::STATEMENT)
     pGrdExp->getStatementGrounding().requests.add(pRequestType);
 }
 
@@ -437,7 +437,7 @@ void setRequests(SemanticExpression& pSemExp,
   for (auto& grdExpPtr: grdExpPtrs)
   {
     auto& grd = grdExpPtr->grounding();
-    if (grd.type == SemanticGroudingType::STATEMENT)
+    if (grd.type == SemanticGroundingType::STATEMENT)
       grd.getStatementGrounding().requests = pRequests;
   }
 }
@@ -592,7 +592,7 @@ void replaceAgentOfSemExp(SemanticExpression& pSemExp,
 void applyVerbTenseModif(GroundedExpression& pGrdExp,
                          std::function<void(SemanticVerbTense&)> pVerbTenseModif)
 {
-  if (pGrdExp.grounding().type == SemanticGroudingType::STATEMENT)
+  if (pGrdExp.grounding().type == SemanticGroundingType::STATEMENT)
     pVerbTenseModif(pGrdExp->getStatementGrounding().verbTense);
 }
 

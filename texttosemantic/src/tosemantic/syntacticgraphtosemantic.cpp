@@ -407,7 +407,7 @@ void SyntacticGraphToSemantic::xReplaceQuestWordByRequest
   if (pSemExp.type == SemanticExpressionType::GROUNDED)
   {
     GroundedExpression& grdExp = pSemExp.getGrdExp();
-    if (grdExp->type == SemanticGroudingType::GENERIC &&
+    if (grdExp->type == SemanticGroundingType::GENERIC &&
         grdExp.children.empty())
     {
       const SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
@@ -1552,7 +1552,7 @@ void SyntacticGraphToSemantic::xAddModifiersOfATokenAfterVerb
       SemExpModifier::fillSemanticConcepts(genGrounding->concepts, firstTokIGram.infos.concepts);
       xInitGenGroundingsFromToken(*genGrounding, pItToken, pItEndToken);
       GrammaticalType childGrammType = GrammaticalType::SPECIFIER;
-      if (pGrdExp->type == SemanticGroudingType::STATEMENT)
+      if (pGrdExp->type == SemanticGroundingType::STATEMENT)
       {
         if (ConceptSet::haveAConceptOrAHyponym(genGrounding->concepts, "manner"))
           childGrammType = GrammaticalType::MANNER;
@@ -3106,7 +3106,7 @@ void SyntacticGraphToSemantic::xAddNewGrammInfo
 
     // skip the children of a relativeLocation node
     GroundedExpression* grdExpToLink = &pGrdExpSentence;
-    if (pGrdExpSentence->type == SemanticGroudingType::RELATIVELOCATION &&
+    if (pGrdExpSentence->type == SemanticGroundingType::RELATIVELOCATION &&
         pContext.grammTypeFromParent != GrammaticalType::SPECIFIER)
     {
       auto itEquality = pGrdExpSentence.children.find(GrammaticalType::SPECIFIER);

@@ -25,7 +25,7 @@ bool SemanticMetaGrounding::isEqual(const SemanticMetaGrounding& pOther) const
 
 
 bool SemanticMetaGrounding::groundingTypeFromStr
-(SemanticGroudingType& pRefToType,
+(SemanticGroundingType& pRefToType,
  const std::string& pStr)
 {
   const std::string endOfAParam = "\\";
@@ -38,7 +38,7 @@ bool SemanticMetaGrounding::groundingTypeFromStr
     std::size_t endOfGrdType =  pStr.find('=', beginOfGrdType + 1);
     if (endOfGrdType != std::string::npos)
     {
-      return semanticGroudingsType_fromStrIfExist(pRefToType, pStr.substr(beginOfGrdType, endOfGrdType - beginOfGrdType));
+      return semanticGroundingsType_fromStrIfExist(pRefToType, pStr.substr(beginOfGrdType, endOfGrdType - beginOfGrdType));
     }
   }
   return false;
@@ -103,8 +103,8 @@ std::unique_ptr<SemanticMetaGrounding> SemanticMetaGrounding::makeMetaGroundingF
   std::string attributeName;
   if (parseParameter(paramId, label, attributeName, pStr))
   {
-    SemanticGroudingType refToType = SemanticGroudingType::GENERIC;
-    if (semanticGroudingsType_fromStrIfExist(refToType, label))
+    SemanticGroundingType refToType = SemanticGroundingType::GENERIC;
+    if (semanticGroundingsType_fromStrIfExist(refToType, label))
       return mystd::make_unique<SemanticMetaGrounding>(refToType, paramId, attributeName);
   }
   return std::unique_ptr<SemanticMetaGrounding>();

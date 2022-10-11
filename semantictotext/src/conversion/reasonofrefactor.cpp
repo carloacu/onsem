@@ -16,7 +16,7 @@ void process(UniqueSemanticExpression& pSemExp)
   case SemanticExpressionType::GROUNDED:
   {
     GroundedExpression& grdExp = pSemExp->getGrdExp();
-    if (grdExp->type == SemanticGroudingType::STATEMENT)
+    if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
       auto itReasonOf = grdExp.children.find(GrammaticalType::REASONOF);
       if (itReasonOf != grdExp.children.end())

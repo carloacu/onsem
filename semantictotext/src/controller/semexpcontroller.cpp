@@ -1209,7 +1209,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
 {
   switch (pGrdExp->type)
   {
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     const SemanticStatementGrounding& statementGrd = pGrdExp->getStatementGrounding();
 

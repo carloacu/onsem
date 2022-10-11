@@ -330,7 +330,7 @@ bool _areTimeInformationIncompatable(const SemControllerWorkingStruct& pWorkStru
       {
         auto* timeGrdExpPtr = itTimeMemGrdExp->second->getGrdExpPtr_SkipWrapperPtrs();
         if (timeGrdExpPtr == nullptr ||
-            timeGrdExpPtr->grounding().type == SemanticGroudingType::STATEMENT)
+            timeGrdExpPtr->grounding().type == SemanticGroundingType::STATEMENT)
         {
           SemControllerWorkingStruct subWorkStruct(pWorkStruct);
           if (subWorkStruct.askForNewRecursion())
@@ -803,7 +803,7 @@ void RequestLinks::fillSortedSemExps()
 
       for (const auto& currGrdExpPtr : grdExpPtr)
       {
-        if (currGrdExpPtr->grounding().type == SemanticGroudingType::RELATIVETIME)
+        if (currGrdExpPtr->grounding().type == SemanticGroundingType::RELATIVETIME)
         {
           position = LinkPosition::LAST;
           break;
@@ -922,12 +922,12 @@ void getLinksOfAGrdExp(RequestLinks& pReqLinks,
 
           switch (childGrdExp->type)
           {
-          case SemanticGroudingType::META:
+          case SemanticGroundingType::META:
           {
             pReqLinks.clear();
             return;
           }
-          case SemanticGroudingType::GENERIC:
+          case SemanticGroundingType::GENERIC:
           {
             auto& childGenGrd = childGrdExp->getGenericGrounding();
             if (pAddSubordinateLinks &&
@@ -948,7 +948,7 @@ void getLinksOfAGrdExp(RequestLinks& pReqLinks,
             }
             break;
           }
-          case SemanticGroudingType::STATEMENT:
+          case SemanticGroundingType::STATEMENT:
           {
             const auto& childStatGrd = childGrdExp->getStatementGrounding();
             // add the corresponding time slots of the time child
@@ -1207,7 +1207,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
     // don't answer with an english text/url if the question is in wrong language
     switch (grdExp->type)
     {
-    case SemanticGroudingType::TEXT:
+    case SemanticGroundingType::TEXT:
     {
       auto questFromLanguage = pWorkStruct.fromLanguage;
       const SemanticTextGrounding& textGrdToAdd = grdExp->getTextGrounding();
@@ -1219,7 +1219,7 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
       }
       break;
     }
-    case SemanticGroudingType::RESOURCE:
+    case SemanticGroundingType::RESOURCE:
     {
       auto questFromLanguage = pWorkStruct.fromLanguage;
       const SemanticResourceGrounding& resourceGrdToAdd = grdExp->getResourceGrounding();

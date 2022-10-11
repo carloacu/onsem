@@ -21,10 +21,10 @@ std::unique_ptr<SemanticGrounding> _loadMotherClass(
     const unsigned char*& pPtr,
     const StaticConceptSet& pCptSet)
 {
-  SemanticGroudingType grdType = semanticGroudingsType_fromChar
+  SemanticGroundingType grdType = semanticGroundingsType_fromChar
       (binaryloader::loadChar_0To4(pPtr));
   auto res = SemanticGrounding::make(grdType);
-  if (grdType == SemanticGroudingType::AGENT)
+  if (grdType == SemanticGroundingType::AGENT)
   {
     ++pPtr;
     return res;
@@ -188,7 +188,7 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
   auto res = _loadMotherClass(pPtr, pLingDb.conceptSet.statDb);
   switch (res->type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     auto& genGrd = res->getGenericGrounding();
     genGrd.referenceType = semanticReferenceType_fromchar(binaryloader::loadChar_0To2(pPtr));
@@ -211,7 +211,7 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     _loadGenders(genGrd.possibleGenders, pPtr);
     return res;
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
   {
     auto& statGrd = res->getStatementGrounding();
     _loadWord(statGrd.word, pPtr, pLingDb);
@@ -232,7 +232,7 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
       statGrd.requests.addWithoutCollisionCheck(semanticRequestType_fromChar(*(pPtr++)));
     return res;
   }
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     auto agentGrd = mystd::make_unique<SemanticAgentGrounding>
         (binaryloader::loadString(pPtr));
@@ -248,13 +248,13 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     }
     return agentGrd;
   }
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
   {
     auto& nameGrd = res->getNameGrounding();
     _loadNameInfos(nameGrd.nameInfos, pPtr);
     return res;
   }
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
   {
     auto& timeGrd = res->getTimeGrounding();
     const bool writeYear = binaryloader::loadChar_0(pPtr);
@@ -274,13 +274,13 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     _loadDuration(timeGrd.length, pPtr);
     return res;
   }
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
   {
     auto& durationGrd = res->getDurationGrounding();
     _loadDuration(durationGrd.duration, pPtr);
     return res;
   }
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
   {
     auto& textGrd = res->getTextGrounding();
     textGrd.text = binaryloader::loadString(pPtr);
@@ -289,23 +289,23 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     ++pPtr;
     return res;
   }
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
   {
     auto& lengthGrd = res->getLengthGrounding();
     _loadLength(lengthGrd.length, pPtr);
     return res;
   }
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
   {
     auto& metaGrd = res->getMetaGrounding();
-    metaGrd.refToType = semanticGroudingsType_fromChar(binaryloader::loadChar_0To6(pPtr));
+    metaGrd.refToType = semanticGroundingsType_fromChar(binaryloader::loadChar_0To6(pPtr));
     const bool paramIdIsWrittenInAChar = binaryloader::loadChar_7(pPtr);
     ++pPtr;
     metaGrd.paramId = _loadCharOrInt(pPtr, paramIdIsWrittenInAChar);
     metaGrd.attibuteName = binaryloader::loadString(pPtr);
     return res;
   }
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
   {
     auto& resGrd = res->getResourceGrounding();
     resGrd.resource.label = binaryloader::loadString(pPtr);
@@ -313,33 +313,33 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     resGrd.resource.value = binaryloader::loadString(pPtr);
     return res;
   }
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
   {
     auto& langGrd = res->getLanguageGrounding();
     langGrd.language = semanticLanguageEnum_fromChar(*(pPtr++));
     return res;
   }
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
     return res;
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
   {
     auto& relTimeGrd = res->getRelTimeGrounding();
     relTimeGrd.timeType = semanticRelativeTimeType_fromChar(*(pPtr++));
     return res;
   }
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
   {
     auto& relDurationGrd = res->getRelDurationGrounding();
     relDurationGrd.durationType = semanticRelativeDurationType_fromChar(*(pPtr++));
     return res;
   }
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
   {
     auto& relLocationGrd = res->getRelLocationGrounding();
     relLocationGrd.locationType = semanticRelativeLocationType_fromChar(*(pPtr++));
     return res;
   }
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
   {
     auto& unityGrd = res->getUnityGrounding();
     unityGrd.typeOfUnity = typeOfUnity_fromChar(*(pPtr++));

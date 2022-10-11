@@ -15,7 +15,7 @@ namespace onsem
 struct ONSEM_TEXTTOSEMANTIC_API SemanticRelativeDurationGrounding : public SemanticGrounding
 {
   SemanticRelativeDurationGrounding(SemanticRelativeDurationType pDurationType)
-    : SemanticGrounding(SemanticGroudingType::RELATIVEDURATION),
+    : SemanticGrounding(SemanticGroundingType::RELATIVEDURATION),
       durationType(pDurationType)
   {
   }

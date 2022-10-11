@@ -12,7 +12,7 @@ const std::string SemanticAgentGrounding::me = "me";
 
 
 SemanticAgentGrounding::SemanticAgentGrounding()
-  : SemanticGrounding(SemanticGroudingType::AGENT),
+  : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(userNotIdentified),
     nameInfos()
 {
@@ -24,7 +24,7 @@ SemanticAgentGrounding::SemanticAgentGrounding()
 
 SemanticAgentGrounding::SemanticAgentGrounding
 (const std::string& pUserId)
-  : SemanticGrounding(SemanticGroudingType::AGENT),
+  : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
     nameInfos()
 {
@@ -37,7 +37,7 @@ SemanticAgentGrounding::SemanticAgentGrounding
 SemanticAgentGrounding::SemanticAgentGrounding
 (const std::string& pUserId,
  const NameInfos& pNameInfos)
-  : SemanticGrounding(SemanticGroudingType::AGENT),
+  : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
     nameInfos(pNameInfos)
 {
@@ -49,7 +49,7 @@ SemanticAgentGrounding::SemanticAgentGrounding
 
 SemanticAgentGrounding::SemanticAgentGrounding(const std::string& pUserId,
                                                const std::vector<std::string>& pNames)
-  : SemanticGrounding(SemanticGroudingType::AGENT),
+  : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
     nameInfos(pNames)
 {
@@ -62,7 +62,7 @@ SemanticAgentGrounding::SemanticAgentGrounding(const std::string& pUserId,
 
 SemanticAgentGrounding::SemanticAgentGrounding(const std::string& pUserId,
                                                const std::list<std::string>& pNames)
-  : SemanticGrounding(SemanticGroudingType::AGENT),
+  : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
     nameInfos(pNames)
 {
@@ -73,7 +73,7 @@ SemanticAgentGrounding::SemanticAgentGrounding(const std::string& pUserId,
 }
 
 SemanticAgentGrounding::SemanticAgentGrounding(const std::vector<std::string>& pNames)
-  : SemanticGrounding(SemanticGroudingType::AGENT),
+  : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(namesToUserId(pNames)),
     nameInfos(pNames)
 {

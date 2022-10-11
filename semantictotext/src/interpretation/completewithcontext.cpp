@@ -91,7 +91,7 @@ void _replaceAnnotationSpecificationCoreferenceByTheActualValue(UniqueSemanticEx
 void _removeFirstRequestGrdExp(GroundedExpression& pGrdExp)
 {
   auto& grd = pGrdExp.grounding();
-  if (grd.type == SemanticGroudingType::STATEMENT)
+  if (grd.type == SemanticGroundingType::STATEMENT)
     grd.getStatementGrounding().requests.removeFirst();
 }
 
@@ -275,7 +275,7 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
 {
   switch (pGrdExp->type)
   {
-  case  SemanticGroudingType::STATEMENT:
+  case  SemanticGroundingType::STATEMENT:
   {
     const SemanticStatementGrounding& answStatement = pGrdExp->getStatementGrounding();
     if (!answStatement.requests.empty())
@@ -327,7 +327,7 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
     }
     break;
   }
-  case  SemanticGroudingType::GENERIC:
+  case  SemanticGroundingType::GENERIC:
   {
     if (pContextRequest == SemanticRequestType::YESORNO)
     {
@@ -340,8 +340,8 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
     }
     break;
   }
-  case SemanticGroudingType::AGENT:
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::AGENT:
+  case SemanticGroundingType::NAME:
   {
     if (pContextRequest != SemanticRequestType::YESORNO &&
         pContextRequest != SemanticRequestType::TIME)
@@ -351,7 +351,7 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
     }
     break;
   }
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
   {
     if (pContextRequest == SemanticRequestType::TIME)
     {
@@ -360,17 +360,17 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
     }
     break;
   }
-  case SemanticGroudingType::DURATION:
-  case SemanticGroudingType::LANGUAGE:
-  case SemanticGroudingType::RELATIVELOCATION:
-  case SemanticGroudingType::RELATIVETIME:
-  case SemanticGroudingType::RELATIVEDURATION:
-  case SemanticGroudingType::RESOURCE:
-  case SemanticGroudingType::LENGTH:
-  case SemanticGroudingType::META:
-  case SemanticGroudingType::TEXT:
-  case SemanticGroudingType::CONCEPTUAL:
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::DURATION:
+  case SemanticGroundingType::LANGUAGE:
+  case SemanticGroundingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVEDURATION:
+  case SemanticGroundingType::RESOURCE:
+  case SemanticGroundingType::LENGTH:
+  case SemanticGroundingType::META:
+  case SemanticGroundingType::TEXT:
+  case SemanticGroundingType::CONCEPTUAL:
+  case SemanticGroundingType::UNITY:
     break;
   }
   return false;
@@ -485,7 +485,7 @@ const SemanticExpression* _getSemExpIfCompatibleWithTheEntityType(const Semantic
           contextObjGenGr->referenceType == SemanticReferenceType::DEFINITE)
         return &pContextSemExp;
     }
-    else if (contextGrd.type == SemanticGroudingType::STATEMENT)
+    else if (contextGrd.type == SemanticGroundingType::STATEMENT)
     {
       if (pGenGrd.concepts.empty() &&
           pGramParentLink != GrammaticalType::LOCATION &&
@@ -500,15 +500,15 @@ const SemanticExpression* _getSemExpIfCompatibleWithTheEntityType(const Semantic
           pGenGrd.entityType == SemanticEntityType::HUMAN ||
           pGenGrd.entityType == SemanticEntityType::SENTENCE)
       {
-        if (contextGrd.type == SemanticGroudingType::NAME ||
-            contextGrd.type == SemanticGroudingType::AGENT ||
-            contextGrd.type == SemanticGroudingType::RESOURCE)
+        if (contextGrd.type == SemanticGroundingType::NAME ||
+            contextGrd.type == SemanticGroundingType::AGENT ||
+            contextGrd.type == SemanticGroundingType::RESOURCE)
           return &pContextSemExp;
       }
       else
       {
-        if (contextGrd.type == SemanticGroudingType::NAME ||
-            contextGrd.type == SemanticGroudingType::AGENT)
+        if (contextGrd.type == SemanticGroundingType::NAME ||
+            contextGrd.type == SemanticGroundingType::AGENT)
           return nullptr;
         const auto* contextStatGrdPtr = contextGrd.getStatementGroundingPtr();
         if (contextStatGrdPtr != nullptr &&
@@ -528,7 +528,7 @@ void _tryToCompleteInputQuestion(UniqueSemanticExpression& pSemExp,
 {
   GroundedExpression* currGrdExp = pSemExp->getGrdExpPtr_SkipWrapperPtrs();
   if (currGrdExp != nullptr &&
-      currGrdExp->grounding().type == SemanticGroudingType::STATEMENT &&
+      currGrdExp->grounding().type == SemanticGroundingType::STATEMENT &&
       currGrdExp->children.empty())
   {
     const SemanticStatementGrounding& statGrd = (*currGrdExp)->getStatementGrounding();
@@ -572,7 +572,7 @@ bool _mergeSemExp
     return false;
   const GroundedExpression& contextGrdExp = *contextGrdExpPtr;
 
-  if (contextGrdExp->type == SemanticGroudingType::STATEMENT)
+  if (contextGrdExp->type == SemanticGroundingType::STATEMENT)
   {
     const SemanticStatementGrounding& contextStatementGr = contextGrdExp->getStatementGrounding();
     if (!pSameAuthor && !contextStatementGr.requests.empty())
@@ -628,7 +628,7 @@ bool _mergeSemExp
     return true;
   }
 
-  if (contextGrdExp->type == SemanticGroudingType::CONCEPTUAL)
+  if (contextGrdExp->type == SemanticGroundingType::CONCEPTUAL)
   {
     auto itObject = contextGrdExp.children.find(GrammaticalType::OBJECT);
     if (itObject == contextGrdExp.children.end())
@@ -684,13 +684,13 @@ bool _canBeInTheSameEqualitySentence(const SemanticExpression& pSemExp1,
   const GroundedExpression* grdExp2Ptr = pSemExp2.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExp1Ptr == nullptr || grdExp2Ptr == nullptr)
     return false;
-  SemanticGroudingType grdType1 = grdExp1Ptr->grounding().type;
-  SemanticGroudingType grdType2 = grdExp2Ptr->grounding().type;
-  if (grdType1 == SemanticGroudingType::RESOURCE ||
-      grdType2 == SemanticGroudingType::RESOURCE)
+  SemanticGroundingType grdType1 = grdExp1Ptr->grounding().type;
+  SemanticGroundingType grdType2 = grdExp2Ptr->grounding().type;
+  if (grdType1 == SemanticGroundingType::RESOURCE ||
+      grdType2 == SemanticGroundingType::RESOURCE)
     return true;
-  if (grdType1 == SemanticGroudingType::STATEMENT)
-    return grdType2 == SemanticGroudingType::STATEMENT;
+  if (grdType1 == SemanticGroundingType::STATEMENT)
+    return grdType2 == SemanticGroundingType::STATEMENT;
 
   SemanticEntityType objectEntityType = SemExpGetter::getEntity(pSemExp1);
   SemanticEntityType contextEntityType = SemExpGetter::getEntity(pSemExp2);
@@ -704,7 +704,7 @@ bool _hasToReplaceAndThenByQuestionWhatHappenedJustAfterThan
 {
   const GroundedExpression* contextGrdExp = pContextSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (contextGrdExp != nullptr &&
-      contextGrdExp->grounding().type == SemanticGroudingType::STATEMENT)
+      contextGrdExp->grounding().type == SemanticGroundingType::STATEMENT)
   {
     const SemanticStatementGrounding& contextStatementGr = (*contextGrdExp)->getStatementGrounding();
     if (!pSameAuthor && contextStatementGr.requests.empty() &&
@@ -732,7 +732,7 @@ void _replaceRecentFromContext_fromSemExp
     GroundedExpression& grdExp = pSemExp->getGrdExp();
     switch (grdExp->type)
     {
-    case SemanticGroudingType::GENERIC:
+    case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
       if (genGrd.coreference &&
@@ -797,7 +797,7 @@ void _replaceRecentFromContext_fromSemExp
       }
       break;
     }
-    case SemanticGroudingType::STATEMENT:
+    case SemanticGroundingType::STATEMENT:
     {
       SemanticStatementGrounding& statGrd = grdExp->getStatementGrounding();
       pFatherGrdExpOfStatementPtr = &grdExp;
@@ -828,7 +828,7 @@ void _replaceRecentFromContext_fromSemExp
       }
       break;
     }
-    case SemanticGroudingType::RELATIVETIME:
+    case SemanticGroundingType::RELATIVETIME:
     {
       auto itSpecificationChild = grdExp.children.find(GrammaticalType::SPECIFIER);
       if (itSpecificationChild != grdExp.children.end())

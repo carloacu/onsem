@@ -21,8 +21,8 @@ struct ONSEM_TEXTTOSEMANTIC_API GroundedExpression : public SemanticExpression,
 {
   // Constructors
   GroundedExpression();
-  template<typename TGROUDING>
-  GroundedExpression(std::unique_ptr<TGROUDING> pGrounding);
+  template<typename TGROUNDING>
+  GroundedExpression(std::unique_ptr<TGROUNDING> pGrounding);
 
   GroundedExpression(const GroundedExpression&) = delete;
   GroundedExpression& operator=(const GroundedExpression&) = delete;
@@ -38,8 +38,8 @@ struct ONSEM_TEXTTOSEMANTIC_API GroundedExpression : public SemanticExpression,
 
   // Setters
   /// Sets the current grounding to the provided grounding.
-  template<typename TGROUDING>
-  void moveGrounding(std::unique_ptr<TGROUDING> pGrounding);
+  template<typename TGROUNDING>
+  void moveGrounding(std::unique_ptr<TGROUNDING> pGrounding);
 
 
   // Getters

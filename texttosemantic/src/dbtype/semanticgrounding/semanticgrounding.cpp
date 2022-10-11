@@ -5,41 +5,41 @@
 namespace onsem
 {
 
-std::unique_ptr<SemanticGrounding> SemanticGrounding::make(SemanticGroudingType pType)
+std::unique_ptr<SemanticGrounding> SemanticGrounding::make(SemanticGroundingType pType)
 {
   switch (pType)
   {
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
     return mystd::make_unique<SemanticAgentGrounding>();
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
     return mystd::make_unique<SemanticGenericGrounding>();
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
     return mystd::make_unique<SemanticStatementGrounding>();
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
     return mystd::make_unique<SemanticTimeGrounding>();
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
     return mystd::make_unique<SemanticTextGrounding>("");
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
     return mystd::make_unique<SemanticDurationGrounding>();
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
     return mystd::make_unique<SemanticLanguageGrounding>(SemanticLanguageEnum::UNKNOWN);
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
     return mystd::make_unique<SemanticRelativeLocationGrounding>(SemanticRelativeLocationType::L_ABOVE);
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
     return mystd::make_unique<SemanticRelativeTimeGrounding>(SemanticRelativeTimeType::AFTER);
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
     return mystd::make_unique<SemanticRelativeDurationGrounding>(SemanticRelativeDurationType::UNTIL);
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
     return mystd::make_unique<SemanticResourceGrounding>("", SemanticLanguageEnum::UNKNOWN, "");
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
     return mystd::make_unique<SemanticLengthGrounding>();
-  case SemanticGroudingType::META:
-    return mystd::make_unique<SemanticMetaGrounding>(SemanticGroudingType::META, 0);
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::META:
+    return mystd::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0);
+  case SemanticGroundingType::NAME:
     return mystd::make_unique<SemanticNameGrounding>("");
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
     return mystd::make_unique<SemanticConceptualGrounding>();
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
     return mystd::make_unique<SemanticUnityGrounding>(SemanticLengthUnity::CENTIMETER);
   }
 
@@ -260,37 +260,37 @@ bool SemanticGrounding::operator==(const SemanticGrounding& pOther) const
 
   switch (type)
   {
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
     return getAgentGrounding().isEqual(pOther.getAgentGrounding());
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
     return getGenericGrounding().isEqual(pOther.getGenericGrounding());
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
     return getStatementGrounding().isEqual(pOther.getStatementGrounding());
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
     return getTimeGrounding().isEqual(pOther.getTimeGrounding());
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
     return getTextGrounding().isEqual(pOther.getTextGrounding());
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
     return getDurationGrounding().isEqual(pOther.getDurationGrounding());
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
     return getLanguageGrounding().isEqual(pOther.getLanguageGrounding());
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
     return getRelLocationGrounding().isEqual(pOther.getRelLocationGrounding());
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
     return getRelTimeGrounding().isEqual(pOther.getRelTimeGrounding());
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
     return getRelDurationGrounding().isEqual(pOther.getRelDurationGrounding());
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
     return getResourceGrounding().isEqual(pOther.getResourceGrounding());
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
     return getLengthGrounding().isEqual(pOther.getLengthGrounding());
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
     return getMetaGrounding().isEqual(pOther.getMetaGrounding());
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
     return getNameGrounding().isEqual(pOther.getNameGrounding());
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
     return getConceptualGrounding().isEqual(pOther.getConceptualGrounding());
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
     return getUnityGrounding().isEqual(pOther.getUnityGrounding());
   }
   assert(false);

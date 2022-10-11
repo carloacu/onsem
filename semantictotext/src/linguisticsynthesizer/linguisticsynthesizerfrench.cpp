@@ -286,7 +286,7 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerFrench::_getOb
     const SemanticGrounding& objectGrd = objectGrdExp.grounding();
     switch (objectGrd.type)
     {
-    case SemanticGroudingType::STATEMENT:
+    case SemanticGroundingType::STATEMENT:
     {
       const SemanticStatementGrounding& objectStatGrd = objectGrdExp->getStatementGrounding();
       if (objectStatGrd.isAtInfinitive() &&
@@ -316,12 +316,12 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerFrench::_getOb
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
       return LinguisticSynthesizerPrivate::ObjectPosition::AFTERVERB;
     }
-    case SemanticGroudingType::GENERIC:
+    case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd = objectGrd.getGenericGrounding();
       return getObjPositionOfGenericGrd(genGrd);
     }
-    case SemanticGroudingType::AGENT:
+    case SemanticGroundingType::AGENT:
     {
       const SemanticAgentGrounding& agentGrd = objectGrd.getAgentGrounding();
       if (_syntGrounding.agentTypeToRelativePerson(agentGrd, pConf, true) != RelativePerson::THIRD_SING &&
@@ -353,12 +353,12 @@ bool LinguisticSynthesizerFrench::_putReceiverBeforeVerb
       return false;
     switch (objectGrd.type)
     {
-    case SemanticGroudingType::GENERIC:
+    case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd = objectGrd.getGenericGrounding();
       return _doWeNeedToPutObjectGenGrdBeforeVerb(genGrd, pRequests);
     }
-    case SemanticGroudingType::AGENT:
+    case SemanticGroundingType::AGENT:
     {
       const SemanticAgentGrounding& agentGrd = objectGrd.getAgentGrounding();
       if (pRequests.has(SemanticRequestType::ACTION) && !pVerbIsAffirmative)
@@ -366,7 +366,7 @@ bool LinguisticSynthesizerFrench::_putReceiverBeforeVerb
       return _syntGrounding.agentTypeToRelativePerson(agentGrd, pConf, true) != RelativePerson::THIRD_SING &&
           !pRequests.has(SemanticRequestType::ACTION);
     }
-    case SemanticGroudingType::NAME:
+    case SemanticGroundingType::NAME:
       return false;
     default:
       return !pRequests.has(SemanticRequestType::ACTION);
@@ -833,23 +833,23 @@ bool LinguisticSynthesizerFrench::_doWeHaveToWriteBeginOfSpecifier
       pInflWord.word.partOfSpeech == PartOfSpeech::PROPER_NOUN &&
       SemExpGetter::getReferenceTypeFromGrd(*pGrdExpOfTheWord) != SemanticReferenceType::DEFINITE)
     return false;
-  if (pMotherGrounding.type == SemanticGroudingType::RELATIVETIME &&
+  if (pMotherGrounding.type == SemanticGroundingType::RELATIVETIME &&
       pInflWord.word.partOfSpeech == PartOfSpeech::VERB)
     return true;
-  if (pMotherGrounding.type == SemanticGroudingType::GENERIC)
+  if (pMotherGrounding.type == SemanticGroundingType::GENERIC)
   {
     auto genGrdPtr = pMotherGrounding.getGenericGroundingPtr();
     if (genGrdPtr->entityType == SemanticEntityType::NUMBER)
       return false;
   }
-  if (pMotherGrounding.type == SemanticGroudingType::RELATIVEDURATION ||
-      pMotherGrounding.type == SemanticGroudingType::RELATIVELOCATION ||
-      pMotherGrounding.type == SemanticGroudingType::RELATIVETIME)
+  if (pMotherGrounding.type == SemanticGroundingType::RELATIVEDURATION ||
+      pMotherGrounding.type == SemanticGroundingType::RELATIVELOCATION ||
+      pMotherGrounding.type == SemanticGroundingType::RELATIVETIME)
     return false;
   if (partOfSpeech_isNominal(pInflWord.word.partOfSpeech) && !pInflWord.word.isEmpty())
     return true;
   const auto& grdOfTheWord = pGrdExpOfTheWord.grounding();
-  if (grdOfTheWord.type == SemanticGroudingType::STATEMENT)
+  if (grdOfTheWord.type == SemanticGroundingType::STATEMENT)
   {
     auto itObject = pGrdExpOfTheWord.children.find(GrammaticalType::OBJECT);
     if (itObject != pGrdExpOfTheWord.children.end() &&
@@ -863,8 +863,8 @@ bool LinguisticSynthesizerFrench::_doWeHaveToWriteBeginOfSpecifier
 
     pGrdContext.isASubordinateWithoutPreposition = true;
   }
-  return grdOfTheWord.type == SemanticGroudingType::AGENT ||
-      grdOfTheWord.type == SemanticGroudingType::META;
+  return grdOfTheWord.type == SemanticGroundingType::AGENT ||
+      grdOfTheWord.type == SemanticGroundingType::META;
 }
 
 

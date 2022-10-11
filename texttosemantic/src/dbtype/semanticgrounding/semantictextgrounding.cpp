@@ -8,7 +8,7 @@ SemanticTextGrounding::SemanticTextGrounding
 (const std::string& pText,
  SemanticLanguageEnum pForLanguage,
  bool pHasQuotationMark)
-  : SemanticGrounding(SemanticGroudingType::TEXT),
+  : SemanticGrounding(SemanticGroundingType::TEXT),
     text(pText),
     forLanguage(pForLanguage),
     hasQuotationMark(pHasQuotationMark)

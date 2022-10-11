@@ -50,7 +50,7 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
     // if it's a
     const GroundedExpression* childGrdExp = pCurrMemChild.second->getGrdExpPtr_SkipWrapperPtrs();
     if (childGrdExp != nullptr &&
-        (*childGrdExp)->type == SemanticGroudingType::META)
+        (*childGrdExp)->type == SemanticGroundingType::META)
     {
       int idParam = (*childGrdExp)->getMetaGroundingPtr()->paramId;
       if (idParam == SemanticMetaGrounding::returnId)
@@ -89,7 +89,7 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
     const GroundedExpression* memGrdExpChild = pCurrMemChild.second->getGrdExpPtr_SkipWrapperPtrs();
     if (memGrdExpChild != nullptr)
     {
-      if (memGrdExpChild->grounding().type == SemanticGroudingType::META)
+      if (memGrdExpChild->grounding().type == SemanticGroundingType::META)
       {
         const SemanticMetaGrounding& metaGr = (*memGrdExpChild)->getMetaGrounding();
         const SemanticExpression& childCorespondingToTheParam = *itSemExpChild->second;
@@ -260,7 +260,7 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
       const GroundedExpression* receiverGrdExp = itSemExpReceiver->second->getGrdExpPtr_SkipWrapperPtrs();
       if (receiverGrdExp != nullptr)
       {
-        if (receiverGrdExp->grounding().type == SemanticGroudingType::AGENT)
+        if (receiverGrdExp->grounding().type == SemanticGroundingType::AGENT)
         {
           const SemanticAgentGrounding& agentGrd = (*receiverGrdExp)->getAgentGrounding();
           if (agentGrd.userId != SemanticAgentGrounding::me &&

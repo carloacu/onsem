@@ -919,7 +919,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
 
         if (_language == SemanticLanguageEnum::FRENCH)
         {
-          if (grdExpChild->type != SemanticGroudingType::STATEMENT &&
+          if (grdExpChild->type != SemanticGroundingType::STATEMENT &&
               ConceptSet::haveAConcept(grdExpChild->concepts, "manner_well"))
             outSE = &sentWorkStruct.outs.mannerBetweenAuxAndVerb;
         }
@@ -971,7 +971,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
       OutSemExp* outSE = &sentWorkStruct.outs.time;
       const GroundedExpression* timeGrdExpPtr = currSemExpChild.getGrdExpPtr_SkipWrapperPtrs();
       if (timeGrdExpPtr != nullptr &&
-          timeGrdExpPtr->grounding().type != SemanticGroudingType::STATEMENT &&
+          timeGrdExpPtr->grounding().type != SemanticGroundingType::STATEMENT &&
           originRequests.has(SemanticRequestType::TIME) &&
           childToPutBeforeSubject != nullptr)
       {
@@ -1356,8 +1356,8 @@ SemExpTypeEnumFormSynt LinguisticSynthesizerPrivate::_writeCondExp
   {
     const auto* condGrdExpPtr = pCondExp.conditionExp->getGrdExpPtr_SkipWrapperPtrs();
     if (condGrdExpPtr == nullptr ||
-        (condGrdExpPtr->grounding().type != SemanticGroudingType::RELATIVEDURATION &&
-         condGrdExpPtr->grounding().type != SemanticGroudingType::TIME))
+        (condGrdExpPtr->grounding().type != SemanticGroundingType::RELATIVEDURATION &&
+         condGrdExpPtr->grounding().type != SemanticGroundingType::TIME))
     {
       if (pCondExp.conditionPointsToAffirmations)
       {
@@ -1887,7 +1887,7 @@ void LinguisticSynthesizerPrivate::_writeEquality
     SynthesizerCurrentContext context;
     const GroundedExpression& specGrdExp = *specGrdExpPtr;
     const auto& specGrd = specGrdExp.grounding();
-    if (specGrd.type == SemanticGroudingType::STATEMENT)
+    if (specGrd.type == SemanticGroundingType::STATEMENT)
       return;
     const Linguisticsynthesizergrounding& grdSynth = getSyntGrounding();
     linguistics::InflectedWord outInfoGram;
@@ -1991,7 +1991,7 @@ void LinguisticSynthesizerPrivate::_writeSomeModifiersOfAWord
     linguistics::InflectedWord outInfoGram;
     const SemanticGrounding& modifierGrd = modifierGrdExp.grounding();
     SynthesizerCurrentContext grdContext(pContext);
-    grdContext.isParentARelativeGrounding = semanticGroudingsType_isRelativeType(pMotherGrdExp.grounding().type);
+    grdContext.isParentARelativeGrounding = semanticGroundingsType_isRelativeType(pMotherGrdExp.grounding().type);
     grdContext.grammaticalTypeFromParent = GrammaticalType::SPECIFIER;
     SynthesizerWordContext wordContext;
     grdSynth.modifyContextForAGrounding(wordContext, outInfoGram, pConf, modifierGrd,
@@ -2112,12 +2112,12 @@ RelativePerson LinguisticSynthesizerPrivate::_grdExpToRelativePerson
 
   switch (pGrdExp.grounding().type)
   {
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     return getSyntGrounding().agentTypeToRelativePerson
         (pGrdExp->getAgentGrounding(), pConf, !pIsANameAssignement);
   }
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     const SemanticGenericGrounding& genGrd = pGrdExp->getGenericGrounding();
     return (genGrd.entityType != SemanticEntityType::NUMBER && genGrd.quantity.isPlural()) ?

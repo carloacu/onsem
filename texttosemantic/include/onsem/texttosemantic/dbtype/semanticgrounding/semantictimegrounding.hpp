@@ -47,7 +47,7 @@ private:
 struct ONSEM_TEXTTOSEMANTIC_API SemanticTimeGrounding : public SemanticGrounding
 {
   SemanticTimeGrounding()
-    : SemanticGrounding(SemanticGroudingType::TIME),
+    : SemanticGrounding(SemanticGroundingType::TIME),
       date(),
       timeOfDay(),
       length()

@@ -39,7 +39,7 @@ std::unique_ptr<SemanticGrounding> GroundedExpression::cloneGrounding(const Inde
 {
   switch (_grounding->type)
   {
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
   {
     const SemanticGenericGrounding& genGrd = _grounding->getGenericGrounding();
     if (pParams != nullptr)
@@ -64,35 +64,35 @@ std::unique_ptr<SemanticGrounding> GroundedExpression::cloneGrounding(const Inde
     }
     return mystd::make_unique<SemanticGenericGrounding>(genGrd);
   }
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
     return mystd::make_unique<SemanticStatementGrounding>(_grounding->getStatementGrounding());
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
     return mystd::make_unique<SemanticAgentGrounding>(_grounding->getAgentGrounding());
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
     return mystd::make_unique<SemanticTimeGrounding>(_grounding->getTimeGrounding());
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
     return mystd::make_unique<SemanticTextGrounding>(_grounding->getTextGrounding());
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
     return mystd::make_unique<SemanticDurationGrounding>(_grounding->getDurationGrounding());
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
     return mystd::make_unique<SemanticLanguageGrounding>(_grounding->getLanguageGrounding());
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
     return mystd::make_unique<SemanticRelativeLocationGrounding>(_grounding->getRelLocationGrounding());
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
     return mystd::make_unique<SemanticRelativeTimeGrounding>(_grounding->getRelTimeGrounding());
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
     return mystd::make_unique<SemanticRelativeDurationGrounding>(_grounding->getRelDurationGrounding());
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
     return mystd::make_unique<SemanticResourceGrounding>(_grounding->getResourceGrounding());
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
     return mystd::make_unique<SemanticLengthGrounding>(_grounding->getLengthGrounding());
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
     return mystd::make_unique<SemanticMetaGrounding>(_grounding->getMetaGrounding());
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
     return mystd::make_unique<SemanticNameGrounding>(_grounding->getNameGrounding());
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
     return mystd::make_unique<SemanticConceptualGrounding>(_grounding->getConceptualGrounding());
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
     return mystd::make_unique<SemanticUnityGrounding>(_grounding->getUnityGrounding());
   }
   assert(false);

@@ -267,7 +267,7 @@ bool isAResourceOrAText(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool hasGroundingType(const SemanticExpression& pSemExp,
-                      const std::set<SemanticGroudingType>& pGroundingType);
+                      const std::set<SemanticGroundingType>& pGroundingType);
 
 ONSEM_TEXTTOSEMANTIC_API
 SemanticRequestType getMainRequestTypeFromGrdExp(const GroundedExpression& pGrdExp);

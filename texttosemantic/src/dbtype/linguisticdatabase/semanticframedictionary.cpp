@@ -326,7 +326,7 @@ bool _doesConceptConditionMatchWithGrounding(const LinguisticConditionTreeValue&
     const auto& concept = pConditionValue.parameters.front();
     switch (pGrounding.type)
     {
-    case SemanticGroudingType::TIME:
+    case SemanticGroundingType::TIME:
     {
       if (pBeginOfConceptOrConceptWithHyponyms)
       {
@@ -339,9 +339,9 @@ bool _doesConceptConditionMatchWithGrounding(const LinguisticConditionTreeValue&
       }
       return false;
     }
-    case SemanticGroudingType::DURATION:
+    case SemanticGroundingType::DURATION:
       return concept == "duration_";
-    case SemanticGroudingType::LANGUAGE:
+    case SemanticGroundingType::LANGUAGE:
       return concept == "language_";
     default:
     {

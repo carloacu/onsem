@@ -190,7 +190,7 @@ PartOfSpeech getMainPartOfSpeech(const SemanticExpression& pSemExp)
     const SemanticGenericGrounding* genGrdPtr = grdExpPtr->grounding().getGenericGroundingPtr();
     if (genGrdPtr != nullptr)
       return genGrdPtr->word.partOfSpeech;
-    if (grdExpPtr->grounding().type == SemanticGroudingType::NAME)
+    if (grdExpPtr->grounding().type == SemanticGroundingType::NAME)
       return PartOfSpeech::PROPER_NOUN;
   }
   return PartOfSpeech::UNKNOWN;
@@ -290,7 +290,7 @@ SemanticLanguageEnum getLanguage(const std::map<GrammaticalType, UniqueSemanticE
   {
     const GroundedExpression* langGrdExpPtr = languageChild->second->getGrdExpPtr_SkipWrapperPtrs();
     if (langGrdExpPtr != nullptr &&
-        langGrdExpPtr->grounding().type == SemanticGroudingType::LANGUAGE)
+        langGrdExpPtr->grounding().type == SemanticGroundingType::LANGUAGE)
       return langGrdExpPtr->grounding().getLanguageGrounding().language;
   }
   return SemanticLanguageEnum::UNKNOWN;
@@ -300,7 +300,7 @@ SemanticLanguageEnum getLanguage(const std::map<GrammaticalType, UniqueSemanticE
 mystd::optional<int> getNumberOfElementsFromGrdExp(const GroundedExpression& pGrdExp)
 {
   mystd::optional<int> res;
-  if (pGrdExp->type == SemanticGroudingType::GENERIC)
+  if (pGrdExp->type == SemanticGroundingType::GENERIC)
   {
     const SemanticQuantity& repetitionQuantity = pGrdExp->getGenericGrounding().quantity;
     if (repetitionQuantity.type == SemanticQuantityType::NUMBER)
@@ -406,7 +406,7 @@ const SemanticRequests* getRequestList
 (const GroundedExpression& pGrdExp)
 {
   auto& grd = pGrdExp.grounding();
-  if (grd.type == SemanticGroudingType::STATEMENT)
+  if (grd.type == SemanticGroundingType::STATEMENT)
   {
     auto& res = grd.getStatementGrounding().requests;
     if (!res.empty())
@@ -419,7 +419,7 @@ SemanticRequests* getRequestList
 (GroundedExpression& pGrdExp)
 {
   auto& grd = pGrdExp.grounding();
-  if (grd.type == SemanticGroudingType::STATEMENT)
+  if (grd.type == SemanticGroundingType::STATEMENT)
   {
     auto& res = grd.getStatementGrounding().requests;
     if (!res.empty())
@@ -628,7 +628,7 @@ bool doesSemExpCanBeCompletedWithContext(const SemanticExpression& pSemExp)
 {
   auto* grdExpPtr = pSemExp.getGrdExpPtr();
   return grdExpPtr == nullptr ||
-      grdExpPtr->grounding().type != SemanticGroudingType::AGENT;
+      grdExpPtr->grounding().type != SemanticGroundingType::AGENT;
 }
 
 
@@ -951,7 +951,7 @@ bool doSemExpHoldUserId
   const GroundedExpression* grdExp = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExp != nullptr)
   {
-    return grdExp->grounding().type == SemanticGroudingType::AGENT &&
+    return grdExp->grounding().type == SemanticGroundingType::AGENT &&
         (*grdExp)->getAgentGrounding().userId == pUserId;
   }
   const ListExpression* listExp = pSemExp.getListExpPtr();
@@ -1028,7 +1028,7 @@ bool semExphasAStatementGrd(const SemanticExpression& pSemExp)
   {
   case SemanticExpressionType::GROUNDED:
   {
-    return pSemExp.getGrdExp()->type == SemanticGroudingType::STATEMENT;
+    return pSemExp.getGrdExp()->type == SemanticGroundingType::STATEMENT;
   }
   case SemanticExpressionType::INTERPRETATION:
   {
@@ -1153,7 +1153,7 @@ bool semExpHasACoreferenceOrAnAgent(const SemanticExpression& pSemExp)
     auto* cptPtr = grd.getConceptualGroundingPtr();
     if (cptPtr != nullptr)
       return ConceptSet::haveAConcept(cptPtr->concepts, "tolink_1p");
-    return grd.type == SemanticGroudingType::AGENT;
+    return grd.type == SemanticGroundingType::AGENT;
   }
   else
   {
@@ -1171,7 +1171,7 @@ bool isAHumanFromGrd(const SemanticGrounding& pGrd)
   const SemanticGenericGrounding* genGrd = pGrd.getGenericGroundingPtr();
   if (genGrd != nullptr)
     return genGrd->entityType == SemanticEntityType::HUMAN;
-  return pGrd.type == SemanticGroudingType::AGENT;
+  return pGrd.type == SemanticGroundingType::AGENT;
 }
 
 bool isASpecificHuman(const SemanticGenericGrounding& pGenGrd)
@@ -1192,7 +1192,7 @@ bool isASpecificHumanFromGrdExp(const GroundedExpression& pGrdExp)
 
 bool isAResourceFromGrdExp(const GroundedExpression& pGrdExp)
 {
-  return pGrdExp->type == SemanticGroudingType::RESOURCE;
+  return pGrdExp->type == SemanticGroundingType::RESOURCE;
 }
 
 bool isAResource(const SemanticExpression& pSemExp)
@@ -1206,8 +1206,8 @@ bool isAResource(const SemanticExpression& pSemExp)
 
 bool isAResourceOrATextFromGrdExp(const GroundedExpression& pGrdExp)
 {
-  return pGrdExp->type == SemanticGroudingType::RESOURCE ||
-      pGrdExp->type == SemanticGroudingType::TEXT;
+  return pGrdExp->type == SemanticGroundingType::RESOURCE ||
+      pGrdExp->type == SemanticGroundingType::TEXT;
 }
 
 bool isAResourceOrAText(const SemanticExpression& pSemExp)
@@ -1220,7 +1220,7 @@ bool isAResourceOrAText(const SemanticExpression& pSemExp)
 
 
 bool hasGroundingType(const SemanticExpression& pSemExp,
-                      const std::set<SemanticGroudingType>& pGroundingType)
+                      const std::set<SemanticGroundingType>& pGroundingType)
 {
   const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
@@ -2107,7 +2107,7 @@ void getStatementSubordinates(std::set<const SemanticExpression*>& pStatementSub
   {
     auto& grdExp = *grdExpPtr;
     if (pSearchOnRootSemExp &&
-        grdExp->type == SemanticGroudingType::STATEMENT)
+        grdExp->type == SemanticGroundingType::STATEMENT)
       pStatementSubordinates.insert(&pSemExp);
 
     auto itSpec = grdExp.children.find(GrammaticalType::SPECIFIER);
@@ -2136,8 +2136,8 @@ std::unique_ptr<GroundedExpression> getASimplifiedVersionFromGrdExp(
     const GroundedExpression& pGrdExp)
 {
   auto res = mystd::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
-  if (pGrdExp->type != SemanticGroudingType::AGENT &&
-      pGrdExp->type != SemanticGroudingType::NAME)
+  if (pGrdExp->type != SemanticGroundingType::AGENT &&
+      pGrdExp->type != SemanticGroundingType::NAME)
     for (const auto& currChild : pGrdExp.children)
       res->children.emplace(currChild.first, getASimplifiedVersion(*currChild.second));
   return res;

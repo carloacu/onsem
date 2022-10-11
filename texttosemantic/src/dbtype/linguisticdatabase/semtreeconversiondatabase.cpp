@@ -444,7 +444,7 @@ void SemExpTreeConversionDatabase::xFillNode
     std::string valStr = currAttribute.second.get_value<std::string>();
     if (attrName == "grounding")
     {
-      pCurrNode.groundingType = semanticGroudingsType_fromStr(valStr);
+      pCurrNode.groundingType = semanticGroundingsType_fromStr(valStr);
     }
     else if (attrName == "id")
     {
@@ -494,7 +494,7 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "request")
     {
       if (!pCurrNode.groundingType ||
-          pCurrNode.groundingType != SemanticGroudingType::STATEMENT)
+          pCurrNode.groundingType != SemanticGroundingType::STATEMENT)
       {
         xWriteErrorMsg("\"notRequest\" can only be set inside a statement grounding");
       }
@@ -512,7 +512,7 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "notRequest")
     {
       if (!pCurrNode.groundingType ||
-          pCurrNode.groundingType != SemanticGroudingType::STATEMENT)
+          pCurrNode.groundingType != SemanticGroundingType::STATEMENT)
       {
         xWriteErrorMsg("\"notRequest\" can only be set inside a statement grounding");
       }
@@ -529,7 +529,7 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "time")
     {
       if (!pCurrNode.groundingType ||
-          pCurrNode.groundingType != SemanticGroudingType::STATEMENT)
+          pCurrNode.groundingType != SemanticGroundingType::STATEMENT)
       {
         xWriteErrorMsg("\"time\" can only be set inside a statement grounding");
       }
@@ -539,7 +539,7 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "type")
     {
       if (!pCurrNode.groundingType ||
-          pCurrNode.groundingType != SemanticGroudingType::GENERIC)
+          pCurrNode.groundingType != SemanticGroundingType::GENERIC)
       {
         xWriteErrorMsg("\"type\" can only be set inside a generic grounding");
       }
@@ -549,7 +549,7 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "notType")
     {
       if (!pCurrNode.groundingType ||
-          pCurrNode.groundingType != SemanticGroudingType::GENERIC)
+          pCurrNode.groundingType != SemanticGroundingType::GENERIC)
       {
         xWriteErrorMsg("\"notType\" can only be set inside a generic grounding");
       }
@@ -567,8 +567,8 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "reference")
     {
       if (!pCurrNode.groundingType ||
-          (pCurrNode.groundingType != SemanticGroudingType::GENERIC &&
-           pCurrNode.groundingType != SemanticGroudingType::AGENT))
+          (pCurrNode.groundingType != SemanticGroundingType::GENERIC &&
+           pCurrNode.groundingType != SemanticGroundingType::AGENT))
       {
         xWriteErrorMsg("\"reference\" can only be set inside a generic or an agent grounding");
       }
@@ -577,8 +577,8 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "word")
     {
       if (!pCurrNode.groundingType ||
-          (pCurrNode.groundingType != SemanticGroudingType::GENERIC &&
-           pCurrNode.groundingType != SemanticGroudingType::STATEMENT))
+          (pCurrNode.groundingType != SemanticGroundingType::GENERIC &&
+           pCurrNode.groundingType != SemanticGroundingType::STATEMENT))
       {
         xWriteErrorMsg("\"word\" can only be set inside a generic or a statement grounding");
       }
@@ -610,7 +610,7 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "timeType")
     {
       if (!pCurrNode.groundingType ||
-          (pCurrNode.groundingType != SemanticGroudingType::RELATIVETIME))
+          (pCurrNode.groundingType != SemanticGroundingType::RELATIVETIME))
       {
         xWriteErrorMsg("\"timeType\" can only be set inside a relative time grounding");
       }
@@ -620,7 +620,7 @@ void SemExpTreeConversionDatabase::xFillNode
     else if (attrName == "hasToBeCompletedFromContext")
     {
       if (!pCurrNode.groundingType ||
-          (pCurrNode.groundingType != SemanticGroudingType::GENERIC))
+          (pCurrNode.groundingType != SemanticGroundingType::GENERIC))
       {
         xWriteErrorMsg("\"hasToBeCompletedFromContext\" can only be set inside a generic grounding");
       }

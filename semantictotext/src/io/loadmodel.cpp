@@ -324,7 +324,7 @@ std::unique_ptr<SemanticResourceGrounding> _loadResourceGrd(const boost::propert
 std::unique_ptr<SemanticMetaGrounding> _loadMetaGrd(const boost::property_tree::ptree& pTree)
 {
   auto res = mystd::make_unique<SemanticMetaGrounding>
-      (semanticGroudingsType_fromStr(pTree.get<std::string>("refToType")),
+      (semanticGroundingsType_fromStr(pTree.get<std::string>("refToType")),
        pTree.get<int>("paramId"), pTree.get<std::string>("attibuteName"));
   _loadGrd(*res, pTree);
   return res;
@@ -349,39 +349,39 @@ std::unique_ptr<SemanticUnityGrounding> _loadUnityGrd(const boost::property_tree
 
 std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::ptree& pTree)
 {
-  switch (semanticGroudingsType_fromStr(pTree.get<std::string>("type", semanticGroudingsType_toStr(SemanticGroudingType::GENERIC))))
+  switch (semanticGroundingsType_fromStr(pTree.get<std::string>("type", semanticGroundingsType_toStr(SemanticGroundingType::GENERIC))))
   {
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
     return _loadAgentGrd(pTree);
-  case SemanticGroudingType::GENERIC:
+  case SemanticGroundingType::GENERIC:
     return _loadGenericGrd(pTree);
-  case SemanticGroudingType::STATEMENT:
+  case SemanticGroundingType::STATEMENT:
     return _loadStatementGrd(pTree);
-  case SemanticGroudingType::TIME:
+  case SemanticGroundingType::TIME:
     return _loadTimeGrd(pTree);
-  case SemanticGroudingType::TEXT:
+  case SemanticGroundingType::TEXT:
     return _loadTextGrd(pTree);
-  case SemanticGroudingType::DURATION:
+  case SemanticGroundingType::DURATION:
     return _loadDurationGrd(pTree);
-  case SemanticGroudingType::LANGUAGE:
+  case SemanticGroundingType::LANGUAGE:
     return _loadLanguageGrd(pTree);
-  case SemanticGroudingType::RELATIVELOCATION:
+  case SemanticGroundingType::RELATIVELOCATION:
     return _loadRelLocationGrd(pTree);
-  case SemanticGroudingType::RELATIVETIME:
+  case SemanticGroundingType::RELATIVETIME:
     return _loadRelTimeGrd(pTree);
-  case SemanticGroudingType::RELATIVEDURATION:
+  case SemanticGroundingType::RELATIVEDURATION:
     return _loadRelDurationGrd(pTree);
-  case SemanticGroudingType::RESOURCE:
+  case SemanticGroundingType::RESOURCE:
     return _loadResourceGrd(pTree);
-  case SemanticGroudingType::LENGTH:
+  case SemanticGroundingType::LENGTH:
     return _loadLengthGrd(pTree);
-  case SemanticGroudingType::META:
+  case SemanticGroundingType::META:
     return _loadMetaGrd(pTree);
-  case SemanticGroudingType::NAME:
+  case SemanticGroundingType::NAME:
     return _loadNameGrd(pTree);
-  case SemanticGroudingType::CONCEPTUAL:
+  case SemanticGroundingType::CONCEPTUAL:
     return _loadConceptualGrd(pTree);
-  case SemanticGroudingType::UNITY:
+  case SemanticGroundingType::UNITY:
     return _loadUnityGrd(pTree);
   }
   assert(false);

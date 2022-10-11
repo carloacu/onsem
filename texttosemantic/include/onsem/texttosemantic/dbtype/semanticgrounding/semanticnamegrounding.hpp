@@ -53,32 +53,32 @@ struct ONSEM_TEXTTOSEMANTIC_API NameInfos
 struct ONSEM_TEXTTOSEMANTIC_API SemanticNameGrounding : public SemanticGrounding
 {
   SemanticNameGrounding()
-  : SemanticGrounding(SemanticGroudingType::NAME),
+  : SemanticGrounding(SemanticGroundingType::NAME),
     nameInfos()
   {
   }
 
   SemanticNameGrounding(const std::string& pName)
-  : SemanticGrounding(SemanticGroudingType::NAME),
+  : SemanticGrounding(SemanticGroundingType::NAME),
     nameInfos(pName)
   {
   }
 
   SemanticNameGrounding(const std::vector<std::string>& pNames)
-  : SemanticGrounding(SemanticGroudingType::NAME),
+  : SemanticGrounding(SemanticGroundingType::NAME),
     nameInfos(pNames)
   {
   }
 
   SemanticNameGrounding(const std::list<std::string>& pNames)
-  : SemanticGrounding(SemanticGroudingType::NAME),
+  : SemanticGrounding(SemanticGroundingType::NAME),
     nameInfos(pNames)
   {
   }
 
   SemanticNameGrounding(const std::string& pName,
                         const std::string& pUserId)
-  : SemanticGrounding(SemanticGroudingType::NAME),
+  : SemanticGrounding(SemanticGroundingType::NAME),
     nameInfos(pName)
   {
     concepts.emplace("agent_userId_" + pUserId, 4);

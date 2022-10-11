@@ -100,7 +100,7 @@ void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
   case SemanticExpressionType::GROUNDED:
   {
     GroundedExpression& grdExp = pSemExp->getGrdExp();
-    if (grdExp->type == SemanticGroudingType::STATEMENT)
+    if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
       const SemanticStatementGrounding& statGr = grdExp->getStatementGrounding();
       if (!statGr.requests.empty())
@@ -496,7 +496,7 @@ void StaticTreeConverter::xPrintAPatternNode
 {
   if (pRootPattern.groundingType)
   {
-    pSs << " grounding(" << semanticGroudingsType_toStr(*pRootPattern.groundingType) + ")";
+    pSs << " grounding(" << semanticGroundingsType_toStr(*pRootPattern.groundingType) + ")";
   }
   if (!pRootPattern.id.empty())
   {
@@ -670,7 +670,7 @@ void StaticTreeConverter::xApplyModifsOnGrdExp
     {
       switch (*pRootPattern.groundingType)
       {
-      case SemanticGroudingType::STATEMENT:
+      case SemanticGroundingType::STATEMENT:
       {
         SemanticStatementGrounding* statGrdPtr = semExpGrd.getStatementGroundingPtr();
         if (statGrdPtr != nullptr)
@@ -687,7 +687,7 @@ void StaticTreeConverter::xApplyModifsOnGrdExp
         }
         break;
       }
-      case SemanticGroudingType::GENERIC:
+      case SemanticGroundingType::GENERIC:
       {
         SemanticGenericGrounding* genGrdPtr = semExpGrd.getGenericGroundingPtr();
         if (genGrdPtr != nullptr)
@@ -711,7 +711,7 @@ void StaticTreeConverter::xApplyModifsOnGrdExp
         }
         break;
       }
-      case SemanticGroudingType::RELATIVETIME:
+      case SemanticGroundingType::RELATIVETIME:
       {
         SemanticRelativeTimeGrounding* relTimeGrdPtr = semExpGrd.getRelTimeGroundingPtr();
         if (relTimeGrdPtr != nullptr)
@@ -923,7 +923,7 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
         {
           switch (*pCurrNode.groundingType)
           {
-          case SemanticGroudingType::STATEMENT:
+          case SemanticGroundingType::STATEMENT:
           {
             const auto* statGrd = grd.getStatementGroundingPtr();
             if (statGrd != nullptr &&
@@ -955,7 +955,7 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
             }
             break;
           }
-          case SemanticGroudingType::GENERIC:
+          case SemanticGroundingType::GENERIC:
           {
             const SemanticGenericGrounding* genGrd = grd.getGenericGroundingPtr();
             if (genGrd != nullptr)
@@ -1006,7 +1006,7 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
             }
             break;
           }
-          case SemanticGroudingType::AGENT:
+          case SemanticGroundingType::AGENT:
           {
             const SemanticAgentGrounding* agentGrd = grd.getAgentGroundingPtr();
             if (agentGrd == nullptr ||
@@ -1016,7 +1016,7 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
             }
             break;
           }
-          case SemanticGroudingType::RELATIVETIME:
+          case SemanticGroundingType::RELATIVETIME:
           {
             const SemanticRelativeTimeGrounding* relTimeGrdPtr = grd.getRelTimeGroundingPtr();
             if (relTimeGrdPtr != nullptr)

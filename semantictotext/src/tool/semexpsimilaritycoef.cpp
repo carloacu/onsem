@@ -14,7 +14,7 @@ int _getSimilarityCoefFromGrd(const SemanticGrounding& pGrdExp1,
     return 0;
   switch (pGrdExp1.type)
   {
-  case SemanticGroudingType::AGENT:
+  case SemanticGroundingType::AGENT:
   {
     const auto& agentGrd1 = pGrdExp1.getAgentGrounding();
     const auto& agentGrd2 = pGrdExp2.getAgentGrounding();

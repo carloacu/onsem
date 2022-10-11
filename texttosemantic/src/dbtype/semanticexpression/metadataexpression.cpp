@@ -168,7 +168,7 @@ UniqueSemanticExpression _constructSourceWithSpecificTime
                                  mystd::make_unique<GroundedExpression>(std::move(pReceiver)));
   grdExpSource->children.emplace(GrammaticalType::OBJECT,
                                  mystd::make_unique<GroundedExpression>
-                                 (mystd::make_unique<SemanticMetaGrounding>(SemanticGroudingType::META, 0)));
+                                 (mystd::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0)));
 
   auto res = mystd::make_unique<AnnotatedExpression>(std::move(grdExpSource));
   res->annotations.emplace(GrammaticalType::TIME,
@@ -194,7 +194,7 @@ UniqueSemanticExpression _constructSourceInPresent
                                  mystd::make_unique<GroundedExpression>(std::move(pAuthor)));
   grdExpSource->children.emplace(GrammaticalType::OBJECT,
                                  mystd::make_unique<GroundedExpression>
-                                 (mystd::make_unique<SemanticMetaGrounding>(SemanticGroudingType::META, 0)));
+                                 (mystd::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0)));
   return std::move(grdExpSource);
 }
 
