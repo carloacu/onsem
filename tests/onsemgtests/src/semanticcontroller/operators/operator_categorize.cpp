@@ -30,18 +30,24 @@ TEST_F(SemanticReasonerGTests, operator_categorize_basic)
   EXPECT_EQ(SemanticExpressionCategory::COMMAND, operator_categorize("climb", lingDb));
 
   EXPECT_EQ(SemanticExpressionCategory::EXTERNALTEACHING, operator_categorize("I will teach you how to salute", lingDb));
+  EXPECT_EQ(SemanticExpressionCategory::EXTERNALTEACHING, operator_categorize("Je vais t'apprendre à saluer", lingDb));
 
   EXPECT_EQ(SemanticExpressionCategory::ACTIONDEFINITION, operator_categorize("to salute is to say hello", lingDb));
+  EXPECT_EQ(SemanticExpressionCategory::ACTIONDEFINITION, operator_categorize("Sauter, c'est dire je saute", lingDb));
 
   EXPECT_EQ(SemanticExpressionCategory::AFFIRMATION, operator_categorize("Paul is a good guy", lingDb));
   EXPECT_EQ(SemanticExpressionCategory::AFFIRMATION, operator_categorize("to say hello", lingDb));
+  EXPECT_EQ(SemanticExpressionCategory::AFFIRMATION, operator_categorize("Je suis ton ami", lingDb));
 
   EXPECT_EQ(SemanticExpressionCategory::CONDITION, operator_categorize("if it's raining then it's a bad weather", lingDb));
+  EXPECT_EQ(SemanticExpressionCategory::CONDITION, operator_categorize("Si il pleut alors on ne va pas sortir.", lingDb));
 
   EXPECT_EQ(SemanticExpressionCategory::CONDITIONTOCOMMAND, operator_categorize("if it's raining then say that it's raining", lingDb));
   EXPECT_EQ(SemanticExpressionCategory::CONDITIONTOCOMMAND, operator_categorize("whenever your left hand is touched sleep", lingDb));
+  EXPECT_EQ(SemanticExpressionCategory::CONDITIONTOCOMMAND, operator_categorize("Si tu vois quelqu'un dis bonjour", lingDb));
 
   EXPECT_EQ(SemanticExpressionCategory::NOMINALGROUP, operator_categorize("a pen", lingDb));
+  EXPECT_EQ(SemanticExpressionCategory::NOMINALGROUP, operator_categorize("Un robot", lingDb));
 
   EXPECT_EQ(SemanticExpressionCategory::QUESTION, operator_categorize("is it raining", lingDb));
 }
