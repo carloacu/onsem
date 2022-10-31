@@ -32,7 +32,13 @@ void addGroundingCoef(SemanticGroundingsToRecommendationCoef& pGrdContainer,
                       int pCoef,
                       const linguistics::LinguisticDatabase& pLingDb);
 
-
+/**
+ * @brief Add a recommendation in the container of recommendations.
+ * @param pContainer Container of recommendations to fill.
+ * @param pRecommendation Recommendation to add.
+ * @param pRecommendationId Identifier of the recommendation to add.
+ * @param pLingDb Linguistic database.
+ */
 ONSEMSEMANTICTOTEXT_API
 void addARecommendation(SemanticRecommendationsContainer& pContainer,
                         UniqueSemanticExpression pRecommendation,
@@ -40,11 +46,19 @@ void addARecommendation(SemanticRecommendationsContainer& pContainer,
                         const linguistics::LinguisticDatabase& pLingDb);
 
 
+/**
+ * @brief Get the recommendation from an input.
+ * @param pInput User input.
+ * @param pContainer Container of the recommendations.
+ * @param pLingDb Linguistic database.
+ * @param pForbiddenRecommendations Set of the forbidden recommendations.
+ */
 ONSEMSEMANTICTOTEXT_API
 void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
                         const SemanticExpression& pInput,
                         const SemanticRecommendationsContainer& pContainer,
-                        const linguistics::LinguisticDatabase& pLingDb);
+                        const linguistics::LinguisticDatabase& pLingDb,
+                        const std::set<std::string>& pForbiddenRecommendations = {});
 
 
 } // End of namespace onsem

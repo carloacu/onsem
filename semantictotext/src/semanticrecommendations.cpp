@@ -171,7 +171,8 @@ void addARecommendation(SemanticRecommendationsContainer& pContainer,
 void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
                         const SemanticExpression& pInput,
                         const SemanticRecommendationsContainer& pContainer,
-                        const linguistics::LinguisticDatabase& pLingDb)
+                        const linguistics::LinguisticDatabase& pLingDb,
+                        const std::set<std::string>& pForbiddenRecommendations)
 {
   std::map<const ExpressionHandleInMemory*, int> expToSimilarities;
   _getLinksFromMemBlock(expToSimilarities, pInput, pContainer, pLingDb);
@@ -182,7 +183,7 @@ void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
     if (itToName != pContainer.recommendationsToNumberOfLinks.end())
     {
       int coef = currExpToSimilarity.second - itToName->second.second;
-      if (coef > 0)
+      if (coef > 0 && pForbiddenRecommendations.count(itToName->second.first) == 0)
         pRecommendations[coef].insert(itToName->second.first);
     }
     else
