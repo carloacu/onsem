@@ -47,7 +47,9 @@ void addARecommendation(SemanticRecommendationsContainer& pContainer,
 
 
 /**
- * @brief Get the recommendation from an input.
+ * @brief Get the recommendations from an input.
+ * @param pRecommendations The recommendations in result.
+ * @param pMaxNbOfRecommendationsToAdd Maximum of recommendations wanted in result.
  * @param pInput User input.
  * @param pContainer Container of the recommendations.
  * @param pLingDb Linguistic database.
@@ -55,6 +57,7 @@ void addARecommendation(SemanticRecommendationsContainer& pContainer,
  */
 ONSEMSEMANTICTOTEXT_API
 void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
+                        std::size_t pMaxNbOfRecommendationsToAdd,
                         const SemanticExpression& pInput,
                         const SemanticRecommendationsContainer& pContainer,
                         const linguistics::LinguisticDatabase& pLingDb,

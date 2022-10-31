@@ -31,11 +31,12 @@ std::string _getRecommendations(const std::string& pText,
                                 const SemanticRecommendationsContainer& pContainer,
                                 const linguistics::LinguisticDatabase& pLingDb,
                                 SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN,
+                                std::size_t pMaxNbOfRecommendationsToAdd = 10,
                                 const std::set<std::string>& pForbiddenRecommendations = {})
 {
   std::map<int, std::set<std::string>> recommendations;
   auto semExp = textToSemExp(pText, pLingDb, pLanguage);
-  getRecommendations(recommendations, *semExp, pContainer, pLingDb, pForbiddenRecommendations);
+  getRecommendations(recommendations, pMaxNbOfRecommendationsToAdd, *semExp, pContainer, pLingDb, pForbiddenRecommendations);
   std::string res;
   std::size_t nbOfIterations = 0;
   for (auto itRecommendations = recommendations.rbegin(); itRecommendations != recommendations.rend(); ++itRecommendations)
@@ -87,10 +88,13 @@ TEST_F(SemanticReasonerGTests, test_recommendations)
             _getRecommendations("Combien coûte N5 ?", recommendationContainer, lingDb));
   EXPECT_EQ("Qui est N7 ? | Comment être grand ? | Où est l'iphone ? | Où sont les toilettes ?",
             _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH));
+  // Test the size limit of recommendations
+  EXPECT_EQ("Qui est N7 ? | Comment être grand ?",
+            _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH, 2));
   // Test to forbid some recommendations
   EXPECT_EQ("Qui est N7 ? | Où est l'iphone ?",
             _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH,
-                                {"Comment être grand ?", "Où sont les toilettes ?"}));
+                                10, {"Comment être grand ?", "Où sont les toilettes ?"}));
 }
 
 

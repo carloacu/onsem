@@ -169,6 +169,7 @@ void addARecommendation(SemanticRecommendationsContainer& pContainer,
 
 
 void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
+                        std::size_t pMaxNbOfRecommendationsToAdd,
                         const SemanticExpression& pInput,
                         const SemanticRecommendationsContainer& pContainer,
                         const linguistics::LinguisticDatabase& pLingDb,
@@ -176,6 +177,7 @@ void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
 {
   std::map<const ExpressionHandleInMemory*, int> expToSimilarities;
   _getLinksFromMemBlock(expToSimilarities, pInput, pContainer, pLingDb);
+  int minCoefToAllowANewRecommendation = 0;
 
   for (const auto& currExpToSimilarity : expToSimilarities)
   {
@@ -183,8 +185,25 @@ void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
     if (itToName != pContainer.recommendationsToNumberOfLinks.end())
     {
       int coef = currExpToSimilarity.second - itToName->second.second;
-      if (coef > 0 && pForbiddenRecommendations.count(itToName->second.first) == 0)
+      if (coef > minCoefToAllowANewRecommendation && pForbiddenRecommendations.count(itToName->second.first) == 0)
+      {
         pRecommendations[coef].insert(itToName->second.first);
+        if (pMaxNbOfRecommendationsToAdd == 0)
+        {
+          // Remove the less important recommendation
+          pRecommendations.begin()->second.erase(pRecommendations.begin()->second.begin());
+          if (pRecommendations.begin()->second.empty())
+            pRecommendations.erase(pRecommendations.begin());
+          if (!pRecommendations.empty())
+            minCoefToAllowANewRecommendation = pRecommendations.begin()->first;
+        }
+        else
+        {
+          if (pMaxNbOfRecommendationsToAdd == 1)
+            minCoefToAllowANewRecommendation = pRecommendations.begin()->first;
+          --pMaxNbOfRecommendationsToAdd;
+        }
+      }
     }
     else
     {
