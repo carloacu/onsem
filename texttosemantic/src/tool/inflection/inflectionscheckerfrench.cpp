@@ -158,7 +158,8 @@ bool InflectionsCheckerFrench::isDetProperNounCompatibles(const InflectedWord&,
                                                           const InflectedWord& pInflProperNoun) const
 {
   return pInflProperNoun.word.lemma != "de" && pInflProperNoun.word.lemma != "du" &&
-      !ConceptSet::haveAConceptThatBeginWith(pInflProperNoun.infos.concepts, "agent_");
+      (!ConceptSet::haveAConceptThatBeginWith(pInflProperNoun.infos.concepts, "agent_") ||
+       pInflProperNoun.infos.contextualInfos.count(WordContextualInfos::BEGINSWITHUPPERCHARACTER) > 0);
 }
 
 bool InflectionsCheckerFrench::areNounNounCompatibles(const InflectedWord& pNounInflWord1,

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <onsem/common/binary/binaryloader.hpp>
+#include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/inflections.hpp>
@@ -301,7 +302,8 @@ void StaticLinguisticDictionary::getGramPossibilities
   const auto* node = xGetNode(pWord, pBeginPos, pSizeOfWord, true);
   if (node != nullptr)
   {
-    xGetGramPossFromNode(pInfosGram, node);
+    bool beginsWithUpperCase = beginWithUppercase(pWord, pBeginPos);
+    xGetGramPossFromNode(pInfosGram, node, beginsWithUpperCase);
   }
 }
 
@@ -649,7 +651,8 @@ std::unique_ptr<Inflections> _getInflections(PartOfSpeech pPartOfSpeech,
 
 void StaticLinguisticDictionary::xGetGramPossFromNode
 (std::list<InflectedWord>& pInfosGram,
- const signed char* pNode) const
+ const signed char* pNode,
+ bool pBeginsWithUpperCase) const
 {
   // iterate over all meanings
   unsigned char nbMeanings = xNbMeanings(pNode);
@@ -664,6 +667,8 @@ void StaticLinguisticDictionary::xGetGramPossFromNode
     pInfosGram.emplace_back();
     InflectedWord& infosGramBack = pInfosGram.back();
     xFillIGram(infosGramBack, meaningId);
+    if (pBeginsWithUpperCase)
+      infosGramBack.infos.contextualInfos.insert(WordContextualInfos::BEGINSWITHUPPERCHARACTER);
 
     const auto* nbFlexionsPtr = xGetNbFlexionsPtr(mns);
     unsigned char nbFlexions = *nbFlexionsPtr;

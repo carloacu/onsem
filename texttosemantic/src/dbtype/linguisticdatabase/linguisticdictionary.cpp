@@ -1,6 +1,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp>
 #include <onsem/common/utility/radix_map.hpp>
 #include <onsem/common/utility/string.hpp>
+#include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/lingtypetoken.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
@@ -427,6 +428,8 @@ void LinguisticDictionary::getGramPossibilities
         if (!statLingDb.isEmpty())
           statDb.getInfoGram(newInflWord, statLingDb);
         currInfleForms.fillIGram(newInflWord);
+        if (beginWithUppercase(pWord, pBeginPos))
+          newInflWord.infos.contextualInfos.insert(WordContextualInfos::BEGINSWITHUPPERCHARACTER);
       }
     }
   }

@@ -11,6 +11,7 @@ namespace onsem
 
 #define WORDCONTEXTUALINFOS_TYPE_TABLE                                                                          \
   ADD_WORDCONTEXTUALINFOS_TYPE(ANY, "any")                                                                      \
+  ADD_WORDCONTEXTUALINFOS_TYPE(BEGINSWITHUPPERCHARACTER, "beginsWithUpperCharacter")                            \
   ADD_WORDCONTEXTUALINFOS_TYPE(CANBEBEFOREDETERMINER, "canBeBeforeDeterminer")                                  \
   ADD_WORDCONTEXTUALINFOS_TYPE(CANBEBEFORENOUN, "canBeBeforeNoun")                                              \
   ADD_WORDCONTEXTUALINFOS_TYPE(CANBEBEFOREVERB, "canBeBeforeVerb")                                              \

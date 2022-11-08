@@ -38,10 +38,10 @@ SemanticGenderType getGender(SemanticGenderType pContextGender,
 {
   if (pMeaningPossGenders.find(pContextGender) != pMeaningPossGenders.end())
     return pContextGender;
-  if (pMeaningPossGenders.size() == 1)
-    return *pMeaningPossGenders.begin();
   if (!pGenGrdPossGenders.empty())
     return *pGenGrdPossGenders.begin();
+  if (pMeaningPossGenders.size() == 1)
+    return *pMeaningPossGenders.begin();
   return SemanticGenderType::UNKNOWN;
 }
 

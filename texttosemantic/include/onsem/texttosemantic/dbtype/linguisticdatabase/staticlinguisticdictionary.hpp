@@ -247,7 +247,8 @@ private:
 
   void xGetGramPossFromNode
   (std::list<InflectedWord>& pInfosGram,
-   const signed char* pNode) const;
+   const signed char* pNode,
+   bool pBeginsWithUpperCase) const;
 
 
   std::string xGetLemma(int32_t pMeaningId,
