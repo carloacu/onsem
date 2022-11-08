@@ -121,61 +121,11 @@ inline static bool beginWithLowerCase(const std::string& pStr,
 }
 
 
-inline static bool lowerCaseFirstLetter(std::string& pStrToModify,
-                                        std::size_t pPos = 0)
-{
-  if (pPos >= pStrToModify.size())
-    return false;
+bool lowerCaseFirstLetter(std::string& pStrToModify,
+                          std::size_t pPos = 0);
 
-  if (pStrToModify[pPos] >= 'A' && pStrToModify[pPos] <= 'Z')
-  {
-    pStrToModify[pPos] = static_cast<char>(pStrToModify[pPos] + 'a' - 'A');
-    return true;
-  }
-  switch (pStrToModify[pPos])
-  {
-  case "É"[0]:
-  {
-    if (pStrToModify.compare(pPos, _capitalAGrave_size, "À") == 0)
-    {
-      pStrToModify.replace(pPos, _capitalAGrave_size, "à");
-      return true;
-    }
-    if (pStrToModify.compare(pPos, _capitalEAcute_size, "É") == 0)
-    {
-      pStrToModify.replace(pPos, _capitalEAcute_size, "é");
-      return true;
-    }
-    if (pStrToModify.compare(pPos, _capitalECirconflex_size, "Ê") == 0)
-    {
-      pStrToModify.replace(pPos, _capitalECirconflex_size, "ê");
-      return true;
-    }
-    if (pStrToModify.compare(pPos, _capitalCCedilla_size, "Ç") == 0)
-    {
-      pStrToModify.replace(pPos, _capitalCCedilla_size, "ç");
-      return true;
-    }
-    if (pStrToModify.compare(pPos, _capitalOTrema_size, "Ö") == 0)
-    {
-      pStrToModify.replace(pPos, _capitalOTrema_size, "ö");
-      return true;
-    }
-    break;
-  }
-  case "Ş"[0]:
-  {
-    if (pStrToModify.compare(pPos, _capitalSCedilla_size, "Ş") == 0)
-    {
-      pStrToModify.replace(pPos, _capitalSCedilla_size, "ș");
-      return true;
-    }
-    break;
-  }
-  }
-  return false;
-}
-
+bool lowerCaseText(std::string& pStrToModify,
+                   std::size_t pPos = 0);
 
 inline static std::string getFirstLetterInUpperCase(const std::string& pText)
 {

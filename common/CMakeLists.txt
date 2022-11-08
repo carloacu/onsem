@@ -81,6 +81,7 @@ set(ONSEMCOMMON_SRCS
     src/utility/getendofparenthesis.cpp
     src/utility/random.cpp
     src/utility/string.cpp
+    src/utility/uppercasehandler.cpp
     src/keytostreams.cpp
 )
 
