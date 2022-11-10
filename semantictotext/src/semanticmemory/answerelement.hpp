@@ -3,8 +3,8 @@
 
 #include <list>
 #include <memory>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include "../type/answerexp.hpp"
 #include "semanticannotation.hpp"
 

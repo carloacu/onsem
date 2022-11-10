@@ -6,7 +6,7 @@
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
 #include <onsem/semantictotext/semexpsimplifer.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"

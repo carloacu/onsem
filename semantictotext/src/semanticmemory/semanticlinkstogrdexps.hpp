@@ -20,7 +20,7 @@
 #include <onsem/common/enum/verbgoalenum.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include "usernames.hpp"
 #include "semanticmemorygrdexp.hpp"
 

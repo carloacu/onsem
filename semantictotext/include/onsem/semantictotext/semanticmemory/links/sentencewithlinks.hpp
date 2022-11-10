@@ -1,7 +1,7 @@
 #ifndef ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SENTENCEWITHLINKS_HPP
 #define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SENTENCEWITHLINKS_HPP
 
-#include "../api.hpp"
+#include "../../api.hpp"
 #include "groundedexpwithlinkslist.hpp"
 #include <onsem/common/enum/infomationtype.hpp>
 #include <onsem/common/enum/listexpressiontype.hpp>

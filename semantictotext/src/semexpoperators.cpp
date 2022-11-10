@@ -7,7 +7,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictextgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>

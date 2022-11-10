@@ -13,7 +13,7 @@
 #include <onsem/texttosemantic/linguisticanalyzer.hpp>
 #include <onsem/texttosemantic/printer/expressionprinter.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include "../utility/semexpcreator.hpp"

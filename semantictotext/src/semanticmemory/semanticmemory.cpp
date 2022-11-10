@@ -1,7 +1,7 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 
 
 namespace onsem

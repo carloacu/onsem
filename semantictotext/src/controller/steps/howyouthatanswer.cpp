@@ -4,8 +4,8 @@
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/metadataexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include "../../utility/semexpcreator.hpp"
 #include "../../type/semanticdetailledanswer.hpp"
 

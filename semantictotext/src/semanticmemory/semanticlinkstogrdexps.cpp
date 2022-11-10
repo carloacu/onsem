@@ -4,8 +4,8 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 
 namespace onsem

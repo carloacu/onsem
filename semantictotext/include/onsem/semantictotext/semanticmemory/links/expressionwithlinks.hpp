@@ -4,7 +4,7 @@
 #include <list>
 #include <map>
 #include <memory>
-#include "../api.hpp"
+#include "../../api.hpp"
 #include "sentencewithlinks.hpp"
 #include <onsem/common/utility/radix_map.hpp>
 #include <onsem/texttosemantic/dbtype/misc/conditionspecification.hpp>

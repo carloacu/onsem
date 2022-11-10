@@ -3,7 +3,7 @@
 
 #include <map>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include "../../semanticmemory/semanticlinkstogrdexps.hpp"
 #include "../../semanticmemory/sentenceslinks.hpp"
 

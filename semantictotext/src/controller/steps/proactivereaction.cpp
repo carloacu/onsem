@@ -9,8 +9,8 @@
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/tool/semexpagreementdetector.hpp>
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../../type/referencesfiller.hpp"
 #include "../../type/semanticdetailledanswer.hpp"

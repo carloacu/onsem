@@ -1,7 +1,7 @@
 #include "usernames.hpp"
 #include <numeric>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 
 
 namespace onsem

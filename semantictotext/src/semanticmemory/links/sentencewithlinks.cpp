@@ -1,7 +1,7 @@
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
 
 namespace onsem

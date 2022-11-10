@@ -3,7 +3,7 @@
 
 #include <map>
 #include <set>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include "answerelement.hpp"
 #include "semanticlinkstogrdexps.hpp"

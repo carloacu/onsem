@@ -2,7 +2,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include "../semanticmemory/semanticmemorygrdexp.hpp"
 #include "semanticdetailledanswer.hpp"
 

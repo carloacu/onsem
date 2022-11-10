@@ -4,11 +4,11 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "../api.hpp"
+#include "../../api.hpp"
 #include <onsem/common/enum/grammaticaltype.hpp>
 #include <onsem/common/utility/unique_propagate_const.hpp>
 #include <onsem/texttosemantic/dbtype/binary/semexpsaver.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 
 namespace onsem
 {

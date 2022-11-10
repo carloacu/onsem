@@ -9,7 +9,7 @@
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/texttosemantic/dbtype/misc/parameterswithvalue.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include "../../semanticmemory/sentenceslinks.hpp"
 
 namespace onsem

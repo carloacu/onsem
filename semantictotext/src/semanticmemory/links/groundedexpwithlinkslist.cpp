@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinkslist.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinkslist.hpp>
 
 namespace onsem
 {

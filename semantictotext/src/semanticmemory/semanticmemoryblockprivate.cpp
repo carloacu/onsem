@@ -1,9 +1,9 @@
 #include "semanticmemoryblockprivate.hpp"
 #include <chrono>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
 #include "semanticmemoryblockbinaryreader.hpp"
 

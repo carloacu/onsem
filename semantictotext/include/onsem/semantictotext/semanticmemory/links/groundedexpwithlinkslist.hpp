@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_GROUNDEDEXPWITHLINKSLIST_HPP
 
 #include <list>
-#include "../api.hpp"
+#include "../../api.hpp"
 #include "groundedexpwithlinks.hpp"
 
 

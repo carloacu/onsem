@@ -7,9 +7,9 @@
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include "../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../utility/semexpcreator.hpp"
 #include "../type/semanticdetailledanswer.hpp"

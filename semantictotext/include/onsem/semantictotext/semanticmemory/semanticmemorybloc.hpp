@@ -19,7 +19,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
 #include <onsem/semantictotext/enum/semanticexpressioncategory.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 
 
 namespace onsem

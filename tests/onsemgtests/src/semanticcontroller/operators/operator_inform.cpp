@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <onsem/texttosemantic/dbtype/semanticexpression/annotatedexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>

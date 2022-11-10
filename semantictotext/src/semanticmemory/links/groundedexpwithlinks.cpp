@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
 #include <onsem/common/binary/binarysaver.hpp>
 #include <onsem/common/binary/enummapsaver.hpp>
 #include <onsem/common/utility/random.hpp>
@@ -6,11 +6,11 @@
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
-#include "../tool/userinfosfiller.hpp"
-#include "semanticmemoryblockprivate.hpp"
+#include "../../tool/userinfosfiller.hpp"
+#include "../semanticmemoryblockprivate.hpp"
 
 namespace onsem
 {

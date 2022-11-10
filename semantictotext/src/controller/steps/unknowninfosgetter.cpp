@@ -6,8 +6,8 @@
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
-#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
+#include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
 #include "../semexpcontroller.hpp"
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../../type/referencesfiller.hpp"
