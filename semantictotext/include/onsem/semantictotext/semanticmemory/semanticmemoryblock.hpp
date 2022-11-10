@@ -56,15 +56,16 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
 
   static const std::size_t infinteMemory;
 
+  std::shared_ptr<ExpressionWithLinks> addRootSemExp(UniqueSemanticExpression pNewRootSemExp,
+                                                     const linguistics::LinguisticDatabase& pLingDb,
+                                                     const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr,
+                                                     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
+
   void ensureFallbacksBlock();
 
   void addExpHandleInMemory(const std::shared_ptr<ExpressionWithLinks>& pNewSemMemKnowledge,
                             const linguistics::LinguisticDatabase& pLingDb,
                             std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
-  std::shared_ptr<ExpressionWithLinks> addRootSemExp(UniqueSemanticExpression pNewRootSemExp,
-                                                          const linguistics::LinguisticDatabase& pLingDb,
-                                                          const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr,
-                                                          std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
   void addTrackerSemExp(UniqueSemanticExpression pNewRootSemExp,
                         std::shared_ptr<SemanticTracker>& pSemTracker,
                         const linguistics::LinguisticDatabase& pLingDb);
@@ -183,7 +184,7 @@ private:
 
   /// Factorization of the knowledge addition algorithm. Does not prune memory if size exceeded.
   std::shared_ptr<ExpressionWithLinks> _addRootSemExp(UniqueSemanticExpression pNewRootSemExp,
-                                                             const mystd::radix_map_str<std::string>* pLinkedInfosPtr);
+                                                      const mystd::radix_map_str<std::string>* pLinkedInfosPtr);
   bool _userIdToHardCodedUserId(std::string& pHardCodedUserId,
                                 const std::string& pUserId) const;
   void _nameToUserIds(std::set<std::string>& pUserIds,

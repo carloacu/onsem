@@ -63,6 +63,18 @@ SemanticMemoryBlock::~SemanticMemoryBlock()
 }
 
 
+std::shared_ptr<ExpressionWithLinks> SemanticMemoryBlock::addRootSemExp
+(UniqueSemanticExpression pNewRootSemExp,
+ const linguistics::LinguisticDatabase& pLingDb,
+ const mystd::radix_map_str<std::string>* pLinkedInfosPtr,
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+{
+  auto expForMemory = _addRootSemExp(std::move(pNewRootSemExp), pLinkedInfosPtr);
+  _pruneExceedingExpressions(pLingDb, pAxiomToConditionCurrentStatePtr);
+  return expForMemory;
+}
+
+
 void SemanticMemoryBlock::ensureFallbacksBlock()
 {
   if (!_fallbacksBlockPtr)
@@ -114,17 +126,6 @@ std::shared_ptr<ExpressionWithLinks> SemanticMemoryBlock::_addRootSemExp
   _impl->expressionsMemories.emplace_back(expForMemory);
   _impl->addLastExpressionToPtrToIteratorMap();
   semExpAdded(*expForMemory->semExp);
-  return expForMemory;
-}
-
-std::shared_ptr<ExpressionWithLinks> SemanticMemoryBlock::addRootSemExp
-(UniqueSemanticExpression pNewRootSemExp,
- const linguistics::LinguisticDatabase& pLingDb,
- const mystd::radix_map_str<std::string>* pLinkedInfosPtr,
- std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
-{
-  auto expForMemory = _addRootSemExp(std::move(pNewRootSemExp), pLinkedInfosPtr);
-  _pruneExceedingExpressions(pLingDb, pAxiomToConditionCurrentStatePtr);
   return expForMemory;
 }
 
