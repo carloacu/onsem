@@ -43,13 +43,13 @@ private:
 struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinks
 {
   GroundedExpWithLinks(SentenceWithLinks& pContextAxiom,
-                         const GroundedExpression& pGrdExp,
-                         bool pGatherAllTheLinks,
-                         const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
-                         const linguistics::LinguisticDatabase& pLingDb,
-                         bool pIsAConditionToSatisfy,
-                         bool pIsEnabled = true,
-                         intSemId pId = 0);
+                       const GroundedExpression& pGrdExp,
+                       bool pGatherAllTheLinks,
+                       const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+                       const linguistics::LinguisticDatabase& pLingDb,
+                       bool pIsAConditionToSatisfy,
+                       bool pIsEnabled = true,
+                       intSemId pId = 0);
   ~GroundedExpWithLinks();
 
   void setEnabled(bool pEnabled);

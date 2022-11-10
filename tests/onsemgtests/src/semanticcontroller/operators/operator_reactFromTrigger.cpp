@@ -70,15 +70,19 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string itIs15h = "Il est 15 heures.";
   const std::string whatAboutWellBeingOfAnimals = "Qu'en est-il du bien-être des animaux ?";
   const std::string itIsNotFamous = "Ce n'est pas fameux.";
+  const std::string whatIsToussaint = "Qu'est-ce que la Toussaint ?";
+  const std::string itIsAHoliday = "C'est une fête.";
   ONSEM_NOANSWER(operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatAboutWellBeingOfAnimals, semMem, lingDb));
+  ONSEM_NOANSWER(operator_reactFromTrigger(whatIsToussaint, semMem, lingDb));
 
   operator_addATrigger(whoAreYou, iAmYourFrined, semMem, lingDb);
   operator_addATrigger(stopApplication, itIsStopped, semMem, lingDb);
   operator_addATrigger(whatTimeItIs, itIs15h, semMem, lingDb);
   operator_addATrigger(whatAboutWellBeingOfAnimals, itIsNotFamous, semMem, lingDb);
+  operator_addATrigger(whatIsToussaint, itIsAHoliday, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger(stopApplication, semMem, lingDb));
@@ -91,4 +95,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   //ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("C'est quoi l'heure", semMem, lingDb));
   //ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("Il est quelle heure", semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsNotFamous, operator_reactFromTrigger(whatAboutWellBeingOfAnimals, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsAHoliday, operator_reactFromTrigger(whatIsToussaint, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsAHoliday, operator_reactFromTrigger("Qu'est-ce que la toussaint ?", semMem, lingDb));
 }

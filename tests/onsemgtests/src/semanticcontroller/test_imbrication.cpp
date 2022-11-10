@@ -57,6 +57,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Je veux une assurance habitation", "I want a home insurance", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Je veux une assurance habitation", "Je voudrais une assurance habitation", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("et puis", "Et après", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Qu'est-ce que la Toussaint ?", "Qu'est-ce que la toussaint ?", semanticMemory, lingDb));
 
   EXPECT_EQ(ImbricationType::OPPOSES, _getImbrication("I like banana", "I don't like banana", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::OPPOSES, _getImbrication("I like banana", "I dislike banana", semanticMemory, lingDb));

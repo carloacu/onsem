@@ -15,6 +15,16 @@ std::string _lowerCaseText(const std::string& pStr)
     EXPECT_NE(pStr, res);
   else
     EXPECT_EQ(pStr, res);
+  if (!areTextEqualWithoutCaseSensitivity(res, pStr))
+  {
+    std::cerr << "areTextEqualWithoutCaseSensitivity(" << res << ", " << pStr << ")" << std::endl;
+    EXPECT_TRUE(false);
+  }
+  if (!areTextEqualWithoutCaseSensitivity(pStr, res))
+  {
+    std::cerr << "areTextEqualWithoutCaseSensitivity(" << pStr << ", " << res << ")" << std::endl;
+    EXPECT_TRUE(false);
+  }
   return res;
 }
 
@@ -30,3 +40,4 @@ TEST_F(SemanticReasonerGTests, common_uppercaseHandler_lowerCaseText)
   EXPECT_EQ("élégance", _lowerCaseText("Élégance"));
   EXPECT_EQ("élégance", _lowerCaseText("ÉLÉGANCE"));
 }
+

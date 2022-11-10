@@ -1,5 +1,6 @@
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <stdlib.h>
+#include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>
@@ -85,14 +86,26 @@ ImbricationType _invertImbrication(ImbricationType pImbrication)
 }
 
 
+bool _arePartOfSpeechEqual(PartOfSpeech pPos1,
+                           PartOfSpeech pPos2)
+{
+  if (pPos1 == pPos2)
+    return true;
+  return (pPos1 == PartOfSpeech::NOUN && pPos2 == PartOfSpeech::PROPER_NOUN) ||
+      (pPos1 == PartOfSpeech::PROPER_NOUN && pPos2 == PartOfSpeech::NOUN);
+}
+
+
 bool _wordsAreEqual(const SemanticWord& pWord1,
                     const SemanticWord& pWord2,
                     const linguistics::LinguisticDatabase& pLingDb)
 {
-  if (pWord1.language == pWord2.language)
+  if (pWord1.language == pWord2.language ||
+      pWord1.language == SemanticLanguageEnum::UNKNOWN ||
+      pWord2.language == SemanticLanguageEnum::UNKNOWN)
   {
-    if (pWord1.lemma == pWord2.lemma &&
-        pWord1.partOfSpeech == pWord2.partOfSpeech)
+    if (areTextEqualWithoutCaseSensitivity(pWord1.lemma, pWord2.lemma) &&
+        _arePartOfSpeechEqual(pWord1.partOfSpeech, pWord2.partOfSpeech))
       return true;
   }
   else
@@ -133,9 +146,6 @@ ImbricationType _getGenericGrdsImbrications(const SemanticGenericGrounding& pGen
                                             const linguistics::LinguisticDatabase& pLingDb,
                                             const ComparisonExceptions* pExceptionsPtr)
 {
-  if (!doesSemanticEntityTypeCanBeCompatible(pGenGrd1.entityType, pGenGrd2.entityType))
-    return ImbricationType::DIFFERS;
-
   auto res = ImbricationType::EQUALS;
   if (pExceptionsPtr == nullptr || !pExceptionsPtr->quantity)
   {

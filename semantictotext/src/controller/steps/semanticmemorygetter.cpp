@@ -876,7 +876,8 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
                                   lingMeaning.language, lingMeaning.meaningId,
                                   pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
   }
-  else if (!pGenGrd.word.lemma.empty())
+
+  if (!pGenGrd.word.lemma.empty())
   {
     res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.word.lemma,
                             SemanticLanguageEnum::UNKNOWN, pGrdExpToLookFor, pChildSemExpsToSkip,

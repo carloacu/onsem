@@ -222,6 +222,8 @@ inline bool isFirstLetterAVowel(const std::string& pText,
   return false;
 }
 
+bool areTextEqualWithoutCaseSensitivity(const std::string& pText1,
+                                        const std::string& pText2);
 
 } // End of namespace onsem
 
