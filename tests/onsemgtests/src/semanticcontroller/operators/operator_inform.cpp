@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <onsem/texttosemantic/dbtype/semanticexpression/annotatedexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
@@ -18,7 +18,7 @@ namespace onsem
 {
 namespace
 {
-std::shared_ptr<ExpressionHandleInMemory> operator_inform_withTextProc(
+std::shared_ptr<ExpressionWithLinks> operator_inform_withTextProc(
     const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
@@ -39,7 +39,7 @@ std::shared_ptr<ExpressionHandleInMemory> operator_inform_withTextProc(
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> operator_inform(
+std::shared_ptr<ExpressionWithLinks> operator_inform(
     const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
@@ -62,7 +62,7 @@ std::shared_ptr<ExpressionHandleInMemory> operator_inform(
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> operator_inform_fromRobot(const std::string& pText,
+std::shared_ptr<ExpressionWithLinks> operator_inform_fromRobot(const std::string& pText,
                                                                       SemanticMemory& pSemanticMemory,
                                                                       const linguistics::LinguisticDatabase& pLingDb,
                                                                       const std::list<std::string>& pReferences,
@@ -98,7 +98,7 @@ void operator_mergeAndInform(const std::string& pText,
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> operator_informAxiom(
+std::shared_ptr<ExpressionWithLinks> operator_informAxiom(
     const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
@@ -114,7 +114,7 @@ std::shared_ptr<ExpressionHandleInMemory> operator_informAxiom(
   return memoryOperation::informAxiom(std::move(semExp), pSemanticMemory, pLingDb);
 }
 
-std::shared_ptr<ExpressionHandleInMemory> operator_informAxiom_fromRobot(
+std::shared_ptr<ExpressionWithLinks> operator_informAxiom_fromRobot(
     const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
@@ -135,7 +135,7 @@ std::shared_ptr<ExpressionHandleInMemory> operator_informAxiom_fromRobot(
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> operator_addFallback(
+std::shared_ptr<ExpressionWithLinks> operator_addFallback(
     const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb)
@@ -151,7 +151,7 @@ std::shared_ptr<ExpressionHandleInMemory> operator_addFallback(
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> operator_inform_withAgentNameFilter(
+std::shared_ptr<ExpressionWithLinks> operator_inform_withAgentNameFilter(
     const std::string& pAgentName,
     const std::string& pText,
     SemanticMemory& pSemanticMemory,

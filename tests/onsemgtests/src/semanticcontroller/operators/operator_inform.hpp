@@ -16,18 +16,18 @@ namespace linguistics
 struct LinguisticDatabase;
 }
 struct SemanticMemory;
-struct ExpressionHandleInMemory;
+struct ExpressionWithLinks;
 struct SemanticContextAxiom;
 struct TextProcessingContext;
 
-std::shared_ptr<ExpressionHandleInMemory> operator_inform(const std::string& pText,
+std::shared_ptr<ExpressionWithLinks> operator_inform(const std::string& pText,
                                                             SemanticMemory& pSemanticMemory,
                                                             const linguistics::LinguisticDatabase& pLingDb,
                                                             const std::list<std::string>& pReferences = std::list<std::string>(),
                                                             std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr,
                                                             const TextProcessingContext* pTextProcContextPtr = nullptr);
 
-std::shared_ptr<ExpressionHandleInMemory> operator_inform_fromRobot(const std::string& pText,
+std::shared_ptr<ExpressionWithLinks> operator_inform_fromRobot(const std::string& pText,
                                                                       SemanticMemory& pSemanticMemory,
                                                                       const linguistics::LinguisticDatabase& pLingDb,
                                                                       const std::list<std::string>& pReferences = std::list<std::string>(),
@@ -38,23 +38,23 @@ void operator_mergeAndInform(const std::string& pText,
                              const linguistics::LinguisticDatabase& pLingDb,
                              const std::list<std::string>& pReferences = std::list<std::string>());
 
-std::shared_ptr<ExpressionHandleInMemory> operator_informAxiom(const std::string& pText,
+std::shared_ptr<ExpressionWithLinks> operator_informAxiom(const std::string& pText,
                                                             SemanticMemory& pSemanticMemory,
                                                             const linguistics::LinguisticDatabase& pLingDb,
                                                             const std::list<std::string>& pReferences = std::list<std::string>());
 
-std::shared_ptr<ExpressionHandleInMemory>operator_informAxiom_fromRobot(const std::string& pText,
+std::shared_ptr<ExpressionWithLinks>operator_informAxiom_fromRobot(const std::string& pText,
                                                                      SemanticMemory& pSemanticMemory,
                                                                      const linguistics::LinguisticDatabase& pLingDb,
                                                                      const std::list<std::string>& pReferences = std::list<std::string>(),
                                                                      std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
 
-std::shared_ptr<ExpressionHandleInMemory> operator_addFallback(
+std::shared_ptr<ExpressionWithLinks> operator_addFallback(
     const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb);
 
-std::shared_ptr<ExpressionHandleInMemory> operator_inform_withAgentNameFilter(
+std::shared_ptr<ExpressionWithLinks> operator_inform_withAgentNameFilter(
     const std::string& pAgentName,
     const std::string& pText,
     SemanticMemory& pSemanticMemory,

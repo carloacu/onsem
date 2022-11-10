@@ -1,5 +1,5 @@
 #include <onsem/semantictotext/semanticrecommendations.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include "controller/steps/semanticmemorygetter.hpp"
 
@@ -8,7 +8,7 @@ namespace onsem
 namespace
 {
 
-void _linkToMemBlock(ExpressionHandleInMemory& pExpHandleInMemory,
+void _linkToMemBlock(ExpressionWithLinks& pExpHandleInMemory,
                      const SemanticExpression& pSemExp,
                      const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -26,7 +26,7 @@ void _linkToMemBlock(ExpressionHandleInMemory& pExpHandleInMemory,
 }
 
 
-void _getLinksFromMemBlock(std::map<const ExpressionHandleInMemory*, int>& pLinks,
+void _getLinksFromMemBlock(std::map<const ExpressionWithLinks*, int>& pLinks,
                            const SemanticExpression& pSemExp,
                            const SemanticRecommendationsContainer& pContainer,
                            const linguistics::LinguisticDatabase& pLingDb)
@@ -37,7 +37,7 @@ void _getLinksFromMemBlock(std::map<const ExpressionHandleInMemory*, int>& pLink
     const auto& grdExp = *grdExpPtr;
     mystd::optional<int> groundingCoef;
 
-    std::set<const ExpressionHandleInMemory*> expPtr;
+    std::set<const ExpressionWithLinks*> expPtr;
     semanticMemoryGetter::findGrdExpInNominalGroupLinks(expPtr, grdExp, pContainer.goundingsToCoef.memBlock, pLingDb);
     for (const auto& currExp : expPtr)
     {
@@ -175,7 +175,7 @@ void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
                         const linguistics::LinguisticDatabase& pLingDb,
                         const std::set<std::string>& pForbiddenRecommendations)
 {
-  std::map<const ExpressionHandleInMemory*, int> expToSimilarities;
+  std::map<const ExpressionWithLinks*, int> expToSimilarities;
   _getLinksFromMemBlock(expToSimilarities, pInput, pContainer, pLingDb);
   int minCoefToAllowANewRecommendation = 0;
 

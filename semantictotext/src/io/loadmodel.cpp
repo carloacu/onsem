@@ -6,7 +6,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
 
@@ -641,13 +641,13 @@ void _loadContextAxiom(const boost::property_tree::ptree& pTree,
 }
 
 
-std::unique_ptr<ExpressionHandleInMemory> _loadExpressionHandleInMemory
+std::unique_ptr<ExpressionWithLinks> _loadExpressionWithLinks
 (const boost::property_tree::ptree& pTree,
  SemanticMemoryBlock& pParentMemoryBlock,
  const linguistics::LinguisticDatabase& pLingDb)
 {
   LoaderSemExpLinks links;
-  auto res = std::make_unique<ExpressionHandleInMemory>
+  auto res = std::make_unique<ExpressionWithLinks>
       (pParentMemoryBlock,
        _loadSemExp(pTree.get_child("semExp"), &links));
   {
@@ -673,7 +673,7 @@ void _loadMemoryBlock(const boost::property_tree::ptree& pTree,
 {
   childLoop(pTree, currKnowledgeMemory, "expressionsMemories")
   {
-    pMemoryBlock.addExpHandleInMemory(_loadExpressionHandleInMemory(currKnowledgeMemory.second,
+    pMemoryBlock.addExpHandleInMemory(_loadExpressionWithLinks(currKnowledgeMemory.second,
                                                                         pMemoryBlock, pLingDb),
                                         pLingDb, nullptr);
   }

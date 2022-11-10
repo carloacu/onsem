@@ -21,7 +21,7 @@ struct LinguisticDatabase;
 }
 struct GroundedExpression;
 struct AnswerExp;
-struct ExpressionHandleInMemory;
+struct ExpressionWithLinks;
 struct SemanticAgentGrounding;
 struct ProativeSpecifications;
 struct ExternalFallback;
@@ -35,7 +35,7 @@ struct SemControllerWorkingStruct
   (InformationType pInformationType,
    const SemanticExpression* pAuthorSemExpPtr,
    SemanticLanguageEnum pFromLanguage,
-   ExpressionHandleInMemory* pMemKnowledge,
+   ExpressionWithLinks* pMemKnowledge,
    SemanticOperatorEnum pReactOperator,
    const ProativeSpecifications* pProativeSpecificationsPtr,
    const ExternalFallback* pExternalFallbackPtr,
@@ -85,7 +85,7 @@ struct SemControllerWorkingStruct
   const SemanticExpression* originalSemExpPtr;
   const SemanticAgentGrounding* author;
   SemanticLanguageEnum fromLanguage;
-  ExpressionHandleInMemory* expHandleInMemory;
+  ExpressionWithLinks* expHandleInMemory;
   std::map<GrammaticalType, const SemanticExpression*> annotatedExps;
   SemanticOperatorEnum reactOperator;
   mystd::optional<SemanticTypeOfFeedback> typeOfFeedback;

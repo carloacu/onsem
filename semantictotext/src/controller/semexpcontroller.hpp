@@ -16,7 +16,7 @@ struct SemanticExpression;
 struct ListExpression;
 struct ComparisonExpression;
 struct SemanticStatementGrounding;
-struct ExpressionHandleInMemory;
+struct ExpressionWithLinks;
 struct SemanticMemory;
 struct SemanticMemoryBlockViewer;
 struct SemanticDuration;
@@ -30,7 +30,7 @@ void applyOperatorResolveAgentAccordingToTheContext(UniqueSemanticExpression& pS
                                                     const linguistics::LinguisticDatabase& pLingDb);
 
 void applyOperatorOnExpHandleInMemory(std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers,
-                                      ExpressionHandleInMemory& pExpressionHandleInMemory,
+                                      ExpressionWithLinks& pExpressionWithLinks,
                                       SemanticOperatorEnum pReactionOperator,
                                       InformationType pInformationType,
                                       SemanticMemory& pSemanticMemory,
@@ -82,7 +82,7 @@ void compAnswerToSemExp(mystd::unique_propagate_const<UniqueSemanticExpression>&
 ContextualAnnotation compAnswerToContextualAnnotation(CompositeSemAnswer& pCompositeSemAnswer);
 
 void linkConditionalReactions(std::list<std::unique_ptr<SemAnswer> >& pSemAnswers,
-                              ExpressionHandleInMemory& pMemKnowledge,
+                              ExpressionWithLinks& pMemKnowledge,
                               SemanticMemory& pSemanticMemory,
                               const linguistics::LinguisticDatabase& pLingDb,
                               InformationType pInformationType);

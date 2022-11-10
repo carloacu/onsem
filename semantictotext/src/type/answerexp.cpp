@@ -2,7 +2,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include "../semanticmemory/semanticmemorygrdexp.hpp"
 #include "semanticdetailledanswer.hpp"
 
@@ -22,7 +22,7 @@ void RelatedContextAxiom::add(const SemanticMemoryGrdExp& pSemMemoryGrdExp)
   constElts.emplace_back(&pSemMemoryGrdExp.getMemSentence().getContextAxiom());
 }
 
-bool RelatedContextAxiom::haveThisExpHandleInMemory(const ExpressionHandleInMemory* pExpHandleInMemory) const
+bool RelatedContextAxiom::haveThisExpHandleInMemory(const ExpressionWithLinks* pExpHandleInMemory) const
 {
   for (const auto& currElt : elts)
     if (pExpHandleInMemory == &currElt->getSemExpWrappedForMemory())

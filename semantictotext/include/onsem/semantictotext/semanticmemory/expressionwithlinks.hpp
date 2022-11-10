@@ -1,5 +1,5 @@
-#ifndef ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_EXPRESSIONWRAPPERFORMEMORY_HPP
-#define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_EXPRESSIONWRAPPERFORMEMORY_HPP
+#ifndef ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_EXPRESSIONWITHLINKS_HPP
+#define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_EXPRESSIONWITHLINKS_HPP
 
 #include <list>
 #include <map>
@@ -16,17 +16,17 @@ namespace onsem
 struct SemanticMemoryBlock;
 
 
-struct ONSEMSEMANTICTOTEXT_API ExpressionHandleInMemory
+struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks
 {
-  ExpressionHandleInMemory
+  ExpressionWithLinks
   (SemanticMemoryBlock& pParentMemBloc,
    UniqueSemanticExpression pSemExp,
    const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr);
 
-  ExpressionHandleInMemory(ExpressionHandleInMemory&& pOther) = delete;
-  ExpressionHandleInMemory& operator=(ExpressionHandleInMemory&& pOther) = delete;
-  ExpressionHandleInMemory(const ExpressionHandleInMemory&) = delete;
-  ExpressionHandleInMemory& operator=(const ExpressionHandleInMemory&) = delete;
+  ExpressionWithLinks(ExpressionWithLinks&& pOther) = delete;
+  ExpressionWithLinks& operator=(ExpressionWithLinks&& pOther) = delete;
+  ExpressionWithLinks(const ExpressionWithLinks&) = delete;
+  ExpressionWithLinks& operator=(const ExpressionWithLinks&) = delete;
 
   void clearWrappings(SemanticMemoryBlock& pMemBlock,
                       const linguistics::LinguisticDatabase& pLingDb,
@@ -100,4 +100,4 @@ private:
 } // End of namespace onsem
 
 
-#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_EXPRESSIONWRAPPERFORMEMORY_HPP
+#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_EXPRESSIONWITHLINKS_HPP

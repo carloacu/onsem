@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
@@ -207,7 +207,7 @@ void _addGrdExpToAxiom
 
 
 
-ExpressionHandleInMemory::ExpressionHandleInMemory
+ExpressionWithLinks::ExpressionWithLinks
 (SemanticMemoryBlock& pParentMemBloc,
  UniqueSemanticExpression pSemExp,
  const mystd::radix_map_str<std::string>* pLinkedInfosPtr)
@@ -223,7 +223,7 @@ ExpressionHandleInMemory::ExpressionHandleInMemory
 
 
 
-void ExpressionHandleInMemory::clearWrappings(SemanticMemoryBlock& pMemBlock,
+void ExpressionWithLinks::clearWrappings(SemanticMemoryBlock& pMemBlock,
                                                 const linguistics::LinguisticDatabase& pLingDb,
                                                 std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
@@ -240,7 +240,7 @@ void ExpressionHandleInMemory::clearWrappings(SemanticMemoryBlock& pMemBlock,
 }
 
 
-void ExpressionHandleInMemory::removeContextAxiomsWithAnActionLinked()
+void ExpressionWithLinks::removeContextAxiomsWithAnActionLinked()
 {
   for (auto itContAxiom = contextAxioms.begin();
        itContAxiom != contextAxioms.end(); )
@@ -264,7 +264,7 @@ void ExpressionHandleInMemory::removeContextAxiomsWithAnActionLinked()
 }
 
 
-void ExpressionHandleInMemory::addConditionToAnAction(InformationType pInformationType,
+void ExpressionWithLinks::addConditionToAnAction(InformationType pInformationType,
                                                         const ConditionSpecification& pCondExp,
                                                         const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -273,7 +273,7 @@ void ExpressionHandleInMemory::addConditionToAnAction(InformationType pInformati
 }
 
 
-void ExpressionHandleInMemory::addConditionToAnInfo(InformationType pInformationType,
+void ExpressionWithLinks::addConditionToAnInfo(InformationType pInformationType,
                                                       const ConditionSpecification& pCondExp,
                                                       const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -288,7 +288,7 @@ void ExpressionHandleInMemory::addConditionToAnInfo(InformationType pInformation
 
 
 
-SemanticContextAxiom* ExpressionHandleInMemory::addAxiomFromGrdExp
+SemanticContextAxiom* ExpressionWithLinks::addAxiomFromGrdExp
 (InformationType pInformationType,
  const GroundedExpression& pGrdSemExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
@@ -318,7 +318,7 @@ SemanticContextAxiom* ExpressionHandleInMemory::addAxiomFromGrdExp
 }
 
 
-SemanticContextAxiom* ExpressionHandleInMemory::tryToAddTeachFormulation
+SemanticContextAxiom* ExpressionWithLinks::tryToAddTeachFormulation
 (InformationType pInformationType,
  const GroundedExpression& pGrdSemExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
@@ -345,7 +345,7 @@ SemanticContextAxiom* ExpressionHandleInMemory::tryToAddTeachFormulation
 }
 
 
-void ExpressionHandleInMemory::addAxiomWhereGatherAllTheLinks
+void ExpressionWithLinks::addAxiomWhereGatherAllTheLinks
 (const GroundedExpression& pGrdSemExpToAdd,
  const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -359,7 +359,7 @@ void ExpressionHandleInMemory::addAxiomWhereGatherAllTheLinks
 }
 
 
-void ExpressionHandleInMemory::_addTriggerGrdExpLinks(InformationType pInformationType,
+void ExpressionWithLinks::_addTriggerGrdExpLinks(InformationType pInformationType,
                                                         const GroundedExpression& pTriggerGrdExp,
                                                         const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
                                                         const linguistics::LinguisticDatabase& pLingDb,
@@ -372,7 +372,7 @@ void ExpressionHandleInMemory::_addTriggerGrdExpLinks(InformationType pInformati
   _addGrdExpToAxiom(axiom, pTriggerGrdExp, annotations, true, pLingDb);
 }
 
-void ExpressionHandleInMemory::_addTriggerGrdExpsLinks(InformationType pInformationType,
+void ExpressionWithLinks::_addTriggerGrdExpsLinks(InformationType pInformationType,
                                                          const std::list<const GroundedExpression*>& pTriggerGrdExpPtrs,
                                                          const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
                                                          const linguistics::LinguisticDatabase& pLingDb)
@@ -398,7 +398,7 @@ void ExpressionHandleInMemory::_addTriggerGrdExpsLinks(InformationType pInformat
 }
 
 
-void ExpressionHandleInMemory::addTriggerLinks
+void ExpressionWithLinks::addTriggerLinks
 (InformationType pInformationType,
  const SemanticExpression& pSemExp,
  const linguistics::LinguisticDatabase& pLingDb)
@@ -435,7 +435,7 @@ void ExpressionHandleInMemory::addTriggerLinks
 }
 
 
-void ExpressionHandleInMemory::addAxiomListToMemory(const SemanticExpression& pSemExpToAdd,
+void ExpressionWithLinks::addAxiomListToMemory(const SemanticExpression& pSemExpToAdd,
                                                       std::shared_ptr<SemanticTracker>* pSemTracker,
                                                       InformationType pInformationType,
                                                       bool pActionToDoIsAlwaysActive,
@@ -469,7 +469,7 @@ void ExpressionHandleInMemory::addAxiomListToMemory(const SemanticExpression& pS
 }
 
 
-intSemId ExpressionHandleInMemory::getIdOfFirstSentence() const
+intSemId ExpressionWithLinks::getIdOfFirstSentence() const
 {
   for (const auto& currAxiom : contextAxioms)
     return currAxiom.memorySentences.getIdOfFirstSentence();
@@ -477,7 +477,7 @@ intSemId ExpressionHandleInMemory::getIdOfFirstSentence() const
 }
 
 
-void ExpressionHandleInMemory::_addContextAxiom
+void ExpressionWithLinks::_addContextAxiom
 (SemanticContextAxiom& pContextAxiom,
  const SemanticExpression& pSemExpToAdd,
  const SemanticExpression* pSemExpToAddWithoutLinks,

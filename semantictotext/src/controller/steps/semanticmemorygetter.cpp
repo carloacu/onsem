@@ -1872,7 +1872,7 @@ void findSentenceThatContainANominalGroup(RelationsThatMatch<false>& pRes,
 }
 
 
-void findGrdExpInNominalGroupLinks(std::set<const ExpressionHandleInMemory*>& pRes,
+void findGrdExpInNominalGroupLinks(std::set<const ExpressionWithLinks*>& pRes,
                                    const GroundedExpression& pGrdExp,
                                    const SemanticMemoryBlock& pMemBlock,
                                    const linguistics::LinguisticDatabase& pLingDb)
@@ -1898,7 +1898,7 @@ void findGrdExpInNominalGroupLinks(std::set<const ExpressionHandleInMemory*>& pR
 }
 
 
-void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionHandleInMemory*, int>& pRes,
+void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, int>& pRes,
                                            const GroundedExpression& pGrdExp,
                                            const mystd::optional<int>& pGroundingCoef,
                                            const SemanticMemoryBlock& pMemBlock,

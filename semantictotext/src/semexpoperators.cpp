@@ -7,7 +7,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictextgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
@@ -637,7 +637,7 @@ void untrack(SemanticMemoryBlock& pMemBlock,
 
 
 
-std::shared_ptr<ExpressionHandleInMemory> _informMetaMemory
+std::shared_ptr<ExpressionWithLinks> _informMetaMemory
 (UniqueSemanticExpression pSemExp,
  SemanticMemoryBlock& pMemBloc,
  SemanticMemory& pSemanticMemory,
@@ -648,7 +648,7 @@ std::shared_ptr<ExpressionHandleInMemory> _informMetaMemory
 {
   conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
   auto newExpForMem = pMemBloc.addRootSemExp(std::move(pSemExp), pLingDb, pLinkedInfosPtr);
-  ExpressionHandleInMemory& newExpForMemRef = *newExpForMem;
+  ExpressionWithLinks& newExpForMemRef = *newExpForMem;
 
   std::unique_ptr<CompositeSemAnswer> compositeSemAnswers;
   controller::applyOperatorOnExpHandleInMemory(compositeSemAnswers, newExpForMemRef,
@@ -684,7 +684,7 @@ void notifyPunctually(const SemanticExpression& pSemExp,
   }
 }
 
-std::shared_ptr<ExpressionHandleInMemory> inform
+std::shared_ptr<ExpressionWithLinks> inform
 (UniqueSemanticExpression pSemExp,
  SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb,
@@ -697,7 +697,7 @@ std::shared_ptr<ExpressionHandleInMemory> inform
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> informAxiom
+std::shared_ptr<ExpressionWithLinks> informAxiom
 (UniqueSemanticExpression pSemExp,
  SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb,
@@ -757,7 +757,7 @@ void defaultKnowledge(SemanticMemory& pSemanticMemory,
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> addFallback
+std::shared_ptr<ExpressionWithLinks> addFallback
 (UniqueSemanticExpression pSemExp,
  SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb,
@@ -985,7 +985,7 @@ void pingTime(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction
 
 
 
-std::shared_ptr<ExpressionHandleInMemory> react(
+std::shared_ptr<ExpressionWithLinks> react(
     mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
     SemanticMemory& pSemanticMemory,
     UniqueSemanticExpression pSemExp,
@@ -998,7 +998,7 @@ std::shared_ptr<ExpressionHandleInMemory> react(
   static const InformationType informationType = InformationType::INFORMATION;
   std::unique_ptr<CompositeSemAnswer> compSemAnswers;
   auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pSemExp), pLingDb);
-  ExpressionHandleInMemory& expForMemRef = *expForMem;
+  ExpressionWithLinks& expForMemRef = *expForMem;
   controller::applyOperatorOnExpHandleInMemory(compSemAnswers, expForMemRef,
                                                  SemanticOperatorEnum::REACT,
                                                  informationType, pSemanticMemory, nullptr, pLingDb,
@@ -1015,7 +1015,7 @@ std::shared_ptr<ExpressionHandleInMemory> react(
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> reactFromTrigger(
+std::shared_ptr<ExpressionWithLinks> reactFromTrigger(
     mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
     SemanticMemory& pSemanticMemory,
     UniqueSemanticExpression pSemExp,
@@ -1028,7 +1028,7 @@ std::shared_ptr<ExpressionHandleInMemory> reactFromTrigger(
   static const InformationType informationType = InformationType::INFORMATION;
   std::unique_ptr<CompositeSemAnswer> compSemAnswers;
   auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pSemExp), pLingDb);
-  ExpressionHandleInMemory& expForMemRef = *expForMem;
+  ExpressionWithLinks& expForMemRef = *expForMem;
   controller::applyOperatorOnExpHandleInMemory(compSemAnswers, expForMemRef,
                                                SemanticOperatorEnum::REACTFROMTRIGGER,
                                                informationType, pSemanticMemory, nullptr, pLingDb,
@@ -1045,7 +1045,7 @@ std::shared_ptr<ExpressionHandleInMemory> reactFromTrigger(
 }
 
 
-std::shared_ptr<ExpressionHandleInMemory> teach
+std::shared_ptr<ExpressionWithLinks> teach
 (mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
  SemanticMemory& pSemanticMemory,
  UniqueSemanticExpression pSemExp,
@@ -1056,7 +1056,7 @@ std::shared_ptr<ExpressionHandleInMemory> teach
   static const InformationType informationType = InformationType::INFORMATION;
   std::unique_ptr<CompositeSemAnswer> compSemAnswers;
   auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pSemExp), pLingDb);
-  ExpressionHandleInMemory& expForMemRef = *expForMem;
+  ExpressionWithLinks& expForMemRef = *expForMem;
   SemanticOperatorEnum opEnum = SemanticOperatorEnum::TEACHINFORMATION;
   if (pActionOperator == SemanticActionOperatorEnum::BEHAVIOR)
     opEnum = SemanticOperatorEnum::TEACHBEHAVIOR;

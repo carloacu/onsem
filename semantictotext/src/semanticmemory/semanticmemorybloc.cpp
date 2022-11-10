@@ -13,7 +13,7 @@
 #include <onsem/texttosemantic/linguisticanalyzer.hpp>
 #include <onsem/texttosemantic/printer/expressionprinter.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include "../utility/semexpcreator.hpp"
@@ -94,7 +94,7 @@ void SemanticMemoryBlock::_pruneExceedingExpressions(const linguistics::Linguist
 
 
 void SemanticMemoryBlock::addExpHandleInMemory
-(const std::shared_ptr<ExpressionHandleInMemory>& pNewSemMemKnowledge,
+(const std::shared_ptr<ExpressionWithLinks>& pNewSemMemKnowledge,
  const linguistics::LinguisticDatabase& pLingDb,
  std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
@@ -104,12 +104,12 @@ void SemanticMemoryBlock::addExpHandleInMemory
   _pruneExceedingExpressions(pLingDb, pAxiomToConditionCurrentStatePtr);
 }
 
-std::shared_ptr<ExpressionHandleInMemory> SemanticMemoryBlock::_addRootSemExp
+std::shared_ptr<ExpressionWithLinks> SemanticMemoryBlock::_addRootSemExp
 (UniqueSemanticExpression pNewRootSemExp,
  const mystd::radix_map_str<std::string>* pLinkedInfosPtr)
 {
   auto expForMemory =
-      std::make_shared<ExpressionHandleInMemory>(*this, std::move(pNewRootSemExp),
+      std::make_shared<ExpressionWithLinks>(*this, std::move(pNewRootSemExp),
                                                    pLinkedInfosPtr);
   _impl->expressionsMemories.emplace_back(expForMemory);
   _impl->addLastExpressionToPtrToIteratorMap();
@@ -117,7 +117,7 @@ std::shared_ptr<ExpressionHandleInMemory> SemanticMemoryBlock::_addRootSemExp
   return expForMemory;
 }
 
-std::shared_ptr<ExpressionHandleInMemory> SemanticMemoryBlock::addRootSemExp
+std::shared_ptr<ExpressionWithLinks> SemanticMemoryBlock::addRootSemExp
 (UniqueSemanticExpression pNewRootSemExp,
  const linguistics::LinguisticDatabase& pLingDb,
  const mystd::radix_map_str<std::string>* pLinkedInfosPtr,
@@ -133,7 +133,7 @@ void SemanticMemoryBlock::addTrackerSemExp
  std::shared_ptr<SemanticTracker>& pSemTracker,
  const linguistics::LinguisticDatabase& pLingDb)
 {
-  auto memKnow = std::make_unique<ExpressionHandleInMemory>(*this,
+  auto memKnow = std::make_unique<ExpressionWithLinks>(*this,
                                                                 std::move(pNewRootSemExp));
   memKnow->addAxiomListToMemory(*memKnow->semExp,
                                 &pSemTracker, InformationType::INFORMATION, true, nullptr, nullptr, nullptr, pLingDb);
@@ -206,7 +206,7 @@ void SemanticMemoryBlock::removeLinkedActions()
 }
 
 
-void SemanticMemoryBlock::removeExpression(ExpressionHandleInMemory& pExpressionToRemove,
+void SemanticMemoryBlock::removeExpression(ExpressionWithLinks& pExpressionToRemove,
                                            const linguistics::LinguisticDatabase& pLingDb,
                                            std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
@@ -775,13 +775,13 @@ intSemId SemanticMemoryBlock::getNextSemId()
 }
 
 
-const std::list<std::shared_ptr<ExpressionHandleInMemory>>& SemanticMemoryBlock::getExpressionHandleInMemories() const
+const std::list<std::shared_ptr<ExpressionWithLinks>>& SemanticMemoryBlock::getExpressionHandleInMemories() const
 {
   return _impl->expressionsMemories;
 }
 
 
-std::list<std::shared_ptr<ExpressionHandleInMemory>>& SemanticMemoryBlock::getExpressionHandleInMemories()
+std::list<std::shared_ptr<ExpressionWithLinks>>& SemanticMemoryBlock::getExpressionHandleInMemories()
 {
   return _impl->expressionsMemories;
 }

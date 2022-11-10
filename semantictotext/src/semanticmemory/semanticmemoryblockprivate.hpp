@@ -40,7 +40,7 @@ namespace linguistics
 struct LinguisticDatabase;
 }
 struct SemanticTriggerAxiomId;
-struct ExpressionHandleInMemory;
+struct ExpressionWithLinks;
 class SemanticTracker;
 struct SemanticContextAxiom;
 struct SemanticMemoryBlock;
@@ -70,7 +70,7 @@ struct SemanticMemoryBlockPrivate
                                                     const SemanticMemoryGrdExp*& pSemMemoryGrdExpPtr) const;
 
   /// The expressions concerned in this memory bloc
-  std::list<std::shared_ptr<ExpressionHandleInMemory>> expressionsMemories;
+  std::list<std::shared_ptr<ExpressionWithLinks>> expressionsMemories;
 
   SemanticMemoryBlock& getMemBlock() { return _memBlock; }
   const SemanticMemoryBlock& getMemBlock() const { return _memBlock; }
@@ -94,8 +94,8 @@ struct SemanticMemoryBlockPrivate
                                        SemanticVerbTense pTense,
                                        VerbGoalEnum pVerbGoal) const;
 
-  std::map<std::shared_ptr<SemanticTracker>*, std::shared_ptr<ExpressionHandleInMemory>> trackerKnowledges;
-  using MapMemoryPtrToIterator = std::unordered_map<ExpressionHandleInMemory*, std::list<std::shared_ptr<ExpressionHandleInMemory>>::iterator>;
+  std::map<std::shared_ptr<SemanticTracker>*, std::shared_ptr<ExpressionWithLinks>> trackerKnowledges;
+  using MapMemoryPtrToIterator = std::unordered_map<ExpressionWithLinks*, std::list<std::shared_ptr<ExpressionWithLinks>>::iterator>;
   MapMemoryPtrToIterator expressionsMemoriesPtrToIt;
 
   /**

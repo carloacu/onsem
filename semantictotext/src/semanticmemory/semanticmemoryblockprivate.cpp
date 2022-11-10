@@ -1,7 +1,7 @@
 #include "semanticmemoryblockprivate.hpp"
 #include <chrono>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>

@@ -7,7 +7,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
 #include "../semanticmemory/semanticmemoryblockviewer.hpp"
@@ -72,7 +72,7 @@ void _applyOperatorResolveSecondPersonOfSingular
 
 void applyOperatorOnExpHandleInMemory
 (std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers,
- ExpressionHandleInMemory& pExpressionHandleInMemory,
+ ExpressionWithLinks& pExpressionWithLinks,
  SemanticOperatorEnum pReactionOperator,
  InformationType pInformationType,
  SemanticMemory& pSemanticMemory,
@@ -80,10 +80,10 @@ void applyOperatorOnExpHandleInMemory
  const linguistics::LinguisticDatabase& pLingDb,
  const ReactionOptions* pReactionOptions)
 {
-  const auto& semExp = *pExpressionHandleInMemory.semExp;
+  const auto& semExp = *pExpressionWithLinks.semExp;
   SemControllerWorkingStruct workStruct
       (pInformationType, nullptr, SemanticLanguageEnum::UNKNOWN,
-       &pExpressionHandleInMemory, pReactionOperator, &pSemanticMemory.proativeSpecifications,
+       &pExpressionWithLinks, pReactionOperator, &pSemanticMemory.proativeSpecifications,
        pSemanticMemory.getExternalFallback(), &pSemanticMemory.callbackToSentencesCanBeAnswered,
        pAxiomToConditionCurrentStatePtr, pLingDb);
 
@@ -640,7 +640,7 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
       _informOrReactToTheCauseChild(pWorkStruct, pMemViewer, semExp);
 
     // Main operation
-    ExpressionHandleInMemory* memKnowledge = pWorkStruct.expHandleInMemory;
+    ExpressionWithLinks* memKnowledge = pWorkStruct.expHandleInMemory;
     if (pWorkStruct.expHandleInMemory != nullptr &&
         SemExpGetter::extractSource(*pWorkStruct.expHandleInMemory->semExp) == SemanticSourceEnum::SEMREACTION)
     {
@@ -1443,7 +1443,7 @@ TruenessValue operator_check_semExp
 
 
 void linkConditionalReactions(std::list<std::unique_ptr<SemAnswer>>& pSemAnswers,
-                              ExpressionHandleInMemory& pMemKnowledge,
+                              ExpressionWithLinks& pMemKnowledge,
                               SemanticMemory& pSemanticMemory,
                               const linguistics::LinguisticDatabase& pLingDb,
                               InformationType pInformationType)

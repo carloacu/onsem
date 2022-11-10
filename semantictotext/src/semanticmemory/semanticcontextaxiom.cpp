@@ -1,7 +1,7 @@
 #include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
 
 namespace onsem
@@ -57,7 +57,7 @@ bool SemanticTriggerAxiomId::operator<(const SemanticTriggerAxiomId& pOther) con
 
 SemanticContextAxiom::SemanticContextAxiom
 (InformationType pInformationType,
- ExpressionHandleInMemory& pSemExpWrappedForMemory)
+ ExpressionWithLinks& pSemExpWrappedForMemory)
   : semTracker(),
     informationType(pInformationType),
     triggerAxiomId(),

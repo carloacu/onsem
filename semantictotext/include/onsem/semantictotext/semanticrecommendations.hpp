@@ -10,8 +10,8 @@ namespace onsem
 
 struct ONSEMSEMANTICTOTEXT_API SemanticGroundingsToRecommendationCoef
 {
-  std::list<std::shared_ptr<ExpressionHandleInMemory>> expsWrappedInMemory{};
-  std::map<const ExpressionHandleInMemory*, int> expToCoef{};
+  std::list<std::shared_ptr<ExpressionWithLinks>> expsWrappedInMemory{};
+  std::map<const ExpressionWithLinks*, int> expToCoef{};
   SemanticMemoryBlock memBlock{SemanticMemoryBlock::infinteMemory};
 };
 
@@ -19,8 +19,8 @@ struct ONSEMSEMANTICTOTEXT_API SemanticGroundingsToRecommendationCoef
 struct ONSEMSEMANTICTOTEXT_API SemanticRecommendationsContainer
 {
   std::set<std::string> recommendationIds{};
-  std::list<std::shared_ptr<ExpressionHandleInMemory>> expsWrappedInMemory{};
-  std::map<const ExpressionHandleInMemory*, std::pair<std::string, int>> recommendationsToNumberOfLinks{};
+  std::list<std::shared_ptr<ExpressionWithLinks>> expsWrappedInMemory{};
+  std::map<const ExpressionWithLinks*, std::pair<std::string, int>> recommendationsToNumberOfLinks{};
   SemanticMemoryBlock memBlock{SemanticMemoryBlock::infinteMemory};
   SemanticGroundingsToRecommendationCoef goundingsToCoef{};
 };

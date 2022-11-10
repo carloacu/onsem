@@ -14,7 +14,7 @@
 #include <onsem/texttosemantic/type/enumsconvertions.hpp>
 #include <onsem/common/utility/string.hpp>
 #include <onsem/common/utility/uppercasehandler.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include "../merger/synthesizerchunksmerger.hpp"
 #include "../tool/synthesizergetter.hpp"

@@ -292,7 +292,7 @@ SemControllerWorkingStruct::SemControllerWorkingStruct
 (InformationType pInformationType,
  const SemanticExpression* pAuthorSemExpPtr,
  SemanticLanguageEnum pFromLanguage,
- ExpressionHandleInMemory* pMemKnowledge,
+ ExpressionWithLinks* pMemKnowledge,
  SemanticOperatorEnum pReactOperator,
  const ProativeSpecifications* pProativeSpecificationsPtr,
  const ExternalFallback* pExternalFallbackPtr,

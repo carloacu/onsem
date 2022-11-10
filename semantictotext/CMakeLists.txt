@@ -8,9 +8,9 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/enum/semanticengagementvalue.hpp
     include/onsem/semantictotext/enum/semantictypeoffeedback.hpp
     include/onsem/semantictotext/tool/semexpagreementdetector.hpp
+    include/onsem/semantictotext/semanticmemory/expressionwithlinks.hpp
     include/onsem/semantictotext/semanticmemory/referencesgetter.hpp
     include/onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp
-    include/onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp
     include/onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp
     include/onsem/semantictotext/semanticmemory/semanticmemory.hpp
     include/onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp
@@ -113,6 +113,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/tool/userinfosfiller.cpp
     src/semanticmemory/answerelement.hpp
     src/semanticmemory/answerelement.cpp
+    src/semanticmemory/expressionwithlinks.cpp
     src/semanticmemory/semanticannotation.hpp
     src/semanticmemory/usernames.hpp
     src/semanticmemory/usernames.cpp
@@ -121,7 +122,6 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/semanticmemory/semanticmemorysentence.cpp
     src/semanticmemory/semanticmemorysentencelist.cpp
     src/semanticmemory/semanticmemorybloc.cpp
-    src/semanticmemory/expressionhandleinmemory.cpp
     src/semanticmemory/semanticmemory.cpp
     src/semanticmemory/semanticlinkstogrdexps.hpp
     src/semanticmemory/semanticlinkstogrdexps.cpp

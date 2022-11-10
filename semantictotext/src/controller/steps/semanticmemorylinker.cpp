@@ -9,7 +9,7 @@
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
@@ -444,7 +444,7 @@ void _getResultFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRes,
 
 bool _addTriggerAnswer(SemControllerWorkingStruct& pWorkStruct,
                        bool& pAnAnswerHasBeenAdded,
-                       const ExpressionHandleInMemory& pExp,
+                       const ExpressionWithLinks& pExp,
                        const SemanticMemoryBlockViewer& pMemViewer,
                        ContextualAnnotation pContAnnotation)
 {
@@ -464,7 +464,7 @@ bool _addTriggerAnswer(SemControllerWorkingStruct& pWorkStruct,
 
 bool _addTriggerThatMatchTheMost(SemControllerWorkingStruct& pWorkStruct,
                                  bool& pAnAnswerHasBeenAdded,
-                                 const std::set<const ExpressionHandleInMemory*>& pSemExpWrapperPtrs,
+                                 const std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
                                  const SemanticMemoryBlockViewer& pMemViewer,
                                  ContextualAnnotation pContAnnotation,
                                  const SemanticExpression& pInputSemExp)
@@ -479,7 +479,7 @@ bool _addTriggerThatMatchTheMost(SemControllerWorkingStruct& pWorkStruct,
 
   if (pSemExpWrapperPtrsSize > 1)
   {
-    std::map<int, std::map<intSemId, const ExpressionHandleInMemory*>> similarityCoef;
+    std::map<int, std::map<intSemId, const ExpressionWithLinks*>> similarityCoef;
     for (const auto& currRel : pSemExpWrapperPtrs)
       similarityCoef[getSimilarityCoef(pInputSemExp, *currRel->semExp)].emplace(currRel->getIdOfFirstSentence(), currRel);
 
@@ -494,7 +494,7 @@ bool _addTriggerThatMatchTheMost(SemControllerWorkingStruct& pWorkStruct,
 
 
 void _matchAnyTrigger
-(std::set<const ExpressionHandleInMemory*>& pSemExpWrapperPtrs,
+(std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
  RequestToMemoryLinks<false>& pReqToGrdExps,
@@ -508,7 +508,7 @@ void _matchAnyTrigger
                        pMemViewer, pReqLinks, semanticMemoryGetter::RequestContext::SENTENCE,
                        nullptr, SemanticRequestType::NOTHING, true, true);
 
-  std::map<std::size_t, std::set<const ExpressionHandleInMemory*>> nbOfErrorsToLowPrioritySemExpWrapperPtrs;
+  std::map<std::size_t, std::set<const ExpressionWithLinks*>> nbOfErrorsToLowPrioritySemExpWrapperPtrs;
   for (const auto& currRel : idsToSentences.res.dynamicLinks)
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
@@ -562,7 +562,7 @@ bool _isAValidAnswerForTheQuestionFilter(const GroundedExpression& pGrdExp,
 
 
 void _matchTriggerSentences
-(std::set<const ExpressionHandleInMemory*>& pSemExpWrapperPtrs,
+(std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
  const RequestLinks& pReqLinks,
@@ -589,7 +589,7 @@ void _matchTriggerSentences
 
 
 void _matchNominalGroupTrigger
-(std::set<const ExpressionHandleInMemory*>& pSemExpWrapperPtrs,
+(std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
  const RequestLinks& pReqLinks,
@@ -616,7 +616,7 @@ void _matchNominalGroupTrigger
 
 
 void _matchGrdExpTrigger
-(std::set<const ExpressionHandleInMemory*>& pSemExpWrapperPtrs,
+(std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
  const RequestLinks& pReqLinks,
@@ -640,7 +640,7 @@ bool _addTriggerSemExp
  const SemanticExpression& pSemExp,
  const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId)
 {
-  std::set<const ExpressionHandleInMemory*> semExpWrapperPtrs;
+  std::set<const ExpressionWithLinks*> semExpWrapperPtrs;
   std::size_t i = 0;
   for (const auto* currGrdExpPtr : pGrdExpPtrs)
   {
@@ -660,7 +660,7 @@ bool _addTriggerSemExp
     RequestLinks reqLinks;
     getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, currGrdExp, false);
     SemanticTriggerAxiomId axiomId = pGetAxiomIdFromId(i++);
-    std::set<const ExpressionHandleInMemory*> subSemExpWrapperPtrs;
+    std::set<const ExpressionWithLinks*> subSemExpWrapperPtrs;
     _matchGrdExpTrigger(subSemExpWrapperPtrs, pWorkStruct, pMemViewer, reqLinks,
                         semExpCategory, axiomId, currGrdExp);
     if (subSemExpWrapperPtrs.empty())
@@ -1125,7 +1125,7 @@ bool addTriggerSentencesAnswer
  const GroundedExpression& pInputGrdExp,
  ContextualAnnotation pContAnnotation)
 {
-  std::set<const ExpressionHandleInMemory*> semExpWrapperPtrs;
+  std::set<const ExpressionWithLinks*> semExpWrapperPtrs;
   _matchGrdExpTrigger(semExpWrapperPtrs, pWorkStruct, pMemViewer,
                       pReqLinks, pExpCategory, pAxiomId, pInputGrdExp);
   return _addTriggerThatMatchTheMost(pWorkStruct, pAnAnswerHasBeenAdded, semExpWrapperPtrs,

@@ -11,7 +11,7 @@
 
 namespace onsem
 {
-struct ExpressionHandleInMemory;
+struct ExpressionWithLinks;
 class SemanticTracker;
 struct SemanticExpression;
 
@@ -39,7 +39,7 @@ struct ONSEMSEMANTICTOTEXT_API SemanticContextAxiom : public ReferencesGetter
 {
   SemanticContextAxiom(
       InformationType pInformationType,
-      ExpressionHandleInMemory& pSemExpWrappedForMemory);
+      ExpressionWithLinks& pSemExpWrappedForMemory);
 
   SemanticContextAxiom(const SemanticContextAxiom&) = delete;
   SemanticContextAxiom& operator=(const SemanticContextAxiom&) = delete;
@@ -50,8 +50,8 @@ struct ONSEMSEMANTICTOTEXT_API SemanticContextAxiom : public ReferencesGetter
   bool canOtherInformationTypeBeMoreRevelant(InformationType pInformationType) const;
   void getReferences(std::list<std::string>& pReferences) const override;
 
-  ExpressionHandleInMemory& getSemExpWrappedForMemory() { return _semExpWrappedForMemory; }
-  const ExpressionHandleInMemory& getSemExpWrappedForMemory() const { return _semExpWrappedForMemory; }
+  ExpressionWithLinks& getSemExpWrappedForMemory() { return _semExpWrappedForMemory; }
+  const ExpressionWithLinks& getSemExpWrappedForMemory() const { return _semExpWrappedForMemory; }
 
   /// Property to raise
   mystd::optional<std::shared_ptr<SemanticTracker>> semTracker;
@@ -70,7 +70,7 @@ struct ONSEMSEMANTICTOTEXT_API SemanticContextAxiom : public ReferencesGetter
 
 private:
   /// Parent semantic expression
-  ExpressionHandleInMemory& _semExpWrappedForMemory;
+  ExpressionWithLinks& _semExpWrappedForMemory;
 };
 
 

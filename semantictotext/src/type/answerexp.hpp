@@ -16,7 +16,7 @@ struct LinguisticDatabase;
 }
 struct SemanticContextAxiom;
 struct SemanticMemoryBlock;
-struct ExpressionHandleInMemory;
+struct ExpressionWithLinks;
 struct SemanticMemoryGrdExp;
 
 
@@ -24,7 +24,7 @@ struct RelatedContextAxiom : public ReferencesGetter
 {
   void add(const RelatedContextAxiom& pOther);
   void add(const SemanticMemoryGrdExp& pSemMemoryGrdExp);
-  bool haveThisExpHandleInMemory(const ExpressionHandleInMemory* pExpHandleInMemory) const;
+  bool haveThisExpHandleInMemory(const ExpressionWithLinks* pExpHandleInMemory) const;
   void getReferences(std::list<std::string>& pReferences) const override;
   bool isAnAssertion() const;
   bool isEmpty() const;

@@ -3,7 +3,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
-#include <onsem/semantictotext/semanticmemory/expressionhandleinmemory.hpp>
+#include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
@@ -636,7 +636,7 @@ void _saveContextAxiom(boost::property_tree::ptree& pTree,
 
 
 void _saveMemoryKnowledge(boost::property_tree::ptree& pTree,
-                          const ExpressionHandleInMemory& pMemKnowledge)
+                          const ExpressionWithLinks& pMemKnowledge)
 {
   GrdExpLinks grdExpLinks;
   if (!pMemKnowledge.linkedInfos.empty())
@@ -661,8 +661,8 @@ void _saveMemoryBlock(boost::property_tree::ptree& pTree,
   if (pMemBlock.nbOfKnowledges() > 0)
   {
     boost::property_tree::ptree& expressionsMemoriesChild = pTree.put_child("expressionsMemories", {});
-    for (const auto& currExpressionHandleInMemory : pMemBlock.getExpressionHandleInMemories())
-      _saveMemoryKnowledge(expressionsMemoriesChild.add_child("e", {}), *currExpressionHandleInMemory);
+    for (const auto& currExpressionWithLinks : pMemBlock.getExpressionHandleInMemories())
+      _saveMemoryKnowledge(expressionsMemoriesChild.add_child("e", {}), *currExpressionWithLinks);
   }
   pTree.put("maxNbOfKnowledgesInAMemoryBloc", pMemBlock.maxNbOfExpressionsInAMemoryBlock);
 

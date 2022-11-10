@@ -27,7 +27,7 @@ struct UniqueSemanticExpression;
 struct GroundedExpression;
 class SemanticTracker;
 struct SemanticMemory;
-struct ExpressionHandleInMemory;
+struct ExpressionWithLinks;
 struct SemanticContextAxiom;
 struct SemanticMemoryBlock;
 struct SemanticDuration;
@@ -137,7 +137,7 @@ void notifyPunctually(const SemanticExpression& pSemExp,
                       const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionHandleInMemory> inform(
+std::shared_ptr<ExpressionWithLinks> inform(
     UniqueSemanticExpression pSemExp,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
@@ -145,7 +145,7 @@ std::shared_ptr<ExpressionHandleInMemory> inform(
     std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionHandleInMemory> informAxiom(
+std::shared_ptr<ExpressionWithLinks> informAxiom(
     UniqueSemanticExpression pSemExp,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
@@ -164,7 +164,7 @@ void defaultKnowledge(SemanticMemory& pSemanticMemory,
                       const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionHandleInMemory> addFallback(
+std::shared_ptr<ExpressionWithLinks> addFallback(
     UniqueSemanticExpression pSemExp,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
@@ -231,14 +231,14 @@ void addAgentInterpretations(UniqueSemanticExpression& pSemExp,
                              const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionHandleInMemory> react(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+std::shared_ptr<ExpressionWithLinks> react(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
                                                   SemanticMemory& pSemanticMemory,
                                                   UniqueSemanticExpression pSemExp,
                                                   const linguistics::LinguisticDatabase& pLingDb,
                                                   const ReactionOptions* pReactionOptions = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionHandleInMemory> reactFromTrigger(
+std::shared_ptr<ExpressionWithLinks> reactFromTrigger(
     mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
     SemanticMemory& pSemanticMemory,
     UniqueSemanticExpression pSemExp,
@@ -246,7 +246,7 @@ std::shared_ptr<ExpressionHandleInMemory> reactFromTrigger(
     const ReactionOptions* pReactionOptions = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionHandleInMemory> teach(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+std::shared_ptr<ExpressionWithLinks> teach(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
                                                   SemanticMemory& pSemanticMemory,
                                                   UniqueSemanticExpression pSemExp,
                                                   const linguistics::LinguisticDatabase& pLingDb,
