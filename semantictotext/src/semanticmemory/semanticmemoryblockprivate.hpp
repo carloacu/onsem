@@ -69,7 +69,7 @@ struct SemanticMemoryBlockPrivate
   std::unique_ptr<SemanticNameGrounding> getNameGrd(const std::string& pUserId,
                                                     const SemanticMemoryGrdExp*& pSemMemoryGrdExpPtr) const;
 
-  /// The knowledges concerned in this memory bloc
+  /// The expressions concerned in this memory bloc
   std::list<std::shared_ptr<ExpressionHandleInMemory>> expressionsMemories;
 
   SemanticMemoryBlock& getMemBlock() { return _memBlock; }

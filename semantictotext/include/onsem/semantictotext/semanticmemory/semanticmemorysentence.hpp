@@ -39,6 +39,9 @@ private:
 
 
 
+/**
+ * @brief This class contains a grounded expression with the links, that merged in a memory will allow to do a fast matching.
+ */
 struct ONSEMSEMANTICTOTEXT_API SemanticMemorySentence
 {
   SemanticMemorySentence(SemanticContextAxiom& pContextAxiom,

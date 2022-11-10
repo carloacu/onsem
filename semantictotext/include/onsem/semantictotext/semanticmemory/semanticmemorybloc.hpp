@@ -59,12 +59,12 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
   void ensureFallbacksBlock();
 
   void addExpHandleInMemory(const std::shared_ptr<ExpressionHandleInMemory>& pNewSemMemKnowledge,
-                              const linguistics::LinguisticDatabase& pLingDb,
-                              std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+                            const linguistics::LinguisticDatabase& pLingDb,
+                            std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
   std::shared_ptr<ExpressionHandleInMemory> addRootSemExp(UniqueSemanticExpression pNewRootSemExp,
-                                                            const linguistics::LinguisticDatabase& pLingDb,
-                                                            const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr,
-                                                            std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
+                                                          const linguistics::LinguisticDatabase& pLingDb,
+                                                          const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr,
+                                                          std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
   void addTrackerSemExp(UniqueSemanticExpression pNewRootSemExp,
                         std::shared_ptr<SemanticTracker>& pSemTracker,
                         const linguistics::LinguisticDatabase& pLingDb);
