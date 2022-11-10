@@ -6,7 +6,7 @@
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
 #include <onsem/semantictotext/semexpsimplifer.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
@@ -576,7 +576,7 @@ bool _tryToAnswerToWhatCanYouDo(SemControllerWorkingStruct& pWorkStruct,
       SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::me)
     return false;
 
-  const std::map<intSemId, const SemanticMemorySentence*>& infActions = pMemBlock.getInfActions();
+  const std::map<intSemId, const GroundedExpWithLinks*>& infActions = pMemBlock.getInfActions();
   UniqueSemanticExpression res;
   for (const auto& currInfAction : infActions)
   {

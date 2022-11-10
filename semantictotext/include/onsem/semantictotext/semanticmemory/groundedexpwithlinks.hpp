@@ -1,5 +1,5 @@
-#ifndef ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICMEMORYSENTENCE_HPP
-#define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICMEMORYSENTENCE_HPP
+#ifndef ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_GROUNDEDEXPWITHLINKS_HPP
+#define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_GROUNDEDEXPWITHLINKS_HPP
 
 #include <string>
 #include <map>
@@ -8,7 +8,7 @@
 #include <onsem/common/enum/grammaticaltype.hpp>
 #include <onsem/common/utility/unique_propagate_const.hpp>
 #include <onsem/texttosemantic/dbtype/binary/semexpsaver.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
 
 namespace onsem
 {
@@ -18,7 +18,7 @@ struct LinguisticDatabase;
 }
 struct SentenceWithLinks;
 struct GroundedExpression;
-struct SemanticMemorySentencePrivate;
+struct GroundedExpWithLinksPrivate;
 struct SemanticExpression;
 struct SemanticMemoryGrdExp;
 struct SemanticExpressionContainer;
@@ -39,12 +39,10 @@ private:
 
 
 
-/**
- * @brief This class contains a grounded expression with the links, that merged in a memory will allow to do a fast matching.
- */
-struct ONSEMSEMANTICTOTEXT_API SemanticMemorySentence
+/// This class contains a grounded expression with the links, that merged in a memory will allow to do a fast matching.
+struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinks
 {
-  SemanticMemorySentence(SentenceWithLinks& pContextAxiom,
+  GroundedExpWithLinks(SentenceWithLinks& pContextAxiom,
                          const GroundedExpression& pGrdExp,
                          bool pGatherAllTheLinks,
                          const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
@@ -52,13 +50,13 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemorySentence
                          bool pIsAConditionToSatisfy,
                          bool pIsEnabled = true,
                          intSemId pId = 0);
-  ~SemanticMemorySentence();
+  ~GroundedExpWithLinks();
 
   void setEnabled(bool pEnabled);
   bool isEnabled() const { return _isEnabled; }
   bool isANoun() const { return _isANoun; }
   bool isAConditionToSatisfy() const { return _isAConditionToSatisfy; }
-  bool isOtherSentenceMoreRevelant(const SemanticMemorySentence& pOther) const;
+  bool isOtherSentenceMoreRevelant(const GroundedExpWithLinks& pOther) const;
   std::string getName(const std::string& pUserId) const;
   bool hasEquivalentUserIds(const std::string& pUserId) const;
   const std::map<GrammaticalType, const SemanticExpression*>& getAnnotations() const { return _annotations; }
@@ -85,8 +83,8 @@ private:
   bool _isEnabled;
   bool _isANoun;
   bool _isAConditionToSatisfy;
-  friend struct SemanticMemorySentencePrivate;
-  mystd::unique_propagate_const<SemanticMemorySentencePrivate> _impl;
+  friend struct GroundedExpWithLinksPrivate;
+  mystd::unique_propagate_const<GroundedExpWithLinksPrivate> _impl;
 };
 
 
@@ -94,4 +92,4 @@ private:
 } // End of namespace onsem
 
 
-#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICMEMORYSENTENCE_HPP
+#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_GROUNDEDEXPWITHLINKS_HPP

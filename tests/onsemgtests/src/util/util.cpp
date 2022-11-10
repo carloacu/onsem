@@ -4,7 +4,7 @@
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/serialization.hpp>
 #include <onsem/semantictotext/executor/textexecutor.hpp>
@@ -146,7 +146,7 @@ TrackSemMemoryNotifications::TrackSemMemoryNotifications(SemanticMemory& pSemMem
     _conditionToActions()
 {
   _infActionChangedConnection =
-      _semMem.memBloc.infActionChanged.connectUnsafe([this](const std::map<intSemId, const SemanticMemorySentence*>& pInfActions)
+      _semMem.memBloc.infActionChanged.connectUnsafe([this](const std::map<intSemId, const GroundedExpWithLinks*>& pInfActions)
   {
     std::list<SemanticBehaviorDefinition> actionDefinitions;
     SemanticMemoryBlock::extractActions(actionDefinitions, pInfActions);
@@ -188,7 +188,7 @@ TrackSemMemoryNotifications::TrackSemMemoryNotifications(SemanticMemory& pSemMem
   });
 
   _conditionToActionChangedConnection =
-      _semMem.memBloc.conditionToActionChanged.connectUnsafe([this](const std::set<const SemanticMemorySentence*>& pCondToActions)
+      _semMem.memBloc.conditionToActionChanged.connectUnsafe([this](const std::set<const GroundedExpWithLinks*>& pCondToActions)
   {
     std::list<UniqueSemanticExpression> condToActionsSemExp;
     SemanticMemoryBlock::extractConditionToActions(condToActionsSemExp, pCondToActions);

@@ -1,27 +1,27 @@
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentencelist.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinkslist.hpp>
 
 namespace onsem
 {
 
-void SemanticMemorySentenceList::setEnabled(bool pEnabled)
+void GroundedExpWithLinksList::setEnabled(bool pEnabled)
 {
-  for (SemanticMemorySentence& currElt : elts)
+  for (GroundedExpWithLinks& currElt : elts)
     currElt.setEnabled(pEnabled);
 }
 
-void SemanticMemorySentenceList::clear()
+void GroundedExpWithLinksList::clear()
 {
   auto itElt = elts.begin();
   while (itElt != elts.end())
   {
-    SemanticMemorySentence& memSen = *itElt;
+    GroundedExpWithLinks& memSen = *itElt;
     memSen.setEnabled(false);
     itElt = elts.erase(itElt);
   }
 }
 
 
-std::string SemanticMemorySentenceList::getName(const std::string& pUserId) const
+std::string GroundedExpWithLinksList::getName(const std::string& pUserId) const
 {
   if (elts.size() == 1)
     return elts.front().getName(pUserId);
@@ -38,7 +38,7 @@ std::string SemanticMemorySentenceList::getName(const std::string& pUserId) cons
 }
 
 
-bool SemanticMemorySentenceList::hasEquivalentUserIds(const std::string& pUserId) const
+bool GroundedExpWithLinksList::hasEquivalentUserIds(const std::string& pUserId) const
 {
   if (and_or)
     for (const auto& currElt : elts)
@@ -47,7 +47,7 @@ bool SemanticMemorySentenceList::hasEquivalentUserIds(const std::string& pUserId
   return false;
 }
 
-intSemId SemanticMemorySentenceList::getIdOfFirstSentence() const
+intSemId GroundedExpWithLinksList::getIdOfFirstSentence() const
 {
   for (const auto& currElt : elts)
     return currElt.id;

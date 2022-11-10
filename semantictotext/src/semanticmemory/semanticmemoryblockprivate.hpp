@@ -78,13 +78,13 @@ struct SemanticMemoryBlockPrivate
   /// Add last knowledge to knowledge pointer <-> iterator map.
   void addLastExpressionToPtrToIteratorMap();
 
-  void addConditionToAnAction(const SemanticMemorySentence& pMemSent,
+  void addConditionToAnAction(const GroundedExpWithLinks& pMemSent,
                               const SemanticMemoryLinksForAMemSentence& pMemSentLinks);
 
-  void addInfAction(const SemanticMemorySentence& pMemSent);
+  void addInfAction(const GroundedExpWithLinks& pMemSent);
 
-  void removeInfAction(const SemanticMemorySentence& pMemSent);
-  void removeConditionToAnAction(const SemanticMemorySentence& pMemSent);
+  void removeInfAction(const GroundedExpWithLinks& pMemSent);
+  void removeConditionToAnAction(const GroundedExpWithLinks& pMemSent);
   void removeLinksIfEmpty(const SemanticTriggerAxiomId& pAxiomId);
 
   RequestToMemoryLinks<true> getLinks(SemanticTypeOfLinks pTypeOfLinks,
@@ -121,11 +121,11 @@ struct SemanticMemoryBlockPrivate
     *  > Sentences that are in a contextAxiom that have a momentNotifier or a semExpToDo
     */
   SemanticMemoryLinksForAnyVerbTense sentWithActionLinks;
-  std::set<const SemanticMemorySentence*> conditionToActions;
+  std::set<const GroundedExpWithLinks*> conditionToActions;
 
   /// Link to meanings of actions
   SemanticMemoryLinks sentWithInfActionLinks;
-  std::map<intSemId, const SemanticMemorySentence*> infActions;
+  std::map<intSemId, const GroundedExpWithLinks*> infActions;
 
   std::shared_ptr<SemanticMemoryBlockBinaryReader> subBinaryBlockPtr;
 

@@ -19,7 +19,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
 #include <onsem/semantictotext/enum/semanticexpressioncategory.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
 
 
 namespace onsem
@@ -38,7 +38,7 @@ struct UniqueSemanticExpression;
 class SemanticTracker;
 struct SemanticExpression;
 struct GroundedExpression;
-struct SemanticMemorySentence;
+struct GroundedExpWithLinks;
 struct GroundedExpressionContainer;
 
 
@@ -135,21 +135,21 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
   mystd::observable::ObservableUnsafe<void(const SemanticExpression&)> expressionRemoved;
 
   // When a behavior is learnt (ex: "To salute is to say hi")
-  mystd::observable::ObservableUnsafe<void(intSemId, const SemanticMemorySentence*)> infActionAdded;
-  mystd::observable::ObservableUnsafe<void(const std::map<intSemId, const SemanticMemorySentence*>&)> infActionChanged;
+  mystd::observable::ObservableUnsafe<void(intSemId, const GroundedExpWithLinks*)> infActionAdded;
+  mystd::observable::ObservableUnsafe<void(const std::map<intSemId, const GroundedExpWithLinks*>&)> infActionChanged;
 
-  mystd::observable::ObservableUnsafe<void(const std::set<const SemanticMemorySentence*>&)> conditionToActionChanged;
+  mystd::observable::ObservableUnsafe<void(const std::set<const GroundedExpWithLinks*>&)> conditionToActionChanged;
   mystd::observable::ObservableUnsafe<void(const GroundedExpression&, std::list<const GroundedExpression*>)> grdExpReplacedGrdExps;
 
-  const std::map<intSemId, const SemanticMemorySentence*>& getInfActions() const;
-  const std::set<const SemanticMemorySentence*>& getConditionToActions() const;
+  const std::map<intSemId, const GroundedExpWithLinks*>& getInfActions() const;
+  const std::set<const GroundedExpWithLinks*>& getConditionToActions() const;
 
-  static SemanticBehaviorDefinition extractActionFromMemorySentence(const SemanticMemorySentence& pMemorySentence);
+  static SemanticBehaviorDefinition extractActionFromMemorySentence(const GroundedExpWithLinks& pMemorySentence);
   static void extractActions(std::list<SemanticBehaviorDefinition>& pActionDefinitions,
-                             const std::map<intSemId, const SemanticMemorySentence*>& pInfActions);
+                             const std::map<intSemId, const GroundedExpWithLinks*>& pInfActions);
   static void extractConditionToActions(
       std::list<UniqueSemanticExpression>& pConditionToActionsSemExp,
-      const std::set<const SemanticMemorySentence*>& pConditionToActionsMemSent);
+      const std::set<const GroundedExpWithLinks*>& pConditionToActionsMemSent);
 
   void writeInBinaryFile(const linguistics::LinguisticDatabase& pLingDb,
                          const std::string& pFilename,
@@ -194,8 +194,8 @@ private:
                       const linguistics::LinguisticDatabase& pLingDb) const;
 
 private:
-  friend struct SemanticMemorySentence;
-  friend struct SemanticMemorySentencePrivate;
+  friend struct GroundedExpWithLinks;
+  friend struct GroundedExpWithLinksPrivate;
 };
 
 

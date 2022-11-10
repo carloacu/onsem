@@ -1636,7 +1636,7 @@ struct RelationsThatMatchFilterOnChildren : public RelationsThatMatchFilter
   }
 
   virtual ~RelationsThatMatchFilterOnChildren() {}
-  bool filterCondition(const SemanticMemorySentence& pMemSent) const override
+  bool filterCondition(const GroundedExpWithLinks& pMemSent) const override
   {
     auto* subAnswerSemExpPtr = pMemSent.getSemExpForGrammaticalType(grammTypeOfChild);
     if (subAnswerSemExpPtr != nullptr)

@@ -519,19 +519,19 @@ std::list<const SemanticExpression*> SemanticMemoryBlock::getSemExps() const
 }
 
 
-const std::map<intSemId, const SemanticMemorySentence*>& SemanticMemoryBlock::getInfActions() const
+const std::map<intSemId, const GroundedExpWithLinks*>& SemanticMemoryBlock::getInfActions() const
 {
   return _impl->infActions;
 }
 
-const std::set<const SemanticMemorySentence*>& SemanticMemoryBlock::getConditionToActions() const
+const std::set<const GroundedExpWithLinks*>& SemanticMemoryBlock::getConditionToActions() const
 {
   return _impl->conditionToActions;
 }
 
 
 SemanticBehaviorDefinition SemanticMemoryBlock::extractActionFromMemorySentence(
-    const SemanticMemorySentence& pMemorySentence)
+    const GroundedExpWithLinks& pMemorySentence)
 {
   if (pMemorySentence.getContextAxiom().infCommandToDo != nullptr)
   {
@@ -549,7 +549,7 @@ SemanticBehaviorDefinition SemanticMemoryBlock::extractActionFromMemorySentence(
 }
 
 void SemanticMemoryBlock::extractActions(std::list<SemanticBehaviorDefinition>& pActionDefinitions,
-                                         const std::map<intSemId, const SemanticMemorySentence*>& pInfActions)
+                                         const std::map<intSemId, const GroundedExpWithLinks*>& pInfActions)
 {
   for (const auto& currElt : pInfActions)
     pActionDefinitions.push_back(extractActionFromMemorySentence(*currElt.second));
@@ -558,9 +558,9 @@ void SemanticMemoryBlock::extractActions(std::list<SemanticBehaviorDefinition>& 
 
 void SemanticMemoryBlock::extractConditionToActions(
     std::list<UniqueSemanticExpression>& pConditionToActionsSemExp,
-    const std::set<const SemanticMemorySentence*>& pConditionToActionsMemSent)
+    const std::set<const GroundedExpWithLinks*>& pConditionToActionsMemSent)
 {
-  for (const SemanticMemorySentence* currConditionToActionsMemSent : pConditionToActionsMemSent)
+  for (const GroundedExpWithLinks* currConditionToActionsMemSent : pConditionToActionsMemSent)
   {
     auto& contextAxiom = currConditionToActionsMemSent->getContextAxiom();
     if (contextAxiom.semExpToDo != nullptr)
@@ -620,7 +620,7 @@ void SemanticMemoryBlock::_writeInBinary(binarymasks::Ptr& pPtr,
     for (const auto& currContextAxiom : expMem->contextAxioms)
     {
       binarysaver::writeBool(pPtr.pchar++, currContextAxiom.memorySentences.and_or);
-      for (const SemanticMemorySentence& currMemSent : currContextAxiom.memorySentences.elts)
+      for (const GroundedExpWithLinks& currMemSent : currContextAxiom.memorySentences.elts)
         currMemSent.writeInBinary(pPtr, memGrdExpPtrOffsets, semExpPtrOffsets);
     }
   }

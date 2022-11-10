@@ -5,7 +5,7 @@
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/common/enum/semanticverbtense.hpp>
 #include <onsem/common/enum/verbgoalenum.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
 #include "type/semcontrollerworkingstruct.hpp"
 #include "../../semanticmemory/sentenceslinks.hpp"
 
@@ -19,7 +19,7 @@ struct LinguisticDatabase;
 struct SemanticStatementGrounding;
 struct SemanticExpression;
 struct SemanticMemory;
-struct SemanticMemorySentence;
+struct GroundedExpWithLinks;
 struct SemanticMemoryBlockViewer;
 struct SemanticTriggerAxiomId;
 struct SemanticDuration;
@@ -109,7 +109,7 @@ bool addTriggerSentencesAnswer(SemControllerWorkingStruct& pWorkStruct,
                                const GroundedExpression& pInputGrdExp,
                                ContextualAnnotation pContAnnotation);
 
-void getInformationsLinkedToCondition(std::set<const SemanticMemorySentence*>& pNewInformations,
+void getInformationsLinkedToCondition(std::set<const GroundedExpWithLinks*>& pNewInformations,
                                       SemControllerWorkingStruct& pWorkStruct,
                                       SemanticMemoryBlockViewer& pMemViewer,
                                       const RequestLinks& pReqLinks);

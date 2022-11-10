@@ -951,7 +951,7 @@ TruenessValue _checkIfItsTrue(
 }
 
 
-void _updateConditionValidity(const SemanticMemorySentence& pMemSentenceToUpdate,
+void _updateConditionValidity(const GroundedExpWithLinks& pMemSentenceToUpdate,
                               SemControllerWorkingStruct& pWorkStruct,
                               SemanticMemoryBlockViewer& pMemViewer)
 {
@@ -1082,7 +1082,7 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
       // Consider the new informations that become true because they are linked to a condition that is satistied by the input.
       // Recurssively this new informations can trigger new answers.
       {
-        std::set<const SemanticMemorySentence*> newInformations;
+        std::set<const GroundedExpWithLinks*> newInformations;
         getInformationsLinkedToCondition(newInformations, pWorkStruct, pMemViewer, reqLinks);
         SemControllerWorkingStruct subWorkStruct(pWorkStruct);
         if (subWorkStruct.askForNewRecursion())
@@ -1505,7 +1505,7 @@ void uninform(const SentenceWithLinks& pContextAxiom,
       (pContextAxiom.informationType, nullptr, SemanticLanguageEnum::UNKNOWN, nullptr,
        SemanticOperatorEnum::UNINFORM, nullptr, nullptr, nullptr, pAxiomToConditionCurrentStatePtr, pLingDb);
   SemanticMemoryBlockViewer memViewer(&pMemBlock, pMemBlock, SemanticAgentGrounding::userNotIdentified);
-  for (const SemanticMemorySentence& currMemSent : pContextAxiom.memorySentences.elts)
+  for (const GroundedExpWithLinks& currMemSent : pContextAxiom.memorySentences.elts)
     if (!currMemSent.isANoun() && !currMemSent.isAConditionToSatisfy())
       _updateConditionValidity(currMemSent, workStruct, memViewer);
   if (workStruct.compositeSemAnswers)

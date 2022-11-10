@@ -9,13 +9,13 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/enum/semantictypeoffeedback.hpp
     include/onsem/semantictotext/tool/semexpagreementdetector.hpp
     include/onsem/semantictotext/semanticmemory/expressionwithlinks.hpp
+    include/onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp
+    include/onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp
+    include/onsem/semantictotext/semanticmemory/groundedexpwithlinkslist.hpp
     include/onsem/semantictotext/semanticmemory/referencesgetter.hpp
     include/onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp
     include/onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp
     include/onsem/semantictotext/semanticmemory/semanticmemory.hpp
-    include/onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp
-    include/onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp
-    include/onsem/semantictotext/semanticmemory/semanticmemorysentencelist.hpp
     include/onsem/semantictotext/semanticmemory/semantictracker.hpp
     include/onsem/semantictotext/semanticmemory/sentencewithlinks.hpp
     include/onsem/semantictotext/greet.hpp
@@ -118,8 +118,8 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/semanticmemory/usernames.hpp
     src/semanticmemory/usernames.cpp
     src/semanticmemory/semanticmemorygrdexp.hpp
-    src/semanticmemory/semanticmemorysentence.cpp
-    src/semanticmemory/semanticmemorysentencelist.cpp
+    src/semanticmemory/groundedexpwithlinks.cpp
+    src/semanticmemory/groundedexpwithlinkslist.cpp
     src/semanticmemory/semanticmemorybloc.cpp
     src/semanticmemory/semanticmemory.cpp
     src/semanticmemory/semanticlinkstogrdexps.hpp

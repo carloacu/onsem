@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SENTENCEWITHLINKS_HPP
 
 #include "../api.hpp"
-#include "semanticmemorysentencelist.hpp"
+#include "groundedexpwithlinkslist.hpp"
 #include <onsem/common/enum/infomationtype.hpp>
 #include <onsem/common/enum/listexpressiontype.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
@@ -66,7 +66,7 @@ struct ONSEMSEMANTICTOTEXT_API SentenceWithLinks : public ReferencesGetter
   const SemanticExpression* semExpToDoElse;
   const SemanticExpression* infCommandToDo;
 
-  SemanticMemorySentenceList memorySentences;
+  GroundedExpWithLinksList memorySentences;
 
 private:
   /// Parent semantic expression

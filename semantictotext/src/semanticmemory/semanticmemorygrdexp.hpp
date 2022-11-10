@@ -4,29 +4,29 @@
 
 namespace onsem
 {
-struct SemanticMemorySentence;
+struct GroundedExpWithLinks;
 struct GroundedExpression;
 
 
 struct SemanticMemoryGrdExp
 {
 public:
-  SemanticMemoryGrdExp(SemanticMemorySentence& pMemSentence,
+  SemanticMemoryGrdExp(GroundedExpWithLinks& pMemSentence,
                        const GroundedExpression& pGrdExp)
     : grdExp(pGrdExp),
       _memSentence(pMemSentence)
   {
   }
 
-  SemanticMemorySentence& getMemSentence() { return _memSentence; }
-  const SemanticMemorySentence& getMemSentence() const { return _memSentence; }
+  GroundedExpWithLinks& getMemSentence() { return _memSentence; }
+  const GroundedExpWithLinks& getMemSentence() const { return _memSentence; }
 
   /// One linked grdExp (can be the object, the subject, the statement, ...)
   const GroundedExpression& grdExp;
 
 private:
   /// Parent memory sentence
-  SemanticMemorySentence& _memSentence;
+  GroundedExpWithLinks& _memSentence;
 };
 
 

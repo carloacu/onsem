@@ -5,7 +5,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 
 namespace onsem
@@ -581,7 +581,7 @@ void saveSemExp(boost::property_tree::ptree& pTree,
 
 
 void _saveMemorySentence(boost::property_tree::ptree& pTree,
-                         const SemanticMemorySentence& pMemSentence,
+                         const GroundedExpWithLinks& pMemSentence,
                          const GrdExpLinks& pGrdExpLinks)
 {
   pTree.put("id", pMemSentence.id);

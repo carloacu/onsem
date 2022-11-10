@@ -3,7 +3,7 @@
 
 #include <list>
 #include <memory>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include "../type/answerexp.hpp"
 #include "semanticannotation.hpp"
@@ -27,7 +27,7 @@ struct AnswerElement
                                                                                    const GroundedExpression* pFromGrdExpQuestion,
                                                                                    const linguistics::LinguisticDatabase* pLingDb,
                                                                                    bool* pHasSamePolarityPtr) = 0;
-  virtual const std::list<SemanticMemorySentence>& getMemorySentences() const = 0;
+  virtual const std::list<GroundedExpWithLinks>& getMemorySentences() const = 0;
 
   RelatedContextAxiom relatedContextAxioms;
 };
@@ -43,7 +43,7 @@ struct AnswerElementDynamic : public AnswerElement
   }
 
   AnswerElementDynamic
-  (const SemanticMemorySentence* pMemSentPtr)
+  (const GroundedExpWithLinks* pMemSentPtr)
     : AnswerElement(),
       _memSentPtr(pMemSentPtr),
       _annotations(std::make_unique<SemanticAnnotationsPtrs>(&pMemSentPtr->getAnnotations()))
@@ -57,11 +57,11 @@ struct AnswerElementDynamic : public AnswerElement
                                                                            const GroundedExpression* pFromGrdExpQuestion,
                                                                            const linguistics::LinguisticDatabase* pLingDb,
                                                                            bool* pHasSamePolarityPtr) override;
-  const std::list<SemanticMemorySentence>& getMemorySentences() const override
+  const std::list<GroundedExpWithLinks>& getMemorySentences() const override
   { return _memSentPtr->getContextAxiom().memorySentences.elts; }
 
 private:
-  const SemanticMemorySentence* _memSentPtr;
+  const GroundedExpWithLinks* _memSentPtr;
   std::unique_ptr<SemanticAnnotationsPtrs> _annotations;
 };
 
@@ -94,13 +94,13 @@ struct AnswerElementStatic : public AnswerElement
                                                                            const GroundedExpression* pFromGrdExpQuestion,
                                                                            const linguistics::LinguisticDatabase* pLingDb,
                                                                            bool* pHasSamePolarityPtr) override;
-  const std::list<SemanticMemorySentence>& getMemorySentences() const override { return _memSents; }
+  const std::list<GroundedExpWithLinks>& getMemorySentences() const override { return _memSents; }
 
 private:
   const unsigned char* _memSentPtr;
   mutable std::unique_ptr<GroundedExpression> _grdExpPtr;
   mutable std::unique_ptr<SemanticAnnotationsInstances> _annotations;
-  std::list<SemanticMemorySentence> _memSents;
+  std::list<GroundedExpWithLinks> _memSents;
   const linguistics::LinguisticDatabase& _lingDb;
 
   void _fillGrdExp() const;

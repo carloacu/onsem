@@ -3,7 +3,7 @@
 
 #include <map>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
 #include "../../semanticmemory/semanticlinkstogrdexps.hpp"
 #include "../../semanticmemory/sentenceslinks.hpp"
 
@@ -26,8 +26,8 @@ struct MemorySentencesInResult
         idToConstDynamicSentences.empty() &&
         idToStaticSentences.empty();
   }
-  std::map<intSemId, SemanticMemorySentence*> idsToDynamicSentences;
-  std::map<intSemId, const SemanticMemorySentence*> idToConstDynamicSentences;
+  std::map<intSemId, GroundedExpWithLinks*> idsToDynamicSentences;
+  std::map<intSemId, const GroundedExpWithLinks*> idToConstDynamicSentences;
   std::map<intSemId, std::unique_ptr<AnswerElementStatic>> idToStaticSentences;
 
 };

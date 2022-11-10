@@ -3,7 +3,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
 #include "semanticmemoryblockbinaryreader.hpp"
 
@@ -227,7 +227,7 @@ void SemanticMemoryBlockPrivate::addLastExpressionToPtrToIteratorMap()
 }
 
 
-void SemanticMemoryBlockPrivate::addConditionToAnAction(const SemanticMemorySentence& pMemSent,
+void SemanticMemoryBlockPrivate::addConditionToAnAction(const GroundedExpWithLinks& pMemSent,
                                                         const SemanticMemoryLinksForAMemSentence& pMemSentLinks)
 {
   if (pMemSent.getContextAxiom().isAnActionLinked()) // because it can be only a tracker
@@ -258,21 +258,21 @@ void SemanticMemoryBlockPrivate::addConditionToAnAction(const SemanticMemorySent
 }
 
 
-void SemanticMemoryBlockPrivate::addInfAction(const SemanticMemorySentence& pMemSent)
+void SemanticMemoryBlockPrivate::addInfAction(const GroundedExpWithLinks& pMemSent)
 {
   infActions.emplace(pMemSent.id, &pMemSent);
   _memBlock.infActionAdded(pMemSent.id, &pMemSent);
   _memBlock.infActionChanged(infActions);
 }
 
-void SemanticMemoryBlockPrivate::removeInfAction(const SemanticMemorySentence& pMemSent)
+void SemanticMemoryBlockPrivate::removeInfAction(const GroundedExpWithLinks& pMemSent)
 {
   infActions.erase(pMemSent.id);
   _memBlock.infActionChanged(infActions);
 }
 
 
-void SemanticMemoryBlockPrivate::removeConditionToAnAction(const SemanticMemorySentence& pMemSent)
+void SemanticMemoryBlockPrivate::removeConditionToAnAction(const GroundedExpWithLinks& pMemSent)
 {
   if (pMemSent.getContextAxiom().isAnActionLinked()) // because it can be only a tracker
   {

@@ -1,6 +1,6 @@
 #include "memorymodifier.hpp"
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
 
 namespace onsem
 {

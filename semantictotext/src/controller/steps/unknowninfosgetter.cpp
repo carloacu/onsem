@@ -7,7 +7,7 @@
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
 #include "../semexpcontroller.hpp"
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../../type/referencesfiller.hpp"
@@ -35,7 +35,7 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
                                   std::unique_ptr<InteractionContextContainer>& pSubIntContext,
                                   GrdKnowToUnlinked* pIncompleteRelations,
                                   bool& pIsComplete,
-                                  const SemanticMemorySentence& pSemMemSent,
+                                  const GroundedExpWithLinks& pSemMemSent,
                                   GrammaticalType pMemChildType,
                                   const std::pair<const GrammaticalType, UniqueSemanticExpression>& pCurrMemChild,
                                   const GroundedExpression& pGrdExp,
@@ -218,7 +218,7 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
 bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
                               std::unique_ptr<InteractionContextContainer>& pSubIntContext,
                               GrdKnowToUnlinked* pIncompleteRelations,
-                              const SemanticMemorySentence& pSemMemSent,
+                              const GroundedExpWithLinks& pSemMemSent,
                               const GroundedExpression& pGrdExp,
                               const SemControllerWorkingStruct& pWorkStruct,
                               const SemanticMemoryBlockViewer& pMemViewer)
@@ -245,7 +245,7 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
   bool hasAddAReaction = false;
   for (auto itRel = pIdsToSentences.dynamicLinks.rbegin(); itRel != pIdsToSentences.dynamicLinks.rend(); ++itRel)
   {
-    const SemanticMemorySentence& memSent = *itRel->second;
+    const GroundedExpWithLinks& memSent = *itRel->second;
     auto params = std::make_unique<IndexToSubNameToParameterValue>();
     std::unique_ptr<InteractionContextContainer> subIntContext;
     if (!checkIfMatchAndGetParams(*params, subIntContext, &pIncompleteRelations, memSent, pGrdExp, pWorkStruct, pMemViewer))

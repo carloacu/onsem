@@ -145,7 +145,7 @@ bool _doActions(SemControllerWorkingStruct& pWorkStruct,
                 const GroundedExpression* pGrdExpPtr,
                 const SentenceLinks<IS_MODIFIABLE>& pSentsWithAction)
 {
-  auto memSentenceIsTrue = [&](const SemanticMemorySentence& pMemSent)
+  auto memSentenceIsTrue = [&](const GroundedExpWithLinks& pMemSent)
   {
     if (pWorkStruct.expHandleInMemory != nullptr ||
         pWorkStruct.reactOperator == SemanticOperatorEnum::UNINFORM)
@@ -177,7 +177,7 @@ bool _doActions(SemControllerWorkingStruct& pWorkStruct,
   bool res = false;
   for (auto& currSent : pSentsWithAction.dynamicLinks)
   {
-    const SemanticMemorySentence& memSent = *currSent.second;
+    const GroundedExpWithLinks& memSent = *currSent.second;
     const SentenceWithLinks& contextAxiom = memSent.getContextAxiom();
     const auto& semTrackerOpt = contextAxiom.semTracker;
     if (semTrackerOpt)
@@ -272,7 +272,7 @@ bool _doActions(SemControllerWorkingStruct& pWorkStruct,
 
 bool _checkGlobalCondition(const SemControllerWorkingStruct& pWorkStruct,
                            const SemanticMemoryBlockViewer& pMemViewer,
-                           const SemanticMemorySentence& pCurrMemSent)
+                           const GroundedExpWithLinks& pCurrMemSent)
 {
   const SentenceWithLinks& contextAxiom = pCurrMemSent.getContextAxiom();
 
@@ -280,7 +280,7 @@ bool _checkGlobalCondition(const SemControllerWorkingStruct& pWorkStruct,
       contextAxiom.memorySentences.and_or)
   {
     bool res = true;
-    for (const SemanticMemorySentence& currElt : contextAxiom.memorySentences.elts)
+    for (const GroundedExpWithLinks& currElt : contextAxiom.memorySentences.elts)
     {
       if (&currElt == &pCurrMemSent ||
           currElt.isANoun() ||
@@ -512,7 +512,7 @@ void _matchAnyTrigger
   for (const auto& currRel : idsToSentences.res.dynamicLinks)
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
-    const SemanticMemorySentence& memSent = *currRel.second;
+    const GroundedExpWithLinks& memSent = *currRel.second;
     if (SemExpComparator::grdExpsAreEqual(pInputGrdExp, memSent.grdExp, pMemViewer.constView,
                                           pWorkStruct.lingDb, nullptr, &comparisonErrorReporting))
     {
@@ -1000,7 +1000,7 @@ void getLinksOfAGrdExp(RequestLinks& pReqLinks,
 }
 
 
-void getInformationsLinkedToCondition(std::set<const SemanticMemorySentence*>& pNewInformations,
+void getInformationsLinkedToCondition(std::set<const GroundedExpWithLinks*>& pNewInformations,
                                       SemControllerWorkingStruct& pWorkStruct,
                                       SemanticMemoryBlockViewer& pMemViewer,
                                       const RequestLinks& pReqLinks)
@@ -1519,7 +1519,7 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
 void _addCauseResult(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
                      AnswerElement& pAnswerElement)
 {
-  for (const SemanticMemorySentence& currSent : pAnswerElement.getMemorySentences())
+  for (const GroundedExpWithLinks& currSent : pAnswerElement.getMemorySentences())
   {
     if (currSent.isAConditionToSatisfy())
     {

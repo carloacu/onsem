@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinks.hpp>
 #include <onsem/common/binary/binarysaver.hpp>
 #include <onsem/common/binary/enummapsaver.hpp>
 #include <onsem/common/utility/random.hpp>
@@ -534,9 +534,9 @@ enum class LinkedState
 }
 
 
-struct SemanticMemorySentencePrivate
+struct GroundedExpWithLinksPrivate
 {
-  SemanticMemorySentencePrivate(SemanticMemorySentence& pMemSent,
+  GroundedExpWithLinksPrivate(GroundedExpWithLinks& pMemSent,
                                 const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
                                 const linguistics::LinguisticDatabase& pLingDb);
 
@@ -571,7 +571,7 @@ struct SemanticMemorySentencePrivate
   LinkedState isLinkedInRequToNominalGroupsTrigger;
 
 private:
-  SemanticMemorySentence& _memSent;
+  GroundedExpWithLinks& _memSent;
   std::list<SemanticMemoryGrdExp> _childGrdExpMemories;
   SemanticMemoryLinksForAMemSentence _links;
 
@@ -630,8 +630,8 @@ private:
 };
 
 
-SemanticMemorySentencePrivate::SemanticMemorySentencePrivate
-(SemanticMemorySentence& pMemSent,
+GroundedExpWithLinksPrivate::GroundedExpWithLinksPrivate
+(GroundedExpWithLinks& pMemSent,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
  const linguistics::LinguisticDatabase& pLingDb)
   : tense(SemanticVerbTense::UNKNOWN),
@@ -699,7 +699,7 @@ SemanticMemorySentencePrivate::SemanticMemorySentencePrivate
 }
 
 
-void SemanticMemorySentencePrivate::enableUserCenteredLinks()
+void GroundedExpWithLinksPrivate::enableUserCenteredLinks()
 {
   auto& sharedUserCenteredLinks = _memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl->userCenteredLinks;
   userCenteredLinks.userIdToUserCharacteristics.for_each([&](const std::string& pKey, UserCharacteristics<MemoryGrdExpLinksForAMemSentence, LinksAccessType::ALL>& pUserCharacteristics)
@@ -717,21 +717,21 @@ void SemanticMemorySentencePrivate::enableUserCenteredLinks()
 }
 
 
-void SemanticMemorySentencePrivate::linkToRequToAnswers()
+void GroundedExpWithLinksPrivate::linkToRequToAnswers()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.answersLinks.getLinks(tense, verbGoal), _links);
   isLinkedInRequToAnswers = LinkedState::LINKED;
 }
 
-void SemanticMemorySentencePrivate::linkToConditionToInformation()
+void GroundedExpWithLinksPrivate::linkToConditionToInformation()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.conditionToInformationLinks.getLinks(tense, verbGoal), _links);
   isLinkedInRequToCondition = LinkedState::LINKED;
 }
 
-void SemanticMemorySentencePrivate::linkToSentWithAction()
+void GroundedExpWithLinksPrivate::linkToSentWithAction()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.sentWithActionLinks.getLinks(tense, verbGoal), _links);
@@ -739,7 +739,7 @@ void SemanticMemorySentencePrivate::linkToSentWithAction()
   isLinkedInRequToSentWithAction = LinkedState::LINKED;
 }
 
-void SemanticMemorySentencePrivate::linkToSentWithInfAction()
+void GroundedExpWithLinksPrivate::linkToSentWithInfAction()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.sentWithInfActionLinks, _links);
@@ -747,7 +747,7 @@ void SemanticMemorySentencePrivate::linkToSentWithInfAction()
   isLinkedInRequToInfAction = LinkedState::LINKED;
 }
 
-void SemanticMemorySentencePrivate::linkToActionTrigger()
+void GroundedExpWithLinksPrivate::linkToActionTrigger()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::COMMAND,
@@ -755,7 +755,7 @@ void SemanticMemorySentencePrivate::linkToActionTrigger()
   isLinkedInRequToActionTrigger = LinkedState::LINKED;
 }
 
-void SemanticMemorySentencePrivate::linkToQuestionTrigger()
+void GroundedExpWithLinksPrivate::linkToQuestionTrigger()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::QUESTION,
@@ -763,7 +763,7 @@ void SemanticMemorySentencePrivate::linkToQuestionTrigger()
   isLinkedInRequToQuestionTrigger = LinkedState::LINKED;
 }
 
-void SemanticMemorySentencePrivate::linkToAffirmationTrigger()
+void GroundedExpWithLinksPrivate::linkToAffirmationTrigger()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::AFFIRMATION,
@@ -771,7 +771,7 @@ void SemanticMemorySentencePrivate::linkToAffirmationTrigger()
   isLinkedInRequToAffirmationTrigger = LinkedState::LINKED;
 }
 
-void SemanticMemorySentencePrivate::linkToNominalTrigger()
+void GroundedExpWithLinksPrivate::linkToNominalTrigger()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.ensureNominalGroupsTriggersLinks(_memSent._contextAxiom.triggerAxiomId), _links);
@@ -779,7 +779,7 @@ void SemanticMemorySentencePrivate::linkToNominalTrigger()
 }
 
 
-void SemanticMemorySentencePrivate::disableUserCenteredLinks()
+void GroundedExpWithLinksPrivate::disableUserCenteredLinks()
 {
   auto& sharedUserCenteredLinks = _memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl->userCenteredLinks;
   for (const auto& currElt : userCenteredLinks.userIdToUserCharacteristics)
@@ -811,7 +811,7 @@ void SemanticMemorySentencePrivate::disableUserCenteredLinks()
 }
 
 
-void SemanticMemorySentencePrivate::writeInBinary(
+void GroundedExpWithLinksPrivate::writeInBinary(
     binarymasks::Ptr& pPtr,
     MemGrdExpPtrOffsets& pMemGrdExpPtrs,
     const semexpsaver::SemExpPtrOffsets& pSemExpPtrOffsets) const
@@ -830,7 +830,7 @@ void SemanticMemorySentencePrivate::writeInBinary(
 }
 
 
-void SemanticMemorySentencePrivate::filterMemLinks(SemanticMemoryLinks& pSemanticMemoryLinksToFilter) const
+void GroundedExpWithLinksPrivate::filterMemLinks(SemanticMemoryLinks& pSemanticMemoryLinksToFilter) const
 {
   for (const auto& currReq : _links.reqToGrdExps)
   {
@@ -843,7 +843,7 @@ void SemanticMemorySentencePrivate::filterMemLinks(SemanticMemoryLinks& pSemanti
 }
 
 
-void SemanticMemorySentencePrivate::_gatherAllTheLinksOfSemExp(const SemanticExpression& pSemExp,
+void GroundedExpWithLinksPrivate::_gatherAllTheLinksOfSemExp(const SemanticExpression& pSemExp,
                                                                const linguistics::LinguisticDatabase& pLingDb)
 {
   const auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
@@ -859,7 +859,7 @@ void SemanticMemorySentencePrivate::_gatherAllTheLinksOfSemExp(const SemanticExp
 }
 
 
-void SemanticMemorySentencePrivate::_gatherAllTheLinks(const GroundedExpression& pGrdExp,
+void GroundedExpWithLinksPrivate::_gatherAllTheLinks(const GroundedExpression& pGrdExp,
                                                        const linguistics::LinguisticDatabase& pLingDb)
 {
   const SemanticGrounding& grd = pGrdExp.grounding();
@@ -869,7 +869,7 @@ void SemanticMemorySentencePrivate::_gatherAllTheLinks(const GroundedExpression&
 }
 
 
-void SemanticMemorySentencePrivate::_linkStatementGrdExp(const SemanticStatementGrounding& pStatGrd,
+void GroundedExpWithLinksPrivate::_linkStatementGrdExp(const SemanticStatementGrounding& pStatGrd,
                                                          const linguistics::LinguisticDatabase& pLingDb)
 {
   bool skipLinkage = false;
@@ -964,7 +964,7 @@ void SemanticMemorySentencePrivate::_linkStatementGrdExp(const SemanticStatement
 }
 
 
-void SemanticMemorySentencePrivate::_linkConceptsThatBeginWith
+void GroundedExpWithLinksPrivate::_linkConceptsThatBeginWith
 (const SemanticExpression& pSemExpression,
  SemanticRequestType pFromRequest,
  const std::string& pBeginOfAConcept)
@@ -987,7 +987,7 @@ void SemanticMemorySentencePrivate::_linkConceptsThatBeginWith
 }
 
 
-bool SemanticMemorySentencePrivate::_linkChildSemExp
+bool GroundedExpWithLinksPrivate::_linkChildSemExp
 (const SemanticExpression& pSemExpression,
  SemanticRequestType pFromRequest,
  const linguistics::LinguisticDatabase& pLingDb)
@@ -1051,7 +1051,7 @@ bool SemanticMemorySentencePrivate::_linkChildSemExp
 }
 
 
-void SemanticMemorySentencePrivate::_fillUserCenteredLinks(SemanticMemoryGrdExp& pNewMemGrdExp,
+void GroundedExpWithLinksPrivate::_fillUserCenteredLinks(SemanticMemoryGrdExp& pNewMemGrdExp,
                                                            const GroundedExpression& pGrdExp)
 {
   _addGenderFromGrdExp(pNewMemGrdExp, pGrdExp);
@@ -1060,7 +1060,7 @@ void SemanticMemorySentencePrivate::_fillUserCenteredLinks(SemanticMemoryGrdExp&
 }
 
 
-bool SemanticMemorySentencePrivate::_linkGrdExp
+bool GroundedExpWithLinksPrivate::_linkGrdExp
 (const GroundedExpression& pGrdExp,
  const SemanticGrounding& pGrounding,
  SemanticRequestType pRequType,
@@ -1225,7 +1225,7 @@ bool SemanticMemorySentencePrivate::_linkGrdExp
 }
 
 
-void SemanticMemorySentencePrivate::_linkLingMeaning
+void GroundedExpWithLinksPrivate::_linkLingMeaning
 (SemanticMemoryGrdExp& pNewMemGrdExp,
  SemanticRequestType pRequType,
  const SemanticWord& pInWord,
@@ -1236,7 +1236,7 @@ void SemanticMemorySentencePrivate::_linkLingMeaning
 }
 
 
-void SemanticMemorySentencePrivate::_mergeRequToGrdExps(SemanticMemoryLinks& pToComplete,
+void GroundedExpWithLinksPrivate::_mergeRequToGrdExps(SemanticMemoryLinks& pToComplete,
                                                         SemanticMemoryLinksForAMemSentence& pRef)
 {
   for (auto& currReq : pRef.reqToGrdExps)
@@ -1244,7 +1244,7 @@ void SemanticMemorySentencePrivate::_mergeRequToGrdExps(SemanticMemoryLinks& pTo
 }
 
 
-void SemanticMemorySentencePrivate::_addGenderFromGrdExp
+void GroundedExpWithLinksPrivate::_addGenderFromGrdExp
 (SemanticMemoryGrdExp& pNewMemGrdExp,
  const GroundedExpression& pGrdExp)
 {
@@ -1259,7 +1259,7 @@ void SemanticMemorySentencePrivate::_addGenderFromGrdExp
 }
 
 
-void SemanticMemorySentencePrivate::_addGenderFromSemExp
+void GroundedExpWithLinksPrivate::_addGenderFromSemExp
 (SemanticMemoryGrdExp& pNewMemGrdExp,
  const UniqueSemanticExpression& pSemExp)
 {
@@ -1283,7 +1283,7 @@ void SemanticMemorySentencePrivate::_addGenderFromSemExp
 
 
 
-void SemanticMemorySentencePrivate::_tryToAddAgentGenderFromAStructureEqualityStatement
+void GroundedExpWithLinksPrivate::_tryToAddAgentGenderFromAStructureEqualityStatement
 (SemanticMemoryGrdExp& pNewMemGrdExp,
  const GroundedExpression& pGrdExp)
 {
@@ -1356,7 +1356,7 @@ uint32_t MemGrdExpPtrOffsets::getOffset(const SemanticMemoryGrdExp& pMemGrdExp) 
 
 
 
-SemanticMemorySentence::SemanticMemorySentence
+GroundedExpWithLinks::GroundedExpWithLinks
 (SentenceWithLinks& pContextAxiom,
  const GroundedExpression& pGrdExp,
  bool pGatherAllTheLinks,
@@ -1375,32 +1375,32 @@ SemanticMemorySentence::SemanticMemorySentence
     _isEnabled(pIsEnabled),
     _isANoun(false),
     _isAConditionToSatisfy(pIsAConditionToSatisfy),
-    _impl(std::make_unique<SemanticMemorySentencePrivate>(*this, pAnnotations, pLingDb))
+    _impl(std::make_unique<GroundedExpWithLinksPrivate>(*this, pAnnotations, pLingDb))
 {
 }
 
-SemanticMemorySentence::~SemanticMemorySentence()
+GroundedExpWithLinks::~GroundedExpWithLinks()
 {
 }
 
 
-bool SemanticMemorySentence::isOtherSentenceMoreRevelant(const SemanticMemorySentence& pOther) const
+bool GroundedExpWithLinks::isOtherSentenceMoreRevelant(const GroundedExpWithLinks& pOther) const
 {
   return _contextAxiom.canOtherInformationTypeBeMoreRevelant(pOther._contextAxiom.informationType) &&
       id < pOther.id;
 }
 
-std::string SemanticMemorySentence::getName(const std::string& pUserId) const
+std::string GroundedExpWithLinks::getName(const std::string& pUserId) const
 {
   return _impl->userCenteredLinks.getName(pUserId);
 }
 
-bool SemanticMemorySentence::hasEquivalentUserIds(const std::string& pUserId) const
+bool GroundedExpWithLinks::hasEquivalentUserIds(const std::string& pUserId) const
 {
   return _impl->userCenteredLinks.hasEquivalentUserIds(pUserId);
 }
 
-const SemanticExpression* SemanticMemorySentence::getSemExpForGrammaticalType(GrammaticalType pGrammType) const
+const SemanticExpression* GroundedExpWithLinks::getSemExpForGrammaticalType(GrammaticalType pGrammType) const
 {
   const auto itAnn = _annotations.find(pGrammType);
   if (itAnn != _annotations.end())
@@ -1411,7 +1411,7 @@ const SemanticExpression* SemanticMemorySentence::getSemExpForGrammaticalType(Gr
   return nullptr;
 }
 
-void SemanticMemorySentence::writeInBinary(binarymasks::Ptr& pPtr,
+void GroundedExpWithLinks::writeInBinary(binarymasks::Ptr& pPtr,
                                            MemGrdExpPtrOffsets& pMemGrdExpPtrs,
                                            const semexpsaver::SemExpPtrOffsets& pSemExpPtrOffsets) const
 {
@@ -1434,7 +1434,7 @@ void SemanticMemorySentence::writeInBinary(binarymasks::Ptr& pPtr,
 }
 
 
-void SemanticMemorySentence::setEnabled(bool pEnabled)
+void GroundedExpWithLinks::setEnabled(bool pEnabled)
 {
   if (_isEnabled == pEnabled)
     return;

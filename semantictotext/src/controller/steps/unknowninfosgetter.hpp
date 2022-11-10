@@ -9,12 +9,12 @@
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/texttosemantic/dbtype/misc/parameterswithvalue.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
 #include "../../semanticmemory/sentenceslinks.hpp"
 
 namespace onsem
 {
-struct SemanticMemorySentence;
+struct GroundedExpWithLinks;
 struct GroundedExpression;
 struct SemanticExpression;
 struct SemControllerWorkingStruct;
@@ -29,7 +29,7 @@ namespace unknownInfosGetter
 bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParam,
                               std::unique_ptr<onsem::InteractionContextContainer>& pSubIntContext,
                               GrdKnowToUnlinked* pIncompleteRelations,
-                              const SemanticMemorySentence& pSemMemSent,
+                              const GroundedExpWithLinks& pSemMemSent,
                               const GroundedExpression& pGrdExp,
                               const SemControllerWorkingStruct& pWorkStruct,
                               const SemanticMemoryBlockViewer& pMemViewer);

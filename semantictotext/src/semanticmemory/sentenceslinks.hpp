@@ -3,7 +3,7 @@
 
 #include <map>
 #include <set>
-#include <onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp>
+#include <onsem/semantictotext/semanticmemory/groundedexpwithlinksid.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include "answerelement.hpp"
 #include "semanticlinkstogrdexps.hpp"
@@ -28,7 +28,7 @@ struct SentenceLinks
   void clear() { dynamicLinks.clear(); staticLinks.clear(); }
   bool empty() const { return dynamicLinks.empty() && staticLinks.empty(); }
 
-  typedef SemanticMemorySentence memSentType;
+  typedef GroundedExpWithLinks memSentType;
   std::map<intSemId, memSentType*> dynamicLinks{};
   std::map<intSemId, std::unique_ptr<AnswerElementStatic>> staticLinks{};
 };
@@ -40,7 +40,7 @@ struct SentenceLinks<false>
   void clear() { dynamicLinks.clear(); staticLinks.clear(); }
   bool empty() const { return dynamicLinks.empty() && staticLinks.empty(); }
 
-  typedef const SemanticMemorySentence memSentType;
+  typedef const GroundedExpWithLinks memSentType;
   std::map<intSemId, memSentType*> dynamicLinks{};
   std::map<intSemId, std::unique_ptr<AnswerElementStatic>> staticLinks{};
 };
@@ -49,7 +49,7 @@ struct SentenceLinks<false>
 struct RelationsThatMatchFilter
 {
   virtual ~RelationsThatMatchFilter() {}
-  virtual bool filterCondition(const SemanticMemorySentence& pMemSent) const = 0;
+  virtual bool filterCondition(const GroundedExpWithLinks& pMemSent) const = 0;
   virtual bool filterConditionStatic(AnswerElementStatic& pAnswElt) const = 0;
 };
 
