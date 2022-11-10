@@ -7,6 +7,7 @@
 #include <map>
 #include <onsem/common/utility/optional.hpp>
 #include <onsem/common/enum/semanticentitytype.hpp>
+#include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/texttosemantic/dbtype/misc/coreference.hpp>
 
 
@@ -31,7 +32,8 @@ UniqueSemanticExpression makeHumanCoreferenceBefore();
 UniqueSemanticExpression emptyStatementSemExp();
 
 
-UniqueSemanticExpression whatIs(UniqueSemanticExpression pSubjectSemExp);
+UniqueSemanticExpression whatIs(UniqueSemanticExpression pSubjectSemExp,
+                                SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
 
 UniqueSemanticExpression whatAbout(UniqueSemanticExpression pSubjectSemExp);

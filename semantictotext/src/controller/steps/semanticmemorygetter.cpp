@@ -4,6 +4,7 @@
 #include <onsem/common/binary/enummapreader.hpp>
 #include <onsem/common/binary/radixmapreader.hpp>
 #include <onsem/common/binary/simpleintmapping.hpp>
+#include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/dbtype/binary/semexploader.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
@@ -48,6 +49,7 @@ bool _getRelationsFromSemExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                              const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
                              const linguistics::LinguisticDatabase& pLingDb,
                              bool pCheckChildren,
+                             SemanticLanguageEnum pLanguage,
                              const SemanticRelativeTimeType* pRelativeTimePtr = nullptr);
 
 
@@ -862,7 +864,8 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
                                         RequestContext pRequestContext,
                                         const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
                                         const linguistics::LinguisticDatabase& pLingDb,
-                                        bool pCheckChildren)
+                                        bool pCheckChildren,
+                                        SemanticLanguageEnum pLanguage)
 {
   bool res = false;
   StaticLinguisticMeaning lingMeaning =
@@ -877,18 +880,56 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
                                   pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
   }
 
+  std::map<std::string, char> conceptsOfRelatedWord;
   if (!pGenGrd.word.lemma.empty())
   {
     res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.word.lemma,
                             SemanticLanguageEnum::UNKNOWN, pGrdExpToLookFor, pChildSemExpsToSkip,
                             pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+
+    // Check with without the capital letter at beginning
+    if (pGenGrd.word.partOfSpeech == PartOfSpeech::PROPER_NOUN)
+    {
+      auto lemmaInLowerCase = pGenGrd.word.lemma;
+      if (lowerCaseText(lemmaInLowerCase))
+      {
+        const auto& lingDico = pLingDb.langToSpec[pLanguage].lingDico;
+        lingDico.getConcepts(conceptsOfRelatedWord,
+                             SemanticWord(pLanguage, lemmaInLowerCase, PartOfSpeech::NOUN));
+        auto lowerCaseLingMeaning =
+            lingDico.statDb.getLingMeaning(lemmaInLowerCase, PartOfSpeech::NOUN, true);
+
+        if (!lowerCaseLingMeaning.isEmpty())
+        {
+          // add semantic expressions that have a meaning in common
+          res = _getRelationsOfAMeaning(pRelations, pAlreadyMatchedSentences, pLinksToSemExps,
+                                        lowerCaseLingMeaning.language, lowerCaseLingMeaning.meaningId,
+                                        pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+        }
+        else
+        {
+          res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, lemmaInLowerCase,
+                                  pLanguage, pGrdExpToLookFor, pChildSemExpsToSkip,
+                                  pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+        }
+      }
+    }
   }
+
 
   if (!pGenGrd.concepts.empty())
   {
     OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
     // add semantic expressions that have a concept in common
     res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.concepts, &pGrdExpToLookFor,
+                                         pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+  }
+
+  if (!conceptsOfRelatedWord.empty())
+  {
+    OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
+    // add semantic expressions that have a concept in common
+    res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, conceptsOfRelatedWord, &pGrdExpToLookFor,
                                          pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
   }
 
@@ -1417,13 +1458,15 @@ bool _getRelationsFromListExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                               RequestContext pRequestContext,
                               const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
                               const linguistics::LinguisticDatabase& pLingDb,
-                              bool pCheckChildren)
+                              bool pCheckChildren,
+                              SemanticLanguageEnum pLanguage)
 {
   bool res = false;
   for (const auto& currElt : pListExpToLookFor.elts)
   {
     bool subRes = _getRelationsFromSemExp(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, *currElt,
-                                          pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
+                                          pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb,
+                                          pCheckChildren, pLanguage);
     res = subRes || res;
     if (pListExpToLookFor.listType != ListExpressionType::OR && !subRes)
       return false;
@@ -1442,6 +1485,7 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                              const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
                              const linguistics::LinguisticDatabase& pLingDb,
                              bool pCheckChildren,
+                             SemanticLanguageEnum pLanguage,
                              const SemanticRelativeTimeType* pRelativeTimePtr = nullptr)
 {
   switch (pGrdExpToLookFor->type)
@@ -1450,7 +1494,8 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   {
     auto& genGrd = pGrdExpToLookFor->getGenericGrounding();
     return _genGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, genGrd,
-                                              pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
+                                              pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr,
+                                              pLingDb, pCheckChildren, pLanguage);
   }
   case SemanticGroundingType::STATEMENT:
   {
@@ -1494,7 +1539,8 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
       auto itSpecifictionOfRelLocation = pGrdExpToLookFor.children.find(GrammaticalType::SPECIFIER);
       if (itSpecifictionOfRelLocation != pGrdExpToLookFor.children.end())
         res = _getRelationsFromSemExp(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, *itSpecifictionOfRelLocation->second,
-                                      pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren, pRelativeTimePtr) || res;
+                                      pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren,
+                                      pLanguage, pRelativeTimePtr) || res;
     }
     return res;
   }
@@ -1510,7 +1556,7 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     {
       res = _getRelationsFromSemExp(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, *itSpecifictionOfRelTime->second,
                                     pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren,
-                                    &relTimeGrd.timeType) || res;
+                                    pLanguage, &relTimeGrd.timeType) || res;
     }
     return res;
   }
@@ -1573,6 +1619,7 @@ bool _getRelationsFromSemExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                              const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
                              const linguistics::LinguisticDatabase& pLingDb,
                              bool pCheckChildren,
+                             SemanticLanguageEnum pLanguage,
                              const SemanticRelativeTimeType* pRelativeTimePtr)
 {
   bool followInterpretations = pRequestContext != RequestContext::SENTENCE_TO_CONDITION;
@@ -1586,13 +1633,14 @@ bool _getRelationsFromSemExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
       return !pRelations.empty();
     }
     return _getRelationsFromGrdExp(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, grdExpToLookFor, pChildSemExpsToSkip,
-                                   pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren, pRelativeTimePtr);
+                                   pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren, pLanguage, pRelativeTimePtr);
   }
 
   const ListExpression* listExpToLookFor = pSemExpToLookFor.getListExpPtr();
   if (listExpToLookFor != nullptr)
     return _getRelationsFromListExp(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, *listExpToLookFor,
-                                    pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
+                                    pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren,
+                                    pLanguage);
 
   return false;
 }
@@ -1609,12 +1657,14 @@ void _findSentenceThatContainANominalGroupForAVerbGoal(RelationsThatMatch<false>
   for (auto& currSGramToExp : pVerbGoal.notification.reqToGrdExps)
   {
     MemoryLinksAccessor<false> memLinksAccessor(&currSGramToExp.second, nullptr);
-    _getRelationsFromSemExp(pRes, emptyLinks, memLinksAccessor, pNominalGroup, _emptySemExpsToSkip, RequestContext::SENTENCE, &pMemBlockPrivate, pLingDb, pCheckChildren);
+    _getRelationsFromSemExp(pRes, emptyLinks, memLinksAccessor, pNominalGroup, _emptySemExpsToSkip, RequestContext::SENTENCE,
+                            &pMemBlockPrivate, pLingDb, pCheckChildren, SemanticLanguageEnum::UNKNOWN);
   }
   for (auto& currSGramToExp : pVerbGoal.ability.reqToGrdExps)
   {
     MemoryLinksAccessor<false> memLinksAccessor(&currSGramToExp.second, nullptr);
-    _getRelationsFromSemExp(pRes, emptyLinks, memLinksAccessor, pNominalGroup, _emptySemExpsToSkip, RequestContext::SENTENCE, &pMemBlockPrivate, pLingDb, pCheckChildren);
+    _getRelationsFromSemExp(pRes, emptyLinks, memLinksAccessor, pNominalGroup, _emptySemExpsToSkip, RequestContext::SENTENCE,
+                            &pMemBlockPrivate, pLingDb, pCheckChildren, SemanticLanguageEnum::UNKNOWN);
   }
 }
 
@@ -1666,6 +1716,7 @@ void  _getRelationsFromSubReqLinks(RelationsThatMatch<IS_MODIFIABLE>& pRelations
                                    MemoryBlockPrivateAccessor<IS_MODIFIABLE>& pMemBlockPrivate,
                                    const linguistics::LinguisticDatabase& pLingDb,
                                    bool pCheckChildren,
+                                   SemanticLanguageEnum pLanguage,
                                    bool pCheckTimeRequest,
                                    bool pConsiderCoreferences)
 {
@@ -1674,7 +1725,8 @@ void  _getRelationsFromSubReqLinks(RelationsThatMatch<IS_MODIFIABLE>& pRelations
     std::set<const SemanticExpression*> childSemExpsToSkip;
     SemExpGetter::getStatementSubordinates(childSemExpsToSkip, pSemExp);
     _getRelationsFromSemExp(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pSemExp,
-                            childSemExpsToSkip, pRequestContext, &pMemBlockPrivate.mb, pLingDb, pCheckChildren);
+                            childSemExpsToSkip, pRequestContext, &pMemBlockPrivate.mb, pLingDb,
+                            pCheckChildren, pLanguage);
   });
   for (const auto& currSubReqList : pReqLinks)
   {
@@ -1760,7 +1812,7 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
     for (const auto& currSemExp : pSubReqLinks.semExps)
       _getRelationsFromSemExp(matchedSemExp, pRes.res, linksGramToSemExp, *currSemExp,
                               pSubReqLinks.crossedLinks.semExpsWithSpecificFilter,
-                              pRequestContext, pMemBlockPrivatePtr.mb, pLingDb, checkChildren);
+                              pRequestContext, pMemBlockPrivatePtr.mb, pLingDb, checkChildren, pReqLinks.language);
     if (!pSubReqLinks.concepts.empty())
     {
       OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
@@ -1775,8 +1827,8 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
       {
         MemoryBlockPrivateAccessor<IS_MODIFIABLE> memBlockAccessor(memBlock);
         _getRelationsFromSubReqLinks(matchedSemExp, pRes.res, linksGramToSemExp, pSubReqLinks.crossedLinks.subReqListsToAdd,
-                                     pRequestContext, memBlockAccessor, pLingDb, checkChildren, pCheckTimeRequest,
-                                     pConsiderCoreferences);
+                                     pRequestContext, memBlockAccessor, pLingDb, checkChildren, pReqLinks.language,
+                                     pCheckTimeRequest, pConsiderCoreferences);
       }
 
       if (!pSubReqLinks.crossedLinks.subReqListsToFilter.empty() && !matchedSemExp.empty() &&
@@ -1796,13 +1848,13 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
           if (!SemExpGetter::isDefinite(pSemExp))
             return;
           _getRelationsFromSemExp(subSetOfMemorySentencesToConsiderAfterSubordinateFilter, matchedSemExp.res,
-                                  linksGramToSemExp, pSemExp,
-                                  _emptySemExpsToSkip, pRequestContext, pMemBlockPrivatePtr.mb, pLingDb, false);
+                                  linksGramToSemExp, pSemExp, _emptySemExpsToSkip, pRequestContext,
+                                  pMemBlockPrivatePtr.mb, pLingDb, false, pReqLinks.language);
           if (!linksGramOfTheAnswer.empty())
           {
             _getRelationsFromSemExp(subSetOfMemorySentencesToConsiderAfterSubordinateFilter, matchedSemExp.res,
-                                    linksGramOfTheAnswer, pSemExp,
-                                    _emptySemExpsToSkip, pRequestContext, pMemBlockPrivatePtr.mb, pLingDb, false);
+                                    linksGramOfTheAnswer, pSemExp, _emptySemExpsToSkip, pRequestContext,
+                                    pMemBlockPrivatePtr.mb, pLingDb, false, pReqLinks.language);
           }
         });
         for (const auto& currSubReqList : pSubReqLinks.crossedLinks.subReqListsToFilter)
@@ -1891,7 +1943,7 @@ void findGrdExpInNominalGroupLinks(std::set<const ExpressionWithLinks*>& pRes,
       const SentenceLinks<false> emptyLinks;
       MemoryLinksAccessor<false> linksAccessor(&it->second, nullptr);
       _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip,
-                              RequestContext::SENTENCE, &memBlockPrivate, pLingDb, false);
+                              RequestContext::SENTENCE, &memBlockPrivate, pLingDb, false, SemanticLanguageEnum::UNKNOWN);
       for (const auto& currLink : links.res.dynamicLinks)
         pRes.insert(&currLink.second->getContextAxiom().getSemExpWrappedForMemory());
     }
@@ -1916,7 +1968,8 @@ void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, 
       RelationsThatMatch<false> links;
       const SentenceLinks<false> emptyLinks;
       MemoryLinksAccessor<false> linksAccessor(&it->second, nullptr);
-      _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip, RequestContext::SENTENCE, nullptr, pLingDb, false);
+      _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip,
+                              RequestContext::SENTENCE, nullptr, pLingDb, false, SemanticLanguageEnum::UNKNOWN);
       for (const auto& currLink : links.res.dynamicLinks)
       {
         int coefOfGrdExp = 0;

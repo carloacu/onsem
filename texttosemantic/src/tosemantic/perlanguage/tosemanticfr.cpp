@@ -31,7 +31,8 @@ mystd::unique_propagate_const<UniqueSemanticExpression> ToSemanticFr::_processQu
         auto nextSemExp = xFillSemExp(pGeneral, nextContext);
         if (nextSemExp)
         {
-          semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpGenerator::whatIs(std::move(*nextSemExp)));
+          semExp = mystd::unique_propagate_const<UniqueSemanticExpression>(
+                SemExpGenerator::whatIs(std::move(*nextSemExp), SemanticLanguageEnum::FRENCH));
           pItChild = itNext;
         }
       }

@@ -144,6 +144,10 @@ private:
 
   ConceptSet(const ConceptSet&);
   ConceptSet& operator=(const ConceptSet&){ return *this; }
+
+  bool _areConceptsCompatiblesOneSide(mystd::optional<bool>& pRes,
+                                      const std::map<std::string, char>& pConcepts1,
+                                      const std::map<std::string, char>& pConcepts2) const;
 };
 
 

@@ -47,12 +47,14 @@ UniqueSemanticExpression emptyStatementSemExp()
 }
 
 
-UniqueSemanticExpression whatIs(UniqueSemanticExpression pSubjectSemExp)
+UniqueSemanticExpression whatIs(UniqueSemanticExpression pSubjectSemExp,
+                                SemanticLanguageEnum pLanguage)
 {
   auto rootGrdExp = std::make_unique<GroundedExpression>
-      ([]()
+      ([&]()
   {
     auto statementGrd = std::make_unique<SemanticStatementGrounding>();
+    statementGrd->word.language = pLanguage;
     statementGrd->requests.set(SemanticRequestType::OBJECT);
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_equal_be", 4);

@@ -34,7 +34,8 @@ struct RequestLinks
 {
   bool isEmpty() const
   {
-    return tense == SemanticVerbTense::UNKNOWN &&
+    return language == SemanticLanguageEnum::UNKNOWN &&
+        tense == SemanticVerbTense::UNKNOWN &&
         verbGoal == VerbGoalEnum::NOTIFICATION &&
         isEquVerb == false &&
         _semExpLinks.empty() && _semExpLinksSorted.empty() && occurenceRankFilter == nullptr;
@@ -48,6 +49,7 @@ struct RequestLinks
   const std::map<SemanticRequestType, SubRequestLinks>& semExpLinks() const { return _semExpLinks; }
   const std::list<std::pair<SemanticRequestType, const SubRequestLinks*>>& semExpLinksSorted() const { return _semExpLinksSorted; }
 
+  SemanticLanguageEnum language{SemanticLanguageEnum::UNKNOWN};
   SemanticVerbTense tense{SemanticVerbTense::UNKNOWN};
   VerbGoalEnum verbGoal{VerbGoalEnum::NOTIFICATION};
   bool isEquVerb{false};

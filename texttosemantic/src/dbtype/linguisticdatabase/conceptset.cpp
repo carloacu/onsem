@@ -134,6 +134,16 @@ mystd::optional<bool> ConceptSet::areConceptsCompatibles
  const std::map<std::string, char>& pConcepts2) const
 {
   mystd::optional<bool> res;
+  if (!_areConceptsCompatiblesOneSide(res, pConcepts1, pConcepts2))
+    _areConceptsCompatiblesOneSide(res, pConcepts2, pConcepts1);
+  return res;
+}
+
+bool ConceptSet::_areConceptsCompatiblesOneSide
+(mystd::optional<bool>& pRes,
+ const std::map<std::string, char>& pConcepts1,
+ const std::map<std::string, char>& pConcepts2) const
+{
   for (const auto& currCpt1 : pConcepts1)
   {
     bool cpt1IsAConceptAny = isAConceptAny(currCpt1.first);
@@ -141,35 +151,24 @@ mystd::optional<bool> ConceptSet::areConceptsCompatibles
     {
       if (statDb.areConceptsNearlyEqual(currCpt1.first, currCpt2.first))
       {
-        res.emplace(true);
-        return res;
+        pRes.emplace(true);
+        return true;
       }
 
       if (!cpt1IsAConceptAny)
       {
         if (currCpt1.first == currCpt2.first)
         {
-          res.emplace(true);
-          return res;
+          pRes.emplace(true);
+          return true;
         }
-        res.emplace(false);
+        pRes.emplace(false);
       }
     }
   }
-  for (const auto& currCpt2 : pConcepts2)
-  {
-    if (!isAConceptAny(currCpt2.first))
-    {
-      if (pConcepts1.find(currCpt2.first) != pConcepts1.end())
-      {
-        res.emplace(true);
-        return res;
-      }
-      res.emplace(false);
-    }
-  }
-  return res;
+  return false;
 }
+
 
 bool ConceptSet::haveAConcept
 (const std::map<std::string, char>& pInputConcepts,
