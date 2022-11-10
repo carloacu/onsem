@@ -3,7 +3,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include "../../controller/semexpcontroller.hpp"
 
 namespace onsem

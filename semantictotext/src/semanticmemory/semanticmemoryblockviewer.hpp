@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_SEMANTICMEMORYBLOCKVIEWER_HPP
 
 #include <string>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 
 namespace onsem
 {

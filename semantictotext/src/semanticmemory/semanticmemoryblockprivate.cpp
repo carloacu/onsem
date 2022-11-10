@@ -4,7 +4,7 @@
 #include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include "semanticmemoryblockbinaryreader.hpp"
 
 namespace onsem

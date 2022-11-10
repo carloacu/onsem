@@ -1,6 +1,6 @@
 #include <onsem/tester/memorybinarization.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include <onsem/texttosemantic/dbtype/binary/semexploader.hpp>
 #include <onsem/texttosemantic/dbtype/binary/semexpsaver.hpp>
 

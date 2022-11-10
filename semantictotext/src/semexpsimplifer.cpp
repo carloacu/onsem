@@ -6,7 +6,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 
 namespace onsem
 {

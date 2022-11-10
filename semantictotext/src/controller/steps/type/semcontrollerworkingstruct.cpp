@@ -1,7 +1,7 @@
 #include "semcontrollerworkingstruct.hpp"
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include "../../../type/referencesfiller.hpp"
 #include "../../../type/semanticdetailledanswer.hpp"
 

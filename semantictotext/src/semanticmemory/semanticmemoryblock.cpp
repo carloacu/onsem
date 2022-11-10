@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include <sstream>
 #include <fstream>
 #include <onsem/common/binary/radixmapsaver.hpp>

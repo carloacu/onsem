@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_SEMANTICRECOMMENDATIONS_HPP
 
 #include <set>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include "api.hpp"
 
 namespace onsem

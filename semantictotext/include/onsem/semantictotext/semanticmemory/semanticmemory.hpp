@@ -7,7 +7,7 @@
 #include <onsem/texttosemantic/dbtype/misc/parameterswithvalue.hpp>
 #include <onsem/texttosemantic/dbtype/interactioncontext.hpp>
 #include <onsem/semantictotext/api.hpp>
-#include "semanticmemorybloc.hpp"
+#include "semanticmemoryblock.hpp"
 
 namespace onsem
 {

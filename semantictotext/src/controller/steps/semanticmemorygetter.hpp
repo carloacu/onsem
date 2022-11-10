@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_SRC_CONTROLLER_STEPS_SEMANTICMEMORYGETTER_HPP
 
 #include <map>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include "../../semanticmemory/semanticlinkstogrdexps.hpp"
 #include "../../semanticmemory/sentenceslinks.hpp"

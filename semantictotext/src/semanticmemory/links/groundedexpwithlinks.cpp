@@ -8,7 +8,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include "../../tool/userinfosfiller.hpp"
 #include "../semanticmemoryblockprivate.hpp"
 

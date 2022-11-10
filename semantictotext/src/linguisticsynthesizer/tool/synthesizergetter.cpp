@@ -4,7 +4,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/listexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/type/enumsconvertions.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include "../grounding/linguisticsynthesizergrounding.hpp"
 #include "../synthesizertypes.hpp"
 

@@ -2,7 +2,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 
 namespace onsem
 {

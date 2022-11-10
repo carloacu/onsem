@@ -14,7 +14,7 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/semanticmemory/links/groundedexpwithlinkslist.hpp
     include/onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp
     include/onsem/semantictotext/semanticmemory/referencesgetter.hpp
-    include/onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp
+    include/onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp
     include/onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp
     include/onsem/semantictotext/semanticmemory/semanticmemory.hpp
     include/onsem/semantictotext/semanticmemory/semantictracker.hpp
@@ -121,7 +121,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/semanticmemory/usernames.hpp
     src/semanticmemory/usernames.cpp
     src/semanticmemory/semanticmemorygrdexp.hpp
-    src/semanticmemory/semanticmemorybloc.cpp
+    src/semanticmemory/semanticmemoryblock.cpp
     src/semanticmemory/semanticmemory.cpp
     src/semanticmemory/semanticlinkstogrdexps.hpp
     src/semanticmemory/semanticlinkstogrdexps.cpp
