@@ -17,21 +17,21 @@ struct LinguisticDatabase;
 }
 struct SemanticMemory;
 struct ExpressionWithLinks;
-struct SemanticContextAxiom;
+struct SentenceWithLinks;
 struct TextProcessingContext;
 
 std::shared_ptr<ExpressionWithLinks> operator_inform(const std::string& pText,
                                                             SemanticMemory& pSemanticMemory,
                                                             const linguistics::LinguisticDatabase& pLingDb,
                                                             const std::list<std::string>& pReferences = std::list<std::string>(),
-                                                            std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr,
+                                                            std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr,
                                                             const TextProcessingContext* pTextProcContextPtr = nullptr);
 
 std::shared_ptr<ExpressionWithLinks> operator_inform_fromRobot(const std::string& pText,
                                                                       SemanticMemory& pSemanticMemory,
                                                                       const linguistics::LinguisticDatabase& pLingDb,
                                                                       const std::list<std::string>& pReferences = std::list<std::string>(),
-                                                                      std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
+                                                                      std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
 
 void operator_mergeAndInform(const std::string& pText,
                              SemanticMemory& pSemanticMemory,
@@ -47,7 +47,7 @@ std::shared_ptr<ExpressionWithLinks>operator_informAxiom_fromRobot(const std::st
                                                                      SemanticMemory& pSemanticMemory,
                                                                      const linguistics::LinguisticDatabase& pLingDb,
                                                                      const std::list<std::string>& pReferences = std::list<std::string>(),
-                                                                     std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
+                                                                     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
 
 std::shared_ptr<ExpressionWithLinks> operator_addFallback(
     const std::string& pText,

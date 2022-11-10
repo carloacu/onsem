@@ -5,7 +5,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/metadataexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include "../../utility/semexpcreator.hpp"
 #include "../../type/semanticdetailledanswer.hpp"
 
@@ -83,7 +83,7 @@ bool InformationProvider::operator<(const InformationProvider& pOther) const
 void _addProvider(std::set<InformationProvider>& pInfosProv,
                   const RelatedContextAxiom& pRelatedContextAxioms)
 {
-  auto considerAxiom = [&](const SemanticContextAxiom* pAxiomPtr)
+  auto considerAxiom = [&](const SentenceWithLinks* pAxiomPtr)
   {
     if (pAxiomPtr == nullptr)
       return false;

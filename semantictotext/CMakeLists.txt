@@ -16,8 +16,8 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/semanticmemory/semanticmemorysentenceid.hpp
     include/onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp
     include/onsem/semantictotext/semanticmemory/semanticmemorysentencelist.hpp
-    include/onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp
     include/onsem/semantictotext/semanticmemory/semantictracker.hpp
+    include/onsem/semantictotext/semanticmemory/sentencewithlinks.hpp
     include/onsem/semantictotext/greet.hpp
     include/onsem/semantictotext/bnfparser.hpp
     include/onsem/semantictotext/semexpoperators.hpp
@@ -117,7 +117,6 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/semanticmemory/semanticannotation.hpp
     src/semanticmemory/usernames.hpp
     src/semanticmemory/usernames.cpp
-    src/semanticmemory/semanticcontextaxiom.cpp
     src/semanticmemory/semanticmemorygrdexp.hpp
     src/semanticmemory/semanticmemorysentence.cpp
     src/semanticmemory/semanticmemorysentencelist.cpp
@@ -135,6 +134,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/semanticmemory/semanticmemoryblockbinaryreader.cpp
     src/semanticmemory/sentenceslinks.hpp
     src/semanticmemory/sentenceslinks.cpp
+    src/semanticmemory/sentencewithlinks.cpp
     src/sentiment/sentimentdetector.cpp
     src/sentiment/sentimentanalyzer.cpp
     src/bnfparser.cpp

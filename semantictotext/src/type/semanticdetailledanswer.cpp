@@ -1,7 +1,7 @@
 #include "semanticdetailledanswer.hpp"
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include <onsem/semantictotext/tool/semexpagreementdetector.hpp>
 
 namespace onsem

@@ -6,7 +6,7 @@
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
 #include "../semexpcontroller.hpp"
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"

@@ -14,7 +14,7 @@ namespace linguistics
 {
 struct LinguisticDatabase;
 }
-struct SemanticContextAxiom;
+struct SentenceWithLinks;
 struct SemanticMemoryBlock;
 struct ExpressionWithLinks;
 struct SemanticMemoryGrdExp;
@@ -29,8 +29,8 @@ struct RelatedContextAxiom : public ReferencesGetter
   bool isAnAssertion() const;
   bool isEmpty() const;
 
-  std::list<SemanticContextAxiom*> elts;
-  std::list<const SemanticContextAxiom*> constElts;
+  std::list<SentenceWithLinks*> elts;
+  std::list<const SentenceWithLinks*> constElts;
 };
 
 struct AnswerExpGenerated
@@ -64,7 +64,7 @@ public:
   }
 
   AnswerExp
-  (const SemanticContextAxiom& pContextAxiom,
+  (const SentenceWithLinks& pContextAxiom,
    std::unique_ptr<GroundedExpressionContainer> pGrdExp,
    const SemanticExpression* pEqualitySemExp,
    std::map<GrammaticalType, const SemanticExpression*>& pAnnotationsOfTheAnswer)

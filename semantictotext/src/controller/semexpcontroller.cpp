@@ -9,7 +9,7 @@
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include "../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../utility/semexpcreator.hpp"
 #include "../type/semanticdetailledanswer.hpp"
@@ -76,7 +76,7 @@ void applyOperatorOnExpHandleInMemory
  SemanticOperatorEnum pReactionOperator,
  InformationType pInformationType,
  SemanticMemory& pSemanticMemory,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
  const linguistics::LinguisticDatabase& pLingDb,
  const ReactionOptions* pReactionOptions)
 {
@@ -712,7 +712,7 @@ void applyOperatorOnSemExpConstMem(std::unique_ptr<CompositeSemAnswer>& pComposi
                                    const ProativeSpecifications* pProativeSpecificationsPtr,
                                    const ExternalFallback* pExternalFallbackPtr,
                                    const std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback>>* pCallbackToSentencesCanBeAnsweredPtr,
-                                   std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentState,
+                                   std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentState,
                                    const linguistics::LinguisticDatabase& pLingDb,
                                    SemanticTypeOfFeedback* pTypeOfFeedback,
                                    bool* pCanAnswerIDontKnowPtr)
@@ -969,7 +969,7 @@ void _updateConditionValidity(const SemanticMemorySentence& pMemSentenceToUpdate
 
   // unlink the old memories that are not revelant anymore
   if (pWorkStruct.informationType != InformationType::FALLBACK)
-    for (SemanticContextAxiom* currContextAxiomPtr : answersContextAxioms.elts)
+    for (SentenceWithLinks* currContextAxiomPtr : answersContextAxioms.elts)
       if (currContextAxiomPtr != nullptr &&
           currContextAxiomPtr != &pMemSentenceToUpdate.getContextAxiom() &&
           currContextAxiomPtr->informationType != InformationType::FALLBACK &&
@@ -1036,14 +1036,14 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
     }
 
     // if it's a new information link it to the memory
-    SemanticContextAxiom* newContextAxiom = nullptr;
+    SentenceWithLinks* newContextAxiom = nullptr;
     bool replacementNotified = false;
     auto setEnabledPreviousInformation = [&](bool pEnabled)
     {
       if (newContextAxiom != nullptr &&
           pWorkStruct.informationType != InformationType::FALLBACK)
       {
-        for (SemanticContextAxiom* currContextAxiomPtr : answersContextAxioms.elts)
+        for (SentenceWithLinks* currContextAxiomPtr : answersContextAxioms.elts)
         {
           if (currContextAxiomPtr != nullptr &&
               currContextAxiomPtr->informationType != InformationType::FALLBACK &&
@@ -1496,10 +1496,10 @@ void linkConditionalReactions(std::list<std::unique_ptr<SemAnswer>>& pSemAnswers
 }
 
 
-void uninform(const SemanticContextAxiom& pContextAxiom,
+void uninform(const SentenceWithLinks& pContextAxiom,
               SemanticMemoryBlock& pMemBlock,
               const linguistics::LinguisticDatabase& pLingDb,
-              std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+              std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   SemControllerWorkingStruct workStruct
       (pContextAxiom.informationType, nullptr, SemanticLanguageEnum::UNKNOWN, nullptr,
@@ -1551,7 +1551,7 @@ void convertToDetalledAnswer
 void notifyCurrentTime
 (std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers,
  SemanticMemory& pSemanticMemory,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
  const SemanticDuration& pNowTimeDuration,
  const linguistics::LinguisticDatabase& pLingDb)
 {

@@ -28,7 +28,7 @@ struct GroundedExpression;
 class SemanticTracker;
 struct SemanticMemory;
 struct ExpressionWithLinks;
-struct SemanticContextAxiom;
+struct SentenceWithLinks;
 struct SemanticMemoryBlock;
 struct SemanticDuration;
 
@@ -128,7 +128,7 @@ ONSEMSEMANTICTOTEXT_API
 void untrack(SemanticMemoryBlock& pMemBlock,
              std::shared_ptr<SemanticTracker>& pSemTracker,
              const linguistics::LinguisticDatabase& pLingDb,
-             std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+             std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
 
 ONSEMSEMANTICTOTEXT_API
 void notifyPunctually(const SemanticExpression& pSemExp,
@@ -142,7 +142,7 @@ std::shared_ptr<ExpressionWithLinks> inform(
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr,
-    std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 std::shared_ptr<ExpressionWithLinks> informAxiom(
@@ -150,7 +150,7 @@ std::shared_ptr<ExpressionWithLinks> informAxiom(
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr,
-    std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 void learnSayCommand(SemanticMemory& pSemanticMemory,

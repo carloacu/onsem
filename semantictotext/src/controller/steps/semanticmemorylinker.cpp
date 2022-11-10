@@ -10,7 +10,7 @@
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
 #include <onsem/semantictotext/tool/semexpagreementdetector.hpp>
@@ -178,7 +178,7 @@ bool _doActions(SemControllerWorkingStruct& pWorkStruct,
   for (auto& currSent : pSentsWithAction.dynamicLinks)
   {
     const SemanticMemorySentence& memSent = *currSent.second;
-    const SemanticContextAxiom& contextAxiom = memSent.getContextAxiom();
+    const SentenceWithLinks& contextAxiom = memSent.getContextAxiom();
     const auto& semTrackerOpt = contextAxiom.semTracker;
     if (semTrackerOpt)
     {
@@ -274,7 +274,7 @@ bool _checkGlobalCondition(const SemControllerWorkingStruct& pWorkStruct,
                            const SemanticMemoryBlockViewer& pMemViewer,
                            const SemanticMemorySentence& pCurrMemSent)
 {
-  const SemanticContextAxiom& contextAxiom = pCurrMemSent.getContextAxiom();
+  const SentenceWithLinks& contextAxiom = pCurrMemSent.getContextAxiom();
 
   if (contextAxiom.memorySentences.elts.size() > 1 &&
       contextAxiom.memorySentences.and_or)

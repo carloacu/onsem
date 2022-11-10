@@ -4,7 +4,7 @@
 #include <list>
 #include <memory>
 #include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include "../type/answerexp.hpp"
 #include "semanticannotation.hpp"
 

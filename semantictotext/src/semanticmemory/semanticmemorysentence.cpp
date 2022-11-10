@@ -7,7 +7,7 @@
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
 #include "../tool/userinfosfiller.hpp"
 #include "semanticmemoryblockprivate.hpp"
@@ -1357,7 +1357,7 @@ uint32_t MemGrdExpPtrOffsets::getOffset(const SemanticMemoryGrdExp& pMemGrdExp) 
 
 
 SemanticMemorySentence::SemanticMemorySentence
-(SemanticContextAxiom& pContextAxiom,
+(SentenceWithLinks& pContextAxiom,
  const GroundedExpression& pGrdExp,
  bool pGatherAllTheLinks,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,

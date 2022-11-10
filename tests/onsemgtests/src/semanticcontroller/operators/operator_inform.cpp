@@ -23,7 +23,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform_withTextProc(
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     const std::list<std::string>& pReferences,
-    std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
     const TextProcessingContext& pTextProcContext,
     std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>())
 {
@@ -44,7 +44,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform(
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     const std::list<std::string>& pReferences,
-    std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
     const TextProcessingContext* pTextProcContextPtr)
 {
   if (pTextProcContextPtr != nullptr)
@@ -66,7 +66,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform_fromRobot(const std::string
                                                                       SemanticMemory& pSemanticMemory,
                                                                       const linguistics::LinguisticDatabase& pLingDb,
                                                                       const std::list<std::string>& pReferences,
-                                                                      std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+                                                                      std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
@@ -119,7 +119,7 @@ std::shared_ptr<ExpressionWithLinks> operator_informAxiom_fromRobot(
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     const std::list<std::string>& pReferences,
-    std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   TextProcessingContext textContext(SemanticAgentGrounding::me,
                                     SemanticAgentGrounding::currentUser,
@@ -181,7 +181,7 @@ TEST_F(SemanticReasonerGTests, operator_informAndAssert)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
-  std::map<const SemanticContextAxiom*, TruenessValue> axiomToConditionCurrentState;
+  std::map<const SentenceWithLinks*, TruenessValue> axiomToConditionCurrentState;
 
   // test inform
   {

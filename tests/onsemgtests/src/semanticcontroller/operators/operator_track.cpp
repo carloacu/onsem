@@ -93,7 +93,7 @@ TEST_F(SemanticReasonerGTests, operator_track_basic)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semanticMemory;
-  std::map<const SemanticContextAxiom*, TruenessValue> axiomToConditionCurrentState;
+  std::map<const SentenceWithLinks*, TruenessValue> axiomToConditionCurrentState;
 
   auto objectTracking = std::make_shared<TrackStateForTests>
       ("what do you eat ?", semanticMemory, lingDb);
@@ -185,7 +185,7 @@ TEST_F(SemanticReasonerGTests, operator_track_list)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semanticMemory;
-  std::map<const SemanticContextAxiom*, TruenessValue> axiomToConditionCurrentState;
+  std::map<const SentenceWithLinks*, TruenessValue> axiomToConditionCurrentState;
 
   auto objectTracking = std::make_shared<TrackStateForTests>
       ("what do you eat ?", semanticMemory, lingDb);
@@ -258,7 +258,7 @@ TEST_F(SemanticReasonerGTests, operator_track_advanced)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semanticMemory;
-  std::map<const SemanticContextAxiom*, TruenessValue> axiomToConditionCurrentState;
+  std::map<const SentenceWithLinks*, TruenessValue> axiomToConditionCurrentState;
   operator_addFallback("I don't like chocolate", semanticMemory, lingDb);
   operator_addFallback("your left hand is not touched", semanticMemory, lingDb);
 
@@ -324,7 +324,7 @@ TEST_F(SemanticReasonerGTests, operator_track_seePeople)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semanticMemory;
-  std::map<const SemanticContextAxiom*, TruenessValue> axiomToConditionCurrentState;
+  std::map<const SentenceWithLinks*, TruenessValue> axiomToConditionCurrentState;
 
   auto nobodyTracking = std::make_shared<TrackStateForTests>
       ("I don't see anybody", semanticMemory, lingDb);

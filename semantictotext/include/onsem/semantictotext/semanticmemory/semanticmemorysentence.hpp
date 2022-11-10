@@ -16,7 +16,7 @@ namespace linguistics
 {
 struct LinguisticDatabase;
 }
-struct SemanticContextAxiom;
+struct SentenceWithLinks;
 struct GroundedExpression;
 struct SemanticMemorySentencePrivate;
 struct SemanticExpression;
@@ -44,7 +44,7 @@ private:
  */
 struct ONSEMSEMANTICTOTEXT_API SemanticMemorySentence
 {
-  SemanticMemorySentence(SemanticContextAxiom& pContextAxiom,
+  SemanticMemorySentence(SentenceWithLinks& pContextAxiom,
                          const GroundedExpression& pGrdExp,
                          bool pGatherAllTheLinks,
                          const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
@@ -67,8 +67,8 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemorySentence
                      MemGrdExpPtrOffsets& pMemGrdExpPtrs,
                      const semexpsaver::SemExpPtrOffsets& pSemExpPtrOffsets) const;
 
-  SemanticContextAxiom& getContextAxiom() { return _contextAxiom; }
-  const SemanticContextAxiom& getContextAxiom() const { return _contextAxiom; }
+  SentenceWithLinks& getContextAxiom() { return _contextAxiom; }
+  const SentenceWithLinks& getContextAxiom() const { return _contextAxiom; }
   const GroundedExpression& getGrdExpRef() const { return grdExp; }
 
   /// An id to sort and allways have the same orders of answers (to not sort by pointer values)
@@ -80,7 +80,7 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemorySentence
 
 
 private:
-  SemanticContextAxiom& _contextAxiom;
+  SentenceWithLinks& _contextAxiom;
   std::map<GrammaticalType, const SemanticExpression*> _annotations;
   bool _isEnabled;
   bool _isANoun;

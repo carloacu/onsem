@@ -42,7 +42,7 @@ struct LinguisticDatabase;
 struct SemanticTriggerAxiomId;
 struct ExpressionWithLinks;
 class SemanticTracker;
-struct SemanticContextAxiom;
+struct SentenceWithLinks;
 struct SemanticMemoryBlock;
 struct SemanticMemoryBlockBinaryReader;
 
@@ -138,7 +138,7 @@ struct SemanticMemoryBlockPrivate
 
   void removeExpression(MapMemoryPtrToIterator::iterator pItExpMem,
                          const linguistics::LinguisticDatabase& pLingDb,
-                         std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+                         std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
 
   intMemBlockId getId() const { return _id; }
 

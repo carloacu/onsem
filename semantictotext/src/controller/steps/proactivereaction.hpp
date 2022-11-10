@@ -7,7 +7,7 @@
 namespace onsem
 {
 struct GroundedExpression;
-struct SemanticContextAxiom;
+struct SentenceWithLinks;
 struct SemanticMemoryBlockViewer;
 
 namespace proactiveReaction
@@ -15,7 +15,7 @@ namespace proactiveReaction
 
 bool process(bool& pResThatCanHaveAdditionalFeedbacks,
              SemControllerWorkingStruct& pWorkStruct,
-             SemanticContextAxiom* pNewContextAxiom,
+             SentenceWithLinks* pNewContextAxiom,
              SemanticMemoryBlockViewer& pMemViewer,
              const GroundedExpression& pGrdExp,
              TruenessValue pTruenessValue,
@@ -25,7 +25,7 @@ bool process(bool& pResThatCanHaveAdditionalFeedbacks,
 
 void processWithUpdatedMemory(bool& pRes,
                               SemControllerWorkingStruct& pWorkStruct,
-                              SemanticContextAxiom* pNewContextAxiom,
+                              SentenceWithLinks* pNewContextAxiom,
                               SemanticMemoryBlockViewer& pMemViewer,
                               const GroundedExpression& pGrdExp);
 

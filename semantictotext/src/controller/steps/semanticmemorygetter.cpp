@@ -14,7 +14,7 @@
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include "../../semanticmemory/memorymodifier.hpp"
 #include "../../semanticmemory/semanticmemoryblockprivate.hpp"
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"

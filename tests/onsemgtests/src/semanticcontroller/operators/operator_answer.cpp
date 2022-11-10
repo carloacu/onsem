@@ -51,7 +51,7 @@ TEST_F(SemanticReasonerGTests, operator_answer_basic)
 {
   SemanticMemory semMem;
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
-  std::map<const SemanticContextAxiom*, TruenessValue> axiomToConditionCurrentState;
+  std::map<const SentenceWithLinks*, TruenessValue> axiomToConditionCurrentState;
 
   ONSEM_NOANSWER(operator_answer("You are on the floor", semMem, lingDb));
   ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas si j'aime le chocolat.", operator_answer("tu aimes le chocolat ?", semMem, lingDb));

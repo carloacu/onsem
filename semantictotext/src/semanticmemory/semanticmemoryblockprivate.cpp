@@ -2,7 +2,7 @@
 #include <chrono>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorybloc.hpp>
 #include "semanticmemoryblockbinaryreader.hpp"
@@ -209,7 +209,7 @@ std::unique_ptr<SemanticNameGrounding> SemanticMemoryBlockPrivate::getNameGrd
 void SemanticMemoryBlockPrivate::removeExpression
 (MapMemoryPtrToIterator::iterator pItExpMem,
  const linguistics::LinguisticDatabase& pLingDb,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   _memBlock.expressionThatWillBeRemoved(*pItExpMem->first);
   auto itToRemove = pItExpMem->second;

@@ -5,7 +5,7 @@
 #include <map>
 #include <memory>
 #include "../api.hpp"
-#include "semanticcontextaxiom.hpp"
+#include "sentencewithlinks.hpp"
 #include <onsem/common/utility/radix_map.hpp>
 #include <onsem/texttosemantic/dbtype/misc/conditionspecification.hpp>
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
@@ -30,7 +30,7 @@ struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks
 
   void clearWrappings(SemanticMemoryBlock& pMemBlock,
                       const linguistics::LinguisticDatabase& pLingDb,
-                      std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+                      std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
   void removeContextAxiomsWithAnActionLinked();
 
   void addConditionToAnAction(InformationType pInformationType,
@@ -40,14 +40,14 @@ struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks
                             const ConditionSpecification& pCondExp,
                             const linguistics::LinguisticDatabase& pLingDb);
 
-  SemanticContextAxiom* addAxiomFromGrdExp(InformationType pInformationType,
-                                           const GroundedExpression& pGrdSemExpToAdd,
-                                           const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
-                                           const linguistics::LinguisticDatabase& pLingDb);
-  SemanticContextAxiom* tryToAddTeachFormulation(InformationType pInformationType,
-                                                 const GroundedExpression& pGrdSemExpToAdd,
-                                                 const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
-                                                 const linguistics::LinguisticDatabase& pLingDb);
+  SentenceWithLinks* addAxiomFromGrdExp(InformationType pInformationType,
+                                        const GroundedExpression& pGrdSemExpToAdd,
+                                        const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+                                        const linguistics::LinguisticDatabase& pLingDb);
+  SentenceWithLinks* tryToAddTeachFormulation(InformationType pInformationType,
+                                              const GroundedExpression& pGrdSemExpToAdd,
+                                              const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+                                              const linguistics::LinguisticDatabase& pLingDb);
 
   void addAxiomWhereGatherAllTheLinks(const GroundedExpression& pGrdSemExpToAdd,
                                       const linguistics::LinguisticDatabase& pLingDb);
@@ -70,7 +70,7 @@ struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks
 
   mystd::radix_map_str<std::string> linkedInfos;
   UniqueSemanticExpression semExp;
-  std::list<SemanticContextAxiom> contextAxioms;
+  std::list<SentenceWithLinks> contextAxioms;
 
   /// SemExp to do if it's a trigger
   mystd::unique_propagate_const<UniqueSemanticExpression> outputToAnswerIfTriggerHasMatched;
@@ -79,7 +79,7 @@ private:
   SemanticMemoryBlock& _parentMemBloc;
 
   void _addContextAxiom
-  (SemanticContextAxiom& pContextAxiom,
+  (SentenceWithLinks& pContextAxiom,
    const SemanticExpression& pSemExpToAdd,
    const SemanticExpression* pSemExpToAddWithoutLinks,
    const linguistics::LinguisticDatabase& pLingDb);

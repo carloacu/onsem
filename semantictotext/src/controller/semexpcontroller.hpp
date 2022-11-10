@@ -34,7 +34,7 @@ void applyOperatorOnExpHandleInMemory(std::unique_ptr<CompositeSemAnswer>& pComp
                                       SemanticOperatorEnum pReactionOperator,
                                       InformationType pInformationType,
                                       SemanticMemory& pSemanticMemory,
-                                      std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+                                      std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
                                       const linguistics::LinguisticDatabase& pLingDb,
                                       const ReactionOptions* pReactionOptions);
 
@@ -58,7 +58,7 @@ void applyOperatorOnSemExpConstMem(std::unique_ptr<CompositeSemAnswer>& pComposi
                                    const ProativeSpecifications* pProativeSpecificationsPtr,
                                    const ExternalFallback* pExternalFallbackPtr,
                                    const std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback>>* pCallbackToSentencesCanBeAnsweredPtr,
-                                   std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentState,
+                                   std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentState,
                                    const linguistics::LinguisticDatabase& pLingDb,
                                    SemanticTypeOfFeedback* pTypeOfFeedback = nullptr,
                                    bool* pAnswerIDontKnow = nullptr);
@@ -69,10 +69,10 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
                            const std::list<const GroundedExpression*>& pOtherGrdExps,
                            const GroundedExpression& pOriginalGrdExp);
 
-void uninform(const SemanticContextAxiom& pContextAxiom,
+void uninform(const SentenceWithLinks& pContextAxiom,
               SemanticMemoryBlock& pMemBlock,
               const linguistics::LinguisticDatabase& pLingDb,
-              std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+              std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
 
 void sendActionProposalIfNecessary(CompositeSemAnswer& pCompSemAnswer,
                                    SemanticMemoryBlock& pMemBlock);
@@ -110,7 +110,7 @@ TruenessValue operator_check_semExp(const SemanticExpression& pSemExp,
 
 void notifyCurrentTime(std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers,
                        SemanticMemory& pSemanticMemory,
-                       std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+                       std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
                        const SemanticDuration& pNowTimeDuration,
                        const linguistics::LinguisticDatabase& pLingDb);
 

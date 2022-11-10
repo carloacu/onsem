@@ -8,7 +8,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 
 namespace onsem
 {
@@ -598,7 +598,7 @@ UniqueSemanticExpression loadSemExp(const boost::property_tree::ptree& pTree)
 
 
 void _loadContextAxiom(const boost::property_tree::ptree& pTree,
-                       SemanticContextAxiom& pContextAxiom,
+                       SentenceWithLinks& pContextAxiom,
                        const LoaderSemExpLinks& pLinks,
                        const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -659,7 +659,7 @@ std::unique_ptr<ExpressionWithLinks> _loadExpressionWithLinks
     const boost::property_tree::ptree& childTree = currContextAxiom.second;
     res->contextAxioms.emplace_back(informationType_fromStr(childTree.get("informationType", "information")),
                                     *res);
-    SemanticContextAxiom& newContextAxiom = res->contextAxioms.back();
+    SentenceWithLinks& newContextAxiom = res->contextAxioms.back();
     _loadContextAxiom(childTree, newContextAxiom, links, pLingDb);
   }
   res->outputToAnswerIfTriggerHasMatched = _loadOptionalSemExp(pTree, "outputToAnswerIfTriggerHasMatched", nullptr);

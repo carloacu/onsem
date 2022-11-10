@@ -6,7 +6,7 @@
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemorysentence.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 
 namespace onsem
 {
@@ -604,7 +604,7 @@ void _saveMemorySentence(boost::property_tree::ptree& pTree,
 
 
 void _saveContextAxiom(boost::property_tree::ptree& pTree,
-                       const SemanticContextAxiom& pMemContextAxiom,
+                       const SentenceWithLinks& pMemContextAxiom,
                        const GrdExpLinks& pGrdExpLinks)
 {
   if (pMemContextAxiom.informationType != InformationType::INFORMATION)

@@ -297,7 +297,7 @@ SemControllerWorkingStruct::SemControllerWorkingStruct
  const ProativeSpecifications* pProativeSpecificationsPtr,
  const ExternalFallback* pExternalFallbackPtr,
  const std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback> >* pCallbackToSentencesCanBeAnsweredPtr,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
  const linguistics::LinguisticDatabase& pLingDb)
   : isAtRoot(true),
     informationType(pInformationType),

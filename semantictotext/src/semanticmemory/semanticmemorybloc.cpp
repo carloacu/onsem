@@ -70,7 +70,7 @@ void SemanticMemoryBlock::ensureFallbacksBlock()
 }
 
 void SemanticMemoryBlock::_pruneExceedingExpressions(const linguistics::LinguisticDatabase& pLingDb,
-                                                     std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+                                                     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   if (maxNbOfExpressionsInAMemoryBlock == infinteMemory)
     return;
@@ -96,7 +96,7 @@ void SemanticMemoryBlock::_pruneExceedingExpressions(const linguistics::Linguist
 void SemanticMemoryBlock::addExpHandleInMemory
 (const std::shared_ptr<ExpressionWithLinks>& pNewSemMemKnowledge,
  const linguistics::LinguisticDatabase& pLingDb,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   _impl->expressionsMemories.emplace_back(pNewSemMemKnowledge);
   _impl->addLastExpressionToPtrToIteratorMap();
@@ -121,7 +121,7 @@ std::shared_ptr<ExpressionWithLinks> SemanticMemoryBlock::addRootSemExp
 (UniqueSemanticExpression pNewRootSemExp,
  const linguistics::LinguisticDatabase& pLingDb,
  const mystd::radix_map_str<std::string>* pLinkedInfosPtr,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   auto expForMemory = _addRootSemExp(std::move(pNewRootSemExp), pLinkedInfosPtr);
   _pruneExceedingExpressions(pLingDb, pAxiomToConditionCurrentStatePtr);
@@ -143,7 +143,7 @@ void SemanticMemoryBlock::addTrackerSemExp
 void SemanticMemoryBlock::removeTrackerSemExp
 (std::shared_ptr<SemanticTracker>& pSemTracker,
  const linguistics::LinguisticDatabase& pLingDb,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   auto itElt = _impl->trackerKnowledges.find(&pSemTracker);
   if (itElt != _impl->trackerKnowledges.end())
@@ -188,7 +188,7 @@ void SemanticMemoryBlock::clear()
 
 
 void SemanticMemoryBlock::clearKnowledgeByKnowledgeOnlyForTests(const linguistics::LinguisticDatabase& pLingDb,
-                                                                std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+                                                                std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   while (!_impl->expressionsMemoriesPtrToIt.empty())
   {
@@ -208,7 +208,7 @@ void SemanticMemoryBlock::removeLinkedActions()
 
 void SemanticMemoryBlock::removeExpression(ExpressionWithLinks& pExpressionToRemove,
                                            const linguistics::LinguisticDatabase& pLingDb,
-                                           std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+                                           std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   auto itExpMem = _impl->expressionsMemoriesPtrToIt.find(&pExpressionToRemove);
   if (itExpMem != _impl->expressionsMemoriesPtrToIt.end())

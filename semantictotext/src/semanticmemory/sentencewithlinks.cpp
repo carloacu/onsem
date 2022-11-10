@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
@@ -55,7 +55,7 @@ bool SemanticTriggerAxiomId::operator<(const SemanticTriggerAxiomId& pOther) con
 
 
 
-SemanticContextAxiom::SemanticContextAxiom
+SentenceWithLinks::SentenceWithLinks
 (InformationType pInformationType,
  ExpressionWithLinks& pSemExpWrappedForMemory)
   : semTracker(),
@@ -71,12 +71,12 @@ SemanticContextAxiom::SemanticContextAxiom
 }
 
 
-void SemanticContextAxiom::setEnabled(bool pEnabled)
+void SentenceWithLinks::setEnabled(bool pEnabled)
 {
   memorySentences.setEnabled(pEnabled);
 }
 
-void SemanticContextAxiom::clear()
+void SentenceWithLinks::clear()
 {
   memorySentences.clear();
 
@@ -86,18 +86,18 @@ void SemanticContextAxiom::clear()
   infCommandToDo = nullptr;
 }
 
-bool SemanticContextAxiom::isAnActionLinked() const
+bool SentenceWithLinks::isAnActionLinked() const
 {
   return semExpToDo != nullptr || semExpToDoElse != nullptr;
 }
 
-bool SemanticContextAxiom::canOtherInformationTypeBeMoreRevelant(InformationType pInformationType) const
+bool SentenceWithLinks::canOtherInformationTypeBeMoreRevelant(InformationType pInformationType) const
 {
   return pInformationType == InformationType::ASSERTION ||
       informationType != InformationType::ASSERTION;
 }
 
-void SemanticContextAxiom::getReferences(std::list<std::string>& pReferences) const
+void SentenceWithLinks::getReferences(std::list<std::string>& pReferences) const
 {
   SemExpGetter::extractReferences(pReferences, *_semExpWrappedForMemory.semExp);
 }

@@ -10,7 +10,7 @@
 #include <onsem/semantictotext/tool/semexpagreementdetector.hpp>
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
 #include <onsem/semantictotext/semanticmemory/expressionwithlinks.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticcontextaxiom.hpp>
+#include <onsem/semantictotext/semanticmemory/sentencewithlinks.hpp>
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../../type/referencesfiller.hpp"
 #include "../../type/semanticdetailledanswer.hpp"
@@ -166,7 +166,7 @@ bool _sayOkIfTheUserIsTalkingAboutHim(SemControllerWorkingStruct& pWorkStruct,
 
 
 std::unique_ptr<SemanticExpression> _answerNiceToMeetYouIfTheUserSaysHisName(SemControllerWorkingStruct& pWorkStruct,
-                                                                             SemanticContextAxiom* pNewContextAxiom,
+                                                                             SentenceWithLinks* pNewContextAxiom,
                                                                              const SemanticMemoryBlock& pMemBlock,
                                                                              const GroundedExpression& pGrdExp)
 {
@@ -371,7 +371,7 @@ void _confirmOrCorrect(SemControllerWorkingStruct& pWorkStruct,
 
 bool process(bool& pResThatCanHaveAdditionalFeedbacks,
              SemControllerWorkingStruct& pWorkStruct,
-             SemanticContextAxiom* pNewContextAxiom,
+             SentenceWithLinks* pNewContextAxiom,
              SemanticMemoryBlockViewer& pMemViewer,
              const GroundedExpression& pGrdExp,
              TruenessValue pTruenessValue,
@@ -412,7 +412,7 @@ bool process(bool& pResThatCanHaveAdditionalFeedbacks,
       }
       if (pTruenessValue == TruenessValue::VAL_FALSE)
       {
-        auto reactionOfOppositeInformation = [&](const SemanticContextAxiom& pCurrContextAxiom)
+        auto reactionOfOppositeInformation = [&](const SentenceWithLinks& pCurrContextAxiom)
         {
           ImbricationType res = SemExpComparator::getSemExpsImbrications
               (*pCurrContextAxiom.getSemExpWrappedForMemory().semExp, pGrdExp, pMemViewer.constView, pWorkStruct.lingDb, nullptr);
@@ -428,7 +428,7 @@ bool process(bool& pResThatCanHaveAdditionalFeedbacks,
           return true;
         };
 
-        for (const SemanticContextAxiom* currContextAxiom : pAnswersContextAxioms.elts)
+        for (const SentenceWithLinks* currContextAxiom : pAnswersContextAxioms.elts)
         {
           if (reactionOfOppositeInformation(*currContextAxiom))
           {
@@ -438,7 +438,7 @@ bool process(bool& pResThatCanHaveAdditionalFeedbacks,
         }
         if (!pResThatCanHaveAdditionalFeedbacks)
         {
-          for (const SemanticContextAxiom* currContextAxiom : pAnswersContextAxioms.constElts)
+          for (const SentenceWithLinks* currContextAxiom : pAnswersContextAxioms.constElts)
           {
             if (reactionOfOppositeInformation(*currContextAxiom))
             {
@@ -474,7 +474,7 @@ bool process(bool& pResThatCanHaveAdditionalFeedbacks,
 
 void processWithUpdatedMemory(bool& pRes,
                               SemControllerWorkingStruct& pWorkStruct,
-                              SemanticContextAxiom* pNewContextAxiom,
+                              SentenceWithLinks* pNewContextAxiom,
                               SemanticMemoryBlockViewer& pMemViewer,
                               const GroundedExpression& pGrdExp)
 {

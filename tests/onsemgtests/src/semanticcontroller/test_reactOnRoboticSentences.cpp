@@ -13,7 +13,7 @@ TEST_F(SemanticReasonerGTests, operator_reactOnRoboticSentences)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
-  std::map<const SemanticContextAxiom*, TruenessValue> axiomToConditionCurrentState;
+  std::map<const SentenceWithLinks*, TruenessValue> axiomToConditionCurrentState;
   memoryOperation::learnSayCommand(semMem, lingDb);
 
   // current activity

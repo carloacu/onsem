@@ -40,7 +40,7 @@ struct SemControllerWorkingStruct
    const ProativeSpecifications* pProativeSpecificationsPtr,
    const ExternalFallback* pExternalFallbackPtr,
    const std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback>>* pCallbackToSentencesCanBeAnsweredPtr,
-   std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+   std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
    const linguistics::LinguisticDatabase& pLingDb);
 
   SemControllerWorkingStruct
@@ -92,7 +92,7 @@ struct SemControllerWorkingStruct
   const ProativeSpecifications* proativeSpecificationsPtr;
   const ExternalFallback* externalFallbackPtr;
   const std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback>>* callbackToSentencesCanBeAnsweredPtr;
-  std::map<const SemanticContextAxiom*, TruenessValue>* axiomToConditionCurrentStatePtr;
+  std::map<const SentenceWithLinks*, TruenessValue>* axiomToConditionCurrentStatePtr;
   const linguistics::LinguisticDatabase& lingDb;
   int nbRecurssiveCallsRemaining; // to avoid infinite loops for sure
   mystd::optional<ContextualAnnotation> contAnnotationOfPreviousAnswers;

@@ -100,14 +100,14 @@ const SemanticExpression& _resolveParentCoreferenceLink(const GrdExpLinksContext
 
 
 void _addGrdExpToAxiom
-(SemanticContextAxiom& pContextAxiom,
+(SentenceWithLinks& pContextAxiom,
  const GroundedExpression& pGrdExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
  bool pIsAConditionToSatisfy,
  const linguistics::LinguisticDatabase& pLingDb);
 
 void _addSpecifierSemExp
-(SemanticContextAxiom& pContextAxiom,
+(SentenceWithLinks& pContextAxiom,
  const GrdExpLinksContext& pContext,
  const SemanticExpression& pSemExp,
  const linguistics::LinguisticDatabase& pLingDb)
@@ -142,7 +142,7 @@ void _addSpecifierSemExp
 
 
 void _addGrdExpToAxiom
-(SemanticContextAxiom& pContextAxiom,
+(SentenceWithLinks& pContextAxiom,
  const GroundedExpression& pGrdExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
  bool pIsAConditionToSatisfy,
@@ -225,7 +225,7 @@ ExpressionWithLinks::ExpressionWithLinks
 
 void ExpressionWithLinks::clearWrappings(SemanticMemoryBlock& pMemBlock,
                                                 const linguistics::LinguisticDatabase& pLingDb,
-                                                std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+                                                std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   linkedInfos.clear();
   outputToAnswerIfTriggerHasMatched.reset();
@@ -288,14 +288,14 @@ void ExpressionWithLinks::addConditionToAnInfo(InformationType pInformationType,
 
 
 
-SemanticContextAxiom* ExpressionWithLinks::addAxiomFromGrdExp
+SentenceWithLinks* ExpressionWithLinks::addAxiomFromGrdExp
 (InformationType pInformationType,
  const GroundedExpression& pGrdSemExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
  const linguistics::LinguisticDatabase& pLingDb)
 {
   contextAxioms.emplace_back(pInformationType, *this);
-  SemanticContextAxiom& axiom = contextAxioms.back();
+  SentenceWithLinks& axiom = contextAxioms.back();
 
   const GroundedExpression* subjectGrdPtr = nullptr;
   SemExpGetter::extractSubjectAndObjectOfAVerbDefinition(subjectGrdPtr, axiom.infCommandToDo, pGrdSemExpToAdd);
@@ -318,7 +318,7 @@ SemanticContextAxiom* ExpressionWithLinks::addAxiomFromGrdExp
 }
 
 
-SemanticContextAxiom* ExpressionWithLinks::tryToAddTeachFormulation
+SentenceWithLinks* ExpressionWithLinks::tryToAddTeachFormulation
 (InformationType pInformationType,
  const GroundedExpression& pGrdSemExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
@@ -331,7 +331,7 @@ SemanticContextAxiom* ExpressionWithLinks::tryToAddTeachFormulation
   {
     assert(objectSemExpPtr != nullptr);
     contextAxioms.emplace_back(pInformationType, *this);
-    SemanticContextAxiom& axiom = contextAxioms.back();
+    SentenceWithLinks& axiom = contextAxioms.back();
     axiom.infCommandToDo = objectSemExpPtr;
     _addGrdExpToAxiom(axiom, *purposeGrdPtr, pAnnotations, true, pLingDb);
     if (axiom.memorySentences.elts.empty())
@@ -350,7 +350,7 @@ void ExpressionWithLinks::addAxiomWhereGatherAllTheLinks
  const linguistics::LinguisticDatabase& pLingDb)
 {
   contextAxioms.emplace_back(InformationType::INFORMATION, *this);
-  SemanticContextAxiom& axiom = contextAxioms.back();
+  SentenceWithLinks& axiom = contextAxioms.back();
   std::map<GrammaticalType, const SemanticExpression*> annotations;
   axiom.memorySentences.elts.emplace_back(axiom, pGrdSemExpToAdd, true,
                                           annotations, pLingDb, false);
@@ -366,7 +366,7 @@ void ExpressionWithLinks::_addTriggerGrdExpLinks(InformationType pInformationTyp
                                                         std::size_t pId)
 {
   contextAxioms.emplace_back(pInformationType, *this);
-  SemanticContextAxiom& axiom = contextAxioms.back();
+  SentenceWithLinks& axiom = contextAxioms.back();
   axiom.triggerAxiomId = pGetAxiomIdFromId(pId);
   std::map<GrammaticalType, const SemanticExpression*> annotations;
   _addGrdExpToAxiom(axiom, pTriggerGrdExp, annotations, true, pLingDb);
@@ -457,7 +457,7 @@ void ExpressionWithLinks::addAxiomListToMemory(const SemanticExpression& pSemExp
   }
 
   contextAxioms.emplace_back(pInformationType, *this);
-  SemanticContextAxiom& axiom = contextAxioms.back();
+  SentenceWithLinks& axiom = contextAxioms.back();
   if (pSemTracker != nullptr)
     axiom.semTracker = *pSemTracker;
   axiom.semExpToDoIsAlwaysActive = pActionToDoIsAlwaysActive;
@@ -478,7 +478,7 @@ intSemId ExpressionWithLinks::getIdOfFirstSentence() const
 
 
 void ExpressionWithLinks::_addContextAxiom
-(SemanticContextAxiom& pContextAxiom,
+(SentenceWithLinks& pContextAxiom,
  const SemanticExpression& pSemExpToAdd,
  const SemanticExpression* pSemExpToAddWithoutLinks,
  const linguistics::LinguisticDatabase& pLingDb)

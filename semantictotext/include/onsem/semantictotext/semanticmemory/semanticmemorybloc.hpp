@@ -33,7 +33,7 @@ struct RelatedContextAxiom;
 struct SemanticMemoryBlockPrivate;
 struct SemanticBehaviorDefinition;
 struct ExpressionWithLinks;
-struct SemanticContextAxiom;
+struct SentenceWithLinks;
 struct UniqueSemanticExpression;
 class SemanticTracker;
 struct SemanticExpression;
@@ -60,24 +60,24 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
 
   void addExpHandleInMemory(const std::shared_ptr<ExpressionWithLinks>& pNewSemMemKnowledge,
                             const linguistics::LinguisticDatabase& pLingDb,
-                            std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+                            std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
   std::shared_ptr<ExpressionWithLinks> addRootSemExp(UniqueSemanticExpression pNewRootSemExp,
                                                           const linguistics::LinguisticDatabase& pLingDb,
                                                           const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr,
-                                                          std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
+                                                          std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
   void addTrackerSemExp(UniqueSemanticExpression pNewRootSemExp,
                         std::shared_ptr<SemanticTracker>& pSemTracker,
                         const linguistics::LinguisticDatabase& pLingDb);
   void removeTrackerSemExp(std::shared_ptr<SemanticTracker>& pSemTracker,
                            const linguistics::LinguisticDatabase& pLingDb,
-                           std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+                           std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
 
   void addRootSemExpWithHisContent(InformationType pInformationType,
                                    UniqueSemanticExpression pNewRootSemExp,
                                    const linguistics::LinguisticDatabase& pLingDb);
   void removeExpression(ExpressionWithLinks& pExpressionToRemove,
                         const linguistics::LinguisticDatabase& pLingDb,
-                        std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+                        std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
 
 
   const std::list<std::shared_ptr<ExpressionWithLinks>>& getExpressionHandleInMemories() const;
@@ -87,7 +87,7 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
   void clearLocalInformationButNotTheSubBloc();
   void clear();
   void clearKnowledgeByKnowledgeOnlyForTests(const linguistics::LinguisticDatabase& pLingDb,
-                                             std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+                                             std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
   void removeLinkedActions();
 
   std::size_t nbOfKnowledges() const;
@@ -179,7 +179,7 @@ private:
 
   /// Prune the oldest knowledge if the memory size limit has exceeded.
   void _pruneExceedingExpressions(const linguistics::LinguisticDatabase& pLingDb,
-                                  std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+                                  std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
 
   /// Factorization of the knowledge addition algorithm. Does not prune memory if size exceeded.
   std::shared_ptr<ExpressionWithLinks> _addRootSemExp(UniqueSemanticExpression pNewRootSemExp,

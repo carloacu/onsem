@@ -1,5 +1,5 @@
-#ifndef ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICCONTEXTAXIOM_HPP
-#define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICCONTEXTAXIOM_HPP
+#ifndef ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SENTENCEWITHLINKS_HPP
+#define ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SENTENCEWITHLINKS_HPP
 
 #include "../api.hpp"
 #include "semanticmemorysentencelist.hpp"
@@ -35,14 +35,14 @@ struct ONSEMSEMANTICTOTEXT_API SemanticTriggerAxiomId
 };
 
 
-struct ONSEMSEMANTICTOTEXT_API SemanticContextAxiom : public ReferencesGetter
+struct ONSEMSEMANTICTOTEXT_API SentenceWithLinks : public ReferencesGetter
 {
-  SemanticContextAxiom(
+  SentenceWithLinks(
       InformationType pInformationType,
       ExpressionWithLinks& pSemExpWrappedForMemory);
 
-  SemanticContextAxiom(const SemanticContextAxiom&) = delete;
-  SemanticContextAxiom& operator=(const SemanticContextAxiom&) = delete;
+  SentenceWithLinks(const SentenceWithLinks&) = delete;
+  SentenceWithLinks& operator=(const SentenceWithLinks&) = delete;
 
   void setEnabled(bool pEnabled);
   void clear();
@@ -78,4 +78,4 @@ private:
 } // End of namespace onsem
 
 
-#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICCONTEXTAXIOM_HPP
+#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SENTENCEWITHLINKS_HPP

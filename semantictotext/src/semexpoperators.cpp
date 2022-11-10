@@ -630,7 +630,7 @@ void track(SemanticMemory& pSemanticMemory,
 void untrack(SemanticMemoryBlock& pMemBlock,
              std::shared_ptr<SemanticTracker>& pSemTracker,
              const linguistics::LinguisticDatabase& pLingDb,
-             std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+             std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   pMemBlock.removeTrackerSemExp(pSemTracker, pLingDb, pAxiomToConditionCurrentStatePtr);
 }
@@ -641,7 +641,7 @@ std::shared_ptr<ExpressionWithLinks> _informMetaMemory
 (UniqueSemanticExpression pSemExp,
  SemanticMemoryBlock& pMemBloc,
  SemanticMemory& pSemanticMemory,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
  const linguistics::LinguisticDatabase& pLingDb,
  InformationType pInformationType,
  const mystd::radix_map_str<std::string>* pLinkedInfosPtr)
@@ -689,7 +689,7 @@ std::shared_ptr<ExpressionWithLinks> inform
  SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb,
  const mystd::radix_map_str<std::string>* pLinkedInfosPtr,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   return _informMetaMemory(std::move(pSemExp), pSemanticMemory.memBloc,
                            pSemanticMemory, pAxiomToConditionCurrentStatePtr,
@@ -702,7 +702,7 @@ std::shared_ptr<ExpressionWithLinks> informAxiom
  SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb,
  const mystd::radix_map_str<std::string>* pLinkedInfosPtr,
- std::map<const SemanticContextAxiom*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+ std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   return _informMetaMemory(std::move(pSemExp), pSemanticMemory.memBloc,
                            pSemanticMemory, pAxiomToConditionCurrentStatePtr,
@@ -863,7 +863,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> execute(
   conditionsAdder::addConditonsForSomeTimedGrdExp(clonedSemExp);
   mystd::unique_propagate_const<UniqueSemanticExpression> res;
 
-  std::map<const SemanticContextAxiom*, TruenessValue> axiomToConditionCurrentState;
+  std::map<const SentenceWithLinks*, TruenessValue> axiomToConditionCurrentState;
   {
     std::unique_ptr<CompositeSemAnswer> compSemAnswers;
     controller::applyOperatorOnSemExpConstMem(
