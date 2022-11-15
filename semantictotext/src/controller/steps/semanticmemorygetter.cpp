@@ -853,6 +853,54 @@ bool _indefiniteThingsCheckMatching(RelationsThatMatch<IS_MODIFIABLE>& pRelation
   return res;
 }
 
+template <bool IS_MODIFIABLE>
+bool _relationsInLowerCaseFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
+                                     const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
+                                     MemoryLinksAccessor<IS_MODIFIABLE>& pLinksToSemExps,
+                                     const std::string& pLemma,
+                                     const GroundedExpression& pGrdExpToLookFor,
+                                     const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
+                                     RequestContext pRequestContext,
+                                     const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
+                                     const linguistics::LinguisticDatabase& pLingDb,
+                                     bool pCheckChildren,
+                                     SemanticLanguageEnum pLanguage)
+{
+  bool res = false;
+  std::map<std::string, char> conceptsOfRelatedWord;
+  auto lemmaInLowerCase = pLemma;
+  if (lowerCaseText(lemmaInLowerCase))
+  {
+    const auto& lingDico = pLingDb.langToSpec[pLanguage].lingDico;
+    lingDico.getConcepts(conceptsOfRelatedWord,
+                         SemanticWord(pLanguage, lemmaInLowerCase, PartOfSpeech::NOUN));
+    auto lowerCaseLingMeaning =
+        lingDico.statDb.getLingMeaning(lemmaInLowerCase, PartOfSpeech::NOUN, true);
+
+    if (!lowerCaseLingMeaning.isEmpty())
+    {
+      // add semantic expressions that have a meaning in common
+      res = _getRelationsOfAMeaning(pRelations, pAlreadyMatchedSentences, pLinksToSemExps,
+                                    lowerCaseLingMeaning.language, lowerCaseLingMeaning.meaningId,
+                                    pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+    }
+    else
+    {
+      res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, lemmaInLowerCase,
+                              pLanguage, pGrdExpToLookFor, pChildSemExpsToSkip,
+                              pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+    }
+
+    if (!conceptsOfRelatedWord.empty())
+    {
+      OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
+      // add semantic expressions that have a concept in common
+      res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, conceptsOfRelatedWord, &pGrdExpToLookFor,
+                                           pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+    }
+  }
+  return res;
+}
 
 template <bool IS_MODIFIABLE>
 bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
@@ -880,7 +928,6 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
                                   pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
   }
 
-  std::map<std::string, char> conceptsOfRelatedWord;
   if (!pGenGrd.word.lemma.empty())
   {
     res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.word.lemma,
@@ -889,31 +936,9 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
 
     // Check with without the capital letter at beginning
     if (pGenGrd.word.partOfSpeech == PartOfSpeech::PROPER_NOUN)
-    {
-      auto lemmaInLowerCase = pGenGrd.word.lemma;
-      if (lowerCaseText(lemmaInLowerCase))
-      {
-        const auto& lingDico = pLingDb.langToSpec[pLanguage].lingDico;
-        lingDico.getConcepts(conceptsOfRelatedWord,
-                             SemanticWord(pLanguage, lemmaInLowerCase, PartOfSpeech::NOUN));
-        auto lowerCaseLingMeaning =
-            lingDico.statDb.getLingMeaning(lemmaInLowerCase, PartOfSpeech::NOUN, true);
-
-        if (!lowerCaseLingMeaning.isEmpty())
-        {
-          // add semantic expressions that have a meaning in common
-          res = _getRelationsOfAMeaning(pRelations, pAlreadyMatchedSentences, pLinksToSemExps,
-                                        lowerCaseLingMeaning.language, lowerCaseLingMeaning.meaningId,
-                                        pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
-        }
-        else
-        {
-          res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, lemmaInLowerCase,
-                                  pLanguage, pGrdExpToLookFor, pChildSemExpsToSkip,
-                                  pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
-        }
-      }
-    }
+       res = _relationsInLowerCaseFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.word.lemma,
+                                             pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext,
+                                             pMemBlockPrivatePtr, pLingDb, pCheckChildren, pLanguage) || res;
   }
 
 
@@ -922,14 +947,6 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
     OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
     // add semantic expressions that have a concept in common
     res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.concepts, &pGrdExpToLookFor,
-                                         pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
-  }
-
-  if (!conceptsOfRelatedWord.empty())
-  {
-    OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
-    // add semantic expressions that have a concept in common
-    res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, conceptsOfRelatedWord, &pGrdExpToLookFor,
                                          pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
   }
 
@@ -987,7 +1004,8 @@ bool _agentGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRe
                                           const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
                                           const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
                                           const linguistics::LinguisticDatabase& pLingDb,
-                                          bool pCheckChildren)
+                                          bool pCheckChildren,
+                                          SemanticLanguageEnum pLanguage)
 {
   bool res = false;
   res = _indefiniteThingsCheckMatching(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, SemanticEntityType::AGENTORTHING,
@@ -1002,6 +1020,14 @@ bool _agentGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRe
     OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
     res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pAgentGrd.concepts, &pGrdExpToLookFor,
                                          pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+  }
+
+  if (pAgentGrd.nameInfos)
+  {
+    for (auto& currName : pAgentGrd.nameInfos->names)
+      res = _relationsInLowerCaseFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, currName,
+                                            pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext,
+                                            pMemBlockPrivatePtr, pLingDb, pCheckChildren, pLanguage) || res;
   }
 
   return res;
@@ -1039,7 +1065,8 @@ bool _nameGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRel
                                          RequestContext pRequestContext,
                                          const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
                                          const linguistics::LinguisticDatabase& pLingDb,
-                                         bool pCheckChildren)
+                                         bool pCheckChildren,
+                                         SemanticLanguageEnum pLanguage)
 {
   bool res = false;
   for (const auto& currName : pNameGrd.nameInfos.names)
@@ -1050,6 +1077,11 @@ bool _nameGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRel
                                        pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
   res = _indefiniteThingsCheckMatching(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, SemanticEntityType::AGENTORTHING,
                                        pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+
+  for (auto& currName : pNameGrd.nameInfos.names)
+    res = _relationsInLowerCaseFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, currName,
+                                          pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext,
+                                          pMemBlockPrivatePtr, pLingDb, pCheckChildren, pLanguage) || res;
   return res;
 }
 
@@ -1506,8 +1538,8 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   case SemanticGroundingType::AGENT:
   {
     auto& agentGrd = pGrdExpToLookFor->getAgentGrounding();
-    return _agentGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, agentGrd,
-                                                pRequestContext, pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
+    return _agentGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, agentGrd, pRequestContext, pGrdExpToLookFor,
+                                                pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren, pLanguage);
   }
   case SemanticGroundingType::TEXT:
   {
@@ -1518,8 +1550,8 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   case SemanticGroundingType::NAME:
   {
     auto& nameGrd = pGrdExpToLookFor->getNameGrounding();
-    return _nameGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, nameGrd,
-                                               pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
+    return _nameGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, nameGrd, pGrdExpToLookFor, pChildSemExpsToSkip,
+                                               pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren, pLanguage);
   }
   case SemanticGroundingType::TIME:
   {
@@ -1928,7 +1960,8 @@ void findSentenceThatContainANominalGroup(RelationsThatMatch<false>& pRes,
 void findGrdExpInNominalGroupLinks(std::set<const ExpressionWithLinks*>& pRes,
                                    const GroundedExpression& pGrdExp,
                                    const SemanticMemoryBlock& pMemBlock,
-                                   const linguistics::LinguisticDatabase& pLingDb)
+                                   const linguistics::LinguisticDatabase& pLingDb,
+                                   SemanticLanguageEnum pLanguage)
 {
 
   SemanticMemoryBlockViewer semMemBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::userNotIdentified);
@@ -1943,7 +1976,7 @@ void findGrdExpInNominalGroupLinks(std::set<const ExpressionWithLinks*>& pRes,
       const SentenceLinks<false> emptyLinks;
       MemoryLinksAccessor<false> linksAccessor(&it->second, nullptr);
       _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip,
-                              RequestContext::SENTENCE, &memBlockPrivate, pLingDb, false, SemanticLanguageEnum::UNKNOWN);
+                              RequestContext::SENTENCE, &memBlockPrivate, pLingDb, false, pLanguage);
       for (const auto& currLink : links.res.dynamicLinks)
         pRes.insert(&currLink.second->getContextAxiom().getSemExpWrappedForMemory());
     }
@@ -1955,7 +1988,8 @@ void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, 
                                            const GroundedExpression& pGrdExp,
                                            const mystd::optional<int>& pGroundingCoef,
                                            const SemanticMemoryBlock& pMemBlock,
-                                           const linguistics::LinguisticDatabase& pLingDb)
+                                           const linguistics::LinguisticDatabase& pLingDb,
+                                           SemanticLanguageEnum pLanguage)
 {
   SemanticMemoryBlockViewer semMemBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::userNotIdentified);
   auto& memBlockPrivate = semMemBlockViewer.getConstViewPrivate();
@@ -1969,7 +2003,7 @@ void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, 
       const SentenceLinks<false> emptyLinks;
       MemoryLinksAccessor<false> linksAccessor(&it->second, nullptr);
       _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip,
-                              RequestContext::SENTENCE, nullptr, pLingDb, false, SemanticLanguageEnum::UNKNOWN);
+                              RequestContext::SENTENCE, nullptr, pLingDb, false, pLanguage);
       for (const auto& currLink : links.res.dynamicLinks)
       {
         int coefOfGrdExp = 0;

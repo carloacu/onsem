@@ -35,7 +35,7 @@ std::string _getRecommendations(const std::string& pText,
                                 const std::set<std::string>& pForbiddenRecommendations = {})
 {
   std::map<int, std::set<std::string>> recommendations;
-  auto semExp = textToSemExp(pText, pLingDb, pLanguage);
+  auto semExp = textToContextualSemExp(pText, pLingDb, pLanguage);
   getRecommendations(recommendations, pMaxNbOfRecommendationsToAdd, *semExp, pContainer, pLingDb, pForbiddenRecommendations);
   std::string res;
   std::size_t nbOfIterations = 0;
@@ -71,7 +71,8 @@ TEST_F(SemanticReasonerGTests, test_recommendations)
     "Parle plus fort",
     "Est-ce que N5 est un robot de Short Circuit ?",
     "Qui est N7 ?",
-    "Comment être grand ?"};
+    "Comment être grand ?",
+    "Qu'est-ce que l'ascension ?"};
   _addRecommendationPossibility(recommendationContainer, recommendations, lingDb);
 
   EXPECT_EQ("Où est l'iphone ?",
@@ -86,15 +87,17 @@ TEST_F(SemanticReasonerGTests, test_recommendations)
             _getRecommendations("N5", recommendationContainer, lingDb));
   EXPECT_EQ("Est-ce que N5 est un robot de Short Circuit ? | Combien coûte le téléphone Xperia S5 ?",
             _getRecommendations("Combien coûte N5 ?", recommendationContainer, lingDb));
-  EXPECT_EQ("Qui est N7 ? | Comment être grand ? | Où est l'iphone ? | Où sont les toilettes ?",
+  EXPECT_EQ("Qui est N7 ? | Comment être grand ? | Où est l'iphone ? | Où sont les toilettes ? | Qu'est-ce que l'ascension ?",
             _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH));
   // Test the size limit of recommendations
   EXPECT_EQ("Qui est N7 ? | Comment être grand ?",
             _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH, 2));
   // Test to forbid some recommendations
-  EXPECT_EQ("Qui est N7 ? | Où est l'iphone ?",
+  EXPECT_EQ("Qui est N7 ? | Où est l'iphone ? | Qu'est-ce que l'ascension ?",
             _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH,
                                 10, {"Comment être grand ?", "Où sont les toilettes ?"}));
+  EXPECT_EQ("Qu'est-ce que l'ascension ?",
+            _getRecommendations("Ascension", recommendationContainer, lingDb));
 }
 
 

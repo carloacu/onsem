@@ -29,16 +29,26 @@ void _linkToMemBlock(ExpressionWithLinks& pExpHandleInMemory,
 void _getLinksFromMemBlock(std::map<const ExpressionWithLinks*, int>& pLinks,
                            const SemanticExpression& pSemExp,
                            const SemanticRecommendationsContainer& pContainer,
-                           const linguistics::LinguisticDatabase& pLingDb)
+                           const linguistics::LinguisticDatabase& pLingDb,
+                           SemanticLanguageEnum pLanguage)
 {
-  const auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
-  if (grdExpPtr != nullptr)
+  switch (pSemExp.type)
   {
-    const auto& grdExp = *grdExpPtr;
+  case SemanticExpressionType::METADATA:
+  {
+    auto& metadaExp = pSemExp.getMetadataExp();
+    auto language = metadaExp.fromLanguage != SemanticLanguageEnum::UNKNOWN ? metadaExp.fromLanguage : pLanguage;
+    _getLinksFromMemBlock(pLinks, *metadaExp.semExp, pContainer, pLingDb, language);
+    break;
+  }
+  case SemanticExpressionType::GROUNDED:
+  {
+    const auto& grdExp = pSemExp.getGrdExp();
     mystd::optional<int> groundingCoef;
 
     std::set<const ExpressionWithLinks*> expPtr;
-    semanticMemoryGetter::findGrdExpInNominalGroupLinks(expPtr, grdExp, pContainer.goundingsToCoef.memBlock, pLingDb);
+    semanticMemoryGetter::findGrdExpInNominalGroupLinks(expPtr, grdExp, pContainer.goundingsToCoef.memBlock,
+                                                        pLingDb, pLanguage);
     for (const auto& currExp : expPtr)
     {
       auto itExpToCoef = pContainer.goundingsToCoef.expToCoef.find(currExp);
@@ -50,17 +60,62 @@ void _getLinksFromMemBlock(std::map<const ExpressionWithLinks*, int>& pLinks,
     }
 
     if (!groundingCoef || *groundingCoef != 0)
-      semanticMemoryGetter::findGrdExpWithCoefInNominalGroupLinks(pLinks, grdExp, groundingCoef, pContainer.memBlock, pLingDb);
+      semanticMemoryGetter::findGrdExpWithCoefInNominalGroupLinks(pLinks, grdExp, groundingCoef,
+                                                                  pContainer.memBlock, pLingDb, pLanguage);
     for (const auto& currChild : grdExp.children)
       if (currChild.first != GrammaticalType::INTRODUCTING_WORD)
-        _getLinksFromMemBlock(pLinks, *currChild.second, pContainer, pLingDb);
-    return;
+        _getLinksFromMemBlock(pLinks, *currChild.second, pContainer, pLingDb, pLanguage);
+    break;
   }
-
-  const auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs();
-  if (listExpPtr != nullptr)
-    for (const auto& currElt : listExpPtr->elts)
-      _getLinksFromMemBlock(pLinks, *currElt, pContainer, pLingDb);
+  case SemanticExpressionType::LIST:
+  {
+    const auto& listExp = pSemExp.getListExp();
+    for (const auto& currElt : listExp.elts)
+      _getLinksFromMemBlock(pLinks, *currElt, pContainer, pLingDb, pLanguage);
+    break;
+  }
+  case SemanticExpressionType::INTERPRETATION:
+  {
+    auto& intExp = pSemExp.getIntExp();
+    _getLinksFromMemBlock(pLinks, *intExp.interpretedExp, pContainer, pLingDb, pLanguage);
+    break;
+  }
+  case SemanticExpressionType::FEEDBACK:
+  {
+    auto& fdkExp = pSemExp.getFdkExp();
+    _getLinksFromMemBlock(pLinks, *fdkExp.concernedExp, pContainer, pLingDb, pLanguage);
+    break;
+  }
+  case SemanticExpressionType::ANNOTATED:
+  {
+    auto& annExp = pSemExp.getAnnExp();
+    _getLinksFromMemBlock(pLinks, *annExp.semExp, pContainer, pLingDb, pLanguage);
+    break;
+  }
+  case SemanticExpressionType::COMMAND:
+  {
+    auto& cmdExp = pSemExp.getCmdExp();
+    _getLinksFromMemBlock(pLinks, *cmdExp.semExp, pContainer, pLingDb, pLanguage);
+    break;
+  }
+  case SemanticExpressionType::SETOFFORMS:
+  {
+    UniqueSemanticExpression* originalFrom = pSemExp.getSetOfFormsExp().getOriginalForm();
+    if (originalFrom != nullptr)
+      _getLinksFromMemBlock(pLinks, **originalFrom, pContainer, pLingDb, pLanguage);
+    break;
+  }
+  case SemanticExpressionType::FIXEDSYNTHESIS:
+  {
+    auto* semExp = pSemExp.getFSynthExp().getSemExpPtr();
+    if (semExp != nullptr)
+      _getLinksFromMemBlock(pLinks, *semExp, pContainer, pLingDb, pLanguage);
+    break;
+  }
+  case SemanticExpressionType::COMPARISON:
+  case SemanticExpressionType::CONDITION:
+    break;
+  }
 }
 
 
@@ -176,7 +231,7 @@ void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
                         const std::set<std::string>& pForbiddenRecommendations)
 {
   std::map<const ExpressionWithLinks*, int> expToSimilarities;
-  _getLinksFromMemBlock(expToSimilarities, pInput, pContainer, pLingDb);
+  _getLinksFromMemBlock(expToSimilarities, pInput, pContainer, pLingDb, SemanticLanguageEnum::UNKNOWN);
   int minCoefToAllowANewRecommendation = 0;
 
   for (const auto& currExpToSimilarity : expToSimilarities)

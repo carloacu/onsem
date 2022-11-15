@@ -52,13 +52,15 @@ void findSentenceThatContainANominalGroup(RelationsThatMatch<false>& pRes,
 void findGrdExpInNominalGroupLinks(std::set<const ExpressionWithLinks*>& pRes,
                                    const GroundedExpression& pGrdExp,
                                    const SemanticMemoryBlock& pMemBlock,
-                                   const linguistics::LinguisticDatabase& pLingDb);
+                                   const linguistics::LinguisticDatabase& pLingDb,
+                                   SemanticLanguageEnum pLanguage);
 
 void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, int>& pRes,
                                            const GroundedExpression& pGrdExp,
                                            const mystd::optional<int>& pGroundingCoef,
                                            const SemanticMemoryBlock& pMemBlock,
-                                           const linguistics::LinguisticDatabase& pLingDb);
+                                           const linguistics::LinguisticDatabase& pLingDb,
+                                           SemanticLanguageEnum pLanguage);
 
 template <bool IS_MODIFIABLE>
 void getResultFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRes,

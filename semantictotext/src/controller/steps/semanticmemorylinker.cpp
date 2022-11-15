@@ -863,7 +863,8 @@ void getLinksOfAGrdExp(RequestLinks& pReqLinks,
   const SemanticStatementGrounding* startPtr = pGrdExp->getStatementGroundingPtr();
   if (startPtr != nullptr)
   {
-    pReqLinks.language = startPtr->word.language;
+    if (startPtr->word.language != SemanticLanguageEnum::UNKNOWN)
+      pReqLinks.language = startPtr->word.language;
     pReqLinks.tense = startPtr->verbTense;
     pReqLinks.verbGoal = startPtr->verbGoal;
     pReqLinks.isEquVerb = ConceptSet::haveAConceptThatBeginWith(startPtr->concepts, "verb_equal_");
