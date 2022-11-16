@@ -1678,29 +1678,6 @@ bool _getRelationsFromSemExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
 }
 
 
-void _findSentenceThatContainANominalGroupForAVerbGoal(RelationsThatMatch<false>& pRes,
-                                                       const SemanticExpression& pNominalGroup,
-                                                       const SemanticMemoryLinksForAnyVerbGoal& pVerbGoal,
-                                                       const SemanticMemoryBlockPrivate& pMemBlockPrivate,
-                                                       const linguistics::LinguisticDatabase& pLingDb,
-                                                       bool pCheckChildren)
-{
-  SentenceLinks<false> emptyLinks;
-  for (auto& currSGramToExp : pVerbGoal.notification.reqToGrdExps)
-  {
-    MemoryLinksAccessor<false> memLinksAccessor(&currSGramToExp.second, nullptr);
-    _getRelationsFromSemExp(pRes, emptyLinks, memLinksAccessor, pNominalGroup, _emptySemExpsToSkip, RequestContext::SENTENCE,
-                            &pMemBlockPrivate, pLingDb, pCheckChildren, SemanticLanguageEnum::UNKNOWN);
-  }
-  for (auto& currSGramToExp : pVerbGoal.ability.reqToGrdExps)
-  {
-    MemoryLinksAccessor<false> memLinksAccessor(&currSGramToExp.second, nullptr);
-    _getRelationsFromSemExp(pRes, emptyLinks, memLinksAccessor, pNominalGroup, _emptySemExpsToSkip, RequestContext::SENTENCE,
-                            &pMemBlockPrivate, pLingDb, pCheckChildren, SemanticLanguageEnum::UNKNOWN);
-  }
-}
-
-
 bool _shouldSemExpBeSkipped(const SemanticExpression& pSemExp)
 {
   const auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
@@ -1938,22 +1915,6 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
   }
 }
 
-}
-
-
-
-void findSentenceThatContainANominalGroup(RelationsThatMatch<false>& pRes,
-                                          const SemanticExpression& pNominalGroup,
-                                          const SemanticMemoryBlock& pMemBlock,
-                                          const linguistics::LinguisticDatabase& pLingDb)
-{
-  SemanticMemoryBlockViewer memBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::userNotIdentified);
-  auto& memBlockPrivate = memBlockViewer.getConstViewPrivate();
-  const auto& links = memBlockPrivate.answersLinks;
-  _findSentenceThatContainANominalGroupForAVerbGoal(pRes, pNominalGroup, links.links, memBlockPrivate, pLingDb, true);
-  _findSentenceThatContainANominalGroupForAVerbGoal(pRes, pNominalGroup, links.pastLinks, memBlockPrivate, pLingDb, true);
-  _findSentenceThatContainANominalGroupForAVerbGoal(pRes, pNominalGroup, links.futureLinks, memBlockPrivate, pLingDb, true);
-  _findSentenceThatContainANominalGroupForAVerbGoal(pRes, pNominalGroup, links.infintiveLinks, memBlockPrivate, pLingDb, true);
 }
 
 

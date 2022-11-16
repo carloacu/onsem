@@ -40,7 +40,6 @@ set(ONSEMGTESTS_SRCS
   src/semanticcontroller/operators/operator_executeFromTrigger.hpp
   src/semanticcontroller/operators/operator_executeFromTrigger.cpp
   src/semanticcontroller/operators/operator_extractEngagement.cpp
-  src/semanticcontroller/operators/operator_find.cpp
   src/semanticcontroller/operators/operator_get.hpp
   src/semanticcontroller/operators/operator_get.cpp
   src/semanticcontroller/operators/operator_greet.cpp

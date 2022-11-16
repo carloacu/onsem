@@ -43,12 +43,6 @@ enum class RequestContext
 };
 
 
-
-void findSentenceThatContainANominalGroup(RelationsThatMatch<false>& pRes,
-                                          const SemanticExpression& pNominalGroup,
-                                          const SemanticMemoryBlock& pMemBlock,
-                                          const linguistics::LinguisticDatabase& pLingDb);
-
 void findGrdExpInNominalGroupLinks(std::set<const ExpressionWithLinks*>& pRes,
                                    const GroundedExpression& pGrdExp,
                                    const SemanticMemoryBlock& pMemBlock,

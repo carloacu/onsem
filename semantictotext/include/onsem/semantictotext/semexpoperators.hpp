@@ -100,12 +100,6 @@ bool isASubpart(const SemanticExpression& pInputSemExp,
                 const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
-void find(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers,
-          const SemanticExpression& pSemExp,
-          const SemanticMemoryBlock& pMemBlock,
-          const linguistics::LinguisticDatabase& pLingDb);
-
-ONSEMSEMANTICTOTEXT_API
 void get(std::vector<std::unique_ptr<GroundedExpression> >& pAnswers,
          UniqueSemanticExpression pSemExp,
          const SemanticMemory& pSemanticMemory,

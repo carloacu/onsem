@@ -7,7 +7,6 @@
 #include <onsem/common/enum/verbgoalenum.hpp>
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include "type/semcontrollerworkingstruct.hpp"
-#include "../../semanticmemory/sentenceslinks.hpp"
 
 
 namespace onsem
@@ -152,11 +151,6 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
                       const std::list<const GroundedExpression*>& pOtherGrdExps,
                       const GroundedExpression& pOriginalGrdExp,
                       const SemanticRequests& pRequests);
-
-void getSentsThatContain(RelationsThatMatch<false>& pRes,
-                         const SemanticExpression& pNominalGroup,
-                         const SemanticMemoryBlock& pMemBlock,
-                         const linguistics::LinguisticDatabase& pLingDb);
 
 
 } // End of namespace semanticMemoryLinker

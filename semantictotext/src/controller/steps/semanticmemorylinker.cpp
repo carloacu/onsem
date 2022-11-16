@@ -1179,14 +1179,6 @@ const SemanticExpression* getActionActionDefinition(SemControllerWorkingStruct& 
   return _getActionDefFromAMemblock(pWorkStruct, pMemViewer, reqLinks, pGrdExp);
 }
 
-void getSentsThatContain(RelationsThatMatch<false>& pRes,
-                         const SemanticExpression& pNominalGroup,
-                         const SemanticMemoryBlock& pMemBlock,
-                         const linguistics::LinguisticDatabase& pLingDb)
-{
-  semanticMemoryGetter::findSentenceThatContainANominalGroup(pRes, pNominalGroup, pMemBlock, pLingDb);
-}
-
 
 template<typename TUSEMEXP>
 void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsContainer,

@@ -58,110 +58,6 @@ bool _hasObjectExecptCoreference(const GroundedExpression& pGrdExp)
 }
 
 
-void _recurssiveFind(RelationsThatMatch<false>& pSentsThatMatch,
-                     const SemanticExpression& pSemExp,
-                     const SemanticMemoryBlock& pMemBlock,
-                     const linguistics::LinguisticDatabase& pLingDb)
-{
-  switch (pSemExp.type)
-  {
-  case SemanticExpressionType::GROUNDED:
-  {
-    semanticMemoryLinker::getSentsThatContain(pSentsThatMatch, pSemExp,
-                                              pMemBlock, pLingDb);
-    return;
-  }
-  case SemanticExpressionType::LIST:
-  {
-    const ListExpression& listExp = pSemExp.getListExp();
-    if (listExp.listType == ListExpressionType::OR)
-    {
-      for (const auto& currElt : listExp.elts)
-      {
-        _recurssiveFind(pSentsThatMatch, *currElt, pMemBlock, pLingDb);
-      }
-      return;
-    }
-
-    bool firstIteration = true;
-    for (const auto& currElt : listExp.elts)
-    {
-      if (firstIteration)
-      {
-        _recurssiveFind(pSentsThatMatch, *currElt, pMemBlock, pLingDb);
-        firstIteration = false;
-      }
-      else
-      {
-        RelationsThatMatch<false> newSentsThatMatch;
-        _recurssiveFind(newSentsThatMatch, *currElt, pMemBlock, pLingDb);
-        MemoryModifier::semExpSetIntersectionInPlace(pSentsThatMatch.res, newSentsThatMatch.res);
-      }
-    }
-    return;
-  }
-  case SemanticExpressionType::CONDITION:
-  {
-    const ConditionExpression& condExp = pSemExp.getCondExp();
-    _recurssiveFind(pSentsThatMatch, *condExp.conditionExp, pMemBlock, pLingDb);
-    _recurssiveFind(pSentsThatMatch, *condExp.thenExp, pMemBlock, pLingDb);
-    if (condExp.elseExp)
-    {
-      _recurssiveFind(pSentsThatMatch, **condExp.elseExp, pMemBlock, pLingDb);
-    }
-    return;
-  }
-  case SemanticExpressionType::COMPARISON:
-  {
-    const ComparisonExpression& compExp = pSemExp.getCompExp();
-    if (compExp.whatIsComparedExp)
-    {
-      _recurssiveFind(pSentsThatMatch, **compExp.whatIsComparedExp, pMemBlock, pLingDb);
-    }
-    _recurssiveFind(pSentsThatMatch, *compExp.leftOperandExp, pMemBlock, pLingDb);
-    if (compExp.rightOperandExp)
-    {
-      _recurssiveFind(pSentsThatMatch, **compExp.rightOperandExp, pMemBlock, pLingDb);
-    }
-    return;
-  }
-  case SemanticExpressionType::INTERPRETATION:
-  {
-    const InterpretationExpression& intExp = pSemExp.getIntExp();
-    _recurssiveFind(pSentsThatMatch, *intExp.interpretedExp, pMemBlock, pLingDb);
-    return;
-  }
-  case SemanticExpressionType::FEEDBACK:
-  {
-    const FeedbackExpression& fdkExp = pSemExp.getFdkExp();
-    _recurssiveFind(pSentsThatMatch, *fdkExp.concernedExp, pMemBlock, pLingDb);
-    return;
-  }
-  case SemanticExpressionType::ANNOTATED:
-  {
-    const AnnotatedExpression& annExp = pSemExp.getAnnExp();
-    _recurssiveFind(pSentsThatMatch, *annExp.semExp, pMemBlock, pLingDb);
-    return;
-  }
-  case SemanticExpressionType::METADATA:
-  {
-    const MetadataExpression& metadataExp = pSemExp.getMetadataExp();
-    _recurssiveFind(pSentsThatMatch, *metadataExp.semExp, pMemBlock, pLingDb);
-    return;
-  }
-  case SemanticExpressionType::FIXEDSYNTHESIS:
-  {
-    const FixedSynthesisExpression& fSynthExp = pSemExp.getFSynthExp();
-    _recurssiveFind(pSentsThatMatch, fSynthExp.getSemExp(), pMemBlock, pLingDb);
-    return;
-  }
-  case SemanticExpressionType::COMMAND:
-  case SemanticExpressionType::SETOFFORMS:
-    return;
-  }
-}
-
-
 
 
 void _cloneGrdExpList(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers,
@@ -420,24 +316,6 @@ bool isASubpart(const SemanticExpression& pInputSemExp,
   }
 
   return pSemExpToFind.isEmpty();
-}
-
-
-void find(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers,
-          const SemanticExpression& pSemExp,
-          const SemanticMemoryBlock& pMemBlock,
-          const linguistics::LinguisticDatabase& pLingDb)
-{
-  RelationsThatMatch<false> sentsThatMatch;
-  _recurssiveFind(sentsThatMatch, pSemExp, pMemBlock, pLingDb);
-
-  pAnswers.resize(sentsThatMatch.res.dynamicLinks.size());
-  std::size_t i = 0;
-  for (const auto& currSentsThatMatch : sentsThatMatch.res.dynamicLinks)
-  {
-    pAnswers[i] = currSentsThatMatch.second->grdExp.clone();
-    ++i;
-  }
 }
 
 
