@@ -1958,6 +1958,8 @@ void findGrdExpWithCoefInRecommendationLinks(std::map<const ExpressionWithLinks*
         coefOfGrdExp = 4;
       else if (SemExpGetter::isAModifierFromGrdExp(pGrdExp))
         coefOfGrdExp = 8;
+      else if (pGrdExp->type != SemanticGroundingType::AGENT && pGrdExp->type != SemanticGroundingType::NAME)
+        coefOfGrdExp = 10;
       else
         coefOfGrdExp = 13;
 

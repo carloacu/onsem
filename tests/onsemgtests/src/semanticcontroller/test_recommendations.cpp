@@ -88,10 +88,10 @@ TEST_F(SemanticReasonerGTests, test_recommendations)
             _getRecommendations("N5", recommendationContainer, lingDb));
   EXPECT_EQ("Est-ce que N5 est un robot de Short Circuit ? | Combien coûte le téléphone Xperia S5 ?",
             _getRecommendations("Combien coûte N5 ?", recommendationContainer, lingDb));
-  EXPECT_EQ("C'est un homme | Qui est N7 ? | Comment être grand ?",
+  EXPECT_EQ("Qui est N7 ? | C'est un homme | Comment être grand ?",
             _getRecommendations("N7 est un grand homme", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH));
   // Test the size limit of recommendations
-  EXPECT_EQ("C'est un homme | Qui est N7 ?",
+  EXPECT_EQ("Qui est N7 ? | C'est un homme",
             _getRecommendations("N7 est un grand homme", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH, 2));
   // Test to forbid some recommendations
   EXPECT_EQ("C'est un homme",
