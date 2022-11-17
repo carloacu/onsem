@@ -73,7 +73,8 @@ TEST_F(SemanticReasonerGTests, test_recommendations)
     "Qui est N7 ?",
     "Comment être grand ?",
     "Qu'est-ce que l'ascension ?",
-    "C'est un homme"};
+    "C'est un homme",
+    "Qu'est-ce que la Toussaint ?"};
   _addRecommendationPossibility(recommendationContainer, recommendations, lingDb);
 
   EXPECT_EQ("Où est l'iphone ?",
@@ -99,6 +100,10 @@ TEST_F(SemanticReasonerGTests, test_recommendations)
                                 10, {"Comment être grand ?", "Qui est N7 ?"}));
   EXPECT_EQ("Qu'est-ce que l'ascension ?",
             _getRecommendations("Ascension", recommendationContainer, lingDb));
+  EXPECT_EQ("Qu'est-ce que l'ascension ?",
+            _getRecommendations("Qu'est-ce que l'Ascension ?", recommendationContainer, lingDb));
+  EXPECT_EQ("Qu'est-ce que la Toussaint ?",
+            _getRecommendations("Qu'est-ce que la toussaint ?", recommendationContainer, lingDb));
 }
 
 
