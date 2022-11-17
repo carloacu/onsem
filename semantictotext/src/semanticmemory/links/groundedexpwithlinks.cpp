@@ -900,7 +900,18 @@ void GroundedExpWithLinksPrivate::_linkRecommendationGrdExp(const GroundedExpres
                                                             const linguistics::LinguisticDatabase& pLingDb)
 {
   const SemanticGrounding& grd = pGrdExp.grounding();
-  _linkGrdExp(*_recomendationLinksPtr, pGrdExp, grd, pLingDb, false);
+
+  bool linkGrd = true;
+  // Do not link "be" verb in the recommendations
+  {
+    const auto* startGrdPtr = grd.getStatementGroundingPtr();
+    if (startGrdPtr != nullptr &&
+        ConceptSet::haveAConceptThatBeginWith(startGrdPtr->concepts, "verb_equal_"))
+      linkGrd = false;
+  }
+
+  if (linkGrd)
+    _linkGrdExp(*_recomendationLinksPtr, pGrdExp, grd, pLingDb, false);
   for (const auto& currChild : pGrdExp.children)
     _linkRecommendationSemExp(*currChild.second, pLingDb);
 }

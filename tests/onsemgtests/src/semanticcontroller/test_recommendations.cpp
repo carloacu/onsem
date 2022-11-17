@@ -72,7 +72,8 @@ TEST_F(SemanticReasonerGTests, test_recommendations)
     "Est-ce que N5 est un robot de Short Circuit ?",
     "Qui est N7 ?",
     "Comment être grand ?",
-    "Qu'est-ce que l'ascension ?"};
+    "Qu'est-ce que l'ascension ?",
+    "C'est un homme"};
   _addRecommendationPossibility(recommendationContainer, recommendations, lingDb);
 
   EXPECT_EQ("Où est l'iphone ?",
@@ -87,15 +88,15 @@ TEST_F(SemanticReasonerGTests, test_recommendations)
             _getRecommendations("N5", recommendationContainer, lingDb));
   EXPECT_EQ("Est-ce que N5 est un robot de Short Circuit ? | Combien coûte le téléphone Xperia S5 ?",
             _getRecommendations("Combien coûte N5 ?", recommendationContainer, lingDb));
-  EXPECT_EQ("Qui est N7 ? | Comment être grand ? | Où est l'iphone ? | Où sont les toilettes ? | Qu'est-ce que l'ascension ?",
-            _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH));
+  EXPECT_EQ("C'est un homme | Qui est N7 ? | Comment être grand ?",
+            _getRecommendations("N7 est un grand homme", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH));
   // Test the size limit of recommendations
-  EXPECT_EQ("Qui est N7 ? | Comment être grand ?",
-            _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH, 2));
+  EXPECT_EQ("C'est un homme | Qui est N7 ?",
+            _getRecommendations("N7 est un grand homme", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH, 2));
   // Test to forbid some recommendations
-  EXPECT_EQ("Qui est N7 ? | Où est l'iphone ? | Qu'est-ce que l'ascension ?",
-            _getRecommendations("N7 est grand", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH,
-                                10, {"Comment être grand ?", "Où sont les toilettes ?"}));
+  EXPECT_EQ("C'est un homme",
+            _getRecommendations("N7 est un grand homme", recommendationContainer, lingDb, SemanticLanguageEnum::FRENCH,
+                                10, {"Comment être grand ?", "Qui est N7 ?"}));
   EXPECT_EQ("Qu'est-ce que l'ascension ?",
             _getRecommendations("Ascension", recommendationContainer, lingDb));
 }
