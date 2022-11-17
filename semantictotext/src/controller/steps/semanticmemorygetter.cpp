@@ -1749,19 +1749,10 @@ void  _getRelationsFromSubReqLinks(RelationsThatMatch<IS_MODIFIABLE>& pRelations
 }
 
 
-template <bool IS_MODIFIABLE>
-MemoryLinksAccessor<IS_MODIFIABLE> _getMemoryLinksAccessors(RequestToMemoryLinks<IS_MODIFIABLE>& pReqToList,
-                                                            SemanticRequestType pRequest)
-{
-  auto itGramToSemExp = pReqToList.d.find(pRequest);
-  auto* linksForARequestPtr = itGramToSemExp != pReqToList.d.end() ? &itGramToSemExp->second : nullptr;
-  return {linksForARequestPtr, SemanticMemoryBlockBinaryReader::getLinksForARequest(pReqToList.c, pRequest)};
-}
-
 
 template <bool IS_MODIFIABLE>
 void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
-                        RequestToMemoryLinks<IS_MODIFIABLE>& pReqToList,
+                        RequestToMemoryLinksVirtual<IS_MODIFIABLE>& pReqToList,
                         bool& pFirstIteration,
                         SemanticRequestType pChildRequest,
                         const semanticMemoryLinker::SubRequestLinks& pSubReqLinks,
@@ -1785,7 +1776,7 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
 
   RelationsThatMatch<IS_MODIFIABLE> matchedSemExp;
   GrammaticalType gramType = semanticRequestType_toSemGram(pChildRequest);
-  MemoryLinksAccessor<IS_MODIFIABLE> linksGramToSemExp = _getMemoryLinksAccessors(pReqToList, pChildRequest);
+  MemoryLinksAccessor<IS_MODIFIABLE> linksGramToSemExp = pReqToList.getMemoryLinksAccessors(pChildRequest);
   if (!linksGramToSemExp.empty())
   {
     matchedSemExp.filterPtr = pRes.filterPtr;
@@ -1848,7 +1839,7 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
             pReqLinks.gramTypeOfTheAnswer != GrammaticalType::UNKNOWN)
         {
           auto reqOfTheAnswer = semanticRequestType_fromSemGram(pReqLinks.gramTypeOfTheAnswer);
-          linksGramOfTheAnswer = _getMemoryLinksAccessors(pReqToList, reqOfTheAnswer);
+          linksGramOfTheAnswer = pReqToList.getMemoryLinksAccessors(reqOfTheAnswer);
         }
 
         typename std::decay<decltype(pRes)>::type subSetOfMemorySentencesToConsiderAfterSubordinateFilter;
@@ -1918,72 +1909,64 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
 }
 
 
-void findGrdExpInNominalGroupLinks(std::set<const ExpressionWithLinks*>& pRes,
-                                   const GroundedExpression& pGrdExp,
-                                   const SemanticMemoryBlock& pMemBlock,
-                                   const linguistics::LinguisticDatabase& pLingDb,
-                                   SemanticLanguageEnum pLanguage)
+void findGrdExpInRecommendationLinks(std::set<const ExpressionWithLinks*>& pRes,
+                                     const GroundedExpression& pGrdExp,
+                                     const SemanticMemoryBlock& pMemBlock,
+                                     const linguistics::LinguisticDatabase& pLingDb,
+                                     SemanticLanguageEnum pLanguage)
 {
 
   SemanticMemoryBlockViewer semMemBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::userNotIdentified);
   auto& memBlockPrivate = semMemBlockViewer.getConstViewPrivate();
-  auto* links = memBlockPrivate.getNominalGroupsTriggersLinks(_emptyAxiomId);
-  if (links != nullptr)
+  auto* recLinks = memBlockPrivate.getRecommendationsTriggersLinks(_emptyAxiomId);
+  if (recLinks != nullptr)
   {
-    auto it = links->reqToGrdExps.begin();
-    if (it != links->reqToGrdExps.end())
-    {
-      RelationsThatMatch<false> links;
-      const SentenceLinks<false> emptyLinks;
-      MemoryLinksAccessor<false> linksAccessor(&it->second, nullptr);
-      _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip,
-                              RequestContext::SENTENCE, &memBlockPrivate, pLingDb, false, pLanguage);
-      for (const auto& currLink : links.res.dynamicLinks)
-        pRes.insert(&currLink.second->getContextAxiom().getSemExpWrappedForMemory());
-    }
+    RelationsThatMatch<false> links;
+    const SentenceLinks<false> emptyLinks;
+    MemoryLinksAccessor<false> linksAccessor(recLinks, nullptr);
+    _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip,
+                            RequestContext::SENTENCE, &memBlockPrivate, pLingDb, false, pLanguage);
+    for (const auto& currLink : links.res.dynamicLinks)
+      pRes.insert(&currLink.second->getContextAxiom().getSemExpWrappedForMemory());
   }
 }
 
 
-void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, int>& pRes,
-                                           const GroundedExpression& pGrdExp,
-                                           const mystd::optional<int>& pGroundingCoef,
-                                           const SemanticMemoryBlock& pMemBlock,
-                                           const linguistics::LinguisticDatabase& pLingDb,
-                                           SemanticLanguageEnum pLanguage)
+void findGrdExpWithCoefInRecommendationLinks(std::map<const ExpressionWithLinks*, int>& pRes,
+                                             const GroundedExpression& pGrdExp,
+                                             const mystd::optional<int>& pGroundingCoef,
+                                             const SemanticMemoryBlock& pMemBlock,
+                                             const linguistics::LinguisticDatabase& pLingDb,
+                                             SemanticLanguageEnum pLanguage)
 {
   SemanticMemoryBlockViewer semMemBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::userNotIdentified);
   auto& memBlockPrivate = semMemBlockViewer.getConstViewPrivate();
-  auto* links = memBlockPrivate.getNominalGroupsTriggersLinks(_emptyAxiomId);
-  if (links != nullptr)
+  auto* recLinks = memBlockPrivate.getRecommendationsTriggersLinks(_emptyAxiomId);
+  if (recLinks != nullptr)
   {
-    auto it = links->reqToGrdExps.begin();
-    if (it != links->reqToGrdExps.end())
+    RelationsThatMatch<false> links;
+    const SentenceLinks<false> emptyLinks;
+    MemoryLinksAccessor<false> linksAccessor(recLinks, nullptr);
+    _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip,
+                            RequestContext::SENTENCE, nullptr, pLingDb, false, pLanguage);
+    for (const auto& currLink : links.res.dynamicLinks)
     {
-      RelationsThatMatch<false> links;
-      const SentenceLinks<false> emptyLinks;
-      MemoryLinksAccessor<false> linksAccessor(&it->second, nullptr);
-      _getRelationsFromGrdExp(links, emptyLinks, linksAccessor, pGrdExp, _emptySemExpsToSkip,
-                              RequestContext::SENTENCE, nullptr, pLingDb, false, pLanguage);
-      for (const auto& currLink : links.res.dynamicLinks)
-      {
-        int coefOfGrdExp = 0;
-        if (pGroundingCoef)
-          coefOfGrdExp = *pGroundingCoef;
-        else if (pGrdExp->type == SemanticGroundingType::STATEMENT)
-          coefOfGrdExp = 4;
-        else if (SemExpGetter::isAModifierFromGrdExp(pGrdExp))
-          coefOfGrdExp = 8;
-        else
-          coefOfGrdExp = 13;
+      int coefOfGrdExp = 0;
+      if (pGroundingCoef)
+        coefOfGrdExp = *pGroundingCoef;
+      else if (pGrdExp->type == SemanticGroundingType::STATEMENT)
+        coefOfGrdExp = 4;
+      else if (SemExpGetter::isAModifierFromGrdExp(pGrdExp))
+        coefOfGrdExp = 8;
+      else
+        coefOfGrdExp = 13;
 
-        const auto* expWrappedPtr = &currLink.second->getContextAxiom().getSemExpWrappedForMemory();
-        auto itInRes = pRes.find(expWrappedPtr);
-        if (itInRes != pRes.end())
-          itInRes->second += coefOfGrdExp;
-        else
-          pRes[expWrappedPtr] = coefOfGrdExp;
-      }
+      const auto* expWrappedPtr = &currLink.second->getContextAxiom().getSemExpWrappedForMemory();
+      auto itInRes = pRes.find(expWrappedPtr);
+      if (itInRes != pRes.end())
+        itInRes->second += coefOfGrdExp;
+      else
+        pRes[expWrappedPtr] = coefOfGrdExp;
     }
   }
 }
@@ -1991,7 +1974,7 @@ void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, 
 
 template <bool IS_MODIFIABLE>
 void getResultFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRes,
-                         RequestToMemoryLinks<IS_MODIFIABLE>& pReqToList,
+                         RequestToMemoryLinksVirtual<IS_MODIFIABLE>& pReqToList,
                          const semanticMemoryLinker::RequestLinks& pReqLinks,
                          RequestContext pRequestContext,
                          MemoryBlockPrivateAccessorPtr<IS_MODIFIABLE>& pMemBlockPrivate,
@@ -2060,7 +2043,7 @@ bool getResultMatchingNowTimeFromMemory(RelationsThatMatch<true>& pRelations,
                                         const linguistics::LinguisticDatabase& pLingDb,
                                         bool pCheckChildren)
 {
-  MemoryLinksAccessor<true> linksGramToSemExp = _getMemoryLinksAccessors(pReqToGrdExps, SemanticRequestType::NOTHING);
+  MemoryLinksAccessor<true> linksGramToSemExp = pReqToGrdExps.getMemoryLinksAccessors(SemanticRequestType::NOTHING);
   if (!linksGramToSemExp.empty())
   {
     if (linksGramToSemExp.d != nullptr)
@@ -2091,7 +2074,7 @@ bool getResultMatchingNowTimeFromMemory(RelationsThatMatch<true>& pRelations,
 // Explicit decalrations
 template
 void getResultFromMemory(RelationsThatMatch<true>& pRes,
-                         RequestToMemoryLinks<true>& pReqToList,
+                         RequestToMemoryLinksVirtual<true>& pReqToList,
                          const semanticMemoryLinker::RequestLinks& pReqLinks,
                          RequestContext pRequestContext,
                          MemoryBlockPrivateAccessorPtr<true>& pMemBlockPrivate,
@@ -2102,7 +2085,7 @@ void getResultFromMemory(RelationsThatMatch<true>& pRes,
                          const RelationsThatMatchFilter* pFilterPtr = nullptr);
 template
 void getResultFromMemory(RelationsThatMatch<false>& pRes,
-                         RequestToMemoryLinks<false>& pReqToList,
+                         RequestToMemoryLinksVirtual<false>& pReqToList,
                          const semanticMemoryLinker::RequestLinks& pReqLinks,
                          RequestContext pRequestContext,
                          MemoryBlockPrivateAccessorPtr<false>& pMemBlockPrivate,

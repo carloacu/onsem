@@ -44,7 +44,7 @@ struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinks
 {
   GroundedExpWithLinks(SentenceWithLinks& pContextAxiom,
                        const GroundedExpression& pGrdExp,
-                       bool pGatherAllTheLinks,
+                       bool pInRecommendationMode,
                        const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
                        const linguistics::LinguisticDatabase& pLingDb,
                        bool pIsAConditionToSatisfy,
@@ -74,7 +74,7 @@ struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinks
 
   /// The sentence root grdExp
   const GroundedExpression& grdExp;
-  const bool gatherAllTheLinks;
+  const bool inRecommendationMode;
 
 
 private:

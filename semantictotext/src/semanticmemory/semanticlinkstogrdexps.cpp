@@ -148,7 +148,7 @@ void _writeMemoryLinksInBinary(binarymasks::Ptr& pPtr,
                                const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets,
                                const linguistics::LinguisticDatabase& pLingDb)
 {
-  writeEnumMap<SemanticRequestType, SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinks>>
+  writeEnumMap<SemanticRequestType, SemanticLinksToGrdExps>
       (pPtr, pLinks.reqToGrdExps, semanticRequestType_allValues, [&](binarymasks::Ptr& pSubPtr,
        const SemanticLinksToGrdExps* pLinksToGrdExpsMapPtr)
   {
@@ -171,6 +171,23 @@ bool _getNameWithoutConsideringEquivalences(
 
 }
 
+
+template <typename LINKS_TYPE>
+void SemanticLinksToGrdExpsTemplate<LINKS_TYPE>::clear()
+{
+  conceptsToSemExps.clear();
+  meaningsToSemExps.clear();
+  everythingOrNoEntityTypeToSemExps.clear();
+  genGroundingTypeToSemExps.clear();
+  timeToSemExps.clear();
+  relLocationToSemExps.clear();
+  relTimeToSemExps.clear();
+  grdTypeToSemExps.clear();
+  userIdToSemExps.clear();
+  textToSemExps.clear();
+  languageToSemExps.clear();
+  resourceToSemExps.clear();
+}
 
 
 template <typename LINKS_TYPE>

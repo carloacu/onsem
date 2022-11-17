@@ -422,7 +422,7 @@ void _filterTimeImpossibilities(std::map<intSemId, MEM_SENTENCE_PTR>& pRes,
 
 template <bool IS_MODIFIABLE>
 void _getResultFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRes,
-                          RequestToMemoryLinks<IS_MODIFIABLE>& pReqToList,
+                          RequestToMemoryLinksVirtual<IS_MODIFIABLE>& pReqToList,
                           const SemControllerWorkingStruct& pWorkStruct,
                           MemoryBlockPrivateAccessorPtr<IS_MODIFIABLE>& pMemBlockPrivatePtr,
                           SemanticMemoryBlockViewer& pMemViewer,
@@ -497,7 +497,7 @@ void _matchAnyTrigger
 (std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
- RequestToMemoryLinks<false>& pReqToGrdExps,
+ RequestToMemoryLinksVirtual<false>& pReqToGrdExps,
  const RequestLinks& pReqLinks,
  const GroundedExpression& pInputGrdExp)
 {
@@ -596,10 +596,10 @@ void _matchNominalGroupTrigger
  const SemanticTriggerAxiomId& pAxiomId,
  const GroundedExpression& pInputGrdExp)
 {
-  const auto* links = pMemViewer.getConstViewPrivate().getNominalGroupsTriggersLinks(pAxiomId);
-  if (links != nullptr)
+  const auto* recoLinks = pMemViewer.getConstViewPrivate().getNominalGroupsTriggersLinks(pAxiomId);
+  if (recoLinks != nullptr)
   {
-    RequestToMemoryLinks<false> reqToLinks(links->reqToGrdExps, nullptr);
+    RecommendationMemoryLinks<false> reqToLinks(*recoLinks);
     _matchAnyTrigger(pSemExpWrapperPtrs, pWorkStruct, pMemViewer,
                      reqToLinks, pReqLinks, pInputGrdExp);
     if (!pSemExpWrapperPtrs.empty())

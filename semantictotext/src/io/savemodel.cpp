@@ -586,7 +586,7 @@ void _saveMemorySentence(boost::property_tree::ptree& pTree,
 {
   pTree.put("id", pMemSentence.id);
   pTree.put("grdExp", pGrdExpLinks.getLinkOfGrdExp(pMemSentence.grdExp));
-  if (pMemSentence.gatherAllTheLinks)
+  if (pMemSentence.inRecommendationMode)
     pTree.put("gatherAllTheLinks", trueStr);
   const auto& annotations = pMemSentence.getAnnotations();
   if (!annotations.empty())

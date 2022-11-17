@@ -345,7 +345,7 @@ SentenceWithLinks* ExpressionWithLinks::tryToAddTeachFormulation
 }
 
 
-void ExpressionWithLinks::addAxiomWhereGatherAllTheLinks
+void ExpressionWithLinks::addAxiomForARecommendation
 (const GroundedExpression& pGrdSemExpToAdd,
  const linguistics::LinguisticDatabase& pLingDb)
 {

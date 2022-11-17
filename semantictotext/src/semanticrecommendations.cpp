@@ -15,7 +15,7 @@ void _linkToMemBlock(ExpressionWithLinks& pExpHandleInMemory,
   const auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
   {
-    pExpHandleInMemory.addAxiomWhereGatherAllTheLinks(*grdExpPtr, pLingDb);
+    pExpHandleInMemory.addAxiomForARecommendation(*grdExpPtr, pLingDb);
     return;
   }
 
@@ -47,7 +47,7 @@ void _getLinksFromMemBlock(std::map<const ExpressionWithLinks*, int>& pLinks,
     mystd::optional<int> groundingCoef;
 
     std::set<const ExpressionWithLinks*> expPtr;
-    semanticMemoryGetter::findGrdExpInNominalGroupLinks(expPtr, grdExp, pContainer.goundingsToCoef.memBlock,
+    semanticMemoryGetter::findGrdExpInRecommendationLinks(expPtr, grdExp, pContainer.goundingsToCoef.memBlock,
                                                         pLingDb, pLanguage);
     for (const auto& currExp : expPtr)
     {
@@ -60,7 +60,7 @@ void _getLinksFromMemBlock(std::map<const ExpressionWithLinks*, int>& pLinks,
     }
 
     if (!groundingCoef || *groundingCoef != 0)
-      semanticMemoryGetter::findGrdExpWithCoefInNominalGroupLinks(pLinks, grdExp, groundingCoef,
+      semanticMemoryGetter::findGrdExpWithCoefInRecommendationLinks(pLinks, grdExp, groundingCoef,
                                                                   pContainer.memBlock, pLingDb, pLanguage);
     for (const auto& currChild : grdExp.children)
       if (currChild.first != GrammaticalType::INTRODUCTING_WORD)

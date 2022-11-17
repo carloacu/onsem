@@ -43,13 +43,13 @@ enum class RequestContext
 };
 
 
-void findGrdExpInNominalGroupLinks(std::set<const ExpressionWithLinks*>& pRes,
+void findGrdExpInRecommendationLinks(std::set<const ExpressionWithLinks*>& pRes,
                                    const GroundedExpression& pGrdExp,
                                    const SemanticMemoryBlock& pMemBlock,
                                    const linguistics::LinguisticDatabase& pLingDb,
                                    SemanticLanguageEnum pLanguage);
 
-void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, int>& pRes,
+void findGrdExpWithCoefInRecommendationLinks(std::map<const ExpressionWithLinks*, int>& pRes,
                                            const GroundedExpression& pGrdExp,
                                            const mystd::optional<int>& pGroundingCoef,
                                            const SemanticMemoryBlock& pMemBlock,
@@ -58,7 +58,7 @@ void findGrdExpWithCoefInNominalGroupLinks(std::map<const ExpressionWithLinks*, 
 
 template <bool IS_MODIFIABLE>
 void getResultFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRes,
-                         RequestToMemoryLinks<IS_MODIFIABLE>& pReqToList,
+                         RequestToMemoryLinksVirtual<IS_MODIFIABLE>& pReqToList,
                          const semanticMemoryLinker::RequestLinks& pReqLinks,
                          RequestContext pRequestContext,
                          MemoryBlockPrivateAccessorPtr<IS_MODIFIABLE>& pMemBlockPrivate,

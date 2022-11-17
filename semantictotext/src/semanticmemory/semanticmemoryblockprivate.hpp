@@ -16,7 +16,8 @@ struct SemanticTriggerMemoryLinks
   bool empty() const
   {
     return actionLinks.empty() && questionLinks.empty() &&
-        affirmationLinks.empty() && nominalGroupsLinks.empty();
+        affirmationLinks.empty() && nominalGroupsLinks.empty() &&
+        recommendationsLinks.empty();
   }
   void clear()
   {
@@ -24,6 +25,7 @@ struct SemanticTriggerMemoryLinks
     questionLinks.clear();
     affirmationLinks.clear();
     nominalGroupsLinks.clear();
+    recommendationsLinks.clear();
   }
 
   /// The order that already have a defined answer
@@ -33,7 +35,9 @@ struct SemanticTriggerMemoryLinks
   /// The affirmations that already have a defined reaction
   SemanticMemoryLinksForAnyVerbTense affirmationLinks;
   /// The nominal groups that already have a defined reaction
-  SemanticMemoryLinks nominalGroupsLinks;
+  SemanticLinksToGrdExps nominalGroupsLinks;
+  /// The links to do recommendation matching
+  SemanticLinksToGrdExps recommendationsLinks;
 };
 namespace linguistics
 {
@@ -62,9 +66,13 @@ struct SemanticMemoryBlockPrivate
   const SemanticMemoryLinksForAnyVerbTense* getSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
                                                                      const SemanticTriggerAxiomId& pAxiomId) const;
 
-  SemanticMemoryLinks& ensureNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId);
-  SemanticMemoryLinks* getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId);
-  const SemanticMemoryLinks* getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId) const;
+  SemanticLinksToGrdExps& ensureNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId);
+  SemanticLinksToGrdExps* getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId);
+  const SemanticLinksToGrdExps* getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId) const;
+
+  SemanticLinksToGrdExps& ensureRecommendationsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId);
+  SemanticLinksToGrdExps* getRecommendationsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId);
+  const SemanticLinksToGrdExps* getRecommendationsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId) const;
 
   std::unique_ptr<SemanticNameGrounding> getNameGrd(const std::string& pUserId,
                                                     const SemanticMemoryGrdExp*& pSemMemoryGrdExpPtr) const;

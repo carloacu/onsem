@@ -300,7 +300,7 @@ void _addTimeLinksFromGrounding(
 }
 
 
-void _addLinksFrom(SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinks>& pLinks,
+void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
                    SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinksForAMemSentence>& pLinksFromMemSentence,
                    intSemId pMemSentenceId)
 {
@@ -440,7 +440,7 @@ void _removeGrdExpsLinks(std::map<intSemId, MemoryGrdExpLinksForAMemSentence>& p
 }
 
 
-void _removeLinksFrom(SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinks>& pToFilter,
+void _removeLinksFrom(SemanticLinksToGrdExps& pToFilter,
                       const SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinksForAMemSentence>& pLinksFromMemSentence,
                       intSemId pMemSentenceId)
 {
@@ -552,12 +552,15 @@ struct GroundedExpWithLinksPrivate
   void linkToQuestionTrigger();
   void linkToAffirmationTrigger();
   void linkToNominalTrigger();
+  void linkToRecommendationsTrigger();
   void disableUserCenteredLinks();
 
   void writeInBinary(binarymasks::Ptr& pPtr,
                      MemGrdExpPtrOffsets& pMemGrdExpPtrs,
                      const semexpsaver::SemExpPtrOffsets& pSemExpPtrOffsets) const;
   void filterMemLinks(SemanticMemoryLinks& pSemanticMemoryLinksToFilter) const;
+  void filterNominalGroupLinks(SemanticLinksToGrdExps& pLinksToFilter) const;
+  void filterRecommendationsLinks(SemanticLinksToGrdExps& pLinksToFilter) const;
 
   SemanticVerbTense tense;
   VerbGoalEnum verbGoal;
@@ -570,17 +573,18 @@ struct GroundedExpWithLinksPrivate
   LinkedState isLinkedInRequToQuestionTrigger;
   LinkedState isLinkedInRequToAffirmationTrigger;
   LinkedState isLinkedInRequToNominalGroupsTrigger;
+  LinkedState isLinkedInRequToRecommendationsTrigger;
 
 private:
   GroundedExpWithLinks& _memSent;
   std::list<SemanticMemoryGrdExp> _childGrdExpMemories;
   SemanticMemoryLinksForAMemSentence _links;
+  std::unique_ptr<SemanticLinksToGrdExpsForAMemSentence> _recomendationLinksPtr;
 
-
-  void _gatherAllTheLinksOfSemExp(const SemanticExpression& pSemExp,
-                                  const linguistics::LinguisticDatabase& pLingDb);
-  void _gatherAllTheLinks(const GroundedExpression& pGrdExp,
-                          const linguistics::LinguisticDatabase& pLingDb);
+  void _linkRecommendationSemExp(const SemanticExpression& pSemExp,
+                                 const linguistics::LinguisticDatabase& pLingDb);
+  void _linkRecommendationGrdExp(const GroundedExpression& pGrdExp,
+                                 const linguistics::LinguisticDatabase& pLingDb);
 
   void _linkStatementGrdExp(const SemanticStatementGrounding& pStatGrd,
                             const linguistics::LinguisticDatabase& pLingDb);
@@ -597,18 +601,18 @@ private:
                               const GroundedExpression& pGrdExp);
 
   /**
-   * @brief Add a gounded expression to this MemorySentence object
+   * @brief Fill the link of a gounded expression.
+   * @param[out] pLinksToGrdExps Links of the grounded expression.
    * @param pGrdExp The grounded expression to add.
    * @param pGrounding The grounding of the grounded expression.
-   * @param pRequType The type of question if it's a question (SemanticRequestType::NOTHING otherwise)
    * @param pLingDb The linguistic dictionary.
    * @param pLinkNonSpecificStuffs If we shall add the grounding that is not linked to a word,
    * a concept and that his reference is indefinite.
    */
   bool _linkGrdExp
-  (const GroundedExpression& pGrdExp,
+  (SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinksForAMemSentence>& pLinksToGrdExps,
+   const GroundedExpression& pGrdExp,
    const SemanticGrounding& pGrounding,
-   SemanticRequestType pRequType,
    const linguistics::LinguisticDatabase& pLingDb,
    bool pLinkNonSpecificStuffs);
 
@@ -646,6 +650,7 @@ GroundedExpWithLinksPrivate::GroundedExpWithLinksPrivate
     isLinkedInRequToQuestionTrigger(LinkedState::NOTLINKED),
     isLinkedInRequToAffirmationTrigger(LinkedState::NOTLINKED),
     isLinkedInRequToNominalGroupsTrigger(LinkedState::NOTLINKED),
+    isLinkedInRequToRecommendationsTrigger(LinkedState::NOTLINKED),
     _memSent(pMemSent),
     _childGrdExpMemories(),
     _links()
@@ -658,10 +663,15 @@ GroundedExpWithLinksPrivate::GroundedExpWithLinksPrivate
       _memSent._annotations.emplace(currAnnotation.first, currAnnotation.second);
   }
 
-  if (_memSent.gatherAllTheLinks)
+  if (_memSent.inRecommendationMode)
   {
-    _gatherAllTheLinks(_memSent.grdExp, pLingDb);
-    linkToNominalTrigger();
+    if (!_recomendationLinksPtr)
+      _recomendationLinksPtr = std::make_unique<SemanticLinksToGrdExpsForAMemSentence>();
+    _linkRecommendationGrdExp(_memSent.grdExp, pLingDb);
+    if (_memSent._isEnabled)
+      linkToRecommendationsTrigger();
+    else
+      isLinkedInRequToRecommendationsTrigger = LinkedState::LINKDISABLED;
     return;
   }
 
@@ -677,7 +687,8 @@ GroundedExpWithLinksPrivate::GroundedExpWithLinksPrivate
   else
   {
     _memSent._isANoun = true;
-    _linkGrdExp(_memSent.grdExp, grd, SemanticRequestType::NOTHING, pLingDb, true);
+    auto& linksToGrdExps = _links.reqToGrdExps[SemanticRequestType::NOTHING];
+    _linkGrdExp(linksToGrdExps, _memSent.grdExp, grd, pLingDb, true);
     if (_memSent._isEnabled && !_memSent._isAConditionToSatisfy)
       enableUserCenteredLinks();
     if (_memSent._contextAxiom.getSemExpWrappedForMemory().outputToAnswerIfTriggerHasMatched)
@@ -775,8 +786,20 @@ void GroundedExpWithLinksPrivate::linkToAffirmationTrigger()
 void GroundedExpWithLinksPrivate::linkToNominalTrigger()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
-  _mergeRequToGrdExps(memBlocPrivate.ensureNominalGroupsTriggersLinks(_memSent._contextAxiom.triggerAxiomId), _links);
+  auto it = _links.reqToGrdExps.find(SemanticRequestType::NOTHING);
+  if (it != _links.reqToGrdExps.end())
+    _addLinksFrom(memBlocPrivate.ensureNominalGroupsTriggersLinks(_memSent._contextAxiom.triggerAxiomId),  it->second, _memSent.id);
   isLinkedInRequToNominalGroupsTrigger = LinkedState::LINKED;
+}
+
+void GroundedExpWithLinksPrivate::linkToRecommendationsTrigger()
+{
+  if (_recomendationLinksPtr)
+  {
+    auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
+    _addLinksFrom(memBlocPrivate.ensureRecommendationsTriggersLinks(_memSent._contextAxiom.triggerAxiomId), *_recomendationLinksPtr, _memSent.id);
+  }
+  isLinkedInRequToRecommendationsTrigger = LinkedState::LINKED;
 }
 
 
@@ -843,30 +866,43 @@ void GroundedExpWithLinksPrivate::filterMemLinks(SemanticMemoryLinks& pSemanticM
   }
 }
 
+void GroundedExpWithLinksPrivate::filterNominalGroupLinks(SemanticLinksToGrdExps& pLinksToFilter) const
+{
+  auto it = _links.reqToGrdExps.find(SemanticRequestType::NOTHING);
+  if (it != _links.reqToGrdExps.end())
+    _removeLinksFrom(pLinksToFilter, it->second, _memSent.id);
+}
 
-void GroundedExpWithLinksPrivate::_gatherAllTheLinksOfSemExp(const SemanticExpression& pSemExp,
-                                                             const linguistics::LinguisticDatabase& pLingDb)
+void GroundedExpWithLinksPrivate::filterRecommendationsLinks(SemanticLinksToGrdExps& pLinksToFilter) const
+{
+  if (_recomendationLinksPtr)
+    _removeLinksFrom(pLinksToFilter, *_recomendationLinksPtr, _memSent.id);
+}
+
+
+void GroundedExpWithLinksPrivate::_linkRecommendationSemExp(const SemanticExpression& pSemExp,
+                                                            const linguistics::LinguisticDatabase& pLingDb)
 {
   const auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
-    _gatherAllTheLinks(*grdExpPtr, pLingDb);
+    _linkRecommendationGrdExp(*grdExpPtr, pLingDb);
   else
   {
     const auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs();
     if (listExpPtr != nullptr)
       for (const auto& currElt : listExpPtr->elts)
-        _gatherAllTheLinksOfSemExp(*currElt, pLingDb);
+        _linkRecommendationSemExp(*currElt, pLingDb);
   }
 }
 
 
-void GroundedExpWithLinksPrivate::_gatherAllTheLinks(const GroundedExpression& pGrdExp,
-                                                     const linguistics::LinguisticDatabase& pLingDb)
+void GroundedExpWithLinksPrivate::_linkRecommendationGrdExp(const GroundedExpression& pGrdExp,
+                                                            const linguistics::LinguisticDatabase& pLingDb)
 {
   const SemanticGrounding& grd = pGrdExp.grounding();
-  _linkGrdExp(pGrdExp, grd, SemanticRequestType::NOTHING, pLingDb, false);
+  _linkGrdExp(*_recomendationLinksPtr, pGrdExp, grd, pLingDb, false);
   for (const auto& currChild : pGrdExp.children)
-    _gatherAllTheLinksOfSemExp(*currChild.second, pLingDb);
+    _linkRecommendationSemExp(*currChild.second, pLingDb);
 }
 
 
@@ -874,7 +910,8 @@ void GroundedExpWithLinksPrivate::_linkStatementGrdExp(const SemanticStatementGr
                                                        const linguistics::LinguisticDatabase& pLingDb)
 {
   bool skipLinkage = false;
-  skipLinkage = !_linkGrdExp(_memSent.grdExp, pStatGrd, SemanticRequestType::ACTION, pLingDb, true);
+  auto& linksToGrdExps = _links.reqToGrdExps[SemanticRequestType::ACTION];
+  skipLinkage = !_linkGrdExp(linksToGrdExps, _memSent.grdExp, pStatGrd, pLingDb, true);
 
   // link sub expressions
   if (!skipLinkage)
@@ -1017,7 +1054,8 @@ bool GroundedExpWithLinksPrivate::_linkChildSemExp
       }
     }
 
-    if (!_linkGrdExp(*childGrdExp, childGrounding, pFromRequest, pLingDb, true))
+    auto& linksToGrdExps = _links.reqToGrdExps[pFromRequest];
+    if (!_linkGrdExp(linksToGrdExps, *childGrdExp, childGrounding, pLingDb, true))
       return false;
 
     auto itEquChild = childGrdExp->children.find(GrammaticalType::SPECIFIER);
@@ -1062,9 +1100,9 @@ void GroundedExpWithLinksPrivate::_fillUserCenteredLinks(SemanticMemoryGrdExp& p
 
 
 bool GroundedExpWithLinksPrivate::_linkGrdExp
-(const GroundedExpression& pGrdExp,
+(SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinksForAMemSentence>& pLinksToGrdExps,
+ const GroundedExpression& pGrdExp,
  const SemanticGrounding& pGrounding,
- SemanticRequestType pRequType,
  const linguistics::LinguisticDatabase& pLingDb,
  bool pLinkNonSpecificStuffs)
 {
@@ -1079,12 +1117,10 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
   if (&pGrdExp == &_memSent.grdExp)
     _fillUserCenteredLinks(newMemGrdExp, pGrdExp);
 
-  auto& linksToGrdExps = _links.reqToGrdExps[pRequType];
-
   // link the concepts
   if (pGrounding.type != SemanticGroundingType::TIME)
     for (const auto& currCpt : pGrounding.concepts)
-      linksToGrdExps.conceptsToSemExps[currCpt.first].emplace_back(newMemGrdExp);
+      pLinksToGrdExps.conceptsToSemExps[currCpt.first].emplace_back(newMemGrdExp);
 
   switch (pGrounding.type)
   {
@@ -1100,12 +1136,12 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
       // link the word from static binary dico
       if (!lingMeaning.isEmpty())
       {
-        _linkLingMeaning(linksToGrdExps, newMemGrdExp, genGrounding.word, lingMeaning);
+        _linkLingMeaning(pLinksToGrdExps, newMemGrdExp, genGrounding.word, lingMeaning);
       }
       else if (!genGrounding.word.lemma.empty())
       {
         // link the lemma
-        linksToGrdExps.textToSemExps[SemanticLanguageEnum::UNKNOWN][genGrounding.word.lemma].emplace_back(newMemGrdExp);
+        pLinksToGrdExps.textToSemExps[SemanticLanguageEnum::UNKNOWN][genGrounding.word.lemma].emplace_back(newMemGrdExp);
       }
       else if (genGrounding.coreference)
       {
@@ -1116,15 +1152,15 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
       {
         if (genGrounding.quantity.type == SemanticQuantityType::EVERYTHING ||
             genGrounding.quantity.isEqualToZero())
-          linksToGrdExps.everythingOrNoEntityTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
+          pLinksToGrdExps.everythingOrNoEntityTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
         else // link the non specific stuffs
-          linksToGrdExps.genGroundingTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
+          pLinksToGrdExps.genGroundingTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
       }
 
       // Link also the lemma in lower case
       auto lemmaInLowerCase = genGrounding.word.lemma;
       if (lowerCaseText(lemmaInLowerCase))
-        linksToGrdExps.textToSemExps[SemanticLanguageEnum::UNKNOWN][lemmaInLowerCase].emplace_back(newMemGrdExp);
+        pLinksToGrdExps.textToSemExps[SemanticLanguageEnum::UNKNOWN][lemmaInLowerCase].emplace_back(newMemGrdExp);
     }
     break;
   }
@@ -1139,26 +1175,26 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
 
       // link the words from static binary dico
       if (!lingMeaning.isEmpty())
-        _linkLingMeaning(linksToGrdExps, newMemGrdExp, statGrounding.word, lingMeaning);
+        _linkLingMeaning(pLinksToGrdExps, newMemGrdExp, statGrounding.word, lingMeaning);
     }
     break;
   }
   case SemanticGroundingType::AGENT:
   {
     const SemanticAgentGrounding& agentGrounding = pGrounding.getAgentGrounding();
-    linksToGrdExps.userIdToSemExps[agentGrounding.userId].emplace_back(newMemGrdExp);
+    pLinksToGrdExps.userIdToSemExps[agentGrounding.userId].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::TEXT:
   {
     const SemanticTextGrounding& textGrounding = pGrounding.getTextGrounding();
-    linksToGrdExps.textToSemExps[textGrounding.forLanguage][textGrounding.text].emplace_back(newMemGrdExp);
+    pLinksToGrdExps.textToSemExps[textGrounding.forLanguage][textGrounding.text].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::TIME:
   {
     const SemanticTimeGrounding& timeGrounding = pGrounding.getTimeGrounding();
-    _addTimeLinksFromGrounding(linksToGrdExps, timeGrounding, newMemGrdExp);
+    _addTimeLinksFromGrounding(pLinksToGrdExps, timeGrounding, newMemGrdExp);
     break;
   }
   case SemanticGroundingType::RELATIVEDURATION:
@@ -1177,7 +1213,7 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
           {
             SemanticDuration absoluteTimeDuration =
                 SemanticTimeGrounding::relativeToAbsolute(durationGrdPtr->duration);
-            _addTimeLinksFromRelativeDurationGrounding(linksToGrdExps, absoluteTimeDuration, newMemGrdExp);
+            _addTimeLinksFromRelativeDurationGrounding(pLinksToGrdExps, absoluteTimeDuration, newMemGrdExp);
           }
         }
       }
@@ -1187,38 +1223,38 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
   case SemanticGroundingType::RELATIVELOCATION:
   {
     const SemanticRelativeLocationGrounding& relLocationGrounding = pGrounding.getRelLocationGrounding();
-    linksToGrdExps.relLocationToSemExps[relLocationGrounding.locationType].emplace_back(newMemGrdExp);
+    pLinksToGrdExps.relLocationToSemExps[relLocationGrounding.locationType].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::RELATIVETIME:
   {
     const SemanticRelativeTimeGrounding& relTimeGrounding = pGrounding.getRelTimeGrounding();
-    linksToGrdExps.relTimeToSemExps[relTimeGrounding.timeType].emplace_back(newMemGrdExp);
+    pLinksToGrdExps.relTimeToSemExps[relTimeGrounding.timeType].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::META:
   {
     const SemanticMetaGrounding& metaGrounding = pGrounding.getMetaGrounding();
-    linksToGrdExps.grdTypeToSemExps[metaGrounding.refToType].emplace_back(newMemGrdExp);
+    pLinksToGrdExps.grdTypeToSemExps[metaGrounding.refToType].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::NAME:
   {
     const SemanticNameGrounding& nameGrounding = pGrounding.getNameGrounding();
     for (const auto& currName : nameGrounding.nameInfos.names)
-      linksToGrdExps.textToSemExps[SemanticLanguageEnum::UNKNOWN][currName].emplace_back(newMemGrdExp);
+      pLinksToGrdExps.textToSemExps[SemanticLanguageEnum::UNKNOWN][currName].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::LANGUAGE:
   {
     const SemanticLanguageGrounding& languageGrounding = pGrounding.getLanguageGrounding();
-    linksToGrdExps.languageToSemExps[languageGrounding.language].emplace_back(newMemGrdExp);
+    pLinksToGrdExps.languageToSemExps[languageGrounding.language].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::RESOURCE:
   {
     const auto& resGrd = pGrounding.getResourceGrounding();
-    linksToGrdExps.resourceToSemExps[resGrd.resource].emplace_back(newMemGrdExp);
+    pLinksToGrdExps.resourceToSemExps[resGrd.resource].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::CONCEPTUAL:
@@ -1365,7 +1401,7 @@ uint32_t MemGrdExpPtrOffsets::getOffset(const SemanticMemoryGrdExp& pMemGrdExp) 
 GroundedExpWithLinks::GroundedExpWithLinks
 (SentenceWithLinks& pContextAxiom,
  const GroundedExpression& pGrdExp,
- bool pGatherAllTheLinks,
+ bool pInRecommendationMode,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
  const linguistics::LinguisticDatabase& pLingDb,
  bool pIsAConditionToSatisfy,
@@ -1375,7 +1411,7 @@ GroundedExpWithLinks::GroundedExpWithLinks
          pContextAxiom.getSemExpWrappedForMemory().getParentMemBloc().getNextSemId() :
          pId),
     grdExp(pGrdExp),
-    gatherAllTheLinks(pGatherAllTheLinks),
+    inRecommendationMode(pInRecommendationMode),
     _contextAxiom(pContextAxiom),
     _annotations(),
     _isEnabled(pIsEnabled),
@@ -1473,6 +1509,9 @@ void GroundedExpWithLinks::setEnabled(bool pEnabled)
 
     if (impl.isLinkedInRequToNominalGroupsTrigger == LinkedState::LINKDISABLED)
       impl.linkToNominalTrigger();
+
+    if (impl.isLinkedInRequToRecommendationsTrigger == LinkedState::LINKDISABLED)
+      impl.linkToRecommendationsTrigger();
   }
   else
   {
@@ -1533,9 +1572,16 @@ void GroundedExpWithLinks::setEnabled(bool pEnabled)
 
     if (impl.isLinkedInRequToNominalGroupsTrigger == LinkedState::LINKED)
     {
-      impl.filterMemLinks(memBlocPrivate.ensureNominalGroupsTriggersLinks(_contextAxiom.triggerAxiomId));
+      impl.filterNominalGroupLinks(memBlocPrivate.ensureNominalGroupsTriggersLinks(_contextAxiom.triggerAxiomId));
       memBlocPrivate.removeLinksIfEmpty(_contextAxiom.triggerAxiomId);
       impl.isLinkedInRequToNominalGroupsTrigger = LinkedState::LINKDISABLED;
+    }
+
+    if (impl.isLinkedInRequToRecommendationsTrigger == LinkedState::LINKED)
+    {
+      impl.filterRecommendationsLinks(memBlocPrivate.ensureRecommendationsTriggersLinks(_contextAxiom.triggerAxiomId));
+      memBlocPrivate.removeLinksIfEmpty(_contextAxiom.triggerAxiomId);
+      impl.isLinkedInRequToRecommendationsTrigger = LinkedState::LINKDISABLED;
     }
   }
 }

@@ -49,8 +49,8 @@ struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks
                                               const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
                                               const linguistics::LinguisticDatabase& pLingDb);
 
-  void addAxiomWhereGatherAllTheLinks(const GroundedExpression& pGrdSemExpToAdd,
-                                      const linguistics::LinguisticDatabase& pLingDb);
+  void addAxiomForARecommendation(const GroundedExpression& pGrdSemExpToAdd,
+                                  const linguistics::LinguisticDatabase& pLingDb);
   void addTriggerLinks(InformationType pInformationType,
                        const SemanticExpression& pSemExp,
                        const linguistics::LinguisticDatabase& pLingDb);

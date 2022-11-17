@@ -153,13 +153,13 @@ const SemanticMemoryLinksForAnyVerbTense* SemanticMemoryBlockPrivate::getSentenc
 }
 
 
-SemanticMemoryLinks& SemanticMemoryBlockPrivate::ensureNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId)
+SemanticLinksToGrdExps &SemanticMemoryBlockPrivate::ensureNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId)
 {
   return _triggerLinks[pAxiomId].nominalGroupsLinks;
 }
 
 
-SemanticMemoryLinks* SemanticMemoryBlockPrivate::getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId)
+SemanticLinksToGrdExps* SemanticMemoryBlockPrivate::getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId)
 {
   auto it = _triggerLinks.find(pAxiomId);
   if (it != _triggerLinks.end())
@@ -168,11 +168,35 @@ SemanticMemoryLinks* SemanticMemoryBlockPrivate::getNominalGroupsTriggersLinks(c
 }
 
 
-const SemanticMemoryLinks* SemanticMemoryBlockPrivate::getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId) const
+const SemanticLinksToGrdExps* SemanticMemoryBlockPrivate::getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId) const
 {
   auto it = _triggerLinks.find(pAxiomId);
   if (it != _triggerLinks.end())
     return &it->second.nominalGroupsLinks;
+  return nullptr;
+}
+
+
+SemanticLinksToGrdExps &SemanticMemoryBlockPrivate::ensureRecommendationsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId)
+{
+  return _triggerLinks[pAxiomId].recommendationsLinks;
+}
+
+
+SemanticLinksToGrdExps* SemanticMemoryBlockPrivate::getRecommendationsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId)
+{
+  auto it = _triggerLinks.find(pAxiomId);
+  if (it != _triggerLinks.end())
+    return &it->second.recommendationsLinks;
+  return nullptr;
+}
+
+
+const SemanticLinksToGrdExps* SemanticMemoryBlockPrivate::getRecommendationsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId) const
+{
+  auto it = _triggerLinks.find(pAxiomId);
+  if (it != _triggerLinks.end())
+    return &it->second.recommendationsLinks;
   return nullptr;
 }
 

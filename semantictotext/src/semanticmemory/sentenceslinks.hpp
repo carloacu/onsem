@@ -76,36 +76,6 @@ struct RelationsThatMatch
 
 
 template <bool IS_MODIFIABLE>
-struct RequestToMemoryLinks
-{
-  RequestToMemoryLinks(std::map<SemanticRequestType, SemanticLinksToGrdExps>& pD,
-                       const unsigned char* pC)
-   : d(pD),
-     c(pC)
-  {
-  }
-
-  std::map<SemanticRequestType, SemanticLinksToGrdExps>& d;
-  const unsigned char* c;
-};
-
-
-template<>
-struct RequestToMemoryLinks<false>
-{
-  RequestToMemoryLinks(const std::map<SemanticRequestType, SemanticLinksToGrdExps>& pD,
-                       const unsigned char* pC)
-   : d(pD),
-     c(pC)
-  {
-  }
-
-  const std::map<SemanticRequestType, SemanticLinksToGrdExps>& d;
-  const unsigned char* c;
-};
-
-
-template <bool IS_MODIFIABLE>
 struct MemoryLinksAccessor
 {
   MemoryLinksAccessor(SemanticLinksToGrdExps* pD,
@@ -137,6 +107,88 @@ struct MemoryLinksAccessor<false>
   const SemanticLinksToGrdExps* d;
   const unsigned char* c;
 };
+
+
+template <bool IS_MODIFIABLE>
+struct RequestToMemoryLinksVirtual
+{
+  virtual ~RequestToMemoryLinksVirtual<IS_MODIFIABLE>() {}
+
+  virtual MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType pRequest) = 0;
+};
+
+
+template <bool IS_MODIFIABLE>
+struct RequestToMemoryLinks: public RequestToMemoryLinksVirtual<IS_MODIFIABLE>
+{
+  RequestToMemoryLinks(std::map<SemanticRequestType, SemanticLinksToGrdExps>& pD,
+                       const unsigned char* pC)
+   : RequestToMemoryLinksVirtual<IS_MODIFIABLE>(),
+     d(pD),
+     c(pC)
+  {
+  }
+
+  MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType pRequest);
+
+private:
+  std::map<SemanticRequestType, SemanticLinksToGrdExps>& d;
+  const unsigned char* c;
+};
+
+
+template<>
+struct RequestToMemoryLinks<false>: public RequestToMemoryLinksVirtual<false>
+{
+  RequestToMemoryLinks(const std::map<SemanticRequestType, SemanticLinksToGrdExps>& pD,
+                       const unsigned char* pC)
+   : RequestToMemoryLinksVirtual<false>(),
+     d(pD),
+     c(pC)
+  {
+  }
+
+  MemoryLinksAccessor<false> getMemoryLinksAccessors(SemanticRequestType pRequest);
+
+private:
+  const std::map<SemanticRequestType, SemanticLinksToGrdExps>& d;
+  const unsigned char* c;
+};
+
+
+
+template <bool IS_MODIFIABLE>
+struct RecommendationMemoryLinks: public RequestToMemoryLinksVirtual<IS_MODIFIABLE>
+{
+  RecommendationMemoryLinks(SemanticLinksToGrdExps& pD)
+   : RequestToMemoryLinksVirtual<IS_MODIFIABLE>(),
+     d(pD)
+  {
+  }
+
+  MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType) { return {&d, nullptr}; }
+
+private:
+  SemanticLinksToGrdExps& d;
+};
+
+
+template<>
+struct RecommendationMemoryLinks<false>: public RequestToMemoryLinksVirtual<false>
+{
+  RecommendationMemoryLinks(const SemanticLinksToGrdExps& pD)
+   : RequestToMemoryLinksVirtual<false>(),
+     d(pD)
+  {
+  }
+
+  MemoryLinksAccessor<false> getMemoryLinksAccessors(SemanticRequestType) { return {&d, nullptr}; }
+
+private:
+  const SemanticLinksToGrdExps& d;
+};
+
+
 
 
 

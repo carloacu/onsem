@@ -45,6 +45,7 @@ struct SemanticMemoryBlock;
 template <typename LINKS_TYPE>
 struct SemanticLinksToGrdExpsTemplate
 {
+  void clear();
   bool empty() const;
 
   /// Map of concept name -> part of texts
