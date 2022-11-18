@@ -7,10 +7,10 @@
 #include <onsem/semantictotext/serialization.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
-#include "../semanticcontroller/operators/operator_answer.hpp"
-#include "../semanticcontroller/operators/operator_check.hpp"
-#include "../semanticcontroller/operators/operator_inform.hpp"
-#include "../semanticcontroller/operators/operator_resolveCommand.hpp"
+#include "../semantictotext/operators/operator_answer.hpp"
+#include "../semantictotext/operators/operator_check.hpp"
+#include "../semantictotext/operators/operator_inform.hpp"
+#include "../semantictotext/operators/operator_resolveCommand.hpp"
 #include "../semanticreasonergtests.hpp"
 
 
