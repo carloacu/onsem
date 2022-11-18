@@ -10,13 +10,13 @@ The following command lines should be run from the root of the build folder.
 :warning: To have the micro working, look at the [Start the STT (Speech To Text)](#start-the-stt) heading.
 
 ```bash
-./voicebotgui/voicebotgui --databases linguistic/databases --share_semantic ../share/semantic
+./onsemgui/onsemgui --databases linguistic/databases --share_semantic ../share/semantic
 ```
 
 ### Execution of the tests
 
 ```bash
-./tests/gtests/semanticreasoner_gtests --databases linguistic/databases --share_semantic ../share/semantic
+./tests/onsemgtests/onsemgtests --databases linguistic/databases --share_semantic ../share/semantic
 ```
 
 
@@ -25,11 +25,11 @@ The following command lines should be run from the root of the build folder.
 ## Run from Qt Creator IDE
 
 
-### Arguments to set for voicegui
+### Arguments to set for onsemgui
 
 The arguments have to be set here:<br />
 Projects > Build & Run > Run<br />
-Projects > Run > Run configuration > Select "voicegui"<br />
+Projects > Run > Run configuration > Select "onsemgui"<br />
 Projects > Run > Command line arguments > Copy past the arguments below<br />
 
 :warning: To have the micro working, look at the [Start the STT (Speech To Text)](#start-the-stt) heading.
@@ -39,11 +39,11 @@ Projects > Run > Command line arguments > Copy past the arguments below<br />
 ```
 
 
-### Arguments to set for semanticreasoner_gtests
+### Arguments to set for onsemgtests
 
 The arguments have to be set here:<br />
 Projects > Build & Run > Run<br />
-Projects > Run > Run configuration > Select "semanticreasoner_gtests"<br />
+Projects > Run > Run configuration > Select "onsemgtests"<br />
 Projects > Run > Command line arguments > Copy past the arguments below<br />
 
 
@@ -65,8 +65,8 @@ sudo snap install --classic code
 ```
 
 2 configuations:<br />
-* "(gdb) voicebotgui" - to start voicebotgui<br />
-* "(gdb) semanticreasoner_gtests" - to start semanticreasoner_gtests<br />
+* "(gdb) onsemgui" - to start onsemgui<br />
+* "(gdb) onsemgtests" - to start onsemgtests<br />
 <br />
 
 Suggestion to have a nice theme:<br />
