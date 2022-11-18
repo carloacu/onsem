@@ -82,13 +82,12 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
 
 
   const std::list<std::shared_ptr<ExpressionWithLinks>>& getExpressionHandleInMemories() const;
-  std::list<std::shared_ptr<ExpressionWithLinks>>& getExpressionHandleInMemories();
 
   bool empty() const;
   void clearLocalInformationButNotTheSubBloc();
   void clear();
-  void clearKnowledgeByKnowledgeOnlyForTests(const linguistics::LinguisticDatabase& pLingDb,
-                                             std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+  void clearSemExpBySemExpOnlyForTests(const linguistics::LinguisticDatabase& pLingDb,
+                                       std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
   void removeLinkedActions();
 
   std::size_t nbOfKnowledges() const;

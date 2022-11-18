@@ -859,10 +859,17 @@ void GroundedExpWithLinksPrivate::filterMemLinks(SemanticMemoryLinks& pSemanticM
   for (const auto& currReq : _links.reqToGrdExps)
   {
     auto it = pSemanticMemoryLinksToFilter.reqToGrdExps.find(currReq.first);
-    assert(it != pSemanticMemoryLinksToFilter.reqToGrdExps.end());
-    _removeLinksFrom(it->second, currReq.second, _memSent.id);
-    if (it->second.empty())
-      pSemanticMemoryLinksToFilter.reqToGrdExps.erase(it);
+    if (it != pSemanticMemoryLinksToFilter.reqToGrdExps.end())
+    {
+      _removeLinksFrom(it->second, currReq.second, _memSent.id);
+      if (it->second.empty())
+        pSemanticMemoryLinksToFilter.reqToGrdExps.erase(it);
+    }
+    else
+    {
+      std::cerr << "Error on unliknking a grounded expression from the memory" << std::endl;
+      assert(false);
+    }
   }
 }
 

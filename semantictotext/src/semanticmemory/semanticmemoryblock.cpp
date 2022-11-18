@@ -188,8 +188,8 @@ void SemanticMemoryBlock::clear()
 }
 
 
-void SemanticMemoryBlock::clearKnowledgeByKnowledgeOnlyForTests(const linguistics::LinguisticDatabase& pLingDb,
-                                                                std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
+void SemanticMemoryBlock::clearSemExpBySemExpOnlyForTests(const linguistics::LinguisticDatabase& pLingDb,
+                                                          std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
   while (!_impl->expressionsMemoriesPtrToIt.empty())
   {
@@ -197,7 +197,7 @@ void SemanticMemoryBlock::clearKnowledgeByKnowledgeOnlyForTests(const linguistic
   }
   assert(empty());
   if (_fallbacksBlockPtr)
-    _fallbacksBlockPtr->clearKnowledgeByKnowledgeOnlyForTests(pLingDb, pAxiomToConditionCurrentStatePtr);
+    _fallbacksBlockPtr->clearSemExpBySemExpOnlyForTests(pLingDb, pAxiomToConditionCurrentStatePtr);
 }
 
 void SemanticMemoryBlock::removeLinkedActions()
@@ -781,11 +781,6 @@ const std::list<std::shared_ptr<ExpressionWithLinks>>& SemanticMemoryBlock::getE
   return _impl->expressionsMemories;
 }
 
-
-std::list<std::shared_ptr<ExpressionWithLinks>>& SemanticMemoryBlock::getExpressionHandleInMemories()
-{
-  return _impl->expressionsMemories;
-}
 
 
 } // End of namespace onsem

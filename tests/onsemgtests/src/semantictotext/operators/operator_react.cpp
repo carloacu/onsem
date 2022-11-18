@@ -701,7 +701,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
   EXPECT_TRUE(checkMemBlocBinarization(semMem.memBloc, lingDb));
   static const std::string reactMemoryFilename("reactmemory.smb");
   semMem.memBloc.writeInBinaryFile(lingDb, reactMemoryFilename, 3000000000);
-  semMem.memBloc.clearKnowledgeByKnowledgeOnlyForTests(lingDb, nullptr);
+  semMem.memBloc.clearSemExpBySemExpOnlyForTests(lingDb, nullptr);
 
   SemanticMemory semMemBinary;
   semMemBinary.memBloc.loadBinaryFile(reactMemoryFilename);

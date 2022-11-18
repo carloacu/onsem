@@ -74,12 +74,17 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string itIsAHoliday = "C'est une fête.";
   const std::string whatIsAscension = "Qu'est-ce que l'ascension ?";
   const std::string itIsTheLeavingOfJesusOnHeaven = "C'est le départ de Jésus au ciel.";
+  const std::string itLastOneHour = "ça dure 1 heure";
+  const std::string itLastTwoHours = "ça dure 2 heures";
+  const std::string itIsLong = "C'est long.";
+  const std::string itIsShort = "C'est court.";
   ONSEM_NOANSWER(operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatAboutWellBeingOfAnimals, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatIsToussaint, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatIsAscension, semMem, lingDb));
+  ONSEM_NOANSWER(operator_reactFromTrigger(itLastOneHour, semMem, lingDb));
 
   operator_addATrigger(whoAreYou, iAmYourFrined, semMem, lingDb);
   operator_addATrigger(stopApplication, itIsStopped, semMem, lingDb);
@@ -87,6 +92,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   operator_addATrigger(whatAboutWellBeingOfAnimals, itIsNotFamous, semMem, lingDb);
   operator_addATrigger(whatIsToussaint, itIsAHoliday, semMem, lingDb);
   operator_addATrigger(whatIsAscension, itIsTheLeavingOfJesusOnHeaven, semMem, lingDb);
+  operator_addATrigger(itLastOneHour, itIsLong, semMem, lingDb);
+  operator_addATrigger(itLastTwoHours, itIsShort, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger(stopApplication, semMem, lingDb));
@@ -103,4 +110,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_ANSWER_EQ(itIsAHoliday, operator_reactFromTrigger("Qu'est-ce que la toussaint ?", semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsTheLeavingOfJesusOnHeaven, operator_reactFromTrigger(whatIsAscension, semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsTheLeavingOfJesusOnHeaven, operator_reactFromTrigger("Qu'est-ce que l'Ascension ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsLong, operator_reactFromTrigger(itLastOneHour, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsShort, operator_reactFromTrigger(itLastTwoHours, semMem, lingDb));
 }
