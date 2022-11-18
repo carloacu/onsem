@@ -1,7 +1,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticsynthesizerdictionary.hpp>
 #include <onsem/common/binary/binaryloader.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
-#include <onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
@@ -15,11 +14,10 @@ namespace linguistics
 
 StaticSynthesizerDictionary::StaticSynthesizerDictionary(std::istream& pIStream,
                                                          const StaticConceptSet& pConceptsDb,
-                                                         const linguistics::LinguisticDictionary& pLinguisticDictionary,
+                                                         const StaticLinguisticDictionary& pStatLingDic,
                                                          SemanticLanguageEnum pLangEnum)
   : VirtualSemBinaryDatabase(),
-    fLingDic(pLinguisticDictionary),
-    fStatLingDic(pLinguisticDictionary.statDb),
+    fStatLingDic(pStatLingDic),
     fConceptsDb(pConceptsDb),
     fLangEnum(pLangEnum),
     fPtrConjugaisons(nullptr),
@@ -281,7 +279,7 @@ void StaticSynthesizerDictionary::getVerbForm
       }
       else
       {
-        getVerbForm(pVerbForm, pNegationAfterVerb, fLingDic.getBeAux().meaning,
+        getVerbForm(pVerbForm, pNegationAfterVerb, fStatLingDic.getBeAux().meaning,
                     pRelativePerson, pSubectGender,
                     LinguisticVerbTense::PRESENT_INDICATIVE, pVerbGoal, true, pHasASubject, false, false, false, false);
       }
@@ -297,7 +295,7 @@ void StaticSynthesizerDictionary::getVerbForm
       }
       else
       {
-        getVerbForm(pVerbForm, pNegationAfterVerb, fLingDic.getBeAux().meaning,
+        getVerbForm(pVerbForm, pNegationAfterVerb, fStatLingDic.getBeAux().meaning,
                     pRelativePerson, pSubectGender,
                     LinguisticVerbTense::IMPERFECT_INDICATIVE, pVerbGoal, true, pHasASubject, false, false, false, false);
       }
@@ -310,7 +308,7 @@ void StaticSynthesizerDictionary::getVerbForm
       if (!pIsPassive &&
           fStatLingDic.hasContextualInfo(WordContextualInfos::BEISTHEAUXILIARY, pMeaning))
       {
-        getVerbForm(pVerbForm, pNegationAfterVerb, fLingDic.getBeAux().meaning,
+        getVerbForm(pVerbForm, pNegationAfterVerb, fStatLingDic.getBeAux().meaning,
                     pRelativePerson, pSubectGender,
                     pVerbTense, pVerbGoal, true, pHasASubject, false, false, false, false);
         pVerbTense = LinguisticVerbTense::SIMPLE_PAST_INDICATIVE;
@@ -398,7 +396,7 @@ void StaticSynthesizerDictionary::getVerbForm
         else if (!_beAuxIsPossibleForThisFrenchVerb(conjId) ||
                  fStatLingDic.hasContextualInfo(WordContextualInfos::HAVEISTHEAUXILIARY, pMeaning))
         {
-          getVerbForm(pVerbForm, pNegationAfterVerb, fLingDic.getHaveAux().meaning,
+          getVerbForm(pVerbForm, pNegationAfterVerb, fStatLingDic.getHaveAux().meaning,
                       pRelativePerson, pSubectGender, auxTense, pVerbGoal,
                       true, pHasASubject, false, false, false, false);
           if (pIsPassive)
@@ -422,7 +420,7 @@ void StaticSynthesizerDictionary::getVerbForm
         if (pIsPassive && pVerbTense == LinguisticVerbTense::SIMPLE_PAST_INDICATIVE &&
             auxTense != LinguisticVerbTense::INFINITIVE)
           auxTense = LinguisticVerbTense::IMPERFECT_INDICATIVE;
-        getVerbForm(pVerbForm, pNegationAfterVerb, fLingDic.getBeAux().meaning,
+        getVerbForm(pVerbForm, pNegationAfterVerb, fStatLingDic.getBeAux().meaning,
                     pRelativePerson, pSubectGender, auxTense, pVerbGoal,
                     true, pHasASubject, false, false, false, false);
       }

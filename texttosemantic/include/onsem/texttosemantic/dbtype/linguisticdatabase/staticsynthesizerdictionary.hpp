@@ -19,7 +19,6 @@ namespace onsem
 class StaticConceptSet;
 namespace linguistics
 {
-class LinguisticDictionary;
 class StaticLinguisticDictionary;
 
 class ONSEM_TEXTTOSEMANTIC_API StaticSynthesizerDictionary : public VirtualSemBinaryDatabase
@@ -27,7 +26,7 @@ class ONSEM_TEXTTOSEMANTIC_API StaticSynthesizerDictionary : public VirtualSemBi
 public:
   StaticSynthesizerDictionary(std::istream& pIStream,
                               const StaticConceptSet& pConceptsDb,
-                              const LinguisticDictionary& pLinguisticDictionary,
+                              const StaticLinguisticDictionary& pStatLingDic,
                               SemanticLanguageEnum pLangEnum);
   ~StaticSynthesizerDictionary();
 
@@ -86,7 +85,6 @@ private:
     int intValues[4];
     char charValues[16];
   };
-  const LinguisticDictionary& fLingDic;
   const StaticLinguisticDictionary& fStatLingDic;
   const StaticConceptSet& fConceptsDb;
   SemanticLanguageEnum fLangEnum;

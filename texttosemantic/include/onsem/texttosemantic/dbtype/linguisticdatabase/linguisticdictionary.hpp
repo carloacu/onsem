@@ -79,23 +79,10 @@ public:
 
   StaticLinguisticDictionary& statDb;
 
-  struct StaticWord
-  {
-    StaticWord(const StaticLinguisticDictionary& pStatBinDico);
-    void setContent(const std::string& pLemma,
-                    PartOfSpeech pPartOfSpeech);
-    void clear();
-
-    SemanticWord word{};
-    StaticLinguisticMeaning meaning{};
-  private:
-    const StaticLinguisticDictionary& _statBinDico;
-  };
-
-  const StaticWord& getBeAux() const;
-  const StaticWord& getHaveAux() const;
-  const StaticWord& getBeVerb() const;
-  const StaticWord& getSayVerb() const;
+  const StaticLinguisticDictionary::StaticWord& getBeAux() const { return statDb.getBeAux(); }
+  const StaticLinguisticDictionary::StaticWord& getHaveAux() const { return statDb.getHaveAux(); }
+  const StaticLinguisticDictionary::StaticWord& getBeVerb() const { return statDb.getBeVerb(); }
+  const StaticLinguisticDictionary::StaticWord& getSayVerb() const { return statDb.getSayVerb(); }
 
 
 private:
@@ -138,10 +125,6 @@ private:
   std::map<SemanticWord, const WordAssociatedInfos*> _wordToAssocInfos;
   std::unique_ptr<mystd::radix_map_str<std::list<PartOfSpeech>>> _lemmaToPosOfWordToRemoveFromStaticDico;
   std::unique_ptr<mystd::radix_map_str<std::list<InflectedInfos>>> _inflectedCharaters;
-  StaticWord _beAux;
-  StaticWord _haveAux;
-  StaticWord _beVerb;
-  StaticWord _sayVerb;
 
 
   static std::mutex _pathToStatDbsMutex;
@@ -152,30 +135,6 @@ private:
   bool _isARemovedWord(const SemanticWord& pWord) const;
 };
 
-
-
-
-
-
-inline const LinguisticDictionary::StaticWord& LinguisticDictionary::getBeAux() const
-{
-  return _beAux;
-}
-
-inline const LinguisticDictionary::StaticWord& LinguisticDictionary::getHaveAux() const
-{
-  return _haveAux;
-}
-
-inline const LinguisticDictionary::StaticWord& LinguisticDictionary::getBeVerb() const
-{
-  return _beVerb;
-}
-
-inline const LinguisticDictionary::StaticWord& LinguisticDictionary::getSayVerb() const
-{
-  return _sayVerb;
-}
 
 
 } // End of namespace linguistics

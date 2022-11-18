@@ -1,5 +1,4 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/synthesizerdictionary.hpp>
-#include <onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/nominalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
@@ -14,7 +13,7 @@ std::map<SemanticLanguageEnum, std::unique_ptr<StaticSynthesizerDictionary>> Syn
 const StaticSynthesizerDictionary& SynthesizerDictionary::_getStatDbInstance(
     std::istream& pIStream,
     const StaticConceptSet& pConceptsDb,
-    const LinguisticDictionary& pLinguisticDictionary,
+    const StaticLinguisticDictionary& pStatLingDic,
     SemanticLanguageEnum pLangEnum)
 {
   std::lock_guard<std::mutex> lock(_pathToStatDbsMutex);
@@ -22,7 +21,7 @@ const StaticSynthesizerDictionary& SynthesizerDictionary::_getStatDbInstance(
   if (it == _statDbs.end())
   {
     auto& res = _statDbs[pLangEnum];
-    res = std::make_unique<StaticSynthesizerDictionary>(pIStream, pConceptsDb, pLinguisticDictionary, pLangEnum);
+    res = std::make_unique<StaticSynthesizerDictionary>(pIStream, pConceptsDb, pStatLingDic, pLangEnum);
     return *res;
   }
   return *it->second;
@@ -31,10 +30,10 @@ const StaticSynthesizerDictionary& SynthesizerDictionary::_getStatDbInstance(
 
 SynthesizerDictionary::SynthesizerDictionary(std::istream& pIStream,
                                              const StaticConceptSet& pConceptsDb,
-                                             const LinguisticDictionary& pLinguisticDictionary,
+                                             const StaticLinguisticDictionary& pStatLingDic,
                                              SemanticLanguageEnum pLangEnum)
- : statDb(_getStatDbInstance(pIStream, pConceptsDb, pLinguisticDictionary, pLangEnum)),
-   _lingDict(pLinguisticDictionary.statDb),
+ : statDb(_getStatDbInstance(pIStream, pConceptsDb, pStatLingDic, pLangEnum)),
+   _lingDict(pStatLingDic),
    _wordToInflections(),
    _conceptToInfoGrams()
 {

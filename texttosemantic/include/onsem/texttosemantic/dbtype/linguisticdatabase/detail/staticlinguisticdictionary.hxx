@@ -286,6 +286,28 @@ inline char StaticLinguisticDictionary::xGetRelationToConcept
   return xGetCharAfterAlignedDec(pConceptLink);
 }
 
+
+
+inline const StaticLinguisticDictionary::StaticWord& StaticLinguisticDictionary::getBeAux() const
+{
+  return _beAux;
+}
+
+inline const StaticLinguisticDictionary::StaticWord& StaticLinguisticDictionary::getHaveAux() const
+{
+  return _haveAux;
+}
+
+inline const StaticLinguisticDictionary::StaticWord& StaticLinguisticDictionary::getBeVerb() const
+{
+  return _beVerb;
+}
+
+inline const StaticLinguisticDictionary::StaticWord& StaticLinguisticDictionary::getSayVerb() const
+{
+  return _sayVerb;
+}
+
 } // End of namespace linguistics
 } // End of namespace onsem
 

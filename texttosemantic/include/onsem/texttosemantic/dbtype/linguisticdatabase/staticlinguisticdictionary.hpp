@@ -167,6 +167,24 @@ public:
   SemanticRequestType aloneWordToRequest(const SemanticWord& pWord) const;
   SemanticRequestType semWordToRequest(const SemanticWord& pWord) const;
 
+
+  struct StaticWord
+  {
+    void setContent(const StaticLinguisticDictionary& pStatBinDico,
+                    const std::string& pLemma,
+                    PartOfSpeech pPartOfSpeech);
+    void clear();
+
+    SemanticWord word{};
+    StaticLinguisticMeaning meaning{};
+  };
+
+  const StaticWord& getBeAux() const;
+  const StaticWord& getHaveAux() const;
+  const StaticWord& getBeVerb() const;
+  const StaticWord& getSayVerb() const;
+
+
 protected:
   virtual bool xIfEndOfAWord
   (const signed char* pNode,
@@ -193,6 +211,10 @@ private:
   std::map<SemanticWord, std::vector<QuestionWords> > fQuestWordsAfter;
   std::map<SemanticWord, std::vector<QuestionWords> > fQuestWordsThatCanBeAlone;
   std::map<SemanticWord, std::vector<QuestionWords> > fQuestWordsSubordinate;
+  StaticWord _beAux;
+  StaticWord _haveAux;
+  StaticWord _beVerb;
+  StaticWord _sayVerb;
 
   static std::map<SemanticLanguageEnum, std::unique_ptr<StaticLinguisticDictionary>> _instances;
 

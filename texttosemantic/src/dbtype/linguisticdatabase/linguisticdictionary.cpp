@@ -34,29 +34,6 @@ StaticLinguisticDictionary& LinguisticDictionary::_getStatDbInstance(
 }
 
 
-LinguisticDictionary::StaticWord::StaticWord
-(const StaticLinguisticDictionary& pStatBinDico)
-  : word(),
-    meaning(),
-    _statBinDico(pStatBinDico)
-{
-}
-
-void LinguisticDictionary::StaticWord::setContent
-(const std::string& pLemma,
- PartOfSpeech pPartOfSpeech)
-{
-  word.setContent(_statBinDico.getLanguageType(), pLemma, pPartOfSpeech);
-  meaning = _statBinDico.getLingMeaning(pLemma, pPartOfSpeech, false);
-}
-
-void LinguisticDictionary::StaticWord::clear()
-{
-  word.clear();
-  meaning.clear();
-}
-
-
 
 LinguisticDictionary::InflectedInfos::InflectedInfos
 (const SemanticWord& pWord,
@@ -122,37 +99,15 @@ LinguisticDictionary::LinguisticDictionary(std::istream& pDictIStream,
     _language(pLangEnum),
     _wordToAssocInfos(),
     _lemmaToPosOfWordToRemoveFromStaticDico(std::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>()),
-    _inflectedCharaters(std::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>()),
-    _beAux(statDb),
-    _haveAux(statDb),
-    _beVerb(statDb),
-    _sayVerb(statDb)
+    _inflectedCharaters(std::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>())
 {
-  if (pLangEnum == SemanticLanguageEnum::FRENCH)
-  {
-    _beAux.setContent("être", PartOfSpeech::AUX);
-    _haveAux.setContent("avoir", PartOfSpeech::AUX);
-    _beVerb.setContent("être", PartOfSpeech::VERB);
-    _sayVerb.setContent("dire", PartOfSpeech::VERB);
-  }
-  else if (pLangEnum == SemanticLanguageEnum::ENGLISH)
-  {
-    _beAux.setContent("be", PartOfSpeech::AUX);
-    _haveAux.setContent("have", PartOfSpeech::AUX);
-    _beVerb.setContent("be", PartOfSpeech::VERB);
-    _sayVerb.setContent("say", PartOfSpeech::VERB);
-  }
 }
 
 LinguisticDictionary::LinguisticDictionary(const LinguisticDictionary& pOther)
   : statDb(pOther.statDb),
     _wordToAssocInfos(pOther._wordToAssocInfos),
     _lemmaToPosOfWordToRemoveFromStaticDico(std::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>(*pOther._lemmaToPosOfWordToRemoveFromStaticDico)),
-    _inflectedCharaters(std::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>(*pOther._inflectedCharaters)),
-    _beAux(pOther._beAux),
-    _haveAux(pOther._haveAux),
-    _beVerb(pOther._beVerb),
-    _sayVerb(pOther._sayVerb)
+    _inflectedCharaters(std::make_unique<mystd::radix_map_str<std::list<InflectedInfos>>>(*pOther._inflectedCharaters))
 {
 }
 

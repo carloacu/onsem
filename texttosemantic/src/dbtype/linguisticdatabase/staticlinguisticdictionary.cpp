@@ -28,7 +28,11 @@ StaticLinguisticDictionary::StaticLinguisticDictionary(std::istream& pDictIStrea
     fQuestWordsBefore(),
     fQuestWordsAfter(),
     fQuestWordsThatCanBeAlone(),
-    fQuestWordsSubordinate()
+    fQuestWordsSubordinate(),
+    _beAux(),
+    _haveAux(),
+    _beVerb(),
+    _sayVerb()
 {
   xLoad(pDictIStream);
 }
@@ -132,6 +136,22 @@ void StaticLinguisticDictionary::xLoad(std::istream& pDictIStream)
   // Close database file
   //binDatabaseFile.close();
   fErrorMessage = "";
+
+
+  if (fLangEnum == SemanticLanguageEnum::FRENCH)
+  {
+    _beAux.setContent(*this, "être", PartOfSpeech::AUX);
+    _haveAux.setContent(*this, "avoir", PartOfSpeech::AUX);
+    _beVerb.setContent(*this, "être", PartOfSpeech::VERB);
+    _sayVerb.setContent(*this, "dire", PartOfSpeech::VERB);
+  }
+  else if (fLangEnum == SemanticLanguageEnum::ENGLISH)
+  {
+    _beAux.setContent(*this, "be", PartOfSpeech::AUX);
+    _haveAux.setContent(*this, "have", PartOfSpeech::AUX);
+    _beVerb.setContent(*this, "be", PartOfSpeech::VERB);
+    _sayVerb.setContent(*this, "say", PartOfSpeech::VERB);
+  }
 }
 
 
@@ -228,6 +248,22 @@ SemanticRequestType StaticLinguisticDictionary::semWordToRequest
   return SemanticRequestType::NOTHING;
 }
 
+
+
+void StaticLinguisticDictionary::StaticWord::setContent
+(const StaticLinguisticDictionary& pStatBinDico,
+ const std::string& pLemma,
+ PartOfSpeech pPartOfSpeech)
+{
+  word.setContent(pStatBinDico.getLanguageType(), pLemma, pPartOfSpeech);
+  meaning = pStatBinDico.getLingMeaning(pLemma, pPartOfSpeech, false);
+}
+
+void StaticLinguisticDictionary::StaticWord::clear()
+{
+  word.clear();
+  meaning.clear();
+}
 
 
 void StaticLinguisticDictionary::xInitQuestionWords(unsigned char const** pChar)

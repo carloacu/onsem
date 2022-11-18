@@ -21,7 +21,7 @@ class ONSEM_TEXTTOSEMANTIC_API SynthesizerDictionary
 public:
   SynthesizerDictionary(std::istream& pIStream,
                         const StaticConceptSet& pConceptsDb,
-                        const LinguisticDictionary& pLinguisticDictionary,
+                        const StaticLinguisticDictionary& pStatLingDic,
                         SemanticLanguageEnum pLangEnum);
 
   void addInflectedWord(const std::string& pInflectedFrom,
@@ -81,7 +81,7 @@ private:
   static std::map<SemanticLanguageEnum, std::unique_ptr<StaticSynthesizerDictionary>> _statDbs;
   static const StaticSynthesizerDictionary& _getStatDbInstance(std::istream& pIStream,
                                                                const StaticConceptSet& pConceptsDb,
-                                                               const LinguisticDictionary& pLinguisticDictionary,
+                                                               const StaticLinguisticDictionary& pStatLingDic,
                                                                SemanticLanguageEnum pLangEnum);
 
   void _addInflectionsIfMoreFrequent(std::map<NominalInflection, InflFormAndFrequency>& pMap,
