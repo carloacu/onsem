@@ -5,4 +5,4 @@ then
     unzip stt/models/${1}.zip -d stt/models/
 fi
 
-./stt/write_asr_result_in_a_file.py -m stt/models/${1} -f build/voicebotgui/out_asr.txt
+./stt/write_asr_result_in_a_file.py -m stt/models/${1} -f build/onsemgui/out_asr.txt
