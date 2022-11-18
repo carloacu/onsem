@@ -52,7 +52,7 @@ void textsToResults
  const std::string& pResultAdjFilename,
  const std::string& pResultVerbPrepFilename,
  const linguistics::LinguisticDatabase& pLingDb,
-  const std::string& pShareSemanticPath)
+ const std::string& pShareSemanticPath)
 {
   const std::string textFilename = pShareSemanticPath + "/semantic/corpus/input/french/big/french_sentences_from_srts.txt";
   SemanticLanguageEnum langEnum = SemanticLanguageEnum::FRENCH;

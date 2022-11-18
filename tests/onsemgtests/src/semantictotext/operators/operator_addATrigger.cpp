@@ -46,7 +46,8 @@ void operator_addATrigger(const std::string& pTriggerText,
                                            SemanticAgentGrounding::me,
                                            SemanticLanguageEnum::UNKNOWN);
   triggerProcContext.isTimeDependent = false;
-  auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
+  auto triggerSemExp = converter::textToContextualSemExp(pTriggerText, triggerProcContext,
+                                                         SemanticSourceEnum::UNKNOWN, pLingDb);
   _operator_addATriggerFromSemExp(triggerSemExp, pAnswerText, pSemanticMemory, pLingDb, pReferences);
 }
 

@@ -60,6 +60,7 @@ set(ONSEMGTESTS_SRCS
   src/semantictotext/operators/operator_teach.cpp
   src/semantictotext/operators/operator_track.cpp
   src/semantictotext/test_agreement.cpp
+  src/semantictotext/test_bigmemory.cpp
   src/semantictotext/test_converter.cpp
   src/semantictotext/test_coreference.cpp
   src/semantictotext/test_equivalentSemanticRepresentation.cpp
