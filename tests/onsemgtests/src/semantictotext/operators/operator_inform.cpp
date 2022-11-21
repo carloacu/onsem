@@ -16,8 +16,8 @@ using namespace onsem;
 
 namespace onsem
 {
-namespace
-{
+
+
 std::shared_ptr<ExpressionWithLinks> operator_inform_withTextProc(
     const std::string& pText,
     SemanticMemory& pSemanticMemory,
@@ -25,7 +25,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform_withTextProc(
     const std::list<std::string>& pReferences,
     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
     const TextProcessingContext& pTextProcContext,
-    std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>())
+    std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout)
 {
   auto semExp =
       converter::textToContextualSemExp(pText, pTextProcContext,
@@ -36,21 +36,14 @@ std::shared_ptr<ExpressionWithLinks> operator_inform_withTextProc(
                                  pAxiomToConditionCurrentStatePtr);
 }
 
-}
-
 
 std::shared_ptr<ExpressionWithLinks> operator_inform(
     const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     const std::list<std::string>& pReferences,
-    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
-    const TextProcessingContext* pTextProcContextPtr)
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr)
 {
-  if (pTextProcContextPtr != nullptr)
-    return operator_inform_withTextProc(pText, pSemanticMemory, pLingDb, pReferences,
-                                        pAxiomToConditionCurrentStatePtr, *pTextProcContextPtr);
-
   TextProcessingContext inContext(SemanticAgentGrounding::currentUser,
                                   SemanticAgentGrounding::me,
                                   SemanticLanguageEnum::UNKNOWN);

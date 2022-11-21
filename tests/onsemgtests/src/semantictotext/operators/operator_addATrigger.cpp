@@ -52,6 +52,23 @@ void operator_addATrigger(const std::string& pTriggerText,
 }
 
 
+void operator_addATriggerToSemExpAnswer(
+    const std::string& pTriggerText,
+    UniqueSemanticExpression pAnswerSemExp,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb)
+{
+  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           SemanticLanguageEnum::UNKNOWN);
+  triggerProcContext.isTimeDependent = false;
+  auto triggerSemExp = converter::textToContextualSemExp(pTriggerText, triggerProcContext,
+                                                         SemanticSourceEnum::UNKNOWN, pLingDb);
+  memoryOperation::addATrigger(std::move(triggerSemExp), std::move(pAnswerSemExp),
+                               pSemanticMemory, pLingDb);
+}
+
+
 void operator_addOtherTriggerFormulations(const std::string& pTriggerText,
                                           const std::string& pAnswerText,
                                           SemanticMemory& pSemanticMemory,

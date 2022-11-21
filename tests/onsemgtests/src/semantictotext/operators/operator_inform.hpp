@@ -19,13 +19,23 @@ struct SemanticMemory;
 struct ExpressionWithLinks;
 struct SentenceWithLinks;
 struct TextProcessingContext;
+struct SemanticAgentGrounding;
+
+
+std::shared_ptr<ExpressionWithLinks> operator_inform_withTextProc(
+    const std::string& pText,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    const std::list<std::string>& pReferences,
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+    const TextProcessingContext& pTextProcContext,
+    std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>());
 
 std::shared_ptr<ExpressionWithLinks> operator_inform(const std::string& pText,
-                                                            SemanticMemory& pSemanticMemory,
-                                                            const linguistics::LinguisticDatabase& pLingDb,
-                                                            const std::list<std::string>& pReferences = std::list<std::string>(),
-                                                            std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr,
-                                                            const TextProcessingContext* pTextProcContextPtr = nullptr);
+                                                     SemanticMemory& pSemanticMemory,
+                                                     const linguistics::LinguisticDatabase& pLingDb,
+                                                     const std::list<std::string>& pReferences = std::list<std::string>(),
+                                                     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
 
 std::shared_ptr<ExpressionWithLinks> operator_inform_fromRobot(const std::string& pText,
                                                                       SemanticMemory& pSemanticMemory,

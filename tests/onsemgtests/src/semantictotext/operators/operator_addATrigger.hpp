@@ -11,6 +11,7 @@ namespace linguistics
 struct LinguisticDatabase;
 }
 struct SemanticMemory;
+struct UniqueSemanticExpression;
 
 
 void operator_addATrigger(const std::string& pTriggerText,
@@ -19,6 +20,11 @@ void operator_addATrigger(const std::string& pTriggerText,
                           const linguistics::LinguisticDatabase& pLingDb,
                           const std::list<std::string>& pReferences = std::list<std::string>());
 
+void operator_addATriggerToSemExpAnswer(
+    const std::string& pTriggerText,
+    UniqueSemanticExpression pAnswerSemExp,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb);
 
 } // End of namespace onsem
 
