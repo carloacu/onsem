@@ -192,3 +192,4 @@ Quelle heure est-il ?
 Quid de la justice
 De combien dois-je avancer en mètres ?
 Qu'est-ce que la Toussaint ?
+A qui demander de l'aide ?

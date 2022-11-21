@@ -566,11 +566,17 @@ void LinguisticSynthesizerFrench::_getQuestionWord
     }
     case SemanticRequestType::SUBJECT:
     {
+      auto* objectPtr = pIsPassive ? pSubjectPtr : pObjectPtr;
       if (pHoldingContextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERNOUN ||
           (pSubjectPtr != nullptr &&
            SemExpGetter::isWhoSemExp(**pSubjectPtr)))
       {
         _strToOut(pOut, PartOfSpeech::PRONOUN, "qui");
+        break;
+      }
+      if (objectPtr == nullptr)
+      {
+        _strToOut(pOut, PartOfSpeech::PRONOUN, "à qui");
         break;
       }
       bool needToWriteSubject = pIsEquVerb && pSubjectPtr == nullptr &&
