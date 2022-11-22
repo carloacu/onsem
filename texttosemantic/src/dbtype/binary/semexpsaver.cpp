@@ -265,6 +265,7 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
   {
     auto& agentGrd = pGrd.getAgentGrounding();
     binarysaver::writeString(pPtr, agentGrd.userId);
+    binarysaver::writeString(pPtr, agentGrd.userIdWithoutContext);
     const bool writeNameInfos = agentGrd.nameInfos.has_value();
     binarysaver::writeChar_0(pPtr.pchar, writeNameInfos);
     if (writeNameInfos)

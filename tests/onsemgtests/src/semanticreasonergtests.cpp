@@ -1,25 +1,19 @@
 #include "semanticreasonergtests.hpp"
 #include <iostream>
 #include <memory>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
-#include <onsem/common/binary/binarysaver.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
-#include <onsem/texttosemantic/dbtype/semanticexpression/listexpression.hpp>
-#include <onsem/texttosemantic/dbtype/binary/semexploader.hpp>
-#include <onsem/texttosemantic/dbtype/binary/semexpsaver.hpp>
-#include <onsem/texttosemantic/languagedetector.hpp>
-#include <onsem/texttosemantic/linguisticanalyzer.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/semexpsimplifer.hpp>
-#include <onsem/semantictotext/semanticconverter.hpp>
-#include <onsem/semanticdebugger/semanticdebug.hpp>
-#include <onsem/semanticdebugger/diagnosisprinter.hpp>
 #include <onsem/tester/syntacticanalysisxmlloader.hpp>
 #include <onsem/tester/syntacticanalysisxmlsaver.hpp>
+#include <onsem/semanticdebugger/diagnosisprinter.hpp>
+#include <onsem/texttosemantic/languagedetector.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/listexpression.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
+#include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/tester/sentencesloader.hpp>
-#include "util/util.hpp"
+#include <onsem/texttosemantic/linguisticanalyzer.hpp>
+#include <onsem/semantictotext/semexpsimplifer.hpp>
+
 
 using namespace onsem;
 std::string SemanticReasonerGTests::lingDbPath = "";
@@ -112,8 +106,8 @@ TEST_F(SemanticReasonerGTests, synthesizeManyCommands)
     auto listExp = std::make_unique<ListExpression>();
     auto textOfCommand = std::make_unique<GroundedExpression>
         (std::make_unique<SemanticResourceGrounding>("aMethodCall",
-                                                                    SemanticLanguageEnum::UNKNOWN,
-                                                                    "Service.method()"));
+                                                     SemanticLanguageEnum::UNKNOWN,
+                                                     "Service.method()"));
     listExp->elts.emplace_back(textOfCommand->clone());
     listExp->elts.emplace_back(textOfCommand->clone());
     return listExp;
@@ -253,28 +247,6 @@ TEST_F(SemanticReasonerGTests, CheckFillParameters)
       EXPECT_EQ("You don't see me.", semExpToText(std::move(resExp), SemanticLanguageEnum::ENGLISH, semMem, lingDb));
     }
   }
-}
-
-
-TEST_F(SemanticReasonerGTests, encodeDecodeASemanticExpressionInBinary)
-{
-  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
-  auto genGrd = std::make_unique<SemanticGenericGrounding>();
-  genGrd->entityType = SemanticEntityType::ANIMAL;
-  UniqueSemanticExpression semExp = std::make_unique<GroundedExpression>(std::move(genGrd));
-
-  const std::size_t maxSize = 10000;
-  binarymasks::Ptr mem = ::operator new(maxSize);
-  EXPECT_EQ(mem.val, binarysaver::alignMemory(mem).val);
-  binarymasks::Ptr beginPtr = mem;
-
-  semexpsaver::writeSemExp(mem, *semExp, lingDb, nullptr);
-
-  binarymasks::Ptr loaderPtr = beginPtr;
-  auto readSemExp = semexploader::loadSemExp(loaderPtr.pcuchar, lingDb);
-  ::operator delete(beginPtr.pchar);
-
-  EXPECT_EQ(*semExp, *readSemExp);
 }
 
 

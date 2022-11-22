@@ -8,6 +8,7 @@ set(ONSEMGTESTS_SRCS
   src/semanticreasonergtests.hpp
   src/semanticreasonergtests.cpp
   src/common/test_uppercasehandler.cpp
+  src/texttosemantic/test_binarization.cpp
   src/texttosemantic/test_conceptset.cpp
   src/texttosemantic/test_databasemodifications.cpp
   src/texttosemantic/test_serialization.cpp

@@ -142,7 +142,7 @@ int _loadCharOrInt(const unsigned char*& pPtr,
                    bool pCharOrInt)
 {
   if (pCharOrInt)
-    return static_cast<int>(*(pPtr++));
+    return static_cast<int>(*((const char*)(pPtr++)));
   auto resPtr = pPtr;
   pPtr += 4;
   return binaryloader::loadInt(resPtr);
@@ -234,8 +234,9 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
   }
   case SemanticGroundingType::AGENT:
   {
+    auto userId = binaryloader::loadString(pPtr);
     auto agentGrd = std::make_unique<SemanticAgentGrounding>
-        (binaryloader::loadString(pPtr));
+        (userId, binaryloader::loadString(pPtr));
     const bool writeNameInfos = binaryloader::loadChar_0(pPtr);
     if (writeNameInfos)
     {

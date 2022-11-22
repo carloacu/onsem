@@ -15,7 +15,7 @@
 using namespace onsem;
 
 
-void _checkSemExp_serialization(
+void _checkSemExp_binarization(
     const SemanticExpression& pSemExp,
     const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -37,7 +37,7 @@ void _checkSemExp_serialization(
 }
 
 
-void _test_serialization(const std::string& pTextCorpusFolder,
+void _test_binarization(const std::string& pTextCorpusFolder,
                          const std::string& pLanguageStr,
                          const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -49,7 +49,7 @@ void _test_serialization(const std::string& pTextCorpusFolder,
   for (const std::string& sent : sentences)
   {
     auto semExp = textToContextualSemExp(sent, pLingDb, language);
-    _checkSemExp_serialization(*semExp, pLingDb);
+    _checkSemExp_binarization(*semExp, pLingDb);
   }
 }
 
@@ -76,16 +76,16 @@ void _test_serialization_memory(const linguistics::LinguisticDatabase& pLingDb)
 TEST_F(SemanticReasonerGTests, serialization)
 {
   const linguistics::LinguisticDatabase& lingdb = *lingDbPtr;
-  _test_serialization(_corpusInputFolder, frenchStr, lingdb);
-  _test_serialization(_corpusInputFolder, englishStr, lingdb);
-  _test_serialization(_corpusInputFolder, japaneseStr, lingdb);
+  _test_binarization(_corpusInputFolder, frenchStr, lingdb);
+  _test_binarization(_corpusInputFolder, englishStr, lingdb);
+  _test_binarization(_corpusInputFolder, japaneseStr, lingdb);
   _test_serialization_memory(lingdb);
 
   // Check agent grounding serialization
   auto agentGrdExp = UniqueSemanticExpression(
         std::make_unique<GroundedExpression>(
           std::make_unique<SemanticAgentGrounding>("a", "b", std::vector<std::string>{"b"})));
-  _checkSemExp_serialization(*agentGrdExp, lingdb);
+  _checkSemExp_binarization(*agentGrdExp, lingdb);
 }
 
 
