@@ -45,12 +45,14 @@ namespace linguistics
 }
 struct SemanticMemory;
 struct UniqueSemanticExpression;
+struct SemanticExpression;
 
 static const std::string commonStr = "common";
 static const std::string frenchStr = "french";
 static const std::string englishStr = "english";
 static const std::string japaneseStr = "japanese";
 
+std::string printSemExp(const SemanticExpression& pSemExp);
 
 UniqueSemanticExpression textToSemExp
 (const std::string& pText,

@@ -8,11 +8,25 @@
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/serialization.hpp>
 #include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/texttosemantic/printer/expressionprinter.hpp>
+#include <onsem/semanticdebugger/printer/semexplinestostr.hpp>
 #include <onsem/tester/resourcelabelfortests.hpp>
 
 
 namespace onsem
 {
+
+
+std::string printSemExp(const SemanticExpression& pSemExp)
+{
+  const auto& semExpLinesToStr = SemExpLinesToStr::getInstance(PrintSemExpDiffsOutPutFormat::CONSOLE);
+  std::list<SemLineToPrint> semExpStrs;
+  printer::prettyPrintSemExp(semExpStrs, pSemExp);
+  std::string res;
+  semExpLinesToStr.printLines(res, semExpStrs);
+  return res;
+}
+
 
 UniqueSemanticExpression textToSemExp
 (const std::string& pText,

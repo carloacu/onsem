@@ -46,6 +46,7 @@ static const std::string listExpTypeDefaultStr = listExpressionType_toStr(ListEx
 static const std::string semanticRefTypeDefaultStr = semanticReferenceType_toStr(SemanticReferenceType::UNDEFINED);
 static const std::string agentTypeDefaultStr = semanticEntityType_toStr(SemanticEntityType::UNKNOWN);
 static const std::string semQuantityTypeDefaultStr = semanticQuantityType_toStr(SemanticQuantityType::UNKNOWN);
+static const std::string semanticSubjectiveQuantityDefaultStr = semanticSubjectiveQuantity_toStr(SemanticSubjectiveQuantity::UNKNOWN);
 static const std::string partOfSpeechDefaultStr = partOfSpeech_toStr(PartOfSpeech::UNKNOWN);
 static const std::string verbTenseDefaultStr = semanticVerbTense_toStr(SemanticVerbTense::UNKNOWN);
 static const std::string verbTensePresentStr = semanticVerbTense_toStr(SemanticVerbTense::PRESENT);
@@ -135,10 +136,11 @@ std::unique_ptr<SemanticNameGrounding> _loadNameGrd(const boost::property_tree::
 
 std::unique_ptr<SemanticAgentGrounding> _loadAgentGrd(const boost::property_tree::ptree& pTree)
 {
-  auto res = std::make_unique<SemanticAgentGrounding>(pTree.get("userId", SemanticAgentGrounding::userNotIdentified));
+  auto userId = pTree.get("userId", SemanticAgentGrounding::userNotIdentified);
+  auto userIdWithoutContext = pTree.get("userIdWithoutContext", userId);
+  auto res = std::make_unique<SemanticAgentGrounding>(userId, userIdWithoutContext);
   res->concepts.clear();
   _loadGrd(*res, pTree);
-
   auto nameGrdTreeOpt = pTree.get_child_optional("nameInfos");
   if (nameGrdTreeOpt)
   {
@@ -206,6 +208,8 @@ void _loadSemanticQuantity(SemanticQuantity& pSemanticQuantity,
 {
   pSemanticQuantity.type = semanticQuantityType_fromStr(pTree.get("type", semQuantityTypeDefaultStr));
   pSemanticQuantity.nb = pTree.get("nb", 0);
+  pSemanticQuantity.paramSpec = pTree.get("paramSpec", "");
+  pSemanticQuantity.subjectiveValue = semanticSubjectiveQuantity_fromStr(pTree.get("subjectiveValue", semanticSubjectiveQuantityDefaultStr));
 }
 
 void _loadSemanticWord(SemanticWord& pSemanticWord,

@@ -4,6 +4,7 @@
 
 namespace onsem
 {
+// TODO: do more specific default values
 const std::string SemanticAgentGrounding::currentUser = "currentUser";
 const std::string SemanticAgentGrounding::anyUser = "any";
 const std::string SemanticAgentGrounding::userNotIdentified = "-1";
@@ -27,6 +28,20 @@ SemanticAgentGrounding::SemanticAgentGrounding
   : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
     userIdWithoutContext(pUserId),
+    nameInfos()
+{
+  if (userId == SemanticAgentGrounding::me)
+    concepts["agent_*"] = 4;
+  else
+    concepts["agent_human_*"] = 4;
+}
+
+SemanticAgentGrounding::SemanticAgentGrounding
+(const std::string& pUserId,
+ const std::string& pUserIdWithoutContext)
+  : SemanticGrounding(SemanticGroundingType::AGENT),
+    userId(pUserId),
+    userIdWithoutContext(pUserIdWithoutContext),
     nameInfos()
 {
   if (userId == SemanticAgentGrounding::me)

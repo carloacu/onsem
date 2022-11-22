@@ -2,7 +2,9 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/serialization.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
@@ -12,6 +14,27 @@
 
 using namespace onsem;
 
+
+void _checkSemExp_serialization(
+    const SemanticExpression& pSemExp,
+    const linguistics::LinguisticDatabase& pLingDb)
+{
+  boost::property_tree::ptree firstPropTree;
+  serialization::saveSemExp(firstPropTree, pSemExp);
+
+  auto semExp2 = serialization::loadSemExp(firstPropTree);
+  boost::property_tree::ptree secondPropTree;
+  serialization::saveSemExp(secondPropTree, *semExp2);
+
+  ASSERT_FALSE(firstPropTree.empty());
+  if (pSemExp != *semExp2)
+  {
+    std::cerr << "exp1:\n" << printSemExp(pSemExp) << std::endl;
+    std::cerr << "exp2:\n" << printSemExp(*semExp2) << std::endl;
+    EXPECT_EQ(pSemExp, *semExp2);
+  }
+  ASSERT_EQ(firstPropTree, secondPropTree);
+}
 
 
 void _test_serialization(const std::string& pTextCorpusFolder,
@@ -25,16 +48,8 @@ void _test_serialization(const std::string& pTextCorpusFolder,
   const std::vector<std::string>& sentences = sentencesXml.getSentences();
   for (const std::string& sent : sentences)
   {
-    auto semExp = textToSemExp(sent, pLingDb, language);
-    boost::property_tree::ptree firstPropTree;
-    serialization::saveSemExp(firstPropTree, *semExp);
-
-    auto semExp2 = serialization::loadSemExp(firstPropTree);
-    boost::property_tree::ptree secondPropTree;
-    serialization::saveSemExp(secondPropTree, *semExp2);
-
-    ASSERT_FALSE(firstPropTree.empty());
-    ASSERT_EQ(firstPropTree, secondPropTree);
+    auto semExp = textToContextualSemExp(sent, pLingDb, language);
+    _checkSemExp_serialization(*semExp, pLingDb);
   }
 }
 
@@ -65,6 +80,12 @@ TEST_F(SemanticReasonerGTests, serialization)
   _test_serialization(_corpusInputFolder, englishStr, lingdb);
   _test_serialization(_corpusInputFolder, japaneseStr, lingdb);
   _test_serialization_memory(lingdb);
+
+  // Check agent grounding serialization
+  auto agentGrdExp = UniqueSemanticExpression(
+        std::make_unique<GroundedExpression>(
+          std::make_unique<SemanticAgentGrounding>("a", "b", std::vector<std::string>{"b"})));
+  _checkSemExp_serialization(*agentGrdExp, lingdb);
 }
 
 

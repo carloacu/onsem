@@ -104,6 +104,8 @@ void _saveAgentGrd(boost::property_tree::ptree& pTree,
   _saveGrd(pTree, pAgentGrd);
   if (pAgentGrd.userId != SemanticAgentGrounding::userNotIdentified)
     pTree.put("userId", pAgentGrd.userId);
+  if (pAgentGrd.userIdWithoutContext != pAgentGrd.userId)
+    pTree.put("userIdWithoutContext", pAgentGrd.userIdWithoutContext);
   if (pAgentGrd.nameInfos)
     _saveNameInfos(pTree.put_child("nameInfos", {}), *pAgentGrd.nameInfos);
 }
@@ -226,6 +228,10 @@ void _saveSemanticQuantity(boost::property_tree::ptree& pTree,
     pTree.put("type", semanticQuantityType_toStr(pSemanticQuantity.type));
   if (pSemanticQuantity.nb != 0)
     pTree.put("nb", pSemanticQuantity.nb);
+  if (!pSemanticQuantity.paramSpec.empty())
+    pTree.put("paramSpec", pSemanticQuantity.paramSpec);
+  if (pSemanticQuantity.subjectiveValue != SemanticSubjectiveQuantity::UNKNOWN)
+    pTree.put("subjectiveValue", semanticSubjectiveQuantity_toStr(pSemanticQuantity.subjectiveValue));
 }
 
 

@@ -17,6 +17,8 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticAgentGrounding : public SemanticGroundin
   SemanticAgentGrounding();
   SemanticAgentGrounding(const std::string& pUserId);
   SemanticAgentGrounding(const std::string& pUserId,
+                         const std::string& pUserIdWithoutContext);
+  SemanticAgentGrounding(const std::string& pUserId,
                          const std::string& pUserIdWithoutContext,
                          const NameInfos& pNameInfos);
   SemanticAgentGrounding(const std::string& pUserId,
@@ -40,6 +42,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticAgentGrounding : public SemanticGroundin
   bool operator==(const SemanticAgentGrounding& pOther) const { return this->isEqual(pOther); }
   bool isEqual(const SemanticAgentGrounding& pOther) const
   { return _isMotherClassEqual(pOther) && userId == pOther.userId &&
+        userIdWithoutContext == pOther.userIdWithoutContext &&
         nameInfos == pOther.nameInfos; }
 
   bool isSpecificUser() const

@@ -1120,7 +1120,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     {
       if (hasASpecificUserId)
       {
-        auto agentGrd = std::make_unique<SemanticAgentGrounding>(pGeneral.agentWeAreTalkingAbout->userId, names);
+        const std::string userIdWithoutContext = SemanticAgentGrounding::namesToUserId(names);
+        auto agentGrd = std::make_unique<SemanticAgentGrounding>(pGeneral.agentWeAreTalkingAbout->userId, userIdWithoutContext, names);
         fConfiguration.getFlsChecker().initGenderSetFromIGram
             (agentGrd->nameInfos->possibleGenders, headInflWord);
         return std::make_unique<GroundedExpression>(std::move(agentGrd));
