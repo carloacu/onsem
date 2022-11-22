@@ -8,10 +8,10 @@ set(ONSEMGTESTS_SRCS
   src/semanticreasonergtests.hpp
   src/semanticreasonergtests.cpp
   src/common/test_uppercasehandler.cpp
-  src/semanticmodel/test_conceptset.cpp
-  src/semanticmodel/test_databasemodifications.cpp
-  src/semanticmodel/test_serialization.cpp
-  src/semanticmodel/test_semanticmodel_tool.cpp
+  src/texttosemantic/test_conceptset.cpp
+  src/texttosemantic/test_databasemodifications.cpp
+  src/texttosemantic/test_serialization.cpp
+  src/texttosemantic/test_semanticmodel_tool.cpp
   src/linguisticanalyzer/test_isComplete.cpp
   src/linguisticanalyzer/test_inflections.cpp
   src/linguisticanalyzer/test_dates.cpp
