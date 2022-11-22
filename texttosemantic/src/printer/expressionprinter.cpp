@@ -316,9 +316,9 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  const SemanticAgentGrounding& pGrounding)
 {
   if (pGrounding.userId != SemanticAgentGrounding::userNotIdentified)
-  {
     pPrinterBuff.elts.emplace_back("userId(" + pGrounding.userId + ")");
-  }
+  if (pGrounding.userIdWithoutContext != pGrounding.userId)
+    pPrinterBuff.elts.emplace_back("userIdWithoutContext(" + pGrounding.userIdWithoutContext + ")");
 
   if (!pGrounding.concepts.empty())
   {
