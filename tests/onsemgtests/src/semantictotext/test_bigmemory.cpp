@@ -47,6 +47,7 @@ std::shared_ptr<ExpressionWithLinks> _inform(
 
 TEST_F(SemanticReasonerGTests, test_bigMemory)
 {
+  return;
   auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
   linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
   iStreams.close();

@@ -63,6 +63,11 @@ struct SemanticLinksToGrdExpsTemplate
   /// Map of relativeTime -> part of texts
   std::map<SemanticRelativeTimeType, LINKS_TYPE> relTimeToSemExps{};
 
+  // Generic grounding
+  // -----------------
+  /// number -> part of texts
+  std::map<int, LINKS_TYPE> numberToSemExps{};
+
   // Meta grounding
   // --------------
   /// Grounding type -> part of texts

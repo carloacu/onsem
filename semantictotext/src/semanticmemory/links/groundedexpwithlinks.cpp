@@ -365,6 +365,7 @@ void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
 
   _fillMemBlocLinks(pLinks.relLocationToSemExps, pLinksFromMemSentence.relLocationToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.relTimeToSemExps, pLinksFromMemSentence.relTimeToSemExps, pMemSentenceId);
+  _fillMemBlocLinks(pLinks.numberToSemExps, pLinksFromMemSentence.numberToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.grdTypeToSemExps, pLinksFromMemSentence.grdTypeToSemExps, pMemSentenceId);
   _fillMemBlocLinksForRadixMap(pLinks.userIdToSemExps, pLinksFromMemSentence.userIdToSemExps, pMemSentenceId);
   for (auto& currElt : pLinksFromMemSentence.textToSemExps)
@@ -506,6 +507,8 @@ void _removeLinksFrom(SemanticLinksToGrdExps& pToFilter,
                      pLinksFromMemSentence.relLocationToSemExps, pMemSentenceId);
   _removeMemoryLinks(pToFilter.relTimeToSemExps,
                      pLinksFromMemSentence.relTimeToSemExps, pMemSentenceId);
+  _removeMemoryLinks(pToFilter.numberToSemExps,
+                     pLinksFromMemSentence.numberToSemExps, pMemSentenceId);
   _removeMemoryLinks(pToFilter.grdTypeToSemExps,
                      pLinksFromMemSentence.grdTypeToSemExps, pMemSentenceId);
   _removeMemoryLinksForRadixMap(pToFilter.userIdToSemExps,
@@ -1170,6 +1173,10 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
           pEnsureLinksToGrdExps().everythingOrNoEntityTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
         else // link the non specific stuffs
           pEnsureLinksToGrdExps().genGroundingTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
+      }
+      else if (genGrounding.quantity.type == SemanticQuantityType::NUMBER)
+      {
+        pEnsureLinksToGrdExps().numberToSemExps[genGrounding.quantity.nb].emplace_back(newMemGrdExp);
       }
 
       // Link also the lemma in lower case

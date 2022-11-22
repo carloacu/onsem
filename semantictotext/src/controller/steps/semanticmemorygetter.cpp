@@ -500,6 +500,40 @@ bool _hasStaticLinks(const unsigned char* pPtr)
 }
 
 
+
+template <bool IS_MODIFIABLE>
+bool _getNumberRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
+                         const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
+                         MemoryLinksAccessor<IS_MODIFIABLE>& pLinksToSemExps,
+                         int pNumber,
+                         const GroundedExpression& pGrdExpToLookFor,
+                         const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
+                         const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
+                         const linguistics::LinguisticDatabase& pLingDb,
+                         bool pCheckChildren)
+{
+  bool res = false;
+  if (pLinksToSemExps.d != nullptr)
+  {
+    auto itNbToSemExp = pLinksToSemExps.d->numberToSemExps.find(pNumber);
+    if (itNbToSemExp != pLinksToSemExps.d->numberToSemExps.end())
+    {
+      IntIdToMemSentenceAccessor<IS_MODIFIABLE> accessor(itNbToSemExp->second);
+      res = _addPotentialNewRelationsFromLinks(pRelations, pAlreadyMatchedSentences, &accessor, nullptr,
+                                               &pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr,
+                                               pLingDb, pCheckChildren) || res;
+    }
+  }
+  /*
+  if (pLinksToSemExps.c != nullptr)
+  {
+    // TODO: add binary memory search
+  }
+  */
+  return res;
+}
+
+
 template <bool IS_MODIFIABLE>
 bool _getTextRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                        const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
@@ -948,6 +982,15 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
     // add semantic expressions that have a concept in common
     res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.concepts, &pGrdExpToLookFor,
                                          pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+  }
+
+  if (pGenGrd.word.lemma.empty() &&
+      pGenGrd.concepts.empty() &&
+      pGenGrd.quantity.type == SemanticQuantityType::NUMBER)
+  {
+    res = _getNumberRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.quantity.nb,
+                              pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb,
+                              pCheckChildren) || res;
   }
 
   res = _indefiniteThingsCheckMatching(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.entityType, pGrdExpToLookFor,
