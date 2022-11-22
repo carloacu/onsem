@@ -13,6 +13,7 @@ const std::string SemanticAgentGrounding::me = "me";
 SemanticAgentGrounding::SemanticAgentGrounding()
   : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(userNotIdentified),
+    userIdWithoutContext(userNotIdentified),
     nameInfos()
 {
   if (userId == SemanticAgentGrounding::me)
@@ -25,6 +26,7 @@ SemanticAgentGrounding::SemanticAgentGrounding
 (const std::string& pUserId)
   : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
+    userIdWithoutContext(pUserId),
     nameInfos()
 {
   if (userId == SemanticAgentGrounding::me)
@@ -35,9 +37,11 @@ SemanticAgentGrounding::SemanticAgentGrounding
 
 SemanticAgentGrounding::SemanticAgentGrounding
 (const std::string& pUserId,
+ const std::string& pUserIdWithoutContext,
  const NameInfos& pNameInfos)
   : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
+    userIdWithoutContext(pUserIdWithoutContext),
     nameInfos(pNameInfos)
 {
   if (userId == SemanticAgentGrounding::me)
@@ -47,9 +51,11 @@ SemanticAgentGrounding::SemanticAgentGrounding
 }
 
 SemanticAgentGrounding::SemanticAgentGrounding(const std::string& pUserId,
+                                               const std::string &pUserIdWithoutContext,
                                                const std::vector<std::string>& pNames)
   : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
+    userIdWithoutContext(pUserIdWithoutContext),
     nameInfos(pNames)
 {
   if (userId == SemanticAgentGrounding::me)
@@ -60,9 +66,11 @@ SemanticAgentGrounding::SemanticAgentGrounding(const std::string& pUserId,
 
 
 SemanticAgentGrounding::SemanticAgentGrounding(const std::string& pUserId,
+                                               const std::string &pUserIdWithoutContext,
                                                const std::list<std::string>& pNames)
   : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(pUserId),
+    userIdWithoutContext(pUserIdWithoutContext),
     nameInfos(pNames)
 {
   if (userId == SemanticAgentGrounding::me)
@@ -74,6 +82,7 @@ SemanticAgentGrounding::SemanticAgentGrounding(const std::string& pUserId,
 SemanticAgentGrounding::SemanticAgentGrounding(const std::vector<std::string>& pNames)
   : SemanticGrounding(SemanticGroundingType::AGENT),
     userId(namesToUserId(pNames)),
+    userIdWithoutContext(userId),
     nameInfos(pNames)
 {
   if (userId == SemanticAgentGrounding::me)
@@ -86,6 +95,7 @@ SemanticAgentGrounding::SemanticAgentGrounding(const std::vector<std::string>& p
 SemanticAgentGrounding::SemanticAgentGrounding(const SemanticAgentGrounding& pOther)
   : SemanticGrounding(pOther),
     userId(pOther.userId),
+    userIdWithoutContext(pOther.userIdWithoutContext),
     nameInfos(pOther.nameInfos)
 {
 }
@@ -102,5 +112,9 @@ std::string SemanticAgentGrounding::namesToUserId(const std::vector<std::string>
   return mystd::join(pNames, "-");
 }
 
+std::string SemanticAgentGrounding::namesToUserId(const std::list<std::string>& pNames)
+{
+  return mystd::join(pNames, "-");
+}
 
 } // End of namespace onsem

@@ -340,8 +340,13 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     {
     case SemanticGroundingType::AGENT:
     {
-      return bool_toImbricationType(_userIdsAreEqual(pGrounding1.getAgentGrounding().userId, pGrounding2.getAgentGrounding().userId,
-                                                     pMemBlock, pExceptionsPtr));
+      const auto& agentGrd1 = pGrounding1.getAgentGrounding();
+      const auto& agentGrd2 = pGrounding2.getAgentGrounding();
+      bool res = _userIdsAreEqual(agentGrd1.userId, agentGrd2.userId, pMemBlock, pExceptionsPtr);
+      if (!res)
+        res = agentGrd1.userIdWithoutContext == agentGrd2.userIdWithoutContext &&
+            agentGrd1.userIdWithoutContext != SemanticAgentGrounding::userNotIdentified;
+      return bool_toImbricationType(res);
     }
     case SemanticGroundingType::GENERIC:
     {
@@ -1195,7 +1200,9 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
         ++itChild1;
         continue;
       }
-      auto newChildImbr = getSemExpsImbrications(*itChild1->second, *itChild2->second, pMemBlock, pLingDb, pExceptionsPtr,
+      const auto& semExp1 = *itChild1->second;
+      const auto& semExp2 = *itChild2->second;
+      auto newChildImbr = getSemExpsImbrications(semExp1, semExp2, pMemBlock, pLingDb, pExceptionsPtr,
                                                  pComparisonErrorReportingPtr, itChild1->first);
       childImbr = childImbr ? _mergeChildImbrications(newChildImbr, *childImbr) : newChildImbr;
     }

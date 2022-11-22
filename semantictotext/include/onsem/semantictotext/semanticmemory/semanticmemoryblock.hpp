@@ -107,7 +107,8 @@ struct ONSEMSEMANTICTOTEXT_API SemanticMemoryBlock
                                                                       const linguistics::LinguisticDatabase& pLingDb) const;
   void getAllEquivalentUserIds(std::list<std::string>& pRes,
                                const std::string& pUser) const;
-  std::string getUserId(const std::vector<std::string>& pNames) const;
+  std::string getUserId(const std::vector<std::string>& pNames,
+                        const std::string &pUserIdWithoutContext) const;
   std::string getUserIdFromGrdExp(const GroundedExpression& pGrdExp,
                                   const linguistics::LinguisticDatabase& pLingDb) const;
   bool areSameUser(const std::string& pUserId1,

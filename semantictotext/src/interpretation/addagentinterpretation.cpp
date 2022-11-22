@@ -53,10 +53,11 @@ void _addAgentInterpretations(UniqueSemanticExpression& pSemExp,
       if (pParentGrammaticalType == GrammaticalType::LOCATION)
         break;
       SemanticNameGrounding& nameGrd = grdExp->getNameGrounding();
-      std::string userId = pSemanticMemory.memBloc.getUserId(nameGrd.nameInfos.names);
+      const std::string userIdWithoutContext = SemanticAgentGrounding::namesToUserId(nameGrd.nameInfos.names);
+      std::string userId = pSemanticMemory.memBloc.getUserId(nameGrd.nameInfos.names, userIdWithoutContext);
       if (pSemanticMemory.memBloc.isItMe(userId))
         pIsMeFromMyName = true;
-      grdExp.moveGrounding(std::make_unique<SemanticAgentGrounding>(userId, nameGrd.nameInfos));
+      grdExp.moveGrounding(std::make_unique<SemanticAgentGrounding>(userId, userIdWithoutContext, nameGrd.nameInfos));
     }
     else if (grdExp.grounding().type == SemanticGroundingType::GENERIC)
     {

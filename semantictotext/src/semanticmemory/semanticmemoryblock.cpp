@@ -345,11 +345,11 @@ void SemanticMemoryBlock::_nameToUserIds(std::set<std::string>& pUserIds,
 }
 
 
-std::string SemanticMemoryBlock::getUserId(const std::vector<std::string>& pNames) const
+std::string SemanticMemoryBlock::getUserId(const std::vector<std::string>& pNames,
+                                           const std::string& pUserIdWithoutContext) const
 {
-  const std::string rootNewUserIdNameCandidate = SemanticAgentGrounding::namesToUserId(pNames);
   std::string hardCodedUserId;
-  if (_userIdToHardCodedUserId(hardCodedUserId, rootNewUserIdNameCandidate))
+  if (_userIdToHardCodedUserId(hardCodedUserId, pUserIdWithoutContext))
     return hardCodedUserId;
 
   std::set<std::string> userIds;
@@ -400,7 +400,7 @@ std::string SemanticMemoryBlock::getUserId(const std::vector<std::string>& pName
     if (resPtr != nullptr)
       return *resPtr;
   }
-  return _generateNewUserId(rootNewUserIdNameCandidate);
+  return _generateNewUserId(pUserIdWithoutContext);
 }
 
 
