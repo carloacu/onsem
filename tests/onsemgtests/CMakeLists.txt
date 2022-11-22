@@ -7,7 +7,6 @@ set(ONSEMGTESTS_SRCS
   src/util/util.cpp
   src/semanticreasonergtests.hpp
   src/semanticreasonergtests.cpp
-  src/bnfparser/test_bnfparser.cpp
   src/common/test_uppercasehandler.cpp
   src/semanticmodel/test_conceptset.cpp
   src/semanticmodel/test_databasemodifications.cpp
