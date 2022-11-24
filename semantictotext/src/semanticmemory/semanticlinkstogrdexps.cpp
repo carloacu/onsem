@@ -186,6 +186,7 @@ void SemanticLinksToGrdExpsTemplate<LINKS_TYPE>::clear()
   quantityTypeToSemExps.clear();
   referenceWithoutConceptToSemExps.clear();
   coreferenceWithoutConceptOrReferenceToSemExps.clear();
+  statementCoreferenceWithoutConceptToSemExps.clear();
   grdTypeToSemExps.clear();
   userIdToSemExps.clear();
   userIdWithoutContextToSemExps.clear();
@@ -208,6 +209,7 @@ bool SemanticLinksToGrdExpsTemplate<LINKS_TYPE>::empty() const
       quantityTypeToSemExps.empty() &&
       referenceWithoutConceptToSemExps.empty() &&
       coreferenceWithoutConceptOrReferenceToSemExps.empty() &&
+      statementCoreferenceWithoutConceptToSemExps.empty() &&
       relTimeToSemExps.empty() &&
       grdTypeToSemExps.empty() &&
       userIdToSemExps.empty() &&

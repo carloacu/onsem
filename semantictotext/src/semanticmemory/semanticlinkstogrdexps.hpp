@@ -76,6 +76,10 @@ struct SemanticLinksToGrdExpsTemplate
   /// coreference without concept or reference -> part of texts
   std::map<CoreferenceDirectionEnum, LINKS_TYPE> coreferenceWithoutConceptOrReferenceToSemExps{};
 
+  // Statement grounding
+  // -------------------
+  /// statmeent coreference without concept -> part of texts
+  std::map<CoreferenceDirectionEnum, LINKS_TYPE> statementCoreferenceWithoutConceptToSemExps{};
 
   // Meta grounding
   // --------------

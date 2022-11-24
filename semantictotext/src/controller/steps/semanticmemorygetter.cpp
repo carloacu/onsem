@@ -637,6 +637,40 @@ bool _getCoreferenceWithoutConceptOrReferenceRelations(RelationsThatMatch<IS_MOD
 
 
 template <bool IS_MODIFIABLE>
+bool _getStatementCoreferenceWithoutConceptRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
+                                                     const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
+                                                     MemoryLinksAccessor<IS_MODIFIABLE>& pLinksToSemExps,
+                                                     CoreferenceDirectionEnum pCoreferenceDirection,
+                                                     const GroundedExpression& pGrdExpToLookFor,
+                                                     const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
+                                                     const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
+                                                     const linguistics::LinguisticDatabase& pLingDb,
+                                                     bool pCheckChildren)
+{
+  bool res = false;
+  if (pLinksToSemExps.d != nullptr)
+  {
+    auto itToSemExp = pLinksToSemExps.d->statementCoreferenceWithoutConceptToSemExps.find(pCoreferenceDirection);
+    if (itToSemExp != pLinksToSemExps.d->statementCoreferenceWithoutConceptToSemExps.end())
+    {
+      IntIdToMemSentenceAccessor<IS_MODIFIABLE> accessor(itToSemExp->second);
+      res = _addPotentialNewRelationsFromLinks(pRelations, pAlreadyMatchedSentences, &accessor, nullptr,
+                                               &pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr,
+                                               pLingDb, pCheckChildren) || res;
+    }
+  }
+  /*
+  if (pLinksToSemExps.c != nullptr)
+  {
+    // TODO: add binary memory search
+  }
+  */
+  return res;
+}
+
+
+
+template <bool IS_MODIFIABLE>
 bool _getTextRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                        const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
                        MemoryLinksAccessor<IS_MODIFIABLE>& pLinksToSemExps,
@@ -1189,6 +1223,15 @@ bool _statementGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>&
                                   lingMeaning.language, lingMeaning.meaningId,
                                   pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
   }
+
+  if (pStatGrd.coreference &&
+      pStatGrd.word.lemma.empty() && pStatGrd.concepts.empty())
+  {
+    _getStatementCoreferenceWithoutConceptRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pStatGrd.coreference->getDirection(),
+                                                    pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb,
+                                                    pCheckChildren) || res;
+  }
+
   return res;
 }
 

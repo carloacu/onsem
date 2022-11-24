@@ -369,6 +369,7 @@ void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
   _fillMemBlocLinks(pLinks.quantityTypeToSemExps, pLinksFromMemSentence.quantityTypeToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.referenceWithoutConceptToSemExps, pLinksFromMemSentence.referenceWithoutConceptToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.coreferenceWithoutConceptOrReferenceToSemExps, pLinksFromMemSentence.coreferenceWithoutConceptOrReferenceToSemExps, pMemSentenceId);
+  _fillMemBlocLinks(pLinks.statementCoreferenceWithoutConceptToSemExps, pLinksFromMemSentence.statementCoreferenceWithoutConceptToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.grdTypeToSemExps, pLinksFromMemSentence.grdTypeToSemExps, pMemSentenceId);
   _fillMemBlocLinksForRadixMap(pLinks.userIdToSemExps, pLinksFromMemSentence.userIdToSemExps, pMemSentenceId);
   _fillMemBlocLinksForRadixMap(pLinks.userIdWithoutContextToSemExps, pLinksFromMemSentence.userIdWithoutContextToSemExps, pMemSentenceId);
@@ -519,6 +520,8 @@ void _removeLinksFrom(SemanticLinksToGrdExps& pToFilter,
                      pLinksFromMemSentence.referenceWithoutConceptToSemExps, pMemSentenceId);
   _removeMemoryLinks(pToFilter.coreferenceWithoutConceptOrReferenceToSemExps,
                      pLinksFromMemSentence.coreferenceWithoutConceptOrReferenceToSemExps, pMemSentenceId);
+  _removeMemoryLinks(pToFilter.statementCoreferenceWithoutConceptToSemExps,
+                     pLinksFromMemSentence.statementCoreferenceWithoutConceptToSemExps, pMemSentenceId);
   _removeMemoryLinks(pToFilter.grdTypeToSemExps,
                      pLinksFromMemSentence.grdTypeToSemExps, pMemSentenceId);
   _removeMemoryLinksForRadixMap(pToFilter.userIdToSemExps,
@@ -1224,6 +1227,12 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
       // link the words from static binary dico
       if (!lingMeaning.isEmpty())
         _linkLingMeaning(pEnsureLinksToGrdExps(), newMemGrdExp, statGrounding.word, lingMeaning);
+    }
+
+    if (statGrounding.coreference &&
+        statGrounding.word.lemma.empty() && statGrounding.concepts.empty())
+    {
+      pEnsureLinksToGrdExps().statementCoreferenceWithoutConceptToSemExps[statGrounding.coreference->getDirection()].emplace_back(newMemGrdExp);
     }
     break;
   }
