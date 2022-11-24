@@ -884,6 +884,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     {
       const std::string& relCptStr = timeRelConcepts.begin()->first;
       auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
+      timeGrounding->fromConcepts = timeRelConcepts;
       timeGrounding->date = pGeneral.syntGraphTime.date;
       if (timeGrounding->modifyTimeGrdAccordingToADayPart(relCptStr))
       {
@@ -909,6 +910,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
           ConceptSet::haveAConcept(introInflWord.infos.concepts, "reference_definite"))
       {
         auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
+        timeGrounding->fromConcepts.emplace("time_day", 4);
         timeGrounding->date = pGeneral.syntGraphTime.date;
         timeGrounding->length.add(SemanticTimeUnity::DAY, 1);
         return mystd::unique_propagate_const<UniqueSemanticExpression>(std::make_unique<GroundedExpression>(std::move(timeGrounding)));
@@ -933,10 +935,18 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
   bool headBeginWithTimeConcept = ConceptSet::haveAConceptThatBeginWith(headConcepts, "time_");
   if (headBeginWithTimeConcept)
   {
-    if ((pContext.holdingSentenceVerbTense == SemanticVerbTense::UNKNOWN ||
-         isAPresentTense(pContext.holdingSentenceVerbTense)) &&
-        (ConceptSet::haveAnyOfConcepts(headConcepts, {"time_relative_now", "time_relative_rightAway"})))
-      return std::make_unique<GroundedExpression>(std::make_unique<SemanticTimeGrounding>(pGeneral.syntGraphTime));
+    if (pGeneral.textProcContext.isTimeDependent &&
+        (pContext.holdingSentenceVerbTense == SemanticVerbTense::UNKNOWN ||
+         isAPresentTense(pContext.holdingSentenceVerbTense)))
+    {
+      auto timeCpt = ConceptSet::getAnyOfConcepts(headConcepts, {"time_relative_now", "time_relative_rightAway"});
+      if (!timeCpt.first.empty())
+      {
+        auto timeGrounding = std::make_unique<SemanticTimeGrounding>(pGeneral.syntGraphTime);
+        timeGrounding->fromConcepts.insert(timeCpt);
+        return std::make_unique<GroundedExpression>(std::move(timeGrounding));
+      }
+    }
 
     if (pGeneral.textProcContext.isTimeDependent)
     {
@@ -961,6 +971,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     if (weekDayConcepts.size() == 1)
     {
       auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
+      timeGrounding->fromConcepts = weekDayConcepts;
       timeGrounding->date.dayEqualToAWeekDayOfThisWeek
           (semanticTimeWeekdayEnum_fromStr(weekDayConcepts.begin()->first));
       return std::make_unique<GroundedExpression>(std::move(timeGrounding));

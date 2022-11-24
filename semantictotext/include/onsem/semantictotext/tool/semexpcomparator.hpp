@@ -21,7 +21,6 @@ struct SemanticGrounding;
 struct SemanticAgentGrounding;
 struct SemanticGenericGrounding;
 struct SemanticStatementGrounding;
-struct SemanticTimeGrounding;
 struct SemanticDurationGrounding;
 struct GroundedExpression;
 struct SemanticExpression;

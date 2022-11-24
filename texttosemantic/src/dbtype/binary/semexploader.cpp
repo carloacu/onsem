@@ -17,6 +17,35 @@ union BinaryHeader
 };
 
 
+void _loadConcepts(
+    std::map<std::string, char>& pConcepts,
+    const unsigned char*& pPtr,
+    const StaticConceptSet& pCptSet)
+{
+  const bool writeCptIds = binaryloader::loadChar_6(pPtr);
+  const bool writeCptStrings = binaryloader::loadChar_7(pPtr);
+  ++pPtr;
+  if (writeCptIds)
+  {
+    const unsigned char nbCptIds = *(pPtr++);
+    for (unsigned char i = 0; i < nbCptIds; ++i)
+    {
+      std::string cptName = pCptSet.conceptName(binaryloader::alignedDecToInt(binaryloader::loadInt(pPtr)));
+      pPtr += 3;
+      pConcepts.emplace(std::move(cptName), *(pPtr++));
+    }
+  }
+  if (writeCptStrings)
+  {
+    const unsigned char nbCptStrs = *(pPtr++);
+    for (unsigned char i = 0; i < nbCptStrs; ++i)
+    {
+      std::string cptName = binaryloader::loadString(pPtr);
+      pConcepts.emplace(std::move(cptName), *(pPtr++));
+    }
+  }
+}
+
 std::unique_ptr<SemanticGrounding> _loadMotherClass(
     const unsigned char*& pPtr,
     const StaticConceptSet& pCptSet)
@@ -30,28 +59,7 @@ std::unique_ptr<SemanticGrounding> _loadMotherClass(
     return res;
   }
   res->polarity = binaryloader::loadChar_5(pPtr);
-  const bool writeCptIds = binaryloader::loadChar_6(pPtr);
-  const bool writeCptStrings = binaryloader::loadChar_7(pPtr);
-  ++pPtr;
-  if (writeCptIds)
-  {
-    const unsigned char nbCptIds = *(pPtr++);
-    for (unsigned char i = 0; i < nbCptIds; ++i)
-    {
-      std::string cptName = pCptSet.conceptName(binaryloader::alignedDecToInt(binaryloader::loadInt(pPtr)));
-      pPtr += 3;
-      res->concepts.emplace(std::move(cptName), *(pPtr++));
-    }
-  }
-  if (writeCptStrings)
-  {
-    const unsigned char nbCptStrs = *(pPtr++);
-    for (unsigned char i = 0; i < nbCptStrs; ++i)
-    {
-      std::string cptName = binaryloader::loadString(pPtr);
-      res->concepts.emplace(std::move(cptName), *(pPtr++));
-    }
-  }
+  _loadConcepts(res->concepts, pPtr, pCptSet);
   return res;
 }
 
@@ -273,6 +281,7 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
       timeGrd.date.day.emplace(_loadCharOrInt(pPtr, writeDayInAChar));
     _loadDuration(timeGrd.timeOfDay, pPtr);
     _loadDuration(timeGrd.length, pPtr);
+    _loadConcepts(timeGrd.fromConcepts, pPtr, pLingDb.conceptSet.statDb);
     return res;
   }
   case SemanticGroundingType::DURATION:

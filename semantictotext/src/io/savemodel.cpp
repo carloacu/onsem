@@ -45,11 +45,12 @@ void _saveSemExp(boost::property_tree::ptree& pTree,
 
 
 void _saveConcepts(boost::property_tree::ptree& pTree,
-                   const std::map<std::string, char>& pConcepts)
+                   const std::map<std::string, char>& pConcepts,
+                   const std::string& pConceptsLabel = "concepts")
 {
   if (!pConcepts.empty())
   {
-    boost::property_tree::ptree& conceptsChild = pTree.put_child("concepts", {});
+    boost::property_tree::ptree& conceptsChild = pTree.put_child(pConceptsLabel, {});
     for (const auto& currCpt : pConcepts)
       conceptsChild.put(currCpt.first, currCpt.second);
   }
@@ -144,6 +145,7 @@ void _saveTimeGrd(boost::property_tree::ptree& pTree,
   _saveSemanticDate(pTree.put_child("date", {}), pTimeGrd.date);
   _saveSemanticDuration(pTree.put_child("timeOfDay", {}), pTimeGrd.timeOfDay);
   _saveSemanticDuration(pTree.put_child("length", {}), pTimeGrd.length);
+  _saveConcepts(pTree, pTimeGrd.fromConcepts, "fromConcepts");
 }
 
 

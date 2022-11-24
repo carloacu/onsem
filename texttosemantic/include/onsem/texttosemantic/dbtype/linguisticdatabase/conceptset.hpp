@@ -67,6 +67,10 @@ public:
   (const std::map<std::string, char>& pInputConcepts,
    const std::vector<std::string>& pConceptNames);
 
+  static std::pair<std::string, char> getAnyOfConcepts
+  (const std::map<std::string, char>& pInputConcepts,
+   const std::vector<std::string>& pConceptNames);
+
   static bool haveAConceptThatBeginWith
   (const std::map<std::string, char>& pInputConcepts,
    const std::string& pBeginOfConceptName);

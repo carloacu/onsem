@@ -50,7 +50,8 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticTimeGrounding : public SemanticGrounding
     : SemanticGrounding(SemanticGroundingType::TIME),
       date(),
       timeOfDay(),
-      length()
+      length(),
+      fromConcepts()
   {
   }
 
@@ -86,6 +87,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticTimeGrounding : public SemanticGrounding
   SemanticDate date;
   SemanticDuration timeOfDay;
   SemanticDuration length;
+  std::map<std::string, char> fromConcepts;
 
   static std::unique_ptr<SemanticDuration> hardCodedCurrentTimeOfDay;
 

@@ -1406,6 +1406,7 @@ bool _timeToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                                 const GroundedExpression& pGrdExpToLookFor,
                                 const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
                                 const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
+                                bool pIsATrigger,
                                 const linguistics::LinguisticDatabase& pLingDb,
                                 bool pCheckChildren,
                                 const SemanticRelativeTimeType* pRelativeTimePtr)
@@ -1418,6 +1419,14 @@ bool _timeToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
     // add semantic expressions that have a concept in common
     res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pTimeGrd.concepts, &pGrdExpToLookFor,
+                                         pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
+  }
+
+  if (pIsATrigger && !pTimeGrd.fromConcepts.empty())
+  {
+    OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
+    // add semantic expressions that have a concept in common
+    res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pTimeGrd.fromConcepts, &pGrdExpToLookFor,
                                          pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pLingDb, pCheckChildren) || res;
   }
 
@@ -1805,7 +1814,8 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   {
     const auto& timeGrd = pGrdExpToLookFor->getTimeGrounding();
     return _timeToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, timeGrd,
-                                      pRequestContext, pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb, pCheckChildren, pRelativeTimePtr);
+                                      pRequestContext, pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr,
+                                      pIsATrigger, pLingDb, pCheckChildren, pRelativeTimePtr);
   }
   case SemanticGroundingType::RELATIVELOCATION:
   {

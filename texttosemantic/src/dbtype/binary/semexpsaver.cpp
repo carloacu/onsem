@@ -12,24 +12,17 @@ namespace semexpsaver
 namespace
 {
 
-void _writeGroundingMotherClass(binarymasks::Ptr& pPtr,
-                                const SemanticGrounding& pGrd,
-                                const StaticConceptSet& pCptSet)
+void _writeConcepts(binarymasks::Ptr& pPtr,
+                    const std::map<std::string, char>& pConcepts,
+                    const StaticConceptSet& pCptSet)
 {
-  binarysaver::writeChar_0To4(pPtr.pchar, semanticGroundingsType_toChar(pGrd.type));
-  if (pGrd.type == SemanticGroundingType::AGENT)
-  {
-    ++pPtr.pchar;
-    return;
-  }
-  binarysaver::writeChar_5(pPtr.pchar, pGrd.polarity);
   auto* beginPchar = pPtr.pchar++;
 
   auto* beginNb = pPtr.pchar++;
   bool writeCptIds = false;
   std::list<std::pair<std::string, char>> concepts;
   std::size_t nbOfCptIds = 0;
-  for (const auto& currCpt : pGrd.concepts)
+  for (const auto& currCpt : pConcepts)
   {
     int cptId = pCptSet.getConceptId(currCpt.first);
     if (cptId != StaticConceptSet::noConcept)
@@ -64,6 +57,21 @@ void _writeGroundingMotherClass(binarymasks::Ptr& pPtr,
       binarysaver::writeChar(pPtr.pchar++, currCpt.second);
     }
   }
+}
+
+
+void _writeGroundingMotherClass(binarymasks::Ptr& pPtr,
+                                const SemanticGrounding& pGrd,
+                                const StaticConceptSet& pCptSet)
+{
+  binarysaver::writeChar_0To4(pPtr.pchar, semanticGroundingsType_toChar(pGrd.type));
+  if (pGrd.type == SemanticGroundingType::AGENT)
+  {
+    ++pPtr.pchar;
+    return;
+  }
+  binarysaver::writeChar_5(pPtr.pchar, pGrd.polarity);
+  _writeConcepts(pPtr, pGrd.concepts, pCptSet);
 }
 
 
@@ -304,6 +312,7 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
       _writeCharOrInt(pPtr, *timeGrd.date.day, writeDayInAChar);
     _writeDuration(pPtr, timeGrd.timeOfDay);
     _writeDuration(pPtr, timeGrd.length);
+    _writeConcepts(pPtr, timeGrd.fromConcepts, pLingDb.conceptSet.statDb);
     return;
   }
   case SemanticGroundingType::LENGTH:

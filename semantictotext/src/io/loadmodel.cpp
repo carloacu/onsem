@@ -97,9 +97,10 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _loadOptionalSemExp(cons
 
 
 void _loadConcepts(std::map<std::string, char>& pConcepts,
-                   const boost::property_tree::ptree& pTree)
+                   const boost::property_tree::ptree& pTree,
+                   const std::string& pConceptsLabel = "concepts")
 {
-  childLoop(pTree, currCpt, "concepts")
+  childLoop(pTree, currCpt, pConceptsLabel)
       pConcepts.emplace(currCpt.first.data(), currCpt.second.get_value<char>());
 }
 
@@ -195,10 +196,12 @@ void _loadSemanticDate(SemanticDate& pSemanticDate,
 std::unique_ptr<SemanticTimeGrounding> _loadTimeGrd(const boost::property_tree::ptree& pTree)
 {
   auto res = std::make_unique<SemanticTimeGrounding>();
-  _loadGrd(*res, pTree);
-  _loadSemanticDate(res->date, pTree.get_child("date"));
-  _loadSemanticDuration(res->timeOfDay, pTree.get_child("timeOfDay"));
-  _loadSemanticDuration(res->length, pTree.get_child("length"));
+  SemanticTimeGrounding& timeGrd = *res;
+  _loadGrd(timeGrd, pTree);
+  _loadSemanticDate(timeGrd.date, pTree.get_child("date"));
+  _loadSemanticDuration(timeGrd.timeOfDay, pTree.get_child("timeOfDay"));
+  _loadSemanticDuration(timeGrd.length, pTree.get_child("length"));
+  _loadConcepts(timeGrd.fromConcepts, pTree, "fromConcepts");
   return res;
 }
 

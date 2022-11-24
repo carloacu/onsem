@@ -49,12 +49,13 @@ void _flushStringStream(std::list<SemLineToPrint>& pLines,
 
 void _prettyPrintConcepts(std::list<std::string>& pElts,
                           const std::map<std::string, char>& pConcepts,
-                          bool pPolarity)
+                          bool pPolarity,
+                          const std::string& pConceptLabel = "concept")
 {
   for (const auto& currConcept : pConcepts)
   {
     std::stringstream ss;
-    ss << "concept(" << currConcept.first << ", "
+    ss << pConceptLabel << "(" << currConcept.first << ", "
        << static_cast<int>(pPolarity ? currConcept.second : -currConcept.second) << ")";
     pElts.emplace_back(ss.str());
   }
@@ -395,24 +396,22 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
   }
 
   _prettyPrintPossibleGenders(pPrinterBuff, pGrounding.possibleGenders);
-
-  if (!pGrounding.concepts.empty())
-  {
-    _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
-  }
+  _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
   _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticTimeGrounding& pGroundings)
+                                 const SemanticTimeGrounding& pTimeGrounding)
 {
   std::stringstream ss;
-  pGroundings.date.prettyPrint(ss);
+  pTimeGrounding.date.prettyPrint(ss);
   pPrinterBuff.elts.emplace_back(ss.str());
-  pGroundings.timeOfDay.printDuration(pPrinterBuff.elts, "timeOfDay");
-  _prettyPrintDuration(pLines, pPrinterBuff, "length", pGroundings.length);
+  pTimeGrounding.timeOfDay.printDuration(pPrinterBuff.elts, "timeOfDay");
+  pTimeGrounding.length.printDuration(pPrinterBuff.elts, "length");
+  _prettyPrintConcepts(pPrinterBuff.elts, pTimeGrounding.fromConcepts, true, "fromConcept");
+  _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 

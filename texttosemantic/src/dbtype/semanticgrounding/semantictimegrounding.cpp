@@ -386,7 +386,8 @@ bool SemanticTimeGrounding::isEqual
   return _isMotherClassEqual(pOther) &&
       date == pOther.date &&
       timeOfDay == pOther.timeOfDay &&
-      length == pOther.length;
+      length == pOther.length &&
+      fromConcepts == pOther.fromConcepts;
 }
 
 
@@ -557,6 +558,7 @@ void SemanticTimeGrounding::mergeWith(const SemanticTimeGrounding& pOther)
     length.clear();
   for (const auto& currTimeInfo : pOther.timeOfDay.timeInfos)
     timeOfDay.timeInfos.emplace(currTimeInfo.first, currTimeInfo.second);
+  fromConcepts.insert(pOther.fromConcepts.begin(), pOther.fromConcepts.end());
 }
 
 

@@ -188,6 +188,19 @@ bool ConceptSet::haveAnyOfConcepts
 }
 
 
+std::pair<std::string, char> ConceptSet::getAnyOfConcepts
+(const std::map<std::string, char>& pInputConcepts,
+ const std::vector<std::string>& pConceptNames)
+{
+  for (const auto& currConceptName : pConceptNames)
+  {
+    auto it = pInputConcepts.find(currConceptName);
+    if (it != pInputConcepts.end())
+      return *it;
+  }
+  return {};
+}
+
 bool ConceptSet::haveAConceptThatBeginWith
 (const std::map<std::string, char>& pInputConcepts,
  const std::string& pBeginOfConceptName)

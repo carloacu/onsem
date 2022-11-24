@@ -379,6 +379,21 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
         return ImbricationType::DIFFERS;
       return res;
     }
+    else
+    {
+      const auto* conceptualGrd2Ptr = pGrounding2.getConceptualGroundingPtr();
+      if (conceptualGrd2Ptr != nullptr)
+      {
+        const auto& timeGrd1 = pGrounding1.getTimeGrounding();
+        auto areCptsEqual = pLingDb.conceptSet.areConceptsCompatibles(timeGrd1.fromConcepts, pGrounding2.concepts);
+        if (areCptsEqual)
+        {
+          if (!*areCptsEqual)
+            return ImbricationType::DIFFERS;
+          return ImbricationType::EQUALS;
+        }
+      }
+    }
     break;
   }
   case SemanticGroundingType::DURATION:
@@ -493,6 +508,20 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     if (metaGrd2->refToType == pGrounding1.type)
       return ImbricationType::HYPONYM;
     return ImbricationType::HYPERNYM;
+  }
+  else
+  {
+    const auto* timeGrd2Ptr = pGrounding2.getTimeGroundingPtr();
+    if (timeGrd2Ptr != nullptr)
+    {
+      auto areCptsEqual = pLingDb.conceptSet.areConceptsCompatibles(pGrounding1.concepts, timeGrd2Ptr->fromConcepts);
+      if (areCptsEqual)
+      {
+        if (!*areCptsEqual)
+          return ImbricationType::DIFFERS;
+        return ImbricationType::EQUALS;
+      }
+    }
   }
 
   auto areCptsEqual = pLingDb.conceptSet.areConceptsCompatibles(pGrounding1.concepts, pGrounding2.concepts);
