@@ -104,14 +104,8 @@ inline std::unique_ptr<ConditionExpression> ConditionExpression::clone
 
 inline void ConditionExpression::toListOfGrdExpPtrs(std::list<const GroundedExpression*>& pGrdExpPtrs) const
 {
-  auto* conditionGrdExpPtr = conditionExp->getGrdExpPtr_SkipWrapperPtrs();
-  if (conditionGrdExpPtr == nullptr)
-    return;
-  pGrdExpPtrs.emplace_back(conditionGrdExpPtr);
-  auto* thenGrdExpPtr = thenExp->getGrdExpPtr_SkipWrapperPtrs();
-  if (thenGrdExpPtr == nullptr)
-    return;
-  pGrdExpPtrs.emplace_back(thenGrdExpPtr);
+  conditionExp->getGrdExpPtrs_SkipWrapperLists(pGrdExpPtrs);
+  thenExp->getGrdExpPtrs_SkipWrapperLists(pGrdExpPtrs);
 }
 
 } // End of namespace onsem

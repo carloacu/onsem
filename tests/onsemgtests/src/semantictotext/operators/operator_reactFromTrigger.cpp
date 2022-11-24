@@ -84,6 +84,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string itIsHardToSay = "C'est difficile à dire.";
   const std::string question1 = "Comment l'Église une ?";
   const std::string answer1 = "Cette question est bizarre.";
+  const std::string question2 = "Comment savoir si on fait le bon choix ?";
+  const std::string answer2 = "Ça donne la paix.";
   ONSEM_NOANSWER(operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
@@ -104,6 +106,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   operator_addATrigger(whatIs115, itIsSamusocial, semMem, lingDb);
   operator_addATrigger(longQuestion, itIsHardToSay, semMem, lingDb);
   operator_addATrigger(question1, answer1, semMem, lingDb);
+  operator_addATrigger(question2, answer2, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger(stopApplication, semMem, lingDb));
@@ -125,4 +128,5 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_ANSWER_EQ(itIsSamusocial, operator_reactFromTrigger(whatIs115, semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsHardToSay, operator_reactFromTrigger(longQuestion, semMem, lingDb));
   ONSEM_ANSWER_EQ(answer1, operator_reactFromTrigger(question1, semMem, lingDb));
+  ONSEM_ANSWER_EQ(answer2, operator_reactFromTrigger(question2, semMem, lingDb));
 }
