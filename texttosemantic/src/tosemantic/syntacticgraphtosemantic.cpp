@@ -1518,7 +1518,7 @@ void SyntacticGraphToSemantic::xAddModifiersOfATokenAfterVerb
       }
         return pGrdExp;
       }();
-      if (_shouldConceptsBeInsideAConceptualGrounding(hasReferenceConcept, firstTokIGram.infos.concepts))
+      if (_shouldConceptsBeInsideAConceptualGrounding(hasReferenceConcept, genGrounding->concepts))
       {
         SemExpModifier::addChild(rootGrdExp, childGrammType,
                                  std::make_unique<GroundedExpression>(
