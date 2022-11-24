@@ -427,6 +427,7 @@ void _getResultFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRes,
                           MemoryBlockPrivateAccessorPtr<IS_MODIFIABLE>& pMemBlockPrivatePtr,
                           SemanticMemoryBlockViewer& pMemViewer,
                           const RequestLinks& pReqLinks,
+                          bool pIsATrigger,
                           semanticMemoryGetter::RequestContext pRequestContext,
                           const GroundedExpression* pFromGrdExpQuestion = nullptr,
                           SemanticRequestType pFormRequest = SemanticRequestType::NOTHING,
@@ -434,8 +435,8 @@ void _getResultFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRes,
                           bool pConsiderCoreferences = false)
 {
   semanticMemoryGetter::getResultFromMemory
-      (pRes, pReqToList, pReqLinks, pRequestContext, pMemBlockPrivatePtr, pWorkStruct.lingDb, pCheckTimeRequest,
-       pConsiderCoreferences);
+      (pRes, pReqToList, pReqLinks, pRequestContext, pMemBlockPrivatePtr, pIsATrigger, pWorkStruct.lingDb,
+       pCheckTimeRequest, pConsiderCoreferences);
   _filterGlobalConditionImpossibilities(pRes.res.dynamicLinks, pWorkStruct, pMemViewer);
   _filterTimeImpossibilities(pRes.res.dynamicLinks, pWorkStruct, pMemViewer, pFromGrdExpQuestion, pFormRequest);
   _filterTimeImpossibilities(pRes.res.staticLinks, pWorkStruct, pMemViewer, pFromGrdExpQuestion, pFormRequest);
@@ -505,7 +506,7 @@ void _matchAnyTrigger
   RelationsThatMatch<false> idsToSentences;
   MemoryBlockPrivateAccessorPtr<false> memBlockPrivateAccessor(&memBlockPrivateViewer);
   _getResultFromMemory(idsToSentences, pReqToGrdExps, pWorkStruct, memBlockPrivateAccessor,
-                       pMemViewer, pReqLinks, semanticMemoryGetter::RequestContext::SENTENCE,
+                       pMemViewer, pReqLinks, true, semanticMemoryGetter::RequestContext::SENTENCE,
                        nullptr, SemanticRequestType::NOTHING, true, true);
 
   std::map<std::size_t, std::set<const ExpressionWithLinks*>> nbOfErrorsToLowPrioritySemExpWrapperPtrs;
@@ -632,7 +633,7 @@ void _matchGrdExpTrigger
                            pReqLinks, pExpCategory, pAxiomId, pInputGrdExp);
 }
 
-bool _addTriggerSemExp
+bool _addTriggerGrdExps
 (SemControllerWorkingStruct& pWorkStruct,
  bool& pAnAnswerHasBeenAdded,
  SemanticMemoryBlockViewer& pMemViewer,
@@ -719,7 +720,7 @@ bool _getActionFromAMemblock(SemControllerWorkingStruct& pWorkStruct,
   RelationsThatMatch<false> idsToSentences;
   MemoryBlockPrivateAccessorPtr<false> memBlockPrivateAccessor(&memBlockPrivateViewer);
   _getResultFromMemory(idsToSentences, reqToGrdExps, pWorkStruct, memBlockPrivateAccessor, pMemViewer,
-                       pReqLinks, semanticMemoryGetter::RequestContext::COMMAND,
+                       pReqLinks, false, semanticMemoryGetter::RequestContext::COMMAND,
                        nullptr, SemanticRequestType::NOTHING, false);
 
   if (!idsToSentences.empty() &&
@@ -745,7 +746,7 @@ const SemanticExpression* _getActionDefFromAMemblock(
   RelationsThatMatch<false> idsToSentences;
   MemoryBlockPrivateAccessorPtr<false> memBlockPrivateAccessor(&memBlockPrivateViewer);
   _getResultFromMemory(idsToSentences, reqToGrdExps, pWorkStruct, memBlockPrivateAccessor, pMemViewer,
-                       pReqLinks, semanticMemoryGetter::RequestContext::COMMAND,
+                       pReqLinks, false, semanticMemoryGetter::RequestContext::COMMAND,
                        nullptr, SemanticRequestType::NOTHING, false);
 
   if (!idsToSentences.res.dynamicLinks.empty())
@@ -1012,7 +1013,7 @@ void getInformationsLinkedToCondition(std::set<const GroundedExpWithLinks*>& pNe
   RequestToMemoryLinks<false> reqToLinks(memBlockPrivateViewer.getLinks(SemanticTypeOfLinks::CONDITION_INFORMATION, pReqLinks.tense, pReqLinks.verbGoal));
   MemoryBlockPrivateAccessorPtr<false> memBlockPrivateAccessor(&memBlockPrivateViewer);
   _getResultFromMemory(idsToSentences, reqToLinks, pWorkStruct, memBlockPrivateAccessor, pMemViewer,
-                       pReqLinks, semanticMemoryGetter::RequestContext::SENTENCE);
+                       pReqLinks, false, semanticMemoryGetter::RequestContext::SENTENCE);
   for (const auto& currRes : idsToSentences.res.dynamicLinks)
   {
     auto& currMemSent = *currRes.second;
@@ -1064,7 +1065,7 @@ const SemanticExpression* getActionComposition(SemControllerWorkingStruct& pWork
   MemoryBlockPrivateAccessorPtr<false> memBlockPrivateAccessor(&memBlockPrivateViewer);
   _getResultFromMemory
       (idToSentences, reqToGrdExps, pWorkStruct, memBlockPrivateAccessor, pMemViewer, reqLinks,
-       semanticMemoryGetter::RequestContext::COMMAND, nullptr, SemanticRequestType::NOTHING, false);
+       false, semanticMemoryGetter::RequestContext::COMMAND, nullptr, SemanticRequestType::NOTHING, false);
   if (idToSentences.res.dynamicLinks.empty())
     return nullptr;
   return idToSentences.res.dynamicLinks.begin()->second->getContextAxiom().infCommandToDo;
@@ -1082,7 +1083,7 @@ bool checkForConditionsLinkedToStatement(SemControllerWorkingStruct& pWorkStruct
   MemoryBlockPrivateAccessorPtr<false> memBlockPrivateAccessor(&memBlockPrivateViewer);
   _getResultFromMemory
       (idToSentences, reqToGrdExps, pWorkStruct, memBlockPrivateAccessor, pMemViewer,
-       pReqLinks, semanticMemoryGetter::RequestContext::SENTENCE_TO_CONDITION);
+       pReqLinks, false, semanticMemoryGetter::RequestContext::SENTENCE_TO_CONDITION);
   return _doActions(pWorkStruct, pMemViewer, &pGrdExp, idToSentences.res);
 }
 
@@ -1108,7 +1109,7 @@ void disableActionsLinkedToASentence(SemanticMemory& pSemanticMemory,
     RequestToMemoryLinks<true> reqToLinks(memViewPrivatePtr->getLinks(SemanticTypeOfLinks::SENT_WITH_ACTION, reqLinks.tense, reqLinks.verbGoal));
     MemoryBlockPrivateAccessorPtr<true> memBlockPrivateAccessor(memViewPrivatePtr);
     _getResultFromMemory(idsToSentences, reqToLinks, workStruct, memBlockPrivateAccessor, memViewer, reqLinks,
-                         semanticMemoryGetter::RequestContext::SENTENCE_TO_CONDITION);
+                         false, semanticMemoryGetter::RequestContext::SENTENCE_TO_CONDITION);
     for (const auto& sent : idsToSentences.res.dynamicLinks)
      sent.second->setEnabled(false);
     return;
@@ -1594,7 +1595,7 @@ bool matchAffirmationTrigger
                                                pWorkStruct.reactOperator, nullptr, nullptr, nullptr, nullptr,
                                                pWorkStruct.lingDb);
       _getResultFromMemory(idsToSentences, awLinks, subWorkStruct, memBlockPrivateAccessor, subMemViewer,
-                           pReqLinks, semanticMemoryGetter::RequestContext::SENTENCE);
+                           pReqLinks, true, semanticMemoryGetter::RequestContext::SENTENCE);
 
       for (const auto& currRel : idsToSentences.res.dynamicLinks)
       {
@@ -1641,7 +1642,7 @@ bool addTriggerListExp
     return SemanticTriggerAxiomId(nbListOfElts, pId, pListExp.listType);
   };
   bool anAnswerHasBeenAdded = false;
-  _addTriggerSemExp(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, grdExpPtrs, pListExp, getAxiomIdFromId);
+  _addTriggerGrdExps(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, grdExpPtrs, pListExp, getAxiomIdFromId);
   return anAnswerHasBeenAdded;
 }
 
@@ -1659,7 +1660,7 @@ bool addTriggerCondExp
     return SemanticTriggerAxiomId(nbListOfElts, pId, SemanticExpressionType::CONDITION);
   };
   bool anAnswerHasBeenAdded = false;
-  _addTriggerSemExp(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, grdExpPtrs, pCondExp, getAxiomIdFromId);
+  _addTriggerGrdExps(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, grdExpPtrs, pCondExp, getAxiomIdFromId);
   return anAnswerHasBeenAdded;
 }
 
@@ -1689,8 +1690,8 @@ void _getSentencesFromMemBlockRecursively
     MemoryBlockPrivateAccessorPtr<true> memViewPrivateAccessor(memViewPrivatePtr);
     semanticMemoryGetter::getResultFromMemory(idToSentences, awLinks, pReqLinks,
                                               semanticMemoryGetter::RequestContext::SENTENCE,
-                                              memViewPrivateAccessor, pLingDb, pCheckTimeRequest,
-                                              considerCoreferences);
+                                              memViewPrivateAccessor, false, pLingDb,
+                                              pCheckTimeRequest, considerCoreferences);
     if (!idToSentences.res.dynamicLinks.empty())
     {
       intMemBlockId memBlockId = memBlockViewer.getId();
@@ -1705,8 +1706,8 @@ void _getSentencesFromMemBlockRecursively
     MemoryBlockPrivateAccessorPtr<false> memViewPrivateAccessor(&memBlockViewer);
     semanticMemoryGetter::getResultFromMemory(idToSentences, awLinks, pReqLinks,
                                               semanticMemoryGetter::RequestContext::SENTENCE,
-                                              memViewPrivateAccessor, pLingDb, pCheckTimeRequest,
-                                              considerCoreferences);
+                                              memViewPrivateAccessor, false, pLingDb,
+                                              pCheckTimeRequest, considerCoreferences);
     if (!idToSentences.res.dynamicLinks.empty())
     {
       intMemBlockId memBlockId = memBlockViewer.getId();
@@ -2132,7 +2133,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
                                                pWorkStruct.reactOperator, nullptr, nullptr, nullptr, nullptr,
                                                pWorkStruct.lingDb);
       _getResultFromMemory(idsToSentences, awLinks, subWorkStruct, memBlockPrivateAccessor, subMemViewer,
-                           reqLinks, semanticMemoryGetter::RequestContext::SENTENCE);
+                           reqLinks, false, semanticMemoryGetter::RequestContext::SENTENCE);
       for (const auto& currRel : idsToSentences.res.dynamicLinks)
       {
         auto params = std::make_unique<IndexToSubNameToParameterValue>();

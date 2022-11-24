@@ -80,6 +80,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string itIsShort = "C'est court.";
   const std::string whatIs115 = "C'est quoi le 115 ?";
   const std::string itIsSamusocial = "C'est le samusocial.";
+  const std::string longQuestion = "Comment l'Écriture sainte peut-elle être « vérité » alors que tout ce qu'elle contient n'est pas exact ?";
+  const std::string itIsHardToSay = "C'est difficile à dire.";
   ONSEM_NOANSWER(operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
@@ -87,6 +89,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_NOANSWER(operator_reactFromTrigger(whatIsToussaint, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatIsAscension, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(itLastOneHour, semMem, lingDb));
+  ONSEM_NOANSWER(operator_reactFromTrigger(longQuestion, semMem, lingDb));
 
   operator_addATrigger(whoAreYou, iAmYourFrined, semMem, lingDb);
   operator_addATrigger(stopApplication, itIsStopped, semMem, lingDb);
@@ -97,6 +100,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   operator_addATrigger(itLastOneHour, itIsLong, semMem, lingDb);
   operator_addATrigger(itLastTwoHours, itIsShort, semMem, lingDb);
   operator_addATrigger(whatIs115, itIsSamusocial, semMem, lingDb);
+  operator_addATrigger(longQuestion, itIsHardToSay, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger(stopApplication, semMem, lingDb));
@@ -116,4 +120,5 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_ANSWER_EQ(itIsLong, operator_reactFromTrigger(itLastOneHour, semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsShort, operator_reactFromTrigger(itLastTwoHours, semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsSamusocial, operator_reactFromTrigger(whatIs115, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsHardToSay, operator_reactFromTrigger(longQuestion, semMem, lingDb));
 }

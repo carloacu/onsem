@@ -366,8 +366,10 @@ void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
   _fillMemBlocLinks(pLinks.relLocationToSemExps, pLinksFromMemSentence.relLocationToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.relTimeToSemExps, pLinksFromMemSentence.relTimeToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.numberToSemExps, pLinksFromMemSentence.numberToSemExps, pMemSentenceId);
+  _fillMemBlocLinks(pLinks.quantityTypeToSemExps, pLinksFromMemSentence.quantityTypeToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.grdTypeToSemExps, pLinksFromMemSentence.grdTypeToSemExps, pMemSentenceId);
   _fillMemBlocLinksForRadixMap(pLinks.userIdToSemExps, pLinksFromMemSentence.userIdToSemExps, pMemSentenceId);
+  _fillMemBlocLinksForRadixMap(pLinks.userIdWithoutContextToSemExps, pLinksFromMemSentence.userIdWithoutContextToSemExps, pMemSentenceId);
   for (auto& currElt : pLinksFromMemSentence.textToSemExps)
     _fillMemBlocLinksForRadixMap(pLinks.textToSemExps[currElt.first], currElt.second, pMemSentenceId);
   _fillMemBlocLinks(pLinks.languageToSemExps, pLinksFromMemSentence.languageToSemExps, pMemSentenceId);
@@ -509,10 +511,14 @@ void _removeLinksFrom(SemanticLinksToGrdExps& pToFilter,
                      pLinksFromMemSentence.relTimeToSemExps, pMemSentenceId);
   _removeMemoryLinks(pToFilter.numberToSemExps,
                      pLinksFromMemSentence.numberToSemExps, pMemSentenceId);
+  _removeMemoryLinks(pToFilter.quantityTypeToSemExps,
+                     pLinksFromMemSentence.quantityTypeToSemExps, pMemSentenceId);
   _removeMemoryLinks(pToFilter.grdTypeToSemExps,
                      pLinksFromMemSentence.grdTypeToSemExps, pMemSentenceId);
   _removeMemoryLinksForRadixMap(pToFilter.userIdToSemExps,
                                 pLinksFromMemSentence.userIdToSemExps, pMemSentenceId);
+  _removeMemoryLinksForRadixMap(pToFilter.userIdWithoutContextToSemExps,
+                                pLinksFromMemSentence.userIdWithoutContextToSemExps, pMemSentenceId);
 
   for (const auto& currElt : pLinksFromMemSentence.textToSemExps)
   {
@@ -1174,9 +1180,15 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
         else // link the non specific stuffs
           pEnsureLinksToGrdExps().genGroundingTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
       }
-      else if (genGrounding.quantity.type == SemanticQuantityType::NUMBER)
+
+      if (genGrounding.quantity.type == SemanticQuantityType::NUMBER)
       {
-        pEnsureLinksToGrdExps().numberToSemExps[genGrounding.quantity.nb].emplace_back(newMemGrdExp);
+        if (genGrounding.word.lemma.empty() && genGrounding.concepts.empty())
+          pEnsureLinksToGrdExps().numberToSemExps[genGrounding.quantity.nb].emplace_back(newMemGrdExp);
+      }
+      else if (genGrounding.quantity.type != SemanticQuantityType::UNKNOWN)
+      {
+        pEnsureLinksToGrdExps().quantityTypeToSemExps[genGrounding.quantity.type].emplace_back(newMemGrdExp);
       }
 
       // Link also the lemma in lower case
@@ -1205,6 +1217,7 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
   {
     const SemanticAgentGrounding& agentGrounding = pGrounding.getAgentGrounding();
     pEnsureLinksToGrdExps().userIdToSemExps[agentGrounding.userId].emplace_back(newMemGrdExp);
+    pEnsureLinksToGrdExps().userIdWithoutContextToSemExps[agentGrounding.userIdWithoutContext].emplace_back(newMemGrdExp);
     break;
   }
   case SemanticGroundingType::TEXT:

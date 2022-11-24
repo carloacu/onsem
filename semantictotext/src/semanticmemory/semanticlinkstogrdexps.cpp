@@ -183,8 +183,10 @@ void SemanticLinksToGrdExpsTemplate<LINKS_TYPE>::clear()
   relLocationToSemExps.clear();
   relTimeToSemExps.clear();
   numberToSemExps.clear();
+  quantityTypeToSemExps.clear();
   grdTypeToSemExps.clear();
   userIdToSemExps.clear();
+  userIdWithoutContextToSemExps.clear();
   textToSemExps.clear();
   languageToSemExps.clear();
   resourceToSemExps.clear();
@@ -201,9 +203,11 @@ bool SemanticLinksToGrdExpsTemplate<LINKS_TYPE>::empty() const
       timeToSemExps.empty() &&
       relLocationToSemExps.empty() &&
       numberToSemExps.empty() &&
+      quantityTypeToSemExps.empty() &&
       relTimeToSemExps.empty() &&
       grdTypeToSemExps.empty() &&
       userIdToSemExps.empty() &&
+      userIdWithoutContextToSemExps.empty() &&
       textToSemExps.empty() &&
       languageToSemExps.empty() &&
       resourceToSemExps.empty();

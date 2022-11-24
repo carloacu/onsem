@@ -67,6 +67,8 @@ struct SemanticLinksToGrdExpsTemplate
   // -----------------
   /// number -> part of texts
   std::map<int, LINKS_TYPE> numberToSemExps{};
+  /// Map of quantitytype (except NUMBER and UNKNOWN) -> part of texts
+  std::map<SemanticQuantityType, LINKS_TYPE> quantityTypeToSemExps{};
 
   // Meta grounding
   // --------------
@@ -77,6 +79,8 @@ struct SemanticLinksToGrdExpsTemplate
   // ---------------
   /// Map of user id -> part of texts
   mystd::radix_map_str<LINKS_TYPE> userIdToSemExps{};
+  /// Map of user id without context -> part of texts
+  mystd::radix_map_str<LINKS_TYPE> userIdWithoutContextToSemExps{};
 
   // Text grounding or Generic grounding
   // -----------------------------------
