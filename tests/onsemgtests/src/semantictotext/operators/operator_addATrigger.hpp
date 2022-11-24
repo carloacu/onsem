@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list>
+#include <onsem/common/enum/semanticlanguagetype.hpp>
 
 namespace onsem
 {
@@ -24,7 +25,8 @@ void operator_addATriggerToSemExpAnswer(
     const std::string& pTriggerText,
     UniqueSemanticExpression pAnswerSemExp,
     SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb);
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
 } // End of namespace onsem
 

@@ -56,11 +56,12 @@ void operator_addATriggerToSemExpAnswer(
     const std::string& pTriggerText,
     UniqueSemanticExpression pAnswerSemExp,
     SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb)
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
 {
   TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
                                            SemanticAgentGrounding::me,
-                                           SemanticLanguageEnum::UNKNOWN);
+                                           pLanguage);
   triggerProcContext.isTimeDependent = false;
   auto triggerSemExp = converter::textToContextualSemExp(pTriggerText, triggerProcContext,
                                                          SemanticSourceEnum::UNKNOWN, pLingDb);

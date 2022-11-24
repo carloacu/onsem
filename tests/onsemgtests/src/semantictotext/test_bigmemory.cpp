@@ -47,11 +47,11 @@ std::shared_ptr<ExpressionWithLinks> _inform(
 
 TEST_F(SemanticReasonerGTests, test_bigMemory)
 {
-  return;
   auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
   linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
   iStreams.close();
   SemanticMemory semMem;
+  auto language = SemanticLanguageEnum::FRENCH;
 
   const std::string textFilename = corpusPath + "/triggerAndTexts/triggersAndTextsCorpus.txt";
   std::ifstream triggersAndTextsCorpusFile(textFilename, std::ifstream::in);
@@ -67,7 +67,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   auto fillCurrentInfos = [&]() {
     if (currentLabel == "trigger")
     {
-      operator_addATriggerToSemExpAnswer(currentText, _idToSemExp(currentId), semMem, lingDb);
+      operator_addATriggerToSemExpAnswer(currentText, _idToSemExp(currentId), semMem, lingDb, language);
       triggersToReferenceOfAnswer.emplace(currentText, currentId);
     }
 //    if (currentLabel == "inform" || currentLabel == "message")
@@ -119,11 +119,11 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
 
   for (const auto& currTrigger : triggersToReferenceOfAnswer)
   {
-    auto answer = operator_reactFromTrigger(currTrigger.first, semMem, lingDb, SemanticLanguageEnum::FRENCH, nullptr);
+    auto answer = operator_reactFromTrigger(currTrigger.first, semMem, lingDb, language, nullptr);
     auto refIt = std::find(answer.references.begin(), answer.references.end(), currTrigger.second);
     if (refIt == answer.references.end())
     {
-      operator_reactFromTrigger(currTrigger.first, semMem, lingDb, SemanticLanguageEnum::FRENCH, nullptr);
+      operator_reactFromTrigger(currTrigger.first, semMem, lingDb, language, nullptr);
       std::string refStrs = "[";
       for (auto& currRef : answer.references)
       {
