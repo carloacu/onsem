@@ -87,6 +87,8 @@ TEST_F(SemanticReasonerGTests, languageDetection)
             linguistics::getLanguage("tu es cool", lingDb));
   ASSERT_EQ(SemanticLanguageEnum::FRENCH,
             linguistics::getLanguage("Dis salut tout le monde", lingDb));
+  ASSERT_EQ(SemanticLanguageEnum::FRENCH,
+            linguistics::getLanguage("Comment lire la Bible ?", lingDb));
   ASSERT_EQ(SemanticLanguageEnum::ENGLISH,
             linguistics::getLanguage("I am Paul", lingDb));
   ASSERT_EQ(SemanticLanguageEnum::ENGLISH,

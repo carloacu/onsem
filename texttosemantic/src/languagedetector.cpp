@@ -11,6 +11,7 @@ namespace
 {
 
 std::size_t _getMaxLength(std::string& pLowerCaseText,
+                          bool& pBeginWithUpperCase,
                           std::size_t pCurrPos,
                           const StaticLinguisticDictionary& pBinDico,
                           bool pCanLowerCase)
@@ -19,9 +20,10 @@ std::size_t _getMaxLength(std::string& pLowerCaseText,
       (pLowerCaseText, pCurrPos);
   if (res > 0 || !pCanLowerCase)
   {
+    pBeginWithUpperCase = beginWithUppercase(pLowerCaseText, pCurrPos);
     return res;
   }
-  lowerCaseFirstLetter(pLowerCaseText, pCurrPos);
+  pBeginWithUpperCase = lowerCaseFirstLetter(pLowerCaseText, pCurrPos);
   return pBinDico.getLengthOfLongestWord
       (pLowerCaseText, pCurrPos);
 }
@@ -75,8 +77,9 @@ SemanticLanguageEnum getLanguage(const std::string& pText,
     while (currPos < lowerCaseText.size())
     {
       const auto& binDico = pLingDb.langToSpec[i].lingDico.statDb;
-      std::size_t length = _getMaxLength(lowerCaseText, currPos, binDico,
-                                         canLowerCase);
+      bool beginWithUpperCase = false;
+      std::size_t length = _getMaxLength(lowerCaseText, beginWithUpperCase,
+                                         currPos, binDico, canLowerCase);
       canLowerCase = false;
 
       if (length > 0)
@@ -114,9 +117,16 @@ SemanticLanguageEnum getLanguage(const std::string& pText,
           _moveUntilNextSeparator(currPos, lowerCaseText, binDico);
         }
         std::size_t lengthOfUnknownCharacters = currPos - beginPos;
-        static const int CONFIDENCE_TO_REMOVE_PER_CHARACTER_OF_A_WORD_WITHOUT_PART_OF_SPEECH = 5;
-        confidenceOfCurrentLanguageForTheText -= static_cast<int>(lengthOfUnknownCharacters *
-                                                                  CONFIDENCE_TO_REMOVE_PER_CHARACTER_OF_A_WORD_WITHOUT_PART_OF_SPEECH);
+        if (beginWithUpperCase)
+        {
+          confidenceOfCurrentLanguageForTheText -= static_cast<int>(lengthOfUnknownCharacters);
+        }
+        else
+        {
+          static const int CONFIDENCE_TO_REMOVE_PER_CHARACTER_OF_A_WORD_WITHOUT_PART_OF_SPEECH = 5;
+          confidenceOfCurrentLanguageForTheText -= static_cast<int>(
+                lengthOfUnknownCharacters * CONFIDENCE_TO_REMOVE_PER_CHARACTER_OF_A_WORD_WITHOUT_PART_OF_SPEECH);
+        }
       }
     }
 
