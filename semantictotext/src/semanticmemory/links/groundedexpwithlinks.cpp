@@ -367,6 +367,8 @@ void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
   _fillMemBlocLinks(pLinks.relTimeToSemExps, pLinksFromMemSentence.relTimeToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.numberToSemExps, pLinksFromMemSentence.numberToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.quantityTypeToSemExps, pLinksFromMemSentence.quantityTypeToSemExps, pMemSentenceId);
+  _fillMemBlocLinks(pLinks.referenceWithoutConceptToSemExps, pLinksFromMemSentence.referenceWithoutConceptToSemExps, pMemSentenceId);
+  _fillMemBlocLinks(pLinks.coreferenceWithoutConceptOrReferenceToSemExps, pLinksFromMemSentence.coreferenceWithoutConceptOrReferenceToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.grdTypeToSemExps, pLinksFromMemSentence.grdTypeToSemExps, pMemSentenceId);
   _fillMemBlocLinksForRadixMap(pLinks.userIdToSemExps, pLinksFromMemSentence.userIdToSemExps, pMemSentenceId);
   _fillMemBlocLinksForRadixMap(pLinks.userIdWithoutContextToSemExps, pLinksFromMemSentence.userIdWithoutContextToSemExps, pMemSentenceId);
@@ -513,6 +515,10 @@ void _removeLinksFrom(SemanticLinksToGrdExps& pToFilter,
                      pLinksFromMemSentence.numberToSemExps, pMemSentenceId);
   _removeMemoryLinks(pToFilter.quantityTypeToSemExps,
                      pLinksFromMemSentence.quantityTypeToSemExps, pMemSentenceId);
+  _removeMemoryLinks(pToFilter.referenceWithoutConceptToSemExps,
+                     pLinksFromMemSentence.referenceWithoutConceptToSemExps, pMemSentenceId);
+  _removeMemoryLinks(pToFilter.coreferenceWithoutConceptOrReferenceToSemExps,
+                     pLinksFromMemSentence.coreferenceWithoutConceptOrReferenceToSemExps, pMemSentenceId);
   _removeMemoryLinks(pToFilter.grdTypeToSemExps,
                      pLinksFromMemSentence.grdTypeToSemExps, pMemSentenceId);
   _removeMemoryLinksForRadixMap(pToFilter.userIdToSemExps,
@@ -1167,10 +1173,6 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
         // link the lemma
         pEnsureLinksToGrdExps().textToSemExps[SemanticLanguageEnum::UNKNOWN][genGrounding.word.lemma].emplace_back(newMemGrdExp);
       }
-      else if (genGrounding.coreference)
-      {
-        return true;
-      }
       else if (pLinkNonSpecificStuffs && !genGrounding.coreference &&
                genGrounding.referenceType == SemanticReferenceType::INDEFINITE)
       {
@@ -1189,6 +1191,18 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
       else if (genGrounding.quantity.type != SemanticQuantityType::UNKNOWN)
       {
         pEnsureLinksToGrdExps().quantityTypeToSemExps[genGrounding.quantity.type].emplace_back(newMemGrdExp);
+      }
+
+      if (genGrounding.word.lemma.empty() && genGrounding.concepts.empty())
+      {
+        if (genGrounding.referenceType != SemanticReferenceType::UNDEFINED)
+        {
+          pEnsureLinksToGrdExps().referenceWithoutConceptToSemExps[genGrounding.referenceType].emplace_back(newMemGrdExp);
+        }
+        else if (genGrounding.coreference)
+        {
+          pEnsureLinksToGrdExps().coreferenceWithoutConceptOrReferenceToSemExps[genGrounding.coreference->getDirection()].emplace_back(newMemGrdExp);
+        }
       }
 
       // Link also the lemma in lower case

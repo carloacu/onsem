@@ -12,12 +12,14 @@
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/common/enum/semanticentitytype.hpp>
 #include <onsem/common/enum/semanticquantitytype.hpp>
+#include <onsem/common/enum/semanticreferencetype.hpp>
 #include <onsem/common/enum/semanticrelativelocationtype.hpp>
 #include <onsem/common/enum/semanticrelativetimetype.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/common/enum/semanticverbtense.hpp>
 #include <onsem/common/enum/semanticgendertype.hpp>
 #include <onsem/common/enum/verbgoalenum.hpp>
+#include <onsem/texttosemantic/dbtype/misc/coreference.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
@@ -69,6 +71,11 @@ struct SemanticLinksToGrdExpsTemplate
   std::map<int, LINKS_TYPE> numberToSemExps{};
   /// Map of quantitytype (except NUMBER and UNKNOWN) -> part of texts
   std::map<SemanticQuantityType, LINKS_TYPE> quantityTypeToSemExps{};
+  /// reference without concept -> part of texts
+  std::map<SemanticReferenceType, LINKS_TYPE> referenceWithoutConceptToSemExps{};
+  /// coreference without concept or reference -> part of texts
+  std::map<CoreferenceDirectionEnum, LINKS_TYPE> coreferenceWithoutConceptOrReferenceToSemExps{};
+
 
   // Meta grounding
   // --------------

@@ -549,10 +549,10 @@ bool _getQuantityTypesRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   bool res = false;
   if (pLinksToSemExps.d != nullptr)
   {
-    auto itNbToSemExp = pLinksToSemExps.d->quantityTypeToSemExps.find(pQuantityType);
-    if (itNbToSemExp != pLinksToSemExps.d->quantityTypeToSemExps.end())
+    auto itToSemExp = pLinksToSemExps.d->quantityTypeToSemExps.find(pQuantityType);
+    if (itToSemExp != pLinksToSemExps.d->quantityTypeToSemExps.end())
     {
-      IntIdToMemSentenceAccessor<IS_MODIFIABLE> accessor(itNbToSemExp->second);
+      IntIdToMemSentenceAccessor<IS_MODIFIABLE> accessor(itToSemExp->second);
       res = _addPotentialNewRelationsFromLinks(pRelations, pAlreadyMatchedSentences, &accessor, nullptr,
                                                &pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr,
                                                pLingDb, pCheckChildren) || res;
@@ -568,6 +568,71 @@ bool _getQuantityTypesRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
 }
 
 
+
+template <bool IS_MODIFIABLE>
+bool _getReferenceWithoutConceptRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
+                                          const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
+                                          MemoryLinksAccessor<IS_MODIFIABLE>& pLinksToSemExps,
+                                          SemanticReferenceType pReferenceType,
+                                          const GroundedExpression& pGrdExpToLookFor,
+                                          const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
+                                          const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
+                                          const linguistics::LinguisticDatabase& pLingDb,
+                                          bool pCheckChildren)
+{
+  bool res = false;
+  if (pLinksToSemExps.d != nullptr)
+  {
+    auto itToSemExp = pLinksToSemExps.d->referenceWithoutConceptToSemExps.find(pReferenceType);
+    if (itToSemExp != pLinksToSemExps.d->referenceWithoutConceptToSemExps.end())
+    {
+      IntIdToMemSentenceAccessor<IS_MODIFIABLE> accessor(itToSemExp->second);
+      res = _addPotentialNewRelationsFromLinks(pRelations, pAlreadyMatchedSentences, &accessor, nullptr,
+                                               &pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr,
+                                               pLingDb, pCheckChildren) || res;
+    }
+  }
+  /*
+  if (pLinksToSemExps.c != nullptr)
+  {
+    // TODO: add binary memory search
+  }
+  */
+  return res;
+}
+
+
+template <bool IS_MODIFIABLE>
+bool _getCoreferenceWithoutConceptOrReferenceRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
+                                                       const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
+                                                       MemoryLinksAccessor<IS_MODIFIABLE>& pLinksToSemExps,
+                                                       CoreferenceDirectionEnum pCoreferenceDirection,
+                                                       const GroundedExpression& pGrdExpToLookFor,
+                                                       const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
+                                                       const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
+                                                       const linguistics::LinguisticDatabase& pLingDb,
+                                                       bool pCheckChildren)
+{
+  bool res = false;
+  if (pLinksToSemExps.d != nullptr)
+  {
+    auto itToSemExp = pLinksToSemExps.d->coreferenceWithoutConceptOrReferenceToSemExps.find(pCoreferenceDirection);
+    if (itToSemExp != pLinksToSemExps.d->coreferenceWithoutConceptOrReferenceToSemExps.end())
+    {
+      IntIdToMemSentenceAccessor<IS_MODIFIABLE> accessor(itToSemExp->second);
+      res = _addPotentialNewRelationsFromLinks(pRelations, pAlreadyMatchedSentences, &accessor, nullptr,
+                                               &pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr,
+                                               pLingDb, pCheckChildren) || res;
+    }
+  }
+  /*
+  if (pLinksToSemExps.c != nullptr)
+  {
+    // TODO: add binary memory search
+  }
+  */
+  return res;
+}
 
 
 
@@ -1066,6 +1131,22 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
     res = _getQuantityTypesRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.quantity.type,
                                      pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb,
                                      pCheckChildren) || res;
+  }
+
+  if (pGenGrd.word.lemma.empty() && pGenGrd.concepts.empty())
+  {
+    if (pGenGrd.referenceType != SemanticReferenceType::UNDEFINED)
+    {
+      res = _getReferenceWithoutConceptRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.referenceType,
+                                                 pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb,
+                                                 pCheckChildren) || res;
+    }
+    else if (pGenGrd.coreference)
+    {
+      _getCoreferenceWithoutConceptOrReferenceRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.coreference->getDirection(),
+                                                        pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pLingDb,
+                                                        pCheckChildren) || res;
+    }
   }
 
   res = _indefiniteThingsCheckMatching(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.entityType, pGrdExpToLookFor,
@@ -1998,7 +2079,7 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
     }
   }
 
-  if (pConsiderCoreferences)
+  if (pConsiderCoreferences && !pIsATrigger)
   {
     bool isOnlyACoreference = true;
     for (const auto& currSemExp : pSubReqLinks.semExps)
