@@ -129,6 +129,34 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_canAnswerWithATrigger)
 }
 
 
+TEST_F(SemanticReasonerGTests, operator_reactionOptions_canAnswerWithAllTheTriggers)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  SemanticLanguageEnum langauge = SemanticLanguageEnum::FRENCH;
+
+  ReactionOptions canAnswerWithAllTheTriggersReaction;
+  canAnswerWithAllTheTriggersReaction.canAnswerWithAllTheTriggers = true;
+  ReactionOptions cannotAnswerWithAllTheTriggersReaction;
+  cannotAnswerWithAllTheTriggersReaction.canAnswerWithAllTheTriggers = false;
+
+  {
+    const std::string nominalGroupTrigger1 = "super";
+    const std::string reactionOfNominalGroup1 = "Réponse 1";
+    operator_addATrigger(nominalGroupTrigger1, reactionOfNominalGroup1, semMem, lingDb);
+    const std::string nominalGroupTrigger2 = "cool";
+    const std::string reactionOfNominalGroup2 = "Réponse 2";
+    operator_addATrigger(nominalGroupTrigger2, reactionOfNominalGroup2, semMem, lingDb);
+    ONSEM_ANSWER_EQ("(\tRéponse 1\tTHEN\tRéponse 2\t)",
+                    operator_react(nominalGroupTrigger1, semMem, lingDb,
+                                   langauge, &canAnswerWithAllTheTriggersReaction));
+    ONSEM_ANSWER_EQ("Réponse 1",
+                    operator_react(nominalGroupTrigger1, semMem, lingDb,
+                                   langauge, &cannotAnswerWithAllTheTriggersReaction));
+  }
+}
+
+
 TEST_F(SemanticReasonerGTests, operator_reactionOptions_canReactToANoun)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;

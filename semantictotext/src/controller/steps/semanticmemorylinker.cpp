@@ -484,11 +484,21 @@ bool _addTriggerThatMatchTheMost(SemControllerWorkingStruct& pWorkStruct,
     for (const auto& currRel : pSemExpWrapperPtrs)
       similarityCoef[getSimilarityCoef(pInputSemExp, *currRel->semExp)].emplace(currRel->getIdOfFirstSentence(), currRel);
 
+    bool res = false;
     for (auto itExp = similarityCoef.rbegin(); itExp != similarityCoef.rend(); ++itExp)
+    {
       for (auto& currExpHandleInMemory : itExp->second)
+      {
         if (_addTriggerAnswer(pWorkStruct, pAnAnswerHasBeenAdded, *currExpHandleInMemory.second,
                               pMemViewer, pContAnnotation))
-          return true;
+        {
+          if (!pWorkStruct.reactionOptions.canAnswerWithAllTheTriggers)
+            return true;
+          res = true;
+        }
+      }
+    }
+    return res;
   }
   return false;
 }

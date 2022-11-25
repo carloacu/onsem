@@ -10,6 +10,7 @@ struct ReactionOptions
   bool canAnswerIDontKnow = true;
   bool canDoAProactivity = true;
   bool canAnswerWithATrigger = true;
+  bool canAnswerWithAllTheTriggers = false;
   bool canReactToANoun = false;
   bool canSayOkToAnAffirmation = true;
   bool canAnswerWithExternalEngines = true;
