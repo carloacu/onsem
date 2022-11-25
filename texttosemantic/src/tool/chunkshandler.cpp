@@ -605,6 +605,15 @@ const Chunk* getChildChunkPtr(const Chunk& pChunk,
   return nullptr;
 }
 
+Chunk* getChildChunkPtr(Chunk& pChunk,
+                        ChunkLinkType pLinkType)
+{
+  for (auto& currChild : pChunk.children)
+    if (currChild.type == pLinkType)
+      return &*currChild.chunk;
+  return nullptr;
+}
+
 
 bool haveAQuestionInDirectObject(const Chunk& pChunk)
 {

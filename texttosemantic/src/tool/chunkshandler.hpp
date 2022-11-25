@@ -223,6 +223,9 @@ bool haveChild(const Chunk& pChunk,
 const Chunk* getChildChunkPtr(const Chunk& pChunk,
                               ChunkLinkType pLinkType);
 
+Chunk* getChildChunkPtr(Chunk& pChunk,
+                        ChunkLinkType pLinkType);
+
 bool haveAQuestionInDirectObject(const Chunk& pChunk);
 
 const Chunk& getFirstListEltChunk(const Chunk& pChunk);

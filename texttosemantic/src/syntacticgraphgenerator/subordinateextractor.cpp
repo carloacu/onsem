@@ -267,6 +267,7 @@ void SubordinateExtractor::xLinkComplementaryNominalChunks
 (std::list<ChunkLink>& pChunkLinks) const
 {
   Chunk* prevChunkIfNominalPtr = nullptr;
+  Chunk* prevCODChunkIfVerbalPtr = nullptr;
   std::list<ChunkLink>::iterator prevIt = pChunkLinks.end();
   for (auto it = pChunkLinks.begin(); it != pChunkLinks.end(); ++it)
   {
@@ -288,6 +289,12 @@ void SubordinateExtractor::xLinkComplementaryNominalChunks
         xAddASubChunk(pChunkLinks, prevChunkIfNominal, it, it, linkType);
         it = prevIt;
       }
+      else if (prevCODChunkIfVerbalPtr != nullptr)
+      {
+        auto& prevCODChunkIfVerbal = *prevCODChunkIfVerbalPtr;
+        xAddASubChunk(pChunkLinks, prevCODChunkIfVerbal, it, it, linkType);
+        it = prevIt;
+      }
       else
       {
         it->type = linkType;
@@ -301,6 +308,11 @@ void SubordinateExtractor::xLinkComplementaryNominalChunks
       prevChunkIfNominalPtr = &currChunk;
     else
       prevChunkIfNominalPtr = nullptr;
+
+    if (currChunk.type == ChunkType::VERB_CHUNK)
+      prevCODChunkIfVerbalPtr = getChildChunkPtr(currChunk, ChunkLinkType::DIRECTOBJECT);
+    else
+      prevCODChunkIfVerbalPtr = nullptr;
     prevIt = it;
   }
 }
