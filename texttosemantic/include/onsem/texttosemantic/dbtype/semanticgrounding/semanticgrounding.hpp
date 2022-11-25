@@ -250,6 +250,7 @@ protected:
   }
 
   bool _isMotherClassEqual(const SemanticGrounding& pOther) const;
+  bool _isMotherClassEmpty() const;
 };
 
 

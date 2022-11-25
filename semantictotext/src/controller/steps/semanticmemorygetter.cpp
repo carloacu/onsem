@@ -1789,6 +1789,8 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   case SemanticGroundingType::STATEMENT:
   {
     auto& statGrd = pGrdExpToLookFor->getStatementGrounding();
+    if (statGrd.empty())
+      return true;
     return _statementGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, statGrd,
                                                     pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext, pMemBlockPrivatePtr, pLingDb, pCheckChildren);
   }

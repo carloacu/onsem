@@ -90,6 +90,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string reaction3 = "Pour faire du sport.";
   const std::string trigger4 = "maintenant";
   const std::string reaction4 = "Paul";
+  const std::string trigger5 = "à quoi ça sert de prier ?";
+  const std::string reaction5 = "Ça sert à être heureux.";
   ONSEM_NOANSWER(operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
@@ -113,6 +115,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   operator_addATrigger(trigger2, reaction2, semMem, lingDb);
   operator_addATrigger(trigger3, reaction3, semMem, lingDb);
   operator_addATrigger(trigger4, reaction4, semMem, lingDb);
+  operator_addATrigger(trigger5, reaction5, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, operator_reactFromTrigger(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger(stopApplication, semMem, lingDb));
@@ -137,4 +140,5 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_ANSWER_EQ(reaction2, operator_reactFromTrigger(trigger2, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction3, operator_reactFromTrigger(trigger3, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction4, operator_reactFromTrigger(trigger4, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction5, operator_reactFromTrigger(trigger5, semMem, lingDb));
 }

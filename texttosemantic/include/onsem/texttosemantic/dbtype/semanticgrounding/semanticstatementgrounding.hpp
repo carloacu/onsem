@@ -37,6 +37,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticStatementGrounding : public SemanticGrou
 
   bool operator==(const SemanticStatementGrounding& pOther) const;
   bool isEqual(const SemanticStatementGrounding& pOther) const;
+  bool empty() const;
 
   bool isAtInfinitive() const { return verbTense == SemanticVerbTense::UNKNOWN; }
   bool isMandatoryInPresentTense() const {
@@ -75,6 +76,19 @@ inline bool SemanticStatementGrounding::isEqual(const SemanticStatementGrounding
       coreference == pOther.coreference &&
       isPassive == pOther.isPassive;
 }
+
+
+inline bool SemanticStatementGrounding::empty() const
+{
+  return _isMotherClassEmpty() &&
+      requests.empty() &&
+      word.isEmpty() &&
+      verbTense == SemanticVerbTense::UNKNOWN &&
+      verbGoal == VerbGoalEnum::NOTIFICATION &&
+      !coreference.has_value() &&
+      !isPassive.has_value();
+}
+
 
 
 inline std::unique_ptr<SemanticStatementGrounding> SemanticStatementGrounding::makeCoreference()

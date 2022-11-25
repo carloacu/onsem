@@ -303,6 +303,12 @@ bool SemanticGrounding::_isMotherClassEqual(const SemanticGrounding& pOther) con
       concepts == pOther.concepts;
 }
 
+bool SemanticGrounding::_isMotherClassEmpty() const
+{
+  return polarity && concepts.empty();
+}
+
+
 bool SemanticGrounding::isEmpty() const
 {
   const SemanticConceptualGrounding* cptGrd = getConceptualGroundingPtr();
