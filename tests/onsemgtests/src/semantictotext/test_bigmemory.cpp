@@ -1,10 +1,11 @@
 #include "../semanticreasonergtests.hpp"
 #include <gtest/gtest.h>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictextgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/metadataexpression.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/semantictotext/type/reactionoptions.hpp>
 #include "operators/operator_addATrigger.hpp"
 #include "operators/operator_inform.hpp"
 #include "operators/operator_reactFromTrigger.hpp"
@@ -116,14 +117,16 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   fillCurrentInfos();
 
   std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
+  ReactionOptions reactionOptions;
+  reactionOptions.canAnswerWithAllTheTriggers = true;
 
   for (const auto& currTrigger : triggersToReferenceOfAnswer)
   {
-    auto answer = operator_reactFromTrigger(currTrigger.first, semMem, lingDb, language, nullptr);
+    auto answer = operator_reactFromTrigger(currTrigger.first, semMem, lingDb, language, &reactionOptions);
     auto refIt = std::find(answer.references.begin(), answer.references.end(), currTrigger.second);
     if (refIt == answer.references.end())
     {
-      operator_reactFromTrigger(currTrigger.first, semMem, lingDb, language, nullptr);
+      operator_reactFromTrigger(currTrigger.first, semMem, lingDb, language, &reactionOptions);
       std::string refStrs = "[";
       for (auto& currRef : answer.references)
       {
