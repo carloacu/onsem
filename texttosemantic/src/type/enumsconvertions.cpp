@@ -136,6 +136,8 @@ mystd::optional<GrammaticalType> chunkTypeToGrammaticalType
     return GrammaticalType::OCCURRENCE_RANK;
   case ChunkLinkType::SIMILARITY:
     return GrammaticalType::SIMILARITY;
+  case ChunkLinkType::RECEIVER:
+    return GrammaticalType::RECEIVER;
   case ChunkLinkType::REPETITION:
     return GrammaticalType::REPETITION;
   case ChunkLinkType::DESPITE_CONTRAINT:

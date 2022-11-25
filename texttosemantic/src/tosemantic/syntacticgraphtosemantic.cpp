@@ -2718,6 +2718,7 @@ void SyntacticGraphToSemantic::xFillNewSentence
     case ChunkLinkType::MITIGATION:
     case ChunkLinkType::OCCURRENCE_RANK:
     case ChunkLinkType::PURPOSE:
+    case ChunkLinkType::RECEIVER:
     case ChunkLinkType::REPETITION:
     case ChunkLinkType::SIMILARITY:
     case ChunkLinkType::THANKS_TO:

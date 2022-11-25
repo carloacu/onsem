@@ -102,6 +102,10 @@ protected:
   (std::list<WordToSynthesize>& pOut,
    const SemanticExpression& pSemExp) const;
 
+  virtual void _getBeginOfReceiverOfNounChild
+  (std::list<WordToSynthesize>& pOut,
+   const SemanticExpression&) const;
+
   virtual void _getThanWord
   (std::list<WordToSynthesize>& pOut,
    const mystd::unique_propagate_const<UniqueSemanticExpression>& pWhatIsComparedExp) const;

@@ -344,6 +344,13 @@ void LinguisticSynthesizerEnglish::_getBeginOfForChild
            SemExpGetter::semExphasAStatementGrd(pSemExp) ? "in order to" : "for");
 }
 
+void LinguisticSynthesizerEnglish::_getBeginOfReceiverOfNounChild
+(std::list<WordToSynthesize>& pOut,
+ const SemanticExpression&) const
+{
+  _strToOut(pOut, PartOfSpeech::PREPOSITION, "to");
+}
+
 void LinguisticSynthesizerEnglish::_getThanWord
 (std::list<WordToSynthesize>& pOut,
  const mystd::unique_propagate_const<UniqueSemanticExpression>& pWhatIsComparedExp) const

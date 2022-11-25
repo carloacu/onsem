@@ -74,6 +74,7 @@
 
   <no_verb>
     <child lemma="à" pos="preposition" chunkLinkType="todo" condition="followedByInfinitiveVerb" />
+    <child lemma="à" pos="preposition" chunkLinkType="receiver" condition="!followedByPartOfSpeech(pronoun_comp)&!followedByPartOfSpeech(verb)" />
     <child lemma="à" pos="preposition" chunkLinkType="location" condition="!followedByBeginOfConcept(abstract_)" />
     <child lemma="à chaque fois que" pos="sub_conj" chunkLinkType="time" />
     <child lemma="après" pos="preposition" chunkLinkType="time" />

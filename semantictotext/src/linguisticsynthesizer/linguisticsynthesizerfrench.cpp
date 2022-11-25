@@ -666,6 +666,13 @@ void LinguisticSynthesizerFrench::_getBeginOfForChild
   _strToOut(pOut, PartOfSpeech::PREPOSITION, "pour");
 }
 
+void LinguisticSynthesizerFrench::_getBeginOfReceiverOfNounChild
+(std::list<WordToSynthesize>& pOut,
+ const SemanticExpression&) const
+{
+  _strToOut(pOut, PartOfSpeech::PREPOSITION, "à");
+}
+
 void LinguisticSynthesizerFrench::_getThanWord
 (std::list<WordToSynthesize>& pOut,
  const mystd::unique_propagate_const<UniqueSemanticExpression>& pWhatIsComparedExp) const

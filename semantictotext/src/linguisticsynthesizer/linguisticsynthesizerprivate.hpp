@@ -152,6 +152,10 @@ protected:
   (std::list<WordToSynthesize>& pOut,
    const SemanticExpression& pSemExp) const = 0;
 
+  virtual void _getBeginOfReceiverOfNounChild
+  (std::list<WordToSynthesize>& pOut,
+   const SemanticExpression& pSemExp) const = 0;
+
   virtual void _getOfWord(std::list<WordToSynthesize>& pOut,
                           const SynthesizerWordContext& pWordContext) const = 0;
   virtual void _getRelTimeFollowingPrep(std::list<WordToSynthesize>& pOut,

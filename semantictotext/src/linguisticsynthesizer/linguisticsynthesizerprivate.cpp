@@ -1346,6 +1346,16 @@ void LinguisticSynthesizerPrivate::_writeNominalChild(OutNominalGroup& outNomina
                  pConf, SynthesizerCurrentContext());
     break;
   }
+  case GrammaticalType::RECEIVER:
+  {
+    _getBeginOfReceiverOfNounChild(outNominalGroup.subordinate.out, currSemExpChild);
+    auto subRequests = pRequests;
+    std::list<SemExpTypeEnumFormSynt> semExpSyntTypes;
+    _writeSemExp(semExpSyntTypes, outNominalGroup.subordinate, subRequests,
+                 pLastSubject, currSemExpChild,
+                 pConf, SynthesizerCurrentContext());
+    break;
+  }
   default:
     break;
   }

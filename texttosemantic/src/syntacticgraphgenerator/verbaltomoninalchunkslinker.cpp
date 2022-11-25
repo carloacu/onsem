@@ -438,10 +438,15 @@ void VerbalToNominalChunksLinker::_constructASyntGraphBetween2VerbChunks
       }
       if (canBeTheHeadOfASubordinate(itChunkLink->chunk->head->inflWords.front()))
       {
-        itChunkLink->type = entityRecognizer.findNatureOfAChunkLink(*itChunkLink, firstVerbChunk);
-        putSeparatorBefore(itChunkLink);
-        firstVerbChunk->children.splice(firstVerbChunk->children.end(),
-                                        workingZone.syntTree(), itChunkLink.getIt());
+        ChunkLinkType subordinateChunkLink = entityRecognizer.findNatureOfAChunkLink(*itChunkLink, firstVerbChunk);
+        if (subordinateChunkLink != ChunkLinkType::INDIRECTOBJECT ||
+            !haveChild(*firstVerbChunk, subordinateChunkLink))
+        {
+          itChunkLink->type = subordinateChunkLink;
+          putSeparatorBefore(itChunkLink);
+          firstVerbChunk->children.splice(firstVerbChunk->children.end(),
+                                          workingZone.syntTree(), itChunkLink.getIt());
+        }
       }
       itChunkLink = itNext;
     }

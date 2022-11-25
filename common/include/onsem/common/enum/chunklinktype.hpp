@@ -54,6 +54,7 @@ namespace linguistics
   SYNTACTIC_CHUNK_LINK(RIGHTOPCOMPARISON, "right op comparison", "green")      \
   SYNTACTIC_CHUNK_LINK(REPETITION, "repetition", "green")                      \
   SYNTACTIC_CHUNK_LINK(DESPITE_CONTRAINT, "despite contraint", "green")        \
+  SYNTACTIC_CHUNK_LINK(RECEIVER, "receiver", "green")                          \
   SYNTACTIC_CHUNK_LINK(REASONOF, "reason of", "green")                         \
   SYNTACTIC_CHUNK_LINK(THANKS_TO, "thanks to", "green")                        \
   SYNTACTIC_CHUNK_LINK(TODO, "todo", "green")                                  \
