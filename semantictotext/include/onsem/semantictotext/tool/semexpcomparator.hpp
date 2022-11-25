@@ -53,6 +53,9 @@ struct ComparisonExceptions
   /// Whether to ignore the time attributes.
   bool verbTense = false;
 
+  /// Whether to ignore the interpretations of InterpretationExpressions.
+  bool interpretations = false;
+
   /// The grammatical types to ignore in the comparison.
   std::set<GrammaticalType> grammaticalTypes;
 };

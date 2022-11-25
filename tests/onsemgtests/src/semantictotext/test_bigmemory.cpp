@@ -71,8 +71,8 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
       operator_addATriggerToSemExpAnswer(currentText, _idToSemExp(currentId), semMem, lingDb, language);
       triggersToReferenceOfAnswer.emplace(currentText, currentId);
     }
-//    if (currentLabel == "inform" || currentLabel == "message")
-//      _inform(currentText, semMem, lingDb, {currentId});
+    if (currentLabel == "inform" || currentLabel == "message")
+      _inform(currentText, semMem, lingDb, {currentId});
   };
 
   std::string line;

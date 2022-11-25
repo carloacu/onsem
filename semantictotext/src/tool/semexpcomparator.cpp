@@ -656,8 +656,14 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
     }
     case SemanticExpressionType::INTERPRETATION:
     {
-      auto& intExp = *pSemExp2.getIntExp().interpretedExp;
-      return _getSemExpsWithoutListImbrications(pSemExp1, intExp, pMemBlock, pLingDb, pExceptionsPtr,
+      if (pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations)
+      {
+        auto& intExp = *pSemExp2.getIntExp().interpretedExp;
+        return _getSemExpsWithoutListImbrications(pSemExp1, intExp, pMemBlock, pLingDb, pExceptionsPtr,
+                                                  pComparisonErrorReportingPtr, pParentGrammaticalType);
+      }
+      auto& originalExp = *pSemExp2.getIntExp().originalExp;
+      return _getSemExpsWithoutListImbrications(pSemExp1, originalExp, pMemBlock, pLingDb, pExceptionsPtr,
                                                 pComparisonErrorReportingPtr, pParentGrammaticalType);
     }
     case SemanticExpressionType::FEEDBACK:
@@ -715,8 +721,14 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
   }
   case SemanticExpressionType::INTERPRETATION:
   {
-    auto& interpretedExp = *pSemExp1.getIntExp().interpretedExp;
-    return _getSemExpsWithoutListImbrications(interpretedExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+    if (pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations)
+    {
+      auto& interpretedExp = *pSemExp1.getIntExp().interpretedExp;
+      return _getSemExpsWithoutListImbrications(interpretedExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                                pComparisonErrorReportingPtr, pParentGrammaticalType);
+    }
+    auto& originalExp = *pSemExp1.getIntExp().originalExp;
+    return _getSemExpsWithoutListImbrications(originalExp, pSemExp2, pMemBlock, pLingDb, pExceptionsPtr,
                                               pComparisonErrorReportingPtr, pParentGrammaticalType);
   }
   case SemanticExpressionType::FEEDBACK:

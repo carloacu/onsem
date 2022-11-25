@@ -75,6 +75,7 @@ bool getResultMatchingNowTimeFromMemory(RelationsThatMatch<true>& pRelations,
                                         RequestToMemoryLinks<true>& pReqToGrdExps,
                                         const SemanticDuration& pNowTimeDuration,
                                         const SemanticMemoryBlockPrivate& pMemBlockPrivate,
+                                        bool pIsATrigger,
                                         const linguistics::LinguisticDatabase& pLingDb,
                                         bool pCheckChildren);
 

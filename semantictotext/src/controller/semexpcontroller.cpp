@@ -756,9 +756,9 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
 
     bool anAnswerHasBeenAdded = false;
     addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinks,
-                                  SemanticExpressionCategory::COMMAND, _emptyAxiomId, pGrdExp,
-                                  ContextualAnnotation::BEHAVIOR);
-     break;
+                              SemanticExpressionCategory::COMMAND, _emptyAxiomId, pGrdExp,
+                              ContextualAnnotation::BEHAVIOR);
+    break;
   }
   case SemanticOperatorEnum::EXECUTEBEHAVIOR:
   case SemanticOperatorEnum::RESOLVECOMMAND:
