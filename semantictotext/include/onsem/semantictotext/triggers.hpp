@@ -1,3 +1,7 @@
+/*
+ * Allow to do matching of sentences.<br/>
+ * Can be usefull for hard coded chatbots or to have triggers that point to actions to do.
+ */
 #ifndef ONSEM_SEMANTICTOTEXT_TRIGGERS_HPP
 #define ONSEM_SEMANTICTOTEXT_TRIGGERS_HPP
 
