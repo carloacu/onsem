@@ -126,7 +126,6 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
     auto refIt = std::find(answer.references.begin(), answer.references.end(), currTrigger.second);
     if (refIt == answer.references.end())
     {
-      operator_reactFromTrigger(currTrigger.first, semMem, lingDb, language, &reactionOptions);
       std::string refStrs = "[";
       for (auto& currRef : answer.references)
       {
