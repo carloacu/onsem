@@ -1,6 +1,6 @@
 #include "../semanticreasonergtests.hpp"
 #include "../util/util.hpp"
-#include <onsem/semantictotext/semanticrecommendations.hpp>
+#include <onsem/semantictotext/recommendations.hpp>
 #include <onsem/tester/sentencesloader.hpp>
 
 using namespace onsem;

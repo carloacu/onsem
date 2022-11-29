@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/semanticrecommendations.hpp>
+#include <onsem/semantictotext/recommendations.hpp>
 #include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include "controller/steps/semanticmemorygetter.hpp"

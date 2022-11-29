@@ -22,7 +22,7 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/semexpoperators.hpp
     include/onsem/semantictotext/semanticconverter.hpp
     include/onsem/semantictotext/semanticintent.hpp
-    include/onsem/semantictotext/semanticrecommendations.hpp
+    include/onsem/semantictotext/recommendations.hpp
     include/onsem/semantictotext/semexpsimplifer.hpp
     include/onsem/semantictotext/serialization.hpp
     include/onsem/semantictotext/executor/executorcontext.hpp
@@ -137,7 +137,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/sentiment/sentimentdetector.cpp
     src/sentiment/sentimentanalyzer.cpp
     src/semanticintent.cpp
-    src/semanticrecommendations.cpp
+    src/recommendations.cpp
     src/semexpoperators.cpp
     src/semanticconverter.cpp
     src/semexpsimplifer.cpp
