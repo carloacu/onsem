@@ -41,7 +41,8 @@ struct ONSEM_TEXTTOSEMANTIC_API ConditionExpression : public SemanticExpression
                                              bool pRemoveRecentContextInterpretations = false,
                                              const std::set<SemanticExpressionType>* pExpressionTypesToSkip = nullptr) const;
 
-  void toListOfGrdExpPtrs(std::list<const GroundedExpression*>& pGrdExpPtrs) const;
+  void toListOfGrdExpPtrs(std::list<const GroundedExpression*>& pGrdExpPtrs,
+                          bool pFollowInterpretations = true) const;
 
   bool isAlwaysActive;
   // TODO: rename because here "affirmation" -> "sentence"
@@ -102,10 +103,11 @@ inline std::unique_ptr<ConditionExpression> ConditionExpression::clone
 }
 
 
-inline void ConditionExpression::toListOfGrdExpPtrs(std::list<const GroundedExpression*>& pGrdExpPtrs) const
+inline void ConditionExpression::toListOfGrdExpPtrs(std::list<const GroundedExpression*>& pGrdExpPtrs,
+                                                    bool pFollowInterpretations) const
 {
-  conditionExp->getGrdExpPtrs_SkipWrapperLists(pGrdExpPtrs);
-  thenExp->getGrdExpPtrs_SkipWrapperLists(pGrdExpPtrs);
+  conditionExp->getGrdExpPtrs_SkipWrapperLists(pGrdExpPtrs, pFollowInterpretations);
+  thenExp->getGrdExpPtrs_SkipWrapperLists(pGrdExpPtrs, pFollowInterpretations);
 }
 
 } // End of namespace onsem

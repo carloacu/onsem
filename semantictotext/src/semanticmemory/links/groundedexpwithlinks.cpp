@@ -1064,7 +1064,8 @@ bool GroundedExpWithLinksPrivate::_linkChildSemExp
  SemanticRequestType pFromRequest,
  const linguistics::LinguisticDatabase& pLingDb)
 {
-  const GroundedExpression* childGrdExp = pSemExpression.getGrdExpPtr_SkipWrapperPtrs();
+  const bool followInterpretations = !_memSent.isATrigger();
+  const GroundedExpression* childGrdExp = pSemExpression.getGrdExpPtr_SkipWrapperPtrs(followInterpretations);
   if (childGrdExp != nullptr)
   {
     if (childGrdExp == &_memSent.grdExp)
@@ -1077,7 +1078,7 @@ bool GroundedExpWithLinksPrivate::_linkChildSemExp
       auto* originalIntPtr = pSemExpression.getIntExpPtr();
       if (originalIntPtr != nullptr)
       {
-        auto* originalGrdExpPtr = originalIntPtr->originalExp->getGrdExpPtr_SkipWrapperPtrs();
+        auto* originalGrdExpPtr = originalIntPtr->originalExp->getGrdExpPtr_SkipWrapperPtrs(followInterpretations);
         if (originalGrdExpPtr != nullptr &&
             originalGrdExpPtr->grounding().type == SemanticGroundingType::AGENT)
         {
@@ -1460,7 +1461,9 @@ GroundedExpWithLinks::GroundedExpWithLinks
 (SentenceWithLinks& pContextAxiom,
  const GroundedExpression& pGrdExp,
  bool pInRecommendationMode,
- const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+ const std::map<GrammaticalType,
+ const SemanticExpression*>& pAnnotations,
+ bool pIsATrigger,
  const linguistics::LinguisticDatabase& pLingDb,
  bool pIsAConditionToSatisfy,
  bool pIsEnabled,
@@ -1472,6 +1475,7 @@ GroundedExpWithLinks::GroundedExpWithLinks
     inRecommendationMode(pInRecommendationMode),
     _contextAxiom(pContextAxiom),
     _annotations(),
+    _isATrigger(pIsATrigger),
     _isEnabled(pIsEnabled),
     _isANoun(false),
     _isAConditionToSatisfy(pIsAConditionToSatisfy),

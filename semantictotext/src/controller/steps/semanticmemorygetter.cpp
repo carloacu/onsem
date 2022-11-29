@@ -402,7 +402,7 @@ bool _addPotentialNewRelationsFromLinks(RelationsThatMatch<IS_MODIFIABLE>& pRela
         if (itSpecifierFromMemory == grdExpFromMem.children.end())
         {
           auto itOwnerFromMemory = grdExpFromMem.children.find(GrammaticalType::OWNER);
-          if (!SemExpGetter::isAModifier(*itSpecifierToLookForPtr) &&
+          if (!SemExpGetter::isAModifier(*itSpecifierToLookForPtr, !pIsATrigger) &&
               (itOwnerFromMemory == grdExpFromMem.children.end() ||
                !SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(*itSpecifierToLookForPtr, *itOwnerFromMemory->second,
                                                                            memBlock, pLingDb, &compWithoutStatementGrd)))

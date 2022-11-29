@@ -520,7 +520,8 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
   }
   case SemanticExpressionType::LIST:
   {
-    _applyOperatorOnListExp(pWorkStruct, pMemViewer, pSemExp.getListExp());
+    const auto& listExp = pSemExp.getListExp();
+    _applyOperatorOnListExp(pWorkStruct, pMemViewer, listExp);
     break;
   }
   case SemanticExpressionType::SETOFFORMS:
@@ -1077,7 +1078,7 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
       if (pWorkStruct.expHandleInMemory != nullptr &&
           isNewInformationRevelant)
         newContextAxiom = pWorkStruct.expHandleInMemory->addAxiomFromGrdExp(pWorkStruct.informationType, pGrdExp,
-                                                                            pWorkStruct.annotatedExps, pWorkStruct.lingDb);
+                                                                            pWorkStruct.annotatedExps, pWorkStruct.lingDb, false);
 
       // Consider the new informations that become true because they are linked to a condition that is satistied by the input.
       // Recurssively this new informations can trigger new answers.
@@ -1257,7 +1258,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
       {
         auto* newContextAxiom =
             pWorkStruct.expHandleInMemory->tryToAddTeachFormulation(pWorkStruct.informationType, pGrdExp,
-                                                                    pWorkStruct.annotatedExps, pWorkStruct.lingDb);
+                                                                    pWorkStruct.annotatedExps, pWorkStruct.lingDb, false);
         // check if the sentence was about learning a command
         if (newContextAxiom != nullptr &&
             newContextAxiom->infCommandToDo != nullptr)

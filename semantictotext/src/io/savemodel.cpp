@@ -604,6 +604,8 @@ void _saveMemorySentence(boost::property_tree::ptree& pTree,
       annotationsTree.put(grammaticalType_toStr(currAnn.first),
                           pGrdExpLinks.getLinkOfSemExp(*currAnn.second));
   }
+  if (pMemSentence.isATrigger())
+    pTree.put("isATrigger", trueStr);
   if (pMemSentence.isAConditionToSatisfy())
     pTree.put("isAConditionToSatisfy", trueStr);
   if (pMemSentence.isEnabled())

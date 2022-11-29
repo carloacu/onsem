@@ -1646,7 +1646,7 @@ bool addTriggerListExp
  const ListExpression& pListExp)
 {
   std::list<const GroundedExpression*> grdExpPtrs;
-  pListExp.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+  pListExp.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs, false);
 
   std::size_t nbListOfElts = grdExpPtrs.size();
   auto getAxiomIdFromId = [&nbListOfElts, &pListExp](std::size_t pId)
@@ -1665,7 +1665,7 @@ bool addTriggerCondExp
  const ConditionExpression& pCondExp)
 {
   std::list<const GroundedExpression*> grdExpPtrs;
-  pCondExp.toListOfGrdExpPtrs(grdExpPtrs);
+  pCondExp.toListOfGrdExpPtrs(grdExpPtrs, false);
   std::size_t nbListOfElts = grdExpPtrs.size();
   auto getAxiomIdFromId = [&nbListOfElts](std::size_t pId)
   {

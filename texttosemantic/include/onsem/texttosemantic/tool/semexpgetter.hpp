@@ -180,7 +180,7 @@ ONSEM_TEXTTOSEMANTIC_API
 bool isAModifierFromGrdExp(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool isAModifier(const SemanticExpression& pSemExp);
+bool isAModifier(const SemanticExpression& pSemExp, bool pFollowInterpretations = true);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool hasAChildModifier(const GroundedExpression& pGrdExp);
@@ -454,7 +454,8 @@ ONSEM_TEXTTOSEMANTIC_API
 bool isAnythingFromSemExp(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool haveAGrdExpThatModifyTheMeaning(const SemanticExpression& pSemExp);
+bool haveAGrdExpThatModifyTheMeaning(const SemanticExpression& pSemExp,
+                                     bool pFollowInterpretations = true);
 
 ONSEM_TEXTTOSEMANTIC_API
 void getStatementSubordinates(std::set<const SemanticExpression*>& pStatementSubordinates,

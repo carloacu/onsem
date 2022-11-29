@@ -290,7 +290,7 @@ const GroundedExpression* SemanticExpression::getGrdExpPtr_SkipWrapperPtrs(bool 
 }
 
 template <typename ReturnType, typename SemExpType>
-ReturnType getListExpPtrSkipWrapperPtrs(SemExpType& self)
+ReturnType getListExpPtrSkipWrapperPtrs(SemExpType& self, bool pFollowInterpretations)
 {
   switch (self.type)
   {
@@ -300,7 +300,9 @@ ReturnType getListExpPtrSkipWrapperPtrs(SemExpType& self)
   }
   case SemanticExpressionType::INTERPRETATION:
   {
-    return self.getIntExp().interpretedExp->getListExpPtr_SkipWrapperPtrs();
+    if (pFollowInterpretations)
+      return self.getIntExp().interpretedExp->getListExpPtr_SkipWrapperPtrs();
+    return self.getIntExp().originalExp->getListExpPtr_SkipWrapperPtrs();
   }
   case SemanticExpressionType::FEEDBACK:
   {
@@ -342,9 +344,10 @@ ReturnType getListExpPtrSkipWrapperPtrs(SemExpType& self)
 }
 
 
-ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<GroundedExpression*>& pRes)
+ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<GroundedExpression*>& pRes,
+                                                                      bool pFollowInterpretations)
 {
-  GroundedExpression* grdExpPtr = getGrdExpPtr_SkipWrapperPtrs();
+  GroundedExpression* grdExpPtr = getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   if (grdExpPtr != nullptr)
   {
     pRes.emplace_back(grdExpPtr);
@@ -362,16 +365,17 @@ ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<
 }
 
 
-ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<const GroundedExpression*>& pRes) const
+ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<const GroundedExpression*>& pRes,
+                                                                      bool pFollowInterpretations) const
 {
-  const GroundedExpression* grdExpPtr = getGrdExpPtr_SkipWrapperPtrs();
+  const GroundedExpression* grdExpPtr = getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   if (grdExpPtr != nullptr)
   {
     pRes.emplace_back(grdExpPtr);
     return ListExpressionType::UNRELATED;
   }
 
-  const ListExpression* listExpPtr = getListExpPtr_SkipWrapperPtrs();
+  const ListExpression* listExpPtr = getListExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   if (listExpPtr != nullptr)
   {
     for (auto& currElt : listExpPtr->elts)
@@ -382,19 +386,19 @@ ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<
 }
 
 
-ListExpression* SemanticExpression::getListExpPtr_SkipWrapperPtrs()
+ListExpression* SemanticExpression::getListExpPtr_SkipWrapperPtrs(bool pFollowInterpretations)
 {
-  return getListExpPtrSkipWrapperPtrs<ListExpression*>(*this);
+  return getListExpPtrSkipWrapperPtrs<ListExpression*>(*this, pFollowInterpretations);
 }
 
-const ListExpression* SemanticExpression::getListExpPtr_SkipWrapperPtrs() const
+const ListExpression* SemanticExpression::getListExpPtr_SkipWrapperPtrs(bool pFollowInterpretations) const
 {
-  return getListExpPtrSkipWrapperPtrs<const ListExpression*>(*this);
+  return getListExpPtrSkipWrapperPtrs<const ListExpression*>(*this, pFollowInterpretations);
 }
 
 
 template <typename ReturnType, typename SemExpType>
-ReturnType getCondExpPtrSkipWrapperPtrs(SemExpType& self)
+ReturnType getCondExpPtrSkipWrapperPtrs(SemExpType& self, bool pFollowInterpretations)
 {
   switch (self.type)
   {
@@ -404,7 +408,9 @@ ReturnType getCondExpPtrSkipWrapperPtrs(SemExpType& self)
   }
   case SemanticExpressionType::INTERPRETATION:
   {
-    return self.getIntExp().interpretedExp->getCondExpPtr_SkipWrapperPtrs();
+    if (pFollowInterpretations)
+      return self.getIntExp().interpretedExp->getCondExpPtr_SkipWrapperPtrs();
+    return self.getIntExp().originalExp->getCondExpPtr_SkipWrapperPtrs();
   }
   case SemanticExpressionType::FEEDBACK:
   {
@@ -446,19 +452,19 @@ ReturnType getCondExpPtrSkipWrapperPtrs(SemExpType& self)
 }
 
 
-ConditionExpression* SemanticExpression::getCondExpPtr_SkipWrapperPtrs()
+ConditionExpression* SemanticExpression::getCondExpPtr_SkipWrapperPtrs(bool pFollowInterpretations)
 {
-  return getCondExpPtrSkipWrapperPtrs<ConditionExpression*>(*this);
+  return getCondExpPtrSkipWrapperPtrs<ConditionExpression*>(*this, pFollowInterpretations);
 }
 
-const ConditionExpression* SemanticExpression::getCondExpPtr_SkipWrapperPtrs() const
+const ConditionExpression* SemanticExpression::getCondExpPtr_SkipWrapperPtrs(bool pFollowInterpretations) const
 {
-  return getCondExpPtrSkipWrapperPtrs<const ConditionExpression*>(*this);
+  return getCondExpPtrSkipWrapperPtrs<const ConditionExpression*>(*this, pFollowInterpretations);
 }
 
 
 template <typename ReturnType, typename SemExpType>
-ReturnType getFdkExpPtrSkipWrapperPtrs(SemExpType& self)
+ReturnType getFdkExpPtrSkipWrapperPtrs(SemExpType& self, bool pFollowInterpretations)
 {
   switch (self.type)
   {
@@ -468,7 +474,9 @@ ReturnType getFdkExpPtrSkipWrapperPtrs(SemExpType& self)
   }
   case SemanticExpressionType::INTERPRETATION:
   {
-    return self.getIntExp().interpretedExp->getFdkExpPtr_SkipWrapperPtrs();
+    if (pFollowInterpretations)
+      return self.getIntExp().interpretedExp->getFdkExpPtr_SkipWrapperPtrs();
+    return self.getIntExp().originalExp->getFdkExpPtr_SkipWrapperPtrs();
   }
   case SemanticExpressionType::ANNOTATED:
   {
@@ -507,14 +515,14 @@ ReturnType getFdkExpPtrSkipWrapperPtrs(SemExpType& self)
 }
 
 
-FeedbackExpression* SemanticExpression::getFdkExpPtr_SkipWrapperPtrs()
+FeedbackExpression* SemanticExpression::getFdkExpPtr_SkipWrapperPtrs(bool pFollowInterpretations)
 {
-  return getFdkExpPtrSkipWrapperPtrs<FeedbackExpression*>(*this);
+  return getFdkExpPtrSkipWrapperPtrs<FeedbackExpression*>(*this, pFollowInterpretations);
 }
 
-const FeedbackExpression* SemanticExpression::getFdkExpPtr_SkipWrapperPtrs() const
+const FeedbackExpression* SemanticExpression::getFdkExpPtr_SkipWrapperPtrs(bool pFollowInterpretations) const
 {
-  return getFdkExpPtrSkipWrapperPtrs<const FeedbackExpression*>(*this);
+  return getFdkExpPtrSkipWrapperPtrs<const FeedbackExpression*>(*this, pFollowInterpretations);
 }
 
 
@@ -603,7 +611,7 @@ void SemanticExpression::getMetadataPtr_SkipWrapperAndLists(std::list<const Meta
 
 
 template <typename ReturnType, typename SemExpType>
-ReturnType geSetOfFormsPtrSkipWrapperPtrs(SemExpType& self)
+ReturnType geSetOfFormsPtrSkipWrapperPtrs(SemExpType& self, bool pFollowInterpretations)
 {
   switch (self.type)
   {
@@ -613,7 +621,9 @@ ReturnType geSetOfFormsPtrSkipWrapperPtrs(SemExpType& self)
   }
   case SemanticExpressionType::INTERPRETATION:
   {
-    return self.getIntExp().interpretedExp->getSetOfFormsPtr_SkipWrapperPtrs();
+    if (pFollowInterpretations)
+      return self.getIntExp().interpretedExp->getSetOfFormsPtr_SkipWrapperPtrs();
+    return self.getIntExp().originalExp->getSetOfFormsPtr_SkipWrapperPtrs();
   }
   case SemanticExpressionType::ANNOTATED:
   {
@@ -649,14 +659,14 @@ ReturnType geSetOfFormsPtrSkipWrapperPtrs(SemExpType& self)
 }
 
 
-SetOfFormsExpression* SemanticExpression::getSetOfFormsPtr_SkipWrapperPtrs()
+SetOfFormsExpression* SemanticExpression::getSetOfFormsPtr_SkipWrapperPtrs(bool pFollowInterpretations)
 {
-  return geSetOfFormsPtrSkipWrapperPtrs<SetOfFormsExpression*>(*this);
+  return geSetOfFormsPtrSkipWrapperPtrs<SetOfFormsExpression*>(*this, pFollowInterpretations);
 }
 
-const SetOfFormsExpression* SemanticExpression::getSetOfFormsPtr_SkipWrapperPtrs() const
+const SetOfFormsExpression* SemanticExpression::getSetOfFormsPtr_SkipWrapperPtrs(bool pFollowInterpretations) const
 {
-  return geSetOfFormsPtrSkipWrapperPtrs<const SetOfFormsExpression*>(*this);
+  return geSetOfFormsPtrSkipWrapperPtrs<const SetOfFormsExpression*>(*this, pFollowInterpretations);
 }
 
 

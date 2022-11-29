@@ -17,12 +17,13 @@ struct GrdExpTriggerComposition
   std::list<const GroundedExpression*> grdExpPtrs{};
 };
 
-void getGrdExpPtrs_SkipWrapperListsBySetOfFroms(
+void _getGrdExpPtrs_SkipWrapperListsBySetOfFroms(
     std::list<GrdExpTriggerComposition>& pTriggerSetOfForms,
     std::list<const ConditionExpression*>& pCondExpTriggers,
     const SemanticExpression& pSemExp)
 {
-  const SetOfFormsExpression* setOfFormsPtr = pSemExp.getSetOfFormsPtr_SkipWrapperPtrs();
+  const bool followInterpretations = false; // Because it is a trigger
+  const SetOfFormsExpression* setOfFormsPtr = pSemExp.getSetOfFormsPtr_SkipWrapperPtrs(followInterpretations);
   if (setOfFormsPtr != nullptr)
   {
     for (auto& currForm : setOfFormsPtr->prioToForms)
@@ -37,7 +38,7 @@ void getGrdExpPtrs_SkipWrapperListsBySetOfFroms(
     return;
   }
 
-  const ConditionExpression* condExpPtr = pSemExp.getCondExpPtr_SkipWrapperPtrs();
+  const ConditionExpression* condExpPtr = pSemExp.getCondExpPtr_SkipWrapperPtrs(followInterpretations);
   if (condExpPtr != nullptr)
   {
     pCondExpTriggers.emplace_back(condExpPtr);
@@ -46,7 +47,7 @@ void getGrdExpPtrs_SkipWrapperListsBySetOfFroms(
   {
     pTriggerSetOfForms.emplace_back();
     auto& grdTriggerComp = pTriggerSetOfForms.back();
-    grdTriggerComp.listType = pSemExp.getGrdExpPtrs_SkipWrapperLists(grdTriggerComp.grdExpPtrs);
+    grdTriggerComp.listType = pSemExp.getGrdExpPtrs_SkipWrapperLists(grdTriggerComp.grdExpPtrs, followInterpretations);
     if (grdTriggerComp.grdExpPtrs.empty())
       pTriggerSetOfForms.pop_back();
   }
@@ -104,13 +105,15 @@ void _addGrdExpToAxiom
  const GroundedExpression& pGrdExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
  bool pIsAConditionToSatisfy,
- const linguistics::LinguisticDatabase& pLingDb);
+ const linguistics::LinguisticDatabase& pLingDb,
+ bool pIsATrigger);
 
 void _addSpecifierSemExp
 (SentenceWithLinks& pContextAxiom,
  const GrdExpLinksContext& pContext,
  const SemanticExpression& pSemExp,
- const linguistics::LinguisticDatabase& pLingDb)
+ const linguistics::LinguisticDatabase& pLingDb,
+ bool pIsATrigger)
 {
   const GroundedExpression* specChildGrdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (specChildGrdExpPtr != nullptr)
@@ -129,14 +132,14 @@ void _addSpecifierSemExp
           SemExpGetter::isACoreference(*itObject->second, CoreferenceDirectionEnum::PARENT, false))
         subAnnotations.emplace(GrammaticalType::OBJECT, &_resolveParentCoreferenceLink(pContext));
     }
-    _addGrdExpToAxiom(pContextAxiom, *specChildGrdExpPtr, subAnnotations, false, pLingDb);
+    _addGrdExpToAxiom(pContextAxiom, *specChildGrdExpPtr, subAnnotations, false, pLingDb, pIsATrigger);
   }
   else
   {
     auto childListExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs();
     if (childListExpPtr != nullptr)
       for (const auto& currElt : childListExpPtr->elts)
-        _addSpecifierSemExp(pContextAxiom, pContext, *currElt, pLingDb);
+        _addSpecifierSemExp(pContextAxiom, pContext, *currElt, pLingDb, pIsATrigger);
   }
 }
 
@@ -146,10 +149,11 @@ void _addGrdExpToAxiom
  const GroundedExpression& pGrdExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
  bool pIsAConditionToSatisfy,
- const linguistics::LinguisticDatabase& pLingDb)
+ const linguistics::LinguisticDatabase& pLingDb,
+ bool pIsATrigger)
 {
-  pContextAxiom.memorySentences.elts.emplace_back(pContextAxiom, pGrdExpToAdd, false,
-                                                  pAnnotations, pLingDb, pIsAConditionToSatisfy);
+  pContextAxiom.memorySentences.elts.emplace_back(pContextAxiom, pGrdExpToAdd, false, pAnnotations,
+                                                  pIsATrigger, pLingDb, pIsAConditionToSatisfy);
 
   if (pGrdExpToAdd->type == SemanticGroundingType::STATEMENT)
   {
@@ -174,7 +178,7 @@ void _addGrdExpToAxiom
                 SemExpGetter::isACoreference(*itSubjectOfChild->second, CoreferenceDirectionEnum::PARENT))
             {
               GrdExpLinksContext context(childGrdExp, statGrd, GrammaticalType::SUBJECT, *itSubject->second);
-              _addSpecifierSemExp(pContextAxiom, context, childSemExp, pLingDb);
+              _addSpecifierSemExp(pContextAxiom, context, childSemExp, pLingDb, pIsATrigger);
             }
             else
             {
@@ -183,7 +187,7 @@ void _addGrdExpToAxiom
                   SemExpGetter::isACoreference(*itObjectOfChild->second, CoreferenceDirectionEnum::PARENT))
               {
                 GrdExpLinksContext context(childGrdExp, statGrd, GrammaticalType::SUBJECT, *itSubject->second);
-                _addSpecifierSemExp(pContextAxiom, context, childSemExp, pLingDb);
+                _addSpecifierSemExp(pContextAxiom, context, childSemExp, pLingDb, pIsATrigger);
               }
             }
           }
@@ -195,7 +199,7 @@ void _addGrdExpToAxiom
         if (itSpecifier != childGrdExp.children.end())
         {
           GrdExpLinksContext context(pGrdExpToAdd, statGrd, currChild.first, *currChild.second);
-          _addSpecifierSemExp(pContextAxiom, context, *itSpecifier->second, pLingDb);
+          _addSpecifierSemExp(pContextAxiom, context, *itSpecifier->second, pLingDb, pIsATrigger);
         }
       }
     }
@@ -265,24 +269,24 @@ void ExpressionWithLinks::removeContextAxiomsWithAnActionLinked()
 
 
 void ExpressionWithLinks::addConditionToAnAction(InformationType pInformationType,
-                                                        const ConditionSpecification& pCondExp,
-                                                        const linguistics::LinguisticDatabase& pLingDb)
+                                                 const ConditionSpecification& pCondExp,
+                                                 const linguistics::LinguisticDatabase& pLingDb)
 {
   addAxiomListToMemory(pCondExp.conditionExp, nullptr, pInformationType,
-                       pCondExp.isAlwaysActive, &pCondExp.thenExp, pCondExp.elseExpPtr, nullptr, pLingDb);
+                       pCondExp.isAlwaysActive, &pCondExp.thenExp, pCondExp.elseExpPtr, nullptr, pLingDb, false);
 }
 
 
 void ExpressionWithLinks::addConditionToAnInfo(InformationType pInformationType,
-                                                      const ConditionSpecification& pCondExp,
-                                                      const linguistics::LinguisticDatabase& pLingDb)
+                                               const ConditionSpecification& pCondExp,
+                                               const linguistics::LinguisticDatabase& pLingDb)
 {
   addAxiomListToMemory(pCondExp.thenExp, nullptr, pInformationType,
-                       false, nullptr, nullptr, &pCondExp.conditionExp, pLingDb);
+                       false, nullptr, nullptr, &pCondExp.conditionExp, pLingDb, false);
 
   if (pCondExp.conditionShouldBeInformed)
     addAxiomListToMemory(pCondExp.conditionExp, nullptr, pInformationType,
-                         false, nullptr, nullptr, nullptr, pLingDb);
+                         false, nullptr, nullptr, nullptr, pLingDb, false);
 }
 
 
@@ -292,7 +296,8 @@ SentenceWithLinks* ExpressionWithLinks::addAxiomFromGrdExp
 (InformationType pInformationType,
  const GroundedExpression& pGrdSemExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
- const linguistics::LinguisticDatabase& pLingDb)
+ const linguistics::LinguisticDatabase& pLingDb,
+ bool pIsATrigger)
 {
   contextAxioms.emplace_back(pInformationType, *this);
   SentenceWithLinks& axiom = contextAxioms.back();
@@ -302,11 +307,11 @@ SentenceWithLinks* ExpressionWithLinks::addAxiomFromGrdExp
   if (subjectGrdPtr != nullptr)
   {
     assert(axiom.infCommandToDo != nullptr);
-    _addGrdExpToAxiom(axiom, *subjectGrdPtr, pAnnotations, true, pLingDb);
+    _addGrdExpToAxiom(axiom, *subjectGrdPtr, pAnnotations, true, pLingDb, pIsATrigger);
   }
   else
   {
-    _addGrdExpToAxiom(axiom, pGrdSemExpToAdd, pAnnotations, false, pLingDb);
+    _addGrdExpToAxiom(axiom, pGrdSemExpToAdd, pAnnotations, false, pLingDb, pIsATrigger);
   }
 
   if (axiom.memorySentences.elts.empty())
@@ -322,7 +327,8 @@ SentenceWithLinks* ExpressionWithLinks::tryToAddTeachFormulation
 (InformationType pInformationType,
  const GroundedExpression& pGrdSemExpToAdd,
  const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
- const linguistics::LinguisticDatabase& pLingDb)
+ const linguistics::LinguisticDatabase& pLingDb,
+ bool pIsATrigger)
 {
   const GroundedExpression* purposeGrdPtr = nullptr;
   const SemanticExpression* objectSemExpPtr = nullptr;
@@ -333,7 +339,7 @@ SentenceWithLinks* ExpressionWithLinks::tryToAddTeachFormulation
     contextAxioms.emplace_back(pInformationType, *this);
     SentenceWithLinks& axiom = contextAxioms.back();
     axiom.infCommandToDo = objectSemExpPtr;
-    _addGrdExpToAxiom(axiom, *purposeGrdPtr, pAnnotations, true, pLingDb);
+    _addGrdExpToAxiom(axiom, *purposeGrdPtr, pAnnotations, true, pLingDb, pIsATrigger);
     if (axiom.memorySentences.elts.empty())
     {
       contextAxioms.pop_back();
@@ -353,29 +359,29 @@ void ExpressionWithLinks::addAxiomForARecommendation
   SentenceWithLinks& axiom = contextAxioms.back();
   std::map<GrammaticalType, const SemanticExpression*> annotations;
   axiom.memorySentences.elts.emplace_back(axiom, pGrdSemExpToAdd, true,
-                                          annotations, pLingDb, false);
+                                          annotations, true, pLingDb, false);
   if (axiom.memorySentences.elts.empty())
     contextAxioms.pop_back();
 }
 
 
 void ExpressionWithLinks::_addTriggerGrdExpLinks(InformationType pInformationType,
-                                                        const GroundedExpression& pTriggerGrdExp,
-                                                        const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
-                                                        const linguistics::LinguisticDatabase& pLingDb,
-                                                        std::size_t pId)
+                                                 const GroundedExpression& pTriggerGrdExp,
+                                                 const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
+                                                 const linguistics::LinguisticDatabase& pLingDb,
+                                                 std::size_t pId)
 {
   contextAxioms.emplace_back(pInformationType, *this);
   SentenceWithLinks& axiom = contextAxioms.back();
   axiom.triggerAxiomId = pGetAxiomIdFromId(pId);
   std::map<GrammaticalType, const SemanticExpression*> annotations;
-  _addGrdExpToAxiom(axiom, pTriggerGrdExp, annotations, true, pLingDb);
+  _addGrdExpToAxiom(axiom, pTriggerGrdExp, annotations, true, pLingDb, true);
 }
 
 void ExpressionWithLinks::_addTriggerGrdExpsLinks(InformationType pInformationType,
-                                                         const std::list<const GroundedExpression*>& pTriggerGrdExpPtrs,
-                                                         const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
-                                                         const linguistics::LinguisticDatabase& pLingDb)
+                                                  const std::list<const GroundedExpression*>& pTriggerGrdExpPtrs,
+                                                  const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
+                                                  const linguistics::LinguisticDatabase& pLingDb)
 {
   std::size_t i = 0;
   for (const auto& currGrdExpTriggerPtr : pTriggerGrdExpPtrs)
@@ -405,7 +411,7 @@ void ExpressionWithLinks::addTriggerLinks
 {
   std::list<GrdExpTriggerComposition> triggerSetOfForms;
   std::list<const ConditionExpression*> condExpTriggers;
-  getGrdExpPtrs_SkipWrapperListsBySetOfFroms(triggerSetOfForms, condExpTriggers, pSemExp);
+  _getGrdExpPtrs_SkipWrapperListsBySetOfFroms(triggerSetOfForms, condExpTriggers, pSemExp);
 
   for (const auto& currTriggerComp : triggerSetOfForms)
   {
@@ -436,13 +442,14 @@ void ExpressionWithLinks::addTriggerLinks
 
 
 void ExpressionWithLinks::addAxiomListToMemory(const SemanticExpression& pSemExpToAdd,
-                                                      std::shared_ptr<SemanticTracker>* pSemTracker,
-                                                      InformationType pInformationType,
-                                                      bool pActionToDoIsAlwaysActive,
-                                                      const SemanticExpression* pActionToDo,
-                                                      const SemanticExpression* pActionToDoElse,
-                                                      const SemanticExpression* pSemExpToAddWithoutLinks,
-                                                      const linguistics::LinguisticDatabase& pLingDb)
+                                               std::shared_ptr<SemanticTracker>* pSemTracker,
+                                               InformationType pInformationType,
+                                               bool pActionToDoIsAlwaysActive,
+                                               const SemanticExpression* pActionToDo,
+                                               const SemanticExpression* pActionToDoElse,
+                                               const SemanticExpression* pSemExpToAddWithoutLinks,
+                                               const linguistics::LinguisticDatabase& pLingDb,
+                                               bool pIsATrigger)
 {
   const ListExpression* listExp = pSemExpToAdd.getListExpPtr();
   if (listExp != nullptr &&
@@ -452,7 +459,7 @@ void ExpressionWithLinks::addAxiomListToMemory(const SemanticExpression& pSemExp
   {
     for (const auto& currElt : listExp->elts)
       addAxiomListToMemory(*currElt, pSemTracker, pInformationType, pActionToDoIsAlwaysActive,
-                           pActionToDo, pActionToDoElse, pSemExpToAddWithoutLinks, pLingDb);
+                           pActionToDo, pActionToDoElse, pSemExpToAddWithoutLinks, pLingDb, pIsATrigger);
     return;
   }
 
@@ -463,7 +470,7 @@ void ExpressionWithLinks::addAxiomListToMemory(const SemanticExpression& pSemExp
   axiom.semExpToDoIsAlwaysActive = pActionToDoIsAlwaysActive;
   axiom.semExpToDo = pActionToDo;
   axiom.semExpToDoElse = pActionToDoElse;
-  _addContextAxiom(axiom, pSemExpToAdd, pSemExpToAddWithoutLinks, pLingDb);
+  _addContextAxiom(axiom, pSemExpToAdd, pSemExpToAddWithoutLinks, pLingDb, pIsATrigger);
   if (axiom.memorySentences.elts.empty())
     contextAxioms.pop_back();
 }
@@ -481,7 +488,8 @@ void ExpressionWithLinks::_addContextAxiom
 (SentenceWithLinks& pContextAxiom,
  const SemanticExpression& pSemExpToAdd,
  const SemanticExpression* pSemExpToAddWithoutLinks,
- const linguistics::LinguisticDatabase& pLingDb)
+ const linguistics::LinguisticDatabase& pLingDb,
+ bool pIsATrigger)
 {
   std::map<GrammaticalType, const SemanticExpression*> annotations;
   if (pSemExpToAddWithoutLinks != nullptr)
@@ -490,7 +498,7 @@ void ExpressionWithLinks::_addContextAxiom
     if (grdExpToAddWithoutLinks != nullptr)
     {
       pContextAxiom.memorySentences.and_or = true;
-      _addGrdExpToAxiom(pContextAxiom, *grdExpToAddWithoutLinks, annotations, true, pLingDb);
+      _addGrdExpToAxiom(pContextAxiom, *grdExpToAddWithoutLinks, annotations, true, pLingDb, pIsATrigger);
     }
   }
 
@@ -498,7 +506,7 @@ void ExpressionWithLinks::_addContextAxiom
   if (grdExpToAddPtr != nullptr)
   {
     const auto& grdExpToAdd = *grdExpToAddPtr;
-    _addGrdExpToAxiom(pContextAxiom, grdExpToAdd, annotations, false, pLingDb);
+    _addGrdExpToAxiom(pContextAxiom, grdExpToAdd, annotations, false, pLingDb, pIsATrigger);
     return;
   }
 
@@ -514,7 +522,7 @@ void ExpressionWithLinks::_addContextAxiom
       const GroundedExpression* grdExpElt = currElt->getGrdExpPtr_SkipWrapperPtrs();
       if (grdExpElt != nullptr)
       {
-        _addGrdExpToAxiom(pContextAxiom, *grdExpElt, annotations, false, pLingDb);
+        _addGrdExpToAxiom(pContextAxiom, *grdExpElt, annotations, false, pLingDb, pIsATrigger);
       }
     }
     return;

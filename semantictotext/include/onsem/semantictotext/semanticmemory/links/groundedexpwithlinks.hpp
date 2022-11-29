@@ -46,12 +46,14 @@ struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinks
                        const GroundedExpression& pGrdExp,
                        bool pInRecommendationMode,
                        const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+                       bool pIsATrigger,
                        const linguistics::LinguisticDatabase& pLingDb,
                        bool pIsAConditionToSatisfy,
                        bool pIsEnabled = true,
                        intSemId pId = 0);
   ~GroundedExpWithLinks();
 
+  bool isATrigger() const { return _isATrigger; }
   void setEnabled(bool pEnabled);
   bool isEnabled() const { return _isEnabled; }
   bool isANoun() const { return _isANoun; }
@@ -80,6 +82,7 @@ struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinks
 private:
   SentenceWithLinks& _contextAxiom;
   std::map<GrammaticalType, const SemanticExpression*> _annotations;
+  bool _isATrigger;
   bool _isEnabled;
   bool _isANoun;
   bool _isAConditionToSatisfy;

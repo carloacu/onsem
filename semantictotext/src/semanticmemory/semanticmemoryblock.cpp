@@ -137,7 +137,7 @@ void SemanticMemoryBlock::addTrackerSemExp
   auto memKnow = std::make_unique<ExpressionWithLinks>(*this,
                                                                 std::move(pNewRootSemExp));
   memKnow->addAxiomListToMemory(*memKnow->semExp,
-                                &pSemTracker, InformationType::INFORMATION, true, nullptr, nullptr, nullptr, pLingDb);
+                                &pSemTracker, InformationType::INFORMATION, true, nullptr, nullptr, nullptr, pLingDb, false);
   _impl->trackerKnowledges.emplace(&pSemTracker, std::move(memKnow));
 }
 
@@ -162,7 +162,7 @@ void SemanticMemoryBlock::addRootSemExpWithHisContent
 {
   auto expForMem = addRootSemExp(std::move(pNewRootSemExp), pLingDb);
   expForMem->addAxiomListToMemory(*expForMem->semExp, nullptr,
-                                  pInformationType, false, nullptr, nullptr, nullptr, pLingDb);
+                                  pInformationType, false, nullptr, nullptr, nullptr, pLingDb, false);
 }
 
 

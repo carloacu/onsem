@@ -116,22 +116,24 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticExpression
   virtual const GroundedExpression* getGrdExpPtr() const { return nullptr; }
   GroundedExpression* getGrdExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true);
   const GroundedExpression* getGrdExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true) const;
-  ListExpressionType getGrdExpPtrs_SkipWrapperLists(std::list<GroundedExpression*>& pRes);
-  ListExpressionType getGrdExpPtrs_SkipWrapperLists(std::list<const GroundedExpression*>& pRes) const;
+  ListExpressionType getGrdExpPtrs_SkipWrapperLists(std::list<GroundedExpression*>& pRes,
+                                                    bool pFollowInterpretations = true);
+  ListExpressionType getGrdExpPtrs_SkipWrapperLists(std::list<const GroundedExpression*>& pRes,
+                                                    bool pFollowInterpretations = true) const;
 
   virtual ListExpression& getListExp();
   virtual const ListExpression& getListExp() const;
   virtual ListExpression* getListExpPtr() { return nullptr; }
   virtual const ListExpression* getListExpPtr() const { return nullptr; }
-  ListExpression* getListExpPtr_SkipWrapperPtrs();
-  const ListExpression* getListExpPtr_SkipWrapperPtrs() const;
+  ListExpression* getListExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true);
+  const ListExpression* getListExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true) const;
 
   virtual ConditionExpression& getCondExp();
   virtual const ConditionExpression& getCondExp() const;
   virtual ConditionExpression* getCondExpPtr() { return nullptr; }
   virtual const ConditionExpression* getCondExpPtr() const { return nullptr; }
-  ConditionExpression* getCondExpPtr_SkipWrapperPtrs();
-  const ConditionExpression* getCondExpPtr_SkipWrapperPtrs() const;
+  ConditionExpression* getCondExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true);
+  const ConditionExpression* getCondExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true) const;
 
   virtual ComparisonExpression& getCompExp();
   virtual const ComparisonExpression& getCompExp() const;
@@ -149,15 +151,15 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticExpression
   virtual const SetOfFormsExpression& getSetOfFormsExp() const;
   virtual SetOfFormsExpression* getSetOfFormsExpPtr() { return nullptr; }
   virtual const SetOfFormsExpression* getSetOfFormsExpPtr() const { return nullptr; }
-  SetOfFormsExpression* getSetOfFormsPtr_SkipWrapperPtrs();
-  const SetOfFormsExpression* getSetOfFormsPtr_SkipWrapperPtrs() const;
+  SetOfFormsExpression* getSetOfFormsPtr_SkipWrapperPtrs(bool pFollowInterpretations = true);
+  const SetOfFormsExpression* getSetOfFormsPtr_SkipWrapperPtrs(bool pFollowInterpretations = true) const;
 
   virtual FeedbackExpression& getFdkExp();
   virtual const FeedbackExpression& getFdkExp() const;
   virtual FeedbackExpression* getFdkExpPtr() { return nullptr; }
   virtual const FeedbackExpression* getFdkExpPtr() const { return nullptr; }
-  FeedbackExpression* getFdkExpPtr_SkipWrapperPtrs();
-  const FeedbackExpression* getFdkExpPtr_SkipWrapperPtrs() const;
+  FeedbackExpression* getFdkExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true);
+  const FeedbackExpression* getFdkExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true) const;
 
   virtual AnnotatedExpression& getAnnExp();
   virtual const AnnotatedExpression& getAnnExp() const;

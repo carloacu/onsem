@@ -797,9 +797,9 @@ bool isAModifierFromGrdExp(const GroundedExpression& pGrdExp)
 }
 
 
-bool isAModifier(const SemanticExpression& pSemExp)
+bool isAModifier(const SemanticExpression& pSemExp, bool pFollowInterpretations)
 {
-  const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   if (grdExpPtr != nullptr)
     return isAModifierFromGrdExp(*grdExpPtr);
   return false;
@@ -2085,12 +2085,13 @@ bool isAnythingFromSemExp(const SemanticExpression& pSemExp)
 }
 
 
-bool haveAGrdExpThatModifyTheMeaning(const SemanticExpression& pSemExp)
+bool haveAGrdExpThatModifyTheMeaning(const SemanticExpression& pSemExp,
+                                     bool pFollowInterpretations)
 {
-  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   if (grdExpPtr != nullptr)
     return !ConceptSet::haveAConceptThatBeginWith(grdExpPtr->grounding().concepts, "degree_");
-  auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs();
+  auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   if (listExpPtr != nullptr)
     for (const auto& currElt : listExpPtr->elts)
       if (haveAGrdExpThatModifyTheMeaning(*currElt))

@@ -587,8 +587,9 @@ void _addSemExpPtr(std::list<const SemanticExpression*>& pElts,
       ((pFirstOrSecondArg && pExceptionsPtr->semExps1ToSkip.count(&pSemExp) > 0) ||
        (!pFirstOrSecondArg && pExceptionsPtr->semExps2ToSkip.count(&pSemExp) > 0)))
     return;
+  bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
   if (!pAllowGrdExpThatDoesntModifyAMeaning &&
-      !SemExpGetter::haveAGrdExpThatModifyTheMeaning(pSemExp))
+      !SemExpGetter::haveAGrdExpThatModifyTheMeaning(pSemExp, followInterpretations))
     return;
   pElts.emplace_back(&pSemExp);
 }
@@ -600,7 +601,8 @@ void _fillListExpPtr(ListExpPtr& pListExpPtr,
                      bool pFirstOrSecondArg,
                      bool pAllowGrdExpThatDoesntModifyAMeaning)
 {
-  auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs();
+  bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
+  auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs(followInterpretations);
   if (listExpPtr != nullptr)
   {
     for (const auto& currElt : listExpPtr->elts)

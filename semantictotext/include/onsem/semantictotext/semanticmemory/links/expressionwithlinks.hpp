@@ -43,11 +43,13 @@ struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks
   SentenceWithLinks* addAxiomFromGrdExp(InformationType pInformationType,
                                         const GroundedExpression& pGrdSemExpToAdd,
                                         const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
-                                        const linguistics::LinguisticDatabase& pLingDb);
+                                        const linguistics::LinguisticDatabase& pLingDb,
+                                        bool pIsATrigger);
   SentenceWithLinks* tryToAddTeachFormulation(InformationType pInformationType,
                                               const GroundedExpression& pGrdSemExpToAdd,
                                               const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
-                                              const linguistics::LinguisticDatabase& pLingDb);
+                                              const linguistics::LinguisticDatabase& pLingDb,
+                                              bool pIsATrigger);
 
   void addAxiomForARecommendation(const GroundedExpression& pGrdSemExpToAdd,
                                   const linguistics::LinguisticDatabase& pLingDb);
@@ -62,7 +64,8 @@ struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks
                             const SemanticExpression* pActionToDo,
                             const SemanticExpression* pActionToDoElse,
                             const SemanticExpression* pSemExpToAddWithoutLinks,
-                            const linguistics::LinguisticDatabase& pLingDb);
+                            const linguistics::LinguisticDatabase& pLingDb,
+                            bool pIsATrigger);
 
   SemanticMemoryBlock& getParentMemBloc() { return  _parentMemBloc; }
   const SemanticMemoryBlock& getParentMemBloc() const { return  _parentMemBloc; }
@@ -82,7 +85,8 @@ private:
   (SentenceWithLinks& pContextAxiom,
    const SemanticExpression& pSemExpToAdd,
    const SemanticExpression* pSemExpToAddWithoutLinks,
-   const linguistics::LinguisticDatabase& pLingDb);
+   const linguistics::LinguisticDatabase& pLingDb,
+   bool pIsATrigger);
 
   void _addTriggerGrdExpLinks(InformationType pInformationType,
                               const GroundedExpression& pTriggerGrdExp,
