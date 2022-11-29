@@ -55,10 +55,11 @@ void addATrigger(UniqueSemanticExpression pTriggerSemExp,
 /// Reply to a direct question according.
 /// @todo check that it does not trigger a response, but that it only answers questions.
 ONSEMSEMANTICTOTEXT_API
-mystd::unique_propagate_const<UniqueSemanticExpression> answer(UniqueSemanticExpression pSemExp,
-                                                 bool pAnswerIDontKnow,
-                                                 const SemanticMemory& pSemanticMemory,
-                                                 const linguistics::LinguisticDatabase& pLingDb);
+mystd::unique_propagate_const<UniqueSemanticExpression> answer(
+    UniqueSemanticExpression pSemExp,
+    bool pAnswerIDontKnow,
+    const SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
 mystd::unique_propagate_const<UniqueSemanticExpression> answerIDontKnow(const SemanticExpression& pSemExp);
@@ -226,10 +227,10 @@ void addAgentInterpretations(UniqueSemanticExpression& pSemExp,
 
 ONSEMSEMANTICTOTEXT_API
 std::shared_ptr<ExpressionWithLinks> react(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
-                                                  SemanticMemory& pSemanticMemory,
-                                                  UniqueSemanticExpression pSemExp,
-                                                  const linguistics::LinguisticDatabase& pLingDb,
-                                                  const ReactionOptions* pReactionOptions = nullptr);
+                                           SemanticMemory& pSemanticMemory,
+                                           UniqueSemanticExpression pSemExp,
+                                           const linguistics::LinguisticDatabase& pLingDb,
+                                           const ReactionOptions* pReactionOptions = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 std::shared_ptr<ExpressionWithLinks> reactFromTrigger(
@@ -241,10 +242,10 @@ std::shared_ptr<ExpressionWithLinks> reactFromTrigger(
 
 ONSEMSEMANTICTOTEXT_API
 std::shared_ptr<ExpressionWithLinks> teach(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
-                                                  SemanticMemory& pSemanticMemory,
-                                                  UniqueSemanticExpression pSemExp,
-                                                  const linguistics::LinguisticDatabase& pLingDb,
-                                                  SemanticActionOperatorEnum pActionOperator);
+                                           SemanticMemory& pSemanticMemory,
+                                           UniqueSemanticExpression pSemExp,
+                                           const linguistics::LinguisticDatabase& pLingDb,
+                                           SemanticActionOperatorEnum pActionOperator);
 
 ONSEMSEMANTICTOTEXT_API
 void show(std::vector<std::unique_ptr<GroundedExpression> >& pAnswers,
