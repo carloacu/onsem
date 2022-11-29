@@ -1,3 +1,6 @@
+/*
+ * Recommendations are to propose related sentences from an input sentence to guide the user.
+ */
 #ifndef ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_RECOMMENDATIONS_HPP
 #define ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_RECOMMENDATIONS_HPP
 
