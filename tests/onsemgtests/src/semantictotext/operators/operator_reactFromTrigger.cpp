@@ -7,6 +7,7 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
+#include <onsem/semantictotext/triggers.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
 #include "operator_addATrigger.hpp"
 
@@ -25,8 +26,7 @@ DetailedReactionAnswer _operator_reactFromTrigger_fromSemExp(UniqueSemanticExpre
     pTextLanguage = pSemanticMemory.defaultLanguage;
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
   memoryOperation::resolveAgentAccordingToTheContext(pSemExp, pSemanticMemory, pLingDb);
-  memoryOperation::reactFromTrigger(reaction, pSemanticMemory, std::move(pSemExp), pLingDb,
-                                    pReactionOptions);
+  triggers::match(reaction, pSemanticMemory, std::move(pSemExp), pLingDb, pReactionOptions);
   return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pTextLanguage);
 }
 

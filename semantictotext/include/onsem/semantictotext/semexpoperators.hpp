@@ -43,15 +43,6 @@ enum class SemanticActionOperatorEnum
 };
 
 
-/// Register a reaction to an event.
-/// The response semantic expression will be emitted through the
-/// actionProposalSignal of the semantic memory, or returned by a react.
-ONSEMSEMANTICTOTEXT_API
-void addATrigger(UniqueSemanticExpression pTriggerSemExp,
-                 UniqueSemanticExpression pAnswerSemExp,
-                 SemanticMemory& pSemanticMemory,
-                 const linguistics::LinguisticDatabase& pLingDb);
-
 /// Reply to a direct question according.
 /// @todo check that it does not trigger a response, but that it only answers questions.
 ONSEMSEMANTICTOTEXT_API
@@ -231,14 +222,6 @@ std::shared_ptr<ExpressionWithLinks> react(mystd::unique_propagate_const<UniqueS
                                            UniqueSemanticExpression pSemExp,
                                            const linguistics::LinguisticDatabase& pLingDb,
                                            const ReactionOptions* pReactionOptions = nullptr);
-
-ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionWithLinks> reactFromTrigger(
-    mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
-    SemanticMemory& pSemanticMemory,
-    UniqueSemanticExpression pSemExp,
-    const linguistics::LinguisticDatabase& pLingDb,
-    const ReactionOptions* pReactionOptions = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 std::shared_ptr<ExpressionWithLinks> teach(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,

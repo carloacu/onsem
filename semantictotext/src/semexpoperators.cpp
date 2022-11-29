@@ -11,8 +11,8 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
+#include <onsem/semantictotext/triggers.hpp>
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
-#include "utility/semexpcreator.hpp"
 #include "controller/steps/semanticmemorylinker.hpp"
 #include "controller/semexpcontroller.hpp"
 #include "conversion/conditionsadder.hpp"
@@ -24,6 +24,8 @@
 #include "interpretation/addagentinterpretation.hpp"
 #include "interpretation/completewithcontext.hpp"
 #include "semanticmemory/semanticmemoryblockviewer.hpp"
+#include "utility/semexpcreator.hpp"
+#include "utility/utility.hpp"
 
 
 namespace onsem
@@ -72,20 +74,6 @@ void _cloneGrdExpList(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers
   }
 }
 
-
-void addATrigger(UniqueSemanticExpression pTriggerSemExp,
-                 UniqueSemanticExpression pAnswerSemExp,
-                 SemanticMemory& pSemanticMemory,
-                 const linguistics::LinguisticDatabase& pLingDb)
-{
-  conditionsAdder::addConditonsForSomeTimedGrdExp(pTriggerSemExp);
-
-  resolveAgentAccordingToTheContext(pTriggerSemExp, pSemanticMemory, pLingDb);
-  converter::splitEquivalentQuestions(pTriggerSemExp, pLingDb);
-  auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pTriggerSemExp), pLingDb);
-  expForMem->outputToAnswerIfTriggerHasMatched.emplace(std::move(pAnswerSemExp));
-  expForMem->addTriggerLinks(InformationType::ASSERTION, *expForMem->semExp, pLingDb);
-}
 
 
 mystd::unique_propagate_const<UniqueSemanticExpression> answer
@@ -629,9 +617,9 @@ void defaultKnowledge(SemanticMemory& pSemanticMemory,
                                         SemanticAgentGrounding::userNotIdentified,
                                         SemanticLanguageEnum::ENGLISH);
   auto helloSemExp = converter::textToSemExp("hello", textProcContext, pLingDb);
-  addATrigger(helloSemExp->clone(), helloSemExp->clone(), pSemanticMemory, pLingDb);
+  triggers::add(helloSemExp->clone(), helloSemExp->clone(), pSemanticMemory, pLingDb);
   auto byeSemExp = converter::textToSemExp("bye-bye", textProcContext, pLingDb);
-  addATrigger(byeSemExp->clone(), byeSemExp->clone(), pSemanticMemory, pLingDb);
+  triggers::add(byeSemExp->clone(), byeSemExp->clone(), pSemanticMemory, pLingDb);
 }
 
 
@@ -780,71 +768,6 @@ mystd::unique_propagate_const<UniqueSemanticExpression> externalRequester(
 }
 
 
-void _removeAllFeedbacks(CompositeSemAnswer& pCompositeSemAnswer)
-{
-  for (auto itDetAnsw = pCompositeSemAnswer.semAnswers.begin();
-       itDetAnsw != pCompositeSemAnswer.semAnswers.end(); )
-  {
-    LeafSemAnswer* leafPtr = (*itDetAnsw)->getLeafPtr();
-    if (leafPtr != nullptr)
-    {
-      if (leafPtr->type == ContextualAnnotation::FEEDBACK)
-        itDetAnsw = pCompositeSemAnswer.semAnswers.erase(itDetAnsw);
-      else
-        ++itDetAnsw;
-      continue;
-    }
-    CompositeSemAnswer* compPtr = (*itDetAnsw)->getCompositePtr();
-    if (compPtr != nullptr)
-      _removeAllFeedbacks(*compPtr);
-    ++itDetAnsw;
-  }
-}
-
-
-void _keepOnlyLastFeedback(CompositeSemAnswer& pCompositeSemAnswer)
-{
-  std::list<std::list<std::unique_ptr<SemAnswer>>::iterator> feedbackAnswers;
-  for (auto itDetAnsw = pCompositeSemAnswer.semAnswers.begin();
-       itDetAnsw != pCompositeSemAnswer.semAnswers.end(); )
-  {
-    LeafSemAnswer* leafPtr = (*itDetAnsw)->getLeafPtr();
-    if (leafPtr != nullptr)
-    {
-      LeafSemAnswer& leafAnswer = *leafPtr;
-      if (leafAnswer.type == ContextualAnnotation::FEEDBACK)
-      {
-        if (pCompositeSemAnswer.listType != ListExpressionType::UNRELATED &&
-            itDetAnsw != --pCompositeSemAnswer.semAnswers.end())
-        {
-          itDetAnsw = pCompositeSemAnswer.semAnswers.erase(itDetAnsw);
-          continue;
-        }
-        feedbackAnswers.emplace_back(itDetAnsw);
-      }
-    }
-    else
-    {
-      CompositeSemAnswer* compPtr = (*itDetAnsw)->getCompositePtr();
-      if (compPtr != nullptr)
-      {
-        if (itDetAnsw != --pCompositeSemAnswer.semAnswers.end())
-          _removeAllFeedbacks(*compPtr);
-        else
-          _keepOnlyLastFeedback(*compPtr);
-      }
-    }
-    ++itDetAnsw;
-  }
-
-  while (feedbackAnswers.size() > 1)
-  {
-    pCompositeSemAnswer.semAnswers.erase(feedbackAnswers.front());
-    feedbackAnswers.pop_front();
-  }
-}
-
-
 void pingTime(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
               SemanticMemory& pSemanticMemory,
               const SemanticDuration& pNowTimeDuration,
@@ -856,7 +779,7 @@ void pingTime(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction
 
   if (compSemAnswers)
   {
-    _keepOnlyLastFeedback(*compSemAnswers);
+    utility::keepOnlyLastFeedback(*compSemAnswers);
     controller::compAnswerToSemExp(pReaction, *compSemAnswers);
   }
 }
@@ -886,37 +809,7 @@ std::shared_ptr<ExpressionWithLinks> react(
   {
     controller::linkConditionalReactions(compSemAnswers->semAnswers, expForMemRef,
                                          pSemanticMemory, pLingDb, informationType);
-    _keepOnlyLastFeedback(*compSemAnswers);
-    controller::compAnswerToSemExp(pReaction, *compSemAnswers);
-  }
-  return expForMem;
-}
-
-
-std::shared_ptr<ExpressionWithLinks> reactFromTrigger(
-    mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
-    SemanticMemory& pSemanticMemory,
-    UniqueSemanticExpression pSemExp,
-    const linguistics::LinguisticDatabase& pLingDb,
-    const ReactionOptions* pReactionOptions)
-{
-  converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
-  conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
-
-  static const InformationType informationType = InformationType::INFORMATION;
-  std::unique_ptr<CompositeSemAnswer> compSemAnswers;
-  auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pSemExp), pLingDb);
-  ExpressionWithLinks& expForMemRef = *expForMem;
-  controller::applyOperatorOnExpHandleInMemory(compSemAnswers, expForMemRef,
-                                               SemanticOperatorEnum::REACTFROMTRIGGER,
-                                               informationType, pSemanticMemory, nullptr, pLingDb,
-                                               pReactionOptions);
-
-  if (compSemAnswers)
-  {
-    controller::linkConditionalReactions(compSemAnswers->semAnswers, expForMemRef,
-                                         pSemanticMemory, pLingDb, informationType);
-    _keepOnlyLastFeedback(*compSemAnswers);
+    utility::keepOnlyLastFeedback(*compSemAnswers);
     controller::compAnswerToSemExp(pReaction, *compSemAnswers);
   }
   return expForMem;

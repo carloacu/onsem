@@ -3,6 +3,7 @@
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/semantictotext/triggers.hpp>
 #include "../../semanticreasonergtests.hpp"
 #include "../../util/util.hpp"
 #include "operator_check.hpp"
@@ -31,8 +32,7 @@ void _operator_addATriggerFromSemExp(UniqueSemanticExpression& pTriggerSemExp,
       converter::textToContextualSemExp(pAnswerText, answerProcContext, SemanticSourceEnum::WRITTENTEXT,
                                         pLingDb, &pReferences);
 
-  memoryOperation::addATrigger(std::move(pTriggerSemExp), std::move(answerSemExp),
-                               pSemanticMemory, pLingDb);
+  triggers::add(std::move(pTriggerSemExp), std::move(answerSemExp), pSemanticMemory, pLingDb);
 }
 
 
@@ -65,8 +65,7 @@ void operator_addATriggerToSemExpAnswer(
   triggerProcContext.isTimeDependent = false;
   auto triggerSemExp = converter::textToContextualSemExp(pTriggerText, triggerProcContext,
                                                          SemanticSourceEnum::UNKNOWN, pLingDb);
-  memoryOperation::addATrigger(std::move(triggerSemExp), std::move(pAnswerSemExp),
-                               pSemanticMemory, pLingDb);
+  triggers::add(std::move(triggerSemExp), std::move(pAnswerSemExp), pSemanticMemory, pLingDb);
 }
 
 

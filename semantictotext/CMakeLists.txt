@@ -25,6 +25,7 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/recommendations.hpp
     include/onsem/semantictotext/semexpsimplifer.hpp
     include/onsem/semantictotext/serialization.hpp
+    include/onsem/semantictotext/triggers.hpp
     include/onsem/semantictotext/executor/executorcontext.hpp
     include/onsem/semantictotext/executor/executorlogger.hpp
     include/onsem/semantictotext/executor/virtualexecutor.hpp
@@ -45,9 +46,11 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/type/referencesfiller.cpp
     src/type/semanticdetailledanswer.hpp
     src/type/semanticdetailledanswer.cpp
+    src/utility/futurevoid.cpp
     src/utility/semexpcreator.hpp
     src/utility/semexpcreator.cpp
-    src/utility/futurevoid.cpp
+    src/utility/utility.hpp
+    src/utility/utility.cpp
     src/io/loadmodel.hpp
     src/io/loadmodel.cpp
     src/io/savemodel.hpp
@@ -141,6 +144,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/semexpoperators.cpp
     src/semanticconverter.cpp
     src/semexpsimplifer.cpp
+    src/triggers.cpp
 )
 
 
