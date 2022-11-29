@@ -31,32 +31,13 @@ struct GreetCallbacks
 /// If the input is not a greeting,
 /// no response will be produced.
 ONSEMSEMANTICTOTEXT_API
-mystd::unique_propagate_const<UniqueSemanticExpression> greetInResponseTo(
+mystd::unique_propagate_const<UniqueSemanticExpression> greetInResponseOf(
     const SemanticExpression& pSemExp,
     const SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     const GreetCallbacks& pCallbacks = {},
     std::unique_ptr<SemanticExpression> pInterlocutor = {});
 
-
-/// Produce a greeting expression.
-// TODO: support greeting a specific user ID.
-ONSEMSEMANTICTOTEXT_API
-UniqueSemanticExpression greet(
-    const SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    const GreetCallbacks pCallbacks = {},
-    std::unique_ptr<GroundedExpression> pInterlocutor = {});
-
-
-/// Produce a bye expression.
-// TODO: support a specific user ID.
-ONSEMSEMANTICTOTEXT_API
-UniqueSemanticExpression bye(
-    const SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    const GreetCallbacks pCallbacks = {},
-    std::unique_ptr<GroundedExpression> pInterlocutor = {});
 
 } // End of namespace onsem
 

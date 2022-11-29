@@ -25,7 +25,7 @@ std::string operator_greet(const std::string& pText,
                                                   SemanticSourceEnum::ASR,
                                                   pLingDb, nullptr);
   memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
-  auto outSemExp = greetInResponseTo(*semExp, pSemanticMemory, pLingDb);
+  auto outSemExp = greetInResponseOf(*semExp, pSemanticMemory, pLingDb);
   if (!outSemExp)
     return constant::noResult;
   std::string res;

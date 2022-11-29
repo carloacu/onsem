@@ -337,7 +337,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _greet(
 } // End of anonymous namesapce
 
 
-mystd::unique_propagate_const<UniqueSemanticExpression> greetInResponseTo(
+mystd::unique_propagate_const<UniqueSemanticExpression> greetInResponseOf(
     const SemanticExpression& pSemExp,
     const SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
@@ -347,41 +347,6 @@ mystd::unique_propagate_const<UniqueSemanticExpression> greetInResponseTo(
   return _greet(pSemExp, pSemanticMemory, pLingDb, pCallbacks, "", std::move(pInterlocutor));
 }
 
-
-ONSEMSEMANTICTOTEXT_API
-UniqueSemanticExpression greet(
-    const SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    const GreetCallbacks pCallbacks,
-    std::unique_ptr<GroundedExpression> pInterlocutor)
-{
-  auto engagementGrounding = std::make_unique<SemanticGenericGrounding>();
-  engagementGrounding->concepts["engagement_engage"] = 5;
-  auto engagementExpression = std::make_unique<GroundedExpression>(std::move(engagementGrounding));
-  auto response = _answerHelloBye(
-        *engagementExpression, pSemanticMemory, pLingDb,
-        pCallbacks, SemanticAgentGrounding::currentUser, std::move(pInterlocutor));
-  assert(response);
-  return std::move(*response);
-}
-
-
-ONSEMSEMANTICTOTEXT_API
-UniqueSemanticExpression bye(
-    const SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    const GreetCallbacks pCallbacks,
-    std::unique_ptr<GroundedExpression> pInterlocutor)
-{
-  auto engagementGrounding = std::make_unique<SemanticGenericGrounding>();
-  engagementGrounding->concepts["engagement_disengage"] = 5;
-  auto engagementExpression = std::make_unique<GroundedExpression>(std::move(engagementGrounding));
-  auto response = _answerHelloBye(
-        *engagementExpression, pSemanticMemory, pLingDb,
-        pCallbacks, SemanticAgentGrounding::currentUser, std::move(pInterlocutor));
-  assert(response);
-  return std::move(*response);
-}
 
 } // End of namespace onsem
 
