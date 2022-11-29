@@ -29,8 +29,6 @@ set(ONSEMGTESTS_SRCS
   src/semantictotext/externalinfos/dummycommentaryprovider.hpp
   src/semantictotext/externalinfos/dummycommentaryprovider.cpp
   src/semantictotext/externalinfos/test_externalinfosprovider.cpp
-  src/semantictotext/operators/operator_addATrigger.hpp
-  src/semantictotext/operators/operator_addATrigger.cpp
   src/semantictotext/operators/operator_answer.hpp
   src/semantictotext/operators/operator_answer.cpp
   src/semantictotext/operators/operator_answeridontknow.cpp
@@ -49,8 +47,6 @@ set(ONSEMGTESTS_SRCS
   src/semantictotext/operators/operator_mergeWithContext.cpp
   src/semantictotext/operators/operator_pingtime.cpp
   src/semantictotext/operators/operator_react.cpp
-  src/semantictotext/operators/operator_reactFromTrigger.hpp
-  src/semantictotext/operators/operator_reactFromTrigger.cpp
   src/semantictotext/operators/operator_resolveCommand.hpp
   src/semantictotext/operators/operator_resolveCommand.cpp
   src/semantictotext/operators/operator_sayFeedback.cpp
@@ -59,6 +55,10 @@ set(ONSEMGTESTS_SRCS
   src/semantictotext/operators/operator_solveConditions.cpp
   src/semantictotext/operators/operator_teach.cpp
   src/semantictotext/operators/operator_track.cpp
+  src/semantictotext/triggers/triggers_add.hpp
+  src/semantictotext/triggers/triggers_add.cpp
+  src/semantictotext/triggers/triggers_match.hpp
+  src/semantictotext/triggers/triggers_match.cpp
   src/semantictotext/test_agreement.cpp
   src/semantictotext/test_bigmemory.cpp
   src/semantictotext/test_converter.cpp

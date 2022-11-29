@@ -15,7 +15,7 @@ struct DetailedReactionAnswer;
 struct ReactionOptions;
 
 
-DetailedReactionAnswer operator_reactFromTrigger(const std::string& pText,
+DetailedReactionAnswer triggers_match(const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pTextLanguage = SemanticLanguageEnum::UNKNOWN,

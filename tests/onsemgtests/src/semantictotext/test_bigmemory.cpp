@@ -6,9 +6,9 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/metadataexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/type/reactionoptions.hpp>
-#include "operators/operator_addATrigger.hpp"
 #include "operators/operator_inform.hpp"
-#include "operators/operator_reactFromTrigger.hpp"
+#include "triggers/triggers_add.hpp"
+#include "triggers/triggers_match.hpp"
 
 
 using namespace onsem;
@@ -68,7 +68,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   auto fillCurrentInfos = [&]() {
     if (currentLabel == "trigger")
     {
-      operator_addATriggerToSemExpAnswer(currentText, _idToSemExp(currentId), semMem, lingDb, language);
+      triggers_addToSemExpAnswer(currentText, _idToSemExp(currentId), semMem, lingDb, language);
       triggersToReferenceOfAnswer.emplace(currentText, currentId);
     }
     if (currentLabel == "inform" || currentLabel == "message")
@@ -122,7 +122,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
 
   for (const auto& currTrigger : triggersToReferenceOfAnswer)
   {
-    auto answer = operator_reactFromTrigger(currTrigger.first, semMem, lingDb, language, &reactionOptions);
+    auto answer = triggers_match(currTrigger.first, semMem, lingDb, language, &reactionOptions);
     auto refIt = std::find(answer.references.begin(), answer.references.end(), currTrigger.second);
     if (refIt == answer.references.end())
     {

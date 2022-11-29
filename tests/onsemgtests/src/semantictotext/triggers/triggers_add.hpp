@@ -15,13 +15,13 @@ struct SemanticMemory;
 struct UniqueSemanticExpression;
 
 
-void operator_addATrigger(const std::string& pTriggerText,
+void triggers_add(const std::string& pTriggerText,
                           const std::string& pAnswerText,
                           SemanticMemory& pSemanticMemory,
                           const linguistics::LinguisticDatabase& pLingDb,
                           const std::list<std::string>& pReferences = std::list<std::string>());
 
-void operator_addATriggerToSemExpAnswer(
+void triggers_addToSemExpAnswer(
     const std::string& pTriggerText,
     UniqueSemanticExpression pAnswerSemExp,
     SemanticMemory& pSemanticMemory,

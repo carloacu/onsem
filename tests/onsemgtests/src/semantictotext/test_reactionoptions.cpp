@@ -4,9 +4,9 @@
 #include <onsem/semantictotext/type/reactionoptions.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
-#include "operators/operator_addATrigger.hpp"
-#include "operators/operator_inform.hpp"
 #include "externalinfos/dummyjokeprovider.hpp"
+#include "operators/operator_inform.hpp"
+#include "triggers/triggers_add.hpp"
 
 using namespace onsem;
 
@@ -93,7 +93,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_canAnswerWithATrigger)
   {
     const std::string nominalGroupTrigger = "Gad";
     const std::string reactionOfNominalGroup = "Gad is a humorist";
-    operator_addATrigger(nominalGroupTrigger, reactionOfNominalGroup, semMem, lingDb);
+    triggers_add(nominalGroupTrigger, reactionOfNominalGroup, semMem, lingDb);
     ONSEM_NOANSWER(operator_react(nominalGroupTrigger, semMem, lingDb,
                                   SemanticLanguageEnum::ENGLISH, &cannnotAnswerWithATriggerReaction));
     ONSEM_ANSWER_EQ("Gad is a humorist.",
@@ -105,7 +105,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_canAnswerWithATrigger)
   {
     const std::string questionTrigger = "What does Gad like?";
     const std::string answerOfQuestion = "Potatoes";
-    operator_addATrigger(questionTrigger, answerOfQuestion, semMem, lingDb);
+    triggers_add(questionTrigger, answerOfQuestion, semMem, lingDb);
     ONSEM_ANSWERNOTFOUND_EQ("I don't know what Gad likes.",
                             operator_react(questionTrigger, semMem, lingDb,
                                            SemanticLanguageEnum::ENGLISH, &cannnotAnswerWithATriggerReaction));
@@ -118,7 +118,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_canAnswerWithATrigger)
   {
     const std::string affirmationTrigger = "Gad is a nice man";
     const std::string reactionOfAffirmation = "I like Gad too";
-    operator_addATrigger(affirmationTrigger, reactionOfAffirmation, semMem, lingDb);
+    triggers_add(affirmationTrigger, reactionOfAffirmation, semMem, lingDb);
     ONSEM_QUESTION_EQ("Why is Gad a nice man?",
                       operator_react(affirmationTrigger, semMem, lingDb,
                                      SemanticLanguageEnum::ENGLISH, &cannnotAnswerWithATriggerReaction));
@@ -143,10 +143,10 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_canAnswerWithAllTheTrigg
   {
     const std::string nominalGroupTrigger1 = "super";
     const std::string reactionOfNominalGroup1 = "Réponse 1";
-    operator_addATrigger(nominalGroupTrigger1, reactionOfNominalGroup1, semMem, lingDb);
+    triggers_add(nominalGroupTrigger1, reactionOfNominalGroup1, semMem, lingDb);
     const std::string nominalGroupTrigger2 = "cool";
     const std::string reactionOfNominalGroup2 = "Réponse 2";
-    operator_addATrigger(nominalGroupTrigger2, reactionOfNominalGroup2, semMem, lingDb);
+    triggers_add(nominalGroupTrigger2, reactionOfNominalGroup2, semMem, lingDb);
     ONSEM_ANSWER_EQ("(\tRéponse 1\tTHEN\tRéponse 2\t)",
                     operator_react(nominalGroupTrigger1, semMem, lingDb,
                                    langauge, &canAnswerWithAllTheTriggersReaction));
@@ -244,7 +244,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
   ONSEM_ANSWER_EQ("N5 likes to talk with you.",
                   operator_react(whoIsN5Str, semMem, lingDb,
                                  SemanticLanguageEnum::ENGLISH, &canMergeTextAndResourceReaction));
-  operator_addATrigger(whoIsN5Str, "You should ask him", semMem, lingDb);
+  triggers_add(whoIsN5Str, "You should ask him", semMem, lingDb);
   ONSEM_ANSWER_EQ("You should ask him.",
                   operator_react(whoIsN5Str, semMem, lingDb,
                                  SemanticLanguageEnum::ENGLISH, &canMergeTextAndResourceReaction));
@@ -252,7 +252,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
   const std::string questionTriggerStr = "What does Gad like?";
   const std::string videoResource1Str =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=aD12ChGw-ww\\";
-  operator_addATrigger(questionTriggerStr, videoResource1Str, semMem, lingDb);
+  triggers_add(questionTriggerStr, videoResource1Str, semMem, lingDb);
   operator_inform("Gad likes well-being of humanity", semMem, lingDb);
 
   ONSEM_ANSWER_EQ(videoResource1Str,
@@ -262,7 +262,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
                   operator_react(questionTriggerStr, semMem, lingDb,
                                  SemanticLanguageEnum::ENGLISH, &canMergeTextAndResourceReaction));
 
-  operator_addATrigger(questionTriggerStr, "Gad likes me", semMem, lingDb);
+  triggers_add(questionTriggerStr, "Gad likes me", semMem, lingDb);
 
   ONSEM_ANSWER_EQ(videoResource1Str,
                   operator_react(questionTriggerStr, semMem, lingDb,
@@ -284,7 +284,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
 
   const std::string videoResource2Str =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=XgQVUNTYgr4\\";
-  operator_addATrigger(questionTrigger2Str, videoResource2Str, semMem, lingDb);
+  triggers_add(questionTrigger2Str, videoResource2Str, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(videoResource2Str,
                   operator_react(questionTrigger2Str, semMem, lingDb,
@@ -293,7 +293,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
                   operator_react(questionTrigger2Str, semMem, lingDb,
                                  SemanticLanguageEnum::FRENCH, &canMergeTextAndResourceReaction));
   canMergeTextAndResourceReaction.canReactToANoun = true;
-  operator_addATrigger("Gad", videoResource2Str, semMem, lingDb);
+  triggers_add("Gad", videoResource2Str, semMem, lingDb);
   ONSEM_ANSWER_EQ("(\t" + videoResource2Str + "\tTHEN\tGad est un humoriste.\t)",
                   operator_react("Gad", semMem, lingDb,
                                  SemanticLanguageEnum::FRENCH, &canMergeTextAndResourceReaction));
@@ -303,7 +303,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
   const std::string questionTrigger3Str = "Montre-moi Gad";
   const std::string videoResource3Str =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=aDpywB8pHJ4\\";
-  operator_addATrigger(questionTrigger3Str, videoResource3Str, semMem, lingDb);
+  triggers_add(questionTrigger3Str, videoResource3Str, semMem, lingDb);
 
   ONSEM_BEHAVIOR_EQ(videoResource3Str,
                     operator_react(questionTrigger3Str, semMem, lingDb,
@@ -316,7 +316,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
   const std::string questionTrigger4Str = "Je veux voir une vidéo de Gad";
   const std::string videoResource4Str =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=FS6P3A4_1gQ\\";
-  operator_addATrigger(questionTrigger4Str, videoResource4Str, semMem, lingDb);
+  triggers_add(questionTrigger4Str, videoResource4Str, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(videoResource4Str,
                   operator_react(questionTrigger4Str, semMem, lingDb,
@@ -329,7 +329,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
   // Don't do a proactive reaction after a question
   const std::string questionTrigger5Str = "J'ai trouvé ma brosse à dents";
   const std::string answer5Str = "Cool, elle était où ?";
-  operator_addATrigger(questionTrigger5Str, answer5Str, semMem, lingDb);
+  triggers_add(questionTrigger5Str, answer5Str, semMem, lingDb);
   ONSEM_ANSWER_EQ("Cool, où était-elle ?",
                   operator_react(questionTrigger5Str, semMem, lingDb,
                                  SemanticLanguageEnum::FRENCH, &canMergeTextAndResourceReaction));

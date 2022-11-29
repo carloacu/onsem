@@ -1,5 +1,4 @@
-#include "operator_reactFromTrigger.hpp"
-#include "../../semanticreasonergtests.hpp"
+#include "triggers_match.hpp"
 #include <gtest/gtest.h>
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
@@ -9,7 +8,8 @@
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/triggers.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
-#include "operator_addATrigger.hpp"
+#include "../../semanticreasonergtests.hpp"
+#include "triggers_add.hpp"
 
 using namespace onsem;
 
@@ -35,7 +35,7 @@ DetailedReactionAnswer _operator_reactFromTrigger_fromSemExp(UniqueSemanticExpre
 namespace onsem
 {
 
-DetailedReactionAnswer operator_reactFromTrigger(const std::string& pText,
+DetailedReactionAnswer triggers_match(const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pTextLanguage,
@@ -92,53 +92,53 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string reaction4 = "Paul";
   const std::string trigger5 = "à quoi ça sert de prier ?";
   const std::string reaction5 = "Ça sert à être heureux.";
-  ONSEM_NOANSWER(operator_reactFromTrigger(whoAreYou, semMem, lingDb));
-  ONSEM_NOANSWER(operator_reactFromTrigger(stopApplication, semMem, lingDb));
-  ONSEM_NOANSWER(operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
-  ONSEM_NOANSWER(operator_reactFromTrigger(whatAboutWellBeingOfAnimals, semMem, lingDb));
-  ONSEM_NOANSWER(operator_reactFromTrigger(whatIsToussaint, semMem, lingDb));
-  ONSEM_NOANSWER(operator_reactFromTrigger(whatIsAscension, semMem, lingDb));
-  ONSEM_NOANSWER(operator_reactFromTrigger(itLastOneHour, semMem, lingDb));
-  ONSEM_NOANSWER(operator_reactFromTrigger(longQuestion, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(whatAboutWellBeingOfAnimals, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(whatIsToussaint, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(whatIsAscension, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(itLastOneHour, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(longQuestion, semMem, lingDb));
 
-  operator_addATrigger(whoAreYou, iAmYourFrined, semMem, lingDb);
-  operator_addATrigger(stopApplication, itIsStopped, semMem, lingDb);
-  operator_addATrigger(whatTimeItIs, itIs15h, semMem, lingDb);
-  operator_addATrigger(whatAboutWellBeingOfAnimals, itIsNotFamous, semMem, lingDb);
-  operator_addATrigger(whatIsToussaint, itIsAHoliday, semMem, lingDb);
-  operator_addATrigger(whatIsAscension, itIsTheLeavingOfJesusOnHeaven, semMem, lingDb);
-  operator_addATrigger(itLastOneHour, itIsLong, semMem, lingDb);
-  operator_addATrigger(itLastTwoHours, itIsShort, semMem, lingDb);
-  operator_addATrigger(whatIs115, itIsSamusocial, semMem, lingDb);
-  operator_addATrigger(longQuestion, itIsHardToSay, semMem, lingDb);
-  operator_addATrigger(trigger1, reaction1, semMem, lingDb);
-  operator_addATrigger(trigger2, reaction2, semMem, lingDb);
-  operator_addATrigger(trigger3, reaction3, semMem, lingDb);
-  operator_addATrigger(trigger4, reaction4, semMem, lingDb);
-  operator_addATrigger(trigger5, reaction5, semMem, lingDb);
+  triggers_add(whoAreYou, iAmYourFrined, semMem, lingDb);
+  triggers_add(stopApplication, itIsStopped, semMem, lingDb);
+  triggers_add(whatTimeItIs, itIs15h, semMem, lingDb);
+  triggers_add(whatAboutWellBeingOfAnimals, itIsNotFamous, semMem, lingDb);
+  triggers_add(whatIsToussaint, itIsAHoliday, semMem, lingDb);
+  triggers_add(whatIsAscension, itIsTheLeavingOfJesusOnHeaven, semMem, lingDb);
+  triggers_add(itLastOneHour, itIsLong, semMem, lingDb);
+  triggers_add(itLastTwoHours, itIsShort, semMem, lingDb);
+  triggers_add(whatIs115, itIsSamusocial, semMem, lingDb);
+  triggers_add(longQuestion, itIsHardToSay, semMem, lingDb);
+  triggers_add(trigger1, reaction1, semMem, lingDb);
+  triggers_add(trigger2, reaction2, semMem, lingDb);
+  triggers_add(trigger3, reaction3, semMem, lingDb);
+  triggers_add(trigger4, reaction4, semMem, lingDb);
+  triggers_add(trigger5, reaction5, semMem, lingDb);
 
-  ONSEM_ANSWER_EQ(iAmYourFrined, operator_reactFromTrigger(whoAreYou, semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger(stopApplication, semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Ferme l'application", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Quitte l'application", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Stoppe l'application", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(itIsStopped, operator_reactFromTrigger("Interromps l'application", semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger(whatTimeItIs, semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("Quelle heure il est ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match("Ferme l'application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match("Quitte l'application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match("Stoppe l'application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match("Interromps l'application", semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIs15h, triggers_match(whatTimeItIs, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIs15h, triggers_match("Quelle heure il est ?", semMem, lingDb));
   //ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("C'est quoi l'heure", semMem, lingDb));
   //ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("Il est quelle heure", semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsNotFamous, operator_reactFromTrigger(whatAboutWellBeingOfAnimals, semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsAHoliday, operator_reactFromTrigger(whatIsToussaint, semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsAHoliday, operator_reactFromTrigger("Qu'est-ce que la toussaint ?", semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsTheLeavingOfJesusOnHeaven, operator_reactFromTrigger(whatIsAscension, semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsTheLeavingOfJesusOnHeaven, operator_reactFromTrigger("Qu'est-ce que l'Ascension ?", semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsLong, operator_reactFromTrigger(itLastOneHour, semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsShort, operator_reactFromTrigger(itLastTwoHours, semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsSamusocial, operator_reactFromTrigger(whatIs115, semMem, lingDb));
-  ONSEM_ANSWER_EQ(itIsHardToSay, operator_reactFromTrigger(longQuestion, semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction1, operator_reactFromTrigger(trigger1, semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction2, operator_reactFromTrigger(trigger2, semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction3, operator_reactFromTrigger(trigger3, semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction4, operator_reactFromTrigger(trigger4, semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction5, operator_reactFromTrigger(trigger5, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsNotFamous, triggers_match(whatAboutWellBeingOfAnimals, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsAHoliday, triggers_match(whatIsToussaint, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsAHoliday, triggers_match("Qu'est-ce que la toussaint ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsTheLeavingOfJesusOnHeaven, triggers_match(whatIsAscension, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsTheLeavingOfJesusOnHeaven, triggers_match("Qu'est-ce que l'Ascension ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsLong, triggers_match(itLastOneHour, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsShort, triggers_match(itLastTwoHours, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsSamusocial, triggers_match(whatIs115, semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIsHardToSay, triggers_match(longQuestion, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction1, triggers_match(trigger1, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction2, triggers_match(trigger2, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction3, triggers_match(trigger3, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction4, triggers_match(trigger4, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction5, triggers_match(trigger5, semMem, lingDb));
 }
