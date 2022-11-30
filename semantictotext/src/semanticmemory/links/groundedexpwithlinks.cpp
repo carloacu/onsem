@@ -1187,19 +1187,17 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
           pEnsureLinksToGrdExps().genGroundingTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
       }
 
-      if (genGrounding.quantity.type == SemanticQuantityType::NUMBER)
-      {
-        if (genGrounding.word.lemma.empty() && genGrounding.concepts.empty())
-          pEnsureLinksToGrdExps().numberToSemExps[genGrounding.quantity.nb].emplace_back(newMemGrdExp);
-      }
-      else if (genGrounding.quantity.type != SemanticQuantityType::UNKNOWN)
-      {
-        pEnsureLinksToGrdExps().quantityTypeToSemExps[genGrounding.quantity.type].emplace_back(newMemGrdExp);
-      }
-
       if (genGrounding.word.lemma.empty() && genGrounding.concepts.empty())
       {
-        if (genGrounding.referenceType != SemanticReferenceType::UNDEFINED)
+        if (genGrounding.quantity.type == SemanticQuantityType::NUMBER)
+        {
+          pEnsureLinksToGrdExps().numberToSemExps[genGrounding.quantity.nb].emplace_back(newMemGrdExp);
+        }
+        else if (genGrounding.quantity.type != SemanticQuantityType::UNKNOWN)
+        {
+          pEnsureLinksToGrdExps().quantityTypeToSemExps[genGrounding.quantity.type].emplace_back(newMemGrdExp);
+        }
+        else if (genGrounding.referenceType != SemanticReferenceType::UNDEFINED)
         {
           pEnsureLinksToGrdExps().referenceWithoutConceptToSemExps[genGrounding.referenceType].emplace_back(newMemGrdExp);
         }
@@ -1526,7 +1524,7 @@ void GroundedExpWithLinks::writeInBinary(binarymasks::Ptr& pPtr,
   writeEnumMap<GrammaticalType, const SemanticExpression*>
       (pPtr, _annotations,
        grammaticalType_allValues, [&]
-       (binarymasks::Ptr& pSubPtr, const SemanticExpression* const* pSemExpPtr)
+       (binarymasks::Ptr&, const SemanticExpression* const* pSemExpPtr)
   {
     if (pSemExpPtr == nullptr)
       binarysaver::writeInThreeBytes(pPtr.pchar, 0);

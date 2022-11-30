@@ -1183,23 +1183,22 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
                                          pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
   }
 
-  if (pGenGrd.quantity.type == SemanticQuantityType::NUMBER)
-  {
-    if (pGenGrd.word.lemma.empty() && pGenGrd.concepts.empty())
-      res = _getNumberRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.quantity.nb,
-                                pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb,
-                                pCheckChildren) || res;
-  }
-  else if (pGenGrd.quantity.type != SemanticQuantityType::UNKNOWN)
-  {
-    res = _getQuantityTypesRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.quantity.type,
-                                     pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb,
-                                     pCheckChildren) || res;
-  }
-
   if (pGenGrd.word.lemma.empty() && pGenGrd.concepts.empty())
   {
-    if (pGenGrd.referenceType != SemanticReferenceType::UNDEFINED)
+    if (pGenGrd.quantity.type == SemanticQuantityType::NUMBER)
+    {
+      if (pGenGrd.word.lemma.empty() && pGenGrd.concepts.empty())
+        res = _getNumberRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.quantity.nb,
+                                  pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb,
+                                  pCheckChildren) || res;
+    }
+    else if (pGenGrd.quantity.type != SemanticQuantityType::UNKNOWN)
+    {
+      res = _getQuantityTypesRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.quantity.type,
+                                       pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb,
+                                       pCheckChildren) || res;
+    }
+    else if (pGenGrd.referenceType != SemanticReferenceType::UNDEFINED)
     {
       res = _getReferenceWithoutConceptRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.referenceType,
                                                  pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb,

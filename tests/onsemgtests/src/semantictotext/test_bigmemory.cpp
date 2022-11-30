@@ -6,6 +6,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/metadataexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/type/reactionoptions.hpp>
+#include <onsem/tester/reactOnTexts.hpp>
 #include "operators/operator_inform.hpp"
 #include "triggers/triggers_add.hpp"
 #include "triggers/triggers_match.hpp"
@@ -16,12 +17,14 @@ using namespace onsem;
 
 namespace
 {
+const std::string _resourceLabel = "resLabel";
 
-UniqueSemanticExpression _idToSemExp(const std::string& pId)
+UniqueSemanticExpression _idToSemExp(const std::string& pId,
+                                     SemanticLanguageEnum pLanguage)
 {
   auto res = std::make_unique<MetadataExpression>(
         std::make_unique<GroundedExpression>(
-          std::make_unique<SemanticTextGrounding>(pId)));
+          std::make_unique<SemanticResourceGrounding>(_resourceLabel, pLanguage, pId)));
   res->references.push_back(pId);
   return std::move(res);
 }
@@ -68,7 +71,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   auto fillCurrentInfos = [&]() {
     if (currentLabel == "trigger")
     {
-      triggers_addToSemExpAnswer(currentText, _idToSemExp(currentId), semMem, lingDb, language);
+      triggers_addToSemExpAnswer(currentText, _idToSemExp(currentId, language), semMem, lingDb, language);
       triggersToReferenceOfAnswer.emplace(currentText, currentId);
     }
     if (currentLabel == "inform" || currentLabel == "message")
@@ -117,12 +120,12 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   fillCurrentInfos();
 
   std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
-  ReactionOptions reactionOptions;
-  reactionOptions.canAnswerWithAllTheTriggers = true;
 
+  ReactionOptions reactionOptionsForTriggerTests;
+  reactionOptionsForTriggerTests.canAnswerWithAllTheTriggers = true;
   for (const auto& currTrigger : triggersToReferenceOfAnswer)
   {
-    auto answer = triggers_match(currTrigger.first, semMem, lingDb, language, &reactionOptions);
+    auto answer = triggers_match(currTrigger.first, semMem, lingDb, language, &reactionOptionsForTriggerTests);
     auto refIt = std::find(answer.references.begin(), answer.references.end(), currTrigger.second);
     if (refIt == answer.references.end())
     {
@@ -140,5 +143,11 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
     }
   }
 
+  ReactionOptions reactionOptions;
+  reactionOptions.canReactToANoun = true;
+  reactionOptions.canSayOkToAnAffirmation = false;
+  reactionOptions.reactWithTextAndResource = true;
+  ONSEM_ANSWER_EQ("\\resLabel=#fr_FR#c-est-quoi-les-limbes\\",
+                  operator_react("C'est quoi les limbes ?", semMem, lingDb, language, &reactionOptions));
 }
 
