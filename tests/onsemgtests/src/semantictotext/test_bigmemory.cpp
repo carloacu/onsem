@@ -149,5 +149,22 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   reactionOptions.reactWithTextAndResource = true;
   ONSEM_ANSWER_EQ("\\resLabel=#fr_FR#c-est-quoi-les-limbes\\",
                   operator_react("C'est quoi les limbes ?", semMem, lingDb, language, &reactionOptions));
+
+
+  /*
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "(\t\\resLabel=#fr_FR#qu-est-ce-que-c-est-le-saint-esprit\\\tTHEN\tLe Saint-Esprit est cet Amour échangé le Père et le Fils, la source d'énergie de Dieu et cela.\t)",
+        "\"qu-est-ce-que-c-est-le-saint-esprit\","
+        "\"l-esprit-saint-est-une-des-trois-personnes-de-la-sainte-trinite-l-esprit-saint-est-un-seul-dieu-avec-le-pere-et-le-fils-il-est-l-amour-mutuel-le-don-total-echange-entre-le-pere-et-le-fils-le-pere-engendre-le-fils-dans-le-feu-de-l-amour-il-se-donne-tout-entier-a-lui-dans-l-amour-le-fils-se-recoit-du-pere-il-se-redonne-tout-entier-au-pere-dans-le-meme-amour-que-celui-qu-il-a-recu-cet-amour-echange-entre-le-pere-et-le-fils-c-est-l-esprit-saint\","
+        "\"le-fondateur-de-ce-peuple-est-dieu-le-pere-celui-qui-le-dirige-est-jesus-christ-sa-source-d-energie-est-l-esprit-saint-la-porte-d-entree-du-peuple-de-dieu-est-le-bapteme-sa-dignite-est-la-liberte-des-enfants-de-dieu-sa-loi-est-l-amour-quand-ce-peuple-reste-fidele-a-dieu-et-cherche-d-abord-le-royaume-de-dieu-il-transforme-le-monde\","
+        "\"deja-dans-l-ancien-testament-le-peuple-de-dieu-attendait-l-effusion-la-venue-de-l-esprit-saint-sur-le-messie-jesus-vecut-durant-toute-sa-vie-dans-un-esprit-tout-particulier-d-amour-et-de-communion-parfaite-avec-son-pere-du-ciel-cet-esprit-de-jesus-etait-l-esprit-saint-que-le-peuple-d-israel-desirait-et-ce-fut-ce-meme-esprit-que-jesus-promit-a-ses-disciples-ce-meme-esprit-qui-descendit-sur-les-disciples-cinquante-jours-apres-paques-le-jour-de-la-pentecote-et-c-est-encore-cet-esprit-saint-de-jesus-qui-descend-sur-tous-ceux-qui-recoivent-le-sacrement-de-la-confirmation\"",
+        operator_react("C'est quoi l'Esprit Saint ?", semMem, lingDb, language, &reactionOptions));
+*/
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#jesus-est-il-ressuscite\\",
+        "\"jesus-est-il-ressuscite\"",
+        operator_react("Jésus est-il ressuscité ?", semMem, lingDb, language, &reactionOptions));
+
+
 }
 

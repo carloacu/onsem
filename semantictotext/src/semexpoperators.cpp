@@ -801,9 +801,9 @@ std::shared_ptr<ExpressionWithLinks> react(
   auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pSemExp), pLingDb);
   ExpressionWithLinks& expForMemRef = *expForMem;
   controller::applyOperatorOnExpHandleInMemory(compSemAnswers, expForMemRef,
-                                                 SemanticOperatorEnum::REACT,
-                                                 informationType, pSemanticMemory, nullptr, pLingDb,
-                                                 pReactionOptions);
+                                               SemanticOperatorEnum::REACT,
+                                               informationType, pSemanticMemory, nullptr, pLingDb,
+                                               pReactionOptions);
 
   if (compSemAnswers)
   {

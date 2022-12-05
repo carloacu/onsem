@@ -16,6 +16,7 @@ struct ONSEMTESTER_API DetailedReactionAnswer
   std::list<std::string> references{};
 
   std::string toStr() const;
+  std::string referencesToStr() const;
 };
 
 

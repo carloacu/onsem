@@ -36,6 +36,10 @@
 #define ONSEM_TRUE(pValue) EXPECT_EQ(::TruenessValue::VAL_TRUE, pValue);
 #define ONSEM_UNKNOWN(pValue) EXPECT_EQ(::TruenessValue::UNKNOWN, pValue);
 
+#define ONSEM_ANSWER_WITH_REFERENCES_EQ(pExpectedAnswerStr, pExpectedReferences, pExp) \
+  { const auto& res = pExp; EXPECT_EQ(pExpectedAnswerStr, res.answer); EXPECT_EQ(pExpectedReferences, res.referencesToStr()); ONSEM_ANNOTATIONTYPE_EQ(ContextualAnnotation::ANSWER, res.reactionType); }
+
+
 
 namespace onsem
 {
