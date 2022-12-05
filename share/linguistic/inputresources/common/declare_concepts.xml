@@ -60,7 +60,9 @@
   <nearlyequalconcepts concept1="accordance_disagreement_no" concept2="accordance_disagreement_false" />
 
   <declareconcept name="agent" />
+  <declareconcept name="agent_god" />
   <declareconcept name="agent_human" />
+  <declareconcept name="agent_jesus" />
   <declareconcept name="agent_parent" />
   <declareconcept name="agent_robot" />
   <declareconcept name="agent_sibling" />

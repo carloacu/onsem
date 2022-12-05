@@ -11,10 +11,16 @@
   <linkedMeaning lemme="étoile" relationToConcept="0"/>
   <linkedMeaning lemme="objet" relationToConcept="0"/>
  </concept>
+ <concept name="agent_god">
+  <linkedMeaning lemme="Dieu" gram="proper_noun" />
+ </concept>
  <concept name="agent_human">
   <linkedMeaning lemme="humain" relationToConcept="4"/>
   <linkedMeaning lemme="personne" relationToConcept="3"/>
   <linkedMeaning lemme="quelqu'un" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_jesus">
+  <linkedMeaning lemme="Jésus" gram="proper_noun" />
  </concept>
  <concept name="agent_parent">
   <linkedMeaning lemme="maman" relationToConcept="3"/>

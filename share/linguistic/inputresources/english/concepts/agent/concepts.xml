@@ -10,9 +10,15 @@
   <linkedMeaning lemme="you" relationToConcept="3"/>
   <linkedMeaning lemme="yours" relationToConcept="3"/>
  </concept>
+ <concept name="agent_god">
+  <linkedMeaning lemme="God" gram="proper_noun" />
+ </concept>
  <concept name="agent_human">
   <linkedMeaning lemme="human" relationToConcept="3"/>
   <linkedMeaning lemme="people" relationToConcept="3"/>
+ </concept>
+ <concept name="agent_jesus">
+  <linkedMeaning lemme="Jesus" gram="proper_noun" />
  </concept>
  <concept name="agent_parent">
   <linkedMeaning lemme="dad" relationToConcept="3"/>
