@@ -24,6 +24,7 @@
   <declareconcept name="news" />
   <declareconcept name="niceToMeetYou" />
   <declareconcept name="please" />
+  <declareconcept name="only" />
   <declareconcept name="opposite" />
   <declareconcept name="reading" />
   <declareconcept name="reflexive" autofill="false" />

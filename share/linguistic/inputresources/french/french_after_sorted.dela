@@ -14,11 +14,13 @@
 #tous,.DET+z1:mp
 #toutes,tous.DET+z1:fp
 
+#que,.ADV
 #que,.INTJ
 -que.CONJS
 #que,.CONJS+z1
 -que.PRO
 #que,.PRO+z1
+
 #mais,.CONJS
 #car,.CONJS
 #qui,.CONJS
@@ -199,6 +201,10 @@
 #s'il vous plait,s'il te plaît.INTJ
 #s'il vous plaît,s'il te plaît.INTJ
 
+-pardon.ADV
+-pardon.N
+#pardon,.INTJ
+#pardon,.N+z1:ms
 
 
 >findQueAddQu

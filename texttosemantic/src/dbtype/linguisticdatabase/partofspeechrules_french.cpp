@@ -37,6 +37,8 @@ std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getImpSuccessions()
     {PartOfSpeech::VERB, PartOfSpeech::PARTITIVE},
     {PartOfSpeech::PUNCTUATION, PartOfSpeech::PARTITIVE},
     {PartOfSpeech::AUX, PartOfSpeech::INTERJECTION},
+    {PartOfSpeech::SUBORDINATING_CONJONCTION, PartOfSpeech::INTERJECTION},
+    {PartOfSpeech::SUBORDINATING_CONJONCTION, PartOfSpeech::NOUN},
     {PartOfSpeech::PROPER_NOUN, PartOfSpeech::INTERJECTION},
     {PartOfSpeech::PROPER_NOUN, PartOfSpeech::NOUN} };
 }
@@ -46,10 +48,13 @@ std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getImpSuccessions()
 std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getCheckCompatibility()
 {
   return
-  { {PartOfSpeech::DETERMINER, PartOfSpeech::DETERMINER},
+  { {PartOfSpeech::ADVERB, PartOfSpeech::INTERJECTION},
+    {PartOfSpeech::DETERMINER, PartOfSpeech::DETERMINER},
     {PartOfSpeech::DETERMINER, PartOfSpeech::NOUN},
     {PartOfSpeech::DETERMINER, PartOfSpeech::ADJECTIVE},
     {PartOfSpeech::DETERMINER, PartOfSpeech::PROPER_NOUN},
+    {PartOfSpeech::INTERJECTION, PartOfSpeech::INTERJECTION},
+    {PartOfSpeech::INTERJECTION, PartOfSpeech::NOUN},
     {PartOfSpeech::PUNCTUATION, PartOfSpeech::SUBORDINATING_CONJONCTION},
     {PartOfSpeech::PUNCTUATION, PartOfSpeech::VERB},
     {PartOfSpeech::ADJECTIVE, PartOfSpeech::ADJECTIVE},

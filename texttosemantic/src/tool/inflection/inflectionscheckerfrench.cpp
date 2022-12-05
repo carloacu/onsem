@@ -174,6 +174,17 @@ bool InflectionsCheckerFrench::isPronounPronounComplementCompatibles(const Infle
   return pInflPronoun.word.lemma != "qu'est-ce que";
 }
 
+bool InflectionsCheckerFrench::isIntjInflCompatibles(const InflectedWord& pIntj,
+                                                     const InflectedWord&) const
+{
+  return pIntj.word.lemma != "que";
+}
+
+bool InflectionsCheckerFrench::isAdvIntjCompatibles(const InflectedWord& pAdv,
+                                                    const InflectedWord&) const
+{
+  return pAdv.word.lemma != "que";
+}
 
 } // End of namespace linguistics
 } // End of namespace onsem

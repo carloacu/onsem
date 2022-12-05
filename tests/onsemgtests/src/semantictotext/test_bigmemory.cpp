@@ -164,7 +164,10 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "\\resLabel=#fr_FR#jesus-est-il-ressuscite\\",
         "\"jesus-est-il-ressuscite\"",
         operator_react("Jésus est-il ressuscité ?", semMem, lingDb, language, &reactionOptions));
-
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "Oui, Dieu est omniscient.",
+        "\"dieu-est-omniscient\"",
+        operator_react("Dieu est-il omniscient ?", semMem, lingDb, language, &reactionOptions));
 
 }
 

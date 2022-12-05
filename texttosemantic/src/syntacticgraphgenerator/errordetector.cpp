@@ -263,14 +263,24 @@ void ErrorDetector::frFixOfVerbalChunks
           currChunk.tokRange.getItBegin()->inflWords.front().infos.hasContextualInfo(WordContextualInfos::NEGATION))
       {
         currChunk.positive = false;
-        auto* doChunkLinkPtr = getDOChunkLink(currChunk);
-        if (doChunkLinkPtr != nullptr)
+
+        auto nextTokenIt = getNextToken(currChunk.head, currChunk.tokRange.getItEnd());
+        if (nextTokenIt != currChunk.tokRange.getItEnd() &&
+            nextTokenIt->inflWords.front().word.lemma == "que")
         {
-          if (!doChunkLinkPtr->tokRange.isEmpty() &&
-              doChunkLinkPtr->tokRange.getItBegin()->inflWords.front().word.lemma == "que")
-            currChunk.positive = true;
-          else if (ConceptSet::haveAnyOfConcepts(doChunkLinkPtr->chunk->tokRange.getItBegin()->inflWords.front().infos.concepts, {"quantity_nothing", "number_0"}))
-            currChunk.positive = true;
+          currChunk.positive = true;
+        }
+        else
+        {
+          auto* doChunkLinkPtr = getDOChunkLink(currChunk);
+          if (doChunkLinkPtr != nullptr)
+          {
+            if (!doChunkLinkPtr->tokRange.isEmpty() &&
+                doChunkLinkPtr->tokRange.getItBegin()->inflWords.front().word.lemma == "que")
+              currChunk.positive = true;
+            else if (ConceptSet::haveAnyOfConcepts(doChunkLinkPtr->chunk->tokRange.getItBegin()->inflWords.front().infos.concepts, {"quantity_nothing", "number_0"}))
+              currChunk.positive = true;
+          }
         }
 
         if (!currChunk.positive)

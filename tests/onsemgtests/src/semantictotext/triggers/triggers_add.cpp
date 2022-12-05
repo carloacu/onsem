@@ -411,7 +411,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     const std::string answerStr = "c'est une tomate qui traverse et ça fait paf la tomate";
     triggers_add("raconte une blague", answerStr, semMem, lingDb);
     triggers_add("raconte une autre blague", answerStr, semMem, lingDb);
-    const std::string answerReformulatedStr = "C'est une tomate qui fait traverse et cela paf la tomate.";
+    const std::string answerReformulatedStr = "C'est une tomate traverse et ça fait paf la tomate.";
     //ONSEM_BEHAVIOR_EQ(answerReformulatedStr, operator_react("raconte   une autre blague", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerReformulatedStr, operator_react("raconte   une blague", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerReformulatedStr, operator_react("raconte   une autre blague", semMem, lingDb));

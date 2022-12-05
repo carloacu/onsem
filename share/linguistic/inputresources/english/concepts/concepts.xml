@@ -66,8 +66,8 @@
  <concept name="niceToMeetYou">
   <linkedMeaning lemme="nice to meet you" gram="interjection" relationToConcept="4"/>
  </concept>
- <concept name="please">
-  <linkedMeaning lemme="please" gram="interjection" relationToConcept="4"/>
+ <concept name="only">
+  <linkedMeaning lemme="only" relationToConcept="4"/>
  </concept>
  <concept name="opposite">
   <linkedMeaning lemme="contrary" relationToConcept="3"/>
@@ -76,6 +76,9 @@
   <linkedMeaning lemme="opposite" gram="adjective" relationToConcept="3"/>
   <linkedMeaning lemme="opposite" gram="adverb" relationToConcept="3"/>
   <linkedMeaning lemme="opposite" gram="preposition" relationToConcept="3"/>
+ </concept>
+ <concept name="please">
+  <linkedMeaning lemme="please" gram="interjection" relationToConcept="4"/>
  </concept>
  <concept name="reading">
   <linkedMeaning lemme="reading" gram="noun" relationToConcept="4"/>

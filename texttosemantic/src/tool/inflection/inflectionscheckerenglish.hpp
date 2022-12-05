@@ -51,6 +51,13 @@ public:
                               const InflectedWord& pNounInflWord2) const override;
 
   bool isPronounPronounComplementCompatibles(const InflectedWord& pInflPronoun) const override { return true; }
+
+  bool isIntjInflCompatibles(const InflectedWord& pIntj,
+                             const InflectedWord& pInfl) const override { return true; }
+
+  bool isAdvIntjCompatibles(const InflectedWord& pAdv,
+                            const InflectedWord& pIntj) const override { return true; }
+
 };
 
 

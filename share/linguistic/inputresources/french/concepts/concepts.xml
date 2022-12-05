@@ -70,6 +70,9 @@
  <concept name="news">
   <linkedMeaning lemme="nouvelle" gram="noun" relationToConcept="4"/>
  </concept>
+ <concept name="only">
+  <linkedMeaning lemme="que" gram="adverb" relationToConcept="4"/>
+ </concept>
  <concept name="opposite">
   <linkedMeaning lemme="contraire" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="contraire" gram="adjective" relationToConcept="3"/>

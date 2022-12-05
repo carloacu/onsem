@@ -498,6 +498,11 @@ bool InflectionsChecker::areCompatibles
     }
   }
 
+  case PartOfSpeech::INTERJECTION:
+  {
+    return _impl->isIntjInflCompatibles(pIGram1, pIGram2);
+  }
+
   case PartOfSpeech::PROPER_NOUN:
   case PartOfSpeech::UNKNOWN:
   {
@@ -624,6 +629,10 @@ bool InflectionsChecker::areCompatibles
   {
     switch (pIGram2.word.partOfSpeech)
     {
+    case PartOfSpeech::INTERJECTION:
+    {
+      return _impl->isAdvIntjCompatibles(pIGram1, pIGram2);
+    }
     case PartOfSpeech::NOUN:
     case PartOfSpeech::PROPER_NOUN:
     case PartOfSpeech::UNKNOWN:
