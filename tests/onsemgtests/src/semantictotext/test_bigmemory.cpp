@@ -189,5 +189,10 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "\\resLabel=#fr_FR#l-immaculee-conception-c-est-dans-la-bible\\",
         "\"l-immaculee-conception-c-est-dans-la-bible\"",
         operator_react("L'immaculée conception, c'est dans la Bible ?", semMem, lingDb, language, &reactionOptions));
+
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#que-dit-la-bible-sur-le-couple\\",
+        "\"que-dit-la-bible-sur-le-couple\"",
+        operator_react("Que dit la Bible sur le couple ?", semMem, lingDb, language, &reactionOptions));
 }
 

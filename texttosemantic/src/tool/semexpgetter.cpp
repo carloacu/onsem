@@ -834,6 +834,8 @@ SemanticRequestType convertSemGramToRequestType
     return SemanticRequestType::PURPOSE;
   case GrammaticalType::CAUSE:
     return SemanticRequestType::CAUSE;
+  case GrammaticalType::TOPIC:
+    return SemanticRequestType::TOPIC;
   default:
     return SemanticRequestType::NOTHING;
   }
