@@ -1099,36 +1099,41 @@ bool _relationsInLowerCaseFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelatio
                                      SemanticLanguageEnum pLanguage)
 {
   bool res = false;
-  std::map<std::string, char> conceptsOfRelatedWord;
-  auto lemmaInLowerCase = pLemma;
-  if (lowerCaseText(lemmaInLowerCase))
+  auto wordInLowerCase = pLemma;
+  if (lowerCaseText(wordInLowerCase))
   {
     const auto& lingDico = pLingDb.langToSpec[pLanguage].lingDico;
-    lingDico.getConcepts(conceptsOfRelatedWord,
-                         SemanticWord(pLanguage, lemmaInLowerCase, PartOfSpeech::NOUN));
-    auto lowerCaseLingMeaning =
-        lingDico.statDb.getLingMeaning(lemmaInLowerCase, PartOfSpeech::NOUN, true);
+    auto lowerCaseStaticLingMeaning =
+        lingDico.statDb.getLingMeaning(wordInLowerCase, PartOfSpeech::NOUN, false);
 
-    if (!lowerCaseLingMeaning.isEmpty())
+    if (lowerCaseStaticLingMeaning.meaningId != LinguisticMeaning_noMeaningId)
     {
-      // add semantic expressions that have a meaning in common
-      res = _getRelationsOfAMeaning(pRelations, pAlreadyMatchedSentences, pLinksToSemExps,
-                                    lowerCaseLingMeaning.language, lowerCaseLingMeaning.meaningId,
-                                    pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
-    }
-    else
-    {
-      res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, lemmaInLowerCase,
-                              pLanguage, pGrdExpToLookFor, pChildSemExpsToSkip,
-                              pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
-    }
+      auto lowerCaseLingMeaning = LinguisticMeaning(lowerCaseStaticLingMeaning);
+      linguistics::InflectedWord lowerCaseInflectedWord;
+      lingDico.getInfoGram(lowerCaseInflectedWord, lowerCaseLingMeaning);
 
-    if (!conceptsOfRelatedWord.empty())
-    {
-      OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
-      // add semantic expressions that have a concept in common
-      res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, conceptsOfRelatedWord, &pGrdExpToLookFor,
-                                           pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
+      if (!lowerCaseLingMeaning.isEmpty())
+      {
+        // add semantic expressions that have a meaning in common
+        res = _getRelationsOfAMeaning(pRelations, pAlreadyMatchedSentences, pLinksToSemExps,
+                                      lowerCaseStaticLingMeaning.language, lowerCaseStaticLingMeaning.meaningId,
+                                      pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
+      }
+      else
+      {
+        res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, wordInLowerCase,
+                                pLanguage, pGrdExpToLookFor, pChildSemExpsToSkip,
+                                pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
+      }
+
+      if (!lowerCaseInflectedWord.infos.concepts.empty())
+      {
+        OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
+        // add semantic expressions that have a concept in common
+        res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, lowerCaseInflectedWord.infos.concepts,
+                                             &pGrdExpToLookFor, pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr,
+                                             pIsATrigger, pLingDb, pCheckChildren) || res;
+      }
     }
   }
   return res;
