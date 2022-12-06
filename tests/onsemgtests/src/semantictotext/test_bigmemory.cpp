@@ -180,5 +180,9 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         operator_react("L'Esprit Saint est-il omniscient ?", semMem, lingDb, language, &reactionOptions));
   */
 
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "(\t\\resLabel=#fr_FR#jesus-est-il-dieu\\\tTHEN\tOui, Jésus est Dieu.\t)",
+        "\"jesus-est-il-dieu\", \"jesus-est-dieu\"",
+        operator_react("Jésus est-il Dieu ?", semMem, lingDb, language, &reactionOptions));
 }
 
