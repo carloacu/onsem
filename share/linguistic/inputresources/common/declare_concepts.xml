@@ -17,15 +17,17 @@
   <declareconcept name="fromRecentContext" />
   <declareconcept name="game" />
   <declareconcept name="home" />
+  <declareconcept name="homeless" />
   <declareconcept name="ip" />
   <declareconcept name="longtime" />
   <declareconcept name="name" />
   <declareconcept name="nationality" />
   <declareconcept name="news" />
   <declareconcept name="niceToMeetYou" />
-  <declareconcept name="please" />
   <declareconcept name="only" />
   <declareconcept name="opposite" />
+  <declareconcept name="please" />
+  <declareconcept name="pornography" />
   <declareconcept name="reading" />
   <declareconcept name="reflexive" autofill="false" />
   <declareconcept name="resource" />
@@ -33,6 +35,7 @@
   <declareconcept name="sorry" />
   <declareconcept name="surprise.i" />
   <declareconcept name="tablet" />
+  <declareconcept name="television" />
   <declareconcept name="times" autofill="false" />
   <declareconcept name="unless" />
   <declareconcept name="url" />

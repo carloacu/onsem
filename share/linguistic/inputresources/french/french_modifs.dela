@@ -545,3 +545,14 @@
 #Saint Esprit,Saint-Esprit.PN:ms
 #Esprit,Saint-Esprit.PN:ms
 
+#œuvre,.N
+#oeuvre,œuvre.N:fs
+#œuvres,œuvre.N:fp
+#oeuvres,œuvre.N:fp
+
+
+#sans-abri,.N:ms:mp
+#SDF,.N:ms:mp
+#sdf,SDF.N:ms:mp
+
+

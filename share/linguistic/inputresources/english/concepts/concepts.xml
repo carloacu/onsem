@@ -57,6 +57,12 @@
   <linkedMeaning lemme="home" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="dwelling" gram="noun" relationToConcept="3"/>
  </concept>
+ <concept name="homeless">
+  <linkedMeaning lemme="homeless" relationToConcept="4"/>
+  <linkedMeaning lemme="bum" relationToConcept="3"/>
+  <linkedMeaning lemme="hobo" relationToConcept="3"/>
+  <linkedMeaning lemme="tramp" relationToConcept="3"/>
+ </concept>
  <concept name="longtime">
   <linkedMeaning lemme="longtime" relationToConcept="4"/>
  </concept>
@@ -79,6 +85,9 @@
  </concept>
  <concept name="please">
   <linkedMeaning lemme="please" gram="interjection" relationToConcept="4"/>
+ </concept>
+ <concept name="pornography">
+  <linkedMeaning lemme="pornography" relationToConcept="4"/>
  </concept>
  <concept name="reading">
   <linkedMeaning lemme="reading" gram="noun" relationToConcept="4"/>
@@ -107,6 +116,10 @@
  </concept>
  <concept name="tablet">
   <linkedMeaning lemme="tablet" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="television">
+  <linkedMeaning lemme="television" relationToConcept="4"/>
+  <linkedMeaning lemme="TV" relationToConcept="4"/>
  </concept>
  <concept name="times">
   <linkedMeaning lemme="times" gram="noun" relationToConcept="4"/>
