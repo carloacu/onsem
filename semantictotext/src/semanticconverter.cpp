@@ -374,7 +374,7 @@ UniqueSemanticExpression naturalLanguageExpressionToSemanticExpression(const Nat
             statGrd->verbTense = pNaturalLanguageExpression.verbTense;
             statGrd->verbGoal = pNaturalLanguageExpression.verbGoal;
             statGrd->polarity = pNaturalLanguageExpression.polarity;
-            pLingDb.langToSpec[pNaturalLanguageExpression.word.language].lingDico.getConcepts(statGrd->concepts, statGrd->word);
+            pLingDb.langToSpec[pNaturalLanguageExpression.word.language].lingDico.getConceptsFromWord(statGrd->concepts, statGrd->word);
             return statGrd;
           }
           if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::AGENT)
@@ -389,7 +389,7 @@ UniqueSemanticExpression naturalLanguageExpressionToSemanticExpression(const Nat
           _naturalLanguageTextToSemanticWord(genGrd->word, pNaturalLanguageExpression.word);
           genGrd->quantity = pNaturalLanguageExpression.quantity;
           genGrd->referenceType = pNaturalLanguageExpression.reference;
-          pLingDb.langToSpec[pNaturalLanguageExpression.word.language].lingDico.getConcepts(genGrd->concepts, genGrd->word);
+          pLingDb.langToSpec[pNaturalLanguageExpression.word.language].lingDico.getConceptsFromWord(genGrd->concepts, genGrd->word);
           return genGrd;
         }());
   for (const auto& currChild : pNaturalLanguageExpression.children)

@@ -1109,28 +1109,13 @@ bool _relationsInLowerCaseFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelatio
     if (lowerCaseStaticLingMeaning.meaningId != LinguisticMeaning_noMeaningId)
     {
       auto lowerCaseLingMeaning = LinguisticMeaning(lowerCaseStaticLingMeaning);
-      linguistics::InflectedWord lowerCaseInflectedWord;
-      lingDico.getInfoGram(lowerCaseInflectedWord, lowerCaseLingMeaning);
-
-      if (!lowerCaseLingMeaning.isEmpty())
-      {
-        // add semantic expressions that have a meaning in common
-        res = _getRelationsOfAMeaning(pRelations, pAlreadyMatchedSentences, pLinksToSemExps,
-                                      lowerCaseStaticLingMeaning.language, lowerCaseStaticLingMeaning.meaningId,
-                                      pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
-      }
-      else
-      {
-        res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, wordInLowerCase,
-                                pLanguage, pGrdExpToLookFor, pChildSemExpsToSkip,
-                                pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
-      }
-
-      if (!lowerCaseInflectedWord.infos.concepts.empty())
+      std::map<std::string, char> concepts;
+      lingDico.getConcepts(concepts, lowerCaseLingMeaning);
+      if (!concepts.empty())
       {
         OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
         // add semantic expressions that have a concept in common
-        res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, lowerCaseInflectedWord.infos.concepts,
+        res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, concepts,
                                              &pGrdExpToLookFor, pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr,
                                              pIsATrigger, pLingDb, pCheckChildren) || res;
       }
@@ -1138,6 +1123,7 @@ bool _relationsInLowerCaseFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelatio
   }
   return res;
 }
+
 
 template <bool IS_MODIFIABLE>
 bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,

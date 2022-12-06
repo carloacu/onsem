@@ -207,9 +207,32 @@ void LinguisticDictionary::getInfoGram(InflectedWord& pIGram,
 }
 
 
-
 void LinguisticDictionary::getConcepts(std::map<std::string, char>& pConcepts,
-                                       const SemanticWord& pWord) const
+                                       const LinguisticMeaning& pMeaning) const
+{
+  switch (pMeaning.getLinguisticMeaningType())
+  {
+  case LinguisticMeaningType::ID:
+  {
+    const auto& statLingMeaning = pMeaning.getStaticMeaning();
+    if (!statLingMeaning.isEmpty())
+      statDb.getConcepts(pConcepts, statLingMeaning);
+    break;
+  }
+  case LinguisticMeaningType::WORD:
+  {
+    const auto& word = pMeaning.getWord();
+    getConceptsFromWord(pConcepts, word);
+    break;
+  }
+  case LinguisticMeaningType::EMPTY:
+    break;
+  }
+}
+
+
+void LinguisticDictionary::getConceptsFromWord(std::map<std::string, char>& pConcepts,
+                                               const SemanticWord& pWord) const
 {
   if (_isARemovedWord(pWord))
     return;
