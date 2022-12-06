@@ -1,5 +1,6 @@
 ﻿#include "syntacticgraphtosemantic.hpp"
 #include <onsem/common/linguisticsubordinateid.hpp>
+#include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
@@ -1300,6 +1301,25 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     genGrounding.entityType = SemanticEntityType::UNKNOWN;
     genGrounding.coreference.emplace(CoreferenceDirectionEnum::AFTER);
     genGrounding.quantity.clear();
+    break;
+  }
+  case PartOfSpeech::PROPER_NOUN:
+  {
+    auto wordInLowerCase = genGrounding.word.lemma;
+    if (lowerCaseText(wordInLowerCase))
+    {
+      auto lowerCaseStaticLingMeaning =
+          fLingDico.statDb.getLingMeaning(wordInLowerCase, PartOfSpeech::NOUN, false);
+
+      if (lowerCaseStaticLingMeaning.meaningId != LinguisticMeaning_noMeaningId)
+      {
+        auto lowerCaseLingMeaning = LinguisticMeaning(lowerCaseStaticLingMeaning);
+        linguistics::InflectedWord lowerCaseInflectedWord;
+        fLingDico.getInfoGram(lowerCaseInflectedWord, lowerCaseLingMeaning);
+        genGrounding.concepts.insert(lowerCaseInflectedWord.infos.concepts.begin(),
+                                     lowerCaseInflectedWord.infos.concepts.end());
+      }
+    }
     break;
   }
   default:

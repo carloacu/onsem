@@ -53,7 +53,7 @@ bool getIGramOfGenericMeaning(linguistics::InflectedWord& pIGram,
 {
   LinguisticMeaning lingMeaning;
   SemExpGetter::wordToAMeaning(lingMeaning, pGenGrounding.word, pLanguage, pLingDb);
-  if (lingMeaning.isEmpty())
+  if (lingMeaning.isEmpty() && pGenGrounding.word.partOfSpeech != PartOfSpeech::PROPER_NOUN)
   {
     const auto& synthDico = pLingDb.langToSpec[pLanguage].synthDico;
     fillLingMeaningFromConcepts(lingMeaning, pGenGrounding.concepts, synthDico);

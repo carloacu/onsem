@@ -46,7 +46,7 @@ TEST_F(SemanticReasonerGTests, simpleSentences)
   EXPECT_EQ("Robert looks at you.", reformulate("Robert looks at me.", semMem, lingDb, SemanticLanguageEnum::ENGLISH));
   EXPECT_EQ("Eat the cucumber!", reformulate("eat the cucumber", semMem, lingDb, SemanticLanguageEnum::ENGLISH));
   EXPECT_EQ("Robert te regarde.", reformulate("Robert me regarde", semMem, lingDb, SemanticLanguageEnum::FRENCH));
-  EXPECT_EQ("Eminem de son vrai nom Marshall Bruce Mathers III n\xC3\xA9 le 17 octobre 1972 \xC3\xA0 Saint Joseph dans l'\xC3\x89tat du Missouri stylis\xC3\xA9 souvent EMIN\xC6\x8EM est un auteur-compositeur-interpr\xC3\xA8te de rap am\xC3\xA9ricain, il est \xC3\xA9galement producteur et il est acteur. Il est aussi membre du groupe D12 dont il est le cofondateur.",
+  EXPECT_EQ("Eminem de son vrai nom Marshall Bruce Mathers III né le 17 octobre 1972 à Saint Joseph dans l'État du Missouri stylisé souvent EMINƎM est un auteur-compositeur-interprète de rap américain, il est également producteur et il est acteur. Il est aussi membre du groupe D12 dont il est le cofondateur.",
             reformulate("Eminem (souvent stylisé EMINƎM), de son vrai nom Marshall Bruce Mathers III, né le 17 octobre 1972 à Saint Joseph dans l'État du Missouri, est un auteur-compositeur-interprète de rap américain, également producteur et acteur. Il est aussi membre du groupe D12 dont il est le cofondateur", semMem, lingDb, SemanticLanguageEnum::FRENCH));
 }
 
