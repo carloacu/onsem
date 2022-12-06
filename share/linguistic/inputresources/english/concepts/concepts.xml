@@ -53,6 +53,9 @@
  <concept name="game">
   <linkedMeaning lemme="game" gram="noun" relationToConcept="4"/>
  </concept>
+ <concept name="hailMary">
+  <linkedMeaning lemme="hail Mary" relationToConcept="4"/>
+ </concept>
  <concept name="home">
   <linkedMeaning lemme="home" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="dwelling" gram="noun" relationToConcept="3"/>
@@ -82,6 +85,9 @@
   <linkedMeaning lemme="opposite" gram="adjective" relationToConcept="3"/>
   <linkedMeaning lemme="opposite" gram="adverb" relationToConcept="3"/>
   <linkedMeaning lemme="opposite" gram="preposition" relationToConcept="3"/>
+ </concept>
+ <concept name="ourFather">
+  <linkedMeaning lemme="our Father" relationToConcept="4"/>
  </concept>
  <concept name="please">
   <linkedMeaning lemme="please" gram="interjection" relationToConcept="4"/>

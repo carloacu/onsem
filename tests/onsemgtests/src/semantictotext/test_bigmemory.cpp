@@ -184,5 +184,10 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "(\t\\resLabel=#fr_FR#jesus-est-il-dieu\\\tTHEN\tOui, Jésus est Dieu.\t)",
         "\"jesus-est-il-dieu\", \"jesus-est-dieu\"",
         operator_react("Jésus est-il Dieu ?", semMem, lingDb, language, &reactionOptions));
+
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#l-immaculee-conception-c-est-dans-la-bible\\",
+        "\"l-immaculee-conception-c-est-dans-la-bible\"",
+        operator_react("L'immaculée conception, c'est dans la Bible ?", semMem, lingDb, language, &reactionOptions));
 }
 

@@ -26,6 +26,9 @@
   <existingMeaning lemme="huitième" gram="adjective">
     <contextInfo val="canBeBeforeNoun" />
   </existingMeaning>
+  <existingMeaning lemme="immaculé" gram="adjective">
+    <contextInfo val="canBeBeforeNoun" />
+  </existingMeaning>
   <existingMeaning lemme="intéressant" gram="adjective">
     <contextInfo val="canBeBeforeNoun" />
   </existingMeaning>

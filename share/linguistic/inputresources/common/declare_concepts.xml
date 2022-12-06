@@ -16,6 +16,7 @@
   <declareconcept name="forExample" />
   <declareconcept name="fromRecentContext" />
   <declareconcept name="game" />
+  <declareconcept name="hailMary" />
   <declareconcept name="home" />
   <declareconcept name="homeless" />
   <declareconcept name="ip" />
@@ -26,6 +27,7 @@
   <declareconcept name="niceToMeetYou" />
   <declareconcept name="only" />
   <declareconcept name="opposite" />
+  <declareconcept name="ourFather" />
   <declareconcept name="please" />
   <declareconcept name="pornography" />
   <declareconcept name="reading" />
@@ -67,6 +69,7 @@
   <declareconcept name="agent_god" />
   <declareconcept name="agent_human" />
   <declareconcept name="agent_jesus" />
+  <declareconcept name="agent_mary" />
   <declareconcept name="agent_parent" />
   <declareconcept name="agent_robot" />
   <declareconcept name="agent_sibling" />

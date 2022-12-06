@@ -545,6 +545,29 @@
 #Saint Esprit,Saint-Esprit.PN:ms
 #Esprit,Saint-Esprit.PN:ms
 
+#Marie,.PN:fs
+#Vierge Marie,Marie.PN:fs
+#Vierge marie,Marie.PN:fs
+#vierge Marie,Marie.PN:fs
+#vierge marie,Marie.PN:fs
+
+#Immaculée Conception,.PN:fs
+#Immaculée conception,Immaculée Conception.PN:fs
+#immaculée Conception,Immaculée Conception.PN:fs
+#immaculée conception,Immaculée Conception.PN:fs
+
+#Notre-Père,.N:ms
+#Notre-père,Notre-Père.N:ms
+#notre-Père,Notre-Père.N:ms
+#notre-père,Notre-Père.N:ms
+#Notre Père,Notre-Père.N:ms
+#Notre père,Notre-Père.N:ms
+#notre Père,Notre-Père.N:ms
+#notre père,Notre-Père.N:ms
+
+#je vous salue Marie,.N:ms
+#je vous salue marie,je vous salue Marie.N:ms
+
 #œuvre,.N
 #oeuvre,œuvre.N:fs
 #œuvres,œuvre.N:fp
@@ -555,4 +578,9 @@
 #SDF,.N:ms:mp
 #sdf,SDF.N:ms:mp
 
-
+#Frat,.N:ms
+#FRAT,Frat.N:ms
+#frat,Frat.N:ms
+#fraternel,Frat.N:ms
+#Fraternel,Frat.N:ms
+#FRATernel,Frat.N:ms
