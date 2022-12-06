@@ -22,5 +22,6 @@
  <concept name="reference_other">
   <linkedMeaning lemme="another" relationToConcept="4"/>
   <linkedMeaning lemme="other" relationToConcept="5"/>
+  <linkedMeaning lemme="others" relationToConcept="4"/>
  </concept>
 </linguisticdatabase>

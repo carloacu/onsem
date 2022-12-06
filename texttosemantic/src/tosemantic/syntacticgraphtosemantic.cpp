@@ -1046,7 +1046,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     // it's a pronoun that refer to to a person
     const bool isAQuestionWord = pChunk.children.empty() &&
         fLingDico.aloneWordToRequest(chunkHeadIGram.word) != SemanticRequestType::NOTHING;
-    if (!isAQuestionWord)
+    if (!isAQuestionWord && !ConceptSet::haveAConcept(chunkHeadIGram.infos.concepts, "reference_other"))
     {
       auto pronSemExp = xTranslateRelativePersToPerson(pronounRelPerson, chunkHeadIGram, pContext, pGeneral);
       if (pContext.grammTypeFromParent != GrammaticalType::RECEIVER &&

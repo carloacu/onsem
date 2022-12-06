@@ -194,5 +194,12 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "\\resLabel=#fr_FR#que-dit-la-bible-sur-le-couple\\",
         "\"que-dit-la-bible-sur-le-couple\"",
         operator_react("Que dit la Bible sur le couple ?", semMem, lingDb, language, &reactionOptions));
+
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#pourquoi-certaines-personnes-vivent-une-vie-consacree-alors-que-d-autres-se-marient\\",
+        "\"pourquoi-certaines-personnes-vivent-une-vie-consacree-alors-que-d-autres-se-marient\"",
+        operator_react("Pourquoi certaines personnes vivent une vie consacrée alors que d'autres se marient ?", semMem, lingDb, language, &reactionOptions));
+
+
 }
 

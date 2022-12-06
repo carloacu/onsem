@@ -23,7 +23,8 @@ namespace french
 std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getImpSuccessions()
 {
   return
-  { {PartOfSpeech::DETERMINER, PartOfSpeech::INTERJECTION},
+  { {PartOfSpeech::ADJECTIVE, PartOfSpeech::PRONOUN_COMPLEMENT},
+    {PartOfSpeech::DETERMINER, PartOfSpeech::INTERJECTION},
     {PartOfSpeech::PARTITIVE, PartOfSpeech::VERB},
     {PartOfSpeech::PREPOSITION, PartOfSpeech::LINKBETWEENWORDS},
     {PartOfSpeech::PREPOSITION, PartOfSpeech::PUNCTUATION},

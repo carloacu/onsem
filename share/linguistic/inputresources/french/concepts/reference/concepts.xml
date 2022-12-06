@@ -19,5 +19,6 @@
  </concept>
  <concept name="reference_other">
   <linkedMeaning lemme="autre" relationToConcept="5"/>
+  <linkedMeaning lemme="d'autres" relationToConcept="4"/>
  </concept>
 </linguisticdatabase>
