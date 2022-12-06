@@ -41,6 +41,7 @@ namespace onsem
   ADD_WORDCONTEXTUALINFOS_TYPE(REFTOAPERSON, "refToAPerson")                                                    \
   ADD_WORDCONTEXTUALINFOS_TYPE(REFTOASENTENCE, "refToASentence")                                                \
   ADD_WORDCONTEXTUALINFOS_TYPE(FR_VERBFOLLOWEDBYWORDDE, "fr_verbFollowedByWordDe")                              \
+  ADD_WORDCONTEXTUALINFOS_TYPE(FR_ASPIREDH, "fr_aspiredH")                                                      \
   ADD_WORDCONTEXTUALINFOS_TYPE(EN_TIMEWORD, "en_timeWord")                                                      \
   ADD_WORDCONTEXTUALINFOS_TYPE(EN_TIMEWORDPAST, "en_timeWordPast")                                              \
   ADD_WORDCONTEXTUALINFOS_TYPE(EN_TIMEWORDTO, "en_timeWordTo")                                                  \
