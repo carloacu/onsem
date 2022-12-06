@@ -1,0 +1,20 @@
+<linguisticdatabase>
+ <concept name="agent_profession_priest">
+  <linkedMeaning lemme="prêtre" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_profession_priest_cure">
+  <linkedMeaning lemme="curé" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_profession_priest_vicar">
+  <linkedMeaning lemme="vicaire" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_profession_priest_bishop">
+  <linkedMeaning lemme="évêque" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_profession_priest_archbishop">
+  <linkedMeaning lemme="archevêque" gram="noun" relationToConcept="4"/>
+ </concept>
+ <concept name="agent_profession_priest_pope">
+  <linkedMeaning lemme="pape" gram="noun" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>

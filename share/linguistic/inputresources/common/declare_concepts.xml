@@ -71,13 +71,20 @@
   <declareconcept name="agent_robot" />
   <declareconcept name="agent_sibling" />
   <declareconcept name="agent_animal" />
-  <declareconcept name="agent_profession" />
 
   <declareconcept name="agent_position_goalkeeper" />
   <declareconcept name="agent_position_defender" />
   <declareconcept name="agent_position_midfielder" />
   <declareconcept name="agent_position_midfielder_winger" />
   <declareconcept name="agent_position_striker" />
+
+  <declareconcept name="agent_profession" />
+  <declareconcept name="agent_profession_priest" />
+  <declareconcept name="agent_profession_priest_cure" />
+  <declareconcept name="agent_profession_priest_vicar" />
+  <declareconcept name="agent_profession_priest_bishop" />
+  <declareconcept name="agent_profession_priest_archbishop" />
+  <declareconcept name="agent_profession_priest_pope" />
 
   <declareconcept name="application" />
   <declareconcept name="application_dance" />
