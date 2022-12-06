@@ -1166,12 +1166,6 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
     res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.word.lemma,
                             SemanticLanguageEnum::UNKNOWN, pGrdExpToLookFor, pChildSemExpsToSkip,
                             pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
-
-    // Check with without the capital letter at beginning
-    if (pGenGrd.word.partOfSpeech == PartOfSpeech::PROPER_NOUN)
-       res = _relationsInLowerCaseFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.word.lemma,
-                                             pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext,
-                                             pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren, pLanguage) || res;
   }
 
 
