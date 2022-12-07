@@ -161,8 +161,8 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         operator_react("C'est quoi l'Esprit Saint ?", semMem, lingDb, language, &reactionOptions));
 */
   ONSEM_ANSWER_WITH_REFERENCES_EQ(
-        "\\resLabel=#fr_FR#jesus-est-il-ressuscite\\",
-        "\"jesus-est-il-ressuscite\"",
+        "Oui, Jésus est ressuscité.",
+        "\"jesus-est-ressuscite\"",
         operator_react("Jésus est-il ressuscité ?", semMem, lingDb, language, &reactionOptions));
 
   ONSEM_ANSWER_WITH_REFERENCES_EQ(
