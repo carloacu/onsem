@@ -247,8 +247,9 @@ protected:
   bool _strToOutIfNotEmpty
   (std::list<WordToSynthesize>& pOut,
    PartOfSpeech pPartOfSpeech,
-   const std::string& pStr) const
-  { return synthTool::strToOutIfNotEmpty(pOut, pPartOfSpeech, pStr, _language); }
+   const std::string& pStr,
+   const std::set<WordContextualInfos>* pContextualInfosPtr = nullptr) const
+  { return synthTool::strToOutIfNotEmpty(pOut, pPartOfSpeech, pStr, _language, pContextualInfosPtr); }
 
   void _strWithApostropheToOut
   (std::list<WordToSynthesize>& pOut,

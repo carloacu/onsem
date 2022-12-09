@@ -42,12 +42,14 @@ static inline bool strToOutIfNotEmpty
 (std::list<WordToSynthesize>& pOut,
  PartOfSpeech pPartOfSpeech,
  const std::string& pStr,
- SemanticLanguageEnum pLanguage)
+ SemanticLanguageEnum pLanguage,
+ const std::set<WordContextualInfos>* pContextualInfosPtr = nullptr)
 {
   if (!pStr.empty())
   {
     pOut.emplace_back(SemanticWord(pLanguage, pStr, pPartOfSpeech),
-                      InflectionToSynthesize(pStr, true, true, alwaysTrue));
+                      InflectionToSynthesize(pStr, true, true, alwaysTrue),
+                      WordToSynthesizeTag::ANY, pContextualInfosPtr);
     return true;
   }
   return false;
@@ -64,7 +66,7 @@ static inline void strWithApostropheToOut
   pOut.emplace_back([&]
   {
     WordToSynthesize wordToToSynth(SemanticWord(pLanguage, pStr, pPartOfSpeech),
-                                   InflectionToSynthesize(pStrApos, true, false, ifNextCharIsAVowelOrH));
+                                   InflectionToSynthesize(pStrApos, true, false, ifNeedAnApostropheBefore));
     wordToToSynth.inflections.emplace_back(pStr, true, true, alwaysTrue);
     return wordToToSynth;
   }());

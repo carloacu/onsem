@@ -47,6 +47,8 @@ public:
 
   void getInfoGram(InflectedWord& pIGram,
                    const LinguisticMeaning& pMeaning) const;
+  void getContextualInfos(std::set<WordContextualInfos>& pContextualInfos,
+                          const LinguisticMeaning& pMeaning) const;
   void getConcepts(std::map<std::string, char>& pConcepts,
                    const LinguisticMeaning& pMeaning) const;
   void getConceptsFromWord(std::map<std::string, char>& pConcepts,

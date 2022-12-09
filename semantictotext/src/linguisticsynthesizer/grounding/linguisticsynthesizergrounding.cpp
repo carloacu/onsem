@@ -1381,9 +1381,10 @@ void Linguisticsynthesizergrounding::writeSemWord
   case PartOfSpeech::NOUN:
   {
     std::string nounStr;
-    pLingDb.getInflectedNoun(nounStr, _language, pWord,
+    std::set<WordContextualInfos> contextualInfos;
+    pLingDb.getInflectedNoun(nounStr, contextualInfos, _language, pWord,
                              pContext.wordContext.gender, pContext.wordContext.number);
-    if (_strToOutIfNotEmpty(pOutSemExp.out, pWord.partOfSpeech, nounStr))
+    if (_strToOutIfNotEmpty(pOutSemExp.out, pWord.partOfSpeech, nounStr, &contextualInfos))
       return;
     break;
   }

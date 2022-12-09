@@ -27,13 +27,15 @@ inline bool ifNextCharIsAVowel(const WordToSynthesize& pNext)
     return false;
   return ifNextCharIsAVowel_forABloc(inflNext); }
 
-inline bool ifNextCharIsAVowelOrH(const WordToSynthesize& pNext)
+inline bool ifNeedAnApostropheBefore(const WordToSynthesize& pNext)
 { assert(!pNext.inflections.empty());
   const InflectionToSynthesize& inflNext = pNext.inflections.front();
   if (inflNext.fromResourcePtr != nullptr)
     return false;
   return ifNextCharIsAVowel_forABloc(inflNext) ||
-      (!inflNext.str.empty() && (inflNext.str[0] == 'h' || inflNext.str[0] == 'H')); }
+      (!inflNext.str.empty() && (inflNext.str[0] == 'h' || inflNext.str[0] == 'H') &&
+      pNext.contextualInfos.count(WordContextualInfos::FR_ASPIREDH) == 0);
+}
 
 
 inline bool ifNextWordIsNotAnAdjective(const WordToSynthesize& pNext)

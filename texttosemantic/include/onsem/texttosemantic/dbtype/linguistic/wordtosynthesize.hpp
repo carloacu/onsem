@@ -3,6 +3,8 @@
 
 #include <string>
 #include <list>
+#include <set>
+#include <onsem/common/enum/wordcontextualinfos.hpp>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
 #include "../../api.hpp"
@@ -59,13 +61,15 @@ struct ONSEM_TEXTTOSEMANTIC_API WordToSynthesize
 {
   WordToSynthesize(const SemanticWord& pWord,
                    const InflectionToSynthesize& pOutBloc,
-                   WordToSynthesizeTag pTag = WordToSynthesizeTag::ANY)
+                   WordToSynthesizeTag pTag = WordToSynthesizeTag::ANY,
+                   const std::set<WordContextualInfos>* pContextualInfosPtr = nullptr)
     : word(pWord),
       inflections(1, pOutBloc),
       concepts(),
-      tag(pTag)
-  {
-  }
+      tag(pTag),
+      contextualInfos(pContextualInfosPtr != nullptr ? *pContextualInfosPtr : std::set<WordContextualInfos>())
+ {
+ }
 
   WordToSynthesize(const SemanticWord& pWord,
                    const InflectionToSynthesize& pOutBloc,
@@ -74,7 +78,8 @@ struct ONSEM_TEXTTOSEMANTIC_API WordToSynthesize
     : word(pWord),
       inflections(1, pOutBloc),
       concepts(pConcepts),
-      tag(pTag)
+      tag(pTag),
+      contextualInfos()
   {
   }
 
@@ -98,6 +103,7 @@ struct ONSEM_TEXTTOSEMANTIC_API WordToSynthesize
   std::list<InflectionToSynthesize> inflections;
   std::map<std::string, char> concepts;
   WordToSynthesizeTag tag;
+  std::set<WordContextualInfos> contextualInfos;
 };
 
 

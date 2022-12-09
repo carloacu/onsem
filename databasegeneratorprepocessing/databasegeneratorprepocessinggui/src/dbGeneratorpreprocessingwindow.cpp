@@ -16,6 +16,7 @@
 #include <onsem/compilermodel/loaders/deladatabaseloader.hpp>
 #include <onsem/texttosemantic/algorithmsetforalanguage.hpp>
 #include <onsem/dictionaryextractor/auxiliariesextractor.hpp>
+#include "aspiredh/aspiredhextractor.hpp"
 #include "frgrammarbookextractor/frgrammarbookextractor.hpp"
 #include "textextractor/textextractor.hpp"
 #include "wikitionaryextractor/wikitionaryextractor.hpp"
@@ -571,7 +572,8 @@ void DbGeneratorPreprocessingWindow::on_pushButton_8_clicked()
 {
   const std::string myDataMiningPath =
       _ui->lineEdit_MyDataMiningPath->text().toUtf8().constData();
-  onsem::firstnamesExtractor::run(myDataMiningPath, _inputResourcesFolder);
+  //onsem::firstnamesExtractor::run(myDataMiningPath, _inputResourcesFolder);
+  onsem::aspiredHExtractor::run(myDataMiningPath, _inputResourcesFolder, _lingDb);
 }
 
 void DbGeneratorPreprocessingWindow::on_pushButton_9_clicked()

@@ -118,6 +118,7 @@ struct ONSEM_TEXTTOSEMANTIC_API LinguisticDatabase
   void addDynamicContent(std::list<std::istream*>& pIstreams);
 
   void getInflectedNoun(std::string& pRes,
+                        std::set<WordContextualInfos>& pContextualInfos,
                         SemanticLanguageEnum pLanguage,
                         const SemanticWord& pWord,
                         SemanticGenderType& pGender,

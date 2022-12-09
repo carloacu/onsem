@@ -97,7 +97,7 @@ void LinguisticSynthesizerFrench::_getPossessiveDeterminer
     else if (pGender == SemanticGenderType::FEMININE)
     {
       pOut.emplace_back(SemanticWord(_language, "mon", det),
-                        InflectionToSynthesize("mon", true, true, ifNextCharIsAVowelOrH));
+                        InflectionToSynthesize("mon", true, true, ifNeedAnApostropheBefore));
       pOut.back().inflections.emplace_back("ma", true, true, alwaysTrue);
     }
     else
@@ -115,7 +115,7 @@ void LinguisticSynthesizerFrench::_getPossessiveDeterminer
     else if (pGender == SemanticGenderType::FEMININE)
     {
       pOut.emplace_back(SemanticWord(_language, "ton", det),
-                        InflectionToSynthesize("ton", true, true, ifNextCharIsAVowelOrH));
+                        InflectionToSynthesize("ton", true, true, ifNeedAnApostropheBefore));
       pOut.back().inflections.emplace_back("ta", true, true, alwaysTrue);
     }
     else
@@ -134,7 +134,7 @@ void LinguisticSynthesizerFrench::_getPossessiveDeterminer
     else if (pGender == SemanticGenderType::FEMININE)
     {
       pOut.emplace_back(SemanticWord(_language, "son", det),
-                        InflectionToSynthesize("son", true, true, ifNextCharIsAVowelOrH));
+                        InflectionToSynthesize("son", true, true, ifNeedAnApostropheBefore));
       pOut.back().inflections.emplace_back("sa", true, true, alwaysTrue);
     }
     else
@@ -172,7 +172,7 @@ void LinguisticSynthesizerFrench::_getOfWord(std::list<WordToSynthesize>& pOut,
                                      InflectionToSynthesize("d'", true, false,
                                                             [](const WordToSynthesize& pNext)
       {
-        return ifNextCharIsAVowelOrH(pNext) && ifNextWordIsNotAPrepostion(pNext);
+        return ifNeedAnApostropheBefore(pNext) && ifNextWordIsNotAPrepostion(pNext);
       }));
       wordToToSynth.inflections.emplace_back("de", true, true, ifNextWordIsNotAPrepostion);
       return wordToToSynth;

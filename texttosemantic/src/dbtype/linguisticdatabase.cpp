@@ -465,6 +465,7 @@ void LinguisticDatabase::_addConcept(const boost::property_tree::ptree& pTree,
 
 
 void LinguisticDatabase::getInflectedNoun(std::string& pRes,
+                                          std::set<WordContextualInfos>& pContextualInfos,
                                           SemanticLanguageEnum pLanguage,
                                           const SemanticWord& pWord,
                                           SemanticGenderType& pGender,
@@ -474,7 +475,11 @@ void LinguisticDatabase::getInflectedNoun(std::string& pRes,
   SemExpGetter::wordToAMeaning(lingMeaning, pWord, pLanguage, *this);
   SemanticLanguageEnum meaningLanguage = SemanticLanguageEnum::UNKNOWN;
   if (lingMeaning.getLanguageIfNotEmpty(meaningLanguage))
-    langToSpec[meaningLanguage].synthDico.getNounForm(pRes, lingMeaning, pGender, pNumber);
+  {
+    auto& lingDb = langToSpec[meaningLanguage];
+    lingDb.synthDico.getNounForm(pRes, lingMeaning, pGender, pNumber);
+    lingDb.lingDico.getContextualInfos(pContextualInfos, lingMeaning);
+  }
 }
 
 

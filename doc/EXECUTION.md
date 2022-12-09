@@ -51,6 +51,19 @@ Projects > Run > Command line arguments > Copy past the arguments below<br />
 --databases ../../linguistic/databases --share_semantic ../../../share/semantic
 ```
 
+### Arguments to set for databasegeneratorprepocessinggui
+
+The arguments have to be set here:<br />
+Projects > Build & Run > Run<br />
+Projects > Run > Run configuration > Select "onsemgtests"<br />
+Projects > Run > Command line arguments > Copy past the arguments below<br />
+
+
+```bash
+--build_root ../.. --share_db ../../../share
+```
+
+
 
 
 ## Run from VsCode

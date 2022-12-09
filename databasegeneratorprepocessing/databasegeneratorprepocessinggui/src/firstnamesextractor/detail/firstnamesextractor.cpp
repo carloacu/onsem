@@ -37,7 +37,7 @@ void run(const std::string& pMyDataMiningPath,
   if (!prenomsFile.is_open())
     throw std::runtime_error("Error: Can't open " + inFilename + " file !");
 
-  std::ofstream outFile(pInputResourcesFolder.c_str());
+  std::ofstream outFile(pInputResourcesFolder + "/common/readonly/firstnames.dela");
 
   std::string line;
   getline(prenomsFile, line);

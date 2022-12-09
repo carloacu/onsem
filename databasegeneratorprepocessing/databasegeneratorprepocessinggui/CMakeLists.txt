@@ -20,6 +20,9 @@ set(${PROJECT_NAME}_SRC
   src/frgrammarbookextractor/detail/helpers.hpp
   src/frgrammarbookextractor/detail/helpers.cpp
 
+  src/aspiredh/aspiredhextractor.hpp
+  src/aspiredh/aspiredhextractor.cpp
+
   src/textextractor/textextractor.hpp
   src/textextractor/detail/textextractor.cpp
   src/textextractor/detail/adjbeforenounextractor.hpp

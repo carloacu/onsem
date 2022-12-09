@@ -992,6 +992,19 @@ void StaticLinguisticDictionary::getInfoGram
 }
 
 
+void StaticLinguisticDictionary::getContextualInfos
+(std::set<WordContextualInfos>& pContextualInfos,
+ const StaticLinguisticMeaning& pMeaning) const
+{
+  assert(xIsLoaded());
+  if (pMeaning.meaningId == LinguisticMeaning_noMeaningId)
+    return;
+  assert(pMeaning.language == fLangEnum);
+  const signed char* meaningPtr = fPtrMeaning + pMeaning.meaningId;
+  xGetWordContextualInfos(pContextualInfos, meaningPtr);
+}
+
+
 void StaticLinguisticDictionary::getConcepts
 (std::map<std::string, char>& pConcepts,
  const StaticLinguisticMeaning& pMeaning) const

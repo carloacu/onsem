@@ -207,6 +207,59 @@ void LinguisticDictionary::getInfoGram(InflectedWord& pIGram,
 }
 
 
+void LinguisticDictionary::getContextualInfos
+(std::set<WordContextualInfos>& pContextualInfos,
+ const LinguisticMeaning& pMeaning) const
+{
+  switch (pMeaning.getLinguisticMeaningType())
+  {
+  case LinguisticMeaningType::ID:
+  {
+    const auto& statLingMeaning = pMeaning.getStaticMeaning();
+    statDb.getContextualInfos(pContextualInfos, statLingMeaning);
+    break;
+  }
+  case LinguisticMeaningType::WORD:
+  {
+    const auto& word = pMeaning.getWord();
+    if (_isARemovedWord(word))
+      break;
+
+    {
+      auto statLingMeaning = statDb.getLingMeaning(word.lemma,
+                                                   word.partOfSpeech, true);
+      if (!statLingMeaning.isEmpty())
+        statDb.getContextualInfos(pContextualInfos, statLingMeaning);
+    }
+
+    auto itWordToInfosGram = _wordToAssocInfos.find(word);
+    if (itWordToInfosGram != _wordToAssocInfos.end())
+      for (const auto& currCI : itWordToInfosGram->second->contextualInfos)
+        pContextualInfos.insert(currCI);
+
+    const std::list<InflectedInfos>* dynInfosGram =
+        _inflectedCharaters->find_ptr(word.lemma, 0, word.lemma.size());
+    if (dynInfosGram != nullptr)
+    {
+      // merge with static contextualInfos
+      for (const auto& currInfleForms : *dynInfosGram)
+      {
+        if (word == currInfleForms.wordAndInfos->word())
+        {
+          for (const auto& currCI : currInfleForms.wordAndInfos->infos().contextualInfos)
+            pContextualInfos.insert(currCI);
+          return;
+        }
+      }
+    }
+    break;
+  }
+  case LinguisticMeaningType::EMPTY:
+    break;
+  }
+}
+
+
 void LinguisticDictionary::getConcepts(std::map<std::string, char>& pConcepts,
                                        const LinguisticMeaning& pMeaning) const
 {
