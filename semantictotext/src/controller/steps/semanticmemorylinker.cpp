@@ -2061,24 +2061,6 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
                       const GroundedExpression& pOriginalGrdExp,
                       const SemanticRequests& pRequests)
 {
-  for (const auto& currRequest : pRequests.types)
-  {
-    GrammaticalType grammTypeOfQuestion = semanticRequestType_toSemGram(currRequest);
-    if (grammTypeOfQuestion != GrammaticalType::UNKNOWN)
-    {
-      auto itChildOfQuestion = pGrdExp.children.find(grammTypeOfQuestion);
-      if (itChildOfQuestion != pGrdExp.children.end())
-      {
-        const ListExpression* listExpOfQuestionPtr =
-            itChildOfQuestion->second->getListExpPtr_SkipWrapperPtrs();
-        if (listExpOfQuestionPtr != nullptr &&
-            listExpOfQuestionPtr->listType == ListExpressionType::OR)
-          return manageChoice(pWorkStruct, pMemViewer, pGrdExp,
-                              grammTypeOfQuestion, *listExpOfQuestionPtr);
-      }
-    }
-  }
-
   // get the triggers
   bool anAnswerHasBeenAdded = false;
   if (pWorkStruct.reactionOptions.canAnswerWithATrigger &&
@@ -2092,6 +2074,24 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
                                   SemanticExpressionCategory::QUESTION, _emptyAxiomId,
                                   pOriginalGrdExp, ContextualAnnotation::ANSWER))
       return true;
+  }
+
+  for (const auto& currRequest : pRequests.types)
+  {
+    GrammaticalType grammTypeOfQuestion = semanticRequestType_toSemGram(currRequest);
+    if (grammTypeOfQuestion != GrammaticalType::UNKNOWN)
+    {
+      auto itChildOfQuestion = pGrdExp.children.find(grammTypeOfQuestion);
+      if (itChildOfQuestion != pGrdExp.children.end())
+      {
+        const ListExpression* listExpOfQuestionPtr =
+            itChildOfQuestion->second->getListExpPtr_SkipWrapperPtrs();
+        if (listExpOfQuestionPtr != nullptr &&
+            listExpOfQuestionPtr->listType == ListExpressionType::OR)
+          return manageChoice(pWorkStruct, pMemViewer, pGrdExp,
+                              grammTypeOfQuestion, *listExpOfQuestionPtr) || anAnswerHasBeenAdded;
+      }
+    }
   }
 
   if (!pWorkStruct.canHaveAnotherTextualAnswer() ||

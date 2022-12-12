@@ -1473,9 +1473,12 @@ bool ListExtractor::_tryToExtractANewListAroundASeparator(
       if (listType)
         pCurrList.listType = listType;
     }
-    if (!pCurrList.chunkToMoveInNextEltChunkLink ||
-        pCurrList.chunkToMoveInNextEltChunkLink->atEnd())
-      pCurrList.chunkToMoveInNextEltChunkLink = prevIt;
+   if (prevItHeadInflWord.word.partOfSpeech != PartOfSpeech::PUNCTUATION)
+   {
+     if (!pCurrList.chunkToMoveInNextEltChunkLink ||
+         pCurrList.chunkToMoveInNextEltChunkLink->atEnd())
+       pCurrList.chunkToMoveInNextEltChunkLink = prevIt;
+   }
     ++prevIt;
   }
 

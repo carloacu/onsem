@@ -327,8 +327,9 @@ bool reactOnSimilarities(SemControllerWorkingStruct& pWorkStruct,
                          SemanticMemoryBlockViewer& pMemViewer,
                          const GroundedExpression& pGrdExp)
 {
-  return _reactOnChildSimilarities(pWorkStruct, pMemViewer, pGrdExp, SemanticRequestType::SUBJECT) ||
-      _reactOnChildSimilarities(pWorkStruct, pMemViewer, pGrdExp, SemanticRequestType::OBJECT);
+  if (_reactOnChildSimilarities(pWorkStruct, pMemViewer, pGrdExp, SemanticRequestType::SUBJECT))
+    return true;
+  return _reactOnChildSimilarities(pWorkStruct, pMemViewer, pGrdExp, SemanticRequestType::OBJECT);
 }
 
 

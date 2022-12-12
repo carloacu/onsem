@@ -200,6 +200,9 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "\"pourquoi-certaines-personnes-vivent-une-vie-consacree-alors-que-d-autres-se-marient\"",
         operator_react("Pourquoi certaines personnes vivent une vie consacrée alors que d'autres se marient ?", semMem, lingDb, language, &reactionOptions));
 
-
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#martin-luther-est-un-fondateur-un-reformateur-un-homme-de-dieu-ou-un-deformateur\\",
+        "\"martin-luther-est-un-fondateur-un-reformateur-un-homme-de-dieu-ou-un-deformateur\"",
+        operator_react("Martin Luther est un fondateur, un réformateur, un homme de Dieu ou un déformateur....?", semMem, lingDb, language, &reactionOptions));
 }
 

@@ -333,8 +333,8 @@ void ErrorDetector::addYesOrNoRequestForVerbsBeforeInterrogationPunctuation
           !haveAQuestionInDirectObject(*itLastChunk->chunk))
       {
         setChunkAtInterrogativeForm(*itLastChunk->chunk);
+        itLastChunk = pSyntTree.end();
       }
-      itLastChunk = pSyntTree.end();
     }
   }
 }
