@@ -27,12 +27,20 @@ void run(const std::string& pMyDataMiningPath,
   std::string line;
   while (getline(inFile, line))
   {
+    std::size_t endOfWordPos = std::string::npos;
     std::size_t beginOfParenthesis = line.find('(');
 
-    if (beginOfParenthesis != std::string::npos && beginOfParenthesis > 1)
+    if (beginOfParenthesis != std::string::npos)
+      endOfWordPos = beginOfParenthesis;
+
+    std::size_t beginOfComma = line.find(',');
+    if (beginOfComma != std::string::npos && (endOfWordPos == std::string::npos || beginOfComma < endOfWordPos))
+      endOfWordPos = beginOfComma;
+
+    if (endOfWordPos != std::string::npos && endOfWordPos > 1)
     {
       std::list<linguistics::InflectedWord> inflectedWords;
-      staticBinDico.getGramPossibilities(inflectedWords, line, 0, beginOfParenthesis - 1);
+      staticBinDico.getGramPossibilities(inflectedWords, line, 0, endOfWordPos - 1);
       for (const auto& currInflectedWord : inflectedWords)
       {
         outFile << "<existingMeaning lemme=\"" << currInflectedWord.word.lemma << "\" gram=\""

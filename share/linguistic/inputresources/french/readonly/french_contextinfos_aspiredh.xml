@@ -356,6 +356,12 @@
 <existingMeaning lemme="harnois" gram="noun">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
+<existingMeaning lemme="harpaille" gram="noun">
+  <contextInfo val="fr_aspiredH"/>
+</existingMeaning>
+<existingMeaning lemme="harpailler" gram="verb">
+  <contextInfo val="fr_aspiredH"/>
+</existingMeaning>
 <existingMeaning lemme="harpe" gram="noun">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
@@ -909,6 +915,12 @@
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
 <existingMeaning lemme="houille" gram="noun">
+  <contextInfo val="fr_aspiredH"/>
+</existingMeaning>
+<existingMeaning lemme="houille" gram="noun">
+  <contextInfo val="fr_aspiredH"/>
+</existingMeaning>
+<existingMeaning lemme="hourd" gram="noun">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
 <existingMeaning lemme="hourdis" gram="noun">
