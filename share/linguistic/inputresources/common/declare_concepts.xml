@@ -42,6 +42,7 @@
   <declareconcept name="unless" />
   <declareconcept name="url" />
   <declareconcept name="value" />
+  <declareconcept name="walk" />
   <declareconcept name="wide" />
   <declareconcept name="youAreWelcome" />
 
@@ -450,6 +451,7 @@
   <declareconcept name="verb_action_touch" />
   <declareconcept name="verb_action_turnAway" />
   <declareconcept name="verb_action_use" />
+  <declareconcept name="verb_action_walk" />
   <declareconcept name="verb_action_wakeUp" />
   <declareconcept name="verb_action_wear" />
   <declareconcept name="verb_action_write" />

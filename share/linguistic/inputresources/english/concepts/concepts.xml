@@ -141,6 +141,18 @@
   <linkedMeaning lemme="volume" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="sound" gram="noun" relationToConcept="2"/>
  </concept>
+ <concept name="walk">
+  <linkedMeaning lemme="ride" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="riding" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="stroll" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="strolling" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="walk" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="walking" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="excursion" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="trek" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="ramble" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="rambling" gram="noun" relationToConcept="3"/>
+ </concept>
  <concept name="wide">
   <linkedMeaning lemme="wide" relationToConcept="4"/>
  </concept>

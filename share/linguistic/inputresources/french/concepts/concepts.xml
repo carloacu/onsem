@@ -135,6 +135,15 @@
   <linkedMeaning lemme="volume" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="son" gram="noun" relationToConcept="2"/>
  </concept>
+ <concept name="walk">
+  <linkedMeaning lemme="balade" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="excursion" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="flânerie" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="marche" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="promenade" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="randonnée" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="tour" gram="noun" relationToConcept="3"/>
+ </concept>
  <concept name="wide">
   <linkedMeaning lemme="large" gram="adverb" relationToConcept="4"/>
   <linkedMeaning lemme="large" gram="adjective" relationToConcept="4"/>

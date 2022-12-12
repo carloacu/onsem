@@ -221,6 +221,13 @@
  <concept name="verb_action_wakeUp">
   <linkedMeaning lemme="wake~up" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_walk">
+  <linkedMeaning lemme="ride" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="stroll" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="walk" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="trek" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="ramble" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_wear">
   <linkedMeaning lemme="wear" gram="verb" relationToConcept="4"/>
  </concept>

@@ -119,6 +119,13 @@
  <concept name="verb_action_wakeUp">
   <linkedMeaning lemme="réveiller~se" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_walk">
+  <linkedMeaning lemme="balader" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="excursionner" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="marcher" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="promener" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="randonner" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_wear">
   <linkedMeaning lemme="porter" gram="verb" relationToConcept="4"/>
  </concept>
