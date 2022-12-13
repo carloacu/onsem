@@ -1540,7 +1540,8 @@ void _addCauseResult(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
 }
 
 
-void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers)
+void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
+                                        const SemanticUnityGrounding* pUnityGrdPtr)
 {
   auto res = mystd::optional<int>();
   auto _addElts = [&](const SemanticExpression& pSemExp)
@@ -1567,14 +1568,28 @@ void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerE
   if (res)
   {
     AllAnswerElts quantityAnswer;
-    quantityAnswer.answersGenerated.emplace_back(std::make_unique<GroundedExpression>
-                                                 ([&]()
-                    {
-                      auto genGrd = std::make_unique<SemanticGenericGrounding>();
-                      genGrd->quantity.setNumber(static_cast<int>(*res));
-                      genGrd->entityType = SemanticEntityType::THING;
-                      return genGrd;
-                    }()));
+
+    std::unique_ptr<SemanticGrounding> answerGrdPtr;
+    if (pUnityGrdPtr != nullptr && pUnityGrdPtr->typeOfUnity == TypeOfUnity::LENGTH)
+    {
+      answerGrdPtr = [&]()
+      {
+        auto lengthGrd = std::make_unique<SemanticLengthGrounding>();
+        lengthGrd->length.lengthInfos.emplace(pUnityGrdPtr->getLengthUnity(), static_cast<int>(*res));
+        return lengthGrd;
+      }();
+    }
+    else
+    {
+      answerGrdPtr = [&]()
+      {
+        auto genGrd = std::make_unique<SemanticGenericGrounding>();
+        genGrd->quantity.setNumber(static_cast<int>(*res));
+        genGrd->entityType = SemanticEntityType::THING;
+        return genGrd;
+      }();
+    }
+    quantityAnswer.answersGenerated.emplace_back(std::make_unique<GroundedExpression>(std::move(answerGrdPtr)));
     pAllAnswers.clear();
     pAllAnswers.emplace(SemanticRequestType::QUANTITY, std::move(quantityAnswer));
   }
@@ -1921,7 +1936,16 @@ void _getRelationsOfLinks
   {
     _genericFilterSemExpThatCanAnswer(pUserAnswers, answElts, pGrdExp, pRequestType,
                                       pOriginalQuestRequestType, pWorkStruct, pMemViewer.constView);
-    _replaceAnswersByNumberOfInstances(pUserAnswers);
+
+    const SemanticUnityGrounding* unityGrdPtr = nullptr;
+    auto itUnityChild = pGrdExp.children.find(GrammaticalType::UNITY);
+    if (itUnityChild != pGrdExp.children.end())
+    {
+      auto* unityGrdExpPtr = itUnityChild->second->getGrdExpPtr_SkipWrapperPtrs();
+      if (unityGrdExpPtr != nullptr)
+        unityGrdPtr = unityGrdExpPtr->grounding().getUnityGroundingPtr();
+    }
+    _replaceAnswersByNumberOfInstances(pUserAnswers, unityGrdPtr);
     return;
   }
   default:

@@ -24,13 +24,19 @@ void GroundedExpression::assertEltsEqual(const GroundedExpression& pOther) const
 std::unique_ptr<GroundedExpression> GroundedExpression::clone
 (const IndexToSubNameToParameterValue* pParams,
  bool pRemoveRecentContextInterpretations,
- const std::set<SemanticExpressionType>* pExpressionTypesToSkip) const
+ const std::set<SemanticExpressionType>* pExpressionTypesToSkip,
+ const std::set<GrammaticalType>* pChildrenToSkip) const
 {
   auto res = std::make_unique<GroundedExpression>(cloneGrounding(pParams));
   for (const auto& currChild : children)
+  {
+    if (pChildrenToSkip != nullptr &&
+        pChildrenToSkip->count(currChild.first) > 0)
+      continue;
     res->children.emplace(currChild.first,
                           currChild.second->clone(pParams, pRemoveRecentContextInterpretations,
                                                   pExpressionTypesToSkip));
+  }
   return res;
 }
 

@@ -377,12 +377,25 @@ TEST_F(SemanticReasonerGTests, operator_answer_basic)
                     operator_answer("Qu'est-ce que Juliet doit laver", semMem, lingDb));
   }
 
-  // teach an action
-  memoryOperation::allowToInformTheUserHowToTeach(semMem);
-  ONSEM_ANSWER_EQ("For example, you can tell me to smile is to say I am smiling.",
-                  operator_answer("how can I teach you to smile", semMem, lingDb));
-  ONSEM_ANSWER_EQ("Par exemple, tu peux me dire que sourire c'est dire je souris.",
-                  operator_answer("comment je peux t'apprendre à sourire", semMem, lingDb));
+  {
+    // teach an action
+    memoryOperation::allowToInformTheUserHowToTeach(semMem);
+    ONSEM_ANSWER_EQ("For example, you can tell me to smile is to say I am smiling.",
+                    operator_answer("how can I teach you to smile", semMem, lingDb));
+    ONSEM_ANSWER_EQ("Par exemple, tu peux me dire que sourire c'est dire je souris.",
+                    operator_answer("comment je peux t'apprendre à sourire", semMem, lingDb));
+  }
+
+  {
+    operator_inform("Je dois avancer d'un mètre", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Tu dois avancer 1 mètre.",
+                    operator_answer("De combien dois-je avancer en mètres ?", semMem, lingDb));
+    /*
+    operator_inform("Je dois avancer de 4 mètres", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Tu dois avancer 1 mètre.",
+                    operator_answer("De combien dois-je avancer en mètres ?", semMem, lingDb));
+                    */
+  }
 }
 
 

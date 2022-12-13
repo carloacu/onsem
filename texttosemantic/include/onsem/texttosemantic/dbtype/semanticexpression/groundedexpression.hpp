@@ -55,7 +55,8 @@ struct ONSEM_TEXTTOSEMANTIC_API GroundedExpression : public SemanticExpression,
   // Copiers
   std::unique_ptr<GroundedExpression> clone(const IndexToSubNameToParameterValue* pParams = nullptr,
                                             bool pRemoveRecentContextInterpretations = false,
-                                            const std::set<SemanticExpressionType>* pExpressionTypesToSkip = nullptr) const;
+                                            const std::set<SemanticExpressionType>* pExpressionTypesToSkip = nullptr,
+                                            const std::set<GrammaticalType>* pChildrenToSkip = nullptr) const;
   std::unique_ptr<SemanticGrounding> cloneGrounding(const IndexToSubNameToParameterValue* pParams = nullptr) const;
 
 

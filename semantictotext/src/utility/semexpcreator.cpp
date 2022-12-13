@@ -102,7 +102,8 @@ std::unique_ptr<GroundedExpression> _reformulateQuestionWithListOfAnswers(
     const SemanticMemoryBlock& pMemBlock,
     const linguistics::LinguisticDatabase& pLingDb)
 {
-  auto rootGrdExp = pGrdExpQuestion.clone(nullptr, true);
+  static const std::set<GrammaticalType> childrenToSkip{GrammaticalType::UNITY};
+  auto rootGrdExp = pGrdExpQuestion.clone(nullptr, true, nullptr, &childrenToSkip);
   SemExpModifier::clearRequestList(*rootGrdExp);
 
   for (auto& currAnswer : pRequestToAnswers)
