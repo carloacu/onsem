@@ -3,4 +3,7 @@
   <linkedMeaning lemme="encore" gram="adverb" relationToConcept="4"/>
   <linkedMeaning lemme="toujours" gram="adverb" relationToConcept="3"/>
  </concept>
+ <concept name="still_again">
+  <linkedMeaning lemme="encore" gram="adverb" relationToConcept="4"/>
+ </concept>
 </linguisticdatabase>
