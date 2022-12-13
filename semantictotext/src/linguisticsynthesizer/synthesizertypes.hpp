@@ -164,9 +164,11 @@ struct OutSentence
   OutSemExp equalityBeforeVerb{};
   OutSemExp equalityAfterVerb{};
   OutSemExp receiverBeforeVerb{};
+  OutSemExp receiverJustAfterVerb{};
   OutSemExp receiverAfterVerb{};
   OutSemExp objectBeforeSubject{};
   OutSemExp objectBeforeVerb{};
+  OutSemExp objectJustAfterVerb{};
   OutSemExp objectAfterVerb{};
   OutSemExp inCaseOf{};
   OutSemExp mannerBetweenAuxAndVerb{};

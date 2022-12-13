@@ -828,6 +828,8 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
           return sentWorkStruct.outs.objectBeforeVerb;
         if (objectPosition == ObjectPosition::BEFORESUBJECT)
           return sentWorkStruct.outs.objectBeforeSubject;
+        if (objectPosition == ObjectPosition::JUSTAFTERVERB)
+          return sentWorkStruct.outs.objectJustAfterVerb;
         return sentWorkStruct.outs.objectAfterVerb;
       }();
       _writeObjects(objectOutSemExp, sentWorkStruct.outs, sentWorkStruct, verbContext,
@@ -956,6 +958,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
     case GrammaticalType::RECEIVER:
     {
       _writeReceiver(sentWorkStruct.outs.receiverBeforeVerb,
+                     sentWorkStruct.outs.receiverJustAfterVerb,
                      sentWorkStruct.outs.receiverAfterVerb,
                      currSemExpChild, pConf, verbContext.isPositive, pRequests,
                      verbContext, pLastSubject);
@@ -1671,6 +1674,7 @@ RelativePerson LinguisticSynthesizerPrivate::_semExpToRelativePerson
 
 void LinguisticSynthesizerPrivate::_writeReceiver
 (OutSemExp& pOutSemExpBeforeVerb,
+ OutSemExp& pOutSemExpJustAfterVerb,
  OutSemExp& pOutSemExpAfterVerb,
  const SemanticExpression& pSemExp,
  SynthesizerConfiguration& pConf,
@@ -1680,24 +1684,24 @@ void LinguisticSynthesizerPrivate::_writeReceiver
  SemanticExpression const** pLastSubject) const
 {
   std::list<SemExpTypeEnumFormSynt> semExpSyntTypes;
-  if (_putReceiverBeforeVerb(pSemExp, pVerbIsAffirmative, pRequests, pConf))
-  {
-    SynthesizerCurrentContext recContext;
-    recContext.grammaticalTypeFromParent = GrammaticalType::RECEIVER;
-    recContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_INDIRECTOBJECTBEFOREVERB;
-    auto subRequests = pRequests;
-    _writeSemExp(semExpSyntTypes, pOutSemExpBeforeVerb, subRequests, pLastSubject,
-                 pSemExp, pConf, recContext);
-  }
+  auto receiverPosition = _getReceiverPosition(pSemExp, pVerbIsAffirmative, pRequests, pConf);
+
+  SynthesizerCurrentContext recContext(pVerbContext);
+  recContext.grammaticalTypeFromParent = GrammaticalType::RECEIVER;
+  recContext.contextType = receiverPosition == ReceiverPosition::BEFOREVERB ?
+        SYNTHESIZERCURRENTCONTEXTTYPE_INDIRECTOBJECTBEFOREVERB :
+        SYNTHESIZERCURRENTCONTEXTTYPE_INDIRECTOBJECTAFTERVERB;
+  auto subRequests = pRequests;
+  OutSemExp outSemExp;
+  _writeSemExp(semExpSyntTypes, outSemExp, subRequests, pLastSubject,
+               pSemExp, pConf, recContext);
+
+  if (receiverPosition == ReceiverPosition::BEFOREVERB)
+    pOutSemExpBeforeVerb.moveContent(outSemExp);
+  else if (outSemExp.partOfSpeech == PartOfSpeech::PRONOUN)
+    pOutSemExpJustAfterVerb.moveContent(outSemExp);
   else
-  {
-    SynthesizerCurrentContext recContext(pVerbContext);
-    recContext.grammaticalTypeFromParent = GrammaticalType::RECEIVER;
-    recContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_INDIRECTOBJECTAFTERVERB;
-    auto subRequests = pRequests;
-    _writeSemExp(semExpSyntTypes, pOutSemExpAfterVerb, subRequests, pLastSubject,
-                 pSemExp, pConf, recContext);
-  }
+    pOutSemExpAfterVerb.moveContent(outSemExp);
 }
 
 

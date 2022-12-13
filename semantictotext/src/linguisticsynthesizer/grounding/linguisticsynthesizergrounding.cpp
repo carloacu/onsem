@@ -720,7 +720,8 @@ void Linguisticsynthesizergrounding::writePreposition
     if (chkLinkTypeOpt)
     {
       const auto& frameDict = pConf.lingDb.langToSpec[_language].getSemFrameDict();
-      if (pContext.verbContextOpt)
+      if (pContext.contextType != SYNTHESIZERCURRENTCONTEXTTYPE_INDIRECTOBJECTBEFOREVERB &&
+          pContext.verbContextOpt)
       {
         if ((*chkLinkTypeOpt != linguistics::ChunkLinkType::DIRECTOBJECT ||
              pGrounding.type != SemanticGroundingType::STATEMENT || pGrounding.getStatementGrounding().requests.empty()))

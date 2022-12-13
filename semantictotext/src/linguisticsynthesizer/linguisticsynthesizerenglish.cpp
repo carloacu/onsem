@@ -40,6 +40,8 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerEnglish::_getO
           !pGenGrd.coreference &&
           pGenGrd.referenceType != SemanticReferenceType::DEFINITE)
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
+      if (pGenGrd.coreference && pGenGrd.word.isEmpty())
+        return LinguisticSynthesizerPrivate::ObjectPosition::JUSTAFTERVERB;
       return LinguisticSynthesizerPrivate::ObjectPosition::AFTERVERB;
     };
     if (objectGrd.type == SemanticGroundingType::GENERIC)

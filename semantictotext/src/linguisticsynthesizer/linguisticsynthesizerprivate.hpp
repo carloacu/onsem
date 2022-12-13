@@ -110,6 +110,13 @@ protected:
   {
     BEFORESUBJECT,
     BEFOREVERB,
+    JUSTAFTERVERB,
+    AFTERVERB
+  };
+
+  enum class ReceiverPosition
+  {
+    BEFOREVERB,
     AFTERVERB
   };
 
@@ -119,10 +126,10 @@ protected:
                                             const SynthesizerConfiguration& pConf,
                                             LinguisticVerbTense pVerbTense) const = 0;
 
-  virtual bool _putReceiverBeforeVerb(const SemanticExpression& pSemExpObj,
-                                      bool pVerbIsAffirmative,
-                                      const SemanticRequests& pRequests,
-                                      const SynthesizerConfiguration& pConf) const = 0;
+  virtual ReceiverPosition _getReceiverPosition(const SemanticExpression& pSemExpObj,
+                                                bool pVerbIsAffirmative,
+                                                const SemanticRequests& pRequests,
+                                                const SynthesizerConfiguration& pConf) const = 0;
 
   virtual void _getQuestionWord
   (std::list<WordToSynthesize>& pOut,
@@ -339,6 +346,7 @@ private:
 
 
   void _writeReceiver(OutSemExp& pOutSemExpBeforeVerb,
+                      OutSemExp &pOutSemExpJustAfterVerb,
                       OutSemExp& pOutSemExpAfterVerb,
                       const SemanticExpression& pSemExp,
                       SynthesizerConfiguration& pConf,

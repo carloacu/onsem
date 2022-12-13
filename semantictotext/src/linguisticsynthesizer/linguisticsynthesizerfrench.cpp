@@ -279,6 +279,8 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerFrench::_getOb
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
       if (pSentWorkStruct.objectIsAnNoElement && pVerbTense == LinguisticVerbTense::INFINITIVE)
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
+      if (pGenGrd.coreference && pGenGrd.word.isEmpty())
+        return LinguisticSynthesizerPrivate::ObjectPosition::JUSTAFTERVERB;
       return LinguisticSynthesizerPrivate::ObjectPosition::AFTERVERB;
     };
     if (ConceptSet::haveAConcept(objectGrdExp->concepts, "tolink_1p"))
@@ -338,7 +340,7 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerFrench::_getOb
 }
 
 
-bool LinguisticSynthesizerFrench::_putReceiverBeforeVerb
+LinguisticSynthesizerPrivate::ReceiverPosition LinguisticSynthesizerFrench::_getReceiverPosition
 (const SemanticExpression& pSemExpObj,
  bool pVerbIsAffirmative,
  const SemanticRequests& pRequests,
@@ -350,29 +352,35 @@ bool LinguisticSynthesizerFrench::_putReceiverBeforeVerb
     const GroundedExpression& objectGrdExp = *objectGrdExpPtr;
     const SemanticGrounding& objectGrd = objectGrdExp.grounding();
     if (!objectGrdExp.children.empty())
-      return false;
+      return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB;
     switch (objectGrd.type)
     {
     case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd = objectGrd.getGenericGrounding();
-      return _doWeNeedToPutObjectGenGrdBeforeVerb(genGrd, pRequests);
+      if (_doWeNeedToPutObjectGenGrdBeforeVerb(genGrd, pRequests))
+        return LinguisticSynthesizerPrivate::ReceiverPosition::BEFOREVERB;
+      return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB;
     }
     case SemanticGroundingType::AGENT:
     {
       const SemanticAgentGrounding& agentGrd = objectGrd.getAgentGrounding();
       if (pRequests.has(SemanticRequestType::ACTION) && !pVerbIsAffirmative)
-        return true;
-      return _syntGrounding.agentTypeToRelativePerson(agentGrd, pConf, true) != RelativePerson::THIRD_SING &&
-          !pRequests.has(SemanticRequestType::ACTION);
+        return LinguisticSynthesizerPrivate::ReceiverPosition::BEFOREVERB;
+      if (_syntGrounding.agentTypeToRelativePerson(agentGrd, pConf, true) != RelativePerson::THIRD_SING &&
+          !pRequests.has(SemanticRequestType::ACTION))
+        return LinguisticSynthesizerPrivate::ReceiverPosition::BEFOREVERB;
+      return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB;
     }
     case SemanticGroundingType::NAME:
-      return false;
+      return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB;
     default:
-      return !pRequests.has(SemanticRequestType::ACTION);
+      if (pRequests.has(SemanticRequestType::ACTION))
+        return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB;
+      return LinguisticSynthesizerPrivate::ReceiverPosition::BEFOREVERB;
     }
   }
-  return false;
+  return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB;
 }
 
 

@@ -45,10 +45,11 @@ protected:
                                             const SynthesizerConfiguration&,
                                             LinguisticVerbTense) const;
 
-  virtual bool _putReceiverBeforeVerb(const SemanticExpression&,
-                                      bool,
-                                      const SemanticRequests& pRequests,
-                                      const SynthesizerConfiguration&) const { return false; }
+  virtual ReceiverPosition _getReceiverPosition(const SemanticExpression&,
+                                                bool,
+                                                const SemanticRequests& pRequests,
+                                                const SynthesizerConfiguration&) const
+  { return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB; }
 
   virtual void _getQuestionWord
   (std::list<WordToSynthesize>& pOut,

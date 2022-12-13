@@ -65,6 +65,8 @@ void SynthesizerChunksMergerEnglish::_formulation_objectQuestionWithSubjetAfterT
   if (pOutSentence.aux.out.empty())
   {
     pOut.splice(pOut.end(), pOutSentence.verb.out);
+    pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+    pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.equalityAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.subject.out);
     pOut.splice(pOut.end(), pOutSentence.negation2.out);
@@ -90,6 +92,8 @@ void SynthesizerChunksMergerEnglish::_formulation_objectQuestionWithSubjetAfterT
     pOut.splice(pOut.end(), pOutSentence.verb.out);
     pOut.splice(pOut.end(), pOutSentence.negation2.out);
     pOut.splice(pOut.end(), pOutSentence.verb2.out);
+    pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+    pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
   }
   _writEndOfSentence(pOut, pOutSentence);
 }
@@ -107,6 +111,8 @@ void SynthesizerChunksMergerEnglish::_formulation_objectQuestionWithSubjetBefore
   pOut.splice(pOut.end(), pOutSentence.negation2.out);
   pOut.splice(pOut.end(), pOutSentence.verb.out);
   pOut.splice(pOut.end(), pOutSentence.verb2.out);
+  pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+  pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
   pOut.splice(pOut.end(), pOutSentence.equalityAfterVerb.out);
   _writEndOfSentence(pOut, pOutSentence);
 }
@@ -145,6 +151,8 @@ void SynthesizerChunksMergerEnglish::_formulation_default
     pOut.splice(pOut.end(), pOutSentence.verb.out);
   }
   pOut.splice(pOut.end(), pOutSentence.verb2.out);
+  pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+  pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
   _writEndOfSentence(pOut, pOutSentence);
 }
 

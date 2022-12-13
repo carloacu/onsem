@@ -61,10 +61,10 @@ protected:
                                             const SynthesizerConfiguration& pConf,
                                             LinguisticVerbTense pVerbTense) const;
 
-  virtual bool _putReceiverBeforeVerb(const SemanticExpression& pSemExpObj,
-                                      bool pVerbIsAffirmative,
-                                      const SemanticRequests& pRequests,
-                                      const SynthesizerConfiguration& pConf) const;
+  virtual ReceiverPosition _getReceiverPosition(const SemanticExpression& pSemExpObj,
+                                                bool pVerbIsAffirmative,
+                                                const SemanticRequests& pRequests,
+                                                const SynthesizerConfiguration& pConf) const;
 
   void _writeQuel(std::list<WordToSynthesize>& pOut,
                   const SemanticExpression& pSemExp,

@@ -181,6 +181,8 @@ void SynthesizerChunksMergerFrench::_formulation_objectQuestionWithSubjetAfterTh
     pOut.splice(pOut.end(), pOutSentence.receiverBeforeVerb.out);
     pOut.splice(pOut.end(), pOutSentence.objectBeforeVerb.out);
     pOut.splice(pOut.end(), pOutSentence.verb.out);
+    pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+    pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.equalityAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.mannerBetweenAuxAndVerb.out);
   }
@@ -192,6 +194,8 @@ void SynthesizerChunksMergerFrench::_formulation_objectQuestionWithSubjetAfterTh
     pOut.splice(pOut.end(), pOutSentence.verb.out);
     _tryToAddHyphen(pOut, pOutSentence);
     pOut.splice(pOut.end(), pOutSentence.subject.out);
+    pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+    pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.equalityAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.mannerBetweenAuxAndVerb.out);
     pOut.splice(pOut.end(), pOutSentence.negation2.out);
@@ -214,6 +218,8 @@ void SynthesizerChunksMergerFrench::_formulation_objectQuestionWithSubjetAfterTh
       pOut.splice(pOut.end(), pOutSentence.subject.out);
       pOut.splice(pOut.end(), pOutSentence.verb.out);
     }
+    pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+    pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.equalityAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.mannerBetweenAuxAndVerb.out);
   }
@@ -236,6 +242,8 @@ void SynthesizerChunksMergerFrench::_formulation_default
       pOut.splice(pOut.end(), pOutSentence.verbGoal.out, pOutSentence.verbGoal.out.begin());
     pOut.splice(pOut.end(), pOutSentence.negation2.out);
     pOut.splice(pOut.end(), pOutSentence.verbGoal.out);
+    pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+    pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.equalityAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.mannerBetweenAuxAndVerb.out);
     pOut.splice(pOut.end(), pOutSentence.receiverBeforeVerb.out);
@@ -249,6 +257,8 @@ void SynthesizerChunksMergerFrench::_formulation_default
     pOut.splice(pOut.end(), pOutSentence.objectBeforeVerb.out);
     pOut.splice(pOut.end(), pOutSentence.verb.out);
     pOut.splice(pOut.end(), pOutSentence.negation2.out);
+    pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+    pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.equalityAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.mannerBetweenAuxAndVerb.out);
   }
@@ -258,6 +268,8 @@ void SynthesizerChunksMergerFrench::_formulation_default
     pOut.splice(pOut.end(), pOutSentence.objectBeforeVerb.out);
     pOut.splice(pOut.end(), pOutSentence.aux.out);
     pOut.splice(pOut.end(), pOutSentence.negation2.out);
+    pOut.splice(pOut.end(), pOutSentence.receiverJustAfterVerb.out);
+    pOut.splice(pOut.end(), pOutSentence.objectJustAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.equalityAfterVerb.out);
     pOut.splice(pOut.end(), pOutSentence.mannerBetweenAuxAndVerb.out);
     pOut.splice(pOut.end(), pOutSentence.verb.out);
