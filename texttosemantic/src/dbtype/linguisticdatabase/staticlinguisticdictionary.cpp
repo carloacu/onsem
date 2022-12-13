@@ -730,7 +730,7 @@ void StaticLinguisticDictionary::xGetGramPossFromNode
           if (!xIsAWordFrom(rootWordMns))
             break; // because wordFroms are written before
           int32_t rootWordMeaningId = xMeaningFromNodeToMeaningId(rootWordMns);
-          xGetConcepts(infosGramBack.infos.concepts, fPtrMeaning + rootWordMeaningId, "_again");
+          xGetConcepts(infosGramBack.infos.concepts, fPtrMeaning + rootWordMeaningId, 1);
           rootWordMns = xGetNextMeaningFromNode(rootWordMns);
         }
       }
@@ -1101,14 +1101,16 @@ bool StaticLinguisticDictionary::xWordHasContextualInfos
 void StaticLinguisticDictionary::xGetConcepts
 (std::map<std::string, char>& pConcepts,
  const signed char* pMeaningPtr,
- const std::string& pSuffixToAdd) const
+ const char pRelationPenality) const
 {
   const int* currConcept = xGetFirstConcept(pMeaningPtr);
   char nbConcepts = xNbConcepts(pMeaningPtr);
   for (char i = 0; i < nbConcepts; ++i)
   {
-    pConcepts.emplace(fConceptsDatabaseSingleton.conceptName(binaryloader::alignedDecToInt(*currConcept)) + pSuffixToAdd,
-                      xGetRelationToConcept(*currConcept));
+    auto relation = xGetRelationToConcept(*currConcept);
+    if (relation > pRelationPenality)
+    pConcepts.emplace(fConceptsDatabaseSingleton.conceptName(binaryloader::alignedDecToInt(*currConcept)),
+                      relation - pRelationPenality);
     currConcept = xGetNextConcept(currConcept);
   }
 }

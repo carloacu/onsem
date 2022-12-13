@@ -94,6 +94,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string reaction5 = "Ça sert à être heureux.";
   const std::string trigger6 = "les 10 commandements";
   const std::string reaction6 = "C'est la première alliance.";
+  const std::string trigger7 = "mets l'application Aa";
+  const std::string reaction7 = "C'est une application sympa.";
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -119,6 +121,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   triggers_add(trigger4, reaction4, semMem, lingDb);
   triggers_add(trigger5, reaction5, semMem, lingDb);
   triggers_add(trigger6, reaction6, semMem, lingDb);
+  triggers_add(trigger7, reaction7, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
@@ -145,4 +148,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_ANSWER_EQ(reaction4, triggers_match(trigger4, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction5, triggers_match(trigger5, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction6, triggers_match("les 10 Commandements", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction7, triggers_match(trigger7, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction7, triggers_match("remets l'application Aa", semMem, lingDb));
 }

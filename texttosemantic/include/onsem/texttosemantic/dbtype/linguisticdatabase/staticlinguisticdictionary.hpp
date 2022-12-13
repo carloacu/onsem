@@ -288,7 +288,7 @@ private:
 
   void xGetConcepts(std::map<std::string, char>& pConcepts,
                     const signed char* pMeaningPtr,
-                    const std::string& pSuffixToAdd = "") const;
+                    const char pRelationPenality = 0) const;
 
 
   const StaticLinguisticDictionary::QuestionWords* _wordToQuestionWord
