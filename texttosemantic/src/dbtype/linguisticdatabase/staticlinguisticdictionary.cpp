@@ -712,6 +712,29 @@ void StaticLinguisticDictionary::xGetGramPossFromNode
     infosGramBack.moveInflections(_getInflections(infosGramBack.word.partOfSpeech,
                                                    fls, nbFlexions));
     mns = xGetNextMeaningFromNode(mns);
+
+    // Add _again concepts for french verbs that begin with "re"
+    if (fLangEnum == SemanticLanguageEnum::FRENCH &&
+        infosGramBack.word.partOfSpeech == PartOfSpeech::VERB &&
+        infosGramBack.word.lemma.compare(0, 2, "re") == 0)
+    {
+      const auto* rootWordNode =
+          xGetNode(infosGramBack.word.lemma, 2,
+                   infosGramBack.word.lemma.size() - 2, true);
+      if (rootWordNode != nullptr)
+      {
+        unsigned char rootWordNbMeanings = xNbMeanings(rootWordNode);
+        const int32_t* rootWordMns = xGetMeaningList(rootWordNode);
+        for (unsigned char i = 0; i < rootWordNbMeanings; ++i)
+        {
+          if (!xIsAWordFrom(rootWordMns))
+            break; // because wordFroms are written before
+          int32_t rootWordMeaningId = xMeaningFromNodeToMeaningId(rootWordMns);
+          xGetConcepts(infosGramBack.infos.concepts, fPtrMeaning + rootWordMeaningId, "_again");
+          rootWordMns = xGetNextMeaningFromNode(rootWordMns);
+        }
+      }
+    }
   }
 }
 
@@ -1077,13 +1100,14 @@ bool StaticLinguisticDictionary::xWordHasContextualInfos
 
 void StaticLinguisticDictionary::xGetConcepts
 (std::map<std::string, char>& pConcepts,
- const signed char* pMeaningPtr) const
+ const signed char* pMeaningPtr,
+ const std::string& pSuffixToAdd) const
 {
   const int* currConcept = xGetFirstConcept(pMeaningPtr);
   char nbConcepts = xNbConcepts(pMeaningPtr);
   for (char i = 0; i < nbConcepts; ++i)
   {
-    pConcepts.emplace(fConceptsDatabaseSingleton.conceptName(binaryloader::alignedDecToInt(*currConcept)),
+    pConcepts.emplace(fConceptsDatabaseSingleton.conceptName(binaryloader::alignedDecToInt(*currConcept)) + pSuffixToAdd,
                       xGetRelationToConcept(*currConcept));
     currConcept = xGetNextConcept(currConcept);
   }
