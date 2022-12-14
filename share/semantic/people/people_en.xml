@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<peopleRoot>
+  <person id="jesus">
+    <names>
+      <name name="Jesus"/>
+      <name name="Christ"/>
+      <name name="The Lord"/>
+    </names>
+  </person>
+</peopleRoot>

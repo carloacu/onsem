@@ -59,6 +59,7 @@ public:
 public:
   static std::string lingDbPath;
   static std::string dynamicdictionaryPath;
+  static std::string peoplePath;
   static std::string corpusPath;
   static std::string scenariosPath;
   static std::unique_ptr<onsem::linguistics::LinguisticDatabase> lingDbPtr;

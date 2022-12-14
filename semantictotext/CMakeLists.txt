@@ -32,6 +32,7 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/executor/textexecutor.hpp
     include/onsem/semantictotext/sentiment/sentimentanalyzer.hpp
     include/onsem/semantictotext/sentiment/sentimentdetector.hpp
+    include/onsem/semantictotext/tool/peoplefiller.hpp
     include/onsem/semantictotext/tool/semexpcomparator.hpp
     include/onsem/semantictotext/type/naturallanguageexpression.hpp
     include/onsem/semantictotext/type/reactionoptions.hpp
@@ -107,6 +108,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/operator/greet.cpp
     src/operator/semanticcategorizer.hpp
     src/operator/semanticcategorizer.cpp
+    src/tool/peoplefiller.cpp
     src/tool/semexpagreementdetector.cpp
     src/tool/semexpcomparator.cpp
     src/tool/semexpsimilaritycoef.hpp

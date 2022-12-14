@@ -18,6 +18,7 @@
 using namespace onsem;
 std::string SemanticReasonerGTests::lingDbPath = "";
 std::string SemanticReasonerGTests::dynamicdictionaryPath = "";
+std::string SemanticReasonerGTests::peoplePath = "";
 std::string SemanticReasonerGTests::corpusPath = "";
 std::string SemanticReasonerGTests::scenariosPath = "";
 std::unique_ptr<linguistics::LinguisticDatabase> SemanticReasonerGTests::lingDbPtr;

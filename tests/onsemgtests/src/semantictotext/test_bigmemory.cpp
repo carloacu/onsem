@@ -5,6 +5,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/metadataexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/semantictotext/tool/peoplefiller.hpp>
 #include <onsem/semantictotext/type/reactionoptions.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
 #include "operators/operator_inform.hpp"
@@ -54,8 +55,16 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
   linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
   iStreams.close();
-  SemanticMemory semMem;
   auto language = SemanticLanguageEnum::FRENCH;
+  SemanticMemory semMem;
+
+  const std::string peopleXmlFilename = peoplePath + "/people_fr.xml";
+  std::ifstream peopleXmlFile(peopleXmlFilename, std::ifstream::in);
+  if (!peopleXmlFile.is_open())
+    throw std::runtime_error("Can't open " + peopleXmlFilename + " file !");
+  SemanticMemoryBlock peopledatabase;
+  peopleFiller::addPeople(peopledatabase, peopleXmlFile, language, lingDb);
+  semMem.memBloc.subBlockPtr = &peopledatabase;
 
   const std::string textFilename = corpusPath + "/triggerAndTexts/triggersAndTextsCorpus.txt";
   std::ifstream triggersAndTextsCorpusFile(textFilename, std::ifstream::in);
@@ -204,5 +213,11 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "\\resLabel=#fr_FR#martin-luther-est-un-fondateur-un-reformateur-un-homme-de-dieu-ou-un-deformateur\\",
         "\"martin-luther-est-un-fondateur-un-reformateur-un-homme-de-dieu-ou-un-deformateur\"",
         operator_react("Martin Luther est un fondateur, un réformateur, un homme de Dieu ou un déformateur....?", semMem, lingDb, language, &reactionOptions));
+
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "(\t\\resLabel=#fr_FR#la-resurrection-du-christ-simple-legende-ou-fait-historique\\\tTHEN\tLa simple de légende ou de fait historique résurrection de Christ est le vraiment fondement de la foi chrétienne.\t)",
+        "\"la-resurrection-du-christ-simple-legende-ou-fait-historique\", \"la-resurrection-de-jesus-est-vraiment-le-fondement-de-la-foi-chretienne-si-jesus-n-est-pas-ressuscite-alors-la-foi-des-chretiens-n-a-aucun-sens\"",
+        operator_react("La résurrection du Christ, simple légende ou fait historique ?", semMem, lingDb, language, &reactionOptions));
+
 }
 
