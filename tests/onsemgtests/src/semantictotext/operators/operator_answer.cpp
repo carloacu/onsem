@@ -388,7 +388,7 @@ TEST_F(SemanticReasonerGTests, operator_answer_basic)
 
   {
     operator_inform("Je dois avancer d'un mètre", semMem, lingDb);
-    ONSEM_ANSWER_EQ("Tu dois avancer 1 mètre.",
+    ONSEM_ANSWER_EQ("Tu dois avancer de 1 mètre.",
                     operator_answer("De combien dois-je avancer en mètres ?", semMem, lingDb));
     /*
     operator_inform("Je dois avancer de 4 mètres", semMem, lingDb);
