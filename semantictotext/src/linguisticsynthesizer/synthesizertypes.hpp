@@ -7,6 +7,7 @@
 #include <onsem/common/enum/linguisticverbtense.hpp>
 #include <onsem/common/enum/comparisonoperator.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
+#include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
 #include <onsem/common/enum/relativeperson.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/wordtosynthesize.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
@@ -19,7 +20,6 @@ struct LinguisticDatabase;
 }
 struct SemanticMemoryBlock;
 struct SemanticExpression;
-struct TextProcessingContext;
 struct OutSentence;
 
 
@@ -119,7 +119,7 @@ struct SynthesizerConfiguration
   const SemanticExpression* semExp;
   const std::string authorId;
   const std::string receiverId;
-  const bool vouvoiement;
+  const TextProcessingContext textProcessingContext;
 
 private:
   int _nbOfRemainingPossibleRecursiveCalls;

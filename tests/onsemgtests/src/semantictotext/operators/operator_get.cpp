@@ -30,6 +30,7 @@ std::vector<std::string> operator_get(const std::string& pText,
   TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
                                    SemanticAgentGrounding::me,
                                    language);
+  outContext.rawValue = true;
   std::vector<std::string> res(answers.size());
   std::size_t i = 0;
   for (auto& currAnswer : answers)
@@ -200,4 +201,19 @@ TEST_F(SemanticReasonerGTests, operator_get_choice)
     EXPECT_EQ("Banana", res[1]);
   }
 }
+
+
+TEST_F(SemanticReasonerGTests, operator_get_length)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+
+  operator_inform("Je dois avancer de 3 mètres", semMem, lingDb);
+  {
+    auto res = operator_get("De combien dois-je avancer en centimètres ?", semMem, lingDb);
+    ASSERT_EQ(1u, res.size());
+    EXPECT_EQ("300", res[0]);
+  }
+}
+
 

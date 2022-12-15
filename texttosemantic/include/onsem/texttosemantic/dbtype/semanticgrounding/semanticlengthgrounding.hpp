@@ -149,6 +149,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticLength
   void printLength(std::list<std::string>& pListElts,
                    const std::string& pLabelName) const;
   void convertToUnity(SemanticLengthUnity pUnity);
+  std::string getRawValueStr() const;
 
   std::map<SemanticLengthUnity, int> lengthInfos{};
 };

@@ -294,9 +294,16 @@ void Linguisticsynthesizergrounding::writeGrounding
   }
   case SemanticGroundingType::LENGTH:
   {
-    const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
-    lengthTranslation(pOutSemExp.out, synthDico,
-                      pGrounding.getLengthGrounding().length, true);
+    if (pConf.textProcessingContext.rawValue)
+    {
+      _strToOut(pOutSemExp.out, PartOfSpeech::UNKNOWN, pGrounding.getLengthGrounding().length.getRawValueStr());
+    }
+    else
+    {
+      const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
+      lengthTranslation(pOutSemExp.out, synthDico,
+                        pGrounding.getLengthGrounding().length, true);
+    }
     break;
   }
   case SemanticGroundingType::META:
@@ -1226,7 +1233,7 @@ RelativePerson Linguisticsynthesizergrounding::agentTypeToRelativePerson
   if (grdUserId == pConf.receiverId ||
       (pCanReplaceByEquivalent && pConf.memBlock.areSameUserConst(grdUserId, pConf.receiverId)))
   {
-    if (_language == SemanticLanguageEnum::FRENCH && pConf.vouvoiement)
+    if (_language == SemanticLanguageEnum::FRENCH && pConf.textProcessingContext.vouvoiement)
       return RelativePerson::SECOND_PLUR;
     return RelativePerson::SECOND_SING;
   }

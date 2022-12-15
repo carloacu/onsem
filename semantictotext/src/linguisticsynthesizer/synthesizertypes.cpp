@@ -45,7 +45,7 @@ SynthesizerConfiguration::SynthesizerConfiguration
     semExp(nullptr),
     authorId(_mergeUserIdWithContext(pTextProcContext.author.userId, pCurrentUserId)),
     receiverId(_mergeUserIdWithContext(pTextProcContext.receiver.userId, pCurrentUserId)),
-    vouvoiement(pTextProcContext.vouvoiement),
+    textProcessingContext(pTextProcContext),
     _nbOfRemainingPossibleRecursiveCalls(5)
 {
 }

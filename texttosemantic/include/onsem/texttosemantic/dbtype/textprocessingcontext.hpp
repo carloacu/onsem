@@ -37,6 +37,7 @@ struct ONSEM_TEXTTOSEMANTIC_API TextProcessingContext
   bool vouvoiement;
   std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
   std::set<SpellingMistakeType> spellingMistakeTypesPossible;
+  bool rawValue;
 };
 
 

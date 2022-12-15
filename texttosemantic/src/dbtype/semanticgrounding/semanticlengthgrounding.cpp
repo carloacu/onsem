@@ -47,4 +47,22 @@ void SemanticLength::convertToUnity(SemanticLengthUnity pUnity)
 }
 
 
+std::string SemanticLength::getRawValueStr() const
+{
+  const SemanticLengthUnity* unityPtr = nullptr;
+  long long res = 0;
+  for (auto& currElt : lengthInfos)
+  {
+    res += currElt.second * semanticLengthUnity_toNbOfMilliseconds(currElt.first);
+    if (unityPtr == nullptr)
+      unityPtr = &currElt.first;
+  }
+
+  std::stringstream ss;
+  if (unityPtr != nullptr)
+    ss << res / semanticLengthUnity_toNbOfMilliseconds(*unityPtr);
+  return ss.str();
+}
+
+
 } // End of namespace onsem
