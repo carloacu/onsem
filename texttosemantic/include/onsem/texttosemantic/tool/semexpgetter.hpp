@@ -100,6 +100,13 @@ ONSEM_TEXTTOSEMANTIC_API
 mystd::optional<int> getNumberOfElements(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
+std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp);
+
+ONSEM_TEXTTOSEMANTIC_API
+std::unique_ptr<SemanticGrounding> mergeQuantities(const SemanticGrounding& pPreviousQuantity,
+                                                   std::unique_ptr<SemanticGrounding> pNewQuantity);
+
+ONSEM_TEXTTOSEMANTIC_API
 int getNumberOfRepetitions(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);
 
 ONSEM_TEXTTOSEMANTIC_API

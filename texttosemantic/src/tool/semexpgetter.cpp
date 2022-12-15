@@ -87,6 +87,32 @@ bool _isMandatoryGrdExp(const GroundedExpression& pGrdExp)
        ConceptSet::haveAConcept(statGrdPtr->concepts, "verb_haveto"));
 }
 
+std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpression& pGrdExp)
+{
+  mystd::optional<int> res;
+  const auto& grd = *pGrdExp;
+  if (grd.type == SemanticGroundingType::GENERIC)
+  {
+    const SemanticQuantity& repetitionQuantity = grd.getGenericGrounding().quantity;
+    if (repetitionQuantity.type == SemanticQuantityType::NUMBER)
+    {
+      auto genGrd = std::make_unique<SemanticGenericGrounding>();
+      genGrd->quantity.setNumber(repetitionQuantity.nb);
+      genGrd->entityType = SemanticEntityType::THING;
+      return genGrd;
+    }
+  }
+  else if (grd.type == SemanticGroundingType::LENGTH)
+  {
+    return pGrdExp.cloneGrounding();
+  }
+
+  auto genGrd = std::make_unique<SemanticGenericGrounding>();
+  genGrd->quantity.setNumber(1);
+  genGrd->entityType = SemanticEntityType::THING;
+  return genGrd;
+}
+
 }
 
 
@@ -319,6 +345,32 @@ mystd::optional<int> getNumberOfElements(const SemanticExpression& pSemExp)
   return mystd::optional<int>();
 }
 
+
+std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp)
+{
+  const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+    return _extractQuantityFromGrdExp(*grdExpPtr);
+  return {};
+}
+
+std::unique_ptr<SemanticGrounding> mergeQuantities(const SemanticGrounding& pPreviousQuantity,
+                                                   std::unique_ptr<SemanticGrounding> pNewQuantity)
+{
+  if (pNewQuantity)
+  {
+    if (pPreviousQuantity.type == SemanticGroundingType::GENERIC &&
+        pNewQuantity->type == SemanticGroundingType::GENERIC)
+    {
+      auto& prevQuantity = pPreviousQuantity.getGenericGrounding().quantity;
+      auto& newQuantity = pNewQuantity->getGenericGrounding().quantity;
+      if (prevQuantity.type == SemanticQuantityType::NUMBER &&
+          newQuantity.type == SemanticQuantityType::NUMBER)
+        newQuantity.setNumber(newQuantity.nb + prevQuantity.nb);
+    }
+  }
+  return pNewQuantity;
+}
 
 int getNumberOfRepetitions(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations)
 {

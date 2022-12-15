@@ -1543,18 +1543,14 @@ void _addCauseResult(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
 void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
                                         const SemanticUnityGrounding* pUnityGrdPtr)
 {
-  auto res = mystd::optional<int>();
+  std::unique_ptr<SemanticGrounding> answerGrdPtr;
   auto _addElts = [&](const SemanticExpression& pSemExp)
   {
-    auto nbOfEltsOpt =
-        SemExpGetter::getNumberOfElements(pSemExp);
-    if (nbOfEltsOpt)
-    {
-      if (res)
-        res.emplace(res.value() + nbOfEltsOpt.value());
-      else
-        res = nbOfEltsOpt;
-    }
+    auto quantityGrd = SemExpGetter::extractQuantity(pSemExp);
+    if (answerGrdPtr)
+      answerGrdPtr = SemExpGetter::mergeQuantities(*answerGrdPtr, std::move(quantityGrd));
+    else
+      answerGrdPtr = std::move(quantityGrd);
   };
 
   for (const auto& currAnswers : pAllAnswers)
@@ -1565,30 +1561,9 @@ void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerE
       _addElts(*currAnswerGenerated.genSemExp);
   }
 
-  if (res)
+  if (answerGrdPtr)
   {
     AllAnswerElts quantityAnswer;
-
-    std::unique_ptr<SemanticGrounding> answerGrdPtr;
-    if (pUnityGrdPtr != nullptr && pUnityGrdPtr->typeOfUnity == TypeOfUnity::LENGTH)
-    {
-      answerGrdPtr = [&]()
-      {
-        auto lengthGrd = std::make_unique<SemanticLengthGrounding>();
-        lengthGrd->length.lengthInfos.emplace(pUnityGrdPtr->getLengthUnity(), static_cast<int>(*res));
-        return lengthGrd;
-      }();
-    }
-    else
-    {
-      answerGrdPtr = [&]()
-      {
-        auto genGrd = std::make_unique<SemanticGenericGrounding>();
-        genGrd->quantity.setNumber(static_cast<int>(*res));
-        genGrd->entityType = SemanticEntityType::THING;
-        return genGrd;
-      }();
-    }
     quantityAnswer.answersGenerated.emplace_back(std::make_unique<GroundedExpression>(std::move(answerGrdPtr)));
     pAllAnswers.clear();
     pAllAnswers.emplace(SemanticRequestType::QUANTITY, std::move(quantityAnswer));
