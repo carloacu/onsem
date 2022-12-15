@@ -24,4 +24,27 @@ void SemanticLength::printLength
   pListElts.emplace_back(ss.str());
 }
 
+
+void SemanticLengthGrounding::convertToUnity(SemanticLengthUnity pUnity)
+{
+  long long nbInMillimeter = 0;
+
+  for (auto it = length.lengthInfos.begin(); it != length.lengthInfos.end(); )
+  {
+    if (it->first != pUnity)
+    {
+      nbInMillimeter += it->second * semanticLengthUnity_toNbOfMilliseconds(it->first);
+      it = length.lengthInfos.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+
+  if (nbInMillimeter > 0)
+    length.lengthInfos[pUnity] += nbInMillimeter / semanticLengthUnity_toNbOfMilliseconds(pUnity);
+}
+
+
 } // End of namespace onsem

@@ -168,6 +168,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticLengthGrounding : public SemanticGroundi
 
   bool operator==(const SemanticLengthGrounding& pOther) const;
   bool isEqual(const SemanticLengthGrounding& pOther) const;
+  void convertToUnity(SemanticLengthUnity pUnity);
 
   SemanticLength length;
 };

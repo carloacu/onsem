@@ -13,6 +13,7 @@ set(ONSEMGTESTS_SRCS
   src/texttosemantic/test_databasemodifications.cpp
   src/texttosemantic/test_serialization.cpp
   src/texttosemantic/test_semanticmodel_tool.cpp
+  src/texttosemantic/test_semanticlengthgrounding.cpp
   src/linguisticanalyzer/test_isComplete.cpp
   src/linguisticanalyzer/test_inflections.cpp
   src/linguisticanalyzer/test_dates.cpp
