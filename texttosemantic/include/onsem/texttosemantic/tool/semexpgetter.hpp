@@ -100,7 +100,8 @@ ONSEM_TEXTTOSEMANTIC_API
 mystd::optional<int> getNumberOfElements(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp);
+std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp,
+                                                   const SemanticUnityGrounding* pUnityGrdPtr);
 
 ONSEM_TEXTTOSEMANTIC_API
 std::unique_ptr<SemanticGrounding> mergeQuantities(const SemanticGrounding& pPreviousQuantity,

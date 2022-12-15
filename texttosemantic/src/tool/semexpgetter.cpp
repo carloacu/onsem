@@ -87,30 +87,45 @@ bool _isMandatoryGrdExp(const GroundedExpression& pGrdExp)
        ConceptSet::haveAConcept(statGrdPtr->concepts, "verb_haveto"));
 }
 
-std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpression& pGrdExp)
+std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpression& pGrdExp,
+                                                              const SemanticUnityGrounding* pUnityGrdPtr)
 {
   mystd::optional<int> res;
   const auto& grd = *pGrdExp;
   if (grd.type == SemanticGroundingType::GENERIC)
   {
-    const SemanticQuantity& repetitionQuantity = grd.getGenericGrounding().quantity;
-    if (repetitionQuantity.type == SemanticQuantityType::NUMBER)
+    if (pUnityGrdPtr == nullptr)
     {
-      auto genGrd = std::make_unique<SemanticGenericGrounding>();
-      genGrd->quantity.setNumber(repetitionQuantity.nb);
-      genGrd->entityType = SemanticEntityType::THING;
-      return genGrd;
+      const SemanticQuantity& repetitionQuantity = grd.getGenericGrounding().quantity;
+      if (repetitionQuantity.type == SemanticQuantityType::NUMBER)
+      {
+        auto genGrd = std::make_unique<SemanticGenericGrounding>();
+        genGrd->quantity.setNumber(repetitionQuantity.nb);
+        genGrd->entityType = SemanticEntityType::THING;
+        return genGrd;
+      }
     }
   }
   else if (grd.type == SemanticGroundingType::LENGTH)
   {
-    return pGrdExp.cloneGrounding();
+    if (pUnityGrdPtr == nullptr)
+      return pGrdExp.cloneGrounding();
+    if (pUnityGrdPtr->typeOfUnity == TypeOfUnity::LENGTH)
+    {
+      auto res = pGrdExp.cloneGrounding();
+      res->getLengthGrounding().length.convertToUnity(pUnityGrdPtr->getLengthUnity());
+      return res;
+    }
   }
 
-  auto genGrd = std::make_unique<SemanticGenericGrounding>();
-  genGrd->quantity.setNumber(1);
-  genGrd->entityType = SemanticEntityType::THING;
-  return genGrd;
+  if (pUnityGrdPtr == nullptr)
+  {
+    auto genGrd = std::make_unique<SemanticGenericGrounding>();
+    genGrd->quantity.setNumber(1);
+    genGrd->entityType = SemanticEntityType::THING;
+    return genGrd;
+  }
+  return {};
 }
 
 }
@@ -346,11 +361,12 @@ mystd::optional<int> getNumberOfElements(const SemanticExpression& pSemExp)
 }
 
 
-std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp)
+std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp,
+                                                   const SemanticUnityGrounding* pUnityGrdPtr)
 {
   const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
-    return _extractQuantityFromGrdExp(*grdExpPtr);
+    return _extractQuantityFromGrdExp(*grdExpPtr, pUnityGrdPtr);
   return {};
 }
 

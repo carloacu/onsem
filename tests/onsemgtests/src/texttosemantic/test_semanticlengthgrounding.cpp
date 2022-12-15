@@ -18,17 +18,17 @@ std::string _printLength(const SemanticLength& pLength)
 
 TEST_F(SemanticReasonerGTests, convert_lengths)
 {
-  SemanticLengthGrounding lengthGrd;
-  lengthGrd.length.lengthInfos[SemanticLengthUnity::KILOMETER] = 3;
+  SemanticLength semLength;
+  semLength.lengthInfos[SemanticLengthUnity::KILOMETER] = 3;
 
- EXPECT_EQ("(3km)", _printLength(lengthGrd.length));
- lengthGrd.convertToUnity(SemanticLengthUnity::METER);
- EXPECT_EQ("(3000m)", _printLength(lengthGrd.length));
+  EXPECT_EQ("(3km)", _printLength(semLength));
+  semLength.convertToUnity(SemanticLengthUnity::METER);
+  EXPECT_EQ("(3000m)", _printLength(semLength));
 
- lengthGrd.length.lengthInfos.clear();
- lengthGrd.length.lengthInfos[SemanticLengthUnity::CENTIMETER] = 270;
- EXPECT_EQ("(270cm)", _printLength(lengthGrd.length));
- lengthGrd.convertToUnity(SemanticLengthUnity::METER);
- EXPECT_EQ("(2m)", _printLength(lengthGrd.length));
+  semLength.lengthInfos.clear();
+  semLength.lengthInfos[SemanticLengthUnity::CENTIMETER] = 270;
+  EXPECT_EQ("(270cm)", _printLength(semLength));
+  semLength.convertToUnity(SemanticLengthUnity::METER);
+  EXPECT_EQ("(2m)", _printLength(semLength));
 }
 

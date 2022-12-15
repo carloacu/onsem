@@ -1546,11 +1546,14 @@ void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerE
   std::unique_ptr<SemanticGrounding> answerGrdPtr;
   auto _addElts = [&](const SemanticExpression& pSemExp)
   {
-    auto quantityGrd = SemExpGetter::extractQuantity(pSemExp);
-    if (answerGrdPtr)
-      answerGrdPtr = SemExpGetter::mergeQuantities(*answerGrdPtr, std::move(quantityGrd));
-    else
-      answerGrdPtr = std::move(quantityGrd);
+    auto quantityGrd = SemExpGetter::extractQuantity(pSemExp, pUnityGrdPtr);
+    if (quantityGrd)
+    {
+      if (answerGrdPtr)
+        answerGrdPtr = SemExpGetter::mergeQuantities(*answerGrdPtr, std::move(quantityGrd));
+      else
+        answerGrdPtr = std::move(quantityGrd);
+    }
   };
 
   for (const auto& currAnswers : pAllAnswers)

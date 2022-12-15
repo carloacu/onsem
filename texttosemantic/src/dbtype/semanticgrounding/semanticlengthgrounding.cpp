@@ -25,16 +25,16 @@ void SemanticLength::printLength
 }
 
 
-void SemanticLengthGrounding::convertToUnity(SemanticLengthUnity pUnity)
+void SemanticLength::convertToUnity(SemanticLengthUnity pUnity)
 {
   long long nbInMillimeter = 0;
 
-  for (auto it = length.lengthInfos.begin(); it != length.lengthInfos.end(); )
+  for (auto it = lengthInfos.begin(); it != lengthInfos.end(); )
   {
     if (it->first != pUnity)
     {
       nbInMillimeter += it->second * semanticLengthUnity_toNbOfMilliseconds(it->first);
-      it = length.lengthInfos.erase(it);
+      it = lengthInfos.erase(it);
     }
     else
     {
@@ -43,7 +43,7 @@ void SemanticLengthGrounding::convertToUnity(SemanticLengthUnity pUnity)
   }
 
   if (nbInMillimeter > 0)
-    length.lengthInfos[pUnity] += nbInMillimeter / semanticLengthUnity_toNbOfMilliseconds(pUnity);
+    lengthInfos[pUnity] += nbInMillimeter / semanticLengthUnity_toNbOfMilliseconds(pUnity);
 }
 
 

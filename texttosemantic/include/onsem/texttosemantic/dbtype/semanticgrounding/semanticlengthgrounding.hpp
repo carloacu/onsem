@@ -148,6 +148,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticLength
   bool operator==(const SemanticLength& pOther) const;
   void printLength(std::list<std::string>& pListElts,
                    const std::string& pLabelName) const;
+  void convertToUnity(SemanticLengthUnity pUnity);
 
   std::map<SemanticLengthUnity, int> lengthInfos{};
 };
@@ -168,7 +169,6 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticLengthGrounding : public SemanticGroundi
 
   bool operator==(const SemanticLengthGrounding& pOther) const;
   bool isEqual(const SemanticLengthGrounding& pOther) const;
-  void convertToUnity(SemanticLengthUnity pUnity);
 
   SemanticLength length;
 };
