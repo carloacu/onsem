@@ -21,7 +21,8 @@ MetadataExpression::MetadataExpression
     fromText(),
     references(),
     source(),
-    semExp(std::move(pSemExp))
+    semExp(std::move(pSemExp)),
+    interactionContextContainer()
 {
 }
 
@@ -35,7 +36,8 @@ MetadataExpression::MetadataExpression(SemanticSourceEnum pFrom,
     fromText(),
     references(),
     source(std::move(pSource)),
-    semExp(std::move(pSemExp))
+    semExp(std::move(pSemExp)),
+    interactionContextContainer()
 {
 }
 
@@ -49,6 +51,7 @@ void MetadataExpression::assertEltsEqual(const MetadataExpression& pOther) const
   assert(references == pOther.references);
   _assertSemExpOptsEqual(source, pOther.source);
   semExp->assertEqual(*pOther.semExp);
+  assert(interactionContextContainer == pOther.interactionContextContainer);
 }
 
 
@@ -65,6 +68,8 @@ std::unique_ptr<MetadataExpression> MetadataExpression::clone
   res->references = references;
   if (source)
     res->source.emplace((*source)->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
+  if (interactionContextContainer)
+    res->interactionContextContainer = interactionContextContainer->clone();
   return res;
 }
 

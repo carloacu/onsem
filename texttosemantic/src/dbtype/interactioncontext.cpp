@@ -4,6 +4,17 @@ namespace onsem
 {
 
 
+InteractionContext InteractionContext::clone() const
+{
+  InteractionContext res;
+  res.textToSay = textToSay->clone();
+  if (fallbackTextToSay)
+    res.fallbackTextToSay = std::make_unique<UniqueSemanticExpression>(fallbackTextToSay->getSemExp().clone());
+  for (auto& currAnswPoss : answerPossibilities)
+    res.answerPossibilities.emplace_back(currAnswPoss.first->clone(), currAnswPoss.second);
+  return res;
+}
+
 int InteractionContextContainer::addInteractionContext(InteractionContext pInteractionContext)
 {
   int newId = 0;
@@ -43,6 +54,15 @@ InteractionContext* InteractionContextContainer::getInteractionContextPtr(int pI
   return nullptr;
 }
 
+
+std::unique_ptr<InteractionContextContainer> InteractionContextContainer::clone() const
+{
+  auto res = std::make_unique<InteractionContextContainer>();
+  res->currentPosition = currentPosition;
+  for (auto& currElt : _interactionContexts)
+    res->_interactionContexts.emplace(currElt.first, currElt.second.clone());
+  return res;
+}
 
 
 

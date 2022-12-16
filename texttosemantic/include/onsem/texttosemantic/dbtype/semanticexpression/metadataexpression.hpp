@@ -71,20 +71,32 @@ struct ONSEM_TEXTTOSEMANTIC_API MetadataExpression : public SemanticExpression
    SemanticSourceEnum pFrom,
    ContextualAnnotation pContextualAnnotation);
 
+  /// From where the semantic epxression comes from.
   SemanticSourceEnum from;
 
+  /// What is the type of semantic expression (answer, question, proactive, ...).
   ContextualAnnotation contextualAnnotation;
 
+  /// From what language the semantic expression comes from.
   SemanticLanguageEnum fromLanguage;
 
+  /// From what text the semantic expression comes from.
   std::string fromText;
 
+  /**
+   * @brief Set of references (identifiers) linked to the semantic expression.<br/>
+   * It is not used by onsem. Onsem only keeps the information and forwards it.<br/>
+   * It is written and read by the user.
+   */
   std::list<std::string> references;
 
+  /// Semantic expression describing the metadata.
   mystd::unique_propagate_const<UniqueSemanticExpression> source;
 
+  /// Semantic expression.
   UniqueSemanticExpression semExp;
 
+  /// Structure to store some potential parameters associated to this semantic expression.
   std::unique_ptr<InteractionContextContainer> interactionContextContainer;
 };
 
@@ -100,7 +112,8 @@ MetadataExpression::MetadataExpression(std::unique_ptr<TSEMEXP> pSemExp)
     fromText(),
     references(),
     source(),
-    semExp(std::move(pSemExp))
+    semExp(std::move(pSemExp)),
+    interactionContextContainer()
 {
 }
 
@@ -118,7 +131,8 @@ inline bool MetadataExpression::isEqual(const MetadataExpression& pOther) const
       fromText == pOther.fromText &&
       references == pOther.references &&
       source == pOther.source &&
-      semExp == pOther.semExp;
+      semExp == pOther.semExp &&
+      interactionContextContainer == pOther.interactionContextContainer;
 }
 
 

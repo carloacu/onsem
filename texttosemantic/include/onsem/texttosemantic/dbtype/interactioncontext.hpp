@@ -16,16 +16,7 @@ struct ONSEM_TEXTTOSEMANTIC_API InteractionContext
   std::unique_ptr<UniqueSemanticExpression> fallbackTextToSay;
   std::list<std::pair<UniqueSemanticExpression, int>> answerPossibilities;
 
-  InteractionContext clone()
-  {
-    InteractionContext res;
-    res.textToSay = textToSay->clone();
-    if (fallbackTextToSay)
-      res.fallbackTextToSay = std::make_unique<UniqueSemanticExpression>(fallbackTextToSay->getSemExp().clone());
-    for (auto& currAnswPoss : answerPossibilities)
-      res.answerPossibilities.emplace_back(currAnswPoss.first->clone(), currAnswPoss.second);
-    return res;
-  }
+  InteractionContext clone() const;
 };
 
 
@@ -37,6 +28,8 @@ struct ONSEM_TEXTTOSEMANTIC_API InteractionContextContainer
   const InteractionContext* getCurrentInteractionContextPtr() const;
   const InteractionContext* getInteractionContextPtr(int pId) const;
   InteractionContext* getInteractionContextPtr(int pId);
+
+  std::unique_ptr<InteractionContextContainer> clone() const;
 
 private:
   std::map<int, InteractionContext> _interactionContexts;
