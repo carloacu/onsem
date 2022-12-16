@@ -88,6 +88,7 @@ protected:
    * @return A SharedExecutorResult finished when the execution of the command is completed.
    */
   virtual FutureVoid _exposeResource(const SemanticResource& pResource,
+                                     const SemanticExpression* pInutSemExpPtr,
                                      const FutureVoid& pStopRequest);
 
   /**
@@ -133,7 +134,9 @@ protected:
                                const FutureVoid& pStopRequest,
                                std::shared_ptr<int> pLimitOfRecursions);
 
-
+  void _addLogAutoResource(const SemanticResource& pResource,
+                           const std::map<std::string, std::vector<std::string>>& pParameters)
+  { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onAutoResource(pResource, pParameters); }
 
 private:
   const SemanticSourceEnum _typeOfExecutor;
@@ -146,8 +149,6 @@ private:
   { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onMetaInformation_BeginOfScope(); }
   void _addLogAutoSchedulingEndOfScope()
   { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onMetaInformation_EndOfScope(); }
-  void _addLogAutoResource(const SemanticResource& pResource)
-  { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onAutoResource(pResource); }
   void _addLogAutoSaidText(const std::string& pLog)
   { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onAutoSaidText(pLog); }
 

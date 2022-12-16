@@ -2,10 +2,13 @@
 #define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICRESOURCEGROUNDING_HPP
 
 #include <list>
+#include <map>
 #include <memory>
+#include <string>
 #include "semanticgrounding.hpp"
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include "../../api.hpp"
+#include "../semanticexpression/semanticexpression.hpp"
 
 namespace onsem
 {
@@ -17,19 +20,22 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticResource
                    const std::string& pValue)
     : label(pLabel),
       language(pLanguage),
-      value(pValue)
+      value(pValue),
+      parameterLabelsToQuestions()
   {
   }
 
   SemanticResource(const SemanticResource& pOther)
     : label(pOther.label),
       language(pOther.language),
-      value(pOther.value)
+      value(pOther.value),
+      parameterLabelsToQuestions()
   {
   }
 
   bool operator==(const SemanticResource& pOther) const
-  { return value == pOther.value && label == pOther.label && language == pOther.language; }
+  { return label == pOther.label && language == pOther.language && value == pOther.value &&
+        parameterLabelsToQuestions == pOther.parameterLabelsToQuestions; }
 
   bool operator<(const SemanticResource& pOther) const
   {
@@ -55,6 +61,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticResource
   std::string label;
   SemanticLanguageEnum language;
   std::string value;
+  std::map<std::string, std::list<UniqueSemanticExpression>> parameterLabelsToQuestions;
 };
 
 

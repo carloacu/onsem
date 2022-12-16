@@ -31,8 +31,10 @@ public:
   /**
    * @brief onAutoCommand Print a command (it will soon be converted to the print of any resource)
    * @param pResource Resource to print.
+   * @param pParameters Resolved parameters to print.
    */
-  virtual void onAutoResource(const SemanticResource& pResource) = 0;
+  virtual void onAutoResource(const SemanticResource& pResource,
+                              const std::map<std::string, std::vector<std::string>>& pParameters) = 0;
 
   /**
    * @brief onAutoCommand Print a text that executor expose.
@@ -55,7 +57,8 @@ public:
   void onMetaInformation(const std::string& pLog) override { _addTextToLog(pLog); }
   void onMetaInformation_BeginOfScope() override { _addTextToLog("("); }
   void onMetaInformation_EndOfScope() override { _addTextToLog(")"); }
-  void onAutoResource(const SemanticResource& pResource) override { _addTextToLog("\\" +  pResource.toStr() + "\\"); }
+  void onAutoResource(const SemanticResource& pResource,
+                      const std::map<std::string, std::vector<std::string>>& pParameters) override;
   void onAutoSaidText(const std::string& pLog) override { _addTextToLog(pLog); }
 
 private:
@@ -78,11 +81,8 @@ public:
   void onMetaInformation(const std::string&) override {}
   void onMetaInformation_BeginOfScope() override {}
   void onMetaInformation_EndOfScope() override {}
-  void onAutoResource(const SemanticResource& pResource) override {
-    if (!_logsStr.empty())
-      _logsStr += " ";
-    _logsStr += "\\" + pResource.label + "=" + pResource.value + "\\";
-  }
+  void onAutoResource(const SemanticResource& pResource,
+                      const std::map<std::string, std::vector<std::string>>& pParameters) override;
   void onAutoSaidText(const std::string& pLog) override {
     if (!_logsStr.empty())
       _logsStr += " ";

@@ -1,6 +1,7 @@
 #include <onsem/semantictotext/executor/textexecutor.hpp>
-
-
+#include <onsem/semantictotext/semexpoperators.hpp>
+#include <onsem/semantictotext/semanticconverter.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 
 namespace onsem
 {
@@ -34,5 +35,62 @@ void TextExecutor::_usageOfLingDb(std::function<void(const linguistics::Linguist
   pFunction(_lingDb);
 }
 
+
+FutureVoid TextExecutor::_exposeResource(const SemanticResource& pResource,
+                                         const SemanticExpression* pInputSemExpPtr,
+                                         const FutureVoid&)
+{
+  std::map<std::string, std::vector<std::string>> parameters;
+  if (!pResource.parameterLabelsToQuestions.empty())
+  {
+    _extractParameters(parameters, pResource.parameterLabelsToQuestions,
+                       pResource.language, pInputSemExpPtr);
+  }
+  _addLogAutoResource(pResource, parameters);
+  return FutureVoid();
+}
+
+
+void TextExecutor::_extractParameters(
+    std::map<std::string, std::vector<std::string>>& pParameters,
+    const std::map<std::string, std::list<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
+    SemanticLanguageEnum pLanguage,
+    const SemanticExpression* pInputSemExpPtr) const
+{
+  if (pInputSemExpPtr != nullptr)
+  {
+    auto clonedInput = pInputSemExpPtr->clone();
+    SemanticMemory semMemory;
+    memoryOperation::inform(std::move(clonedInput), semMemory, _lingDb);
+
+    for (const auto& currParam : pParameterLabelsToQuestions)
+    {
+      for (const auto& currQuestion : currParam.second)
+      {
+        std::vector<std::unique_ptr<GroundedExpression>> answers;
+        memoryOperation::get(answers, currQuestion->clone(), semMemory, _lingDb);
+        if (!answers.empty())
+        {
+          TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           pLanguage);
+          outContext.rawValue = true;
+          std::vector<std::string> res(answers.size());
+          std::size_t i = 0;
+          for (auto& currAnswer : answers)
+          {
+            std::string subRes;
+            converter::semExpToText(subRes, std::move(currAnswer), outContext,
+                                    true, semMemory, _lingDb, nullptr);
+            res[i++] = subRes;
+          }
+          pParameters.emplace(currParam.first, std::move(res));
+          break;
+        }
+      }
+    }
+
+  }
+}
 
 } // End of namespace onsem

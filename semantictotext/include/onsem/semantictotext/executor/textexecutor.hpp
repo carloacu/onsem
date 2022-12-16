@@ -22,6 +22,15 @@ protected:
   void _usageOfMemblock(std::function<void(const SemanticMemoryBlock&, const std::string&)> pFunction) override;
   void _usageOfLingDb(std::function<void(const linguistics::LinguisticDatabase&)> pFunction) override;
 
+  FutureVoid _exposeResource(const SemanticResource& pResource,
+                             const SemanticExpression* pInputSemExpPtr,
+                             const FutureVoid&) override;
+
+  void _extractParameters(
+      std::map<std::string, std::vector<std::string>>& pParameters,
+      const std::map<std::string, std::list<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
+      SemanticLanguageEnum pLanguage,
+      const SemanticExpression* pInputSemExp) const;
 
 private:
   SemanticMemory& _semanticMemory;

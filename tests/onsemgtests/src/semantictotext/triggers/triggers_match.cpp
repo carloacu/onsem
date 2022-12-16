@@ -3,6 +3,7 @@
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
@@ -96,6 +97,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string reaction6 = "C'est la première alliance.";
   const std::string trigger7 = "mets l'application Aa";
   const std::string reaction7 = "C'est une application sympa.";
+  const std::string trigger8 = "Avance";
+  const std::string reaction8 = "Voilà, j'avance.";
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -122,6 +125,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   triggers_add(trigger5, reaction5, semMem, lingDb);
   triggers_add(trigger6, reaction6, semMem, lingDb);
   triggers_add(trigger7, reaction7, semMem, lingDb);
+  triggers_add(trigger8, reaction8, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
@@ -150,4 +154,33 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_ANSWER_EQ(reaction6, triggers_match("les 10 Commandements", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction7, triggers_match(trigger7, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction7, triggers_match("remets l'application Aa", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction8, triggers_match(trigger8, semMem, lingDb));
 }
+
+
+/*
+TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+
+  const std::string trigger1 = "Avance plusieurs mètres";
+
+
+  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           SemanticLanguageEnum::UNKNOWN);
+  triggerProcContext.isTimeDependent = false;
+  auto paramSemExp = converter::textToContextualSemExp("De combien dois-je avancer en centimètres ?",
+                                                       triggerProcContext,
+                                                       SemanticSourceEnum::UNKNOWN, lingDb);
+
+  auto answer1Grd = std::make_unique<SemanticResourceGrounding>("l1", SemanticLanguageEnum::FRENCH, "v1");
+  answer1Grd->resource.parameterLabelsToQuestions["p1"].emplace_back(std::move(paramSemExp));
+  auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
+  triggers_addToSemExpAnswer(trigger1, std::move(answer1SemExp), semMem, lingDb);
+
+
+  ONSEM_BEHAVIOR_EQ("aaaa", triggers_match("Avance 3 mètres", semMem, lingDb));
+}
+*/

@@ -95,6 +95,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/conversion/simplesentencesplitter.cpp
     src/conversion/reasonofrefactor.hpp
     src/conversion/reasonofrefactor.cpp
+    src/executor/executorlogger.cpp
     src/executor/textexecutor.cpp
     src/executor/virtualexecutor.cpp
     src/interpretation/addagentinterpretation.hpp

@@ -20,7 +20,8 @@ struct ONSEMSEMANTICTOTEXT_API ExecutorContext
     : textProcContext(pTextProcessingContext),
       annotations(std::make_shared<std::map<GrammaticalType, UniqueSemanticExpression>>()),
       contAnnotation(ContextualAnnotation::PROACTIVE),
-      sayOrExecute(false)
+      sayOrExecute(false),
+      inputSemExpPtr(nullptr)
   {
   }
 
@@ -35,6 +36,7 @@ struct ONSEMSEMANTICTOTEXT_API ExecutorContext
   std::shared_ptr<std::map<GrammaticalType, UniqueSemanticExpression>> annotations;
   ContextualAnnotation contAnnotation;
   bool sayOrExecute;
+  const SemanticExpression* inputSemExpPtr;
 };
 
 

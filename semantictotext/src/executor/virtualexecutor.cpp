@@ -70,7 +70,7 @@ FutureVoid VirtualExecutor::_sayAndAddDescriptionTree(
     {
       const auto& syntTask = *dynamic_cast<const SynthesizerTask*>(&*currResult);
       exposeSynthesizedResultsFuture = exposeSynthesizedResultsFuture.then
-          ([=] { return _exposeResource(syntTask.resource, pStopRequest); });
+          ([=] { return _exposeResource(syntTask.resource, pExecutorContext->inputSemExpPtr, pStopRequest); });
       break;
     }
     }
@@ -209,9 +209,10 @@ FutureVoid VirtualExecutor::_runConditionExp(
 }
 
 FutureVoid VirtualExecutor::_exposeResource(const SemanticResource& pResource,
+                                            const SemanticExpression*,
                                             const FutureVoid&)
 {
-  _addLogAutoResource(pResource);
+  _addLogAutoResource(pResource, {});
   return FutureVoid();
 }
 
@@ -283,7 +284,7 @@ FutureVoid VirtualExecutor::_runGrdExp(
   const GroundedExpression& grdExp = pUSemExp->getGrdExp();
   const SemanticResourceGrounding* resourceGrdPtr = grdExp->getResourceGroundingPtr();
   if (resourceGrdPtr != nullptr)
-    return _exposeResource(resourceGrdPtr->resource, pStopRequest);
+    return _exposeResource(resourceGrdPtr->resource, pExecutorContext->inputSemExpPtr, pStopRequest);
   return _sayWithAnnotations(pUSemExp, pExecutorContext, pStopRequest,
                              _typeOfExecutor, pExecutorContext->contAnnotation);
 }
