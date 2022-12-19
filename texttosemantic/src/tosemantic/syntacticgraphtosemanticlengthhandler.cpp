@@ -3,6 +3,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticunitygrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
+#include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include "../tool/chunkshandler.hpp"
 
 namespace onsem
@@ -27,18 +28,24 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
         if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticLengthUnity_toConcept(currLength)))
         {
           int number = 0;
-          if (getNumberBeforeHead(number, pContext.chunk))
+          for (TokIt itToken = getPrevToken(pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
+               itToken != pContext.chunk.head;
+               itToken = getPrevToken(itToken, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head))
           {
-            auto newLength = std::make_unique<SemanticLengthGrounding>();
-            newLength->length.lengthInfos[currLength] = number;
-            return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (std::make_unique<GroundedExpression>(std::move(newLength)));
+            if (getNumberHoldByTheInflWord(number, itToken, pContext.chunk.head, "number_"))
+            {
+              auto newLength = std::make_unique<SemanticLengthGrounding>();
+              newLength->length.lengthInfos[currLength] = number;
+              return mystd::unique_propagate_const<UniqueSemanticExpression>
+                  (std::make_unique<GroundedExpression>(std::move(newLength)));
+            }
+            else if (itToken->getPartOfSpeech() == PartOfSpeech::DETERMINER)
+            {
+              return mystd::unique_propagate_const<UniqueSemanticExpression>();
+            }
           }
-          else
-          {
-            return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currLength)));
-          }
+          return mystd::unique_propagate_const<UniqueSemanticExpression>
+              (std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currLength)));
         }
       }
     }
