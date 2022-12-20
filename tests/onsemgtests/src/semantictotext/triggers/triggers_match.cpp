@@ -158,14 +158,13 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
 }
 
 
-/*
+
 TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
 
-  const std::string trigger1 = "Avance plusieurs mètres";
-
+  const std::string trigger1 = "Avance";
 
   TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
                                            SemanticAgentGrounding::me,
@@ -174,13 +173,16 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters)
   auto paramSemExp = converter::textToContextualSemExp("De combien dois-je avancer en centimètres ?",
                                                        triggerProcContext,
                                                        SemanticSourceEnum::UNKNOWN, lingDb);
-
   auto answer1Grd = std::make_unique<SemanticResourceGrounding>("l1", SemanticLanguageEnum::FRENCH, "v1");
   answer1Grd->resource.parameterLabelsToQuestions["p1"].emplace_back(std::move(paramSemExp));
   auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
+
+  std::set<GrammaticalType> askedChildren;
+  SemExpGetter::extractAskedChildrenByAResource(askedChildren, *answer1SemExp);
+  ASSERT_EQ(1, askedChildren.size());
+  EXPECT_EQ(GrammaticalType::OBJECT, *askedChildren.begin());
+
   triggers_addToSemExpAnswer(trigger1, std::move(answer1SemExp), semMem, lingDb);
 
-
-  ONSEM_BEHAVIOR_EQ("aaaa", triggers_match("Avance 3 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1\\", triggers_match("Avance 3 mètres", semMem, lingDb));
 }
-*/

@@ -321,6 +321,12 @@ void addChild(GroundedExpression& pGrdExp,
 }
 
 
+ONSEM_TEXTTOSEMANTIC_API
+void addAnythingChild(
+    SemanticExpression& pSemExp,
+    GrammaticalType pGrammaticalType);
+
+
 } // End of namespace SemExpModifier
 
 } // End of namespace onsem

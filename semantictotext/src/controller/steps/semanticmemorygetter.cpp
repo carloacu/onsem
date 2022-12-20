@@ -2106,6 +2106,10 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
                                      pSubReqLinks.concepts, nullptr, pSubReqLinks.crossedLinks.semExpsWithSpecificFilter,
                                      otherConceptsLinkStrategy, pMemBlockPrivatePtr.mb, pIsATrigger, pLingDb, pCheckTimeRequest);
     }
+    _oneConceptToRelationsFromMemory(matchedSemExp, pRes.res, linksGramToSemExp,
+                                     nullptr, pSubReqLinks.crossedLinks.semExpsWithSpecificFilter,
+                                     "stuff", pMemBlockPrivatePtr.mb, pIsATrigger, pLingDb, pCheckTimeRequest);
+
     if (pMemBlockPrivatePtr.mb != nullptr)
     {
       auto& memBlock = *pMemBlockPrivatePtr.mb;

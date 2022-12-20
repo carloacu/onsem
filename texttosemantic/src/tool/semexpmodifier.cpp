@@ -42,6 +42,16 @@ void _removeContextualAdvebs(UniqueSemanticExpression& pSemExp)
   }
 }
 
+void _addAnythingChildFromGrdExp(
+    GroundedExpression& pGrdExp,
+    GrammaticalType pGrammaticalType)
+{
+  if (pGrdExp->getStatementGroundingPtr() != nullptr &&
+      pGrdExp.children.count(pGrammaticalType) == 0)
+    pGrdExp.children.emplace(pGrammaticalType,
+                             std::make_unique<GroundedExpression>(
+                               std::make_unique<SemanticConceptualGrounding>("stuff")));
+}
 
 }
 
@@ -1060,6 +1070,17 @@ bool removeDayInformation(SemanticExpression& pSemExp)
     }
   }
   return false;
+}
+
+
+void addAnythingChild(
+    SemanticExpression& pSemExp,
+    GrammaticalType pGrammaticalType)
+{
+  std::list<GroundedExpression*> grdExpPtrs;
+  pSemExp.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+  for (const auto& currGrdExpPtr : grdExpPtrs)
+    _addAnythingChildFromGrdExp(*currGrdExpPtr, pGrammaticalType);
 }
 
 

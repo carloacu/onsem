@@ -482,6 +482,17 @@ UniqueSemanticExpression getASimplifiedVersion(const SemanticExpression& pSemExp
 ONSEM_TEXTTOSEMANTIC_API
 bool hasGenericConcept(const UniqueSemanticExpression* pUSemExpPtr);
 
+
+ONSEM_TEXTTOSEMANTIC_API
+void extractAskedChildren(std::set<GrammaticalType>& pAskedChildren,
+                          const SemanticExpression& pQuestion);
+
+
+ONSEM_TEXTTOSEMANTIC_API
+void extractAskedChildrenByAResource(
+    std::set<GrammaticalType>& pAskedChildren,
+    const SemanticExpression& pSemExp);
+
 } // End of namespace SemExpGetter
 
 } // End of namespace onsem

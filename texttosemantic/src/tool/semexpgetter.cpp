@@ -128,6 +128,35 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
   return {};
 }
 
+
+void _extractAskedChildrenFromGrdExp(
+    std::set<GrammaticalType>& pAskedChildren,
+    const GroundedExpression& pQuestionGrdExp)
+{
+  const auto* statGrdPtr = pQuestionGrdExp->getStatementGroundingPtr();
+  if (statGrdPtr != nullptr)
+    for (const auto& currRequest : statGrdPtr->requests.types)
+      pAskedChildren.insert(semanticRequestType_toSemGram(currRequest));
+
+  for (const auto& currChild : pQuestionGrdExp.children)
+    extractAskedChildren(pAskedChildren, *currChild.second);
+}
+
+
+void _extractAskedChildrenByAResourceFromGrdExp(
+    std::set<GrammaticalType>& pAskedChildren,
+    const GroundedExpression& pGrdExp)
+{
+  const auto* resGrdPtr = pGrdExp->getResourceGroundingPtr();
+  if (resGrdPtr != nullptr)
+    for (const auto& currQuestions : resGrdPtr->resource.parameterLabelsToQuestions)
+      for (const auto& currQuestion : currQuestions.second)
+        extractAskedChildren(pAskedChildren, *currQuestion);
+
+  for (const auto& currChild : pGrdExp.children)
+    extractAskedChildrenByAResource(pAskedChildren, *currChild.second);
+}
+
 }
 
 
@@ -2309,6 +2338,29 @@ bool hasGenericConcept(const UniqueSemanticExpression* pUSemExpPtr)
   return grdExpPtr != nullptr &&
       ConceptSet::haveAConcept(grdExpPtr->grounding().concepts, "generic");
 }
+
+
+void extractAskedChildren(
+    std::set<GrammaticalType>& pAskedChildren,
+    const SemanticExpression& pQuestion)
+{
+  std::list<const GroundedExpression*> grdExpPtrs;
+  pQuestion.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+  for (const auto& currGrdExp : grdExpPtrs)
+    _extractAskedChildrenFromGrdExp(pAskedChildren, *currGrdExp);
+}
+
+
+void extractAskedChildrenByAResource(
+    std::set<GrammaticalType>& pAskedChildren,
+    const SemanticExpression& pSemExp)
+{
+  std::list<const GroundedExpression*> grdExpPtrs;
+  pSemExp.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+  for (const auto& currGrdExp : grdExpPtrs)
+    _extractAskedChildrenByAResourceFromGrdExp(pAskedChildren, *currGrdExp);
+}
+
 
 
 } // End of namespace SemExpGetter

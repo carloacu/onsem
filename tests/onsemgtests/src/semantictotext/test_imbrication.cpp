@@ -284,5 +284,18 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ++it;
     EXPECT_EQ(GrammaticalType::LOCATION, it->first);
   }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Avance à Paris",
+                                                        "Avance de 3 mètres",
+                                                        semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                        &comparisonErrorReporting));
+    ASSERT_EQ(2, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::OBJECT, it->first);
+    ++it;
+    EXPECT_EQ(GrammaticalType::LOCATION, it->first);
+  }
 }
 

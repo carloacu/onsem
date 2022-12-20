@@ -540,7 +540,23 @@ void _matchAnyTrigger
             currChildrenError.first != GrammaticalType::SPECIFIER &&
             currChildrenError.first != GrammaticalType::OTHER_THAN)
         {
-          canBeAtLowPriority = false;
+          // If it a anything trigger we accept the matching
+          bool isAnythingTrigger = false;
+          for (const auto& currComparisonErrors : currChildrenError.second)
+          {
+            for (const auto& currTriggerChild : currComparisonErrors.second.child2Ptr.elts)
+            {
+              if (SemExpGetter::isAnythingFromSemExp(*currTriggerChild))
+              {
+                isAnythingTrigger = true;
+                break;
+              }
+            }
+            if (isAnythingTrigger)
+              break;
+          }
+          if (!isAnythingTrigger)
+            canBeAtLowPriority = false;
           break;
         }
       }

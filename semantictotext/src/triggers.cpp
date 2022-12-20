@@ -1,4 +1,6 @@
 #include <onsem/semantictotext/triggers.hpp>
+#include <onsem/texttosemantic/tool/semexpgetter.hpp>
+#include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
@@ -18,6 +20,12 @@ void add(UniqueSemanticExpression pTriggerSemExp,
          SemanticMemory& pSemanticMemory,
          const linguistics::LinguisticDatabase& pLingDb)
 {
+  // Add anything children to the trigger for asked parameters
+  std::set<GrammaticalType> askedChildren;
+  SemExpGetter::extractAskedChildrenByAResource(askedChildren, *pAnswerSemExp);
+  for (const auto& currAskedChild : askedChildren)
+    SemExpModifier::addAnythingChild(*pTriggerSemExp, currAskedChild);
+
   conditionsAdder::addConditonsForSomeTimedGrdExp(pTriggerSemExp);
 
   memoryOperation::resolveAgentAccordingToTheContext(pTriggerSemExp, pSemanticMemory, pLingDb);
