@@ -16,6 +16,7 @@
 #include "controller/steps/semanticmemorylinker.hpp"
 #include "controller/semexpcontroller.hpp"
 #include "conversion/conditionsadder.hpp"
+#include "conversion/imperativeformadder.hpp"
 #include "operator/answeridontknow.hpp"
 #include "operator/externalteachingrequester.hpp"
 #include "operator/semanticcategorizer.hpp"
@@ -314,11 +315,13 @@ void get(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers,
 {
   converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
   std::unique_ptr<CompositeSemAnswer> compositeSemAnswers;
+  auto currUserId = pSemanticMemory.getCurrUserId();
+  const auto* externalFallback = pSemanticMemory.getExternalFallback();
   controller::applyOperatorOnSemExpConstMem(compositeSemAnswers, *pSemExp,
                                             SemanticOperatorEnum::GET,
                                             InformationType::INFORMATION,
-                                            pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId(),
-                                            &pSemanticMemory.proativeSpecifications, pSemanticMemory.getExternalFallback(),
+                                            pSemanticMemory.memBloc, currUserId,
+                                            &pSemanticMemory.proativeSpecifications, externalFallback,
                                             &pSemanticMemory.callbackToSentencesCanBeAnswered, nullptr, pLingDb);
 
   if (compositeSemAnswers)
@@ -518,9 +521,9 @@ std::shared_ptr<ExpressionWithLinks> _informMetaMemory
 
   std::unique_ptr<CompositeSemAnswer> compositeSemAnswers;
   controller::applyOperatorOnExpHandleInMemory(compositeSemAnswers, newExpForMemRef,
-                                                 SemanticOperatorEnum::INFORM, pInformationType,
-                                                 pSemanticMemory, pAxiomToConditionCurrentStatePtr,
-                                                 pLingDb, nullptr);
+                                               SemanticOperatorEnum::INFORM, pInformationType,
+                                               pSemanticMemory, pAxiomToConditionCurrentStatePtr,
+                                               pLingDb, nullptr);
 
   if (compositeSemAnswers)
   {
@@ -644,6 +647,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> resolveCommandFromMemBlo
     const linguistics::LinguisticDatabase& pLingDb)
 {
   UniqueSemanticExpression clonedSemExp = pSemExp.clone();
+  imperativeFormAdder::addFormForMandatoryGrdExps(clonedSemExp);
   conditionsAdder::addConditonsForSomeTimedGrdExp(clonedSemExp);
 
   std::unique_ptr<CompositeSemAnswer> compSemAnswers;
@@ -794,6 +798,7 @@ std::shared_ptr<ExpressionWithLinks> react(
     const ReactionOptions* pReactionOptions)
 {
   converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
+  imperativeFormAdder::addFormForMandatoryGrdExps(pSemExp);
   conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
 
   static const InformationType informationType = InformationType::INFORMATION;

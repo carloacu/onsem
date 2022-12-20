@@ -2,6 +2,7 @@
 #define ONSEM_TESTER_REACTONTEXTS_HPP
 
 #include <list>
+#include <memory>
 #include <onsem/common/enum/contextualannotation.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/common/utility/unique_propagate_const.hpp>
@@ -16,6 +17,7 @@ struct UniqueSemanticExpression;
 struct TextProcessingContext;
 class ScenarioContainer;
 struct ReactionOptions;
+struct ExpressionWithLinks;
 namespace linguistics
 {
 struct LinguisticDatabase;
@@ -25,7 +27,8 @@ ONSEMTESTER_API
 DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
                                         SemanticMemory& pSemanticMemory,
                                         const linguistics::LinguisticDatabase& pLingDb,
-                                        SemanticLanguageEnum pLanguage);
+                                        SemanticLanguageEnum pLanguage,
+                                        const std::shared_ptr<ExpressionWithLinks>& pInputSemExpInMemory);
 
 ONSEMTESTER_API
 DetailedReactionAnswer operator_react_fromSemExp(UniqueSemanticExpression pSemExp,

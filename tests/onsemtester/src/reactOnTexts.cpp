@@ -8,6 +8,7 @@
 #include <onsem/semantictotext/executor/textexecutor.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semanticdebugger/loaddbpediatxtmemory.hpp>
 
 namespace onsem
@@ -45,7 +46,8 @@ bool _test_oneAnswerValue(const std::string& pInput,
 DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
                                         SemanticMemory& pSemanticMemory,
                                         const linguistics::LinguisticDatabase& pLingDb,
-                                        SemanticLanguageEnum pLanguage)
+                                        SemanticLanguageEnum pLanguage,
+                                        const std::shared_ptr<ExpressionWithLinks>& pInputSemExpInMemory)
 {
   DetailedReactionAnswer res;
   if (!pReaction)
@@ -57,6 +59,8 @@ DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSema
                                    SemanticAgentGrounding::currentUser,
                                    pLanguage);
   auto execContext = std::make_shared<ExecutorContext>(outContext);
+  if (pInputSemExpInMemory)
+    execContext->inputSemExpPtr = &*pInputSemExpInMemory->semExp;
   DefaultExecutorLogger logger(res.answer);
   TextExecutor textExec(pSemanticMemory, pLingDb, logger);
   textExec.runSemExp(std::move(*pReaction), execContext);
@@ -73,9 +77,10 @@ DetailedReactionAnswer operator_react_fromSemExp(UniqueSemanticExpression pSemEx
   if (pTextLanguage == SemanticLanguageEnum::UNKNOWN)
     pTextLanguage = pSemanticMemory.defaultLanguage;
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
-  memoryOperation::react(reaction, pSemanticMemory, std::move(pSemExp), pLingDb,
-                         pReactionOptions);
-  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pTextLanguage);
+  auto inputSemExpInMemory = memoryOperation::react(reaction, pSemanticMemory,
+                                                    std::move(pSemExp), pLingDb,
+                                                    pReactionOptions);
+  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pTextLanguage, inputSemExpInMemory);
 }
 
 

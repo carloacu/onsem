@@ -39,9 +39,9 @@ DetailedReactionAnswer _operator_teach(
   if (textLanguage == SemanticLanguageEnum::UNKNOWN)
     textLanguage = pSemanticMemory.defaultLanguage;
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
-  memoryOperation::teach(reaction, pSemanticMemory, std::move(semExp), pLingDb,
-                         pActionOperator);
-  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, textLanguage);
+  auto inputSemExpInMemory = memoryOperation::teach(reaction, pSemanticMemory, std::move(semExp),
+                                                    pLingDb, pActionOperator);
+  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, textLanguage, inputSemExpInMemory);
 }
 
 
@@ -274,10 +274,10 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)
 
   auto teachSemExp = converter::constructTeachSemExp(std::move(*infLabelSemExp), std::move(answerSemExp));
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
-  memoryOperation::teach(reaction, semMem, std::move(teachSemExp), lingDb,
-                         memoryOperation::SemanticActionOperatorEnum::BEHAVIOR);
+  auto inputSemExpInMemory = memoryOperation::teach(reaction, semMem, std::move(teachSemExp), lingDb,
+                                                    memoryOperation::SemanticActionOperatorEnum::BEHAVIOR);
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour sauter \\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\\t et puis ?",
-                            reactionToAnswer(reaction, semMem, lingDb, language));
+                            reactionToAnswer(reaction, semMem, lingDb, language, inputSemExpInMemory));
 
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\",
             operator_resolveCommand("saute", semMem, lingDb));

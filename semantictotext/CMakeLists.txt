@@ -87,6 +87,8 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/controller/steps/specificactionshandler.cpp
     src/controller/semexpcontroller.hpp
     src/controller/semexpcontroller.cpp
+    src/conversion/imperativeformadder.hpp
+    src/conversion/imperativeformadder.cpp
     src/conversion/conditionsadder.hpp
     src/conversion/conditionsadder.cpp
     src/conversion/occurrencerankconverter.hpp

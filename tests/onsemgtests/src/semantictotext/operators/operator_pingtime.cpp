@@ -20,7 +20,7 @@ DetailedReactionAnswer operator_pingtime(
 {
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
   memoryOperation::pingTime(reaction, pSemanticMemory, pSemDuration, pLingDb);
-  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pOutLanguage);
+  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pOutLanguage, {});
 }
 
 

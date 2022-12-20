@@ -31,6 +31,12 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticResource
       value(pOther.value),
       parameterLabelsToQuestions()
   {
+    for (const auto& currParam : pOther.parameterLabelsToQuestions)
+    {
+      auto& newParam = parameterLabelsToQuestions[currParam.first];
+      for (const auto& currSemExp : currParam.second)
+        newParam.push_back(currSemExp->clone());
+    }
   }
 
   bool operator==(const SemanticResource& pOther) const

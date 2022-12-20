@@ -27,8 +27,8 @@ DetailedReactionAnswer _operator_reactFromTrigger_fromSemExp(UniqueSemanticExpre
     pTextLanguage = pSemanticMemory.defaultLanguage;
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
   memoryOperation::resolveAgentAccordingToTheContext(pSemExp, pSemanticMemory, pLingDb);
-  triggers::match(reaction, pSemanticMemory, std::move(pSemExp), pLingDb, pReactionOptions);
-  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pTextLanguage);
+  auto inputSemExpInMemory = triggers::match(reaction, pSemanticMemory, std::move(pSemExp), pLingDb, pReactionOptions);
+  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pTextLanguage, inputSemExpInMemory);
 }
 
 }
@@ -166,12 +166,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters)
 
   const std::string trigger1 = "Avance";
 
-  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
-                                           SemanticAgentGrounding::me,
-                                           SemanticLanguageEnum::UNKNOWN);
-  triggerProcContext.isTimeDependent = false;
+  TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
+                                                 SemanticAgentGrounding::currentUser,
+                                                 SemanticLanguageEnum::UNKNOWN);
+  paramQuestionProcContext.isTimeDependent = false;
   auto paramSemExp = converter::textToContextualSemExp("De combien dois-je avancer en centimètres ?",
-                                                       triggerProcContext,
+                                                       paramQuestionProcContext,
                                                        SemanticSourceEnum::UNKNOWN, lingDb);
   auto answer1Grd = std::make_unique<SemanticResourceGrounding>("l1", SemanticLanguageEnum::FRENCH, "v1");
   answer1Grd->resource.parameterLabelsToQuestions["p1"].emplace_back(std::move(paramSemExp));
@@ -184,5 +184,5 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters)
 
   triggers_addToSemExpAnswer(trigger1, std::move(answer1SemExp), semMem, lingDb);
 
-  ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1\\", triggers_match("Avance 3 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1(p1=300)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
 }

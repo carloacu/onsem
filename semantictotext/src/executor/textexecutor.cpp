@@ -1,4 +1,5 @@
 #include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
@@ -60,6 +61,7 @@ void TextExecutor::_extractParameters(
   if (pInputSemExpPtr != nullptr)
   {
     auto clonedInput = pInputSemExpPtr->clone();
+    SemExpModifier::imperativeToMandatoryForm(*clonedInput);
     SemanticMemory semMemory;
     memoryOperation::inform(std::move(clonedInput), semMemory, _lingDb);
 
@@ -89,7 +91,6 @@ void TextExecutor::_extractParameters(
         }
       }
     }
-
   }
 }
 

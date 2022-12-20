@@ -327,6 +327,9 @@ void addAnythingChild(
     GrammaticalType pGrammaticalType);
 
 
+ONSEM_TEXTTOSEMANTIC_API
+void imperativeToMandatoryForm(SemanticExpression& pSemExp);
+
 } // End of namespace SemExpModifier
 
 } // End of namespace onsem

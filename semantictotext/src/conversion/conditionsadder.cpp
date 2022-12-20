@@ -6,7 +6,6 @@
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include "simplesentencesplitter.hpp"
-#include "../utility/semexpcreator.hpp"
 
 namespace onsem
 {
@@ -25,14 +24,6 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
     if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
       const SemanticStatementGrounding& statGrd = grdExp->getStatementGrounding();
-
-      const GroundedExpression* objectGrdExpPtr = SemExpGetter::getGrdExpToDo(grdExp, statGrd, pUserId);
-      if (objectGrdExpPtr != nullptr)
-      {
-        pSemExp = SemExpCreator::getImperativeAssociateFrom(*objectGrdExpPtr);
-        return addConditonsForSomeTimedGrdExp(pSemExp, pUserId);
-      }
-
 
       if (statGrd.verbTense == SemanticVerbTense::PUNCTUALPRESENT &&
           statGrd.requests.has(SemanticRequestType::ACTION))
