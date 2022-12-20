@@ -153,7 +153,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::DIFFERS, it2->first);
-    EXPECT_EQ(1, it2->second);
+    EXPECT_EQ(1, it2->second.nbOfErrors);
   }
 
   {
@@ -192,7 +192,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
-    EXPECT_EQ(1, it2->second);
+    EXPECT_EQ(1, it2->second.nbOfErrors);
   }
 
   {
@@ -207,7 +207,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
-    EXPECT_EQ(2, it2->second);
+    EXPECT_EQ(2, it2->second.nbOfErrors);
   }
 
   {
@@ -223,13 +223,13 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::MORE_DETAILED, it2->first);
-    EXPECT_EQ(1, it2->second);
+    EXPECT_EQ(1, it2->second.nbOfErrors);
     ++it;
     EXPECT_EQ(GrammaticalType::SPECIFIER, it->first);
     ASSERT_EQ(1, it->second.size());
     auto it3 = it->second.begin();
     EXPECT_EQ(ImbricationType::MORE_DETAILED, it3->first);
-    EXPECT_EQ(1, it3->second);
+    EXPECT_EQ(1, it3->second.nbOfErrors);
   }
 
   {

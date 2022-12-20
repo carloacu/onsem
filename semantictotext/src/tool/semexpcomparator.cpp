@@ -19,12 +19,6 @@ namespace SemExpComparator
 namespace
 {
 
-struct ListExpPtr
-{
-  std::list<const SemanticExpression*> elts;
-  mystd::optional<ListExpressionType> listType;
-};
-
 bool _verbTenseAreNearlyEqual(SemanticVerbTense pVerbTense1,
                               SemanticVerbTense pVerbTense2)
 {
@@ -1118,6 +1112,7 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   {
     if (pComparisonErrorReportingPtr != nullptr)
       pComparisonErrorReportingPtr->addError(pParentGrammaticalType, ImbricationType::DIFFERS,
+                                             listExpPtr1, listExpPtr2,
                                              nbOfErrors + 1 /* 1 for list type difference */);
     return ImbricationType::DIFFERS;
   }
@@ -1130,7 +1125,7 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
     if (res == ImbricationType::EQUALS && size1 < size2)
       res = ImbricationType::LESS_DETAILED;
     if (pComparisonErrorReportingPtr != nullptr && nbOfErrors > 0)
-      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, nbOfErrors);
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, listExpPtr1, listExpPtr2, nbOfErrors);
     return res;
   }
   auto res = _getListExpsImbrications(listExpPtr2, listExpPtr1, pMemBlock, pLingDb, pExceptionsPtr,
@@ -1138,7 +1133,7 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   if (res == ImbricationType::EQUALS)
     res = ImbricationType::MORE_DETAILED;
   if (pComparisonErrorReportingPtr != nullptr && nbOfErrors > 0)
-    pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, nbOfErrors);
+    pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, listExpPtr1, listExpPtr2, nbOfErrors);
   return res;
 }
 
@@ -1186,14 +1181,16 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
         groundingImbrication = ImbricationType::LESS_DETAILED;
     }
     if (pComparisonErrorReportingPtr != nullptr)
-      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication);
+    {
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication, ListExpPtr(pGrdExp1), ListExpPtr(pGrdExp2));
+    }
     if (groundingImbrication == ImbricationType::DIFFERS)
       return groundingImbrication;
   }
   else if (groundingImbrication != ImbricationType::EQUALS)
   {
     if (pComparisonErrorReportingPtr != nullptr)
-      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication);
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication, ListExpPtr(pGrdExp1), ListExpPtr(pGrdExp2));
   }
 
   auto tryToAddSemExp = [&](std::map<GrammaticalType, ListExpPtr>& pChildrenForAGramType,
@@ -1305,9 +1302,9 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
   if (pComparisonErrorReportingPtr != nullptr)
   {
     for (auto& currChild : childrenOnlyIn1)
-      pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::MORE_DETAILED);
+      pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::MORE_DETAILED, currChild.second, ListExpPtr());
     for (auto& currChild : childrenOnlyIn2)
-      pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::LESS_DETAILED);
+      pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::LESS_DETAILED, ListExpPtr(), currChild.second);
   }
 
   if (!childrenOnlyIn1.empty() && !childrenOnlyIn2.empty())

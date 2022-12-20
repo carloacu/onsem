@@ -6,7 +6,9 @@
 #include <set>
 #include <string>
 #include <onsem/common/enum/comparisonoperator.hpp>
+#include <onsem/common/enum/listexpressiontype.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
+#include <onsem/common/utility/optional.hpp>
 #include <onsem/texttosemantic/dbtype/misc/imbricationType.hpp>
 #include <onsem/common/enum/semanticverbtense.hpp>
 #include "../api.hpp"
@@ -61,21 +63,57 @@ struct ComparisonExceptions
 };
 
 
+struct ListExpPtr
+{
+  ListExpPtr(const SemanticExpression& pGrdExp)
+    : elts(1, &pGrdExp),
+      listType()
+  {
+  }
+
+  ListExpPtr(const std::list<const SemanticExpression*>& pElts = {},
+             const mystd::optional<ListExpressionType>& pListType = mystd::optional<ListExpressionType>())
+    : elts(pElts),
+      listType(pListType)
+  {
+  }
+
+  std::list<const SemanticExpression*> elts;
+  mystd::optional<ListExpressionType> listType;
+};
+
+struct ComparisonErrors
+{
+  ComparisonErrors(const ListExpPtr& pChild1Ptr,
+                   const ListExpPtr& pChild2Ptr,
+                   std::size_t pNbOfErrors)
+    : child1Ptr(pChild1Ptr),
+      child2Ptr(pChild2Ptr),
+      nbOfErrors(pNbOfErrors)
+  {
+  }
+
+  const ListExpPtr child1Ptr;
+  const ListExpPtr child2Ptr;
+  std::size_t nbOfErrors = 0;
+};
 
 struct ComparisonErrorReporting
 {
-  std::map<GrammaticalType, std::map<ImbricationType, std::size_t>> childrenThatAreNotEqual;
+  std::map<GrammaticalType, std::map<ImbricationType, ComparisonErrors>> childrenThatAreNotEqual{};
 
   void addError(GrammaticalType pGrammType,
                 ImbricationType pImpbricationType,
+                const ListExpPtr& pChild1Ptr,
+                const ListExpPtr& pChild2Ptr,
                 std::size_t pNbOfErrors = 1)
   {
     auto& childForAGram = childrenThatAreNotEqual[pGrammType];
     auto it = childForAGram.find(pImpbricationType);
     if (it != childForAGram.end())
-      it->second += pNbOfErrors;
+      it->second.nbOfErrors += pNbOfErrors;
     else
-      childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, pNbOfErrors);
+      childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, ComparisonErrors(pChild1Ptr, pChild2Ptr, pNbOfErrors));
   }
 
   std::size_t nbOfErrors()
@@ -83,7 +121,7 @@ struct ComparisonErrorReporting
     std::size_t res = 0;
     for (auto& currGramChild : childrenThatAreNotEqual)
       for (auto& currImbr : currGramChild.second)
-        res += currImbr.second;
+        res += currImbr.second.nbOfErrors;
     return res;
   }
 };
