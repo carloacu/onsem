@@ -3,7 +3,7 @@
   <linkedMeaning lemme="angle" gram="noun" relationToConcept="4"/>
  </concept>
  <concept name="angle_degree">
-  <linkedMeaning lemme="degrée" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="degré" gram="noun" relationToConcept="4"/>
  </concept>
  <concept name="angle_radian">
   <linkedMeaning lemme="radian" gram="noun" relationToConcept="4"/>
