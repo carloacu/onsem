@@ -10,6 +10,8 @@ std::unique_ptr<SemanticGrounding> SemanticGrounding::make(SemanticGroundingType
   {
   case SemanticGroundingType::AGENT:
     return std::make_unique<SemanticAgentGrounding>();
+  case SemanticGroundingType::ANGLE:
+    return std::make_unique<SemanticAngleGrounding>();
   case SemanticGroundingType::GENERIC:
     return std::make_unique<SemanticGenericGrounding>();
   case SemanticGroundingType::STATEMENT:
@@ -85,6 +87,18 @@ SemanticAgentGrounding& SemanticGrounding::getAgentGrounding()
   return *dynamic_cast<SemanticAgentGrounding*>(this);
 }
 
+
+const SemanticAngleGrounding& SemanticGrounding::getAngleGrounding() const
+{
+  assert(false);
+  return *dynamic_cast<const SemanticAngleGrounding*>(this);
+}
+
+SemanticAngleGrounding& SemanticGrounding::getAngleGrounding()
+{
+  assert(false);
+  return *dynamic_cast<SemanticAngleGrounding*>(this);
+}
 
 const SemanticTimeGrounding& SemanticGrounding::getTimeGrounding() const
 {
@@ -261,6 +275,8 @@ bool SemanticGrounding::operator==(const SemanticGrounding& pOther) const
   {
   case SemanticGroundingType::AGENT:
     return getAgentGrounding().isEqual(pOther.getAgentGrounding());
+  case SemanticGroundingType::ANGLE:
+    return getAngleGrounding().isEqual(pOther.getAngleGrounding());
   case SemanticGroundingType::GENERIC:
     return getGenericGrounding().isEqual(pOther.getGenericGrounding());
   case SemanticGroundingType::STATEMENT:

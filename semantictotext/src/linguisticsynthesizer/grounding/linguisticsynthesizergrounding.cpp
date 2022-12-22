@@ -41,6 +41,14 @@ void _printValue(std::stringstream& pSs,
   }
 }
 
+void _printAngleValue(std::stringstream& pSs,
+                       int pValue,
+                       SemanticAngleUnity pAngle,
+                       const linguistics::SynthesizerDictionary& pStatSynthDico)
+{
+  _printValue(pSs, pValue, semanticAngleUnity_toConcept(pAngle), pStatSynthDico);
+}
+
 void _printLengthValue(std::stringstream& pSs,
                        int pValue,
                        SemanticLengthUnity pLength,
@@ -262,6 +270,20 @@ void Linguisticsynthesizergrounding::writeGrounding
     agentGroundingTranslation(pOutSemExp, pConf,
                               pGrounding.getAgentGrounding(),
                               pContext, pRequests);
+    break;
+  }
+  case SemanticGroundingType::ANGLE:
+  {
+    if (pConf.textProcessingContext.rawValue)
+    {
+      _strToOut(pOutSemExp.out, PartOfSpeech::UNKNOWN, pGrounding.getAngleGrounding().angle.getRawValueStr());
+    }
+    else
+    {
+      const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
+      angleTranslation(pOutSemExp.out, synthDico,
+                       pGrounding.getAngleGrounding().angle, true);
+    }
     break;
   }
   case SemanticGroundingType::TIME:
@@ -1007,6 +1029,35 @@ void Linguisticsynthesizergrounding::getIGramOfAWord
   {
     specLingDb.lingDico.statDb.getInfoGram(pIGram, lingMeaning);
   }
+}
+
+
+bool Linguisticsynthesizergrounding::angleTranslation
+(std::list<WordToSynthesize>& pOut,
+ const linguistics::SynthesizerDictionary& pStatSynthDico,
+ const SemanticAngle& pAngle,
+ bool) const
+{
+  GroundingAnglePrettyPrintStruct anglePrint(pAngle);
+  std::stringstream ss;
+  if (anglePrint.degree != -1)
+  {
+    _printAngleValue(ss, anglePrint.degree, SemanticAngleUnity::DEGREE, pStatSynthDico);
+  }
+  if (anglePrint.radian != -1)
+  {
+    if (!ss.str().empty())
+      ss << " ";
+    _printAngleValue(ss, anglePrint.radian, SemanticAngleUnity::RADIAN, pStatSynthDico);
+  }
+
+  const std::string timePrinted = ss.str();
+  if (!timePrinted.empty())
+  {
+    _strToOut(pOut, PartOfSpeech::NOUN, timePrinted);
+    return true;
+  }
+  return false;
 }
 
 

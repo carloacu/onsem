@@ -75,6 +75,15 @@ void _prettyPrintWord(PrinterBuffer& pPrinterBuff,
   }
 }
 
+void _prettyPrintAngle(std::list<SemLineToPrint>& pLines,
+                       PrinterBuffer& pPrinterBuff,
+                       const std::string& pLabelName,
+                       const SemanticAngle& pAngle)
+{
+  pAngle.printAngle(pPrinterBuff.elts, pLabelName);
+  _flushStringStream(pLines, pPrinterBuff, nullptr);
+}
+
 void _prettyPrintLength(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const std::string& pLabelName,
@@ -417,6 +426,13 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
+                                 const SemanticAngleGrounding& pGrounding)
+{
+  _prettyPrintAngle(pLines, pPrinterBuff, "angle", pGrounding.angle);
+}
+
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
+                                 PrinterBuffer& pPrinterBuff,
                                  const SemanticLengthGrounding& pGrounding)
 {
   _prettyPrintLength(pLines, pPrinterBuff, "length", pGrounding.length);
@@ -461,6 +477,12 @@ void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getAgentGrounding());
+    break;
+  }
+  case SemanticGroundingType::ANGLE:
+  {
+    _prettyPrintTypedGroundings(pLines, pPrinterBuff,
+                                pGroundings.getAngleGrounding());
     break;
   }
   case SemanticGroundingType::TIME:

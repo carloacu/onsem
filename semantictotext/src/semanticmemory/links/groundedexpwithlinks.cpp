@@ -1314,6 +1314,7 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
     pEnsureLinksToGrdExps().resourceToSemExps[resGrd.resource].emplace_back(newMemGrdExp);
     break;
   }
+  case SemanticGroundingType::ANGLE:
   case SemanticGroundingType::CONCEPTUAL:
   case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LENGTH:

@@ -2,6 +2,7 @@
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/semantictotext/triggers.hpp>
 #include "../../semanticreasonergtests.hpp"
 #include "../../util/util.hpp"
@@ -51,7 +52,6 @@ void triggers_add(const std::string& pTriggerText,
   _triggers_addFromSemExp(triggerSemExp, pAnswerText, pSemanticMemory, pLingDb, pReferences);
 }
 
-
 void triggers_addToSemExpAnswer(
     const std::string& pTriggerText,
     UniqueSemanticExpression pAnswerSemExp,
@@ -66,6 +66,28 @@ void triggers_addToSemExpAnswer(
   auto triggerSemExp = converter::textToContextualSemExp(pTriggerText, triggerProcContext,
                                                          SemanticSourceEnum::UNKNOWN, pLingDb);
   triggers::add(std::move(triggerSemExp), std::move(pAnswerSemExp), pSemanticMemory, pLingDb);
+}
+
+
+void triggers_addAnswerWithOneParameter(
+    const std::string& pTriggerText,
+    const std::string& pParameterQuestion,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
+{
+  TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
+                                                 SemanticAgentGrounding::currentUser,
+                                                 SemanticLanguageEnum::UNKNOWN);
+  paramQuestionProcContext.isTimeDependent = false;
+  auto paramSemExp = converter::textToContextualSemExp(pParameterQuestion,
+                                                       paramQuestionProcContext,
+                                                       SemanticSourceEnum::UNKNOWN, pLingDb);
+  auto answer1Grd = std::make_unique<SemanticResourceGrounding>("l1", SemanticLanguageEnum::FRENCH, "v1");
+  answer1Grd->resource.parameterLabelsToQuestions["p1"].emplace_back(std::move(paramSemExp));
+  auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
+
+  triggers_addToSemExpAnswer(pTriggerText, std::move(answer1SemExp), pSemanticMemory, pLingDb, pLanguage);
 }
 
 

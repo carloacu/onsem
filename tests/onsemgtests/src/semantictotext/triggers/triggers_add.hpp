@@ -28,6 +28,13 @@ void triggers_addToSemExpAnswer(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
+void triggers_addAnswerWithOneParameter(
+    const std::string& pTriggerText,
+    const std::string& pParameterQuestion,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
+
 } // End of namespace onsem
 
 

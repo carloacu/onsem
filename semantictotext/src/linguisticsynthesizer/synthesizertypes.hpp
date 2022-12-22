@@ -250,6 +250,31 @@ private:
   }
 };
 
+struct GroundingAnglePrettyPrintStruct
+{
+  GroundingAnglePrettyPrintStruct(const SemanticAngle& pAngle)
+    : degree(-1),
+      radian(-1)
+  {
+    for (const auto& currAngleInfo : pAngle.angleInfos)
+    {
+      switch (currAngleInfo.first)
+      {
+      case SemanticAngleUnity::DEGREE:
+        degree = currAngleInfo.second;
+        break;
+      case SemanticAngleUnity::RADIAN:
+        radian = currAngleInfo.second;
+        break;
+      default:
+        break;
+      }
+    }
+  }
+
+  int degree;
+  int radian;
+};
 
 struct GroundingLengthPrettyPrintStruct
 {
@@ -262,30 +287,30 @@ struct GroundingLengthPrettyPrintStruct
       centimeter(-1),
       millimeter(-1)
   {
-    for (const auto& currTimeInfo : pLength.lengthInfos)
+    for (const auto& currLengthInfo : pLength.lengthInfos)
     {
-      switch (currTimeInfo.first)
+      switch (currLengthInfo.first)
       {
       case SemanticLengthUnity::KILOMETER:
-        kilometer = currTimeInfo.second;
+        kilometer = currLengthInfo.second;
         break;
       case SemanticLengthUnity::HECTOMETER:
-        hectometer = currTimeInfo.second;
+        hectometer = currLengthInfo.second;
         break;
       case SemanticLengthUnity::DECAMETER:
-        decameter = currTimeInfo.second;
+        decameter = currLengthInfo.second;
         break;
       case SemanticLengthUnity::METER:
-        meter = currTimeInfo.second;
+        meter = currLengthInfo.second;
         break;
       case SemanticLengthUnity::DECIMETER:
-        decimeter = currTimeInfo.second;
+        decimeter = currLengthInfo.second;
         break;
       case SemanticLengthUnity::CENTIMETER:
-        centimeter = currTimeInfo.second;
+        centimeter = currLengthInfo.second;
         break;
       case SemanticLengthUnity::MILLIMETER:
-        millimeter = currTimeInfo.second;
+        millimeter = currLengthInfo.second;
         break;
       default:
         break;

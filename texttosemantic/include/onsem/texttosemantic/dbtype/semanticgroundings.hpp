@@ -2,6 +2,7 @@
 #define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDINGS_HPP
 
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticanglegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp>

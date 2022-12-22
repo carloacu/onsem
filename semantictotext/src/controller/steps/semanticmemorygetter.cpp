@@ -1913,6 +1913,7 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     }
     return res;
   }
+  case SemanticGroundingType::ANGLE:
   case SemanticGroundingType::RELATIVEDURATION:
   case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LENGTH:

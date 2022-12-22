@@ -13,6 +13,7 @@ namespace onsem
 struct SemanticGenericGrounding;
 struct SemanticStatementGrounding;
 struct SemanticAgentGrounding;
+struct SemanticAngleGrounding;
 struct SemanticTimeGrounding;
 struct SemanticLengthGrounding;
 struct SemanticDurationGrounding;
@@ -31,6 +32,7 @@ struct SemanticUnityGrounding;
 
 #define SEMANTIC_GROUNDING_TYPE_TABLE                                  \
   SEMANTIC_GROUNGING_TYPE(AGENT, "agent")                              \
+  SEMANTIC_GROUNGING_TYPE(ANGLE, "angle")                              \
   SEMANTIC_GROUNGING_TYPE(GENERIC, "generic")                          \
   SEMANTIC_GROUNGING_TYPE(STATEMENT, "statement")                      \
   SEMANTIC_GROUNGING_TYPE(TIME, "time")                                \
@@ -151,6 +153,11 @@ public:
   virtual SemanticAgentGrounding& getAgentGrounding();
   virtual const SemanticAgentGrounding* getAgentGroundingPtr() const { return nullptr; }
   virtual SemanticAgentGrounding* getAgentGroundingPtr() { return nullptr; }
+
+  virtual const SemanticAngleGrounding& getAngleGrounding() const;
+  virtual SemanticAngleGrounding& getAngleGrounding();
+  virtual const SemanticAngleGrounding* getAngleGroundingPtr() const { return nullptr; }
+  virtual SemanticAngleGrounding* getAngleGroundingPtr() { return nullptr; }
 
   virtual const SemanticTimeGrounding& getTimeGrounding() const;
   virtual SemanticTimeGrounding& getTimeGrounding();

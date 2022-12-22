@@ -111,6 +111,13 @@ void _saveAgentGrd(boost::property_tree::ptree& pTree,
     _saveNameInfos(pTree.put_child("nameInfos", {}), *pAgentGrd.nameInfos);
 }
 
+void _saveSemanticAngle(boost::property_tree::ptree& pTree,
+                        const SemanticAngle& pSemanticAngle)
+{
+  for (const auto& currAngleInfo : pSemanticAngle.angleInfos)
+    pTree.put(semanticAngleUnity_toAbreviation(currAngleInfo.first), currAngleInfo.second);
+}
+
 void _saveSemanticLength(boost::property_tree::ptree& pTree,
                          const SemanticLength& pSemanticLength)
 {
@@ -158,6 +165,13 @@ void _saveTextGrd(boost::property_tree::ptree& pTree,
     pTree.put("forLanguage", semanticLanguageEnum_toStr(pTextGrd.forLanguage));
   if (pTextGrd.hasQuotationMark)
     pTree.put("hasQuotationMark", trueStr);
+}
+
+void _saveAngleGrd(boost::property_tree::ptree& pTree,
+                    const SemanticAngleGrounding& pAngleGrd)
+{
+  _saveGrd(pTree, pAngleGrd);
+  _saveSemanticAngle(pTree.put_child("angle", {}), pAngleGrd.angle);
 }
 
 void _saveLengthGrd(boost::property_tree::ptree& pTree,
@@ -302,6 +316,9 @@ void _saveGrounding(boost::property_tree::ptree& pTree,
   {
   case SemanticGroundingType::AGENT:
     _saveAgentGrd(pTree, pGrounding.getAgentGrounding());
+    return;
+  case SemanticGroundingType::ANGLE:
+    _saveAngleGrd(pTree, pGrounding.getAngleGrounding());
     return;
   case SemanticGroundingType::GENERIC:
     _saveGenericGrd(pTree, pGrounding.getGenericGrounding());

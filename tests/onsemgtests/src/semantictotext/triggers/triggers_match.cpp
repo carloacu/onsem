@@ -3,7 +3,6 @@
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
-#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
@@ -159,30 +158,24 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
 
 
 
-TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters)
+TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
 
-  const std::string trigger1 = "Avance";
-
-  TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
-                                                 SemanticAgentGrounding::currentUser,
-                                                 SemanticLanguageEnum::UNKNOWN);
-  paramQuestionProcContext.isTimeDependent = false;
-  auto paramSemExp = converter::textToContextualSemExp("De combien dois-je avancer en centimètres ?",
-                                                       paramQuestionProcContext,
-                                                       SemanticSourceEnum::UNKNOWN, lingDb);
-  auto answer1Grd = std::make_unique<SemanticResourceGrounding>("l1", SemanticLanguageEnum::FRENCH, "v1");
-  answer1Grd->resource.parameterLabelsToQuestions["p1"].emplace_back(std::move(paramSemExp));
-  auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
-
-  std::set<GrammaticalType> askedChildren;
-  SemExpGetter::extractAskedChildrenByAResource(askedChildren, *answer1SemExp);
-  ASSERT_EQ(1, askedChildren.size());
-  EXPECT_EQ(GrammaticalType::OBJECT, *askedChildren.begin());
-
-  triggers_addToSemExpAnswer(trigger1, std::move(answer1SemExp), semMem, lingDb);
+  triggers_addAnswerWithOneParameter("Avance", "De combien dois-je avancer en centimètres ?", semMem, lingDb);
 
   ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1(p1=300)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1(p1=400)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+
+  triggers_addAnswerWithOneParameter("Advance", "How far should I advance in centimeters?", semMem, lingDb);
+
+  ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1(p1=300)\\", triggers_match("Advance 3 meters", semMem, lingDb));
 }

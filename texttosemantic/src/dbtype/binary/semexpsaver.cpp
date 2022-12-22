@@ -173,19 +173,37 @@ void _writeCharOrInt(binarymasks::Ptr& pPtr,
     binarysaver::writeInt(pPtr.pint++, pVal);
 }
 
+
+void _writeAngle(binarymasks::Ptr& pPtr,
+                 const SemanticAngle& pAngle)
+{
+  unsigned char nbOfangleInfos = binarysaver::sizet_to_uchar(pAngle.angleInfos.size());
+  binarysaver::writeChar_0To6(pPtr.pchar, nbOfangleInfos);
+  ++pPtr.pchar;
+  for (const auto& currAngleInfo : pAngle.angleInfos)
+  {
+    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currAngleInfo.second);
+    binarysaver::writeChar_0(pPtr.pchar, charOrInt);
+    binarysaver::writeChar_1To7(pPtr.pchar, semanticAngleUnity_toChar(currAngleInfo.first));
+    ++pPtr.pchar;
+    _writeCharOrInt(pPtr, currAngleInfo.second, charOrInt);
+  }
+}
+
+
 void _writeLength(binarymasks::Ptr& pPtr,
                   const SemanticLength& pLength)
 {
-  unsigned char nbOfTimeInfos = binarysaver::sizet_to_uchar(pLength.lengthInfos.size());
-  binarysaver::writeChar_0To6(pPtr.pchar, nbOfTimeInfos);
+  unsigned char nbOfLengthInfos = binarysaver::sizet_to_uchar(pLength.lengthInfos.size());
+  binarysaver::writeChar_0To6(pPtr.pchar, nbOfLengthInfos);
   ++pPtr.pchar;
-  for (const auto& currLengtheInfo : pLength.lengthInfos)
+  for (const auto& currLengthInfo : pLength.lengthInfos)
   {
-    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currLengtheInfo.second);
+    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currLengthInfo.second);
     binarysaver::writeChar_0(pPtr.pchar, charOrInt);
-    binarysaver::writeChar_1To7(pPtr.pchar, semanticLengthUnity_toChar(currLengtheInfo.first));
+    binarysaver::writeChar_1To7(pPtr.pchar, semanticLengthUnity_toChar(currLengthInfo.first));
     ++pPtr.pchar;
-    _writeCharOrInt(pPtr, currLengtheInfo.second, charOrInt);
+    _writeCharOrInt(pPtr, currLengthInfo.second, charOrInt);
   }
 }
 
@@ -280,6 +298,12 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
       _writeNameInfos(pPtr, *agentGrd.nameInfos);
     else
       ++pPtr.pchar;
+    return;
+  }
+  case SemanticGroundingType::ANGLE:
+  {
+    auto& angleGrd = pGrd.getAngleGrounding();
+    _writeAngle(pPtr, angleGrd.angle);
     return;
   }
   case SemanticGroundingType::NAME:

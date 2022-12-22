@@ -53,6 +53,7 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp
+    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticanglegrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticconceptualgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp
@@ -150,6 +151,7 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/dbtype/semanticexpression/metadataexpression.cpp
     src/dbtype/semanticexpression/setofformsexpression.cpp
     src/dbtype/semanticgrounding/semanticgrounding.cpp
+    src/dbtype/semanticgrounding/semanticanglegrounding.cpp
     src/dbtype/semanticgrounding/semantictimegrounding.cpp
     src/dbtype/semanticgrounding/semanticdurationgrounding.cpp
     src/dbtype/semanticgrounding/semanticgenericgrounding.cpp

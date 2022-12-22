@@ -356,6 +356,13 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
+  case SemanticGroundingType::ANGLE:
+  {
+    const SemanticAngleGrounding* angleGrd2 = pGrounding2.getAngleGroundingPtr();
+    if (angleGrd2 != nullptr)
+      return bool_toImbricationType(pGrounding1.getAngleGrounding().angle == angleGrd2->angle);
+    break;
+  }
   case SemanticGroundingType::TIME:
   {
     const auto* timeGrd2Ptr = pGrounding2.getTimeGroundingPtr();

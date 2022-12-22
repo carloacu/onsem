@@ -157,6 +157,20 @@ int _loadCharOrInt(const unsigned char*& pPtr,
 }
 
 
+void _loadAngle(SemanticAngle& pAngle,
+                const unsigned char*& pPtr)
+{
+  unsigned char nbOfAngleInfos = binaryloader::loadChar_0To6(pPtr);
+  ++pPtr;
+  for (unsigned char i = 0; i < nbOfAngleInfos; ++i)
+  {
+    const bool charOrInt = binaryloader::loadChar_0(pPtr);
+    auto angleUnity = semanticAngleUnity_fromChar(binaryloader::loadChar_1To7(pPtr));
+    ++pPtr;
+    pAngle.angleInfos.emplace(angleUnity, _loadCharOrInt(pPtr, charOrInt));
+  }
+}
+
 void _loadLength(SemanticLength& pLength,
                  const unsigned char*& pPtr)
 {
@@ -256,6 +270,12 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
       ++pPtr;
     }
     return agentGrd;
+  }
+  case SemanticGroundingType::ANGLE:
+  {
+    auto& angleGrd = res->getAngleGrounding();
+    _loadAngle(angleGrd.angle, pPtr);
+    return res;
   }
   case SemanticGroundingType::NAME:
   {

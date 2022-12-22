@@ -74,6 +74,8 @@ std::unique_ptr<SemanticGrounding> GroundedExpression::cloneGrounding(const Inde
     return std::make_unique<SemanticStatementGrounding>(_grounding->getStatementGrounding());
   case SemanticGroundingType::AGENT:
     return std::make_unique<SemanticAgentGrounding>(_grounding->getAgentGrounding());
+  case SemanticGroundingType::ANGLE:
+    return std::make_unique<SemanticAngleGrounding>(_grounding->getAngleGrounding());
   case SemanticGroundingType::TIME:
     return std::make_unique<SemanticTimeGrounding>(_grounding->getTimeGrounding());
   case SemanticGroundingType::TEXT:

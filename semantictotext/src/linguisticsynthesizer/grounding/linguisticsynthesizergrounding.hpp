@@ -74,6 +74,12 @@ public:
    const GroundedExpression& pHoldingGrdExp,
    const SemanticRequests& pRequests) const;
 
+  bool angleTranslation
+  (std::list<WordToSynthesize>& pOut,
+   const linguistics::SynthesizerDictionary& pStatSynthDico,
+   const SemanticAngle& pAngle,
+   bool pPrintPrecisely) const;
+
   bool lengthTranslation
   (std::list<WordToSynthesize>& pOut,
    const linguistics::SynthesizerDictionary& pStatSynthDico,

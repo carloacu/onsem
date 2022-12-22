@@ -152,6 +152,20 @@ std::unique_ptr<SemanticAgentGrounding> _loadAgentGrd(const boost::property_tree
 }
 
 
+void _loadSemanticAngle(SemanticAngle& pSemanticAngle,
+                        const boost::property_tree::ptree& pTree)
+{
+  if (!pTree.empty())
+    for (const auto& currAngleInfo : pTree)
+    {
+      const std::string label = currAngleInfo.first.data();
+      pSemanticAngle.angleInfos.emplace
+          (semanticAngleUnity_fromAbreviation(label),
+           currAngleInfo.second.get_value<int>());
+    }
+}
+
+
 void _loadSemanticLength(SemanticLength& pSemanticLength,
                          const boost::property_tree::ptree& pTree)
 {
@@ -270,6 +284,14 @@ std::unique_ptr<SemanticTextGrounding> _loadTextGrd(const boost::property_tree::
   return res;
 }
 
+std::unique_ptr<SemanticAngleGrounding> _loadAngleGrd(const boost::property_tree::ptree& pTree)
+{
+  auto res = std::make_unique<SemanticAngleGrounding>();
+  _loadGrd(*res, pTree);
+  _loadSemanticAngle(res->angle, pTree.get_child("angle"));
+  return res;
+}
+
 std::unique_ptr<SemanticLengthGrounding> _loadLengthGrd(const boost::property_tree::ptree& pTree)
 {
   auto res = std::make_unique<SemanticLengthGrounding>();
@@ -359,6 +381,8 @@ std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::pt
   {
   case SemanticGroundingType::AGENT:
     return _loadAgentGrd(pTree);
+  case SemanticGroundingType::ANGLE:
+    return _loadAngleGrd(pTree);
   case SemanticGroundingType::GENERIC:
     return _loadGenericGrd(pTree);
   case SemanticGroundingType::STATEMENT:

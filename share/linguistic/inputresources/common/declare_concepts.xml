@@ -90,6 +90,10 @@
   <declareconcept name="agent_profession_priest_archbishop" />
   <declareconcept name="agent_profession_priest_pope" />
 
+  <declareconcept name="angle" />
+  <declareconcept name="angle_degree" />
+  <declareconcept name="angle_radian" />
+
   <declareconcept name="application" />
   <declareconcept name="application_dance" />
 

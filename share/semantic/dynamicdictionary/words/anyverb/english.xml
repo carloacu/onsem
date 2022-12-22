@@ -9,6 +9,7 @@
     <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(number_, skip_determiners)|followedByDate" />
     <child lemma="in" pos="preposition" chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
     <child lemma="in" pos="preposition" chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
+    <child lemma="in" pos="preposition" chunkLinkType="unity" condition="followedByBeginOfConcept(length_)|followedByBeginOfConcept(duration_)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
     <child chunkLinkType="location" condition="[followedByPartOfSpeech(adverb)|followedByPartOfSpeech(pronoun)]&followedByConceptOrHyponym(location)" />
