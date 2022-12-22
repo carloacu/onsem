@@ -2108,7 +2108,7 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
     }
     _oneConceptToRelationsFromMemory(matchedSemExp, pRes.res, linksGramToSemExp,
                                      nullptr, pSubReqLinks.crossedLinks.semExpsWithSpecificFilter,
-                                     "stuff", pMemBlockPrivatePtr.mb, pIsATrigger, pLingDb, pCheckTimeRequest);
+                                     "stuff_informationToFill", pMemBlockPrivatePtr.mb, pIsATrigger, pLingDb, pCheckTimeRequest);
 
     if (pMemBlockPrivatePtr.mb != nullptr)
     {

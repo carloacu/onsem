@@ -219,5 +219,10 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "\"la-resurrection-du-christ-simple-legende-ou-fait-historique\", \"la-resurrection-de-jesus-est-vraiment-le-fondement-de-la-foi-chretienne-si-jesus-n-est-pas-ressuscite-alors-la-foi-des-chretiens-n-a-aucun-sens\"",
         operator_react("La résurrection du Christ, simple légende ou fait historique ?", semMem, lingDb, language, &reactionOptions));
 
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#comment-faire-un-deuil\\",
+        "\"comment-faire-un-deuil\"",
+        operator_react("Comment faire un deuil ?", semMem, lingDb, language, &reactionOptions));
+
 }
 

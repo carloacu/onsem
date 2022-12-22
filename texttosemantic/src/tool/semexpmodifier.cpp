@@ -50,7 +50,7 @@ void _addAnythingChildFromGrdExp(
       pGrdExp.children.count(pGrammaticalType) == 0)
     pGrdExp.children.emplace(pGrammaticalType,
                              std::make_unique<GroundedExpression>(
-                               std::make_unique<SemanticConceptualGrounding>("stuff")));
+                               std::make_unique<SemanticConceptualGrounding>("stuff_informationToFill")));
 }
 
 void _imperativeGrdExpToMandatoryForm(GroundedExpression& pGrdExp)
