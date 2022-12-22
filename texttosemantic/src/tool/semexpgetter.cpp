@@ -2362,6 +2362,51 @@ void extractAskedChildrenByAResource(
 }
 
 
+std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequestType)
+{
+  switch (pRequestType)
+  {
+  case SemanticRequestType::CAUSE:
+    return {GrammaticalType::CAUSE};
+  case SemanticRequestType::DURATION:
+    return {GrammaticalType::DURATION};
+  case SemanticRequestType::LENGTH:
+    return {GrammaticalType::LENGTH};
+  case SemanticRequestType::LOCATION:
+    return {GrammaticalType::LOCATION};
+  case SemanticRequestType::MANNER:
+    return {GrammaticalType::MANNER};
+  case SemanticRequestType::PURPOSE:
+    return {GrammaticalType::PURPOSE};
+  case SemanticRequestType::SUBJECT:
+    return {GrammaticalType::SUBJECT};
+  case SemanticRequestType::TIME:
+    return {GrammaticalType::TIME};
+  case SemanticRequestType::TOPIC:
+    return {GrammaticalType::TOPIC};
+  case SemanticRequestType::WAY:
+    return {GrammaticalType::WAY};
+
+  case SemanticRequestType::OBJECT:
+  case SemanticRequestType::CHOICE:
+    return {GrammaticalType::OBJECT};
+
+  case SemanticRequestType::QUANTITY:
+    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH};
+
+  case SemanticRequestType::ABOUT:
+  case SemanticRequestType::ACTION:
+  case SemanticRequestType::NOTHING:
+  case SemanticRequestType::TIMES:
+  case SemanticRequestType::VERB:
+  case SemanticRequestType::YESORNO:
+    return {};
+  }
+
+  return {};
+}
+
+
 
 } // End of namespace SemExpGetter
 

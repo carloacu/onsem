@@ -360,6 +360,7 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
     }
     break;
   }
+  case SemanticGroundingType::ANGLE:
   case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LANGUAGE:
   case SemanticGroundingType::RELATIVELOCATION:

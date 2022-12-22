@@ -37,7 +37,7 @@
     <include_child_list_template name="à+infinitive"/>
   </word>
   <word lemma="avancer" pos="verb">
-    <child lemma="de" pos="preposition" chunkLinkType="direct object" />
+    <child lemma="de" pos="preposition" chunkLinkType="length" />
     <child lemma="à" pos="preposition" chunkLinkType="location" />
   </word>
   <word lemma="avoir~envie" pos="verb">

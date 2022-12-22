@@ -85,10 +85,13 @@ mystd::unique_propagate_const<UniqueSemanticExpression> answer
 {
   converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
   std::unique_ptr<CompositeSemAnswer> compositeSemAnswers;
-  controller::applyOperatorOnSemExpConstMem(compositeSemAnswers, *pSemExp,
+  auto currUserId = pSemanticMemory.getCurrUserId();
+  const auto* externalFallback = pSemanticMemory.getExternalFallback();
+  const auto& semExp = *pSemExp;
+  controller::applyOperatorOnSemExpConstMem(compositeSemAnswers, semExp,
                                             SemanticOperatorEnum::ANSWER, InformationType::INFORMATION,
-                                            pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId(), &pSemanticMemory.proativeSpecifications,
-                                            pSemanticMemory.getExternalFallback(), &pSemanticMemory.callbackToSentencesCanBeAnswered,
+                                            pSemanticMemory.memBloc, currUserId, &pSemanticMemory.proativeSpecifications,
+                                            externalFallback, &pSemanticMemory.callbackToSentencesCanBeAnswered,
                                             nullptr, pLingDb, nullptr, &pCanAnswerIDontKnow);
   mystd::unique_propagate_const<UniqueSemanticExpression> res;
   if (compositeSemAnswers)

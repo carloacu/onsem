@@ -269,7 +269,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
                                                               semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
                                                               &comparisonErrorReporting));
     ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
-    EXPECT_EQ(GrammaticalType::OBJECT, comparisonErrorReporting.childrenThatAreNotEqual.begin()->first);
+    EXPECT_EQ(GrammaticalType::LENGTH, comparisonErrorReporting.childrenThatAreNotEqual.begin()->first);
   }
 
   {
@@ -280,9 +280,9 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
                                                               &comparisonErrorReporting));
     ASSERT_EQ(2, comparisonErrorReporting.childrenThatAreNotEqual.size());
     auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
-    EXPECT_EQ(GrammaticalType::OBJECT, it->first);
-    ++it;
     EXPECT_EQ(GrammaticalType::LOCATION, it->first);
+    ++it;
+    EXPECT_EQ(GrammaticalType::LENGTH, it->first);
   }
 
   {
@@ -293,9 +293,9 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
                                                         &comparisonErrorReporting));
     ASSERT_EQ(2, comparisonErrorReporting.childrenThatAreNotEqual.size());
     auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
-    EXPECT_EQ(GrammaticalType::OBJECT, it->first);
-    ++it;
     EXPECT_EQ(GrammaticalType::LOCATION, it->first);
+    ++it;
+    EXPECT_EQ(GrammaticalType::LENGTH, it->first);
   }
 }
 

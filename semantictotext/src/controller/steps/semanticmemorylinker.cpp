@@ -1360,17 +1360,27 @@ void _extractAnnotationsFromAnswer(const SemanticExpression*& pEqualityOfTheMemo
                                    SemanticRequestType pFormRequest,
                                    const GroundedExpression& pGrdExp,
                                    const SemanticAnnotations& pAnnotations,
-                                   GrammaticalType pChildGramType)
+                                   const std::vector<GrammaticalType>& pGramTypes)
 {
   for (const auto& currAnsGrdExpChild : pGrdExp.children)
   {
     GrammaticalType childAnswerGramType = currAnsGrdExpChild.first;
-    if (childAnswerGramType == GrammaticalType::SUBJECT ||
-        childAnswerGramType == pChildGramType)
-    {
+    if (childAnswerGramType == GrammaticalType::SUBJECT)
       continue;
+
+    bool shouldContinue = false;
+    for (auto& currGram : pGramTypes)
+    {
+      if (currGram == childAnswerGramType)
+      {
+        shouldContinue = true;
+        break;
+      }
     }
-    else if (childAnswerGramType == GrammaticalType::SPECIFIER)
+    if (shouldContinue)
+      continue;
+
+    if (childAnswerGramType == GrammaticalType::SPECIFIER)
     {
       pEqualityOfTheMemoryAnswer = [pFormRequest, &currAnsGrdExpChild]() -> const SemanticExpression*
       {
@@ -1477,15 +1487,15 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
   for (auto& relSemExp : pRelations)
   {
     AnswerElement& ansElt = *relSemExp.second;
-    GrammaticalType childGramType = semanticRequestType_toSemGram(pFormRequest);
+    auto grammaticalTypes = SemExpGetter::requestToGrammaticalTypes(pFormRequest);
 
     const SemanticExpression* equalityOfTheMemoryAnswer = nullptr;
     std::map<GrammaticalType, const SemanticExpression*> annotationsOfTheAnswer;
     const auto& answGrdExp = ansElt.getGrdExpRef();
     _extractAnnotationsFromAnswer(equalityOfTheMemoryAnswer, annotationsOfTheAnswer, pFormRequest,
-                                  answGrdExp, ansElt.getAnnotations(), childGramType);
+                                  answGrdExp, ansElt.getAnnotations(), grammaticalTypes);
 
-    if (childGramType == GrammaticalType::UNKNOWN)
+    if (grammaticalTypes.empty())
     {
       bool hasSamePolarity = SemExpComparator::haveSamePolarity
           (answGrdExp, pFromGrdExpQuestion, pWorkStruct.lingDb.conceptSet);
@@ -1497,31 +1507,34 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
     }
     else
     {
-      bool hasSamePolarity = false;
-      auto childSemExpPtr = ansElt.getSemExpForGrammaticalType
-          (childGramType, &pFromGrdExpQuestion, &pWorkStruct.lingDb, &hasSamePolarity);
-      if (childSemExpPtr)
+      for (const auto& currGramType : grammaticalTypes)
       {
-        const GroundedExpression* questMetaGrdExp = nullptr;
-        const auto itQuestionMetaDesc = pFromGrdExpQuestion.children.find(childGramType);
-        if (itQuestionMetaDesc != pFromGrdExpQuestion.children.end())
-          questMetaGrdExp = itQuestionMetaDesc->second->getGrdExpPtr_SkipWrapperPtrs();
+        bool hasSamePolarity = false;
+        auto childSemExpPtr = ansElt.getSemExpForGrammaticalType
+            (currGramType, &pFromGrdExpQuestion, &pWorkStruct.lingDb, &hasSamePolarity);
+        if (childSemExpPtr)
+        {
+          const GroundedExpression* questMetaGrdExp = nullptr;
+          const auto itQuestionMetaDesc = pFromGrdExpQuestion.children.find(currGramType);
+          if (itQuestionMetaDesc != pFromGrdExpQuestion.children.end())
+            questMetaGrdExp = itQuestionMetaDesc->second->getGrdExpPtr_SkipWrapperPtrs();
 
-        auto& semExpsContainer = hasSamePolarity ? semExpsWithSamePolarity : semExpsWithOtherPolarity;
-        auto* uSemExp = dynamic_cast<UniqueSemanticExpression*>(&*childSemExpPtr);
-        if (uSemExp != nullptr)
-        {
-          _addGrdExpsFromASemExp(semExpsContainer, relSemExp.first, *uSemExp, ansElt.relatedContextAxioms,
-                                 equalityOfTheMemoryAnswer, annotationsOfTheAnswer, questMetaGrdExp,
-                                 pWorkStruct, pMemBlock, pFormRequest);
-        }
-        else
-        {
-          const auto* semExpRef = dynamic_cast<ReferenceOfSemanticExpressionContainer*>(&*childSemExpPtr);
-          if (semExpRef != nullptr)
-            _addGrdExpsFromASemExp(semExpsContainer, relSemExp.first, *semExpRef, ansElt.relatedContextAxioms,
+          auto& semExpsContainer = hasSamePolarity ? semExpsWithSamePolarity : semExpsWithOtherPolarity;
+          auto* uSemExp = dynamic_cast<UniqueSemanticExpression*>(&*childSemExpPtr);
+          if (uSemExp != nullptr)
+          {
+            _addGrdExpsFromASemExp(semExpsContainer, relSemExp.first, *uSemExp, ansElt.relatedContextAxioms,
                                    equalityOfTheMemoryAnswer, annotationsOfTheAnswer, questMetaGrdExp,
                                    pWorkStruct, pMemBlock, pFormRequest);
+          }
+          else
+          {
+            const auto* semExpRef = dynamic_cast<ReferenceOfSemanticExpressionContainer*>(&*childSemExpPtr);
+            if (semExpRef != nullptr)
+              _addGrdExpsFromASemExp(semExpsContainer, relSemExp.first, *semExpRef, ansElt.relatedContextAxioms,
+                                     equalityOfTheMemoryAnswer, annotationsOfTheAnswer, questMetaGrdExp,
+                                     pWorkStruct, pMemBlock, pFormRequest);
+          }
         }
       }
     }
@@ -1855,8 +1868,9 @@ void _getRelationsOfLinks
     const GroundedExpression& memGrdExp = moreRecentAnsElt.getGrdExpRef();
     const SemanticExpression* equalityOfTheMemoryAnswer = nullptr;
     std::map<GrammaticalType, const SemanticExpression*> annotationsOfTheAnswer;
+    static const std::vector<GrammaticalType> emptyGramTypes;
     _extractAnnotationsFromAnswer(equalityOfTheMemoryAnswer, annotationsOfTheAnswer, pRequestType,
-                                  memGrdExp, moreRecentAnsElt.getAnnotations(), GrammaticalType::UNKNOWN);
+                                  memGrdExp, moreRecentAnsElt.getAnnotations(), emptyGramTypes);
 
     bool samePolarity =
         SemExpComparator::haveSamePolarity(pGrdExp, memGrdExp,

@@ -493,6 +493,13 @@ void extractAskedChildrenByAResource(
     std::set<GrammaticalType>& pAskedChildren,
     const SemanticExpression& pSemExp);
 
+
+
+ONSEM_TEXTTOSEMANTIC_API
+std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequestType);
+
+
+
 } // End of namespace SemExpGetter
 
 } // End of namespace onsem
