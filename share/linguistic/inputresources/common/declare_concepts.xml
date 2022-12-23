@@ -90,10 +90,6 @@
   <declareconcept name="agent_profession_priest_archbishop" />
   <declareconcept name="agent_profession_priest_pope" />
 
-  <declareconcept name="angle" />
-  <declareconcept name="angle_degree" />
-  <declareconcept name="angle_radian" />
-
   <declareconcept name="application" />
   <declareconcept name="application_dance" />
 
@@ -215,6 +211,10 @@
   <declareconcept name="location_relative_south" />
   <declareconcept name="location_relative_under" />
   <declareconcept name="location_relative_west" />
+
+  <declareconcept name="location_relative_angle" />
+  <declareconcept name="location_relative_angle_degree" />
+  <declareconcept name="location_relative_angle_radian" />
 
   <declareconcept name="manner" />
   <declareconcept name="manner_stronger" autofill="false" />
