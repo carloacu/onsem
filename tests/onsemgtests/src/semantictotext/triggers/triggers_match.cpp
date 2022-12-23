@@ -166,11 +166,13 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
+  auto language = SemanticLanguageEnum::FRENCH;
 
-  triggers_addAnswerWithOneParameter("Avance", "De combien dois-je avancer en centimètres ?", semMem, lingDb);
+  triggers_addAnswerWithOneParameter("Avance", "De combien dois-je avancer en centimètres ?",
+                                     semMem, lingDb, language);
 
-  ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1(p1=300)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1(p1=400)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=300 centimètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=400 centimètres)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
 }
 
 
@@ -178,8 +180,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
+  auto language = SemanticLanguageEnum::ENGLISH;
 
-  triggers_addAnswerWithOneParameter("Advance", "How far should I advance in centimeters?", semMem, lingDb);
+  triggers_addAnswerWithOneParameter("Advance", "How far should I advance in centimeters?",
+                                     semMem, lingDb, language);
 
-  ONSEM_BEHAVIOR_EQ("\\l1=#fr_FR#v1(p1=300)\\", triggers_match("Advance 3 meters", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=300 centimeters)\\", triggers_match("Advance 3 meters", semMem, lingDb));
 }

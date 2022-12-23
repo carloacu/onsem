@@ -32,8 +32,7 @@ TextProcessingContext::TextProcessingContext
     usSemExp(_getYouAndMeSemExp(pAuthorId, pReceiverId)),
     vouvoiement(false),
     cmdGrdExtractorPtr(),
-    spellingMistakeTypesPossible(),
-    rawValue(false)
+    spellingMistakeTypesPossible()
 {
 }
 
@@ -50,8 +49,7 @@ TextProcessingContext::TextProcessingContext
     usSemExp(std::move(pUsSemExp)),
     vouvoiement(false),
     cmdGrdExtractorPtr(),
-    spellingMistakeTypesPossible(),
-    rawValue(false)
+    spellingMistakeTypesPossible()
 {
 }
 
@@ -65,8 +63,7 @@ TextProcessingContext::TextProcessingContext
     usSemExp(pOther.usSemExp->clone()),
     vouvoiement(pOther.vouvoiement),
     cmdGrdExtractorPtr(pOther.cmdGrdExtractorPtr),
-    spellingMistakeTypesPossible(pOther.spellingMistakeTypesPossible),
-    rawValue(pOther.rawValue)
+    spellingMistakeTypesPossible(pOther.spellingMistakeTypesPossible)
 {
 }
 

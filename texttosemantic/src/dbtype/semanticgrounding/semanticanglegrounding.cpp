@@ -24,15 +24,4 @@ void SemanticAngle::printAngle(std::list<std::string>& pListElts,
 }
 
 
-std::string SemanticAngle::getRawValueStr() const
-{
-  for (auto& currElt : angleInfos)
-  {
-    std::stringstream ss;
-    ss << currElt.second;
-    return ss.str();
-  }
-  return "0";
-}
-
 } // End of namespace onsem

@@ -78,13 +78,13 @@ void triggers_addAnswerWithOneParameter(
 {
   TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
                                                  SemanticAgentGrounding::currentUser,
-                                                 SemanticLanguageEnum::UNKNOWN);
+                                                 pLanguage);
   paramQuestionProcContext.isTimeDependent = false;
   auto paramSemExp = converter::textToContextualSemExp(pParameterQuestion,
                                                        paramQuestionProcContext,
                                                        SemanticSourceEnum::UNKNOWN, pLingDb);
-  auto answer1Grd = std::make_unique<SemanticResourceGrounding>("l1", SemanticLanguageEnum::FRENCH, "v1");
-  answer1Grd->resource.parameterLabelsToQuestions["p1"].emplace_back(std::move(paramSemExp));
+  auto answer1Grd = std::make_unique<SemanticResourceGrounding>("label", pLanguage, "value");
+  answer1Grd->resource.parameterLabelsToQuestions["param1"].emplace_back(std::move(paramSemExp));
   auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
 
   triggers_addToSemExpAnswer(pTriggerText, std::move(answer1SemExp), pSemanticMemory, pLingDb, pLanguage);

@@ -133,7 +133,6 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticAngle
   bool operator==(const SemanticAngle& pOther) const;
   void printAngle(std::list<std::string>& pListElts,
                   const std::string& pLabelName) const;
-  std::string getRawValueStr() const;
 
   std::map<SemanticAngleUnity, int> angleInfos{};
 };

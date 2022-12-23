@@ -76,7 +76,6 @@ void TextExecutor::_extractParameters(
           TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
                                            SemanticAgentGrounding::me,
                                            pLanguage);
-          outContext.rawValue = true;
           std::vector<std::string> res(answers.size());
           std::size_t i = 0;
           for (auto& currAnswer : answers)

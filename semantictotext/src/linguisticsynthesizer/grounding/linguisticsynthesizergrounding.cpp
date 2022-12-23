@@ -274,16 +274,9 @@ void Linguisticsynthesizergrounding::writeGrounding
   }
   case SemanticGroundingType::ANGLE:
   {
-    if (pConf.textProcessingContext.rawValue)
-    {
-      _strToOut(pOutSemExp.out, PartOfSpeech::UNKNOWN, pGrounding.getAngleGrounding().angle.getRawValueStr());
-    }
-    else
-    {
-      const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
-      angleTranslation(pOutSemExp.out, synthDico,
-                       pGrounding.getAngleGrounding().angle, true);
-    }
+    const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
+    angleTranslation(pOutSemExp.out, synthDico,
+                     pGrounding.getAngleGrounding().angle, true);
     break;
   }
   case SemanticGroundingType::TIME:
@@ -316,16 +309,9 @@ void Linguisticsynthesizergrounding::writeGrounding
   }
   case SemanticGroundingType::LENGTH:
   {
-    if (pConf.textProcessingContext.rawValue)
-    {
-      _strToOut(pOutSemExp.out, PartOfSpeech::UNKNOWN, pGrounding.getLengthGrounding().length.getRawValueStr());
-    }
-    else
-    {
-      const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
-      lengthTranslation(pOutSemExp.out, synthDico,
-                        pGrounding.getLengthGrounding().length, true);
-    }
+    const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
+    lengthTranslation(pOutSemExp.out, synthDico,
+                      pGrounding.getLengthGrounding().length, true);
     break;
   }
   case SemanticGroundingType::META:
