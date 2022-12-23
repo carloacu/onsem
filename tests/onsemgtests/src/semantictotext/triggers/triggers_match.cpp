@@ -98,6 +98,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string reaction7 = "C'est une application sympa.";
   const std::string trigger8 = "Avance";
   const std::string reaction8 = "Voilà, j'avance.";
+  const std::string trigger9 = "Tourne de 30 dégrés";
+  const std::string reaction9 = "Ma roue gauche est trop chaude.";
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -125,6 +127,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   triggers_add(trigger6, reaction6, semMem, lingDb);
   triggers_add(trigger7, reaction7, semMem, lingDb);
   triggers_add(trigger8, reaction8, semMem, lingDb);
+  triggers_add(trigger9, reaction9, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
@@ -154,6 +157,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_BEHAVIOR_EQ(reaction7, triggers_match(trigger7, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction7, triggers_match("remets l'application Aa", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction8, triggers_match(trigger8, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction9, triggers_match(trigger9, semMem, lingDb));
 }
 
 
