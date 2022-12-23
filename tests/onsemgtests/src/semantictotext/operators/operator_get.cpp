@@ -213,6 +213,13 @@ TEST_F(SemanticReasonerGTests, operator_get_length)
     ASSERT_EQ(1u, res.size());
     EXPECT_EQ("300 centimètres", res[0]);
   }
+
+  operator_inform("Je dois tourner de 44 degrés", semMem, lingDb);
+  {
+    auto res = operator_get("De combien dois-je tourner en degrés ?", semMem, lingDb);
+    ASSERT_EQ(1u, res.size());
+    EXPECT_EQ("44 degrés", res[0]);
+  }
 }
 
 

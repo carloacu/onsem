@@ -135,8 +135,14 @@ void _extractAskedChildrenFromGrdExp(
 {
   const auto* statGrdPtr = pQuestionGrdExp->getStatementGroundingPtr();
   if (statGrdPtr != nullptr)
+  {
     for (const auto& currRequest : statGrdPtr->requests.types)
-      pAskedChildren.insert(semanticRequestType_toSemGram(currRequest));
+    {
+      auto grammTypes = requestToGrammaticalTypes(currRequest);
+      for (const auto& currGramm : grammTypes)
+        pAskedChildren.insert(currGramm);
+    }
+  }
 
   for (const auto& currChild : pQuestionGrdExp.children)
     extractAskedChildren(pAskedChildren, *currChild.second);
@@ -2392,7 +2398,7 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
     return {GrammaticalType::OBJECT};
 
   case SemanticRequestType::QUANTITY:
-    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH};
+    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH, GrammaticalType::LOCATION};
 
   case SemanticRequestType::ABOUT:
   case SemanticRequestType::ACTION:

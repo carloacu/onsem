@@ -170,9 +170,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   triggers_addAnswerWithOneParameter("Avance", "De combien dois-je avancer en centimètres ?",
                                      semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tourne", "De combien dois-je tourner en degrés ?",
+                                     semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=300 centimètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=400 centimètres)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=34 degrés)\\", triggers_match("Tourne de 34 degrés", semMem, lingDb));
 }
 
 

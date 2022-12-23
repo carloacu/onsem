@@ -66,11 +66,12 @@ bool _hasObjectExecptCoreference(const GroundedExpression& pGrdExp)
 void _cloneGrdExpList(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers,
                       const std::list<const GroundedExpression*>& pGrdExpList)
 {
+  static const std::set<GrammaticalType> introWordGrammType = {GrammaticalType::INTRODUCTING_WORD};
   pAnswers.resize(pGrdExpList.size());
   std::size_t i = 0;
   for (const auto& currGrdExp : pGrdExpList)
   {
-    pAnswers[i] = currGrdExp->clone();
+    pAnswers[i] = currGrdExp->clone(nullptr, false, nullptr, &introWordGrammType);
     ++i;
   }
 }
@@ -320,7 +321,8 @@ void get(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers,
   std::unique_ptr<CompositeSemAnswer> compositeSemAnswers;
   auto currUserId = pSemanticMemory.getCurrUserId();
   const auto* externalFallback = pSemanticMemory.getExternalFallback();
-  controller::applyOperatorOnSemExpConstMem(compositeSemAnswers, *pSemExp,
+  const auto& semExp = *pSemExp;
+  controller::applyOperatorOnSemExpConstMem(compositeSemAnswers, semExp,
                                             SemanticOperatorEnum::GET,
                                             InformationType::INFORMATION,
                                             pSemanticMemory.memBloc, currUserId,

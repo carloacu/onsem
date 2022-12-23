@@ -393,6 +393,10 @@ TEST_F(SemanticReasonerGTests, operator_answer_basic)
     operator_inform("Je dois avancer de 4 mètres", semMem, lingDb);
     ONSEM_ANSWER_EQ("Tu dois avancer 400 centimètres.",
                     operator_answer("De combien dois-je avancer en centimètres ?", semMem, lingDb));
+
+    operator_inform("Je dois tourner de 45 degrés", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Tu dois tourner de 45 degrés.",
+                    operator_answer("De combien dois-je tourner en degrés ?", semMem, lingDb));
   }
 }
 
