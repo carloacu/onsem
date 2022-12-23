@@ -106,6 +106,10 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
       }
     }
   }
+  else if (grd.type == SemanticGroundingType::ANGLE)
+  {
+    return pGrdExp.cloneGrounding();
+  }
   else if (grd.type == SemanticGroundingType::LENGTH)
   {
     if (pUnityGrdPtr == nullptr)

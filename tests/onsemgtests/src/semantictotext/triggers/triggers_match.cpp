@@ -187,6 +187,9 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
 
   triggers_addAnswerWithOneParameter("Advance", "How far should I advance in centimeters?",
                                      semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Turn", "How far should I turn?",
+                                     semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=300 centimeters)\\", triggers_match("Advance 3 meters", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=32 degrees)\\", triggers_match("Turn 32 degrees", semMem, lingDb));
 }
