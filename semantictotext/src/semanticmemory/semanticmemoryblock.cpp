@@ -631,9 +631,9 @@ void SemanticMemoryBlock::_writeInBinary(binarymasks::Ptr& pPtr,
 
   {
     binarymasks::Ptr beginOfLinksPtr = pPtr;
-    _impl->answersLinks.writeInBinary(pPtr, memGrdExpPtrOffsets, pLingDb);
-    _impl->conditionToInformationLinks.writeInBinary(pPtr, memGrdExpPtrOffsets, pLingDb);
-    _impl->sentWithActionLinks.writeInBinary(pPtr, memGrdExpPtrOffsets, pLingDb);
+    _impl->answersLinks.writeInBinary(pPtr, memGrdExpPtrOffsets);
+    _impl->conditionToInformationLinks.writeInBinary(pPtr, memGrdExpPtrOffsets);
+    _impl->sentWithActionLinks.writeInBinary(pPtr, memGrdExpPtrOffsets);
     pPtr = binarysaver::alignMemory(pPtr);
 
     uint32_t memoryLinkSize = pPtr.val - beginOfLinksPtr.val;
@@ -643,7 +643,7 @@ void SemanticMemoryBlock::_writeInBinary(binarymasks::Ptr& pPtr,
   {
     binarymasks::Ptr beginOfUserLinksPtr = pPtr;
     writeUserCenteredLinksInBinary(pPtr, _impl->userCenteredLinks,
-                                   memGrdExpPtrOffsets, semExpPtrOffsets, pLingDb);
+                                   memGrdExpPtrOffsets, semExpPtrOffsets);
     pPtr = binarysaver::alignMemory(pPtr);
 
     uint32_t userLinkSize = pPtr.val - beginOfUserLinksPtr.val;

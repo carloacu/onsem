@@ -93,7 +93,7 @@ static inline std::string semanticAngleUnity_toAbreviation(SemanticAngleUnity pA
 
 static inline std::string semanticAngleUnity_toConcept(SemanticAngleUnity pAngleUnity)
 {
-  return "angle_" + _semanticAngleUnity_toStr[semanticAngleUnity_toChar(pAngleUnity)];
+  return "location_relative_angle_" + _semanticAngleUnity_toStr[semanticAngleUnity_toChar(pAngleUnity)];
 }
 
 static inline std::string semanticAngleUnity_toStr(SemanticAngleUnity pAngleUnity)

@@ -145,8 +145,7 @@ void _writeLinksGrdExps(binarymasks::Ptr& pPtr,
 
 void _writeMemoryLinksInBinary(binarymasks::Ptr& pPtr,
                                const SemanticMemoryLinks& pLinks,
-                               const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets,
-                               const linguistics::LinguisticDatabase& pLingDb)
+                               const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets)
 {
   writeEnumMap<SemanticRequestType, SemanticLinksToGrdExps>
       (pPtr, pLinks.reqToGrdExps, semanticRequestType_allValues, [&](binarymasks::Ptr& pSubPtr,
@@ -306,8 +305,7 @@ void writeUserCenteredLinksInBinary(
     binarymasks::Ptr& pPtr,
     const SemanticUserCenteredMemoryLinksForMem& pUserCenteredMemoryLinks,
     const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets,
-    const semexpsaver::SemExpPtrOffsets& pSemExpPtrOffsets,
-    const linguistics::LinguisticDatabase& pLingDb)
+    const semexpsaver::SemExpPtrOffsets& pSemExpPtrOffsets)
 {
   std::map<int32_t, const SemanticStringLinks<MemoryGrdExpLinks, LinksAccessType::MAIN_VALUE>*> semExpOffsetToUserIds;
   for (const auto& currSEToUserId : pUserCenteredMemoryLinks.semExpToUserIds)
@@ -572,17 +570,16 @@ SemanticMemoryLinks& SemanticMemoryLinksForAnyVerbTense::getLinks(SemanticVerbTe
 
 void SemanticMemoryLinksForAnyVerbTense::writeInBinary(
     binarymasks::Ptr& pPtr,
-    const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets,
-    const linguistics::LinguisticDatabase& pLingDb) const
+    const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets) const
 {
-  _writeMemoryLinksInBinary(pPtr, links.notification, pMemGrdExpPtrOffsets, pLingDb);
-  _writeMemoryLinksInBinary(pPtr, links.ability, pMemGrdExpPtrOffsets, pLingDb);
-  _writeMemoryLinksInBinary(pPtr, pastLinks.notification, pMemGrdExpPtrOffsets, pLingDb);
-  _writeMemoryLinksInBinary(pPtr, pastLinks.ability, pMemGrdExpPtrOffsets, pLingDb);
-  _writeMemoryLinksInBinary(pPtr, futureLinks.notification, pMemGrdExpPtrOffsets, pLingDb);
-  _writeMemoryLinksInBinary(pPtr, futureLinks.ability, pMemGrdExpPtrOffsets, pLingDb);
-  _writeMemoryLinksInBinary(pPtr, infintiveLinks.notification, pMemGrdExpPtrOffsets, pLingDb);
-  _writeMemoryLinksInBinary(pPtr, infintiveLinks.ability, pMemGrdExpPtrOffsets, pLingDb);
+  _writeMemoryLinksInBinary(pPtr, links.notification, pMemGrdExpPtrOffsets);
+  _writeMemoryLinksInBinary(pPtr, links.ability, pMemGrdExpPtrOffsets);
+  _writeMemoryLinksInBinary(pPtr, pastLinks.notification, pMemGrdExpPtrOffsets);
+  _writeMemoryLinksInBinary(pPtr, pastLinks.ability, pMemGrdExpPtrOffsets);
+  _writeMemoryLinksInBinary(pPtr, futureLinks.notification, pMemGrdExpPtrOffsets);
+  _writeMemoryLinksInBinary(pPtr, futureLinks.ability, pMemGrdExpPtrOffsets);
+  _writeMemoryLinksInBinary(pPtr, infintiveLinks.notification, pMemGrdExpPtrOffsets);
+  _writeMemoryLinksInBinary(pPtr, infintiveLinks.ability, pMemGrdExpPtrOffsets);
 }
 
 

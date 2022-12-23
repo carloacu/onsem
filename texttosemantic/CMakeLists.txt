@@ -243,6 +243,7 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/tosemantic/syntacticgraphtosemantic.cpp
     src/tosemantic/syntacticgraphtosemantichourtimehandler.cpp
     src/tosemantic/syntacticgraphtosemanticlengthhandler.cpp
+    src/tosemantic/syntacticgraphtosemanticlocationhandler.cpp
     src/tosemantic/syntacticgraphtosemantictimehandler.cpp
     src/tosemantic/semtreehardcodedconverter.hpp
     src/tosemantic/semtreehardcodedconverter.cpp

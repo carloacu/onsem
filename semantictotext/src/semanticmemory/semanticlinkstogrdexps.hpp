@@ -402,8 +402,7 @@ public:
   const SemanticMemoryLinks& getLinks(SemanticVerbTense pTense, VerbGoalEnum pVerbGoal) const;
   SemanticMemoryLinks& getLinks(SemanticVerbTense pTense, VerbGoalEnum pVerbGoal);
   void writeInBinary(binarymasks::Ptr& pPtr,
-                     const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets,
-                     const linguistics::LinguisticDatabase& pLingDb) const;
+                     const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets) const;
 
   void clear() { links.clear(); pastLinks.clear(); futureLinks.clear(); infintiveLinks.clear(); }
   bool empty() const { return links.empty() && pastLinks.empty() && futureLinks.empty() && infintiveLinks.empty(); }
@@ -419,12 +418,10 @@ public:
 };
 
 
-void writeUserCenteredLinksInBinary(
-    binarymasks::Ptr& pPtr,
+void writeUserCenteredLinksInBinary(binarymasks::Ptr& pPtr,
     const SemanticUserCenteredMemoryLinksForMem& pUserCenteredMemoryLinks,
     const MemGrdExpPtrOffsets& pMemGrdExpPtrOffsets,
-    const semexpsaver::SemExpPtrOffsets& pSemExpPtrOffsets,
-    const linguistics::LinguisticDatabase& pLingDb);
+    const semexpsaver::SemExpPtrOffsets& pSemExpPtrOffsets);
 
 
 

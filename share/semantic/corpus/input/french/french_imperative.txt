@@ -42,7 +42,7 @@ Dis quelque chose de joyeux
 Supprime toutes les conditions
 avance plusieurs mètres
 Sois énervé
-
+Tourne de 30 degrés
 Mets le son plus fort
 Mets le son encore plus fort
 Mets le son moins fort

@@ -1314,11 +1314,16 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
     pEnsureLinksToGrdExps().resourceToSemExps[resGrd.resource].emplace_back(newMemGrdExp);
     break;
   }
+  case SemanticGroundingType::UNITY:
+  {
+    const auto& unityGrd = pGrounding.getUnityGrounding();
+    pEnsureLinksToGrdExps().conceptsToSemExps[unityGrd.getValueConcept()].emplace_back(newMemGrdExp);
+    break;
+  }
   case SemanticGroundingType::ANGLE:
   case SemanticGroundingType::CONCEPTUAL:
   case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LENGTH:
-  case SemanticGroundingType::UNITY:
     break;
   }
   return true;

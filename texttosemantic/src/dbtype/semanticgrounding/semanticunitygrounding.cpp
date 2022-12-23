@@ -5,13 +5,17 @@
 namespace onsem
 {
 
+void SemanticUnityGrounding::setValue(SemanticAngleUnity pAngleUnity)
+{
+  typeOfUnity = TypeOfUnity::ANGLE;
+  value = semanticAngleUnity_toChar(pAngleUnity);
+}
 
 void SemanticUnityGrounding::setValue(SemanticLengthUnity pLengthUnity)
 {
   typeOfUnity = TypeOfUnity::LENGTH;
   value = semanticLengthUnity_toChar(pLengthUnity);
 }
-
 
 void SemanticUnityGrounding::setValue(SemanticTimeUnity pTimeUnity)
 {
@@ -24,6 +28,9 @@ void SemanticUnityGrounding::setValue(TypeOfUnity pTypeOfUnity,
 {
   switch (pTypeOfUnity)
   {
+  case TypeOfUnity::ANGLE:
+    setValue(semanticAngleUnity_fromStr(pValueStr));
+    break;
   case TypeOfUnity::LENGTH:
     setValue(semanticLengthUnity_fromStr(pValueStr));
     break;
@@ -31,6 +38,18 @@ void SemanticUnityGrounding::setValue(TypeOfUnity pTypeOfUnity,
     setValue(semanticTimeUnity_fromStr(pValueStr));
     break;
   }
+}
+
+
+SemanticAngleUnity SemanticUnityGrounding::getAngleUnity() const
+{
+  if (typeOfUnity != TypeOfUnity::ANGLE)
+  {
+    assert(false);
+    std::cerr << "getAngleUnity() called with a wrong unity" << std::endl;
+    return SemanticAngleUnity::DEGREE;
+  }
+  return semanticAngleUnity_fromChar(value);
 }
 
 SemanticLengthUnity SemanticUnityGrounding::getLengthUnity() const
@@ -59,6 +78,8 @@ std::string SemanticUnityGrounding::getValueStr() const
 {
   switch (typeOfUnity)
   {
+  case TypeOfUnity::ANGLE:
+    return semanticAngleUnity_toStr(semanticAngleUnity_fromChar(value));
   case TypeOfUnity::LENGTH:
     return semanticLengthUnity_toStr(semanticLengthUnity_fromChar(value));
   case TypeOfUnity::TIME:
@@ -72,6 +93,8 @@ std::string SemanticUnityGrounding::getValueConcept() const
 {
   switch (typeOfUnity)
   {
+  case TypeOfUnity::ANGLE:
+    return semanticAngleUnity_toConcept(semanticAngleUnity_fromChar(value));
   case TypeOfUnity::LENGTH:
     return semanticLengthUnity_toConcept(semanticLengthUnity_fromChar(value));
   case TypeOfUnity::TIME:

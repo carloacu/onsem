@@ -5,14 +5,16 @@
 #include <string>
 #include "../../api.hpp"
 #include "semanticgrounding.hpp"
+#include "semanticanglegrounding.hpp"
 #include "semanticlengthgrounding.hpp"
 #include "semanticdurationgrounding.hpp"
 
 namespace onsem
 {
 
-#define SEMANTIC_TYPEOFUNITY_UNITY_TABLE              \
-  SEMANTIC_TYPEOFUNITY_UNITY(LENGTH, "length")        \
+#define SEMANTIC_TYPEOFUNITY_UNITY_TABLE                \
+  SEMANTIC_TYPEOFUNITY_UNITY(ANGLE, "angle")            \
+  SEMANTIC_TYPEOFUNITY_UNITY(LENGTH, "length")          \
   SEMANTIC_TYPEOFUNITY_UNITY(TIME, "time")
 
 
@@ -66,6 +68,12 @@ static inline TypeOfUnity typeOfUnity_fromStr(const std::string& pTypeOfUnityStr
 
 struct ONSEM_TEXTTOSEMANTIC_API SemanticUnityGrounding : public SemanticGrounding
 {
+  SemanticUnityGrounding(SemanticAngleUnity pAngleUnity)
+    : SemanticGrounding(SemanticGroundingType::UNITY),
+      typeOfUnity(TypeOfUnity::ANGLE),
+      value(semanticAngleUnity_toChar(pAngleUnity))
+  {
+  }
   SemanticUnityGrounding(SemanticLengthUnity pLengthUnity)
     : SemanticGrounding(SemanticGroundingType::UNITY),
       typeOfUnity(TypeOfUnity::LENGTH),
@@ -95,11 +103,13 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticUnityGrounding : public SemanticGroundin
   bool operator==(const SemanticUnityGrounding& pOther) const;
   bool isEqual(const SemanticUnityGrounding& pOther) const;
 
+  void setValue(SemanticAngleUnity pAngleUnity);
   void setValue(SemanticLengthUnity pLengthUnity);
   void setValue(SemanticTimeUnity pTimeUnity);
   void setValue(TypeOfUnity pTypeOfUnity,
                 const std::string& pValueStr);
 
+  SemanticAngleUnity getAngleUnity() const;
   SemanticLengthUnity getLengthUnity() const;
   SemanticTimeUnity getTimeUnity() const;
   std::string getValueStr() const;

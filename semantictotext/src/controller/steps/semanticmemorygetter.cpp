@@ -1913,12 +1913,18 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     }
     return res;
   }
+  case SemanticGroundingType::UNITY:
+  {
+    const auto& unityGrd = pGrdExpToLookFor->getUnityGrounding();
+    return _oneConceptToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps,
+                                            &pGrdExpToLookFor, pChildSemExpsToSkip, unityGrd.getValueConcept(),
+                                            pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren);
+  }
   case SemanticGroundingType::ANGLE:
   case SemanticGroundingType::RELATIVEDURATION:
   case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LENGTH:
   case SemanticGroundingType::META:
-  case SemanticGroundingType::UNITY:
     return false;
   }
   return false;
