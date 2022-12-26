@@ -16,7 +16,6 @@
 #include "controller/steps/semanticmemorylinker.hpp"
 #include "controller/semexpcontroller.hpp"
 #include "conversion/conditionsadder.hpp"
-#include "conversion/imperativeformadder.hpp"
 #include "operator/answeridontknow.hpp"
 #include "operator/externalteachingrequester.hpp"
 #include "operator/semanticcategorizer.hpp"
@@ -652,7 +651,6 @@ mystd::unique_propagate_const<UniqueSemanticExpression> resolveCommandFromMemBlo
     const linguistics::LinguisticDatabase& pLingDb)
 {
   UniqueSemanticExpression clonedSemExp = pSemExp.clone();
-  imperativeFormAdder::addFormForMandatoryGrdExps(clonedSemExp);
   conditionsAdder::addConditonsForSomeTimedGrdExp(clonedSemExp);
 
   std::unique_ptr<CompositeSemAnswer> compSemAnswers;
@@ -803,7 +801,6 @@ std::shared_ptr<ExpressionWithLinks> react(
     const ReactionOptions* pReactionOptions)
 {
   converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
-  imperativeFormAdder::addFormForMandatoryGrdExps(pSemExp);
   conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
 
   static const InformationType informationType = InformationType::INFORMATION;

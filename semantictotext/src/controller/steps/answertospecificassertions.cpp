@@ -40,6 +40,8 @@ bool _processWantSentences(SemControllerWorkingStruct& pWorkStruct,
 
     if (objStatGrdPtr->concepts.count("mentalState_know") != 0)
     {
+      if (pWorkStruct.reactOperator != SemanticOperatorEnum::REACT)
+        return false;
       if (objStatGrdPtr->verbTense != SemanticVerbTense::UNKNOWN)
         return false;
 
@@ -76,6 +78,7 @@ bool _processWantSentences(SemControllerWorkingStruct& pWorkStruct,
       {
         controller::manageAction(subWorkStruct, pMemViewer, *objStatGrdPtr, *objGrdExPtr, *objGrdExPtr);
         pWorkStruct.addAnswers(subWorkStruct);
+        return true;
       }
     }
   }
@@ -114,10 +117,22 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
   {
     if (currCpt.first == "verb_want")
       return _processWantSentences(pWorkStruct, pMemViewer, pGrdExp);
-    if (pWorkStruct.proativeSpecificationsPtr != nullptr &&
+    if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
+        pWorkStruct.proativeSpecificationsPtr != nullptr &&
         pWorkStruct.proativeSpecificationsPtr->canLearnANewAxiomaticnAction &&
         currCpt.first == "verb_action_teach")
       return _processTeachSentences(pWorkStruct, pMemViewer, pGrdExp, *statGrdPtr);
+  }
+
+  if (statGrd.verbGoal == VerbGoalEnum::MANDATORY)
+  {
+      SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+      if (subWorkStruct.askForNewRecursion())
+      {
+        controller::manageAction(subWorkStruct, pMemViewer, statGrd, pGrdExp, pGrdExp);
+        pWorkStruct.addAnswers(subWorkStruct);
+        return true;
+      }
   }
 
   return false;

@@ -1792,8 +1792,7 @@ const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
           return nullptr;
 
         const SemanticStatementGrounding* statGrdPtr = res->grounding().getStatementGroundingPtr();
-        if (statGrdPtr != nullptr &&
-            statGrdPtr->verbTense == SemanticVerbTense::UNKNOWN)
+        if (statGrdPtr != nullptr)
           return res;
       }
     }

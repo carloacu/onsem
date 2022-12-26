@@ -1178,6 +1178,11 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
     }
     break;
   }
+  case SemanticOperatorEnum::RESOLVECOMMAND:
+  {
+    answerToSpecificAssertions::process(pWorkStruct, pMemViewer, pGrdExp);
+    break;
+  }
   default:
     break;
   }

@@ -490,6 +490,20 @@ UniqueSemanticExpression getImperativeAssociateFrom(
 }
 
 
+UniqueSemanticExpression getMandatoryForm(
+    const GroundedExpression& pGrdExp)
+{
+  auto rootGrdExp = pGrdExp.clone();
+  SemanticStatementGrounding* statementGrd = (*rootGrdExp)->getStatementGroundingPtr();
+  if (statementGrd != nullptr)
+  {
+    statementGrd->verbGoal = VerbGoalEnum::MANDATORY;
+    statementGrd->requests.erase(SemanticRequestType::ACTION);
+  }
+  return std::move(rootGrdExp);
+}
+
+
 UniqueSemanticExpression getFutureIndicativeAssociatedForm(
     const GroundedExpression& pGrdExp)
 {

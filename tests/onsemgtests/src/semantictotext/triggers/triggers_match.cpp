@@ -175,6 +175,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=300 centimètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=400 centimètres)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#fr_FR#value(param1=700 centimètres)\\", triggers_match("Je veux que tu avances de 7 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=34 degrés)\\", triggers_match("Tourne de 34 degrés", semMem, lingDb));
 }
 
@@ -190,6 +191,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Turn", "How far should I turn?",
                                      semMem, lingDb, language);
 
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=300 centimeters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=300 centimeters)\\", triggers_match("Advance 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=32 degrees)\\", triggers_match("Turn 32 degrees", semMem, lingDb));
 }

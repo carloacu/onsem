@@ -1,8 +1,8 @@
 #include <onsem/semantictotext/executor/textexecutor.hpp>
-#include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
+#include "../conversion/mandatoryformconverter.hpp"
 
 namespace onsem
 {
@@ -60,8 +60,8 @@ void TextExecutor::_extractParameters(
 {
   if (pInputSemExpPtr != nullptr)
   {
-    auto clonedInput = pInputSemExpPtr->clone();
-    SemExpModifier::imperativeToMandatoryForm(*clonedInput);
+    UniqueSemanticExpression clonedInput = pInputSemExpPtr->clone();
+    mandatoryFormConverter::process(clonedInput);
     SemanticMemory semMemory;
     memoryOperation::inform(std::move(clonedInput), semMemory, _lingDb);
 

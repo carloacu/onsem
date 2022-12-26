@@ -76,6 +76,12 @@ void triggers_addAnswerWithOneParameter(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage)
 {
+  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           SemanticLanguageEnum::UNKNOWN);
+  triggerProcContext.isTimeDependent = false;
+  auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
+
   TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
                                                  SemanticAgentGrounding::currentUser,
                                                  pLanguage);
@@ -87,7 +93,12 @@ void triggers_addAnswerWithOneParameter(
   answer1Grd->resource.parameterLabelsToQuestions["param1"].emplace_back(std::move(paramSemExp));
   auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
 
-  triggers_addToSemExpAnswer(pTriggerText, std::move(answer1SemExp), pSemanticMemory, pLingDb, pLanguage);
+  std::list<UniqueSemanticExpression> otherTriggerFormulations;
+  converter::addOtherTriggerFormulations(otherTriggerFormulations, *triggerSemExp);
+  for (auto& currOtherTriggerFormulation : otherTriggerFormulations)
+    triggers::add(std::move(currOtherTriggerFormulation), answer1SemExp->clone(), pSemanticMemory, pLingDb);
+
+  triggers::add(std::move(triggerSemExp), std::move(answer1SemExp), pSemanticMemory, pLingDb);
 }
 
 

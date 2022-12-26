@@ -86,7 +86,8 @@ void getLinksOfAGrdExp(RequestLinks& pReqLinks,
                        SemControllerWorkingStruct& pWorkStruct,
                        SemanticMemoryBlockViewer& pMemViewer,
                        const GroundedExpression& pGrdExp,
-                       bool pAddSubordinateLinks = true);
+                       bool pAddSubordinateLinks = true,
+                       bool pIsAnAction = false);
 
 bool matchAffirmationTrigger(SemControllerWorkingStruct& pWorkStruct,
                              SemanticMemoryBlockViewer& pMemViewer,

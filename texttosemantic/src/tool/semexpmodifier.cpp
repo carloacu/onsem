@@ -53,17 +53,6 @@ void _addAnythingChildFromGrdExp(
                                std::make_unique<SemanticConceptualGrounding>("stuff_informationToFill")));
 }
 
-void _imperativeGrdExpToMandatoryForm(GroundedExpression& pGrdExp)
-{
-  auto* statGrdPtr = pGrdExp.grounding().getStatementGroundingPtr();
-  if (statGrdPtr != nullptr && statGrdPtr->requests.has(SemanticRequestType::ACTION))
-  {
-    auto& statGrd = *statGrdPtr;
-    statGrdPtr->requests.erase(SemanticRequestType::ACTION);
-    statGrd.verbGoal = VerbGoalEnum::MANDATORY;
-  }
-}
-
 }
 
 
@@ -1094,14 +1083,6 @@ void addAnythingChild(
     _addAnythingChildFromGrdExp(*currGrdExpPtr, pGrammaticalType);
 }
 
-
-void imperativeToMandatoryForm(SemanticExpression& pSemExp)
-{
-  std::list<GroundedExpression*> grdExps;
-  pSemExp.getGrdExpPtrs_SkipWrapperLists(grdExps); // TODO: do a callback system instead of using a list
-  for (auto& currGrdExp : grdExps)
-    _imperativeGrdExpToMandatoryForm(*currGrdExp);
-}
 
 } // End of namespace SemExpModifier
 

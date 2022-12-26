@@ -887,7 +887,8 @@ void getLinksOfAGrdExp(RequestLinks& pReqLinks,
                        SemControllerWorkingStruct& pWorkStruct,
                        SemanticMemoryBlockViewer& pMemViewer,
                        const GroundedExpression& pGrdExp,
-                       bool pAddSubordinateLinks)
+                       bool pAddSubordinateLinks,
+                       bool pIsAnAction)
 {
   const SemanticStatementGrounding* startPtr = pGrdExp->getStatementGroundingPtr();
   if (startPtr != nullptr)
@@ -922,6 +923,20 @@ void getLinksOfAGrdExp(RequestLinks& pReqLinks,
           else if (SemExpGetter::grdExpIsAnEmptyStatementGrd(childGrdExp))
           {
             continue;
+          }
+          else
+          {
+            if (pIsAnAction && reqType == SemanticRequestType::TIME)
+            {
+              auto* childTimeGrdPtr = childGrdExp->getTimeGroundingPtr();
+              if (childTimeGrdPtr != nullptr)
+              {
+                SemanticTimeGrounding refTimeGrd;
+                refTimeGrd.equalToNow();
+                if (childTimeGrdPtr->date.isTheSameDay(refTimeGrd.date))
+                  continue;
+              }
+            }
           }
 
           auto& subLinks = pReqLinks._addChildWithoutSortedContainer(reqType);
@@ -1171,7 +1186,7 @@ bool satisfyAnAction(SemControllerWorkingStruct& pWorkStruct,
 {
   // get links of the current sentence
   RequestLinks reqLinks;
-  getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
+  getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false, true);
 
   bool anAnswerHasBeenAdded = false;
   if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&

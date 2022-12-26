@@ -1,4 +1,4 @@
-#include "imperativeformadder.hpp"
+#include "mandatoryformconverter.hpp"
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativedurationgrounding.hpp>
@@ -10,12 +10,12 @@
 
 namespace onsem
 {
-namespace imperativeFormAdder
+namespace mandatoryFormConverter
 {
 
 
-void addFormForMandatoryGrdExps(UniqueSemanticExpression& pSemExp,
-                                const std::string& pUserId)
+void process(UniqueSemanticExpression& pSemExp,
+             const std::string& pUserId)
 {
   switch (pSemExp->type)
   {
@@ -24,12 +24,17 @@ void addFormForMandatoryGrdExps(UniqueSemanticExpression& pSemExp,
     GroundedExpression& grdExp = pSemExp->getGrdExp();
     if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
-      const SemanticStatementGrounding& statGrd = grdExp->getStatementGrounding();
-      const GroundedExpression* objectGrdExpPtr = SemExpGetter::getGrdExpToDo(grdExp, statGrd, pUserId);
-      if (objectGrdExpPtr != nullptr)
+      SemanticStatementGrounding& statGrd = grdExp->getStatementGrounding();
+      if (statGrd.requests.has(SemanticRequestType::ACTION))
       {
-        pSemExp = SemExpCreator::getImperativeAssociateFrom(*objectGrdExpPtr);
-        addFormForMandatoryGrdExps(pSemExp, pUserId);
+        statGrd.requests.erase(SemanticRequestType::ACTION);
+        statGrd.verbGoal = VerbGoalEnum::MANDATORY;
+      }
+      else
+      {
+        const GroundedExpression* objectGrdExpPtr = SemExpGetter::getGrdExpToDo(grdExp, statGrd, pUserId);
+        if (objectGrdExpPtr != nullptr)
+          pSemExp = SemExpCreator::getMandatoryForm(*objectGrdExpPtr);
       }
     }
     break;
@@ -38,22 +43,22 @@ void addFormForMandatoryGrdExps(UniqueSemanticExpression& pSemExp,
   {
     ListExpression& listExp = pSemExp->getListExp();
     for (auto& currElt : listExp.elts)
-      addFormForMandatoryGrdExps(currElt, pUserId);
+      process(currElt, pUserId);
     break;
   }
   case SemanticExpressionType::INTERPRETATION:
   {
-    addFormForMandatoryGrdExps(pSemExp->getIntExp().interpretedExp, pUserId);
+    process(pSemExp->getIntExp().interpretedExp, pUserId);
     break;
   }
   case SemanticExpressionType::FEEDBACK:
   {
-    addFormForMandatoryGrdExps(pSemExp->getFdkExp().concernedExp, pUserId);
+    process(pSemExp->getFdkExp().concernedExp, pUserId);
     break;
   }
   case SemanticExpressionType::ANNOTATED:
   {
-    addFormForMandatoryGrdExps(pSemExp->getAnnExp().semExp, pUserId);
+    process(pSemExp->getAnnExp().semExp, pUserId);
     break;
   }
   case SemanticExpressionType::METADATA:
@@ -64,17 +69,17 @@ void addFormForMandatoryGrdExps(UniqueSemanticExpression& pSemExp,
     if (authorSemExpPtr != nullptr)
       agentPtr = SemExpGetter::extractAgentGrdPtr(*authorSemExpPtr);
     if (agentPtr != nullptr)
-      addFormForMandatoryGrdExps(metadataExp.semExp, agentPtr->userId);
+      process(metadataExp.semExp, agentPtr->userId);
     else
-      addFormForMandatoryGrdExps(metadataExp.semExp, pUserId);
+      process(metadataExp.semExp, pUserId);
     break;
   }
   case SemanticExpressionType::CONDITION:
   {
     auto& condExp = pSemExp->getCondExp();
-    addFormForMandatoryGrdExps(condExp.thenExp, pUserId);
+    process(condExp.thenExp, pUserId);
     if (condExp.elseExp)
-      addFormForMandatoryGrdExps(*condExp.elseExp, pUserId);
+      process(*condExp.elseExp, pUserId);
     break;
   }
   case SemanticExpressionType::FIXEDSYNTHESIS:
@@ -86,7 +91,5 @@ void addFormForMandatoryGrdExps(UniqueSemanticExpression& pSemExp,
 }
 
 
-
-
-} // End of namespace imperativeFormAdder
+} // End of namespace mandatoryFormConverter
 } // End of namespace onsem
