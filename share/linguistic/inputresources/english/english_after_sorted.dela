@@ -28,6 +28,11 @@
 #off,.PREP
 #off,.A
 
+-launch.N
+-launch.V
+#launch,.N+Conc:s
+#launch,.V:Y:P1s:P2s:P1p:P2p:P3p:Y
+
 #english,English.N
 #french,French.N
 
