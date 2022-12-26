@@ -224,5 +224,17 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "\"comment-faire-un-deuil\"",
         operator_react("Comment faire un deuil ?", semMem, lingDb, language, &reactionOptions));
 
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#qu-est-ce-que-le-dimanche-du-gaudete\\",
+        "\"qu-est-ce-que-le-dimanche-du-gaudete\"",
+        operator_react("Qu'est-ce que le dimanche du Gaudete ?", semMem, lingDb, language, &reactionOptions));
+
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#qu-est-ce-que-moise-a-fait\\",
+        "\"qu-est-ce-que-moise-a-fait\"",
+        operator_react("Qu'est-ce que Moïse a fait ?", semMem, lingDb, language, &reactionOptions));
+
+
+
 }
 
