@@ -314,11 +314,13 @@ SemControllerWorkingStruct::SemControllerWorkingStruct
     callbackToSentencesCanBeAnsweredPtr(pCallbackToSentencesCanBeAnsweredPtr),
     axiomToConditionCurrentStatePtr(pAxiomToConditionCurrentStatePtr),
     lingDb(pLingDb),
+    comparisonExceptions(),
     nbRecurssiveCallsRemaining(10),
     contAnnotationOfPreviousAnswers(),
     reactionOptions(),
     compositeSemAnswers(std::make_unique<CompositeSemAnswer>(ListExpressionType::UNRELATED))
 {
+  comparisonExceptions.interpretations = true; // We do not consider the interpretations from InterpretationExpression
 }
 
 
@@ -340,6 +342,7 @@ SemControllerWorkingStruct::SemControllerWorkingStruct
     callbackToSentencesCanBeAnsweredPtr(pOther.callbackToSentencesCanBeAnsweredPtr),
     axiomToConditionCurrentStatePtr(pOther.axiomToConditionCurrentStatePtr),
     lingDb(pOther.lingDb),
+    comparisonExceptions(pOther.comparisonExceptions),
     nbRecurssiveCallsRemaining(pOther.nbRecurssiveCallsRemaining),
     contAnnotationOfPreviousAnswers(pOther.contAnnotationOfPreviousAnswers),
     reactionOptions(pOther.reactionOptions),

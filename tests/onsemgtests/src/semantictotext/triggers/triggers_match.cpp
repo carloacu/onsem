@@ -170,16 +170,19 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   triggers_addAnswerWithOneParameter("Avance", "De combien dois-je avancer en centimètres ?",
                                      semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Tourne", "De combien dois-je tourner en degrés ?",
+  triggers_addAnswerWithOneParameter("Tourne à gauche", "De combien dois-je tourner en degrés ?",
+                                     semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tourne à droite", "De combien dois-je tourner en degrés ?",
                                      semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Lance", "Qu'est-ce que je dois lancer ?",
                                      semMem, lingDb, language);
 
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=300 centimètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=400 centimètres)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
-  ONSEM_ANSWER_EQ("\\label=#fr_FR#value(param1=700 centimètres)\\", triggers_match("Je veux que tu avances de 7 mètres", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=34 degrés)\\", triggers_match("Tourne de 34 degrés", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#value(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=300 centimètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=400 centimètres)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=700 centimètres)\\", triggers_match("Je veux que tu avances de 7 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=34 degrés)\\", triggers_match("Tourne à gauche de 34 degrés", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à droite(param1=37 degrés)\\", triggers_match("Tourne à droite de 37 degrés", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
 }
 
 
@@ -196,8 +199,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Launch", "What should I launch?",
                                      semMem, lingDb, language);
 
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=300 centimeters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=300 centimeters)\\", triggers_match("Advance 3 meters", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=32 degrees)\\", triggers_match("Turn 32 degrees", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#value(param1=Akinator)\\", triggers_match("Launch akinator", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=300 centimeters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=300 centimeters)\\", triggers_match("Advance 3 meters", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn(param1=32 degrees)\\", triggers_match("Turn 32 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Launch(param1=Akinator)\\", triggers_match("Launch akinator", semMem, lingDb));
 }

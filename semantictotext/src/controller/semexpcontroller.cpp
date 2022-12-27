@@ -1162,7 +1162,10 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
     semanticMemoryLinker::getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
 
     // try to react according to the triggers
-    semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinks, pGrdExp);
+    if (semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinks, pGrdExp))
+      break;
+
+    answerToSpecificAssertions::process(pWorkStruct, pMemViewer, pGrdExp);
     break;
   }
   case SemanticOperatorEnum::GET:
@@ -1217,7 +1220,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
   {
   case SemanticGroundingType::STATEMENT:
   {
-    const SemanticStatementGrounding& statementGrd = pGrdExp->getStatementGrounding();
+    const auto& statementGrd = pGrdExp->getStatementGrounding();
 
     // handle the requests
     if (statementGrd.requests.has(SemanticRequestType::ACTION))

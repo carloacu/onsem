@@ -46,9 +46,8 @@ void _addAnythingChildFromGrdExp(
     GroundedExpression& pGrdExp,
     GrammaticalType pGrammaticalType)
 {
-  if (pGrdExp->getStatementGroundingPtr() != nullptr &&
-      pGrdExp.children.count(pGrammaticalType) == 0)
-    pGrdExp.children.emplace(pGrammaticalType,
+  if (pGrdExp->getStatementGroundingPtr() != nullptr)
+    SemExpModifier::addChild(pGrdExp, pGrammaticalType,
                              std::make_unique<GroundedExpression>(
                                std::make_unique<SemanticConceptualGrounding>("stuff_informationToFill")));
 }

@@ -123,7 +123,7 @@
     <include_child_list_template name="de+infinitif->cod"/>
   </word>
   <word lemma="regarder" pos="verb">
-    <child lemma="à" pos="preposition" chunkLinkType="location" />
+    <child lemma="à" pos="preposition" chunkLinkType="location" condition="!followedByResource" />
   </word>
   <word lemma="revenir" pos="verb">
     <include_child_list_template name="à+infinitive"/>
@@ -138,6 +138,7 @@
     <include_child_list_template name="à->cod"/>
   </word>
   <word lemma="tourner" pos="verb">
+    <child lemma="de" pos="partitive" chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_angle_, have_number_before)" />
     <child lemma="à" pos="preposition" chunkLinkType="location" />
   </word>
   <word lemma="traiter" pos="verb">

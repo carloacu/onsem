@@ -140,11 +140,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticAngle
 
 struct ONSEM_TEXTTOSEMANTIC_API SemanticAngleGrounding : public SemanticGrounding
 {
-  SemanticAngleGrounding()
-    : SemanticGrounding(SemanticGroundingType::ANGLE),
-      angle()
-  {
-  }
+  SemanticAngleGrounding();
 
   const SemanticAngleGrounding& getAngleGrounding() const override { return *this; }
   SemanticAngleGrounding& getAngleGrounding() override { return *this; }

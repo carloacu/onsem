@@ -24,4 +24,12 @@ void SemanticAngle::printAngle(std::list<std::string>& pListElts,
 }
 
 
+SemanticAngleGrounding::SemanticAngleGrounding()
+  : SemanticGrounding(SemanticGroundingType::ANGLE),
+    angle()
+{
+  concepts["location_relative_angle_*"] = 4;
+}
+
+
 } // End of namespace onsem

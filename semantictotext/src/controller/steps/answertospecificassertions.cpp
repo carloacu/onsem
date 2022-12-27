@@ -76,6 +76,7 @@ bool _processWantSentences(SemControllerWorkingStruct& pWorkStruct,
       SemControllerWorkingStruct subWorkStruct(pWorkStruct);
       if (subWorkStruct.askForNewRecursion())
       {
+        subWorkStruct.comparisonExceptions.request = true;
         controller::manageAction(subWorkStruct, pMemViewer, *objStatGrdPtr, *objGrdExPtr, *objGrdExPtr);
         pWorkStruct.addAnswers(subWorkStruct);
         return true;

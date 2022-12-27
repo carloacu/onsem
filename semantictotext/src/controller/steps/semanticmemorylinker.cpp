@@ -522,12 +522,10 @@ void _matchAnyTrigger
   std::map<std::size_t, std::set<const ExpressionWithLinks*>> nbOfErrorsToLowPrioritySemExpWrapperPtrs;
   for (const auto& currRel : idsToSentences.res.dynamicLinks)
   {
-    SemExpComparator::ComparisonExceptions comparisonExceptions;
-    comparisonExceptions.interpretations = true; // As we are in a trigger we do not consider the interpretations from InterpretationExpression
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
     const GroundedExpWithLinks& memSent = *currRel.second;
     if (SemExpComparator::grdExpsAreEqual(pInputGrdExp, memSent.grdExp, pMemViewer.constView,
-                                          pWorkStruct.lingDb, &comparisonExceptions, &comparisonErrorReporting))
+                                          pWorkStruct.lingDb, &pWorkStruct.comparisonExceptions, &comparisonErrorReporting))
     {
       pSemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
     }

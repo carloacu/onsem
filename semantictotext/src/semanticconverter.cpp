@@ -531,25 +531,6 @@ UniqueSemanticExpression getFutureIndicativeAssociatedForm(UniqueSemanticExpress
 }
 
 
-
-std::unique_ptr<UniqueSemanticExpression> imperativeToIWantThatYou(const SemanticExpression& pSemExp)
-{
-  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
-  if (grdExpPtr != nullptr)
-  {
-    auto* statGrdPtr = grdExpPtr->grounding().getStatementGroundingPtr();
-    if (statGrdPtr != nullptr)
-    {
-      auto& statGrd = *statGrdPtr;
-      if (statGrd.requests.has(SemanticRequestType::ACTION))
-        return std::make_unique<UniqueSemanticExpression>(
-              SemExpCreator::iWantThatYou(SemanticAgentGrounding::currentUser, SemExpCreator::getIndicativeFromImperative(*grdExpPtr)));
-    }
-  }
-  return {};
-}
-
-
 std::unique_ptr<UniqueSemanticExpression> imperativeToInfinitive(const SemanticExpression& pSemExp)
 {
   auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
@@ -581,9 +562,6 @@ UniqueSemanticExpression constructTeachSemExp(
 void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
                                  const SemanticExpression& pSemExp)
 {
-  auto iWantThatYou = imperativeToIWantThatYou(pSemExp);
-  if (iWantThatYou)
-    pRes.emplace_back(std::move(*iWantThatYou));
   auto inf = imperativeToInfinitive(pSemExp);
   if (inf)
     pRes.emplace_back(std::move(*inf));

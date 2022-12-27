@@ -891,20 +891,30 @@ void ChildSpecificationsContainer::addChildSpec(ChildSpecification&& pChildSpec)
 {
   listOfSpecifications.emplace_back(std::move(pChildSpec));
   auto& childSpec = listOfSpecifications.back();
-  auto& childsSpecs = lemmaToChildSpecs[childSpec.introWord ? childSpec.introWord->lemma : ""];
+  auto& lemmaTochildsSpec = lemmaToChildSpecs[childSpec.introWord ? childSpec.introWord->lemma : ""];
   bool childSpecInserted = false;
-  for (auto it = childsSpecs.begin(); it != childsSpecs.end(); ++it)
+  for (auto it = lemmaTochildsSpec.begin(); it != lemmaTochildsSpec.end(); ++it)
   {
     if (pChildSpec.templatePos < (*it)->templatePos)
     {
-      childsSpecs.insert(it, &childSpec);
+      lemmaTochildsSpec.insert(it, &childSpec);
       childSpecInserted = true;
       break;
     }
   }
   if (!childSpecInserted)
-    childsSpecs.emplace_back(&childSpec);
-  chkLinkToChildSpecs[childSpec.chunkLinkType].emplace_back(&childSpec);
+    lemmaTochildsSpec.emplace_back(&childSpec);
+
+  auto& childSpecs = chkLinkToChildSpecs[childSpec.chunkLinkType];
+  for (auto it = childSpecs.begin(); it != childSpecs.end(); ++it)
+  {
+    if (childSpec.templatePos < (*it)->templatePos)
+    {
+      childSpecs.insert(it, &childSpec);
+      return;
+    }
+  }
+  childSpecs.emplace_back(&childSpec);
 }
 
 

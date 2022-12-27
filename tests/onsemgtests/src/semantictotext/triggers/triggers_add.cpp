@@ -76,12 +76,6 @@ void triggers_addAnswerWithOneParameter(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage)
 {
-  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
-                                           SemanticAgentGrounding::me,
-                                           SemanticLanguageEnum::UNKNOWN);
-  triggerProcContext.isTimeDependent = false;
-  auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
-
   TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
                                                  SemanticAgentGrounding::currentUser,
                                                  pLanguage);
@@ -89,16 +83,11 @@ void triggers_addAnswerWithOneParameter(
   auto paramSemExp = converter::textToContextualSemExp(pParameterQuestion,
                                                        paramQuestionProcContext,
                                                        SemanticSourceEnum::UNKNOWN, pLingDb);
-  auto answer1Grd = std::make_unique<SemanticResourceGrounding>("label", pLanguage, "value");
+  auto answer1Grd = std::make_unique<SemanticResourceGrounding>("label", pLanguage, pTriggerText);
   answer1Grd->resource.parameterLabelsToQuestions["param1"].emplace_back(std::move(paramSemExp));
   auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
 
-  std::list<UniqueSemanticExpression> otherTriggerFormulations;
-  converter::addOtherTriggerFormulations(otherTriggerFormulations, *triggerSemExp);
-  for (auto& currOtherTriggerFormulation : otherTriggerFormulations)
-    triggers::add(std::move(currOtherTriggerFormulation), answer1SemExp->clone(), pSemanticMemory, pLingDb);
-
-  triggers::add(std::move(triggerSemExp), std::move(answer1SemExp), pSemanticMemory, pLingDb);
+  triggers_addToSemExpAnswer(pTriggerText, std::move(answer1SemExp), pSemanticMemory, pLingDb, pLanguage);
 }
 
 
@@ -395,12 +384,10 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, triggers_match(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react("démarre akinator", semMem, lingDb));
-    const auto iWantYouToLaunchAkinator = "Je veux que tu lances akinator";
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react("Je veux que tu lances akinator", semMem, lingDb));
     const auto toLaunchAkinator = "Lancer akinator";
-    ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas lancer akinator.", operator_react(iWantYouToLaunchAkinator, semMem, lingDb));
     ONSEM_FEEDBACK_EQ("C'est pas faux.", operator_react(toLaunchAkinator, semMem, lingDb));
     triggers_addOtherTriggerFormulations(triggerStr, answerStr, semMem, lingDb);
-    ONSEM_ANSWER_EQ(answerStr, operator_react(iWantYouToLaunchAkinator, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_react(toLaunchAkinator, semMem, lingDb));
     {
       std::stringstream ss;
@@ -423,10 +410,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     memoryOperation::learnSayCommand(semMem, lingDb);
     ONSEM_BEHAVIOR_EQ(answerStr, operator_react(triggerStr, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(answerStr, triggers_match(triggerStr, semMem, lingDb));
-    const auto iWantYouToFollowMe = "je veux que tu me suives";
-    ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas te suivre.", operator_react(iWantYouToFollowMe, semMem, lingDb));
-    triggers_addOtherTriggerFormulations(triggerStr, answerStr, semMem, lingDb);
-    ONSEM_ANSWER_EQ(answerStr, operator_react(iWantYouToFollowMe, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(answerStr, operator_react("je veux que tu me suives", semMem, lingDb));
   }
 
   // negative action trigger

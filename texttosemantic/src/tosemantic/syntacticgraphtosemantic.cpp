@@ -223,6 +223,32 @@ void _tryToAddTheIntroductingWord(SemanticExpression& pSemExp,
   }
 }
 
+void _splitLocationWithSpecifier(SemanticExpression& pSemExp,
+                                 GroundedExpression& pGrdExpSentence)
+{
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+  {
+    for (auto itChild = grdExpPtr->children.begin();
+         itChild != grdExpPtr->children.end(); )
+    {
+      if (itChild->first == GrammaticalType::SPECIFIER)
+      {
+        auto* specifierGrdExpPtr = itChild->second->getGrdExpPtr_SkipWrapperPtrs();
+        if (specifierGrdExpPtr != nullptr &&
+            specifierGrdExpPtr->grounding().getAngleGroundingPtr() != nullptr)
+        {
+          SemExpModifier::addChild(pGrdExpSentence, GrammaticalType::LOCATION,
+                                   std::move(itChild->second), ListExpressionType::UNRELATED);
+          itChild = grdExpPtr->children.erase(itChild);
+          break;
+        }
+      }
+      ++itChild;
+    }
+  }
+}
+
 std::unique_ptr<GroundedExpression> _tryToConvertLanguageChunk(const std::map<std::string, char>& pConcepts)
 {
   static const std::string langLabel = "language_";
@@ -3098,18 +3124,29 @@ void SyntacticGraphToSemantic::xAddNewGrammInfo
       }
     }
 
-    if (pContext.grammTypeFromParent == GrammaticalType::OBJECT &&
-        fConfiguration.getLanguageType() == SemanticLanguageEnum::ENGLISH)
-      _tryToConvertToInfinitiveSubordinate(childExpObject);
+    switch (pContext.grammTypeFromParent)
+    {
+    case GrammaticalType::OBJECT:
+    {
+      if (fConfiguration.getLanguageType() == SemanticLanguageEnum::ENGLISH)
+        _tryToConvertToInfinitiveSubordinate(childExpObject);
+      break;
+    }
+    case GrammaticalType::SUBORDINATE:
+      _tryToAddTheIntroductingWord(*childExpObject, pContext.chLink);
+      break;
+    case GrammaticalType::LOCATION:
+      _splitLocationWithSpecifier(*childExpObject, pGrdExpSentence);
+      break;
+    default:
+      break;
+    }
 
     if (pAdditionalChildren != nullptr)
       for (auto& currChild : *pAdditionalChildren)
         SemExpModifier::addChildFromSemExp(*childExpObject,
                                            currChild.first,
                                            std::move(currChild.second));
-
-    if (pContext.grammTypeFromParent == GrammaticalType::SUBORDINATE)
-      _tryToAddTheIntroductingWord(*childExpObject, pContext.chLink);
 
     SemExpModifier::addChild(*grdExpToLink, pContext.grammTypeFromParent,
                              std::move(childExpObject), pListExpType,

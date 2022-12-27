@@ -12,6 +12,7 @@
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
 #include <onsem/semantictotext/enum/semantictypeoffeedback.hpp>
 #include <onsem/semantictotext/type/reactionoptions.hpp>
+#include <onsem/semantictotext/tool/semexpcomparator.hpp>
 
 namespace onsem
 {
@@ -94,6 +95,7 @@ struct SemControllerWorkingStruct
   const std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback>>* callbackToSentencesCanBeAnsweredPtr;
   std::map<const SentenceWithLinks*, TruenessValue>* axiomToConditionCurrentStatePtr;
   const linguistics::LinguisticDatabase& lingDb;
+  SemExpComparator::ComparisonExceptions comparisonExceptions;
   int nbRecurssiveCallsRemaining; // to avoid infinite loops for sure
   mystd::optional<ContextualAnnotation> contAnnotationOfPreviousAnswers;
   ReactionOptions reactionOptions;
