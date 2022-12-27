@@ -56,3 +56,4 @@ Donne nous l'heure
 Raconte une histoire drôle
 Raconte quelque chose de drôle
 tourne à gauche de 23 degrés
+Va vers l'avant de 5 mètres

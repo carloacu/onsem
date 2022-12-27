@@ -71,7 +71,7 @@ void triggers_addToSemExpAnswer(
 
 void triggers_addAnswerWithOneParameter(
     const std::string& pTriggerText,
-    const std::string& pParameterQuestion,
+    const std::vector<std::string>& pParameterQuestions,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage)
@@ -80,11 +80,16 @@ void triggers_addAnswerWithOneParameter(
                                                  SemanticAgentGrounding::currentUser,
                                                  pLanguage);
   paramQuestionProcContext.isTimeDependent = false;
-  auto paramSemExp = converter::textToContextualSemExp(pParameterQuestion,
-                                                       paramQuestionProcContext,
-                                                       SemanticSourceEnum::UNKNOWN, pLingDb);
   auto answer1Grd = std::make_unique<SemanticResourceGrounding>("label", pLanguage, pTriggerText);
-  answer1Grd->resource.parameterLabelsToQuestions["param1"].emplace_back(std::move(paramSemExp));
+
+  for (auto& currQuestion : pParameterQuestions)
+  {
+    auto paramSemExp = converter::textToContextualSemExp(currQuestion,
+                                                         paramQuestionProcContext,
+                                                         SemanticSourceEnum::UNKNOWN, pLingDb);
+    answer1Grd->resource.parameterLabelsToQuestions["param1"].emplace_back(std::move(paramSemExp));
+  }
+
   auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
 
   triggers_addToSemExpAnswer(pTriggerText, std::move(answer1SemExp), pSemanticMemory, pLingDb, pLanguage);

@@ -168,20 +168,37 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   SemanticMemory semMem;
   auto language = SemanticLanguageEnum::FRENCH;
 
-  triggers_addAnswerWithOneParameter("Avance", "De combien dois-je avancer en centimètres ?",
-                                     semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Tourne à gauche", "De combien dois-je tourner en degrés ?",
-                                     semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Tourne à droite", "De combien dois-je tourner en degrés ?",
-                                     semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Lance", "Qu'est-ce que je dois lancer ?",
-                                     semMem, lingDb, language);
+  const std::vector<std::string> advanceParameterQuestions =
+  {"De combien dois-je avancer en centimètres ?",
+   "De combien dois-je aller vers l'avant en centimètres ?",
+   "De combien dois-je aller tout droit en centimètres ?"};
+  triggers_addAnswerWithOneParameter("Avance", advanceParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va vers l'avant", advanceParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va tout droit", advanceParameterQuestions, semMem, lingDb, language);
+
+  const std::vector<std::string> turnParameterQuestions =
+  {"De combien dois-je tourner en degré ?",
+   "De combien dois-je faire une rotation en degré ?"};
+  triggers_addAnswerWithOneParameter("Tourne à gauche", turnParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va à gauche", turnParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Fais une rotation à gauche", turnParameterQuestions, semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("Tourne à droite", turnParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va à droite", turnParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Fais une rotation à droite", turnParameterQuestions, semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("Lance", {"Qu'est-ce que je dois lancer ?"}, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=300 centimètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=400 centimètres)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant(param1=500 centimètres)\\", triggers_match("Va vers l'avant 5 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant(param1=600 centimètres)\\", triggers_match("Va vers l'avant de 6 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va tout droit(param1=700 centimètres)\\", triggers_match("Va tout droit 7 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va tout droit(param1=800 centimètres)\\", triggers_match("Va tout droit de 8 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=700 centimètres)\\", triggers_match("Je veux que tu avances de 7 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=34 degrés)\\", triggers_match("Tourne à gauche de 34 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à droite(param1=37 degrés)\\", triggers_match("Tourne à droite de 37 degrés", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une rotation à droite(param1=23 degrés)\\", triggers_match("Fais une rotation à droite de 23 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
 }
 
@@ -192,11 +209,11 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   SemanticMemory semMem;
   auto language = SemanticLanguageEnum::ENGLISH;
 
-  triggers_addAnswerWithOneParameter("Advance", "How far should I advance in centimeters?",
+  triggers_addAnswerWithOneParameter("Advance", {"How far should I advance in centimeters?"},
                                      semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Turn", "How far should I turn?",
+  triggers_addAnswerWithOneParameter("Turn", {"How far should I turn?"},
                                      semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Launch", "What should I launch?",
+  triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},
                                      semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=300 centimeters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));

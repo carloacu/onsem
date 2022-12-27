@@ -23,6 +23,7 @@
  </concept>
  <concept name="location_relative_inFrontOf">
   <linkedMeaning lemme="avant" relationToConcept="4"/>
+  <linkedMeaning lemme="l'avant" relationToConcept="3"/>
   <linkedMeaning lemme="devant" gram="preposition" relationToConcept="3"/>
   <linkedMeaning lemme="devant" gram="adverb" relationToConcept="3"/>
   <linkedMeaning lemme="devant" gram="noun" relationToConcept="3"/>

@@ -229,19 +229,32 @@ void _splitLocationWithSpecifier(SemanticExpression& pSemExp,
   auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
   {
-    for (auto itChild = grdExpPtr->children.begin();
-         itChild != grdExpPtr->children.end(); )
+    auto& grdExp = *grdExpPtr;
+    if (grdExp->getRelLocationGroundingPtr() != nullptr)
+      return;
+    for (auto itChild = grdExp.children.begin();
+         itChild != grdExp.children.end(); )
     {
       if (itChild->first == GrammaticalType::SPECIFIER)
       {
         auto* specifierGrdExpPtr = itChild->second->getGrdExpPtr_SkipWrapperPtrs();
-        if (specifierGrdExpPtr != nullptr &&
-            specifierGrdExpPtr->grounding().getAngleGroundingPtr() != nullptr)
+        if (specifierGrdExpPtr != nullptr)
         {
-          SemExpModifier::addChild(pGrdExpSentence, GrammaticalType::LOCATION,
-                                   std::move(itChild->second), ListExpressionType::UNRELATED);
-          itChild = grdExpPtr->children.erase(itChild);
-          break;
+          auto& specGrd = specifierGrdExpPtr->grounding();
+          if (specGrd.getAngleGroundingPtr() != nullptr)
+          {
+            SemExpModifier::addChild(pGrdExpSentence, GrammaticalType::LOCATION,
+                                     std::move(itChild->second), ListExpressionType::UNRELATED);
+            itChild = grdExp.children.erase(itChild);
+            break;
+          }
+          if (specGrd.getLengthGroundingPtr() != nullptr)
+          {
+            SemExpModifier::addChild(pGrdExpSentence, GrammaticalType::LENGTH,
+                                     std::move(itChild->second), ListExpressionType::UNRELATED);
+            itChild = grdExp.children.erase(itChild);
+            break;
+          }
         }
       }
       ++itChild;

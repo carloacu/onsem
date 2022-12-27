@@ -25,6 +25,7 @@
 -mars.N
 #mars,.N+z1:ms:mp
 #baseball,.N
+#l'avant,.N
 
 #homme d'affaires,.N+Profession+Hum:ms
 #hommes d'affaires,homme d'affaires.N+Profession+Hum:mp

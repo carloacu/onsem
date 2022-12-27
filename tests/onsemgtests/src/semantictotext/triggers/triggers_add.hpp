@@ -28,9 +28,8 @@ void triggers_addToSemExpAnswer(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
-void triggers_addAnswerWithOneParameter(
-    const std::string& pTriggerText,
-    const std::string& pParameterQuestion,
+void triggers_addAnswerWithOneParameter(const std::string& pTriggerText,
+    const std::vector<std::string>& pParameterQuestions,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
