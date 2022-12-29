@@ -828,13 +828,39 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
   return mystd::optional<ImbricationType>();
 }
 
+bool _hasInformationToFill(const SemanticExpression& pSemExp)
+{
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  return grdExpPtr != nullptr && grdExpPtr->grounding().concepts.count("stuff_informationToFill") > 0;
+}
+
+bool _hasInformationToFillFromListExpPtr(const ListExpPtr& pListExpPtr)
+{
+  for (const auto& currElt : pListExpPtr.elts)
+  {
+    if (_hasInformationToFill(*currElt))
+      return true;
+  }
+  return false;
+}
+
+ComparisonErrorsCoef _getErrorCoefFromListExpPtr(
+    GrammaticalType pGrammType,
+    const ListExpPtr& pListExpPtr)
+{
+  if (_hasInformationToFillFromListExpPtr(pListExpPtr))
+    return ComparisonErrorsCoef(1, ComparisonTypeOfError::PARAMETER_DIFF);
+  if (pGrammType == GrammaticalType::SPECIFIER)
+    return ComparisonErrorsCoef(5, ComparisonTypeOfError::SPECIFIER);
+  return ComparisonErrorsCoef(10, ComparisonTypeOfError::NORMAL);
+}
 
 ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
                                          const ListExpPtr& pListExpPtr2,
                                          const SemanticMemoryBlock& pMemBlock,
                                          const linguistics::LinguisticDatabase& pLingDb,
                                          const ComparisonExceptions* pExceptionsPtr,
-                                         std::size_t* pNbOfErrorsPtr,
+                                         ComparisonErrorsCoef* pComparisonErrorsCoefPtr,
                                          GrammaticalType pParentGrammaticalType)
 {
   auto res = ImbricationType::EQUALS;
@@ -853,24 +879,16 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
     }
     if (!found)
     {
-      if (pNbOfErrorsPtr == nullptr)
+      if (pComparisonErrorsCoefPtr == nullptr)
         return ImbricationType::DIFFERS;
-      ++(*pNbOfErrorsPtr);
+      if (_hasInformationToFill(*currEltList1))
+        pComparisonErrorsCoefPtr->add(ComparisonErrorsCoef(1, ComparisonTypeOfError::PARAMETER_DIFF));
+      else
+        pComparisonErrorsCoefPtr->add(ComparisonErrorsCoef(10, ComparisonTypeOfError::NORMAL));
       res = ImbricationType::DIFFERS;
     }
   }
   return res;
-}
-
-std::size_t _getErrorCoefFromListExpPtr(const ListExpPtr& pListExpPtr)
-{
-  for (const auto& currElt : pListExpPtr.elts)
-  {
-    auto* grdExpPtr = currElt->getGrdExpPtr_SkipWrapperPtrs();
-    if (grdExpPtr != nullptr && grdExpPtr->grounding().concepts.count("stuff_informationToFill") > 0)
-      return 1;
-  }
-  return 10;
 }
 
 }
@@ -1117,7 +1135,12 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
 
   const std::size_t size1 = listExpPtr1.elts.size();
   const std::size_t size2 = listExpPtr2.elts.size();
-  std::size_t errorCoef = std::abs(static_cast<int>(size1) - static_cast<int>(size2)) * 10;
+  const bool hasInformationToFill = _hasInformationToFillFromListExpPtr(listExpPtr1) || _hasInformationToFillFromListExpPtr(listExpPtr2);
+  ComparisonErrorsCoef errorCoef(std::abs(static_cast<int>(size1) - static_cast<int>(size2)), ComparisonTypeOfError::NORMAL);
+  if (hasInformationToFill)
+    errorCoef.type = ComparisonTypeOfError::PARAMETER_DIFF;
+  else
+    errorCoef.value *= 10;
   if ((listExpPtr1.listType.has_value() || listExpPtr2.listType.has_value()) &&
       listExpPtr1.listType != listExpPtr2.listType &&
       (listExpPtr1.listType == ListExpressionType::OR ||
@@ -1128,20 +1151,26 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
        listExpPtr2.listType == ListExpressionType::THEN_REVERSED))
   {
     if (pComparisonErrorReportingPtr != nullptr)
+    {
+      if (hasInformationToFill) /* Addition for list type difference */
+        errorCoef.value += 1;
+      else
+        errorCoef.value += 10;
       pComparisonErrorReportingPtr->addError(pParentGrammaticalType, ImbricationType::DIFFERS,
                                              listExpPtr1, listExpPtr2,
-                                             errorCoef + 10 /* 1 for list type difference */);
+                                             errorCoef);
+    }
     return ImbricationType::DIFFERS;
   }
 
-  std::size_t* nbOfErrorsPtr = pComparisonErrorReportingPtr != nullptr ? &errorCoef : nullptr;
+  ComparisonErrorsCoef* nbOfErrorsPtr = pComparisonErrorReportingPtr != nullptr ? &errorCoef : nullptr;
   if (size1 <= size2)
   {
     auto res = _getListExpsImbrications(listExpPtr1, listExpPtr2, pMemBlock, pLingDb, pExceptionsPtr,
                                         nbOfErrorsPtr, pParentGrammaticalType);
     if (res == ImbricationType::EQUALS && size1 < size2)
       res = ImbricationType::LESS_DETAILED;
-    if (pComparisonErrorReportingPtr != nullptr && errorCoef > 0)
+    if (pComparisonErrorReportingPtr != nullptr && !errorCoef.empty())
       pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, listExpPtr1, listExpPtr2, errorCoef);
     return res;
   }
@@ -1149,7 +1178,7 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
                                       nbOfErrorsPtr, pParentGrammaticalType);
   if (res == ImbricationType::EQUALS)
     res = ImbricationType::MORE_DETAILED;
-  if (pComparisonErrorReportingPtr != nullptr && errorCoef > 0)
+  if (pComparisonErrorReportingPtr != nullptr && !errorCoef.empty())
     pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, listExpPtr1, listExpPtr2, errorCoef);
   return res;
 }
@@ -1198,9 +1227,12 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
     }
     if (pComparisonErrorReportingPtr != nullptr)
     {
-      std::size_t errorCoef = 10;
+      ComparisonErrorsCoef errorCoef(10, ComparisonTypeOfError::NORMAL);
       if (grd1.concepts.count("stuff_informationToFill") > 0 || grd2.concepts.count("stuff_informationToFill") > 0)
-        errorCoef = 1;
+      {
+        errorCoef.value = 1;
+        errorCoef.type = ComparisonTypeOfError::PARAMETER_DIFF;
+      }
       pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication, ListExpPtr(pGrdExp1), ListExpPtr(pGrdExp2), errorCoef);
     }
     if (groundingImbrication == ImbricationType::DIFFERS)
@@ -1209,7 +1241,9 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
   else if (groundingImbrication != ImbricationType::EQUALS)
   {
     if (pComparisonErrorReportingPtr != nullptr)
-      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication, ListExpPtr(pGrdExp1), ListExpPtr(pGrdExp2), 10);
+      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication,
+                                             ListExpPtr(pGrdExp1), ListExpPtr(pGrdExp2),
+                                             ComparisonErrorsCoef(10, ComparisonTypeOfError::NORMAL));
   }
 
   auto tryToAddSemExp = [&](std::map<GrammaticalType, ListExpPtr>& pChildrenForAGramType,
@@ -1222,7 +1256,7 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
       return;
     ListExpPtr listExpPtr;
     _fillListExpPtr(listExpPtr, *pItChild->second, pExceptionsPtr, pFirstOrSecondArg,
-                    pItChild->first != GrammaticalType::SPECIFIER);
+                    true /*pItChild->first != GrammaticalType::SPECIFIER*/);
     if (!listExpPtr.elts.empty())
       pChildrenForAGramType.emplace(pItChild->first, std::move(listExpPtr));
   };
@@ -1322,15 +1356,17 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
   {
     for (auto& currChild : childrenOnlyIn1)
       pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::MORE_DETAILED, currChild.second, ListExpPtr(),
-                                             _getErrorCoefFromListExpPtr(currChild.second));
+                                             _getErrorCoefFromListExpPtr(currChild.first, currChild.second));
     for (auto& currChild : childrenOnlyIn2)
       pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::LESS_DETAILED, ListExpPtr(), currChild.second,
-                                             _getErrorCoefFromListExpPtr(currChild.second));
+                                             _getErrorCoefFromListExpPtr(currChild.first, currChild.second));
   }
 
   if (!childrenOnlyIn1.empty() && !childrenOnlyIn2.empty())
     return ImbricationType::DIFFERS;
 
+  if (childImbr && *childImbr == ImbricationType::DIFFERS)
+    return *childImbr;
   if (!childrenOnlyIn1.empty())
     childImbr = ImbricationType::MORE_DETAILED;
   else if (!childrenOnlyIn2.empty())

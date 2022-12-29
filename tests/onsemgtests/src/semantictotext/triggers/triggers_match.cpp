@@ -180,6 +180,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Va un peu vers l'avant", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va un peu tout droit", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Avance beaucoup", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va très vers l'avant", {}, semMem, lingDb, language);
 
   const std::vector<std::string> turnParameterQuestions =
   {"De combien dois-je tourner en degré ?",
@@ -205,6 +206,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va tout droit(param1=800 centimètres)\\", triggers_match("Va tout droit de 8 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=700 centimètres)\\", triggers_match("Je veux que tu avances de 7 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance\\", triggers_match("Avance", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant\\", triggers_match("Va vers l'avant", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance un peu\\", triggers_match("Avance un peu", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance beaucoup\\", triggers_match("Avance beaucoup", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=34 degrés)\\", triggers_match("Tourne à gauche de 34 degrés", semMem, lingDb));

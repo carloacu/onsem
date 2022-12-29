@@ -896,10 +896,11 @@ bool _keepOnlyWhatIsLessDetailledFromAxiomList(
     bool eraseIt = false;
     for (const auto& currElt : (*it)->memorySentences.elts)
     {
+      SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
       auto imbr = SemExpComparator::getGrdExpsImbrications(currElt.grdExp, pGrdExp, pMemViewer.constView,
-                                                           pLingDb, nullptr);
-      if (imbr == ImbricationType::MORE_DETAILED ||
-          imbr == ImbricationType::HYPONYM)
+                                                           pLingDb, nullptr, &comparisonErrorReporting);
+      if ((imbr == ImbricationType::MORE_DETAILED || imbr == ImbricationType::HYPONYM) &&
+          comparisonErrorReporting.getErrorCoef().type == SemExpComparator::ComparisonTypeOfError::NORMAL)
       {
         eraseIt = true;
         break;

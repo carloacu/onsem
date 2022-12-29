@@ -279,11 +279,15 @@ bool isASubpart(const SemanticExpression& pInputSemExp,
       if (isASubpart(*currElt, pSemExpToFind, pSemanticMemory, pLingDb))
         return true;
 
+  SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
   ImbricationType semExpsImbrications =
-      SemExpComparator::getSemExpsImbrications(pInputSemExp, pSemExpToFind, pSemanticMemory.memBloc, pLingDb, nullptr);
+      SemExpComparator::getSemExpsImbrications(pInputSemExp, pSemExpToFind, pSemanticMemory.memBloc, pLingDb,
+                                               nullptr, &comparisonErrorReporting);
   if (semExpsImbrications == ImbricationType::EQUALS ||
       semExpsImbrications == ImbricationType::MORE_DETAILED ||
       semExpsImbrications == ImbricationType::HYPONYM)
+    return true;
+  if (comparisonErrorReporting.getErrorCoef().type <= SemExpComparator::ComparisonTypeOfError::SPECIFIER)
     return true;
 
   // try to match with a feedback

@@ -82,11 +82,52 @@ struct ListExpPtr
   mystd::optional<ListExpressionType> listType;
 };
 
+enum ComparisonTypeOfError : char
+{
+  NO_ERROR,
+  PARAMETER_DIFF,
+  SPECIFIER,
+  NORMAL
+};
+
+struct ComparisonErrorsCoef
+{
+  explicit ComparisonErrorsCoef(std::size_t pValue = 0,
+                                ComparisonTypeOfError pType = ComparisonTypeOfError::NO_ERROR)
+    : value(pValue),
+      type(pType)
+  {
+    if (value == 0)
+      type = ComparisonTypeOfError::NO_ERROR;
+  }
+
+  bool operator<(const ComparisonErrorsCoef& pOther) const
+  {
+    if (type != pOther.type)
+      return type < pOther.type;
+    return value < pOther.value;
+  }
+
+  void add(const ComparisonErrorsCoef& pOther)
+  {
+    value += pOther.value;
+    type = std::max(type, pOther.type);
+  }
+
+  bool empty() const
+  {
+    return type == ComparisonTypeOfError::NO_ERROR;
+  }
+
+  std::size_t value;
+  ComparisonTypeOfError type;
+};
+
 struct ComparisonErrors
 {
   ComparisonErrors(const ListExpPtr& pChild1Ptr,
                    const ListExpPtr& pChild2Ptr,
-                   std::size_t pErrorCoef)
+                   const ComparisonErrorsCoef& pErrorCoef)
     : child1Ptr(pChild1Ptr),
       child2Ptr(pChild2Ptr),
       errorCoef(pErrorCoef)
@@ -95,7 +136,7 @@ struct ComparisonErrors
 
   const ListExpPtr child1Ptr;
   const ListExpPtr child2Ptr;
-  std::size_t errorCoef = 0;
+  ComparisonErrorsCoef errorCoef;
 };
 
 struct ComparisonErrorReporting
@@ -106,22 +147,22 @@ struct ComparisonErrorReporting
                 ImbricationType pImpbricationType,
                 const ListExpPtr& pChild1Ptr,
                 const ListExpPtr& pChild2Ptr,
-                std::size_t pErrorCoef)
+                const ComparisonErrorsCoef& pErrorCoef)
   {
     auto& childForAGram = childrenThatAreNotEqual[pGrammType];
     auto it = childForAGram.find(pImpbricationType);
     if (it != childForAGram.end())
-      it->second.errorCoef += pErrorCoef;
+      it->second.errorCoef.add(pErrorCoef);
     else
       childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, ComparisonErrors(pChild1Ptr, pChild2Ptr, pErrorCoef));
   }
 
-  std::size_t getErrorCoef()
+  ComparisonErrorsCoef getErrorCoef()
   {
-    std::size_t res = 0;
+    ComparisonErrorsCoef res;
     for (auto& currGramChild : childrenThatAreNotEqual)
       for (auto& currImbr : currGramChild.second)
-        res += currImbr.second.errorCoef;
+        res.add(currImbr.second.errorCoef);
     return res;
   }
 };

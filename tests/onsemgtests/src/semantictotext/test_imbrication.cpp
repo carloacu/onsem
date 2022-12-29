@@ -44,7 +44,6 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("I like banana", "I am fond of banana", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("a man and a woman", "a man and a woman", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("tu es par terre", "tu es sur le sol", semanticMemory, lingDb));
-  EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("no", "absolutely not", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("je m'aime", "j'aime moi", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("un chocolat", "le chocolat", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("chocolat", "le chocolat", semanticMemory, lingDb));
@@ -89,6 +88,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Paul ira à Paris", "Paul ira à Paris en janvier", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I asked walk", "I said walk yesterday", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("oui", "Oui, allons-y !", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("no", "absolutely not", semanticMemory, lingDb));
 
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("et puis", "et avant", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Il est né en 1988", "Il est né le 5 mai 1986", semanticMemory, lingDb));
@@ -102,6 +102,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I like a person", "I don't like you", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I am speaking", "I am smiling", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("a man and a woman", "a man or a woman", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Your battery is nearly empty", "Your battery is low", semanticMemory, lingDb));
 }
 
 
@@ -153,7 +154,8 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::DIFFERS, it2->first);
-    EXPECT_EQ(10, it2->second.errorCoef);
+    EXPECT_EQ(SemExpComparator::ComparisonTypeOfError::NORMAL, it2->second.errorCoef.type);
+    EXPECT_EQ(10, it2->second.errorCoef.value);
   }
 
   {
@@ -192,7 +194,8 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
-    EXPECT_EQ(10, it2->second.errorCoef);
+    EXPECT_EQ(SemExpComparator::ComparisonTypeOfError::SPECIFIER, it2->second.errorCoef.type);
+    EXPECT_EQ(5, it2->second.errorCoef.value);
   }
 
   {
@@ -207,7 +210,8 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
-    EXPECT_EQ(20, it2->second.errorCoef);
+    EXPECT_EQ(SemExpComparator::ComparisonTypeOfError::SPECIFIER, it2->second.errorCoef.type);
+    EXPECT_EQ(10, it2->second.errorCoef.value);
   }
 
   {
@@ -216,20 +220,23 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
                                                               "Dis quelque chose",
                                                               semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
                                                               &comparisonErrorReporting));
-    EXPECT_EQ(20, comparisonErrorReporting.getErrorCoef());
+    EXPECT_EQ(SemExpComparator::ComparisonTypeOfError::NORMAL, comparisonErrorReporting.getErrorCoef().type);
+    EXPECT_EQ(15, comparisonErrorReporting.getErrorCoef().value);
     ASSERT_EQ(2, comparisonErrorReporting.childrenThatAreNotEqual.size());
     auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
     EXPECT_EQ(GrammaticalType::RECEIVER, it->first);
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::MORE_DETAILED, it2->first);
-    EXPECT_EQ(10, it2->second.errorCoef);
+    EXPECT_EQ(SemExpComparator::ComparisonTypeOfError::NORMAL, it2->second.errorCoef.type);
+    EXPECT_EQ(10, it2->second.errorCoef.value);
     ++it;
     EXPECT_EQ(GrammaticalType::SPECIFIER, it->first);
     ASSERT_EQ(1, it->second.size());
     auto it3 = it->second.begin();
     EXPECT_EQ(ImbricationType::MORE_DETAILED, it3->first);
-    EXPECT_EQ(10, it3->second.errorCoef);
+    EXPECT_EQ(SemExpComparator::ComparisonTypeOfError::SPECIFIER, it3->second.errorCoef.type);
+    EXPECT_EQ(5, it3->second.errorCoef.value);
   }
 
   {

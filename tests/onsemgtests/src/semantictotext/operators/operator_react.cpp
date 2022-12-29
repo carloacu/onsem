@@ -1341,7 +1341,7 @@ TEST_F(SemanticReasonerGTests, operator_react_similarities)
                     operator_react("je suis né le 20 septembre 1986 à Paris.", semMem, lingDb));
   ONSEM_FEEDBACK_EQ("Damien est aussi né le 3 avril 1978.",
                     operator_react("je suis né le 3 avril 1978.", semMem, lingDb));
-  ONSEM_FEEDBACK_EQ("Je pensais le contraire.",
+  ONSEM_FEEDBACK_EQ("Je pensais que tu étais né le 3 avril 1978.",
                     operator_react("je suis né le 3 mars 1995.", semMem, lingDb));
   ONSEM_FEEDBACK_EQ("Damien est aussi né le 3 avril.",
                     operator_react("je suis né le 3 avril 1995.", semMem, lingDb));

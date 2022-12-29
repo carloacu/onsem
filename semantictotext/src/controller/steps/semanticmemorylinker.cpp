@@ -519,7 +519,7 @@ void _matchAnyTrigger
                        pMemViewer, pReqLinks, true, semanticMemoryGetter::RequestContext::SENTENCE,
                        nullptr, SemanticRequestType::NOTHING, true, true);
 
-  std::map<std::size_t, std::set<const ExpressionWithLinks*>> nbOfErrorsToLowPrioritySemExpWrapperPtrs;
+  std::map<SemExpComparator::ComparisonErrorsCoef, std::set<const ExpressionWithLinks*>> nbOfErrorsToLowPrioritySemExpWrapperPtrs;
   for (const auto& currRel : idsToSentences.res.dynamicLinks)
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
