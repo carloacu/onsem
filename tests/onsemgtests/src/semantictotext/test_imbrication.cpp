@@ -153,7 +153,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::DIFFERS, it2->first);
-    EXPECT_EQ(1, it2->second.nbOfErrors);
+    EXPECT_EQ(10, it2->second.errorCoef);
   }
 
   {
@@ -192,7 +192,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
-    EXPECT_EQ(1, it2->second.nbOfErrors);
+    EXPECT_EQ(10, it2->second.errorCoef);
   }
 
   {
@@ -207,7 +207,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
-    EXPECT_EQ(2, it2->second.nbOfErrors);
+    EXPECT_EQ(20, it2->second.errorCoef);
   }
 
   {
@@ -216,20 +216,20 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
                                                               "Dis quelque chose",
                                                               semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
                                                               &comparisonErrorReporting));
-    EXPECT_EQ(2, comparisonErrorReporting.nbOfErrors());
+    EXPECT_EQ(20, comparisonErrorReporting.getErrorCoef());
     ASSERT_EQ(2, comparisonErrorReporting.childrenThatAreNotEqual.size());
     auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
     EXPECT_EQ(GrammaticalType::RECEIVER, it->first);
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();
     EXPECT_EQ(ImbricationType::MORE_DETAILED, it2->first);
-    EXPECT_EQ(1, it2->second.nbOfErrors);
+    EXPECT_EQ(10, it2->second.errorCoef);
     ++it;
     EXPECT_EQ(GrammaticalType::SPECIFIER, it->first);
     ASSERT_EQ(1, it->second.size());
     auto it3 = it->second.begin();
     EXPECT_EQ(ImbricationType::MORE_DETAILED, it3->first);
-    EXPECT_EQ(1, it3->second.nbOfErrors);
+    EXPECT_EQ(10, it3->second.errorCoef);
   }
 
   {

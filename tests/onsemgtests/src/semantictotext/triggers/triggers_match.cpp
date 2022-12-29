@@ -176,6 +176,11 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Va vers l'avant", advanceParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va tout droit", advanceParameterQuestions, semMem, lingDb, language);
 
+  triggers_addAnswerWithOneParameter("Avance un peu", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va un peu vers l'avant", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va un peu tout droit", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Avance beaucoup", {}, semMem, lingDb, language);
+
   const std::vector<std::string> turnParameterQuestions =
   {"De combien dois-je tourner en degré ?",
    "De combien dois-je faire une rotation en degré ?"};
@@ -190,12 +195,18 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Lance", {"Qu'est-ce que je dois lancer ?"}, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=300 centimètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=500 centimètres)\\", triggers_match("Avance cinq mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=400 centimètres)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=100 centimètres)\\", triggers_match("Avance d'un mètre", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=200 centimètres)\\", triggers_match("Avance de deux mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant(param1=500 centimètres)\\", triggers_match("Va vers l'avant 5 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant(param1=600 centimètres)\\", triggers_match("Va vers l'avant de 6 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va tout droit(param1=700 centimètres)\\", triggers_match("Va tout droit 7 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va tout droit(param1=800 centimètres)\\", triggers_match("Va tout droit de 8 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=700 centimètres)\\", triggers_match("Je veux que tu avances de 7 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance\\", triggers_match("Avance", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance un peu\\", triggers_match("Avance un peu", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance beaucoup\\", triggers_match("Avance beaucoup", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=34 degrés)\\", triggers_match("Tourne à gauche de 34 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à droite(param1=37 degrés)\\", triggers_match("Tourne à droite de 37 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une rotation à droite(param1=23 degrés)\\", triggers_match("Fais une rotation à droite de 23 degrés", semMem, lingDb));

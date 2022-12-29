@@ -559,7 +559,7 @@ void _matchAnyTrigger
         }
       }
       if (canBeAtLowPriority)
-        nbOfErrorsToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.nbOfErrors()].insert(
+        nbOfErrorsToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.getErrorCoef()].insert(
               &memSent.getContextAxiom().getSemExpWrappedForMemory());
     }
   }

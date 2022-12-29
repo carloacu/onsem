@@ -86,16 +86,16 @@ struct ComparisonErrors
 {
   ComparisonErrors(const ListExpPtr& pChild1Ptr,
                    const ListExpPtr& pChild2Ptr,
-                   std::size_t pNbOfErrors)
+                   std::size_t pErrorCoef)
     : child1Ptr(pChild1Ptr),
       child2Ptr(pChild2Ptr),
-      nbOfErrors(pNbOfErrors)
+      errorCoef(pErrorCoef)
   {
   }
 
   const ListExpPtr child1Ptr;
   const ListExpPtr child2Ptr;
-  std::size_t nbOfErrors = 0;
+  std::size_t errorCoef = 0;
 };
 
 struct ComparisonErrorReporting
@@ -106,22 +106,22 @@ struct ComparisonErrorReporting
                 ImbricationType pImpbricationType,
                 const ListExpPtr& pChild1Ptr,
                 const ListExpPtr& pChild2Ptr,
-                std::size_t pNbOfErrors = 1)
+                std::size_t pErrorCoef)
   {
     auto& childForAGram = childrenThatAreNotEqual[pGrammType];
     auto it = childForAGram.find(pImpbricationType);
     if (it != childForAGram.end())
-      it->second.nbOfErrors += pNbOfErrors;
+      it->second.errorCoef += pErrorCoef;
     else
-      childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, ComparisonErrors(pChild1Ptr, pChild2Ptr, pNbOfErrors));
+      childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, ComparisonErrors(pChild1Ptr, pChild2Ptr, pErrorCoef));
   }
 
-  std::size_t nbOfErrors()
+  std::size_t getErrorCoef()
   {
     std::size_t res = 0;
     for (auto& currGramChild : childrenThatAreNotEqual)
       for (auto& currImbr : currGramChild.second)
-        res += currImbr.second.nbOfErrors;
+        res += currImbr.second.errorCoef;
     return res;
   }
 };
