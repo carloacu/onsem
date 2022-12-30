@@ -119,7 +119,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
               *number = 60 - *number;
             }
             auto time = std::make_unique<SemanticTimeGrounding>();
-            time->timeOfDay.sign = SemanticDurationSign::POSITIVE;
+            time->timeOfDay.sign = Sign::POSITIVE;
             time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = *hourNumber;
             time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = *number;
             return mystd::unique_propagate_const<UniqueSemanticExpression>

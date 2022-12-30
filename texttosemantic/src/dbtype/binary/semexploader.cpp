@@ -194,8 +194,7 @@ void _loadLength(SemanticLength& pLength,
 void _loadDuration(SemanticDuration& pDuration,
                    const unsigned char*& pPtr)
 {
-  pDuration.sign = binaryloader::loadChar_0(pPtr) ?
-        SemanticDurationSign::POSITIVE : SemanticDurationSign::NEGATIVE;
+  pDuration.sign = binaryloader::loadChar_0(pPtr) ? Sign::POSITIVE : Sign::NEGATIVE;
   unsigned char nbOfTimeInfos = binaryloader::loadChar_1To7(pPtr);
   ++pPtr;
   for (unsigned char i = 0; i < nbOfTimeInfos; ++i)
@@ -227,9 +226,12 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
       genGrd.quantity.type = semanticQuantityType_fromChar(binaryloader::loadChar_0To3(pPtr));
       genGrd.quantity.subjectiveValue = semanticSubjectiveQuantity_fromChar(binaryloader::loadChar_4To7(pPtr));
       ++pPtr;
-      genGrd.quantity.nb.value = _loadCharOrInt(pPtr, nbWrittenInACharOrInAInt);
+      genGrd.quantity.nb.valueN = _loadCharOrInt(pPtr, nbWrittenInACharOrInAInt);
       genGrd.quantity.nb.valueAfterTheDecimalPoint = nbWrittenInACharOrInAInt ? 0 : _loadInt(pPtr);
-      genGrd.quantity.nb.nbOfSignificantDigit = nbWrittenInACharOrInAInt ? 0u : *(pPtr++);
+      genGrd.quantity.nb.sign = nbWrittenInACharOrInAInt ? Sign::POSITIVE : (binaryloader::loadChar_0(pPtr) ? Sign::POSITIVE : Sign::NEGATIVE);
+      genGrd.quantity.nb.nbOfSignificantDigit = nbWrittenInACharOrInAInt ? 0u : binaryloader::loadChar_1To7(pPtr);
+      if (!nbWrittenInACharOrInAInt)
+        ++pPtr;
       genGrd.quantity.paramSpec = binaryloader::loadString(pPtr);
     }
     else if (!binaryloader::loadChar_7(pPtr++)) // if quantity is 1

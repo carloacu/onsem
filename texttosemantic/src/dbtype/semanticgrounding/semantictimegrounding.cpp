@@ -318,7 +318,7 @@ void SemanticDate::_equalToNow() // TODO: put it in private
 
 void SemanticDate::getCorrespondingDuration(SemanticDuration& pDuration) const
 {
-  pDuration.sign = SemanticDurationSign::POSITIVE;
+  pDuration.sign = Sign::POSITIVE;
   if (day)
     pDuration.timeInfos[SemanticTimeUnity::DAY] += *day;
   if (month)
@@ -545,7 +545,7 @@ bool SemanticTimeGrounding::isEqualMoreOrLess10Seconds(const SemanticTimeGroundi
   if (date == pOther.date)
   {
     SemanticDuration tenSeconds;
-    tenSeconds.sign = SemanticDurationSign::POSITIVE;
+    tenSeconds.sign = Sign::POSITIVE;
     tenSeconds.timeInfos.emplace(SemanticTimeUnity::SECOND, 10);
     return timeOfDay.isEqualWithMarginOfError(pOther.timeOfDay, tenSeconds);
   }
@@ -673,7 +673,7 @@ void SemanticTimeGrounding::_setToNow(
   }
 
   if (!pTimeDuration.timeInfos.empty())
-    pTimeDuration.sign = SemanticDurationSign::POSITIVE;
+    pTimeDuration.sign = Sign::POSITIVE;
 }
 
 

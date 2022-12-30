@@ -74,6 +74,7 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/misc/parameterswithvalue.hpp
     include/onsem/texttosemantic/dbtype/misc/conditionspecification.hpp
     include/onsem/texttosemantic/dbtype/misc/coreference.hpp
+    include/onsem/texttosemantic/dbtype/misc/sign.hpp
     include/onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp
     include/onsem/texttosemantic/dbtype/binary/semexploader.hpp
     include/onsem/texttosemantic/dbtype/binary/semexpsaver.hpp

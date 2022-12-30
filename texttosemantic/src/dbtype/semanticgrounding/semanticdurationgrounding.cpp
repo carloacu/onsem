@@ -17,15 +17,15 @@ bool SemanticDuration::operator<
 
   if (sign != pOther.sign)
   {
-    if (sign == SemanticDurationSign::NEGATIVE)
+    if (sign == Sign::NEGATIVE)
       return true;
-    if (pOther.sign == SemanticDurationSign::NEGATIVE)
+    if (pOther.sign == Sign::NEGATIVE)
       return false;
   }
 
   auto invertResultIfNecessary = [&](bool pRes)
   {
-    if (sign == SemanticDurationSign::NEGATIVE)
+    if (sign == Sign::NEGATIVE)
       return !pRes;
     return pRes;
   };
@@ -90,7 +90,7 @@ SemanticDuration SemanticDuration::fromRadixMapStr(const std::string& pRadixMapS
   bool isDirPositive = true;
   if (pRadixMapStr[i] == 'z')
   {
-    res.sign = SemanticDurationSign::NEGATIVE;
+    res.sign = Sign::NEGATIVE;
     isDirPositive = false;
     ++i;
   }
@@ -120,7 +120,7 @@ std::string SemanticDuration::toRadixMapStr() const
 {
   std::stringstream ss;
   bool isDirPositive = true;
-  if (sign == SemanticDurationSign::NEGATIVE)
+  if (sign == Sign::NEGATIVE)
   {
     ss << "z";
     isDirPositive = false;
@@ -184,7 +184,7 @@ SemanticDuration SemanticDuration::_addition(const SemanticDuration& pOther,
     else if (res == otherAbs)
     {
       res.clear();
-      res.sign = SemanticDurationSign::POSITIVE;
+      res.sign = Sign::POSITIVE;
       return res;
     }
     else
@@ -214,7 +214,7 @@ SemanticDuration SemanticDuration::_addition(const SemanticDuration& pOther,
 SemanticDuration SemanticDuration::abs(const SemanticDuration& pDuration)
 {
   SemanticDuration res;
-  res.sign = SemanticDurationSign::POSITIVE;
+  res.sign = Sign::POSITIVE;
   res.timeInfos = pDuration.timeInfos;
   return res;
 }
@@ -228,7 +228,7 @@ void SemanticDuration::printDuration
     return;
   std::stringstream ss;
   ss << pDurationLabelName << "(";
-  ss << semanticDurationSigne_toStr(sign);
+  ss << sign_toStr(sign);
   for (const auto& currElt : timeInfos)
     ss << currElt.second << semanticTimeUnity_toAbreviation(currElt.first);
   ss << ")";
@@ -255,10 +255,10 @@ bool SemanticDuration::_invertDirectionIfNecessary()
 
   if (needToInvertOrder)
   {
-    if (sign == SemanticDurationSign::POSITIVE)
-      sign = SemanticDurationSign::NEGATIVE;
-    else if (sign == SemanticDurationSign::NEGATIVE)
-      sign = SemanticDurationSign::POSITIVE;
+    if (sign == Sign::POSITIVE)
+      sign = Sign::NEGATIVE;
+    else if (sign == Sign::NEGATIVE)
+      sign = Sign::POSITIVE;
     for (; itTimeInfo != timeInfos.end(); ++itTimeInfo)
       itTimeInfo->second = -itTimeInfo->second;
   }
@@ -268,7 +268,7 @@ bool SemanticDuration::_invertDirectionIfNecessary()
 
 void SemanticDuration::clear()
 {
-  sign = SemanticDurationSign::POSITIVE;
+  sign = Sign::POSITIVE;
   timeInfos.clear();
 }
 
@@ -348,7 +348,7 @@ int64_t SemanticDuration::nbMilliseconds() const
   int64_t res = 0;
   for (const auto& currTimeInfo : timeInfos)
     res += semanticTimeUnity_toNbOfMilliseconds(currTimeInfo.first) * currTimeInfo.second;
-  if (sign != SemanticDurationSign::NEGATIVE)
+  if (sign != Sign::NEGATIVE)
     return res;
   return -res;
 }

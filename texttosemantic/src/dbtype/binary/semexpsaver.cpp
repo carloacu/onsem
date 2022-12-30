@@ -211,7 +211,7 @@ void _writeLength(binarymasks::Ptr& pPtr,
 void _writeDuration(binarymasks::Ptr& pPtr,
                     const SemanticDuration& pDuration)
 {
-  binarysaver::writeChar_0(pPtr.pchar, pDuration.sign == SemanticDurationSign::POSITIVE);
+  binarysaver::writeChar_0(pPtr.pchar, pDuration.sign == Sign::POSITIVE);
   unsigned char nbOfTimeInfos = binarysaver::sizet_to_uchar(pDuration.timeInfos.size());
   binarysaver::writeChar_1To7(pPtr.pchar, nbOfTimeInfos);
   ++pPtr.pchar;
@@ -245,18 +245,21 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     binarysaver::writeChar_6(pPtr.pchar, writeTheQuantity);
     if (writeTheQuantity)
     {
-      const bool nbCanBeWrittenInAChar = !genGrd.quantity.nb.isAnInteger() ||
-          binarysaver::intCanBeStoredInAChar(genGrd.quantity.nb.value);
+      const bool nbCanBeWrittenInAChar = genGrd.quantity.nb.isPositive() &&
+          genGrd.quantity.nb.isAnInteger() &&
+          binarysaver::intCanBeStoredInAChar(genGrd.quantity.nb.valueN);
       binarysaver::writeChar_7(pPtr.pchar, nbCanBeWrittenInAChar);
       ++pPtr.pchar;
       binarysaver::writeChar_0To3(pPtr.pchar, semanticQuantityType_toChar(genGrd.quantity.type));
       binarysaver::writeChar_4To7(pPtr.pchar, semanticSubjectiveQuantity_toChar(genGrd.quantity.subjectiveValue));
       ++pPtr.pchar;
-      _writeCharOrInt(pPtr, genGrd.quantity.nb.value, nbCanBeWrittenInAChar);
+      _writeCharOrInt(pPtr, genGrd.quantity.nb.valueN, nbCanBeWrittenInAChar);
       if (!nbCanBeWrittenInAChar)
       {
         binarysaver::writeInt(pPtr.pint++, genGrd.quantity.nb.valueAfterTheDecimalPoint);
-        binarysaver::writeChar(pPtr.pchar++, genGrd.quantity.nb.nbOfSignificantDigit);
+        binarysaver::writeChar_0(pPtr.pchar, genGrd.quantity.nb.isPositive());
+        binarysaver::writeChar_1To7(pPtr.pchar, genGrd.quantity.nb.nbOfSignificantDigit);
+        ++pPtr.pchar;
       }
       binarysaver::writeString(pPtr, genGrd.quantity.paramSpec);
     }

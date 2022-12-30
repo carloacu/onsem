@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <onsem/common/utility/to_underlying.hpp>
+#include <onsem/texttosemantic/dbtype/misc/sign.hpp>
 #include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
@@ -224,40 +225,6 @@ inline static std::string monthConceptStr_fromMonthId(int pMonthId)
 
 
 
-// Direction values
-// ================
-
-
-#define SEMANTIC_DURATION_DIRECTION_TABLE       \
-  SEMANTIC_DURATION_DIRECTION(NEGATIVE, "-")    \
-  SEMANTIC_DURATION_DIRECTION(POSITIVE, "")
-
-
-#define SEMANTIC_DURATION_DIRECTION(a, b) a,
-enum class SemanticDurationSign
-{
-  SEMANTIC_DURATION_DIRECTION_TABLE
-};
-#undef SEMANTIC_DURATION_DIRECTION
-
-
-#define SEMANTIC_DURATION_DIRECTION(a, b) b,
-static const std::vector<std::string> _semanticDurationSigne_toStr = {
-  SEMANTIC_DURATION_DIRECTION_TABLE
-};
-#undef SEMANTIC_DURATION_DIRECTION
-#undef SEMANTIC_DURATION_DIRECTION_TABLE
-
-
-
-static inline std::string semanticDurationSigne_toStr(SemanticDurationSign pDirection)
-{
-  return _semanticDurationSigne_toStr[mystd::to_underlying(pDirection)];
-}
-
-
-
-
 // Duration Grounding
 // ==================
 
@@ -282,11 +249,11 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticDuration
   bool isEmpty() const;
   void removeEmptyValues();
   int64_t nbMilliseconds() const;
-  bool isPositive() const { return sign == SemanticDurationSign::POSITIVE; }
+  bool isPositive() const { return sign == Sign::POSITIVE; }
   bool isEqualWithMarginOfError(const SemanticDuration& pOther,
                                 const SemanticDuration& pMarginOfError) const;
 
-  SemanticDurationSign sign{SemanticDurationSign::POSITIVE};
+  Sign sign{Sign::POSITIVE};
   std::map<SemanticTimeUnity, int> timeInfos{};
 
 

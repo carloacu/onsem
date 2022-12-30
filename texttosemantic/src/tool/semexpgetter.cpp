@@ -434,7 +434,7 @@ int getNumberOfRepetitions(const std::map<GrammaticalType, UniqueSemanticExpress
   {
     auto res = getNumberOfElements(*itRepetitionChild->second);
     if (res)
-      return res->value;
+      return res->valueN;
   }
   return 1;
 }

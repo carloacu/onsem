@@ -5,7 +5,7 @@
 #include <onsem/common/enum/semanticsubjectivequantity.hpp>
 #include <onsem/common/enum/semanticquantitytype.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
-
+#include <onsem/texttosemantic/dbtype/misc/sign.hpp>
 
 namespace onsem
 {
@@ -27,10 +27,18 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticFloat
   void add(const SemanticFloat& pOther);
   void add(int pValue);
   void set(int pValue);
+  bool isPositive() const;
   bool isAnInteger() const;
-  std::string toStr(SemanticLanguageEnum pLanguage = SemanticLanguageEnum::ENGLISH) const;
+  int signedValueWithoutDecimal() const;
 
-  int value;
+  std::string toStr(SemanticLanguageEnum pLanguage = SemanticLanguageEnum::ENGLISH) const;
+  std::string toStrWithSeparator(char pSeparator) const;
+
+  void fromStr(const std::string& pStr, SemanticLanguageEnum pLanguage = SemanticLanguageEnum::ENGLISH);
+  void fromStrWithSeparator(const std::string& pStr, char pSeparator);
+
+  Sign sign;
+  std::size_t valueN;
   std::size_t valueAfterTheDecimalPoint;
   unsigned char nbOfSignificantDigit;
 };

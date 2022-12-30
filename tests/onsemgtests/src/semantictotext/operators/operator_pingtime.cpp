@@ -52,7 +52,7 @@ TEST_F(SemanticReasonerGTests, operator_pingtime_basic)
     const SemanticDuration& absoluteDuration = semanticBeginOfTimes.front();
     SemanticDuration relativeDuration =
         SemanticTimeGrounding::absoluteToRelative(absoluteDuration);
-    EXPECT_EQ(SemanticDurationSign::POSITIVE, relativeDuration.sign);
+    EXPECT_EQ(Sign::POSITIVE, relativeDuration.sign);
     EXPECT_EQ(1u, relativeDuration.timeInfos.size());
     auto itTimeInfos = relativeDuration.timeInfos.begin();
     EXPECT_EQ(SemanticTimeUnity::MINUTE, itTimeInfos->first);
@@ -68,7 +68,7 @@ TEST_F(SemanticReasonerGTests, operator_pingtime_basic)
     const SemanticDuration& absoluteDuration = semanticBeginOfTimes.front();
     SemanticDuration relativeDuration =
         SemanticTimeGrounding::absoluteToRelative(absoluteDuration);
-    EXPECT_EQ(SemanticDurationSign::POSITIVE, relativeDuration.sign);
+    EXPECT_EQ(Sign::POSITIVE, relativeDuration.sign);
     EXPECT_EQ(1u, relativeDuration.timeInfos.size());
     auto itTimeInfos = relativeDuration.timeInfos.begin();
     EXPECT_EQ(SemanticTimeUnity::MILLISECOND, itTimeInfos->first);

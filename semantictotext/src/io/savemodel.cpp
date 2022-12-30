@@ -128,7 +128,7 @@ void _saveSemanticLength(boost::property_tree::ptree& pTree,
 void _saveSemanticDuration(boost::property_tree::ptree& pTree,
                            const SemanticDuration& pSemanticDuration)
 {
-  if (pSemanticDuration.sign != SemanticDurationSign::POSITIVE)
+  if (pSemanticDuration.sign != Sign::POSITIVE)
     pTree.put("sign", false);
   for (const auto& currTimeInfo : pSemanticDuration.timeInfos)
     pTree.put(semanticTimeUnity_toStr(currTimeInfo.first), currTimeInfo.second);

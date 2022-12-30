@@ -43,7 +43,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
           if (getNumberBeforeHead(number, pContext.chunk))
           {
             auto newDuration = std::make_unique<SemanticDurationGrounding>();
-            newDuration->duration.sign = SemanticDurationSign::POSITIVE;
+            newDuration->duration.sign = Sign::POSITIVE;
             newDuration->duration.timeInfos[currTimeUnity] = number;
             return mystd::unique_propagate_const<UniqueSemanticExpression>
                 (std::make_unique<GroundedExpression>(std::move(newDuration)));

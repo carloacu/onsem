@@ -183,13 +183,13 @@ void _loadSemanticLength(SemanticLength& pSemanticLength,
 void _loadSemanticDuration(SemanticDuration& pSemanticDuration,
                            const boost::property_tree::ptree& pTree)
 {
-  pSemanticDuration.sign = SemanticDurationSign::POSITIVE;
+  pSemanticDuration.sign = Sign::POSITIVE;
   if (!pTree.empty())
     for (const auto& currTimeInfo : pTree)
     {
       const std::string label = currTimeInfo.first.data();
       if (label == "sign")
-        pSemanticDuration.sign = SemanticDurationSign::NEGATIVE;
+        pSemanticDuration.sign = Sign::NEGATIVE;
       else
         pSemanticDuration.timeInfos.emplace
             (semanticTimeUnity_fromStr(label),
