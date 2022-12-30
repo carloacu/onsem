@@ -521,7 +521,7 @@ template <bool IS_MODIFIABLE>
 bool _getNumberRelations(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
                          const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
                          MemoryLinksAccessor<IS_MODIFIABLE>& pLinksToSemExps,
-                         int pNumber,
+                         const SemanticFloat& pNumber,
                          const GroundedExpression& pGrdExpToLookFor,
                          const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
                          const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,

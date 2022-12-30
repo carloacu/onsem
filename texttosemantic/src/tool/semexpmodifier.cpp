@@ -132,7 +132,7 @@ std::list<GroundedExpression*> listTopGroundedExpressionsPtr(SemanticExpression&
 }
 
 
-void setNumberFromSemExp(UniqueSemanticExpression& pSemExp, int pNumber)
+void setNumberFromSemExp(UniqueSemanticExpression& pSemExp, const SemanticFloat& pNumber)
 {
   auto* grdExpPtr = pSemExp->getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)

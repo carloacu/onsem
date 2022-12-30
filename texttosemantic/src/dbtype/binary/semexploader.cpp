@@ -146,14 +146,19 @@ void _loadNameInfos(NameInfos& pNameInfos,
 }
 
 
+int _loadInt(const unsigned char*& pPtr)
+{
+  auto resPtr = pPtr;
+  pPtr += 4;
+  return binaryloader::loadInt(resPtr);
+}
+
 int _loadCharOrInt(const unsigned char*& pPtr,
                    bool pCharOrInt)
 {
   if (pCharOrInt)
     return static_cast<int>(*((const char*)(pPtr++)));
-  auto resPtr = pPtr;
-  pPtr += 4;
-  return binaryloader::loadInt(resPtr);
+  return _loadInt(pPtr);
 }
 
 
@@ -222,7 +227,9 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
       genGrd.quantity.type = semanticQuantityType_fromChar(binaryloader::loadChar_0To3(pPtr));
       genGrd.quantity.subjectiveValue = semanticSubjectiveQuantity_fromChar(binaryloader::loadChar_4To7(pPtr));
       ++pPtr;
-      genGrd.quantity.nb = _loadCharOrInt(pPtr, nbWrittenInACharOrInAInt);
+      genGrd.quantity.nb.value = _loadCharOrInt(pPtr, nbWrittenInACharOrInAInt);
+      genGrd.quantity.nb.valueAfterTheDecimalPoint = nbWrittenInACharOrInAInt ? 0 : _loadInt(pPtr);
+      genGrd.quantity.nb.nbOfSignificantDigit = nbWrittenInACharOrInAInt ? 0u : *(pPtr++);
       genGrd.quantity.paramSpec = binaryloader::loadString(pPtr);
     }
     else if (!binaryloader::loadChar_7(pPtr++)) // if quantity is 1

@@ -1,5 +1,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <sstream>
+#include <onsem/common/utility/lexical_cast.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>

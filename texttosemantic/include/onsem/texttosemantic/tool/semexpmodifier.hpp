@@ -19,6 +19,7 @@ namespace onsem
 {
 struct SemanticQuantity;
 struct Coreference;
+struct SemanticFloat;
 namespace linguistics
 {
 class LinguisticDatabase;
@@ -47,7 +48,7 @@ ONSEM_TEXTTOSEMANTIC_API
 void infGrdExpToMandatoryForm(GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void setNumberFromSemExp(UniqueSemanticExpression& pSemExp, int pNumber);
+void setNumberFromSemExp(UniqueSemanticExpression& pSemExp, const SemanticFloat& pNumber);
 
 ONSEM_TEXTTOSEMANTIC_API
 void setAtPluralFromSemExp(SemanticExpression& pSemExp);

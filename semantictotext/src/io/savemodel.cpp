@@ -243,7 +243,7 @@ void _saveSemanticQuantity(boost::property_tree::ptree& pTree,
   if (pSemanticQuantity.type != SemanticQuantityType::UNKNOWN)
     pTree.put("type", semanticQuantityType_toStr(pSemanticQuantity.type));
   if (pSemanticQuantity.nb != 0)
-    pTree.put("nb", pSemanticQuantity.nb);
+    pTree.put("nb", pSemanticQuantity.nb.toStr());
   if (!pSemanticQuantity.paramSpec.empty())
     pTree.put("paramSpec", pSemanticQuantity.paramSpec);
   if (pSemanticQuantity.subjectiveValue != SemanticSubjectiveQuantity::UNKNOWN)

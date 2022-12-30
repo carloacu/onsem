@@ -368,13 +368,13 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
   switch (pGrounding.quantity.type)
   {
   case SemanticQuantityType::NUMBER:
-    ssQuantityToPrint << "nb, " << pGrounding.quantity.nb;
+    ssQuantityToPrint << "nb, " << pGrounding.quantity.nb.toStr();
     break;
   case SemanticQuantityType::NUMBERTOFILL:
     ssQuantityToPrint << "nbToFill, " << pGrounding.quantity.paramSpec;
     break;
   case SemanticQuantityType::MOREOREQUALTHANNUMBER:
-    ssQuantityToPrint << "nb >= " << pGrounding.quantity.nb;
+    ssQuantityToPrint << "nb >= " << pGrounding.quantity.nb.toStr();
     break;
   case SemanticQuantityType::ANYTHING:
     ssQuantityToPrint << "anything";

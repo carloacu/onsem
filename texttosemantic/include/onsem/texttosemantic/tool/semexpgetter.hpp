@@ -39,6 +39,7 @@ struct SemanticStatementGrounding;
 struct SemanticTimeGrounding;
 struct SemanticGenericGrounding;
 struct SemanticAgentGrounding;
+struct SemanticFloat;
 struct SemanticWord;
 struct LinguisticMeaning;
 struct StaticLinguisticMeaning;
@@ -94,10 +95,10 @@ ONSEM_TEXTTOSEMANTIC_API
 SemanticLanguageEnum getLanguage(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);
 
 ONSEM_TEXTTOSEMANTIC_API
-mystd::optional<int> getNumberOfElementsFromGrdExp(const GroundedExpression& pGrdExp);
+mystd::optional<SemanticFloat> getNumberOfElementsFromGrdExp(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-mystd::optional<int> getNumberOfElements(const SemanticExpression& pSemExp);
+mystd::optional<SemanticFloat> getNumberOfElements(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp,

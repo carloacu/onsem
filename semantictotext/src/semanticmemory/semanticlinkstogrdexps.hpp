@@ -22,6 +22,7 @@
 #include <onsem/texttosemantic/dbtype/misc/coreference.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticdurationgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticquantity.hpp>
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include "usernames.hpp"
 #include "semanticmemorygrdexp.hpp"
@@ -68,7 +69,7 @@ struct SemanticLinksToGrdExpsTemplate
   // Generic grounding
   // -----------------
   /// number -> part of texts
-  std::map<int, LINKS_TYPE> numberToSemExps{};
+  std::map<SemanticFloat, LINKS_TYPE> numberToSemExps{};
   /// Map of quantitytype (except NUMBER and UNKNOWN) -> part of texts
   std::map<SemanticQuantityType, LINKS_TYPE> quantityTypeToSemExps{};
   /// reference without concept -> part of texts

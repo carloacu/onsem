@@ -377,9 +377,9 @@ SemanticLanguageEnum getLanguage(const std::map<GrammaticalType, UniqueSemanticE
 }
 
 
-mystd::optional<int> getNumberOfElementsFromGrdExp(const GroundedExpression& pGrdExp)
+mystd::optional<SemanticFloat> getNumberOfElementsFromGrdExp(const GroundedExpression& pGrdExp)
 {
-  mystd::optional<int> res;
+  mystd::optional<SemanticFloat> res;
   if (pGrdExp->type == SemanticGroundingType::GENERIC)
   {
     const SemanticQuantity& repetitionQuantity = pGrdExp->getGenericGrounding().quantity;
@@ -391,12 +391,12 @@ mystd::optional<int> getNumberOfElementsFromGrdExp(const GroundedExpression& pGr
   return res;
 }
 
-mystd::optional<int> getNumberOfElements(const SemanticExpression& pSemExp)
+mystd::optional<SemanticFloat> getNumberOfElements(const SemanticExpression& pSemExp)
 {
   const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
     return getNumberOfElementsFromGrdExp(*grdExpPtr);
-  return mystd::optional<int>();
+  return mystd::optional<SemanticFloat>();
 }
 
 
@@ -434,7 +434,7 @@ int getNumberOfRepetitions(const std::map<GrammaticalType, UniqueSemanticExpress
   {
     auto res = getNumberOfElements(*itRepetitionChild->second);
     if (res)
-      return *res;
+      return res->value;
   }
   return 1;
 }

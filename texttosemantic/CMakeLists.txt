@@ -86,6 +86,7 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/staticlinguisticmeaning.hpp
     include/onsem/texttosemantic/dbtype/semanticexpressions.hpp
     include/onsem/texttosemantic/dbtype/semanticgroundings.hpp
+    include/onsem/texttosemantic/dbtype/semanticquantity.hpp
     include/onsem/texttosemantic/dbtype/semanticword.hpp
     include/onsem/texttosemantic/dbtype/textprocessingcontext.hpp
     include/onsem/texttosemantic/type/enum/linguisticanalysisfinishdebugstepenum.hpp
@@ -167,6 +168,7 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/dbtype/interactioncontext.cpp
     src/dbtype/resourcegroundingextractor.cpp
     src/dbtype/linguisticdatabase.cpp
+    src/dbtype/semanticquantity.cpp
     src/dbtype/textprocessingcontext.cpp
     src/printer/expressionprinter.cpp
     src/type/chunklink.cpp

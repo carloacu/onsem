@@ -865,7 +865,7 @@ void Linguisticsynthesizergrounding::beforeGenGroundingTranslation
       if (!numberWritten)
       {
         std::stringstream ssNumber;
-        ssNumber << pGrounding.quantity.nb;
+        ssNumber << pGrounding.quantity.nb.toStr(_language);
         _strToOut(pBeforeOut.out, PartOfSpeech::DETERMINER, ssNumber.str());
       }
     }

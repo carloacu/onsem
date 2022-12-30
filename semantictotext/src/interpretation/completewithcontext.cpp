@@ -133,10 +133,11 @@ UniqueSemanticExpression _copyGrdExpForAChild(GrammaticalType pGramType,
     auto* genGrdPtr = pGrdExp->getGenericGroundingPtr();
     if (genGrdPtr != nullptr &&
         genGrdPtr->quantity.type == SemanticQuantityType::NUMBER &&
-        hasNotMoreThanANumberOfDigits(genGrdPtr->quantity.nb, 4))
+        genGrdPtr->quantity.nb.isAnInteger() &&
+        hasNotMoreThanANumberOfDigits(genGrdPtr->quantity.nb.value, 4))
     {
       auto res = std::make_unique<SemanticTimeGrounding>();
-      res->date.year.emplace(genGrdPtr->quantity.nb);
+      res->date.year.emplace(genGrdPtr->quantity.nb.value);
       return std::make_unique<GroundedExpression>(std::move(res));
     }
   }

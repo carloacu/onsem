@@ -2,6 +2,7 @@
 #include <cmath>
 #include <sstream>
 #include <iomanip>
+#include <onsem/common/utility/lexical_cast.hpp>
 #include <onsem/common/utility/number.hpp>
 #include <onsem/texttosemantic/printer/semlinetoprint.hpp>
 

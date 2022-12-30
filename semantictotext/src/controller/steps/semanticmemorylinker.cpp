@@ -49,14 +49,14 @@ void _incrementNotDefiniteQuantitiesFromGrdExps(GRDEXP& pGrdExpRes,
                                                 const GroundedExpression& pGrdExp,
                                                 const SemanticMemoryBlock& pMemBlock,
                                                 const linguistics::LinguisticDatabase& pLingDb,
-                                                std::map<GENGRD*, std::map<const GroundedExpression*, int>>& pAlreadyCountedElts);
+                                                std::map<GENGRD*, std::map<const GroundedExpression*, SemanticFloat>>& pAlreadyCountedElts);
 
 template<typename SEMEXP, typename GENGRD>
 void _incrementQuantities(SEMEXP& pSemExpRes,
                           const SemanticExpression& pSemExp,
                           const SemanticMemoryBlock& pMemBlock,
                           const linguistics::LinguisticDatabase& pLingDb,
-                          std::map<GENGRD*, std::map<const GroundedExpression*, int>>& pAlreadyCountedElts)
+                          std::map<GENGRD*, std::map<const GroundedExpression*, SemanticFloat>>& pAlreadyCountedElts)
 {
   auto* grdExpResPtr = pSemExpRes.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpResPtr != nullptr)
@@ -73,7 +73,7 @@ void _incrementNotDefiniteQuantitiesFromGrdExps(GRDEXP& pGrdExpRes,
                                                 const GroundedExpression& pGrdExp,
                                                 const SemanticMemoryBlock& pMemBlock,
                                                 const linguistics::LinguisticDatabase& pLingDb,
-                                                std::map<GENGRD*, std::map<const GroundedExpression*, int>>& pAlreadyCountedElts)
+                                                std::map<GENGRD*, std::map<const GroundedExpression*, SemanticFloat>>& pAlreadyCountedElts)
 {
   auto* genGrdResPtr = pGrdExpRes->getGenericGroundingPtr();
   if (genGrdResPtr != nullptr &&
@@ -1895,7 +1895,7 @@ void _getRelationsOfLinks
     if (samePolarity)
     {
       // genGrd from input -> grd exp of memory -> quantity of the grd exp from memory
-      std::map<const SemanticGenericGrounding*, std::map<const GroundedExpression*, int>> alreadyCountedElts;
+      std::map<const SemanticGenericGrounding*, std::map<const GroundedExpression*, SemanticFloat>> alreadyCountedElts;
       for (auto itAnsw = answElts.rbegin(); itAnsw != answElts.rend(); ++itAnsw)
         _incrementNotDefiniteQuantitiesFromGrdExps(pGrdExp, itAnsw->second->getGrdExpRef(),
                                                    pMemViewer.constView, pWorkStruct.lingDb, alreadyCountedElts);
@@ -1903,9 +1903,9 @@ void _getRelationsOfLinks
       bool sameQuantity = true;
       for (const auto& currElt : alreadyCountedElts)
       {
-        int quantityFromMemory = 0;
+        SemanticFloat quantityFromMemory ;
         for (const auto& currQuantFromMem : currElt.second)
-          quantityFromMemory += currQuantFromMem.second;
+          quantityFromMemory.add(currQuantFromMem.second);
         if (quantityFromMemory != currElt.first->quantity.nb)
         {
           sameQuantity = false;
@@ -1919,16 +1919,16 @@ void _getRelationsOfLinks
             pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
         {
           auto inputWithNewQuantities = pGrdExp.clone(nullptr, true);
-          std::map<SemanticGenericGrounding*, std::map<const GroundedExpression*, int>> alreadyCountedElts;
+          std::map<SemanticGenericGrounding*, std::map<const GroundedExpression*, SemanticFloat>> alreadyCountedElts;
           for (auto itAnsw = answElts.rbegin(); itAnsw != answElts.rend(); ++itAnsw)
             _incrementNotDefiniteQuantitiesFromGrdExps(*inputWithNewQuantities,
                                                        itAnsw->second->getGrdExpRef(),
                                                        pMemViewer.constView, pWorkStruct.lingDb, alreadyCountedElts);
           for (auto& currElt : alreadyCountedElts)
           {
-            int quantityFromMemory = 0;
+            SemanticFloat quantityFromMemory;
             for (const auto& currQuantFromMem : currElt.second)
-              quantityFromMemory += currQuantFromMem.second;
+              quantityFromMemory.add(currQuantFromMem.second);
             currElt.first->quantity.setNumber(quantityFromMemory);
           }
 

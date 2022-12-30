@@ -621,7 +621,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
   }
 
   sentWorkStruct.objectIsAnNoElement = sentWorkStruct.objectPtr != nullptr &&
-      SemExpGetter::getNumberOfElements(**sentWorkStruct.objectPtr) == 0;
+      SemExpGetter::getNumberOfElements(**sentWorkStruct.objectPtr) == SemanticFloat(0);
 
   ObjectPosition objectPosition = _getObjectPosition(sentWorkStruct, pStatementGrd, pRequests,
                                                      pConf, verbContext.verbTense);
