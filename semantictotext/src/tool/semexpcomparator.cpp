@@ -581,16 +581,11 @@ ImbricationType _mergeChildImbrications(ImbricationType pChildImbrication1,
 void _addSemExpPtr(std::list<const SemanticExpression*>& pElts,
                    const SemanticExpression& pSemExp,
                    const ComparisonExceptions* pExceptionsPtr,
-                   bool pFirstOrSecondArg,
-                   bool pAllowGrdExpThatDoesntModifyAMeaning)
+                   bool pFirstOrSecondArg)
 {
   if (pExceptionsPtr != nullptr &&
       ((pFirstOrSecondArg && pExceptionsPtr->semExps1ToSkip.count(&pSemExp) > 0) ||
        (!pFirstOrSecondArg && pExceptionsPtr->semExps2ToSkip.count(&pSemExp) > 0)))
-    return;
-  bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
-  if (!pAllowGrdExpThatDoesntModifyAMeaning &&
-      !SemExpGetter::haveAGrdExpThatModifyTheMeaning(pSemExp, followInterpretations))
     return;
   pElts.emplace_back(&pSemExp);
 }
@@ -599,21 +594,18 @@ void _addSemExpPtr(std::list<const SemanticExpression*>& pElts,
 void _fillListExpPtr(ListExpPtr& pListExpPtr,
                      const SemanticExpression& pSemExp,
                      const ComparisonExceptions* pExceptionsPtr,
-                     bool pFirstOrSecondArg,
-                     bool pAllowGrdExpThatDoesntModifyAMeaning)
+                     bool pFirstOrSecondArg)
 {
   bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
   auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs(followInterpretations);
   if (listExpPtr != nullptr)
   {
     for (const auto& currElt : listExpPtr->elts)
-      _fillListExpPtr(pListExpPtr, *currElt, pExceptionsPtr,
-                      pFirstOrSecondArg, pAllowGrdExpThatDoesntModifyAMeaning);
+      _fillListExpPtr(pListExpPtr, *currElt, pExceptionsPtr, pFirstOrSecondArg);
     pListExpPtr.listType.emplace(listExpPtr->listType);
     return;
   }
-  _addSemExpPtr(pListExpPtr.elts, pSemExp, pExceptionsPtr,
-                pFirstOrSecondArg, pAllowGrdExpThatDoesntModifyAMeaning);
+  _addSemExpPtr(pListExpPtr.elts, pSemExp, pExceptionsPtr, pFirstOrSecondArg);
 }
 
 void _getConvertResultIfSemExpEqualTheFeedbackOfTheOther(mystd::optional<ImbricationType>& pImbricationType,
@@ -1129,9 +1121,9 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
     return *optRes;
 
   ListExpPtr listExpPtr1;
-  _fillListExpPtr(listExpPtr1, pSemExp1, pExceptionsPtr, true, true);
+  _fillListExpPtr(listExpPtr1, pSemExp1, pExceptionsPtr, true);
   ListExpPtr listExpPtr2;
-  _fillListExpPtr(listExpPtr2, pSemExp2, pExceptionsPtr, false, true);
+  _fillListExpPtr(listExpPtr2, pSemExp2, pExceptionsPtr, false);
 
   const std::size_t size1 = listExpPtr1.elts.size();
   const std::size_t size2 = listExpPtr2.elts.size();
@@ -1255,8 +1247,7 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
         (pExceptionsPtr != nullptr && pExceptionsPtr->grammaticalTypes.count(pItChild->first) > 0))
       return;
     ListExpPtr listExpPtr;
-    _fillListExpPtr(listExpPtr, *pItChild->second, pExceptionsPtr, pFirstOrSecondArg,
-                    true /*pItChild->first != GrammaticalType::SPECIFIER*/);
+    _fillListExpPtr(listExpPtr, *pItChild->second, pExceptionsPtr, pFirstOrSecondArg);
     if (!listExpPtr.elts.empty())
       pChildrenForAGramType.emplace(pItChild->first, std::move(listExpPtr));
   };

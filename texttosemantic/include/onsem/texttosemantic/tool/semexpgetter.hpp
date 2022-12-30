@@ -462,10 +462,6 @@ ONSEM_TEXTTOSEMANTIC_API
 bool isAnythingFromSemExp(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool haveAGrdExpThatModifyTheMeaning(const SemanticExpression& pSemExp,
-                                     bool pFollowInterpretations = true);
-
-ONSEM_TEXTTOSEMANTIC_API
 void getStatementSubordinates(std::set<const SemanticExpression*>& pStatementSubordinates,
                               const SemanticExpression& pSemExp,
                               bool pSearchOnRootSemExp = false);

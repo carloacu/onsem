@@ -2193,20 +2193,6 @@ bool isAnythingFromSemExp(const SemanticExpression& pSemExp)
 }
 
 
-bool haveAGrdExpThatModifyTheMeaning(const SemanticExpression& pSemExp,
-                                     bool pFollowInterpretations)
-{
-  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
-  if (grdExpPtr != nullptr)
-    return !ConceptSet::haveAConceptThatBeginWith(grdExpPtr->grounding().concepts, "degree_");
-  auto* listExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs(pFollowInterpretations);
-  if (listExpPtr != nullptr)
-    for (const auto& currElt : listExpPtr->elts)
-      if (haveAGrdExpThatModifyTheMeaning(*currElt))
-        return true;
-  return false;
-}
-
 void getStatementSubordinates(std::set<const SemanticExpression*>& pStatementSubordinates,
                               const SemanticExpression& pSemExp,
                               bool pSearchOnRootSemExp)
