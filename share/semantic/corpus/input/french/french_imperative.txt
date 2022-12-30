@@ -57,3 +57,7 @@ Raconte une histoire drôle
 Raconte quelque chose de drôle
 tourne à gauche de 23 degrés
 Va vers l'avant de 5 mètres
+avance de 3 m
+Avance 30 cm
+Avance de trois m
+avance trois m

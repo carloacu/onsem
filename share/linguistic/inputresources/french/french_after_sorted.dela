@@ -207,4 +207,17 @@
 #pardon,.N+z1:ms
 
 
+#km,kilomètre.N+z2:ms:mp
+#hm,hectomètre.N+z2:ms:mp
+-dam.N
+#dam,décamètre.N+z2:ms:mp
+#m,mètre.N+z2:ms:mp
+#dm,décimètre.N+z2:ms:mp
+-cm.N
+#cm,centimètre.N+z2:ms:mp
+#mm,millimètre.N+z2:ms:mp
+
+#m,se.PROC:1s
+
 >findQueAddQu
+
