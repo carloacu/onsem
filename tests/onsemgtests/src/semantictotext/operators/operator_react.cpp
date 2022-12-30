@@ -1320,7 +1320,7 @@ TEST_F(SemanticReasonerGTests, operator_react_answerOfGeneratedQuestions)
   ONSEM_BEHAVIOR_EQ("Es-tu sympa ?",
                     operator_react("demande-moi si je suis sympa", semMem, lingDb));
   ONSEM_QUESTION_EQ("(\tJe suis content de l'entendre.\tTHEN\tPourquoi es-tu sympa ?\t)",
-                    operator_react("oui", semMem, lingDb));
+                    operator_react("oui toujours", semMem, lingDb));
 
   // + translation
   ONSEM_BEHAVIOR_EQ("Es-tu content ?",
