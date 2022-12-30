@@ -1613,6 +1613,10 @@ void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerE
     pAllAnswers.clear();
     pAllAnswers.emplace(SemanticRequestType::QUANTITY, std::move(quantityAnswer));
   }
+  else
+  {
+    pAllAnswers.clear();
+  }
 }
 
 
