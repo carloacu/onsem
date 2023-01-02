@@ -73,7 +73,7 @@ bool _verbChunkHasAnObjectWithAContxtualInfoAny(Chunk& pVerbChunk)
   return false;
 }
 
-bool _extractNumberOfAChunk(int& pNumber,
+bool _extractNumberOfAChunk(SemanticFloat& pNumber,
                             const Chunk& pChunk)
 {
   for (TokIt itTokBeforeHead = pChunk.tokRange.getItBegin(); itTokBeforeHead != pChunk.head;
@@ -486,7 +486,7 @@ void SyntacticGraphToSemantic::xInitGenGroundingsFromToken
   }
 
   {
-    int numberForToken = 0;
+    SemanticFloat numberForToken;
     if (getNumberHoldByTheInflWord(numberForToken, pToken, pItEndToken, "number_"))
     {
       pGenGroundings.entityType = SemanticEntityType::NUMBER;
@@ -746,7 +746,7 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
       genGrd.entityType = SemanticEntityType::THING;
 
     {
-      mystd::optional<int> numberOpt;
+      mystd::optional<SemanticFloat> numberOpt;
       res = eatNumber(numberOpt, pItDetToken, pItEndToken, "number_");
       if (numberOpt)
       {
@@ -1025,7 +1025,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
         const std::string& relHourCptStr = hourRelConcepts.begin()->first;
         auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
 
-        int hourNumber = 0;
+        SemanticFloat hourNumber;
         if (_extractNumberOfAChunk(hourNumber, pChunk))
         {
           if (relHourCptStr == "time_hour_am")
@@ -1035,7 +1035,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
           }
           if (relHourCptStr == "time_hour_pm")
           {
-            timeGrounding->timeOfDay.add(SemanticTimeUnity::HOUR, 12 + hourNumber);
+            timeGrounding->timeOfDay.add(SemanticTimeUnity::HOUR, hourNumber + 12);
             return std::make_unique<GroundedExpression>(std::move(timeGrounding));
           }
         }

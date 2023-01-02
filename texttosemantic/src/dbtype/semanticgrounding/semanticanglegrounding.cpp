@@ -18,7 +18,7 @@ void SemanticAngle::printAngle(std::list<std::string>& pListElts,
   std::stringstream ss;
   ss << pLabelName << "(";
   for (const auto& currElt : angleInfos)
-    ss << currElt.second << semanticAngleUnity_toAbreviation(currElt.first);
+    ss << currElt.second.toStr() << semanticAngleUnity_toAbreviation(currElt.first);
   ss << ")";
   pListElts.emplace_back(ss.str());
 }

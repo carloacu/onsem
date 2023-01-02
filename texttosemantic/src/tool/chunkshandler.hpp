@@ -11,6 +11,7 @@
 
 namespace onsem
 {
+struct SemanticFloat;
 namespace linguistics
 {
 class InflectionsChecker;
@@ -372,7 +373,7 @@ void moveChildren(std::list<ChunkLink>& pRootChildren,
                   ChunkLinkType pNewChkLkType);
 
 
-bool getNumberBeforeHead(int& pNumber,
+bool getNumberBeforeHead(SemanticFloat& pNumber,
                          const Chunk& pChunk);
 
 } // End of namespace linguistics

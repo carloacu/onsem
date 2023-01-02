@@ -40,6 +40,13 @@ static inline std::string sign_toStr(Sign pSign)
   return _sign_toStr[mystd::to_underlying(pSign)];
 }
 
+static inline Sign invert(Sign pSign)
+{
+  if (pSign == Sign::POSITIVE)
+    return Sign::NEGATIVE;
+  return Sign::POSITIVE;
+}
+
 
 } // End of namespace onsem
 

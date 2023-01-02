@@ -1443,7 +1443,7 @@ void moveChildren(std::list<ChunkLink>& pRootChildren,
 }
 
 
-bool getNumberBeforeHead(int& pNumber,
+bool getNumberBeforeHead(SemanticFloat& pNumber,
                          const Chunk& pChunk)
 {
   for (TokIt itToken = getPrevToken(pChunk.head, pChunk.tokRange.getItBegin(), pChunk.head);

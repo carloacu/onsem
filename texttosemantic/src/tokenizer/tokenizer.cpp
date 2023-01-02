@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 #include <onsem/common/utility/getendofparenthesis.hpp>
-#include <onsem/common/utility/lexical_cast.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
@@ -686,9 +685,10 @@ void _fillInflWordOfNumber(std::list<InflectedWord>& pInflWord,
                            bool pNumberOrRank)
 {
   const std::string beginOfNumberConcept = pNumberOrRank ? "number_" : "rank_";
-  try
+  SemanticFloat nb;
+  if (nb.fromStr(pNumberStr, pLanguage))
   {
-    mystd::lexical_cast<int>(pNumberStr);
+    auto numberStr = nb.toStr(SemanticLanguageEnum::ENGLISH);
     // a number can be a determiner or a noun
     pInflWord.emplace_back([&]
     {
@@ -696,17 +696,17 @@ void _fillInflWordOfNumber(std::list<InflectedWord>& pInflWord,
                               pLanguage == SemanticLanguageEnum::ENGLISH ?
                                 NominalInflections::get_inflections_ns() :
                                 NominalInflections::get_inflections_ms());
-      nounIGram.infos.concepts.emplace(beginOfNumberConcept + pNumberStr, 4);
+      nounIGram.infos.concepts.emplace(beginOfNumberConcept + numberStr, 4);
       return nounIGram;
     }());
     pInflWord.emplace_back([&]
     {
       InflectedWord inflWord(PartOfSpeech::DETERMINER, _getAllNounInflections(pLanguage));
-      inflWord.infos.concepts.emplace(beginOfNumberConcept + pNumberStr, 4);
+      inflWord.infos.concepts.emplace(beginOfNumberConcept + numberStr, 4);
       return inflWord;
     }());
     InflectedWord adjInflWord(PartOfSpeech::ADJECTIVE, _getAllNounInflections(pLanguage));
-    adjInflWord.infos.concepts.emplace(beginOfNumberConcept + pNumberStr, 4);
+    adjInflWord.infos.concepts.emplace(beginOfNumberConcept + numberStr, 4);
     if (!pNumberOrRank && pLanguage == SemanticLanguageEnum::FRENCH)
     {
       adjInflWord.infos.contextualInfos.insert(WordContextualInfos::CANBEBEFORENOUN);
@@ -717,7 +717,7 @@ void _fillInflWordOfNumber(std::list<InflectedWord>& pInflWord,
       pInflWord.emplace_back(std::move(adjInflWord));
     }
   }
-  catch (...)
+  else
   {
     pInflWord.emplace_back(PartOfSpeech::UNKNOWN, _getAllNounInflections(pLanguage));
   }

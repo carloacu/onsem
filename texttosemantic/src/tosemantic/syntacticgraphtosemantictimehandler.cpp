@@ -39,7 +39,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       {
         if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity)))
         {
-          int number = 0;
+          SemanticFloat number;
           if (getNumberBeforeHead(number, pContext.chunk))
           {
             auto newDuration = std::make_unique<SemanticDurationGrounding>();
@@ -54,12 +54,13 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     else if (pContext.grammTypeFromParent == GrammaticalType::TIME &&
              ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "number_"))
     {
-      int year = 0;
+      SemanticFloat year;
       if (getNumberHoldByTheInflWord(year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_") &&
-          hasNotMoreThanANumberOfDigits(year, 4))
+          year.isPositive() && year.isAnInteger() &&
+          hasNotMoreThanANumberOfDigits(year.value, 4))
       {
         auto newTime = std::make_unique<SemanticTimeGrounding>();
-        newTime->date.year.emplace(year);
+        newTime->date.year.emplace(year.value);
         return mystd::unique_propagate_const<UniqueSemanticExpression>
             (std::make_unique<GroundedExpression>(std::move(newTime)));
       }

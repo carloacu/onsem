@@ -5,7 +5,7 @@
 #include <string>
 #include "../../api.hpp"
 #include "semanticgrounding.hpp"
-
+#include "../semanticquantity.hpp"
 
 namespace onsem
 {
@@ -131,12 +131,14 @@ static inline SemanticLengthUnity semanticLengthUnity_fromAbreviation
   return SemanticLengthUnity::MILLIMETER;
 }
 
-
-static inline int64_t semanticLengthUnity_toNbOfMilliseconds
-(SemanticLengthUnity pLengthUnity)
+static inline float semanticLengthUnity_untityConvertionCoeficient
+(SemanticLengthUnity pLengthUnity1,
+ SemanticLengthUnity pLengthUnity2)
 {
-  return _semanticLengthUnity_toNbOfMillimeters[semanticLengthUnity_toChar(pLengthUnity)];
+  return _semanticLengthUnity_toNbOfMillimeters[semanticLengthUnity_toChar(pLengthUnity1)] /
+      static_cast<float>(_semanticLengthUnity_toNbOfMillimeters[semanticLengthUnity_toChar(pLengthUnity2)]);
 }
+
 
 
 // Length Grounding
@@ -150,7 +152,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticLength
                    const std::string& pLabelName) const;
   void convertToUnity(SemanticLengthUnity pUnity);
 
-  std::map<SemanticLengthUnity, int> lengthInfos{};
+  std::map<SemanticLengthUnity, SemanticFloat> lengthInfos{};
 };
 
 

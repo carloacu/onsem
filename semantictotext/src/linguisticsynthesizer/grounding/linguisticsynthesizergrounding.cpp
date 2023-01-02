@@ -25,11 +25,12 @@ namespace onsem
 namespace
 {
 void _printValue(std::stringstream& pSs,
-                 int pValue,
+                 const SemanticFloat& pValue,
                  const std::string& pConceptName,
-                 const linguistics::SynthesizerDictionary& pStatSynthDico)
+                 const linguistics::SynthesizerDictionary& pStatSynthDico,
+                 SemanticLanguageEnum pLanguage)
 {
-  pSs << pValue;
+  pSs << pValue.toStr(pLanguage);
   const auto& meaning = pStatSynthDico.conceptToMeaning(pConceptName);
   if (!meaning.isEmpty())
   {
@@ -42,27 +43,30 @@ void _printValue(std::stringstream& pSs,
 }
 
 void _printAngleValue(std::stringstream& pSs,
-                       int pValue,
-                       SemanticAngleUnity pAngle,
-                       const linguistics::SynthesizerDictionary& pStatSynthDico)
+                      const SemanticFloat& pValue,
+                      SemanticAngleUnity pAngle,
+                      const linguistics::SynthesizerDictionary& pStatSynthDico,
+                      SemanticLanguageEnum pLanguage)
 {
-  _printValue(pSs, pValue, semanticAngleUnity_toConcept(pAngle), pStatSynthDico);
+  _printValue(pSs, pValue, semanticAngleUnity_toConcept(pAngle), pStatSynthDico, pLanguage);
 }
 
 void _printLengthValue(std::stringstream& pSs,
-                       int pValue,
+                       const SemanticFloat& pValue,
                        SemanticLengthUnity pLength,
-                       const linguistics::SynthesizerDictionary& pStatSynthDico)
+                       const linguistics::SynthesizerDictionary& pStatSynthDico,
+                       SemanticLanguageEnum pLanguage)
 {
-  _printValue(pSs, pValue, semanticLengthUnity_toConcept(pLength), pStatSynthDico);
+  _printValue(pSs, pValue, semanticLengthUnity_toConcept(pLength), pStatSynthDico, pLanguage);
 }
 
 void _printTimeValue(std::stringstream& pSs,
-                     int pValue,
+                     const SemanticFloat& pValue,
                      SemanticTimeUnity pTime,
-                     const linguistics::SynthesizerDictionary& pStatSynthDico)
+                     const linguistics::SynthesizerDictionary& pStatSynthDico,
+                     SemanticLanguageEnum pLanguage)
 {
-  _printValue(pSs, pValue, semanticTimeUnity_toConcept(pTime), pStatSynthDico);
+  _printValue(pSs, pValue, semanticTimeUnity_toConcept(pTime), pStatSynthDico, pLanguage);
 }
 }
 
@@ -1026,15 +1030,15 @@ bool Linguisticsynthesizergrounding::angleTranslation
 {
   GroundingAnglePrettyPrintStruct anglePrint(pAngle);
   std::stringstream ss;
-  if (anglePrint.degree != -1)
+  if (anglePrint.degree)
   {
-    _printAngleValue(ss, anglePrint.degree, SemanticAngleUnity::DEGREE, pStatSynthDico);
+    _printAngleValue(ss, *anglePrint.degree, SemanticAngleUnity::DEGREE, pStatSynthDico, _language);
   }
-  if (anglePrint.radian != -1)
+  if (anglePrint.radian)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printAngleValue(ss, anglePrint.radian, SemanticAngleUnity::RADIAN, pStatSynthDico);
+    _printAngleValue(ss, *anglePrint.radian, SemanticAngleUnity::RADIAN, pStatSynthDico, _language);
   }
 
   const std::string timePrinted = ss.str();
@@ -1056,57 +1060,57 @@ bool Linguisticsynthesizergrounding::lengthTranslation
   GroundingLengthPrettyPrintStruct lengthPrint(pLength);
   std::stringstream ss;
   bool finishedToPrint = false;
-  if (lengthPrint.kilometer != -1)
+  if (lengthPrint.kilometer)
   {
-    _printLengthValue(ss, lengthPrint.kilometer, SemanticLengthUnity::KILOMETER, pStatSynthDico);
+    _printLengthValue(ss, *lengthPrint.kilometer, SemanticLengthUnity::KILOMETER, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && lengthPrint.hectometer != -1)
+  if (!finishedToPrint && lengthPrint.hectometer)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printLengthValue(ss, lengthPrint.hectometer, SemanticLengthUnity::HECTOMETER, pStatSynthDico);
+    _printLengthValue(ss, *lengthPrint.hectometer, SemanticLengthUnity::HECTOMETER, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && lengthPrint.decameter != -1)
+  if (!finishedToPrint && lengthPrint.decameter)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printLengthValue(ss, lengthPrint.decameter, SemanticLengthUnity::DECAMETER, pStatSynthDico);
+    _printLengthValue(ss, *lengthPrint.decameter, SemanticLengthUnity::DECAMETER, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && lengthPrint.meter != -1)
+  if (!finishedToPrint && lengthPrint.meter)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printLengthValue(ss, lengthPrint.meter, SemanticLengthUnity::METER, pStatSynthDico);
+    _printLengthValue(ss, *lengthPrint.meter, SemanticLengthUnity::METER, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && lengthPrint.decimeter != -1)
+  if (!finishedToPrint && lengthPrint.decimeter)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printLengthValue(ss, lengthPrint.decimeter, SemanticLengthUnity::DECIMETER, pStatSynthDico);
+    _printLengthValue(ss, *lengthPrint.decimeter, SemanticLengthUnity::DECIMETER, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && lengthPrint.centimeter != -1)
+  if (!finishedToPrint && lengthPrint.centimeter)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printLengthValue(ss, lengthPrint.centimeter, SemanticLengthUnity::CENTIMETER, pStatSynthDico);
+    _printLengthValue(ss, *lengthPrint.centimeter, SemanticLengthUnity::CENTIMETER, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && lengthPrint.millimeter != -1)
+  if (!finishedToPrint && lengthPrint.millimeter)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printLengthValue(ss, lengthPrint.millimeter, SemanticLengthUnity::MILLIMETER, pStatSynthDico);
+    _printLengthValue(ss, *lengthPrint.millimeter, SemanticLengthUnity::MILLIMETER, pStatSynthDico, _language);
   }
 
   const std::string timePrinted = ss.str();
@@ -1128,33 +1132,33 @@ bool Linguisticsynthesizergrounding::durationTranslation
   GroundingDurationPrettyPrintStruct durationPrint(pDuration);
   std::stringstream ss;
   bool finishedToPrint = false;
-  if (durationPrint.hour != -1)
+  if (durationPrint.hour)
   {
-    _printTimeValue(ss, durationPrint.hour, SemanticTimeUnity::HOUR, pStatSynthDico);
+    _printTimeValue(ss, *durationPrint.hour, SemanticTimeUnity::HOUR, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && durationPrint.minute != -1)
+  if (!finishedToPrint && durationPrint.minute)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, durationPrint.minute, SemanticTimeUnity::MINUTE, pStatSynthDico);
+    _printTimeValue(ss, *durationPrint.minute, SemanticTimeUnity::MINUTE, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && durationPrint.second != -1)
+  if (!finishedToPrint && durationPrint.second)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, durationPrint.second, SemanticTimeUnity::SECOND, pStatSynthDico);
+    _printTimeValue(ss, *durationPrint.second, SemanticTimeUnity::SECOND, pStatSynthDico, _language);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
-  if (!finishedToPrint && durationPrint.millisecond != -1)
+  if (!finishedToPrint && durationPrint.millisecond)
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, durationPrint.millisecond, SemanticTimeUnity::MILLISECOND, pStatSynthDico);
+    _printTimeValue(ss, *durationPrint.millisecond, SemanticTimeUnity::MILLISECOND, pStatSynthDico, _language);
   }
 
   const std::string timePrinted = ss.str();

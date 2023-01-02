@@ -23,19 +23,30 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticFloat
   bool operator>(const SemanticFloat& pOther) const;
   bool operator>=(const SemanticFloat& pOther) const;
   bool operator>=(int pNb) const;
+  bool operator<=(const SemanticFloat& pOther) const;
+  bool operator<=(int pNb) const;
+  SemanticFloat operator+=(const SemanticFloat& rhs);
   SemanticFloat operator+(const SemanticFloat& pOther) const;
+  SemanticFloat operator-=(const SemanticFloat& pOther);
+  SemanticFloat operator-(const SemanticFloat& pOther) const;
   void add(const SemanticFloat& pOther);
-  void add(int pValue);
+  void substract(const SemanticFloat& pOther);
+  void multiply(const SemanticFloat& pOther);
+  SemanticFloat operator*(const SemanticFloat& pOther) const;
+  SemanticFloat operator*(double pNb) const;
   void set(int pValue);
   bool isPositive() const;
   bool isAnInteger() const;
   int signedValueWithoutDecimal() const;
 
+  double toDouble() const;
+  void fromDouble(double pNb);
+
   std::string toStr(SemanticLanguageEnum pLanguage = SemanticLanguageEnum::ENGLISH) const;
   std::string toStrWithSeparator(char pSeparator) const;
 
-  void fromStr(const std::string& pStr, SemanticLanguageEnum pLanguage = SemanticLanguageEnum::ENGLISH);
-  void fromStrWithSeparator(const std::string& pStr, char pSeparator);
+  bool fromStr(const std::string& pStr, SemanticLanguageEnum pLanguage = SemanticLanguageEnum::ENGLISH);
+  bool fromStrWithSeparator(const std::string& pStr, char pSeparator);
 
   Sign sign;
   std::size_t value;
@@ -51,7 +62,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticQuantity
   void setNumber(int pNumber);
   void setNumber(const SemanticFloat& pNumber);
 
-  void increaseNumber(int pIncreaseValue);
+  void increaseNumber(const SemanticFloat& pIncreaseValue);
 
   void setNumberToFill(int pParamId,
                        std::string pAttributeName);

@@ -7,6 +7,7 @@
 #include <onsem/common/utility/to_underlying.hpp>
 #include <onsem/texttosemantic/dbtype/misc/sign.hpp>
 #include "semanticgrounding.hpp"
+#include "../semanticquantity.hpp"
 #include "../../api.hpp"
 
 
@@ -241,7 +242,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticDuration
   static SemanticDuration fromRadixMapStr(const std::string& pRadixMapStr);
   std::string toRadixMapStr() const;
   bool isNearlyEqual(const SemanticDuration& pOther) const;
-  void add(SemanticTimeUnity pTimeUnity, int pNbToAdd);
+  void add(SemanticTimeUnity pTimeUnity, const SemanticFloat& pNbToAdd);
   static SemanticDuration abs(const SemanticDuration& pDuration);
   void printDuration(std::list<std::string>& pListElts, const std::string& pDurationLabelName) const;
   SemanticTimeUnity precision() const;
@@ -254,7 +255,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticDuration
                                 const SemanticDuration& pMarginOfError) const;
 
   Sign sign{Sign::POSITIVE};
-  std::map<SemanticTimeUnity, int> timeInfos{};
+  std::map<SemanticTimeUnity, SemanticFloat> timeInfos{};
 
 
 

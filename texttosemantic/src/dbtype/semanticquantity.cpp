@@ -8,17 +8,47 @@ namespace onsem
 {
 namespace
 {
-void _add(SemanticFloat& pRes, const SemanticFloat& pNb1, const SemanticFloat& pNb2)
+
+double _tenPow(unsigned char pNb) {
+  switch (pNb) {
+  case 0:
+    return 1;
+  case 1:
+    return 10;
+  case 2:
+    return 100;
+  case 3:
+    return 1000;
+  case 4:
+    return 10000;
+  case 5:
+    return 100000;
+  case 6:
+    return 1000000;
+  case 7:
+    return 10000000;
+  case 8:
+    return 100000000;
+  case 9:
+    return 1000000000;
+  case 10:
+    return 10000000000;
+  default:
+    return pow(10, pNb);
+  }
+}
+
+void _add(SemanticFloat& pRes, const SemanticFloat& pNb1, const SemanticFloat& pNb2, Sign pNb2Sign)
 {
   auto newNbOfSignificantDigit = std::max(pNb1.nbOfSignificantDigit, pNb2.nbOfSignificantDigit);
   long nb1 = pNb1.sign == Sign::POSITIVE ? pNb1.valueAfterTheDecimalPoint : -pNb1.valueAfterTheDecimalPoint;
   if (newNbOfSignificantDigit > pNb1.nbOfSignificantDigit)
-    nb1 *= pow(10, newNbOfSignificantDigit - pNb1.nbOfSignificantDigit);
-  long nb2 = pNb2.sign == Sign::POSITIVE ? pNb2.valueAfterTheDecimalPoint : -pNb2.valueAfterTheDecimalPoint;
+    nb1 *= _tenPow(newNbOfSignificantDigit - pNb1.nbOfSignificantDigit);
+  long nb2 = pNb2Sign == Sign::POSITIVE ? pNb2.valueAfterTheDecimalPoint : -pNb2.valueAfterTheDecimalPoint;
   if (newNbOfSignificantDigit > pNb2.nbOfSignificantDigit)
-    nb2 *= pow(10, newNbOfSignificantDigit - pNb2.nbOfSignificantDigit);
+    nb2 *= _tenPow(newNbOfSignificantDigit - pNb2.nbOfSignificantDigit);
 
-  auto signedValueWithoutDecimal = pNb1.signedValueWithoutDecimal() + pNb2.signedValueWithoutDecimal();
+  int signedValueWithoutDecimal = pNb1.signedValueWithoutDecimal() + (pNb2Sign == Sign::POSITIVE ? pNb2.value : -pNb2.value);
   pRes.sign = signedValueWithoutDecimal >= 0 ? Sign::POSITIVE : Sign::NEGATIVE;
   pRes.value = std::abs(signedValueWithoutDecimal);
   auto nbSum = nb1 + nb2;
@@ -28,11 +58,12 @@ void _add(SemanticFloat& pRes, const SemanticFloat& pNb1, const SemanticFloat& p
   }
   else
   {
-    pRes.valueAfterTheDecimalPoint = pow(10, newNbOfSignificantDigit) + nbSum;
+    pRes.valueAfterTheDecimalPoint = _tenPow(newNbOfSignificantDigit) + nbSum;
     --pRes.value;
   }
   pRes.nbOfSignificantDigit = newNbOfSignificantDigit;
 }
+
 }
 
 SemanticFloat::SemanticFloat(int pValue,
@@ -76,8 +107,8 @@ bool SemanticFloat::operator<(const SemanticFloat& pOther) const
     return signedValueWithoutDecimal() < pOther.signedValueWithoutDecimal();
 
   auto minNbOfDigits = std::min(nbOfSignificantDigit, pOther.nbOfSignificantDigit);
-  auto nb1 = valueAfterTheDecimalPoint * pow(10, nbOfSignificantDigit - minNbOfDigits);
-  auto nb2 = pOther.valueAfterTheDecimalPoint * pow(10, pOther.nbOfSignificantDigit - minNbOfDigits);
+  auto nb1 = valueAfterTheDecimalPoint * _tenPow(nbOfSignificantDigit - minNbOfDigits);
+  auto nb2 = pOther.valueAfterTheDecimalPoint * _tenPow(pOther.nbOfSignificantDigit - minNbOfDigits);
   if (sign == Sign::POSITIVE)
     return nb1 < nb2;
   return nb1 > nb2;
@@ -96,8 +127,8 @@ bool SemanticFloat::operator>=(const SemanticFloat& pOther) const
     return signedValueWithoutDecimal() >= pOther.signedValueWithoutDecimal();
 
   auto minNbOfDigits = std::min(nbOfSignificantDigit, pOther.nbOfSignificantDigit);
-  auto nb1 = valueAfterTheDecimalPoint * pow(10, nbOfSignificantDigit - minNbOfDigits);
-  auto nb2 = pOther.valueAfterTheDecimalPoint * pow(10, pOther.nbOfSignificantDigit - minNbOfDigits);
+  auto nb1 = valueAfterTheDecimalPoint * _tenPow(nbOfSignificantDigit - minNbOfDigits);
+  auto nb2 = pOther.valueAfterTheDecimalPoint * _tenPow(pOther.nbOfSignificantDigit - minNbOfDigits);
   if (sign == Sign::POSITIVE)
     return nb1 >= nb2;
   return nb1 <= nb2;
@@ -116,23 +147,87 @@ bool SemanticFloat::operator>=(int pNb) const
   return valueAfterTheDecimalPoint <= 0;
 }
 
+
+bool SemanticFloat::operator<=(const SemanticFloat& pOther) const
+{
+  if (sign != pOther.sign || value != pOther.value)
+    return signedValueWithoutDecimal() <= pOther.signedValueWithoutDecimal();
+
+  auto minNbOfDigits = std::min(nbOfSignificantDigit, pOther.nbOfSignificantDigit);
+  auto nb1 = valueAfterTheDecimalPoint * _tenPow(nbOfSignificantDigit - minNbOfDigits);
+  auto nb2 = pOther.valueAfterTheDecimalPoint * _tenPow(pOther.nbOfSignificantDigit - minNbOfDigits);
+  if (sign == Sign::POSITIVE)
+    return nb1 <= nb2;
+  return nb1 >= nb2;
+}
+
+bool SemanticFloat::operator<=(int pNb) const
+{
+  if ((sign == Sign::POSITIVE) != (pNb > 0) || value != static_cast<std::size_t>(std::abs(pNb)))
+    return signedValueWithoutDecimal() <= pNb;
+
+  if (nbOfSignificantDigit == 0)
+    return true;
+
+  if (sign == Sign::POSITIVE)
+    return valueAfterTheDecimalPoint <= 0;
+  return valueAfterTheDecimalPoint >= 0;
+}
+
+
+SemanticFloat SemanticFloat::operator+=(const SemanticFloat& pOther)
+{
+  *this = *this + pOther;
+  return *this;
+}
+
 SemanticFloat SemanticFloat::operator+(const SemanticFloat& pOther) const
 {
   SemanticFloat res;
-  _add(res, *this, pOther);
+  _add(res, *this, pOther, pOther.sign);
+  return res;
+}
+
+SemanticFloat SemanticFloat::operator-=(const SemanticFloat& pOther)
+{
+  *this = *this - pOther;
+  return *this;
+}
+
+SemanticFloat SemanticFloat::operator-(const SemanticFloat& pOther) const
+{
+  SemanticFloat res;
+  _add(res, *this, pOther, invert(pOther.sign));
   return res;
 }
 
 void SemanticFloat::add(const SemanticFloat& pOther)
 {
-  _add(*this, *this, pOther);
+  _add(*this, *this, pOther, pOther.sign);
 }
 
-void SemanticFloat::add(int pValue)
+void SemanticFloat::substract(const SemanticFloat& pOther)
 {
-  int newValue = signedValueWithoutDecimal() + pValue;
-  sign = newValue >= 0 ? Sign::POSITIVE : Sign::NEGATIVE;
-  value = std::abs(newValue);
+  _add(*this, *this, pOther, invert(pOther.sign));
+}
+
+void SemanticFloat::multiply(const SemanticFloat& pOther)
+{
+  fromDouble(toDouble() * pOther.toDouble());
+}
+
+SemanticFloat SemanticFloat::operator*(const SemanticFloat& pOther) const
+{
+  SemanticFloat res;
+  res.fromDouble(toDouble() * pOther.toDouble());
+  return res;
+}
+
+SemanticFloat SemanticFloat::operator*(double pNb) const
+{
+  SemanticFloat res;
+  res.fromDouble(toDouble() * pNb);
+  return res;
 }
 
 void SemanticFloat::set(int pValue)
@@ -161,6 +256,36 @@ int SemanticFloat::signedValueWithoutDecimal() const
   return -value;
 }
 
+double SemanticFloat::toDouble() const
+{
+  double res = signedValueWithoutDecimal();
+  res += valueAfterTheDecimalPoint / _tenPow(nbOfSignificantDigit);
+  return res;
+}
+
+void SemanticFloat::fromDouble(double pNb)
+{
+  sign = pNb >= 0 ? Sign::POSITIVE : Sign::NEGATIVE;
+  auto absNb = std::abs(pNb);
+  value = static_cast<std::size_t>(absNb);
+
+  nbOfSignificantDigit = 7;
+  int coef = 10000000;
+  long long longNb = (absNb - value) * coef;
+  valueAfterTheDecimalPoint = longNb;
+
+  bool firstIteration = true;
+  while (nbOfSignificantDigit > 0)
+  {
+    if (firstIteration)
+      firstIteration = false;
+    else if (valueAfterTheDecimalPoint % 10 != 0)
+      break;
+    valueAfterTheDecimalPoint /= 10;
+    --nbOfSignificantDigit;
+  }
+}
+
 std::string SemanticFloat::toStr(SemanticLanguageEnum pLanguage) const
 {
   if (pLanguage == SemanticLanguageEnum::FRENCH)
@@ -180,18 +305,17 @@ std::string SemanticFloat::toStrWithSeparator(char pSeparator) const
   return ss.str();
 }
 
-void SemanticFloat::fromStr(const std::string& pStr, SemanticLanguageEnum pLanguage)
+bool SemanticFloat::fromStr(const std::string& pStr, SemanticLanguageEnum pLanguage)
 {
   if (pLanguage == SemanticLanguageEnum::FRENCH)
-    fromStrWithSeparator(pStr, ',');
-  else
-    fromStrWithSeparator(pStr, '.');
+    return fromStrWithSeparator(pStr, ',');
+  return fromStrWithSeparator(pStr, '.');
 }
 
-void SemanticFloat::fromStrWithSeparator(const std::string& pStr, char pSeparator)
+bool SemanticFloat::fromStrWithSeparator(const std::string& pStr, char pSeparator)
 {
   if (pStr.empty())
-    return;
+    return false;
   auto newSign = pStr[0] == '-' ? Sign::NEGATIVE : Sign::POSITIVE;
   std::size_t sepPos = pStr.find(pSeparator);
   if (sepPos != std::string::npos)
@@ -208,6 +332,7 @@ void SemanticFloat::fromStrWithSeparator(const std::string& pStr, char pSeparato
       sign = newSign;
       value = newValue;
       nbOfSignificantDigit = newNbOfSignificantDigit;
+      return true;
     } catch (...) {}
   }
   else
@@ -220,9 +345,12 @@ void SemanticFloat::fromStrWithSeparator(const std::string& pStr, char pSeparato
       sign = newSign;
       valueAfterTheDecimalPoint = 0u;
       nbOfSignificantDigit = 0u;
+      return true;
     } catch (...) {}
   }
+  return false;
 }
+
 
 bool SemanticQuantity::operator==(const SemanticQuantity& pOther) const
 {
@@ -244,7 +372,7 @@ void SemanticQuantity::setNumber(const SemanticFloat& pNumber)
   nb = pNumber;
 }
 
-void SemanticQuantity::increaseNumber(int pIncreaseValue)
+void SemanticQuantity::increaseNumber(const SemanticFloat& pIncreaseValue)
 {
   if (type == SemanticQuantityType::NUMBER)
     nb.add(pIncreaseValue);
@@ -264,7 +392,7 @@ void SemanticQuantity::setNumberToFill(int pParamId,
 }
 
 bool SemanticQuantity::getNumberToFill(int& pParamId,
-                     std::string& pAttributeName) const
+                                       std::string& pAttributeName) const
 {
   if (type == SemanticQuantityType::NUMBERTOFILL)
   {

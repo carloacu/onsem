@@ -19,7 +19,7 @@ void SemanticLength::printLength
   std::stringstream ss;
   ss << pLabelName << "(";
   for (const auto& currElt : lengthInfos)
-    ss << currElt.second << semanticLengthUnity_toAbreviation(currElt.first);
+    ss << currElt.second.toStr() << semanticLengthUnity_toAbreviation(currElt.first);
   ss << ")";
   pListElts.emplace_back(ss.str());
 }
@@ -27,13 +27,13 @@ void SemanticLength::printLength
 
 void SemanticLength::convertToUnity(SemanticLengthUnity pUnity)
 {
-  long long nbInMillimeter = 0;
+  SemanticFloat nbInGoodUnity;
 
   for (auto it = lengthInfos.begin(); it != lengthInfos.end(); )
   {
     if (it->first != pUnity)
     {
-      nbInMillimeter += it->second * semanticLengthUnity_toNbOfMilliseconds(it->first);
+      nbInGoodUnity += it->second * semanticLengthUnity_untityConvertionCoeficient(it->first, pUnity);
       it = lengthInfos.erase(it);
     }
     else
@@ -42,8 +42,8 @@ void SemanticLength::convertToUnity(SemanticLengthUnity pUnity)
     }
   }
 
-  if (nbInMillimeter > 0)
-    lengthInfos[pUnity] += nbInMillimeter / semanticLengthUnity_toNbOfMilliseconds(pUnity);
+  if (nbInGoodUnity > 0)
+    lengthInfos[pUnity] += nbInGoodUnity;
 }
 
 

@@ -159,9 +159,8 @@ void _loadSemanticAngle(SemanticAngle& pSemanticAngle,
     for (const auto& currAngleInfo : pTree)
     {
       const std::string label = currAngleInfo.first.data();
-      pSemanticAngle.angleInfos.emplace
-          (semanticAngleUnity_fromAbreviation(label),
-           currAngleInfo.second.get_value<int>());
+      pSemanticAngle.angleInfos[semanticAngleUnity_fromAbreviation(label)].fromStr(
+            currAngleInfo.second.get_value<std::string>());
     }
 }
 
@@ -173,9 +172,8 @@ void _loadSemanticLength(SemanticLength& pSemanticLength,
     for (const auto& currLengthInfo : pTree)
     {
       const std::string label = currLengthInfo.first.data();
-      pSemanticLength.lengthInfos.emplace
-          (semanticLengthUnity_fromAbreviation(label),
-           currLengthInfo.second.get_value<int>());
+      pSemanticLength.lengthInfos[semanticLengthUnity_fromAbreviation(label)].fromStr(
+            currLengthInfo.second.get_value<std::string>());
     }
 }
 
@@ -191,9 +189,8 @@ void _loadSemanticDuration(SemanticDuration& pSemanticDuration,
       if (label == "sign")
         pSemanticDuration.sign = Sign::NEGATIVE;
       else
-        pSemanticDuration.timeInfos.emplace
-            (semanticTimeUnity_fromStr(label),
-             currTimeInfo.second.get_value<int>());
+        pSemanticDuration.timeInfos[semanticTimeUnity_fromStr(label)].fromStr(
+              currTimeInfo.second.get_value<std::string>());
     }
 }
 
@@ -224,7 +221,7 @@ void _loadSemanticQuantity(SemanticQuantity& pSemanticQuantity,
                            const boost::property_tree::ptree& pTree)
 {
   pSemanticQuantity.type = semanticQuantityType_fromStr(pTree.get("type", semQuantityTypeDefaultStr));
-  pSemanticQuantity.nb = pTree.get("nb", 0);
+  pSemanticQuantity.nb.fromStr(pTree.get("nb", ""));
   pSemanticQuantity.paramSpec = pTree.get("paramSpec", "");
   pSemanticQuantity.subjectiveValue = semanticSubjectiveQuantity_fromStr(pTree.get("subjectiveValue", semanticSubjectiveQuantityDefaultStr));
 }

@@ -162,6 +162,19 @@ int _loadCharOrInt(const unsigned char*& pPtr,
 }
 
 
+SemanticFloat _loadSemanticFloat(SemanticFloat& pRes,
+                                 const unsigned char*& pPtr,
+                                 bool pNbWrittenInACharOrInAInt)
+{
+  pRes.value = _loadCharOrInt(pPtr, pNbWrittenInACharOrInAInt);
+  pRes.valueAfterTheDecimalPoint = pNbWrittenInACharOrInAInt ? 0 : _loadInt(pPtr);
+  pRes.sign = pNbWrittenInACharOrInAInt ? Sign::POSITIVE : (binaryloader::loadChar_0(pPtr) ? Sign::POSITIVE : Sign::NEGATIVE);
+  pRes.nbOfSignificantDigit = pNbWrittenInACharOrInAInt ? 0u : binaryloader::loadChar_1To7(pPtr);
+  if (!pNbWrittenInACharOrInAInt)
+    ++pPtr;
+  return pRes;
+}
+
 void _loadAngle(SemanticAngle& pAngle,
                 const unsigned char*& pPtr)
 {
@@ -172,7 +185,7 @@ void _loadAngle(SemanticAngle& pAngle,
     const bool charOrInt = binaryloader::loadChar_0(pPtr);
     auto angleUnity = semanticAngleUnity_fromChar(binaryloader::loadChar_1To7(pPtr));
     ++pPtr;
-    pAngle.angleInfos.emplace(angleUnity, _loadCharOrInt(pPtr, charOrInt));
+    _loadSemanticFloat(pAngle.angleInfos[angleUnity], pPtr, charOrInt);
   }
 }
 
@@ -186,7 +199,7 @@ void _loadLength(SemanticLength& pLength,
     const bool charOrInt = binaryloader::loadChar_0(pPtr);
     auto lengthUnity = semanticLengthUnity_fromChar(binaryloader::loadChar_1To7(pPtr));
     ++pPtr;
-    pLength.lengthInfos.emplace(lengthUnity, _loadCharOrInt(pPtr, charOrInt));
+    _loadSemanticFloat(pLength.lengthInfos[lengthUnity], pPtr, charOrInt);
   }
 }
 
@@ -202,10 +215,9 @@ void _loadDuration(SemanticDuration& pDuration,
     const bool charOrInt = binaryloader::loadChar_0(pPtr);
     auto timeUnity = semanticTimeUnity_fromChar(binaryloader::loadChar_1To7(pPtr));
     ++pPtr;
-    pDuration.timeInfos.emplace(timeUnity, _loadCharOrInt(pPtr, charOrInt));
+    _loadSemanticFloat(pDuration.timeInfos[timeUnity], pPtr, charOrInt);
   }
 }
-
 
 std::unique_ptr<SemanticGrounding> _loadGrd(
     const unsigned char*& pPtr,
@@ -226,12 +238,7 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
       genGrd.quantity.type = semanticQuantityType_fromChar(binaryloader::loadChar_0To3(pPtr));
       genGrd.quantity.subjectiveValue = semanticSubjectiveQuantity_fromChar(binaryloader::loadChar_4To7(pPtr));
       ++pPtr;
-      genGrd.quantity.nb.value = _loadCharOrInt(pPtr, nbWrittenInACharOrInAInt);
-      genGrd.quantity.nb.valueAfterTheDecimalPoint = nbWrittenInACharOrInAInt ? 0 : _loadInt(pPtr);
-      genGrd.quantity.nb.sign = nbWrittenInACharOrInAInt ? Sign::POSITIVE : (binaryloader::loadChar_0(pPtr) ? Sign::POSITIVE : Sign::NEGATIVE);
-      genGrd.quantity.nb.nbOfSignificantDigit = nbWrittenInACharOrInAInt ? 0u : binaryloader::loadChar_1To7(pPtr);
-      if (!nbWrittenInACharOrInAInt)
-        ++pPtr;
+      _loadSemanticFloat(genGrd.quantity.nb, pPtr, nbWrittenInACharOrInAInt);
       genGrd.quantity.paramSpec = binaryloader::loadString(pPtr);
     }
     else if (!binaryloader::loadChar_7(pPtr++)) // if quantity is 1

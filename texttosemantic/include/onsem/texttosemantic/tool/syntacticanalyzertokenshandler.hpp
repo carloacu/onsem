@@ -13,6 +13,7 @@ namespace onsem
 {
 struct SemanticDate;
 struct SemanticWord;
+struct SemanticFloat;
 namespace linguistics
 {
 struct LinguisticSubordinateId;
@@ -132,14 +133,14 @@ void fillRelativeCharEncodedFromInflWord(LinguisticSubordinateId& pLinguisticSub
 
 template<typename TOKITTEMP>
 ONSEM_TEXTTOSEMANTIC_API
-TOKITTEMP eatNumber(mystd::optional<int>& pNumber,
+TOKITTEMP eatNumber(mystd::optional<SemanticFloat>& pNumber,
                     TOKITTEMP pToken,
                     const TOKITTEMP& pItEndToken,
                     const std::string& pBeginOfNumberCpt);
 
 template<typename TOKITTEMP>
 ONSEM_TEXTTOSEMANTIC_API
-bool getNumberHoldByTheInflWord(int& number,
+bool getNumberHoldByTheInflWord(SemanticFloat& number,
                                 TOKITTEMP pToken,
                                 const TOKITTEMP& pItEndToken,
                                 const std::string& pNumberCpt);

@@ -5,6 +5,7 @@
 #include <string>
 #include "../../api.hpp"
 #include "semanticgrounding.hpp"
+#include "../semanticquantity.hpp"
 
 
 namespace onsem
@@ -134,7 +135,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticAngle
   void printAngle(std::list<std::string>& pListElts,
                   const std::string& pLabelName) const;
 
-  std::map<SemanticAngleUnity, int> angleInfos{};
+  std::map<SemanticAngleUnity, SemanticFloat> angleInfos{};
 };
 
 

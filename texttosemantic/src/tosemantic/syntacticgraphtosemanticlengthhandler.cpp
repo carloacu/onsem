@@ -27,7 +27,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       {
         if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticLengthUnity_toConcept(currLength)))
         {
-          int number = 0;
+          SemanticFloat number;
           for (TokIt itToken = getPrevToken(pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
                itToken != pContext.chunk.head;
                itToken = getPrevToken(itToken, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head))

@@ -379,24 +379,24 @@ bool LinguisticsynthesizergroundingEnglish::_dayHourTranslation
  bool pDateWritten) const
 {
   GroundingDurationPrettyPrintStruct durationPrint(pDuration);
-  bool amOrPm = durationPrint.hour <= 12;
+  bool amOrPm = durationPrint.hour && *durationPrint.hour <= 12;
   std::stringstream ss;
-  if (durationPrint.hour != -1)
+  if (durationPrint.hour)
   {
     if (pDateWritten)
       ss << "at ";
     if (amOrPm)
-      ss << durationPrint.hour;
+      ss << durationPrint.hour->toStr(_language);
     else
-      ss << durationPrint.hour - 12;
+      ss << (*durationPrint.hour - 12).toStr(_language);
   }
-  if (durationPrint.minute != -1)
+  if (durationPrint.minute)
   {
-    if (durationPrint.hour != -1)
+    if (durationPrint.hour)
       ss << ":";
-    ss << durationPrint.minute;
+    ss << durationPrint.minute->toStr(_language);
   }
-  if (durationPrint.hour != -1)
+  if (durationPrint.hour)
   {
     if (amOrPm)
       ss << " am";

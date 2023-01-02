@@ -115,14 +115,14 @@ void _saveSemanticAngle(boost::property_tree::ptree& pTree,
                         const SemanticAngle& pSemanticAngle)
 {
   for (const auto& currAngleInfo : pSemanticAngle.angleInfos)
-    pTree.put(semanticAngleUnity_toAbreviation(currAngleInfo.first), currAngleInfo.second);
+    pTree.put(semanticAngleUnity_toAbreviation(currAngleInfo.first), currAngleInfo.second.toStr());
 }
 
 void _saveSemanticLength(boost::property_tree::ptree& pTree,
                          const SemanticLength& pSemanticLength)
 {
   for (const auto& currLengthInfo : pSemanticLength.lengthInfos)
-    pTree.put(semanticLengthUnity_toAbreviation(currLengthInfo.first), currLengthInfo.second);
+    pTree.put(semanticLengthUnity_toAbreviation(currLengthInfo.first), currLengthInfo.second.toStr());
 }
 
 void _saveSemanticDuration(boost::property_tree::ptree& pTree,
@@ -131,7 +131,7 @@ void _saveSemanticDuration(boost::property_tree::ptree& pTree,
   if (pSemanticDuration.sign != Sign::POSITIVE)
     pTree.put("sign", false);
   for (const auto& currTimeInfo : pSemanticDuration.timeInfos)
-    pTree.put(semanticTimeUnity_toStr(currTimeInfo.first), currTimeInfo.second);
+    pTree.put(semanticTimeUnity_toStr(currTimeInfo.first), currTimeInfo.second.toStr());
 }
 
 void _saveSemanticDate(boost::property_tree::ptree& pTree,

@@ -56,7 +56,7 @@ TEST_F(SemanticReasonerGTests, operator_pingtime_basic)
     EXPECT_EQ(1u, relativeDuration.timeInfos.size());
     auto itTimeInfos = relativeDuration.timeInfos.begin();
     EXPECT_EQ(SemanticTimeUnity::MINUTE, itTimeInfos->first);
-    EXPECT_EQ(2, itTimeInfos->second);
+    EXPECT_EQ("2", itTimeInfos->second.toStr());
 
     ONSEM_BEHAVIOR_EQ("Hi", operator_pingtime(absoluteDuration, semMem, lingDb, SemanticLanguageEnum::ENGLISH));
     semanticBeginOfTimes.pop_front();
@@ -72,7 +72,7 @@ TEST_F(SemanticReasonerGTests, operator_pingtime_basic)
     EXPECT_EQ(1u, relativeDuration.timeInfos.size());
     auto itTimeInfos = relativeDuration.timeInfos.begin();
     EXPECT_EQ(SemanticTimeUnity::MILLISECOND, itTimeInfos->first);
-    EXPECT_EQ(500, itTimeInfos->second);
+    EXPECT_EQ("500", itTimeInfos->second.toStr());
 
     ONSEM_BEHAVIOR_EQ("Toto", operator_pingtime(absoluteDuration, semMem, lingDb, SemanticLanguageEnum::ENGLISH));
     semanticBeginOfTimes.pop_front();
