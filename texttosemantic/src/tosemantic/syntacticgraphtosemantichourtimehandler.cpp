@@ -2,6 +2,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
+#include <onsem/texttosemantic/dbtype/semanticquantity.hpp>
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include <onsem/texttosemantic/algorithmsetforalanguage.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
@@ -31,7 +32,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     auto itToken = pContext.chunk.tokRange.getItBegin();
     auto endIt = pContext.chunk.tokRange.getItEnd();
 
-    mystd::optional<int> number;
+    mystd::optional<SemanticFloat> number;
     itToken = eatNumber(number, itToken, endIt, "number_");
 
     if (!number)
@@ -77,9 +78,9 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
         itToken = getNextToken(itToken, endIt);
         if (itToken != endIt)
         {
-          mystd::optional<int> hourNumber;
+          mystd::optional<SemanticFloat> hourNumber;
           itToken = eatNumber(hourNumber, itToken, endIt, "number_");
-          if (hourNumber && *hourNumber < 24 && *number < 60)
+          if (hourNumber && hourNumber->isAnInteger() && *hourNumber < 24 && *number < 60)
           {
             if (*hourNumber < 12)
             {
@@ -103,7 +104,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
                 auto itHour = nowTimeGrd.timeOfDay.timeInfos.find(SemanticTimeUnity::HOUR);
                 if (itHour != nowTimeGrd.timeOfDay.timeInfos.end())
                 {
-                  if (itHour->second < *hourNumber)
+                  if (itHour->second < hourNumber->signedValueWithoutDecimal())
                     amOrPm = AmOrPm::AM;
                   else
                     amOrPm = AmOrPm::PM;
@@ -115,13 +116,13 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
 
             if (beforeOrAfter == BeforeOrAfter::BEFORE && *hourNumber > 0)
             {
-              --*hourNumber;
-              *number = 60 - *number;
+              --hourNumber->value;
+              *number = 60 - number->value;
             }
             auto time = std::make_unique<SemanticTimeGrounding>();
             time->timeOfDay.sign = Sign::POSITIVE;
-            time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = *hourNumber;
-            time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = *number;
+            time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = hourNumber->value;
+            time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = number->value;
             return mystd::unique_propagate_const<UniqueSemanticExpression>
                 (std::make_unique<GroundedExpression>(std::move(time)));
           }

@@ -173,6 +173,27 @@ void _writeCharOrInt(binarymasks::Ptr& pPtr,
     binarysaver::writeInt(pPtr.pint++, pVal);
 }
 
+bool _canSemanticFloatBeWrittenInAChar(const SemanticFloat& pSemanticFloat)
+{
+  return pSemanticFloat.isPositive() &&
+      pSemanticFloat.isAnInteger() &&
+      binarysaver::intCanBeStoredInAChar(pSemanticFloat.value);
+}
+
+void _writeSemanticFloat(binarymasks::Ptr& pPtr,
+                         const SemanticFloat& pSemanticFloat,
+                         bool pNbCanBeWrittenInAChar)
+{
+  _writeCharOrInt(pPtr, pSemanticFloat.value, pNbCanBeWrittenInAChar);
+  if (!pNbCanBeWrittenInAChar)
+  {
+    binarysaver::writeInt(pPtr.pint++, pSemanticFloat.valueAfterTheDecimalPoint);
+    binarysaver::writeChar_0(pPtr.pchar, pSemanticFloat.isPositive());
+    binarysaver::writeChar_1To7(pPtr.pchar, pSemanticFloat.nbOfSignificantDigit);
+    ++pPtr.pchar;
+  }
+}
+
 
 void _writeAngle(binarymasks::Ptr& pPtr,
                  const SemanticAngle& pAngle)
@@ -182,14 +203,13 @@ void _writeAngle(binarymasks::Ptr& pPtr,
   ++pPtr.pchar;
   for (const auto& currAngleInfo : pAngle.angleInfos)
   {
-    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currAngleInfo.second);
+    const bool charOrInt = _canSemanticFloatBeWrittenInAChar(currAngleInfo.second);
     binarysaver::writeChar_0(pPtr.pchar, charOrInt);
     binarysaver::writeChar_1To7(pPtr.pchar, semanticAngleUnity_toChar(currAngleInfo.first));
     ++pPtr.pchar;
-    _writeCharOrInt(pPtr, currAngleInfo.second, charOrInt);
+    _writeSemanticFloat(pPtr, currAngleInfo.second, charOrInt);
   }
 }
-
 
 void _writeLength(binarymasks::Ptr& pPtr,
                   const SemanticLength& pLength)
@@ -199,11 +219,11 @@ void _writeLength(binarymasks::Ptr& pPtr,
   ++pPtr.pchar;
   for (const auto& currLengthInfo : pLength.lengthInfos)
   {
-    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currLengthInfo.second);
+    const bool charOrInt = _canSemanticFloatBeWrittenInAChar(currLengthInfo.second);
     binarysaver::writeChar_0(pPtr.pchar, charOrInt);
     binarysaver::writeChar_1To7(pPtr.pchar, semanticLengthUnity_toChar(currLengthInfo.first));
     ++pPtr.pchar;
-    _writeCharOrInt(pPtr, currLengthInfo.second, charOrInt);
+    _writeSemanticFloat(pPtr, currLengthInfo.second, charOrInt);
   }
 }
 
@@ -217,14 +237,13 @@ void _writeDuration(binarymasks::Ptr& pPtr,
   ++pPtr.pchar;
   for (const auto& currTimeInfo : pDuration.timeInfos)
   {
-    const bool charOrInt = binarysaver::intCanBeStoredInAChar(currTimeInfo.second);
+    const bool charOrInt = _canSemanticFloatBeWrittenInAChar(currTimeInfo.second);
     binarysaver::writeChar_0(pPtr.pchar, charOrInt);
     binarysaver::writeChar_1To7(pPtr.pchar, semanticTimeUnity_toChar(currTimeInfo.first));
     ++pPtr.pchar;
-    _writeCharOrInt(pPtr, currTimeInfo.second, charOrInt);
+    _writeSemanticFloat(pPtr, currTimeInfo.second, charOrInt);
   }
 }
-
 
 void _writeGrounding(binarymasks::Ptr& pPtr,
                      const SemanticGrounding& pGrd,
@@ -245,22 +264,13 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     binarysaver::writeChar_6(pPtr.pchar, writeTheQuantity);
     if (writeTheQuantity)
     {
-      const bool nbCanBeWrittenInAChar = genGrd.quantity.nb.isPositive() &&
-          genGrd.quantity.nb.isAnInteger() &&
-          binarysaver::intCanBeStoredInAChar(genGrd.quantity.nb.value);
+      const bool nbCanBeWrittenInAChar = _canSemanticFloatBeWrittenInAChar(genGrd.quantity.nb);
       binarysaver::writeChar_7(pPtr.pchar, nbCanBeWrittenInAChar);
       ++pPtr.pchar;
       binarysaver::writeChar_0To3(pPtr.pchar, semanticQuantityType_toChar(genGrd.quantity.type));
       binarysaver::writeChar_4To7(pPtr.pchar, semanticSubjectiveQuantity_toChar(genGrd.quantity.subjectiveValue));
       ++pPtr.pchar;
-      _writeCharOrInt(pPtr, genGrd.quantity.nb.value, nbCanBeWrittenInAChar);
-      if (!nbCanBeWrittenInAChar)
-      {
-        binarysaver::writeInt(pPtr.pint++, genGrd.quantity.nb.valueAfterTheDecimalPoint);
-        binarysaver::writeChar_0(pPtr.pchar, genGrd.quantity.nb.isPositive());
-        binarysaver::writeChar_1To7(pPtr.pchar, genGrd.quantity.nb.nbOfSignificantDigit);
-        ++pPtr.pchar;
-      }
+      _writeSemanticFloat(pPtr, genGrd.quantity.nb, nbCanBeWrittenInAChar);
       binarysaver::writeString(pPtr, genGrd.quantity.paramSpec);
     }
     else

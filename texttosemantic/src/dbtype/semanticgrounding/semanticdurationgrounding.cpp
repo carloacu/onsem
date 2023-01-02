@@ -12,8 +12,8 @@ namespace onsem
 bool SemanticDuration::operator<
 (const SemanticDuration& pOther) const
 {
-  std::map<SemanticTimeUnity, int>::const_iterator itCurr = timeInfos.begin();
-  std::map<SemanticTimeUnity, int>::const_iterator itOther = pOther.timeInfos.begin();
+  auto itCurr = timeInfos.begin();
+  auto itOther = pOther.timeInfos.begin();
 
   if (sign != pOther.sign)
   {
@@ -132,8 +132,8 @@ std::string SemanticDuration::toRadixMapStr() const
     else
       ss << semanticTimeUnity_toChar(currTimeInfos.first);
     int nbOfDigits = semanticTimeUnity_toNbOfDigits(currTimeInfos.first);
-    assert(hasNotMoreThanANumberOfDigits(currTimeInfos.second, nbOfDigits));
-    ss << std::setfill('0') << std::setw(nbOfDigits) << currTimeInfos.second;
+    assert(hasNotMoreThanANumberOfDigits(currTimeInfos.second.value, nbOfDigits));
+    ss << std::setfill('0') << std::setw(nbOfDigits) << currTimeInfos.second.value;
   }
   return ss.str();
 }
@@ -162,7 +162,7 @@ bool SemanticDuration::_isNearlyEqualOneSideCheck(const SemanticDuration& pOther
 
 
 void SemanticDuration::add(SemanticTimeUnity pTimeUnity,
-                           int pNbToAdd)
+                           const SemanticFloat& pNbToAdd)
 {
   timeInfos[pTimeUnity] += pNbToAdd;
   _normalize();
@@ -172,7 +172,7 @@ SemanticDuration SemanticDuration::_addition(const SemanticDuration& pOther,
                                              int pCoefOfOther) const
 {
   SemanticDuration res = abs(*this);
-  std::map<SemanticTimeUnity, int>::const_iterator itOther = pOther.timeInfos.begin();
+  auto itOther = pOther.timeInfos.begin();
 
   if (sign != pOther.sign)
   {
@@ -193,16 +193,9 @@ SemanticDuration SemanticDuration::_addition(const SemanticDuration& pOther,
     }
   }
 
-  auto invertResultIfNecessary = [&](int pRes)
-  {
-    if (sign != pOther.sign)
-      return -pRes;
-    return pRes;
-  };
-
   while (itOther != pOther.timeInfos.end())
   {
-    res.timeInfos[itOther->first] += pCoefOfOther * invertResultIfNecessary(itOther->second);
+    res.timeInfos[itOther->first] += itOther->second * (pCoefOfOther * (itOther->second.isPositive() ? 1 : -1));
     ++itOther;
   }
   res._normalize();
@@ -230,7 +223,7 @@ void SemanticDuration::printDuration
   ss << pDurationLabelName << "(";
   ss << sign_toStr(sign);
   for (const auto& currElt : timeInfos)
-    ss << currElt.second << semanticTimeUnity_toAbreviation(currElt.first);
+    ss << currElt.second.toStr() << semanticTimeUnity_toAbreviation(currElt.first);
   ss << ")";
   pListElts.emplace_back(ss.str());
 }
@@ -260,7 +253,7 @@ bool SemanticDuration::_invertDirectionIfNecessary()
     else if (sign == Sign::NEGATIVE)
       sign = Sign::POSITIVE;
     for (; itTimeInfo != timeInfos.end(); ++itTimeInfo)
-      itTimeInfo->second = -itTimeInfo->second;
+      itTimeInfo->second.sign = itTimeInfo->second.sign == Sign::POSITIVE ? Sign::NEGATIVE : Sign::POSITIVE;
   }
   return needToInvertOrder;
 }
@@ -283,7 +276,7 @@ void SemanticDuration::_normalize()
 {
   int decNecessaryAtUpperLevel = 0;
 
-  auto adjustUnity = [&](int& pValue, int pMax)
+  auto adjustUnity = [&](SemanticFloat& pValue, int pMax)
   {
     while (pValue < 0)
     {
@@ -347,7 +340,7 @@ int64_t SemanticDuration::nbMilliseconds() const
 {
   int64_t res = 0;
   for (const auto& currTimeInfo : timeInfos)
-    res += semanticTimeUnity_toNbOfMilliseconds(currTimeInfo.first) * currTimeInfo.second;
+    res += semanticTimeUnity_toNbOfMilliseconds(currTimeInfo.first) * currTimeInfo.second.toDouble();
   if (sign != Sign::NEGATIVE)
     return res;
   return -res;

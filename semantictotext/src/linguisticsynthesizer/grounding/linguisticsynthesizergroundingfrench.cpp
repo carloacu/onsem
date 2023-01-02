@@ -450,26 +450,26 @@ bool LinguisticsynthesizergroundingFrench::_dayHourTranslation
 {
   GroundingDurationPrettyPrintStruct durationPrint(pDuration);
   std::stringstream ss;
-  if (durationPrint.hour != -1)
+  if (durationPrint.hour)
   {
     if (pDateWritten)
       ss << "à ";
-    ss << durationPrint.hour;
+    ss << durationPrint.hour->toStr(_language);
     const auto& meaning = pStatSynthDico.conceptToMeaning("duration_hour");
     if (!meaning.isEmpty())
     {
       std::string hourWord;
       SemanticGenderType gender = SemanticGenderType::UNKNOWN;
-      SemanticNumberType number = durationPrint.hour > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
+      SemanticNumberType number = *durationPrint.hour > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
       pStatSynthDico.getNounForm(hourWord, meaning, gender, number);
       ss << " " << hourWord;
     }
   }
-  if (durationPrint.minute != -1)
+  if (durationPrint.minute)
   {
-    if (durationPrint.hour != -1)
+    if (durationPrint.hour)
       ss << " ";
-    ss << durationPrint.minute;
+    ss << durationPrint.minute->toStr(_language);
   }
 
   const std::string timePrinted = ss.str();

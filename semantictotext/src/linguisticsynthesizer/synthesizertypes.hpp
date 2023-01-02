@@ -253,18 +253,18 @@ private:
 struct GroundingAnglePrettyPrintStruct
 {
   GroundingAnglePrettyPrintStruct(const SemanticAngle& pAngle)
-    : degree(-1),
-      radian(-1)
+    : degree(),
+      radian()
   {
     for (const auto& currAngleInfo : pAngle.angleInfos)
     {
       switch (currAngleInfo.first)
       {
       case SemanticAngleUnity::DEGREE:
-        degree = currAngleInfo.second;
+        degree.emplace(currAngleInfo.second);
         break;
       case SemanticAngleUnity::RADIAN:
-        radian = currAngleInfo.second;
+        radian.emplace(currAngleInfo.second);
         break;
       default:
         break;
@@ -272,45 +272,45 @@ struct GroundingAnglePrettyPrintStruct
     }
   }
 
-  int degree;
-  int radian;
+  mystd::optional<SemanticFloat> degree;
+  mystd::optional<SemanticFloat> radian;
 };
 
 struct GroundingLengthPrettyPrintStruct
 {
   GroundingLengthPrettyPrintStruct(const SemanticLength& pLength)
-    : kilometer(-1),
-      hectometer(-1),
-      decameter(-1),
-      meter(-1),
-      decimeter(-1),
-      centimeter(-1),
-      millimeter(-1)
+    : kilometer(),
+      hectometer(),
+      decameter(),
+      meter(),
+      decimeter(),
+      centimeter(),
+      millimeter()
   {
     for (const auto& currLengthInfo : pLength.lengthInfos)
     {
       switch (currLengthInfo.first)
       {
       case SemanticLengthUnity::KILOMETER:
-        kilometer = currLengthInfo.second;
+        kilometer.emplace(currLengthInfo.second);
         break;
       case SemanticLengthUnity::HECTOMETER:
-        hectometer = currLengthInfo.second;
+        hectometer.emplace(currLengthInfo.second);
         break;
       case SemanticLengthUnity::DECAMETER:
-        decameter = currLengthInfo.second;
+        decameter.emplace(currLengthInfo.second);
         break;
       case SemanticLengthUnity::METER:
-        meter = currLengthInfo.second;
+        meter.emplace(currLengthInfo.second);
         break;
       case SemanticLengthUnity::DECIMETER:
-        decimeter = currLengthInfo.second;
+        decimeter.emplace(currLengthInfo.second);
         break;
       case SemanticLengthUnity::CENTIMETER:
-        centimeter = currLengthInfo.second;
+        centimeter.emplace(currLengthInfo.second);
         break;
       case SemanticLengthUnity::MILLIMETER:
-        millimeter = currLengthInfo.second;
+        millimeter.emplace(currLengthInfo.second);
         break;
       default:
         break;
@@ -318,38 +318,38 @@ struct GroundingLengthPrettyPrintStruct
     }
   }
 
-  int kilometer;
-  int hectometer;
-  int decameter;
-  int meter;
-  int decimeter;
-  int centimeter;
-  int millimeter;
+  mystd::optional<SemanticFloat> kilometer;
+  mystd::optional<SemanticFloat> hectometer;
+  mystd::optional<SemanticFloat> decameter;
+  mystd::optional<SemanticFloat> meter;
+  mystd::optional<SemanticFloat> decimeter;
+  mystd::optional<SemanticFloat> centimeter;
+  mystd::optional<SemanticFloat> millimeter;
 };
 
 struct GroundingDurationPrettyPrintStruct
 {
   GroundingDurationPrettyPrintStruct(const SemanticDuration& pDuration)
-    : hour(-1),
-      minute(-1),
-      second(-1),
-      millisecond(-1)
+    : hour(),
+      minute(),
+      second(),
+      millisecond()
   {
     for (const auto& currTimeInfo : pDuration.timeInfos)
     {
       switch (currTimeInfo.first)
       {
       case SemanticTimeUnity::HOUR:
-        hour = currTimeInfo.second;
+        hour.emplace(currTimeInfo.second);
         break;
       case SemanticTimeUnity::MINUTE:
-        minute = currTimeInfo.second;
+        minute.emplace(currTimeInfo.second);
         break;
       case SemanticTimeUnity::SECOND:
-        second = currTimeInfo.second;
+        second.emplace(currTimeInfo.second);
         break;
       case SemanticTimeUnity::MILLISECOND:
-        millisecond = currTimeInfo.second;
+        millisecond.emplace(currTimeInfo.second);
         break;
       default:
         break;
@@ -357,10 +357,10 @@ struct GroundingDurationPrettyPrintStruct
     }
   }
 
-  int hour;
-  int minute;
-  int second;
-  int millisecond;
+  mystd::optional<SemanticFloat> hour;
+  mystd::optional<SemanticFloat> minute;
+  mystd::optional<SemanticFloat> second;
+  mystd::optional<SemanticFloat> millisecond;
 };
 
 } // End of namespace onsem

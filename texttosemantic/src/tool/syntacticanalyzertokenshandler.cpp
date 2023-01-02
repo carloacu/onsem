@@ -506,12 +506,12 @@ void fillRelativeCharEncodedFromInflWord(LinguisticSubordinateId& pLinguisticSub
 }
 
 template<typename TOKITTEMP>
-TOKITTEMP eatNumber(mystd::optional<int>& pNumber,
+TOKITTEMP eatNumber(mystd::optional<SemanticFloat>& pNumber,
                     TOKITTEMP pToken,
                     const TOKITTEMP& pItEndToken,
                     const std::string& pBeginOfNumberCpt)
 {
-  int numberToAddAtTheEnd = 0;
+  SemanticFloat numberToAddAtTheEnd;
   TOKITTEMP res = pToken;
   const std::size_t beginOfNumberCpt_size = pBeginOfNumberCpt.size();
   while (pToken != pItEndToken)
@@ -525,14 +525,9 @@ TOKITTEMP eatNumber(mystd::optional<int>& pNumber,
           currCptName.size() > beginOfNumberCpt_size)
       {
         std::string numberStr = currCptName.substr(beginOfNumberCpt_size, currCptName.size() - beginOfNumberCpt_size);
-        mystd::optional<int> newNumber;
-        try
-        {
-          newNumber.emplace(mystd::lexical_cast<int>(numberStr));
-        }
-        catch (...) {}
-
-        if (newNumber)
+        mystd::optional<SemanticFloat> newNumber;
+        newNumber.emplace();
+        if (newNumber->fromStr(numberStr))
         {
           // if the number is already written in number we have no number assembling to do
           if (inflWord.word.lemma.empty())
@@ -578,16 +573,16 @@ TOKITTEMP eatNumber(mystd::optional<int>& pNumber,
   return res;
 }
 
-template TokIt eatNumber<TokIt>(mystd::optional<int>&, TokIt, const TokIt&, const std::string&);
-template TokCstIt eatNumber<TokCstIt>(mystd::optional<int>&, TokCstIt, const TokCstIt&, const std::string&);
+template TokIt eatNumber<TokIt>(mystd::optional<SemanticFloat>&, TokIt, const TokIt&, const std::string&);
+template TokCstIt eatNumber<TokCstIt>(mystd::optional<SemanticFloat>&, TokCstIt, const TokCstIt&, const std::string&);
 
 template<typename TOKITTEMP>
-bool getNumberHoldByTheInflWord(int& number,
+bool getNumberHoldByTheInflWord(SemanticFloat& number,
                                 TOKITTEMP pToken,
                                 const TOKITTEMP& pItEndToken,
                                 const std::string& pNumberCpt)
 {
-  mystd::optional<int> numberOpt;
+  mystd::optional<SemanticFloat> numberOpt;
   eatNumber(numberOpt, pToken, pItEndToken, pNumberCpt);
   if (numberOpt)
   {
@@ -597,8 +592,8 @@ bool getNumberHoldByTheInflWord(int& number,
   return false;
 }
 
-template bool getNumberHoldByTheInflWord<TokIt>(int&, TokIt, const TokIt&, const std::string&);
-template bool getNumberHoldByTheInflWord<TokCstIt>(int&, TokCstIt, const TokCstIt&, const std::string&);
+template bool getNumberHoldByTheInflWord<TokIt>(SemanticFloat&, TokIt, const TokIt&, const std::string&);
+template bool getNumberHoldByTheInflWord<TokCstIt>(SemanticFloat&, TokCstIt, const TokCstIt&, const std::string&);
 
 
 template<typename TOKITTEMP, typename TOKENRANGE>
@@ -614,8 +609,8 @@ mystd::optional<SemanticDate> extractDate(const TOKITTEMP& pTokenIt,
     SemanticDate res;
     res.month.emplace(semanticTimeMonth_toId(semanticTimeMonth_fromStr(monthConcepts.begin()->first)));
 
-    int dayNumber = -1;
-    int yearNumber = -1;
+    SemanticFloat dayNumber;
+    SemanticFloat yearNumber;
 
     auto itTokenEndChunk = pTokRange.getItEnd();
     if (iGram.word.language == SemanticLanguageEnum::ENGLISH)
@@ -624,14 +619,16 @@ mystd::optional<SemanticDate> extractDate(const TOKITTEMP& pTokenIt,
       if (dayToken != pTokenIt &&
           (getNumberHoldByTheInflWord(dayNumber, dayToken, itTokenEndChunk, "number_") ||
            getNumberHoldByTheInflWord(dayNumber, dayToken, itTokenEndChunk, "rank_")) &&
-          dayNumber >= 1 && dayNumber <= 31)
+          dayNumber.isPositive() && dayNumber.isAnInteger() &&
+          dayNumber.value >= 1 && dayNumber.value <= 31)
       {
-        res.day.emplace(dayNumber);
+        res.day.emplace(dayNumber.value);
 
         auto yearToken = getNextToken(dayToken, itTokenEndChunk);
         if (yearToken != pTokRange.getItEnd() &&
-            getNumberHoldByTheInflWord(yearNumber, yearToken, itTokenEndChunk, "number_"))
-          res.year.emplace(yearNumber);
+            getNumberHoldByTheInflWord(yearNumber, yearToken, itTokenEndChunk, "number_") &&
+            yearNumber.isPositive() && yearNumber.isAnInteger())
+          res.year.emplace(yearNumber.value);
         resOpt.emplace(res);
         return resOpt;
       }
@@ -639,14 +636,16 @@ mystd::optional<SemanticDate> extractDate(const TOKITTEMP& pTokenIt,
 
     auto dayToken = getPrevToken(pTokenIt, pTokRange.getItBegin(), pTokenIt);
     if (dayToken != pTokenIt && getNumberHoldByTheInflWord(dayNumber, dayToken,  pTokenIt, "number_") &&
-        dayNumber >= 1 && dayNumber <= 31)
-      res.day.emplace(dayNumber);
+        dayNumber.isPositive() && dayNumber.isAnInteger() &&
+        dayNumber.value >= 1 && dayNumber.value <= 31)
+      res.day.emplace(dayNumber.value);
 
     auto yearToken = getNextToken(pTokenIt, itTokenEndChunk);
     if (yearToken != pTokRange.getItEnd() &&
         getNumberHoldByTheInflWord(yearNumber, yearToken, itTokenEndChunk, "number_") &&
-        hasNotMoreThanANumberOfDigits(yearNumber, 4))
-      res.year.emplace(yearNumber);
+        yearNumber.isPositive() && yearNumber.isAnInteger() &&
+        hasNotMoreThanANumberOfDigits(yearNumber.value, 4))
+      res.year.emplace(yearNumber.value);
     resOpt.emplace(res);
     return resOpt;
   }
@@ -668,7 +667,7 @@ bool isAnHour(const linguistics::ConstTokenIterator& pNextToken)
   {
     auto endIt = pNextToken.getItEnd();
 
-    mystd::optional<int> number;
+    mystd::optional<SemanticFloat> number;
     itToken = eatNumber(number, itToken, endIt, "number_");
 
     if (!number)
