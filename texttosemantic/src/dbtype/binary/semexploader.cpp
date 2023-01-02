@@ -226,7 +226,7 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
       genGrd.quantity.type = semanticQuantityType_fromChar(binaryloader::loadChar_0To3(pPtr));
       genGrd.quantity.subjectiveValue = semanticSubjectiveQuantity_fromChar(binaryloader::loadChar_4To7(pPtr));
       ++pPtr;
-      genGrd.quantity.nb.valueN = _loadCharOrInt(pPtr, nbWrittenInACharOrInAInt);
+      genGrd.quantity.nb.value = _loadCharOrInt(pPtr, nbWrittenInACharOrInAInt);
       genGrd.quantity.nb.valueAfterTheDecimalPoint = nbWrittenInACharOrInAInt ? 0 : _loadInt(pPtr);
       genGrd.quantity.nb.sign = nbWrittenInACharOrInAInt ? Sign::POSITIVE : (binaryloader::loadChar_0(pPtr) ? Sign::POSITIVE : Sign::NEGATIVE);
       genGrd.quantity.nb.nbOfSignificantDigit = nbWrittenInACharOrInAInt ? 0u : binaryloader::loadChar_1To7(pPtr);

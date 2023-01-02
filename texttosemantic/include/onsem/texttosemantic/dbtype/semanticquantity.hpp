@@ -38,7 +38,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticFloat
   void fromStrWithSeparator(const std::string& pStr, char pSeparator);
 
   Sign sign;
-  std::size_t valueN;
+  std::size_t value;
   std::size_t valueAfterTheDecimalPoint;
   unsigned char nbOfSignificantDigit;
 };

@@ -247,13 +247,13 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     {
       const bool nbCanBeWrittenInAChar = genGrd.quantity.nb.isPositive() &&
           genGrd.quantity.nb.isAnInteger() &&
-          binarysaver::intCanBeStoredInAChar(genGrd.quantity.nb.valueN);
+          binarysaver::intCanBeStoredInAChar(genGrd.quantity.nb.value);
       binarysaver::writeChar_7(pPtr.pchar, nbCanBeWrittenInAChar);
       ++pPtr.pchar;
       binarysaver::writeChar_0To3(pPtr.pchar, semanticQuantityType_toChar(genGrd.quantity.type));
       binarysaver::writeChar_4To7(pPtr.pchar, semanticSubjectiveQuantity_toChar(genGrd.quantity.subjectiveValue));
       ++pPtr.pchar;
-      _writeCharOrInt(pPtr, genGrd.quantity.nb.valueN, nbCanBeWrittenInAChar);
+      _writeCharOrInt(pPtr, genGrd.quantity.nb.value, nbCanBeWrittenInAChar);
       if (!nbCanBeWrittenInAChar)
       {
         binarysaver::writeInt(pPtr.pint++, genGrd.quantity.nb.valueAfterTheDecimalPoint);
