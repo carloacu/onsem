@@ -176,6 +176,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Va vers l'avant", advanceParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va tout droit", advanceParameterQuestions, semMem, lingDb, language);
 
+  const std::vector<std::string> moveBackParameterQuestions =
+  {"De combien dois-je reculer en mètres ?",
+   "De combien dois-je aller en arrière en mètres ?"};
+  triggers_addAnswerWithOneParameter("Recule", moveBackParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va en arrière", moveBackParameterQuestions, semMem, lingDb, language);
+
   triggers_addAnswerWithOneParameter("Avance un peu", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va un peu vers l'avant", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va un peu tout droit", {}, semMem, lingDb, language);
@@ -212,6 +218,13 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant\\", triggers_match("Va vers l'avant", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance un peu\\", triggers_match("Avance un peu", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance beaucoup\\", triggers_match("Avance beaucoup", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Recule(param1=2 mètres)\\", triggers_match("Recule de 2 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va en arrière\\", triggers_match("Va en arrière", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va en arrière(param1=0,7 mètre)\\", triggers_match("Va en arrière 0,7 mètre", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va en arrière(param1=0,35 mètre)\\", triggers_match("Va en arrière trente cinq centimètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va en arrière(param1=0,5 mètre)\\", triggers_match("Va 50 centimètres en arrière", semMem, lingDb));
+
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=34 degrés)\\", triggers_match("Tourne à gauche de 34 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à droite(param1=37 degrés)\\", triggers_match("Tourne à droite de 37 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une rotation à droite(param1=23 degrés)\\", triggers_match("Fais une rotation à droite de 23 degrés", semMem, lingDb));
