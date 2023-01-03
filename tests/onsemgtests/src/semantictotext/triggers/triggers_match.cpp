@@ -176,17 +176,24 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Va vers l'avant", advanceParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va tout droit", advanceParameterQuestions, semMem, lingDb, language);
 
+  triggers_addAnswerWithOneParameter("Avance un peu", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va un peu vers l'avant", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va un peu tout droit", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Avance beaucoup", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va très vers l'avant", {}, semMem, lingDb, language);
+
   const std::vector<std::string> moveBackParameterQuestions =
   {"De combien dois-je reculer en mètres ?",
    "De combien dois-je aller en arrière en mètres ?"};
   triggers_addAnswerWithOneParameter("Recule", moveBackParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va en arrière", moveBackParameterQuestions, semMem, lingDb, language);
 
-  triggers_addAnswerWithOneParameter("Avance un peu", {}, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Va un peu vers l'avant", {}, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Va un peu tout droit", {}, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Avance beaucoup", {}, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Va très vers l'avant", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Recule un peu", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va un peu en arrière", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va un petit peu en arrière", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Recule beaucoup", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va beaucoup en arrière", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Va très en arrière", {}, semMem, lingDb, language);
 
   const std::vector<std::string> turnParameterQuestions =
   {"De combien dois-je tourner en degré ?",
@@ -224,9 +231,16 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va en arrière(param1=0,7 mètre)\\", triggers_match("Va en arrière 0,7 mètre", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va en arrière(param1=0,35 mètre)\\", triggers_match("Va en arrière trente cinq centimètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va en arrière(param1=0,5 mètre)\\", triggers_match("Va 50 centimètres en arrière", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va un peu en arrière\\", triggers_match("Va un peu en arrière", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va un petit peu en arrière\\", triggers_match("Va un petit peu en arrière", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Recule beaucoup\\", triggers_match("Recule beaucoup", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va beaucoup en arrière\\", triggers_match("Va beaucoup en arrière", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va très en arrière\\", triggers_match("Va très en arrière", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=34 degrés)\\", triggers_match("Tourne à gauche de 34 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à droite(param1=37 degrés)\\", triggers_match("Tourne à droite de 37 degrés", semMem, lingDb));
+  //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va à droite(param1=42 degrés)\\", triggers_match("Va 42 degrés à droite", semMem, lingDb));
+  //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va à droite(param1=45 degrés)\\", triggers_match("Va à droite de 45 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une rotation à droite(param1=23 degrés)\\", triggers_match("Fais une rotation à droite de 23 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
 }
@@ -240,6 +254,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
 
   triggers_addAnswerWithOneParameter("Advance", {"How far should I advance in meters?"},
                                      semMem, lingDb, language);
+
   triggers_addAnswerWithOneParameter("Turn", {"How far should I turn?"},
                                      semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},

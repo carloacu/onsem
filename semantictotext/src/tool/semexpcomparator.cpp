@@ -1127,12 +1127,24 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
 
   const std::size_t size1 = listExpPtr1.elts.size();
   const std::size_t size2 = listExpPtr2.elts.size();
-  const bool hasInformationToFill = _hasInformationToFillFromListExpPtr(listExpPtr1) || _hasInformationToFillFromListExpPtr(listExpPtr2);
+  const bool hasInformationToFill1 = _hasInformationToFillFromListExpPtr(listExpPtr1);
+  const bool hasInformationToFill2 = _hasInformationToFillFromListExpPtr(listExpPtr2);
+  const bool hasInformationToFill = hasInformationToFill1 || hasInformationToFill2;
   ComparisonErrorsCoef errorCoef(std::abs(static_cast<int>(size1) - static_cast<int>(size2)), ComparisonTypeOfError::NORMAL);
-  if (hasInformationToFill)
-    errorCoef.type = ComparisonTypeOfError::PARAMETER_DIFF;
+  if (size1 > size2)
+  {
+    if (hasInformationToFill1)
+      errorCoef.type = ComparisonTypeOfError::PARAMETER_DIFF;
+    else
+      errorCoef.value *= 10;
+  }
   else
-    errorCoef.value *= 10;
+  {
+    if (hasInformationToFill2)
+      errorCoef.type = ComparisonTypeOfError::PARAMETER_DIFF;
+    else
+      errorCoef.value *= 10;
+  }
   if ((listExpPtr1.listType.has_value() || listExpPtr2.listType.has_value()) &&
       listExpPtr1.listType != listExpPtr2.listType &&
       (listExpPtr1.listType == ListExpressionType::OR ||
