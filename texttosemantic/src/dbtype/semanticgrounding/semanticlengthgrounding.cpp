@@ -1,5 +1,6 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp>
 #include <sstream>
+#include <onsem/common/utility/number.hpp>
 
 namespace onsem
 {
@@ -33,7 +34,7 @@ void SemanticLength::convertToUnity(SemanticLengthUnity pUnity)
   {
     if (it->first != pUnity)
     {
-      nbInGoodUnity += it->second * semanticLengthUnity_untityConvertionCoeficient(it->first, pUnity);
+      nbInGoodUnity += it->second * tenPow(semanticLengthUnity_untityConvertionTenPowerCoefficient(it->first, pUnity));
       it = lengthInfos.erase(it);
     }
     else

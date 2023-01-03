@@ -29,6 +29,6 @@ TEST_F(SemanticReasonerGTests, convert_lengths)
   semLength.lengthInfos[SemanticLengthUnity::CENTIMETER] = 270;
   EXPECT_EQ("(270cm)", _printLength(semLength));
   semLength.convertToUnity(SemanticLengthUnity::METER);
-  EXPECT_EQ("(2.699999m)", _printLength(semLength));
+  EXPECT_EQ("(2.7m)", _printLength(semLength));
 }
 

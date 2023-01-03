@@ -14,14 +14,14 @@ namespace onsem
 // Length Unity
 // ============
 
-#define SEMANTIC_LENGTH_UNITY_TABLE                                    \
-  SEMANTIC_LENGTH_UNITY(KILOMETER, "km", "kilometer", 1000000)         \
-  SEMANTIC_LENGTH_UNITY(HECTOMETER, "hm", "hectometer", 100000)        \
-  SEMANTIC_LENGTH_UNITY(DECAMETER, "dam", "decameter", 10000)          \
-  SEMANTIC_LENGTH_UNITY(METER, "m", "meter", 1000)                     \
-  SEMANTIC_LENGTH_UNITY(DECIMETER, "dm", "decimeter", 100)             \
-  SEMANTIC_LENGTH_UNITY(CENTIMETER, "cm", "centimeter", 10)            \
-  SEMANTIC_LENGTH_UNITY(MILLIMETER, "mm", "millimeter", 1)
+#define SEMANTIC_LENGTH_UNITY_TABLE                                \
+  SEMANTIC_LENGTH_UNITY(KILOMETER, "km", "kilometer", 6)           \
+  SEMANTIC_LENGTH_UNITY(HECTOMETER, "hm", "hectometer", 5)         \
+  SEMANTIC_LENGTH_UNITY(DECAMETER, "dam", "decameter", 4)          \
+  SEMANTIC_LENGTH_UNITY(METER, "m", "meter", 3)                    \
+  SEMANTIC_LENGTH_UNITY(DECIMETER, "dm", "decimeter", 2)           \
+  SEMANTIC_LENGTH_UNITY(CENTIMETER, "cm", "centimeter", 1)         \
+  SEMANTIC_LENGTH_UNITY(MILLIMETER, "mm", "millimeter", 0)
 
 
 #define SEMANTIC_LENGTH_UNITY(a, b, c, d) a,
@@ -56,7 +56,7 @@ static const std::map<std::string, SemanticLengthUnity> _semanticLengthUnity_fro
 #undef SEMANTIC_LENGTH_UNITY
 
 #define SEMANTIC_LENGTH_UNITY(a, b, c, d) d,
-static const std::vector<int64_t> _semanticLengthUnity_toNbOfMillimeters = {
+static const std::vector<int64_t> _semanticLengthUnity_toNbOfMillimetersPowerTen = {
   SEMANTIC_LENGTH_UNITY_TABLE
 };
 #undef SEMANTIC_LENGTH_UNITY
@@ -131,12 +131,12 @@ static inline SemanticLengthUnity semanticLengthUnity_fromAbreviation
   return SemanticLengthUnity::MILLIMETER;
 }
 
-static inline float semanticLengthUnity_untityConvertionCoeficient
+static inline char semanticLengthUnity_untityConvertionTenPowerCoefficient
 (SemanticLengthUnity pLengthUnity1,
  SemanticLengthUnity pLengthUnity2)
 {
-  return _semanticLengthUnity_toNbOfMillimeters[semanticLengthUnity_toChar(pLengthUnity1)] /
-      static_cast<float>(_semanticLengthUnity_toNbOfMillimeters[semanticLengthUnity_toChar(pLengthUnity2)]);
+  return _semanticLengthUnity_toNbOfMillimetersPowerTen[semanticLengthUnity_toChar(pLengthUnity1)] -
+      _semanticLengthUnity_toNbOfMillimetersPowerTen[semanticLengthUnity_toChar(pLengthUnity2)];
 }
 
 
