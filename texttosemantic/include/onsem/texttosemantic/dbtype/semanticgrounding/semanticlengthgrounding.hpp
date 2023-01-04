@@ -71,9 +71,9 @@ static const std::vector<SemanticLengthUnity> semanticLengthUnities = {
 
 
 
-static inline char semanticLengthUnity_toChar(SemanticLengthUnity pLengthUnity)
+static inline signed char semanticLengthUnity_toChar(SemanticLengthUnity pLengthUnity)
 {
-  return static_cast<char>(pLengthUnity);
+  return static_cast<signed char>(pLengthUnity);
 }
 
 static inline char semanticLengthUnity_toUnorderredChar(SemanticLengthUnity pLengthUnity)
@@ -131,7 +131,7 @@ static inline SemanticLengthUnity semanticLengthUnity_fromAbreviation
   return SemanticLengthUnity::MILLIMETER;
 }
 
-static inline char semanticLengthUnity_untityConvertionTenPowerCoefficient
+static inline signed char semanticLengthUnity_untityConvertionTenPowerCoefficient
 (SemanticLengthUnity pLengthUnity1,
  SemanticLengthUnity pLengthUnity2)
 {

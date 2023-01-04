@@ -6,7 +6,7 @@
 namespace onsem
 {
 
-static inline double tenPow(char pNb) {
+static inline double tenPow(signed char pNb) {
   switch (pNb) {
   case -10:
     return 0.0000000001;
