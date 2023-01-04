@@ -27,23 +27,29 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       {
         if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticAngleUnity_toConcept(currAngle)))
         {
-          SemanticFloat number;
+          std::unique_ptr<SemanticAngleGrounding> newAngle;
           for (TokIt itToken = getPrevToken(pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
                itToken != pContext.chunk.head;
                itToken = getPrevToken(itToken, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head))
           {
+            SemanticFloat number;
             if (getNumberHoldByTheInflWord(number, itToken, pContext.chunk.head, "number_"))
             {
-              auto newAngle = std::make_unique<SemanticAngleGrounding>();
+              if (!newAngle)
+                newAngle = std::make_unique<SemanticAngleGrounding>();
               newAngle->angle.angleInfos[currAngle] = number;
-              return mystd::unique_propagate_const<UniqueSemanticExpression>
-                  (std::make_unique<GroundedExpression>(std::move(newAngle)));
             }
             else if (itToken->getPartOfSpeech() == PartOfSpeech::DETERMINER)
             {
+              if (newAngle)
+                return mystd::unique_propagate_const<UniqueSemanticExpression>
+                    (std::make_unique<GroundedExpression>(std::move(newAngle)));
               return mystd::unique_propagate_const<UniqueSemanticExpression>();
             }
           }
+          if (newAngle)
+            return mystd::unique_propagate_const<UniqueSemanticExpression>
+                (std::make_unique<GroundedExpression>(std::move(newAngle)));
           return mystd::unique_propagate_const<UniqueSemanticExpression>
               (std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currAngle)));
         }

@@ -242,6 +242,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va à droite(param1=42 degrés)\\", triggers_match("Va 42 degrés à droite", semMem, lingDb));
   //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va à droite(param1=45 degrés)\\", triggers_match("Va à droite de 45 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une rotation à droite(param1=23 degrés)\\", triggers_match("Fais une rotation à droite de 23 degrés", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=25 degrés)\\", triggers_match("Tourne à gauche de vingt cinq degrés", semMem, lingDb));
+
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
 }
 

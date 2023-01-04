@@ -61,3 +61,5 @@ avance de 3 m
 Avance 30 cm
 Avance de trois m
 avance trois m
+Tourne à gauche de vingt cinq degrés
+
