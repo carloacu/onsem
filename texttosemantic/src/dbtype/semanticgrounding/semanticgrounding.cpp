@@ -38,6 +38,8 @@ std::unique_ptr<SemanticGrounding> SemanticGrounding::make(SemanticGroundingType
     return std::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0);
   case SemanticGroundingType::NAME:
     return std::make_unique<SemanticNameGrounding>("");
+  case SemanticGroundingType::PERCENTAGE:
+    return std::make_unique<SemanticPercentageGrounding>();
   case SemanticGroundingType::CONCEPTUAL:
     return std::make_unique<SemanticConceptualGrounding>();
   case SemanticGroundingType::UNITY:
@@ -241,6 +243,19 @@ SemanticNameGrounding& SemanticGrounding::getNameGrounding()
 }
 
 
+const SemanticPercentageGrounding& SemanticGrounding::getPercentageGrounding() const
+{
+  assert(false);
+  return *dynamic_cast<const SemanticPercentageGrounding*>(this);
+}
+
+SemanticPercentageGrounding& SemanticGrounding::getPercentageGrounding()
+{
+  assert(false);
+  return *dynamic_cast<SemanticPercentageGrounding*>(this);
+}
+
+
 const SemanticConceptualGrounding& SemanticGrounding::getConceptualGrounding() const
 {
   assert(false);
@@ -303,6 +318,8 @@ bool SemanticGrounding::operator==(const SemanticGrounding& pOther) const
     return getMetaGrounding().isEqual(pOther.getMetaGrounding());
   case SemanticGroundingType::NAME:
     return getNameGrounding().isEqual(pOther.getNameGrounding());
+  case SemanticGroundingType::PERCENTAGE:
+    return getPercentageGrounding().isEqual(pOther.getPercentageGrounding());
   case SemanticGroundingType::CONCEPTUAL:
     return getConceptualGrounding().isEqual(pOther.getConceptualGrounding());
   case SemanticGroundingType::UNITY:

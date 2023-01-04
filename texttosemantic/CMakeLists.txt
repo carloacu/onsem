@@ -59,6 +59,7 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticlengthgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp
+    include/onsem/texttosemantic/dbtype/semanticgrounding/semanticpercentagegrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativedurationgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativelocationgrounding.hpp
     include/onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativetimegrounding.hpp

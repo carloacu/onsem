@@ -11,6 +11,7 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticpercentagegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictextgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>

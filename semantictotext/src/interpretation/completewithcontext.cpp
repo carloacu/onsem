@@ -371,6 +371,7 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
   case SemanticGroundingType::RESOURCE:
   case SemanticGroundingType::LENGTH:
   case SemanticGroundingType::META:
+  case SemanticGroundingType::PERCENTAGE:
   case SemanticGroundingType::TEXT:
   case SemanticGroundingType::CONCEPTUAL:
   case SemanticGroundingType::UNITY:

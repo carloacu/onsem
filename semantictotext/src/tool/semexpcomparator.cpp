@@ -499,6 +499,13 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     }
     break;
   }
+  case SemanticGroundingType::PERCENTAGE:
+  {
+    const SemanticPercentageGrounding* percentageGrd2 = pGrounding2.getPercentageGroundingPtr();
+    if (percentageGrd2 != nullptr)
+      return bool_toImbricationType(pGrounding1.getPercentageGrounding().value == percentageGrd2->value);
+    break;
+  }
   case SemanticGroundingType::CONCEPTUAL:
     break; // The concepts will be checked after
   }

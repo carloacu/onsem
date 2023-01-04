@@ -1925,6 +1925,7 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LENGTH:
   case SemanticGroundingType::META:
+  case SemanticGroundingType::PERCENTAGE:
     return false;
   }
   return false;

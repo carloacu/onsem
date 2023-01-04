@@ -98,6 +98,8 @@ std::unique_ptr<SemanticGrounding> GroundedExpression::cloneGrounding(const Inde
     return std::make_unique<SemanticMetaGrounding>(_grounding->getMetaGrounding());
   case SemanticGroundingType::NAME:
     return std::make_unique<SemanticNameGrounding>(_grounding->getNameGrounding());
+  case SemanticGroundingType::PERCENTAGE:
+    return std::make_unique<SemanticPercentageGrounding>(_grounding->getPercentageGrounding());
   case SemanticGroundingType::CONCEPTUAL:
     return std::make_unique<SemanticConceptualGrounding>(_grounding->getConceptualGrounding());
   case SemanticGroundingType::UNITY:

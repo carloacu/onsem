@@ -1324,6 +1324,7 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
   case SemanticGroundingType::CONCEPTUAL:
   case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LENGTH:
+  case SemanticGroundingType::PERCENTAGE:
     break;
   }
   return true;

@@ -423,6 +423,15 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
     binarysaver::writeChar(pPtr.pchar++, semanticRelativeLocationType_toChar(relLocationGrd.locationType));
     return;
   }
+  case SemanticGroundingType::PERCENTAGE:
+  {
+    auto& percentageGrd = pGrd.getPercentageGrounding();
+    const bool charOrInt = _canSemanticFloatBeWrittenInAChar(percentageGrd.value);
+    binarysaver::writeChar_0(pPtr.pchar, charOrInt);
+    ++pPtr.pchar;
+    _writeSemanticFloat(pPtr, percentageGrd.value, charOrInt);
+    return;
+  }
   case SemanticGroundingType::UNITY:
   {
     auto& unityGrd = pGrd.getUnityGrounding();

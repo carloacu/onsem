@@ -181,6 +181,13 @@ void _saveLengthGrd(boost::property_tree::ptree& pTree,
   _saveSemanticLength(pTree.put_child("length", {}), pLengthGrd.length);
 }
 
+void _savePercentageGrd(boost::property_tree::ptree& pTree,
+                        const SemanticPercentageGrounding& pGrd)
+{
+  _saveGrd(pTree, pGrd);
+  pTree.put("value", pGrd.value.toStr());
+}
+
 void _saveDurationGrd(boost::property_tree::ptree& pTree,
                       const SemanticDurationGrounding& pDurationGrd)
 {
@@ -358,6 +365,9 @@ void _saveGrounding(boost::property_tree::ptree& pTree,
     return;
   case SemanticGroundingType::NAME:
     _saveNameGrd(pTree, pGrounding.getNameGrounding());
+    return;
+  case SemanticGroundingType::PERCENTAGE:
+    _savePercentageGrd(pTree, pGrounding.getPercentageGrounding());
     return;
   case SemanticGroundingType::CONCEPTUAL:
     _saveGrd(pTree, pGrounding);

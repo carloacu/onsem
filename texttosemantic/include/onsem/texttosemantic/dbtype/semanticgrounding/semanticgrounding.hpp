@@ -21,6 +21,7 @@ struct SemanticTextGrounding;
 struct SemanticLanguageGrounding;
 struct SemanticMetaGrounding;
 struct SemanticNameGrounding;
+struct SemanticPercentageGrounding;
 struct SemanticRelativeLocationGrounding;
 struct SemanticRelativeTimeGrounding;
 struct SemanticRelativeDurationGrounding;
@@ -46,6 +47,7 @@ struct SemanticUnityGrounding;
   SEMANTIC_GROUNGING_TYPE(RESOURCE, "resource")                        \
   SEMANTIC_GROUNGING_TYPE(META, "meta")                                \
   SEMANTIC_GROUNGING_TYPE(NAME, "name")                                \
+  SEMANTIC_GROUNGING_TYPE(PERCENTAGE, "percentage")                    \
   SEMANTIC_GROUNGING_TYPE(UNITY, "unity")                              \
   SEMANTIC_GROUNGING_TYPE(CONCEPTUAL, "conceptual")
 
@@ -213,6 +215,11 @@ public:
   virtual SemanticNameGrounding& getNameGrounding();
   virtual const SemanticNameGrounding* getNameGroundingPtr() const { return nullptr; }
   virtual SemanticNameGrounding* getNameGroundingPtr() { return nullptr; }
+
+  virtual const SemanticPercentageGrounding& getPercentageGrounding() const;
+  virtual SemanticPercentageGrounding& getPercentageGrounding();
+  virtual const SemanticPercentageGrounding* getPercentageGroundingPtr() const { return nullptr; }
+  virtual SemanticPercentageGrounding* getPercentageGroundingPtr() { return nullptr; }
 
   virtual const SemanticConceptualGrounding& getConceptualGrounding() const;
   virtual SemanticConceptualGrounding& getConceptualGrounding();

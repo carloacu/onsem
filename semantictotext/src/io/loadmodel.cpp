@@ -135,6 +135,15 @@ std::unique_ptr<SemanticNameGrounding> _loadNameGrd(const boost::property_tree::
 }
 
 
+std::unique_ptr<SemanticPercentageGrounding> _loadPercentageGrd(const boost::property_tree::ptree& pTree)
+{
+  auto res = std::make_unique<SemanticPercentageGrounding>();
+  _loadGrd(*res, pTree);
+  res->value.fromStr(pTree.get("value", ""));
+  return res;
+}
+
+
 std::unique_ptr<SemanticAgentGrounding> _loadAgentGrd(const boost::property_tree::ptree& pTree)
 {
   auto userId = pTree.get("userId", SemanticAgentGrounding::userNotIdentified);
@@ -406,6 +415,8 @@ std::unique_ptr<SemanticGrounding> _loadGrounding(const boost::property_tree::pt
     return _loadMetaGrd(pTree);
   case SemanticGroundingType::NAME:
     return _loadNameGrd(pTree);
+  case SemanticGroundingType::PERCENTAGE:
+    return _loadPercentageGrd(pTree);
   case SemanticGroundingType::CONCEPTUAL:
     return _loadConceptualGrd(pTree);
   case SemanticGroundingType::UNITY:

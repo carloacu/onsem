@@ -385,6 +385,14 @@ std::unique_ptr<SemanticGrounding> _loadGrd(
     relLocationGrd.locationType = semanticRelativeLocationType_fromChar(*(pPtr++));
     return res;
   }
+  case SemanticGroundingType::PERCENTAGE:
+  {
+    auto& percentageGrd = res->getPercentageGrounding();
+    const bool charOrInt = binaryloader::loadChar_0(pPtr);
+    ++pPtr;
+    _loadSemanticFloat(percentageGrd.value, pPtr, charOrInt);
+    return res;
+  }
   case SemanticGroundingType::UNITY:
   {
     auto& unityGrd = res->getUnityGrounding();

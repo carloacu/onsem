@@ -335,6 +335,26 @@ void Linguisticsynthesizergrounding::writeGrounding
       _strToOut(pOutSemExp.out, pOutInfoGram.word.partOfSpeech, pOutInfoGram.word.lemma);
     break;
   }
+  case SemanticGroundingType::PERCENTAGE:
+  {
+    const auto& grd = pGrounding.getPercentageGrounding();
+    std::stringstream ss;
+    ss << grd.value.toStr(_language);
+    const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
+    const auto& meaning = synthDico.statDb.conceptToMeaning("percentage");
+    if (!meaning.isEmpty())
+    {
+      std::string word;
+      SemanticNumberType number = grd.value > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
+      SemanticGenderType gender = SemanticGenderType::UNKNOWN;
+      synthDico.statDb.getNounForm(word, meaning, gender, number);
+      ss << " " << word;
+    }
+    const std::string percentagePrinted = ss.str();
+    if (!percentagePrinted.empty())
+      _strToOut(pOutSemExp.out, PartOfSpeech::NOUN, percentagePrinted);
+    break;
+  }
   case SemanticGroundingType::CONCEPTUAL:
   {
     if (ConceptSet::haveAConcept(pGrounding.concepts, "reflexive"))

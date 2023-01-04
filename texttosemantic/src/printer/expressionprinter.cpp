@@ -123,6 +123,15 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
 }
 
 
+
+void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
+                                 PrinterBuffer& pPrinterBuff,
+                                 const SemanticPercentageGrounding& pGrounding)
+{
+  pPrinterBuff.elts.emplace_back("%(" + pGrounding.value.toStr() + ")");
+  _flushStringStream(pLines, pPrinterBuff, nullptr);
+}
+
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticTextGrounding& pGrounding)
@@ -531,6 +540,12 @@ void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
   {
     _prettyPrintTypedGroundings(pLines, pPrinterBuff,
                                 pGroundings.getNameGrounding());
+    break;
+  }
+  case SemanticGroundingType::PERCENTAGE:
+  {
+    _prettyPrintTypedGroundings(pLines, pPrinterBuff,
+                                pGroundings.getPercentageGrounding());
     break;
   }
   case SemanticGroundingType::RELATIVELOCATION:
