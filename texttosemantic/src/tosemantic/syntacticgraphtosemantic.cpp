@@ -2357,6 +2357,12 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunk
   }
 
   {
+    auto optRes = xFillPercentageStruct(pContext);
+    if (optRes)
+      return std::move(*optRes);
+  }
+
+  {
     auto optRes = xFillTimeStruct(pContext);
     if (optRes)
       return std::move(*optRes);

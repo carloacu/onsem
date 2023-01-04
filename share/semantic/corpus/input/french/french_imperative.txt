@@ -62,4 +62,6 @@ Avance 30 cm
 Avance de trois m
 avance trois m
 Tourne à gauche de vingt cinq degrés
+Mets le volume à cent pour cent
+
 

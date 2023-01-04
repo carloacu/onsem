@@ -339,6 +339,7 @@ private:
 
   mystd::unique_propagate_const<UniqueSemanticExpression> xFillLengthStruct(const ToGenRepContext& pContext) const;
   mystd::unique_propagate_const<UniqueSemanticExpression> xFillLocationStruct(const ToGenRepContext& pContext) const;
+  mystd::unique_propagate_const<UniqueSemanticExpression> xFillPercentageStruct(const ToGenRepContext& pContext) const;
   mystd::unique_propagate_const<UniqueSemanticExpression> xFillHourTimeStruct(const ToGenRepContext& pContext) const;
   mystd::unique_propagate_const<UniqueSemanticExpression> xFillTimeStruct(const ToGenRepContext& pContext) const;
 };

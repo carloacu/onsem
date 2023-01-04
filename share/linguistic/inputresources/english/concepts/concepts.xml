@@ -89,6 +89,10 @@
  <concept name="ourFather">
   <linkedMeaning lemme="our Father" relationToConcept="4"/>
  </concept>
+ <concept name="percent">
+  <linkedMeaning lemme="percent" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="%" gram="noun" relationToConcept="3"/>
+ </concept>
  <concept name="please">
   <linkedMeaning lemme="please" gram="interjection" relationToConcept="4"/>
  </concept>

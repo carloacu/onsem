@@ -341,7 +341,7 @@ void Linguisticsynthesizergrounding::writeGrounding
     std::stringstream ss;
     ss << grd.value.toStr(_language);
     const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
-    const auto& meaning = synthDico.statDb.conceptToMeaning("percentage");
+    const auto& meaning = synthDico.statDb.conceptToMeaning("percent");
     if (!meaning.isEmpty())
     {
       std::string word;

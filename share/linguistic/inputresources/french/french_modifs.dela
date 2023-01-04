@@ -21,6 +21,9 @@
 #combien de fois,.ADV
 #de combien,combien.ADV
 
+#pour cent,.N:ms:mp
+#%,.N:ms:mp
+
 -mars.N
 -mars.N
 #mars,.N+z1:ms:mp
