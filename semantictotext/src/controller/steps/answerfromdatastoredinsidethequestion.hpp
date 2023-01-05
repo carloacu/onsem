@@ -12,7 +12,7 @@ namespace answerFromDataStoredInsideTheQuestion
 {
 
 
-void getAnswers(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
+void getAnswers(std::map<QuestionAskedInformation, AllAnswerElts> &pAllAnswers,
                 const GroundedExpression& pGrdExp,
                 SemanticRequestType pRootRequest,
                 const linguistics::LinguisticDatabase& pLingDb);

@@ -108,7 +108,10 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
   }
   else if (grd.type == SemanticGroundingType::ANGLE)
   {
-    return pGrdExp.cloneGrounding();
+    if (pUnityGrdPtr == nullptr)
+      return pGrdExp.cloneGrounding();
+    if (pUnityGrdPtr->typeOfUnity == TypeOfUnity::ANGLE)
+      return pGrdExp.cloneGrounding();
   }
   else if (grd.type == SemanticGroundingType::LENGTH)
   {
@@ -120,6 +123,11 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
       res->getLengthGrounding().length.convertToUnity(pUnityGrdPtr->getLengthUnity());
       return res;
     }
+  }
+  else if (grd.type == SemanticGroundingType::PERCENTAGE)
+  {
+    if (pUnityGrdPtr == nullptr || pUnityGrdPtr->typeOfUnity == TypeOfUnity::PERCENTAGE)
+      return pGrdExp.cloneGrounding();
   }
 
   if (pUnityGrdPtr == nullptr)
@@ -140,9 +148,10 @@ void _extractAskedChildrenFromGrdExp(
   const auto* statGrdPtr = pQuestionGrdExp->getStatementGroundingPtr();
   if (statGrdPtr != nullptr)
   {
+    auto typeOfUnityOpt = SemExpGetter::getTypeOfUnityFromGrdExp(pQuestionGrdExp);
     for (const auto& currRequest : statGrdPtr->requests.types)
     {
-      auto grammTypes = requestToGrammaticalTypes(currRequest);
+      auto grammTypes = requestToGrammaticalTypes(currRequest, typeOfUnityOpt);
       for (const auto& currGramm : grammTypes)
         pAskedChildren.insert(currGramm);
     }
@@ -397,6 +406,27 @@ mystd::optional<SemanticFloat> getNumberOfElements(const SemanticExpression& pSe
   if (grdExpPtr != nullptr)
     return getNumberOfElementsFromGrdExp(*grdExpPtr);
   return mystd::optional<SemanticFloat>();
+}
+
+
+mystd::optional<TypeOfUnity> getTypeOfUnityFromGrdExp(const GroundedExpression& pGrdExp)
+{
+  auto itUnity = pGrdExp.children.find(GrammaticalType::UNITY);
+  if (itUnity != pGrdExp.children.end())
+  {
+    auto* untiGrdExpPtr = itUnity->second->getGrdExpPtr_SkipWrapperPtrs();
+    if (untiGrdExpPtr != nullptr)
+    {
+      auto* unityGrdPtr = untiGrdExpPtr->grounding().getUnityGroundingPtr();
+      if (unityGrdPtr != nullptr)
+      {
+        mystd::optional<TypeOfUnity> res;
+        res.emplace(unityGrdPtr->typeOfUnity);
+        return res;
+      }
+    }
+  }
+  return mystd::optional<TypeOfUnity>();
 }
 
 
@@ -2357,7 +2387,8 @@ void extractAskedChildrenByAResource(
 }
 
 
-std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequestType)
+std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequestType,
+                                                       const mystd::optional<TypeOfUnity>& pTypeOfUnityOpt)
 {
   switch (pRequestType)
   {
@@ -2387,7 +2418,12 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
     return {GrammaticalType::OBJECT};
 
   case SemanticRequestType::QUANTITY:
-    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH, GrammaticalType::LOCATION};
+  {
+    if (pTypeOfUnityOpt && *pTypeOfUnityOpt == TypeOfUnity::PERCENTAGE)
+      return {GrammaticalType::SPECIFIER};
+    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH,
+          GrammaticalType::LOCATION};
+  }
 
   case SemanticRequestType::ABOUT:
   case SemanticRequestType::ACTION:

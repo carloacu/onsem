@@ -29,6 +29,7 @@
   <declareconcept name="opposite" />
   <declareconcept name="ourFather" />
   <declareconcept name="percent" />
+  <declareconcept name="percentage" />
   <declareconcept name="please" />
   <declareconcept name="pornography" />
   <declareconcept name="reading" />

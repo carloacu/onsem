@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 #include "../../api.hpp"
+#include <onsem/texttosemantic/dbtype/misc/typeofunity.hpp>
 #include "semanticgrounding.hpp"
 #include "semanticanglegrounding.hpp"
 #include "semanticlengthgrounding.hpp"
@@ -11,59 +12,6 @@
 
 namespace onsem
 {
-
-#define SEMANTIC_TYPEOFUNITY_UNITY_TABLE                \
-  SEMANTIC_TYPEOFUNITY_UNITY(ANGLE, "angle")            \
-  SEMANTIC_TYPEOFUNITY_UNITY(LENGTH, "length")          \
-  SEMANTIC_TYPEOFUNITY_UNITY(TIME, "time")
-
-
-#define SEMANTIC_TYPEOFUNITY_UNITY(a, b) a,
-enum class TypeOfUnity
-{
-  SEMANTIC_TYPEOFUNITY_UNITY_TABLE
-};
-#undef SEMANTIC_TYPEOFUNITY_UNITY
-
-
-#define SEMANTIC_TYPEOFUNITY_UNITY(a, b) b,
-static const std::vector<std::string> _typeOfUnity_toStr = {
-  SEMANTIC_TYPEOFUNITY_UNITY_TABLE
-};
-#undef SEMANTIC_TYPEOFUNITY_UNITY
-
-#define SEMANTIC_TYPEOFUNITY_UNITY(a, b) {b, TypeOfUnity::a},
-static const std::map<std::string, TypeOfUnity> _typeOfUnity_fromStr = {
-  SEMANTIC_TYPEOFUNITY_UNITY_TABLE
-};
-#undef SEMANTIC_TYPEOFUNITY_UNITY
-
-
-static inline char typeOfUnity_toChar(TypeOfUnity pTypeOfUnity)
-{
-  return static_cast<char>(pTypeOfUnity);
-}
-
-static inline TypeOfUnity typeOfUnity_fromChar(unsigned char pTypeOfUnity)
-{
-  return static_cast<TypeOfUnity>(pTypeOfUnity);
-}
-
-static inline std::string typeOfUnity_toStr(TypeOfUnity pTypeOfUnity)
-{
-  return _typeOfUnity_toStr[typeOfUnity_toChar(pTypeOfUnity)];
-}
-
-static inline TypeOfUnity typeOfUnity_fromStr(const std::string& pTypeOfUnityStr)
-{
-  auto it = _typeOfUnity_fromStr.find(pTypeOfUnityStr);
-  if (it != _typeOfUnity_fromStr.end())
-    return it->second;
-  assert(false);
-  return TypeOfUnity::LENGTH;
-}
-
-
 
 
 struct ONSEM_TEXTTOSEMANTIC_API SemanticUnityGrounding : public SemanticGrounding

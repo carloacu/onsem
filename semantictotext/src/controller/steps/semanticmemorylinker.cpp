@@ -1486,10 +1486,10 @@ bool _keepGroundingsWithSamePolarity(std::list<AnswerExp>& pAllAnswers,
 }
 
 
-void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
+void _genericFilterSemExpThatCanAnswer(std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
                                        std::map<semIdAbs, std::unique_ptr<AnswerElement>>& pRelations,
                                        const GroundedExpression& pFromGrdExpQuestion,
-                                       SemanticRequestType pFormRequest,
+                                       const QuestionAskedInformation& pQuestionAskedInformation,
                                        SemanticRequestType pDefaultRequType,
                                        const SemControllerWorkingStruct& pWorkStruct,
                                        const SemanticMemoryBlock& pMemBlock)
@@ -1500,12 +1500,13 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
   for (auto& relSemExp : pRelations)
   {
     AnswerElement& ansElt = *relSemExp.second;
-    auto grammaticalTypes = SemExpGetter::requestToGrammaticalTypes(pFormRequest);
+    auto grammaticalTypes = SemExpGetter::requestToGrammaticalTypes(
+          pQuestionAskedInformation.request, pQuestionAskedInformation.typeOfUnityOpt);
 
     const SemanticExpression* equalityOfTheMemoryAnswer = nullptr;
     std::map<GrammaticalType, const SemanticExpression*> annotationsOfTheAnswer;
     const auto& answGrdExp = ansElt.getGrdExpRef();
-    _extractAnnotationsFromAnswer(equalityOfTheMemoryAnswer, annotationsOfTheAnswer, pFormRequest,
+    _extractAnnotationsFromAnswer(equalityOfTheMemoryAnswer, annotationsOfTheAnswer, pQuestionAskedInformation.request,
                                   answGrdExp, ansElt.getAnnotations(), grammaticalTypes);
 
     if (grammaticalTypes.empty())
@@ -1538,7 +1539,7 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
           {
             _addGrdExpsFromASemExp(semExpsContainer, relSemExp.first, *uSemExp, ansElt.relatedContextAxioms,
                                    equalityOfTheMemoryAnswer, annotationsOfTheAnswer, questMetaGrdExp,
-                                   pWorkStruct, pMemBlock, pFormRequest);
+                                   pWorkStruct, pMemBlock, pQuestionAskedInformation.request);
           }
           else
           {
@@ -1546,14 +1547,15 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
             if (semExpRef != nullptr)
               _addGrdExpsFromASemExp(semExpsContainer, relSemExp.first, *semExpRef, ansElt.relatedContextAxioms,
                                      equalityOfTheMemoryAnswer, annotationsOfTheAnswer, questMetaGrdExp,
-                                     pWorkStruct, pMemBlock, pFormRequest);
+                                     pWorkStruct, pMemBlock, pQuestionAskedInformation.request);
           }
         }
       }
     }
   }
 
-  std::list<AnswerExp>& answersForDefaultRequ = pAllAnswers[pDefaultRequType].answersFromMemory;
+  std::list<AnswerExp>& answersForDefaultRequ =
+      pAllAnswers[QuestionAskedInformation(pDefaultRequType, pQuestionAskedInformation.typeOfUnityOpt)].answersFromMemory;
   bool removeIfInformationAlreadyExist = pDefaultRequType != SemanticRequestType::TIMES;
   if (!_keepGroundingsWithSamePolarity(answersForDefaultRequ,
                                        removeIfInformationAlreadyExist,
@@ -1565,7 +1567,7 @@ void _genericFilterSemExpThatCanAnswer(std::map<SemanticRequestType, AllAnswerEl
 }
 
 
-void _addCauseResult(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
+void _addCauseResult(std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
                      AnswerElement& pAnswerElement)
 {
   for (const GroundedExpWithLinks& currSent : pAnswerElement.getMemorySentences())
@@ -1582,15 +1584,17 @@ void _addCauseResult(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
 }
 
 
-void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
+void _replaceAnswersByNumberOfInstances(std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
                                         const SemanticUnityGrounding* pUnityGrdPtr)
 {
+  mystd::optional<QuestionAskedInformation> answerQuestionAskedInformation;
   std::unique_ptr<SemanticGrounding> answerGrdPtr;
-  auto _addElts = [&](const SemanticExpression& pSemExp)
+  auto _addElts = [&](QuestionAskedInformation pQuestionAskedInformation, const SemanticExpression& pSemExp)
   {
     auto quantityGrd = SemExpGetter::extractQuantity(pSemExp, pUnityGrdPtr);
     if (quantityGrd)
     {
+      answerQuestionAskedInformation.emplace(pQuestionAskedInformation);
       if (answerGrdPtr)
         answerGrdPtr = SemExpGetter::mergeQuantities(*answerGrdPtr, std::move(quantityGrd));
       else
@@ -1601,9 +1605,9 @@ void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerE
   for (const auto& currAnswers : pAllAnswers)
   {
     for (const auto& currAnswerFromMemory : currAnswers.second.answersFromMemory)
-      _addElts(currAnswerFromMemory.getGrdExp());
+      _addElts(currAnswers.first, currAnswerFromMemory.getGrdExp());
     for (const auto& currAnswerGenerated : currAnswers.second.answersGenerated)
-      _addElts(*currAnswerGenerated.genSemExp);
+      _addElts(currAnswers.first, *currAnswerGenerated.genSemExp);
   }
 
   if (answerGrdPtr)
@@ -1611,7 +1615,8 @@ void _replaceAnswersByNumberOfInstances(std::map<SemanticRequestType, AllAnswerE
     AllAnswerElts quantityAnswer;
     quantityAnswer.answersGenerated.emplace_back(std::make_unique<GroundedExpression>(std::move(answerGrdPtr)));
     pAllAnswers.clear();
-    pAllAnswers.emplace(SemanticRequestType::QUANTITY, std::move(quantityAnswer));
+    pAllAnswers.emplace(answerQuestionAskedInformation ? *answerQuestionAskedInformation : SemanticRequestType::QUANTITY,
+                        std::move(quantityAnswer));
   }
   else
   {
@@ -1777,7 +1782,7 @@ void _getSentencesFromMemBlockRecursively
 
 
 void _getRelationsOfLinks
-(std::map<SemanticRequestType, AllAnswerElts>& pUserAnswers,
+(std::map<QuestionAskedInformation, AllAnswerElts>& pUserAnswers,
  SemanticMemoryBlockViewer& pMemViewer,
  const SemControllerWorkingStruct& pWorkStruct,
  const RequestLinks& pReqLinks,
@@ -1959,7 +1964,8 @@ void _getRelationsOfLinks
   }
   case SemanticRequestType::QUANTITY:
   {
-    _genericFilterSemExpThatCanAnswer(pUserAnswers, answElts, pGrdExp, pRequestType,
+    auto questionAskedInformation = QuestionAskedInformation(pRequestType, SemExpGetter::getTypeOfUnityFromGrdExp(pGrdExp));
+    _genericFilterSemExpThatCanAnswer(pUserAnswers, answElts, pGrdExp, questionAskedInformation,
                                       pOriginalQuestRequestType, pWorkStruct, pMemViewer.constView);
 
     const SemanticUnityGrounding* unityGrdPtr = nullptr;
@@ -2152,7 +2158,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
   getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp);
 
   auto newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
-  std::map<SemanticRequestType, AllAnswerElts>& allAnswers = newAnsw->answerElts;
+  std::map<QuestionAskedInformation, AllAnswerElts>& allAnswers = newAnsw->answerElts;
   for (const auto& currRequest : pRequests.types)
   {
     _getRelationsOfLinks(allAnswers, pMemViewer, pWorkStruct,

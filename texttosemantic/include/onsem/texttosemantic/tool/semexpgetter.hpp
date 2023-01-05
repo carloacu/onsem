@@ -16,6 +16,7 @@
 #include <onsem/common/enum/semanticreferencetype.hpp>
 #include <onsem/common/enum/verbgoalenum.hpp>
 #include <onsem/texttosemantic/dbtype/misc/coreference.hpp>
+#include <onsem/texttosemantic/dbtype/misc/typeofunity.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include "../api.hpp"
 
@@ -99,6 +100,9 @@ mystd::optional<SemanticFloat> getNumberOfElementsFromGrdExp(const GroundedExpre
 
 ONSEM_TEXTTOSEMANTIC_API
 mystd::optional<SemanticFloat> getNumberOfElements(const SemanticExpression& pSemExp);
+
+ONSEM_TEXTTOSEMANTIC_API
+mystd::optional<TypeOfUnity> getTypeOfUnityFromGrdExp(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp,
@@ -493,7 +497,8 @@ void extractAskedChildrenByAResource(
 
 
 ONSEM_TEXTTOSEMANTIC_API
-std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequestType);
+std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequestType,
+                                                       const mystd::optional<TypeOfUnity>& pTypeOfUnityOpt);
 
 
 

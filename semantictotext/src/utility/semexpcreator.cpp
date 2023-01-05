@@ -97,7 +97,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _copyListOfGrdExps
 
 
 std::unique_ptr<GroundedExpression> _reformulateQuestionWithListOfAnswers(
-    std::map<SemanticRequestType, UniqueSemanticExpression>& pRequestToAnswers,
+    std::map<QuestionAskedInformation, UniqueSemanticExpression>& pRequestToAnswers,
     const GroundedExpression& pGrdExpQuestion,
     const SemanticMemoryBlock& pMemBlock,
     const linguistics::LinguisticDatabase& pLingDb)
@@ -108,15 +108,16 @@ std::unique_ptr<GroundedExpression> _reformulateQuestionWithListOfAnswers(
 
   for (auto& currAnswer : pRequestToAnswers)
   {
-    GrammaticalType gramTypeToAnswer = [](SemanticRequestType pRequest)
+    GrammaticalType gramTypeToAnswer = [](const QuestionAskedInformation& pQuestionAskedInformation)
     {
-      auto res = semanticRequestType_toSemGram(pRequest);
-      if (res == GrammaticalType::UNKNOWN)
-        return GrammaticalType::OBJECT;
-      return res;
+      auto grammTypes = SemExpGetter::requestToGrammaticalTypes(pQuestionAskedInformation.request, pQuestionAskedInformation.typeOfUnityOpt);
+      if (!grammTypes.empty())
+        return grammTypes[0];
+      return GrammaticalType::OBJECT;
     }(currAnswer.first);
     bool needToReplaceGramTypeAnswer = true;
-    if (currAnswer.first == SemanticRequestType::QUANTITY)
+    if (currAnswer.first.request == SemanticRequestType::QUANTITY &&
+        !currAnswer.first.typeOfUnityOpt)
     {
       auto itChildFromQuestion = rootGrdExp->children.find(gramTypeToAnswer);
       if (itChildFromQuestion != rootGrdExp->children.end())
@@ -129,7 +130,7 @@ std::unique_ptr<GroundedExpression> _reformulateQuestionWithListOfAnswers(
         }
       }
     }
-    if (currAnswer.first != SemanticRequestType::TIME)
+    if (currAnswer.first.request != SemanticRequestType::TIME)
     {
       rootGrdExp->children.erase(GrammaticalType::TIME);
       rootGrdExp->children.erase(GrammaticalType::OCCURRENCE_RANK);
@@ -1292,7 +1293,7 @@ std::unique_ptr<GroundedExpression> _invertSubjectAndObject(
 
 
 mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
-    std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
+    std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
     std::list<std::string>& pReferences,
     const GroundedExpression& pGrdExpQuestion,
     const SemanticRequests& pRequests,
@@ -1315,7 +1316,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
   if (pAllAnswers.empty())
     return mystd::unique_propagate_const<UniqueSemanticExpression>();
 
-  std::map<SemanticRequestType, UniqueSemanticExpression> requestToAnswers;
+  std::map<QuestionAskedInformation, UniqueSemanticExpression> requestToAnswers;
   mystd::unique_propagate_const<UniqueSemanticExpression> res;
   for (auto& currAnsw : pAllAnswers)
   {

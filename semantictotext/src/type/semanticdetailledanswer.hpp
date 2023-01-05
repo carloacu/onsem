@@ -11,6 +11,7 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/conditionexpression.hpp>
 #include <onsem/texttosemantic/dbtype/misc/conditionspecification.hpp>
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
+#include <onsem/texttosemantic/dbtype/misc/typeofunity.hpp>
 #include <onsem/texttosemantic/dbtype/interactioncontext.hpp>
 #include <onsem/semantictotext/semanticmemory/referencesgetter.hpp>
 #include "answerexp.hpp"
@@ -72,6 +73,16 @@ struct SemAnswer
 };
 
 
+struct QuestionAskedInformation
+{
+  QuestionAskedInformation(SemanticRequestType pRequest,
+                           const mystd::optional<TypeOfUnity>& pTypeOfUnityOpt = mystd::optional<TypeOfUnity>());
+  bool operator<(const QuestionAskedInformation& pOther) const;
+
+  SemanticRequestType request;
+  mystd::optional<TypeOfUnity> typeOfUnityOpt;
+};
+
 struct AllAnswerElts : public ReferencesGetter
 {
   bool isEmpty() const { return answersFromMemory.empty() && answersGenerated.empty(); }
@@ -117,7 +128,7 @@ struct LeafSemAnswer : public SemAnswer
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction{};
 
   // elts of the reaction
-  std::map<SemanticRequestType, AllAnswerElts> answerElts{};
+  std::map<QuestionAskedInformation, AllAnswerElts> answerElts{};
 
   // the condition to link
   mystd::optional<ConditionResult> condition{};

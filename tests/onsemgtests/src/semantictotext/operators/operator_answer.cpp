@@ -401,6 +401,10 @@ TEST_F(SemanticReasonerGTests, operator_answer_basic)
     operator_inform("Je dois aller vers l'avant", semMem, lingDb);
     ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas combien tu dois aller vers l'avant en centimètres.",
                             operator_answer("De combien dois-je aller vers l'avant en centimètres ?", semMem, lingDb));
+
+    operator_inform("Je dois mettre le volume à 91 %", semMem, lingDb);
+    ONSEM_ANSWER_EQ("Tu dois mettre le volume à 91 pour cent.",
+                    operator_answer("à combien dois-je mettre le volume en pourcentage", semMem, lingDb));
   }
 }
 

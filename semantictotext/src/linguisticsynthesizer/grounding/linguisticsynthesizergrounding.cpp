@@ -450,7 +450,8 @@ void Linguisticsynthesizergrounding::unityGroundingTranslation
   if (!meaning.isEmpty())
   {
     std::string word;
-    SemanticNumberType number = SemanticNumberType::PLURAL;
+    SemanticNumberType number = pGrounding.typeOfUnity == TypeOfUnity::PERCENTAGE ?
+          SemanticNumberType::SINGULAR : SemanticNumberType::PLURAL;
     SemanticGenderType gender = SemanticGenderType::UNKNOWN;
     pStatSynthDico.getNounForm(word, meaning, gender, number);
     _strToOut(pOut, PartOfSpeech::NOUN, word);

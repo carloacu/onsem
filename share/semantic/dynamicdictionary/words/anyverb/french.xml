@@ -5,7 +5,7 @@
     <child chunkLinkType="location" condition="followedByConceptOrHyponym(location_relative_here)" />
     <child lemma="à" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_)&!followedByOneOfPrefixes(a,ha)" />
     <child lemma="en" pos="preposition" chunkLinkType="location" condition="locationEn_fr" />
-    <child lemma="en" pos="preposition" chunkLinkType="unity" condition="followedByBeginOfConcept(location_relative_angle_)|followedByBeginOfConcept(length_)|followedByBeginOfConcept(duration_)" />
+    <child lemma="en" pos="preposition" chunkLinkType="unity" condition="followedByBeginOfConcept(location_relative_angle_)|followedByBeginOfConcept(length_)|followedByBeginOfConcept(duration_)|followedByConceptOrHyponym(percentage)" />
     <child lemma="en" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_)" />
     <bookmark name="au-avant-lieu-condition" />
     <child chunkLinkType="location" condition="followedByPartOfSpeech(adverb)&followedByConceptOrHyponym(location)" />

@@ -1,6 +1,7 @@
 #include "syntacticgraphtosemantic.hpp"
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticpercentagegrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticunitygrounding.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 
@@ -46,6 +47,11 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
         return mystd::unique_propagate_const<UniqueSemanticExpression>
             (std::make_unique<GroundedExpression>(std::move(newPercentage)));
       return mystd::unique_propagate_const<UniqueSemanticExpression>();
+    }
+    else if (ConceptSet::haveAConcept(iGram.infos.concepts, "percentage"))
+    {
+      return mystd::unique_propagate_const<UniqueSemanticExpression>
+          (std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(TypeOfUnity::PERCENTAGE, "")));
     }
     break;
   }

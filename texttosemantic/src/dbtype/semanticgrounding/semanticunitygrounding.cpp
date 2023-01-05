@@ -34,6 +34,9 @@ void SemanticUnityGrounding::setValue(TypeOfUnity pTypeOfUnity,
   case TypeOfUnity::LENGTH:
     setValue(semanticLengthUnity_fromStr(pValueStr));
     break;
+  case TypeOfUnity::PERCENTAGE:
+    typeOfUnity = pTypeOfUnity;
+    break;
   case TypeOfUnity::TIME:
     setValue(semanticTimeUnity_fromStr(pValueStr));
     break;
@@ -82,6 +85,8 @@ std::string SemanticUnityGrounding::getValueStr() const
     return semanticAngleUnity_toStr(semanticAngleUnity_fromChar(value));
   case TypeOfUnity::LENGTH:
     return semanticLengthUnity_toStr(semanticLengthUnity_fromChar(value));
+  case TypeOfUnity::PERCENTAGE:
+    return "percentage";
   case TypeOfUnity::TIME:
     return semanticTimeUnity_toStr(semanticTimeUnity_fromChar(value));
   }
@@ -97,6 +102,8 @@ std::string SemanticUnityGrounding::getValueConcept() const
     return semanticAngleUnity_toConcept(semanticAngleUnity_fromChar(value));
   case TypeOfUnity::LENGTH:
     return semanticLengthUnity_toConcept(semanticLengthUnity_fromChar(value));
+  case TypeOfUnity::PERCENTAGE:
+    return "percentage";
   case TypeOfUnity::TIME:
     return semanticTimeUnity_toConcept(semanticTimeUnity_fromChar(value));
   }

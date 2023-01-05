@@ -197,5 +197,6 @@ Pourquoi certaines personnes vivent une vie consacrée alors que d'autres se mar
 Paul est un footballeur ou un déformateur ...?
 Paul est un footballeur ou un basketteur ?
 De combien dois-je tourner en degrés ?
+à combien dois-je mettre le volume en pourcentage
 
 

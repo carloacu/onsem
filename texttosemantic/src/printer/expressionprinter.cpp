@@ -459,8 +459,11 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticUnityGrounding& pGrounding)
 {
-  pPrinterBuff.elts.emplace_back(typeOfUnity_toStr(pGrounding.typeOfUnity) + "(" +
-                                 pGrounding.getValueStr() + ")");
+  if (pGrounding.typeOfUnity == TypeOfUnity::PERCENTAGE)
+    pPrinterBuff.elts.emplace_back("unity(percentage)");
+  else
+    pPrinterBuff.elts.emplace_back(typeOfUnity_toStr(pGrounding.typeOfUnity) + "(" +
+                                   pGrounding.getValueStr() + ")");
   _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 

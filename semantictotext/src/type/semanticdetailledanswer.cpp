@@ -36,6 +36,25 @@ void AllAnswerElts::getReferences(std::list<std::string>& pReferences) const
     currAnswer.relatedContextAxioms.getReferences(pReferences);
 }
 
+QuestionAskedInformation::QuestionAskedInformation(SemanticRequestType pRequest,
+                                                   const mystd::optional<TypeOfUnity>& pTypeOfUnityOpt)
+  : request(pRequest),
+    typeOfUnityOpt(pTypeOfUnityOpt)
+{
+}
+
+
+bool QuestionAskedInformation::operator<(const QuestionAskedInformation& pOther) const
+{
+  if (request != pOther.request)
+    return request < pOther.request;
+  if (!typeOfUnityOpt)
+    return false;
+  if (pOther.typeOfUnityOpt)
+    return *typeOfUnityOpt < *pOther.typeOfUnityOpt;
+  return true;
+}
+
 
 LeafSemAnswer::LeafSemAnswer(ContextualAnnotation pType)
   : SemAnswer(),

@@ -157,7 +157,7 @@ UniqueSemanticExpression generateNumberOfTimesAnswer(
     const GroundedExpression& pGrdExpQuestion,
     std::size_t pNbOfTimes);
 
-mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(std::map<SemanticRequestType, AllAnswerElts>& pAllAnswers,
+mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
                                                                        std::list<std::string>& pReferences,
                                                                        const GroundedExpression& pGrdExpQuestion,
                                                                        const SemanticRequests& pRequests,
