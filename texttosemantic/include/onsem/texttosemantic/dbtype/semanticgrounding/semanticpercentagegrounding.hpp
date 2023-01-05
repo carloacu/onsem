@@ -16,6 +16,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticPercentageGrounding : public SemanticGro
     : SemanticGrounding(SemanticGroundingType::PERCENTAGE),
       value()
   {
+    concepts["percent_*"] = 4;
   }
 
   const SemanticPercentageGrounding& getPercentageGrounding() const override { return *this; }

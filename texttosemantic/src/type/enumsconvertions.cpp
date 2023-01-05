@@ -178,6 +178,7 @@ mystd::optional<GrammaticalType> chunkTypeToGrammaticalType
   case ChunkLinkType::ELSE:
   case ChunkLinkType::COMPLEMENT:
   case ChunkLinkType::SIMPLE:
+  case ChunkLinkType::IGNORE:
     return mystd::optional<GrammaticalType>();
   }
   return mystd::optional<GrammaticalType>();

@@ -231,7 +231,7 @@ void VerbalToNominalChunksLinker::_constructASyntGraphBetween2VerbChunks
             if (chunkCanBeAnObject(*oldSubjectLink->chunk))
               oldSubjectLink->type = ChunkLinkType::DIRECTOBJECT;
             else
-              oldSubjectLink->type = ChunkLinkType::SPECIFICATION;
+              oldSubjectLink->type = ChunkLinkType::IGNORE;
           }
         }
       }

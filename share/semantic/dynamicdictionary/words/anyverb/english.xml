@@ -20,6 +20,7 @@
     <child lemma="here:" pos="preposition" chunkLinkType="location" condition="followedByResource" />
     <child lemma="in" pos="preposition" chunkLinkType="location" condition="followedByPartOfSpeech(proper_noun)" />
 
+    <child lemma="to" pos="preposition" chunkLinkType="specification" condition="followedByConceptOrHyponym(percent, have_number_before)" />
     <child lemma="about" pos="preposition" chunkLinkType="topic" />
     <child lemma="according to" pos="preposition" chunkLinkType="according to" />
     <child lemma="against" pos="preposition" chunkLinkType="against" />

@@ -64,6 +64,7 @@ namespace linguistics
   SYNTACTIC_CHUNK_LINK(WITH, "with", "green")                                  \
   SYNTACTIC_CHUNK_LINK(WITHOUT, "without", "green")                            \
   SYNTACTIC_CHUNK_LINK(NOTUNDERSTOOD, "not understood", "red")                 \
+  SYNTACTIC_CHUNK_LINK(IGNORE, "ignore", "red")                                \
   SYNTACTIC_CHUNK_LINK(SIMPLE, "", "black")
 
 

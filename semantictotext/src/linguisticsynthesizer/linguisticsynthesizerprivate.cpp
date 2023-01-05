@@ -1910,23 +1910,27 @@ void LinguisticSynthesizerPrivate::_writeEquality
   const GroundedExpression* specGrdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (specGrdExpPtr != nullptr)
   {
-    SynthesizerCurrentContext context;
     const GroundedExpression& specGrdExp = *specGrdExpPtr;
     const auto& specGrd = specGrdExp.grounding();
-    if (specGrd.type == SemanticGroundingType::STATEMENT)
-      return;
     const Linguisticsynthesizergrounding& grdSynth = getSyntGrounding();
     linguistics::InflectedWord outInfoGram;
-    SynthesizerCurrentContext grdContext(context);
+    SynthesizerCurrentContext grdContext(pContext);
+    grdContext.grammaticalTypeFromParent = GrammaticalType::SPECIFIER;
     grdSynth.modifyContextForAGrounding(grdContext.wordContext, outInfoGram, pConf,
-                                        specGrdExp.grounding(), context.contextType,
-                                        context.verbTense);
+                                        specGrdExp.grounding(), grdContext.contextType,
+                                        grdContext.verbTense);
 
-    bool beforeOrAfterTheVerb = outInfoGram.infos.hasContextualInfo(WordContextualInfos::CANBEBEFOREVERB) &&
-        (_language != SemanticLanguageEnum::FRENCH ||
-        pParentContextType == SynthesizerCurrentContextType::SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERNOUN);
-    OutSemExp& outSemExp = beforeOrAfterTheVerb ?
-          pSentWorkStruct.outs.objectBeforeVerb : pSentWorkStruct.outs.equalityAfterVerb;
+    OutSemExp& outSemExp = [&]() -> OutSemExp&
+    {
+      bool beforeOrAfterTheVerb = outInfoGram.infos.hasContextualInfo(WordContextualInfos::CANBEBEFOREVERB) &&
+          (_language != SemanticLanguageEnum::FRENCH ||
+          pParentContextType == SynthesizerCurrentContextType::SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERNOUN);
+      if (beforeOrAfterTheVerb)
+        return pSentWorkStruct.outs.objectBeforeVerb;
+      if (specGrd.type == SemanticGroundingType::PERCENTAGE)
+        return pSentWorkStruct.outs.objectAfterVerb;
+      return pSentWorkStruct.outs.equalityAfterVerb;
+    }();
     auto subRequests = pRequests;
     _writeNominalGrdExp(outSemExp, subRequests, pLastSubject, specGrdExp,
                         outInfoGram, pConf, grdContext);

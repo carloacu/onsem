@@ -479,7 +479,7 @@ void SubordinateExtractor::xLinkComplementaryNominalChunksSeparatredByCommas
             if (doChunk.type == ChunkType::VERB_CHUNK)
               for (auto& currSubNominalChunk : subNominalChunks)
                 xAddASubChunk(pChunkLinks, doChunk, currSubNominalChunk.sepChunk, currSubNominalChunk.nominalChunk, ChunkLinkType::DIRECTOBJECT);
-            else
+            else if (doChunk.type != ChunkType::INFINITVE_VERB_CHUNK)
               for (auto& currSubNominalChunk : subNominalChunks)
                 xAddASubChunk(pChunkLinks, doChunk, currSubNominalChunk.sepChunk, currSubNominalChunk.nominalChunk, ChunkLinkType::SPECIFICATION);
           }

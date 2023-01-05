@@ -2792,6 +2792,7 @@ void SyntacticGraphToSemantic::xFillNewSentence
     case ChunkLinkType::RECEIVER:
     case ChunkLinkType::REPETITION:
     case ChunkLinkType::SIMILARITY:
+    case ChunkLinkType::SPECIFICATION:
     case ChunkLinkType::THANKS_TO:
     case ChunkLinkType::TIME:
     case ChunkLinkType::TOPIC:
@@ -2855,10 +2856,10 @@ void SyntacticGraphToSemantic::xFillNewSentence
     case ChunkLinkType::OWNER:
     case ChunkLinkType::IF:
     case ChunkLinkType::ELSE:
-    case ChunkLinkType::SPECIFICATION:
     case ChunkLinkType::COMPLEMENT:
     case ChunkLinkType::NOTUNDERSTOOD:
     case ChunkLinkType::TODO:
+    case ChunkLinkType::IGNORE:
       break;
     }
   }
