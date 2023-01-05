@@ -393,7 +393,8 @@ bool _addPotentialNewRelationsFromLinks(RelationsThatMatch<IS_MODIFIABLE>& pRela
       auto compWithOrWithoutInterpretations = _createCompWithOrWithoutInterpretations(!pIsATrigger);
 
       auto& memBlock = pMemBlockPrivatePtr->getMemBlock();
-      if (itSpecifierToLookForPtr != nullptr &&
+      if (!pIsATrigger &&
+          itSpecifierToLookForPtr != nullptr &&
           pChildSemExpsToSkip.count(itSpecifierToLookForPtr) == 0)
       {
         auto compWithoutStatementGrd = _createCompWithOrWithoutInterpretations(!pIsATrigger);
@@ -415,7 +416,7 @@ bool _addPotentialNewRelationsFromLinks(RelationsThatMatch<IS_MODIFIABLE>& pRela
         }
       }
 
-      if (itOwnerLookForPtr != nullptr)
+      if (!pIsATrigger && itOwnerLookForPtr != nullptr)
       {
         auto itOwnerFromMemory = grdExpFromMem.children.find(GrammaticalType::OWNER);
         if (itOwnerFromMemory == grdExpFromMem.children.end())

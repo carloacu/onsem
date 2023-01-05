@@ -41,11 +41,12 @@ void triggers_add(const std::string& pTriggerText,
                   const std::string& pAnswerText,
                   SemanticMemory& pSemanticMemory,
                   const linguistics::LinguisticDatabase& pLingDb,
-                  const std::list<std::string>& pReferences)
+                  const std::list<std::string>& pReferences,
+                  SemanticLanguageEnum pLanguage)
 {
   TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
                                            SemanticAgentGrounding::me,
-                                           SemanticLanguageEnum::UNKNOWN);
+                                           pLanguage);
   triggerProcContext.isTimeDependent = false;
   auto triggerSemExp = converter::textToContextualSemExp(pTriggerText, triggerProcContext,
                                                          SemanticSourceEnum::UNKNOWN, pLingDb);
@@ -306,8 +307,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     triggers_add(order1Str, "Laquelle", semMem, lingDb);
     ONSEM_BEHAVIOR_EQ("Lequel ?", operator_react(order1Str, semMem, lingDb));
     const std::string order2Str = "Donne-moi ta main mouillée";
-    ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas te donner ma main mouillée.",
-                              operator_react(order2Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("Lequel ?", operator_react(order2Str, semMem, lingDb));
     triggers_add(order2Str, "Ok la voilà", semMem, lingDb);
     ONSEM_BEHAVIOR_EQ("Ok. Le voilà", operator_react(order2Str, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("Ok. Le voilà", triggers_match(order2Str, semMem, lingDb));

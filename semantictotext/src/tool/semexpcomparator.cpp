@@ -849,7 +849,7 @@ ComparisonErrorsCoef _getErrorCoefFromListExpPtr(
 {
   if (_hasInformationToFillFromListExpPtr(pListExpPtr))
     return ComparisonErrorsCoef(1, ComparisonTypeOfError::PARAMETER_DIFF);
-  if (pGrammType == GrammaticalType::SPECIFIER)
+  if (pGrammType == GrammaticalType::SPECIFIER || pGrammType == GrammaticalType::OWNER)
     return ComparisonErrorsCoef(5, ComparisonTypeOfError::SPECIFIER);
   return ComparisonErrorsCoef(10, ComparisonTypeOfError::NORMAL);
 }

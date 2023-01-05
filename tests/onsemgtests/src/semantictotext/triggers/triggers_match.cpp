@@ -100,6 +100,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string reaction8 = "Voilà, j'avance.";
   const std::string trigger9 = "Tourne de 30 dégrés";
   const std::string reaction9 = "Ma roue gauche est trop chaude.";
+  const std::string trigger10 = "Descends le volume";
+  const std::string reaction10 = "Voilà, je parle moins fort.";
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -128,6 +130,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   triggers_add(trigger7, reaction7, semMem, lingDb);
   triggers_add(trigger8, reaction8, semMem, lingDb);
   triggers_add(trigger9, reaction9, semMem, lingDb);
+  triggers_add(trigger10, reaction10, semMem, lingDb, {}, SemanticLanguageEnum::FRENCH);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
@@ -158,6 +161,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_BEHAVIOR_EQ(reaction7, triggers_match("remets l'application Aa", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction8, triggers_match(trigger8, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction9, triggers_match(trigger9, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction10, triggers_match(trigger10, semMem, lingDb, SemanticLanguageEnum::FRENCH));
+  ONSEM_BEHAVIOR_EQ(reaction10, triggers_match("Descends ton volume", semMem, lingDb, SemanticLanguageEnum::FRENCH));
 }
 
 
@@ -255,7 +260,9 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une rotation à droite(param1=23 degrés)\\", triggers_match("Fais une rotation à droite de 23 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=25 degrés)\\", triggers_match("Tourne à gauche de vingt cinq degrés", semMem, lingDb));
 
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume\\", triggers_match("Descends ton volume", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume(param1=30 pour cent)\\", triggers_match("Descends le volume de 30 %", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume(param1=31 pour cent)\\", triggers_match("Descends ton volume de 31 %", semMem, lingDb, language));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
 }

@@ -534,7 +534,8 @@ void _matchAnyTrigger
       bool canBeAtLowPriority = true;
       for (const auto& currChildrenError : comparisonErrorReporting.childrenThatAreNotEqual)
       {
-        if (currChildrenError.first != GrammaticalType::RECEIVER &&
+        if (currChildrenError.first != GrammaticalType::OWNER &&
+            currChildrenError.first != GrammaticalType::RECEIVER &&
             currChildrenError.first != GrammaticalType::SPECIFIER &&
             currChildrenError.first != GrammaticalType::OTHER_THAN)
         {

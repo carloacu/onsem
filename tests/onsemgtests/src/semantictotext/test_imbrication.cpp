@@ -200,6 +200,22 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
 
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Descends le volume",
+                                                              "Descends ton volume",
+                                                              semanticMemory, lingDb, SemanticLanguageEnum::FRENCH,
+                                                              &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::OWNER, it->first);
+    ASSERT_EQ(1, it->second.size());
+    auto it2 = it->second.begin();
+    EXPECT_EQ(ImbricationType::LESS_DETAILED, it2->first);
+    EXPECT_EQ(SemExpComparator::ComparisonTypeOfError::SPECIFIER, it2->second.errorCoef.type);
+    EXPECT_EQ(5, it2->second.errorCoef.value);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
     EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Baisse la température",
                                                               "Baisse encore la température de la pièce",
                                                               semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,

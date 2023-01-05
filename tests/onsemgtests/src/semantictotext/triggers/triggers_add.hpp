@@ -16,10 +16,11 @@ struct UniqueSemanticExpression;
 
 
 void triggers_add(const std::string& pTriggerText,
-                          const std::string& pAnswerText,
-                          SemanticMemory& pSemanticMemory,
-                          const linguistics::LinguisticDatabase& pLingDb,
-                          const std::list<std::string>& pReferences = std::list<std::string>());
+                  const std::string& pAnswerText,
+                  SemanticMemory& pSemanticMemory,
+                  const linguistics::LinguisticDatabase& pLingDb,
+                  const std::list<std::string>& pReferences = std::list<std::string>(),
+                  SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
 void triggers_addToSemExpAnswer(
     const std::string& pTriggerText,
