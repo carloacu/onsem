@@ -223,8 +223,8 @@ void _tryToAddTheIntroductingWord(SemanticExpression& pSemExp,
   }
 }
 
-void _splitLocationWithSpecifier(SemanticExpression& pSemExp,
-                                 GroundedExpression& pGrdExpSentence)
+void _flattenSomeSpecifiers(SemanticExpression& pSemExp,
+                            GroundedExpression& pGrdExpSentence)
 {
   auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
@@ -251,6 +251,13 @@ void _splitLocationWithSpecifier(SemanticExpression& pSemExp,
           if (specGrd.getLengthGroundingPtr() != nullptr)
           {
             SemExpModifier::addChild(pGrdExpSentence, GrammaticalType::LENGTH,
+                                     std::move(itChild->second), ListExpressionType::UNRELATED);
+            itChild = grdExp.children.erase(itChild);
+            break;
+          }
+          if (specGrd.getPercentageGroundingPtr() != nullptr)
+          {
+            SemExpModifier::addChild(pGrdExpSentence, GrammaticalType::SPECIFIER,
                                      std::move(itChild->second), ListExpressionType::UNRELATED);
             itChild = grdExp.children.erase(itChild);
             break;
@@ -3150,13 +3157,14 @@ void SyntacticGraphToSemantic::xAddNewGrammInfo
     {
       if (fConfiguration.getLanguageType() == SemanticLanguageEnum::ENGLISH)
         _tryToConvertToInfinitiveSubordinate(childExpObject);
+      _flattenSomeSpecifiers(*childExpObject, pGrdExpSentence);
       break;
     }
     case GrammaticalType::SUBORDINATE:
       _tryToAddTheIntroductingWord(*childExpObject, pContext.chLink);
       break;
     case GrammaticalType::LOCATION:
-      _splitLocationWithSpecifier(*childExpObject, pGrdExpSentence);
+      _flattenSomeSpecifiers(*childExpObject, pGrdExpSentence);
       break;
     default:
       break;

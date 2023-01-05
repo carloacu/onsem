@@ -206,6 +206,17 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Va à droite", turnParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Fais une rotation à droite", turnParameterQuestions, semMem, lingDb, language);
 
+  const std::vector<std::string> reduceVolumeParameterQuestions =
+  {"à combien dois-je descendre le volume en pourcentage ?",
+   "à combien dois-je diminuer le volume en pourcentage ?"};
+  triggers_addAnswerWithOneParameter("Descends le volume", reduceVolumeParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Diminue le volume", reduceVolumeParameterQuestions, semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("Mets le volume moins fort", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Mets le volume encore moins fort", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Parle moins fort", {}, semMem, lingDb, language);
+
+
   triggers_addAnswerWithOneParameter("Lance", {"Qu'est-ce que je dois lancer ?"}, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=3 mètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
@@ -243,6 +254,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va à droite(param1=45 degrés)\\", triggers_match("Va à droite de 45 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une rotation à droite(param1=23 degrés)\\", triggers_match("Fais une rotation à droite de 23 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=25 degrés)\\", triggers_match("Tourne à gauche de vingt cinq degrés", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume(param1=30 pour cent)\\", triggers_match("Descends le volume de 30 %", semMem, lingDb, language));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
 }
