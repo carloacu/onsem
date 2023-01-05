@@ -2419,10 +2419,13 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
 
   case SemanticRequestType::QUANTITY:
   {
-    if (pTypeOfUnityOpt && *pTypeOfUnityOpt == TypeOfUnity::PERCENTAGE)
-      return {GrammaticalType::SPECIFIER};
-    if (pTypeOfUnityOpt && *pTypeOfUnityOpt == TypeOfUnity::ANGLE)
-      return {GrammaticalType::LOCATION};
+    if (pTypeOfUnityOpt)
+    {
+      if (*pTypeOfUnityOpt == TypeOfUnity::PERCENTAGE)
+        return {GrammaticalType::SPECIFIER};
+      if (*pTypeOfUnityOpt == TypeOfUnity::ANGLE)
+        return {GrammaticalType::LOCATION};
+    }
     return {GrammaticalType::OBJECT, GrammaticalType::LENGTH, GrammaticalType::LOCATION};
   }
 
