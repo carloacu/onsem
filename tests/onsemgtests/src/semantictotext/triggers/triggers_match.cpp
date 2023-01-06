@@ -218,8 +218,21 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Diminue le volume", reduceVolumeParameterQuestions, semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Mets le volume moins fort", {}, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Mets le volume encore moins fort", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Parle moins fort", {}, semMem, lingDb, language);
+
+  const std::vector<std::string> increaseVolumeParameterQuestions =
+  {"à combien dois-je monter le volume en pourcentage ?",
+   "à combien dois-je augmenter le volume en pourcentage ?"};
+  triggers_addAnswerWithOneParameter("Monte le volume", increaseVolumeParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Augmente le volume", increaseVolumeParameterQuestions, semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("Mets le volume plus fort", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Parle plus fort", {}, semMem, lingDb, language);
+
+  const std::vector<std::string> setVolumeParameterQuestions =
+  {"à combien dois-je mettre le volume en pourcentage ?"};
+  triggers_addAnswerWithOneParameter("Mets le volume", setVolumeParameterQuestions, semMem, lingDb, language);
+
 
 
   triggers_addAnswerWithOneParameter("Lance", {"Qu'est-ce que je dois lancer ?"}, semMem, lingDb, language);
@@ -263,6 +276,15 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume\\", triggers_match("Descends ton volume", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume(param1=30 pour cent)\\", triggers_match("Descends le volume de 30 %", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume(param1=31 pour cent)\\", triggers_match("Descends ton volume de 31 %", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Diminue le volume(param1=32 pour cent)\\", triggers_match("Je veux que tu diminues le son de 32 %", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume moins fort\\", triggers_match("Mets le volume moins fort", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume moins fort\\", triggers_match(("Mets le volume encore moins fort"), semMem, lingDb, language));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Monte le volume(param1=12 pour cent)\\", triggers_match("Monte le volume de 12 %", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume(param1=90 pour cent)\\", triggers_match("Mets le volume à 90 %", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume(param1=91 pour cent)\\", triggers_match("Mets le volume à quatre vingt onze pour cent", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume plus fort\\", triggers_match("Mets le volume plus fort", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume plus fort\\", triggers_match("Mets le volume encore plus fort", semMem, lingDb, language));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
 }

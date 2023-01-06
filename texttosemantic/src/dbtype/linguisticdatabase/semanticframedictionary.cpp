@@ -61,6 +61,9 @@ bool _conceptConditionChecking(const LinguisticConditionTreeValue& pConditionVal
         if (!ConceptSet::haveAConceptThatBeginWith(itToken->inflWords.front().infos.concepts, "number_"))
           return false;
         itToken = getNextToken(itToken, itEnd);
+        while (itToken != itEnd &&
+               ConceptSet::haveAConceptThatBeginWith(itToken->inflWords.front().infos.concepts, "number_"))
+          itToken = getNextToken(itToken, itEnd);
         if (itToken == itEnd)
           return false;
       }

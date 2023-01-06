@@ -467,8 +467,7 @@ CarryOnFrom ErrorDetector::xCheckThatNominalGroupHaveAValidHead
     auto& headInflWords = chunk.head->inflWords;
     auto itFrontHeadInflWords = headInflWords.begin();
     PartOfSpeech headPartOfSpeech = itFrontHeadInflWords->word.partOfSpeech;
-    if (headPartOfSpeech == PartOfSpeech::ADVERB || headPartOfSpeech == PartOfSpeech::DETERMINER ||
-        headPartOfSpeech == PartOfSpeech::PREPOSITION)
+    if (headPartOfSpeech == PartOfSpeech::DETERMINER || headPartOfSpeech == PartOfSpeech::PREPOSITION)
     {
       for (TokIt itTok = chunk.tokRange.getItBegin();
            itTok != chunk.tokRange.getItEnd();
@@ -484,6 +483,19 @@ CarryOnFrom ErrorDetector::xCheckThatNominalGroupHaveAValidHead
              break;
            }
          }
+      }
+    }
+    else if (headPartOfSpeech == PartOfSpeech::ADVERB)
+    {
+      TokIt itTok = chunk.tokRange.getItBegin();
+      if (itTok->getPartOfSpeech() == PartOfSpeech::DETERMINER && itTok != chunk.head)
+      {
+        auto itIgram = getInflWordWithAnyPartOfSeechOf(*itTok, fPossNewHeadGram);
+        if (itIgram != itTok->inflWords.end())
+        {
+          if (delAllBefore(itTok->inflWords, itIgram))
+            res = CarryOnFrom::PARTOFSPEECH_FILTERS;
+        }
       }
     }
   }
