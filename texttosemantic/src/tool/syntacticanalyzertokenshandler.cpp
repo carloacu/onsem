@@ -95,6 +95,12 @@ std::list<InflectedWord>::iterator getInflWordWithAnyPartOfSeechOf
 }
 
 
+void delTopPartOfSpeech(std::list<InflectedWord>& pIGrams)
+{
+  pIGrams.erase(pIGrams.begin());
+  if (pIGrams.empty())
+    pIGrams.emplace_back();
+}
 
 
 void delAPartOfSpeech

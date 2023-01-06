@@ -45,6 +45,8 @@ ONSEM_TEXTTOSEMANTIC_API std::list<InflectedWord>::iterator getInflWordWithAnyPa
 (Token& pToken,
  const std::vector<PartOfSpeech>& pPartOfSpeechs);
 
+ONSEM_TEXTTOSEMANTIC_API void delTopPartOfSpeech(std::list<InflectedWord>& pIGrams);
+
 ONSEM_TEXTTOSEMANTIC_API void delAPartOfSpeech
 (std::list<InflectedWord>& pIGrams,
  std::list<InflectedWord>::iterator& pItToDel);

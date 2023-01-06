@@ -116,7 +116,7 @@ CarryOnFrom ErrorDetector::falseGramPossibilitiesRemoved
     }
 
     _updateCarryOnValue(res,
-                        xCheckThatNominalGroupHaveAValidHead(chkLkIter.getIt()));
+                        xCheckThatNominalGroupHaveAValidPos(chkLkIter.getIt(), nullptr));
     if (currChunkType == ChunkType::PREPOSITIONAL_CHUNK)
       _updateCarryOnValue(res,
                           xCorrectFalsePrepositionalChunk(chkLkIter.getIt()));
@@ -457,8 +457,9 @@ CarryOnFrom ErrorDetector::xRemoveSubordinatingConjonctionUnliked
  *        je    du mal
  *             (head: mal)
  */
-CarryOnFrom ErrorDetector::xCheckThatNominalGroupHaveAValidHead
-(std::list<ChunkLink>::iterator pItChLk) const
+CarryOnFrom ErrorDetector::xCheckThatNominalGroupHaveAValidPos
+(std::list<ChunkLink>::iterator pItChLk,
+ Chunk* pParentVerbChunkPtr) const
 {
   CarryOnFrom res = CarryOnFrom::HERE;
   Chunk& chunk = *pItChLk->chunk;
@@ -498,11 +499,43 @@ CarryOnFrom ErrorDetector::xCheckThatNominalGroupHaveAValidHead
         }
       }
     }
+    else
+    {
+      for (TokIt itTok = chunk.tokRange.getItBegin();
+           itTok != chunk.tokRange.getItEnd(); )
+      {
+        auto itNextTok = getNextToken(itTok, chunk.tokRange.getItEnd());
+         if (itTok->getPartOfSpeech() == PartOfSpeech::INTERJECTION)
+         {
+           if (itNextTok != chunk.tokRange.getItEnd())
+           {
+             if (itTok->inflWords.size() > 1)
+             {
+               delTopPartOfSpeech(itTok->inflWords);
+               res = CarryOnFrom::PARTOFSPEECH_FILTERS;
+               break;
+             }
+           }
+           else if (pParentVerbChunkPtr != nullptr && itTok != chunk.tokRange.getItBegin())
+           {
+             moveEndOfAChunk(chunk, itTok, ChunkLinkType::INTERJECTION, ChunkType::INTERJECTION_CHUNK,
+                             pParentVerbChunkPtr->children, fConfiguration.getLanguageType());
+             break;
+           }
+         }
+         itTok = itNextTok;
+      }
+    }
   }
+  else if (chunk.type == ChunkType::VERB_CHUNK)
+  {
+    pParentVerbChunkPtr = &chunk;
+  }
+
   for (auto itChild = chunk.children.begin(); itChild != chunk.children.end(); ++itChild)
   {
     _updateCarryOnValue(res,
-                        xCheckThatNominalGroupHaveAValidHead(itChild));
+                        xCheckThatNominalGroupHaveAValidPos(itChild, pParentVerbChunkPtr));
   }
   return res;
 }

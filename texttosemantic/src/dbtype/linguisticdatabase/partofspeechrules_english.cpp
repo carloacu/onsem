@@ -40,7 +40,6 @@ std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getImpSuccessions()
     {PartOfSpeech::DETERMINER, PartOfSpeech::PUNCTUATION},
     {PartOfSpeech::PRONOUN, PartOfSpeech::INTERJECTION},
     {PartOfSpeech::PRONOUN_SUBJECT, PartOfSpeech::PRONOUN_SUBJECT},
-    {PartOfSpeech::PRONOUN_SUBJECT, PartOfSpeech::INTERJECTION},
     {PartOfSpeech::PRONOUN_SUBJECT, PartOfSpeech::SUBORDINATING_CONJONCTION},
     {PartOfSpeech::PRONOUN_SUBJECT, PartOfSpeech::NOUN},
     {PartOfSpeech::PRONOUN_SUBJECT, PartOfSpeech::UNKNOWN},
@@ -190,6 +189,11 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
         (PartOfSpeech::ADVERB, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
          ActionIfLinked::DEL_ALL_OTHERS);
 
+    TaggerListOfTokenChecks intjGramType(CanBeEmpty::YES, CanHaveMany::YES);
+    intjGramType.elts.emplace_back
+        (PartOfSpeech::INTERJECTION, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
+         ActionIfLinked::DEL_ALL_OTHERS);
+
     TaggerListOfTokenChecks verbGramType;
     verbGramType.elts.emplace_back
         (PartOfSpeech::VERB, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
@@ -228,14 +232,8 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
     }
 
     afterForAQuestion.emplace_back(advGramType);
-
-    {
-      TaggerListOfTokenChecks verbGramType;
-      verbGramType.elts.emplace_back
-          (PartOfSpeech::VERB, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
-           ActionIfLinked::DEL_ALL_EXPECT_AUX);
-      afterForAQuestion.emplace_back(verbGramType);
-    }
+    afterForAQuestion.emplace_back(intjGramType);
+    afterForAQuestion.emplace_back(verbGramType);
 
     TaggerPattern& pattern = res->getPattern();
     // for a question WITHOUT word between the question word and the auxiliary
@@ -412,6 +410,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
         prepGramType.elts.emplace_back([](const InflectedWord& pIGram)
         {
           return pIGram.word.partOfSpeech == PartOfSpeech::ADVERB ||
+              pIGram.word.partOfSpeech == PartOfSpeech::INTERJECTION ||
               pIGram.word.partOfSpeech == PartOfSpeech::ADJECTIVE;
         }, FinderConstraint::FIRST_ELT, CompatibilityCheck::DONT_CARE,
         ActionIfLinked::NOTHING, ActionIfNotLinked::NOTHING,
@@ -711,6 +710,36 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
         nounGramTypes.elts.emplace_back
             (PartOfSpeech::VERB, FinderConstraint::FIRST_ELT, CompatibilityCheck::ISNT_COMPATIBLE);
         resContext.before.emplace_back(nounGramTypes);
+      }
+      return resContext;
+    }());
+
+    pattern.possibilities.emplace_back
+        ([]
+    {
+      AIGramContext resContext;
+      {
+        TaggerListOfTokenChecks pronGramType;
+        pronGramType.elts.emplace_back
+            ([](const InflectedWord& pIGram)
+        {
+          return pIGram.word.partOfSpeech == PartOfSpeech::PRONOUN ||
+              pIGram.word.partOfSpeech == PartOfSpeech::PRONOUN_SUBJECT;
+        }, FinderConstraint::FIRST_ELT);
+        resContext.before.emplace_back(pronGramType);
+      }
+
+      {
+        TaggerListOfTokenChecks nounGramTypes;
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::VERB, FinderConstraint::FIRST_ELT);
+        resContext.before.emplace_back(nounGramTypes);
+      }
+
+      {
+        TaggerListOfTokenChecks punctGramType;
+        punctGramType.elts.emplace_back(PartOfSpeech::PUNCTUATION);
+        resContext.after.emplace_back(punctGramType);
       }
       return resContext;
     }());

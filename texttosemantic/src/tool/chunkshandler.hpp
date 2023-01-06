@@ -163,6 +163,13 @@ void separateEndOfAChunk
  ChunkType pChunkType,
  SemanticLanguageEnum pLanguage);
 
+void moveEndOfAChunk
+(Chunk& pChunk,
+ TokIt pBeginNewChunk,
+ ChunkLinkType pChunkLinkType,
+ ChunkType pChunkType,
+ std::list<ChunkLink>& pDestinationList,
+ SemanticLanguageEnum pLanguage);
 
 void putBeginOfAChunkInTheChunkLink
 (std::list<ChunkLink>& pSyntTree,

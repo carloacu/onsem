@@ -321,6 +321,30 @@ void separateEndOfAChunk
 }
 
 
+void moveEndOfAChunk
+(Chunk& pChunk,
+ TokIt pBeginNewChunk,
+ ChunkLinkType pChunkLinkType,
+ ChunkType pChunkType,
+ std::list<ChunkLink>& pDestinationList,
+ SemanticLanguageEnum pLanguage)
+{
+  pDestinationList.emplace_back(
+                   ChunkLink(pChunkLinkType,
+                             Chunk
+                             (TokenRange(pChunk.tokRange.getTokList(),
+                                         pBeginNewChunk, pChunk.tokRange.getItEnd()),
+                              pChunkType)));
+
+  pChunk.tokRange.setItEnd(pBeginNewChunk);
+  if (!ifContainToken(pChunk.head, pChunk.tokRange))
+    pChunk.head = getHeadOfNominalGroup(pChunk.tokRange, pLanguage);
+
+  auto& newChunk = *(--pDestinationList.end())->chunk;
+  newChunk.head = getHeadOfNominalGroup(newChunk.tokRange, pLanguage);
+}
+
+
 void putBeginOfAChunkInTheChunkLink
 (std::list<ChunkLink>& pSyntTree,
  std::list<ChunkLink>::iterator pChunkIt,

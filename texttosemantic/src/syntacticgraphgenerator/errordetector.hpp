@@ -47,8 +47,9 @@ private:
   const LinguisticDictionary& fLingDico;
   const std::vector<PartOfSpeech> fPossNewHeadGram;
 
-  CarryOnFrom xCheckThatNominalGroupHaveAValidHead
-  (std::list<ChunkLink>::iterator pItChLk) const;
+  CarryOnFrom xCheckThatNominalGroupHaveAValidPos
+  (std::list<ChunkLink>::iterator pItChLk,
+   Chunk* pParentVerbChunkPtr) const;
 
   CarryOnFrom xRemoveInvalidPronouns(Chunk& pChunk) const;
   CarryOnFrom xCorrectFalsePrepositionalChunk(std::list<ChunkLink>::iterator pItChLk) const;
