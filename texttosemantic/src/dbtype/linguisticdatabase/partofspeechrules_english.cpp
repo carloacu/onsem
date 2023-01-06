@@ -38,7 +38,6 @@ std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getImpSuccessions()
     {PartOfSpeech::DETERMINER, PartOfSpeech::SUBORDINATING_CONJONCTION},
     {PartOfSpeech::DETERMINER, PartOfSpeech::CONJUNCTIVE},
     {PartOfSpeech::DETERMINER, PartOfSpeech::PUNCTUATION},
-    {PartOfSpeech::PREPOSITION, PartOfSpeech::INTERJECTION},
     {PartOfSpeech::PRONOUN, PartOfSpeech::INTERJECTION},
     {PartOfSpeech::PRONOUN_SUBJECT, PartOfSpeech::PRONOUN_SUBJECT},
     {PartOfSpeech::PRONOUN_SUBJECT, PartOfSpeech::INTERJECTION},
@@ -831,7 +830,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
 
     TaggerPattern& pattern = res->getPattern();
     pattern.possibilities.emplace_back
-        ([&pInfls]
+        ([]
     {
       AIGramContext resContext;
       {
@@ -848,7 +847,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
     }());
 
     pattern.possibilities.emplace_back
-        ([&pInfls]
+        ([]
     {
       AIGramContext resContext;
       {
