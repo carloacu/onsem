@@ -232,6 +232,22 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
 
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Can you look up ?",
+                                                        "Could you look up ?",
+                                                        semanticMemory, lingDb, SemanticLanguageEnum::ENGLISH,
+                                                        &comparisonErrorReporting));
+    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::UNKNOWN, it->first);
+    ASSERT_EQ(1, it->second.size());
+    auto it2 = it->second.begin();
+    EXPECT_EQ(ImbricationType::DIFFERS, it2->first);
+    EXPECT_EQ(SemExpComparator::ComparisonTypeOfError::TENSE, it2->second.errorCoef.type);
+    EXPECT_EQ(7, it2->second.errorCoef.value);
+  }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
     EXPECT_EQ(ImbricationType::MORE_DETAILED, _getImbrication("raconte moi quelque chose de joyeux",
                                                               "Dis quelque chose",
                                                               semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,

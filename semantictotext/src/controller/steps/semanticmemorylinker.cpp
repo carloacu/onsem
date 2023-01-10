@@ -532,31 +532,34 @@ void _matchAnyTrigger
     else
     {
       bool canBeAtLowPriority = true;
-      for (const auto& currChildrenError : comparisonErrorReporting.childrenThatAreNotEqual)
+      if (comparisonErrorReporting.getErrorCoef().type == SemExpComparator::ComparisonTypeOfError::NORMAL)
       {
-        if (currChildrenError.first != GrammaticalType::OWNER &&
-            currChildrenError.first != GrammaticalType::RECEIVER &&
-            currChildrenError.first != GrammaticalType::SPECIFIER &&
-            currChildrenError.first != GrammaticalType::OTHER_THAN)
+        for (const auto& currChildrenError : comparisonErrorReporting.childrenThatAreNotEqual)
         {
-          // If it a anything trigger we accept the matching
-          bool isAnythingTrigger = false;
-          for (const auto& currComparisonErrors : currChildrenError.second)
+          if (currChildrenError.first != GrammaticalType::OWNER &&
+              currChildrenError.first != GrammaticalType::RECEIVER &&
+              currChildrenError.first != GrammaticalType::SPECIFIER &&
+              currChildrenError.first != GrammaticalType::OTHER_THAN)
           {
-            for (const auto& currTriggerChild : currComparisonErrors.second.child2Ptr.elts)
+            // If it a anything trigger we accept the matching
+            bool isAnythingTrigger = false;
+            for (const auto& currComparisonErrors : currChildrenError.second)
             {
-              if (SemExpGetter::isAnythingFromSemExp(*currTriggerChild))
+              for (const auto& currTriggerChild : currComparisonErrors.second.child2Ptr.elts)
               {
-                isAnythingTrigger = true;
-                break;
+                if (SemExpGetter::isAnythingFromSemExp(*currTriggerChild))
+                {
+                  isAnythingTrigger = true;
+                  break;
+                }
               }
+              if (isAnythingTrigger)
+                break;
             }
-            if (isAnythingTrigger)
-              break;
+            if (!isAnythingTrigger)
+              canBeAtLowPriority = false;
+            break;
           }
-          if (!isAnythingTrigger)
-            canBeAtLowPriority = false;
-          break;
         }
       }
       if (canBeAtLowPriority)

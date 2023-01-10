@@ -87,6 +87,7 @@ enum ComparisonTypeOfError : char
   NO_ERROR,
   PARAMETER_DIFF,
   SPECIFIER,
+  TENSE,
   NORMAL
 };
 

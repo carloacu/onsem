@@ -176,19 +176,9 @@ ImbricationType _getGenericGrdsImbrications(const SemanticGenericGrounding& pGen
 ImbricationType _getStatementGrdsImbrications(const SemanticStatementGrounding& pStatGrd1,
                                               const SemanticStatementGrounding& pStatGrd2,
                                               const linguistics::LinguisticDatabase& pLingDb,
+                                              ComparisonErrorsCoef* pErrorCoefPtr,
                                               const ComparisonExceptions* pExceptionsPtr)
 {
-  if ((pExceptionsPtr == nullptr || !pExceptionsPtr->verbTense) &&
-      !_verbTenseAreNearlyEqual(pStatGrd1.verbTense, pStatGrd2.verbTense))
-    return ImbricationType::DIFFERS;
-
-  if (!_verbGoalAreNearlyEqual(pStatGrd1.verbGoal, pStatGrd2.verbGoal))
-    return ImbricationType::DIFFERS;
-
-  if ((pExceptionsPtr == nullptr || !pExceptionsPtr->request) &&
-      pStatGrd1.requests != pStatGrd2.requests)
-    return ImbricationType::DIFFERS;
-
   ImbricationType res = ImbricationType::EQUALS;
   const bool oppositeConcepts = pLingDb.conceptSet.haveOppositeConcepts(pStatGrd1.concepts, pStatGrd2.concepts);
   if (!_wordsAreEqual(pStatGrd1.word, pStatGrd2.word, pLingDb))
@@ -203,6 +193,27 @@ ImbricationType _getStatementGrdsImbrications(const SemanticStatementGrounding& 
       else
         res = ImbricationType::DIFFERS;
     }
+  }
+
+  if (res != ImbricationType::DIFFERS)
+  {
+    if ((pExceptionsPtr == nullptr || !pExceptionsPtr->verbTense) &&
+        !_verbTenseAreNearlyEqual(pStatGrd1.verbTense, pStatGrd2.verbTense))
+    {
+      if (pErrorCoefPtr != nullptr)
+      {
+        pErrorCoefPtr->value = 7;
+        pErrorCoefPtr->type = ComparisonTypeOfError::TENSE;
+      }
+      return ImbricationType::DIFFERS;
+    }
+
+    if (!_verbGoalAreNearlyEqual(pStatGrd1.verbGoal, pStatGrd2.verbGoal))
+      return ImbricationType::DIFFERS;
+
+    if ((pExceptionsPtr == nullptr || !pExceptionsPtr->request) &&
+        pStatGrd1.requests != pStatGrd2.requests)
+      return ImbricationType::DIFFERS;
   }
 
   if ((pExceptionsPtr == nullptr || !pExceptionsPtr->polarity) &&
@@ -298,6 +309,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
                                            const SemanticGrounding& pGrounding2,
                                            const SemanticMemoryBlock& pMemBlock,
                                            const linguistics::LinguisticDatabase& pLingDb,
+                                           ComparisonErrorsCoef* pErrorCoefPtr,
                                            const ComparisonExceptions* pExceptionsPtr)
 {
   switch (pGrounding1.type)
@@ -324,7 +336,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     if (statGrd2 != nullptr)
     {
       const auto& statGrd1 = pGrounding1.getStatementGrounding();
-      return _getStatementGrdsImbrications(statGrd1, *statGrd2, pLingDb, pExceptionsPtr);
+      return _getStatementGrdsImbrications(statGrd1, *statGrd2, pLingDb, pErrorCoefPtr, pExceptionsPtr);
     }
     break;
   }
@@ -1221,24 +1233,24 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
   const SemanticGrounding& grd2 = pGrdExp2.grounding();
   const auto& grd1ToCmp = _getSubCptGrd(pGrdExp1, grd1);
   const auto& grd2ToCmp = _getSubCptGrd(pGrdExp2, grd2);
-  ImbricationType groundingImbrication = _getGroundingsImbrications(grd1ToCmp, grd2ToCmp, pMemBlock, pLingDb, pExceptionsPtr);
+  ComparisonErrorsCoef errorCoef(10, ComparisonTypeOfError::NORMAL);
+  ImbricationType groundingImbrication = _getGroundingsImbrications(grd1ToCmp, grd2ToCmp, pMemBlock, pLingDb, &errorCoef, pExceptionsPtr);
   if (groundingImbrication == ImbricationType::DIFFERS)
   {
     if (&grd1ToCmp != &grd1 && &grd2 == &grd2ToCmp)
     {
-      ImbricationType rootImbrication = _getGroundingsImbrications(grd1, grd2, pMemBlock, pLingDb, pExceptionsPtr);
+      ImbricationType rootImbrication = _getGroundingsImbrications(grd1, grd2, pMemBlock, pLingDb, &errorCoef, pExceptionsPtr);
       if (rootImbrication == ImbricationType::EQUALS)
         groundingImbrication = ImbricationType::MORE_DETAILED;
     }
     if (&grd1ToCmp == &grd1 && &grd2 != &grd2ToCmp)
     {
-      ImbricationType rootImbrication = _getGroundingsImbrications(grd1, grd2, pMemBlock, pLingDb, pExceptionsPtr);
+      ImbricationType rootImbrication = _getGroundingsImbrications(grd1, grd2, pMemBlock, pLingDb, &errorCoef, pExceptionsPtr);
       if (rootImbrication == ImbricationType::EQUALS)
         groundingImbrication = ImbricationType::LESS_DETAILED;
     }
     if (pComparisonErrorReportingPtr != nullptr)
     {
-      ComparisonErrorsCoef errorCoef(10, ComparisonTypeOfError::NORMAL);
       if (grd1.concepts.count("stuff_informationToFill") > 0 || grd2.concepts.count("stuff_informationToFill") > 0)
       {
         errorCoef.value = 1;
@@ -1393,7 +1405,7 @@ bool groundingsAreEqual(const SemanticGrounding& pGrounding1,
                         const SemanticMemoryBlock& pMemBlock,
                         const linguistics::LinguisticDatabase& pLingDb)
 {
-  return _getGroundingsImbrications(pGrounding1, pGrounding2, pMemBlock, pLingDb, nullptr) == ImbricationType::EQUALS;
+  return _getGroundingsImbrications(pGrounding1, pGrounding2, pMemBlock, pLingDb, nullptr, nullptr) == ImbricationType::EQUALS;
 }
 
 
