@@ -304,8 +304,15 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},
                                      semMem, lingDb, language);
 
+  triggers_addAnswerWithOneParameter("can you look up", {},
+                                     semMem, lingDb, language);
+
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Advance 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn(param1=32 degrees)\\", triggers_match("Turn 32 degrees", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Launch(param1=Akinator)\\", triggers_match("Launch akinator", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you look up", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you please look up", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Could you look up", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Could you please look up", semMem, lingDb));
 }
