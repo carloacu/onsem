@@ -29,11 +29,11 @@ struct SemanticTriggerMemoryLinks
   }
 
   /// The order that already have a defined answer
-  SemanticMemoryLinksForAnyVerbTense actionLinks;
+  SemanticMemoryLinksForAnyVerbGoal actionLinks;
   /// The question that already have a defined answer
-  SemanticMemoryLinksForAnyVerbTense questionLinks;
+  SemanticMemoryLinksForAnyVerbGoal questionLinks;
   /// The affirmations that already have a defined reaction
-  SemanticMemoryLinksForAnyVerbTense affirmationLinks;
+  SemanticMemoryLinksForAnyVerbGoal affirmationLinks;
   /// The nominal groups that already have a defined reaction
   SemanticLinksToGrdExps nominalGroupsLinks;
   /// The links to do recommendation matching
@@ -59,12 +59,12 @@ struct SemanticMemoryBlockPrivate
   void clearLocalInformationButNotTheSubBloc();
   void clear();
 
-  SemanticMemoryLinksForAnyVerbTense& ensureSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
-                                                                  const SemanticTriggerAxiomId& pAxiomId);
-  SemanticMemoryLinksForAnyVerbTense* getSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
-                                                               const SemanticTriggerAxiomId& pAxiomId);
-  const SemanticMemoryLinksForAnyVerbTense* getSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
-                                                                     const SemanticTriggerAxiomId& pAxiomId) const;
+  SemanticMemoryLinksForAnyVerbGoal& ensureSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
+                                                                 const SemanticTriggerAxiomId& pAxiomId);
+  SemanticMemoryLinksForAnyVerbGoal* getSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
+                                                              const SemanticTriggerAxiomId& pAxiomId);
+  const SemanticMemoryLinksForAnyVerbGoal* getSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
+                                                                    const SemanticTriggerAxiomId& pAxiomId) const;
 
   SemanticLinksToGrdExps& ensureNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId);
   SemanticLinksToGrdExps* getNominalGroupsTriggersLinks(const SemanticTriggerAxiomId& pAxiomId);

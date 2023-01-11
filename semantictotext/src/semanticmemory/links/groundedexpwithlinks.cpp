@@ -780,7 +780,7 @@ void GroundedExpWithLinksPrivate::linkToActionTrigger()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::COMMAND,
-                                                                 _memSent._contextAxiom.triggerAxiomId).getLinks(tense, verbGoal), _links);
+                                                                 _memSent._contextAxiom.triggerAxiomId).getLinksForAGoal(verbGoal), _links);
   isLinkedInRequToActionTrigger = LinkedState::LINKED;
 }
 
@@ -788,7 +788,7 @@ void GroundedExpWithLinksPrivate::linkToQuestionTrigger()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::QUESTION,
-                                                                 _memSent._contextAxiom.triggerAxiomId).getLinks(tense, verbGoal), _links);
+                                                                 _memSent._contextAxiom.triggerAxiomId).getLinksForAGoal(verbGoal), _links);
   isLinkedInRequToQuestionTrigger = LinkedState::LINKED;
 }
 
@@ -796,7 +796,7 @@ void GroundedExpWithLinksPrivate::linkToAffirmationTrigger()
 {
   auto& memBlocPrivate = *_memSent._contextAxiom.getSemExpWrappedForMemory().getParentMemBloc()._impl;
   _mergeRequToGrdExps(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::AFFIRMATION,
-                                                                 _memSent._contextAxiom.triggerAxiomId).getLinks(tense, verbGoal), _links);
+                                                                 _memSent._contextAxiom.triggerAxiomId).getLinksForAGoal(verbGoal), _links);
   isLinkedInRequToAffirmationTrigger = LinkedState::LINKED;
 }
 
@@ -1614,7 +1614,7 @@ void GroundedExpWithLinks::setEnabled(bool pEnabled)
     {
       impl.filterMemLinks(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::COMMAND,
                                                                      _contextAxiom.triggerAxiomId).
-                          getLinks(impl.tense, impl.verbGoal));
+                          getLinksForAGoal(impl.verbGoal));
       memBlocPrivate.removeLinksIfEmpty(_contextAxiom.triggerAxiomId);
       impl.isLinkedInRequToActionTrigger = LinkedState::LINKDISABLED;
     }
@@ -1623,7 +1623,7 @@ void GroundedExpWithLinks::setEnabled(bool pEnabled)
     {
       impl.filterMemLinks(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::QUESTION,
                                                                      _contextAxiom.triggerAxiomId).
-                          getLinks(impl.tense, impl.verbGoal));
+                          getLinksForAGoal(impl.verbGoal));
       memBlocPrivate.removeLinksIfEmpty(_contextAxiom.triggerAxiomId);
       impl.isLinkedInRequToQuestionTrigger = LinkedState::LINKDISABLED;
     }
@@ -1632,7 +1632,7 @@ void GroundedExpWithLinks::setEnabled(bool pEnabled)
     {
       impl.filterMemLinks(memBlocPrivate.ensureSentenceTriggersLinks(SemanticExpressionCategory::AFFIRMATION,
                                                                      _contextAxiom.triggerAxiomId).
-                          getLinks(impl.tense, impl.verbGoal));
+                          getLinksForAGoal(impl.verbGoal));
       memBlocPrivate.removeLinksIfEmpty(_contextAxiom.triggerAxiomId);
       impl.isLinkedInRequToAffirmationTrigger = LinkedState::LINKDISABLED;
     }

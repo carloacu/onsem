@@ -81,8 +81,8 @@ void SemanticMemoryBlockPrivate::clear()
 }
 
 
-SemanticMemoryLinksForAnyVerbTense& SemanticMemoryBlockPrivate::ensureSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
-                                                                                            const SemanticTriggerAxiomId& pAxiomId)
+SemanticMemoryLinksForAnyVerbGoal& SemanticMemoryBlockPrivate::ensureSentenceTriggersLinks(SemanticExpressionCategory pSemExpCategory,
+                                                                                           const SemanticTriggerAxiomId& pAxiomId)
 {
   switch (pSemExpCategory)
   {
@@ -101,7 +101,7 @@ SemanticMemoryLinksForAnyVerbTense& SemanticMemoryBlockPrivate::ensureSentenceTr
 }
 
 
-SemanticMemoryLinksForAnyVerbTense* SemanticMemoryBlockPrivate::getSentenceTriggersLinks
+SemanticMemoryLinksForAnyVerbGoal* SemanticMemoryBlockPrivate::getSentenceTriggersLinks
 (SemanticExpressionCategory pSemExpCategory,
  const SemanticTriggerAxiomId& pAxiomId)
 {
@@ -127,7 +127,7 @@ SemanticMemoryLinksForAnyVerbTense* SemanticMemoryBlockPrivate::getSentenceTrigg
 }
 
 
-const SemanticMemoryLinksForAnyVerbTense* SemanticMemoryBlockPrivate::getSentenceTriggersLinks
+const SemanticMemoryLinksForAnyVerbGoal* SemanticMemoryBlockPrivate::getSentenceTriggersLinks
 (SemanticExpressionCategory pSemExpCategory,
  const SemanticTriggerAxiomId& pAxiomId) const
 {

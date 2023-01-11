@@ -604,7 +604,7 @@ void _matchTriggerSentences
   const auto* awLinks = pMemViewer.getConstViewPrivate().getSentenceTriggersLinks(pExpCategory, pAxiomId);
   if (awLinks != nullptr)
   {
-    RequestToMemoryLinks<false> linksForVerb(awLinks->getLinks(pReqLinks.tense, pReqLinks.verbGoal).reqToGrdExps, nullptr);
+    RequestToMemoryLinks<false> linksForVerb(awLinks->getLinksForAGoal(pReqLinks.verbGoal).reqToGrdExps, nullptr);
     _matchAnyTrigger(pSemExpWrapperPtrs, pWorkStruct, pMemViewer,
                      linksForVerb, pReqLinks, pInputGrdExp);
     if (!pSemExpWrapperPtrs.empty())
