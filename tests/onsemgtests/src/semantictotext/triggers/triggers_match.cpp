@@ -211,6 +211,20 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Va à droite", turnParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Fais une rotation à droite", turnParameterQuestions, semMem, lingDb, language);
 
+  const std::vector<std::string> turnHeadParameterQuestions =
+  {"De combien dois-je tourner la tête en degré ?"};
+  triggers_addAnswerWithOneParameter("Tourne la tête à gauche", turnHeadParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tourne la tête à droite", turnHeadParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Regarde à gauche", turnHeadParameterQuestions, semMem, lingDb, language);
+
+  const std::vector<std::string> riseHeadParameterQuestions =
+  {"De combien dois-je lever la tête en degré ?"};
+  triggers_addAnswerWithOneParameter("Lève la tête", riseHeadParameterQuestions, semMem, lingDb, language);
+
+  const std::vector<std::string> lowerDownHeadParameterQuestions =
+  {"De combien dois-je baisser la tête en degré ?"};
+  triggers_addAnswerWithOneParameter("Baisse la tête", lowerDownHeadParameterQuestions, semMem, lingDb, language);
+
   const std::vector<std::string> reduceVolumeParameterQuestions =
   {"à combien dois-je descendre le volume en pourcentage ?",
    "à combien dois-je diminuer le volume en pourcentage ?"};
@@ -272,6 +286,20 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va à droite(param1=45 degrés)\\", triggers_match("Va à droite de 45 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une rotation à droite(param1=23 degrés)\\", triggers_match("Fais une rotation à droite de 23 degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne à gauche(param1=25 degrés)\\", triggers_match("Tourne à gauche de vingt cinq degrés", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne la tête à gauche\\", triggers_match("Tourne la tête à gauche", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne la tête à gauche(param1=38 degrés)\\", triggers_match("Tourne la tête à gauche de trente huit degrés", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde à gauche\\", triggers_match("Regarde à gauche", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde à gauche\\", triggers_match("Regarde vers la gauche", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde à gauche\\", triggers_match("Regarde sur la gauche", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne la tête à droite\\", triggers_match("Tourne la tête à droite", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne la tête à droite(param1=25 degrés)\\", triggers_match("Tourne la tête à droite de vingt cinq degrés", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lève la tête\\", triggers_match("Lève la tête", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lève la tête(param1=11 degrés)\\", triggers_match("Monte la tête de onze degrés", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête\\", triggers_match("Descends la tête", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête(param1=29 degrés)\\", triggers_match("descends la tête de vingt neuf degrés", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume\\", triggers_match("Descends ton volume", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume(param1=30 pour cent)\\", triggers_match("Descends le volume de 30 %", semMem, lingDb, language));
