@@ -112,6 +112,13 @@ void compareOneTextResults(DeserializedTextResults& pDiffResults,
     currDiffs.semExps = true;
   }
 
+  // check allForms
+  if (pDiffResults.whatNeedToChecked.allForms &&
+      oldHighLevelResult.allFormsStr != newHighLevelResult.allFormsStr)
+  {
+    currDiffs.allForms = true;
+  }
+
   // check sentiments
   if (pDiffResults.whatNeedToChecked.sentimentsInfos &&
       oldHighLevelResult.sentimentsInfos != newHighLevelResult.sentimentsInfos)
@@ -157,6 +164,7 @@ void writeBilan(DeserializedTextResults& pDiffResults)
   std::size_t conceptsByTokens = 0;
   std::size_t syntaticGraph = 0;
   std::size_t semExps = 0;
+  std::size_t allForms = 0;
   std::size_t sentInfos = 0;
   std::size_t completeness = 0;
   std::size_t reformulations = 0;
@@ -170,6 +178,7 @@ void writeBilan(DeserializedTextResults& pDiffResults)
     if (pDiffResults.whatsDiff[i].tokConcepts) { ++conceptsByTokens; aDiff = true; }
     if (pDiffResults.whatsDiff[i].syntaticGraph) { ++syntaticGraph; aDiff = true; }
     if (pDiffResults.whatsDiff[i].semExps) { ++semExps; aDiff = true; }
+    if (pDiffResults.whatsDiff[i].allForms) { ++allForms; aDiff = true; }
     if (pDiffResults.whatsDiff[i].sentimentsInfos) { ++sentInfos; aDiff = true; }
     if (pDiffResults.whatsDiff[i].completeness) { ++completeness; aDiff = true; }
     if (pDiffResults.whatsDiff[i].reformulations) { ++reformulations; aDiff = true; }
@@ -226,6 +235,16 @@ void writeBilan(DeserializedTextResults& pDiffResults)
   else
   {
     ss << "Nb of different semantic expressions:\tdisabled\n";
+  }
+
+  if (pDiffResults.whatNeedToChecked.allForms)
+  {
+    ss << "Nb of different all forms:\t\t" << allForms << " / "
+       << pDiffResults.nbOfTexts << "\n";
+  }
+  else
+  {
+    ss << "Nb of different all forms:\t\tdisabled\n";
   }
 
   if (pDiffResults.whatNeedToChecked.sentimentsInfos)
@@ -379,6 +398,7 @@ void loadOneText(SemanticAnalysisResult& pTextOutput,
   semAnalHighLevelResults.syntGraphStr = pTree.get<std::string>("syntGraph.<xmlattr>.str");
 
   semAnalHighLevelResults.semExpStr = pTree.get<std::string>("semExps.<xmlattr>.str");
+  semAnalHighLevelResults.allFormsStr = pTree.get<std::string>("allForms.<xmlattr>.str");
   semAnalHighLevelResults.sentimentsInfos = pTree.get<std::string>("sentiments.<xmlattr>.str");
   semAnalHighLevelResults.completeness = pTree.get<bool>("completeness.<xmlattr>.bool");
   semAnalHighLevelResults.reformulations = pTree.get<std::string>("reformulations.<xmlattr>.str");

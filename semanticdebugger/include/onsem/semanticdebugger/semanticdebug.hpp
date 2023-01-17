@@ -82,6 +82,7 @@ struct ONSEMSEMANTICDEBUGGER_API SemanticAnalysisHighLevelResults
   std::list<std::list<std::string>> initialGramPossibilities{};
   std::string syntGraphStr{};
   std::string semExpStr{};
+  std::string allFormsStr{};
   std::string sentimentsInfos{};
   bool completeness{};
   std::string reformulations{};

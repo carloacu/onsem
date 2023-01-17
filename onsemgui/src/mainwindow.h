@@ -64,6 +64,7 @@ private Q_SLOTS:
   void onRescaleTokens();
   void onRescaleSynthGraph();
   void onRescaleGenRep();
+  void onRescaleAllForms();
   void onRescaleSentiments();
 
   /// Click on "prev sentence" button event.

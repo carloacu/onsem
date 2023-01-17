@@ -101,6 +101,8 @@ MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
   _ui->pushButton_history_microForChat->setText(microStr);
   _ui->textBrowser_genRep->viewport()->setAutoFillBackground(false);
   _ui->textBrowser_genRep->setAttribute(Qt::WA_TranslucentBackground, true);
+  _ui->textBrowser_allForms->viewport()->setAutoFillBackground(false);
+  _ui->textBrowser_allForms->setAttribute(Qt::WA_TranslucentBackground, true);
 
   _ui->textBrowser_AATester_Logs_Sentiments->viewport()->setAutoFillBackground(false);
   _ui->textBrowser_AATester_Logs_Sentiments->setAttribute(Qt::WA_TranslucentBackground, true);
@@ -538,6 +540,9 @@ void MainWindow::xDisplayResult
   _ui->textBrowser_genRep->setHtml
       (QString::fromUtf8(pAutoAnnotToDisplay.highLevelResults.semExpStr.c_str()));
 
+  _ui->textBrowser_allForms->setHtml
+      (QString::fromUtf8(pAutoAnnotToDisplay.highLevelResults.allFormsStr.c_str()));
+
   _ui->textBrowser_AATester_Logs_Sentiments->setText
       (QString::fromUtf8(pAutoAnnotToDisplay.highLevelResults.sentimentsInfos.c_str()));
 
@@ -676,6 +681,8 @@ void MainWindow::on_pushButton_AATester_Logs_Compare_NewXml_clicked()
       _ui->checkBox_regressiontests_completeness->isChecked();
   diffResults->whatNeedToChecked.semExps =
       _ui->checkBox_regressiontests_semexps->isChecked();
+  diffResults->whatNeedToChecked.allForms =
+      _ui->checkBox_regressiontests_allforms->isChecked();
   diffResults->whatNeedToChecked.reformulations =
       _ui->checkBox_regressiontests_reformulations->isChecked();
   diffResults->whatNeedToChecked.input_reformulation =
@@ -734,6 +741,7 @@ void MainWindow::onRescaleLinguisticAnalyzerPanel()
   onRescaleSynthGraph();
   onRescaleSentiments();
   onRescaleGenRep();
+  onRescaleAllForms();
 }
 
 void MainWindow::onRescaleChatPanel()
@@ -774,6 +782,11 @@ void MainWindow::onRescaleGenRep()
                                        _ui->tab_AATester_Logs_GenRep->height() - 20);
 }
 
+void MainWindow::onRescaleAllForms()
+{
+  _ui->textBrowser_allForms->setGeometry(10, 10, _ui->tab_AATester_Logs_AllForms->width() - 20,
+                                         _ui->tab_AATester_Logs_AllForms->height() - 20);
+}
 
 void MainWindow::onRescaleSentiments()
 {
@@ -793,11 +806,13 @@ void MainWindow::on_tabWidget_AATester_Logs_currentChanged(int index)
   case 1:
     onRescaleSynthGraph();
     break;
-
   case 2:
     onRescaleGenRep();
     break;
-  case 4:
+  case 3:
+    onRescaleAllForms();
+    break;
+  case 5:
     onRescaleSentiments();
     break;
   }

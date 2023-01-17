@@ -15,8 +15,8 @@
     <syntGraph str="1 [label=&quot; a(b)\nhead: a(b) &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="word(a(b))&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
+    <allForms str="word(a(b))&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -47,8 +47,8 @@ A(b)"/>
     <syntGraph str="1 [label=&quot; a\&quot;b\&quot;\nhead: a &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(&quot;b&quot;)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(&quot;b&quot;)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -72,8 +72,8 @@ English:
     <syntGraph str="1 [label=&quot; « a »\nhead: « a » &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="word(« a »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
+    <allForms str="word(« a »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -104,8 +104,8 @@ English:
     <syntGraph str="1 [label=&quot; a«b»\nhead: a &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(«b»)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(«b»)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -136,8 +136,8 @@ English:
     <syntGraph str="1 [label=&quot; a« b »\nhead: a &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -174,8 +174,8 @@ English:
     <syntGraph str="1 [label=&quot; a « b »\nhead: a &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -206,8 +206,8 @@ English:
     <syntGraph str="1 [label=&quot; a« b »\nhead: a &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -231,8 +231,8 @@ English:
     <syntGraph str="1 [label=&quot; \\any_resource=MyService.method()\\\nhead: \\any_resource=MyService.method()\\ &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="label(any_resource)&amp;nbsp;value(MyService.method())&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
+    <allForms str="label(any_resource)&amp;nbsp;value(MyService.method())&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -256,8 +256,8 @@ MyService.method()"/>
     <syntGraph str="1 [label=&quot; \\any_url=http://www.lequipe.fr/\\\nhead: \\any_url=http://www.lequipe.fr/\\ &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="label(any_url)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
+    <allForms str="label(any_url)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -281,8 +281,8 @@ http://www.lequipe.fr/"/>
     <syntGraph str="1 [label=&quot; \\any_url=#fr_FR#http://www.lequipe.fr/\\\nhead: \\any_url=#fr_FR#http://www.lequipe.fr/\\ &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="label(any_url)&amp;nbsp;language(fr_FR)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
+    <allForms str="label(any_url)&amp;nbsp;language(fr_FR)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -306,8 +306,8 @@ http://www.lequipe.fr/"/>
     <syntGraph str="1 [label=&quot; \\any_url=#unonkwn_language#http://www.lequipe.fr/\\\nhead: \\any_url=#unonkwn_language#http://www.lequipe.fr/\\ &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="label(any_url)&amp;nbsp;value(#unonkwn_language#http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
+    <allForms str="label(any_url)&amp;nbsp;value(#unonkwn_language#http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -327,8 +327,8 @@ English:
     </tokens>
     <initialGramPossibilities/>
     <syntGraph str=""/>
-    <animations/>
     <semExps str="&lt;br&gt;"/>
+    <allForms str="&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -352,8 +352,8 @@ English:
     <syntGraph str="1 [label=&quot; unknownWordInCamelCase\nhead: unknownWordInCamelCase &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="word(unknownWordInCamelCase)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
+    <allForms str="word(unknownWordInCamelCase)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -385,8 +385,8 @@ UnknownWordInCamelCase"/>
 2 [label=&quot; ,\nhead: , &quot; ,color=yellow]
 0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
-    <animations/>
     <semExps str="name(&quot;Jr.&quot;)&amp;nbsp;concept(agent_*, 1)&amp;nbsp;concept(name_*, 4)&lt;br&gt;"/>
+    <allForms str="name(&quot;Jr.&quot;)&amp;nbsp;concept(agent_*, 1)&amp;nbsp;concept(name_*, 4)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:

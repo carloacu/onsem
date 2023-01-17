@@ -143,6 +143,7 @@ void _saveText(boost::property_tree::ptree& pTree,
   textTree.put("syntGraph.<xmlattr>.str", semAnalHighLevelResults.syntGraphStr);
 
   textTree.put("semExps.<xmlattr>.str", semAnalHighLevelResults.semExpStr);
+  textTree.put("allForms.<xmlattr>.str", semAnalHighLevelResults.allFormsStr);
   textTree.put("sentiments.<xmlattr>.str", semAnalHighLevelResults.sentimentsInfos);
   textTree.put("completeness.<xmlattr>.bool", semAnalHighLevelResults.completeness);
   textTree.put("reformulations.<xmlattr>.str", semAnalHighLevelResults.reformulations);
