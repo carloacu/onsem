@@ -166,7 +166,7 @@ void fillSemAnalResult
   // all forms
   {
     UniqueSemanticExpression semWithOtherForms = semExp->clone();
-    converter::splitPossibilitiesOfQuestions(semWithOtherForms, lingDb);
+    converter::addDifferentForms(semWithOtherForms, lingDb);
     std::list<SemLineToPrint> semExpStrs;
     printer::prettyPrintSemExp(semExpStrs, *semWithOtherForms);
     semExpLinesToStr.printLines(pHighLevelResults.allFormsStr, semExpStrs);

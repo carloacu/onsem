@@ -28,14 +28,14 @@ namespace converter
 {
 
 ONSEMSEMANTICTOTEXT_API
-void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
+void addDifferentForms(UniqueSemanticExpression& pSemExp,
                                    const linguistics::LinguisticDatabase& pLingDb,
                                    std::list<std::list<SemLineToPrint>>* pDebugOutput = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
-void splitEquivalentQuestions(UniqueSemanticExpression& pSemExp,
-                              const linguistics::LinguisticDatabase& pLingDb,
-                              std::list<std::list<SemLineToPrint>>* pDebugOutput = nullptr);
+void addBothDirectionForms(UniqueSemanticExpression& pSemExp,
+                           const linguistics::LinguisticDatabase& pLingDb,
+                           std::list<std::list<SemLineToPrint>>* pDebugOutput = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 void unsplitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp);

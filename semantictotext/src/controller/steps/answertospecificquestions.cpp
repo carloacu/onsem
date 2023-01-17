@@ -634,7 +634,7 @@ bool _tryToAnswerToWhatDoYouKnowAbout(SemControllerWorkingStruct& pWorkStruct,
           if (subWorkStruct.askForNewRecursion())
           {
             auto semExpWhoIs = SemExpCreator::askWhoIs(*currTopic);
-            converter::splitPossibilitiesOfQuestions(semExpWhoIs, subWorkStruct.lingDb);
+            converter::addDifferentForms(semExpWhoIs, subWorkStruct.lingDb);
             controller::applyOperatorOnSemExp(subWorkStruct, pMemViewer, *semExpWhoIs);
             if (subWorkStruct.haveAnAnswer())
             {

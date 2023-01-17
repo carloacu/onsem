@@ -114,7 +114,7 @@ bool manageChoice(SemControllerWorkingStruct& pWorkStruct,
       subWorkStruct.reactOperator = SemanticOperatorEnum::CHECK;
 
       SemExpModifier::setRequest(*currChoiceQuestion, SemanticRequestType::YESORNO);
-      converter::splitPossibilitiesOfQuestions(currChoiceQuestion, pWorkStruct.lingDb);
+      converter::addDifferentForms(currChoiceQuestion, pWorkStruct.lingDb);
       controller::applyOperatorOnSemExp(subWorkStruct, pMemViewer, *currChoiceQuestion);
 
       if (subWorkStruct.compositeSemAnswers)
@@ -193,7 +193,7 @@ bool manageChoice(SemControllerWorkingStruct& pWorkStruct,
 
         UniqueSemanticExpression objectQuestionSemExp =
             SemExpGetter::getCopyExceptChild(pGrdExp, pGramTypeOfTheChoice);
-        converter::splitPossibilitiesOfQuestions(objectQuestionSemExp, pWorkStruct.lingDb);
+        converter::addDifferentForms(objectQuestionSemExp, pWorkStruct.lingDb);
         controller::applyOperatorOnSemExp(subWorkStruct, pMemViewer, *objectQuestionSemExp);
         if (subWorkStruct.compositeSemAnswers &&
             !subWorkStruct.compositeSemAnswers->semAnswers.empty())

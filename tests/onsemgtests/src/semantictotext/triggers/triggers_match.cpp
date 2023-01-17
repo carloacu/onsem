@@ -220,6 +220,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   const std::vector<std::string> riseHeadParameterQuestions =
   {"De combien dois-je lever la tête en degré ?"};
   triggers_addAnswerWithOneParameter("Lève la tête", riseHeadParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Regarde en haut", {}, semMem, lingDb, language);
 
   const std::vector<std::string> lowerDownHeadParameterQuestions =
   {"De combien dois-je baisser la tête en degré ?"};
@@ -297,6 +298,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lève la tête\\", triggers_match("Lève la tête", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lève la tête(param1=11 degrés)\\", triggers_match("Monte la tête de onze degrés", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde en haut\\", triggers_match("Regarde en haut", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde en haut\\", triggers_match("Regarde vers le haut", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête\\", triggers_match("Descends la tête", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête(param1=29 degrés)\\", triggers_match("descends la tête de vingt neuf degrés", semMem, lingDb));

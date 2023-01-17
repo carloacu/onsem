@@ -49,8 +49,8 @@ SemExpTreeConversionDatabase::SemExpTreeConversionDatabase(linguistics::Linguist
   : VirtualSemBinaryDatabase(),
     isLoaded(false),
     fConversions(),
-    fSplitsQuestionsBothDirectionToDo(),
-    fSplitsQuestionsToDo(),
+    _semanticFormsBothDirections(),
+    _semanticForms(),
     fTreesOfSemUniquePattern(),
     fCurrFilename(),
     fCurrConversionNb()
@@ -140,8 +140,8 @@ void SemExpTreeConversionDatabase::xLoadConvFile
     xFillTreeOfConvs(fConversions[pLangEnum][itCptToCv->first], itCptToCv->second);
     fTotalSize += 100;
   }
-  xFillTreeOfConvs(fSplitsQuestionsBothDirectionToDo, questionsPossTreesBothDirectionList);
-  xFillTreeOfConvs(fSplitsQuestionsToDo, questionsPossList);
+  xFillTreeOfConvs(_semanticFormsBothDirections, questionsPossTreesBothDirectionList);
+  xFillTreeOfConvs(_semanticForms, questionsPossList);
   xFillTreeOfConvs(fTreesOfSemUniquePattern, semanticUniquePatterns);
   fErrorMessage = "";
 }

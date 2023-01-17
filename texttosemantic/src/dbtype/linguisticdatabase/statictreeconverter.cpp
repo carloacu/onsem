@@ -15,7 +15,6 @@ StaticTreeConverter::StaticTreeConverter(linguistics::LinguisticDatabaseStreams&
 }
 
 
-
 void StaticTreeConverter::refactorSemExp
 (UniqueSemanticExpression& pUSemExp,
  TreePatternConventionEnum pFromConvention,
@@ -25,30 +24,30 @@ void StaticTreeConverter::refactorSemExp
 {
   if (pDebugOutput != nullptr)
   {
-    xAddExpsToDebugOutput(*pDebugOutput, *pUSemExp);
+    _addExpsToDebugOutput(*pDebugOutput, *pUSemExp);
   }
 
-  xRefactorSemExpForALanguage(pUSemExp, pFromConvention, pToConvention,
+  _refactorSemExpForALanguage(pUSemExp, pFromConvention, pToConvention,
                               pLanguage, pDebugOutput);
   if (pLanguage != SemanticLanguageEnum::UNKNOWN)
   {
-    xRefactorSemExpForALanguage(pUSemExp, pFromConvention, pToConvention,
+    _refactorSemExpForALanguage(pUSemExp, pFromConvention, pToConvention,
                                 SemanticLanguageEnum::UNKNOWN, pDebugOutput);
   }
 }
 
 
-void StaticTreeConverter::splitPossibilitiesOfQuestions
+void StaticTreeConverter::addDifferentForms
 (UniqueSemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
  bool pAllOrJustTheOneThatAreInBothDirections,
  std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   if (pDebugOutput != nullptr)
-    xAddExpsToDebugOutput(*pDebugOutput, *pSemExp);
+    _addExpsToDebugOutput(*pDebugOutput, *pSemExp);
 
-  xSearchRootOfSplitPossOfQuestions(pSemExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
-                                    *pSemExp, pDebugOutput);
+  _searchRootOfSplitPossibilities(pSemExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+                                  *pSemExp, pDebugOutput);
 }
 
 
@@ -60,7 +59,7 @@ GrammaticalType StaticTreeConverter::getChildThatShouldBeUnique
   SemExpGetter::getConceptsOfGrdExp(semExpConcepts, pGrdExp);
 
   std::list<const UniqueInformationRule*> uniqueInfosRules;
-  xGetRulesThatHaveTheseConcepts(uniqueInfosRules, fTreesOfSemUniquePattern, semExpConcepts);
+  _getRulesThatHaveTheseConcepts(uniqueInfosRules, fTreesOfSemUniquePattern, semExpConcepts);
 
   for (const auto& currInfoRulePtr : uniqueInfosRules)
   {
@@ -70,7 +69,7 @@ GrammaticalType StaticTreeConverter::getChildThatShouldBeUnique
     const SemanticExpressionContainer* rootInSemExp = nullptr;
     std::map<std::string, std::list<const SemanticExpressionContainer*>> links;
     ReferenceOfSemanticExpressionContainer semExpWrapped(pGrdExp);
-    if (xDoesASemExpMatchAPatternTree<const SemanticExpressionContainer>
+    if (_doesASemExpMatchAPatternTree<const SemanticExpressionContainer>
         (rootInSemExp, links, semExpWrapped,
          alreadyTreatedRoots, rootNode, rootNode, false))
     {
@@ -78,7 +77,7 @@ GrammaticalType StaticTreeConverter::getChildThatShouldBeUnique
       if (itOfUniqueChildInPattern != rootNode.children.end())
       {
         std::map<std::string, std::list<std::shared_ptr<SemanticExpression>>> repLinks;
-        pChildThatShouldBeUnique.emplace(xPatternNodeToSemExp(itOfUniqueChildInPattern->second, repLinks, true));
+        pChildThatShouldBeUnique.emplace(_patternNodeToSemExp(itOfUniqueChildInPattern->second, repLinks, true));
       }
       return currInfoRule.childThatIsUnique;
     }
@@ -88,7 +87,7 @@ GrammaticalType StaticTreeConverter::getChildThatShouldBeUnique
 
 
 
-void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
+void StaticTreeConverter::_searchRootOfSplitPossibilities
 (UniqueSemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
  bool pAllOrJustTheOneThatAreInBothDirections,
@@ -105,7 +104,7 @@ void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
       const SemanticStatementGrounding& statGr = grdExp->getStatementGrounding();
       if (!statGr.requests.empty())
       {
-        xRefactorQuestionsOfExpressionForALanguage(pSemExp, pAllOrJustTheOneThatAreInBothDirections,
+        _addDifferentFormsOfExpressionForALanguage(pSemExp, pAllOrJustTheOneThatAreInBothDirections,
                                                    pRootSemExpForDebug, pDebugOutput);
         return;
       }
@@ -113,7 +112,7 @@ void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
 
     for (auto& currChild : grdExp.children)
     {
-      xSearchRootOfSplitPossOfQuestions(currChild.second, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+      _searchRootOfSplitPossibilities(currChild.second, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                         pRootSemExpForDebug, pDebugOutput);
     }
     break;
@@ -123,7 +122,7 @@ void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
     ListExpression& listExp = pSemExp->getListExp();
     for (auto& currElt : listExp.elts)
     {
-      xSearchRootOfSplitPossOfQuestions(currElt, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+      _searchRootOfSplitPossibilities(currElt, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                         pRootSemExpForDebug, pDebugOutput);
     }
     break;
@@ -131,37 +130,37 @@ void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
   case SemanticExpressionType::CONDITION:
   {
     ConditionExpression& condExp = pSemExp->getCondExp();
-    xSearchRootOfSplitPossOfQuestions(condExp.conditionExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+    _searchRootOfSplitPossibilities(condExp.conditionExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                       pRootSemExpForDebug, pDebugOutput);
-    xSearchRootOfSplitPossOfQuestions(condExp.thenExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+    _searchRootOfSplitPossibilities(condExp.thenExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                       pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::INTERPRETATION:
   {
     InterpretationExpression& intExp = pSemExp->getIntExp();
-    xSearchRootOfSplitPossOfQuestions(intExp.interpretedExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+    _searchRootOfSplitPossibilities(intExp.interpretedExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                       pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::FEEDBACK:
   {
     FeedbackExpression& fdkExp = pSemExp->getFdkExp();
-    xSearchRootOfSplitPossOfQuestions(fdkExp.concernedExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+    _searchRootOfSplitPossibilities(fdkExp.concernedExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                       pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::ANNOTATED:
   {
     AnnotatedExpression& annExp = pSemExp->getAnnExp();
-    xSearchRootOfSplitPossOfQuestions(annExp.semExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+    _searchRootOfSplitPossibilities(annExp.semExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                       pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::METADATA:
   {
     MetadataExpression& metadataExp = pSemExp->getMetadataExp();
-    xSearchRootOfSplitPossOfQuestions(metadataExp.semExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+    _searchRootOfSplitPossibilities(metadataExp.semExp, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
                                       pRootSemExpForDebug, pDebugOutput);
     break;
   }
@@ -176,7 +175,7 @@ void StaticTreeConverter::xSearchRootOfSplitPossOfQuestions
 }
 
 
-void StaticTreeConverter::xRefactorQuestionsOfExpressionForALanguage
+void StaticTreeConverter::_addDifferentFormsOfExpressionForALanguage
 (UniqueSemanticExpression& pSemExp,
  bool pAllOrJustTheOneThatAreInBothDirections,
  const SemanticExpression& pRootSemExpForDebug,
@@ -185,11 +184,10 @@ void StaticTreeConverter::xRefactorQuestionsOfExpressionForALanguage
   std::set<std::string> alreadyDoneConvIds;
   std::list<std::pair<int, UniqueSemanticExpression> > newFormsOfTheExp;
 
-  const auto& questionSpits = pAllOrJustTheOneThatAreInBothDirections ?
-        fSplitsQuestionsToDo : fSplitsQuestionsBothDirectionToDo;
-  xRecurssivelyAddQuestionForm(newFormsOfTheExp, pSemExp, alreadyDoneConvIds,
-                               questionSpits, 10, pRootSemExpForDebug,
-                               pDebugOutput);
+  const auto& semanticForms = pAllOrJustTheOneThatAreInBothDirections ?
+        _semanticForms : _semanticFormsBothDirections;
+  _recurssivelyAddForms(newFormsOfTheExp, pSemExp, alreadyDoneConvIds,
+                        semanticForms, 10, pRootSemExpForDebug, pDebugOutput);
 
   if (!newFormsOfTheExp.empty())
   {
@@ -208,7 +206,7 @@ void StaticTreeConverter::xRefactorQuestionsOfExpressionForALanguage
 
 
 
-void StaticTreeConverter::xRecurssivelyAddQuestionForm
+void StaticTreeConverter::_recurssivelyAddForms
 (std::list<std::pair<int, UniqueSemanticExpression> >& pNewFormsOfTheExp,
  UniqueSemanticExpression& pSemExp,
  std::set<std::string>& pAlreadyDoneConvIds,
@@ -218,8 +216,8 @@ void StaticTreeConverter::xRecurssivelyAddQuestionForm
  std::list<std::list<SemLineToPrint> >* pDebugOutput) const
 {
   std::list<std::pair<int, UniqueSemanticExpression>> provNewFormsOfTheExp;
-  xExtractNewQuestionForms(provNewFormsOfTheExp, pSemExp, pAlreadyDoneConvIds, pTreeOfConvs,
-                           pCurrPrio, pRootSemExpForDebug, pDebugOutput);
+  _extractNewForms(provNewFormsOfTheExp, pSemExp, pAlreadyDoneConvIds, pTreeOfConvs,
+                   pCurrPrio, pRootSemExpForDebug, pDebugOutput);
 
   if (provNewFormsOfTheExp.empty())
   {
@@ -228,14 +226,14 @@ void StaticTreeConverter::xRecurssivelyAddQuestionForm
   for (auto& currElt : provNewFormsOfTheExp)
   {
     std::set<std::string> alreadyDoneConvIds(pAlreadyDoneConvIds);
-    xRecurssivelyAddQuestionForm(pNewFormsOfTheExp, currElt.second, alreadyDoneConvIds, pTreeOfConvs,
-                                 currElt.first, pRootSemExpForDebug, pDebugOutput);
+    _recurssivelyAddForms(pNewFormsOfTheExp, currElt.second, alreadyDoneConvIds, pTreeOfConvs,
+                          currElt.first, pRootSemExpForDebug, pDebugOutput);
   }
   pNewFormsOfTheExp.splice(pNewFormsOfTheExp.end(), provNewFormsOfTheExp);
 }
 
 
-void StaticTreeConverter::xAddExpsToDebugOutput
+void StaticTreeConverter::_addExpsToDebugOutput
 (std::list<std::list<SemLineToPrint> >& pDebugOutput,
  const SemanticExpression& pSemExp)
 {
@@ -244,7 +242,7 @@ void StaticTreeConverter::xAddExpsToDebugOutput
 }
 
 
-void StaticTreeConverter::xRefactorSemExpForALanguage
+void StaticTreeConverter::_refactorSemExpForALanguage
 (UniqueSemanticExpression& pSemExp,
  TreePatternConventionEnum pFromConvention,
  TreePatternConventionEnum pToConvention,
@@ -260,13 +258,13 @@ void StaticTreeConverter::xRefactorSemExpForALanguage
   if (itConvs != itConvForLang->second.end())
   {
     std::map<const ConversionRule*, std::set<const SemanticExpression*> > alreadyDoneConv;
-    xRefactSemExpRec(pSemExp, alreadyDoneConv, itConvs->second,
+    _refactSemExpRec(pSemExp, alreadyDoneConv, itConvs->second,
                      *pSemExp, pDebugOutput);
   }
 }
 
 
-void StaticTreeConverter::xConvertFindLinksToReplacementLinks
+void StaticTreeConverter::_convertFindLinksToReplacementLinks
 (std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > >& pRepLinks,
  const std::map<std::string, std::list<UniqueSemanticExpression*> >& pLinks) const
 {
@@ -281,7 +279,7 @@ void StaticTreeConverter::xConvertFindLinksToReplacementLinks
 }
 
 
-void StaticTreeConverter::xRefactSemExpRec
+void StaticTreeConverter::_refactSemExpRec
 (UniqueSemanticExpression& pSemExp,
  std::map<const ConversionRule*, std::set<const SemanticExpression*> >& pAlreadyDoneConv,
  const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
@@ -293,37 +291,37 @@ void StaticTreeConverter::xRefactSemExpRec
   case SemanticExpressionType::ANNOTATED:
   {
     auto& annExp = pSemExp->getAnnExp();
-    xRefactSemExpRec(annExp.semExp, pAlreadyDoneConv, pTreeOfConvs,
+    _refactSemExpRec(annExp.semExp, pAlreadyDoneConv, pTreeOfConvs,
                      pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::CONDITION:
   {
     auto& condExp = pSemExp->getCondExp();
-    xRefactSemExpRec(condExp.thenExp, pAlreadyDoneConv, pTreeOfConvs,
+    _refactSemExpRec(condExp.thenExp, pAlreadyDoneConv, pTreeOfConvs,
                      pRootSemExpForDebug, pDebugOutput);
     if (condExp.elseExp)
-      xRefactSemExpRec(*condExp.elseExp, pAlreadyDoneConv, pTreeOfConvs,
+      _refactSemExpRec(*condExp.elseExp, pAlreadyDoneConv, pTreeOfConvs,
                        pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::FEEDBACK:
   {
     auto& fdkdExp = pSemExp->getFdkExp();
-    xRefactSemExpRec(fdkdExp.concernedExp, pAlreadyDoneConv, pTreeOfConvs,
+    _refactSemExpRec(fdkdExp.concernedExp, pAlreadyDoneConv, pTreeOfConvs,
                      pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::GROUNDED:
   {
-    xRefactSemExp(pSemExp, pAlreadyDoneConv, pTreeOfConvs,
+    _refactSemExp(pSemExp, pAlreadyDoneConv, pTreeOfConvs,
                   pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::INTERPRETATION:
   {
     auto& intExp = pSemExp->getIntExp();
-    xRefactSemExpRec(intExp.interpretedExp, pAlreadyDoneConv, pTreeOfConvs,
+    _refactSemExpRec(intExp.interpretedExp, pAlreadyDoneConv, pTreeOfConvs,
                      pRootSemExpForDebug, pDebugOutput);
     break;
   }
@@ -335,18 +333,18 @@ void StaticTreeConverter::xRefactSemExpRec
       for (auto& currElt : listExp.elts)
       {
         std::map<const ConversionRule*, std::set<const SemanticExpression*> > alreadyDoneConv;
-        xRefactSemExpRec(currElt, alreadyDoneConv, pTreeOfConvs,
+        _refactSemExpRec(currElt, alreadyDoneConv, pTreeOfConvs,
                          pRootSemExpForDebug, pDebugOutput);
       }
     }
-    xRefactSemExp(pSemExp, pAlreadyDoneConv, pTreeOfConvs,
+    _refactSemExp(pSemExp, pAlreadyDoneConv, pTreeOfConvs,
                   pRootSemExpForDebug, pDebugOutput);
     break;
   }
   case SemanticExpressionType::METADATA:
   {
     auto& metadataExp = pSemExp->getMetadataExp();
-    xRefactSemExpRec(metadataExp.semExp, pAlreadyDoneConv, pTreeOfConvs,
+    _refactSemExpRec(metadataExp.semExp, pAlreadyDoneConv, pTreeOfConvs,
                      pRootSemExpForDebug, pDebugOutput);
     break;
   }
@@ -359,7 +357,7 @@ void StaticTreeConverter::xRefactSemExpRec
 }
 
 
-void StaticTreeConverter::xRefactSemExp
+void StaticTreeConverter::_refactSemExp
 (UniqueSemanticExpression& pSemExp,
  std::map<const ConversionRule*, std::set<const SemanticExpression*> >& pAlreadyDoneConv,
  const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
@@ -377,7 +375,7 @@ void StaticTreeConverter::xRefactSemExp
 
     // get conversions that have the same concepts that the sem exp
     std::list<const ConversionRule*> possiblesConv;
-    xGetRulesThatHaveTheseConcepts(possiblesConv, pTreeOfConvs, semExpConcepts);
+    _getRulesThatHaveTheseConcepts(possiblesConv, pTreeOfConvs, semExpConcepts);
 
     // try to apply all the possible conversions
     for (const auto& currPossConv : possiblesConv)
@@ -386,21 +384,21 @@ void StaticTreeConverter::xRefactSemExp
       UniqueSemanticExpression* rootInSemExp = nullptr;
       std::map<std::string, std::list<UniqueSemanticExpression*> > links;
       const SemExpTreePatternNode& rootNode = *currPossConv->treePatternIn;
-      while (xDoesASemExpMatchAPatternTree(rootInSemExp, links, pSemExp,
+      while (_doesASemExpMatchAPatternTree(rootInSemExp, links, pSemExp,
                                            alreadyTreatedRoots, rootNode, rootNode, true))
       {
         alreadyTreatedRoots.insert(&**rootInSemExp);
 
         std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > > repLinks;
-        xConvertFindLinksToReplacementLinks(repLinks, links);
-        xApplyModifsOnSemExp(**rootInSemExp, repLinks,
+        _convertFindLinksToReplacementLinks(repLinks, links);
+        _applyModifsOnSemExp(**rootInSemExp, repLinks,
                              *currPossConv->treePatternOut);
         conversionHasBeenDone = true;
 
         if (pDebugOutput != nullptr)
         {
-          xPrintAConversionInfos(*pDebugOutput, *currPossConv);
-          xAddExpsToDebugOutput(*pDebugOutput, pRootSemExpForDebug);
+          _printAConversionInfos(*pDebugOutput, *currPossConv);
+          _addExpsToDebugOutput(*pDebugOutput, pRootSemExpForDebug);
         }
         links.clear();
       }
@@ -410,7 +408,7 @@ void StaticTreeConverter::xRefactSemExp
 
 
 
-void StaticTreeConverter::xExtractNewQuestionForms
+void StaticTreeConverter::_extractNewForms
 (std::list<std::pair<int, UniqueSemanticExpression>>& pNewFormsOfTheExp,
  UniqueSemanticExpression& pSemExp,
  std::set<std::string>& pAlreadyDoneConvIds,
@@ -426,7 +424,7 @@ void StaticTreeConverter::xExtractNewQuestionForms
 
   // get conversions that have the same concepts that the sem exp
   std::list<const ConversionRule*> possiblesConv;
-  xGetRulesThatHaveTheseConcepts(possiblesConv, pTreeOfConvs, semExpConcepts);
+  _getRulesThatHaveTheseConcepts(possiblesConv, pTreeOfConvs, semExpConcepts);
 
   // try to apply all the possible conversions
   for (const ConversionRule* currPossConv : possiblesConv)
@@ -437,7 +435,7 @@ void StaticTreeConverter::xExtractNewQuestionForms
     UniqueSemanticExpression* rootInSemExp = nullptr;
     std::map<std::string, std::list<UniqueSemanticExpression*> > links;
     const SemExpTreePatternNode& rootNode = *currPossConv->treePatternIn;
-    if (xDoesASemExpMatchAPatternTree(rootInSemExp, links, pSemExp,
+    if (_doesASemExpMatchAPatternTree(rootInSemExp, links, pSemExp,
                                       std::set<const SemanticExpression*>(),
                                       rootNode, rootNode, false))
     {
@@ -445,13 +443,13 @@ void StaticTreeConverter::xExtractNewQuestionForms
 
       auto semExpCopied = pSemExp->clone();
       std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > > repLinks;
-      xConvertFindLinksToReplacementLinks(repLinks, links);
-      xApplyModifsOnSemExp(**rootInSemExp, repLinks,
+      _convertFindLinksToReplacementLinks(repLinks, links);
+      _applyModifsOnSemExp(**rootInSemExp, repLinks,
                            *currPossConv->treePatternOut);
       if (pDebugOutput != nullptr)
       {
-        xPrintAConversionInfos(*pDebugOutput, *currPossConv);
-        xAddExpsToDebugOutput(*pDebugOutput, pRootSemExpForDebug);
+        _printAConversionInfos(*pDebugOutput, *currPossConv);
+        _addExpsToDebugOutput(*pDebugOutput, pRootSemExpForDebug);
       }
 
       pNewFormsOfTheExp.emplace_back(pCurrPrio + currPossConv->priorityOfOutPattern,
@@ -464,7 +462,7 @@ void StaticTreeConverter::xExtractNewQuestionForms
 
 
 
-void StaticTreeConverter::xPrintAConversionInfos
+void StaticTreeConverter::_printAConversionInfos
 (std::list<std::list<SemLineToPrint> >& pDebugOutput,
  const ConversionRule& pConvInfos) const
 {
@@ -478,17 +476,17 @@ void StaticTreeConverter::xPrintAConversionInfos
   outLines.emplace_back(0, "From:");
   {
     std::stringstream ss;
-    xPrintAPatternNode(outLines, ss, semLineToPrint_subLabelOffsets, *pConvInfos.treePatternIn);
+    _printAPatternNode(outLines, ss, semLineToPrint_subLabelOffsets, *pConvInfos.treePatternIn);
   }
   outLines.emplace_back(0, "To:");
   {
     std::stringstream ss;
-    xPrintAPatternNode(outLines, ss, semLineToPrint_subLabelOffsets, *pConvInfos.treePatternOut);
+    _printAPatternNode(outLines, ss, semLineToPrint_subLabelOffsets, *pConvInfos.treePatternOut);
   }
 }
 
 
-void StaticTreeConverter::xPrintAPatternNode
+void StaticTreeConverter::_printAPatternNode
 (std::list<SemLineToPrint>& pOutLines,
  std::stringstream& pSs,
  std::size_t pOffsetNewLine,
@@ -573,13 +571,13 @@ void StaticTreeConverter::xPrintAPatternNode
     pSs << grammaticalType_toStr(currChild.first) + ":";
     std::size_t offset = pOffsetNewLine;
     offset += semLineToPrint_subLabelOffsets;
-    xPrintAPatternNode(pOutLines, pSs, offset, currChild.second);
+    _printAPatternNode(pOutLines, pSs, offset, currChild.second);
   }
 }
 
 
 template <typename RULE>
-void StaticTreeConverter::xGetRulesThatHaveTheseConcepts
+void StaticTreeConverter::_getRulesThatHaveTheseConcepts
 (std::list<const RULE*>& pPossiblesConv,
  const ConceptTreeOfRules<RULE>& pTreeOfConvs,
  const std::set<std::string>& pSemExpConcepts) const
@@ -588,11 +586,11 @@ void StaticTreeConverter::xGetRulesThatHaveTheseConcepts
     pPossiblesConv.push_back(&currCv);
   for (const auto& currChld : pTreeOfConvs.children)
     if (pSemExpConcepts.find(currChld.first) != pSemExpConcepts.end())
-      xGetRulesThatHaveTheseConcepts(pPossiblesConv, currChld.second, pSemExpConcepts);
+      _getRulesThatHaveTheseConcepts(pPossiblesConv, currChld.second, pSemExpConcepts);
 }
 
 
-void StaticTreeConverter::xApplyModifsOnSemExp
+void StaticTreeConverter::_applyModifsOnSemExp
 (SemanticExpression& pRootInSemExp,
  const std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > >& pRepLinks,
  const SemExpTreePatternNode& pRootPattern) const
@@ -600,19 +598,19 @@ void StaticTreeConverter::xApplyModifsOnSemExp
   GroundedExpression* grdExpPtr = pRootInSemExp.getGrdExpPtr_SkipWrapperPtrs(false);
   if (grdExpPtr != nullptr)
   {
-    xApplyModifsOnGrdExp(*grdExpPtr, pRepLinks, pRootPattern);
+    _applyModifsOnGrdExp(*grdExpPtr, pRepLinks, pRootPattern);
     return;
   }
 
   ListExpression* listExpPtr = pRootInSemExp.getListExpPtr_SkipWrapperPtrs();
   if (listExpPtr != nullptr)
     for (auto& currElt : listExpPtr->elts)
-      xApplyModifsOnSemExp(*currElt, pRepLinks, pRootPattern);
+      _applyModifsOnSemExp(*currElt, pRepLinks, pRootPattern);
 }
 
 
 
-void StaticTreeConverter::xApplyModifsOnGrdExp
+void StaticTreeConverter::_applyModifsOnGrdExp
 (GroundedExpression& pRootInGrExp,
  const std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > >& pRepLinks,
  const SemExpTreePatternNode& pRootPattern,
@@ -741,13 +739,13 @@ void StaticTreeConverter::xApplyModifsOnGrdExp
   // consider each children
   for (const auto& currPattChild : pRootPattern.children)
   {
-    xApplyModifsForAChild(pRootInGrExp, pRepLinks,
+    _applyModifsForAChild(pRootInGrExp, pRepLinks,
                           currPattChild.first, currPattChild.second);
   }
 }
 
 
-bool StaticTreeConverter::xASubSemExpIsInTheList
+bool StaticTreeConverter::_aSubSemExpIsInTheList
 (const ListExpression& pListExp,
  const std::list<std::shared_ptr<SemanticExpression> >& pSubSemExp) const
 {
@@ -766,7 +764,7 @@ bool StaticTreeConverter::xASubSemExpIsInTheList
 
 
 
-void StaticTreeConverter::xApplyModifsForAChild
+void StaticTreeConverter::_applyModifsForAChild
 (GroundedExpression& pRootInGrdExp,
  const std::map<std::string, std::list<std::shared_ptr<SemanticExpression>>>& pRepLinks,
  GrammaticalType pChildGramType,
@@ -782,7 +780,7 @@ void StaticTreeConverter::xApplyModifsForAChild
       {
         ListExpression* listSubExp = itChild->second->getListExpPtr();
         if (listSubExp != nullptr &&
-            xASubSemExpIsInTheList(*listSubExp, itLk->second))
+            _aSubSemExpIsInTheList(*listSubExp, itLk->second))
         {
           for (auto& currSemExpsToModify : itLk->second)
           {
@@ -791,7 +789,7 @@ void StaticTreeConverter::xApplyModifsForAChild
             {
               if (&*currElt == &*currSemExpsToModify)
               {
-                xApplyModifsOnSemExp(*currElt, pRepLinks, pChildPattern);
+                _applyModifsOnSemExp(*currElt, pRepLinks, pChildPattern);
                 eltAlreadyExist = true;
                 break;
               }
@@ -799,7 +797,7 @@ void StaticTreeConverter::xApplyModifsForAChild
             if (!eltAlreadyExist)
             {
               auto newElt = currSemExpsToModify->clone();
-              xApplyModifsOnSemExp(*newElt, pRepLinks, pChildPattern);
+              _applyModifsOnSemExp(*newElt, pRepLinks, pChildPattern);
               listSubExp->elts.emplace_back(std::move(newElt));
             }
           }
@@ -809,7 +807,7 @@ void StaticTreeConverter::xApplyModifsForAChild
         if (itLk->second.size() == 1 &&
             &*itChild->second == &*itLk->second.front())
         {
-          xApplyModifsOnSemExp(*itLk->second.front(),
+          _applyModifsOnSemExp(*itLk->second.front(),
                                pRepLinks, pChildPattern);
         }
         else
@@ -822,7 +820,7 @@ void StaticTreeConverter::xApplyModifsForAChild
       if (itLk->second.size() == 1)
       {
         auto newChild = itLk->second.front()->clone();
-        xApplyModifsOnSemExp(*newChild, pRepLinks, pChildPattern);
+        _applyModifsOnSemExp(*newChild, pRepLinks, pChildPattern);
         pRootInGrdExp.children.emplace(pChildGramType, std::move(newChild));
       }
       else if (itLk->second.size() > 1)
@@ -831,7 +829,7 @@ void StaticTreeConverter::xApplyModifsForAChild
         for (auto& currSemExpsToModify : itLk->second)
         {
           auto newElt = currSemExpsToModify->clone();
-          xApplyModifsOnSemExp(*newElt, pRepLinks, pChildPattern);
+          _applyModifsOnSemExp(*newElt, pRepLinks, pChildPattern);
           newListExp->elts.emplace_back(std::move(newElt));
         }
         pRootInGrdExp.children.emplace(pChildGramType, std::move(newListExp));
@@ -842,11 +840,11 @@ void StaticTreeConverter::xApplyModifsForAChild
 
   // create a new empty child
   pRootInGrdExp.children.erase(pChildGramType);
-  pRootInGrdExp.children.emplace(pChildGramType, xPatternNodeToSemExp(pChildPattern, pRepLinks));
+  pRootInGrdExp.children.emplace(pChildGramType, _patternNodeToSemExp(pChildPattern, pRepLinks));
 }
 
 
-UniqueSemanticExpression StaticTreeConverter::xPatternNodeToSemExp
+UniqueSemanticExpression StaticTreeConverter::_patternNodeToSemExp
 (const SemExpTreePatternNode& pTreePattern,
  const std::map<std::string, std::list<std::shared_ptr<SemanticExpression>>>& pRepLinks,
  bool pSetMotherConceptOfConceptsAny) const
@@ -855,13 +853,13 @@ UniqueSemanticExpression StaticTreeConverter::xPatternNodeToSemExp
       (pTreePattern.groundingType ?
          SemanticGrounding::make(*pTreePattern.groundingType) :
          std::make_unique<SemanticConceptualGrounding>());
-  xApplyModifsOnGrdExp(*newChild, pRepLinks, pTreePattern, pSetMotherConceptOfConceptsAny);
+  _applyModifsOnGrdExp(*newChild, pRepLinks, pTreePattern, pSetMotherConceptOfConceptsAny);
   return std::move(newChild);
 }
 
 
 template <typename SEMEXPCONTAINER>
-bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
+bool StaticTreeConverter::_doesASemExpMatchAPatternTree
 (SEMEXPCONTAINER*& pRootInSemExp,
  std::map<std::string, std::list<SEMEXPCONTAINER*> >& pLinks,
  SEMEXPCONTAINER& pSemExp,
@@ -1058,7 +1056,7 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
           {
             auto itSemExpChild = grdExpPtr->children.find(itPatternChild->first);
             if (itSemExpChild == grdExpPtr->children.end() ||
-                !xDoesASemExpMatchAPatternTree<SEMEXPCONTAINER>(pRootInSemExp, pLinks,
+                !_doesASemExpMatchAPatternTree<SEMEXPCONTAINER>(pRootInSemExp, pLinks,
                                                                 itSemExpChild->second,
                                                                 std::set<const SemanticExpression*>(),
                                                                 pRootNode, itPatternChild->second,
@@ -1086,7 +1084,7 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
     {
       for (auto& currChild : grdExpPtr->children)
       {
-        if (xDoesASemExpMatchAPatternTree<SEMEXPCONTAINER>(pRootInSemExp, pLinks, currChild.second,
+        if (_doesASemExpMatchAPatternTree<SEMEXPCONTAINER>(pRootInSemExp, pLinks, currChild.second,
                                                            pAlreadyTreatedRoots, pRootNode, pRootNode,
                                                            pCanMatchWithAChildNode))
         {
@@ -1104,7 +1102,7 @@ bool StaticTreeConverter::xDoesASemExpMatchAPatternTree
     {
       for (auto& currElt : listExpPtr->elts)
       {
-        if (xDoesASemExpMatchAPatternTree<SEMEXPCONTAINER>(pRootInSemExp, pLinks, currElt,
+        if (_doesASemExpMatchAPatternTree<SEMEXPCONTAINER>(pRootInSemExp, pLinks, currElt,
                                                            pAlreadyTreatedRoots, pRootNode, pCurrNode,
                                                            pCanMatchWithAChildNode))
         {

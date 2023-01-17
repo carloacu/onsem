@@ -50,6 +50,9 @@
   <linkedMeaning lemme="mater" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="regarder" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_lookup">
+  <linkedMeaning lemme="regarder~en~haut" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_action_moveBack">
   <linkedMeaning lemme="reculer" gram="verb" relationToConcept="5"/>
  </concept>

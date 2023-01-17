@@ -152,23 +152,21 @@ void _naturalLanguageTextToSemanticWord(
 }
 
 
-void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
-                                   const linguistics::LinguisticDatabase& pLingDb,
-                                   std::list<std::list<SemLineToPrint>>* pDebugOutput)
+void addDifferentForms(UniqueSemanticExpression& pSemExp,
+                       const linguistics::LinguisticDatabase& pLingDb,
+                       std::list<std::list<SemLineToPrint>>* pDebugOutput)
 {
   semanticOccurrenceRankConverter::process(pSemExp);
   // TODO: do a refactor inside splitPossibilitiesOfQuestion to not make difference between languages
-  pLingDb.treeConverter.splitPossibilitiesOfQuestions(pSemExp, SemanticLanguageEnum::UNKNOWN,
-                                                      pDebugOutput);
+  pLingDb.treeConverter.addDifferentForms(pSemExp, SemanticLanguageEnum::UNKNOWN, pDebugOutput);
 }
 
 
-void splitEquivalentQuestions(UniqueSemanticExpression& pSemExp,
-                              const linguistics::LinguisticDatabase& pLingDb,
-                              std::list<std::list<SemLineToPrint>>* pDebugOutput)
+void addBothDirectionForms(UniqueSemanticExpression& pSemExp,
+                           const linguistics::LinguisticDatabase& pLingDb,
+                           std::list<std::list<SemLineToPrint>>* pDebugOutput)
 {
-  pLingDb.treeConverter.splitEquivalentQuestions(pSemExp, SemanticLanguageEnum::UNKNOWN,
-                                                 pDebugOutput);
+  pLingDb.treeConverter.addBothDirectionForms(pSemExp, SemanticLanguageEnum::UNKNOWN, pDebugOutput);
 }
 
 

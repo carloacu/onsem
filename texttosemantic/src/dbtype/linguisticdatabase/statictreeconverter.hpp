@@ -26,7 +26,7 @@ public:
                       SemanticLanguageEnum pLanguage,
                       std::list<std::list<SemLineToPrint> >* pDebugOutput = nullptr) const;
 
-  void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
+  void addDifferentForms(UniqueSemanticExpression& pSemExp,
                                      SemanticLanguageEnum pLanguage,
                                      bool pAllOrJustTheOneThatAreInBothDirections,
                                      std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
@@ -35,9 +35,9 @@ public:
                                              const GroundedExpression& pGrdExp) const;
 
 private:
-  static const std::string fFormalism;
+  static const std::string _formalism;
 
-  void xExtractNewQuestionForms
+  void _extractNewForms
   (std::list<std::pair<int, UniqueSemanticExpression>>& pNewFormsOfTheExp,
    UniqueSemanticExpression& pSemExp,
    std::set<std::string>& pAlreadyDoneConvIds,
@@ -46,30 +46,30 @@ private:
    const SemanticExpression& pRootSemExpForDebug,
    std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
-  void xSearchRootOfSplitPossOfQuestions
+  void _searchRootOfSplitPossibilities
   (UniqueSemanticExpression& pSemExp,
    SemanticLanguageEnum pLanguage,
    bool pAllOrJustTheOneThatAreInBothDirections,
    const SemanticExpression& pRootSemExpForDebug,
    std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
-  void xRefactorQuestionsOfExpressionForALanguage
+  void _addDifferentFormsOfExpressionForALanguage
   (UniqueSemanticExpression& pSemExp,
    bool pAllOrJustTheOneThatAreInBothDirections,
    const SemanticExpression& pRootSemExpForDebug,
    std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
-  void xPrintAConversionInfos
+  void _printAConversionInfos
   (std::list<std::list<SemLineToPrint> >& pDebugOutput,
    const ConversionRule& pConvInfos) const;
 
-  void xPrintAPatternNode
+  void _printAPatternNode
   (std::list<SemLineToPrint>& pOutLines,
    std::stringstream& pSs,
    std::size_t pOffsetNewLine,
    const SemExpTreePatternNode& pRootPattern) const;
 
-  void xRecurssivelyAddQuestionForm
+  void _recurssivelyAddForms
   (std::list<std::pair<int, UniqueSemanticExpression> >& pNewFormsOfTheExp,
    UniqueSemanticExpression& pSemExp,
    std::set<std::string>& pAlreadyDoneConvIds,
@@ -78,68 +78,68 @@ private:
    const SemanticExpression& pRootSemExpForDebug,
    std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
-  static void xAddExpsToDebugOutput
+  static void _addExpsToDebugOutput
   (std::list<std::list<SemLineToPrint> >& pDebugOutput,
    const SemanticExpression& pSemExp);
 
-  void xRefactorSemExpForALanguage
+  void _refactorSemExpForALanguage
   (UniqueSemanticExpression& pSemExp,
    TreePatternConventionEnum pFromConvention,
    TreePatternConventionEnum pToConvention,
    SemanticLanguageEnum pLanguage,
    std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
-  void xApplyModifsOnSemExp
+  void _applyModifsOnSemExp
   (SemanticExpression& pRootInSemExp,
    const std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > >& pLinks,
    const SemExpTreePatternNode& pRootPattern) const;
 
-  void xApplyModifsOnGrdExp
+  void _applyModifsOnGrdExp
   (GroundedExpression& pRootInGrExp,
    const std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > >& pRepLinks,
    const SemExpTreePatternNode& pRootPattern,
    bool pSetMotherConceptOfConceptsAny = false) const;
 
-  bool xASubSemExpIsInTheList
+  bool _aSubSemExpIsInTheList
   (const ListExpression& pListExp,
    const std::list<std::shared_ptr<SemanticExpression> >& pSubSemExp) const;
 
-  void xApplyModifsForAChild
+  void _applyModifsForAChild
   (GroundedExpression& pRootInGrdExp,
    const std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > >& pRepLinks,
    GrammaticalType pChildGramType,
    const SemExpTreePatternNode& pchildPattern) const;
 
-  void xConvertFindLinksToReplacementLinks
+  void _convertFindLinksToReplacementLinks
   (std::map<std::string, std::list<std::shared_ptr<SemanticExpression> > >& pRepLinks,
    const std::map<std::string, std::list<UniqueSemanticExpression*> >& pLinks) const;
 
-  void xRefactSemExpRec
+  void _refactSemExpRec
   (UniqueSemanticExpression& pSemExp,
    std::map<const ConversionRule*, std::set<const SemanticExpression*> >& pAlreadyDoneConv,
    const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
    const SemanticExpression& pRootSemExpForDebug,
    std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
-  void xRefactSemExp
+  void _refactSemExp
   (UniqueSemanticExpression& pSemExp,
    std::map<const ConversionRule*, std::set<const SemanticExpression*> >& pAlreadyDoneConv,
    const ConceptTreeOfRules<ConversionRule>& pTreeOfConvs,
    const SemanticExpression& pRootSemExpForDebug,
    std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
 
-  UniqueSemanticExpression xPatternNodeToSemExp(const SemExpTreePatternNode& pTreePattern,
+  UniqueSemanticExpression _patternNodeToSemExp(const SemExpTreePatternNode& pTreePattern,
                                                 const std::map<std::string, std::list<std::shared_ptr<SemanticExpression>>>& pRepLinks,
                                                 bool pSetMotherConceptOfConceptsAny = false) const;
 
   template <typename RULE>
-  void xGetRulesThatHaveTheseConcepts
+  void _getRulesThatHaveTheseConcepts
   (std::list<const RULE*>& pPossiblesConv,
    const ConceptTreeOfRules<RULE>& pTreeOfConvs,
    const std::set<std::string>& pSemExpConcepts) const;
 
   template <typename SEMEXPCONTAINER>
-  bool xDoesASemExpMatchAPatternTree
+  bool _doesASemExpMatchAPatternTree
   (SEMEXPCONTAINER*& pRootInSemExp,
    std::map<std::string, std::list<SEMEXPCONTAINER*> >& pLinks,
    SEMEXPCONTAINER& pSemExp,

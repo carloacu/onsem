@@ -557,7 +557,7 @@ UniqueSemanticExpression askIfTrue(const GroundedExpression& pOriginalGrdExp,
 {
   UniqueSemanticExpression semExp = pOriginalGrdExp.clone();
   (*semExp->getGrdExpPtr())->getStatementGroundingPtr()->requests.add(SemanticRequestType::YESORNO);
-  converter::splitPossibilitiesOfQuestions(semExp, pLingDb);
+  converter::addDifferentForms(semExp, pLingDb);
   return semExp;
 }
 

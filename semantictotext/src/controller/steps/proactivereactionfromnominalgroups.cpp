@@ -66,7 +66,7 @@ void _answerTheQuestionOrAskIt(SemControllerWorkingStruct& pWorkStruct,
   {
     subWorkStruct.reactOperator = SemanticOperatorEnum::ANSWER;
     subWorkStruct.reactionOptions.canAnswerIDontKnow = false;
-    converter::splitPossibilitiesOfQuestions(pQuestionSemExp, pWorkStruct.lingDb);
+    converter::addDifferentForms(pQuestionSemExp, pWorkStruct.lingDb);
     controller::applyOperatorOnSemExp(subWorkStruct, pMemViewer, *pQuestionSemExp);
     if (!subWorkStruct.compositeSemAnswers->semAnswers.empty())
     {

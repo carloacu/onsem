@@ -146,6 +146,9 @@
   <linkedMeaning lemme="look~at" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="look" gram="verb" relationToConcept="3"/>
  </concept>
+ <concept name="verb_action_lookup">
+  <linkedMeaning lemme="look~up" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_action_moveBack">
   <linkedMeaning lemme="back~away" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="move~back" gram="verb" relationToConcept="5"/>

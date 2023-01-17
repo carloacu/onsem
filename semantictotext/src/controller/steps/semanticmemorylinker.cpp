@@ -2041,7 +2041,7 @@ bool _answerToYesOrNoQuestionIfTheSemExpCorrespondToUniquePatternThatAlreadyHave
       }
 
       UniqueSemanticExpression subQuestionSemExp(std::move(subQuestionGrdExpPtr));
-      converter::splitPossibilitiesOfQuestions(subQuestionSemExp, pWorkStruct.lingDb);
+      converter::addDifferentForms(subQuestionSemExp, pWorkStruct.lingDb);
       controller::applyOperatorOnSemExp(subWorkStruct, pMemViewer, *subQuestionSemExp);
       if (!subWorkStruct.compositeSemAnswers->semAnswers.empty())
       {

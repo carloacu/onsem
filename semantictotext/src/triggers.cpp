@@ -29,7 +29,7 @@ void add(UniqueSemanticExpression pTriggerSemExp,
   conditionsAdder::addConditonsForSomeTimedGrdExp(pTriggerSemExp);
 
   memoryOperation::resolveAgentAccordingToTheContext(pTriggerSemExp, pSemanticMemory, pLingDb);
-  converter::splitEquivalentQuestions(pTriggerSemExp, pLingDb);
+  converter::addBothDirectionForms(pTriggerSemExp, pLingDb);
   auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pTriggerSemExp), pLingDb);
   expForMem->outputToAnswerIfTriggerHasMatched.emplace(std::move(pAnswerSemExp));
   expForMem->addTriggerLinks(InformationType::ASSERTION, *expForMem->semExp, pLingDb);
@@ -43,7 +43,7 @@ std::shared_ptr<ExpressionWithLinks> match(
     const linguistics::LinguisticDatabase& pLingDb,
     const ReactionOptions* pReactionOptions)
 {
-  converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
+  converter::addDifferentForms(pSemExp, pLingDb);
   conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
 
   static const InformationType informationType = InformationType::INFORMATION;

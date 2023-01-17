@@ -83,7 +83,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> answer
  const SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb)
 {
-  converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
+  converter::addDifferentForms(pSemExp, pLingDb);
   std::unique_ptr<CompositeSemAnswer> compositeSemAnswers;
   auto currUserId = pSemanticMemory.getCurrUserId();
   const auto* externalFallback = pSemanticMemory.getExternalFallback();
@@ -320,7 +320,7 @@ void get(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers,
          const SemanticMemory& pSemanticMemory,
          const linguistics::LinguisticDatabase& pLingDb)
 {
-  converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
+  converter::addDifferentForms(pSemExp, pLingDb);
   std::unique_ptr<CompositeSemAnswer> compositeSemAnswers;
   auto currUserId = pSemanticMemory.getCurrUserId();
   const auto* externalFallback = pSemanticMemory.getExternalFallback();
@@ -804,7 +804,7 @@ std::shared_ptr<ExpressionWithLinks> react(
     const linguistics::LinguisticDatabase& pLingDb,
     const ReactionOptions* pReactionOptions)
 {
-  converter::splitPossibilitiesOfQuestions(pSemExp, pLingDb);
+  converter::addDifferentForms(pSemExp, pLingDb);
   conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
 
   static const InformationType informationType = InformationType::INFORMATION;

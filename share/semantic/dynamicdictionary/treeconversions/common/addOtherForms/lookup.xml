@@ -1,0 +1,19 @@
+<semantictreeconversions formalism="1">
+
+  <addPossibleTrees bothDirections="true">
+    <from>
+      <root id="1" grounding="statement" concept="verb_action_lookup">
+        <notlocation />
+      </root>
+    </from>
+    <to>
+      <root id="1" grounding="statement" word="" notConcept="verb_action_lookup" concept="verb_action_lookat">
+	<location grounding="conceptual" concept="location_relative_high" />
+      </root>
+    </to>
+  </addPossibleTrees>
+
+
+
+
+</semantictreeconversions>

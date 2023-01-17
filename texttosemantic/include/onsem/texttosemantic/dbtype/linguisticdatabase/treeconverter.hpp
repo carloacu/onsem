@@ -24,10 +24,10 @@ public:
                       SemanticLanguageEnum pLanguage,
                       std::list<std::list<SemLineToPrint> >* pDebugOutput = nullptr) const;
 
-  void splitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp,
+  void addDifferentForms(UniqueSemanticExpression& pSemExp,
                                      SemanticLanguageEnum pLanguage,
                                      std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
-  void splitEquivalentQuestions(UniqueSemanticExpression& pSemExp,
+  void addBothDirectionForms(UniqueSemanticExpression& pSemExp,
                                 SemanticLanguageEnum pLanguage,
                                 std::list<std::list<SemLineToPrint>>* pDebugOutput) const;
 

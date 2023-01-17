@@ -410,7 +410,7 @@ void _applyOperatorOnFeedbackExp(SemControllerWorkingStruct& pWorkStruct,
           if (pWorkStruct.author != nullptr)
           {
             auto whatIsYourName = SemExpCreator::askWhatIsYourName(pWorkStruct.author->userId);
-            converter::splitPossibilitiesOfQuestions(whatIsYourName, pWorkStruct.lingDb);
+            converter::addDifferentForms(whatIsYourName, pWorkStruct.lingDb);
             SemControllerWorkingStruct subWorkStruct(pWorkStruct);
             if (subWorkStruct.askForNewRecursion())
             {
@@ -1202,7 +1202,7 @@ void _applyOpShowOnGrdExpWithoutVerb(SemControllerWorkingStruct& pWorkStruct,
   {
     subWorkStruct.reactOperator = SemanticOperatorEnum::GET;
     auto whatIsItQuest = SemExpCreator::askWhatIs(pGrdExp);
-    converter::splitPossibilitiesOfQuestions(whatIsItQuest, pWorkStruct.lingDb);
+    converter::addDifferentForms(whatIsItQuest, pWorkStruct.lingDb);
     applyOperatorOnSemExp(subWorkStruct, pMemViewer, *whatIsItQuest);
     subWorkStruct.compositeSemAnswers->keepOnlyTheResourcesOrTexts();
     if (!subWorkStruct.compositeSemAnswers->semAnswers.empty())
@@ -1326,7 +1326,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
         if (genGrdPtr->referenceType == SemanticReferenceType::DEFINITE)
         {
           auto whatIsQuestion = SemExpCreator::askWhatIs(pGrdExp);
-          converter::splitPossibilitiesOfQuestions(whatIsQuestion, pWorkStruct.lingDb);
+          converter::addDifferentForms(whatIsQuestion, pWorkStruct.lingDb);
           applyOperatorOnSemExp(pWorkStruct, pMemViewer, *whatIsQuestion);
         }
         break;
@@ -1336,7 +1336,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
       if (agentGrdPtr != nullptr)
       {
         auto whoIsQuestion = SemExpCreator::askWhoIs(pGrdExp);
-        converter::splitPossibilitiesOfQuestions(whoIsQuestion, pWorkStruct.lingDb);
+        converter::addDifferentForms(whoIsQuestion, pWorkStruct.lingDb);
         applyOperatorOnSemExp(pWorkStruct, pMemViewer, *whoIsQuestion);
       }
       break;

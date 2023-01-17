@@ -165,8 +165,8 @@ protected:
 
   bool isLoaded;
   std::map<SemanticLanguageEnum, std::map<TreePatternEnumPair, ConceptTreeOfRules<ConversionRule>> > fConversions;
-  ConceptTreeOfRules<ConversionRule> fSplitsQuestionsBothDirectionToDo;
-  ConceptTreeOfRules<ConversionRule> fSplitsQuestionsToDo;
+  ConceptTreeOfRules<ConversionRule> _semanticFormsBothDirections;
+  ConceptTreeOfRules<ConversionRule> _semanticForms;
   ConceptTreeOfRules<UniqueInformationRule> fTreesOfSemUniquePattern;
 
   static const std::string fFormalism;

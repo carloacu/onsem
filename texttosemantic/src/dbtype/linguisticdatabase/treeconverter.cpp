@@ -33,20 +33,20 @@ void TreeConverter::refactorSemExp
   _statDb.refactorSemExp(pUSemExp, pFromConvention, pToConvention, pLanguage, pDebugOutput);
 }
 
-void TreeConverter::splitPossibilitiesOfQuestions
+void TreeConverter::addDifferentForms
 (UniqueSemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
  std::list<std::list<SemLineToPrint>>* pDebugOutput) const
 {
-  _statDb.splitPossibilitiesOfQuestions(pSemExp, pLanguage, true, pDebugOutput);
+  _statDb.addDifferentForms(pSemExp, pLanguage, true, pDebugOutput);
 }
 
-void TreeConverter::splitEquivalentQuestions
+void TreeConverter::addBothDirectionForms
 (UniqueSemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
  std::list<std::list<SemLineToPrint>>* pDebugOutput) const
 {
-  _statDb.splitPossibilitiesOfQuestions(pSemExp, pLanguage, false, pDebugOutput);
+  _statDb.addDifferentForms(pSemExp, pLanguage, false, pDebugOutput);
 }
 
 
