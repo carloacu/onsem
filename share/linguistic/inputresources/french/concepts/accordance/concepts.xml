@@ -2,6 +2,7 @@
  <concept name="accordance_agreement_*">
   <linkedMeaning lemme="absolument" relationToConcept="4"/>
   <linkedMeaning lemme="assurément" relationToConcept="4"/>
+  <linkedMeaning lemme="avec joie" relationToConcept="4"/>
   <linkedMeaning lemme="avec plaisir" relationToConcept="4"/>
   <linkedMeaning lemme="bien sûr" relationToConcept="3"/>
   <linkedMeaning lemme="être~ce~ça" gram="adverb" relationToConcept="4"/>

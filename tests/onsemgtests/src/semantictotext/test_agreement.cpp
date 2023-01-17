@@ -44,6 +44,8 @@ TEST_F(SemanticReasonerGTests, test_agreement)
   ONSEM_TRUE(_getAgreement("bien sur", lingDb));
   ONSEM_TRUE(_getAgreement("je suis d'accord", lingDb));
   ONSEM_TRUE(_getAgreement("oui toujours", lingDb));
+  ONSEM_TRUE(_getAgreement("avec plaisir", lingDb));
+  ONSEM_TRUE(_getAgreement("avec joie", lingDb));
 
   // false
   ONSEM_FALSE(_getAgreement("no", lingDb));
