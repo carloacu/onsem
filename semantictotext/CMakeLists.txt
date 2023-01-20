@@ -221,7 +221,6 @@ include_directories(
 )
 target_link_libraries(onsemsemantictotext
   z
-  ${BOOST_LIBRARIES}
   ${ONSEMCOMMON_LIBRARIES}
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
 )
