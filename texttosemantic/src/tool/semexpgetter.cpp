@@ -2396,8 +2396,6 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
     return {GrammaticalType::CAUSE};
   case SemanticRequestType::DURATION:
     return {GrammaticalType::DURATION};
-  case SemanticRequestType::LENGTH:
-    return {GrammaticalType::LENGTH};
   case SemanticRequestType::LOCATION:
     return {GrammaticalType::LOCATION};
   case SemanticRequestType::MANNER:
@@ -2416,6 +2414,13 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
   case SemanticRequestType::OBJECT:
   case SemanticRequestType::CHOICE:
     return {GrammaticalType::OBJECT};
+
+  case SemanticRequestType::DISTANCE:
+  {
+    if (pTypeOfUnityOpt && *pTypeOfUnityOpt == TypeOfUnity::ANGLE)
+      return {GrammaticalType::LOCATION};
+    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH, GrammaticalType::LOCATION};
+  }
 
   case SemanticRequestType::QUANTITY:
   {

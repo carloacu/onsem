@@ -49,7 +49,7 @@ namespace onsem
                             GrammaticalType::SUBJECT)       \
   ADD_SEMANTIC_REQUEST_TYPE(TIME, "time",                   \
                             GrammaticalType::TIME)          \
-  ADD_SEMANTIC_REQUEST_TYPE(LENGTH, "length",               \
+  ADD_SEMANTIC_REQUEST_TYPE(DISTANCE, "distance",           \
                             GrammaticalType::LENGTH)        \
   ADD_SEMANTIC_REQUEST_TYPE(DURATION, "duration",           \
                             GrammaticalType::DURATION)      \

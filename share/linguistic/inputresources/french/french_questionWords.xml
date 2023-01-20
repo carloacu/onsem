@@ -14,6 +14,7 @@
       <questionWord lemme="d'où" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="no" request="location" />
       <questionWord lemme="est-ce que" gram="adverb" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="yes or no" />
       <questionWord lemme="est-ce qui" gram="adverb" beforeVerb="only_next_to_the_verb" afterVerb="no" canBeAlone="no" request="yes or no" />
+      <questionWord lemme="jusqu'où" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="distance" />
       <questionWord lemme="qu'est-ce que" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" />
       <questionWord lemme="qu'en est-il" gram="pronoun" beforeVerb="no" afterVerb="no" canBeAlone="yes" request="about" />
       <questionWord lemme="qu'est-ce qui" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" />

@@ -480,9 +480,9 @@ void LinguisticSynthesizerFrench::_getQuestionWord
       _strToOut(pOut, PartOfSpeech::ADVERB, "combien");
       break;
     }
-    case SemanticRequestType::LENGTH:
+    case SemanticRequestType::DISTANCE:
     {
-      _strToOut(pOut, PartOfSpeech::ADVERB, "combien");
+      _strToOut(pOut, PartOfSpeech::ADVERB, "jusqu'où");
       break;
     }
     case SemanticRequestType::DURATION:

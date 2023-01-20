@@ -23,8 +23,8 @@
       <questionWord lemme="which" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
       <questionWord lemme="who" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="subject" />
       <questionWord lemme="who" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="subject" />
-      <questionWord lemme="how far" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
-      <questionWord lemme="how far" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="quantity" />
+      <questionWord lemme="how far" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="distance" />
+      <questionWord lemme="how far" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="distance" />
       <questionWord lemme="how long" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="duration" />
       <questionWord lemme="how often" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
       <questionWord lemme="for what purpose" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="purpose" />
