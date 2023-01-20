@@ -35,6 +35,7 @@
   <declareconcept name="reading" />
   <declareconcept name="reflexive" autofill="false" />
   <declareconcept name="resource" />
+  <declareconcept name="smallAmount" />
   <declareconcept name="soFar" />
   <declareconcept name="sorry" />
   <declareconcept name="surprise.i" />

@@ -1118,6 +1118,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
   }
   else if ((chunkHeadIGram.word.partOfSpeech == PartOfSpeech::ADJECTIVE ||
             chunkHeadIGram.word.partOfSpeech == PartOfSpeech::ADVERB) &&
+           pChunk.tokRange.getItBegin()->getPartOfSpeech() != PartOfSpeech::DETERMINER &&
            _shouldConceptsBeInsideAConceptualGrounding(ConceptSet::haveAConceptThatBeginWith(chunkHeadIGram.infos.concepts, "reference_"),
                                                        chunkHeadIGram.infos.concepts))
   {

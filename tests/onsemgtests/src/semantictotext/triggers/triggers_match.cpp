@@ -330,6 +330,14 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Advance", {"How far should I advance in meters?"},
                                      semMem, lingDb, language);
 
+  triggers_addAnswerWithOneParameter("Move backward", {"How far should I move backward in meters?"},
+                                     semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("Move backward a little", {},
+                                     semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Move backward a lot", {},
+                                     semMem, lingDb, language);
+
   triggers_addAnswerWithOneParameter("Turn", {"How far should I turn in degrees?"},
                                      semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},
@@ -341,6 +349,11 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=2 meters)\\", triggers_match("Go forward two meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Advance 3 meters", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward(param1=3 meters)\\", triggers_match("Move backward 3 meters", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward(param1=1 meter)\\", triggers_match("Go backward one meter", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a little\\", triggers_match("Move backward a little", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a little\\", triggers_match("Move backward a bit", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a lot\\", triggers_match("Move backward a lot", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn(param1=32 degrees)\\", triggers_match("Turn 32 degrees", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Launch(param1=Akinator)\\", triggers_match("Launch akinator", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you look up", semMem, lingDb));
