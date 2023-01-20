@@ -7,6 +7,7 @@
 #include <onsem/common/enum/partofspeech.hpp>
 #include <onsem/common/enum/lingenumlinkedmeaningdirection.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>
+#include <onsem/texttosemantic/dbtype/inflectedword.hpp>
 #include <onsem/texttosemantic/tool/partofspeech/partofspeechcontextfilter.hpp>
 #include "../../api.hpp"
 
@@ -43,7 +44,7 @@ private:
    std::vector<Token>& pTokens,
    std::vector<Token>::iterator pRootTok,
    std::list<InflectedWord>::iterator pRootItIGram,
-   const std::list<std::pair<std::unique_ptr<SemanticWord>, LinkedMeaningDirection>>& pLinkedMeanings) const;
+   const onsem::linguistics::LingWordsGroup& pMeanGroup) const;
 
   std::vector<Token>::iterator xSearchWordAfter
   (std::vector<Token>& pTokens,

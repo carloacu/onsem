@@ -1,0 +1,5 @@
+<linguisticdatabase>
+  <existingMeaning lemme="turn~in" gram="verb">
+    <contextInfo val="cannotBeBeforeNoun" />
+  </existingMeaning>
+</linguisticdatabase>

@@ -7,6 +7,7 @@
  <include file="contextinfos/english_contextinfos_canbebeforenoun.xml"/>
  <include file="contextinfos/english_contextinfos_canbebeforeverb.xml"/>
  <include file="contextinfos/english_contextinfos_cannotbeasubject.xml"/>
+ <include file="contextinfos/english_contextinfos_cannotbebeforenoun.xml"/>
  <include file="contextinfos/english_contextinfos_cannotbecontinuous.xml"/>
  <include file="contextinfos/english_contextinfos_haveauxiliary.xml"/>
  <include file="contextinfos/english_contextinfos_negation.xml"/>

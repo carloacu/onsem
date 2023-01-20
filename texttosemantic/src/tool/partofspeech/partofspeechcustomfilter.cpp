@@ -90,7 +90,7 @@ bool PartOfSpeechCustomFilter::process
         for (const LingWordsGroup& meanGroup : itIGram->infos.metaMeanings)
         {
           std::list<std::pair<TokIt, std::list<InflectedWord>::iterator> > linkedTokens;
-          if (xTryToLinkAToken(linkedTokens, pTokens, itTok, itIGram, meanGroup.linkedMeanings))
+          if (xTryToLinkAToken(linkedTokens, pTokens, itTok, itIGram, meanGroup))
           {
             LinguisticMeaning rootMeaning;
             SemExpGetter::wordToAMeaning(rootMeaning, *meanGroup.rootWord,
@@ -140,12 +140,12 @@ bool PartOfSpeechCustomFilter::xTryToLinkAToken
  std::vector<Token>& pTokens,
  std::vector<Token>::iterator pRootTok,
  std::list<InflectedWord>::iterator pRootItIGram,
- const std::list<std::pair<std::unique_ptr<SemanticWord>, LinkedMeaningDirection>>& pLinkedMeanings) const
+ const LingWordsGroup& pMeanGroup) const
 {
   std::list<InflectedWord>::iterator onlyItIGramToKeep;
   TokIt downTok = pRootTok;
   TokIt upTok = pRootTok;
-  for (const auto& currLkMean : pLinkedMeanings)
+  for (const auto& currLkMean : pMeanGroup.linkedMeanings)
   {
     const SemanticWord& currSemWord = *currLkMean.first;
     switch (currLkMean.second)
@@ -194,6 +194,14 @@ bool PartOfSpeechCustomFilter::xTryToLinkAToken
       break;
     }
     }
+  }
+  if (pMeanGroup.rootWord &&
+      fSpecLingDb.lingDico.hasContextualInfo(WordContextualInfos::CANNOTBEBEFORENOUN, *pMeanGroup.rootWord))
+  {
+    auto upTokNext = getNextToken(upTok, pTokens.end(), SkipPartOfWord::YES);
+    if (upTokNext != pTokens.end() &&
+        upTokNext->getPartOfSpeech() == PartOfSpeech::NOUN)
+      return false;
   }
   return true;
 }

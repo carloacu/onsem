@@ -330,7 +330,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Advance", {"How far should I advance in meters?"},
                                      semMem, lingDb, language);
 
-  triggers_addAnswerWithOneParameter("Turn", {"How far should I turn?"},
+  triggers_addAnswerWithOneParameter("Turn", {"How far should I turn in degree?"},
                                      semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},
                                      semMem, lingDb, language);
