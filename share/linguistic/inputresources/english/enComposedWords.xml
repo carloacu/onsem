@@ -36,6 +36,18 @@
   <nextMeaning lemme="of" gram="preposition" />
   <wordForm gram="preposition"/>
  </words>
+ <words lemme="go" gram="verb" >
+  <nextMeaning lemme="forward" gram="adverb" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="go" gram="verb" >
+  <nextMeaning lemme="backward" gram="adverb" />
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="go" gram="verb" >
+  <nextMeaning lemme="backwards" gram="adverb" />
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="know" gram="verb" >
   <nextMeaning lemme="as" gram="preposition" />
   <wordForm gram="verb"/>

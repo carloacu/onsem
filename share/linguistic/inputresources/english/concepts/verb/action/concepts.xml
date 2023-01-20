@@ -151,6 +151,7 @@
  </concept>
  <concept name="verb_action_moveBack">
   <linkedMeaning lemme="back~away" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="go~backward" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="move~back" gram="verb" relationToConcept="5"/>
   <linkedMeaning lemme="move~backward" gram="verb" relationToConcept="5"/>
   <linkedMeaning lemme="move~backwards" gram="verb" relationToConcept="5"/>
@@ -161,7 +162,9 @@
  </concept>
  <concept name="verb_action_moveForward">
   <linkedMeaning lemme="advance" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="go~forward" gram="verb" relationToConcept="5"/>
   <linkedMeaning lemme="move~forward" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="move~forwards" gram="verb" relationToConcept="5"/>
   <linkedMeaning lemme="walk" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_action_notify">
