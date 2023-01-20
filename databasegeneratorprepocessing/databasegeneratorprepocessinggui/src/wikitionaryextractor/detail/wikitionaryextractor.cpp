@@ -3,7 +3,7 @@
 #include "addcomposedwords.hpp"
 #include "addcomposedwords.hpp"
 #include <fstream>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/compilermodel/lingdbtree.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
@@ -152,7 +152,7 @@ void runTraductions(const LingdbTree& pLingDbTree,
                         enWikionaryFilename);
 
   auto resultFolderPath = pTmpFolder + "/wikitionaryExtractor_traductions";
-  boost::filesystem::create_directory(resultFolderPath);
+  std::filesystem::create_directory(resultFolderPath);
   const std::string frToEnFilename = resultFolderPath + "/wikionary_fr_to_en.wlks";
   const std::string enToFrFilename = resultFolderPath + "/wikionary_en_to_fr.wlks";
 

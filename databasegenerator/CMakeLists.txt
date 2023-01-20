@@ -22,7 +22,7 @@ if(BUILD_ONSEM_DATABASE)
     ${ONSEMCOMMON_LIBRARIES}
     ${ONSEMCOMPILERMODEL_LIBRARIES}
   )
-  target_compile_features(onsemdatabasegenerator PRIVATE cxx_std_14)
+  target_compile_features(onsemdatabasegenerator PRIVATE cxx_std_17)
 
 else(BUILD_ONSEM_DATABASE)
 

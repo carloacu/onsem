@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <boost/filesystem/path.hpp>
 #include <boost/property_tree/ptree.hpp>
 
 namespace onsem
@@ -49,7 +48,7 @@ private:
   /*
   static bool xLoad
   (QDomDocument& pDatabaseXml,
-   const boost::filesystem::path& pFilename);
+   const std::filesystem::path& pFilename);
   */
 
   /**

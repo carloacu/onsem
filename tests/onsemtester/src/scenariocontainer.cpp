@@ -1,6 +1,6 @@
 #include <onsem/tester/scenariocontainer.hpp>
 #include <sstream>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 
@@ -28,14 +28,17 @@ bool ScenarioContainer::isEmpty() const
 }
 
 
-void _getLocalPath(boost::filesystem::path& pLocalpath,
-                   const boost::filesystem::path& pRoot,
-                   const boost::filesystem::path& pFullPath)
+void _getLocalPath(std::filesystem::path& pLocalpath,
+                   const std::filesystem::path& pRoot,
+                   const std::filesystem::path& pFullPath)
 {
-  boost::filesystem::path tmppath = pFullPath;
+  std::filesystem::path tmppath = pFullPath;
   while (tmppath != pRoot)
   {
-    pLocalpath = tmppath.filename() / pLocalpath;
+    if (pLocalpath.empty())
+      pLocalpath = tmppath.filename();
+    else
+      pLocalpath = tmppath.filename() / pLocalpath;
     tmppath = tmppath.parent_path();
   }
 }
@@ -45,17 +48,17 @@ void ScenarioContainer::getAllScenarios
 (std::set<std::string>& pScenarios,
  const std::string& pScenariosSpecFolder)
 {
-  boost::filesystem::path root(pScenariosSpecFolder);
-  if (boost::filesystem::exists(root) &&
-      boost::filesystem::is_directory(root))
+  std::filesystem::path root(pScenariosSpecFolder);
+  if (std::filesystem::exists(root) &&
+      std::filesystem::is_directory(root))
   {
-    boost::filesystem::recursive_directory_iterator it(root);
-    boost::filesystem::recursive_directory_iterator endit;
+    std::filesystem::recursive_directory_iterator it(root);
+    std::filesystem::recursive_directory_iterator endit;
     while (it != endit)
     {
-      if (boost::filesystem::is_regular_file(*it))
+      if (std::filesystem::is_regular_file(*it))
       {
-        boost::filesystem::path localpath;
+        std::filesystem::path localpath;
         _getLocalPath(localpath, root, it->path());
         pScenarios.insert(localpath.string());
       }

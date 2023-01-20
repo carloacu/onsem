@@ -1,9 +1,9 @@
 #include "webresults.hpp"
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <QFile>
 #include <QDomDocument>
-#include <boost/filesystem.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 #include <onsem/compilermodel/lingdbtree.hpp>
@@ -142,7 +142,7 @@ void process_webresults(const LingdbTree& pLingDbTree,
 
   std::cout << "write results" << std::endl;
   auto resultFolderPath = pTmpFolder + "/webtranslator";
-  boost::filesystem::create_directory(resultFolderPath);
+  std::filesystem::create_directory(resultFolderPath);
 
   LingdbSaverTraductionWriter tradWriter;
   {

@@ -1,7 +1,7 @@
 #include "dbGeneratorpreprocessingwindow.hpp"
 #include <QApplication>
 #include <iostream>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <onsem/compilermodel/lingdbtree.hpp>
 #include <onsem/streamdatabaseaccessor/streamdatabaseaccessor.hpp>
 
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
   std::string lingDbPath = buildRootPath + "/linguistic/databases";
 
   std::string preprocessingDbPath = buildRootPath + "/preprocessing";
-  boost::filesystem::create_directory(preprocessingDbPath);
+  std::filesystem::create_directory(preprocessingDbPath);
   onsem::LingdbTree lingDbTree(inputResourcesFolder);
   lingDbTree.update(preprocessingDbPath, loadDatabasesFolder, "", false);
 

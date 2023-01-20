@@ -1,7 +1,7 @@
 #include <onsem/compilermodel/lingdbtree.hpp>
 #include <sstream>
 #include <fstream>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <onsem/compilermodel/savers/binarydatabaseconceptssaver.hpp>
 #include <onsem/compilermodel/savers/binarydatabasedicosaver.hpp>
 #include <onsem/compilermodel/savers/binarytradsaver.hpp>
@@ -21,8 +21,8 @@ void _printAllSubPaths(std::ostream& pFStream,
                        const std::string& pRelativePath,
                        const std::string& pFolderPath)
 {
-  boost::filesystem::directory_iterator itFolder(pFolderPath);
-  boost::filesystem::directory_iterator endit;
+  std::filesystem::directory_iterator itFolder(pFolderPath);
+  std::filesystem::directory_iterator endit;
   while (itFolder != endit)
   {
     const auto& currPath = itFolder->path();
@@ -31,7 +31,7 @@ void _printAllSubPaths(std::ostream& pFStream,
     if (!relativePath.empty())
       relativePath += "/";
     relativePath += itFolder->path().filename().string();
-    if (boost::filesystem::is_directory(currPath))
+    if (std::filesystem::is_directory(currPath))
     {
       _printAllSubPaths(pFStream, relativePath, absolutePath);
     }
@@ -199,7 +199,7 @@ void LingdbTree::update(const std::string& pSdkShareDir,
     BinaryDatabaseConceptsSaver conceceptsDicoSaver;
     conceceptsDicoSaver.saveConceptsDb
         (conceptsOffsets, cptStrToCptStruct,
-         linguisticDatabasesPath / boost::filesystem::path("concepts." + getExtBinaryDatabase()));
+         linguisticDatabasesPath / std::filesystem::path("concepts." + getExtBinaryDatabase()));
 
 
     std::map<SemanticLanguageEnum, std::map<const LingdbMeaning*, int> > langToMeaningsPtr;
@@ -216,8 +216,8 @@ void LingdbTree::update(const std::string& pSdkShareDir,
       std::string lang = semanticLanguageEnum_toLanguageFilenameStr(fLanguages[i].langGroundingsType);
       binDicoSaver.save(langToMeaningsPtr[fLanguages[i].langGroundingsType], conceptsOffsets,
           linguisticDatabasesPath + "/" + xGetStatDatabaseFilename(lang),
-          linguisticDatabasesPath / boost::filesystem::path(lang + "animations." + getExtBinaryDatabase()),
-          linguisticDatabasesPath / boost::filesystem::path(lang + "synthesizer." + getExtBinaryDatabase()),
+          linguisticDatabasesPath / std::filesystem::path(lang + "animations." + getExtBinaryDatabase()),
+          linguisticDatabasesPath / std::filesystem::path(lang + "synthesizer." + getExtBinaryDatabase()),
           *fLanguages[i].dynDb);
     }
 
@@ -251,11 +251,11 @@ void LingdbTree::update(const std::string& pSdkShareDir,
         std::ofstream treeConvertionsPathsFile(linguisticPath + "/treeConvertionsPaths.txt");
 
         auto treeConverterPath = pDynamicdictionaryPath + "/treeconversions";
-        boost::filesystem::directory_iterator itTreeConvsFolders(treeConverterPath);
-        boost::filesystem::directory_iterator endit;
+        std::filesystem::directory_iterator itTreeConvsFolders(treeConverterPath);
+        std::filesystem::directory_iterator endit;
         while (itTreeConvsFolders != endit)
         {
-          if (boost::filesystem::is_directory(itTreeConvsFolders->path()))
+          if (std::filesystem::is_directory(itTreeConvsFolders->path()))
           {
             const std::string filename = itTreeConvsFolders->path().filename().string();
             SemanticLanguageEnum langEnum =
@@ -301,7 +301,7 @@ bool LingdbTree::xTryToLoadDynamicDbs()
 
 void LingdbTree::xGenerateTranslations
 (const std::map<SemanticLanguageEnum, std::map<const LingdbMeaning*, int> >& pLangToMeaningsPtr,
- const boost::filesystem::path& pLinguisticDatabasesPath)
+ const std::filesystem::path &pLinguisticDatabasesPath)
 {
   // generate concepts to meanings for every languages
   WlksDatabaseLoader::WlksDatabaseLoader_WorkState wlksWorkState(*this);
@@ -336,11 +336,11 @@ void LingdbTree::xGenerateTranslations
 void LingdbTree::xClearDirectory
 (const std::string& pDirectory) const
 {
-  boost::filesystem::path pathToRemove(pDirectory);
-  for (boost::filesystem::directory_iterator end_dir_it, itFilesToRemove(pathToRemove);
+  std::filesystem::path pathToRemove(pDirectory);
+  for (std::filesystem::directory_iterator end_dir_it, itFilesToRemove(pathToRemove);
        itFilesToRemove != end_dir_it; ++itFilesToRemove)
   {
-    boost::filesystem::remove_all(itFilesToRemove->path());
+    std::filesystem::remove_all(itFilesToRemove->path());
   }
 }
 
@@ -362,10 +362,10 @@ std::string LingdbTree::xGetStatDatabaseFilename
 
 void LingdbTree::getHoldingFolder
 (std::string& pFolder,
- const boost::filesystem::path& pFilename) const
+ const std::filesystem::path& pFilename) const
 {
-  boost::system::error_code ec;
-  if (boost::filesystem::is_regular_file(pFilename, ec))
+  std::error_code ec;
+  if (std::filesystem::is_regular_file(pFilename, ec))
   {
     pFolder = pFilename.parent_path().string();
     return;
@@ -377,14 +377,14 @@ void LingdbTree::getHoldingFolder
 void LingdbTree::xCreateDirectory
 (const std::string& pPath) const
 {
-  boost::filesystem::create_directory(pPath);
+  std::filesystem::create_directory(pPath);
 }
 
 
 void LingdbTree::xRemoveDirectory
-(const boost::filesystem::path& pPath) const
+(const std::filesystem::path &pPath) const
 {
-  boost::filesystem::remove_all(pPath);
+  std::filesystem::remove_all(pPath);
 }
 
 void LingdbTree::xCopyFile
@@ -392,9 +392,9 @@ void LingdbTree::xCopyFile
  const std::string& pTo) const
 {
   /*
-  boost::filesystem::path from(pFrom.c_str());
-  boost::filesystem::path to(pTo.c_str());
-  boost::filesystem::copy_file(from, to, boost::filesystem::copy_option::overwrite_if_exists);
+  std::filesystem::path from(pFrom.c_str());
+  std::filesystem::path to(pTo.c_str());
+  std::filesystem::copy_file(from, to, std::filesystem::copy_option::overwrite_if_exists);
   */
 
   std::ifstream source(pFrom, std::ifstream::binary);

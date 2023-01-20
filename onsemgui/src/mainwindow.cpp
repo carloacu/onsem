@@ -9,9 +9,6 @@
 #include <QKeyEvent>
 #include <QFileDialog>
 #include "ui_mainwindow.h"
-#include <boost/filesystem/fstream.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/algorithm/string.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <onsem/common/utility/string.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
@@ -50,11 +47,11 @@ const std::string _tmpFolder = ".";
 
 using namespace onsem;
 
-MainWindow::MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
-                       const boost::filesystem::path& pCorpusResultsFolder,
-                       const boost::filesystem::path& pInputScenariosFolder,
-                       const boost::filesystem::path& pOutputScenariosFolder,
-                       const boost::filesystem::path& pCorpusFolder,
+MainWindow::MainWindow(const std::filesystem::path& pCorpusEquivalencesFolder,
+                       const std::filesystem::path& pCorpusResultsFolder,
+                       const std::filesystem::path& pInputScenariosFolder,
+                       const std::filesystem::path& pOutputScenariosFolder,
+                       const std::filesystem::path& pCorpusFolder,
                        linguistics::LinguisticDatabaseStreams& pIStreams,
                        QWidget *parent) :
   QMainWindow(parent),
@@ -374,7 +371,7 @@ void MainWindow::on_lineEdit_AATester_InputSentence_textChanged(const QString &a
         _ui->comboBox_tokenizer_endingStep->currentText().toUtf8().constData();
     try
     {
-      debugOptions.endingStep.nbOfDebugRoundsForTokens = boost::lexical_cast<std::size_t>
+      debugOptions.endingStep.nbOfDebugRoundsForTokens = mystd::lexical_cast<std::size_t>
           (_ui->lineEdit_AATester_tokenizer_nbOfSteps->text().toUtf8().constData());
     }
     catch (...)
@@ -386,7 +383,7 @@ void MainWindow::on_lineEdit_AATester_InputSentence_textChanged(const QString &a
         linguistics::LinguisticAnalysisFinishDebugStepEnum(_ui->comboBox_AATester_endingStep->currentIndex());
     try
     {
-      debugOptions.endingStep.nbOfDebugRoundsForSynthAnalysis = boost::lexical_cast<std::size_t>
+      debugOptions.endingStep.nbOfDebugRoundsForSynthAnalysis = mystd::lexical_cast<std::size_t>
           (_ui->lineEdit_AATester_synthGraph_nbOfSteps->text().toUtf8().constData());
     }
     catch (...)
@@ -1044,7 +1041,7 @@ void MainWindow::_sayText(std::list<TextWithLanguage>& pTextsToSay)
   std::size_t i = 0;
   for (auto& currTextToSay : pTextsToSay)
   {
-    boost::replace_all(currTextToSay.text, "\"", "\\\"");
+    mystd::replace_all(currTextToSay.text, "\"", "\\\"");
     const std::string languageCode = currTextToSay.language == SemanticLanguageEnum::FRENCH ? "fr" : "en";
     std::stringstream ssOutSoundFilename;
     ssOutSoundFilename << "out_tts_" << i << ".mp3";
@@ -1267,15 +1264,15 @@ void MainWindow::on_pushButton_addEquivalence_AATester_Logs_Reformulation_clicke
 }
 
 
-boost::filesystem::path MainWindow::_getEquivalencesFilename()
+std::filesystem::path MainWindow::_getEquivalencesFilename()
 {
   std::string languageStr = semanticLanguageEnum_toLegacyStr(_currentLanguage);
   return _corpusEquivalencesFolder /
-      boost::filesystem::path(languageStr + "_equivalences.xml");
+      std::filesystem::path(languageStr + "_equivalences.xml");
 }
 
 void MainWindow::_readEquivalences(std::map<std::string, std::string>& pEquivalences,
-                                   const boost::filesystem::path& pPath)
+                                   const std::filesystem::path& pPath)
 {
   try
   {
@@ -1292,7 +1289,7 @@ void MainWindow::_readEquivalences(std::map<std::string, std::string>& pEquivale
 }
 
 void MainWindow::_writeEquivalences(const std::map<std::string, std::string>& pEquivalences,
-                                    const boost::filesystem::path& pPath)
+                                    const std::filesystem::path& pPath)
 {
   boost::property_tree::ptree tree;
   boost::property_tree::ptree& resultsTree = tree.add_child("equivalences", {});

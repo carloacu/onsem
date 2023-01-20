@@ -1,6 +1,5 @@
 #include "../frgrammarbookextractor.hpp"
 #include <iostream>
-#include <boost/filesystem.hpp>
 #include "helpers.hpp"
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 

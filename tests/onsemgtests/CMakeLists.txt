@@ -130,7 +130,7 @@ target_link_libraries(onsemgtests
   ${ONSEMSTREADATABASEACCESSOR_LIBRARIES}
   ${ONSEMTESTER_LIBRARIES}
 )
-target_compile_features(onsemgtests PRIVATE cxx_std_14)
+target_compile_features(onsemgtests PRIVATE cxx_std_17)
 
 
 add_test(

@@ -1,11 +1,10 @@
 #include "dbGeneratorpreprocessingwindow.hpp"
+#include <filesystem>
 #include <sstream>
 #include <QFileDialog>
 #include <QString>
 #include "ui_dbGeneratorpreprocessingwindow.h"
-#include <boost/lexical_cast.hpp>
 #include <boost/property_tree/xml_parser.hpp>
-#include <boost/filesystem.hpp>
 #include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/compilermodel/lingdbtree.hpp>
 #include <onsem/compilermodel/lingdbflexions.hpp>
@@ -58,12 +57,12 @@ DbGeneratorPreprocessingWindow::DbGeneratorPreprocessingWindow(
 
   _ui->textBrowser_MemoryClearer_Display->viewport()->setAutoFillBackground(false);
   _ui->textBrowser_MemoryClearer_Display->setAttribute(Qt::WA_TranslucentBackground, true);
-  boost::filesystem::create_directory(fTmpFolder);
+  std::filesystem::create_directory(fTmpFolder);
 }
 
 DbGeneratorPreprocessingWindow::~DbGeneratorPreprocessingWindow()
 {
-  boost::filesystem::remove_all(fTmpFolder);
+  std::filesystem::remove_all(fTmpFolder);
   delete _ui;
 }
 
@@ -683,7 +682,7 @@ void _loadXmlDbPediaFile(std::map<std::size_t, std::list<OutLine>>& pTextsSorted
             {
               try
               {
-                wikiPageLength = boost::lexical_cast<std::size_t>(*literalOpt);
+                wikiPageLength = mystd::lexical_cast<std::size_t>(*literalOpt);
               }
               catch (...) {}
             }
@@ -729,7 +728,7 @@ void _addWordWithKindness(std::map<std::string, WordKindness>& pWords,
 
 void DbGeneratorPreprocessingWindow::on_pushButton_dbpedia_xml_to_txt_clicked()
 {
-  const boost::filesystem::path fromFile =
+  const std::filesystem::path fromFile =
       _ui->lineEdit_dbpedia_from_file->text().toUtf8().constData();
 
   std::map<SemanticLanguageEnum, std::map<std::string, WordKindness>> languageToLemmaWithKindness;
@@ -769,7 +768,7 @@ void DbGeneratorPreprocessingWindow::on_pushButton_dbpedia_xml_to_txt_clicked()
       if (line[0] == '>') // if it's a new property
       {
         const std::string subFilename = line.substr(1, line.size() - 1);
-        boost::filesystem::path subFile(fromFile.parent_path());
+        std::filesystem::path subFile(fromFile.parent_path());
         subFile = subFile / subFilename;
         _loadXmlDbPediaFile(textsSorted, subFile.string(), languageToLemmaWithKindness, _lingDb);
       }

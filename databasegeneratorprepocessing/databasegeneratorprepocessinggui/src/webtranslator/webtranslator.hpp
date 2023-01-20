@@ -2,7 +2,6 @@
 #define WEBTRANSLATOR_WEBTRANSLATOR_HPP
 
 #include <string>
-#include <boost/filesystem/path.hpp>
 
 
 namespace onsem

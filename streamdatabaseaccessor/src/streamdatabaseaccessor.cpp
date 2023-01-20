@@ -1,6 +1,6 @@
 #include <onsem/streamdatabaseaccessor/streamdatabaseaccessor.hpp>
 #include <iostream>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 namespace onsem
 {
@@ -15,12 +15,12 @@ void _loadConvForALanguage
  const std::string& pPath,
  const std::string& pLocalPath)
 {
-  boost::filesystem::directory_iterator itTreeConvsFolders(pPath);
-  boost::filesystem::directory_iterator endit;
+  std::filesystem::directory_iterator itTreeConvsFolders(pPath);
+  std::filesystem::directory_iterator endit;
   while (itTreeConvsFolders != endit)
   {
     const std::string absolutePath = itTreeConvsFolders->path().string();
-    if (boost::filesystem::is_directory(itTreeConvsFolders->path()))
+    if (std::filesystem::is_directory(itTreeConvsFolders->path()))
     {
       _loadConvForALanguage(pIStreams, pLangEnum, absolutePath,
                             pLocalPath + "/" + itTreeConvsFolders->path().filename().string());
@@ -88,11 +88,11 @@ KeyToFStreams generateIStreams(const std::string& pLingDbPath,
 
   {
     auto treeConverterPth = pDynamicDictionaryPath + "/treeconversions";
-    boost::filesystem::directory_iterator itTreeConvsFolders(treeConverterPth);
-    boost::filesystem::directory_iterator endit;
+    std::filesystem::directory_iterator itTreeConvsFolders(treeConverterPth);
+    std::filesystem::directory_iterator endit;
     while (itTreeConvsFolders != endit)
     {
-      if (boost::filesystem::is_directory(itTreeConvsFolders->path()))
+      if (std::filesystem::is_directory(itTreeConvsFolders->path()))
       {
         std::string filename = itTreeConvsFolders->path().filename().string();
         SemanticLanguageEnum langEnum =
@@ -111,12 +111,12 @@ KeyToFStreams generateIStreams(const std::string& pLingDbPath,
 void addDynamicContentFromFolder(KeyToFStreams& pStreams,
                                  const std::string& pFolderPath)
 {
-  boost::filesystem::directory_iterator itFolder(pFolderPath);
-  boost::filesystem::directory_iterator endit;
+  std::filesystem::directory_iterator itFolder(pFolderPath);
+  std::filesystem::directory_iterator endit;
   while (itFolder != endit)
   {
     const auto& currPath = itFolder->path();
-    if (boost::filesystem::is_directory(itFolder->path()))
+    if (std::filesystem::is_directory(itFolder->path()))
     {
       addDynamicContentFromFolder(pStreams, currPath.string());
     }

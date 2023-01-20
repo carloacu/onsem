@@ -5,7 +5,6 @@
 #include <string>
 #include <map>
 #include <set>
-#include <boost/filesystem/path.hpp>
 #include <onsem/common/enum/partofspeech.hpp>
 
 
@@ -38,7 +37,7 @@ public:
    * @param pWords The database currently in memory.
    */
   void merge
-  (const boost::filesystem::path& pFilename, LinguisticIntermediaryDatabase& pWords);
+  (const std::string &pFilename, LinguisticIntermediaryDatabase& pWords);
 
 
 private:

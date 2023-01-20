@@ -1,6 +1,7 @@
 #ifndef TEXTEXTRACTOR_ADJBEFORENOUNEXTRACTOR_H
 #define TEXTEXTRACTOR_ADJBEFORENOUNEXTRACTOR_H
 
+#include <list>
 #include <map>
 #include <string>
 #include <onsem/typeallocatorandserializer/typeallocatorandserializer.hpp>

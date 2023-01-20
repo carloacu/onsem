@@ -2,7 +2,7 @@
 #define ONSEM_COMPILERMODEL_SAVERS_BINARYTRADSAVER_HPP
 
 #include <string>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/compilermodel/loaders/wlksdatabaseloader.hpp>
 #include "binarydatabasesaver.hpp"
@@ -19,7 +19,7 @@ public:
   void save
   (const WlksDatabaseLoader::WlksDatabaseLoader_WorkState& pTrads,
    const std::map<SemanticLanguageEnum, std::map<const LingdbMeaning*, int> >& pLangToMeaningsPtr,
-   const boost::filesystem::path& pOutFolder) const;
+   const std::filesystem::path &pOutFolder) const;
 
 private:
   struct TreeTradWorkState : public BinaryDatabaseSaver

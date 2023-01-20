@@ -1,6 +1,6 @@
 #include "xmldatabaseloader.hpp"
+#include <filesystem>
 #include <sstream>
-#include <boost/filesystem.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <onsem/common/utility/lexical_cast.hpp>
 #include <onsem/common/enum/grammaticaltype.hpp>
@@ -24,16 +24,16 @@ namespace onsem
 
 namespace
 {
-void _loadXmlDirectory(const boost::filesystem::path& pFolderPath,
+void _loadXmlDirectory(const std::filesystem::path& pFolderPath,
                        LinguisticIntermediaryDatabase& pLingDatabase,
                        const LingdbTree& pLingdbTree)
 {
-  boost::filesystem::directory_iterator itFolder(pFolderPath);
-  boost::filesystem::directory_iterator endit;
+  std::filesystem::directory_iterator itFolder(pFolderPath);
+  std::filesystem::directory_iterator endit;
   while (itFolder != endit)
   {
     const auto& currPath = itFolder->path();
-    if (boost::filesystem::is_directory(itFolder->path()))
+    if (std::filesystem::is_directory(itFolder->path()))
       _loadXmlDirectory(currPath, pLingDatabase, pLingdbTree);
     else
       XmlDatabaseLoader::merge(itFolder->path().string(), pLingDatabase, pLingdbTree);
@@ -407,7 +407,7 @@ void XmlDatabaseLoader::merge
       std::string folder = subTreeAttrs.get<std::string>("folder", "");
       if (folder != "")
       {
-        boost::filesystem::path folderPath(subFolder + "/" + folder);
+        std::filesystem::path folderPath(subFolder + "/" + folder);
         _loadXmlDirectory(folderPath, pLingDatabase, pLingdbTree);
       }
       else
@@ -464,7 +464,7 @@ LingdbMeaning* XmlDatabaseLoader::xExtractMeaning
 /*
 bool XmlDatabaseLoader::xLoad
 (QDomDocument& pDatabaseXml,
- const boost::filesystem::path& pFilename)
+ const std::filesystem::path& pFilename)
 {
   QFile file(QString::fromUtf8(pFilename.string().c_str()));
   if (!file.open(QIODevice::ReadOnly))

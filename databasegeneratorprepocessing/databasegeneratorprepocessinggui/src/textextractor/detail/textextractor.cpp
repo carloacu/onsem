@@ -1,6 +1,7 @@
 #include "../textextractor.hpp"
 #include <thread>
-#include <boost/filesystem.hpp>
+#include <filesystem>
+#include <fstream>
 #include <onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 #include <onsem/texttosemantic/linguisticanalyzer.hpp>
@@ -133,7 +134,7 @@ void run(const LingdbTree& pLingDbTree,
          const std::string& pInputResourcesFolder)
 {
   const auto resultFolderPath = pTmpFolder + "/resultOf_textextractor";
-  boost::filesystem::create_directory(resultFolderPath);
+  std::filesystem::create_directory(resultFolderPath);
   const std::string resultFolder = resultFolderPath + "/";
   const std::string resultVerbFollByDeFilename = resultFolder + "result_de.txt";
   const std::string resultAdjFilename = resultFolder + "result_adj.txt";

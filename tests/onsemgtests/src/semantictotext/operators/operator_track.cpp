@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include <boost/scope_exit.hpp>
 #include <onsem/common/utility/noresult.hpp>
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
@@ -114,8 +113,7 @@ TEST_F(SemanticReasonerGTests, operator_track_basic)
     yesOrNoTracking->resultsStr.clear();
     affirmationTracking->resultsStr.clear();
   };
-
-  BOOST_SCOPE_EXIT_ALL(&)
+  auto cleanUp = [&]()
   {
     objectTracking->connection.disconnect();
     timeTracking->connection.disconnect();
@@ -123,61 +121,70 @@ TEST_F(SemanticReasonerGTests, operator_track_basic)
     affirmationTracking->connection.disconnect();
   };
 
-  EXPECT_EQ(constant::noResult, objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+  try
+  {
+    EXPECT_EQ(constant::noResult, objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
 
-  operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Chocolate", objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, timeTracking->getResult());
-  EXPECT_EQ("True", yesOrNoTracking->getResult());
-  EXPECT_EQ("", affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Chocolate", objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, timeTracking->getResult());
+    EXPECT_EQ("True", yesOrNoTracking->getResult());
+    EXPECT_EQ("", affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Chocolate", objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, timeTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Chocolate", objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, timeTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you don't eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("", objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, timeTracking->getResult());
-  EXPECT_EQ("False", yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you don't eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("", objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, timeTracking->getResult());
+    EXPECT_EQ("False", yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Chocolate", objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, timeTracking->getResult());
-  EXPECT_EQ("True", yesOrNoTracking->getResult());
-  EXPECT_EQ("", affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Chocolate", objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, timeTracking->getResult());
+    EXPECT_EQ("True", yesOrNoTracking->getResult());
+    EXPECT_EQ("", affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you eat yesterday", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, objectTracking->getResult());
-  EXPECT_EQ("Yesterday", timeTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you eat yesterday", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, objectTracking->getResult());
+    EXPECT_EQ("Yesterday", timeTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Chocolate", objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, timeTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Chocolate", objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, timeTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_untrack(objectTracking, lingDb);
-  operator_untrack(timeTracking, lingDb);
-  operator_untrack(yesOrNoTracking, lingDb);
-  operator_untrack(affirmationTracking, lingDb);
-  operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, timeTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    operator_untrack(objectTracking, lingDb);
+    operator_untrack(timeTracking, lingDb);
+    operator_untrack(yesOrNoTracking, lingDb);
+    operator_untrack(affirmationTracking, lingDb);
+    operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, timeTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    cleanUp();
+  }
+  catch (...)
+  {
+    cleanUp();
+    throw;
+  }
 }
 
 
@@ -202,57 +209,65 @@ TEST_F(SemanticReasonerGTests, operator_track_list)
     yesOrNoTracking->resultsStr.clear();
     affirmationTracking->resultsStr.clear();
   };
-
-  BOOST_SCOPE_EXIT_ALL(&)
+  auto cleanUp = [&]()
   {
     objectTracking->connection.disconnect();
     yesOrNoTracking->connection.disconnect();
     affirmationTracking->connection.disconnect();
   };
 
+  try
+  {
+    EXPECT_EQ(constant::noResult, objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
 
-  EXPECT_EQ(constant::noResult, objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Chocolate", objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Chocolate", objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Chocolate", objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Chocolate", objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you eat lettuce", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Chocolate and lettuce", objectTracking->getResult());
+    EXPECT_EQ("True", yesOrNoTracking->getResult());
+    EXPECT_EQ("", affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you eat lettuce", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Chocolate and lettuce", objectTracking->getResult());
-  EXPECT_EQ("True", yesOrNoTracking->getResult());
-  EXPECT_EQ("", affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you don't eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Lettuce", objectTracking->getResult());
+    EXPECT_EQ("False", yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you don't eat chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Lettuce", objectTracking->getResult());
-  EXPECT_EQ("False", yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  clearTrackersResults();
+    operator_inform("you eat lettuce", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("Lettuce", objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    clearTrackersResults();
 
-  operator_inform("you eat lettuce", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("Lettuce", objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  clearTrackersResults();
-
-  operator_untrack(objectTracking, lingDb);
-  operator_untrack(yesOrNoTracking, lingDb);
-  operator_untrack(affirmationTracking, lingDb);
-  operator_inform("you eat chocolate and lettuce", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, objectTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    operator_untrack(objectTracking, lingDb);
+    operator_untrack(yesOrNoTracking, lingDb);
+    operator_untrack(affirmationTracking, lingDb);
+    operator_inform("you eat chocolate and lettuce", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, objectTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    cleanUp();
+  }
+  catch (...)
+  {
+    cleanUp();
+    throw;
+  }
 }
+
 
 TEST_F(SemanticReasonerGTests, operator_track_advanced)
 {
@@ -277,46 +292,54 @@ TEST_F(SemanticReasonerGTests, operator_track_advanced)
     yesOrNoTracking->resultsStr.clear();
     leftHandTracking->resultsStr.clear();
   };
-
-  BOOST_SCOPE_EXIT_ALL(&)
+  auto cleanUp = [&]()
   {
     affirmationTracking->connection.disconnect();
     yesOrNoTracking->connection.disconnect();
     leftHandTracking->connection.disconnect();
   };
 
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
+  try
+  {
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
 
-  operator_inform("I don't like chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("", affirmationTracking->getResult());
-  EXPECT_EQ("False", yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
-  clearTrackersResults();
+    operator_inform("I don't like chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("", affirmationTracking->getResult());
+    EXPECT_EQ("False", yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
+    clearTrackersResults();
 
-  auto idExp = operator_inform("I like chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  EXPECT_EQ("True", yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
-  clearTrackersResults();
+    auto idExp = operator_inform("I like chocolate", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    EXPECT_EQ("True", yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
+    clearTrackersResults();
 
-  semanticMemory.memBloc.removeExpression(*idExp, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ("", affirmationTracking->getResult());
-  EXPECT_EQ("False", yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
-  clearTrackersResults();
+    semanticMemory.memBloc.removeExpression(*idExp, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ("", affirmationTracking->getResult());
+    EXPECT_EQ("False", yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
+    clearTrackersResults();
 
-  auto idExp2 = operator_inform("somebody touches your left hand", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
-  semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
-  EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
-  EXPECT_EQ("", leftHandTracking->getResult());
+    auto idExp2 = operator_inform("somebody touches your left hand", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ(constant::noResult, leftHandTracking->getResult());
+    semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, affirmationTracking->getResult());
+    EXPECT_EQ(constant::noResult, yesOrNoTracking->getResult());
+    EXPECT_EQ("", leftHandTracking->getResult());
 
-  clearTrackersResults();
+    clearTrackersResults();
+    cleanUp();
+  }
+  catch (...)
+  {
+    cleanUp();
+    throw;
+  }
 }
 
 
@@ -346,7 +369,7 @@ TEST_F(SemanticReasonerGTests, operator_track_seePeople)
     twoPeopleTracking->resultsStr.clear();
     threePeopleTracking->resultsStr.clear();
   };
-  BOOST_SCOPE_EXIT_ALL(&)
+  auto cleanUp = [&]()
   {
     nobodyTracking->connection.disconnect();
     onePersonTracking->connection.disconnect();
@@ -354,102 +377,111 @@ TEST_F(SemanticReasonerGTests, operator_track_seePeople)
     threePeopleTracking->connection.disconnect();
   };
 
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  auto idExp1 = operator_inform_fromRobot("I see no person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  EXPECT_EQ("", nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  clearTrackersResults();
-  auto idExp2 = operator_inform_fromRobot("I see one person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ("", onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  clearTrackersResults();
-  idExp1 = operator_inform_fromRobot("I don't see you and I see 2 people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
-  ONSEM_ANSWER_EQ("I see 2 people.",
-                  operator_answer("How many people do you see?", semanticMemory, lingDb));
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ("", twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  clearTrackersResults();
-  idExp2 = operator_inform_fromRobot("I see you and I see 0 other people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
-  ONSEM_ANSWER_EQ("I see one person.",
-                  operator_answer("How many people do you see?", semanticMemory, lingDb));
-  ONSEM_FALSE(operator_check(nobodyTracking->text, semanticMemory, lingDb, fromRobot));
-  ONSEM_TRUE(operator_check(onePersonTracking->text, semanticMemory, lingDb, fromRobot));
-  ONSEM_FALSE(operator_check(twoPeopleTracking->text, semanticMemory, lingDb, fromRobot));
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ("", onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ("", threePeopleTracking->getResult());
-  clearTrackersResults();
-  idExp1 = operator_informAxiom_fromRobot("I see you and I see another person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
-  ONSEM_ANSWER_EQ("I see 2 people.",
-                  operator_answer("How many people do you see?", semanticMemory, lingDb));
-  ONSEM_FALSE(operator_check(nobodyTracking->text, semanticMemory, lingDb, fromRobot));
-  ONSEM_FALSE(operator_check(onePersonTracking->text, semanticMemory, lingDb, fromRobot));
-  ONSEM_TRUE(operator_check(twoPeopleTracking->text, semanticMemory, lingDb, fromRobot));
-  ONSEM_FALSE(operator_check(threePeopleTracking->text, semanticMemory, lingDb, fromRobot));
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ("", twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  clearTrackersResults();
-  idExp2 = operator_informAxiom_fromRobot("I see you and I see 2 other people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ("", threePeopleTracking->getResult());
-  clearTrackersResults();
-  operator_inform_fromRobot("I don't see you and I see 0 people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState); // contrary to an assert so nothing is raised
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  idExp1 = operator_informAxiom_fromRobot("I don't see you and I see 0 people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ("", nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ("", twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  clearTrackersResults();
-  idExp2 = operator_informAxiom_fromRobot("I don't see you and I see one person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ("", onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  clearTrackersResults();
-  idExp1 = operator_informAxiom_fromRobot("I don't see you and I see one person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  clearTrackersResults();
-  idExp2 = operator_informAxiom_fromRobot("I see you and I see 0 other people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
-  clearTrackersResults();
-  idExp1 = operator_informAxiom_fromRobot("I see you and I see 1 other people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
-  semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
-  EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
-  EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
-  EXPECT_EQ("", twoPeopleTracking->getResult());
-  EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+  try
+  {
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    auto idExp1 = operator_inform_fromRobot("I see no person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    EXPECT_EQ("", nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    clearTrackersResults();
+    auto idExp2 = operator_inform_fromRobot("I see one person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ("", onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    clearTrackersResults();
+    idExp1 = operator_inform_fromRobot("I don't see you and I see 2 people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
+    ONSEM_ANSWER_EQ("I see 2 people.",
+                    operator_answer("How many people do you see?", semanticMemory, lingDb));
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ("", twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    clearTrackersResults();
+    idExp2 = operator_inform_fromRobot("I see you and I see 0 other people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
+    ONSEM_ANSWER_EQ("I see one person.",
+                    operator_answer("How many people do you see?", semanticMemory, lingDb));
+    ONSEM_FALSE(operator_check(nobodyTracking->text, semanticMemory, lingDb, fromRobot));
+    ONSEM_TRUE(operator_check(onePersonTracking->text, semanticMemory, lingDb, fromRobot));
+    ONSEM_FALSE(operator_check(twoPeopleTracking->text, semanticMemory, lingDb, fromRobot));
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ("", onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ("", threePeopleTracking->getResult());
+    clearTrackersResults();
+    idExp1 = operator_informAxiom_fromRobot("I see you and I see another person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
+    ONSEM_ANSWER_EQ("I see 2 people.",
+                    operator_answer("How many people do you see?", semanticMemory, lingDb));
+    ONSEM_FALSE(operator_check(nobodyTracking->text, semanticMemory, lingDb, fromRobot));
+    ONSEM_FALSE(operator_check(onePersonTracking->text, semanticMemory, lingDb, fromRobot));
+    ONSEM_TRUE(operator_check(twoPeopleTracking->text, semanticMemory, lingDb, fromRobot));
+    ONSEM_FALSE(operator_check(threePeopleTracking->text, semanticMemory, lingDb, fromRobot));
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ("", twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    clearTrackersResults();
+    idExp2 = operator_informAxiom_fromRobot("I see you and I see 2 other people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ("", threePeopleTracking->getResult());
+    clearTrackersResults();
+    operator_inform_fromRobot("I don't see you and I see 0 people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState); // contrary to an assert so nothing is raised
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    idExp1 = operator_informAxiom_fromRobot("I don't see you and I see 0 people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ("", nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ("", twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    clearTrackersResults();
+    idExp2 = operator_informAxiom_fromRobot("I don't see you and I see one person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ("", onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    clearTrackersResults();
+    idExp1 = operator_informAxiom_fromRobot("I don't see you and I see one person", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    clearTrackersResults();
+    idExp2 = operator_informAxiom_fromRobot("I see you and I see 0 other people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp1, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ(constant::noResult, twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    clearTrackersResults();
+    idExp1 = operator_informAxiom_fromRobot("I see you and I see 1 other people", semanticMemory, lingDb, {}, &axiomToConditionCurrentState);
+    semanticMemory.memBloc.removeExpression(*idExp2, lingDb, &axiomToConditionCurrentState);
+    EXPECT_EQ(constant::noResult, nobodyTracking->getResult());
+    EXPECT_EQ(constant::noResult, onePersonTracking->getResult());
+    EXPECT_EQ("", twoPeopleTracking->getResult());
+    EXPECT_EQ(constant::noResult, threePeopleTracking->getResult());
+    cleanUp();
+  }
+  catch (...)
+  {
+    cleanUp();
+    throw;
+  }
 }
 

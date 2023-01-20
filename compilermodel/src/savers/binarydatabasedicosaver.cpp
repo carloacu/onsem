@@ -1,7 +1,7 @@
 #include <onsem/compilermodel/savers/binarydatabasedicosaver.hpp>
 #include <climits>
 #include <iomanip>
-#include <boost/filesystem/fstream.hpp>
+#include <fstream>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/compilermodel/savers/binarydatabaseconceptssaver.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
@@ -23,16 +23,16 @@ namespace onsem
 void BinaryDatabaseDicoSaver::save
 (std::map<const LingdbMeaning*, int>& pMeaningsPtr,
  const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
- const boost::filesystem::path& pFilenameDatabase,
- const boost::filesystem::path& pFilenameAnimationDatabase,
- const boost::filesystem::path& pFilenameSynthesizerDatabase,
+ const std::filesystem::path& pFilenameDatabase,
+ const std::filesystem::path& pFilenameAnimationDatabase,
+ const std::filesystem::path& pFilenameSynthesizerDatabase,
  const LinguisticIntermediaryDatabase& pLingDatabase) const
 {
   std::string languageStr = pLingDatabase.getLanguage()->toStr();
   SemanticLanguageEnum langType =
       semanticLanguageTypeGroundingEnumFromStr(languageStr);
 
-  boost::filesystem::ofstream debufInfosFile(boost::filesystem::path(languageStr + "_db.txt"));
+  std::ofstream debufInfosFile(std::filesystem::path(languageStr + "_db.txt"));
 
   const CompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();
   std::size_t maxSize = alloc.getOccupatedSize() + (4 * pConceptsOffsets.size());
@@ -86,8 +86,7 @@ void BinaryDatabaseDicoSaver::save
                         pFilenameSynthesizerDatabase, pLingDatabase, langType);
   }
 
-  boost::filesystem::ofstream outfile(pFilenameDatabase,
-                                      boost::filesystem::ofstream::binary);
+  std::ofstream outfile(pFilenameDatabase, std::ofstream::binary);
   outfile.write(reinterpret_cast<const char*>(&fFormalism), sizeof(fFormalism));
 
   // write if the version of the database
@@ -145,7 +144,7 @@ void BinaryDatabaseDicoSaver::save
 
 
 void BinaryDatabaseDicoSaver::xSaveAnimations
-(const boost::filesystem::path& pFilenameAnimDatabase,
+(const std::filesystem::path& pFilenameAnimDatabase,
  const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
  const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
  const LinguisticIntermediaryDatabase& pLingDatabase,
@@ -157,8 +156,7 @@ void BinaryDatabaseDicoSaver::xSaveAnimations
                                                 pMeaningsPtr, alloc, pMem);
   std::size_t sizeMemory = endMemory.val - pMem.val;
 
-  boost::filesystem::ofstream outfile(pFilenameAnimDatabase,
-                                      boost::filesystem::ofstream::binary);
+  std::ofstream outfile(pFilenameAnimDatabase, std::ofstream::binary);
   outfile.write(reinterpret_cast<const char*>(&fFormalism), sizeof(fFormalism));
 
   // write if the version of the database
@@ -216,7 +214,7 @@ void BinaryDatabaseDicoSaver::xWriteSynthesizerDb
  const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
  const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
  const std::map<LingdbDynamicTrieNode const*, int>& pNodesPtr,
- const boost::filesystem::path& pFilename,
+ const std::filesystem::path& pFilename,
  const LinguisticIntermediaryDatabase& pLingDatabase,
  SemanticLanguageEnum pLangType) const
 {
@@ -301,7 +299,7 @@ void BinaryDatabaseDicoSaver::xWriteSynthesizerDb
     *meaningPtr |= itMmeaningToConj->second;
   }
 
-  boost::filesystem::ofstream outfile(pFilename, boost::filesystem::ofstream::binary);
+  std::ofstream outfile(pFilename, std::ofstream::binary);
   outfile.write(reinterpret_cast<const char*>(&fFormalism), sizeof(fFormalism));
 
   // write the size of conjugaisons

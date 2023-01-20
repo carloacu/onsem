@@ -1,6 +1,7 @@
 #ifndef TEXTEXTRACTOR_VERBPREPEXTRACTOR_H
 #define TEXTEXTRACTOR_VERBPREPEXTRACTOR_H
 
+#include <list>
 #include <map>
 #include <string>
 #include <onsem/typeallocatorandserializer/typeallocatorandserializer.hpp>

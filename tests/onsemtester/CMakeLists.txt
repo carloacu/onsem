@@ -60,5 +60,5 @@ target_link_libraries(onsemtester
   ${ONSEMSEMANTICTOTEXT_LIBRARIES}
   ${ONSEMSEMANTOCDEBUGGER_LIBRARIES}
 )
-target_compile_features(onsemtester PRIVATE cxx_std_14)
+target_compile_features(onsemtester PRIVATE cxx_std_17)
 

@@ -3,7 +3,7 @@
 
 #include <string>
 #include <set>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 
 
 namespace onsem
@@ -19,7 +19,7 @@ public:
    * @brief Constructor.
    * @param name Name of the pool allocator.
    */
-  ComponentPoolAllocator(const boost::filesystem::path& name);
+  ComponentPoolAllocator(const std::filesystem::path& name);
 
 
   /**

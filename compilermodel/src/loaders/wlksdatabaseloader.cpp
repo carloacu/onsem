@@ -1,6 +1,6 @@
 #include <onsem/compilermodel/loaders/wlksdatabaseloader.hpp>
 #include <sstream>
-#include <boost/filesystem/fstream.hpp>
+#include <fstream>
 #include <onsem/common/utility/lexical_cast.hpp>
 #include <onsem/common/enum/partofspeech.hpp>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
@@ -18,7 +18,7 @@ namespace onsem
 
 
 void WlksDatabaseLoader::loadAndSave
-(const boost::filesystem::path& pFilename,
+(const std::filesystem::path& pFilename,
  const LingdbTree& pLingbTree) const
 {
   WlksDatabaseLoader_WorkState workState(pLingbTree);
@@ -54,9 +54,9 @@ void _fillConceptsWithTranslations(WlksDatabaseLoader::WlksDatabaseLoader_TradSp
 
 void WlksDatabaseLoader::load
 (WlksDatabaseLoader_WorkState& pWorkState,
- const boost::filesystem::path& pFilename) const
+ const std::filesystem::path &pFilename) const
 {
-  boost::filesystem::ifstream infile(pFilename, boost::filesystem::ifstream::in);
+  std::ifstream infile(pFilename, std::ifstream::in);
   if (!infile.is_open())
   {
     throw std::runtime_error("Can't open: \"" + pFilename.string() + "\" file !");
@@ -78,7 +78,7 @@ void WlksDatabaseLoader::load
       {
         WlksDatabaseLoader_TradSpec& tradSpec = pWorkState.tradSpecs.back();
         LingdbMeaning* inMeaning = nullptr;
-        char confidence;
+        char confidence = 0;
         std::size_t currPos = 0;
         xGetNextMeaningInLine(&inMeaning, confidence, currPos,
                               *tradSpec.inLingDb.lingDatabase, line);
@@ -175,7 +175,7 @@ void WlksDatabaseLoader::load
         std::string fileStr;
         iss >> fileStr;
         std::string subFolder;
-        pWorkState.lingbTree.getHoldingFolder(subFolder, pFilename);
+        pWorkState.lingbTree.getHoldingFolder(subFolder, pFilename.string());
         load(pWorkState, subFolder + "/" + fileStr);
       }
       else if (instruction == "fillconceptsofotherlanguages")

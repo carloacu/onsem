@@ -1,8 +1,8 @@
 #ifndef ONSEM_COMPILERMODEL_SRC_LOADERS_GFSDATABASELOADER_HPP
 #define ONSEM_COMPILERMODEL_SRC_LOADERS_GFSDATABASELOADER_HPP
 
+#include <filesystem>
 #include <string>
-#include <boost/filesystem/path.hpp>
 
 namespace onsem
 {
@@ -14,7 +14,7 @@ class GFSDatabaseLoader
 public:
 
   static void merge
-  (const boost::filesystem::path& pFilename,
+  (const std::filesystem::path& pFilename,
    LinguisticIntermediaryDatabase& pLingdb);
 
 };

@@ -1,4 +1,5 @@
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
+#include <optional>
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
@@ -277,7 +278,7 @@ void modifyRequestIfAtPassiveForm(SemanticRequestType& pRequest)
 
 void invertSubjectAndObjectGrdExp(GroundedExpression& pGrdExp)
 {
-  boost::optional<UniqueSemanticExpression> subjectSemExpOpt;
+  std::optional<UniqueSemanticExpression> subjectSemExpOpt;
   {
     auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
     if (itSubject != pGrdExp.children.end())
@@ -286,7 +287,7 @@ void invertSubjectAndObjectGrdExp(GroundedExpression& pGrdExp)
       pGrdExp.children.erase(itSubject);
     }
   }
-  boost::optional<UniqueSemanticExpression> objectSemExpOpt;
+  std::optional<UniqueSemanticExpression> objectSemExpOpt;
   {
     auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
     if (itObject != pGrdExp.children.end())

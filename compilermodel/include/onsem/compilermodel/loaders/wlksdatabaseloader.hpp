@@ -6,7 +6,7 @@
 #include <list>
 #include <set>
 #include <memory>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 
 
 namespace onsem
@@ -75,13 +75,13 @@ public:
 
 
   void loadAndSave
-  (const boost::filesystem::path& pFilename,
+  (const std::filesystem::path& pFilename,
    const LingdbTree& pLingbTree) const;
 
 
   void load
   (WlksDatabaseLoader_WorkState& pWorkState,
-   const boost::filesystem::path& pFilename) const;
+   const std::filesystem::path& pFilename) const;
 
 
 private:

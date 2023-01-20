@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include <boost/algorithm/string.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/common/enum/semanticsourceenum.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
@@ -31,8 +30,7 @@ TEST_F(SemanticReasonerGTests, infinitiveVerb)
   converter::semExpToText(
         synthesized, std::move(expression), textContext, false, memory, lingDb, nullptr);
 
-  ASSERT_TRUE(boost::iequals("to greet.", synthesized))
-      << "Got \"" << synthesized << "\" instead";
+  ASSERT_EQ("To greet.", synthesized);
 }
 
 

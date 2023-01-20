@@ -1,6 +1,7 @@
 #ifndef ONSEM_COMPILERMODEL_SAVERS_TRADUCTIONWRITER_HPP
 #define ONSEM_COMPILERMODEL_SAVERS_TRADUCTIONWRITER_HPP
 
+#include <filesystem>
 #include <string>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
@@ -30,7 +31,7 @@ class LingdbSaverTraductionWriter
 {
 public:
   void writeTranslations
-  (const boost::filesystem::path& pFilnename,
+  (const std::filesystem::path& pFilnename,
    const std::map<LingdbMeaning*, LingdbSaverOutLinks>& pTrads1,
    const std::map<LingdbMeaning*, LingdbSaverOutLinks>& pTrads2,
    const LinguisticIntermediaryDatabase& pInLingDatabase) const;

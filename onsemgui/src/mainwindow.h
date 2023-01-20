@@ -4,10 +4,10 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QComboBox>
+#include <filesystem>
 #include <list>
-#include <vector>
 #include <string>
-#include <boost/filesystem/path.hpp>
+#include <vector>
 #include <onsem/guiutility/lineedithistoricwrapper.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/common/enum/contextualannotation.hpp>
@@ -29,11 +29,11 @@ class MainWindow : public QMainWindow
   Q_OBJECT
 
 public:
-  explicit MainWindow(const boost::filesystem::path& pCorpusEquivalencesFolder,
-                      const boost::filesystem::path& pCorpusResultsFolder,
-                      const boost::filesystem::path& pScenariosFolder,
-                      const boost::filesystem::path& pOutputScenariosFolder,
-                      const boost::filesystem::path& pCorpusFolder,
+  explicit MainWindow(const std::filesystem::path &pCorpusEquivalencesFolder,
+                      const std::filesystem::path &pCorpusResultsFolder,
+                      const std::filesystem::path &pScenariosFolder,
+                      const std::filesystem::path &pOutputScenariosFolder,
+                      const std::filesystem::path &pCorpusFolder,
                       linguistics::LinguisticDatabaseStreams& pIStreams,
                       QWidget *parent = 0);
   ~MainWindow();
@@ -148,11 +148,11 @@ private:
   Ui::MainWindow* _ui;
   /// current size of the window
   std::pair<int, int> _sizeWindow;
-  const boost::filesystem::path _corpusEquivalencesFolder;
-  const boost::filesystem::path _corpusResultsFolder;
-  const boost::filesystem::path _inputScenariosFolder;
-  const boost::filesystem::path _outputScenariosFolder;
-  const boost::filesystem::path _corpusFolder;
+  const std::filesystem::path _corpusEquivalencesFolder;
+  const std::filesystem::path _corpusResultsFolder;
+  const std::filesystem::path _inputScenariosFolder;
+  const std::filesystem::path _outputScenariosFolder;
+  const std::filesystem::path _corpusFolder;
   bool _listenToANewTokenizerStep;
   onsem::linguistics::LinguisticDatabase _lingDb;
   onsem::SemanticLanguageEnum _currentLanguage;
@@ -229,11 +229,11 @@ private:
   void _switchToReferenceButtonSetEnabled(bool pEnabled);
   void _appendLogs(const std::list<std::string>& pLogs);
   void _clearLoadedScenarios();
-  boost::filesystem::path _getEquivalencesFilename();
+  std::filesystem::path _getEquivalencesFilename();
   void _readEquivalences(std::map<std::string, std::string>& pEquivalences,
-                         const boost::filesystem::path& pPath);
+                         const std::filesystem::path &pPath);
   void _writeEquivalences(const std::map<std::string, std::string>& pEquivalences,
-                          const boost::filesystem::path& pPath);
+                          const std::filesystem::path &pPath);
 
   std::string _getAsrText(bool& pTextEnd);
   void _proactivelyAskThePlanner(const std::unique_ptr<std::chrono::steady_clock::time_point>& pNow);

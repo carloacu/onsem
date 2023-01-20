@@ -1,6 +1,6 @@
 #include <onsem/compilermodel/loaders/deladatabaseloader.hpp>
 #include <sstream>
-#include <boost/filesystem/fstream.hpp>
+#include <fstream>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 #include <onsem/compilermodel/lingdbmodifier.hpp>
@@ -72,12 +72,12 @@ void DelaDatabaseLoader::simplifyDelaFile
  bool pRemoveHum,
  bool pRemoveDnum)
 {
-  boost::filesystem::ifstream infile(pInFilename, boost::filesystem::ifstream::in);
+  std::ifstream infile(pInFilename, std::ifstream::in);
   if (!infile.is_open())
   {
     throw std::runtime_error("Can't open " + pInFilename + " file !");
   }
-  boost::filesystem::ofstream outfile(pOutFilename);
+  std::ofstream outfile(pOutFilename);
 
   std::vector<std::string> beginsOfWordsToSkip =
   {"pour ", "cet "};
@@ -190,13 +190,13 @@ void DelaDatabaseLoader::simplifyDelaFile
 
 
 void DelaDatabaseLoader::merge
-(const boost::filesystem::path& pFilename,
+(const std::string& pFilename,
  LinguisticIntermediaryDatabase& pWords)
 {
-  boost::filesystem::ifstream infile(pFilename, boost::filesystem::ifstream::in);
+  std::ifstream infile(pFilename, std::ifstream::in);
   if (!infile.is_open())
   {
-    throw std::runtime_error("Can't open " + pFilename.string() + " file !");
+    throw std::runtime_error("Can't open " + pFilename + " file !");
   }
 
   std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToConcrete;

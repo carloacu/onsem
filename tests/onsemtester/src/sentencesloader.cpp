@@ -1,5 +1,5 @@
 #include <onsem/tester/sentencesloader.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <boost/property_tree/xml_parser.hpp>
 
 
@@ -78,7 +78,7 @@ void SentencesLoader::xLoadTxt
 void SentencesLoader::xLoadXml
 (const std::string& pFilename)
 {
-  boost::filesystem::path folder = boost::filesystem::path(pFilename).parent_path();
+  std::filesystem::path folder = std::filesystem::path(pFilename).parent_path();
   boost::property_tree::ptree tree;
   boost::property_tree::read_xml(pFilename, tree);
   childLoop(tree, currSubTree, "sentencesTester")

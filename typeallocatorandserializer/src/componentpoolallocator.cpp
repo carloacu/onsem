@@ -9,7 +9,7 @@ namespace onsem
 {
 
   ComponentPoolAllocator::ComponentPoolAllocator
-  (const boost::filesystem::path& name)
+  (const std::filesystem::path &name)
     : fName(name.string())
   {
   }

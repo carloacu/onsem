@@ -1,6 +1,7 @@
 #ifndef ONSEM_COMPILERMODEL_SAVERS_BINARYDATABASEDICOSAVER_HPP
 #define ONSEM_COMPILERMODEL_SAVERS_BINARYDATABASEDICOSAVER_HPP
 
+#include <filesystem>
 #include <map>
 #include <string>
 #include <vector>
@@ -28,9 +29,9 @@ public:
   void save
   (std::map<const LingdbMeaning*, int>& pMeaningsPtr,
    const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
-   const boost::filesystem::path& pFilenameDatabase,
-   const boost::filesystem::path& pFilenameAnimationDatabase,
-   const boost::filesystem::path& pFilenameSynthesizerDatabase,
+   const std::filesystem::path &pFilenameDatabase,
+   const std::filesystem::path &pFilenameAnimationDatabase,
+   const std::filesystem::path &pFilenameSynthesizerDatabase,
    const LinguisticIntermediaryDatabase& pLingDatabase) const;
 
   void getLemme
@@ -69,7 +70,7 @@ private:
    std::size_t pNb) const;
 
   void xSaveAnimations
-  (const boost::filesystem::path& pFilenameAnimDatabase,
+  (const std::filesystem::path &pFilenameAnimDatabase,
    const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
    const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
    const LinguisticIntermediaryDatabase& pLingDatabase,
@@ -97,7 +98,7 @@ private:
    const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
    const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
    const std::map<LingdbDynamicTrieNode const*, int>& pNodesPtr,
-   const boost::filesystem::path& pFilename,
+   const std::filesystem::path &pFilename,
    const LinguisticIntermediaryDatabase& pLingDatabase,
    SemanticLanguageEnum pLangType) const;
 

@@ -1,18 +1,19 @@
 #include <onsem/compilermodel/savers/traductionwriter.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <filesystem>
+#include <fstream>
 
 namespace onsem
 {
 
 void LingdbSaverTraductionWriter::writeTranslations
-(const boost::filesystem::path& pFilnename,
+(const std::filesystem::path &pFilnename,
  const std::map<LingdbMeaning*, LingdbSaverOutLinks>& pTrads1,
  const std::map<LingdbMeaning*, LingdbSaverOutLinks>& pTrads2,
  const LinguisticIntermediaryDatabase& pLingDatabase) const
 {
   int nbMeaningsWithTrad = 0;
   int nbMeanings = 0;
-  boost::filesystem::ofstream outfile(pFilnename);
+  std::ofstream outfile(pFilnename);
 
   std::map<const LingdbMeaning*, std::set<MeaningAndConfidence> > allTrads;
   const CompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();

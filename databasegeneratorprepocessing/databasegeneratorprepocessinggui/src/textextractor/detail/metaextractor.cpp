@@ -1,6 +1,7 @@
 #include "metaextractor.hpp"
 #include <iostream>
-#include <boost/lexical_cast.hpp>
+#include <onsem/common/utility/lexical_cast.hpp>
+
 
 namespace onsem
 {
@@ -21,7 +22,7 @@ void MetaExtractor::spitResultLine
     for (std::size_t i = 0; i < pNbs.size(); ++i)
     {
       std::size_t nextIdNb = pLine.find_first_of('_', begNb);
-      pNbs[i] = boost::lexical_cast<int>(pLine.substr(begNb, nextIdNb - begNb));
+      pNbs[i] = mystd::lexical_cast<int>(pLine.substr(begNb, nextIdNb - begNb));
       begNb = nextIdNb + 1;
     }
   }

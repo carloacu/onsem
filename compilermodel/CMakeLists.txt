@@ -81,10 +81,6 @@ if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
 
-if (USE_BOOST_FROM_SYSTEM)
-  find_package(Boost REQUIRED COMPONENTS system filesystem)
-endif ()
-
 add_library(onsemcompilermodel STATIC
   ${ONSEMCOMPILERMODEL_HPPS}
   ${ONSEMCOMPILERMODEL_SRCS}
@@ -98,12 +94,10 @@ include_directories(
 
 target_link_libraries(onsemcompilermodel
   ${BOOST_LIBRARIES}
-  boost_system
-  boost_filesystem
   ${ONSEMTYPEALLOCATORANDSERIALYZER_LIBRARIES}
   ${ONSEMCOMMON_LIBRARIES}
 )
-target_compile_features(onsemcompilermodel PRIVATE cxx_std_14)
+target_compile_features(onsemcompilermodel PRIVATE cxx_std_17)
 
 
 

@@ -14,7 +14,7 @@ namespace onsem
 void BinaryTradSaver::save
 (const WlksDatabaseLoader::WlksDatabaseLoader_WorkState& pTrads,
  const std::map<SemanticLanguageEnum, std::map<const LingdbMeaning*, int> >& pLangToMeaningsPtr,
- const boost::filesystem::path& pOutFolder) const
+ const std::filesystem::path& pOutFolder) const
 {
   binarymasks::Ptr mem = ::operator new(pTrads.maxOccupatedSize());
   if (mem.ptr == nullptr)
@@ -50,7 +50,7 @@ void BinaryTradSaver::save
 
     std::string twoLangsOfTheTrad = it->inLingDb.lingDatabase->getLanguage()->toStr() +
         "_to_" + it->outLingDb.lingDatabase->getLanguage()->toStr();
-    boost::filesystem::path tradFilename(twoLangsOfTheTrad + "." + pTrads.lingbTree.getExtBinaryDatabase());
+    std::filesystem::path tradFilename(twoLangsOfTheTrad + "." + pTrads.lingbTree.getExtBinaryDatabase());
     std::ofstream outfile((pOutFolder / tradFilename).string(), std::ofstream::binary);
     outfile.write(reinterpret_cast<const char*>(&fFormalism), sizeof(fFormalism));
 

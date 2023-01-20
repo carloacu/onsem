@@ -4,7 +4,6 @@
 #include <string>
 #include <memory>
 #include <gtest/gtest.h>
-#include <boost/filesystem/path.hpp>
 #include <onsem/common/utility/observable/connection.hpp>
 #include <onsem/common/enum/grammaticaltype.hpp>
 #include <onsem/common/enum/semanticlanguagetype.hpp>

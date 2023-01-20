@@ -1,5 +1,5 @@
 #include <onsem/compilermodel/savers/binarydatabaseconceptssaver.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <fstream>
 #include <onsem/common/enum/partofspeech.hpp>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
 #include "../concept/lingdbconcept.hpp"
@@ -13,11 +13,10 @@ namespace onsem
 void BinaryDatabaseConceptsSaver::saveConceptsDb
 (std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
  const std::map<std::string, LingdbConcept*>& pCptStrToCptStruct,
- const boost::filesystem::path& pFilename) const
+ const std::filesystem::path& pFilename) const
 {
   const unsigned int version = 10;
-  boost::filesystem::ofstream outfile(pFilename,
-                                      boost::filesystem::ofstream::binary);
+  std::ofstream outfile(pFilename, std::ofstream::binary);
 
   // fill a lingdb with all the concepts names
   LinguisticIntermediaryDatabase conceptWords;

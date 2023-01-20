@@ -2,7 +2,6 @@
 #define ONSEM_COMPILERMODEL_SAVERS_BINARYDATABASESAVER_HPP
 
 #include <cstddef>
-#include <boost/filesystem/fstream.hpp>
 #include <onsem/common/binary/binarysaver.hpp>
 
 namespace onsem

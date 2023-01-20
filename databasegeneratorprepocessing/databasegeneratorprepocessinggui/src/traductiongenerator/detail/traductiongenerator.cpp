@@ -1,6 +1,6 @@
 #include "../traductiongenerator.hpp"
 #include <fstream>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 #include <onsem/compilermodel/loaders/wlksdatabaseloader.hpp>
 #include <onsem/compilermodel/savers/traductionwriter.hpp>
@@ -16,7 +16,7 @@ void run(const LingdbTree& pLingDbTree,
          const std::string& pInputResourcePath)
 {
   auto resultFolderPath = pTmpFolder + "/traductiongenerator";
-  boost::filesystem::create_directory(resultFolderPath);
+  std::filesystem::create_directory(resultFolderPath);
 
   const std::string tradComponantsFilename = resultFolderPath + "/traductionsComponants.wlks";
   // write request file

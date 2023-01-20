@@ -4,7 +4,6 @@
 #include <set>
 #include <list>
 #include <string>
-#include <boost/optional.hpp>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
 #include <onsem/common/enum/chunklinktype.hpp>
 
@@ -162,7 +161,7 @@ private:
   const std::string fQuelqueChoseStr;
   const std::string fQuelquePartStr;
   const std::string fQuelquUnStr;
-  std::map<StrSortedBySize, boost::optional<FrGrammarBookObjectType> > fPreps;
+  std::map<StrSortedBySize, std::optional<FrGrammarBookObjectType>> fPreps;
   std::map<std::string, linguistics::ChunkLinkType> fPrepToChunkLinkType;
 
   bool xTryToDetectAnyObjectType

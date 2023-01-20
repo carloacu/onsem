@@ -1,5 +1,5 @@
 #include "gfsdatabaseloader.hpp"
-#include <boost/filesystem/fstream.hpp>
+#include <fstream>
 #include <onsem/common/enum/partofspeech.hpp>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
 #include <onsem/compilermodel/lingdbdynamictrienode.hpp>
@@ -9,10 +9,10 @@ namespace onsem
 
 
 void GFSDatabaseLoader::merge
-(const boost::filesystem::path& pFilename,
+(const std::filesystem::path &pFilename,
  LinguisticIntermediaryDatabase& pLingdb)
 {
-  boost::filesystem::ifstream infile(pFilename, boost::filesystem::ifstream::in);
+  std::ifstream infile(pFilename, std::ifstream::in);
   if (!infile.is_open())
   {
     std::cerr << "Error: Can't open " << pFilename.string() << " file !" << std::endl;

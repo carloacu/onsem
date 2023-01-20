@@ -483,7 +483,7 @@ bool FrGrammarBookExtHelpers::xTryToDetectPrepsToAnObjectType
     {
       break;
     }
-    for (std::map<StrSortedBySize, boost::optional<FrGrammarBookObjectType> >::const_iterator
+    for (std::map<StrSortedBySize, std::optional<FrGrammarBookObjectType> >::const_iterator
          itPrep = fPreps.begin(); itPrep != fPreps.end(); ++itPrep)
     {
       if (pStr.compare(pStrPos, itPrep->first.str.size(), itPrep->first.str) == 0)
@@ -503,8 +503,7 @@ bool FrGrammarBookExtHelpers::xTryToDetectAPrep
  std::size_t& pStrPos,
  const std::string& pStr) const
 {
-  for (std::map<StrSortedBySize, boost::optional<FrGrammarBookObjectType> >::const_iterator
-       itPrep = fPreps.begin(); itPrep != fPreps.end(); ++itPrep)
+  for (auto itPrep = fPreps.begin(); itPrep != fPreps.end(); ++itPrep)
   {
     if (pStr.compare(pStrPos, itPrep->first.str.size(), itPrep->first.str) == 0)
     {

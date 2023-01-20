@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <onsem/common/enum/semanticlanguagetype.hpp>
 
 
@@ -30,7 +30,7 @@ public:
 
   void getHoldingFolder
   (std::string& pFolder,
-   const boost::filesystem::path& pFilename) const;
+   const std::filesystem::path& pFilename) const;
 
 
   /**
@@ -112,7 +112,7 @@ private:
   (const std::string& pPath) const;
 
   void xRemoveDirectory
-  (const boost::filesystem::path& pPath) const;
+  (const std::filesystem::path &pPath) const;
 
   void xCopyFile
   (const std::string& pFrom,
@@ -125,7 +125,7 @@ private:
 
   void xGenerateTranslations
   (const std::map<SemanticLanguageEnum, std::map<const LingdbMeaning*, int> >& pLangToMeaningsPtr,
-   const boost::filesystem::path& pLinguisticDatabasesPath);
+   const std::filesystem::path& pLinguisticDatabasesPath);
 };
 
 

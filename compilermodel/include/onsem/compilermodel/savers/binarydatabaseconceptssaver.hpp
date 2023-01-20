@@ -1,6 +1,7 @@
 #ifndef ONSEM_COMPILERMODEL_SAVERS_BINARYDATABASECONCEPTSSAVER_HPP
 #define ONSEM_COMPILERMODEL_SAVERS_BINARYDATABASECONCEPTSSAVER_HPP
 
+#include <filesystem>
 #include <map>
 #include "binarydatabasesaver.hpp"
 
@@ -39,7 +40,7 @@ public:
   void saveConceptsDb
   (std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
    const std::map<std::string, LingdbConcept*>& pCptStrToCptStruct,
-   const boost::filesystem::path& pFilename) const;
+   const std::filesystem::path& pFilename) const;
 
 
 private:

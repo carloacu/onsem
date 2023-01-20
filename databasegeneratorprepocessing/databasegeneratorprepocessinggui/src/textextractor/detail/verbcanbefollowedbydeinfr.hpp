@@ -1,6 +1,7 @@
 #ifndef TEXTEXTRACTOR_VERBCANBEFOLLOWEDBYDEINFR_HPP
 #define TEXTEXTRACTOR_VERBCANBEFOLLOWEDBYDEINFR_HPP
 
+#include <list>
 #include <map>
 #include <string>
 #include <vector>
