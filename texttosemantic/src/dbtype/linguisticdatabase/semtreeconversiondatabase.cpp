@@ -489,7 +489,16 @@ void SemExpTreeConversionDatabase::xFillNode
     }
     else if (attrName == "nb")
     {
-      pCurrNode.nb.emplace(currAttribute.second.get_value<int>());
+      int value = 0;
+      try
+      {
+        value = mystd::lexical_cast<int>(currAttribute.second.get_value<std::string>());
+      }
+      catch (const std::exception& e)
+      {
+        std::cerr << "Failed to convert a string to an int: " << e.what() << std::endl;
+      }
+      pCurrNode.nb.emplace(value);
     }
     else if (attrName == "request")
     {
