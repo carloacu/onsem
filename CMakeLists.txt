@@ -2,19 +2,16 @@ cmake_minimum_required(VERSION 2.8)
 project(onsem)
 
 
-option(
-  USE_BOOST_FROM_SYSTEM
-  "Build with the dependency of the boost installed in the system."
-  ON)
-
-
-
 ## Command line for database compilation
 # cmake -DBUILD_ONSEM_DATABASE=ON -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
 
 ## Command line for compilation
 # cmake  -DBUILD_ONSEM_DATABASE=OFF -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_TESTS=ON ../ && make -j4
 
+#add_subdirectory(boost-submodules-for-onsem)
+
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/subdirectories/boost/boost_property_tree_with_deps.cmake)
 
 include(onsem-config.cmake)
 add_subdirectory(common)

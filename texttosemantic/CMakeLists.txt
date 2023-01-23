@@ -282,7 +282,7 @@ add_library(onsemtexttosemantic SHARED
 )
 include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}
-  ${BOOST_INCLUDE_DIRS}
+  ${BOOST_PROPERTY_TREE_WITH_DEPS_INCLUDE_DIRS}
 )
 target_link_libraries(onsemtexttosemantic
   ${ONSEMCOMMON_LIBRARIES}

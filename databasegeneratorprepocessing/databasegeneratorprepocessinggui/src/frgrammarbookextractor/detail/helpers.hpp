@@ -3,6 +3,7 @@
 
 #include <set>
 #include <list>
+#include <optional>
 #include <string>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
 #include <onsem/common/enum/chunklinktype.hpp>

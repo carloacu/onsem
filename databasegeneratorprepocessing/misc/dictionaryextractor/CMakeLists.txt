@@ -19,6 +19,7 @@ add_library(onsemdictionaryextractor SHARED
 )
 
 include_directories(
+    ${BOOST_PROPERTY_TREE_WITH_DEPS_INCLUDE_DIRS}
     ${ONSEMCOMMON_INCLUDE_DIRS}
     ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}
 )
