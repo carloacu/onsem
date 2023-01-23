@@ -1,13 +1,6 @@
 # Install compilation dependencies
 
 
-## Install boost
-
-```bash
-sudo apt-get install libboost-all-dev
-```
-
-
 ## Install gtest
 
 ```bash
