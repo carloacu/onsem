@@ -1,0 +1,3 @@
+[submodule "subdirectories/boost"]
+	path = subdirectories/boost
+	url = https://github.com/carloacu/boost-submodules-for-onsem.git
