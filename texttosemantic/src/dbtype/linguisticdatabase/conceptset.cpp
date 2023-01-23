@@ -256,7 +256,7 @@ bool ConceptSet::doesConceptBeginWithWithAnyOf
 (const std::string& pConceptName,
  const std::vector<std::string>& pBeginOfConcepts)
 {
-  for (const auto currBeginOfCpt : pBeginOfConcepts)
+  for (const auto& currBeginOfCpt : pBeginOfConcepts)
     if (pConceptName.compare(0, currBeginOfCpt.size(), currBeginOfCpt) == 0)
       return true;
   return false;
