@@ -1,6 +1,12 @@
 # Compilation
 
 
+## Clone sub modules
+
+```bash
+cd ${ONSEM_ROOT}
+git submodule update --init --recursive
+```
 
 ## Create and go inside a build folder
 
