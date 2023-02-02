@@ -30,6 +30,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
     ONSEM_NOANSWER(operator_react("n5", semMem, lingDb));
     ONSEM_NOANSWER(operator_react("Parlant de politique", semMem, lingDb)); // don't react a sentence without subject
     ONSEM_NOANSWER(operator_react("Rien n'est impossible", semMem, lingDb));
+    ONSEM_NOANSWER(operator_react("regarder que j'aimerais bien voir sur la démo aussi", semMem, lingDb));
   }
   ONSEM_FEEDBACK_EQ("Ok, tu regardes à droite.", operator_react("je regarde à droite", semMem, lingDb));
 

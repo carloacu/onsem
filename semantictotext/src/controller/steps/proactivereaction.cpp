@@ -194,6 +194,11 @@ bool _reactOnSentiments(SemControllerWorkingStruct& pWorkStruct,
     return false;
   bool reactOnSentiment = pWorkStruct.reactOperator == SemanticOperatorEnum::REACT ||
       (pWorkStruct.reactOperator == SemanticOperatorEnum::FEEDBACK && pWorkStruct.typeOfFeedback == SemanticTypeOfFeedback::SENTIMENT);
+
+  auto* statGrdPtr = pGrdExp->getStatementGroundingPtr();
+  if (statGrdPtr != nullptr && statGrdPtr->verbTense == SemanticVerbTense::UNKNOWN)
+    return false;
+
   auto sentimentSpec = sentimentDetector::extractMainSentiment
       (pGrdExp, *pWorkStruct.author, pWorkStruct.lingDb.conceptSet);
   if (sentimentSpec && sentimentSpec->sentimentStrengh > 1 && // 1 and not 0 because we don't want to react on too weak sentiments
