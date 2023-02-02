@@ -679,6 +679,21 @@ bool _addTokenFollowedByASeparator(TokSent& pTokSent,
 }
 
 
+void _fillInflWordOfHour(std::list<InflectedWord>& pInflWord,
+                         SemanticLanguageEnum pLanguage)
+{
+  // a number can be a determiner or a noun
+  pInflWord.emplace_back([&]
+  {
+    InflectedWord nounIGram(PartOfSpeech::NOUN,
+                            pLanguage == SemanticLanguageEnum::ENGLISH ?
+                              NominalInflections::get_inflections_ns() :
+                              NominalInflections::get_inflections_ms());
+    nounIGram.infos.concepts.emplace("time_day_*", 4);
+    return nounIGram;
+  }());
+}
+
 void _fillInflWordOfNumber(std::list<InflectedWord>& pInflWord,
                            const std::string& pNumberStr,
                            SemanticLanguageEnum pLanguage,
@@ -724,9 +739,10 @@ void _fillInflWordOfNumber(std::list<InflectedWord>& pInflWord,
 }
 
 
-void _addNumberToken(TokSent& pTokSent, std::size_t pPosBegin, std::size_t pPosEnd,
-                     SemanticLanguageEnum pLanguage,
-                     const mystd::optional<std::size_t>& pEndOfNumberOpt = mystd::optional<std::size_t>())
+void _addNumberOrHourToken(TokSent& pTokSent, std::size_t pPosBegin, std::size_t pPosEnd,
+                           SemanticLanguageEnum pLanguage,
+                           bool pIsAnHour,
+                           const mystd::optional<std::size_t>& pEndOfNumberOpt = mystd::optional<std::size_t>())
 {
   std::size_t length = pPosEnd - pPosBegin;
   const std::string tokStr = pTokSent.textForms.formattedText.substr(pTokSent.posAfterPreviousToken, length);
@@ -735,11 +751,17 @@ void _addNumberToken(TokSent& pTokSent, std::size_t pPosBegin, std::size_t pPosE
   {
     std::size_t numberLength = *pEndOfNumberOpt - pPosBegin;
     const std::string tokNumberStr = pTokSent.textForms.formattedText.substr(pTokSent.posAfterPreviousToken, numberLength);
-    _fillInflWordOfNumber(infosGram, tokNumberStr, pLanguage, false);
+    if (pIsAnHour)
+      _fillInflWordOfHour(infosGram, pLanguage);
+    else
+      _fillInflWordOfNumber(infosGram, tokNumberStr, pLanguage, false);
   }
   else
   {
-    _fillInflWordOfNumber(infosGram, tokStr, pLanguage, true);
+    if (pIsAnHour)
+      _fillInflWordOfHour(infosGram, pLanguage);
+    else
+      _fillInflWordOfNumber(infosGram, tokStr, pLanguage, true);
   }
   _insertTokenWithStr(pTokSent, length, infosGram, tokStr, pLanguage);
 }
@@ -754,11 +776,19 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
                            const LinguisticDictionary& pLingDico)
 {
   auto languageType = pLingDico.statDb.getLanguageType();
+  bool isAnHour = false;
   // until we are not at the end of the sentence
   while (pTokSent.currPos < pTokSent.endPosToTokenize)
   {
     if (isDigit(pTokSent.textForms.formattedText[pTokSent.currPos]))
     {
+      // advance in the sentence
+      ++pTokSent.currPos;
+      continue;
+    }
+    if (pTokSent.textForms.formattedText[pTokSent.currPos] == 'h')
+    {
+      isAnHour = true;
       // advance in the sentence
       ++pTokSent.currPos;
       continue;
@@ -794,7 +824,7 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
 
             if (afterSuffixPos == pTokSent.endPosToTokenize)
             {
-              _addNumberToken(pTokSent, pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType);
+              _addNumberOrHourToken(pTokSent, pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType, isAnHour);
             }
             else
             {
@@ -807,7 +837,7 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
                     (infosGramSep, pTokSent.textForms.formattedText, afterSuffixPos, longestWord);
                 // if after the number we have a separator we add the number in a new token
                 if (!partOfSpeech_isAWord(infosGramSep.begin()->word.partOfSpeech))
-                  _addNumberToken(pTokSent, pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType);
+                  _addNumberOrHourToken(pTokSent, pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType, isAnHour);
               }
             }
             return;
@@ -826,8 +856,8 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
 
       if (pTokSent.currPos == pTokSent.endPosToTokenize)
       {
-        _addNumberToken(pTokSent,
-                        pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType, endOfNumber);
+        _addNumberOrHourToken(pTokSent,
+                        pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType, isAnHour, endOfNumber);
       }
       else
       {
@@ -841,8 +871,8 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
           // if after the number we have a separator we add the number in a new token
           if (!partOfSpeech_isAWord(infosGramSep.begin()->word.partOfSpeech))
           {
-            _addNumberToken(pTokSent,
-                            pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType, endOfNumber);
+            _addNumberOrHourToken(pTokSent,
+                            pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType, isAnHour, endOfNumber);
             // Add the separator after the number
             _insertToken(pTokSent, longestWord, infosGramSep, languageType);
           }
@@ -854,7 +884,7 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
   // in this case we have found the begin of a number but we have been stoped because
   // we are at the end of the sentence
   // so we put the number in a new token
-  _addNumberToken(pTokSent, pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType);
+  _addNumberOrHourToken(pTokSent, pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType, isAnHour);
 }
 
 

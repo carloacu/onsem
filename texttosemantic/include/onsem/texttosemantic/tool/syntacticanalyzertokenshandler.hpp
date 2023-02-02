@@ -133,6 +133,9 @@ ONSEM_TEXTTOSEMANTIC_API
 void fillRelativeCharEncodedFromInflWord(LinguisticSubordinateId& pLinguisticSubordinateId,
                                          const InflectedWord& pInflWord);
 
+ONSEM_TEXTTOSEMANTIC_API
+std::size_t getSeparatorOfHourMinute(const std::string& pStr);
+
 template<typename TOKITTEMP>
 ONSEM_TEXTTOSEMANTIC_API
 TOKITTEMP eatNumber(mystd::optional<SemanticFloat>& pNumber,

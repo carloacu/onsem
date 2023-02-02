@@ -27,7 +27,8 @@ enum class AmOrPm
 mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic::xFillHourTimeStruct
 (const ToGenRepContext& pContext) const
 {
-  if (fConfiguration.getLanguageType() == SemanticLanguageEnum::ENGLISH)
+  auto language = fConfiguration.getLanguageType();
+  if (language == SemanticLanguageEnum::ENGLISH)
   {
     auto itToken = pContext.chunk.tokRange.getItBegin();
     auto endIt = pContext.chunk.tokRange.getItEnd();
@@ -127,6 +128,32 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
                 (std::make_unique<GroundedExpression>(std::move(time)));
           }
         }
+      }
+    }
+  }
+  else if (language == SemanticLanguageEnum::FRENCH)
+  {
+    auto itToken = pContext.chunk.tokRange.getItBegin();
+    auto endIt = pContext.chunk.tokRange.getItEnd();
+
+    if (itToken != endIt)
+    {
+      std::size_t separatorOfHourMinute = getSeparatorOfHourMinute(itToken->str);
+      if (separatorOfHourMinute != std::string::npos)
+      {
+        try {
+          auto time = std::make_unique<SemanticTimeGrounding>();
+          time->timeOfDay.sign = Sign::POSITIVE;
+          time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = mystd::lexical_cast<int>(itToken->str.substr(0, separatorOfHourMinute));
+          std::size_t beginOfMinutePos = separatorOfHourMinute + 1;
+          if (itToken->str.size() > beginOfMinutePos)
+          {
+            int minuteStrSize = itToken->str.size() - beginOfMinutePos;
+            time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = mystd::lexical_cast<int>(itToken->str.substr(beginOfMinutePos, minuteStrSize));
+          }
+          return mystd::unique_propagate_const<UniqueSemanticExpression>
+              (std::make_unique<GroundedExpression>(std::move(time)));
+        }  catch (...) {}
       }
     }
   }

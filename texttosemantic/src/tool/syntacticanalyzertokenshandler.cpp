@@ -2,6 +2,7 @@
 #include <functional>
 #include <onsem/common/linguisticsubordinateid.hpp>
 #include <onsem/common/utility/number.hpp>
+#include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
@@ -510,6 +511,23 @@ void fillRelativeCharEncodedFromInflWord(LinguisticSubordinateId& pLinguisticSub
     break;
   }
 }
+
+std::size_t getSeparatorOfHourMinute(const std::string& pStr)
+{
+  std::size_t res = std::string::npos;
+  for (std::size_t i = 0; i < pStr.size(); ++i)
+  {
+    if (isDigit(pStr[i]))
+      continue;
+
+    if (pStr[i] == 'h' && i > 0 && res == std::string::npos)
+      res = i;
+    else
+      return std::string::npos;
+  }
+  return res;
+}
+
 
 template<typename TOKITTEMP>
 TOKITTEMP eatNumber(mystd::optional<SemanticFloat>& pNumber,

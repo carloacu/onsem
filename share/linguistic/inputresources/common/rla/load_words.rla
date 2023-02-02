@@ -1,5 +1,5 @@
 merge [inputresources]/common/common_separators.xml
 merge [inputresources]/common/readonly/firstnames.dela
 merge [inputresources]/common/firstnames_modifs.dela
-
+merge [inputresources]/common/propernouns.dela
 
