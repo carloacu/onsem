@@ -2113,6 +2113,7 @@ void _setRequestFromChildren(SemanticRequests& pRequests,
     }
     else if (currChild.type != ChunkLinkType::SUBJECT &&
              currChild.type != ChunkLinkType::DIRECTOBJECT &&
+             currChild.type != ChunkLinkType::INDIRECTOBJECT &&
              checkOrder(*currChild.chunk, pVerbChunk))
     {
       auto requestOpt = chunkTypeToRequestType(currChild.type);
