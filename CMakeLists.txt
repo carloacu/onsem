@@ -11,8 +11,6 @@ project(onsem)
 #add_subdirectory(boost-submodules-for-onsem)
 
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/subdirectories/boost/boost_property_tree_with_deps.cmake)
-
 include(onsem-config.cmake)
 add_subdirectory(common)
 
