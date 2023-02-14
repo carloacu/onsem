@@ -6,7 +6,7 @@
 #include <map>
 #include <set>
 #include <list>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include "../../api.hpp"
 
 

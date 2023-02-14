@@ -2,7 +2,7 @@
 #define ONSEM_TEXTTOSEMANTIC_TYPE_STATICLINGUISTICMEANING_HPP
 
 #include <onsem/common/linguisticmeaning_nomeaningid.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include "../api.hpp"
 
 namespace onsem

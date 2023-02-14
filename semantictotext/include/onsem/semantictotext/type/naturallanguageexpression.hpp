@@ -3,7 +3,7 @@
 
 #include <string>
 #include <onsem/common/enum/grammaticaltype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/semanticverbtense.hpp>
 #include <onsem/common/enum/verbgoalenum.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>

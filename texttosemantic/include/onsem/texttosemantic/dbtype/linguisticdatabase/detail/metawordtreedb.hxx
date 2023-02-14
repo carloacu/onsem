@@ -9,7 +9,7 @@ namespace onsem
 
 inline bool MetaWordTreeDb::xIsLoaded() const
 {
-  return fPtrPatriciaTrie != nullptr;
+  return _ptrPatriciaTrie != nullptr || _loadedWithoutStream;
 }
 
 inline bool MetaWordTreeDb::xIfEndOfAWord

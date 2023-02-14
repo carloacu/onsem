@@ -6,7 +6,7 @@
 #include <memory>
 #include <map>
 #include <set>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
 
 namespace onsem

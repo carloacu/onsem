@@ -14,7 +14,8 @@ namespace onsem
   ADD_MIND_SEMANTIC_LANGUAGEGROUNDINGS(FRENCH, "french", "french", "fr_FR", "French")          \
   ADD_MIND_SEMANTIC_LANGUAGEGROUNDINGS(ENGLISH, "english", "english", "en_US", "English")      \
   ADD_MIND_SEMANTIC_LANGUAGEGROUNDINGS(JAPANESE, "japanese", "japanese", "ja_JP", "Japanese")  \
-  ADD_MIND_SEMANTIC_LANGUAGEGROUNDINGS(UNKNOWN, "unknown", "common", "unknown", "unknown")
+  ADD_MIND_SEMANTIC_LANGUAGEGROUNDINGS(UNKNOWN, "unknown", "common", "unknown", "unknown")     \
+  ADD_MIND_SEMANTIC_LANGUAGEGROUNDINGS(OTHER, "other", "other", "ot_OT", "Other")
 
 
 #define ADD_MIND_SEMANTIC_LANGUAGEGROUNDINGS(a, b, c, d, e) a,

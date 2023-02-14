@@ -9,7 +9,7 @@
 #include <onsem/common/utility/vector_of_refs.hpp>
 #include <onsem/common/utility/unordered_set_of_refs.hpp>
 #include <onsem/common/binary/binarymasks.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/semanticentitytype.hpp>
 #include <onsem/common/enum/semanticquantitytype.hpp>
 #include <onsem/common/enum/semanticreferencetype.hpp>

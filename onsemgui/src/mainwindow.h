@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include <onsem/guiutility/lineedithistoricwrapper.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/contextualannotation.hpp>
 #include <onsem/common/keytostreams.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>

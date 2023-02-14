@@ -7,7 +7,7 @@
 #include <map>
 #include <onsem/common/utility/optional.hpp>
 #include <onsem/common/enum/semanticentitytype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/misc/coreference.hpp>
 
 

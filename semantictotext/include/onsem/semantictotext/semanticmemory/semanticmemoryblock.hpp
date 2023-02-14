@@ -7,7 +7,7 @@
 #include <set>
 #include "../api.hpp"
 #include <onsem/common/enum/infomationtype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/common/enum/semanticverbtense.hpp>
 #include <onsem/common/enum/semanticgendertype.hpp>

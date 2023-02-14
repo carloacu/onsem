@@ -5,7 +5,7 @@
 #include <QDomElement>
 #include <onsem/common/enum/lingenumlinkedmeaningdirection.hpp>
 #include <onsem/common/enum/partofspeech.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 #include "metawiki/patternrecognizer.hpp"
 

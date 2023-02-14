@@ -3,7 +3,7 @@
 
 #include <list>
 #include <memory>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/chunklinktype.hpp>
 #include <onsem/common/enum/grammaticaltype.hpp>
 #include <onsem/texttosemantic/type/enum/chunktype.hpp>

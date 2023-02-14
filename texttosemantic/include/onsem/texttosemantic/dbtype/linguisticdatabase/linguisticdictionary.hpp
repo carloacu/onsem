@@ -7,7 +7,7 @@
 #include <mutex>
 #include <onsem/common/utility/radix_map_forward_declaration.hpp>
 #include <onsem/common/enum/chunklinktype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/semanticgendertype.hpp>
 #include <onsem/common/enum/semanticnumbertype.hpp>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
@@ -28,7 +28,7 @@ struct InflectedWord;
 class ONSEM_TEXTTOSEMANTIC_API LinguisticDictionary
 {
 public:
-  LinguisticDictionary(std::istream& pDictIStream,
+  LinguisticDictionary(std::istream* pDictIStreamPtr,
                        const StaticConceptSet& pStaticConceptSet,
                        SemanticLanguageEnum pLangEnum);
   ~LinguisticDictionary();
@@ -133,7 +133,7 @@ private:
 
   static std::mutex _pathToStatDbsMutex;
   static std::map<SemanticLanguageEnum, std::unique_ptr<StaticLinguisticDictionary>> _pathToStatDbs;
-  static StaticLinguisticDictionary& _getStatDbInstance(std::istream& pDictIStream,
+  static StaticLinguisticDictionary& _getStatDbInstance(std::istream* pDictIStreamPtr,
                                                         const StaticConceptSet& pStaticConceptSet,
                                                         SemanticLanguageEnum pLangEnum);
   bool _isARemovedWord(const SemanticWord& pWord) const;

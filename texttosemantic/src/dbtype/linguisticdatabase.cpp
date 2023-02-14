@@ -162,8 +162,8 @@ SpecificLinguisticDatabase::SpecificLinguisticDatabase(KeyToStreams& pIStreams,
                                                        SemanticLanguageEnum pLanguage)
   : language(pLanguage),
     lingDb(pLingDb),
-    lingDico(*pIStreams.mainDicToStream, pLingDb.conceptSet.statDb, pLanguage),
-    synthDico(*pIStreams.synthesizerToStream, pLingDb.conceptSet.statDb, lingDico.statDb, pLanguage),
+    lingDico(pIStreams.mainDicToStream, pLingDb.conceptSet.statDb, pLanguage),
+    synthDico(pIStreams.synthesizerToStream, pLingDb.conceptSet.statDb, lingDico.statDb, pLanguage),
     _semFrameDict(std::make_unique<SemanticFrameDictionary>()),
     _wordToSavedInfos(),
     _inflectionsCheckerPtr(std::make_unique<InflectionsChecker>(*this)),
@@ -258,7 +258,7 @@ LinguisticDatabase::LinguisticDatabase(LinguisticDatabaseStreams& pIStreams)
   for (const auto& currLang : languageTypes)
     langToAnimDic.emplace(currLang,
                           std::make_unique<AnimationDictionary>
-                          (*pIStreams.languageToStreams[currLang].animationsToStream, conceptSet.statDb, currLang));
+                          (pIStreams.languageToStreams[currLang].animationsToStream, conceptSet.statDb, currLang));
   addDynamicContent(pIStreams.dynamicContentStreams);
 }
 

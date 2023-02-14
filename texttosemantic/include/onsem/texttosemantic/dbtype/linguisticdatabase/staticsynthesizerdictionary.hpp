@@ -7,7 +7,7 @@
 #include <onsem/common/enum/verbgoalenum.hpp>
 #include <onsem/common/enum/semanticgendertype.hpp>
 #include <onsem/common/enum/semanticnumbertype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/comparisonoperator.hpp>
 #include <onsem/common/enum/relativeperson.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/wordtosynthesize.hpp>
@@ -24,7 +24,7 @@ class StaticLinguisticDictionary;
 class ONSEM_TEXTTOSEMANTIC_API StaticSynthesizerDictionary : public VirtualSemBinaryDatabase
 {
 public:
-  StaticSynthesizerDictionary(std::istream& pIStream,
+  StaticSynthesizerDictionary(std::istream* pIStreamPtr,
                               const StaticConceptSet& pConceptsDb,
                               const StaticLinguisticDictionary& pStatLingDic,
                               SemanticLanguageEnum pLangEnum);

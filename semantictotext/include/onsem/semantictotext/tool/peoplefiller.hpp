@@ -2,7 +2,7 @@
 #define ONSEM_SEMANTICTOTEXT_TOOL_PEOPLEFILLER_HPP
 
 #include <istream>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 
 namespace onsem
 {

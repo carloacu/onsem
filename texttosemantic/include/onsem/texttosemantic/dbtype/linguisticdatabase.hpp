@@ -6,7 +6,7 @@
 #include <fstream>
 #include <boost/property_tree/ptree.hpp>
 #include <onsem/common/keytostreams.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/utility/enum_vector_initialized.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp>

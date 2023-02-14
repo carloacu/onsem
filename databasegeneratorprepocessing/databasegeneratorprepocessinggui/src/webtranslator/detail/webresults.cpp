@@ -4,7 +4,7 @@
 #include <sstream>
 #include <QFile>
 #include <QDomDocument>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 #include <onsem/compilermodel/lingdbtree.hpp>
 #include <onsem/compilermodel/savers/traductionwriter.hpp>

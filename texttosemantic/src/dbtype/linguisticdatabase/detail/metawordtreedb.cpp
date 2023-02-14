@@ -5,7 +5,8 @@ namespace onsem
 
 MetaWordTreeDb::MetaWordTreeDb()
   : VirtualSemBinaryDatabase(),
-    fPtrPatriciaTrie(nullptr)
+    _ptrPatriciaTrie(nullptr),
+    _loadedWithoutStream(false)
 {
 }
 
@@ -37,6 +38,8 @@ const signed char* MetaWordTreeDb::xSearchInPatriciaTrie
  bool pOnlyWordWithWordFroms,
  SearchForLongestWordMode pLongWordMode) const
 {
+  if (_ptrPatriciaTrie == nullptr)
+    return nullptr;
   bool begWithASeparator = false;
   if (pLongWordMode == SearchForLongestWordMode::ENBABLED_BUTWITHSEPARATORAFTER)
     begWithASeparator = isASeparator(pString, pBeginOfString);
@@ -45,7 +48,7 @@ const signed char* MetaWordTreeDb::xSearchInPatriciaTrie
   // current offset in "pString"
   std::size_t offWord = 0;
   bool findLetter = true;
-  const signed char* currNode = fPtrPatriciaTrie;
+  const signed char* currNode = _ptrPatriciaTrie;
 
   // Until we found the current letter in a child node
   while (findLetter)
@@ -75,7 +78,7 @@ const signed char* MetaWordTreeDb::xSearchInPatriciaTrie
             continue;
           }
         }
-        currNode = xAlignedDecToPtr(fPtrPatriciaTrie, children[i]);
+        currNode = xAlignedDecToPtr(_ptrPatriciaTrie, children[i]);
         ++offWord;
         // letters already read + the number of letters in the node >
         // number of letters in the word we look for
@@ -130,10 +133,12 @@ void MetaWordTreeDb::xGetWordsThatBeginWith
 (std::list<const signed char*>& pResWords,
  const std::string& pBeginOfWords) const
 {
+  if (_ptrPatriciaTrie == nullptr)
+    return;
   // current offset in "pString"
   std::size_t offWord = 0;
   bool findLetter = true;
-  const auto* currNode = fPtrPatriciaTrie;
+  const auto* currNode = _ptrPatriciaTrie;
 
   // Until we found the current letter in a child node
   while (findLetter)
@@ -167,7 +172,7 @@ void MetaWordTreeDb::xGetWordsThatBeginWith
           if (searchedLetter != databaseLetter)
             continue;
         }
-        currNode = xAlignedDecToPtr(fPtrPatriciaTrie, children[i]);
+        currNode = xAlignedDecToPtr(_ptrPatriciaTrie, children[i]);
         ++offWord;
 
         // Check all the letters of the node
@@ -195,7 +200,9 @@ void MetaWordTreeDb::xGetWord
 (std::string& pWord,
  int pWordNode) const
 {
-  const auto* currNode = fPtrPatriciaTrie + pWordNode;
+  if (_ptrPatriciaTrie == nullptr)
+    return;
+  const auto* currNode = _ptrPatriciaTrie + pWordNode;
   std::list<char> resList;
   do
   {
@@ -209,7 +216,7 @@ void MetaWordTreeDb::xGetWord
     }
 
     const auto* prevNode = currNode;
-    currNode = xAlignedDecToPtr(fPtrPatriciaTrie,
+    currNode = xAlignedDecToPtr(_ptrPatriciaTrie,
                                 *xGetFather(currNode));
 
     // get letter in the link of the father
@@ -219,7 +226,7 @@ void MetaWordTreeDb::xGetWord
       const int* children = xGetFirstChild(currNode);
       for (unsigned char i = 0; i < nbChildren; ++i)
       {
-        if (xAlignedDecToPtr(fPtrPatriciaTrie, children[i]) == prevNode)
+        if (xAlignedDecToPtr(_ptrPatriciaTrie, children[i]) == prevNode)
         {
           resList.push_front(xGetCharAfterAlignedDec(children[i]));
           break;
@@ -227,7 +234,7 @@ void MetaWordTreeDb::xGetWord
       }
     }
   }
-  while (currNode != fPtrPatriciaTrie);
+  while (currNode != _ptrPatriciaTrie);
 
   // write the word
   pWord.resize(resList.size(), ' ');
@@ -245,6 +252,8 @@ void MetaWordTreeDb::xGetWordsFromANodeOfTheTree
  const signed char* pCurrNode,
  bool pCanAddCurrNode) const
 {
+  if (_ptrPatriciaTrie == nullptr)
+    return;
   if (pCanAddCurrNode &&
       xIfEndOfAWord(pCurrNode, false))
   {
@@ -258,7 +267,7 @@ void MetaWordTreeDb::xGetWordsFromANodeOfTheTree
     const int* children = xGetFirstChild(pCurrNode);
     for (unsigned char i = 0; i < nbChildren; ++i)
     {
-      const signed char* currNode = xAlignedDecToPtr(fPtrPatriciaTrie, children[i]);
+      const signed char* currNode = xAlignedDecToPtr(_ptrPatriciaTrie, children[i]);
       xGetWordsFromANodeOfTheTree(pResWords, currNode, true);
     }
   }

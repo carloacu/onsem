@@ -19,7 +19,7 @@ struct WordAssociatedInfos;
 class ONSEM_TEXTTOSEMANTIC_API SynthesizerDictionary
 {
 public:
-  SynthesizerDictionary(std::istream& pIStream,
+  SynthesizerDictionary(std::istream* pIStreamPtr,
                         const StaticConceptSet& pConceptsDb,
                         const StaticLinguisticDictionary& pStatLingDic,
                         SemanticLanguageEnum pLangEnum);
@@ -79,7 +79,7 @@ private:
 
   static std::mutex _pathToStatDbsMutex;
   static std::map<SemanticLanguageEnum, std::unique_ptr<StaticSynthesizerDictionary>> _statDbs;
-  static const StaticSynthesizerDictionary& _getStatDbInstance(std::istream& pIStream,
+  static const StaticSynthesizerDictionary& _getStatDbInstance(std::istream* pIStreamPtr,
                                                                const StaticConceptSet& pConceptsDb,
                                                                const StaticLinguisticDictionary& pStatLingDic,
                                                                SemanticLanguageEnum pLangEnum);

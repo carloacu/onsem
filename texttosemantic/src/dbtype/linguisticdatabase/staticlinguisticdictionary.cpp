@@ -15,7 +15,7 @@ namespace onsem
 namespace linguistics
 {
 
-StaticLinguisticDictionary::StaticLinguisticDictionary(std::istream& pDictIStream,
+StaticLinguisticDictionary::StaticLinguisticDictionary(std::istream* pDictIStreamPtr,
                                                        const StaticConceptSet& pStaticConceptSet,
                                                        SemanticLanguageEnum pLangEnum)
   : MetaWordTreeDb(),
@@ -34,7 +34,10 @@ StaticLinguisticDictionary::StaticLinguisticDictionary(std::istream& pDictIStrea
     _beVerb(),
     _sayVerb()
 {
-  xLoad(pDictIStream);
+  if (pDictIStreamPtr != nullptr)
+    xLoad(*pDictIStreamPtr);
+  else
+    _loadedWithoutStream = true;
 }
 
 StaticLinguisticDictionary::~StaticLinguisticDictionary()
@@ -66,7 +69,11 @@ void StaticLinguisticDictionary::xUnload()
 {
   binaryloader::deallocMemZone(&fPtrMeaning);
   binaryloader::deallocMemZone(&fPtrSomeFlexions);
-  binaryloader::deallocMemZone(&fPtrPatriciaTrie);
+  if (_ptrPatriciaTrie != nullptr)
+  {
+    binaryloader::deallocMemZone(&_ptrPatriciaTrie);
+    _ptrPatriciaTrie = nullptr;
+  }
   binaryloader::deallocMemZoneU(&fMemRules);
   fIfSeparatorBetweenWords = true;
   fTotalSize = 0;
@@ -110,7 +117,7 @@ void StaticLinguisticDictionary::xLoad(std::istream& pDictIStream)
   // Read all the database and put it in RAM
   if (!binaryloader::allocMemZone(&fPtrMeaning, pDictIStream, meaningsSize) ||
       !binaryloader::allocMemZone(&fPtrSomeFlexions, pDictIStream, someFlexionsSize) ||
-      !binaryloader::allocMemZone(&fPtrPatriciaTrie, pDictIStream, patriciaTrieSize))
+      !binaryloader::allocMemZone(&_ptrPatriciaTrie, pDictIStream, patriciaTrieSize))
   {
     //binDatabaseFile.close();
     xUnload();
@@ -961,13 +968,15 @@ StaticLinguisticMeaning StaticLinguisticDictionary::getRootMeaning
 {
   assert(xIsLoaded());
   assert(pMeaning.language == fLangEnum);
+  if (_ptrPatriciaTrie == nullptr)
+    return StaticLinguisticMeaning();
   if (pMeaning.meaningId == LinguisticMeaning_noMeaningId)
     return StaticLinguisticMeaning();
 
   auto* meaningPtr = fPtrMeaning + pMeaning.meaningId;
   if (xIsAGatheringMeaning(meaningPtr))
   {
-    auto* lemmaNodePtr = fPtrPatriciaTrie + xGetLemmeNodeId(meaningPtr);
+    auto* lemmaNodePtr = _ptrPatriciaTrie + xGetLemmeNodeId(meaningPtr);
     unsigned char nbMeanings = xNbMeanings(lemmaNodePtr);
     if (nbMeanings > 0)
     {

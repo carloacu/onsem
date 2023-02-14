@@ -38,7 +38,11 @@ bool StaticConceptSet::isUpToDate
 
 void StaticConceptSet::xUnload()
 {
-  binaryloader::deallocMemZone(&fPtrPatriciaTrie);
+  if (_ptrPatriciaTrie != nullptr)
+  {
+    binaryloader::deallocMemZone(&_ptrPatriciaTrie);
+    _ptrPatriciaTrie = nullptr;
+  }
   fTotalSize = 0;
   fErrorMessage = "NOT_LOADED";
 }
@@ -63,7 +67,7 @@ void StaticConceptSet::xLoad(std::istream& pIStream)
   fTotalSize = binaryloader::alignedDecToInt(header.intValues[2]);
 
   // Read all the database and put it in RAM
-  if (!binaryloader::allocMemZone(&fPtrPatriciaTrie, pIStream, fTotalSize))
+  if (!binaryloader::allocMemZone(&_ptrPatriciaTrie, pIStream, fTotalSize))
   {
     xUnload();
     fErrorMessage = "BAD_ALLOC";
@@ -125,12 +129,12 @@ int StaticConceptSet::getConceptToMeaningId
 (int pConceptId) const
 {
   assert(xIsLoaded());
-  if (pConceptId == noConcept)
+  if (_ptrPatriciaTrie == nullptr || pConceptId == noConcept)
   {
     return LinguisticMeaning_noMeaningId;
   }
   return binaryloader::alignedDecToInt(*xGetPtrOfConceptToMeaningId
-                                       (fPtrPatriciaTrie + pConceptId));
+                                       (_ptrPatriciaTrie + pConceptId));
 }
 
 
@@ -140,10 +144,12 @@ void StaticConceptSet::getOppositeConcepts
  const std::string& pConcept) const
 {
   assert(xIsLoaded());
+  if (_ptrPatriciaTrie == nullptr)
+    return;
   int conceptId = getConceptId(pConcept);
   if (conceptId != noConcept)
   {
-    auto* endOfNode = fPtrPatriciaTrie + conceptId;
+    auto* endOfNode = _ptrPatriciaTrie + conceptId;
     unsigned char nbOfOppCpts = xGetNbOfOppositeConcepts(endOfNode);
     if (nbOfOppCpts > 0)
     {
@@ -161,10 +167,12 @@ void StaticConceptSet::conceptsToNearlyEqualConcepts
  const std::string& pConceptName) const
 {
   assert(xIsLoaded());
+  if (_ptrPatriciaTrie == nullptr)
+    return;
   int conceptId = getConceptId(pConceptName);
   if (conceptId != noConcept)
   {
-    auto* endOfNode = fPtrPatriciaTrie + conceptId;
+    auto* endOfNode = _ptrPatriciaTrie + conceptId;
     unsigned char nbOfEquCpts = xGetNbOfNearlyEqualConcepts(endOfNode);
     if (nbOfEquCpts > 0)
     {
@@ -183,10 +191,12 @@ bool StaticConceptSet::areConceptsNearlyEqual
  const std::string& pConcept2) const
 {
   assert(xIsLoaded());
+  if (_ptrPatriciaTrie == nullptr)
+    return false;
   int concept1Id = getConceptId(pConcept1);
   if (concept1Id != noConcept)
   {
-    auto* endOfNode = fPtrPatriciaTrie + concept1Id;
+    auto* endOfNode = _ptrPatriciaTrie + concept1Id;
     unsigned char nbOfEquCpts = xGetNbOfNearlyEqualConcepts(endOfNode);
     if (nbOfEquCpts > 0)
     {
@@ -227,12 +237,12 @@ const signed char* StaticConceptSet::xGetConceptPtr(const std::string& pConceptN
 int StaticConceptSet::xNodePtrToNodeId
 (const signed char* pNode) const
 {
-  if (pNode == nullptr)
+  if (_ptrPatriciaTrie == nullptr || pNode == nullptr)
   {
     return noConcept;
   }
-  assert((pNode - fPtrPatriciaTrie) % 4 == 0);
-  return binaryloader::alignedDecToInt(static_cast<int>(pNode - fPtrPatriciaTrie) / 4);
+  assert((pNode - _ptrPatriciaTrie) % 4 == 0);
+  return binaryloader::alignedDecToInt(static_cast<int>(pNode - _ptrPatriciaTrie) / 4);
 }
 
 

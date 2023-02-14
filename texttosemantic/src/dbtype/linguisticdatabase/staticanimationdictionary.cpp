@@ -9,7 +9,7 @@ namespace onsem
 namespace linguistics
 {
 
-StaticAnimationDictionary::StaticAnimationDictionary(std::istream& pIstream,
+StaticAnimationDictionary::StaticAnimationDictionary(std::istream* pIstreamPtr,
                                                      const StaticConceptSet& pConceptsDb,
                                                      SemanticLanguageEnum pLangEnum)
   : VirtualSemBinaryDatabase(),
@@ -19,7 +19,8 @@ StaticAnimationDictionary::StaticAnimationDictionary(std::istream& pIstream,
     fMeaningsToAnimTag(),
     fDataPtr(nullptr)
 {
-  xLoad(pIstream);
+  if (pIstreamPtr != nullptr)
+    xLoad(*pIstreamPtr);
 }
 
 StaticAnimationDictionary::~StaticAnimationDictionary()

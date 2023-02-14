@@ -6,7 +6,7 @@
 #include <list>
 #include <cstdint>
 #include <onsem/common/enum/grammaticaltype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/texttosemantic/dbtype/misc/parameterswithvalue.hpp>
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>

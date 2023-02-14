@@ -64,6 +64,9 @@ KeyToFStreams generateIStreams(const std::string& pLingDbPath,
   for (std::size_t i = 0; i < semanticLanguageEnum_size; ++i)
   {
     auto language = semanticLanguageEnum_fromChar(static_cast<char>(i));
+    if (language == SemanticLanguageEnum::OTHER)
+      continue;
+
     auto languageFileName = semanticLanguageEnum_toLanguageFilenameStr(language);
     iStreams.addMainDicFile(language, pLingDbPath + "/" + languageFileName + "database.bdb");
     iStreams.addAnimationsFile(language, pLingDbPath + "/" + languageFileName + "animations.bdb");
@@ -75,6 +78,7 @@ KeyToFStreams generateIStreams(const std::string& pLingDbPath,
       {
         auto secondLanguage = semanticLanguageEnum_fromChar(static_cast<char>(j));
         if (language != secondLanguage &&
+            secondLanguage != SemanticLanguageEnum::OTHER &&
             secondLanguage != SemanticLanguageEnum::UNKNOWN)
         {
           auto filename = pLingDbPath + "/" +

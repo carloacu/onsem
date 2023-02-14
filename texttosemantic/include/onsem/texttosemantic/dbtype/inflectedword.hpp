@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 #include <map>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/inflections.hpp>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>

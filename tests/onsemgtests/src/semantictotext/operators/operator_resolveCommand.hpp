@@ -2,7 +2,7 @@
 #define ONSEM_GTESTS_SEMANTICCONTROLLLER_OPERATORS_OPERATOR_RESOLVECOMMAND_HPP
 
 #include <string>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 
 namespace onsem
 {

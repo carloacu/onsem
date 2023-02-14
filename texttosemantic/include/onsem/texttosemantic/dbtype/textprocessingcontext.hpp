@@ -2,7 +2,7 @@
 #define ONSEM_TEXTTOSEMANTIC_TYPES_TEXTPROCESSINGCONTEXT_HPP
 
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/texttosemantic/dbtype/resourcegroundingextractor.hpp>

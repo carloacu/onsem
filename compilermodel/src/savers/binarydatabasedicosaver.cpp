@@ -2,7 +2,7 @@
 #include <climits>
 #include <iomanip>
 #include <fstream>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/compilermodel/savers/binarydatabaseconceptssaver.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 #include <onsem/compilermodel/lingdbmeaningtowords.hpp>

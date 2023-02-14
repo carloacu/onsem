@@ -3,7 +3,7 @@
 
 #include <list>
 #include <set>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/semanticgendertype.hpp>
 
 namespace onsem

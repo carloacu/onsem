@@ -1,7 +1,7 @@
 #ifndef SEMANTICENGINE_MOCK_DUMMYCOMMENTARYPROVIDER_HPP
 #define SEMANTICENGINE_MOCK_DUMMYCOMMENTARYPROVIDER_HPP
 
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 
 namespace onsem

@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 #include <assert.h>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/partofspeech.hpp>
 #include "../api.hpp"
 

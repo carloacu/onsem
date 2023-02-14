@@ -2,7 +2,7 @@
 #define SEMANTICREASONERTESTER_SYNTACTICGRAPHRESULT_HPP
 
 #include <string>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 #include "api.hpp"
 

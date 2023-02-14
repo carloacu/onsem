@@ -2,7 +2,7 @@
 #define ONSEM_TEXTTOSEMANTIC_TOOL_ISCOMPLETE_HPP
 
 #include <string>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include "../api.hpp"
 
 namespace onsem

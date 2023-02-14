@@ -2,7 +2,7 @@
 #define ONSEMGTESTS_SEMANTICTOTEXT_TRIGGERS_TRIGGERS_MATCH_HPP
 
 #include <string>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 
 namespace onsem
 {

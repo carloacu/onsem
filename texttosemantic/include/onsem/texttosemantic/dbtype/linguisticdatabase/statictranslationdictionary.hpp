@@ -4,7 +4,7 @@
 #include <set>
 #include <onsem/common/keytostreams.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/detail/metawordtreedb.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>
 #include "../../api.hpp"
 

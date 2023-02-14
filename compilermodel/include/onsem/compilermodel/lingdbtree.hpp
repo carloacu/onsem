@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include <filesystem>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 
 
 namespace onsem

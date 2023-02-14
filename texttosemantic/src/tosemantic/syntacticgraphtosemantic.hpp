@@ -9,7 +9,7 @@
 #include <onsem/common/enum/verbgoalenum.hpp>
 #include <onsem/common/enum/semanticgendertype.hpp>
 #include <onsem/common/enum/semanticreferencetype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/grammaticaltype.hpp>
 #include <onsem/common/enum/listexpressiontype.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>

@@ -13,7 +13,7 @@ namespace linguistics
 class ONSEM_TEXTTOSEMANTIC_API AnimationDictionary
 {
 public:
-  AnimationDictionary(std::istream& pIstream,
+  AnimationDictionary(std::istream* pIstreamPtr,
                       const StaticConceptSet& pConceptsDb,
                       SemanticLanguageEnum pLangEnum);
 
@@ -22,7 +22,7 @@ public:
 private:
   static std::mutex _pathToStatDbsMutex;
   static std::map<SemanticLanguageEnum, std::unique_ptr<StaticAnimationDictionary>> _statDbs;
-  static const StaticAnimationDictionary& _getStatDbInstance(std::istream& pIstream,
+  static const StaticAnimationDictionary& _getStatDbInstance(std::istream* pIstreamPtr,
                                                              const StaticConceptSet& pConceptsDb,
                                                              SemanticLanguageEnum pLangEnum);
 

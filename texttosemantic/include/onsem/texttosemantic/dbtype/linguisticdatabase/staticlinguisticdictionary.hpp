@@ -38,7 +38,7 @@ struct WordAssociatedInfos;
 class ONSEM_TEXTTOSEMANTIC_API StaticLinguisticDictionary : public MetaWordTreeDb
 {
 public:
-  StaticLinguisticDictionary(std::istream& pDictIStream,
+  StaticLinguisticDictionary(std::istream* pDictIStreamPtr,
                              const StaticConceptSet& pStaticConceptSet,
                              SemanticLanguageEnum pLangEnum);
 

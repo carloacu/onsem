@@ -10,7 +10,7 @@
 #include <onsem/common/enum/semanticverbtense.hpp>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include <onsem/common/enum/semanticreferencetype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/semanticentitytype.hpp>
 #include <onsem/common/enum/treepatternconventionenum.hpp>
 #include <onsem/common/enum/semanticrelativetimetype.hpp>

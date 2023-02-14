@@ -5,7 +5,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include "binarydatabaseconceptssaver.hpp"
 
 

@@ -5,7 +5,7 @@
 #include <list>
 #include <map>
 #include <memory>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/type/debug/synthanalendingstepfordebug.hpp>
 #include <onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp>
 #include <onsem/semanticdebugger/printer/semexplinestostr.hpp>

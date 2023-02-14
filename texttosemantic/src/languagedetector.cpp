@@ -66,7 +66,7 @@ SemanticLanguageEnum getLanguage(const std::string& pText,
   for (std::size_t i = 0; i < langToSpec_size; ++i)
   {
     SemanticLanguageEnum language = semanticLanguageEnum_fromChar(static_cast<char>(i));
-    if (language == SemanticLanguageEnum::UNKNOWN)
+    if (language == SemanticLanguageEnum::OTHER || language == SemanticLanguageEnum::UNKNOWN)
       continue;
     std::size_t currPos = 0;
     int confidenceOfCurrentLanguageForTheText = 0;

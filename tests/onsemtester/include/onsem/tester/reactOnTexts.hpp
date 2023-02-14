@@ -4,7 +4,7 @@
 #include <list>
 #include <memory>
 #include <onsem/common/enum/contextualannotation.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/utility/unique_propagate_const.hpp>
 #include "api.hpp"
 #include "detailedreactionanswer.hpp"

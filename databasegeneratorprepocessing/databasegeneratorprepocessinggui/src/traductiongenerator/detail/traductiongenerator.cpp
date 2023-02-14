@@ -1,7 +1,7 @@
 #include "../traductiongenerator.hpp"
 #include <fstream>
 #include <filesystem>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/compilermodel/loaders/wlksdatabaseloader.hpp>
 #include <onsem/compilermodel/savers/traductionwriter.hpp>
 

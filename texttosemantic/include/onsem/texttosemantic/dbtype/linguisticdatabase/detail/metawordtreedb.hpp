@@ -26,7 +26,8 @@ public:
 
 protected:
   /// The patricia trie.
-  signed char* fPtrPatriciaTrie;
+  signed char* _ptrPatriciaTrie;
+  bool _loadedWithoutStream;
 
   virtual bool xIsLoaded() const;
 

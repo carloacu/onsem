@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/compilermodel/lingdbtree.hpp>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
 #include <onsem/compilermodel/lingdbdynamictrienode.hpp>

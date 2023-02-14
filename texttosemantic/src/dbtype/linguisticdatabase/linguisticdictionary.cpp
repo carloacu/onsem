@@ -16,7 +16,7 @@ std::map<SemanticLanguageEnum, std::unique_ptr<StaticLinguisticDictionary>> Ling
 
 
 StaticLinguisticDictionary& LinguisticDictionary::_getStatDbInstance(
-    std::istream& pDictIStream,
+    std::istream* pDictIStreamPtr,
     const StaticConceptSet& pStaticConceptSet,
     SemanticLanguageEnum pLangEnum)
 {
@@ -28,7 +28,7 @@ StaticLinguisticDictionary& LinguisticDictionary::_getStatDbInstance(
     bool inserted = false;
     std::tie(itElt, inserted) = _pathToStatDbs.emplace
         (pLangEnum,
-         std::make_unique<StaticLinguisticDictionary>(pDictIStream, pStaticConceptSet, pLangEnum));
+         std::make_unique<StaticLinguisticDictionary>(pDictIStreamPtr, pStaticConceptSet, pLangEnum));
   }
   return *itElt->second;
 }
@@ -92,10 +92,10 @@ void LinguisticDictionary::InflectedInfos::fillIGram(InflectedWord& pIGram) cons
 }
 
 
-LinguisticDictionary::LinguisticDictionary(std::istream& pDictIStream,
+LinguisticDictionary::LinguisticDictionary(std::istream* pDictIStreamPtr,
                                            const StaticConceptSet& pStaticConceptSet,
                                            SemanticLanguageEnum pLangEnum)
-  : statDb(_getStatDbInstance(pDictIStream, pStaticConceptSet, pLangEnum)),
+  : statDb(_getStatDbInstance(pDictIStreamPtr, pStaticConceptSet, pLangEnum)),
     _language(pLangEnum),
     _wordToAssocInfos(),
     _lemmaToPosOfWordToRemoveFromStaticDico(std::make_unique<mystd::radix_map_str<std::list<PartOfSpeech>>>()),

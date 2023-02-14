@@ -25,7 +25,7 @@ set(ONSEMCOMMON_HPPS
     include/onsem/common/enum/semanticnumbertype.hpp
     include/onsem/common/enum/semanticentitytype.hpp
     include/onsem/common/enum/semanticquantitytype.hpp
-    include/onsem/common/enum/semanticlanguagetype.hpp
+    include/onsem/common/enum/semanticlanguageenum.hpp
     include/onsem/common/enum/semanticrequesttype.hpp
     include/onsem/common/enum/semanticreferencetype.hpp
     include/onsem/common/enum/semanticrelativelocationtype.hpp

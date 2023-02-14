@@ -11,7 +11,7 @@ std::mutex SynthesizerDictionary::_pathToStatDbsMutex{};
 std::map<SemanticLanguageEnum, std::unique_ptr<StaticSynthesizerDictionary>> SynthesizerDictionary::_statDbs{};
 
 const StaticSynthesizerDictionary& SynthesizerDictionary::_getStatDbInstance(
-    std::istream& pIStream,
+    std::istream* pIStreamPtr,
     const StaticConceptSet& pConceptsDb,
     const StaticLinguisticDictionary& pStatLingDic,
     SemanticLanguageEnum pLangEnum)
@@ -21,18 +21,18 @@ const StaticSynthesizerDictionary& SynthesizerDictionary::_getStatDbInstance(
   if (it == _statDbs.end())
   {
     auto& res = _statDbs[pLangEnum];
-    res = std::make_unique<StaticSynthesizerDictionary>(pIStream, pConceptsDb, pStatLingDic, pLangEnum);
+    res = std::make_unique<StaticSynthesizerDictionary>(pIStreamPtr, pConceptsDb, pStatLingDic, pLangEnum);
     return *res;
   }
   return *it->second;
 }
 
 
-SynthesizerDictionary::SynthesizerDictionary(std::istream& pIStream,
+SynthesizerDictionary::SynthesizerDictionary(std::istream* pIStreamPtr,
                                              const StaticConceptSet& pConceptsDb,
                                              const StaticLinguisticDictionary& pStatLingDic,
                                              SemanticLanguageEnum pLangEnum)
- : statDb(_getStatDbInstance(pIStream, pConceptsDb, pStatLingDic, pLangEnum)),
+ : statDb(_getStatDbInstance(pIStreamPtr, pConceptsDb, pStatLingDic, pLangEnum)),
    _lingDict(pStatLingDic),
    _wordToInflections(),
    _conceptToInfoGrams()

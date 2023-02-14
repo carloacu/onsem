@@ -4,7 +4,7 @@
 #include <list>
 #include <map>
 #include <functional>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 #include <onsem/common/enum/wordcontextualinfos.hpp>
 

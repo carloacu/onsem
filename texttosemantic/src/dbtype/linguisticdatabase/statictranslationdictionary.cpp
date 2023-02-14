@@ -26,7 +26,11 @@ StaticTranslationDictionary::~StaticTranslationDictionary()
 
 void StaticTranslationDictionary::xUnload()
 {
-  binaryloader::deallocMemZone(&fPtrPatriciaTrie);
+  if (_ptrPatriciaTrie != nullptr)
+  {
+    binaryloader::deallocMemZone(&_ptrPatriciaTrie);
+    _ptrPatriciaTrie = nullptr;
+  }
   fTotalSize = 0;
   fErrorMessage = "NOT_LOADED";
 }
@@ -36,7 +40,14 @@ void StaticTranslationDictionary::xLoad(linguistics::LinguisticDatabaseStreams& 
 {
   if (xIsLoaded())
     return;
-  auto& stream = *pIStreams.languageToStreams[fTransId.inLangEnum].translationStreams[fTransId.outLangEnum];
+  auto* streamPtr = pIStreams.languageToStreams[fTransId.inLangEnum].translationStreams[fTransId.outLangEnum];
+
+  if (streamPtr == nullptr)
+  {
+    _loadedWithoutStream = true;
+    return;
+  }
+  auto& stream = *streamPtr;
   DatabaseHeader header;
   stream.read(header.charValues, sizeof(DatabaseHeader));
   if (header.intValues[0] != fFormalism)
@@ -46,7 +57,7 @@ void StaticTranslationDictionary::xLoad(linguistics::LinguisticDatabaseStreams& 
   }
   fTotalSize = static_cast<std::size_t>(header.intValues[1]);
 
-  if (!binaryloader::allocMemZone(&fPtrPatriciaTrie, stream, fTotalSize))
+  if (!binaryloader::allocMemZone(&_ptrPatriciaTrie, stream, fTotalSize))
   {
     xUnload();
     fErrorMessage = "BAD_ALLOC";

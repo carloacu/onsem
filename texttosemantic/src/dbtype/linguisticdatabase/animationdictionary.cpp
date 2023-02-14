@@ -8,7 +8,7 @@ std::mutex AnimationDictionary::_pathToStatDbsMutex{};
 std::map<SemanticLanguageEnum, std::unique_ptr<StaticAnimationDictionary>> AnimationDictionary::_statDbs{};
 
 
-const StaticAnimationDictionary& AnimationDictionary::_getStatDbInstance(std::istream& pIstream,
+const StaticAnimationDictionary& AnimationDictionary::_getStatDbInstance(std::istream* pIstreamPtr,
                                                                          const StaticConceptSet& pConceptsDb,
                                                                          SemanticLanguageEnum pLangEnum)
 {
@@ -17,17 +17,17 @@ const StaticAnimationDictionary& AnimationDictionary::_getStatDbInstance(std::is
   if (it == _statDbs.end())
   {
     auto& res = _statDbs[pLangEnum];
-    res = std::make_unique<StaticAnimationDictionary>(pIstream, pConceptsDb, pLangEnum);
+    res = std::make_unique<StaticAnimationDictionary>(pIstreamPtr, pConceptsDb, pLangEnum);
     return *res;
   }
   return *it->second;
 }
 
 
-AnimationDictionary::AnimationDictionary(std::istream& pIstream,
+AnimationDictionary::AnimationDictionary(std::istream* pIstreamPtr,
                                          const StaticConceptSet& pConceptsDb,
                                          SemanticLanguageEnum pLangEnum)
-  : statDb(_getStatDbInstance(pIstream, pConceptsDb, pLangEnum))
+  : statDb(_getStatDbInstance(pIstreamPtr, pConceptsDb, pLangEnum))
 {
 }
 

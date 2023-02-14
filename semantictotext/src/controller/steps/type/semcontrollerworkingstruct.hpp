@@ -6,7 +6,7 @@
 #include "../../../type/enum/semanticoperatorenum.hpp"
 #include "../../../type/semanticdetailledanswer.hpp"
 #include <onsem/common/enum/semanticrequesttype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/infomationtype.hpp>
 #include <onsem/common/enum/contextualannotation.hpp>
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>

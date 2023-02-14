@@ -5,7 +5,7 @@
 #include <sstream>
 #include <list>
 #include "../api.hpp"
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 
 

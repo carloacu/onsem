@@ -5,7 +5,7 @@
 #include <set>
 #include <vector>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/detail/virtualsembinarydatabase.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>
 #include "../../api.hpp"
 
@@ -18,7 +18,7 @@ namespace linguistics
 class ONSEM_TEXTTOSEMANTIC_API StaticAnimationDictionary : public VirtualSemBinaryDatabase
 {
 public:
-  StaticAnimationDictionary(std::istream& pIstream,
+  StaticAnimationDictionary(std::istream* pIstreamPtr,
                             const StaticConceptSet& pConceptsDb,
                             SemanticLanguageEnum pLangEnum);
 

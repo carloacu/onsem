@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <onsem/common/utility/unique_propagate_const.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/misc/parameterswithvalue.hpp>
 #include <onsem/texttosemantic/dbtype/interactioncontext.hpp>
 #include <onsem/semantictotext/api.hpp>

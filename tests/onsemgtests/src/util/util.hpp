@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include <onsem/common/utility/observable/connection.hpp>
 #include <onsem/common/enum/grammaticaltype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/tester/detailedreactionanswer.hpp>
 
 #define ONSEM_ANNOTATIONTYPE_EQ(ann1, ann2) EXPECT_EQ(ann1, ann2) << "Actual: " << contextualAnnotation_toStr(ann2) << "\nExpected: " << contextualAnnotation_toStr(ann1);

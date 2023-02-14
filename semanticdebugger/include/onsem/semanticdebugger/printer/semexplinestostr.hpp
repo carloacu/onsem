@@ -6,7 +6,7 @@
 #include <map>
 #include "../api.hpp"
 #include <onsem/texttosemantic/printer/semlinetoprint.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 
 
 namespace onsem

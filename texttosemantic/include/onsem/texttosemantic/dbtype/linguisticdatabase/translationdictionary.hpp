@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <mutex>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/statictranslationdictionary.hpp>
 #include "../../api.hpp"

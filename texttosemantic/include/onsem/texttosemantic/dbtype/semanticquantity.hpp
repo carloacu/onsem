@@ -4,7 +4,7 @@
 #include "../api.hpp"
 #include <onsem/common/enum/semanticsubjectivequantity.hpp>
 #include <onsem/common/enum/semanticquantitytype.hpp>
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/texttosemantic/dbtype/misc/sign.hpp>
 
 namespace onsem

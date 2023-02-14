@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 #include "semanticgrounding.hpp"
-#include <onsem/common/enum/semanticlanguagetype.hpp>
+#include <onsem/common/enum/semanticlanguageenum.hpp>
 #include "../../api.hpp"
 #include "../semanticexpression/semanticexpression.hpp"
 

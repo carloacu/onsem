@@ -12,7 +12,7 @@ namespace onsem
 namespace linguistics
 {
 
-StaticSynthesizerDictionary::StaticSynthesizerDictionary(std::istream& pIStream,
+StaticSynthesizerDictionary::StaticSynthesizerDictionary(std::istream* pIStreamPtr,
                                                          const StaticConceptSet& pConceptsDb,
                                                          const StaticLinguisticDictionary& pStatLingDic,
                                                          SemanticLanguageEnum pLangEnum)
@@ -24,7 +24,8 @@ StaticSynthesizerDictionary::StaticSynthesizerDictionary(std::istream& pIStream,
     fConceptsToMeanings(nullptr),
     fMeaningsFromConcepts(nullptr)
 {
-  xLoad(pIStream);
+  if (pIStreamPtr != nullptr)
+    xLoad(*pIStreamPtr);
 }
 
 
