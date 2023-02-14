@@ -62,7 +62,8 @@ static_assert("é"[0] == "ç"[0], "Wrong assumption: é & ç doesn't begin with 
 static_assert("É"[0] == "é"[0], "Wrong assumption: É & é doesn't begin with same character");
 
 
-std::string urlizeText(const std::string& pText)
+std::string urlizeText(const std::string& pText,
+                       bool pMergeTokens)
 {
   std::string res;
 
@@ -83,7 +84,7 @@ std::string urlizeText(const std::string& pText)
       res += static_cast<char>(pText[i++] + 'a' - 'A');
       continue;
     }
-    if (pText[i] == '-' || pText[i] == ' ' || pText[i] == '\'' || pText[i] == '.')
+    if (!pMergeTokens && (pText[i] == '-' || pText[i] == ' ' || pText[i] == '\'' || pText[i] == '.'))
     {
       if (!res.empty() && res[res.size()-1] != '-')
         res += '-';

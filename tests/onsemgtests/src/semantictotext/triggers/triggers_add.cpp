@@ -21,11 +21,12 @@ void _triggers_addFromSemExp(UniqueSemanticExpression& pTriggerSemExp,
                              const std::string& pAnswerText,
                              SemanticMemory& pSemanticMemory,
                              const linguistics::LinguisticDatabase& pLingDb,
-                             const std::list<std::string>& pReferences)
+                             const std::list<std::string>& pReferences,
+                             SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN)
 {
   TextProcessingContext answerProcContext(SemanticAgentGrounding::me,
                                           SemanticAgentGrounding::currentUser,
-                                          SemanticLanguageEnum::UNKNOWN);
+                                          pLanguage);
   answerProcContext.isTimeDependent = false;
   answerProcContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
@@ -50,7 +51,7 @@ void triggers_add(const std::string& pTriggerText,
   triggerProcContext.isTimeDependent = false;
   auto triggerSemExp = converter::textToContextualSemExp(pTriggerText, triggerProcContext,
                                                          SemanticSourceEnum::UNKNOWN, pLingDb);
-  _triggers_addFromSemExp(triggerSemExp, pAnswerText, pSemanticMemory, pLingDb, pReferences);
+  _triggers_addFromSemExp(triggerSemExp, pAnswerText, pSemanticMemory, pLingDb, pReferences, pLanguage);
 }
 
 void triggers_addToSemExpAnswer(

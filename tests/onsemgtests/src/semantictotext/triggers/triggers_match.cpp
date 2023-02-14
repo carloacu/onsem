@@ -172,6 +172,22 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
 
 
 
+TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_otherLanguage)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  auto language = SemanticLanguageEnum::OTHER;
+
+  const std::string trigger1 = "Trigger1 text";
+  const std::string reaction1 = "Reaction1 answer";
+  triggers_add(trigger1, reaction1, semMem, lingDb, {}, language);
+  ONSEM_ANSWER_EQ(reaction1, triggers_match(trigger1, semMem, lingDb, language));
+  ONSEM_ANSWER_EQ(reaction1, triggers_match("trigger1    text. ", semMem, lingDb, language));
+  ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("Another trigger", semMem, lingDb, language));
+}
+
+
+
 TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
@@ -366,3 +382,4 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Could you look up", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Could you please look up", semMem, lingDb));
 }
+

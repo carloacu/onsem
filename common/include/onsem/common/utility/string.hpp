@@ -12,7 +12,7 @@ namespace mystd
 
 /// Takes a string, sanitizes it for usage in URLs, and converts spaces to hyphens.
 ONSEM_COMMON_API
-std::string urlizeText(const std::string& pText);
+std::string urlizeText(const std::string& pText, bool pMergeTokens = false);
 
 
 /**

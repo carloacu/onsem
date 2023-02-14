@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <onsem/common/utility/getendofparenthesis.hpp>
+#include <onsem/common/utility/string.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
@@ -919,6 +920,16 @@ void _databaseTokenizer(TokSent& pTokSent,
                         const LinguisticDictionary& pLingDico,
                         const LinguisticDictionary& pCommonLingDico)
 {
+  if (pLingDico.getLanguage() == SemanticLanguageEnum::OTHER)
+  {
+    pTokSent.tokens.emplace_back(pTokSent.textForms.inputText);
+    auto& inflWords = pTokSent.tokens.back().inflWords;
+    InflectedWord inflWord(PartOfSpeech::UNKNOWN, std::make_unique<NominalInflections>());
+    inflWord.infos.concepts.emplace(mystd::urlizeText(pTokSent.textForms.inputText, true), 4);
+    inflWords.emplace_back(std::move(inflWord));
+    return;
+  }
+
   // advance in the sentence
   while (pTokSent.currPos < pTokSent.endPosToTokenize)
   {
