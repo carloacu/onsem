@@ -771,7 +771,7 @@ std::size_t StaticLinguisticDictionary::getLengthOfLongestWord
 (const std::string& pStr, std::size_t pBeginStr) const
 {
   assert(xIsLoaded());
-  std::size_t pos;
+  std::size_t pos = 0;
   xSearchInPatriciaTrie(pos, pStr, pBeginStr, pStr.size() - pBeginStr, true,
                         fIfSeparatorBetweenWords ? SearchForLongestWordMode::ENBABLED_BUTWITHSEPARATORAFTER : SearchForLongestWordMode::ENABLED);
   return pos;
