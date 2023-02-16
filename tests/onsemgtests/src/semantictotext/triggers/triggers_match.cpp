@@ -168,6 +168,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_BEHAVIOR_EQ(reaction10, triggers_match("Descends ton volume", semMem, lingDb, SemanticLanguageEnum::FRENCH));
   ONSEM_ANSWER_EQ(reaction11, triggers_match(trigger11, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction11, triggers_match("tell me who you are", semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction11, triggers_match("tell us who you are", semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction11, triggers_match("please tell me who you are", semMem, lingDb));
 }
 

@@ -158,6 +158,9 @@
 -me.PRO
 #me,.PROC:1s
 
+-us.PRO
+#us,.PROC:1p
+
 #time,times.N:s
 #times,times.N:p
 

@@ -23,6 +23,9 @@
   <existingMeaning lemme="me" gram="pronoun_comp">
     <contextInfo val="refToAPerson" />
   </existingMeaning>
+  <existingMeaning lemme="us" gram="pronoun_comp">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
   <existingMeaning lemme="my" gram="determiner">
     <contextInfo val="refToAPerson" />
   </existingMeaning>
