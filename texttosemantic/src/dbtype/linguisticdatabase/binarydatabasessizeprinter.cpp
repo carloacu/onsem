@@ -3,7 +3,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticsynthesizerdictionary.hpp>
-#include <onsem/texttosemantic/dbtype/linguisticdatabase/staticanimationdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/treeconverter.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/statictranslationdictionary.hpp>
@@ -107,13 +106,6 @@ void printSize(std::string& pText,
 
     if (currLang != SemanticLanguageEnum::UNKNOWN)
     {
-      auto itAnimDic = pLingDb.langToAnimDic.find(currLang);
-      if (itAnimDic != pLingDb.langToAnimDic.end())
-        _printBinDbSize
-            (dbsSizePrints, totalSize,
-             semanticLanguageEnum_toLanguageFilenameStr(currLang) + "animations\t\t",
-             itAnimDic->second->statDb);
-
       for (SemanticLanguageEnum currLang2 : dbLanguages)
       {
         if (currLang2 != currLang &&

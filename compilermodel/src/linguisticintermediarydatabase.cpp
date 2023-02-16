@@ -6,7 +6,6 @@
 #include <onsem/compilermodel/lingdbtypes.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 #include <onsem/compilermodel/lingdbwordforms.hpp>
-#include "lingdbanimationtag.hpp"
 #include <onsem/compilermodel/lingdbstring.hpp>
 #include "concept/lingdblinktoaconcept.hpp"
 #include "concept/lingdbconcept.hpp"
@@ -31,9 +30,6 @@ LinguisticIntermediaryDatabase::LinguisticIntermediaryDatabase()
   fAlloc.addANewLeaf<LingdbMeaning>("a meaning", alignementMemory, LingdbMeaning::xGetPointers);
   fAlloc.addANewLeaf<LingdbFlexions>("a flexion", alignementMemory, LingdbFlexions::xGetPointers);
   fAlloc.addANewLeaf<ForwardPtrList<LingdbAnimationsTag> >("list of tags", alignementMemory, ForwardPtrList<LingdbAnimationsTag>::getPointers);
-  fAlloc.addANewLeaf<LingdbAnimationsTag>("a tag", alignementMemory, LingdbAnimationsTag::xGetPointers);
-  fAlloc.addANewLeaf<ForwardPtrList<PonderatedMeaning>>("a list of meanings with a ponderated value", alignementMemory, ForwardPtrList<PonderatedMeaning>::getPointers);
-  fAlloc.addANewLeaf<PonderatedMeaning>("a meaning with a ponderated value", alignementMemory, PonderatedMeaning::xGetPointers);
 
   fAlloc.addANewLeaf<LingdbQuestionWords>("question words", alignementMemory, LingdbQuestionWords::xGetPointers);
   fAlloc.addANewLeaf<LingdbQuestionWords::AQuestionWord>("a question word", alignementMemory, LingdbQuestionWords::AQuestionWord::xGetPointers);
@@ -186,16 +182,6 @@ LingdbConcept* LinguisticIntermediaryDatabase::addConcept
 }
 
 
-void LinguisticIntermediaryDatabase::removeAllTags()
-{
-  LingdbAnimationsTag* currTag = fAlloc.first<LingdbAnimationsTag>();
-  while (currTag != nullptr)
-  {
-    currTag->xDeallocate(fAlloc);
-    currTag = fAlloc.next<LingdbAnimationsTag>(currTag);
-  }
-}
-
 void LinguisticIntermediaryDatabase::addWord
 (const std::string& pWord,
  const std::string& pLemma,
@@ -295,38 +281,6 @@ void LinguisticIntermediaryDatabase::addMultiMeaningsWord
     }
   }
 }
-
-
-LingdbAnimationsTag* LinguisticIntermediaryDatabase::addATag
-(const std::string& pTag)
-{
-  if (pTag.empty())
-  {
-    return nullptr;
-  }
-
-  // Check if the tag don't already exist in the memory
-  LingdbAnimationsTag* newTag = nullptr;
-  LingdbAnimationsTag* tagsInMemory = fAlloc.first<LingdbAnimationsTag>();
-  while (tagsInMemory != nullptr)
-  {
-    if (tagsInMemory->getTag()->toStr() == pTag)
-    {
-      newTag = tagsInMemory;
-      break;
-    }
-    tagsInMemory = fAlloc.next<LingdbAnimationsTag>(tagsInMemory);
-  }
-
-  // Add a new tag in memory if necessary
-  if (newTag == nullptr)
-  {
-    newTag = fAlloc.allocate<LingdbAnimationsTag>(1);
-    newTag->xInit(fAlloc, pTag);
-  }
-  return newTag;
-}
-
 
 
 void LinguisticIntermediaryDatabase::removeWord

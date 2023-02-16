@@ -9,9 +9,6 @@ merge [inputresources]/japanese/japanese_words.xml
 merge [inputresources]/common/declare_concepts.xml
 merge [inputresources]/japanese/japanese_concepts.xml
 
-% Fill animations
-merge [inputresources]/japanese/japanese_animations.xml
-
 % Save the database
 save
 

@@ -12,7 +12,6 @@
 #include <onsem/compilermodel/lingdbtree.hpp>
 #include <onsem/compilermodel/databaserules/lingdbquestionwords.hpp>
 #include "../concept/lingdbconcept.hpp"
-#include "../lingdbanimationtag.hpp"
 
 namespace onsem
 {
@@ -149,64 +148,6 @@ void XmlDatabaseLoader::merge
           {
             throw std::runtime_error("Sub tag name: \"" + subTagName + "\" doesn't exist.");
           }
-        }
-      }
-    }
-    else if (currSubTree.first == "animationTag")
-    {
-      std::string tag = subTree.get<std::string>("<xmlattr>.name", "");
-      if (tag.empty())
-        throw std::runtime_error("Tag name is empty (in file: \"" + pFilename + "\").");
-      LingdbAnimationsTag* animTag = pLingDatabase.addATag(tag);
-      for(const auto& currAnimTree : subTree)
-      {
-        if (currAnimTree.first == "<xmlattr>")
-          continue;
-        const boost::property_tree::ptree& animAttrs = currAnimTree.second.get_child("<xmlattr>");
-        if (currAnimTree.first == "linkedConcept")
-        {
-          std::string name = animAttrs.get<std::string>("name", "");
-          if (name.empty())
-          {
-            throw std::runtime_error("Name of the concept not found (in file: \"" + pFilename + "\").");
-          }
-          LingdbConcept* conceptPtr = pLingDatabase.getConcept(name);
-          if (conceptPtr == nullptr)
-          {
-            throw std::runtime_error("Concept not found: \"" + name + "\" (in file: \"" +
-                                     pFilename + "\").");
-          }
-          char minValue = 1;
-          std::string minValueStr = animAttrs.get<std::string>("minValue", "");
-          if (!minValueStr.empty())
-          {
-            try
-            {
-              minValue = mystd::lexical_cast<char>(minValueStr);
-            }
-            catch (...)
-            {
-              minValue = 1;
-            }
-          }
-          animTag->addConcept(pLingDatabase.xGetFPAlloc(), conceptPtr, minValue);
-        }
-        else if (currAnimTree.first == "linkedMeaning")
-        {
-          std::string lemma = animAttrs.get<std::string>("lemme", "");
-          PartOfSpeech lemmaPartOfSpeech = partOfSpeech_fromStr(animAttrs.get<std::string>("gram", ""));
-          char rela = static_cast<char>(mystd::lexical_cast<int>(animAttrs.get<std::string>("relationToConcept", "3")));
-          LingdbMeaning* meaningPtr = pLingDatabase.getMeaning(lemma, lemmaPartOfSpeech);
-          if (meaningPtr == nullptr)
-          {
-            if (pLingDatabase.doesWordExist(lemma))
-            {
-              std::cerr << "animation: add a new meaning to word: " << lemma << std::endl;
-            }
-            pLingDatabase.addWord(lemma, lemma, lemmaPartOfSpeech,std::vector<std::string>(), 4);
-            meaningPtr = pLingDatabase.getMeaning(lemma, lemmaPartOfSpeech);
-          }
-          animTag->addMeaning(pLingDatabase.xGetFPAlloc(), meaningPtr, rela);
         }
       }
     }

@@ -14,7 +14,6 @@
 #include <onsem/compilermodel/lingdbstring.hpp>
 #include "../concept/lingdbconcept.hpp"
 #include "../concept/lingdblinktoaconcept.hpp"
-#include "../lingdbanimationtag.hpp"
 
 namespace onsem
 {
@@ -24,7 +23,6 @@ void BinaryDatabaseDicoSaver::save
 (std::map<const LingdbMeaning*, int>& pMeaningsPtr,
  const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
  const std::filesystem::path& pFilenameDatabase,
- const std::filesystem::path& pFilenameAnimationDatabase,
  const std::filesystem::path& pFilenameSynthesizerDatabase,
  const LinguisticIntermediaryDatabase& pLingDatabase) const
 {
@@ -130,50 +128,8 @@ void BinaryDatabaseDicoSaver::save
 
   outfile.close();
 
-  if (!pFilenameAnimationDatabase.string().empty())
-  {
-    xSaveAnimations(pFilenameAnimationDatabase, pConceptsOffsets,
-                    pMeaningsPtr, pLingDatabase, mem);
-  }
-
   ::operator delete(mem.ptr);
   debufInfosFile.close();
-}
-
-
-
-
-void BinaryDatabaseDicoSaver::xSaveAnimations
-(const std::filesystem::path& pFilenameAnimDatabase,
- const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
- const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
- const LinguisticIntermediaryDatabase& pLingDatabase,
- binarymasks::Ptr pMem) const
-{
-  const CompositePoolAllocator& alloc = pLingDatabase.getFPAlloc();
-  int nbAnimTags = 0;
-  binarymasks::Ptr endMemory = xAddAnimationsTags(nbAnimTags, pConceptsOffsets,
-                                                pMeaningsPtr, alloc, pMem);
-  std::size_t sizeMemory = endMemory.val - pMem.val;
-
-  std::ofstream outfile(pFilenameAnimDatabase, std::ofstream::binary);
-  outfile.write(reinterpret_cast<const char*>(&fFormalism), sizeof(fFormalism));
-
-  // write if the version of the database
-  {
-    unsigned int version = pLingDatabase.getVersion();
-    outfile.write(reinterpret_cast<const char*>(&version), sizeof(unsigned int));
-  }
-
-  // write the number of animations
-  outfile.write(reinterpret_cast<const char*>(&nbAnimTags), sizeof(int));
-  // write the memory size
-  binarysaver::writePtr(outfile, sizeMemory);
-
-  // Write all the memory
-  outfile.write(reinterpret_cast<const char*>(pMem.ptr), sizeMemory);
-
-  outfile.close();
 }
 
 
@@ -432,81 +388,6 @@ binarymasks::Ptr BinaryDatabaseDicoSaver::xWriteNodeRef
     }
   }
   pEndMemory.val += 4;
-  return pEndMemory;
-}
-
-
-
-
-binarymasks::Ptr BinaryDatabaseDicoSaver::xAddAnimationsTags
-(int& pNbAnimTags,
- const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
- const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
- const CompositePoolAllocator& pFPAlloc,
- binarymasks::Ptr pEndMemory) const
-{
-  pNbAnimTags = 0;
-  LingdbAnimationsTag* currAnimTag = pFPAlloc.first<LingdbAnimationsTag>();
-  while (currAnimTag != nullptr)
-  {
-    pEndMemory = xWriteString(pEndMemory, currAnimTag->getTag());
-    assert(!currAnimTag->isEmpty());
-    ++pNbAnimTags;
-
-    // write number of concepts
-    const ForwardPtrList<LingdbLinkToAConcept>* currLkConcept = currAnimTag->getLinksToConcept();
-    if (currLkConcept == nullptr)
-    {
-      binarysaver::writeChar(pEndMemory.pchar++, 0);
-    }
-    else
-    {
-      unsigned char currLkConcept_length = currLkConcept->length();
-      assert((currLkConcept_length & 0x80) == 0); // not signed
-      binarysaver::writeChar(pEndMemory.pchar++, currLkConcept_length);
-    }
-
-    // write number of meanings
-    const ForwardPtrList<PonderatedMeaning>* currPondMeaning = currAnimTag->getMeanings();
-    if (currPondMeaning == nullptr)
-    {
-      binarysaver::writeChar(pEndMemory.pchar++, 0);
-    }
-    else
-    {
-      unsigned char currMeaning_length = currPondMeaning->length();
-      assert((currMeaning_length & 0x80) == 0); // not signed
-      binarysaver::writeChar(pEndMemory.pchar++, currMeaning_length);
-    }
-
-    // align the memory
-    pEndMemory = binarysaver::alignMemory(pEndMemory);
-
-    // write the concepts
-    while (currLkConcept != nullptr)
-    {
-      std::map<std::string, ConceptsBinMem>::const_iterator
-          itConcept = pConceptsOffsets.find(currLkConcept->elt->getConcept()->getName()->toStr());
-      assert(itConcept != pConceptsOffsets.end());
-      binarysaver::writeInThreeBytes(pEndMemory.pchar, itConcept->second.alignedBegNode);
-      pEndMemory.val += 3;
-      binarysaver::writeChar(pEndMemory.pchar++, currLkConcept->elt->getRelatedToConcept());
-      currLkConcept = currLkConcept->next;
-    }
-
-    // write the meanings
-    while (currPondMeaning != nullptr)
-    {
-      auto itMeaning = pMeaningsPtr.find(currPondMeaning->elt->meaning);
-      assert(itMeaning != pMeaningsPtr.end());
-      binarysaver::writeInThreeBytes(pEndMemory.pchar, itMeaning->second);
-      pEndMemory.val += 3;
-      binarysaver::writeChar(pEndMemory.pchar++, currPondMeaning->elt->relation);
-      currPondMeaning = currPondMeaning->next;
-    }
-
-    currAnimTag = pFPAlloc.next<LingdbAnimationsTag>(currAnimTag);
-  }
   return pEndMemory;
 }
 

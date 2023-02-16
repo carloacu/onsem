@@ -216,7 +216,6 @@ void LingdbTree::update(const std::string& pSdkShareDir,
       std::string lang = semanticLanguageEnum_toLanguageFilenameStr(fLanguages[i].langGroundingsType);
       binDicoSaver.save(langToMeaningsPtr[fLanguages[i].langGroundingsType], conceptsOffsets,
           linguisticDatabasesPath + "/" + xGetStatDatabaseFilename(lang),
-          linguisticDatabasesPath / std::filesystem::path(lang + "animations." + getExtBinaryDatabase()),
           linguisticDatabasesPath / std::filesystem::path(lang + "synthesizer." + getExtBinaryDatabase()),
           *fLanguages[i].dynDb);
     }

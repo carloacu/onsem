@@ -16,9 +16,6 @@ merge [inputresources]/english/rla/load_concepts.rla
 % Identify question words
 merge [inputresources]/english/english_questionWords.xml
 
-% Fill animations
-merge [inputresources]/english/english_animations.xml
-
 % Save the database
 save
 

@@ -13,7 +13,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/synthesizerdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/treeconverter.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/translationdictionary.hpp>
-#include <onsem/texttosemantic/dbtype/linguisticdatabase/animationdictionary.hpp>
 #include <onsem/texttosemantic/tool/partofspeech/partofspeechcontextfilter.hpp>
 #include <onsem/texttosemantic/dbtype/inflectedword.hpp>
 #include "../api.hpp"
@@ -128,7 +127,6 @@ struct ONSEM_TEXTTOSEMANTIC_API LinguisticDatabase
   mystd::enum_vector_initialized<SemanticLanguageEnum, SpecificLinguisticDatabase> langToSpec;
   TranslationDictionary transDict;
   TreeConverter treeConverter;
-  std::map<SemanticLanguageEnum, std::unique_ptr<AnimationDictionary>> langToAnimDic;
 
 private:
   void _addDynamicContent(const boost::property_tree::ptree& pTree);

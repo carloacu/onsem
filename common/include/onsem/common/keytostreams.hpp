@@ -15,7 +15,6 @@ namespace linguistics
 struct ONSEM_COMMON_API KeyToStreams
 {
   std::istream* mainDicToStream = nullptr;
-  std::istream* animationsToStream = nullptr;
   std::istream* synthesizerToStream = nullptr;
   std::map<SemanticLanguageEnum, std::istream*> translationStreams;
   std::map<std::string, std::istream*> conversionsStreams;
@@ -37,8 +36,6 @@ struct ONSEM_COMMON_API KeyToFStreams
 
   void addMainDicFile(SemanticLanguageEnum pLanguage,
                       const std::string& pFilename);
-  void addAnimationsFile(SemanticLanguageEnum pLanguage,
-                         const std::string& pFilename);
   void addSynthesizerFile(SemanticLanguageEnum pLanguage,
                           const std::string& pFilename);
   void addFile(SemanticLanguageEnum pInLanguage,

@@ -90,7 +90,6 @@ private:
   friend class LinguisticIntermediaryDatabase;
   friend class LingdbDynamicTrieNode;
   friend class LingdbWordForms;
-  friend class PonderatedMeaning;
 
   /**
    * @brief Get the position of the pointers for the allocator.

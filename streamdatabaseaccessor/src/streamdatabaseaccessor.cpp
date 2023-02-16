@@ -69,7 +69,6 @@ KeyToFStreams generateIStreams(const std::string& pLingDbPath,
 
     auto languageFileName = semanticLanguageEnum_toLanguageFilenameStr(language);
     iStreams.addMainDicFile(language, pLingDbPath + "/" + languageFileName + "database.bdb");
-    iStreams.addAnimationsFile(language, pLingDbPath + "/" + languageFileName + "animations.bdb");
     iStreams.addSynthesizerFile(language, pLingDbPath + "/" + languageFileName + "synthesizer.bdb");
 
     if (language != SemanticLanguageEnum::UNKNOWN)

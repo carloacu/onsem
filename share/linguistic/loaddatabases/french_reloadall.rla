@@ -16,9 +16,6 @@ merge [inputresources]/french/french_concepts.xml
 % Identify question words
 merge [inputresources]/french/french_questionWords.xml
 
-% Fill animations
-merge [inputresources]/french/french_animations.xml
-
 % Save the database
 save
 

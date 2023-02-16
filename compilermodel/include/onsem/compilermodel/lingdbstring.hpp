@@ -47,7 +47,6 @@ private:
 
 private:
   friend class LinguisticIntermediaryDatabase;
-  friend class LingdbAnimationsTag;
   friend class LingdbQuestionWords;
   friend class LingdbConcept;
 

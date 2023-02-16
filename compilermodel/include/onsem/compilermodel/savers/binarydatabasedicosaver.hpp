@@ -30,7 +30,6 @@ public:
   (std::map<const LingdbMeaning*, int>& pMeaningsPtr,
    const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
    const std::filesystem::path &pFilenameDatabase,
-   const std::filesystem::path &pFilenameAnimationDatabase,
    const std::filesystem::path &pFilenameSynthesizerDatabase,
    const LinguisticIntermediaryDatabase& pLingDatabase) const;
 
@@ -68,20 +67,6 @@ private:
   void xWriteNbWithSpaces
   (std::ofstream& pOutFile,
    std::size_t pNb) const;
-
-  void xSaveAnimations
-  (const std::filesystem::path &pFilenameAnimDatabase,
-   const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
-   const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
-   const LinguisticIntermediaryDatabase& pLingDatabase,
-   binarymasks::Ptr pMem) const;
-
-  binarymasks::Ptr xAddAnimationsTags
-  (int& pNbAnimTags,
-   const std::map<std::string, ConceptsBinMem>& pConceptsOffsets,
-   const std::map<const LingdbMeaning*, int>& pMeaningsPtr,
-   const CompositePoolAllocator& pFPAlloc,
-   binarymasks::Ptr pEndMemory) const;
 
   void xWriteLemmeOfMeanings
   (binarymasks::Ptr pBeginMeaning,

@@ -19,7 +19,6 @@ template<typename T>
 struct ForwardPtrList;
 class LingdbLinkToAConcept;
 class LingdbConcept;
-class LingdbAnimationsTag;
 
 
 
@@ -90,9 +89,6 @@ public:
    PartOfSpeech pPartOfSpeech);
 
 
-  LingdbAnimationsTag* addATag
-  (const std::string& pTag);
-
 
   void newQWords
   (LingdbQuestionWords* pQWords);
@@ -134,10 +130,6 @@ public:
   (const std::string& word,
    PartOfSpeech pPartOfSpeech);
 
-
-
-  /// Remove all the tags of the database.
-  void removeAllTags();
 
   LingdbDynamicTrieNode* findComposedWordFromString
   (const std::string& pStr) const;

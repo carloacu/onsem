@@ -36,7 +36,6 @@ set(ONSEMCOMPILERMODEL_HPPS
 set(ONSEMCOMPILERMODEL_SRCS
   src/concept/lingdblinktoaconcept.hpp
   src/concept/lingdbconcept.hpp
-  src/lingdbanimationtag.hpp
   src/lingdbwordforms.cpp
   src/lingdbmodifier.cpp
   src/lingdbmeaningtowords.cpp
@@ -45,7 +44,6 @@ set(ONSEMCOMPILERMODEL_SRCS
   src/lingdbdynamictrienode.cpp
   src/lingdbmultimeaningnode.cpp
   src/linguisticintermediarydatabase.cpp
-  src/lingdbanimationtag.cpp
   src/lingdbstring.cpp
   src/meaningandconfidence.cpp
   src/savers/traductionwriter.cpp

@@ -4,7 +4,6 @@
 #include <onsem/common/utility/lexical_cast.hpp>
 #include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
-#include <onsem/texttosemantic/dbtype/linguisticdatabase/staticanimationdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticconceptset.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/semanticframedictionary.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
@@ -250,15 +249,8 @@ LinguisticDatabase::LinguisticDatabase(LinguisticDatabaseStreams& pIStreams)
   : conceptSet(*pIStreams.concepts),
     langToSpec(semanticLanguageEnum_size, [&](std::size_t i) { auto lang = semanticLanguageEnum_fromChar(static_cast<char>(i)); return std::make_unique<SpecificLinguisticDatabase>(pIStreams.languageToStreams[lang], *this, lang); }),
     transDict(pIStreams),
-    treeConverter(pIStreams),
-    langToAnimDic()
+    treeConverter(pIStreams)
 {
-  std::list<SemanticLanguageEnum> languageTypes;
-  getAllLanguageTypes(languageTypes);
-  for (const auto& currLang : languageTypes)
-    langToAnimDic.emplace(currLang,
-                          std::make_unique<AnimationDictionary>
-                          (pIStreams.languageToStreams[currLang].animationsToStream, conceptSet.statDb, currLang));
   addDynamicContent(pIStreams.dynamicContentStreams);
 }
 

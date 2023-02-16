@@ -16,13 +16,11 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/linguistic/lingtypetoken.hpp
     include/onsem/texttosemantic/dbtype/linguistic/wordtosynthesize.hpp
     include/onsem/texttosemantic/dbtype/linguistic/detail/lingtypetoken.hxx
-    include/onsem/texttosemantic/dbtype/linguisticdatabase/animationdictionary.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase/semanticframedictionary.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase/treeconverter.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase/synthesizerdictionary.hpp
-    include/onsem/texttosemantic/dbtype/linguisticdatabase/staticanimationdictionary.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase/staticconceptset.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp
     include/onsem/texttosemantic/dbtype/linguisticdatabase/staticsynthesizerdictionary.hpp
@@ -126,13 +124,11 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/dbtype/linguisticdatabase/partofspeechrules_english.cpp
     src/dbtype/linguisticdatabase/partofspeechrules_french.hpp
     src/dbtype/linguisticdatabase/partofspeechrules_french.cpp
-    src/dbtype/linguisticdatabase/animationdictionary.cpp
     src/dbtype/linguisticdatabase/conceptset.cpp
     src/dbtype/linguisticdatabase/semanticframedictionary.cpp
     src/dbtype/linguisticdatabase/treeconverter.cpp
     src/dbtype/linguisticdatabase/linguisticdictionary.cpp
     src/dbtype/linguisticdatabase/staticconceptset.cpp
-    src/dbtype/linguisticdatabase/staticanimationdictionary.cpp
     src/dbtype/linguisticdatabase/staticlinguisticdictionary.cpp
     src/dbtype/linguisticdatabase/staticsynthesizerdictionary.cpp
     src/dbtype/linguisticdatabase/statictranslationdictionary.cpp

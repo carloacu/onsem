@@ -307,10 +307,6 @@ void DelaDatabaseLoader::merge
       {
         modifier.delWordsWithACapitalLetter(pWords);
       }
-      else if (line == ">removeAllTags")
-      {
-        pWords.removeAllTags();
-      }
       else if (line == ">delExprs")
       {
         modifier.delExprs(pWords);

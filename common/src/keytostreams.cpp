@@ -9,7 +9,6 @@ namespace linguistics
 void KeyToStreams::clear()
 {
   mainDicToStream = nullptr;
-  animationsToStream = nullptr;
   synthesizerToStream = nullptr;
   translationStreams.clear();
   conversionsStreams.clear();
@@ -28,13 +27,6 @@ void KeyToFStreams::addMainDicFile(SemanticLanguageEnum pLanguage,
                                    const std::string& pFilename)
 {
   linguisticDatabaseStreams.languageToStreams[pLanguage].mainDicToStream =
-      &_addKeyToIfStreamFile(pLanguage, pFilename);
-}
-
-void KeyToFStreams::addAnimationsFile(SemanticLanguageEnum pLanguage,
-                                      const std::string& pFilename)
-{
-  linguisticDatabaseStreams.languageToStreams[pLanguage].animationsToStream =
       &_addKeyToIfStreamFile(pLanguage, pFilename);
 }
 
