@@ -756,9 +756,12 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
     getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
 
     bool anAnswerHasBeenAdded = false;
-    addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinks,
-                              SemanticExpressionCategory::COMMAND, _emptyAxiomId, pGrdExp,
-                              ContextualAnnotation::BEHAVIOR);
+    if (addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinks,
+                                  SemanticExpressionCategory::COMMAND, _emptyAxiomId, pGrdExp,
+                                  ContextualAnnotation::BEHAVIOR))
+      break;
+
+    specificActionsHandler::process(pWorkStruct, pMemViewer, pGrdExp, pStatementStruct);
     break;
   }
   case SemanticOperatorEnum::EXECUTEBEHAVIOR:

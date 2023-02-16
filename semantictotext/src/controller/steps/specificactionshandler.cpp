@@ -31,14 +31,21 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
         const GroundedExpression* ojectGrdExp = itObject->second->getGrdExpPtr_SkipWrapperPtrs();
         if (ojectGrdExp != nullptr &&
             (verbCpt.first == "verb_action_show" ||
+             pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER ||
              SemExpGetter::getReferenceTypeFromGrd(ojectGrdExp->grounding()) == SemanticReferenceType::DEFINITE))
         {
           SemControllerWorkingStruct subWorkStruct(pWorkStruct);
           if (subWorkStruct.askForNewRecursion())
           {
-            subWorkStruct.reactOperator = SemanticOperatorEnum::SHOW;
+            if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER)
+              subWorkStruct.reactOperator = SemanticOperatorEnum::REACTFROMTRIGGER;
+            else
+              subWorkStruct.reactOperator = SemanticOperatorEnum::SHOW;
             controller::applyOperatorOnGrdExp(subWorkStruct, pMemViewer, *ojectGrdExp, {},
                                               *ojectGrdExp);
+
+            if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER)
+              return pWorkStruct.addAnswers(subWorkStruct);
 
             static const SemanticRequests objectRequest(SemanticRequestType::OBJECT);
             static const SemanticRequests subjectRequest(SemanticRequestType::SUBJECT);

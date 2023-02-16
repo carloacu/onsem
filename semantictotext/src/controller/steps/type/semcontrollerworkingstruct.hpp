@@ -69,8 +69,8 @@ struct SemControllerWorkingStruct
                             UniqueSemanticExpression pReaction,
                             const mystd::optional<ConditionResult>& pCondition);
 
-  void addAnswers(SemControllerWorkingStruct& pOther);
-  void addAnswers(ListExpressionType pListExpType,
+  bool addAnswers(SemControllerWorkingStruct& pOther);
+  bool addAnswers(ListExpressionType pListExpType,
                   SemControllerWorkingStruct& pOther);
   bool haveAnAnswer() const;
   bool isFinished() const;

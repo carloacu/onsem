@@ -246,8 +246,8 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
     std::string secondAnswer = operator_react("show me a man talking", semMem, lingDb).answer;
     std::string thirdAnswer = operator_react("show me a man talking", semMem, lingDb).answer;
 
-    EXPECT_TRUE(firstAnswer != secondAnswer);
-    EXPECT_TRUE(firstAnswer == thirdAnswer);
+    EXPECT_NE(firstAnswer, secondAnswer);
+    EXPECT_EQ(firstAnswer, thirdAnswer);
     EXPECT_TRUE(firstAnswer == manTalkingCommandStr1 || firstAnswer == manTalkingCommandStr2);
     EXPECT_TRUE(secondAnswer == manTalkingCommandStr1 || secondAnswer == manTalkingCommandStr2);
   }

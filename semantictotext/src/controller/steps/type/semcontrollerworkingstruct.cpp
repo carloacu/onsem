@@ -83,11 +83,12 @@ void SemControllerWorkingStruct::addConditionalAnswer(ContextualAnnotation pType
       (std::make_unique<LeafSemAnswer>(pType, std::move(pReaction), pCondition));
 }
 
-void SemControllerWorkingStruct::addAnswers(
+bool SemControllerWorkingStruct::addAnswers(
     SemControllerWorkingStruct& pOther)
 {
   if (pOther.reactionOptions.reactWithTextAndResource)
   {
+    bool res = false;
     while (pOther.compositeSemAnswers->semAnswers.size() > 1)
     {
       SemControllerWorkingStruct subOther(pOther);
@@ -96,28 +97,29 @@ void SemControllerWorkingStruct::addAnswers(
                                                       pOther.compositeSemAnswers->semAnswers,
                                                       pOther.compositeSemAnswers->semAnswers.begin());
       if (_canBeANewAnswer(subOther))
-        addAnswers(ListExpressionType::UNRELATED, subOther);
+        res = addAnswers(ListExpressionType::UNRELATED, subOther) || res;
     }
     if (_canBeANewAnswer(pOther))
-      addAnswers(ListExpressionType::UNRELATED, pOther);
+      return addAnswers(ListExpressionType::UNRELATED, pOther) || res;
+    return res;
   }
-  else
-    addAnswers(ListExpressionType::UNRELATED, pOther);
+
+  return addAnswers(ListExpressionType::UNRELATED, pOther);
 }
 
 
-void SemControllerWorkingStruct::addAnswers(
+bool SemControllerWorkingStruct::addAnswers(
     ListExpressionType pListExpType,
     SemControllerWorkingStruct& pOther)
 {
   if (!pOther.haveAnAnswer())
-    return;
+    return false;
   contAnnotationOfPreviousAnswers = pOther.contAnnotationOfPreviousAnswers;
 
   if (compositeSemAnswers->semAnswers.empty())
   {
     compositeSemAnswers = std::move(pOther.compositeSemAnswers);
-    return;
+    return true;
   }
 
   if (compositeSemAnswers->listType == pListExpType &&
@@ -125,7 +127,7 @@ void SemControllerWorkingStruct::addAnswers(
   {
     compositeSemAnswers->semAnswers.splice(compositeSemAnswers->semAnswers.end(),
                                            pOther.compositeSemAnswers->semAnswers);
-    return;
+    return true;
   }
 
   if (compositeSemAnswers->semAnswers.size() == 1 &&
@@ -135,7 +137,7 @@ void SemControllerWorkingStruct::addAnswers(
     compositeSemAnswers->listType = pListExpType;
     compositeSemAnswers->semAnswers.splice(compositeSemAnswers->semAnswers.end(),
                                            pOther.compositeSemAnswers->semAnswers);
-    return;
+    return true;
   }
 
   if (pOther.compositeSemAnswers->semAnswers.size() == 1 &&
@@ -145,7 +147,7 @@ void SemControllerWorkingStruct::addAnswers(
     compositeSemAnswers->listType = pListExpType;
     compositeSemAnswers->semAnswers.splice(compositeSemAnswers->semAnswers.end(),
                                            pOther.compositeSemAnswers->semAnswers);
-    return;
+    return true;
   }
 
   if (compositeSemAnswers->semAnswers.size() == 1)
@@ -153,7 +155,7 @@ void SemControllerWorkingStruct::addAnswers(
     compositeSemAnswers->listType = pListExpType;
     compositeSemAnswers->semAnswers.emplace_back
         (std::move(pOther.compositeSemAnswers));
-    return;
+    return true;
   }
 
   if (pOther.compositeSemAnswers->semAnswers.size() == 1)
@@ -163,7 +165,7 @@ void SemControllerWorkingStruct::addAnswers(
     compSemExp->semAnswers.splice(compSemExp->semAnswers.end(),
                                   pOther.compositeSemAnswers->semAnswers);
     compositeSemAnswers = std::move(compSemExp);
-    return;
+    return true;
   }
 
   auto compSemExp = std::make_unique<CompositeSemAnswer>(pListExpType);
@@ -172,6 +174,7 @@ void SemControllerWorkingStruct::addAnswers(
   compSemExp->semAnswers.emplace_back
       (std::move(pOther.compositeSemAnswers));
   compositeSemAnswers = std::move(compSemExp);
+  return true;
 }
 
 
