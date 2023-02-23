@@ -189,8 +189,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   ONSEM_ANSWER_EQ(reaction1, triggers_match("can you please tell me who you are", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction2, triggers_match(trigger2, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction2, triggers_match("Can you move forward", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction2, triggers_match("could you go forward", semMem, lingDb));
 }
-
 
 
 TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_otherLanguage)
