@@ -57,7 +57,7 @@ DetailedReactionAnswer triggers_match(const std::string& pText,
 
 
 
-TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
+TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
@@ -102,8 +102,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   const std::string reaction9 = "Ma roue gauche est trop chaude.";
   const std::string trigger10 = "Descends le volume";
   const std::string reaction10 = "Voilà, je parle moins fort.";
-  const std::string trigger11 = "Who are you";
-  const std::string reaction11 = "I am your friend.";
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -133,7 +131,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   triggers_add(trigger8, reaction8, semMem, lingDb);
   triggers_add(trigger9, reaction9, semMem, lingDb);
   triggers_add(trigger10, reaction10, semMem, lingDb, {}, SemanticLanguageEnum::FRENCH);
-  triggers_add(trigger11, reaction11, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
@@ -166,12 +163,32 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic)
   ONSEM_ANSWER_EQ(reaction9, triggers_match(trigger9, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction10, triggers_match(trigger10, semMem, lingDb, SemanticLanguageEnum::FRENCH));
   ONSEM_BEHAVIOR_EQ(reaction10, triggers_match("Descends ton volume", semMem, lingDb, SemanticLanguageEnum::FRENCH));
-  ONSEM_ANSWER_EQ(reaction11, triggers_match(trigger11, semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction11, triggers_match("tell me who you are", semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction11, triggers_match("tell us who you are", semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction11, triggers_match("please tell me who you are", semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction11, triggers_match("can you tell me who you are", semMem, lingDb));
-  ONSEM_ANSWER_EQ(reaction11, triggers_match("can you please tell me who you are", semMem, lingDb));
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+
+  const std::string trigger1 = "Who are you";
+  const std::string reaction1 = "I am your friend.";
+  const std::string trigger2 = "Move forward";
+  const std::string reaction2 = "I need legs for that.";
+  ONSEM_NOANSWER(triggers_match(trigger1, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match(trigger2, semMem, lingDb));
+
+  triggers_add(trigger1, reaction1, semMem, lingDb);
+  triggers_add(trigger2, reaction2, semMem, lingDb);
+
+  ONSEM_ANSWER_EQ(reaction1, triggers_match(trigger1, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction1, triggers_match("tell me who you are", semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction1, triggers_match("tell us who you are", semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction1, triggers_match("please tell me who you are", semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction1, triggers_match("can you tell me who you are", semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction1, triggers_match("can you please tell me who you are", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction2, triggers_match(trigger2, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction2, triggers_match("Can you move forward", semMem, lingDb));
 }
 
 
