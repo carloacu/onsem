@@ -98,7 +98,7 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
 
 void manageQuestion(SemControllerWorkingStruct& pWorkStruct,
                     SemanticMemoryBlockViewer& pMemViewer,
-                    const SemanticRequests& pRequests,
+                    const SemanticStatementGrounding& pStatementGrd,
                     const GroundedExpression& pGrdExp,
                     const std::list<const GroundedExpression*>& pOtherGrdExps,
                     const GroundedExpression& pOriginalGrdExp);

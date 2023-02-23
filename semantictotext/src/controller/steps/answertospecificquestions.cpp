@@ -365,6 +365,40 @@ bool _checkName(SemControllerWorkingStruct& pWorkStruct,
 }
 
 
+bool _canYouQuestions(SemControllerWorkingStruct& pWorkStruct,
+                      SemanticMemoryBlockViewer& pMemViewer,
+                      const GroundedExpression& pGrdExp)
+{
+  if (pWorkStruct.reactOperator != SemanticOperatorEnum::REACT &&
+      pWorkStruct.reactOperator != SemanticOperatorEnum::REACTFROMTRIGGER)
+    return false;
+
+  const auto* statGrdPtr = pGrdExp->getStatementGroundingPtr();
+  if (statGrdPtr != nullptr &&
+      statGrdPtr->verbGoal == VerbGoalEnum::ABILITY &&
+      statGrdPtr->requests.has(SemanticRequestType::YESORNO) &&
+      SemExpGetter::getUserIdOfSubject(pGrdExp) == SemanticAgentGrounding::me)
+  {
+    SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+    if (subWorkStruct.askForNewRecursion())
+    {
+      subWorkStruct.reactOperator = SemanticOperatorEnum::REACTFROMTRIGGER;
+      auto grdExp = pGrdExp.clone();
+      auto* clonedStatementPtr = grdExp->grounding().getStatementGroundingPtr();
+      if (clonedStatementPtr == nullptr)
+        return false;
+      auto& clonedStatement = *clonedStatementPtr;
+      clonedStatement.requests.set(SemanticRequestType::ACTION);
+      clonedStatement.verbGoal = VerbGoalEnum::NOTIFICATION;
+
+      controller::applyOperatorOnGrdExp(subWorkStruct, pMemViewer, *grdExp, {}, *grdExp);
+      return pWorkStruct.addAnswers(subWorkStruct);
+    }
+  }
+  return false;
+}
+
+
 bool _tryToAnswerToWhoIsQuestion(const GroundedExpression& pGrdExp,
                                  const SemanticExpression& pObjectSemExp,
                                  const std::function<bool(const std::string&,
@@ -1030,7 +1064,8 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
   switch (pRequestType)
   {
   case SemanticRequestType::YESORNO:
-    return _checkName(pWorkStruct, pMemViewer, pGrdExp) ||
+    return _canYouQuestions(pWorkStruct, pMemViewer, pGrdExp) ||
+        _checkName(pWorkStruct, pMemViewer, pGrdExp) ||
         _tryToAnswerToDoYouKnow(pWorkStruct, pMemViewer, pGrdExp) ||
         _tryToAnswerAboutAbilities(pWorkStruct, pMemViewer, pGrdExp);
   case SemanticRequestType::OBJECT:

@@ -17,6 +17,7 @@
 #include "../operator/semanticcategorizer.hpp"
 #include "steps/proactivereaction.hpp"
 #include "steps/proactivereactionfromnominalgroups.hpp"
+#include "steps/answertospecificquestions.hpp"
 #include "steps/managecondition.hpp"
 #include "steps/semanticmemorylinker.hpp"
 #include "steps/similaritieswithmemoryfinder.hpp"
@@ -795,7 +796,7 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
 
 void manageQuestion(SemControllerWorkingStruct& pWorkStruct,
                     SemanticMemoryBlockViewer& pMemViewer,
-                    const SemanticRequests& pRequests,
+                    const SemanticStatementGrounding& pStatementGrd,
                     const GroundedExpression& pGrdExp,
                     const std::list<const GroundedExpression*>& pOtherGrdExps,
                     const GroundedExpression& pOriginalGrdExp)
@@ -805,7 +806,7 @@ void manageQuestion(SemControllerWorkingStruct& pWorkStruct,
   case SemanticOperatorEnum::REACT:
   {
     if (!semanticMemoryLinker::satisfyAQuestion(pWorkStruct, pMemViewer, pGrdExp, pOtherGrdExps,
-                                                pOriginalGrdExp, pRequests) &&
+                                                pOriginalGrdExp, pStatementGrd.requests) &&
         pWorkStruct.reactionOptions.canAnswerIDontKnow)
     {
       bool reAskTheQuestion = pWorkStruct.author != nullptr &&
@@ -836,15 +837,17 @@ void manageQuestion(SemControllerWorkingStruct& pWorkStruct,
     // TODO: get the links if the there is some triggers to optimize!
     semanticMemoryLinker::RequestLinks reqLinksOfOriginalGrdExp;
     getLinksOfAGrdExp(reqLinksOfOriginalGrdExp, pWorkStruct, pMemViewer, pOriginalGrdExp, false);
-    addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinksOfOriginalGrdExp,
-                              SemanticExpressionCategory::QUESTION, _emptyAxiomId,
-                              pOriginalGrdExp, ContextualAnnotation::ANSWER);
+    if (addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinksOfOriginalGrdExp,
+                                  SemanticExpressionCategory::QUESTION, _emptyAxiomId,
+                                  pOriginalGrdExp, ContextualAnnotation::ANSWER))
+      break;
+    answerToSpecificQuestions::process(pWorkStruct, pMemViewer, pOriginalGrdExp, pStatementGrd.requests.firstOrNothing());
     break;
   }
   case SemanticOperatorEnum::ANSWER:
   {
     if (!semanticMemoryLinker::satisfyAQuestion(pWorkStruct, pMemViewer, pGrdExp, pOtherGrdExps,
-                                                pOriginalGrdExp, pRequests) &&
+                                                pOriginalGrdExp, pStatementGrd.requests) &&
         pWorkStruct.reactionOptions.canAnswerIDontKnow)
       pWorkStruct.addAnswerWithoutReferences
           (ContextualAnnotation::ANSWERNOTFOUND,
@@ -856,13 +859,13 @@ void manageQuestion(SemControllerWorkingStruct& pWorkStruct,
   case SemanticOperatorEnum::HOWYOUKNOW:
   {
     semanticMemoryLinker::satisfyAQuestion(pWorkStruct, pMemViewer, pGrdExp, pOtherGrdExps,
-                                           pOriginalGrdExp, pRequests);
+                                           pOriginalGrdExp, pStatementGrd.requests);
     break;
   }
   case SemanticOperatorEnum::FEEDBACK:
   {
     if (pWorkStruct.typeOfFeedback == SemanticTypeOfFeedback::ASK_FOR_ADDITIONAL_INFORMATION &&
-        !answerToSpecificQuestions::process(pWorkStruct, pMemViewer, pGrdExp, pRequests.firstOrNothing()))
+        !answerToSpecificQuestions::process(pWorkStruct, pMemViewer, pGrdExp, pStatementGrd.requests.firstOrNothing()))
     {
       bool reAskTheQuestion = pWorkStruct.author != nullptr &&
           SemExpGetter::agentIsTheSubject(pGrdExp, pWorkStruct.author->userId);
@@ -1234,7 +1237,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
     }
     if (!statementGrd.requests.empty())
     {
-      manageQuestion(pWorkStruct, pMemViewer, statementGrd.requests, pGrdExp, pOtherGrdExps, pOriginalGrdExp);
+      manageQuestion(pWorkStruct, pMemViewer, statementGrd, pGrdExp, pOtherGrdExps, pOriginalGrdExp);
       break;
     }
 

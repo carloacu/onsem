@@ -56,14 +56,14 @@ bool _processWantSentences(SemControllerWorkingStruct& pWorkStruct,
         const SemanticStatementGrounding* questionStatGrdPtr = questionGrdExp->getStatementGroundingPtr();
         if (questionStatGrdPtr != nullptr)
         {
-          auto& questionRequests = questionStatGrdPtr->requests;
-          if (questionRequests.has(SemanticRequestType::NOTHING) ||
-              questionRequests.has(SemanticRequestType::ACTION))
+          auto& questionStatGrd = *questionStatGrdPtr;
+          if (questionStatGrd.requests.has(SemanticRequestType::NOTHING) ||
+              questionStatGrd.requests.has(SemanticRequestType::ACTION))
             return false;
           SemControllerWorkingStruct subWorkStruct(pWorkStruct);
           if (subWorkStruct.askForNewRecursion())
           {
-            controller::manageQuestion(subWorkStruct, pMemViewer, questionRequests,
+            controller::manageQuestion(subWorkStruct, pMemViewer, questionStatGrd,
                                        questionGrdExp, {}, questionGrdExp);
             pWorkStruct.addAnswers(subWorkStruct);
             return true;
