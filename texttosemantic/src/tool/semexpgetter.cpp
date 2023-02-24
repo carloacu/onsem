@@ -185,6 +185,31 @@ bool isGrdReflexive(const SemanticGrounding& pGrd)
   return statGrdPtr != nullptr && statGrdPtr->word.isReflexive();
 }
 
+bool isNominal(const SemanticGrounding& pGrd)
+{
+  if (pGrd.getNameGroundingPtr() != nullptr ||
+      pGrd.getAgentGroundingPtr() != nullptr)
+    return true;
+  const auto* genGrdPtr = pGrd.getGenericGroundingPtr();
+  return genGrdPtr != nullptr &&
+      partOfSpeech_isNominal(genGrdPtr->word.partOfSpeech);
+}
+
+std::string getWord(const SemanticGrounding& pGrd)
+{
+  if (pGrd.getNameGroundingPtr() != nullptr)
+  {
+    return SemanticNameGrounding::namesToStr(pGrd.getNameGrounding().nameInfos.names);
+  }
+  if (pGrd.getAgentGroundingPtr() != nullptr)
+  {
+    auto& nameInfos = pGrd.getAgentGrounding().nameInfos;
+    if (nameInfos)
+      return SemanticNameGrounding::namesToStr(nameInfos->names);
+  }
+  return "";
+}
+
 SemanticEntityType getEntity(const SemanticExpression& pSemExp)
 {
   const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();

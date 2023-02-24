@@ -60,6 +60,12 @@ ONSEM_TEXTTOSEMANTIC_API
 bool isGrdReflexive(const SemanticGrounding& pGrd);
 
 ONSEM_TEXTTOSEMANTIC_API
+bool isNominal(const SemanticGrounding& pGrd);
+
+ONSEM_TEXTTOSEMANTIC_API
+std::string getWord(const SemanticGrounding& pGrd);
+
+ONSEM_TEXTTOSEMANTIC_API
 SemanticEntityType getEntity(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API

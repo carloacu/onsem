@@ -215,8 +215,8 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         operator_react("Martin Luther est un fondateur, un réformateur, un homme de Dieu ou un déformateur....?", semMem, lingDb, language, &reactionOptions));
 
   ONSEM_ANSWER_WITH_REFERENCES_EQ(
-        "(\t\\resLabel=#fr_FR#la-resurrection-du-christ-simple-legende-ou-fait-historique\\\tTHEN\tLa simple de légende ou de fait historique résurrection de Christ est le vraiment fondement de la foi chrétienne.\t)",
-        "\"la-resurrection-du-christ-simple-legende-ou-fait-historique\", \"la-resurrection-de-jesus-est-vraiment-le-fondement-de-la-foi-chretienne-si-jesus-n-est-pas-ressuscite-alors-la-foi-des-chretiens-n-a-aucun-sens\"",
+        "(\t\\resLabel=#fr_FR#la-resurrection-du-christ-simple-legende-ou-fait-historique\\\tTHEN\tLa simple de légende ou de fait historique résurrection de Christ est Pâques.\t)",
+        "\"la-resurrection-du-christ-simple-legende-ou-fait-historique\", \"paques-c-est-la-commemoration-de-la-resurrection-de-jesus\"",
         operator_react("La résurrection du Christ, simple légende ou fait historique ?", semMem, lingDb, language, &reactionOptions));
 
   ONSEM_ANSWER_WITH_REFERENCES_EQ(

@@ -607,10 +607,6 @@ private:
   void _linkStatementGrdExp(const SemanticStatementGrounding& pStatGrd,
                             const linguistics::LinguisticDatabase& pLingDb);
 
-  void _linkConceptsThatBeginWith(const SemanticExpression& pSemExpression,
-                                  SemanticRequestType pFromRequest,
-                                  const std::string& pBeginOfAConcept);
-
   bool _linkChildSemExp(const SemanticExpression& pSemExpression,
                         SemanticRequestType pFromRequest,
                         const linguistics::LinguisticDatabase& pLingDb);
@@ -1036,29 +1032,6 @@ void GroundedExpWithLinksPrivate::_linkStatementGrdExp(const SemanticStatementGr
 }
 
 
-void GroundedExpWithLinksPrivate::_linkConceptsThatBeginWith
-(const SemanticExpression& pSemExpression,
- SemanticRequestType pFromRequest,
- const std::string& pBeginOfAConcept)
-{
-  std::list<const GroundedExpression*> grdExpPtr;
-  pSemExpression.getGrdExpPtrs_SkipWrapperLists(grdExpPtr);
-  for (const auto& currGrdExp : grdExpPtr)
-  {
-    for (const auto& currCpt : currGrdExp->grounding().concepts)
-    {
-      if (ConceptSet::doesConceptBeginWith(currCpt.first, pBeginOfAConcept))
-      {
-        _childGrdExpMemories.emplace_back(_memSent, *currGrdExp);
-        SemanticMemoryGrdExp& newMemGrdExp = _childGrdExpMemories.back();
-        _links.reqToGrdExps[pFromRequest].conceptsToSemExps[currCpt.first].emplace_back(newMemGrdExp);
-        return;
-      }
-    }
-  }
-}
-
-
 bool GroundedExpWithLinksPrivate::_linkChildSemExp
 (const SemanticExpression& pSemExpression,
  SemanticRequestType pFromRequest,
@@ -1092,19 +1065,10 @@ bool GroundedExpWithLinksPrivate::_linkChildSemExp
     if (!_linkGrdExp([&]() -> auto& { return _links.reqToGrdExps[pFromRequest]; }, *childGrdExp, childGrounding, pLingDb, true))
       return false;
 
-    auto itEquChild = childGrdExp->children.find(GrammaticalType::SPECIFIER);
-    if (itEquChild != childGrdExp->children.end())
-    {
-      if (semanticGroundingsType_isRelativeType(childGrounding.type))
-      {
-        if (!_linkChildSemExp(*itEquChild->second, pFromRequest, pLingDb))
-          return false;
-      }
-      else
-      {
-        _linkConceptsThatBeginWith(*itEquChild->second, pFromRequest, "nationality_");
-      }
-    }
+    auto itSpechild = childGrdExp->children.find(GrammaticalType::SPECIFIER);
+    if (itSpechild != childGrdExp->children.end() &&
+        !_linkChildSemExp(*itSpechild->second, pFromRequest, pLingDb))
+        return false;
 
     auto itSubCptChild = childGrdExp->children.find(GrammaticalType::SUB_CONCEPT);
     if (itSubCptChild != childGrdExp->children.end() &&

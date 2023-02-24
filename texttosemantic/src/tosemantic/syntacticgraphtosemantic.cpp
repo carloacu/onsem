@@ -1420,14 +1420,14 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
         auto newGrdExp = std::make_unique<GroundedExpression>(std::make_unique<SemanticGenericGrounding>());
         SemanticGenericGrounding& genGrounding = newGrdExp->grounding().getGenericGrounding();
         xInitGenGroundingsFromToken(genGrounding, itTokBeforeHead, pChunk.head);
-        SemExpModifier::addChild(*res, GrammaticalType::SUB_CONCEPT,
+        SemExpModifier::addChild(*res, GrammaticalType::SPECIFIER,
                                  std::move(newGrdExp));
       }
       else
       {
         std::list<std::string> names(1, introInflWord.word.lemma);
         _completeWithFollowingProperNouns(names, itTokBeforeHead, pChunk.head);
-        SemExpModifier::addChild(*res, GrammaticalType::SUB_CONCEPT,
+        SemExpModifier::addChild(*res, GrammaticalType::SPECIFIER,
                                  std::make_unique<GroundedExpression>(SemExpGenerator::makeNameGrd(names)));
       }
       break;

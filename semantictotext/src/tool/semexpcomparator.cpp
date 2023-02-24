@@ -130,6 +130,13 @@ const SemanticGrounding& _getSubCptGrd(const GroundedExpression& pGrdExp,
     if (grdExpPtr != nullptr)
       return grdExpPtr->grounding();
   }
+  auto itSpec = pGrdExp.children.find(GrammaticalType::SPECIFIER);
+  if (itSpec != pGrdExp.children.end())
+  {
+    auto* grdExpPtr = itSpec->second->getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExpPtr != nullptr && SemExpGetter::isNominal(grdExpPtr->grounding()))
+      return grdExpPtr->grounding();
+  }
   return pDefault;
 }
 
@@ -322,6 +329,9 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     if ((pGrounding2.getAgentGroundingPtr() != nullptr ||
          pGrounding2.getNameGroundingPtr() != nullptr))
     {
+      auto word2 = SemExpGetter::getWord(pGrounding2);
+      if (word2 != "" && areTextEqualWithoutCaseSensitivity(genGrd1.word.lemma, word2))
+        return ImbricationType::EQUALS;
       if (_isAnyHuman(genGrd1))
         return ImbricationType::CONTAINS;
       if (_isAHuman(genGrd1))
@@ -356,6 +366,9 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd2 = pGrounding2.getGenericGrounding();
+      auto word1 = SemExpGetter::getWord(pGrounding1);
+      if (word1 != "" && areTextEqualWithoutCaseSensitivity(word1, genGrd2.word.lemma))
+        return ImbricationType::EQUALS;
       if (_isAnyHuman(genGrd2))
         return ImbricationType::ISCONTAINED;
       if (_isAHuman(genGrd2))
@@ -499,6 +512,9 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd2 = pGrounding2.getGenericGrounding();
+      auto word1 = SemExpGetter::getWord(pGrounding1);
+      if (word1 != "" && areTextEqualWithoutCaseSensitivity(word1, genGrd2.word.lemma))
+        return ImbricationType::EQUALS;
       if (_isAnyHuman(genGrd2))
         return ImbricationType::ISCONTAINED;
       if (_isAHuman(genGrd2))

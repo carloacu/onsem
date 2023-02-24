@@ -50,14 +50,12 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("chocolat", "un chocolat", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("le 3 septembre 1986", "le 3 septembre 1986", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("si tu es content dis bonjour", "si tu es content dis bonjour", semanticMemory, lingDb));
-  EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("a N5", "a N5 robot", semanticMemory, lingDb, SemanticLanguageEnum::ENGLISH));
-  EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("I bought a N5", "I bought a N5 robot", semanticMemory, lingDb));
-  EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("I bought N5", "I bought N5 robot", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Je veux une assurance habitation", "I want a home insurance", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Je veux une assurance habitation", "Je voudrais une assurance habitation", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("et puis", "Et après", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Qu'est-ce que la Toussaint ?", "Qu'est-ce que la toussaint ?", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Qu'est-ce que l'ascension ?", "Qu'est-ce que l'Ascension ?", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("Start robotbehav application", "Start Robotbehav application", semanticMemory, lingDb, SemanticLanguageEnum::ENGLISH));
 
   EXPECT_EQ(ImbricationType::OPPOSES, _getImbrication("I like banana", "I don't like banana", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::OPPOSES, _getImbrication("I like banana", "I dislike banana", semanticMemory, lingDb));
@@ -82,6 +80,8 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::MORE_DETAILED, _getImbrication("your right elbow", "your body", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::MORE_DETAILED, _getImbrication("si tu es content dis bonjour sinon dis au revoir", "si tu es content dis bonjour", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::MORE_DETAILED, _getImbrication("the dance Macarena", "a dance", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::MORE_DETAILED, _getImbrication("a N5 robot", "a N5", semanticMemory, lingDb, SemanticLanguageEnum::ENGLISH));
+  EXPECT_EQ(ImbricationType::MORE_DETAILED, _getImbrication("a N5 robot", "a n5", semanticMemory, lingDb, SemanticLanguageEnum::ENGLISH));
 
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("septembre", "le 3 septembre 1986", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Paul ira à Paris", "Paul ira à Paris. Pierre aime les fleurs", semanticMemory, lingDb));
@@ -89,6 +89,8 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I asked walk", "I said walk yesterday", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("oui", "Oui, allons-y !", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("no", "absolutely not", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I bought a N5", "I bought a N5 robot", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I bought N5", "I bought N5 robot", semanticMemory, lingDb));
 
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("et puis", "et avant", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Il est né en 1988", "Il est né le 5 mai 1986", semanticMemory, lingDb));
@@ -220,8 +222,10 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
                                                               "Baisse encore la température de la pièce",
                                                               semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
                                                               &comparisonErrorReporting));
-    ASSERT_EQ(1, comparisonErrorReporting.childrenThatAreNotEqual.size());
+    ASSERT_EQ(2, comparisonErrorReporting.childrenThatAreNotEqual.size());
     auto it = comparisonErrorReporting.childrenThatAreNotEqual.begin();
+    EXPECT_EQ(GrammaticalType::OBJECT, it->first);
+    ++it;
     EXPECT_EQ(GrammaticalType::SPECIFIER, it->first);
     ASSERT_EQ(1, it->second.size());
     auto it2 = it->second.begin();

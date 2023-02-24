@@ -175,11 +175,17 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   const std::string reaction1 = "I am your friend.";
   const std::string trigger2 = "Move forward";
   const std::string reaction2 = "I need legs for that.";
+  const std::string trigger3 = "Start robotbehav application";
+  const std::string reaction3 = "You can make me move now.";
+  const std::string trigger4 = "Start the akinator application";
+  const std::string reaction4 = "It's a nice mental game.";
   ONSEM_NOANSWER(triggers_match(trigger1, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(trigger2, semMem, lingDb));
 
   triggers_add(trigger1, reaction1, semMem, lingDb);
   triggers_add(trigger2, reaction2, semMem, lingDb);
+  triggers_add(trigger3, reaction3, semMem, lingDb);
+  triggers_add(trigger4, reaction4, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(reaction1, triggers_match(trigger1, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction1, triggers_match("tell me who you are", semMem, lingDb));
@@ -190,6 +196,16 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   ONSEM_BEHAVIOR_EQ(reaction2, triggers_match(trigger2, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction2, triggers_match("Can you move forward", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction2, triggers_match("could you go forward", semMem, lingDb));
+  //ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start robotbehav", semMem, lingDb));
+  //ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start Robotbehav", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start robotbehav application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start Robotbehav application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start the robotbehav", semMem, lingDb));
+  //ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start the Robotbehav", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start the robotbehav application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start the Robotbehav application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction4, triggers_match(trigger4, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction4, triggers_match("Start akinator application", semMem, lingDb));
 }
 
 
