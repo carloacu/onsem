@@ -576,6 +576,17 @@ void pronounPriorities(std::vector<Token>& pTokens,
       else if (hasAfter(pTokens, itTok, nounPartOfSpeechsToFind, PartOfSpeech::ADVERB))
         putOnBottom(inflWords, inflWords.begin());
     }
+    else if (currInflWord.word.partOfSpeech == PartOfSpeech::PRONOUN &&
+             inflWords.size() > 1)
+    {
+      auto itPrev = getPrevToken(itTok, pTokens.begin(), pTokens.end());
+      if (itPrev == pTokens.end())
+        continue;
+      if (itPrev->getPartOfSpeech() == PartOfSpeech::ADJECTIVE)
+      {
+        putOnBottom(inflWords, inflWords.begin());
+      }
+    }
   }
 }
 
