@@ -1479,7 +1479,8 @@ void SyntacticGraphToSemantic::xAddModifiers
     const InflectedWord& currIGram = it->inflWords.front();
     if ((currIGram.word.partOfSpeech == PartOfSpeech::ADVERB ||
          currIGram.word.partOfSpeech == PartOfSpeech::ADJECTIVE ||
-         currIGram.word.partOfSpeech == PartOfSpeech::NOUN) &&
+         currIGram.word.partOfSpeech == PartOfSpeech::NOUN ||
+         currIGram.word.partOfSpeech == PartOfSpeech::UNKNOWN) &&
         !currIGram.infos.hasContextualInfo(WordContextualInfos::NEGATION) &&
         currIGram.infos.concepts.count("quantity_nothing") == 0)
     {
