@@ -85,8 +85,7 @@ bool _arePartOfSpeechEqual(PartOfSpeech pPos1,
 {
   if (pPos1 == pPos2)
     return true;
-  return (pPos1 == PartOfSpeech::NOUN && pPos2 == PartOfSpeech::PROPER_NOUN) ||
-      (pPos1 == PartOfSpeech::PROPER_NOUN && pPos2 == PartOfSpeech::NOUN);
+  return partOfSpeech_isNominal(pPos1) && partOfSpeech_isNominal(pPos2);
 }
 
 
