@@ -1101,7 +1101,7 @@ bool _relationsInLowerCaseFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelatio
 {
   bool res = false;
   auto wordInLowerCase = pLemma;
-  if (lowerCaseText(wordInLowerCase))
+  if (lowerCaseText(wordInLowerCase) && !wordInLowerCase.empty())
   {
     const auto& lingDico = pLingDb.langToSpec[pLanguage].lingDico;
     auto lowerCaseStaticLingMeaning =
@@ -1121,6 +1121,10 @@ bool _relationsInLowerCaseFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelatio
                                              pIsATrigger, pLingDb, pCheckChildren) || res;
       }
     }
+
+    res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, wordInLowerCase,
+                            SemanticLanguageEnum::UNKNOWN, pGrdExpToLookFor, pChildSemExpsToSkip,
+                            pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
   }
   return res;
 }
@@ -1158,8 +1162,12 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
     res = _getTextRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.word.lemma,
                             SemanticLanguageEnum::UNKNOWN, pGrdExpToLookFor, pChildSemExpsToSkip,
                             pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
-  }
 
+    _relationsInLowerCaseFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps,
+                                    pGenGrd.word.lemma, pGrdExpToLookFor, pChildSemExpsToSkip,
+                                    pRequestContext, pMemBlockPrivatePtr, pIsATrigger,
+                                    pLingDb, pCheckChildren, pLanguage);
+  }
 
   if (!pGenGrd.concepts.empty())
   {
