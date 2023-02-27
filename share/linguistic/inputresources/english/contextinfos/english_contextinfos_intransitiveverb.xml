@@ -1,0 +1,321 @@
+<linguisticdatabase>
+ <existingMeaning lemme="agree" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="appear" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="arrive" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="become" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="belong" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="collapse" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="consist" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="cost" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="cough" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="cry" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="depend" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="die" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="disappear" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="emerge" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="exist" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="explode" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="fade" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="fall" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="fast" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="float" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="fly" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="gallop" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="go" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="grow" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="happen" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="have" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="hiccup" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="inquire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="jump" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="kneel" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="knock" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="last" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="laugh" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="lead" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="lean" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="leap" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="learn" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="lie" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="limp" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="listen" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="live" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="look" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+  <existingMeaning lemme="make" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="march" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+  <existingMeaning lemme="mean" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="mourn" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="move" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="occur" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="panic" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="party" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="pause" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="peep" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="pose" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="pounce" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="pout" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="pray" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="preen" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="read" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="recline" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="relax" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="relent" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="remain" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="repeat" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="respond" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="result" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="revolt" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="rise" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="roll" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="run" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="rush" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="sail" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="scream" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="shake" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="shout" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="sigh" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="sit" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="skip" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="sleep" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="slide" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="smell" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="smile" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="snarl" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="sneeze" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="soak" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="spin" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="spit" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="sprint" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="squeak" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="stagger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="stand" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="stay" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="swim" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="swing" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="twist" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="vanish" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="vomit" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="wade" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="wait" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="wake" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="walk" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="wander" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="wave" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="whirl" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="wiggle" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="work" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+ <existingMeaning lemme="yell" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+ </existingMeaning>
+</linguisticdatabase>
+

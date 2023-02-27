@@ -196,7 +196,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   ONSEM_BEHAVIOR_EQ(reaction2, triggers_match(trigger2, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction2, triggers_match("Can you move forward", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction2, triggers_match("could you go forward", semMem, lingDb));
-  //ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start robotbehav", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start robotbehav", semMem, lingDb));
   //ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start Robotbehav", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start robotbehav application", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start Robotbehav application", semMem, lingDb));

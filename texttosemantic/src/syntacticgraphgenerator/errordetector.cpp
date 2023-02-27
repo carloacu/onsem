@@ -186,42 +186,43 @@ bool ErrorDetector::tryToConvertNounToImperativeVerbs
 
 bool ErrorDetector::xTryToConvertNounToImperativeVerbsForAChunk(Chunk& pChunk) const
 {
-  static const std::vector<PartOfSpeech> nounPartOfSpeeches =
-  {PartOfSpeech::NOUN, PartOfSpeech::UNKNOWN};
   bool rem = false;
-  auto& headInflWords = pChunk.head->inflWords;
-  if (pChunk.type == ChunkType::NOMINAL_CHUNK &&
-      headInflWords.front().word.partOfSpeech == PartOfSpeech::NOUN &&
-      !haveChild(pChunk, ChunkLinkType::SIMPLE))
+  if (pChunk.type == ChunkType::NOMINAL_CHUNK)
   {
-    bool prevIsEmptyOrNominal = true;
-    for (auto it = pChunk.tokRange.getItBegin();
-         it != pChunk.tokRange.getItEnd(); it = getNextToken(it, pChunk.tokRange.getItEnd()))
+    auto& headPartOfSpeech = pChunk.head->inflWords.front().word.partOfSpeech;
+    if ((headPartOfSpeech == PartOfSpeech::NOUN || headPartOfSpeech == PartOfSpeech::UNKNOWN) &&
+        !haveChild(pChunk, ChunkLinkType::SIMPLE))
     {
-      auto& itInflWord = it->inflWords;
-      bool isNominal = partOfSpeech_isNominal(itInflWord.front().word.partOfSpeech);
-      if (prevIsEmptyOrNominal && isNominal)
+      bool prevIsEmptyOrNominal = true;
+      for (auto it = pChunk.tokRange.getItBegin();
+           it != pChunk.tokRange.getItEnd(); it = getNextToken(it, pChunk.tokRange.getItEnd()))
       {
-        std::list<InflectedWord>::iterator verbIGram =
-            getInflWordWithASpecificPartOfSpeech(itInflWord, PartOfSpeech::VERB);
-        if (verbIGram != itInflWord.end() &&
-            fConfiguration.getFlsChecker().verbCanBeAtImperative(*verbIGram))
+        auto& itInflWord = it->inflWords;
+        bool isNominal = partOfSpeech_isNominal(itInflWord.front().word.partOfSpeech);
+        if (prevIsEmptyOrNominal && isNominal)
         {
-          auto itNext = it;
-          itNext = getNextWord(itNext, pChunk.tokRange.getItEnd());
-          bool isNextCompatible = true;
-          if (itNext != pChunk.tokRange.getItEnd() &&
-              itNext->inflWords.front().infos.hasContextualInfo(WordContextualInfos::EN_TIMEWORD))
-            isNextCompatible = false;
-
-          if (isNextCompatible)
+          std::list<InflectedWord>::iterator verbIGram =
+              getInflWordWithASpecificPartOfSpeech(itInflWord, PartOfSpeech::VERB);
+          if (verbIGram != itInflWord.end() &&
+              fConfiguration.getFlsChecker().verbCanBeAtImperative(*verbIGram) &&
+              !verbIGram->infos.isOnlyTransitive())
           {
-            verbIGram->moveInflections(VerbalInflections::get_inflections_imperative());
-            rem |= delAllBefore(itInflWord, verbIGram);
+            auto itNext = it;
+            itNext = getNextWord(itNext, pChunk.tokRange.getItEnd());
+            bool isNextCompatible = true;
+            if (itNext != pChunk.tokRange.getItEnd() &&
+                itNext->inflWords.front().infos.hasContextualInfo(WordContextualInfos::EN_TIMEWORD))
+              isNextCompatible = false;
+
+            if (isNextCompatible)
+            {
+              verbIGram->moveInflections(VerbalInflections::get_inflections_imperative());
+              rem |= delAllBefore(itInflWord, verbIGram);
+            }
           }
         }
+        prevIsEmptyOrNominal = isNominal;
       }
-      prevIsEmptyOrNominal = isNominal;
     }
   }
   return rem;

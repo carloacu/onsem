@@ -10,6 +10,7 @@
  <include file="contextinfos/english_contextinfos_cannotbebeforenoun.xml"/>
  <include file="contextinfos/english_contextinfos_cannotbecontinuous.xml"/>
  <include file="contextinfos/english_contextinfos_haveauxiliary.xml"/>
+ <include file="contextinfos/english_contextinfos_intransitiveverb.xml"/>
  <include file="contextinfos/english_contextinfos_negation.xml"/>
  <include file="contextinfos/english_contextinfos_possessive.xml"/>
  <include file="contextinfos/english_contextinfos_reftoaperson.xml"/>
@@ -18,6 +19,7 @@
  <include file="contextinfos/english_contextinfos_sentenceendswith.xml"/>
  <include file="contextinfos/english_contextinfos_sentencecannotendwith.xml"/>
  <include file="contextinfos/english_contextinfos_timeword.xml"/>
+ <include file="contextinfos/english_contextinfos_transitiveverb.xml"/>
  <include file="contextinfos/english_contextinfos_passive.xml"/>
  <include file="contextinfos/english_contextinfos_uncountable.xml"/>
  <include file="contextinfos/english_contextinfos_verbfollowedby.xml"/>

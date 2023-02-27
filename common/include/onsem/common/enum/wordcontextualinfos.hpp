@@ -27,6 +27,7 @@ namespace onsem
   ADD_WORDCONTEXTUALINFOS_TYPE(ELSE, "else")                                                                    \
   ADD_WORDCONTEXTUALINFOS_TYPE(BEISTHEAUXILIARY, "beIsTheAuxiliary")                                            \
   ADD_WORDCONTEXTUALINFOS_TYPE(HAVEISTHEAUXILIARY, "haveIsTheAuxiliary")                                        \
+  ADD_WORDCONTEXTUALINFOS_TYPE(INTRANSITIVEVERB, "intransitiveVerb")                                            \
   ADD_WORDCONTEXTUALINFOS_TYPE(CANBEFOLLOWEDBYINDIRECTOBJECT, "canBeFollowedByIndirectObject")                  \
   ADD_WORDCONTEXTUALINFOS_TYPE(CANBEFOLLOWEDBYLOCATION, "canBeFollowedByLocation")                              \
   ADD_WORDCONTEXTUALINFOS_TYPE(SENTENCECANBEGINWITH, "sentenceCanBeginWith")                                    \

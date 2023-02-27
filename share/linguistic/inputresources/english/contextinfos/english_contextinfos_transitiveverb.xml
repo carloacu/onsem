@@ -1,0 +1,150 @@
+<linguisticdatabase>
+  <existingMeaning lemme="admire" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="afford" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="allow" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="blame" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="bring" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="buy" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="contain" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="cost" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="cut" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="deny" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="enjoy" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="examine" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="excuse" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="fetch" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="fix" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="get" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="give" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="greet" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="have" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="hit" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="inform" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="interest" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="job" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="lend" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="let" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="like" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="love" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="make" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="mean" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="name" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="need" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="offer" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="omit" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="owe" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="pick" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="prefer" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="prove" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="put" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="question" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="remind" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="rent" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="rob" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="select" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="send" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="show" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="take" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="teach" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="want" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+  <existingMeaning lemme="wrap" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
+</linguisticdatabase>
+

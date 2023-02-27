@@ -48,3 +48,4 @@ Say hi and spin left then raise your arms and spin left then spread your arms an
 say toto in 500 milliseconds
 Remove all conditions
 say it again
+Start robotbehav

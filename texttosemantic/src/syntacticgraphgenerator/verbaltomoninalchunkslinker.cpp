@@ -270,7 +270,7 @@ void VerbalToNominalChunksLinker::_constructASyntGraphBetween2VerbChunks
     if (!codAlreadyLinkToFirstVerb && !workingZone.empty() &&
         !haveAnAuxiliary(*firstVerbChunk) &&
         ((language == SemanticLanguageEnum::ENGLISH && firstVerbChunk->type == ChunkType::INFINITVE_VERB_CHUNK) ||
-         firstVerbChunk->head->inflWords.front().infos.hasContextualInfo(WordContextualInfos::TRANSITIVEVERB) ||
+         firstVerbChunk->head->inflWords.front().infos.isOnlyTransitive() ||
          inflsCheker.verbIsOnlyAtPastParticiple(firstVerbChunk->head->inflWords.front())))
     {
       codAlreadyLinkToFirstVerb |= _linkAVerbGroupToHisCOD(workingZone, firstVerbChunk);

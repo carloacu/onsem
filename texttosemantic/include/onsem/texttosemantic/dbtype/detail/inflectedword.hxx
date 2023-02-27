@@ -74,6 +74,11 @@ inline bool WordAssociatedInfos::hasContextualInfo(WordContextualInfos pContextu
   return contextualInfos.find(pContextualInfo) != contextualInfos.end();
 }
 
+inline bool WordAssociatedInfos::isOnlyTransitive() const
+{
+  return hasContextualInfo(WordContextualInfos::TRANSITIVEVERB) && !hasContextualInfo(WordContextualInfos::INTRANSITIVEVERB);
+}
+
 
 inline InflectedWord::InflectedWord()
   : word(),

@@ -60,6 +60,7 @@ struct ONSEM_TEXTTOSEMANTIC_API WordAssociatedInfos
   void mergeWith(const WordAssociatedInfos& pOther);
   void clear();
   bool hasContextualInfo(WordContextualInfos pContextualInfo) const;
+  bool isOnlyTransitive() const;
 
   std::map<std::string, char> concepts{};
 
