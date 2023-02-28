@@ -504,7 +504,8 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
   {
     const GroundedExpression& grdExp = pSemExp.getGrdExp();
     std::list<const GroundedExpression*> otherGrdExps;
-    applyOperatorOnGrdExp(pWorkStruct, pMemViewer, grdExp, otherGrdExps, grdExp);
+    const auto& originalGrdExp = pWorkStruct.getOriginalGrdExp(grdExp);
+    applyOperatorOnGrdExp(pWorkStruct, pMemViewer, grdExp, otherGrdExps, originalGrdExp);
     break;
   }
   case SemanticExpressionType::CONDITION:
@@ -989,7 +990,8 @@ void _updateConditionValidity(const GroundedExpWithLinks& pMemSentenceToUpdate,
 void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
                       SemanticMemoryBlockViewer& pMemViewer,
                       const GroundedExpression& pGrdExp,
-                      const SemanticStatementGrounding& pStatementGrd)
+                      const SemanticStatementGrounding& pStatementGrd,
+                      const GroundedExpression& pOriginalGrdExp)
 {
   switch (pWorkStruct.reactOperator)
   {
@@ -1016,15 +1018,31 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
 
     // try to react according to the triggers
     bool isAnswered = false;
-    if (pWorkStruct.reactionOptions.canAnswerWithATrigger &&
-        pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
-        semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinks, pGrdExp))
-      isAnswered = true;
+    if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
+    {
+      if (pWorkStruct.reactionOptions.canAnswerWithATrigger)
+      {
+        if (&pOriginalGrdExp != &pGrdExp)
+        {
+          semanticMemoryLinker::RequestLinks reqLinksForTrigger;
+          semanticMemoryLinker::getLinksOfAGrdExp(reqLinksForTrigger, pWorkStruct, pMemViewer, pOriginalGrdExp, false);
+          if (semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinksForTrigger, pOriginalGrdExp))
+            isAnswered = true;
+        }
 
-    if (!isAnswered &&
-        pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
-        answerToSpecificAssertions::process(pWorkStruct, pMemViewer, pGrdExp))
-      break;
+        if (!isAnswered && semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinks, pGrdExp))
+          isAnswered = true;
+
+        if (!isAnswered && &pOriginalGrdExp != &pGrdExp &&
+            answerToSpecificAssertions::process(pWorkStruct, pMemViewer, pOriginalGrdExp))
+          break;
+      }
+
+      if (!isAnswered &&
+          answerToSpecificAssertions::process(pWorkStruct, pMemViewer, pGrdExp))
+        break;
+    }
+
     if (!SemExpGetter::isGrdExpComplete(pGrdExp))
       break;
 
@@ -1167,11 +1185,21 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
     // get links of the input grounded expression
     semanticMemoryLinker::RequestLinks reqLinks;
     semanticMemoryLinker::getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
+    if (&pOriginalGrdExp != &pGrdExp)
+    {
+      semanticMemoryLinker::RequestLinks reqLinksForTrigger;
+      semanticMemoryLinker::getLinksOfAGrdExp(reqLinksForTrigger, pWorkStruct, pMemViewer, pOriginalGrdExp, false);
+      if (semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinksForTrigger, pOriginalGrdExp))
+        break;
+    }
 
     // try to react according to the triggers
     if (semanticMemoryLinker::matchAffirmationTrigger(pWorkStruct, pMemViewer, reqLinks, pGrdExp))
       break;
 
+    if (&pOriginalGrdExp != &pGrdExp &&
+        answerToSpecificAssertions::process(pWorkStruct, pMemViewer, pOriginalGrdExp))
+      break;
     answerToSpecificAssertions::process(pWorkStruct, pMemViewer, pGrdExp);
     break;
   }
@@ -1242,7 +1270,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
     }
 
     // handle the assertion
-    _manageAssertion(pWorkStruct, pMemViewer, pGrdExp, statementGrd);
+    _manageAssertion(pWorkStruct, pMemViewer, pGrdExp, statementGrd, pOriginalGrdExp);
     break;
   }
 

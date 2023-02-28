@@ -121,19 +121,20 @@ bool _wordsAreEqual(const SemanticWord& pWord1,
 
 
 const SemanticGrounding& _getSubCptGrd(const GroundedExpression& pGrdExp,
-                                       const SemanticGrounding& pDefault)
+                                       const SemanticGrounding& pDefault,
+                                       bool pFollowInterpretations)
 {
   auto it = pGrdExp.children.find(GrammaticalType::SUB_CONCEPT);
   if (it != pGrdExp.children.end())
   {
-    auto* grdExpPtr = it->second->getGrdExpPtr_SkipWrapperPtrs();
+    auto* grdExpPtr = it->second->getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
     if (grdExpPtr != nullptr)
       return grdExpPtr->grounding();
   }
   auto itSpec = pGrdExp.children.find(GrammaticalType::SPECIFIER);
   if (itSpec != pGrdExp.children.end())
   {
-    auto* grdExpPtr = itSpec->second->getGrdExpPtr_SkipWrapperPtrs();
+    auto* grdExpPtr = itSpec->second->getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
     if (grdExpPtr != nullptr && SemExpGetter::isNominal(grdExpPtr->grounding()))
       return grdExpPtr->grounding();
   }
@@ -1279,10 +1280,11 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
       _isExcluded(pGrdExp2, pGrdExp1, pMemBlock, pLingDb))
     return ImbricationType::DIFFERS;
 
+  bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
   const SemanticGrounding& grd1 = pGrdExp1.grounding();
   const SemanticGrounding& grd2 = pGrdExp2.grounding();
-  const auto& grd1ToCmp = _getSubCptGrd(pGrdExp1, grd1);
-  const auto& grd2ToCmp = _getSubCptGrd(pGrdExp2, grd2);
+  const auto& grd1ToCmp = _getSubCptGrd(pGrdExp1, grd1, followInterpretations);
+  const auto& grd2ToCmp = _getSubCptGrd(pGrdExp2, grd2, followInterpretations);
   ComparisonErrorsCoef errorCoef(10, ComparisonTypeOfError::NORMAL);
   ImbricationType groundingImbrication = _getGroundingsImbrications(grd1ToCmp, grd2ToCmp, pMemBlock, pLingDb, &errorCoef, pExceptionsPtr);
   if (groundingImbrication == ImbricationType::DIFFERS)

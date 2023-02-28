@@ -25,7 +25,7 @@ DetailedReactionAnswer _operator_reactFromTrigger_fromSemExp(UniqueSemanticExpre
   if (pTextLanguage == SemanticLanguageEnum::UNKNOWN)
     pTextLanguage = pSemanticMemory.defaultLanguage;
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
-  memoryOperation::resolveAgentAccordingToTheContext(pSemExp, pSemanticMemory, pLingDb);
+  memoryOperation::mergeWithContext(pSemExp, pSemanticMemory, pLingDb);
   auto inputSemExpInMemory = triggers::match(reaction, pSemanticMemory, std::move(pSemExp), pLingDb, pReactionOptions);
   return reactionToAnswer(reaction, pSemanticMemory, pLingDb, pTextLanguage, inputSemExpInMemory);
 }
@@ -96,12 +96,14 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction6 = "C'est la première alliance.";
   const std::string trigger7 = "mets l'application Aa";
   const std::string reaction7 = "C'est une application sympa.";
-  const std::string trigger8 = "Avance";
-  const std::string reaction8 = "Voilà, j'avance.";
+  const std::string trigger8 = "Descends le volume";
+  const std::string reaction8 = "Voilà, je parle moins fort.";
   const std::string trigger9 = "Tourne de 30 dégrés";
   const std::string reaction9 = "Ma roue gauche est trop chaude.";
-  const std::string trigger10 = "Descends le volume";
-  const std::string reaction10 = "Voilà, je parle moins fort.";
+  const std::string trigger10 = "Avance";
+  const std::string reaction10 = "Voilà, j'avance.";
+  const std::string trigger11 = "Avant se un petit peu";
+  const std::string reaction11 = "La phrase est bizarre.";
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -128,9 +130,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger5, reaction5, semMem, lingDb);
   triggers_add(trigger6, reaction6, semMem, lingDb);
   triggers_add(trigger7, reaction7, semMem, lingDb);
-  triggers_add(trigger8, reaction8, semMem, lingDb);
+  triggers_add(trigger8, reaction8, semMem, lingDb, {}, SemanticLanguageEnum::FRENCH);
   triggers_add(trigger9, reaction9, semMem, lingDb);
-  triggers_add(trigger10, reaction10, semMem, lingDb, {}, SemanticLanguageEnum::FRENCH);
+  triggers_add(trigger10, reaction10, semMem, lingDb);
+  triggers_add(trigger11, reaction11, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
@@ -159,10 +162,11 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_ANSWER_EQ(reaction6, triggers_match("les 10 Commandements", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction7, triggers_match(trigger7, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction7, triggers_match("remets l'application Aa", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(reaction8, triggers_match(trigger8, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction8, triggers_match(trigger8, semMem, lingDb, SemanticLanguageEnum::FRENCH));
+  ONSEM_BEHAVIOR_EQ(reaction8, triggers_match("Descends ton volume", semMem, lingDb, SemanticLanguageEnum::FRENCH));
   ONSEM_ANSWER_EQ(reaction9, triggers_match(trigger9, semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(reaction10, triggers_match(trigger10, semMem, lingDb, SemanticLanguageEnum::FRENCH));
-  ONSEM_BEHAVIOR_EQ(reaction10, triggers_match("Descends ton volume", semMem, lingDb, SemanticLanguageEnum::FRENCH));
+  ONSEM_BEHAVIOR_EQ(reaction10, triggers_match(trigger10, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction11, triggers_match(trigger11, semMem, lingDb));
 }
 
 
@@ -179,6 +183,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   const std::string reaction3 = "You can make me move now.";
   const std::string trigger4 = "Start the akinator application";
   const std::string reaction4 = "It's a nice mental game.";
+  const std::string trigger5 = "start parle et carte";
+  const std::string reaction5 = "It's a nice application.";
   ONSEM_NOANSWER(triggers_match(trigger1, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(trigger2, semMem, lingDb));
 
@@ -186,6 +192,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   triggers_add(trigger2, reaction2, semMem, lingDb);
   triggers_add(trigger3, reaction3, semMem, lingDb);
   triggers_add(trigger4, reaction4, semMem, lingDb);
+  triggers_add(trigger5, reaction5, semMem, lingDb, {}, SemanticLanguageEnum::ENGLISH);
 
   ONSEM_ANSWER_EQ(reaction1, triggers_match(trigger1, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction1, triggers_match("tell me who you are", semMem, lingDb));
@@ -206,6 +213,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start the Robotbehav application", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction4, triggers_match(trigger4, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction4, triggers_match("Start akinator application", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction5, triggers_match(trigger5, semMem, lingDb));
 }
 
 

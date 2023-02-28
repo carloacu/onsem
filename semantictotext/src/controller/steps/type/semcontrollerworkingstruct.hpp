@@ -79,6 +79,7 @@ struct SemControllerWorkingStruct
   void getSourceContextAxiom(RelatedContextAxiom& pRes) const;
   TruenessValue agreementTypeOfTheAnswer();
   std::string getAuthorUserId() const;
+  const GroundedExpression& getOriginalGrdExp(const GroundedExpression& pDefaultGrdExp) const;
 
   bool isAtRoot;
   InformationType informationType;

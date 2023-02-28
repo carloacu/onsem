@@ -290,6 +290,16 @@ std::string SemControllerWorkingStruct::getAuthorUserId() const
   return "";
 }
 
+const GroundedExpression& SemControllerWorkingStruct::getOriginalGrdExp(const GroundedExpression& pDefaultGrdExp) const
+{
+  if (originalSemExpPtr != nullptr)
+  {
+    auto* res = originalSemExpPtr->getGrdExpPtr_SkipWrapperPtrs(false);
+    if (res != nullptr)
+      return *res;
+  }
+  return pDefaultGrdExp;
+}
 
 SemControllerWorkingStruct::SemControllerWorkingStruct
 (InformationType pInformationType,
