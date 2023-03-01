@@ -224,7 +224,7 @@ bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
                               const SemanticMemoryBlockViewer& pMemViewer)
 {
   if (!SemExpComparator::haveSamePolarity(pGrdExp, pSemMemSent.grdExp,
-                                          pWorkStruct.lingDb.conceptSet))
+                                          pWorkStruct.lingDb.conceptSet, true))
     return false;
   bool isComplete = true;
   for (const auto& currChild : pSemMemSent.grdExp.children)

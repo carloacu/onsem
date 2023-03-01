@@ -259,7 +259,8 @@ bool _checkSpecifierOfFirstGrdExpIfNeeded(ImbricationType& pRes,
     auto itSpecifier = pGrdExp1.children.find(GrammaticalType::SPECIFIER);
     if (itSpecifier != pGrdExp1.children.end())
     {
-      const GroundedExpression* specGrdExpPtr = itSpecifier->second->getGrdExpPtr_SkipWrapperPtrs();
+      bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
+      const GroundedExpression* specGrdExpPtr = itSpecifier->second->getGrdExpPtr_SkipWrapperPtrs(followInterpretations);
       if (specGrdExpPtr != nullptr)
       {
         pRes = getGrdExpsImbrications(*specGrdExpPtr, pGrdExp2, pMemBlock, pLingDb,
@@ -854,17 +855,19 @@ mystd::optional<ImbricationType> _getSemExpsWithoutListImbrications(const Semant
   return mystd::optional<ImbricationType>();
 }
 
-bool _hasInformationToFill(const SemanticExpression& pSemExp)
+bool _hasInformationToFill(const SemanticExpression& pSemExp,
+                           bool pFollowInterpretations)
 {
-  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   return grdExpPtr != nullptr && grdExpPtr->grounding().concepts.count("stuff_informationToFill") > 0;
 }
 
-bool _hasInformationToFillFromListExpPtr(const ListExpPtr& pListExpPtr)
+bool _hasInformationToFillFromListExpPtr(const ListExpPtr& pListExpPtr,
+                                         bool pFollowInterpretations)
 {
   for (const auto& currElt : pListExpPtr.elts)
   {
-    if (_hasInformationToFill(*currElt))
+    if (_hasInformationToFill(*currElt, pFollowInterpretations))
       return true;
   }
   return false;
@@ -872,9 +875,10 @@ bool _hasInformationToFillFromListExpPtr(const ListExpPtr& pListExpPtr)
 
 ComparisonErrorsCoef _getErrorCoefFromListExpPtr(
     GrammaticalType pGrammType,
-    const ListExpPtr& pListExpPtr)
+    const ListExpPtr& pListExpPtr,
+    bool pFollowInterpretations)
 {
-  if (_hasInformationToFillFromListExpPtr(pListExpPtr))
+  if (_hasInformationToFillFromListExpPtr(pListExpPtr, pFollowInterpretations))
     return ComparisonErrorsCoef(1, ComparisonTypeOfError::PARAMETER_DIFF);
   if (pGrammType == GrammaticalType::SPECIFIER || pGrammType == GrammaticalType::OWNER)
     return ComparisonErrorsCoef(5, ComparisonTypeOfError::SPECIFIER);
@@ -907,7 +911,8 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
     {
       if (pComparisonErrorsCoefPtr == nullptr)
         return ImbricationType::DIFFERS;
-      if (_hasInformationToFill(*currEltList1))
+      bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
+      if (_hasInformationToFill(*currEltList1, followInterpretations))
         pComparisonErrorsCoefPtr->add(ComparisonErrorsCoef(1, ComparisonTypeOfError::PARAMETER_DIFF));
       else
         pComparisonErrorsCoefPtr->add(ComparisonErrorsCoef(10, ComparisonTypeOfError::NORMAL));
@@ -996,7 +1001,8 @@ bool grdsHaveSamePolarity(const SemanticGrounding& pGrd1,
 
 bool haveSamePolarity(const GroundedExpression& pGrdExp1,
                       const GroundedExpression& pGrdExp2,
-                      const ConceptSet& pConceptsDb)
+                      const ConceptSet& pConceptsDb,
+                      bool pFollowInterpretations)
 {
   const SemanticGrounding& pGrd1 = pGrdExp1.grounding();
   const SemanticGrounding& pGrd2 = pGrdExp2.grounding();
@@ -1010,14 +1016,14 @@ bool haveSamePolarity(const GroundedExpression& pGrdExp1,
 
   for (const auto& child1 : pGrdExp1.children)
   {
-    const GroundedExpression* grdExp1 = child1.second->getGrdExpPtr_SkipWrapperPtrs();
+    const GroundedExpression* grdExp1 = child1.second->getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
     const auto itChild2 = pGrdExp2.children.find(child1.first);
     if (itChild2 != pGrdExp2.children.end())
     {
-      const GroundedExpression* grdExp2 = itChild2->second->getGrdExpPtr_SkipWrapperPtrs();
+      const GroundedExpression* grdExp2 = itChild2->second->getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
       if (grdExp1 != nullptr && grdExp2 != nullptr)
       {
-        samePolarity = (samePolarity == haveSamePolarity(*grdExp1, *grdExp2, pConceptsDb));
+        samePolarity = (samePolarity == haveSamePolarity(*grdExp1, *grdExp2, pConceptsDb, pFollowInterpretations));
       }
       else if (grdExp1 != nullptr)
       {
@@ -1041,7 +1047,7 @@ bool haveSamePolarity(const GroundedExpression& pGrdExp1,
   {
     if (pGrdExp1.children.find(child2.first) == pGrdExp1.children.end())
     {
-      const GroundedExpression* grdExp2 = child2.second->getGrdExpPtr_SkipWrapperPtrs();
+      const GroundedExpression* grdExp2 = child2.second->getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
       if (grdExp2 != nullptr &&
           grdHaveNbSetToZero(grdExp2->grounding()))
         samePolarity = !samePolarity;
@@ -1159,10 +1165,11 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   ListExpPtr listExpPtr2;
   _fillListExpPtr(listExpPtr2, pSemExp2, pExceptionsPtr, false);
 
+  bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
   const std::size_t size1 = listExpPtr1.elts.size();
   const std::size_t size2 = listExpPtr2.elts.size();
-  const bool hasInformationToFill1 = _hasInformationToFillFromListExpPtr(listExpPtr1);
-  const bool hasInformationToFill2 = _hasInformationToFillFromListExpPtr(listExpPtr2);
+  const bool hasInformationToFill1 = _hasInformationToFillFromListExpPtr(listExpPtr1, followInterpretations);
+  const bool hasInformationToFill2 = _hasInformationToFillFromListExpPtr(listExpPtr2, followInterpretations);
   const bool hasInformationToFill = hasInformationToFill1 || hasInformationToFill2;
   ComparisonErrorsCoef errorCoef(std::abs(static_cast<int>(size1) - static_cast<int>(size2)), ComparisonTypeOfError::NORMAL);
   if (size1 > size2)
@@ -1393,10 +1400,10 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
   {
     for (auto& currChild : childrenOnlyIn1)
       pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::MORE_DETAILED, currChild.second, ListExpPtr(),
-                                             _getErrorCoefFromListExpPtr(currChild.first, currChild.second));
+                                             _getErrorCoefFromListExpPtr(currChild.first, currChild.second, followInterpretations));
     for (auto& currChild : childrenOnlyIn2)
       pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::LESS_DETAILED, ListExpPtr(), currChild.second,
-                                             _getErrorCoefFromListExpPtr(currChild.first, currChild.second));
+                                             _getErrorCoefFromListExpPtr(currChild.first, currChild.second, followInterpretations));
   }
 
   if (!childrenOnlyIn1.empty() && !childrenOnlyIn2.empty())
@@ -1453,12 +1460,13 @@ ComparisonOperator numberComparisonOfGrdExps(const GroundedExpression& pGrdExp1,
 
 
 ComparisonOperator numberComparisonOfSemExps(const SemanticExpression& pSemExp1,
-                                             const SemanticExpression& pSemExp2)
+                                             const SemanticExpression& pSemExp2,
+                                             bool pFollowInterpretations)
 {
-  const GroundedExpression* grdExp1 = pSemExp1.getGrdExpPtr_SkipWrapperPtrs();
+  const GroundedExpression* grdExp1 = pSemExp1.getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   if (grdExp1 != nullptr)
   {
-    const GroundedExpression* grdExp2 = pSemExp2.getGrdExpPtr_SkipWrapperPtrs();
+    const GroundedExpression* grdExp2 = pSemExp2.getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
     if (grdExp2 != nullptr)
     {
       return numberComparisonOfGrdExps(*grdExp1, *grdExp2);

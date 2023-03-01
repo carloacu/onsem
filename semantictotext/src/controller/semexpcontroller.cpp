@@ -160,7 +160,7 @@ void _applyOperatorOnComparisonExp(SemControllerWorkingStruct& pWorkStruct,
     {
       ComparisonOperator polarity =
           SemExpComparator::numberComparisonOfSemExps(*pCompExp.leftOperandExp,
-                                                      **pCompExp.rightOperandExp);
+                                                      **pCompExp.rightOperandExp, true);
       if (polarity != ComparisonOperator::DIFFERENT)
       {
         resPolarity = pCompExp.op == polarity ||

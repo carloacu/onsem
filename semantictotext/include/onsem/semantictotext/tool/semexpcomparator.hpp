@@ -187,7 +187,8 @@ bool grdsHaveSamePolarity(const SemanticGrounding& pGrd1,
 ONSEMSEMANTICTOTEXT_API
 bool haveSamePolarity(const GroundedExpression& pGrdExp1,
                       const GroundedExpression& pGrdExp2,
-                      const ConceptSet& pConceptsDb);
+                      const ConceptSet& pConceptsDb,
+                      bool pFollowInterpretations);
 
 ONSEMSEMANTICTOTEXT_API
 bool doesGrdExpContainEverything(const GroundedExpression& pGrdExp);
@@ -264,7 +265,8 @@ bool groundingsAreEqual(const SemanticGrounding& pGrounding1,
 
 ONSEMSEMANTICTOTEXT_API
 ComparisonOperator numberComparisonOfSemExps(const SemanticExpression& pSemExp1,
-                                             const SemanticExpression& pSemExp2);
+                                             const SemanticExpression& pSemExp2,
+                                             bool pFollowInterpretations);
 
 
 ONSEMSEMANTICTOTEXT_API

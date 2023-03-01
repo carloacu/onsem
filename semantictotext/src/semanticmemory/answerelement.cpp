@@ -21,7 +21,7 @@ std::unique_ptr<SemanticExpressionContainer> AnswerElementDynamic::getSemExpForG
   if (rawRes != nullptr)
   {
     if (pHasSamePolarityPtr != nullptr && pFromGrdExpQuestion != nullptr && pLingDb != nullptr)
-      *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(_memSentPtr->grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet);
+      *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(_memSentPtr->grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet, true);
     return std::make_unique<ReferenceOfSemanticExpressionContainer>(*rawRes);
   }
   return {};
@@ -76,7 +76,7 @@ std::unique_ptr<SemanticExpressionContainer> AnswerElementStatic::getSemExpForGr
   if (semExpPtr != nullptr)
   {
     if (pHasSamePolarityPtr != nullptr && pFromGrdExpQuestion != nullptr && pLingDb != nullptr)
-      *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet);
+      *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet, true);
     return std::make_unique<UniqueSemanticExpression>(std::move(semExpPtr->clone()));
   }
 
@@ -84,7 +84,7 @@ std::unique_ptr<SemanticExpressionContainer> AnswerElementStatic::getSemExpForGr
   if (itChild != grdExp.children.end())
   {
     if (pHasSamePolarityPtr != nullptr && pFromGrdExpQuestion != nullptr && pLingDb != nullptr)
-      *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet);
+      *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet, true);
     return std::make_unique<UniqueSemanticExpression>(std::move(itChild->second));
   }
   return {};

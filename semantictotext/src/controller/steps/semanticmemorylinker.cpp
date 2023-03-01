@@ -1516,7 +1516,7 @@ void _genericFilterSemExpThatCanAnswer(std::map<QuestionAskedInformation, AllAns
     if (grammaticalTypes.empty())
     {
       bool hasSamePolarity = SemExpComparator::haveSamePolarity
-          (answGrdExp, pFromGrdExpQuestion, pWorkStruct.lingDb.conceptSet);
+          (answGrdExp, pFromGrdExpQuestion, pWorkStruct.lingDb.conceptSet, true);
       auto answGrdExpContainer = ansElt.getGrdExpContainer();
       auto& semExpsContainer = hasSamePolarity ? semExpsWithSamePolarity : semExpsWithOtherPolarity;
       semExpsContainer[relSemExp.first].emplace_back(ansElt.relatedContextAxioms,
@@ -1900,7 +1900,7 @@ void _getRelationsOfLinks
 
     bool samePolarity =
         SemExpComparator::haveSamePolarity(pGrdExp, memGrdExp,
-                                           pWorkStruct.lingDb.conceptSet);
+                                           pWorkStruct.lingDb.conceptSet, true);
     if (samePolarity)
     {
       // genGrd from input -> grd exp of memory -> quantity of the grd exp from memory
