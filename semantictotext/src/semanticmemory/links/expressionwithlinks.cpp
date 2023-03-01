@@ -32,7 +32,7 @@ void _getGrdExpPtrs_SkipWrapperListsBySetOfFroms(
       {
         pTriggerSetOfForms.emplace_back();
         auto& triggerComp = pTriggerSetOfForms.back();
-        triggerComp.listType = currQuestionForm->exp->getGrdExpPtrs_SkipWrapperLists(triggerComp.grdExpPtrs);
+        triggerComp.listType = currQuestionForm->exp->getGrdExpPtrs_SkipWrapperLists(triggerComp.grdExpPtrs, followInterpretations);
       }
     }
     return;

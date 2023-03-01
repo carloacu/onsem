@@ -358,7 +358,7 @@ ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<
   if (listExpPtr != nullptr)
   {
     for (auto& currElt : listExpPtr->elts)
-      currElt->getGrdExpPtrs_SkipWrapperLists(pRes);
+      currElt->getGrdExpPtrs_SkipWrapperLists(pRes, pFollowInterpretations);
     return listExpPtr->listType;
   }
   return ListExpressionType::UNRELATED;
@@ -379,7 +379,7 @@ ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<
   if (listExpPtr != nullptr)
   {
     for (auto& currElt : listExpPtr->elts)
-      currElt->getGrdExpPtrs_SkipWrapperLists(pRes);
+      currElt->getGrdExpPtrs_SkipWrapperLists(pRes, pFollowInterpretations);
     return listExpPtr->listType;
   }
   return ListExpressionType::UNRELATED;
