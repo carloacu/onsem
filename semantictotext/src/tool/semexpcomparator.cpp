@@ -311,6 +311,17 @@ bool _modifyImbricationFromOptInt(ImbricationType& pRes,
   return true;
 }
 
+ImbricationType _compareNames(const std::vector<std::string>& pNames1,
+                              const std::vector<std::string>& pNames2)
+{
+  for (const auto& currName1 : pNames1)
+    if (std::find(pNames2.begin(), pNames2.end(), currName1) != pNames2.end())
+      return ImbricationType::EQUALS;
+  for (const auto& currName2 : pNames2)
+    if (std::find(pNames1.begin(), pNames1.end(), currName2) != pNames1.end())
+      return ImbricationType::EQUALS;
+  return ImbricationType::DIFFERS;
+}
 
 ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
                                            const SemanticGrounding& pGrounding2,
@@ -363,6 +374,16 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
         res = agentGrd1.userIdWithoutContext == agentGrd2.userIdWithoutContext &&
             agentGrd1.userIdWithoutContext != SemanticAgentGrounding::userNotIdentified;
       return bool_toImbricationType(res);
+    }
+    case SemanticGroundingType::NAME:
+    {
+      const auto& nameInfosOpt1 = pGrounding1.getAgentGrounding().nameInfos;
+      if (nameInfosOpt1)
+      {
+        const auto& grd2Names = pGrounding2.getNameGrounding().nameInfos.names;
+        return _compareNames(nameInfosOpt1->names, grd2Names);
+      }
+      return ImbricationType::DIFFERS;
     }
     case SemanticGroundingType::GENERIC:
     {
@@ -505,9 +526,16 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
     {
       const auto& grd1Names = pGrounding1.getNameGrounding().nameInfos.names;
       const auto& grd2Names = pGrounding2.getNameGrounding().nameInfos.names;
-      for (const auto& currGrd1Name : grd1Names)
-        if (std::find(grd2Names.begin(), grd2Names.end(), currGrd1Name) != grd2Names.end())
-          return ImbricationType::EQUALS;
+      return _compareNames(grd1Names, grd2Names);
+    }
+    case SemanticGroundingType::AGENT:
+    {
+      const auto& nameInfosOpt2 = pGrounding2.getAgentGrounding().nameInfos;
+      if (nameInfosOpt2)
+      {
+        const auto& grd1Names = pGrounding1.getNameGrounding().nameInfos.names;
+        return _compareNames(grd1Names, nameInfosOpt2->names);
+      }
       return ImbricationType::DIFFERS;
     }
     case SemanticGroundingType::GENERIC:
