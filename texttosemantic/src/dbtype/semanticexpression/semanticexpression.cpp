@@ -366,12 +366,22 @@ ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<
 
 
 ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<const GroundedExpression*>& pRes,
-                                                                      bool pFollowInterpretations) const
+                                                                      bool pFollowInterpretations,
+                                                                      bool pRecurssiveCallsOnEmptyGrounding) const
 {
   const GroundedExpression* grdExpPtr = getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
   if (grdExpPtr != nullptr)
   {
-    pRes.emplace_back(grdExpPtr);
+    if (pRecurssiveCallsOnEmptyGrounding &&
+        grdExpPtr->grounding().isEmpty())
+    {
+      for (auto& currChild : grdExpPtr->children)
+        currChild.second->getGrdExpPtrs_SkipWrapperLists(pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding);
+    }
+    else
+    {
+      pRes.emplace_back(grdExpPtr);
+    }
     return ListExpressionType::UNRELATED;
   }
 
@@ -379,7 +389,7 @@ ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<
   if (listExpPtr != nullptr)
   {
     for (auto& currElt : listExpPtr->elts)
-      currElt->getGrdExpPtrs_SkipWrapperLists(pRes, pFollowInterpretations);
+      currElt->getGrdExpPtrs_SkipWrapperLists(pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding);
     return listExpPtr->listType;
   }
   return ListExpressionType::UNRELATED;

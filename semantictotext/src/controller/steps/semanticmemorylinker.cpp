@@ -1694,7 +1694,7 @@ bool addTriggerListExp
  const ListExpression& pListExp)
 {
   std::list<const GroundedExpression*> grdExpPtrs;
-  pListExp.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs, false);
+  pListExp.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs, false, true);
 
   std::size_t nbListOfElts = grdExpPtrs.size();
   auto getAxiomIdFromId = [&nbListOfElts, &pListExp](std::size_t pId)

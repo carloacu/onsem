@@ -183,8 +183,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   const std::string reaction3 = "You can make me move now.";
   const std::string trigger4 = "Start the akinator application";
   const std::string reaction4 = "It's a nice mental game.";
-  const std::string trigger5 = "start parle et carte";
-  const std::string reaction5 = "It's a nice application.";
+  const std::string trigger5 = "open freeze dance";
+  const std::string reaction5 = "Why do you want to do that?";
+  const std::string trigger6 = "start parle et carte";
+  const std::string reaction6 = "It's a nice application.";
   ONSEM_NOANSWER(triggers_match(trigger1, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(trigger2, semMem, lingDb));
 
@@ -192,7 +194,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   triggers_add(trigger2, reaction2, semMem, lingDb);
   triggers_add(trigger3, reaction3, semMem, lingDb);
   triggers_add(trigger4, reaction4, semMem, lingDb);
-  triggers_add(trigger5, reaction5, semMem, lingDb, {}, SemanticLanguageEnum::ENGLISH);
+  triggers_add(trigger5, reaction5, semMem, lingDb);
+  triggers_add(trigger6, reaction6, semMem, lingDb, {}, SemanticLanguageEnum::ENGLISH);
 
   ONSEM_ANSWER_EQ(reaction1, triggers_match(trigger1, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction1, triggers_match("tell me who you are", semMem, lingDb));
@@ -213,7 +216,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start the Robotbehav application", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction4, triggers_match(trigger4, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction4, triggers_match("Start akinator application", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(reaction5, triggers_match(trigger5, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction5, triggers_match(trigger5, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction6, triggers_match(trigger6, semMem, lingDb));
 }
 
 

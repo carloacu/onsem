@@ -88,11 +88,6 @@ private:
    const linguistics::LinguisticDatabase& pLingDb,
    bool pIsATrigger);
 
-  void _addTriggerGrdExpLinks(InformationType pInformationType,
-                              const GroundedExpression& pTriggerGrdExp,
-                              const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
-                              const linguistics::LinguisticDatabase& pLingDb,
-                              std::size_t pId = 0);
   void _addTriggerGrdExpsLinks(InformationType pInformationType,
                                const std::list<const GroundedExpression*>& pTriggerGrdExpPtrs,
                                const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,

@@ -47,7 +47,7 @@ void _getGrdExpPtrs_SkipWrapperListsBySetOfFroms(
   {
     pTriggerSetOfForms.emplace_back();
     auto& grdTriggerComp = pTriggerSetOfForms.back();
-    grdTriggerComp.listType = pSemExp.getGrdExpPtrs_SkipWrapperLists(grdTriggerComp.grdExpPtrs, followInterpretations);
+    grdTriggerComp.listType = pSemExp.getGrdExpPtrs_SkipWrapperLists(grdTriggerComp.grdExpPtrs, followInterpretations, true);
     if (grdTriggerComp.grdExpPtrs.empty())
       pTriggerSetOfForms.pop_back();
   }
@@ -365,19 +365,6 @@ void ExpressionWithLinks::addAxiomForARecommendation
 }
 
 
-void ExpressionWithLinks::_addTriggerGrdExpLinks(InformationType pInformationType,
-                                                 const GroundedExpression& pTriggerGrdExp,
-                                                 const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
-                                                 const linguistics::LinguisticDatabase& pLingDb,
-                                                 std::size_t pId)
-{
-  contextAxioms.emplace_back(pInformationType, *this);
-  SentenceWithLinks& axiom = contextAxioms.back();
-  axiom.triggerAxiomId = pGetAxiomIdFromId(pId);
-  std::map<GrammaticalType, const SemanticExpression*> annotations;
-  _addGrdExpToAxiom(axiom, pTriggerGrdExp, annotations, true, pLingDb, true);
-}
-
 void ExpressionWithLinks::_addTriggerGrdExpsLinks(InformationType pInformationType,
                                                   const std::list<const GroundedExpression*>& pTriggerGrdExpPtrs,
                                                   const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
@@ -388,18 +375,12 @@ void ExpressionWithLinks::_addTriggerGrdExpsLinks(InformationType pInformationTy
   {
     assert(currGrdExpTriggerPtr != nullptr);
     auto& currGrdExpTrigger = *currGrdExpTriggerPtr;
-    // If the grounding is empty, there is nothing to link for this grounding so we link only the children.
-    // This is used to link the not undertood semantic expression,
-    // because the pattern is an empty grounding with a NOT_UNDERTOOD child
-    if (currGrdExpTrigger.grounding().isEmpty())
-    {
-      for (const auto& currChild : currGrdExpTrigger.children)
-        addTriggerLinks(pInformationType, *currChild.second, pLingDb);
-    }
-    else
-    {
-      _addTriggerGrdExpLinks(pInformationType, currGrdExpTrigger, pGetAxiomIdFromId, pLingDb, i++);
-    }
+    contextAxioms.emplace_back(pInformationType, *this);
+    SentenceWithLinks& axiom = contextAxioms.back();
+    axiom.triggerAxiomId = pGetAxiomIdFromId(i);
+    std::map<GrammaticalType, const SemanticExpression*> annotations;
+    _addGrdExpToAxiom(axiom, currGrdExpTrigger, annotations, true, pLingDb, true);
+    ++i;
   }
 }
 
