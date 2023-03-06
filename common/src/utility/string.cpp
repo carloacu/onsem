@@ -272,5 +272,11 @@ std::string filenameToSuffix(const std::string& pFileName)
 }
 
 
+bool differentThanBoth(const std::string& pStr, const std::string& pPossibility1, const std::string& pPossibility2)
+{
+  return pStr != pPossibility1 && pStr != pPossibility2;
+}
+
+
 } // End of namespace mystd
 } // End of namespace onsem

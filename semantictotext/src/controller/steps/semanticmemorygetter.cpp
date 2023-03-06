@@ -1177,7 +1177,7 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
                                          pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
   }
 
-  if (pGenGrd.word.lemma.empty() && pGenGrd.concepts.empty())
+  if (pGenGrd.word.lemma.empty() && !ConceptSet::haveAConceptNotAny(pGenGrd.concepts))
   {
     if (pGenGrd.quantity.type == SemanticQuantityType::NUMBER)
     {
@@ -1191,6 +1191,10 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
       res = _getQuantityTypesRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pGenGrd.quantity.type,
                                        pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb,
                                        pCheckChildren) || res;
+      if (pGenGrd.quantity.type == SemanticQuantityType::EVERYTHING)
+        res = _getQuantityTypesRelations(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, SemanticQuantityType::ANYTHING,
+                                         pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb,
+                                         pCheckChildren) || res;
     }
     else if (pGenGrd.referenceType != SemanticReferenceType::UNDEFINED)
     {

@@ -2258,8 +2258,6 @@ std::unique_ptr<SemanticExpression> SyntacticGraphToSemantic::xTranslateRelative
     }
     else if (!quantityFilled)
     {
-      if (pIGram.word == SemanticWord(SemanticLanguageEnum::FRENCH, "on", PartOfSpeech::PRONOUN_SUBJECT))
-        return pGeneral.textProcContext.usSemExp->clone();
       referenceType = SemanticReferenceType::DEFINITE;
       if (!cannotBeCompletedFromContext)
         hasToBeCompletedFromContext = true;

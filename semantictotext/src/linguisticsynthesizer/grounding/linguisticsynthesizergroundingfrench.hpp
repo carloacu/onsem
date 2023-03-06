@@ -20,7 +20,7 @@ public:
 
   virtual PartOfSpeech writeRelativePerson
   (std::list<WordToSynthesize>& pOut,
-   RelativePerson pRelativePerson,
+   RelativePerson& pRelativePerson,
    SemanticReferenceType pReferenceType,
    bool pHasToBeCompletedFromContext,
    SemanticEntityType pAgentType,

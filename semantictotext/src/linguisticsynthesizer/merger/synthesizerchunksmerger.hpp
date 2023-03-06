@@ -23,6 +23,9 @@ protected:
 
   static void _writeDurationLocationAndTimeInGoodOrder(std::list<WordToSynthesize>& pOut,
                                                        OutSentence& pOutSentence);
+
+  static void _filterForInSentenceContext(std::list<WordToSynthesize>& pOut,
+                                          const OutSentence& pOutSentence);
 };
 
 

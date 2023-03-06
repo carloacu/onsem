@@ -1151,7 +1151,7 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
           pEnsureLinksToGrdExps().genGroundingTypeToSemExps[genGrounding.entityType].emplace_back(newMemGrdExp);
       }
 
-      if (genGrounding.word.lemma.empty() && genGrounding.concepts.empty())
+      if (genGrounding.word.lemma.empty() && !ConceptSet::haveAConceptNotAny(genGrounding.concepts))
       {
         if (genGrounding.quantity.type == SemanticQuantityType::NUMBER)
         {

@@ -1,4 +1,5 @@
 #include "synthesizerchunksmergerfrench.hpp"
+#include <onsem/common/utility/string.hpp>
 #include "../tool/synthesizeradder.hpp"
 #include "../tool/synthesizerconditions.hpp"
 
@@ -26,11 +27,13 @@ bool _shouldWriteSubjectAfterTheVerb
     if (pOutSentence.equVerb ||
         (!requestisYesOrNoOrCause && !pOutSentence.aux.out.empty() && pOutSentence.aux.out.front().word.lemma == "être"))
     {
-      if (pOutSentence.subject.partOfSpeech == PartOfSpeech::PRONOUN_SUBJECT)
+      if (pOutSentence.subject.partOfSpeech == PartOfSpeech::PRONOUN_SUBJECT ||
+          pOutSentence.subject.partOfSpeech == PartOfSpeech::PRONOUN)
       {
-        if (pOut.empty() || pOut.back().word.lemma != "qui" ||
+        if (pOut.empty() ||
+            mystd::differentThanBoth(pOut.back().word.lemma, "qui", "que") ||
             pOutSentence.subject.out.empty() ||
-            pOutSentence.subject.out.front().word.lemma != "ce")
+            mystd::differentThanBoth(pOutSentence.subject.out.front().word.lemma, "ce", "ça"))
           return true;
       }
       else if (pOutSentence.objectAfterVerb.empty() && pOutSentence.verbGoal.empty() &&
@@ -125,7 +128,15 @@ void _tryToAddHyphen(std::list<WordToSynthesize>& pOut,
     }
 
     // subject cannot be in the contracted form if it is after the verb
-    pOutSentence.subject.out.front().keepOnlyLastInflection();
+    auto& subjectWord = pOutSentence.subject.out.front();
+    while (subjectWord.inflections.size() >= 2)
+    {
+      const auto& wordStr = subjectWord.inflections.front().str;
+      if (!wordStr.empty() && wordStr[wordStr.size() - 1] == '\'')
+        subjectWord.inflections.pop_front();
+      else
+        break;
+    }
   }
 }
 
@@ -159,6 +170,7 @@ void SynthesizerChunksMergerFrench::formulateSentence
 (std::list<WordToSynthesize>& pOut,
  OutSentence& pOutSentence) const
 {
+  _filterForInSentenceContext(pOutSentence.subject.out, pOutSentence);
   if (_shouldWriteSubjectAfterTheVerb(pOut, pOutSentence))
     _formulation_objectQuestionWithSubjetAfterTheVerb(pOut, pOutSentence);
   else

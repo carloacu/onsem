@@ -665,7 +665,8 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
            pGrdExp.children.empty())
   {
     SemanticRequests requests;
-    grdSynth.writeRelativePerson(pOut, RelativePerson::THIRD_SING, SemanticReferenceType::DEFINITE,
+    auto thirdSingRelPerson = RelativePerson::THIRD_SING;
+    grdSynth.writeRelativePerson(pOut, thirdSingRelPerson, SemanticReferenceType::DEFINITE,
                                  true, SemanticEntityType::UNKNOWN, SemanticQuantity(),
                                  pContext, requests);
     return;
@@ -741,6 +742,33 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
     writeTheRepetitions = false;
     verbContext.isPositive = !verbContext.isPositive;
   }
+
+
+  // write the subject
+  if (!pRequests.has(SemanticRequestType::ACTION))
+  {
+    if (sentWorkStruct.subjectPtr != nullptr)
+    {
+      const UniqueSemanticExpression& subjectRef = *sentWorkStruct.subjectPtr;
+      SynthesizerCurrentContext subjectContext; // TODO: = verbContext;
+      subjectContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_SUBJECT;
+      subjectContext.wordContext.relativePerson = subjectRelativePerson;
+      subjectContext.currSentence = &sentWorkStruct.outs;
+      subjectContext.verbTense = verbContext.verbTense;
+      subjectContext.isPartOfANameAssignement = isANameAssignement;
+      _writeSubjectContext(sentWorkStruct.outs,
+                           pLastSubject, subjectRef,
+                           subjectContext, pConf, pRequests);
+      if (relativePerson_toNumberType(subjectRelativePerson) != SemanticNumberType::PLURAL)
+        subjectRelativePerson = sentWorkStruct.outs.subject.relativePerson;
+    }
+    else if (isAGeneralitySentence)
+    {
+      _writeSubjectOfGeneralitySentence(sentWorkStruct.outs);
+    }
+  }
+
+
   // write the verb
   if (needToWriteTheVerb)
   {
@@ -788,28 +816,6 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
       _getNegationsBeforeVerb(sentWorkStruct.outs.negation1.out);
       if (!sentWorkStruct.objectIsAnNoElement)
         _getNegationsAfterVerb(sentWorkStruct.outs.negation2.out);
-    }
-  }
-
-  // write the subject
-  if (!pRequests.has(SemanticRequestType::ACTION))
-  {
-    if (sentWorkStruct.subjectPtr != nullptr)
-    {
-      const UniqueSemanticExpression& subjectRef = *sentWorkStruct.subjectPtr;
-      SynthesizerCurrentContext subjectContext; // TODO: = verbContext;
-      subjectContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_SUBJECT;
-      subjectContext.wordContext.relativePerson = subjectRelativePerson;
-      subjectContext.currSentence = &sentWorkStruct.outs;
-      subjectContext.verbTense = verbContext.verbTense;
-      subjectContext.isPartOfANameAssignement = isANameAssignement;
-      _writeSubjectContext(sentWorkStruct.outs,
-                           pLastSubject, subjectRef,
-                           subjectContext, pConf, pRequests);
-    }
-    else if (isAGeneralitySentence)
-    {
-      _writeSubjectOfGeneralitySentence(sentWorkStruct.outs);
     }
   }
 
@@ -1593,6 +1599,20 @@ void LinguisticSynthesizerPrivate::_writeSubjectContext
     {
       _writeGenericSubject(pOutSentence);
       return;
+    }
+
+    auto* genGrdPtr = grounding.getGenericGroundingPtr();
+    if (genGrdPtr != nullptr)
+    {
+      auto& genGrd = *genGrdPtr;
+      if (genGrd.word.isEmpty() &&
+          !ConceptSet::haveAnotherConceptThan(genGrd.concepts, "agent_*") &&
+          genGrd.entityType == SemanticEntityType::HUMAN &&
+          genGrd.quantity.type == SemanticQuantityType::ANYTHING)
+      {
+        _writeAnythingHumanQuantity(pOutSentence);
+        return;
+      }
     }
   }
 

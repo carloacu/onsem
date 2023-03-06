@@ -24,6 +24,7 @@ static inline void strToOut
                     InflectionToSynthesize(pStr, true, true, alwaysTrue), pTag);
 }
 
+
 static inline void strToOutCptsMove
 (std::list<WordToSynthesize>& pOut,
  PartOfSpeech pPartOfSpeech,
@@ -61,15 +62,24 @@ static inline void strWithApostropheToOut
  PartOfSpeech pPartOfSpeech,
  const std::string& pStrApos,
  const std::string& pStr,
- SemanticLanguageEnum pLanguage)
+ SemanticLanguageEnum pLanguage,
+ bool (*pContextCondition)(const OutSentence*) = [](const OutSentence*){ return true; })
 {
   pOut.emplace_back([&]
   {
     WordToSynthesize wordToToSynth(SemanticWord(pLanguage, pStr, pPartOfSpeech),
-                                   InflectionToSynthesize(pStrApos, true, false, ifNeedAnApostropheBefore));
-    wordToToSynth.inflections.emplace_back(pStr, true, true, alwaysTrue);
+                                   InflectionToSynthesize(pStrApos, true, false, ifNeedAnApostropheBefore, pContextCondition));
+    wordToToSynth.inflections.emplace_back(pStr, true, true, alwaysTrue, pContextCondition);
     return wordToToSynth;
   }());
+}
+
+static inline void addInflectionToLastOut
+(std::list<WordToSynthesize>& pOut,
+ const std::string& pStr)
+{
+  if (!pOut.empty())
+    pOut.back().inflections.emplace_back(InflectionToSynthesize(pStr, true, true, alwaysTrue));
 }
 
 

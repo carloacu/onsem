@@ -41,7 +41,6 @@ TEST_F(SemanticReasonerGTests, test_coreference_us)
 
   ONSEM_UNKNOWN(_reactWitthNewMemoryAndWithCustomContext("we are happy", isEverybodyHappyEn, contextEn, lingDb));
   ONSEM_UNKNOWN(_reactWitthNewMemoryAndWithCustomContext("nous sommes content", isEverybodyHappyFr, contextFr, lingDb));
-  ONSEM_UNKNOWN(_reactWitthNewMemoryAndWithCustomContext("on est content", isEverybodyHappyFr, contextFr, lingDb));
 
   contextEn.setUsAsEverybody();
   contextFr.setUsAsEverybody();

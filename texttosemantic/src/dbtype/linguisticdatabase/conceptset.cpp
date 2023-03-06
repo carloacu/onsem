@@ -225,6 +225,16 @@ bool ConceptSet::haveAConceptOrAHyponym
 }
 
 
+bool ConceptSet::haveAnotherConceptThan
+(const std::map<std::string, char>& pInputConcepts,
+ const std::string& pConceptName)
+{
+  for (const auto& currConcept : pInputConcepts)
+    if (currConcept.first != pConceptName)
+      return true;
+  return false;
+}
+
 void ConceptSet::removeConceptsOrHyponyms
 (std::map<std::string, char>& pInputConcepts,
  const std::string& pConcept)

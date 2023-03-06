@@ -52,6 +52,8 @@ ONSEM_COMMON_API
 std::string filenameToSuffix(const std::string& pFileName);
 
 
+ONSEM_COMMON_API
+bool differentThanBoth(const std::string& pStr, const std::string& pPossibility1, const std::string& pPossibility2);
 
 
 template <typename STRING_CONTAINER>

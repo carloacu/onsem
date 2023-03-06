@@ -611,7 +611,6 @@ void Linguisticsynthesizergrounding::_modifyContextForAGenGrounding
   {
     if (pGrounding.quantity.type == SemanticQuantityType::EVERYTHING)
     {
-      pWordContext.number = SemanticNumberType::PLURAL;
       if (_language == SemanticLanguageEnum::FRENCH)
         pWordContext.referenceType = SemanticReferenceType::DEFINITE;
     }

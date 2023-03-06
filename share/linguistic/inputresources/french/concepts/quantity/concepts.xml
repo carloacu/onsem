@@ -2,6 +2,7 @@
  <concept name="quantity_anything">
   <linkedMeaning lemme="n'importe qui" relationToConcept="4"/>
   <linkedMeaning lemme="n'importe quoi" relationToConcept="4"/>
+  <linkedMeaning lemme="on" gram="pronoun_subject" relationToConcept="3"/>
  </concept>
  <concept name="quantity_everything">
   <linkedMeaning lemme="tout" relationToConcept="4"/>

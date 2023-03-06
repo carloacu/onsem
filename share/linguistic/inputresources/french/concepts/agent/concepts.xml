@@ -10,6 +10,7 @@
  <concept name="agent_*">
   <linkedMeaning lemme="étoile" relationToConcept="0"/>
   <linkedMeaning lemme="objet" relationToConcept="0"/>
+  <linkedMeaning lemme="on" gram="pronoun_subject" relationToConcept="3"/>
  </concept>
  <concept name="agent_god">
   <linkedMeaning lemme="Dieu" gram="proper_noun" />

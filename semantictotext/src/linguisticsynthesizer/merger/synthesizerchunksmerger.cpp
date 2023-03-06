@@ -26,4 +26,19 @@ void SynthesizerChunksMerger::_writeDurationLocationAndTimeInGoodOrder(
 }
 
 
+void SynthesizerChunksMerger::_filterForInSentenceContext(std::list<WordToSynthesize>& pOut,
+                                                          const OutSentence& pOutSentence)
+{
+  for (auto& currWordToSynthesize : pOut)
+  {
+    for (auto it = currWordToSynthesize.inflections.begin(); it != currWordToSynthesize.inflections.end(); )
+    {
+      if (it->contextCondition(&pOutSentence))
+        ++it;
+      else
+        it = currWordToSynthesize.inflections.erase(it);
+    }
+  }
+}
+
 } // End of namespace onsem

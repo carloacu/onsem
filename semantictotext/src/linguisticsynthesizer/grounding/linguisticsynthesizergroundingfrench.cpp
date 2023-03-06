@@ -5,6 +5,7 @@
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include "../tool/synthesizeradder.hpp"
+#include "../tool/synthesizercontextconditions.hpp"
 
 namespace onsem
 {
@@ -72,7 +73,7 @@ bool LinguisticsynthesizergroundingFrench::_groundingAttributesToWord(linguistic
 
 PartOfSpeech LinguisticsynthesizergroundingFrench::writeRelativePerson
 (std::list<WordToSynthesize>& pOut,
- RelativePerson pRelativePerson,
+ RelativePerson& pRelativePerson,
  SemanticReferenceType pReferenceType,
  bool pHasToBeCompletedFromContext,
  SemanticEntityType pAgentType,
@@ -137,6 +138,7 @@ PartOfSpeech LinguisticsynthesizergroundingFrench::writeRelativePerson
       _strToOut(pOut, PartOfSpeech::PRONOUN,
                 pAgentType == SemanticEntityType::HUMAN ?
                   "tout le monde" : "tout");
+      pRelativePerson = RelativePerson::THIRD_SING;
       return PartOfSpeech::PRONOUN;
     }
     if (pContext.wordContext.gender == SemanticGenderType::FEMININE)
@@ -231,16 +233,15 @@ PartOfSpeech LinguisticsynthesizergroundingFrench::writeRelativePerson
         }
         return PartOfSpeech::PRONOUN_SUBJECT;
       }
-      if (pContext.currSentence != nullptr &&
-          ((!pContext.currSentence->verb.out.empty() &&
-            pContext.currSentence->verb.out.front().word.lemma == "être") ||
-           (!pContext.currSentence->aux.out.empty() &&
-            pContext.currSentence->aux.out.front().word.lemma == "être")))
+      if (pContext.currSentence != nullptr)
       {
-        _strWithApostropheToOut(pOut, PartOfSpeech::PRONOUN_SUBJECT, "c'", "ce");
-        return PartOfSpeech::PRONOUN_SUBJECT;
+        _strWithApostropheToOut(pOut, PartOfSpeech::PRONOUN, "c'", "ce", isBeVerb);
+        synthTool::addInflectionToLastOut(pOut, "ça");
       }
-      _strToOut(pOut, PartOfSpeech::PRONOUN, "ça");
+      else
+      {
+         _strToOut(pOut, PartOfSpeech::PRONOUN, "ça");
+      }
       return PartOfSpeech::PRONOUN;
     }
     break;

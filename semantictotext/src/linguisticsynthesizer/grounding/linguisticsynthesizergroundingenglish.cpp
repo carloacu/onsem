@@ -67,7 +67,7 @@ bool LinguisticsynthesizergroundingEnglish::_dateTranslation
 
 PartOfSpeech LinguisticsynthesizergroundingEnglish::writeRelativePerson
 (std::list<WordToSynthesize>& pOut,
- RelativePerson pRelativePerson,
+ RelativePerson& pRelativePerson,
  SemanticReferenceType pReferenceType,
  bool,
  SemanticEntityType pAgentType,

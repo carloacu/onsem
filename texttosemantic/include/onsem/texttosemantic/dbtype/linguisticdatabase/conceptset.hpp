@@ -83,6 +83,10 @@ public:
   (const std::map<std::string, char>& pInputConcepts,
    const std::string& pConcept);
 
+  static bool haveAnotherConceptThan
+  (const std::map<std::string, char>& pInputConcepts,
+   const std::string& pConceptName);
+
   static bool haveAConceptThatBeginWithAnyOf
   (const std::map<std::string, char>& pInputConcepts,
    const std::vector<std::string>& pExistingConcepts);

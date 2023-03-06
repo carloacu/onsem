@@ -168,7 +168,7 @@ public:
 
   virtual PartOfSpeech writeRelativePerson
   (std::list<WordToSynthesize>& pOut,
-   RelativePerson pRelativePerson,
+   RelativePerson& pRelativePerson,
    SemanticReferenceType pReferenceType,
    bool pHasToBeCompletedFromContext,
    SemanticEntityType pAgentType,
@@ -261,8 +261,9 @@ protected:
   (std::list<WordToSynthesize>& pOut,
    PartOfSpeech pPartOfSpeech,
    const std::string& pStrApos,
-   const std::string& pStr) const
-  { synthTool::strWithApostropheToOut(pOut, pPartOfSpeech, pStrApos, pStr, _language); }
+   const std::string& pStr,
+   bool (*pContextCondition)(const OutSentence*) = [](const OutSentence*){ return true; }) const
+  { synthTool::strWithApostropheToOut(pOut, pPartOfSpeech, pStrApos, pStr, _language, pContextCondition); }
 
   virtual bool _dateTranslation
   (std::list<WordToSynthesize>& pOut,

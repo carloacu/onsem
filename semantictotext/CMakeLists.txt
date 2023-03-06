@@ -169,6 +169,7 @@ set(ONSEMSEMANTICTOTEXT_LINGUISTICSYNTHESIZER_SRCS
   src/linguisticsynthesizer/merger/synthesizerchunksmergerfrench.hpp
   src/linguisticsynthesizer/merger/synthesizerchunksmergerfrench.cpp
   src/linguisticsynthesizer/tool/synthesizerconditions.hpp
+  src/linguisticsynthesizer/tool/synthesizercontextconditions.hpp
   src/linguisticsynthesizer/tool/synthesizeradder.hpp
   src/linguisticsynthesizer/tool/synthesizergetter.hpp
   src/linguisticsynthesizer/tool/synthesizergetter.cpp

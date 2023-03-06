@@ -388,6 +388,13 @@ void LinguisticSynthesizerEnglish::_writeGenericSubject(OutSentence& pOutSentenc
   _strToOut(pOutSentence.subject.out, PartOfSpeech::PRONOUN_SUBJECT, "we");
 }
 
+void LinguisticSynthesizerEnglish::_writeAnythingHumanQuantity(OutSentence& pOutSentence) const
+{
+  pOutSentence.subject.partOfSpeech = PartOfSpeech::PRONOUN_SUBJECT;
+  pOutSentence.subject.relativePerson = RelativePerson::THIRD_PLUR;
+  _strToOut(pOutSentence.subject.out, pOutSentence.subject.partOfSpeech, "we");
+}
+
 void LinguisticSynthesizerEnglish::_getBeginOfBetweenSubordonate
 (std::list<WordToSynthesize>& pOut) const
 {

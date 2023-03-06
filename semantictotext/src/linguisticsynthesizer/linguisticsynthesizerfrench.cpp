@@ -757,6 +757,13 @@ void LinguisticSynthesizerFrench::_writeGenericSubject(OutSentence& pOutSentence
   _strToOut(pOutSentence.subject.out, pOutSentence.subject.partOfSpeech, "il");
 }
 
+void LinguisticSynthesizerFrench::_writeAnythingHumanQuantity(OutSentence& pOutSentence) const
+{
+  pOutSentence.subject.partOfSpeech = PartOfSpeech::PRONOUN_SUBJECT;
+  pOutSentence.subject.relativePerson = RelativePerson::THIRD_SING;
+  _strToOut(pOutSentence.subject.out, pOutSentence.subject.partOfSpeech, "on");
+}
+
 void LinguisticSynthesizerFrench::_getBeginOfBetweenSubordonate
 (std::list<WordToSynthesize>& pOut) const
 {

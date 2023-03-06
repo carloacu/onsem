@@ -12,9 +12,10 @@ namespace
 void _groundingsCoef(SemanticGroundingsToRecommendationCoef& pGrdContainer,
                      const std::string& pText,
                      int pCoef,
-                     const linguistics::LinguisticDatabase& pLingDb)
+                     const linguistics::LinguisticDatabase& pLingDb,
+                     SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN)
 {
-  addGroundingCoef(pGrdContainer, textToSemExp(pText, pLingDb), pCoef, pLingDb);
+  addGroundingCoef(pGrdContainer, textToSemExp(pText, pLingDb, pLanguage), pCoef, pLingDb);
 }
 
 
@@ -118,6 +119,7 @@ TEST_F(SemanticReasonerGTests, test_recommendations_faq_carrefour)
   const std::vector<std::string> recommendations = carrefourFaqLoader.getSentences();
   _addRecommendationPossibility(recommendationContainer, recommendations, lingDb);
   _groundingsCoef(recommendationContainer.goundingsToCoef, "nous", 1, lingDb);
+  _groundingsCoef(recommendationContainer.goundingsToCoef, "on", 1, lingDb, SemanticLanguageEnum::FRENCH);
 
   EXPECT_EQ("Comment payer en ligne ? | "
             "Peut-on payer par Carte PASS ? | "

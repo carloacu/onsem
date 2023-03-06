@@ -12,6 +12,7 @@
 namespace onsem
 {
 struct WordToSynthesize;
+struct OutSentence;
 
 
 struct ONSEM_TEXTTOSEMANTIC_API InflectionToSynthesize
@@ -20,12 +21,14 @@ struct ONSEM_TEXTTOSEMANTIC_API InflectionToSynthesize
   (const std::string& pStr,
    bool pIfCanHaveSpaceBefore = true,
    bool pIfCanHaveSpaceAfter = true,
-   bool (*pConditions)(const WordToSynthesize&) = [](const WordToSynthesize&){ return true; })
+   bool (*pConditions)(const WordToSynthesize&) = [](const WordToSynthesize&){ return true; },
+   bool (*pContextCondition)(const OutSentence*) = [](const OutSentence*){ return true; })
     : str(pStr),
       ifCanHaveSpaceBefore(pIfCanHaveSpaceBefore),
       ifCanHaveSpaceAfter(pIfCanHaveSpaceAfter),
       canHavePunctionAfter(true),
       conditions(pConditions),
+      contextCondition(pContextCondition),
       fromResourcePtr(nullptr)
   {
   }
@@ -48,6 +51,7 @@ struct ONSEM_TEXTTOSEMANTIC_API InflectionToSynthesize
   bool ifCanHaveSpaceAfter;
   bool canHavePunctionAfter;
   bool (*conditions)(const WordToSynthesize&);
+  bool (*contextCondition)(const OutSentence*);
   const SemanticResourceGrounding* fromResourcePtr;
 };
 
@@ -81,12 +85,6 @@ struct ONSEM_TEXTTOSEMANTIC_API WordToSynthesize
       tag(pTag),
       contextualInfos()
   {
-  }
-
-  void keepOnlyLastInflection()
-  {
-    while (inflections.size() > 1)
-      inflections.pop_front();
   }
 
   bool operator==(const WordToSynthesize& pOther) const
