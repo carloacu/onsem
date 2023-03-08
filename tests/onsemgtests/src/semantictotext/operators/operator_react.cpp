@@ -698,6 +698,15 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                     operator_react("Qui est né le 4 août 1961 ?", semMem, lingDb));
   }
 
+  // merge similar answers
+  {
+    ONSEM_QUESTION_EQ("Quand feras-tu des courses ?",
+                      operator_react("je vais faire des courses", semMem, lingDb));
+    ONSEM_QUESTION_EQ("Où feras-tu des courses demain ?",
+                      operator_react("demain", semMem, lingDb));
+    ONSEM_ANSWER_EQ("Tu feras des courses demain.",
+                    operator_react("qu'est-ce que je vais faire", semMem, lingDb));
+  }
 
   EXPECT_TRUE(checkMemBlocBinarization(semMem.memBloc, lingDb));
   static const std::string reactMemoryFilename("reactmemory.smb");

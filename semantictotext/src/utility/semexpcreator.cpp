@@ -5,9 +5,9 @@
 #include <onsem/texttosemantic/dbtype/semanticgroundings.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
+#include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <onsem/semantictotext/semexpsimplifer.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
-
 
 namespace onsem
 {
@@ -61,7 +61,6 @@ UniqueSemanticExpression _answerExpToSemExp(const AnswerExp& pAnswExp)
     SemExpModifier::addChild(*res, GrammaticalType::SPECIFIER,
                              pAnswExp.equalitySemExp->clone(), ListExpressionType::UNRELATED);
 
-
   if (!pAnswExp.annotationsOfTheAnswer.empty())
   {
     std::unique_ptr<AnnotatedExpression> annExp;
@@ -77,19 +76,61 @@ UniqueSemanticExpression _answerExpToSemExp(const AnswerExp& pAnswExp)
 }
 
 
-mystd::unique_propagate_const<UniqueSemanticExpression> _copyListOfGrdExps
+std::list<UniqueSemanticExpression> _copyListOfSemExps
 (const std::list<AnswerExp>& pGrdExps)
 {
-  std::size_t nbElts = pGrdExps.size();
+  std::list<UniqueSemanticExpression> res;
+  for (const auto& currChild : pGrdExps)
+    res.emplace_back(_answerExpToSemExp(currChild));
+  return res;
+}
+
+
+void _removeSimilarInformations
+(std::list<UniqueSemanticExpression>& pAnswers,
+ const SemanticMemoryBlock& pMemBlock,
+ const linguistics::LinguisticDatabase& pLingDb)
+{
+  for (auto it = pAnswers.begin(); it != pAnswers.end(); )
+  {
+    bool answerRemoved = false;
+    auto followingIt = it;
+    ++followingIt;
+    while (followingIt != pAnswers.end())
+    {
+      auto imbrication = SemExpComparator::getSemExpsImbrications(**it, **followingIt, pMemBlock, pLingDb, nullptr);
+      if (imbrication == ImbricationType::LESS_DETAILED || imbrication == ImbricationType::EQUALS)
+      {
+        it = pAnswers.erase(it);
+        answerRemoved = true;
+        break;
+      }
+      if (imbrication == ImbricationType::MORE_DETAILED)
+      {
+        followingIt = pAnswers.erase(followingIt);
+        break;
+      }
+      ++followingIt;
+    }
+    if (!answerRemoved)
+      ++it;
+  }
+}
+
+
+mystd::unique_propagate_const<UniqueSemanticExpression> _answersToSemExp
+(std::list<UniqueSemanticExpression>& pAnswers)
+{
+  std::size_t nbElts = pAnswers.size();
   if (nbElts == 1)
   {
-    return _answerExpToSemExp(pGrdExps.front());
+    return std::move(pAnswers.front());
   }
   else if (nbElts > 1)
   {
     auto listExp = std::make_unique<ListExpression>(ListExpressionType::AND);
-    for (const auto& currChild : pGrdExps)
-      listExp->elts.emplace_back(_answerExpToSemExp(currChild));
+    for (auto& currAnswer : pAnswers)
+      listExp->elts.emplace_back(std::move(currAnswer));
     return UniqueSemanticExpression(std::move(listExp));
   }
   return {};
@@ -1321,7 +1362,9 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
   for (auto& currAnsw : pAllAnswers)
   {
     AllAnswerElts& answElts = currAnsw.second;
-    auto answerSemExpOpt = _copyListOfGrdExps(answElts.answersFromMemory);
+    auto answers = _copyListOfSemExps(answElts.answersFromMemory);
+    _removeSimilarInformations(answers, pMemBlock, pLingDb);
+    auto answerSemExpOpt = _answersToSemExp(answers);
     if (!answerSemExpOpt &&
         !answElts.answersGenerated.empty())
       answerSemExpOpt = answElts.answersGenerated.front().genSemExp->clone();

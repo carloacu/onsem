@@ -28,7 +28,7 @@ ImbricationType _getImbrication(const std::string& pStr1,
   auto resOtherSide = SemExpComparator::getSemExpsImbrications(semExp2, semExp1, pSemanticMemory.memBloc, pLingDb,
                                                                nullptr);
   auto resOtherSideExpected = SemExpComparator::switchOrderOfEltsImbrication(res);
-  EXPECT_EQ(resOtherSideExpected, resOtherSide);
+  EXPECT_EQ(resOtherSideExpected, resOtherSide) << " for texts: \n" << pStr1 << "\n and \n" << pStr2 << "\n";
   return res;
 }
 }
@@ -86,11 +86,11 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("septembre", "le 3 septembre 1986", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Paul ira à Paris", "Paul ira à Paris. Pierre aime les fleurs", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Paul ira à Paris", "Paul ira à Paris en janvier", semanticMemory, lingDb));
-  EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I asked walk", "I said walk yesterday", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("oui", "Oui, allons-y !", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("no", "absolutely not", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I bought a N5", "I bought a N5 robot", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I bought N5", "I bought N5 robot", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("je vais faire des courses au supermarché", "je vais faire des courses au supermarché demain", semanticMemory, lingDb));
 
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("et puis", "et avant", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Il est né en 1988", "Il est né le 5 mai 1986", semanticMemory, lingDb));
@@ -99,12 +99,14 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("@karim-boudjema", "deux joueurs de tennis Vijay Amritraj", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Abderrahim", "un conseiller", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("j'aime quelqu'un", "quelqu'un m'aime", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("je marche", "je fais un gâteau", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I say rub your head", "I don't ask rub your head", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I look left", "I don't look", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I like a person", "I don't like you", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I am speaking", "I am smiling", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("a man and a woman", "a man or a woman", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Your battery is nearly empty", "Your battery is low", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I asked walk", "I said walk yesterday", semanticMemory, lingDb));
 }
 
 

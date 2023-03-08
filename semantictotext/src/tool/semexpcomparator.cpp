@@ -628,16 +628,16 @@ ImbricationType _mergeChildImbrications(ImbricationType pChildImbrication1,
       pChildImbrication1 != ImbricationType::CONTAINS)
     return pChildImbrication1;
   if (pChildImbrication1 == ImbricationType::HYPERNYM &&
-      pChildImbrication2 != ImbricationType::HYPONYM)
+      pChildImbrication2 == ImbricationType::LESS_DETAILED)
     return pChildImbrication2;
   if (pChildImbrication2 == ImbricationType::HYPERNYM &&
-      pChildImbrication1 != ImbricationType::HYPONYM)
+      pChildImbrication1 == ImbricationType::LESS_DETAILED)
     return pChildImbrication1;
   if (pChildImbrication1 == ImbricationType::HYPONYM &&
-      pChildImbrication2 != ImbricationType::HYPERNYM)
+      pChildImbrication2 == ImbricationType::MORE_DETAILED)
     return pChildImbrication2;
   if (pChildImbrication2 == ImbricationType::HYPONYM &&
-      pChildImbrication1 != ImbricationType::HYPERNYM)
+      pChildImbrication1 == ImbricationType::MORE_DETAILED)
     return pChildImbrication1;
   return ImbricationType::DIFFERS;
 }
