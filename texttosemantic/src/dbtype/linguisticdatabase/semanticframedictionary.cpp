@@ -217,8 +217,21 @@ bool _isConditionIsVerified(const LinguisticConditionTreeValue& pConditionValue,
   }
   case LinguisticCondition::FOLLOWEDBYVOWEL:
   {
-    return pNextToken != nullptr && !pNextToken->atEnd() &&
-        isFirstLetterAVowel(pNextToken->getToken().str, 0);
+    if (pNextToken == nullptr || pNextToken->atEnd())
+      return false;
+    auto itToken = pNextToken->getTokenIt();
+    auto itEnd = pNextToken->getItEnd();
+    while (itToken != itEnd)
+    {
+      const InflectedWord& inflWord = itToken->inflWords.front();
+      if (inflWord.word.partOfSpeech == PartOfSpeech::DETERMINER)
+      {
+        itToken = getNextToken(itToken, itEnd);
+        continue;
+      }
+      return isFirstLetterAVowel(itToken->str, 0);
+    }
+    return false;
   }
   case LinguisticCondition::FOLLOWEDBYONEOFPREFIXES:
   {
