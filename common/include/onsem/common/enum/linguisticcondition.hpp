@@ -24,6 +24,7 @@ namespace onsem
   ADD_LINGUISTICCONDITION(FOLLOWEDBYQUANTITYEVERYTHING, "followedByQuantityEverything")  \
   ADD_LINGUISTICCONDITION(FOLLOWEDBYVOWEL, "followedByVowel")                            \
   ADD_LINGUISTICCONDITION(FOLLOWEDBYONEOFPREFIXES, "followedByOneOfPrefixes")            \
+  ADD_LINGUISTICCONDITION(FOLLOWEDBYFEMININE, "followedByFeminine")                      \
   ADD_LINGUISTICCONDITION(LOCATIONEN_FR, "locationEn_fr")
 
 

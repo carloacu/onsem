@@ -244,6 +244,18 @@ bool _isConditionIsVerified(const LinguisticConditionTreeValue& pConditionValue,
     }
     return false;
   }
+  case LinguisticCondition::FOLLOWEDBYFEMININE:
+  {
+    if (pNextToken != nullptr && !pNextToken->atEnd())
+    {
+      const InflectedWord& inflWord = pNextToken->getToken().inflWords.front();
+      SemanticNumberType number = SemanticNumberType::UNKNOWN;
+      SemanticGenderType gender = SemanticGenderType::UNKNOWN;
+      InflectionsChecker::getNounNumberAndGender(number, gender, inflWord);
+      return gender == SemanticGenderType::FEMININE;
+    }
+    return false;
+  }
   case LinguisticCondition::LOCATIONEN_FR:
   {
     if (pNextToken != nullptr && !pNextToken->atEnd())
@@ -474,6 +486,10 @@ bool _doesConditionMatchWithGrounding(const LinguisticConditionTreeValue& pCondi
       if (pInflWord.word.lemma.compare(0, param.size(), param) == 0)
         return true;
     return false;
+  }
+  case LinguisticCondition::FOLLOWEDBYFEMININE:
+  {
+    return pGender == SemanticGenderType::FEMININE;
   }
   case LinguisticCondition::LOCATIONEN_FR:
   {
