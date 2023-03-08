@@ -20,36 +20,57 @@ namespace linguistics
 namespace
 {
 
-bool _getBeginOfInflWord(ConstTokenIterator& pNextToken,
-                         InflectedWord const*& pInflWordPtr,
-                         const TokenRange& pTokRange)
+bool _getNextWordWithoutIntro(ConstTokenIterator& pNextToken,
+                              const TokenRange& pTokRange)
 {
   const TokIt& tokRangeEnd = pTokRange.getItEnd();
   for (TokIt itTok = pTokRange.getItBegin(); itTok != tokRangeEnd;
        itTok = getNextToken(itTok, tokRangeEnd))
   {
     const InflectedWord& linkTokenInfoGram = itTok->inflWords.front();
+    if (linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::LINKBETWEENWORDS)
+    {
+      continue;
+    }
     if (linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::PREPOSITION ||
         linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::PRONOUN_COMPLEMENT ||
         linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::SUBORDINATING_CONJONCTION ||
         linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::PARTITIVE)
     {
-      pInflWordPtr = &linkTokenInfoGram;
-      auto itNext = getNextToken(itTok, pTokRange.getTokList().end());
-      if (itNext != pTokRange.getTokList().end() &&
-          &pNextToken.getTokenRange().getTokList() == &pTokRange.getTokList())
-      {
-        pNextToken.setTokenIt(itNext);
-      }
-      return true;
+      continue;
     }
-    else if (linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::VERB)
-    {
-      return false;
-    }
+    pNextToken.setTokenIt(itTok);
+    return true;
   }
   return false;
 }
+
+
+const InflectedWord* _getIntroWord(const TokenRange& pTokRange)
+{
+  const TokIt& tokRangeEnd = pTokRange.getItEnd();
+  for (TokIt itTok = pTokRange.getItBegin(); itTok != tokRangeEnd;
+       itTok = getNextToken(itTok, tokRangeEnd))
+  {
+    const InflectedWord& linkTokenInfoGram = itTok->inflWords.front();
+    if (linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::LINKBETWEENWORDS ||
+        linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::ADVERB ||
+        linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::DETERMINER)
+    {
+      continue;
+    }
+    if (linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::PREPOSITION ||
+        linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::PRONOUN_COMPLEMENT ||
+        linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::SUBORDINATING_CONJONCTION ||
+        linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::PARTITIVE)
+    {
+      return &itTok->inflWords.front();
+    }
+    return nullptr;
+  }
+  return nullptr;
+}
+
 
 }
 
@@ -320,10 +341,12 @@ ChunkLinkType EntityRecognizer::xFindNatureOfANominalGroup
   if (_isMetaTimeChunk(chunkToProcess))
     return ChunkLinkType::TIME;
 
+  const auto* prepInflWordPtr = _getIntroWord(pChunkLink.tokRange);
+  if (prepInflWordPtr == nullptr)
+    prepInflWordPtr = _getIntroWord(chunkToProcess.tokRange);
+
   ConstTokenIterator nextToken(chunkToProcess.tokRange.getTokList(), 0);
-  const InflectedWord* prepInflWordPtr = nullptr;
-  if (!_getBeginOfInflWord(nextToken, prepInflWordPtr, pChunkLink.tokRange) &&
-      !_getBeginOfInflWord(nextToken, prepInflWordPtr, chunkToProcess.tokRange) &&
+  if (!_getNextWordWithoutIntro(nextToken, chunkToProcess.tokRange) &&
       !chunkToProcess.tokRange.isEmpty())
   {
      nextToken.setTokenIt(chunkToProcess.tokRange.getItBegin());
