@@ -1310,7 +1310,7 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
       }
       pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication, ListExpPtr(pGrdExp1), ListExpPtr(pGrdExp2), errorCoef);
     }
-    if (groundingImbrication == ImbricationType::DIFFERS)
+    if (pComparisonErrorReportingPtr == nullptr && groundingImbrication == ImbricationType::DIFFERS)
       return groundingImbrication;
   }
   else if (groundingImbrication != ImbricationType::EQUALS)

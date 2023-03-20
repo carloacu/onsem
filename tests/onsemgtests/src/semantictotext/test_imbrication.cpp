@@ -342,5 +342,22 @@ TEST_F(SemanticReasonerGTests, test_imbrication_errorReporting)
     ++it;
     EXPECT_EQ(GrammaticalType::LENGTH, it->first);
   }
+
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I avance",
+                                                        "I advanced",
+                                                        semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                        &comparisonErrorReporting));
+    auto errorCoef1 = comparisonErrorReporting.getErrorCoef();
+
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting2;
+    EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("I avance a lttle",
+                                                        "I advanced",
+                                                        semanticMemory, lingDb, SemanticLanguageEnum::UNKNOWN,
+                                                        &comparisonErrorReporting2));
+    auto errorCoef2 = comparisonErrorReporting2.getErrorCoef();
+    EXPECT_LT(errorCoef1, errorCoef2);
+  }
 }
 

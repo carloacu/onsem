@@ -400,6 +400,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Advance", {"How far should I advance in meters?"},
                                      semMem, lingDb, language);
 
+  triggers_addAnswerWithOneParameter("Move forward a little", {""},
+                                     semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("Move forward a lot", {""},
+                                     semMem, lingDb, language);
+
   triggers_addAnswerWithOneParameter("Move backward", {"How far should I move backward in meters?"},
                                      semMem, lingDb, language);
 
@@ -420,6 +426,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 centimeters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=2 meters)\\", triggers_match("Go forward two meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Advance 3 meters", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move forward a little\\", triggers_match("can you go forward a little", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move forward a little\\", triggers_match("could you go forward a little", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward(param1=3 meters)\\", triggers_match("Move backward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward(param1=0.4 meter)\\", triggers_match("move backward 40 centimeters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward(param1=1 meter)\\", triggers_match("Go backward one meter", semMem, lingDb));

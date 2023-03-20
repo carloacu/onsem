@@ -102,11 +102,19 @@ struct ComparisonErrorsCoef
       type = ComparisonTypeOfError::NO_ERROR;
   }
 
+  bool operator==(const ComparisonErrorsCoef& pOther) const
+  {
+    return type == pOther.type && value == pOther.value;
+  }
   bool operator<(const ComparisonErrorsCoef& pOther) const
   {
     if (type != pOther.type)
       return type < pOther.type;
     return value < pOther.value;
+  }
+  bool operator>(const ComparisonErrorsCoef& pOther) const
+  {
+    return !operator<(pOther) && !operator==(pOther);
   }
 
   void add(const ComparisonErrorsCoef& pOther)
