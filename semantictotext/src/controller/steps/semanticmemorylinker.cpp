@@ -1966,6 +1966,7 @@ void _getRelationsOfLinks
     _addCauseResult(pUserAnswers, moreRecentAnsElt);
     break;
   }
+  case SemanticRequestType::DISTANCE:
   case SemanticRequestType::QUANTITY:
   {
     auto questionAskedInformation = QuestionAskedInformation(pRequestType, SemExpGetter::getTypeOfUnityFromGrdExp(pGrdExp));
