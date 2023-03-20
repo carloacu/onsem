@@ -25,11 +25,11 @@ public:
                       std::list<std::list<SemLineToPrint> >* pDebugOutput = nullptr) const;
 
   void addDifferentForms(UniqueSemanticExpression& pSemExp,
-                                     SemanticLanguageEnum pLanguage,
-                                     std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
+                         SemanticLanguageEnum pLanguage,
+                         std::list<std::list<SemLineToPrint> >* pDebugOutput) const;
   void addBothDirectionForms(UniqueSemanticExpression& pSemExp,
-                                SemanticLanguageEnum pLanguage,
-                                std::list<std::list<SemLineToPrint>>* pDebugOutput) const;
+                             SemanticLanguageEnum pLanguage,
+                             std::list<std::list<SemLineToPrint>>* pDebugOutput) const;
 
   GrammaticalType getChildThatShouldBeUnique(mystd::unique_propagate_const<UniqueSemanticExpression>& pChildThatShouldBeUnique,
                                              const GroundedExpression& pGrdExp) const;
