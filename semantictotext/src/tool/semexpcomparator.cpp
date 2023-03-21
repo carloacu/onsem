@@ -902,12 +902,25 @@ bool _hasInformationToFillFromListExpPtr(const ListExpPtr& pListExpPtr,
   return false;
 }
 
+bool _hasOnlyInformationToFillFromListExpPtr(const ListExpPtr& pListExpPtr,
+                                             bool pFollowInterpretations)
+{
+  bool res = false;
+  for (const auto& currElt : pListExpPtr.elts)
+  {
+    if (!_hasInformationToFill(*currElt, pFollowInterpretations))
+      return false;
+    res = true;
+  }
+  return res;
+}
+
 ComparisonErrorsCoef _getErrorCoefFromListExpPtr(
     GrammaticalType pGrammType,
     const ListExpPtr& pListExpPtr,
     bool pFollowInterpretations)
 {
-  if (_hasInformationToFillFromListExpPtr(pListExpPtr, pFollowInterpretations))
+  if (_hasOnlyInformationToFillFromListExpPtr(pListExpPtr, pFollowInterpretations))
     return ComparisonErrorsCoef(1, ComparisonTypeOfError::PARAMETER_DIFF);
   if (pGrammType == GrammaticalType::SPECIFIER || pGrammType == GrammaticalType::OWNER)
     return ComparisonErrorsCoef(5, ComparisonTypeOfError::SPECIFIER);
