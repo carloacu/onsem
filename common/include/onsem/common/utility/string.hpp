@@ -50,9 +50,11 @@ class ONSEM_COMMON_API Replacer
 public:
   /**
    * @brief Construct a Replacer.
+   * @param pIsCaseSensitive If the matchings will be case sensitive.
    * @param pHaveSeparatorBetweenWords If we expect separators between words.
    */
-  Replacer(bool pHaveSeparatorBetweenWords);
+  Replacer(bool pIsCaseSensitive,
+           bool pHaveSeparatorBetweenWords);
 
   /**
    * @brief Notify by what a string should be replaced by.
@@ -69,6 +71,8 @@ public:
   std::string doReplacements(const std::string& pInput) const;
 
 private:
+  /// True the matchings will be case sensitive, false otherwise.
+  bool _isCaseSensitive;
   /// True if we expect separators between words, false otherwise.
   bool _haveSeparatorBetweenWords;
   /// Map of string patterns to search to the string output to apply.

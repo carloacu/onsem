@@ -9,8 +9,8 @@ using namespace onsem;
 
 TEST(StringUtil, replacer)
 {
-  mystd::Replacer replacerWithSeparators(true);
-  mystd::Replacer replacerWithoutSeparators(false);
+  mystd::Replacer replacerWithSeparators(true, true);
+  mystd::Replacer replacerWithoutSeparators(true, false);
 
   replacerWithSeparators.addReplacementPattern("^a", "salut");
   replacerWithoutSeparators.addReplacementPattern("^a", "salut");
@@ -40,5 +40,17 @@ TEST(StringUtil, replacer)
 
   EXPECT_EQ("salut bc", replacerWithSeparators.doReplacements("a bc"));
   EXPECT_EQ("salut bc", replacerWithoutSeparators.doReplacements("a bc"));
+
+
+  mystd::Replacer replacerWithSeparatorsNotCaseSensitive(false, true);
+  replacerWithSeparatorsNotCaseSensitive.addReplacementPattern("^a", "salut");
+  replacerWithSeparatorsNotCaseSensitive.addReplacementPattern("Toto", "titi");
+  replacerWithSeparatorsNotCaseSensitive.addReplacementPattern("^comment tu vas ?$", "ça va ?");
+
+  EXPECT_EQ("A bc", replacerWithSeparators.doReplacements("A bc"));
+  EXPECT_EQ("salut bc", replacerWithSeparatorsNotCaseSensitive.doReplacements("A bc"));
+  EXPECT_EQ("titi", replacerWithSeparatorsNotCaseSensitive.doReplacements("toto"));
+  EXPECT_EQ("titi", replacerWithSeparatorsNotCaseSensitive.doReplacements("Toto"));
+  EXPECT_EQ("Toto", replacerWithSeparators.doReplacements("Toto"));
 }
 

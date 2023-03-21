@@ -1,4 +1,5 @@
 #include <onsem/common/utility/string.hpp>
+#include <onsem/common/utility/uppercasehandler.hpp>
 
 namespace onsem
 {
@@ -247,21 +248,35 @@ void replace_all(std::string& str,
 }
 
 
-Replacer::Replacer(bool pHaveSeparatorBetweenWords)
- : _haveSeparatorBetweenWords(pHaveSeparatorBetweenWords),
+Replacer::Replacer(bool pIsCaseSensitive,
+                   bool pHaveSeparatorBetweenWords)
+ : _isCaseSensitive(pIsCaseSensitive),
+   _haveSeparatorBetweenWords(pHaveSeparatorBetweenWords),
    _patternsToSearchToOutput()
 {
 }
 
 void Replacer::addReplacementPattern(const std::string& pPatternToSearch, const std::string& pOutput)
 {
-  _patternsToSearchToOutput.emplace(pPatternToSearch, pOutput);
+  if (_isCaseSensitive)
+  {
+    _patternsToSearchToOutput.emplace(pPatternToSearch, pOutput);
+  }
+  else
+  {
+    auto patternToSearch = pPatternToSearch;
+    lowerCaseText(patternToSearch);
+    _patternsToSearchToOutput.emplace(patternToSearch, pOutput);
+  }
 }
 
 std::string Replacer::doReplacements(const std::string& pInput) const
 {
   std::string res;
   auto input = "^" + pInput + "$";
+  if (!_isCaseSensitive)
+    lowerCaseText(input);
+
   for (std::size_t i = 0; i < input.size(); )
   {
     auto maxLength = _patternsToSearchToOutput.getMaxLength(input, i);
@@ -280,13 +295,15 @@ std::string Replacer::doReplacements(const std::string& pInput) const
       }
     }
 
-    res += input[i];
+    if (i > 0 && i - 1 < pInput.size())
+      res += pInput[i - 1];
     if (_haveSeparatorBetweenWords)
     {
       while (i < input.size() - 1 && !_isASeparator(input[i]))
       {
+        if (i < pInput.size())
+          res += pInput[i];
         ++i;
-        res += input[i];
       }
     }
     ++i;
