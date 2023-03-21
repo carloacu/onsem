@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include "../api.hpp"
+#include "radix_map.hpp"
+#include "radix_map_forward_declaration.hpp"
 
 namespace onsem
 {
@@ -30,11 +32,48 @@ std::size_t findFirstOf(const std::string& pStr,
                         std::size_t pBegin,
                         std::size_t pEnd);
 
-
+/**
+ * @brief Replace all occurences of a string to another string.
+ * @param str Input string to modify inplace.
+ * @param oldStr String to search.
+ * @param newStr String to put instead of the string ti search.
+ */
 ONSEM_COMMON_API
 void replace_all(std::string& str,
                  const std::string& oldStr,
                  const std::string& newStr);
+
+
+/// Class to do many replacements in a string.
+class ONSEM_COMMON_API Replacer
+{
+public:
+  /**
+   * @brief Construct a Replacer.
+   * @param pHaveSeparatorBetweenWords If we expect separators between words.
+   */
+  Replacer(bool pHaveSeparatorBetweenWords);
+
+  /**
+   * @brief addReplacementPattern Notify by what a string should be replaced by.
+   * @param pPatternToSearch String a pattern to search.
+   * @param pOutput Output to put instead of the corresponding pattern to search.
+   */
+  void addReplacementPattern(const std::string& pPatternToSearch, const std::string& pOutput);
+
+  /**
+   * @brief doReplacements Take an input string and return the corresponding string after applying the replacement patterns.
+   * @param pInput Input string.
+   * @return The corresponding string after applying the replacement patterns.
+   */
+  std::string doReplacements(const std::string& pInput) const;
+
+private:
+  /// True if we expect separators between words, false otherwise.
+  bool _haveSeparatorBetweenWords;
+  /// Map of string patterns to search to the string output to apply.
+  mystd::radix_map_str<std::string> _patternsToSearchToOutput;
+};
 
 
 template <typename STRING_CONTAINER>

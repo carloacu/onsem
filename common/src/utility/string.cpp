@@ -42,6 +42,15 @@ const std::string _apos_str = "’";
 const std::size_t _apos_size = _apos_str.size();
 const std::string _bigSep_str = "–";
 const std::size_t _bigSep_size = _bigSep_str.size();
+
+bool _isASeparator(char pChar)
+{
+  return pChar == ' ' || pChar == '\'' || pChar == '-' ||
+      pChar == ',' || pChar == ';' || pChar == ':' ||
+      pChar == '.' || pChar == '!' || pChar == '?' ||
+      pChar == '^' || pChar == '$' ||
+      pChar == '&' || pChar == '|';
+}
 }
 
 static_assert('A' < 'Z', "Wrong assumption: A is not inferior to Z");
@@ -237,6 +246,65 @@ void replace_all(std::string& str,
   }
 }
 
+
+Replacer::Replacer(bool pHaveSeparatorBetweenWords)
+ : _haveSeparatorBetweenWords(pHaveSeparatorBetweenWords),
+   _patternsToSearchToOutput()
+{
+}
+
+void Replacer::addReplacementPattern(const std::string& pPatternToSearch, const std::string& pOutput)
+{
+  _patternsToSearchToOutput.emplace(pPatternToSearch, pOutput);
+}
+
+std::string Replacer::doReplacements(const std::string& pInput) const
+{
+  std::string res;
+  auto input = "^" + pInput + "$";
+  for (std::size_t i = 0; i < input.size(); )
+  {
+    auto maxLength = _patternsToSearchToOutput.getMaxLength(input, i);
+    if (maxLength > 0)
+    {
+      auto newPos = i + maxLength;
+      if (!_haveSeparatorBetweenWords || newPos >= input.size() || _isASeparator(input[newPos]))
+      {
+        const auto* outputStr = _patternsToSearchToOutput.find_ptr(input, i, maxLength);
+        if (outputStr != nullptr)
+        {
+          res += *outputStr;
+          i = newPos;
+          continue;
+        }
+      }
+    }
+
+    res += input[i];
+    if (_haveSeparatorBetweenWords)
+    {
+      while (i < input.size() - 1 && !_isASeparator(input[i]))
+      {
+        ++i;
+        res += input[i];
+      }
+    }
+    ++i;
+  }
+  bool removeFirstCharacter = !res.empty() && res[0] == '^';
+  bool removeLastCharacter = !res.empty() && res[res.size() - 1] == '$';
+  if (removeFirstCharacter || removeLastCharacter)
+  {
+    std::size_t beginPos = removeFirstCharacter ? 1 : 0;
+    std::size_t subStrLen = res.size();
+    if (removeFirstCharacter)
+      --subStrLen;
+    if (removeLastCharacter)
+      --subStrLen;
+    return res.substr(beginPos, subStrLen);
+  }
+  return res;
+}
 
 
 void split(std::vector<std::string>& pStrs,
