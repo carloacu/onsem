@@ -50,7 +50,7 @@ class ONSEM_COMMON_API Replacer
 public:
   /**
    * @brief Construct a Replacer.
-   * @param pIsCaseSensitive If the matchings will be case sensitive.
+   * @param pIsCaseSensitive If the matching will be case sensitive.
    * @param pHaveSeparatorBetweenWords If we expect separators between words.
    */
   Replacer(bool pIsCaseSensitive,
