@@ -55,14 +55,14 @@ public:
   Replacer(bool pHaveSeparatorBetweenWords);
 
   /**
-   * @brief addReplacementPattern Notify by what a string should be replaced by.
+   * @brief Notify by what a string should be replaced by.
    * @param pPatternToSearch String a pattern to search.
    * @param pOutput Output to put instead of the corresponding pattern to search.
    */
   void addReplacementPattern(const std::string& pPatternToSearch, const std::string& pOutput);
 
   /**
-   * @brief doReplacements Take an input string and return the corresponding string after applying the replacement patterns.
+   * @brief Take an input string and return the corresponding string after applying the replacement patterns.
    * @param pInput Input string.
    * @return The corresponding string after applying the replacement patterns.
    */
