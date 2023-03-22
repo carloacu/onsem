@@ -49,3 +49,4 @@ say toto in 500 milliseconds
 Remove all conditions
 say it again
 Start robotbehav
+Turn the head to the right 34 degrees

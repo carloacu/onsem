@@ -286,6 +286,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Tourne la tête à gauche", turnHeadParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Tourne la tête à droite", turnHeadParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Regarde à gauche", turnHeadParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Regarde à droite", turnHeadParameterQuestions, semMem, lingDb, language);
 
   const std::vector<std::string> riseHeadParameterQuestions =
   {"De combien dois-je lever la tête en degré ?"};
@@ -426,6 +427,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Turn on your right", {turnParameterQuestions},
                                      semMem, lingDb, language);
 
+  const std::vector<std::string> turnHeadParameterQuestions = {"How far should I turn the head in degrees?"};
+  triggers_addAnswerWithOneParameter("Turn the head to the right", {turnHeadParameterQuestions},
+                                     semMem, lingDb, language);
+
 
   triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},
                                      semMem, lingDb, language);
@@ -446,6 +451,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a little\\", triggers_match("Move backward a bit", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a lot\\", triggers_match("Move backward a lot", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn left(param1=32 degrees)\\", triggers_match("Turn left 32 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn the head to the right(param1=34 degrees)\\", triggers_match("Turn the head to the right 34 degrees", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Launch(param1=Akinator)\\", triggers_match("Launch akinator", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you look up", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you please look up", semMem, lingDb));

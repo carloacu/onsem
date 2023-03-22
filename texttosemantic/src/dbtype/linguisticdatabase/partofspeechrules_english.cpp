@@ -665,7 +665,9 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
       {
         TaggerListOfTokenChecks nounGramTypes;
         nounGramTypes.elts.emplace_back
-            (PartOfSpeech::NOUN, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
+            ([](const InflectedWord& pInflWord) {
+          return pInflWord.word.partOfSpeech == PartOfSpeech::NOUN && !ConceptSet::haveAConceptThatBeginWith(pInflWord.infos.concepts, "number_");
+        }, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
              ActionIfLinked::DEL_ALL_OTHERS);
         nounGramTypes.elts.emplace_back
             (PartOfSpeech::UNKNOWN, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,

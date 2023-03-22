@@ -170,5 +170,13 @@ bool InflectionsCheckerEnglish::areNounNounCompatibles(const InflectedWord& pNou
 }
 
 
+bool InflectionsCheckerEnglish::isDetAdjCompatibles
+(const InflectedWord& pIGramDet,
+ const InflectedWord& pIGramAdj) const
+{
+  return isNounAdjCompatibles(pIGramDet, pIGramAdj.inflections()) &&
+      !ConceptSet::haveAConceptThatBeginWith(pIGramAdj.infos.concepts, "number_");
+}
+
 } // End of namespace linguistics
 } // End of namespace onsem

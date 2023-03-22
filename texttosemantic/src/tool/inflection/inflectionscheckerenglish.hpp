@@ -63,12 +63,6 @@ public:
 
 
 
-inline bool InflectionsCheckerEnglish::isDetAdjCompatibles
-(const InflectedWord& pIGramDet,
- const InflectedWord& pIGramAdj) const
-{
-  return isNounAdjCompatibles(pIGramDet, pIGramAdj.inflections());
-}
 
 inline bool InflectionsCheckerEnglish::verbCanHaveAnAuxiliary
 (const VerbalInflection& pVerbInfl) const
