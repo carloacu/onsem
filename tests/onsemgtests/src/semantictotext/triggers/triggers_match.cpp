@@ -291,7 +291,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   {"De combien dois-je lever la tête en degré ?"};
   triggers_addAnswerWithOneParameter("Lève la tête", riseHeadParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Regarde", riseHeadParameterQuestions, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Regarde en haut", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Regarde en haut", riseHeadParameterQuestions, semMem, lingDb, language);
 
   const std::vector<std::string> lowerDownHeadParameterQuestions =
   {"De combien dois-je baisser la tête en degré ?"};
