@@ -524,6 +524,7 @@ std::shared_ptr<ExpressionWithLinks> _informMetaMemory
  const mystd::radix_map_str<std::string>* pLinkedInfosPtr)
 {
   conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
+  converter::addBothDirectionForms(pSemExp, pLingDb);
   auto newExpForMem = pMemBloc.addRootSemExp(std::move(pSemExp), pLingDb, pLinkedInfosPtr);
   ExpressionWithLinks& newExpForMemRef = *newExpForMem;
 

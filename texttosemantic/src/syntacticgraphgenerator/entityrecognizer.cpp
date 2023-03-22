@@ -116,7 +116,7 @@ void EntityRecognizer::process
       if (!verbLingMeaning.isEmpty())
       {
         const auto& statLingDico = fConfiguration.lingDb.langToSpec[verbLingMeaning.language].lingDico.statDb;
-        verbFollowedBy = xVerbFollowedBy(statLingDico.getRootMeaning(verbLingMeaning));
+        verbFollowedBy = xVerbFollowedBy(verbLingMeaning, statLingDico.getRootMeaning(verbLingMeaning));
       }
 
       Chunk& auxChunk = whereToLinkSubject(*currChkLk.chunk);
@@ -143,7 +143,7 @@ void EntityRecognizer::process
         SemExpGetter::wordToAStaticMeaning(complementLingMeaning, currComp->head->inflWords.front().word, language,
                                            fConfiguration.lingDb);
         ChunkLinkType complVerbFollowedBy =
-            xVerbFollowedBy(fLingDico.statDb.getRootMeaning(complementLingMeaning));
+            xVerbFollowedBy(complementLingMeaning, fLingDico.statDb.getRootMeaning(complementLingMeaning));
         if (language == SemanticLanguageEnum::ENGLISH)
         {
           xAddComplementsOfVerbFromBegin(*currComp, subjectChunkLink, *currComp, *currComp,
@@ -582,15 +582,16 @@ bool EntityRecognizer::addSubordonatesToAVerb
 
 
 ChunkLinkType EntityRecognizer::xVerbFollowedBy
-(const StaticLinguisticMeaning& pVerbMeaningMeaning) const
+(const StaticLinguisticMeaning& pVerMeaning,
+ const StaticLinguisticMeaning& pVerRootbMeaning) const
 {
   if (fLingDico.hasContextualInfo
-      (WordContextualInfos::CANBEFOLLOWEDBYINDIRECTOBJECT, pVerbMeaningMeaning))
+      (WordContextualInfos::CANBEFOLLOWEDBYINDIRECTOBJECT, pVerRootbMeaning))
   {
     return ChunkLinkType::INDIRECTOBJECT;
   }
   if (fLingDico.hasContextualInfo
-      (WordContextualInfos::CANBEFOLLOWEDBYLOCATION, pVerbMeaningMeaning))
+      (WordContextualInfos::CANBEFOLLOWEDBYLOCATION, pVerMeaning))
   {
     return ChunkLinkType::LOCATION;
   }

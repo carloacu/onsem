@@ -369,6 +369,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne la tête à droite(param1=25 degrés)\\", triggers_match("Tourne la tête à droite de vingt cinq degrés", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lève la tête\\", triggers_match("Lève la tête", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lève la tête\\", triggers_match("Monte la tête", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lève la tête(param1=11 degrés)\\", triggers_match("Monte la tête de onze degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde\\", triggers_match("regarde", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde en haut\\", triggers_match("Regarde en haut", semMem, lingDb));
@@ -430,7 +431,15 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   const std::vector<std::string> turnHeadParameterQuestions = {"How far should I turn the head in degrees?"};
   triggers_addAnswerWithOneParameter("Turn the head to the right", {turnHeadParameterQuestions},
                                      semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Turn the head to the left", {turnHeadParameterQuestions},
+                                     semMem, lingDb, language);
 
+  const std::vector<std::string> raiseHeadParameterQuestions =
+  {"How far should I head up in degrees?"};
+  triggers_addAnswerWithOneParameter("Head up", raiseHeadParameterQuestions, semMem, lingDb, language);
+  const std::vector<std::string> lowerHeadParameterQuestions =
+  {"How far should I head down in degrees?"};
+  triggers_addAnswerWithOneParameter("Head down", lowerHeadParameterQuestions, semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},
                                      semMem, lingDb, language);
@@ -452,6 +461,19 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a lot\\", triggers_match("Move backward a lot", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn left(param1=32 degrees)\\", triggers_match("Turn left 32 degrees", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn the head to the right(param1=34 degrees)\\", triggers_match("Turn the head to the right 34 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn the head to the left(param1=41 degrees)\\", triggers_match("Turn the head to the left 41 degrees", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head up\\", triggers_match("Head up", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head up\\", triggers_match("Raise the head", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head up\\", triggers_match("Raise your head", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head up(param1=24 degrees)\\", triggers_match("Head up 24 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head up(param1=43 degrees)\\", triggers_match("Raise the head 43 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head up(param1=43 degrees)\\", triggers_match("Raise your head 43 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down\\", triggers_match("Head down", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down\\", triggers_match("Lower your head", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=25 degrees)\\", triggers_match("Head down 25 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=23 degrees)\\", triggers_match("Lower your head 23 degrees", semMem, lingDb));
+
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Launch(param1=Akinator)\\", triggers_match("Launch akinator", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you look up", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you please look up", semMem, lingDb));

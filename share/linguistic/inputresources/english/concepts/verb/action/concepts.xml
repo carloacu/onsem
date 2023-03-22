@@ -135,6 +135,12 @@
  <concept name="verb_action_go">
   <linkedMeaning lemme="go" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_headdown">
+  <linkedMeaning lemme="head~down" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_headup">
+  <linkedMeaning lemme="head~up" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_action_improve">
   <linkedMeaning lemme="improve" gram="verb" relationToConcept="4"/>
  </concept>

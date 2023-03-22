@@ -232,7 +232,7 @@ void SemExpTreeConversionDatabase::xLoadAddPossibleTreesBeacon
          ConversionRule(fCurrFilename, fCurrConversionNb, addStrength,
                         fromTreePattern.rootNode, toTreePattern.rootNode));
     pQuestionsPossTreesBothDirectionList.emplace_back
-        (fromTreePattern.concepts,
+        (toTreePattern.concepts,
          ConversionRule(fCurrFilename, fCurrConversionNb, addStrength,
                         toTreePattern.rootNode, fromTreePattern.rootNode));
   }
@@ -615,6 +615,16 @@ void SemExpTreeConversionDatabase::xFillNode
       {
         xWriteErrorMsg(std::string("Error detected in \"word\" attribute value: ") + e.what());
       }
+    }
+    else if (attrName == "removeWord")
+    {
+      if (!pCurrNode.groundingType ||
+          (pCurrNode.groundingType != SemanticGroundingType::GENERIC &&
+           pCurrNode.groundingType != SemanticGroundingType::STATEMENT))
+      {
+        xWriteErrorMsg("\"removeWord\" can only be set inside a generic or a statement grounding");
+      }
+      pCurrNode.removeWord.emplace(valStr == "true");
     }
     else if (attrName == "timeType")
     {

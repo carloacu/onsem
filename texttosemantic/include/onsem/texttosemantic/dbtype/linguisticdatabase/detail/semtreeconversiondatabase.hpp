@@ -49,6 +49,7 @@ protected:
         notTypes(),
         reference(),
         word(),
+        removeWord(),
         timeType(),
         hasToBeCompletedFromContext(),
         children(),
@@ -71,6 +72,7 @@ protected:
     std::set<SemanticEntityType> notTypes;
     mystd::optional<SemanticReferenceType> reference;
     mystd::optional<SemanticWord> word;
+    mystd::optional<bool> removeWord;
     mystd::optional<SemanticRelativeTimeType> timeType;
     mystd::optional<bool> hasToBeCompletedFromContext;
     std::map<GrammaticalType, SemExpTreePatternNode> children;

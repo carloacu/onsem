@@ -2,11 +2,23 @@
   <existingMeaning lemme="ask" gram="verb">
     <contextInfo val="canBeFollowedByIndirectObject" />
   </existingMeaning>
+  <existingMeaning lemme="head~up" gram="verb">
+    <contextInfo val="canBeFollowedByLocation" />
+  </existingMeaning>
+  <existingMeaning lemme="head~down" gram="verb">
+    <contextInfo val="canBeFollowedByLocation" />
+  </existingMeaning>
   <existingMeaning lemme="look" gram="verb">
+    <contextInfo val="canBeFollowedByLocation" />
+  </existingMeaning>
+  <existingMeaning lemme="lower" gram="verb">
     <contextInfo val="canBeFollowedByLocation" />
   </existingMeaning>
   <existingMeaning lemme="make" gram="verb">
     <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
+  <existingMeaning lemme="raise" gram="verb">
+    <contextInfo val="canBeFollowedByLocation" />
   </existingMeaning>
   <existingMeaning lemme="teach" gram="verb">
     <contextInfo val="canBeFollowedByIndirectObject" />

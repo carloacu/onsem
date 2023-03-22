@@ -332,10 +332,9 @@ ONSEM_TEXTTOSEMANTIC_API
 std::string getUserIdOfSubject(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void extractSubjectAndObjectOfAVerbDefinition(
-    const GroundedExpression*& pSubjectGrdPtr,
-    const SemanticExpression*& pInfCommandToDo,
-    const GroundedExpression& pGrdExp);
+void extractSubjectAndObjectOfAVerbDefinition(std::list<const GroundedExpression*> &pSubjectGrdPtrs,
+                                              const SemanticExpression*& pInfCommandToDo,
+                                              const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 void extractTeachElements(

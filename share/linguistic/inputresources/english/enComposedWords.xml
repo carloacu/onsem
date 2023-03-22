@@ -48,6 +48,10 @@
   <nextMeaning lemme="backwards" gram="adverb" />
   <wordForm gram="verb"/>
  </words>
+ <words lemme="head" gram="verb">
+  <nextMeaning gram="preposition" lemme="down"/>
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="know" gram="verb" >
   <nextMeaning lemme="as" gram="preposition" />
   <wordForm gram="verb"/>

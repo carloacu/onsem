@@ -283,8 +283,9 @@ bool _checkGlobalCondition(const SemControllerWorkingStruct& pWorkStruct,
     for (const GroundedExpWithLinks& currElt : contextAxiom.memorySentences.elts)
     {
       if (&currElt == &pCurrMemSent ||
+          !currElt.isAConditionToSatisfy() ||
           currElt.isANoun() ||
-          !currElt.isAConditionToSatisfy())
+          SemExpGetter::isAnInfinitiveGrdExp(currElt.grdExp))
         continue;
 
       SemControllerWorkingStruct subWorkStruct(pWorkStruct);
@@ -519,7 +520,7 @@ void _matchAnyTrigger
                        pMemViewer, pReqLinks, true, semanticMemoryGetter::RequestContext::SENTENCE,
                        nullptr, SemanticRequestType::NOTHING, true, true);
 
-  std::map<SemExpComparator::ComparisonErrorsCoef, std::set<const ExpressionWithLinks*>> nbOfErrorsToLowPrioritySemExpWrapperPtrs;
+  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::set<const ExpressionWithLinks*>>> nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs;
   for (const auto& currRel : idsToSentences.res.dynamicLinks)
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
@@ -563,13 +564,13 @@ void _matchAnyTrigger
         }
       }
       if (canBeAtLowPriority)
-        nbOfErrorsToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.getErrorCoef()].insert(
+        nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].insert(
               &memSent.getContextAxiom().getSemExpWrappedForMemory());
     }
   }
   if (pSemExpWrapperPtrs.empty() &&
-      !nbOfErrorsToLowPrioritySemExpWrapperPtrs.empty())
-    pSemExpWrapperPtrs = std::move(nbOfErrorsToLowPrioritySemExpWrapperPtrs.begin()->second);
+      !nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.empty())
+    pSemExpWrapperPtrs = std::move((--nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.begin()->second.end())->second);
 }
 
 

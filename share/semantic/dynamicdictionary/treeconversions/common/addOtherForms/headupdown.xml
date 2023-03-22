@@ -1,0 +1,31 @@
+<semantictreeconversions formalism="1">
+
+  <addPossibleTrees bothDirections="true">
+    <from>
+      <root id="1" grounding="statement" removeWord="true" concept="verb_action_headup" notConcept="verb_action_raise">
+        <notobject />
+      </root>
+    </from>
+    <to>
+      <root id="1" grounding="statement" removeWord="true" concept="verb_action_raise" notConcept="verb_action_headup">
+	<object grounding="generic" concept="body_head" />
+      </root>
+    </to>
+  </addPossibleTrees>
+
+
+  <addPossibleTrees bothDirections="true">
+    <from>
+      <root id="1" grounding="statement" removeWord="true" concept="verb_action_headdown" notConcept="verb_action_descend">
+        <notobject />
+      </root>
+    </from>
+    <to>
+      <root id="1" grounding="statement" removeWord="true" concept="verb_action_descend" notConcept="verb_action_headdown">
+	<object grounding="generic" concept="body_head" />
+      </root>
+    </to>
+  </addPossibleTrees>
+
+
+</semantictreeconversions>

@@ -150,6 +150,7 @@ struct ComparisonErrors
 
 struct ComparisonErrorReporting
 {
+  std::size_t numberOfEqualities = 0;
   std::map<GrammaticalType, std::map<ImbricationType, ComparisonErrors>> childrenThatAreNotEqual{};
 
   void addError(GrammaticalType pGrammType,

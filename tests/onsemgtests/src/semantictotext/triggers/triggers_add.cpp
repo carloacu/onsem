@@ -89,6 +89,7 @@ void triggers_addAnswerWithOneParameter(
     auto paramSemExp = converter::textToContextualSemExp(currQuestion,
                                                          paramQuestionProcContext,
                                                          SemanticSourceEnum::UNKNOWN, pLingDb);
+    converter::addBothDirectionForms(paramSemExp, pLingDb);
     answer1Grd->resource.parameterLabelsToQuestions["param1"].emplace_back(std::move(paramSemExp));
   }
 

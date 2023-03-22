@@ -1562,7 +1562,7 @@ std::string getUserIdOfSubject(const GroundedExpression& pGrdExp)
 
 
 void extractSubjectAndObjectOfAVerbDefinition(
-    const GroundedExpression*& pSubjectGrdPtr,
+    std::list<const GroundedExpression*>& pSubjectGrdPtrs,
     const SemanticExpression*& pInfCommandToDo,
     const GroundedExpression& pGrdExp)
 {
@@ -1574,9 +1574,13 @@ void extractSubjectAndObjectOfAVerbDefinition(
   auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
   if (itSubject == pGrdExp.children.end())
     return;
-  const GroundedExpression* subjGrdExpPtr = itSubject->second->getGrdExpPtr_SkipWrapperPtrs();
-  if (subjGrdExpPtr == nullptr ||
-      !isAnInfinitiveGrdExp(*subjGrdExpPtr))
+
+  std::list<const GroundedExpression*> subjectGrdPtrs;
+  itSubject->second->getGrdExpPtrs_SkipWrapperLists(subjectGrdPtrs, true, false, false,
+                                                    [](const GroundedExpression& pGrdExp) {
+    return isAnInfinitiveGrdExp(pGrdExp);
+  });
+  if (subjectGrdPtrs.empty())
     return;
 
   auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
@@ -1593,7 +1597,7 @@ void extractSubjectAndObjectOfAVerbDefinition(
         currObjPtr->grounding().getResourceGroundingPtr() == nullptr)
       return;
 
-  pSubjectGrdPtr = subjGrdExpPtr;
+  pSubjectGrdPtrs = std::move(subjectGrdPtrs);
   pInfCommandToDo = &*itObject->second;
 }
 
@@ -1627,14 +1631,14 @@ void extractTeachElements(
   pObjectSemExp = &*itObject->second;
 }
 
+
 bool isAnActionDefinition(const GroundedExpression& pGrdExp)
 {
-  const GroundedExpression* subjectGrdPtr = nullptr;
+  std::list<const GroundedExpression*> subjectGrdPtrs;
   const SemanticExpression* objectSemExpPtr = nullptr;
-  SemExpGetter::extractSubjectAndObjectOfAVerbDefinition(subjectGrdPtr, objectSemExpPtr, pGrdExp);
-  return subjectGrdPtr != nullptr;
+  SemExpGetter::extractSubjectAndObjectOfAVerbDefinition(subjectGrdPtrs, objectSemExpPtr, pGrdExp);
+  return !subjectGrdPtrs.empty();
 }
-
 
 void _recIterateOnList(std::list<UniqueSemanticExpression*>& pRes,
                        UniqueSemanticExpression& pUSemExp)

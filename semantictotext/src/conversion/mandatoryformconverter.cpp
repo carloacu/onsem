@@ -82,10 +82,17 @@ void process(UniqueSemanticExpression& pSemExp,
       process(*condExp.elseExp, pUserId);
     break;
   }
+  case SemanticExpressionType::SETOFFORMS:
+  {
+    auto& setOfFormsExp = pSemExp->getSetOfFormsExp();
+    for (auto& currPrioToFrom : setOfFormsExp.prioToForms)
+      for (auto& currFrom : currPrioToFrom.second)
+        process(currFrom->exp, pUserId);
+    break;
+  }
   case SemanticExpressionType::FIXEDSYNTHESIS:
   case SemanticExpressionType::COMMAND:
   case SemanticExpressionType::COMPARISON:
-  case SemanticExpressionType::SETOFFORMS:
     break;
   }
 }

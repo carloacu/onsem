@@ -933,7 +933,8 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
                                          const linguistics::LinguisticDatabase& pLingDb,
                                          const ComparisonExceptions* pExceptionsPtr,
                                          ComparisonErrorsCoef* pComparisonErrorsCoefPtr,
-                                         GrammaticalType pParentGrammaticalType)
+                                         GrammaticalType pParentGrammaticalType,
+                                         std::size_t* pNumberOfEqualitiesPtr)
 {
   auto res = ImbricationType::EQUALS;
   for (const auto& currEltList1 : pListExpPtr1.elts)
@@ -945,6 +946,8 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
                                                        nullptr, pParentGrammaticalType);
       if (optRes && *optRes == ImbricationType::EQUALS)
       {
+        if (pNumberOfEqualitiesPtr != nullptr)
+          ++(*pNumberOfEqualitiesPtr);
         found = true;
         break;
       }
@@ -1251,10 +1254,11 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   }
 
   ComparisonErrorsCoef* nbOfErrorsPtr = pComparisonErrorReportingPtr != nullptr ? &errorCoef : nullptr;
+  auto* numberOfEqualitiesPtr = pComparisonErrorReportingPtr !=  nullptr ? &pComparisonErrorReportingPtr->numberOfEqualities : nullptr;
   if (size1 <= size2)
   {
     auto res = _getListExpsImbrications(listExpPtr1, listExpPtr2, pMemBlock, pLingDb, pExceptionsPtr,
-                                        nbOfErrorsPtr, pParentGrammaticalType);
+                                        nbOfErrorsPtr, pParentGrammaticalType, numberOfEqualitiesPtr);
     if (res == ImbricationType::EQUALS && size1 < size2)
       res = ImbricationType::LESS_DETAILED;
     if (pComparisonErrorReportingPtr != nullptr && !errorCoef.empty())
@@ -1262,7 +1266,7 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
     return res;
   }
   auto res = _getListExpsImbrications(listExpPtr2, listExpPtr1, pMemBlock, pLingDb, pExceptionsPtr,
-                                      nbOfErrorsPtr, pParentGrammaticalType);
+                                      nbOfErrorsPtr, pParentGrammaticalType, numberOfEqualitiesPtr);
   if (res == ImbricationType::EQUALS)
     res = ImbricationType::MORE_DETAILED;
   if (pComparisonErrorReportingPtr != nullptr && !errorCoef.empty())
@@ -1332,6 +1336,10 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
       pComparisonErrorReportingPtr->addError(pParentGrammaticalType, groundingImbrication,
                                              ListExpPtr(pGrdExp1), ListExpPtr(pGrdExp2),
                                              ComparisonErrorsCoef(10, ComparisonTypeOfError::NORMAL));
+  }
+  else if (pComparisonErrorReportingPtr != nullptr)
+  {
+    ++pComparisonErrorReportingPtr->numberOfEqualities;
   }
 
   auto tryToAddSemExp = [&](std::map<GrammaticalType, ListExpPtr>& pChildrenForAGramType,

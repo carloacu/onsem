@@ -50,3 +50,5 @@ Remove all conditions
 say it again
 Start robotbehav
 Turn the head to the right 34 degrees
+Raise your head 43 degrees
+Head up 24 degrees

@@ -101,19 +101,18 @@ void StaticTreeConverter::_searchRootOfSplitPossibilities
     GroundedExpression& grdExp = pSemExp->getGrdExp();
     if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
-      const SemanticStatementGrounding& statGr = grdExp->getStatementGrounding();
-      if (!statGr.requests.empty())
-      {
-        _addDifferentFormsOfExpressionForALanguage(pSemExp, pAllOrJustTheOneThatAreInBothDirections,
-                                                   pRootSemExpForDebug, pDebugOutput);
-        return;
-      }
+      _addDifferentFormsOfExpressionForALanguage(pSemExp, pAllOrJustTheOneThatAreInBothDirections,
+                                                 pRootSemExpForDebug, pDebugOutput);
     }
 
-    for (auto& currChild : grdExp.children)
+    auto* grdExpPtr = pSemExp->getGrdExpPtr();
+    if (grdExpPtr != nullptr)
     {
-      _searchRootOfSplitPossibilities(currChild.second, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
-                                        pRootSemExpForDebug, pDebugOutput);
+      for (auto& currChild : grdExpPtr->children)
+      {
+        _searchRootOfSplitPossibilities(currChild.second, pLanguage, pAllOrJustTheOneThatAreInBothDirections,
+                                          pRootSemExpForDebug, pDebugOutput);
+      }
     }
     break;
   }
@@ -546,6 +545,15 @@ void StaticTreeConverter::_printAPatternNode
           << partOfSpeech_toStr(word.partOfSpeech)
           << semanticLanguageEnum_toStr(word.language) << ")";
   }
+  if (pRootPattern.removeWord)
+  {
+    pSs << " removeWord(";
+    if (*pRootPattern.removeWord)
+      pSs << "true";
+    else
+      pSs << "false";
+    pSs << ")";
+  }
   if (pRootPattern.timeType)
   {
     pSs << " timeType(" << semanticRelativeTimeType_toStr(*pRootPattern.timeType) << ")";
@@ -682,6 +690,8 @@ void StaticTreeConverter::_applyModifsOnGrdExp
             statGrd.verbTense = *pRootPattern.time;
           if (pRootPattern.word)
             statGrd.word = *pRootPattern.word;
+          if (pRootPattern.removeWord == true)
+            statGrd.word.clear();
         }
         break;
       }
@@ -699,6 +709,8 @@ void StaticTreeConverter::_applyModifsOnGrdExp
             genGrd.referenceType = *pRootPattern.reference;
           if (pRootPattern.word)
             genGrd.word = *pRootPattern.word;
+          if (pRootPattern.removeWord == true)
+            genGrd.word.clear();
           if (pRootPattern.hasToBeCompletedFromContext)
           {
             if (*pRootPattern.hasToBeCompletedFromContext)

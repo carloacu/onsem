@@ -70,7 +70,8 @@ private:
   (const ChunkLink& pChunkLink,
    Chunk* pFirstVerbChunk) const;
 
-  ChunkLinkType xVerbFollowedBy(const StaticLinguisticMeaning& pVerbMeaningMeaning) const;
+  ChunkLinkType xVerbFollowedBy(const StaticLinguisticMeaning& pVerMeaning,
+                                const StaticLinguisticMeaning& pVerRootbMeaning) const;
 
   void xAddComplementsOfVerbFromBegin
   (Chunk& pRootVerb,

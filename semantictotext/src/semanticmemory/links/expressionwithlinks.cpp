@@ -302,12 +302,13 @@ SentenceWithLinks* ExpressionWithLinks::addAxiomFromGrdExp
   contextAxioms.emplace_back(pInformationType, *this);
   SentenceWithLinks& axiom = contextAxioms.back();
 
-  const GroundedExpression* subjectGrdPtr = nullptr;
-  SemExpGetter::extractSubjectAndObjectOfAVerbDefinition(subjectGrdPtr, axiom.infCommandToDo, pGrdSemExpToAdd);
-  if (subjectGrdPtr != nullptr)
+  std::list<const GroundedExpression*> subjectGrdPtrs;
+  SemExpGetter::extractSubjectAndObjectOfAVerbDefinition(subjectGrdPtrs, axiom.infCommandToDo, pGrdSemExpToAdd);
+  if (!subjectGrdPtrs.empty())
   {
     assert(axiom.infCommandToDo != nullptr);
-    _addGrdExpToAxiom(axiom, *subjectGrdPtr, pAnnotations, true, pLingDb, pIsATrigger);
+    for (const auto& currSubjectGrdPtr : subjectGrdPtrs)
+      _addGrdExpToAxiom(axiom, *currSubjectGrdPtr, pAnnotations, true, pLingDb, pIsATrigger);
   }
   else
   {

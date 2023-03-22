@@ -43,6 +43,7 @@ TokensToStringConverterFrench::TokensToStringConverterFrench()
   _add2WordsToMerge("à", "ce", "à");
   _add2WordsToMerge("de", "d'", "d'");
   _add2WordsToMerge("de", "de", "de");
+  _add2WordsToMerge("le", "tête", "la tête");
   _2WordsToMerge["de"].emplace("le", MergedWordInfos("du", PartOfSpeech::UNKNOWN, PartOfSpeech::DETERMINER));
   _2WordsToMerge["de"].emplace("les", MergedWordInfos("des", PartOfSpeech::UNKNOWN, PartOfSpeech::DETERMINER));
 }

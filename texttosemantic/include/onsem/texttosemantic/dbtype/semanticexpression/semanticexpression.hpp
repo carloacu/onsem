@@ -116,11 +116,17 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticExpression
   virtual const GroundedExpression* getGrdExpPtr() const { return nullptr; }
   GroundedExpression* getGrdExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true);
   const GroundedExpression* getGrdExpPtr_SkipWrapperPtrs(bool pFollowInterpretations = true) const;
+
   ListExpressionType getGrdExpPtrs_SkipWrapperLists(std::list<GroundedExpression*>& pRes,
-                                                    bool pFollowInterpretations = true);
+                                                    bool pFollowInterpretations = true,
+                                                    bool pRecurssiveCallsOnEmptyGrounding = false,
+                                                    bool pOnlyMainForm = true,
+                                                    bool (*pGrdExpFilderPtr)(const GroundedExpression&) = nullptr);
   ListExpressionType getGrdExpPtrs_SkipWrapperLists(std::list<const GroundedExpression*>& pRes,
                                                     bool pFollowInterpretations = true,
-                                                    bool pRecurssiveCallsOnEmptyGrounding = false) const;
+                                                    bool pRecurssiveCallsOnEmptyGrounding = false,
+                                                    bool pOnlyMainForm = true,
+                                                    bool (*pGrdExpFilderPtr)(const GroundedExpression&) = nullptr) const;
 
   virtual ListExpression& getListExp();
   virtual const ListExpression& getListExp() const;

@@ -39,6 +39,12 @@
  <concept name="verb_action_go">
   <linkedMeaning lemme="aller" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_headdown">
+  <linkedMeaning lemme="baisser~le~tête" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_headup">
+  <linkedMeaning lemme="lever~le~tête" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_action_improve">
   <linkedMeaning lemme="améliorer" gram="verb" relationToConcept="4"/>
  </concept>

@@ -4,6 +4,110 @@
 
 namespace onsem
 {
+namespace
+{
+template<typename SEMEXPTYPE, typename TGROUNDEDEXPRESSION>
+ListExpressionType _getGrdExpPtrs_skipWrapperLists(SEMEXPTYPE& self,
+                                                   std::list<TGROUNDEDEXPRESSION*>& pRes,
+                                                   bool pFollowInterpretations,
+                                                   bool pRecurssiveCallsOnEmptyGrounding,
+                                                   bool pOnlyMainForm,
+                                                   bool (*pGrdExpFilderPtr)(const GroundedExpression&))
+{
+  switch (self.type)
+  {
+  case SemanticExpressionType::GROUNDED:
+  {
+    auto& grdExp = self.getGrdExp();
+    if (pRecurssiveCallsOnEmptyGrounding &&
+        grdExp->isEmpty())
+    {
+      for (auto& currChild : grdExp.children)
+        _getGrdExpPtrs_skipWrapperLists(*currChild.second, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                        pOnlyMainForm, pGrdExpFilderPtr);
+    }
+    else if (pGrdExpFilderPtr == nullptr || (*pGrdExpFilderPtr)(grdExp))
+    {
+      pRes.emplace_back(&grdExp);
+    }
+    return ListExpressionType::UNRELATED;
+  }
+  case SemanticExpressionType::INTERPRETATION:
+  {
+    auto& intExp = self.getIntExp();
+    if (pFollowInterpretations)
+      return _getGrdExpPtrs_skipWrapperLists(*intExp.interpretedExp, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                             pOnlyMainForm, pGrdExpFilderPtr);
+    return _getGrdExpPtrs_skipWrapperLists(*intExp.originalExp, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                           pOnlyMainForm, pGrdExpFilderPtr);
+  }
+  case SemanticExpressionType::FEEDBACK:
+  {
+    return _getGrdExpPtrs_skipWrapperLists(*self.getFdkExp().concernedExp, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                           pOnlyMainForm, pGrdExpFilderPtr);
+  }
+  case SemanticExpressionType::ANNOTATED:
+  {
+    return _getGrdExpPtrs_skipWrapperLists(*self.getAnnExp().semExp, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                           pOnlyMainForm, pGrdExpFilderPtr);
+  }
+  case SemanticExpressionType::METADATA:
+  {
+    return _getGrdExpPtrs_skipWrapperLists(*self.getMetadataExp().semExp, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                           pOnlyMainForm, pGrdExpFilderPtr);
+  }
+  case SemanticExpressionType::COMMAND:
+  {
+    return _getGrdExpPtrs_skipWrapperLists(*self.getCmdExp().semExp, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                           pOnlyMainForm, pGrdExpFilderPtr);
+  }
+  case SemanticExpressionType::SETOFFORMS:
+  {
+    auto& setOfFormsExp = self.getSetOfFormsExp();
+    if (pOnlyMainForm)
+    {
+      UniqueSemanticExpression* originalFrom = setOfFormsExp.getOriginalForm();
+      if (originalFrom != nullptr)
+        return _getGrdExpPtrs_skipWrapperLists(**originalFrom, pRes, pFollowInterpretations,  pRecurssiveCallsOnEmptyGrounding,
+                                               pOnlyMainForm, pGrdExpFilderPtr);
+    }
+    else
+    {
+      for (auto& currPrioToFrom : setOfFormsExp.prioToForms)
+        for (auto& currFrom : currPrioToFrom.second)
+          _getGrdExpPtrs_skipWrapperLists(*currFrom->exp, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                          pOnlyMainForm, pGrdExpFilderPtr);
+    }
+    return ListExpressionType::UNRELATED;
+  }
+  case SemanticExpressionType::FIXEDSYNTHESIS:
+  {
+    auto* semExp = self.getFSynthExp().getSemExpPtr();
+    if (semExp != nullptr)
+      return _getGrdExpPtrs_skipWrapperLists(*semExp, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                             pOnlyMainForm, pGrdExpFilderPtr);
+    return ListExpressionType::UNRELATED;
+  }
+  case SemanticExpressionType::LIST:
+  {
+    auto& listExp = self.getListExp();
+    for (auto& currElt : listExp.elts)
+      _getGrdExpPtrs_skipWrapperLists(*currElt, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                      pOnlyMainForm, pGrdExpFilderPtr);
+    return listExp.listType;
+  }
+  case SemanticExpressionType::COMPARISON:
+  case SemanticExpressionType::CONDITION:
+    return ListExpressionType::UNRELATED;
+  }
+  assert(false);
+  return ListExpressionType::UNRELATED;
+}
+
+template ListExpressionType _getGrdExpPtrs_skipWrapperLists<SemanticExpression, GroundedExpression>(SemanticExpression&, std::list<GroundedExpression*>&, bool, bool, bool, bool (*pGrdExpFilderPtr)(const GroundedExpression&));
+template ListExpressionType _getGrdExpPtrs_skipWrapperLists<const SemanticExpression, const GroundedExpression>(const SemanticExpression&, std::list<const GroundedExpression*>&, bool, bool, bool, bool (*pGrdExpFilderPtr)(const GroundedExpression&));
+
+}
 
 SemanticExpression::SemanticExpression(SemanticExpressionType pSemExpType)
   : type(pSemExpType)
@@ -345,54 +449,23 @@ ReturnType getListExpPtrSkipWrapperPtrs(SemExpType& self, bool pFollowInterpreta
 
 
 ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<GroundedExpression*>& pRes,
-                                                                      bool pFollowInterpretations)
+                                                                      bool pFollowInterpretations,
+                                                                      bool pRecurssiveCallsOnEmptyGrounding,
+                                                                      bool pOnlyMainForm,
+                                                                      bool (*pGrdExpFilderPtr)(const GroundedExpression&))
 {
-  GroundedExpression* grdExpPtr = getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
-  if (grdExpPtr != nullptr)
-  {
-    pRes.emplace_back(grdExpPtr);
-    return ListExpressionType::UNRELATED;
-  }
-
-  ListExpression* listExpPtr = getListExpPtr_SkipWrapperPtrs();
-  if (listExpPtr != nullptr)
-  {
-    for (auto& currElt : listExpPtr->elts)
-      currElt->getGrdExpPtrs_SkipWrapperLists(pRes, pFollowInterpretations);
-    return listExpPtr->listType;
-  }
-  return ListExpressionType::UNRELATED;
+  return _getGrdExpPtrs_skipWrapperLists(*this, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                         pOnlyMainForm, pGrdExpFilderPtr);
 }
-
 
 ListExpressionType SemanticExpression::getGrdExpPtrs_SkipWrapperLists(std::list<const GroundedExpression*>& pRes,
                                                                       bool pFollowInterpretations,
-                                                                      bool pRecurssiveCallsOnEmptyGrounding) const
+                                                                      bool pRecurssiveCallsOnEmptyGrounding,
+                                                                      bool pOnlyMainForm,
+                                                                      bool (*pGrdExpFilderPtr)(const GroundedExpression&)) const
 {
-  const GroundedExpression* grdExpPtr = getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
-  if (grdExpPtr != nullptr)
-  {
-    if (pRecurssiveCallsOnEmptyGrounding &&
-        grdExpPtr->grounding().isEmpty())
-    {
-      for (auto& currChild : grdExpPtr->children)
-        currChild.second->getGrdExpPtrs_SkipWrapperLists(pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding);
-    }
-    else
-    {
-      pRes.emplace_back(grdExpPtr);
-    }
-    return ListExpressionType::UNRELATED;
-  }
-
-  const ListExpression* listExpPtr = getListExpPtr_SkipWrapperPtrs(pFollowInterpretations);
-  if (listExpPtr != nullptr)
-  {
-    for (auto& currElt : listExpPtr->elts)
-      currElt->getGrdExpPtrs_SkipWrapperLists(pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding);
-    return listExpPtr->listType;
-  }
-  return ListExpressionType::UNRELATED;
+  return _getGrdExpPtrs_skipWrapperLists(*this, pRes, pFollowInterpretations, pRecurssiveCallsOnEmptyGrounding,
+                                         pOnlyMainForm, pGrdExpFilderPtr);
 }
 
 

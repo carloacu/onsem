@@ -7,6 +7,11 @@
   <nextMeaning lemme="raison" gram="noun"/>
   <wordForm gram="verb"/>
  </words>
+ <words lemme="baisser" gram="verb">
+  <nextMeaning lemme="le" gram="determiner"/>
+  <nextMeaning lemme="tête" gram="noun"/>
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="être" gram="verb">
   <nextMeaning lemme="après" gram="preposition"/>
   <wordForm gram="verb"/>
@@ -19,6 +24,11 @@
   <prevMeaning lemme="ce" gram="pronoun_subject"/>
   <nextMeaning lemme="ça" gram="pronoun"/>
   <wordForm gram="adverb"/>
+ </words>
+ <words lemme="lever" gram="verb">
+  <nextMeaning lemme="le" gram="determiner"/>
+  <nextMeaning lemme="tête" gram="noun"/>
+  <wordForm gram="verb"/>
  </words>
  <words lemme="regarder" gram="verb">
   <nextMeaning lemme="devant" gram="adverb"/>

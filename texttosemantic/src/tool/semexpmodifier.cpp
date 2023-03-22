@@ -1078,7 +1078,7 @@ void addAnythingChild(
     GrammaticalType pGrammaticalType)
 {
   std::list<GroundedExpression*> grdExpPtrs;
-  pSemExp.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+  pSemExp.getGrdExpPtrs_SkipWrapperLists(grdExpPtrs, true, false, false);
   for (const auto& currGrdExpPtr : grdExpPtrs)
     _addAnythingChildFromGrdExp(*currGrdExpPtr, pGrammaticalType);
 }
