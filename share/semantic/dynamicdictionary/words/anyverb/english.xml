@@ -45,7 +45,7 @@
     <child lemma="next" pos="preposition" chunkLinkType="location" />
     <child lemma="since" pos="sub_conj" chunkLinkType="time" />
     <child lemma="to" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />
-    <child lemma="to" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_)" />
+    <child lemma="to" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_, skip_determiners)" />
     <child lemma="until" pos="sub_conj" chunkLinkType="duration" />
     <child lemma="when" pos="sub_conj" chunkLinkType="time" />
     <child lemma="whenever" pos="sub_conj" chunkLinkType="time" />
