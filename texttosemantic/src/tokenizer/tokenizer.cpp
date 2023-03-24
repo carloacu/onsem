@@ -778,6 +778,7 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
 {
   auto languageType = pLingDico.statDb.getLanguageType();
   bool isAnHour = false;
+  bool isAPercentage = false;
   // until we are not at the end of the sentence
   while (pTokSent.currPos < pTokSent.endPosToTokenize)
   {
@@ -787,12 +788,20 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
       ++pTokSent.currPos;
       continue;
     }
-    if (pTokSent.textForms.formattedText[pTokSent.currPos] == 'h')
+    if (!isAPercentage  && !isAnHour)
     {
-      isAnHour = true;
-      // advance in the sentence
-      ++pTokSent.currPos;
-      continue;
+      if (pTokSent.textForms.formattedText[pTokSent.currPos] == '%')
+      {
+        isAPercentage = true;
+        continue;
+      }
+      if (pTokSent.textForms.formattedText[pTokSent.currPos] == 'h')
+      {
+        isAnHour = true;
+        // advance in the sentence
+        ++pTokSent.currPos;
+        continue;
+      }
     }
     if ((pTokSent.textForms.formattedText[pTokSent.currPos] == ' ' ||
          pTokSent.textForms.formattedText[pTokSent.currPos] == ',' ||
@@ -855,7 +864,7 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
         }
       }
 
-      if (pTokSent.currPos == pTokSent.endPosToTokenize)
+      if (pTokSent.currPos == pTokSent.endPosToTokenize || isAPercentage)
       {
         _addNumberOrHourToken(pTokSent,
                         pTokSent.posAfterPreviousToken, pTokSent.currPos, languageType, isAnHour, endOfNumber);

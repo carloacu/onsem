@@ -52,3 +52,4 @@ Start robotbehav
 Turn the head to the right 34 degrees
 Raise your head 43 degrees
 Head up 24 degrees
+Set the volume to 54%

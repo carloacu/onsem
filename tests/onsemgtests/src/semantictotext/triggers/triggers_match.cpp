@@ -491,11 +491,11 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume\\", triggers_match("Turn down the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Lower the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume(param1=29 percents)\\", triggers_match("Turn down the volume by 29 %", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume(param1=30 percents)\\", triggers_match("Lower the volume by 30 %", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume(param1=30 percents)\\", triggers_match("Lower the volume by 30%", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume\\", triggers_match("Turn up the volume", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume(param1=31 percents)\\", triggers_match("Turn up the volume by 31 %", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume(param1=31 percents)\\", triggers_match("Turn up the volume by 31%", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Set the volume\\", triggers_match("Set the volume", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Set the volume(param1=54 percents)\\", triggers_match("Set the volume to 54 %", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Set the volume(param1=54 percents)\\", triggers_match("Set the volume to 54%", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Launch(param1=Akinator)\\", triggers_match("Launch akinator", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you look up", semMem, lingDb));
