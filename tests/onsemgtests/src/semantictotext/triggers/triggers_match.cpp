@@ -441,9 +441,19 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   {"How far should I head down in degrees?"};
   triggers_addAnswerWithOneParameter("Head down", lowerHeadParameterQuestions, semMem, lingDb, language);
 
-  const std::vector<std::string> lowerVolumeParameterQuestions =
-  {"How much should I lower the volume in percentage?"};
-  triggers_addAnswerWithOneParameter("Lower the volume", lowerVolumeParameterQuestions, semMem, lingDb, language);
+  const std::vector<std::string> turnDownVolumeParameterQuestions =
+  {"How much should I turn down the volume in percentage?",
+   "How much should I lower the volume in percentage?"};
+  triggers_addAnswerWithOneParameter("Turn down the volume", turnDownVolumeParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Lower the volume", turnDownVolumeParameterQuestions, semMem, lingDb, language);
+
+  const std::vector<std::string> turnUpVolumeParameterQuestions =
+  {"How much should I turn up the volume in percentage?"};
+  triggers_addAnswerWithOneParameter("Turn up the volume", turnUpVolumeParameterQuestions, semMem, lingDb, language);
+
+  const std::vector<std::string> setVolumeParameterQuestions =
+  {"How much should I set the volume in percentage?"};
+  triggers_addAnswerWithOneParameter("Set the volume", setVolumeParameterQuestions, semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},
                                      semMem, lingDb, language);
@@ -478,8 +488,14 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=25 degrees)\\", triggers_match("Head down 25 degrees", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=23 degrees)\\", triggers_match("Lower your head 23 degrees", semMem, lingDb));
 
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume\\", triggers_match("Turn down the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Lower the volume", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume(param1=29 percents)\\", triggers_match("Turn down the volume by 29 %", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume(param1=30 percents)\\", triggers_match("Lower the volume by 30 %", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume\\", triggers_match("Turn up the volume", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume(param1=31 percents)\\", triggers_match("Turn up the volume by 31 %", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Set the volume\\", triggers_match("Set the volume", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Set the volume(param1=54 percents)\\", triggers_match("Set the volume to 54 %", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Launch(param1=Akinator)\\", triggers_match("Launch akinator", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Can you look up", semMem, lingDb));
