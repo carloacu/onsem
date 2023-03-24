@@ -9,7 +9,7 @@
     <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(number_, skip_determiners)|followedByDate" />
     <child lemma="in" pos="preposition" chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
     <child lemma="in" pos="preposition" chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
-    <child lemma="in" pos="preposition" chunkLinkType="unity" condition="followedByBeginOfConcept(location_relative_angle_)|followedByBeginOfConcept(length_)|followedByBeginOfConcept(duration_)" />
+    <child lemma="in" pos="preposition" chunkLinkType="unity" condition="followedByBeginOfConcept(location_relative_angle_)|followedByBeginOfConcept(length_)|followedByBeginOfConcept(duration_)|followedByConceptOrHyponym(percentage)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
     <child chunkLinkType="location" condition="[followedByPartOfSpeech(adverb)|followedByPartOfSpeech(pronoun)]&followedByConceptOrHyponym(location)" />
@@ -30,6 +30,7 @@
     <child lemma="because" pos="sub_conj" chunkLinkType="cause" />
     <child lemma="before" pos="sub_conj" chunkLinkType="time" />
     <child lemma="but" pos="sub_conj" chunkLinkType="mitigation" />
+    <child lemma="by" pos="preposition" chunkLinkType="specification" chunkLinkType="specification" condition="followedByConceptOrHyponym(percent, have_number_before)" />
     <child lemma="by" pos="preposition" chunkLinkType="way" />
     <child lemma="for" pos="preposition" chunkLinkType="occurrence rank" condition="followedByOccurenceRank" />
     <child lemma="for" pos="preposition" chunkLinkType="purpose" />
