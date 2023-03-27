@@ -114,10 +114,10 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
   if (!statGrd.polarity)
     return false;
 
+  if (SemExpGetter::isWishStatement(statGrd))
+    return _processWantSentences(pWorkStruct, pMemViewer, pGrdExp);
   for (const auto& currCpt : statGrd.concepts)
   {
-    if (currCpt.first == "verb_want")
-      return _processWantSentences(pWorkStruct, pMemViewer, pGrdExp);
     if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT &&
         pWorkStruct.proativeSpecificationsPtr != nullptr &&
         pWorkStruct.proativeSpecificationsPtr->canLearnANewAxiomaticnAction &&

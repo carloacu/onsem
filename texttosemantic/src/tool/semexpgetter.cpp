@@ -1816,6 +1816,13 @@ int getRank(const SemanticExpression& pSemExp)
 }
 
 
+bool isWishStatement(const SemanticStatementGrounding& pStatementGrd)
+{
+  return pStatementGrd.concepts.count("verb_want") != 0 ||
+      (pStatementGrd.concepts.count("verb_like") != 0 && pStatementGrd.verbGoal == VerbGoalEnum::CONDITIONAL);
+}
+
+
 const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
                                         const SemanticStatementGrounding& pStatementGrd,
                                         const std::string& pAuthorUserId)
@@ -1832,7 +1839,7 @@ const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
     return &pGrdExp;
   }
   else if (!pAuthorUserId.empty() &&
-           pStatementGrd.concepts.count("verb_want") != 0)
+           isWishStatement(pStatementGrd))
   {
     auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
     if (itSubject == pGrdExp.children.end() ||

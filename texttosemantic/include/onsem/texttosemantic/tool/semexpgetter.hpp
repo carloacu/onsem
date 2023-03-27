@@ -374,6 +374,8 @@ bool isDoNothingSemExp(const SemanticExpression& pSemExp);
 ONSEM_TEXTTOSEMANTIC_API
 int getRank(const SemanticExpression& pSemExp);
 
+ONSEM_TEXTTOSEMANTIC_API
+bool isWishStatement(const SemanticStatementGrounding& pStatementGrd);
 
 ONSEM_TEXTTOSEMANTIC_API
 const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
