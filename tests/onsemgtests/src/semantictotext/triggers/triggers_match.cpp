@@ -330,6 +330,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=1 mètre)\\", triggers_match("Avance d'un mètre", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=2 mètres)\\", triggers_match("Avance de deux mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=0,7 mètre)\\", triggers_match("Avance de 0,7 m", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=0,1 mètre)\\", triggers_match("Je veux que tu avances de 10 cm", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=0,3 mètre)\\", triggers_match("Avance de 30 centimètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=0,4 mètre)\\", triggers_match("Avance de 40 cm", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant(param1=5 mètres)\\", triggers_match("Va vers l'avant 5 mètres", semMem, lingDb));
@@ -462,6 +463,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
                                      semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 cm", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 centimeters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=2 meters)\\", triggers_match("Go forward two meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Advance 3 meters", semMem, lingDb));

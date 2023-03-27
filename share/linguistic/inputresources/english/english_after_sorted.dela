@@ -123,3 +123,13 @@
 
 -several.DET
 #several,.DET+Dadj:p
+
+
+#km,kilometer.N+z2:ms:mp
+#hm,hectometer.N+z2:ms:mp
+-dam.N
+#dam,decameter.N+z2:ms:mp
+#m,meter.N+z2:ms:mp
+#dm,decimeter.N+z2:ms:mp
+#cm,centimeter.N+z2:ms:mp
+#mm,millimeter.N+z2:ms:mp
