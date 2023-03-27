@@ -1231,10 +1231,9 @@ bool _statementGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>&
 {
   bool res = false;
   OtherConceptsLinkStrategy otherConceptsLinkStrategy =
-      pRequestContext == RequestContext::COMMAND ?
+      pIsATrigger || pRequestContext == RequestContext::COMMAND ?
         OtherConceptsLinkStrategy::NO_LINK_TO_OTHER_CONCEPTS :
         _requestCategoryToLinkStrategy(pRequestContext);
-
 
   // add semantic expressions that have a concept in common
   res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pStatGrd.concepts, &pGrdExpToLookFor,

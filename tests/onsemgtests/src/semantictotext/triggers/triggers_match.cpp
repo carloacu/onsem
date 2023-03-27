@@ -324,8 +324,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   triggers_addAnswerWithOneParameter("Lance", {"Qu'est-ce que je dois lancer ?"}, semMem, lingDb, language);
 
+
+  ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("fais un saut périeux", semMem, lingDb));
+  ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("fous de ma gueule", semMem, lingDb));
+
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=3 mètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=5 mètres)\\", triggers_match("Avance cinq mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=5 mètres)\\", triggers_match("avance cinq mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=4 mètres)\\", triggers_match("Avance de 4 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=1 mètre)\\", triggers_match("Avance d'un mètre", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=2 mètres)\\", triggers_match("Avance de deux mètres", semMem, lingDb));
