@@ -1499,7 +1499,7 @@ void SyntacticGraphToSemantic::xAddModifiers
           if (qWordPtr != nullptr)
           {
             auto statGrd = std::make_unique<SemanticStatementGrounding>();
-            statGrd->concepts.emplace("verb_generality", 4);
+            statGrd->concepts.emplace("no_verb", 4);
             statGrd->verbTense = SemanticVerbTense::PRESENT;
             statGrd->requests.set(qWordPtr->request);
             auto newGrdExp = std::make_unique<GroundedExpression>(std::move(statGrd));

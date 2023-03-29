@@ -75,8 +75,6 @@ TEST_F(SemanticReasonerGTests, operator_answerIDontKnow_basic)
 
 
   // french
-  EXPECT_EQ(constant::noResult, operator_answerIDontKnow("Je suis content", lingDb));
-  EXPECT_EQ(constant::noResult, operator_answerIDontKnow("regarde à droite", lingDb));
   EXPECT_EQ("Je ne sais pas qui est Paul.", operator_answerIDontKnow("Qui est Paul ?", lingDb));
   EXPECT_EQ("Je ne sais pas ce que j'en pense.", operator_answerIDontKnow("Je ne sais pas. Qu'est-ce que tu en penses ?", lingDb));
   EXPECT_EQ("Je ne sais pas comment je vais.", operator_answerIDontKnow("Comment ça va ? Moi ça va bien.", lingDb));
@@ -91,6 +89,11 @@ TEST_F(SemanticReasonerGTests, operator_answerIDontKnow_basic)
   EXPECT_EQ("Je ne sais pas ce qu'il en est du bien-être des animaux.", operator_answerIDontKnow("Qu'en est-il du bien-être des animaux ?", lingDb));
   EXPECT_EQ("Je ne sais pas à qui demander de l'aide.", operator_answerIDontKnow("A qui demander de l'aide ?", lingDb));
   EXPECT_EQ("Je ne sais pas quel restaurant je te conseille.", operator_answerIDontKnow("quel restaurant me conseilles-tu", lingDb));
+
+  // french without result
+  EXPECT_EQ(constant::noResult, operator_answerIDontKnow("Je suis content", lingDb));
+  EXPECT_EQ(constant::noResult, operator_answerIDontKnow("regarde à droite", lingDb));
+  EXPECT_EQ(constant::noResult, operator_answerIDontKnow("pourquoi aussi escargot lait", lingDb));
 }
 
 
