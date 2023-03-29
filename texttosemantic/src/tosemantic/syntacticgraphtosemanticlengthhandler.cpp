@@ -27,6 +27,10 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       {
         if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticLengthUnity_toConcept(currLength)))
         {
+          TokIt itNextToken = getNextToken(pContext.chunk.head, pContext.chunk.tokRange.getItEnd());
+          if (itNextToken != pContext.chunk.tokRange.getItEnd())
+            break; // the length should be the last token
+
           std::unique_ptr<SemanticLengthGrounding> newLength;
           for (TokIt itToken = getPrevToken(pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
                itToken != pContext.chunk.head;
