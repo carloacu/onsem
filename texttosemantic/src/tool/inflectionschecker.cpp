@@ -394,7 +394,6 @@ bool InflectionsChecker::areCompatibles
     switch (pIGram2.word.partOfSpeech)
     {
     case PartOfSpeech::NOUN:
-    case PartOfSpeech::PROPER_NOUN:
     {
       return _impl->isAdjNounCompatibles(pIGram1, pIGram2);
     }
@@ -415,6 +414,7 @@ bool InflectionsChecker::areCompatibles
     {
       return _isPronounSubjectAdjCompatibles(pIGram2.inflections(), pIGram1.inflections());
     }
+    case PartOfSpeech::PROPER_NOUN:
     default:
     {
       return true;

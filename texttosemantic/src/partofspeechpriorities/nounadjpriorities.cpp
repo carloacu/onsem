@@ -591,6 +591,24 @@ void pronounPriorities(std::vector<Token>& pTokens,
 }
 
 
+void adjPriorities(std::vector<Token>& pTokens)
+{
+  for (TokIt itTok = pTokens.begin(); itTok != pTokens.end();
+       itTok = getNextToken(itTok, pTokens.end()))
+  {
+    std::list<InflectedWord>& inflWords = itTok->inflWords;
+    const InflectedWord& currInflWord = inflWords.front();
+    if (currInflWord.word.partOfSpeech == PartOfSpeech::ADJECTIVE && inflWords.size() > 1)
+    {
+      auto itNext = getNextToken(itTok, pTokens.end());
+      if (itNext != pTokens.end() &&
+          itNext->getPartOfSpeech() == PartOfSpeech::PROPER_NOUN)
+        putOnTop(inflWords, PartOfSpeech::PROPER_NOUN);
+    }
+  }
+}
+
+
 void partitivePrioritiesFr(std::vector<Token>& pTokens,
                            const InflectionsChecker& pInflsCheker)
 {

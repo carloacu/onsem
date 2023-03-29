@@ -484,8 +484,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
       {
         TaggerListOfTokenChecks verbGramTypes;
         verbGramTypes.elts.emplace_back
-            (PartOfSpeech::VERB, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
-             ActionIfLinked::DEL_LESSER_PROBA);
+            (PartOfSpeech::VERB, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE);
         resContext.before.emplace_back(verbGramTypes);
       }
       return resContext;

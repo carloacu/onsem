@@ -126,7 +126,7 @@ on va manger au McDonald's à 12h30
 Désolé, je ne suis pas sûr que nous soyons compatibles.
 Je ne sais pas comment formuler cette question.
 Mathéo et Léandre sont les autres robots développés par Astoria.
-
+Issa Gouo est un footballeur burkinabé
 Je peux me déplacer.
 Je peux marcher, discuter et saisir des objets.
 Je peux voir, parler et me déplacer.

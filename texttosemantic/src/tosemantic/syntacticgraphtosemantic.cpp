@@ -101,6 +101,21 @@ UniqueSemanticExpression _whoSemExp()
 }
 
 
+GroundedExpression& _getRootForNextdjective(GroundedExpression& pGrdExp)
+{
+  for (auto itChild = pGrdExp.children.rbegin(); itChild != pGrdExp.children.rend(); ++itChild)
+  {
+    auto* childGrdExpPtr = itChild->second->getGrdExpPtr_SkipWrapperPtrs();
+    if (childGrdExpPtr != nullptr)
+    {
+      auto* childGenGrdPtr = childGrdExpPtr->grounding().getGenericGroundingPtr();
+      if (childGenGrdPtr != nullptr && childGenGrdPtr->word.partOfSpeech == PartOfSpeech::NOUN)
+        return *childGrdExpPtr;
+    }
+  }
+  return pGrdExp;
+}
+
 void _convertToGeneralitySentence(GroundedExpression& pGrdExpSentence,
                                   SemanticStatementGrounding& pStatementGrd)
 {
@@ -1597,15 +1612,16 @@ void SyntacticGraphToSemantic::xAddModifiersOfATokenAfterVerb
       }
         return pGrdExp;
       }();
+      auto& rootGrdExpForAdj = _getRootForNextdjective(rootGrdExp);
       if (_shouldConceptsBeInsideAConceptualGrounding(hasReferenceConcept, genGrounding->concepts))
       {
-        SemExpModifier::addChild(rootGrdExp, childGrammType,
+        SemExpModifier::addChild(rootGrdExpForAdj, childGrammType,
                                  std::make_unique<GroundedExpression>(
                                    std::make_unique<SemanticConceptualGrounding>(genGrounding->concepts)));
       }
       else
       {
-        SemExpModifier::addChild(rootGrdExp, childGrammType,
+        SemExpModifier::addChild(rootGrdExpForAdj, childGrammType,
                                  std::make_unique<GroundedExpression>(std::move(genGrounding)));
       }
     }
