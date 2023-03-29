@@ -3,6 +3,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/linguisticdictionary.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/verbalinflections.hpp>
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
+#include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include <onsem/common/utility/uppercasehandler.hpp>
 #include "../tool/chunkshandler.hpp"
 
@@ -97,6 +98,7 @@ bool _tryToIncreaseOriginalVerbInflections(Token& pVerbToken)
 
 bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
                       std::size_t& pNbOfNotUnderstood,
+                      std::size_t& pNbOfSuspiciousChunks,
                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
                       const InflectionsChecker& pInlfChecker,
                       const LinguisticDictionary& pLingDico)
@@ -111,6 +113,7 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
     {
     case ChunkType::VERB_CHUNK:
     {
+      bool isNotUnderstood = false;
       if (!currChunk.requests.has(SemanticRequestType::SUBJECT) &&
           !currChunk.requests.has(SemanticRequestType::ACTION) &&
           !haveASubject(currChunk))
@@ -122,7 +125,7 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
               checkOrder(currChunk, *doChkLkPtr->chunk))
             break;
         }
-        bool isNotUnderstood = true;
+        isNotUnderstood = true;
         if (isFirstChunk)
         {
           bool subjectCanBeInAPreviousText = currChunk.requests.empty() &&
@@ -130,42 +133,59 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
           if (subjectCanBeInAPreviousText)
             isNotUnderstood = false;
         }
+      }
 
-        if (isNotUnderstood)
+      for (const auto& currChildChunkLink : currChunk.children)
+      {
+        Chunk& childChunk = *currChildChunkLink.chunk;
+        TokIt itPrevTok = childChunk.tokRange.getItBegin();
+        for (TokIt itTok = getNextToken(itPrevTok, childChunk.tokRange.getItEnd()); itTok != childChunk.tokRange.getItEnd();
+             itTok = getNextToken(itTok, childChunk.tokRange.getItEnd()))
         {
-          ++pNbOfNotUnderstood;
-          it->type = ChunkLinkType::NOTUNDERSTOOD;
-
-          Token& verbToken = *currChunk.head;
-          if (pSpellingMistakeTypesPossible.count(SpellingMistakeType::CONJUGATION) == 1 &&
-              _tryToIncreaseOriginalVerbInflections(verbToken))
-            needToRestart = true;
-
-          if (it != pChunkList.begin())
+          auto& prevTokInflWord = itPrevTok->inflWords.front();
+          auto& tokInflWord = itTok->inflWords.front();
+          if (!pInlfChecker.areCompatibles(prevTokInflWord, tokInflWord))
           {
-            auto itPrev = it;
-            --itPrev;
-            if (itPrev->chunk->type == ChunkType::NOMINAL_CHUNK)
-            {
-              itPrev->type = ChunkLinkType::NOTUNDERSTOOD;
+            ++pNbOfSuspiciousChunks;
+            break;
+          }
+          itPrevTok = itTok;
+        }
+      }
 
-              Token& prevToken = *itPrev->chunk->head;
-              if (prevToken.getTokenLinkage() == TokenLinkage::STANDALONE)
+      if (isNotUnderstood)
+      {
+        ++pNbOfNotUnderstood;
+        it->type = ChunkLinkType::NOTUNDERSTOOD;
+        Token& verbToken = *currChunk.head;
+        if (pSpellingMistakeTypesPossible.count(SpellingMistakeType::CONJUGATION) == 1 &&
+            _tryToIncreaseOriginalVerbInflections(verbToken))
+          needToRestart = true;
+
+        if (it != pChunkList.begin())
+        {
+          auto itPrev = it;
+          --itPrev;
+          if (itPrev->chunk->type == ChunkType::NOMINAL_CHUNK)
+          {
+            itPrev->type = ChunkLinkType::NOTUNDERSTOOD;
+
+            Token& prevToken = *itPrev->chunk->head;
+            if (prevToken.getTokenLinkage() == TokenLinkage::STANDALONE)
+            {
+              std::list<InflectedWord> inflWords;
+              std::string lowerCaseStr = prevToken.str;
+              bool wasAtUpperCase = lowerCaseFirstLetter(lowerCaseStr, 0);
+              pLingDico.getGramPossibilities(inflWords, lowerCaseStr, 0, lowerCaseStr.size());
+              if (wasAtUpperCase)
               {
-                std::list<InflectedWord> inflWords;
-                std::string lowerCaseStr = prevToken.str;
-                bool wasAtUpperCase = lowerCaseFirstLetter(lowerCaseStr, 0);
-                pLingDico.getGramPossibilities(inflWords, lowerCaseStr, 0, lowerCaseStr.size());
-                if (wasAtUpperCase)
-                {
-                  InflectedWord properNounIgram;
-                  properNounIgram.word.partOfSpeech = PartOfSpeech::PROPER_NOUN;
-                  properNounIgram.word.lemma = prevToken.str;
-                  inflWords.emplace_back(std::move(properNounIgram));
-                }
-                if (!inflWords.empty())
-                  prevToken.inflWords.swap(inflWords);
+                InflectedWord properNounIgram;
+                properNounIgram.word.partOfSpeech = PartOfSpeech::PROPER_NOUN;
+                properNounIgram.word.lemma = prevToken.str;
+                inflWords.emplace_back(std::move(properNounIgram));
               }
+              if (!inflWords.empty())
+                prevToken.inflWords.swap(inflWords);
             }
           }
         }
@@ -181,7 +201,8 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
     case ChunkType::AND_CHUNK:
     {
       std::size_t subNbOfNotUnderstood = 0;
-      needToRestart = addNotUnderstood(currChunk.children, subNbOfNotUnderstood, pSpellingMistakeTypesPossible,
+      needToRestart = addNotUnderstood(currChunk.children, subNbOfNotUnderstood,
+                                       pNbOfSuspiciousChunks, pSpellingMistakeTypesPossible,
                                        pInlfChecker, pLingDico) || needToRestart;
       if (subNbOfNotUnderstood > 0)
       {

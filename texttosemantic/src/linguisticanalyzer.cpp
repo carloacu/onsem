@@ -267,7 +267,9 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
 
   // Tag some chunk link has "not understood"
   if (pIsRootLevel &&
-      addNotUnderstood(pFirstChildren, pParsingConfidence.nbOfNotUnderstood, pSpellingMistakeTypesPossible,
+      addNotUnderstood(pFirstChildren, pParsingConfidence.nbOfNotUnderstood,
+                       pParsingConfidence.nbOfSuspiciousChunks,
+                       pSpellingMistakeTypesPossible,
                        inflChecker, pSpecLingDb.lingDico))
   {
     SynthAnalEndingStepForDebug subEndingStep = pEndingStep;

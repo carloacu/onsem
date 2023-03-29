@@ -15,6 +15,7 @@ class LinguisticDictionary;
 
 bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
                       std::size_t& pNbOfNotUnderstood,
+                      std::size_t& pNbOfSuspiciousChunks,
                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
                       const InflectionsChecker& pInlfChecker,
                       const linguistics::LinguisticDictionary& pLingDico);
