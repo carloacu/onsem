@@ -330,7 +330,8 @@ struct GroundingLengthPrettyPrintStruct
 struct GroundingDurationPrettyPrintStruct
 {
   GroundingDurationPrettyPrintStruct(const SemanticDuration& pDuration)
-    : hour(),
+    : day(),
+      hour(),
       minute(),
       second(),
       millisecond()
@@ -339,6 +340,9 @@ struct GroundingDurationPrettyPrintStruct
     {
       switch (currTimeInfo.first)
       {
+      case SemanticTimeUnity::DAY:
+        day.emplace(currTimeInfo.second);
+        break;
       case SemanticTimeUnity::HOUR:
         hour.emplace(currTimeInfo.second);
         break;
@@ -357,6 +361,7 @@ struct GroundingDurationPrettyPrintStruct
     }
   }
 
+  mystd::optional<SemanticFloat> day;
   mystd::optional<SemanticFloat> hour;
   mystd::optional<SemanticFloat> minute;
   mystd::optional<SemanticFloat> second;

@@ -1560,6 +1560,7 @@ bool _timeToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
       }
       break;
     }
+    case SemanticRelativeTimeType::DELAYEDSTART:
     case SemanticRelativeTimeType::SINCE:
       break;
     }
@@ -1655,6 +1656,49 @@ bool _timeToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   return res;
 }
 
+
+
+
+template <bool IS_MODIFIABLE>
+bool _durationToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
+                                    const SentenceLinks<IS_MODIFIABLE>& pAlreadyMatchedSentences,
+                                    MemoryLinksAccessor<IS_MODIFIABLE>& pLinksToSemExps,
+                                    const SemanticDurationGrounding& pDurationGrd,
+                                    RequestContext pRequestContext,
+                                    const GroundedExpression& pGrdExpToLookFor,
+                                    const std::set<const SemanticExpression*>& pChildSemExpsToSkip,
+                                    const SemanticMemoryBlockPrivate* pMemBlockPrivatePtr,
+                                    bool pIsATrigger,
+                                    const linguistics::LinguisticDatabase& pLingDb,
+                                    bool pCheckChildren,
+                                    const SemanticRelativeTimeType* pRelativeTimePtr)
+{
+  bool res = false;
+
+  if (!pDurationGrd.concepts.empty())
+  {
+    OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
+    // add semantic expressions that have a concept in common
+    res = _conceptsToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, pDurationGrd.concepts, &pGrdExpToLookFor,
+                                         pChildSemExpsToSkip, otherConceptsLinkStrategy, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
+  }
+
+  if (pLinksToSemExps.d != nullptr)
+  {
+    auto itToSemExp = pLinksToSemExps.d->durationToSemExps.find(pDurationGrd.duration);
+    if (itToSemExp != pLinksToSemExps.d->durationToSemExps.end())
+    {
+      IntIdToMemSentenceAccessor<IS_MODIFIABLE> accessor(itToSemExp->second);
+      res = _addPotentialNewRelationsFromLinks(pRelations, pAlreadyMatchedSentences, &accessor, nullptr,
+                                               &pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren) || res;
+    }
+  }
+  if (pLinksToSemExps.c != nullptr)
+  {
+    // TODO
+  }
+  return res;
+}
 
 
 template <bool IS_MODIFIABLE>
@@ -1847,6 +1891,13 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
     return _nameGroundingToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, nameGrd, pGrdExpToLookFor, pChildSemExpsToSkip,
                                                pRequestContext, pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren, pLanguage);
   }
+  case SemanticGroundingType::DURATION:
+  {
+    const auto& durationGrd = pGrdExpToLookFor->getDurationGrounding();
+    return _durationToRelationsFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, durationGrd,
+                                          pRequestContext, pGrdExpToLookFor, pChildSemExpsToSkip, pMemBlockPrivatePtr,
+                                          pIsATrigger, pLingDb, pCheckChildren, pRelativeTimePtr);
+  }
   case SemanticGroundingType::TIME:
   {
     const auto& timeGrd = pGrdExpToLookFor->getTimeGrounding();
@@ -1934,7 +1985,6 @@ bool _getRelationsFromGrdExp(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
   }
   case SemanticGroundingType::ANGLE:
   case SemanticGroundingType::RELATIVEDURATION:
-  case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LENGTH:
   case SemanticGroundingType::META:
   case SemanticGroundingType::PERCENTAGE:

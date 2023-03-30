@@ -6,6 +6,9 @@
  <concept name="time_relative_before">
   <linkedMeaning lemme="avant" relationToConcept="4"/>
  </concept>
+ <concept name="time_relative_delayedStart">
+  <linkedMeaning lemme="dans" relationToConcept="4"/>
+ </concept>
  <concept name="time_relative_justAfter">
   <linkedMeaning lemme="juste après" relationToConcept="4"/>
  </concept>

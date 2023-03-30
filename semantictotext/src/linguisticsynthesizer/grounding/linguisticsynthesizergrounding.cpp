@@ -1152,6 +1152,12 @@ bool Linguisticsynthesizergrounding::durationTranslation
   GroundingDurationPrettyPrintStruct durationPrint(pDuration);
   std::stringstream ss;
   bool finishedToPrint = false;
+  if (durationPrint.day)
+  {
+    _printTimeValue(ss, *durationPrint.day, SemanticTimeUnity::DAY, pStatSynthDico, _language);
+    if (!pPrintPrecisely)
+      finishedToPrint = true;
+  }
   if (durationPrint.hour)
   {
     _printTimeValue(ss, *durationPrint.hour, SemanticTimeUnity::HOUR, pStatSynthDico, _language);

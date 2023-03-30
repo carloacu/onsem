@@ -160,8 +160,12 @@ const boost::property_tree::ptree& fillChildSpecs(ChildSpecification& pChildSpec
     _strToConditionTree(pChildSpec.conditionTree, conditionStr, 0, conditionStr.size());
 
   for (const auto& currCond : pChildTree)
+  {
     if (currCond.first == "remove_verb_concept")
       pChildSpec.verbConceptsToRemove.emplace_back(currCond.second.get<std::string>("<xmlattr>.val"));
+    if (currCond.first == "add_concept")
+      pChildSpec.conceptsToAdd.emplace_back(currCond.second.get<std::string>("<xmlattr>.val"));
+  }
   return childAttributes;
 }
 

@@ -45,7 +45,7 @@ public:
   mystd::optional<ChunkLinkType> getAppropriateChunkLink
   (InflectedWord* pVerbInflectedWord,
    mystd::optional<const SemanticWord*>& pIntroductingWord,
-   const InflectedWord* pPrepInflWordPtr,
+   InflectedWord* pPrepInflWordPtr,
    ChunkType pChunkType,
    const ConstTokenIterator* pNextToken) const;
 

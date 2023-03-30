@@ -46,7 +46,7 @@ bool _getNextWordWithoutIntro(ConstTokenIterator& pNextToken,
 }
 
 
-const InflectedWord* _getIntroWord(const TokenRange& pTokRange)
+InflectedWord* _getIntroWord(TokenRange& pTokRange)
 {
   const TokIt& tokRangeEnd = pTokRange.getItEnd();
   for (TokIt itTok = pTokRange.getItBegin(); itTok != tokRangeEnd;
@@ -248,7 +248,7 @@ ChunkLinkType EntityRecognizer::xGetChkLinkTypeFromChunkLink
   for (TokIt itTok = pChunkLink.tokRange.getItBegin(); itTok != pChunkLink.tokRange.getItEnd();
        itTok = getNextToken(itTok, pChunkLink.tokRange.getItEnd()))
   {
-    const InflectedWord& linkTokenInfoGram = itTok->inflWords.front();
+    InflectedWord& linkTokenInfoGram = itTok->inflWords.front();
     if (linkTokenInfoGram.word.partOfSpeech == PartOfSpeech::PREPOSITION &&
         ConceptSet::haveAConceptThatBeginWith(linkTokenInfoGram.infos.concepts, "location_relative_"))
     {
@@ -341,7 +341,7 @@ ChunkLinkType EntityRecognizer::xFindNatureOfANominalGroup
   if (_isMetaTimeChunk(chunkToProcess))
     return ChunkLinkType::TIME;
 
-  const auto* prepInflWordPtr = _getIntroWord(pChunkLink.tokRange);
+  auto* prepInflWordPtr = _getIntroWord(pChunkLink.tokRange);
   if (prepInflWordPtr == nullptr)
     prepInflWordPtr = _getIntroWord(chunkToProcess.tokRange);
 
@@ -482,7 +482,7 @@ ChunkLinkType EntityRecognizer::xFindNatureOfANominalGroup
 mystd::optional<ChunkLinkType> EntityRecognizer::getAppropriateChunkLink
 (InflectedWord* pVerbInflectedWord,
  mystd::optional<const SemanticWord*>& pIntroductingWord,
- const InflectedWord* pPrepInflWordPtr,
+ InflectedWord* pPrepInflWordPtr,
  ChunkType pChunkType,
  const ConstTokenIterator* pNextToken) const
 {

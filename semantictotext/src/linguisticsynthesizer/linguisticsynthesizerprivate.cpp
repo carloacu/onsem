@@ -1387,7 +1387,7 @@ SemExpTypeEnumFormSynt LinguisticSynthesizerPrivate::_writeCondExp
   {
     const auto* condGrdExpPtr = pCondExp.conditionExp->getGrdExpPtr_SkipWrapperPtrs();
     if (condGrdExpPtr == nullptr ||
-        (condGrdExpPtr->grounding().type != SemanticGroundingType::RELATIVEDURATION &&
+        (condGrdExpPtr->grounding().type != SemanticGroundingType::RELATIVETIME &&
          condGrdExpPtr->grounding().type != SemanticGroundingType::TIME))
     {
       if (pCondExp.conditionPointsToAffirmations)

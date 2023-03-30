@@ -145,12 +145,12 @@
 
   <declareconcept name="degree" />
 
+  <declareconcept name="duration_day" />
   <declareconcept name="duration_hour" />
   <declareconcept name="duration_minute" />
   <declareconcept name="duration_second" />
   <declareconcept name="duration_millisecond" />
 
-  <declareconcept name="duration_relative_delayedStart" />
   <declareconcept name="duration_relative_until" />
 
   <declareconcept name="emotion" />
@@ -368,6 +368,7 @@
  
   <declareconcept name="time_relative_after" autofill="false" />
   <declareconcept name="time_relative_before" autofill="false" />
+  <declareconcept name="time_relative_delayedStart" autofill="false" />
   <declareconcept name="time_relative_justAfter" autofill="false" />
   <declareconcept name="time_relative_justBefore" autofill="false" />
   <declareconcept name="time_relative_now" autofill="false" />

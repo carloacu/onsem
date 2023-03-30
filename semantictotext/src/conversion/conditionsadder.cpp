@@ -1,7 +1,7 @@
 #include "conditionsadder.hpp"
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
-#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativedurationgrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticrelativetimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
@@ -47,26 +47,20 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
                    std::move(timeSemExp), std::move(pSemExp));
               break;
             }
-          }
-        }
 
-        auto itDurationChild = grdExp.children.find(GrammaticalType::DURATION);
-        if (itDurationChild != grdExp.children.end())
-        {
-          const GroundedExpression* durationGrdExpPtr = itDurationChild->second->getGrdExpPtr_SkipWrapperPtrs();
-          if (durationGrdExpPtr != nullptr)
-          {
-            auto relDurationGrdPtr = durationGrdExpPtr->grounding().getRelDurationGroundingPtr();
-            if (relDurationGrdPtr != nullptr &&
-                relDurationGrdPtr->durationType == SemanticRelativeDurationType::DELAYEDSTART)
+            if (timeGrdType == SemanticGroundingType::RELATIVETIME)
             {
-              auto durationSemExp = itDurationChild->second.extractContent();
-              SemExpModifier::removeChildFromSemExp(*durationSemExp, GrammaticalType::INTRODUCTING_WORD);
-              splitter::splitInVerySimpleSentences(durationSemExp, false);
-              grdExp.children.erase(itDurationChild);
-              pSemExp = std::make_unique<ConditionExpression>(false, false,
-                                                                std::move(durationSemExp), std::move(pSemExp));
-              break;
+              auto relTimeGrd = timeGrdExpPtr->grounding().getRelTimeGrounding();
+              if (relTimeGrd.timeType == SemanticRelativeTimeType::DELAYEDSTART)
+              {
+                auto durationSemExp = itTimeChild->second.extractContent();
+                SemExpModifier::removeChildFromSemExp(*durationSemExp, GrammaticalType::INTRODUCTING_WORD);
+                splitter::splitInVerySimpleSentences(durationSemExp, false);
+                grdExp.children.erase(itTimeChild);
+                pSemExp = std::make_unique<ConditionExpression>(false, false,
+                                                                  std::move(durationSemExp), std::move(pSemExp));
+                break;
+              }
             }
           }
         }

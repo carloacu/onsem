@@ -689,17 +689,22 @@ const ChildSpecification* _getChildSpecFromContainers(const ChildSpecificationsC
 
 
 mystd::optional<ChunkLinkType> _getChunkLinkFromSchildsSpecs(bool& pWillBeAbleToSynthesizeIt,
-                                                             std::map<std::string, char>& pConcepts,
+                                                             std::map<std::string, char>& pVerbConcepts,
                                                              const ChildSpecificationsContainer& pDefaultChilds,
                                                              const ChildSpecificationsContainer* pVerbChildsPtr,
-                                                             const InflectedWord* pPrepInflWordPtr,
+                                                             InflectedWord* pPrepInflWordPtr,
                                                              const ConstTokenIterator* pNextToken)
 {
   const ChildSpecification* childSpecThatMatchPtr = _getChildSpecFromContainers(pDefaultChilds, pVerbChildsPtr, pPrepInflWordPtr, pNextToken);
   if (childSpecThatMatchPtr != nullptr)
   {
-    for (const auto& currCond : childSpecThatMatchPtr->verbConceptsToRemove)
-      pConcepts.erase(currCond);
+    for (const auto& currConc : childSpecThatMatchPtr->verbConceptsToRemove)
+      pVerbConcepts.erase(currConc);
+    if (pPrepInflWordPtr != nullptr)
+    {
+      for (const auto& currConc : childSpecThatMatchPtr->conceptsToAdd)
+        pPrepInflWordPtr->infos.concepts.emplace(currConc, 4);
+    }
     auto itLemmaToSpecs = pDefaultChilds.chkLinkToChildSpecs.find(childSpecThatMatchPtr->chunkLinkType);
     if (itLemmaToSpecs != pDefaultChilds.chkLinkToChildSpecs.end())
     {
@@ -1052,18 +1057,18 @@ void SemanticFrameDictionary::addAChildSpecificationsWithoutVerbByDefault(ChildS
 
 
 mystd::optional<ChunkLinkType> SemanticFrameDictionary::getChunkLinkFromContext
-(InflectedWord* pInflectedWordPtr,
+(InflectedWord* pVerbInflectedWordPtr,
  bool& pWillBeAbleToSynthesizeIt,
- const InflectedWord* pPrepInflWordPtr,
+ InflectedWord* pPrepInflWordPtr,
  const ConstTokenIterator* pNextToken) const
 {
-  if (pInflectedWordPtr != nullptr)
+  if (pVerbInflectedWordPtr != nullptr)
   {
     const ChildSpecificationsContainer* verbChildsPtr = nullptr;
-    auto itWordChildSpec = _wordToChildSpecifications.find(pInflectedWordPtr->word);
+    auto itWordChildSpec = _wordToChildSpecifications.find(pVerbInflectedWordPtr->word);
     if (itWordChildSpec != _wordToChildSpecifications.end())
       verbChildsPtr = &*itWordChildSpec->second;
-    return _getChunkLinkFromSchildsSpecs(pWillBeAbleToSynthesizeIt, pInflectedWordPtr->infos.concepts, *_childSpecificationsByDefault,
+    return _getChunkLinkFromSchildsSpecs(pWillBeAbleToSynthesizeIt, pVerbInflectedWordPtr->infos.concepts, *_childSpecificationsByDefault,
                                          verbChildsPtr, pPrepInflWordPtr, pNextToken);
   }
 

@@ -191,6 +191,11 @@ void LinguisticSynthesizerFrench::_getRelTimeFollowingPrep(std::list<WordToSynth
     _strWithApostropheToOut(pOut, PartOfSpeech::PREPOSITION, "qu'", "que");
     break;
   }
+  case SemanticRelativeTimeType::DELAYEDSTART:
+  {
+    _strToOut(pOut, PartOfSpeech::PREPOSITION, "dans");
+   break;
+  }
   case SemanticRelativeTimeType::AFTER:
   case SemanticRelativeTimeType::BEFORE:
   case SemanticRelativeTimeType::JUSTAFTER:

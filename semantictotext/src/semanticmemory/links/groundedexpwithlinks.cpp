@@ -300,30 +300,23 @@ void _addTimeLinksFromGrounding(
 }
 
 
-void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
-                   SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinksForAMemSentence>& pLinksFromMemSentence,
-                   intSemId pMemSentenceId)
+void _addTimeToSemExpsLinks(
+    mystd::radix_map_struct<SemanticDuration, MemoryGrdExpLinks>& pTimeToSemExps,
+    mystd::radix_map_struct<SemanticDuration, MemoryGrdExpLinksForAMemSentence>& pTmeToSemExpsFromSentence,
+    intSemId pMemSentenceId)
 {
-  _fillMemBlocLinksForRadixMap(pLinks.conceptsToSemExps, pLinksFromMemSentence.conceptsToSemExps, pMemSentenceId);
-
-  for (auto& currElt : pLinksFromMemSentence.meaningsToSemExps)
-    _fillMemBlocLinks(pLinks.meaningsToSemExps[currElt.first], currElt.second, pMemSentenceId);
-
-  _fillMemBlocLinks(pLinks.everythingOrNoEntityTypeToSemExps, pLinksFromMemSentence.everythingOrNoEntityTypeToSemExps, pMemSentenceId);
-  _fillMemBlocLinks(pLinks.genGroundingTypeToSemExps, pLinksFromMemSentence.genGroundingTypeToSemExps, pMemSentenceId);
-
-  if (!pLinksFromMemSentence.timeToSemExps.empty())
+  if (!pTmeToSemExpsFromSentence.empty())
   {
     // insert new time elts
-    auto itRefTimeElt = pLinksFromMemSentence.timeToSemExps.end();
-    while (itRefTimeElt != pLinksFromMemSentence.timeToSemExps.begin())
+    auto itRefTimeElt = pTmeToSemExpsFromSentence.end();
+    while (itRefTimeElt != pTmeToSemExpsFromSentence.begin())
     {
       --itRefTimeElt;
-      _insertTimeElt(pLinks.timeToSemExps, itRefTimeElt->first);
+      _insertTimeElt(pTimeToSemExps, itRefTimeElt->first);
     }
 
-    auto itInMemory = pLinks.timeToSemExps.find(itRefTimeElt->first);
-    assert(itInMemory != pLinks.timeToSemExps.end());
+    auto itInMemory = pTimeToSemExps.find(itRefTimeElt->first);
+    assert(itInMemory != pTimeToSemExps.end());
     while (true)
     {
       if (!itRefTimeElt->second.empty())
@@ -334,7 +327,7 @@ void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
 
         auto itRefNext = itRefTimeElt;
         ++itRefNext;
-        if (itRefNext == pLinksFromMemSentence.timeToSemExps.end())
+        if (itRefNext == pTmeToSemExpsFromSentence.end())
         {
           assert(false);
           break;
@@ -347,7 +340,7 @@ void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
           auto& currLinksToFill = itInMemory->second[pMemSentenceId];
           currLinksToFill.insert(currLinksToFill.end(), itRefTimeElt->second.begin(), itRefTimeElt->second.end());
           ++itInMemory;
-          assert(itInMemory != pLinks.timeToSemExps.end());
+          assert(itInMemory != pTimeToSemExps.end());
         }
         itRefTimeElt = itRefNext;
         assert(itRefTimeElt->first == itInMemory->first);
@@ -356,12 +349,28 @@ void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
 
       // jump to next time slot
       ++itRefTimeElt;
-      if (itRefTimeElt == pLinksFromMemSentence.timeToSemExps.end())
+      if (itRefTimeElt == pTmeToSemExpsFromSentence.end())
         break;
-      itInMemory = pLinks.timeToSemExps.find(itRefTimeElt->first);
-      assert(itInMemory != pLinks.timeToSemExps.end());
+      itInMemory = pTimeToSemExps.find(itRefTimeElt->first);
+      assert(itInMemory != pTimeToSemExps.end());
     }
   }
+}
+
+void _addLinksFrom(SemanticLinksToGrdExps& pLinks,
+                   SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinksForAMemSentence>& pLinksFromMemSentence,
+                   intSemId pMemSentenceId)
+{
+  _fillMemBlocLinksForRadixMap(pLinks.conceptsToSemExps, pLinksFromMemSentence.conceptsToSemExps, pMemSentenceId);
+
+  for (auto& currElt : pLinksFromMemSentence.meaningsToSemExps)
+    _fillMemBlocLinks(pLinks.meaningsToSemExps[currElt.first], currElt.second, pMemSentenceId);
+
+  _fillMemBlocLinks(pLinks.everythingOrNoEntityTypeToSemExps, pLinksFromMemSentence.everythingOrNoEntityTypeToSemExps, pMemSentenceId);
+  _fillMemBlocLinks(pLinks.genGroundingTypeToSemExps, pLinksFromMemSentence.genGroundingTypeToSemExps, pMemSentenceId);
+
+  _addTimeToSemExpsLinks(pLinks.timeToSemExps, pLinksFromMemSentence.timeToSemExps, pMemSentenceId);
+  _fillMemBlocLinks(pLinks.durationToSemExps, pLinksFromMemSentence.durationToSemExps, pMemSentenceId);
 
   _fillMemBlocLinks(pLinks.relLocationToSemExps, pLinksFromMemSentence.relLocationToSemExps, pMemSentenceId);
   _fillMemBlocLinks(pLinks.relTimeToSemExps, pLinksFromMemSentence.relTimeToSemExps, pMemSentenceId);
@@ -446,6 +455,54 @@ void _removeGrdExpsLinks(std::map<intSemId, MemoryGrdExpLinksForAMemSentence>& p
 }
 
 
+void _removeTimeToSemExpsLinks(mystd::radix_map_struct<SemanticDuration, MemoryGrdExpLinks>& pTimeToSemExps,
+                               const mystd::radix_map_struct<SemanticDuration, MemoryGrdExpLinksForAMemSentence>& pTimeToSemExpsFromSentence,
+                               intSemId pMemSentenceId)
+{
+  if (!pTimeToSemExpsFromSentence.empty())
+  {
+    auto itTimeElt = pTimeToSemExpsFromSentence.begin();
+    while (true)
+    {
+      auto subItToFilter = pTimeToSemExps.find(itTimeElt->first);
+      assert(subItToFilter != pTimeToSemExps.end());
+      _removeGrdExpsLinks(subItToFilter->second, itTimeElt->second, pMemSentenceId);
+
+      if (subItToFilter != pTimeToSemExps.begin())
+      {
+        auto itPrev = subItToFilter;
+        --itPrev;
+        if (subItToFilter->second == itPrev->second)
+          subItToFilter = pTimeToSemExps.erase(subItToFilter);
+        else
+          ++subItToFilter;
+      }
+      else if (subItToFilter->second.empty())
+      {
+        subItToFilter = pTimeToSemExps.erase(subItToFilter);
+      }
+      else
+      {
+        ++subItToFilter;
+      }
+
+      auto itTimeNextElt = itTimeElt;
+      ++itTimeNextElt;
+      if (itTimeNextElt == pTimeToSemExpsFromSentence.end())
+        break;
+      while (subItToFilter != pTimeToSemExps.end() &&
+             subItToFilter->first < itTimeNextElt->first)
+      {
+        _removeGrdExpsLinks(subItToFilter->second, itTimeElt->second, pMemSentenceId);
+        ++subItToFilter;
+        assert(subItToFilter != pTimeToSemExps.end());
+      }
+      itTimeElt = itTimeNextElt;
+    }
+  }
+}
+
+
 void _removeLinksFrom(SemanticLinksToGrdExps& pToFilter,
                       const SemanticLinksToGrdExpsTemplate<MemoryGrdExpLinksForAMemSentence>& pLinksFromMemSentence,
                       intSemId pMemSentenceId)
@@ -466,47 +523,9 @@ void _removeLinksFrom(SemanticLinksToGrdExps& pToFilter,
   _removeMemoryLinks(pToFilter.genGroundingTypeToSemExps,
                      pLinksFromMemSentence.genGroundingTypeToSemExps, pMemSentenceId);
 
-  if (!pLinksFromMemSentence.timeToSemExps.empty())
-  {
-    auto itTimeElt = pLinksFromMemSentence.timeToSemExps.begin();
-    while (true)
-    {
-      auto subItToFilter = pToFilter.timeToSemExps.find(itTimeElt->first);
-      assert(subItToFilter != pToFilter.timeToSemExps.end());
-      _removeGrdExpsLinks(subItToFilter->second, itTimeElt->second, pMemSentenceId);
-
-      if (subItToFilter != pToFilter.timeToSemExps.begin())
-      {
-        auto itPrev = subItToFilter;
-        --itPrev;
-        if (subItToFilter->second == itPrev->second)
-          subItToFilter = pToFilter.timeToSemExps.erase(subItToFilter);
-        else
-          ++subItToFilter;
-      }
-      else if (subItToFilter->second.empty())
-      {
-        subItToFilter = pToFilter.timeToSemExps.erase(subItToFilter);
-      }
-      else
-      {
-        ++subItToFilter;
-      }
-
-      auto itTimeNextElt = itTimeElt;
-      ++itTimeNextElt;
-      if (itTimeNextElt == pLinksFromMemSentence.timeToSemExps.end())
-        break;
-      while (subItToFilter != pToFilter.timeToSemExps.end() &&
-             subItToFilter->first < itTimeNextElt->first)
-      {
-        _removeGrdExpsLinks(subItToFilter->second, itTimeElt->second, pMemSentenceId);
-        ++subItToFilter;
-        assert(subItToFilter != pToFilter.timeToSemExps.end());
-      }
-      itTimeElt = itTimeNextElt;
-    }
-  }
+  _removeTimeToSemExpsLinks(pToFilter.timeToSemExps, pLinksFromMemSentence.timeToSemExps, pMemSentenceId);
+  _removeMemoryLinks(pToFilter.durationToSemExps,
+                     pLinksFromMemSentence.durationToSemExps, pMemSentenceId);
 
   _removeMemoryLinks(pToFilter.relLocationToSemExps,
                      pLinksFromMemSentence.relLocationToSemExps, pMemSentenceId);
@@ -1218,10 +1237,22 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
     _addTimeLinksFromGrounding(pEnsureLinksToGrdExps(), timeGrounding, newMemGrdExp);
     break;
   }
-  case SemanticGroundingType::RELATIVEDURATION:
+  case SemanticGroundingType::DURATION:
   {
-    const SemanticRelativeDurationGrounding& relDurationGrounding = pGrounding.getRelDurationGrounding();
-    if (relDurationGrounding.durationType == SemanticRelativeDurationType::DELAYEDSTART)
+    const SemanticDurationGrounding& durationGrounding = pGrounding.getDurationGrounding();
+    pEnsureLinksToGrdExps().durationToSemExps[durationGrounding.duration].emplace_back(newMemGrdExp);
+    break;
+  }
+  case SemanticGroundingType::RELATIVELOCATION:
+  {
+    const SemanticRelativeLocationGrounding& relLocationGrounding = pGrounding.getRelLocationGrounding();
+    pEnsureLinksToGrdExps().relLocationToSemExps[relLocationGrounding.locationType].emplace_back(newMemGrdExp);
+    break;
+  }
+  case SemanticGroundingType::RELATIVETIME:
+  {
+    const SemanticRelativeTimeGrounding& relTimeGrounding = pGrounding.getRelTimeGrounding();
+    if (relTimeGrounding.timeType == SemanticRelativeTimeType::DELAYEDSTART)
     {
       auto itSpecifierChild = pGrdExp.children.find(GrammaticalType::SPECIFIER);
       if (itSpecifierChild != pGrdExp.children.end())
@@ -1239,17 +1270,6 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
         }
       }
     }
-    break;
-  }
-  case SemanticGroundingType::RELATIVELOCATION:
-  {
-    const SemanticRelativeLocationGrounding& relLocationGrounding = pGrounding.getRelLocationGrounding();
-    pEnsureLinksToGrdExps().relLocationToSemExps[relLocationGrounding.locationType].emplace_back(newMemGrdExp);
-    break;
-  }
-  case SemanticGroundingType::RELATIVETIME:
-  {
-    const SemanticRelativeTimeGrounding& relTimeGrounding = pGrounding.getRelTimeGrounding();
     pEnsureLinksToGrdExps().relTimeToSemExps[relTimeGrounding.timeType].emplace_back(newMemGrdExp);
     break;
   }
@@ -1286,9 +1306,9 @@ bool GroundedExpWithLinksPrivate::_linkGrdExp
   }
   case SemanticGroundingType::ANGLE:
   case SemanticGroundingType::CONCEPTUAL:
-  case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LENGTH:
   case SemanticGroundingType::PERCENTAGE:
+  case SemanticGroundingType::RELATIVEDURATION:
     break;
   }
   return true;

@@ -861,10 +861,10 @@ mystd::optional<ChunkLinkType> ListExtractor::_getAppropriateChunkLinkFromTokens
  ChunkType pTokensChunkType) const
 {
   auto itEnd = pTokRange.getItEnd();
-  TokCstIt itFirstWord = getTheNextestWord(pTokRange.getItBegin(), itEnd);
+  TokIt itFirstWord = getTheNextestWord(pTokRange.getItBegin(), itEnd);
   if (itFirstWord != itEnd)
   {
-    const auto& firstWordIGram = itFirstWord->inflWords.front();
+    auto& firstWordIGram = itFirstWord->inflWords.front();
     ConstTokenIterator nextToken(pTokRange.getTokList(), 0);
     nextToken.setTokenIt(itFirstWord);
     nextToken.advanceToNextToken();

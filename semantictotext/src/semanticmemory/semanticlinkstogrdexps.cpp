@@ -179,6 +179,7 @@ void SemanticLinksToGrdExpsTemplate<LINKS_TYPE>::clear()
   everythingOrNoEntityTypeToSemExps.clear();
   genGroundingTypeToSemExps.clear();
   timeToSemExps.clear();
+  durationToSemExps.clear();
   relLocationToSemExps.clear();
   relTimeToSemExps.clear();
   numberToSemExps.clear();
@@ -203,6 +204,7 @@ bool SemanticLinksToGrdExpsTemplate<LINKS_TYPE>::empty() const
       everythingOrNoEntityTypeToSemExps.empty() &&
       genGroundingTypeToSemExps.empty() &&
       timeToSemExps.empty() &&
+      durationToSemExps.empty() &&
       relLocationToSemExps.empty() &&
       numberToSemExps.empty() &&
       quantityTypeToSemExps.empty() &&

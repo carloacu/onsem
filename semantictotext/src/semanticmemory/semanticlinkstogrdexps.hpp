@@ -61,6 +61,8 @@ struct SemanticLinksToGrdExpsTemplate
   std::map<SemanticEntityType, LINKS_TYPE> genGroundingTypeToSemExps{};
   /// Map of time (duration from 1 january of year 0) -> part of texts
   mystd::radix_map_struct<SemanticDuration, LINKS_TYPE> timeToSemExps{};
+  /// Map of duration -> part of texts
+  std::map<SemanticDuration, LINKS_TYPE> durationToSemExps{};
   /// Map of relativeLocation -> part of texts
   std::map<SemanticRelativeLocationType, LINKS_TYPE> relLocationToSemExps{};
   /// Map of relativeTime -> part of texts

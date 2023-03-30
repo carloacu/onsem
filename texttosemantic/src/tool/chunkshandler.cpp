@@ -1473,8 +1473,9 @@ bool getNumberBeforeHead(SemanticFloat& pNumber,
   for (TokIt itToken = getPrevToken(pChunk.head, pChunk.tokRange.getItBegin(), pChunk.head);
        itToken != pChunk.head;
        itToken = getPrevToken(itToken, pChunk.tokRange.getItBegin(), pChunk.head))
-    if (getNumberHoldByTheInflWord(pNumber, itToken, pChunk.head, "number_"))
-      return true;
+  {
+    return getNumberHoldByTheInflWord(pNumber, itToken, pChunk.head, "number_");
+  }
   return false;
 }
 

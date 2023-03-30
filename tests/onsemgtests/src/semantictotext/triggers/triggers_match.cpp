@@ -104,6 +104,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction10 = "Voilà, j'avance.";
   const std::string trigger11 = "Avant se un petit peu";
   const std::string reaction11 = "La phrase est bizarre.";
+  const std::string trigger12 = "Montrez-moi une journée avec Olivier Giroud !";
+  const std::string reaction12 = "J'ai une vidéo sur le sujet.";
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -134,6 +136,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger9, reaction9, semMem, lingDb);
   triggers_add(trigger10, reaction10, semMem, lingDb);
   triggers_add(trigger11, reaction11, semMem, lingDb);
+  triggers_add(trigger12, reaction12, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
@@ -167,6 +170,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_ANSWER_EQ(reaction9, triggers_match(trigger9, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction10, triggers_match(trigger10, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction11, triggers_match(trigger11, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction12, triggers_match(trigger12, semMem, lingDb));
 }
 
 

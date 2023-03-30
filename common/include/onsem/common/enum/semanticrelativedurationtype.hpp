@@ -10,7 +10,6 @@ namespace onsem
 {
 
 #define SEMANTIC_RELATIVEDURATIONTYPE_TABLE                         \
-  ADD_SEMANTIC_RELATIVEDURATIONTYPE(DELAYEDSTART, "delayedStart")   \
   ADD_SEMANTIC_RELATIVEDURATIONTYPE(UNTIL, "until")
 
 

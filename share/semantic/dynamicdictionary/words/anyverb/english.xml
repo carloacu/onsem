@@ -6,9 +6,9 @@
     <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
     <child lemma="in order" pos="sub_conj" chunkLinkType="purpose" condition="followedByInfinitiveVerb" />
     <child lemma="when" pos="sub_conj" chunkLinkType="time" condition="followedBySubordinate" />
-    <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(number_, skip_determiners)|followedByDate" />
+    <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(duration_, skip_determiners)" ><add_concept val="time_relative_delayedStart" /></child>
+    <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(number_, skip_determiners)|followedByBeginOfConcept(duration_, skip_determiners)|followedByDate" />
     <child lemma="in" pos="preposition" chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
-    <child lemma="in" pos="preposition" chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
     <child lemma="in" pos="preposition" chunkLinkType="unity" condition="followedByBeginOfConcept(location_relative_angle_)|followedByBeginOfConcept(length_)|followedByBeginOfConcept(duration_)|followedByConceptOrHyponym(percentage)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />

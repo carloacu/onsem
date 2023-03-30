@@ -562,6 +562,9 @@ void LinguisticsynthesizergroundingFrench::_writeReTimeType
   case SemanticRelativeTimeType::BEFORE:
     _strToOut(pOut, perp, "avant");
     return;
+  case SemanticRelativeTimeType::DELAYEDSTART:
+    _strToOut(pOut, perp, "dans");
+    return;
   case SemanticRelativeTimeType::JUSTAFTER:
     _strToOut(pOut, perp, "juste après");
     return;
@@ -589,11 +592,6 @@ void LinguisticsynthesizergroundingFrench::_writeReDurationType
   static const PartOfSpeech perp = PartOfSpeech::PREPOSITION;
   switch (pDurationType)
   {
-  case SemanticRelativeDurationType::DELAYEDSTART:
-  {
-    _strToOut(pOut, perp, "dans");
-    return;
-  }
   case SemanticRelativeDurationType::UNTIL:
   {
     auto itSpec = pHoldingGrdExp.children.find(GrammaticalType::SPECIFIER);

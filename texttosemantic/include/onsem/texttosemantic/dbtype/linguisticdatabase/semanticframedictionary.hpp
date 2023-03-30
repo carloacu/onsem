@@ -39,9 +39,9 @@ public:
   void addAChildSpecificationsByDefault(ChildSpecification&& pChildSepcs);
   void addAChildSpecificationsWithoutVerbByDefault(ChildSpecification&& pChildSepcs);
 
-  mystd::optional<ChunkLinkType> getChunkLinkFromContext(InflectedWord* pInflectedWordPtr,
+  mystd::optional<ChunkLinkType> getChunkLinkFromContext(InflectedWord* pVerbInflectedWordPtr,
                                                          bool& pWillBeAbleToSynthesizeIt,
-                                                         const InflectedWord* pPrepInflWordPtr,
+                                                         InflectedWord* pPrepInflWordPtr,
                                                          const ConstTokenIterator* pNextToken) const;
 
   bool getIntroWord(mystd::optional<SemanticWord>& pIntroWord,

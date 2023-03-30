@@ -81,6 +81,7 @@ struct ChildSpecification
   mystd::optional<SemanticWord> introWord{};
   std::shared_ptr<LinguisticConditionTree> conditionTree{};
   std::list<std::string> verbConceptsToRemove{};
+  std::list<std::string> conceptsToAdd{};
 };
 
 

@@ -1,4 +1,7 @@
 <linguisticdatabase>
+ <concept name="duration_day">
+  <linkedMeaning lemme="day" gram="noun" relationToConcept="4"/>
+ </concept>
  <concept name="duration_hour">
   <linkedMeaning lemme="hour" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="time" relationToConcept="0"/>
