@@ -45,6 +45,7 @@
     <child lemma="chez" pos="preposition" chunkLinkType="location" />
     <child lemma="comme" pos="sub_conj" chunkLinkType="similarity" />
     <child lemma="contre" pos="preposition" chunkLinkType="against" />
+    <child lemma="dans" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child lemma="dans" pos="preposition" chunkLinkType="location" />
     <child lemma="depuis" pos="sub_conj" chunkLinkType="time" />
     <child lemma="derrière" pos="preposition" chunkLinkType="location" />
