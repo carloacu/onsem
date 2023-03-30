@@ -141,6 +141,7 @@ void _saveText(boost::property_tree::ptree& pTree,
 
   // syntactic graph
   textTree.put("syntGraph.<xmlattr>.str", semAnalHighLevelResults.syntGraphStr);
+  textTree.put("confidence.<xmlattr>.str", semAnalHighLevelResults.parsingConfidenceStr);
 
   textTree.put("semExps.<xmlattr>.str", semAnalHighLevelResults.semExpStr);
   textTree.put("allForms.<xmlattr>.str", semAnalHighLevelResults.allFormsStr);

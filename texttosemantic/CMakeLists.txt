@@ -173,6 +173,7 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/type/chunklink.cpp
     src/type/chunk.cpp
     src/type/enumsconvertions.cpp
+    src/type/syntacticgraph.cpp
     src/tool/listiter.hpp
     src/tool/chunkshandler.hpp
     src/tool/chunkshandler.cpp

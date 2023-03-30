@@ -105,6 +105,11 @@ void compareOneTextResults(DeserializedTextResults& pDiffResults,
       oldHighLevelResult.syntGraphStr != newHighLevelResult.syntGraphStr)
     currDiffs.syntaticGraph = true;
 
+  // check confidence
+  if (pDiffResults.whatNeedToChecked.confidence &&
+      oldHighLevelResult.parsingConfidenceStr != newHighLevelResult.parsingConfidenceStr)
+    currDiffs.confidence = true;
+
   // check semExps
   if (pDiffResults.whatNeedToChecked.semExps &&
       oldHighLevelResult.semExpStr != newHighLevelResult.semExpStr)
@@ -163,6 +168,7 @@ void writeBilan(DeserializedTextResults& pDiffResults)
   std::size_t tagsGram = 0;
   std::size_t conceptsByTokens = 0;
   std::size_t syntaticGraph = 0;
+  std::size_t confidence = 0;
   std::size_t semExps = 0;
   std::size_t allForms = 0;
   std::size_t sentInfos = 0;
@@ -177,6 +183,7 @@ void writeBilan(DeserializedTextResults& pDiffResults)
     if (pDiffResults.whatsDiff[i].tagsGram) { ++tagsGram; aDiff = true; }
     if (pDiffResults.whatsDiff[i].tokConcepts) { ++conceptsByTokens; aDiff = true; }
     if (pDiffResults.whatsDiff[i].syntaticGraph) { ++syntaticGraph; aDiff = true; }
+    if (pDiffResults.whatsDiff[i].confidence) { ++confidence; aDiff = true; }
     if (pDiffResults.whatsDiff[i].semExps) { ++semExps; aDiff = true; }
     if (pDiffResults.whatsDiff[i].allForms) { ++allForms; aDiff = true; }
     if (pDiffResults.whatsDiff[i].sentimentsInfos) { ++sentInfos; aDiff = true; }
@@ -225,6 +232,16 @@ void writeBilan(DeserializedTextResults& pDiffResults)
   else
   {
     ss << "Nb of different syntactic graphs:\tdisabled\n";
+  }
+
+  if (pDiffResults.whatNeedToChecked.confidence)
+  {
+    ss << "Nb of different confidences:\t" << confidence << " / "
+       << pDiffResults.nbOfTexts << "\n";
+  }
+  else
+  {
+    ss << "Nb of different confidences:\tdisabled\n";
   }
 
   if (pDiffResults.whatNeedToChecked.semExps)
@@ -397,6 +414,7 @@ void loadOneText(SemanticAnalysisResult& pTextOutput,
   // synthGraph
   semAnalHighLevelResults.syntGraphStr = pTree.get<std::string>("syntGraph.<xmlattr>.str");
 
+  semAnalHighLevelResults.parsingConfidenceStr = pTree.get<std::string>("confidence.<xmlattr>.str");
   semAnalHighLevelResults.semExpStr = pTree.get<std::string>("semExps.<xmlattr>.str");
   semAnalHighLevelResults.allFormsStr = pTree.get<std::string>("allForms.<xmlattr>.str");
   semAnalHighLevelResults.sentimentsInfos = pTree.get<std::string>("sentiments.<xmlattr>.str");

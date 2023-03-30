@@ -96,7 +96,7 @@ bool _tryToIncreaseOriginalVerbInflections(Token& pVerbToken)
 
 
 bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
-                      bool& pNotUnderstoodAdded,
+                      std::size_t& pNbOfNotUnderstood,
                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
                       const InflectionsChecker& pInlfChecker,
                       const LinguisticDictionary& pLingDico)
@@ -133,7 +133,7 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
 
         if (isNotUnderstood)
         {
-          pNotUnderstoodAdded = isNotUnderstood;
+          ++pNbOfNotUnderstood;
           it->type = ChunkLinkType::NOTUNDERSTOOD;
 
           Token& verbToken = *currChunk.head;
@@ -180,12 +180,12 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
     }
     case ChunkType::AND_CHUNK:
     {
-      bool isNotUnderstood = false;
-      needToRestart = addNotUnderstood(currChunk.children, isNotUnderstood, pSpellingMistakeTypesPossible,
+      std::size_t subNbOfNotUnderstood = 0;
+      needToRestart = addNotUnderstood(currChunk.children, subNbOfNotUnderstood, pSpellingMistakeTypesPossible,
                                        pInlfChecker, pLingDico) || needToRestart;
-      if (isNotUnderstood)
+      if (subNbOfNotUnderstood > 0)
       {
-        pNotUnderstoodAdded = isNotUnderstood;
+        pNbOfNotUnderstood += subNbOfNotUnderstood;
         it->type = ChunkLinkType::NOTUNDERSTOOD;
       }
       break;

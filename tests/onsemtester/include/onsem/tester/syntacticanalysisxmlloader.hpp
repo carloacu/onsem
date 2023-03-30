@@ -23,6 +23,7 @@ struct ONSEMTESTER_API WhatPartAreDifferent
       tagsGram(false),
       tokConcepts(false),
       syntaticGraph(false),
+      confidence(false),
       semExps(false),
       allForms(false),
       sentimentsInfos(false),
@@ -38,6 +39,7 @@ struct ONSEMTESTER_API WhatPartAreDifferent
     tagsGram = true;
     tokConcepts = true;
     syntaticGraph = true;
+    confidence = true;
     semExps = true;
     allForms = true;
     sentimentsInfos = true;
@@ -48,13 +50,14 @@ struct ONSEMTESTER_API WhatPartAreDifferent
 
   bool areDifferent() const
   { return tokens || tagsGram || tokConcepts || syntaticGraph ||
-        semExps || allForms || sentimentsInfos || completeness ||
-        reformulations || input_reformulation; }
+        confidence || semExps || allForms || sentimentsInfos ||
+        completeness || reformulations || input_reformulation; }
 
   bool tokens;
   bool tagsGram;
   bool tokConcepts;
   bool syntaticGraph;
+  bool confidence;
   bool semExps;
   bool allForms;
   bool sentimentsInfos;

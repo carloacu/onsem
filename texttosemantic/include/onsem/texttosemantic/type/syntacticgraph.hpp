@@ -11,6 +11,17 @@ namespace onsem
 namespace linguistics
 {
 
+struct ONSEM_TEXTTOSEMANTIC_API ParsingConfidence
+{
+  std::size_t nbOfNotUnderstood = 0;
+
+  std::size_t nbOfRetries = 0;
+
+  std::size_t nbOfSuspiciousChunks = 0;
+
+  unsigned char toPercentage() const;
+};
+
 
 struct ONSEM_TEXTTOSEMANTIC_API SyntacticGraph
 {
@@ -18,7 +29,8 @@ struct ONSEM_TEXTTOSEMANTIC_API SyntacticGraph
                  SemanticLanguageEnum pLanguageType)
     : langConfig(pLingDb, pLanguageType),
       tokensTree(),
-      firstChildren()
+      firstChildren(),
+      parsingConfidence()
   {
   }
 
@@ -31,6 +43,8 @@ struct ONSEM_TEXTTOSEMANTIC_API SyntacticGraph
 
   // first children of the syntatic graph
   std::list<ChunkLink> firstChildren;
+
+  ParsingConfidence parsingConfidence;
 };
 
 

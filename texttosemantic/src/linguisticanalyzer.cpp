@@ -42,6 +42,7 @@ namespace linguistics
  */
 void _constructSyntacticTree(TokensTree& pTokensTree,
                              std::list<ChunkLink>& pFirstChildren,
+                             ParsingConfidence& pParsingConfidence,
                              const AlgorithmSetForALanguage& pLangConfig,
                              const SpecificLinguisticDatabase& pSpecLingDb,
                              bool pIsRootLevel,
@@ -117,6 +118,7 @@ void _iterateOnParenthesis
 
 void _launchGrammRules(TokensTree& pTokensTree,
                        std::list<ChunkLink>& pFirstChildren,
+                       ParsingConfidence& pParsingConfidence,
                        const AlgorithmSetForALanguage& pLangConfig,
                        const SpecificLinguisticDatabase& pSpecLingDb,
                        bool pIsRootLevel,
@@ -126,8 +128,9 @@ void _launchGrammRules(TokensTree& pTokensTree,
   partOfSpeechFilterer::process(pTokensTree.tokens, pSpecLingDb, pEndingStep.tokenizerEndingStep,
                                 pEndingStep.nbOfDebugRoundsForTokens, pIsRootLevel);
 
-  _constructSyntacticTree(pTokensTree, pFirstChildren, pLangConfig, pSpecLingDb,
-                          pIsRootLevel, pSpellingMistakeTypesPossible, pEndingStep);
+  _constructSyntacticTree(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig,
+                          pSpecLingDb, pIsRootLevel, pSpellingMistakeTypesPossible,
+                          pEndingStep);
 }
 
 
@@ -147,6 +150,7 @@ void _fillPassiveInformation(std::list<ChunkLink>& pChunkLinks,
 
 void _constructSyntacticTree(TokensTree& pTokensTree,
                              std::list<ChunkLink>& pFirstChildren,
+                             ParsingConfidence& pParsingConfidence,
                              const AlgorithmSetForALanguage& pLangConfig,
                              const SpecificLinguisticDatabase& pSpecLingDb,
                              bool pIsRootLevel,
@@ -156,6 +160,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   const ErrorDetector& errDetector = pLangConfig.getErrorDetector();
   const InflectionsChecker& inflChecker = pLangConfig.getFlsChecker();
   const auto language = pLangConfig.getLanguageType();
+  pParsingConfidence.nbOfNotUnderstood = 0;
 
   // Verb chunker
   pLangConfig.getVerbChunker().process(pTokensTree, pFirstChildren);
@@ -181,7 +186,8 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   {
     SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
     --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-    _launchGrammRules(pTokensTree, pFirstChildren, pLangConfig, pSpecLingDb,
+    ++pParsingConfidence.nbOfRetries;
+    _launchGrammRules(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
                       pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
     return;
   }
@@ -214,7 +220,8 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
     {
       SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
       --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-      _launchGrammRules(pTokensTree, pFirstChildren, pLangConfig, pSpecLingDb,
+      ++pParsingConfidence.nbOfRetries;
+      _launchGrammRules(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
                         pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
       return;
     }
@@ -222,7 +229,8 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
     {
       SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
       --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-      _constructSyntacticTree(pTokensTree, pFirstChildren, pLangConfig, pSpecLingDb,
+      ++pParsingConfidence.nbOfRetries;
+      _constructSyntacticTree(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
                               pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
       return;
     }
@@ -259,14 +267,14 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
 
 
   // Tag some chunk link has "not understood"
-  bool isNotUnderstood = false;
   if (pIsRootLevel &&
-      addNotUnderstood(pFirstChildren, isNotUnderstood, pSpellingMistakeTypesPossible,
+      addNotUnderstood(pFirstChildren, pParsingConfidence.nbOfNotUnderstood, pSpellingMistakeTypesPossible,
                        inflChecker, pSpecLingDb.lingDico))
   {
     SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
     --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-    _launchGrammRules(pTokensTree, pFirstChildren, pLangConfig, pSpecLingDb,
+    ++pParsingConfidence.nbOfRetries;
+    _launchGrammRules(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
                       pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
     return;
   }
@@ -279,7 +287,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
     _iterateOnParenthesis(subordonatesOfChunks, prevChunks, pLangConfig, pFirstChildren);
     for (auto it = subordonatesOfChunks.begin(); it != subordonatesOfChunks.end(); ++it)
     {
-      _launchGrammRules(it->tokenTree, it->firstChildren, pLangConfig,
+      _launchGrammRules(it->tokenTree, it->firstChildren, pParsingConfidence, pLangConfig,
                         pSpecLingDb, false, pSpellingMistakeTypesPossible, pEndingStep);
       auto& currChunk = *it->chunk;
       auto _chunckCanBeLinkedToASubject = [&](const Chunk& pChunk)
@@ -348,7 +356,7 @@ void syntacticAnalysis
  const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
  const SynthAnalEndingStepForDebug& pEndingStep)
 {
-  _launchGrammRules(pSyntGraph.tokensTree, pSyntGraph.firstChildren,
+  _launchGrammRules(pSyntGraph.tokensTree, pSyntGraph.firstChildren, pSyntGraph.parsingConfidence,
                     pSyntGraph.langConfig, pSyntGraph.langConfig.getSpecifcLingDb(),
                     true, pSpellingMistakeTypesPossible, pEndingStep);
 }

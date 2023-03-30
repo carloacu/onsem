@@ -531,6 +531,9 @@ void MainWindow::xDisplayResult
     ++idToken;
   }
 
+  _ui->textBrowser_AATester_confidence->setText
+      (QString::fromUtf8(pAutoAnnotToDisplay.highLevelResults.parsingConfidenceStr.c_str()));
+
   _ui->label_AATester_Logs_Performances->setText
       (QString::fromUtf8(pAutoAnnotToDisplay.performances.c_str()));
 
@@ -670,8 +673,8 @@ void MainWindow::on_pushButton_AATester_Logs_Compare_NewXml_clicked()
       _ui->checkBox_regressiontests_concepts->isChecked();
   diffResults->whatNeedToChecked.syntaticGraph =
       _ui->checkBox_regressiontests_syntgraph->isChecked();
-  diffResults->whatNeedToChecked.syntaticGraph =
-      _ui->checkBox_regressiontests_syntgraph->isChecked();
+  diffResults->whatNeedToChecked.confidence =
+      _ui->checkBox_regressiontests_confidence->isChecked();
   diffResults->whatNeedToChecked.sentimentsInfos =
       _ui->checkBox_regressiontests_sentimentsinfos->isChecked();
   diffResults->whatNeedToChecked.completeness =

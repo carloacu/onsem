@@ -14,7 +14,7 @@ class InflectionsChecker;
 class LinguisticDictionary;
 
 bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
-                      bool& pNotUnderstoodAdded,
+                      std::size_t& pNbOfNotUnderstood,
                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
                       const InflectionsChecker& pInlfChecker,
                       const linguistics::LinguisticDictionary& pLingDico);

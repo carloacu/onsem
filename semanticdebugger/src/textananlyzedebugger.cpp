@@ -28,6 +28,20 @@ namespace TextAnalyzeDebugger
 namespace
 {
 
+std::string _printParsingConfidence(const ParsingConfidence& pParsingConfidence)
+{
+  std::stringstream ss;
+  if (pParsingConfidence.nbOfNotUnderstood > 0)
+    ss << "nbOfNotUnderstood: " << pParsingConfidence.nbOfNotUnderstood << "\n";
+  if (pParsingConfidence.nbOfRetries > 0)
+    ss << "nbOfRetries: " << pParsingConfidence.nbOfRetries << "\n";
+  if (pParsingConfidence.nbOfSuspiciousChunks > 0)
+    ss << "nbOfSuspiciousChunks: " << pParsingConfidence.nbOfSuspiciousChunks << "\n";
+  ss << "\nscore: " << static_cast<int>(pParsingConfidence.toPercentage()) << "\n";
+  return ss.str();
+}
+
+
 void _syntSemExpWithDebugInfosIfAsked(std::string& pRes,
                                       std::string& pSemExpPrettyPrint,
                                       UniqueSemanticExpression pSemExp,
@@ -131,6 +145,8 @@ void fillSemAnalResult
     linguistics::DotSaver::writeChunkLinks(ss, pResults.syntGraph.firstChildren);
     pHighLevelResults.syntGraphStr = ss.str();
   }
+
+  pHighLevelResults.parsingConfidenceStr = _printParsingConfidence(ParsingConfidence());
 
   // semantic expressions pretty printer
   if (pSemanticAnalysisDebugOptions.timeChecker)

@@ -23,6 +23,9 @@
 2 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
 0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
+    <confidence str="
+score: 100
+"/>
     <semExps str="text(&quot;よよろしくンの法則です&quot;)&lt;br&gt;"/>
     <allForms str="text(&quot;よよろしくンの法則です&quot;)&lt;br&gt;"/>
     <sentiments str=""/>
@@ -62,6 +65,9 @@ English:
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 2 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
 0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <confidence str="
+score: 100
 "/>
     <semExps str="text(&quot;僕&quot;)&lt;br&gt;"/>
     <allForms str="text(&quot;僕&quot;)&lt;br&gt;"/>
@@ -120,6 +126,9 @@ English:
 4 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
 0-&gt;4 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
+    <confidence str="
+score: 100
+"/>
     <semExps str="text(&quot;僕&quot;)&lt;br&gt;"/>
     <allForms str="text(&quot;僕&quot;)&lt;br&gt;"/>
     <sentiments str=""/>
@@ -159,6 +168,9 @@ English:
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 2 [label=&quot; ？\nhead: ？ &quot; ,color=yellow]
 0-&gt;2 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <confidence str="
+score: 100
 "/>
     <semExps str="text(&quot;あなた&quot;)&lt;br&gt;"/>
     <allForms str="text(&quot;あなた&quot;)&lt;br&gt;"/>
@@ -227,6 +239,9 @@ English:
 6 [label=&quot; 。\nhead: 。 &quot; ,color=yellow]
 0-&gt;6 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 "/>
+    <confidence str="
+score: 100
+"/>
     <semExps str="text(&quot;持てる男は常にポジティブ&quot;)&lt;br&gt;"/>
     <allForms str="text(&quot;持てる男は常にポジティブ&quot;)&lt;br&gt;"/>
     <sentiments str=""/>
@@ -265,6 +280,9 @@ English:
     </initialGramPossibilities>
     <syntGraph str="1 [label=&quot; ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシバカリニオバーサンワカワエセンタクニイキマシタ\nhead: ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシ &quot; ]
 0-&gt;1 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <confidence str="
+score: 100
 "/>
     <semExps str="text(&quot;ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシ&quot;)&lt;br&gt;"/>
     <allForms str="text(&quot;ムカシムカシアルトコロニオジーサントオバーサンガイマシタオジーサンワヤマエシ&quot;)&lt;br&gt;"/>
@@ -516,6 +534,9 @@ English:
 0-&gt;21 [label=&quot;  &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
 22 [label=&quot; PITCH REVERT\nhead: PITCH &quot; ]
 21-&gt;22 [label=&quot; complement &quot; fontcolor=&quot;black&quot; color=&quot;black&quot;]
+"/>
+    <confidence str="
+score: 100
 "/>
     <semExps str="text(&quot;&lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア&quot;)&lt;br&gt;"/>
     <allForms str="text(&quot;&lt;S&gt;&lt;S&gt;ム^カシ|0ム^カシ$2_2ア&quot;)&lt;br&gt;"/>
