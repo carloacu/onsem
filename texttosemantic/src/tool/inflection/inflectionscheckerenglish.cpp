@@ -115,15 +115,10 @@ bool InflectionsCheckerEnglish::areDetCompatibles(const InflectedWord& pInflDet1
   if (inflections1.type != InflectionType::NOMINAL ||
       inflections2.type != InflectionType::NOMINAL)
     return true;
-  const NominalInflections& verbInfls1 = inflections1.getNominalI();
-  const NominalInflections& verbInfls2 = inflections2.getNominalI();
-  if (verbInfls1.empty() || verbInfls2.empty())
+  const NominalInflections& nounInfls1 = inflections1.getNominalI();
+  const NominalInflections& nounInfls2 = inflections2.getNominalI();
+  if (_areNounNounInflectionsWeaklyEqual(nounInfls1, nounInfls2, true))
     return true;
-  for (const auto& currInfl1 : verbInfls1.inflections)
-    for (const auto& currInfl2 : verbInfls2.inflections)
-      if (gendersAreWeaklyEqual(currInfl1.gender, currInfl2.gender) &&
-          numbersAreWeaklyEqual(currInfl1.number, currInfl2.number))
-        return true;
   return ConceptSet::haveAConceptThatBeginWith(pInflDet1.infos.concepts, "number_");
 }
 
@@ -136,14 +131,10 @@ bool InflectionsCheckerEnglish::areDetNounCompatibles(const InflectedWord& pInfW
   if (inflections1.type != InflectionType::NOMINAL ||
       inflections2.type != InflectionType::NOMINAL)
     return true;
-  const NominalInflections& verbInfls1 = inflections1.getNominalI();
-  const NominalInflections& verbInfls2 = inflections2.getNominalI();
-  if (verbInfls1.empty() || verbInfls2.empty())
+  const NominalInflections& nounInfls1 = inflections1.getNominalI();
+  const NominalInflections& nounInfls2 = inflections2.getNominalI();
+  if (_areNounNounInflectionsWeaklyEqual(nounInfls1, nounInfls2, false))
     return true;
-  for (const auto& currInfl1 : verbInfls1.inflections)
-    for (const auto& currInfl2 : verbInfls2.inflections)
-      if (numbersAreWeaklyEqual(currInfl1.number, currInfl2.number))
-        return true;
   return ConceptSet::haveAConceptThatBeginWith(pInfWord1.infos.concepts, "number_");
 }
 

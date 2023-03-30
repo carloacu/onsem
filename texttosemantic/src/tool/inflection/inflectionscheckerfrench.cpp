@@ -140,17 +140,10 @@ bool InflectionsCheckerFrench::areDetNounCompatibles(const InflectedWord& pDeInf
   if (detInflections.type != InflectionType::NOMINAL ||
       nounInflections.type != InflectionType::NOMINAL)
     return true;
+  auto& defInfl = detInflections.getNominalI();
+  auto& nounInfl = nounInflections.getNominalI();
   bool checkGenders = !pDeInfWord.infos.hasContextualInfo(WordContextualInfos::POSSESSIVE);
-  const NominalInflections& verbInfls1 = detInflections.getNominalI();
-  const NominalInflections& verbInfls2 = nounInflections.getNominalI();
-  if (verbInfls1.empty() || verbInfls2.empty())
-    return true;
-  for (const auto& currInfl1 : verbInfls1.inflections)
-    for (const auto& currInfl2 : verbInfls2.inflections)
-      if ((!checkGenders || gendersAreWeaklyEqual(currInfl1.gender, currInfl2.gender)) &&
-          numbersAreWeaklyEqual(currInfl1.number, currInfl2.number))
-        return true;
-  return false;
+  return _areNounNounInflectionsWeaklyEqual(defInfl, nounInfl, checkGenders);
 }
 
 
@@ -163,7 +156,7 @@ bool InflectionsCheckerFrench::isDetProperNounCompatibles(const InflectedWord&,
 }
 
 bool InflectionsCheckerFrench::areNounNounCompatibles(const InflectedWord& pNounInflWord1,
-                                                      const InflectedWord&) const
+                                                      const InflectedWord& pNounInflWord2) const
 {
   return !ConceptSet::haveAConceptThatBeginWith(pNounInflWord1.infos.concepts, "number_");
 }

@@ -72,6 +72,11 @@ public:
 
 protected:
   const LinguisticDictionary& _lingDic;
+
+  static bool _areNounNounInflectionsWeaklyEqual(
+      const NominalInflections& pNounInfl1,
+      const NominalInflections& pNounInfl2,
+      bool pCheckGenders);
 };
 
 

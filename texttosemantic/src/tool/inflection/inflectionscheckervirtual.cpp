@@ -34,5 +34,21 @@ bool InflectionsCheckerVirtual::isNounAdjCompatibles(const InflectedWord& pNounI
 }
 
 
+
+bool InflectionsCheckerVirtual::_areNounNounInflectionsWeaklyEqual(
+    const NominalInflections& pNounInfl1,
+    const NominalInflections& pNounInfl2,
+    bool pCheckGenders)
+{
+  if (pNounInfl1.empty() || pNounInfl2.empty())
+    return true;
+  for (const auto& currInfl1 : pNounInfl1.inflections)
+    for (const auto& currInfl2 : pNounInfl2.inflections)
+      if ((!pCheckGenders || gendersAreWeaklyEqual(currInfl1.gender, currInfl2.gender)) &&
+          numbersAreWeaklyEqual(currInfl1.number, currInfl2.number))
+        return true;
+  return false;
+}
+
 } // End of namespace linguistics
 } // End of namespace onsem

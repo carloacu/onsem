@@ -144,7 +144,8 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
         {
           auto& prevTokInflWord = itPrevTok->inflWords.front();
           auto& tokInflWord = itTok->inflWords.front();
-          if (!pInlfChecker.areCompatibles(prevTokInflWord, tokInflWord))
+          if (!pInlfChecker.areCompatibles(prevTokInflWord, tokInflWord) ||
+              !InflectionsChecker::areInflectionsCompatibles(prevTokInflWord.inflections(), tokInflWord.inflections()))
           {
             ++pNbOfSuspiciousChunks;
             break;
