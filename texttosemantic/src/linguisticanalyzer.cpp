@@ -186,7 +186,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   {
     SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
     --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-    ++pParsingConfidence.nbOfRetries;
+    ++pParsingConfidence.nbOfProblematicRetries;
     _launchGrammRules(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
                       pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
     return;
@@ -213,14 +213,14 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   if (pIsRootLevel)
   {
     // Error detector
-    CarryOnFrom carryOnFrom = errDetector.falseGramPossibilitiesRemoved(pFirstChildren);
+    CarryOnFrom carryOnFrom = errDetector.falseGramPossibilitiesRemoved(pFirstChildren,
+                                                                        pParsingConfidence.nbOfProblematicRetries);
     switch (carryOnFrom)
     {
     case CarryOnFrom::PARTOFSPEECH_FILTERS:
     {
       SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
       --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-      ++pParsingConfidence.nbOfRetries;
       _launchGrammRules(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
                         pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
       return;
@@ -229,7 +229,6 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
     {
       SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
       --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-      ++pParsingConfidence.nbOfRetries;
       _constructSyntacticTree(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
                               pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
       return;
@@ -273,7 +272,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   {
     SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
     --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-    ++pParsingConfidence.nbOfRetries;
+    ++pParsingConfidence.nbOfProblematicRetries;
     _launchGrammRules(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
                       pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
     return;

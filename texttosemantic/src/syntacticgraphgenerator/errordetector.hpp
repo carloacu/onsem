@@ -33,7 +33,8 @@ public:
   (std::list<ChunkLink>& pSyntTree) const;
 
   CarryOnFrom falseGramPossibilitiesRemoved
-  (std::list<ChunkLink>& pSyntTree) const;
+  (std::list<ChunkLink>& pSyntTree,
+   std::size_t& pNbOfProblematicRetries) const;
 
   void frFixOfVerbalChunks
   (std::list<ChunkLink>& pSyntTree) const;

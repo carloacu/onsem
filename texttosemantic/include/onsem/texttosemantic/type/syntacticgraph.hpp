@@ -15,7 +15,7 @@ struct ONSEM_TEXTTOSEMANTIC_API ParsingConfidence
 {
   std::size_t nbOfNotUnderstood = 0;
 
-  std::size_t nbOfRetries = 0;
+  std::size_t nbOfProblematicRetries = 0;
 
   std::size_t nbOfSuspiciousChunks = 0;
 

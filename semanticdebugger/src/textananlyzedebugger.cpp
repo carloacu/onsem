@@ -33,8 +33,8 @@ std::string _printParsingConfidence(const ParsingConfidence& pParsingConfidence)
   std::stringstream ss;
   if (pParsingConfidence.nbOfNotUnderstood > 0)
     ss << "nbOfNotUnderstood: " << pParsingConfidence.nbOfNotUnderstood << "\n";
-  if (pParsingConfidence.nbOfRetries > 0)
-    ss << "nbOfRetries: " << pParsingConfidence.nbOfRetries << "\n";
+  if (pParsingConfidence.nbOfProblematicRetries > 0)
+    ss << "nbOfProblematicRetries: " << pParsingConfidence.nbOfProblematicRetries << "\n";
   if (pParsingConfidence.nbOfSuspiciousChunks > 0)
     ss << "nbOfSuspiciousChunks: " << pParsingConfidence.nbOfSuspiciousChunks << "\n";
   ss << "\nscore: " << static_cast<int>(pParsingConfidence.toPercentage()) << "\n";
@@ -146,7 +146,7 @@ void fillSemAnalResult
     pHighLevelResults.syntGraphStr = ss.str();
   }
 
-  pHighLevelResults.parsingConfidenceStr = _printParsingConfidence(ParsingConfidence());
+  pHighLevelResults.parsingConfidenceStr = _printParsingConfidence(pResults.syntGraph.parsingConfidence);
 
   // semantic expressions pretty printer
   if (pSemanticAnalysisDebugOptions.timeChecker)
