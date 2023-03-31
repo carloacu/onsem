@@ -50,6 +50,7 @@ TEST_F(SemanticReasonerGTests, operator_categorize_basic)
   EXPECT_EQ(SemanticExpressionCategory::NOMINALGROUP, operator_categorize("Un robot", lingDb));
 
   EXPECT_EQ(SemanticExpressionCategory::QUESTION, operator_categorize("is it raining", lingDb));
+  EXPECT_EQ(SemanticExpressionCategory::QUESTION, operator_categorize("qui est plus fort que moi", lingDb));
 }
 
 

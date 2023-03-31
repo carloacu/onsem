@@ -89,6 +89,7 @@ TEST_F(SemanticReasonerGTests, operator_answerIDontKnow_basic)
   EXPECT_EQ("Je ne sais pas ce qu'il en est du bien-être des animaux.", operator_answerIDontKnow("Qu'en est-il du bien-être des animaux ?", lingDb));
   EXPECT_EQ("Je ne sais pas à qui demander de l'aide.", operator_answerIDontKnow("A qui demander de l'aide ?", lingDb));
   EXPECT_EQ("Je ne sais pas quel restaurant je te conseille.", operator_answerIDontKnow("quel restaurant me conseilles-tu", lingDb));
+  EXPECT_EQ("Je ne sais pas qui est plus fort que toi.", operator_answerIDontKnow("qui est plus fort que moi", lingDb));
 
   // french without result
   EXPECT_EQ(constant::noResult, operator_answerIDontKnow("Je suis content", lingDb));

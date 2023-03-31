@@ -83,8 +83,22 @@ mystd::unique_propagate_const<UniqueSemanticExpression> answerIDontKnow(const Se
     return answerIDontKnow(*pSemExp.getMetadataExp().semExp, pForQuestions, pForActions);
   case SemanticExpressionType::FIXEDSYNTHESIS:
     return answerIDontKnow(pSemExp.getFSynthExp().getSemExp(), pForQuestions, pForActions);
-  case SemanticExpressionType::COMMAND:
   case SemanticExpressionType::COMPARISON:
+  {
+    const ComparisonExpression& compExp = pSemExp.getCompExp();
+    if (compExp.request != SemanticRequestType::NOTHING)
+    {
+      if (compExp.request == SemanticRequestType::ACTION)
+      {
+        if (pForActions)
+          return mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpCreator::sayThatTheRobotCannotDoIt(pSemExp));
+      }
+      else if (pForQuestions)
+        return mystd::unique_propagate_const<UniqueSemanticExpression>(SemExpCreator::sayThatWeDontKnowTheAnswer(pSemExp));
+    }
+    break;
+  }
+  case SemanticExpressionType::COMMAND:
   case SemanticExpressionType::CONDITION:
     break;
   }

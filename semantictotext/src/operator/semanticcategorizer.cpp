@@ -29,6 +29,11 @@ SemanticExpressionCategory _categorizeRec(const SemanticExpression& pSemExp,
   }
   case SemanticExpressionType::COMPARISON:
   {
+    const ComparisonExpression& comparisonExp = pSemExp.getCompExp();
+    if (comparisonExp.request == SemanticRequestType::ACTION)
+      return SemanticExpressionCategory::COMMAND;
+    if (comparisonExp.request != SemanticRequestType::NOTHING)
+      return SemanticExpressionCategory::QUESTION;
     return SemanticExpressionCategory::AFFIRMATION;
   }
   case SemanticExpressionType::LIST:
