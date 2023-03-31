@@ -29,6 +29,7 @@ void verbPrioritiesFr(std::vector<Token>& pTokens,
 void pronounPriorities(std::vector<Token>& pTokens,
                        const InflectionsChecker& pInflsCheker);
 void adjPriorities(std::vector<Token>& pTokens);
+void advPriorities(std::vector<Token>& pTokens);
 void putApproximatelyConceptInTopPrioritiesIfNecessary(std::vector<Token>& pTokens);
 
 void partitivePrioritiesFr(std::vector<Token>& pTokens,

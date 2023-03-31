@@ -609,6 +609,24 @@ void adjPriorities(std::vector<Token>& pTokens)
 }
 
 
+void advPriorities(std::vector<Token>& pTokens)
+{
+  for (TokIt itTok = pTokens.begin(); itTok != pTokens.end(); )
+  {
+    auto itNext = getNextToken(itTok, pTokens.end());
+    std::list<InflectedWord>& inflWords = itTok->inflWords;
+    const InflectedWord& currInflWord = inflWords.front();
+    if (currInflWord.word.partOfSpeech == PartOfSpeech::ADVERB &&
+        ConceptSet::haveAConcept(currInflWord.infos.concepts, "comparison_more"))
+    {
+      if (itNext != pTokens.end() &&
+          itNext->getPartOfSpeech() == PartOfSpeech::ADVERB)
+        putOnTop(itNext->inflWords, PartOfSpeech::ADJECTIVE);
+    }
+    itTok = itNext;
+  }
+}
+
 void partitivePrioritiesFr(std::vector<Token>& pTokens,
                            const InflectionsChecker& pInflsCheker)
 {

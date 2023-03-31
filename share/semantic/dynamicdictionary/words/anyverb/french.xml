@@ -10,7 +10,6 @@
     <bookmark name="au-avant-lieu-condition" />
     <child chunkLinkType="location" condition="followedByPartOfSpeech(adverb)&followedByConceptOrHyponym(location)" />
     <child lemma="au" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(country_)|[followedByBeginOfConcept(location_,, ms)&!followedByVowel]" />
-    <child chunkLinkType="" condition="followedByBeginOfConcept(still_)" />
 
     <child lemma="à" pos="preposition" chunkLinkType="specification" condition="followedByConceptOrHyponym(percent, have_number_before)" />
     <child chunkLinkType="length" condition="followedByBeginOfConcept(length_, have_number_before)" />

@@ -50,6 +50,7 @@ std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getCheckCompatibility()
 {
   return
   { {PartOfSpeech::ADVERB, PartOfSpeech::INTERJECTION},
+    {PartOfSpeech::ADVERB, PartOfSpeech::NOUN},
     {PartOfSpeech::DETERMINER, PartOfSpeech::DETERMINER},
     {PartOfSpeech::DETERMINER, PartOfSpeech::NOUN},
     {PartOfSpeech::DETERMINER, PartOfSpeech::ADJECTIVE},
@@ -61,7 +62,6 @@ std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getCheckCompatibility()
     {PartOfSpeech::ADJECTIVE, PartOfSpeech::ADJECTIVE},
     {PartOfSpeech::ADJECTIVE, PartOfSpeech::NOUN},
     {PartOfSpeech::ADJECTIVE, PartOfSpeech::PROPER_NOUN},
-    {PartOfSpeech::ADVERB, PartOfSpeech::NOUN},
     {PartOfSpeech::PRONOUN, PartOfSpeech::ADJECTIVE},
     {PartOfSpeech::PRONOUN, PartOfSpeech::NOUN},
     {PartOfSpeech::PRONOUN, PartOfSpeech::PRONOUN_COMPLEMENT},

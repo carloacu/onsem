@@ -391,10 +391,12 @@ ChunkLinkType EntityRecognizer::xFindNatureOfANominalGroup
       return ChunkLinkType::MANNER;
     }
     if (!beginWithAPrep && inflWordHead.word.partOfSpeech == PartOfSpeech::ADVERB &&
-        chunkToProcess.children.empty() &&
-        ConceptSet::haveAConceptThatBeginWith(inflWordHead.infos.concepts, "accordance_disagreement_"))
+        chunkToProcess.children.empty())
     {
-      return ChunkLinkType::QUESTIONWORD;
+      if (ConceptSet::haveAConceptThatBeginWith(inflWordHead.infos.concepts, "accordance_disagreement_"))
+        return ChunkLinkType::QUESTIONWORD;
+      if (ConceptSet::haveAConceptThatBeginWith(inflWordHead.infos.concepts, "still_"))
+        return ChunkLinkType::SIMPLE;
     }
     if (ConceptSet::haveAConcept(inflWordHead.infos.concepts, "times"))
     {
