@@ -228,6 +228,9 @@ std::list<ChunkLink>::const_iterator getChunkLink
 bool haveChild(const Chunk& pChunk,
                ChunkLinkType pLinkType);
 
+bool haveChildWithAuxSkip(const Chunk& pVerbChunk,
+                          const std::set<ChunkLinkType>& pChildChunkLinks);
+
 const Chunk* getChildChunkPtr(const Chunk& pChunk,
                               ChunkLinkType pLinkType);
 

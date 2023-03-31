@@ -16,6 +16,7 @@
 #include <onsem/texttosemantic/algorithmsetforalanguage.hpp>
 #include <onsem/dictionaryextractor/auxiliariesextractor.hpp>
 #include "aspiredh/aspiredhextractor.hpp"
+#include "intransitiveverbs/intransitiveverbsextractor.hpp"
 #include "frgrammarbookextractor/frgrammarbookextractor.hpp"
 #include "textextractor/textextractor.hpp"
 #include "wikitionaryextractor/wikitionaryextractor.hpp"
@@ -790,4 +791,12 @@ void DbGeneratorPreprocessingWindow::on_pushButton_dbpedia_xml_to_txt_clicked()
   outfile.close();
 }
 
+
+
+void DbGeneratorPreprocessingWindow::on_pushButton_addFrenchIntransitiveVerbs_clicked()
+{
+  const std::string myDataMiningPath =
+      _ui->lineEdit_MyDataMiningPath->text().toUtf8().constData();
+  intransitiveVerbsExtractor::run(myDataMiningPath, _inputResourcesFolder, _lingDb);
+}
 

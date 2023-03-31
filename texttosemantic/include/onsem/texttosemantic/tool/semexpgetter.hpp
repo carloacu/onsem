@@ -249,6 +249,9 @@ ONSEM_TEXTTOSEMANTIC_API
 SemanticSourceEnum extractSource(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
+unsigned char getConfidene(const SemanticExpression& pSemExp);
+
+ONSEM_TEXTTOSEMANTIC_API
 bool doesContainADialogSource(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API

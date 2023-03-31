@@ -1,0 +1,2834 @@
+<linguisticdatabase>
+<existingMeaning lemme="aboyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="accourir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="accélérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="advenir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="affluer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="agioter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="agir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="agneler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="agoniser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ahaner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="airer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="alluvionner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="alunir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ambler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="amerrir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="anhéler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="anordir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="apostasier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="apparaître" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="apparoir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="applaudir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="apponter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="argumenter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="arriver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="articuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="attendre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="atterrir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="avaler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="avancer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="avironner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="avouer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="babiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bachoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="badger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="badiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bafouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="baguenauder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="balayer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="balbutier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="baller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bambocher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="banquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="banqueter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="baraquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="barder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="barguigner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="barrir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="baster" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="batailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bateler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="batifoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bavarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bavasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="baver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bedonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="beugler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="biberonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bicher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bienvenir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bifurquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bigophoner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="biser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bisquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bivouaquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="blablater" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="blaguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="blatérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="blinquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="blouser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bléser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="blêmir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="boire" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="boire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="boiter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="boitiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bondir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bonimenter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bosser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bostonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="boubouler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bouder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bouffonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bouger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bougonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bouillir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bouillotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="boulocher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="boumer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bouquiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bourdonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bourgeonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bourlinguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="boursicoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="braconner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="brailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="braire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bramer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="brasiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bricoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bridger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="briffer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="briller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="broncher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="brouillasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bruiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bruire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bruisser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="brûler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="buller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bâiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="béer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bégayer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bégueter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="bêler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cabaler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="caboter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cabotiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cabrioler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cacaber" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cacarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cachetonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cafouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="caguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="calancher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="calculer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="caler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="caleter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="calmir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="calter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cancaner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="caner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="canner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="canoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cantiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="capeyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="capituler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="capoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="caqueter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="caracoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="carcailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="carillonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cascader" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="casquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="catcher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cauchemarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="causer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cavalcader" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="caver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chalouper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chambranler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chanceler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chancir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chanter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chatonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chatoyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chatter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chauffer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chauvir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cheminer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chevroter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chialer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chigner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chinoiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chipoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="choir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chopper" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chopper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chougner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chuchoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chuinter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chuter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="châtaigner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="chômer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ciller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cingler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="circuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clabauder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clamecer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clamser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clapir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clapoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clapper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="claqueter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="claudiquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clignoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cliquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cliqueter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clocher" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clocher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cloper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="clopiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="coasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cocooner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cocoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cocotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="coexister" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cogiter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cohabiter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="coincher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="colorier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="combattre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="commander" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="commencer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="commercer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="communier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="comparaître" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="comparoir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="compter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="concorder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="conduire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="confluer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="consister" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="converger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="converser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="convoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="copier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="copiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="copuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="coqueter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="corriger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="couchailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="coudre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="coudrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="couiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="couler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="couper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="courailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="courir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cousiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="coïncider" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="coïter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cracher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crachoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crachouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crapahuter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="craqueter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crawler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="criailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crisser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="criticailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="croasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crouler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="croupir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="croustiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="croître" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crâner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crécher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crémer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="crépiter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="cuisiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="culer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="culminer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="danser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dansoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dansotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="demeurer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="descendre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dessiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="devenir" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="devenir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="deviser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dialoguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="différer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="digresser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="digérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dinguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="discorder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="discourir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="discutailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="discuter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="disparaître" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="disputailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="disserter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dissoner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="divaguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="diverger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="divorcer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dodeliner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dogmatiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dormir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="doublonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="douiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dracher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="drageonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="driver" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="driver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="droguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="droper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="durer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déambuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="débarouler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déblatérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déboucher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="débouler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="débouquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="débuter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="décamper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="décaniller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déchanter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déchiffrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="décolérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="décompenser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="décorner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="découcher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="découler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="découper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="décroître" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="décéder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="décélérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="défaillir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="défiler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déflagrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="défourailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déglutir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dégouliner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dégoutter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dégénérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déhotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déjauger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déjeuner" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déjeuner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="délirer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="démanger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="démarrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="démissionner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déménager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="démériter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déparler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dépiler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dépérir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dérader" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dérager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dérailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déraisonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déramer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déraper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dériver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dérougir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="désalper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="désobéir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="déstocker" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="détaler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="détoner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="détonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dîner" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="dîner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="effacer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="effleurir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="embouquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="emménager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="empanner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="enchérir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="endêver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="enrager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ergoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="errer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ester" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ester" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="exceller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="excursionner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="exister" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="exploser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="extrapoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="extravaguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="exulter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fabuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="faiblir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="faillir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fainéanter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fanfaronner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="farder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="farfouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="faseyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fauter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fayoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fermenter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ferrailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="feuiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="feuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fienter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="finasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flageoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flamboyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flancher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flemmarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flipper" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flipper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flirter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="floconner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="floculer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fluctuer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fluer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="flâner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="foirer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="foisonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="folâtrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="foncer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fonctionner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="forcir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="forligner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="forniquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fouger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fouiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fourgonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fourmiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fransquillonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fraterniser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fraîchir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="freiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="frimer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="frissonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="frotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="frouer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="froufrouter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fructifier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="frémir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="frétiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fuguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fulgurer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fumer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fureter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="fuser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="gaffer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="gagner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="galoper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="galéjer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="galérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="gercer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="gigoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="glisser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="glousser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="gommer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="gonfler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grandir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grigner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grignoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grimacer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grimper" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grimper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grincer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grisailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grisoller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grisonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="griveler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grognasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grogner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grognonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grossir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="grésiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="gueuletonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="guincher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="gémir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="haleter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="hannetonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="hennir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="herboriser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="hercher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="herscher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="hiberner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="hoqueter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="hululer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="hurler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="hésiter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="immigrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="imploser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="importer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="incidenter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="insister" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="interagir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="intercéder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="interférer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="intervenir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="investiguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="iodler" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="iodler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ironiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jaboter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jacasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jacter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jaillir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="japper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jardiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jargonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jarreter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jaser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jaspiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jerker" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jeûner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jodler" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jodler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jogger" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jogger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jongler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jouer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jouter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="jubiler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="juter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="lambiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="languir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="lapiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="larmoyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="laver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="laïusser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="levretter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="lire" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="lire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="lofer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="loucher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="louveter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="louvoyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="luger" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="luger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="luire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="lutter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="légiférer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="lésiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="léviter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="lézarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="magasiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="maigrir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="manger" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="manger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="marcher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="margauder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="margoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="margotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="marivauder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="marmonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="marner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="maronner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="marsouiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="maugréer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mentir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="merder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="merdouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="merdoyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="messeoir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="meugler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="miauler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="michetonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="migrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="militer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="minauder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mincir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="miroiter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="moisir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mollarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="monologuer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="monter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mordre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="moucheronner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="moufeter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="moufter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mourir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mousser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="moutonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mugir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="musarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="muser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mâcher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="mégoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="nager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="nasiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="naviguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="naître" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="nidifier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="nomadiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="nordir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="obliquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="observer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="obvenir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="obéir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="officier" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="officier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="opiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="opter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="orbiter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="osciller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ovuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pacser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pactiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pagayer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="palabrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="palpiter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="panneauter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="panoramiquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="panteler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pantoufler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="papillonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="papoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="parader" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="paraître" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="paraître" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="paresser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="parlementer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="parler" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="parler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="partager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="partir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="partouser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="partouzer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="passer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="patauger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="patienter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="patiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="patoiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="patrouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pauser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="payer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="peindre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="peiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pelucher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pendiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pendouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="penduler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="perdurer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="perquisitionner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="persister" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="persévérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pester" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="petit-déjeuner" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="philosopher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="phosphorer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="photographier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="piaffer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="piailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pianoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="piauler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="picoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pignocher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="piler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pinailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pindariser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pioncer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="piqueniquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pirouetter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pitonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pivoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="piéter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="piétiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="plaisanter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="plancher" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="plancher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="planer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pleurer" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pleurer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pleurnicher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pleuvoir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="plonger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="plucher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="poireauter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="polissonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="politiquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="polémiquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pommer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="poncer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pontifier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="poquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="postillonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="potiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="poudroyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pouffer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pouliner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pouponner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pousser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="prier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="primer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="progresser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="proliférer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="prospérer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="provenir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="prédominer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="préexister" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="préjudicier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="prévaloir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="prévariquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pulluler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pyramider" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pâlir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pâtir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pâtisser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pâturer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pécher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pédaler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pépier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="péricliter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="périphraser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="périr" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pérorer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pétarader" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pétiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pétitionner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pétrarquiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pétuner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pêcher" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="pêcher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="radoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rafaler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="raguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="raire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ramper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ranger" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ranger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="recommencer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="recopier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="reculer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="regarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="renifler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="renoncer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="repasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="respirer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="resplendir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rester" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="revenir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rigoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rincer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rire" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ronchonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ronfler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ronronner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="roucouler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rougir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rouspéter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rugir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ruisseler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ruminer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ruser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rutiler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="réagir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="réciter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="réfléchir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="répondre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="répéter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="rêver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="saliver" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sangloter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="saper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sarmenter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sauner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sauter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sautiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="scintiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sembler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="seoir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="serpenter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="servir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="siffler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="signer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sinuer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="siéger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="skier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="slalomer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="smasher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="smurfer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="soliloquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sombrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sommeiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="somnoler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sonnailler" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sonnailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sortir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="souffler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="souffrir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="souper" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="souper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sourciller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sourdre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sourire" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sourire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="speeder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sporuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sprinter" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sprinter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="spéculer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="stagner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="stationner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="striduler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="subsister" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="succomber" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="suer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="suinter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="suivre" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="suppurer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surabonder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surcouper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surenchérir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surfer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surgeonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surgir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surjaler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="surnager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sursauter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="survenir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="survirer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="swinguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sympathiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="syncristalliser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="séjourner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="sévir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tacler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="taller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tanguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tapager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tapiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tarder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tartir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tchatcher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tempêter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tergiverser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tester" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tilter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tintinnabuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tiquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tirer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tiser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tituber" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tomber" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tomber" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tonitruer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="toper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="toquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="toréer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tosser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="toupiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tourber" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tourbillonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tournailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tourner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tournicoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tourniquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tournoyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="toussailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tousser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trabouler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tracter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="traficoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="transiger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="transmigrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="transparaître" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="transpirer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="travailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="travailloter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="traînailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trembler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trembloter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tressaillir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tressauter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tricher" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tricoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trimer" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trimer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trinquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trisser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trottiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trépasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trépider" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trépigner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="trôner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="turbiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="twister" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="tâtonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="téléphoner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ténoriser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="ululer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="urger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="uriner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vaciller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vadrouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vagabonder" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vagir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vaguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="valdinguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="valser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="varapper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vasouiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vaticiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="venir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="verdoyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vermiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vermillonner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vesser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vibrionner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vieillir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vieller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="villégiaturer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="violoner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="virevolter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vivoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vociférer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="voguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="voisiner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="voler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="voleter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="volleyer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="volter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="voltiger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vomir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="voyager" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vrombir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="végéter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vétiller" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="vêler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="youyouter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="yoyoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="yoyotter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="zapper" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="zigzaguer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="zinzinuler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="zoomer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="zozoter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="zézayer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="échoir" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="éclater" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="éclore" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="écouter" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="écrire" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="écrivailler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="écrivasser" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="émaner" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="émerger" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="émigrer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="épier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="équivoquer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="éternuer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="étinceler" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="étudier" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="évoluer" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="être" gram="noun">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="être" gram="verb">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+<existingMeaning lemme="être" gram="auxiliary">
+  <contextInfo val="intransitiveVerb"/>
+</existingMeaning>
+</linguisticdatabase>

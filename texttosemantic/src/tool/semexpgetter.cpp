@@ -1271,6 +1271,14 @@ SemanticSourceEnum extractSource(const SemanticExpression& pSemExp)
 }
 
 
+unsigned char getConfidene(const SemanticExpression& pSemExp)
+{
+  const MetadataExpression* metadataPtr = pSemExp.getMetadataPtr_SkipWrapperPtrs();
+  if (metadataPtr != nullptr)
+    return metadataPtr->confidence;
+  return 100u;
+}
+
 bool doesContainADialogSource(const SemanticExpression& pSemExp)
 {
   SemanticSourceEnum from = extractSource(pSemExp);

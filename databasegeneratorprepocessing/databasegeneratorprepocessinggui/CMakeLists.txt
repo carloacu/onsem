@@ -23,6 +23,9 @@ set(${PROJECT_NAME}_SRC
   src/aspiredh/aspiredhextractor.hpp
   src/aspiredh/aspiredhextractor.cpp
 
+  src/intransitiveverbs/intransitiveverbsextractor.hpp
+  src/intransitiveverbs/intransitiveverbsextractor.cpp
+
   src/textextractor/textextractor.hpp
   src/textextractor/detail/textextractor.cpp
   src/textextractor/detail/adjbeforenounextractor.hpp

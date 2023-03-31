@@ -479,6 +479,7 @@ UniqueSemanticExpression loadSemExp(
     SemanticSourceEnum from = semanticSourceEnum_fromChar(*(pPtr++));
     ContextualAnnotation contextualAnnotation = contextualAnnotation_fromChar(*(pPtr++));
     SemanticLanguageEnum fromLanguage = semanticLanguageEnum_fromChar(*(pPtr++));
+    unsigned char confidence = *(pPtr++);
     std::string fromText = binaryloader::loadString(pPtr);
     unsigned char nbOfReferences = *(pPtr++);
     std::list<std::string> references;
@@ -491,6 +492,7 @@ UniqueSemanticExpression loadSemExp(
     res->from = from;
     res->contextualAnnotation = contextualAnnotation;
     res->fromLanguage = fromLanguage;
+    res->confidence = confidence;
     res->fromText = std::move(fromText);
     res->references = std::move(references);
     res->source = std::move(source);

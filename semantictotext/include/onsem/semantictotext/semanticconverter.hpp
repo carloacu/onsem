@@ -49,7 +49,8 @@ UniqueSemanticExpression textToSemExp(const std::string& pText,
                                       SemanticLanguageEnum* pExtractedLanguagePtr = nullptr,
                                       std::unique_ptr<SemanticTimeGrounding>* pNowTimePtr = nullptr,
                                       const std::list<std::string>* pReferencesPtr = nullptr,
-                                      std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>());
+                                      std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>(),
+                                      unsigned char* pConfidencePtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 std::unique_ptr<MetadataExpression> wrapSemExpWithContextualInfos(UniqueSemanticExpression pSemExp,
@@ -58,6 +59,7 @@ std::unique_ptr<MetadataExpression> wrapSemExpWithContextualInfos(UniqueSemantic
                                                                   SemanticSourceEnum pFrom,
                                                                   SemanticLanguageEnum pLanguage,
                                                                   std::unique_ptr<SemanticTimeGrounding> pNowTimeGrd,
+                                                                  unsigned char pConfidence,
                                                                   const std::list<std::string>* pReferencesPtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API

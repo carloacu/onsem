@@ -74,6 +74,7 @@
     <child lemma="suite à" pos="preposition" chunkLinkType="time" />
     <child lemma="sur" pos="preposition" chunkLinkType="location" />
     <child lemma="vers" pos="preposition" chunkLinkType="location" />
+    <child lemma="entre" pos="preposition" chunkLinkType="between" />
     <child chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
   </any_verb>
 

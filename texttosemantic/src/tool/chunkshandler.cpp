@@ -620,6 +620,21 @@ bool haveChild(const Chunk& pChunk,
   return false;
 }
 
+bool haveChildWithAuxSkip(const Chunk& pVerbChunk,
+                          const std::set<ChunkLinkType>& pChildChunkLinks)
+{
+  for (auto& currChild : pVerbChunk.children)
+  {
+    if (pChildChunkLinks.count(currChild.type) > 0)
+      return true;
+    if (currChild.type == ChunkLinkType::AUXILIARY &&
+        haveChildWithAuxSkip(*currChild.chunk, pChildChunkLinks))
+      return true;
+  }
+  return false;
+}
+
+
 const Chunk* getChildChunkPtr(const Chunk& pChunk,
                               ChunkLinkType pLinkType)
 {
@@ -871,7 +886,11 @@ const ChunkLink* getChunkLinkWithAuxSkip(const Chunk& pVerbChunk,
     if (currChild.type == pChildChunkLink)
       return &currChild;
     if (currChild.type == ChunkLinkType::AUXILIARY)
-      return getChunkLinkWithAuxSkip(*currChild.chunk, pChildChunkLink);
+    {
+      auto* subRes = getChunkLinkWithAuxSkip(*currChild.chunk, pChildChunkLink);
+      if (subRes != nullptr)
+        return subRes;
+    }
   }
   return nullptr;
 }
@@ -883,7 +902,11 @@ ChunkLink* getSubjectChunkLink(Chunk& pVerbChunk)
     if (currChild.type == ChunkLinkType::SUBJECT)
       return &currChild;
     if (currChild.type == ChunkLinkType::AUXILIARY)
-      return getSubjectChunkLink(*currChild.chunk);
+    {
+      auto* subRes = getSubjectChunkLink(*currChild.chunk);
+      if (subRes != nullptr)
+        return subRes;
+    }
   }
   return nullptr;
 }

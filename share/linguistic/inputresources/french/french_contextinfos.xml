@@ -4,6 +4,7 @@
  <include file="readonly/french_contextinfos_canbebeforenoun.xml"/>
  <include file="readonly/french_contextinfos_verbFollowedByDe.xml"/>
  <include file="readonly/french_contextinfos_aspiredh.xml"/>
+ <include file="readonly/french_contextinfos_intransitiveverb.xml"/>
  <include file="contextinfos/french_contextinfos_canbebeforedeterminer.xml"/>
  <include file="contextinfos/french_contextinfos_cannotbebeforenoun.xml"/>
  <include file="contextinfos/french_contextinfos_cannotbeafterverb.xml"/>

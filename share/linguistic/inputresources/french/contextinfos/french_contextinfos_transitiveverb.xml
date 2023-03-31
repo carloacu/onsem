@@ -41,6 +41,9 @@
   <existingMeaning lemme="poser" gram="verb">
     <contextInfo val="transitiveVerb" />
   </existingMeaning>
+  <existingMeaning lemme="pouvoir" gram="verb">
+    <contextInfo val="transitiveVerb" />
+  </existingMeaning>
   <existingMeaning lemme="regarder" gram="verb">
     <contextInfo val="transitiveVerb" />
   </existingMeaning>

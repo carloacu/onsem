@@ -579,6 +579,7 @@ void writeSemExp(binarymasks::Ptr& pPtr,
     binarysaver::writeChar(pPtr.pchar++, semanticSourceEnum_toChar(metadataExp.from));
     binarysaver::writeChar(pPtr.pchar++, contextualAnnotation_toChar(metadataExp.contextualAnnotation));
     binarysaver::writeChar(pPtr.pchar++, semanticLanguageEnum_toChar(metadataExp.fromLanguage));
+    binarysaver::writeChar(pPtr.pchar++, metadataExp.confidence);
     binarysaver::writeString(pPtr, metadataExp.fromText);
     unsigned char nbOfReferences = binarysaver::sizet_to_uchar(metadataExp.references.size());
     binarysaver::writeChar(pPtr.pchar++, nbOfReferences);

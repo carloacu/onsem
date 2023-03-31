@@ -40,7 +40,6 @@ UniqueSemanticExpression textToSemExp
                                  pLingDb);
 }
 
-
 UniqueSemanticExpression textToSemExpFromRobot
 (const std::string& pText,
  const linguistics::LinguisticDatabase& pLingDb,
@@ -64,6 +63,21 @@ UniqueSemanticExpression textToContextualSemExp
                                                                  SemanticAgentGrounding::me,
                                                                  pLanguage),
                                            SemanticSourceEnum::ASR, pLingDb);
+}
+
+
+unsigned int textToConfidence
+(const std::string& pText,
+ const linguistics::LinguisticDatabase& pLingDb,
+ SemanticLanguageEnum pLanguage)
+{
+  unsigned char confidence = 0;
+  converter::textToSemExp(pText,
+                          TextProcessingContext(SemanticAgentGrounding::currentUser,
+                                                SemanticAgentGrounding::me,
+                                                pLanguage),
+                          pLingDb, false, nullptr, nullptr, nullptr, {}, &confidence);
+  return confidence;
 }
 
 std::string semExpToText

@@ -72,6 +72,11 @@ UniqueSemanticExpression textToContextualSemExp
  const linguistics::LinguisticDatabase& pLingDb,
  SemanticLanguageEnum pLanguage);
 
+unsigned int textToConfidence
+(const std::string& pText,
+ const linguistics::LinguisticDatabase& pLingDb,
+ SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
+
 std::string semExpToText
 (UniqueSemanticExpression pSemExp,
  SemanticLanguageEnum pLanguage,

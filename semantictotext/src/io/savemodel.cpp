@@ -484,6 +484,8 @@ void _saveMetadataExp(boost::property_tree::ptree& pTree,
     pTree.put("contextualAnnotation", contextualAnnotation_toStr(pMetadataExp.contextualAnnotation));
   if (pMetadataExp.fromLanguage != SemanticLanguageEnum::UNKNOWN)
     pTree.put("fromLanguage", semanticLanguageEnum_toStr(pMetadataExp.fromLanguage));
+  if (pMetadataExp.confidence != 100)
+    pTree.put("confidence", static_cast<int>(pMetadataExp.confidence));
   if (!pMetadataExp.fromText.empty())
     pTree.put("fromText", pMetadataExp.fromText);
   if (!pMetadataExp.references.empty())

@@ -111,6 +111,8 @@ private Q_SLOTS:
 
   void on_pushButton_10_clicked();
 
+  void on_pushButton_addFrenchIntransitiveVerbs_clicked();
+
 private:
   struct WordsToTagsCurrentState
   {

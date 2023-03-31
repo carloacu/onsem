@@ -19,6 +19,9 @@ struct ONSEM_TEXTTOSEMANTIC_API ParsingConfidence
 
   std::size_t nbOfSuspiciousChunks = 0;
 
+  std::size_t nbOfTransitveVerbsWithoutDirectObject = 0;
+
+  void onNewSyntacticTreeParsing();
   unsigned char toPercentage() const;
 };
 

@@ -261,7 +261,8 @@ UniqueSemanticExpression textToSemExp(const std::string& pText,
                                       SemanticLanguageEnum* pExtractedLanguagePtr,
                                       std::unique_ptr<SemanticTimeGrounding>* pNowTimePtr,
                                       const std::list<std::string>* pReferencesPtr,
-                                      std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout)
+                                      std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout,
+                                      unsigned char* pConfidencePtr)
 {
   SemanticLanguageEnum language = [&]
   {
@@ -286,6 +287,8 @@ UniqueSemanticExpression textToSemExp(const std::string& pText,
   linguistics::tokenizationAndSyntacticalAnalysis(syntGraph, pText,
                                                   pTextProcContext.spellingMistakeTypesPossible,
                                                   pTextProcContext.cmdGrdExtractorPtr);
+  if (pConfidencePtr != nullptr)
+    *pConfidencePtr = syntGraph.parsingConfidence.toPercentage();
   auto resSemExp = _syntGraphToSemExp(syntGraph, pTextProcContext, nowTimeRef,
                                       pDoWeSplitQuestions, nullptr, std::move(pAgentWeAreTalkingAbout));
 
@@ -307,6 +310,7 @@ std::unique_ptr<MetadataExpression> wrapSemExpWithContextualInfos
  SemanticSourceEnum pFrom,
  SemanticLanguageEnum pLanguage,
  std::unique_ptr<SemanticTimeGrounding> pNowTimeGrd,
+ unsigned char pConfidence,
  const std::list<std::string>* pReferencesPtr)
 {
   assert(pNowTimeGrd);
@@ -343,10 +347,11 @@ UniqueSemanticExpression textToContextualSemExp
 {
   SemanticLanguageEnum language = SemanticLanguageEnum::UNKNOWN;
   std::unique_ptr<SemanticTimeGrounding> nowTimeGrd;
+  unsigned char confidence = 0;
   auto semExp = textToSemExp(pText, pLocutionContext, pLingDb, false, &language, &nowTimeGrd,
-                             nullptr, std::move(pAgentWeAreTalkingAbout));
+                             nullptr, std::move(pAgentWeAreTalkingAbout), &confidence);
   return wrapSemExpWithContextualInfos(std::move(semExp), pText, pLocutionContext, pFrom, language,
-                                       std::move(nowTimeGrd), pReferencesPtr);
+                                       std::move(nowTimeGrd), confidence, pReferencesPtr);
 }
 
 

@@ -525,6 +525,7 @@ std::unique_ptr<MetadataExpression> _loadMetadataExp(const boost::property_tree:
       (pTree.get("contextualAnnotation", contextualAnnotationDefaultStr));
   res->fromLanguage = semanticLanguageEnum_fromStr
       (pTree.get("fromLanguage", languageDefaultStr));
+  res->confidence = pTree.get<unsigned char>("confidence", 100u);
   res->fromText = pTree.get("fromText", "");
   {
     childLoop(pTree, currRef, "references")

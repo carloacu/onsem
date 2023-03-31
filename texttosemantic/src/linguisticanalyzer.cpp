@@ -160,7 +160,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   const ErrorDetector& errDetector = pLangConfig.getErrorDetector();
   const InflectionsChecker& inflChecker = pLangConfig.getFlsChecker();
   const auto language = pLangConfig.getLanguageType();
-  pParsingConfidence.nbOfNotUnderstood = 0;
+  pParsingConfidence.onNewSyntacticTreeParsing();
 
   // Verb chunker
   pLangConfig.getVerbChunker().process(pTokensTree, pFirstChildren);
@@ -213,8 +213,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   if (pIsRootLevel)
   {
     // Error detector
-    CarryOnFrom carryOnFrom = errDetector.falseGramPossibilitiesRemoved(pFirstChildren,
-                                                                        pParsingConfidence.nbOfProblematicRetries);
+    CarryOnFrom carryOnFrom = errDetector.falseGramPossibilitiesRemoved(pFirstChildren, pParsingConfidence);
     switch (carryOnFrom)
     {
     case CarryOnFrom::PARTOFSPEECH_FILTERS:

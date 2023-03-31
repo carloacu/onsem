@@ -34,7 +34,7 @@ public:
 
   CarryOnFrom falseGramPossibilitiesRemoved
   (std::list<ChunkLink>& pSyntTree,
-   std::size_t& pNbOfProblematicRetries) const;
+   ParsingConfidence& pParsingConfidence) const;
 
   void frFixOfVerbalChunks
   (std::list<ChunkLink>& pSyntTree) const;
@@ -72,6 +72,7 @@ private:
   void xPutRepetitionChildToTheFatherNode(Chunk& pChunk) const;
 
   CarryOnFrom xSolveBadVerbChunks(ChunkLinkIter& pChkLkIter,
+                                  ParsingConfidence& pParsingConfidence,
                                   ChunkLinkType pParentChkLk,
                                   ChunkType pPreviousChunkType,
                                   bool pFirstChunk) const;

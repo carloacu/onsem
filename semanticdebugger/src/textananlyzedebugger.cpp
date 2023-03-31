@@ -37,6 +37,8 @@ std::string _printParsingConfidence(const ParsingConfidence& pParsingConfidence)
     ss << "nbOfProblematicRetries: " << pParsingConfidence.nbOfProblematicRetries << "\n";
   if (pParsingConfidence.nbOfSuspiciousChunks > 0)
     ss << "nbOfSuspiciousChunks: " << pParsingConfidence.nbOfSuspiciousChunks << "\n";
+  if (pParsingConfidence.nbOfTransitveVerbsWithoutDirectObject > 0)
+    ss << "nbOfTransitveVerbsWithoutDirectObject: " << pParsingConfidence.nbOfTransitveVerbsWithoutDirectObject << "\n";
   ss << "\nscore: " << static_cast<int>(pParsingConfidence.toPercentage()) << "\n";
   return ss.str();
 }

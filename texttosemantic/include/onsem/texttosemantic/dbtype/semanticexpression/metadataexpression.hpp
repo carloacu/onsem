@@ -80,6 +80,9 @@ struct ONSEM_TEXTTOSEMANTIC_API MetadataExpression : public SemanticExpression
   /// From what language the semantic expression comes from.
   SemanticLanguageEnum fromLanguage;
 
+  /// Confidence between 0 and 100 about the semantic expression.
+  unsigned char confidence;
+
   /// From what text the semantic expression comes from.
   std::string fromText;
 
@@ -109,6 +112,7 @@ MetadataExpression::MetadataExpression(std::unique_ptr<TSEMEXP> pSemExp)
     from(SemanticSourceEnum::UNKNOWN),
     contextualAnnotation(ContextualAnnotation::PROACTIVE),
     fromLanguage(SemanticLanguageEnum::UNKNOWN),
+    confidence(100),
     fromText(),
     references(),
     source(),
@@ -128,6 +132,7 @@ inline bool MetadataExpression::isEqual(const MetadataExpression& pOther) const
   return from == pOther.from &&
       contextualAnnotation == pOther.contextualAnnotation &&
       fromLanguage == pOther.fromLanguage &&
+      confidence == pOther.confidence &&
       fromText == pOther.fromText &&
       references == pOther.references &&
       source == pOther.source &&

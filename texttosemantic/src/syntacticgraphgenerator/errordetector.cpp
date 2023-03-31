@@ -91,7 +91,7 @@ CarryOnFrom _adjNounLists(std::list<ChunkLink>& pSyntTree)
 
 CarryOnFrom ErrorDetector::falseGramPossibilitiesRemoved
 (std::list<ChunkLink>& pSyntTree,
- std::size_t& pNbOfProblematicRetries) const
+ ParsingConfidence& pParsingConfidence) const
 {
   CarryOnFrom res = CarryOnFrom::HERE;
   ChunkType previousChunkType = ChunkType::SEPARATOR_CHUNK;
@@ -106,7 +106,7 @@ CarryOnFrom ErrorDetector::falseGramPossibilitiesRemoved
     ChunkType currChunkType = currChunk->type;
 
     xPutRepetitionChildToTheFatherNode(*currChunk);
-    _updateCarryOnValue(res, pNbOfProblematicRetries,
+    _updateCarryOnValue(res, pParsingConfidence.nbOfProblematicRetries,
                         xSolveConjunctionUnlinked(chkLkIter.getIt()));
 
     if (nextIt.atEnd())
@@ -120,16 +120,17 @@ CarryOnFrom ErrorDetector::falseGramPossibilitiesRemoved
                           xRemoveSubordinatingConjonctionUnliked(*chkLkIter.getIt(), &*nextIt.getIt()));
     }
 
-    _updateCarryOnValue(res, pNbOfProblematicRetries,
+    _updateCarryOnValue(res, pParsingConfidence.nbOfProblematicRetries,
                         xCheckThatNominalGroupHaveAValidPos(chkLkIter.getIt(), nullptr));
     if (currChunkType == ChunkType::PREPOSITIONAL_CHUNK)
-      _updateCarryOnValue(res, pNbOfProblematicRetries,
+      _updateCarryOnValue(res, pParsingConfidence.nbOfProblematicRetries,
                           xCorrectFalsePrepositionalChunk(chkLkIter.getIt()));
     if (res == CarryOnFrom::HERE)
     {
-      _updateCarryOnValue(res, pNbOfProblematicRetries, xRemoveInvalidPronouns(*chkLkIter.getIt()->chunk));
-      _updateCarryOnValue(res, pNbOfProblematicRetries,
-                          xSolveBadVerbChunks(chkLkIter, chkLkIter->type, previousChunkType, firstChunk));
+      _updateCarryOnValue(res, pParsingConfidence.nbOfProblematicRetries, xRemoveInvalidPronouns(*chkLkIter.getIt()->chunk));
+      _updateCarryOnValue(res, pParsingConfidence.nbOfProblematicRetries,
+                          xSolveBadVerbChunks(chkLkIter, pParsingConfidence,
+                                              chkLkIter->type, previousChunkType, firstChunk));
       if (chkLkIter.atEnd())
         return res;
     }
@@ -137,7 +138,7 @@ CarryOnFrom ErrorDetector::falseGramPossibilitiesRemoved
     firstChunk = false;
   }
 
-  _updateCarryOnValue(res,  pNbOfProblematicRetries, _adjNounLists(pSyntTree));
+  _updateCarryOnValue(res,  pParsingConfidence.nbOfProblematicRetries, _adjNounLists(pSyntTree));
   return res;
 }
 
@@ -643,6 +644,7 @@ void ErrorDetector::xPutRepetitionChildToTheFatherNode(Chunk& pChunk) const
 
 CarryOnFrom ErrorDetector::xSolveBadVerbChunks
 (ChunkLinkIter& pChkLkIter,
+ ParsingConfidence& pParsingConfidence,
  ChunkLinkType pParentChkLk,
  ChunkType pPreviousChunkType,
  bool pFirstChunk) const
@@ -662,7 +664,7 @@ CarryOnFrom ErrorDetector::xSolveBadVerbChunks
       {
         ChunkLinkType subParentChkLk =
             it->type == ChunkLinkType::SIMPLE ? pParentChkLk : it->type;
-        res = xSolveBadVerbChunks(it, subParentChkLk, ChunkType::SEPARATOR_CHUNK, false);
+        res = xSolveBadVerbChunks(it, pParsingConfidence, subParentChkLk, ChunkType::SEPARATOR_CHUNK, false);
         if (res != CarryOnFrom::HERE)
           break;
       }
@@ -693,6 +695,15 @@ CarryOnFrom ErrorDetector::xSolveBadVerbChunks
     else if (xTryToCorrectVerbsWithoutSubject(pChkLkIter, pFirstChunk))
     {
       res = CarryOnFrom::PARTOFSPEECH_FILTERS;
+    }    
+
+    static const std::set<ChunkLinkType> ckLkTypes{ChunkLinkType::DIRECTOBJECT, ChunkLinkType::SUBORDINATE, ChunkLinkType::SUBORDINATE_CLAUSE};
+    if (verbChunk.head->inflWords.front().infos.isOnlyTransitive() &&
+        !haveChildWithAuxSkip(verbChunk, ckLkTypes) &&
+        !verbChunk.requests.has(SemanticRequestType::OBJECT) &&
+        !verbChunk.requests.has(SemanticRequestType::DURATION))
+    {
+      ++pParsingConfidence.nbOfTransitveVerbsWithoutDirectObject;
     }
   }
 
