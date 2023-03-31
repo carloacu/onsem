@@ -301,9 +301,14 @@ SemExpTypeEnumFormSynt LinguisticSynthesizerPrivate::_writeComparisonExp
   subjectContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_SUBJECT;
   subjectContext.wordContext.relativePerson = _semExpToRelativePerson(*pCompExp.leftOperandExp, pConf,
                                                                       pContext.isPartOfANameAssignement);
-  _writeSubjectContext(outSentence,
-                       pLastSubject, pCompExp.leftOperandExp,
-                       subjectContext, pConf, pRequests);
+
+  if (!pRequests.has(SemanticRequestType::SUBJECT) ||
+      !SemExpGetter::isWhoSemExp(*pCompExp.leftOperandExp))
+  {
+    _writeSubjectContext(outSentence,
+                         pLastSubject, pCompExp.leftOperandExp,
+                         subjectContext, pConf, pRequests);
+  }
 
   {
     SynthesizerCurrentContext verbContext;

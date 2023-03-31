@@ -1,2 +1,4 @@
 1 est plus grand que 0
 Il est plus fort que moi
+Il est plus grand que moi
+qui est plus fort que moi
