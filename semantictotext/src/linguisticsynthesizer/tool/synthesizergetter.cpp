@@ -46,20 +46,21 @@ SemanticGenderType getGender(SemanticGenderType pContextGender,
 }
 
 
-bool getIGramOfGenericMeaning(linguistics::InflectedWord& pIGram,
-                              const SemanticGenericGrounding& pGenGrounding,
-                              const linguistics::LinguisticDatabase& pLingDb,
-                              SemanticLanguageEnum pLanguage)
+bool getInflWordFromWordAndConcepts(linguistics::InflectedWord& pIGram,
+                                    const SemanticWord& pWord,
+                                    const std::map<std::string, char>& pConcepts,
+                                    const linguistics::LinguisticDatabase& pLingDb,
+                                    SemanticLanguageEnum pLanguage)
 {
   LinguisticMeaning lingMeaning;
-  SemExpGetter::wordToAMeaning(lingMeaning, pGenGrounding.word, pLanguage, pLingDb);
-  if (lingMeaning.isEmpty() && pGenGrounding.word.partOfSpeech != PartOfSpeech::PROPER_NOUN)
+  SemExpGetter::wordToAMeaning(lingMeaning, pWord, pLanguage, pLingDb);
+  if (lingMeaning.isEmpty() && pWord.partOfSpeech != PartOfSpeech::PROPER_NOUN)
   {
     const auto& synthDico = pLingDb.langToSpec[pLanguage].synthDico;
-    fillLingMeaningFromConcepts(lingMeaning, pGenGrounding.concepts, synthDico);
+    fillLingMeaningFromConcepts(lingMeaning, pConcepts, synthDico);
 
     if (lingMeaning.isEmpty())
-      SemExpGetter::wordToAMeaningInLanguage(lingMeaning, pGenGrounding.word,
+      SemExpGetter::wordToAMeaningInLanguage(lingMeaning, pWord,
                                              pLanguage, pLingDb);
   }
 
@@ -71,7 +72,7 @@ bool getIGramOfGenericMeaning(linguistics::InflectedWord& pIGram,
     return true;
   }
 
-  pIGram.word = pGenGrounding.word;
+  pIGram.word = pWord;
   return false;
 }
 

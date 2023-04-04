@@ -596,7 +596,7 @@ void Linguisticsynthesizergrounding::_modifyContextForAGenGrounding
   pWordContext.referenceType = pGrounding.referenceType;
   // get the out infoGram
   if (!_groundingAttributesToWord(pOutInfoGram, pGrounding) &&
-      !synthGetter::getIGramOfGenericMeaning(pOutInfoGram, pGrounding, pConf.lingDb, _language) &&
+      !synthGetter::getInflWordFromWordAndConcepts(pOutInfoGram, pGrounding.word, pGrounding.concepts, pConf.lingDb, _language) &&
       !pGrounding.word.lemma.empty() &&
       beginWithUppercase(pGrounding.word.lemma))
   {

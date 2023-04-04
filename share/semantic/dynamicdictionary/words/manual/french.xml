@@ -23,6 +23,9 @@
   <word lemma="aller" pos="verb">
     <child bookmark="au-avant-lieu-condition" lemma="au" pos="preposition" chunkLinkType="direct object" condition="followedByBeginOfConcept(sport_)|followedByConceptOrHyponym(game)" />
   </word>
+    <word lemma="arrêter" pos="verb">
+    <child lemma="de" pos="preposition" chunkLinkType="direct object" condition="followedByInfinitiveVerb" />
+  </word>
   <word lemma="avoir" pos="verb">
     <include_child_list_template name="de+cod"/>
   </word>

@@ -116,4 +116,5 @@ TEST_F(SemanticReasonerGTests, operator_answerICannotDo_basic)
   EXPECT_EQ(constant::noResult, operator_answerICannotDo("Qui est Paul ?", lingDb));
   EXPECT_EQ("Je ne sais pas regarder à droite.", operator_answerICannotDo("regarde à droite", lingDb));
   EXPECT_EQ("Je ne sais pas te montrer une vidéo qui décrit N5.", operator_answerICannotDo("Montre moi une vidéo qui décrit N5", lingDb));
+  EXPECT_EQ("Je ne sais pas arrêter de t'écouter maintenant.", operator_answerICannotDo("arrête de m'écouter maintenant", lingDb));
 }

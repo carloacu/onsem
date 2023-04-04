@@ -23,6 +23,7 @@ class Linguisticsynthesizergrounding;
 struct SynthesizerCurrentContext;
 struct SynthesizerConfiguration;
 struct SemanticGrounding;
+struct SemanticWord;
 
 namespace synthGetter
 {
@@ -35,10 +36,11 @@ SemanticGenderType getGender(SemanticGenderType pContextGender,
                              const std::set<SemanticGenderType>& pMeaningPossGenders,
                              const std::set<SemanticGenderType>& pGenGrdPossGenders);
 
-bool getIGramOfGenericMeaning(linguistics::InflectedWord& pIGram,
-                              const SemanticGenericGrounding& pGenGrounding,
-                              const linguistics::LinguisticDatabase& pLingDb,
-                              SemanticLanguageEnum pLanguage);
+bool getInflWordFromWordAndConcepts(linguistics::InflectedWord& pIGram,
+                                    const SemanticWord& pWord,
+                                    const std::map<std::string, char>& pConcepts,
+                                    const linguistics::LinguisticDatabase& pLingDb,
+                                    SemanticLanguageEnum pLanguage);
 
 SemanticGenderType getGenderFromGrounding(
     const SemanticGrounding& pGrounding,
