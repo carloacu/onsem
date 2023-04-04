@@ -1,5 +1,6 @@
 <linguisticdatabase>
  <concept name="agent">
+  <linkedMeaning lemme="him" relationToConcept="3"/>
   <linkedMeaning lemme="someone" relationToConcept="3"/>
   <linkedMeaning lemme="anybody" relationToConcept="3"/>
   <linkedMeaning lemme="anyone" relationToConcept="3"/>

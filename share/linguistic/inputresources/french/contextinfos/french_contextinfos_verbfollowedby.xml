@@ -17,6 +17,9 @@
   <existingMeaning lemme="conter" gram="verb">
     <contextInfo val="canBeFollowedByIndirectObject" />
   </existingMeaning>
+  <existingMeaning lemme="faire" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
   <existingMeaning lemme="falloir" gram="verb">
     <contextInfo val="canBeFollowedByIndirectObject" />
   </existingMeaning>
