@@ -76,6 +76,10 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerEnglish::_getO
         }
       }
     }
+    if (objectGrd.type == SemanticGroundingType::UNITY)
+    {
+      return LinguisticSynthesizerPrivate::ObjectPosition::BEFORESUBJECT;
+    }
   }
   return LinguisticSynthesizerPrivate::ObjectPosition::AFTERVERB;
 }

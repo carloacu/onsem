@@ -83,7 +83,6 @@ SemanticGenderType getGenderFromGrounding
  const SynthesizerCurrentContext& pContext,
  const Linguisticsynthesizergrounding& pGrdSynth)
 {
-  SemanticGenderType res = SemanticGenderType::UNKNOWN;
   const SemanticGenericGrounding* genGrd = pGrounding.getGenericGroundingPtr();
   if (genGrd != nullptr)
   {
@@ -92,24 +91,36 @@ SemanticGenderType getGenderFromGrounding
     pGrdSynth.modifyContextForAGrounding(wordContext, outInfoGram, pConf,
                                          *genGrd, pContext.contextType,
                                          pContext.verbTense);
-    res = wordContext.gender;
+    return wordContext.gender;
   }
-  else
+
+  const SemanticAgentGrounding* agentGrd = pGrounding.getAgentGroundingPtr();
+  if (agentGrd != nullptr)
   {
-    const SemanticAgentGrounding* agentGrd = pGrounding.getAgentGroundingPtr();
-    if (agentGrd != nullptr)
+    if (agentGrd->isSpecificUser())
+      return pConf.memBlock.getGender(agentGrd->userId);
+    return  SemanticGenderType::UNKNOWN;
+  }
+
+  const SemanticNameGrounding* nameGrdPtr = pGrounding.getNameGroundingPtr();
+  if (nameGrdPtr != nullptr)
+    return SemExpGetter::possibleGendersToGender(nameGrdPtr->nameInfos.possibleGenders);
+
+  const SemanticUnityGrounding* unityGrdPtr = pGrounding.getUnityGroundingPtr();
+  if (unityGrdPtr != nullptr)
+  {
+    const auto& synthDico = pConf.lingDb.langToSpec[pConf.textProcessingContext.langType].synthDico;
+    const auto& meaning = synthDico.conceptToMeaning(unityGrdPtr->getValueConcept());
+    if (!meaning.isEmpty())
     {
-      if (agentGrd->isSpecificUser())
-        res = pConf.memBlock.getGender(agentGrd->userId);
-    }
-    else
-    {
-      const SemanticNameGrounding* nameGrdPtr = pGrounding.getNameGroundingPtr();
-      if (nameGrdPtr != nullptr)
-        res = SemExpGetter::possibleGendersToGender(nameGrdPtr->nameInfos.possibleGenders);
+      std::string word;
+      SemanticNumberType number = SemanticNumberType::SINGULAR;
+      SemanticGenderType gender = SemanticGenderType::UNKNOWN;
+      synthDico.getNounForm(word, meaning, gender, number);
+      return gender;
     }
   }
-  return res;
+  return  SemanticGenderType::UNKNOWN;
 }
 
 

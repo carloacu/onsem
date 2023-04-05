@@ -2382,6 +2382,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunk
       optRes = xFillLocationStruct(pContext);
     if (!optRes)
       optRes = xFillPercentageStruct(pContext);
+    if (!optRes)
+      optRes = xFillDurationStruct(pContext);
     if (optRes)
     {
       xAddModifiers(optRes, pContext, pContext.chunk, true);
@@ -2477,15 +2479,16 @@ void SyntacticGraphToSemantic::xIterateOnChildrenOfNominalChunk
   for (const auto& currChild : pContext.chunk.children)
   {
     ToGenRepContext subContext(pContext, currChild, *currChild.chunk);
+    subContext.posFromParent = pContextHeadIGram.word.partOfSpeech;
     if (chunkTypeIsAList(currChild.chunk->type) &&
-        pContextHeadIGram.word.partOfSpeech == PartOfSpeech::DETERMINER)
+        subContext.posFromParent == PartOfSpeech::DETERMINER)
     {
       subContext.grammTypeFromParent = GrammaticalType::SPECIFIER;
       xAddNewGrammInfo(newGrdExp, pGeneral, subContext);
     }
     else if (currChild.type == ChunkLinkType::COMPLEMENT ||
              (currChild.type == ChunkLinkType::SIMPLE &&
-              pContextHeadIGram.word.partOfSpeech != PartOfSpeech::DETERMINER))
+              subContext.posFromParent != PartOfSpeech::DETERMINER))
     {
       const Token& headToken = *currChild.chunk->head;
       PartOfSpeech childHeadPartOfSpeech = headToken.inflWords.front().word.partOfSpeech;
@@ -3198,6 +3201,7 @@ SyntacticGraphToSemantic::ToGenRepContext::ToGenRepContext(ToGenRepContext&& pOt
     holdingSentenceRequests(std::move(pOther.holdingSentenceRequests)),
     holdingSentenceVerbTense(std::move(pOther.holdingSentenceVerbTense)),
     grammTypeFromParent(std::move(pOther.grammTypeFromParent)),
+    posFromParent(std::move(pOther.posFromParent)),
     localTextProcContextPtr(std::move(pOther.localTextProcContextPtr)),
     requestToSet(std::move(pOther.requestToSet))
 {

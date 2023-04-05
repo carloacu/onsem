@@ -121,7 +121,9 @@ public:
   void unityGroundingTranslation
   (std::list<WordToSynthesize>& pOut,
    const SemanticUnityGrounding& pGrounding,
-   const linguistics::SynthesizerDictionary& pStatSynthDico) const;
+   const linguistics::SynthesizerDictionary& pStatSynthDico,
+   GrammaticalType pGrammTypeFromParent,
+   const SemanticRequests& pRequests) const;
 
   void metaGroundingTranslation
   (std::list<WordToSynthesize>& pOut,

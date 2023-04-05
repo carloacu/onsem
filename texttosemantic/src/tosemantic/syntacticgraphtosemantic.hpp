@@ -67,6 +67,7 @@ protected:
         holdingVerbChunkPtr(nullptr),
         holdingVerbIsBe(false),
         grammTypeFromParent(GrammaticalType::UNKNOWN),
+        posFromParent(PartOfSpeech::UNKNOWN),
         localTextProcContextPtr(),
         requestToSet(SemanticRequestType::NOTHING),
         isAtRoot(true)
@@ -84,6 +85,7 @@ protected:
         holdingVerbChunkPtr(pOther.holdingVerbChunkPtr),
         holdingVerbIsBe(pOther.holdingVerbIsBe),
         grammTypeFromParent(GrammaticalType::UNKNOWN),
+        posFromParent(pOther.posFromParent),
         localTextProcContextPtr(pOther.localTextProcContextPtr),
         requestToSet(SemanticRequestType::NOTHING),
         isAtRoot(false)
@@ -112,6 +114,7 @@ protected:
     const Chunk* holdingVerbChunkPtr;
     bool holdingVerbIsBe;
     GrammaticalType grammTypeFromParent;
+    PartOfSpeech posFromParent;
     std::shared_ptr<TextProcessingContext> localTextProcContextPtr;
     SemanticRequestType requestToSet;
     bool isAtRoot;
@@ -341,6 +344,7 @@ private:
   std::unique_ptr<GroundedExpression> xFillLocationStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillPercentageStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillHourTimeStruct(const ToGenRepContext& pContext) const;
+  std::unique_ptr<GroundedExpression> xFillDurationStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillTimeStruct(const ToGenRepContext& pContext) const;
 };
 

@@ -337,6 +337,8 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerFrench::_getOb
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
       return LinguisticSynthesizerPrivate::ObjectPosition::AFTERVERB;
     }
+    case SemanticGroundingType::UNITY:
+      return LinguisticSynthesizerPrivate::ObjectPosition::BEFORESUBJECT;
     default:
       return LinguisticSynthesizerPrivate::ObjectPosition::AFTERVERB;
     }
@@ -483,7 +485,8 @@ void LinguisticSynthesizerFrench::_getQuestionWord
         }
         if (verbContext.statGrd.noVerb())
         {
-          _strToOut(pOut, PartOfSpeech::ADVERB, "combien de");
+          _strToOut(pOut, PartOfSpeech::ADVERB, "combien");
+          _strWithApostropheToOut(pOut, PartOfSpeech::DETERMINER, "d'", "de");
           break;
         }
       }
@@ -497,10 +500,10 @@ void LinguisticSynthesizerFrench::_getQuestionWord
     }
     case SemanticRequestType::DURATION:
     {
-      if (pChildToPutBeforeSubject != nullptr)
-        _strToOut(pOut, PartOfSpeech::ADVERB, "combien");
-      else
-        _strToOut(pOut, PartOfSpeech::ADVERB, "combien de temps");
+      _strToOut(pOut, PartOfSpeech::ADVERB, "combien");
+      _strWithApostropheToOut(pOut, PartOfSpeech::DETERMINER, "d'", "de");
+      if (pChildToPutBeforeSubject == nullptr)
+        _strToOut(pOut, PartOfSpeech::NOUN, "temps");
       break;
     }
     case SemanticRequestType::TIME:
@@ -531,7 +534,11 @@ void LinguisticSynthesizerFrench::_getQuestionWord
             auto* objGrdExpPtr = objSemExp.getGrdExpPtr_SkipWrapperPtrs();
             if (objGrdExpPtr != nullptr &&
                 !ConceptSet::haveAConceptOrAHyponym(objGrdExpPtr->grounding().concepts, "time"))
-              _strToOut(pOut, PartOfSpeech::PREPOSITION, "de");
+            {
+              auto untityGrdPtr = objGrdExpPtr->grounding().getUnityGroundingPtr();
+              if (untityGrdPtr == nullptr || untityGrdPtr->typeOfUnity != TypeOfUnity::TIME)
+                _strToOut(pOut, PartOfSpeech::PREPOSITION, "de");
+            }
           }
           _writeQuel(pOut, objSemExp, pConf, pContext);
         }

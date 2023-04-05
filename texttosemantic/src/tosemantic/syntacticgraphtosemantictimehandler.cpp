@@ -2,6 +2,7 @@
 #include <onsem/common/utility/number.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticunitygrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
@@ -13,6 +14,68 @@ namespace onsem
 {
 namespace linguistics
 {
+
+
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillDurationStruct
+(const ToGenRepContext& pContext) const
+{
+  switch (pContext.chunk.type)
+  {
+  case ChunkType::NOMINAL_CHUNK:
+  case ChunkType::PREPOSITIONAL_CHUNK:
+  {
+    const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
+    if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_"))
+    {
+      mystd::unique_propagate_const<UniqueSemanticExpression> res;
+      for (auto& currTimeUnity : semanticTimeUnities)
+      {
+        if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity)))
+        {
+          SemanticFloat number;
+          if (getNumberBeforeHead(number, pContext.chunk))
+          {
+            auto newDuration = std::make_unique<SemanticDurationGrounding>();
+            newDuration->duration.sign = Sign::POSITIVE;
+            newDuration->duration.timeInfos[currTimeUnity] = number;
+            return std::make_unique<GroundedExpression>(std::move(newDuration));
+          }
+          if (pContext.posFromParent != PartOfSpeech::DETERMINER && pContext.chunk.children.empty())
+          {
+            bool haveDeterminerBeforeHead = false;
+            for (TokIt itToken = getPrevToken(pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
+                 itToken != pContext.chunk.head;
+                 itToken = getPrevToken(itToken, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head))
+            {
+              const InflectedWord& inflWord = itToken->inflWords.front();
+              if (inflWord.word.partOfSpeech == PartOfSpeech::DETERMINER)
+              {
+                haveDeterminerBeforeHead = true;
+                break;
+              }
+              if (inflWord.word.partOfSpeech == PartOfSpeech::PARTITIVE &&
+                  ConceptSet::haveAConcept(inflWord.infos.concepts, "reference_definite"))
+              {
+                haveDeterminerBeforeHead = true;
+                break;
+              }
+            }
+            if (!haveDeterminerBeforeHead)
+              return std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currTimeUnity));
+          }
+        }
+      }
+    }
+    break;
+  }
+  default:
+  {
+    break;
+  }
+  }
+  return {};
+}
+
 
 std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
 (const ToGenRepContext& pContext) const
@@ -31,26 +94,8 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
     }
 
     const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
-    if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_"))
-    {
-      mystd::unique_propagate_const<UniqueSemanticExpression> res;
-      for (auto& currTimeUnity : semanticTimeUnities)
-      {
-        if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity)))
-        {
-          SemanticFloat number;
-          if (getNumberBeforeHead(number, pContext.chunk))
-          {
-            auto newDuration = std::make_unique<SemanticDurationGrounding>();
-            newDuration->duration.sign = Sign::POSITIVE;
-            newDuration->duration.timeInfos[currTimeUnity] = number;
-            return std::make_unique<GroundedExpression>(std::move(newDuration));
-          }
-        }
-      }
-    }
-    else if (pContext.grammTypeFromParent == GrammaticalType::TIME &&
-             ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "number_"))
+    if (pContext.grammTypeFromParent == GrammaticalType::TIME &&
+        ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "number_"))
     {
       SemanticFloat year;
       if (getNumberHoldByTheInflWord(year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_") &&

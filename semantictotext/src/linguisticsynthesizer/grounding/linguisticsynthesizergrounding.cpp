@@ -326,7 +326,8 @@ void Linguisticsynthesizergrounding::writeGrounding
   case SemanticGroundingType::UNITY:
   {
     const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
-    unityGroundingTranslation(pOutSemExp.out, pGrounding.getUnityGrounding(), synthDico);
+    unityGroundingTranslation(pOutSemExp.out, pGrounding.getUnityGrounding(), synthDico,
+                              pContext.grammaticalTypeFromParent, pRequests);
     break;
   }
   case SemanticGroundingType::NAME:
@@ -444,14 +445,23 @@ void Linguisticsynthesizergrounding::resourceGroundingTranslation
 void Linguisticsynthesizergrounding::unityGroundingTranslation
 (std::list<WordToSynthesize>& pOut,
  const SemanticUnityGrounding& pGrounding,
- const linguistics::SynthesizerDictionary& pStatSynthDico) const
+ const linguistics::SynthesizerDictionary& pStatSynthDico,
+ GrammaticalType pGrammTypeFromParent,
+ const SemanticRequests& pRequests) const
 {
   const auto& meaning = pStatSynthDico.conceptToMeaning(pGrounding.getValueConcept());
   if (!meaning.isEmpty())
   {
+    SemanticNumberType number = SemanticNumberType::SINGULAR;
+    if (pGrammTypeFromParent == GrammaticalType::UNITY ||
+        pGrammTypeFromParent == GrammaticalType::DURATION ||
+        pRequests.has(SemanticRequestType::QUANTITY))
+    {
+      number = pGrounding.typeOfUnity == TypeOfUnity::PERCENTAGE ?
+            SemanticNumberType::SINGULAR : SemanticNumberType::PLURAL;
+    }
+
     std::string word;
-    SemanticNumberType number = pGrounding.typeOfUnity == TypeOfUnity::PERCENTAGE ?
-          SemanticNumberType::SINGULAR : SemanticNumberType::PLURAL;
     SemanticGenderType gender = SemanticGenderType::UNKNOWN;
     pStatSynthDico.getNounForm(word, meaning, gender, number);
     _strToOut(pOut, PartOfSpeech::NOUN, word);
