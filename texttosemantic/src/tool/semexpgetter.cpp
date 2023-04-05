@@ -1170,9 +1170,7 @@ bool grdExpIsAnEmptyStatementGrd(const GroundedExpression& pGrdExp)
   if (pGrdExp.children.empty())
   {
     auto* statGrdPtr = pGrdExp->getStatementGroundingPtr();
-    return statGrdPtr != nullptr &&
-        statGrdPtr->word.isEmpty() &&
-        statGrdPtr->concepts.empty();
+    return statGrdPtr != nullptr && statGrdPtr->noVerb();
   }
   return false;
 }

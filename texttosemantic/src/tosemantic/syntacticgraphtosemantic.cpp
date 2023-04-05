@@ -2369,33 +2369,24 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunk
  ToGenRepContext& pContext) const
 {
   {
-    auto optRes = xFillLengthStruct(pContext);
-    if (optRes)
-      return std::move(*optRes);
-  }
-
-  {
-    auto optRes = xFillLocationStruct(pContext);
-    if (optRes)
-      return std::move(*optRes);
-  }
-
-  {
-    auto optRes = xFillPercentageStruct(pContext);
-    if (optRes)
-      return std::move(*optRes);
-  }
-
-  {
     auto optRes = xFillTimeStruct(pContext);
+    if (!optRes)
+      optRes = xFillHourTimeStruct(pContext);
     if (optRes)
-      return std::move(*optRes);
+      return std::move(optRes);
   }
 
   {
-    auto optRes = xFillHourTimeStruct(pContext);
+    auto optRes = xFillLengthStruct(pContext);
+    if (!optRes)
+      optRes = xFillLocationStruct(pContext);
+    if (!optRes)
+      optRes = xFillPercentageStruct(pContext);
     if (optRes)
-      return std::move(*optRes);
+    {
+      xAddModifiers(optRes, pContext, pContext.chunk, true);
+      return std::move(optRes);
+    }
   }
 
   auto semExp = xConvertNominalChunkToSemExp(pContext, pGeneral, pContext.chLink, pContext.chunk);

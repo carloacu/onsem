@@ -337,11 +337,11 @@ private:
    ListExpressionType pListExpType = ListExpressionType::UNRELATED,
    std::map<GrammaticalType, UniqueSemanticExpression>* pAdditionalChildren = nullptr) const;
 
-  mystd::unique_propagate_const<UniqueSemanticExpression> xFillLengthStruct(const ToGenRepContext& pContext) const;
-  mystd::unique_propagate_const<UniqueSemanticExpression> xFillLocationStruct(const ToGenRepContext& pContext) const;
-  mystd::unique_propagate_const<UniqueSemanticExpression> xFillPercentageStruct(const ToGenRepContext& pContext) const;
-  mystd::unique_propagate_const<UniqueSemanticExpression> xFillHourTimeStruct(const ToGenRepContext& pContext) const;
-  mystd::unique_propagate_const<UniqueSemanticExpression> xFillTimeStruct(const ToGenRepContext& pContext) const;
+  std::unique_ptr<GroundedExpression> xFillLengthStruct(const ToGenRepContext& pContext) const;
+  std::unique_ptr<GroundedExpression> xFillLocationStruct(const ToGenRepContext& pContext) const;
+  std::unique_ptr<GroundedExpression> xFillPercentageStruct(const ToGenRepContext& pContext) const;
+  std::unique_ptr<GroundedExpression> xFillHourTimeStruct(const ToGenRepContext& pContext) const;
+  std::unique_ptr<GroundedExpression> xFillTimeStruct(const ToGenRepContext& pContext) const;
 };
 
 

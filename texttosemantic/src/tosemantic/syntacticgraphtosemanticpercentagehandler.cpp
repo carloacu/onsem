@@ -11,7 +11,7 @@ namespace linguistics
 {
 
 
-mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic::xFillPercentageStruct
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillPercentageStruct
 (const ToGenRepContext& pContext) const
 {
   switch (pContext.chunk.type)
@@ -37,21 +37,18 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
         else if (itToken->getPartOfSpeech() == PartOfSpeech::DETERMINER)
         {
           if (newPercentage)
-            return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (std::make_unique<GroundedExpression>(std::move(newPercentage)));
-          return mystd::unique_propagate_const<UniqueSemanticExpression>();
+            return std::make_unique<GroundedExpression>(std::move(newPercentage));
+          return {};
         }
       }
 
       if (newPercentage)
-        return mystd::unique_propagate_const<UniqueSemanticExpression>
-            (std::make_unique<GroundedExpression>(std::move(newPercentage)));
-      return mystd::unique_propagate_const<UniqueSemanticExpression>();
+        return std::make_unique<GroundedExpression>(std::move(newPercentage));
+      return {};
     }
     else if (ConceptSet::haveAConcept(iGram.infos.concepts, "percentage"))
     {
-      return mystd::unique_propagate_const<UniqueSemanticExpression>
-          (std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(TypeOfUnity::PERCENTAGE, "")));
+      return std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(TypeOfUnity::PERCENTAGE, ""));
     }
     break;
   }
@@ -60,7 +57,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     break;
   }
   }
-  return mystd::unique_propagate_const<UniqueSemanticExpression>();
+  return {};
 }
 
 

@@ -14,7 +14,7 @@ namespace onsem
 namespace linguistics
 {
 
-mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic::xFillTimeStruct
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
 (const ToGenRepContext& pContext) const
 {
   switch (pContext.chunk.type)
@@ -27,8 +27,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     {
       auto newTime = std::make_unique<SemanticTimeGrounding>();
       newTime->date = std::move(*dateOpt);
-      return mystd::unique_propagate_const<UniqueSemanticExpression>
-          (std::make_unique<GroundedExpression>(std::move(newTime)));
+      return std::make_unique<GroundedExpression>(std::move(newTime));
     }
 
     const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
@@ -45,8 +44,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
             auto newDuration = std::make_unique<SemanticDurationGrounding>();
             newDuration->duration.sign = Sign::POSITIVE;
             newDuration->duration.timeInfos[currTimeUnity] = number;
-            return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (std::make_unique<GroundedExpression>(std::move(newDuration)));
+            return std::make_unique<GroundedExpression>(std::move(newDuration));
           }
         }
       }
@@ -61,8 +59,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       {
         auto newTime = std::make_unique<SemanticTimeGrounding>();
         newTime->date.year.emplace(year.value);
-        return mystd::unique_propagate_const<UniqueSemanticExpression>
-            (std::make_unique<GroundedExpression>(std::move(newTime)));
+        return std::make_unique<GroundedExpression>(std::move(newTime));
       }
     }
     break;
@@ -72,7 +69,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     break;
   }
   }
-  return mystd::unique_propagate_const<UniqueSemanticExpression>();
+  return {};
 }
 
 

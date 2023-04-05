@@ -481,6 +481,11 @@ void LinguisticSynthesizerFrench::_getQuestionWord
           _strToOut(pOut, PartOfSpeech::ADVERB, "à combien");
           break;
         }
+        if (verbContext.statGrd.noVerb())
+        {
+          _strToOut(pOut, PartOfSpeech::ADVERB, "combien de");
+          break;
+        }
       }
       _strToOut(pOut, PartOfSpeech::ADVERB, "combien");
       break;

@@ -38,6 +38,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticStatementGrounding : public SemanticGrou
   bool operator==(const SemanticStatementGrounding& pOther) const;
   bool isEqual(const SemanticStatementGrounding& pOther) const;
   bool empty() const;
+  bool noVerb() const;
 
   bool isAtInfinitive() const { return verbTense == SemanticVerbTense::UNKNOWN; }
   bool isMandatoryInPresentTense() const {
@@ -89,7 +90,10 @@ inline bool SemanticStatementGrounding::empty() const
       !isPassive.has_value();
 }
 
-
+inline bool SemanticStatementGrounding::noVerb() const
+{
+  return word.isEmpty() && (concepts.empty() || (concepts.size() == 1 && concepts.begin()->first == "no_verb"));
+}
 
 inline std::unique_ptr<SemanticStatementGrounding> SemanticStatementGrounding::makeCoreference()
 {

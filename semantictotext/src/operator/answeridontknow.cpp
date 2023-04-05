@@ -22,7 +22,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _answerIDontKnowFromGrdE
     const auto& statementGrd = *statementGrdPtr;
     SemanticRequestType requestType = statementGrd.requests.firstOrNothing();
 
-    if (statementGrd.word.isEmpty() && ConceptSet::haveAConcept(statementGrd.concepts, "no_verb"))
+    if (statementGrd.noVerb())
       return mystd::unique_propagate_const<UniqueSemanticExpression>();
 
     if (requestType != SemanticRequestType::NOTHING)

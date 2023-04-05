@@ -12,7 +12,7 @@ namespace linguistics
 {
 
 
-mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic::xFillLengthStruct
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillLengthStruct
 (const ToGenRepContext& pContext) const
 {
   switch (pContext.chunk.type)
@@ -46,17 +46,14 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
             else if (itToken->getPartOfSpeech() == PartOfSpeech::DETERMINER)
             {
               if (newLength)
-                return mystd::unique_propagate_const<UniqueSemanticExpression>
-                    (std::make_unique<GroundedExpression>(std::move(newLength)));
-              return mystd::unique_propagate_const<UniqueSemanticExpression>();
+                return std::make_unique<GroundedExpression>(std::move(newLength));
+              return {};
             }
           }
 
           if (newLength)
-            return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (std::make_unique<GroundedExpression>(std::move(newLength)));
-          return mystd::unique_propagate_const<UniqueSemanticExpression>
-              (std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currLength)));
+            return std::make_unique<GroundedExpression>(std::move(newLength));
+          return std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currLength));
         }
       }
     }
@@ -67,7 +64,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     break;
   }
   }
-  return mystd::unique_propagate_const<UniqueSemanticExpression>();
+  return {};
 }
 
 

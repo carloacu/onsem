@@ -24,7 +24,7 @@ enum class AmOrPm
   UNKNOWN
 };
 
-mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic::xFillHourTimeStruct
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillHourTimeStruct
 (const ToGenRepContext& pContext) const
 {
   auto language = fConfiguration.getLanguageType();
@@ -124,8 +124,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
             time->timeOfDay.sign = Sign::POSITIVE;
             time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = hourNumber->value;
             time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = number->value;
-            return mystd::unique_propagate_const<UniqueSemanticExpression>
-                (std::make_unique<GroundedExpression>(std::move(time)));
+            return std::make_unique<GroundedExpression>(std::move(time));
           }
         }
       }
@@ -151,8 +150,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
             int minuteStrSize = itToken->str.size() - beginOfMinutePos;
             time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = mystd::lexical_cast<int>(itToken->str.substr(beginOfMinutePos, minuteStrSize));
           }
-          return mystd::unique_propagate_const<UniqueSemanticExpression>
-              (std::make_unique<GroundedExpression>(std::move(time)));
+          return std::make_unique<GroundedExpression>(std::move(time));
         }  catch (...) {}
       }
     }

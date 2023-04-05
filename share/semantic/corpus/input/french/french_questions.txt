@@ -201,3 +201,4 @@ De combien dois-je tourner en degrés ?
 Jusqu'où je dois avancer ?
 quel restaurant me conseilles-tu
 où se trouve Clermont-Ferrand
+combien de mètres
