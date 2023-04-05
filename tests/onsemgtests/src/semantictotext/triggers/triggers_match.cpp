@@ -324,6 +324,9 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   {"à combien dois-je mettre le volume en pourcentage ?"};
   triggers_addAnswerWithOneParameter("Mets le volume", setVolumeParameterQuestions, semMem, lingDb, language);
 
+  const std::vector<std::string> whereQuestion = {"où"};
+  triggers_addAnswerWithOneParameter("Fais un tour complet", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tourne sur toi même", whereQuestion, semMem, lingDb, language);
 
 
   triggers_addAnswerWithOneParameter("Lance", {"Qu'est-ce que je dois lancer ?"}, semMem, lingDb, language);
@@ -402,6 +405,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume plus fort\\", triggers_match("Mets le volume encore plus fort", semMem, lingDb, language));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet\\", triggers_match("Fais un tour complet", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(param1=Droite)\\", triggers_match("Fais un tour complet à droite", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sur toi même(param1=Sur toi|Même droite)\\", triggers_match("Tourne sur toi même à droite", semMem, lingDb));
 }
 
 

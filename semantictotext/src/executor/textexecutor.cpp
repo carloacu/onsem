@@ -69,8 +69,10 @@ void TextExecutor::_extractParameters(
     {
       for (const auto& currQuestion : currParam.second)
       {
+        UniqueSemanticExpression questionSemExp = currQuestion->clone();
+        memoryOperation::mergeWithContext(questionSemExp, semMemory, _lingDb);
         std::vector<std::unique_ptr<GroundedExpression>> answers;
-        memoryOperation::get(answers, currQuestion->clone(), semMemory, _lingDb);
+        memoryOperation::get(answers, std::move(questionSemExp), semMemory, _lingDb);
         if (!answers.empty())
         {
           TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
