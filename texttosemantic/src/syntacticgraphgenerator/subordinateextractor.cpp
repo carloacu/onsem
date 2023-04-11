@@ -295,7 +295,7 @@ void SubordinateExtractor::xLinkComplementaryNominalChunks
         xAddASubChunk(pChunkLinks, prevCODChunkIfVerbal, it, it, linkType);
         it = prevIt;
       }
-      else
+      else if (linkType != ChunkLinkType::SUBORDINATE)
       {
         it->type = linkType;
       }
