@@ -92,7 +92,7 @@ inline bool SemanticStatementGrounding::empty() const
 
 inline bool SemanticStatementGrounding::noVerb() const
 {
-  return word.isEmpty() && (concepts.empty() || (concepts.size() == 1 && concepts.begin()->first == "no_verb"));
+  return word.isEmpty() && concepts.empty();
 }
 
 inline std::unique_ptr<SemanticStatementGrounding> SemanticStatementGrounding::makeCoreference()

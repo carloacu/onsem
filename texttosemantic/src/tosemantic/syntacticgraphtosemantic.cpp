@@ -1514,7 +1514,6 @@ void SyntacticGraphToSemantic::xAddModifiers
           if (qWordPtr != nullptr)
           {
             auto statGrd = std::make_unique<SemanticStatementGrounding>();
-            statGrd->concepts.emplace("no_verb", 4);
             statGrd->verbTense = SemanticVerbTense::PRESENT;
             statGrd->requests.set(qWordPtr->request);
             statGrd->coreference.emplace();
