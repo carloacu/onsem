@@ -802,59 +802,6 @@ Chunk& whereToLinkSubject
 }
 
 
-void getVerbComplements
-(std::list<Chunk*>& pComplements,
- Chunk& pVerbChunk)
-{
-  for (std::list<ChunkLink>::iterator it = pVerbChunk.children.begin();
-       it != pVerbChunk.children.end(); ++it)
-  {
-    if (it->type == ChunkLinkType::DIRECTOBJECT)
-    {
-      ChunkType chunkType = it->chunk->type;
-      if (chunkTypeIsAList(chunkType))
-      {
-        for (auto& currComp : it->chunk->children)
-        {
-          if (currComp.type == ChunkLinkType::SIMPLE &&
-              currComp.chunk->type == ChunkType::INFINITVE_VERB_CHUNK)
-          {
-            pComplements.push_back(&*currComp.chunk);
-          }
-        }
-      }
-      else if (chunkType == ChunkType::INFINITVE_VERB_CHUNK)
-      {
-        pComplements.push_back(&*it->chunk);
-      }
-      else if (chunkType == ChunkType::NOMINAL_CHUNK)
-      {
-        auto itSubCompl = getChunkLink(*it->chunk, ChunkLinkType::SPECIFICATION);
-        if (itSubCompl != it->chunk->children.end())
-        {
-          auto subComplChunkType = itSubCompl->chunk->type;
-          if (subComplChunkType == ChunkType::INFINITVE_VERB_CHUNK)
-          {
-            pComplements.push_back(&*itSubCompl->chunk);
-          }
-          else if (chunkTypeIsAList(subComplChunkType))
-          {
-            for (auto itSubSubChkLk = itSubCompl->chunk->children.begin();
-                 itSubSubChkLk != itSubCompl->chunk->children.end(); ++itSubSubChkLk)
-            {
-              if (itSubSubChkLk->chunk->type == ChunkType::INFINITVE_VERB_CHUNK)
-              {
-                pComplements.push_back(&*itSubSubChkLk->chunk);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-
 bool haveOtherEltsBetterToLinkInAList(ChunkLinkIter& pBeforeLastElt,
                                       ChunkLinkIter& pLastElt)
 {

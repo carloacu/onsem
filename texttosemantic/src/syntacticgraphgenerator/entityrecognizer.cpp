@@ -135,28 +135,6 @@ void EntityRecognizer::process
                                      auxChunk.tokRange.getItBegin(), auxChunk.head,
                                      verbFollowedBy);
       }
-      std::list<Chunk*> complements;
-      getVerbComplements(complements, *currChkLk.chunk);
-      for (auto& currComp : complements)
-      {
-        StaticLinguisticMeaning complementLingMeaning;
-        SemExpGetter::wordToAStaticMeaning(complementLingMeaning, currComp->head->inflWords.front().word, language,
-                                           fConfiguration.lingDb);
-        ChunkLinkType complVerbFollowedBy =
-            xVerbFollowedBy(complementLingMeaning, fLingDico.statDb.getRootMeaning(complementLingMeaning));
-        if (language == SemanticLanguageEnum::ENGLISH)
-        {
-          xAddComplementsOfVerbFromBegin(*currComp, subjectChunkLink, *currComp, *currComp,
-                                         currComp->head, currComp->tokRange.getItEnd());
-        }
-        else // for french
-        {
-          xAddComplementsOfVerbFromEnd(*currComp, subjectChunkLink, *currComp, *currComp,
-                                       currComp->tokRange.getItBegin(), currComp->head,
-                                       complVerbFollowedBy);
-        }
-      }
-
 
       // move directObject -> indirectObject for some verbs
       switch (verbFollowedBy)

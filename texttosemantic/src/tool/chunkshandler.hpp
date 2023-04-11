@@ -264,10 +264,6 @@ bool haveAChildWithChunkLink
 Chunk& whereToLinkSubject
 (Chunk& pVerbChunk);
 
-void getVerbComplements
-(std::list<Chunk*>& pComplements,
- Chunk& pVerbChunk);
-
 bool haveOtherEltsBetterToLinkInAList(ChunkLinkIter& pBeforeLastElt,
                                       ChunkLinkIter& pLastElt);
 
