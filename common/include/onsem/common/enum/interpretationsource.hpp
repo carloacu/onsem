@@ -9,13 +9,14 @@ namespace onsem
 {
 
 
-#define SEMANTIC_INTERPREATIONFROM_TABLE                                    \
-  ADD_SEMANTIC_INTERPREATIONFROM(AGENTGRDEXP, "agent_grdExp")               \
-  ADD_SEMANTIC_INTERPREATIONFROM(FIRSTAGENTOFTEXT, "first_agent_of_text")   \
-  ADD_SEMANTIC_INTERPREATIONFROM(RESTRUCTURING, "restructuring")            \
-  ADD_SEMANTIC_INTERPREATIONFROM(YES_NO_REPLACEMENT, "yes_no_replacement")  \
-  ADD_SEMANTIC_INTERPREATIONFROM(RECENTCONTEXT, "recent_context")           \
-  ADD_SEMANTIC_INTERPREATIONFROM(TEACHING_FOLLOW_UP, "teaching_follow_up")  \
+#define SEMANTIC_INTERPREATIONFROM_TABLE                                         \
+  ADD_SEMANTIC_INTERPREATIONFROM(AGENTGRDEXP, "agent_grdExp")                    \
+  ADD_SEMANTIC_INTERPREATIONFROM(FIRSTAGENTOFTEXT, "first_agent_of_text")        \
+  ADD_SEMANTIC_INTERPREATIONFROM(RESTRUCTURING, "restructuring")                 \
+  ADD_SEMANTIC_INTERPREATIONFROM(YES_NO_REPLACEMENT, "yes_no_replacement")       \
+  ADD_SEMANTIC_INTERPREATIONFROM(RECENTCONTEXT, "recent_context")                \
+  ADD_SEMANTIC_INTERPREATIONFROM(STATEMENTCOREFERENCE, "statement_coreference")  \
+  ADD_SEMANTIC_INTERPREATIONFROM(TEACHING_FOLLOW_UP, "teaching_follow_up")       \
   ADD_SEMANTIC_INTERPREATIONFROM(ANDTHEN, "and_then")
 
 

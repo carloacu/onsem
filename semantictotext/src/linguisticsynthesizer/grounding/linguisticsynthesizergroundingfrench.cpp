@@ -565,6 +565,9 @@ void LinguisticsynthesizergroundingFrench::_writeReTimeType
   case SemanticRelativeTimeType::DELAYEDSTART:
     _strToOut(pOut, perp, "dans");
     return;
+  case SemanticRelativeTimeType::DURING:
+    _strToOut(pOut, perp, "pendant");
+    return;
   case SemanticRelativeTimeType::JUSTAFTER:
     _strToOut(pOut, perp, "juste après");
     return;

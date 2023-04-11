@@ -196,6 +196,11 @@ void LinguisticSynthesizerFrench::_getRelTimeFollowingPrep(std::list<WordToSynth
     _strToOut(pOut, PartOfSpeech::PREPOSITION, "dans");
    break;
   }
+  case SemanticRelativeTimeType::DURING:
+  {
+    _strToOut(pOut, PartOfSpeech::PREPOSITION, "pendant que");
+   break;
+  }
   case SemanticRelativeTimeType::AFTER:
   case SemanticRelativeTimeType::BEFORE:
   case SemanticRelativeTimeType::JUSTAFTER:

@@ -803,7 +803,7 @@ void _replaceRecentFromContext_fromSemExp
     }
     case SemanticGroundingType::STATEMENT:
     {
-      SemanticStatementGrounding& statGrd = grdExp->getStatementGrounding();
+      const SemanticStatementGrounding& statGrd = grdExp->getStatementGrounding();
       pFatherGrdExpOfStatementPtr = &grdExp;
       if (statGrd.coreference)
       {
@@ -813,9 +813,13 @@ void _replaceRecentFromContext_fromSemExp
           const SemanticStatementGrounding* contextStatementGrdPtr = contextGrdExpPtr->grounding().getStatementGroundingPtr();
           if (contextStatementGrdPtr != nullptr)
           {
-            SemanticRequests statementRequests;
-            statGrd.requests.swap(statementRequests);
             auto grdExpCopied = grdExp.clone();
+            SemanticRequests statementRequests;
+            auto* copiedStatPtr = grdExpCopied->grounding().getStatementGroundingPtr();
+            if (copiedStatPtr != nullptr)
+              copiedStatPtr->requests.swap(statementRequests);
+            else
+              assert(false);
             grdExpCopied->moveGrounding(contextGrdExpPtr->cloneGrounding());
             std::set<GrammaticalType> grammTypeToNotCopy;
             for (auto& currRequest : statementRequests.types)
@@ -832,7 +836,7 @@ void _replaceRecentFromContext_fromSemExp
             }
             SemExpModifier::swapRequests(*grdExpCopied, statementRequests);
             pSemExp = std::make_unique<InterpretationExpression>
-                (InterpretationSource::RECENTCONTEXT,
+                (InterpretationSource::STATEMENTCOREFERENCE,
                  std::move(grdExpCopied),
                  std::move(pSemExp));
             return;

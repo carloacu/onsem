@@ -669,7 +669,8 @@ const GroundedExpression* getUnnamedGrdExpPtr(const SemanticExpression& pSemExp)
   case SemanticExpressionType::INTERPRETATION:
   {
     const auto& intExp = pSemExp.getIntExp();
-    if (intExp.source == InterpretationSource::RECENTCONTEXT)
+    if (intExp.source == InterpretationSource::RECENTCONTEXT ||
+        intExp.source == InterpretationSource::STATEMENTCOREFERENCE)
       return nullptr;
     const auto* origExpPtr = intExp.originalExp->getGrdExpPtr_SkipWrapperPtrs();
     if (origExpPtr != nullptr && origExpPtr->grounding().getNameGroundingPtr() != nullptr)
@@ -2473,7 +2474,8 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
       if (*pTypeOfUnityOpt == TypeOfUnity::ANGLE)
         return {GrammaticalType::LOCATION};
     }
-    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH, GrammaticalType::LOCATION};
+    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH, GrammaticalType::LOCATION,
+            GrammaticalType::TIME};
   }
 
   case SemanticRequestType::ABOUT:

@@ -987,7 +987,7 @@ TEST_F(SemanticReasonerGTests, operator_react_cause)
                   operator_react("pourquoi je suis content ?", semMem, lingDb));
   ONSEM_ANSWER_EQ("Oui, tu es content.",
                   operator_react("je suis content ?", semMem, lingDb));
-  ONSEM_ANSWER_EQ("Tu es content parce que " + urlStr4,
+  ONSEM_ANSWER_EQ("Parce que " + urlStr4,
                   operator_react("pourquoi ?", semMem, lingDb));
 }
 
@@ -1246,7 +1246,7 @@ TEST_F(SemanticReasonerGTests, operator_react_linkUserToAnAlreadyKnowAgent)
 
   // check that other information about the current user are still there
   ONSEM_ANSWER_EQ("Yes, you like to swim.", operator_react("do I like to swim?", semMem, lingDb));
-  ONSEM_ANSWER_EQ("You like to swim because it's funny.", operator_react("why", semMem, lingDb));
+  ONSEM_ANSWER_EQ("Because it's funny.", operator_react("why", semMem, lingDb));
 }
 
 

@@ -106,6 +106,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction11 = "La phrase est bizarre.";
   const std::string trigger12 = "Montrez-moi une journée avec Olivier Giroud !";
   const std::string reaction12 = "J'ai une vidéo sur le sujet.";
+  const std::string trigger13 = "J'ai vu Paul";
+  const std::string reaction13 = "Il est sympa.";
+  const std::string trigger14 = "Pourquoi Marie ?";
+  const std::string reaction14 = "C'est connu.";
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -137,6 +141,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger10, reaction10, semMem, lingDb);
   triggers_add(trigger11, reaction11, semMem, lingDb);
   triggers_add(trigger12, reaction12, semMem, lingDb);
+  triggers_add(trigger13, reaction13, semMem, lingDb);
+  triggers_add(trigger14, reaction14, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
@@ -171,6 +177,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_BEHAVIOR_EQ(reaction10, triggers_match(trigger10, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction11, triggers_match(trigger11, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction12, triggers_match(trigger12, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction13, triggers_match(trigger13, semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction14, triggers_match(trigger14, semMem, lingDb));
 }
 
 
@@ -331,6 +339,9 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   triggers_addAnswerWithOneParameter("Lance", {"Qu'est-ce que je dois lancer ?"}, semMem, lingDb, language);
 
+  const std::vector<std::string> howManyMinutesQuestion = {"combien de minutes"};
+  triggers_addAnswerWithOneParameter("Éteins-toi", howManyMinutesQuestion, semMem, lingDb, language);
+
 
   ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("fais un saut périeux", semMem, lingDb));
   ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("fous de ma gueule", semMem, lingDb));
@@ -409,6 +420,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet\\", triggers_match("Fais un tour complet", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(param1=Droite)\\", triggers_match("Fais un tour complet à droite", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sur toi même(param1=Sur toi|Même droite)\\", triggers_match("Tourne sur toi même à droite", semMem, lingDb));
+
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi\\", triggers_match("Éteins-toi", semMem, lingDb));
+  //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=Akinator)\\", triggers_match("Éteins-toi pendant 3 minutes", semMem, lingDb));
 }
 
 

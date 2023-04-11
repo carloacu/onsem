@@ -479,6 +479,8 @@ void LinguisticsynthesizergroundingEnglish::_writeReTimeType
       return "before";
     case SemanticRelativeTimeType::DELAYEDSTART:
       return "in";
+    case SemanticRelativeTimeType::DURING:
+      return "during";
     case SemanticRelativeTimeType::JUSTAFTER:
       return "just after";
     case SemanticRelativeTimeType::JUSTBEFORE:

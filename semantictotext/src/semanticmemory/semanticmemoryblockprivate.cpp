@@ -137,7 +137,7 @@ const SemanticMemoryLinksForAnyVerbGoal* SemanticMemoryBlockPrivate::getSentence
     switch (pSemExpCategory)
     {
     case SemanticExpressionCategory::AFFIRMATION:
-      return &it->second.affirmationLinks;;
+      return &it->second.affirmationLinks;
     case SemanticExpressionCategory::COMMAND:
       return &it->second.actionLinks;
     case SemanticExpressionCategory::QUESTION:

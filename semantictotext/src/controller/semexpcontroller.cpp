@@ -554,8 +554,8 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
 
         if (mainGrdExp != nullptr)
         {
-          applyOperatorOnGrdExp(lastTextAnalyze, pMemViewer, *mainGrdExp,
-                                 otherGrdExps, *originalGrdExpForm);
+          const auto& originalGrdExp = pWorkStruct.getOriginalGrdExp(*originalGrdExpForm);
+          applyOperatorOnGrdExp(lastTextAnalyze, pMemViewer, *mainGrdExp, otherGrdExps, originalGrdExp);
         }
         else if (!currForms.second.empty())
         {

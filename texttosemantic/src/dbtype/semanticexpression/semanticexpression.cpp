@@ -809,7 +809,7 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone
   {
     const auto& intExp = getIntExp();
     if (pRemoveRecentContextInterpretations &&
-        intExp.source == InterpretationSource::RECENTCONTEXT)
+        (intExp.source == InterpretationSource::RECENTCONTEXT || intExp.source == InterpretationSource::STATEMENTCOREFERENCE))
       return intExp.originalExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip);
     if (pExpressionTypesToSkip != nullptr &&
         pExpressionTypesToSkip->count(SemanticExpressionType::INTERPRETATION) > 0)

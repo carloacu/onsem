@@ -1358,6 +1358,8 @@ bool _nameGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRel
     res = _relationsInLowerCaseFromMemory(pRelations, pAlreadyMatchedSentences, pLinksToSemExps, currName,
                                           pGrdExpToLookFor, pChildSemExpsToSkip, pRequestContext,
                                           pMemBlockPrivatePtr, pIsATrigger, pLingDb, pCheckChildren, pLanguage) || res;
+
+
   return res;
 }
 
@@ -1561,6 +1563,7 @@ bool _timeToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelations,
       break;
     }
     case SemanticRelativeTimeType::DELAYEDSTART:
+    case SemanticRelativeTimeType::DURING:
     case SemanticRelativeTimeType::SINCE:
       break;
     }

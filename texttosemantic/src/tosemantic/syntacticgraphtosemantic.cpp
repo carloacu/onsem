@@ -1517,6 +1517,7 @@ void SyntacticGraphToSemantic::xAddModifiers
             statGrd->concepts.emplace("no_verb", 4);
             statGrd->verbTense = SemanticVerbTense::PRESENT;
             statGrd->requests.set(qWordPtr->request);
+            statGrd->coreference.emplace();
             auto newGrdExp = std::make_unique<GroundedExpression>(std::move(statGrd));
             newGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pGrdExpPtr));
             pGrdExpPtr = std::move(newGrdExp);

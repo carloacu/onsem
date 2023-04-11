@@ -369,6 +369,7 @@
   <declareconcept name="time_relative_after" autofill="false" />
   <declareconcept name="time_relative_before" autofill="false" />
   <declareconcept name="time_relative_delayedStart" autofill="false" />
+  <declareconcept name="time_relative_during" autofill="false" />
   <declareconcept name="time_relative_justAfter" autofill="false" />
   <declareconcept name="time_relative_justBefore" autofill="false" />
   <declareconcept name="time_relative_now" autofill="false" />

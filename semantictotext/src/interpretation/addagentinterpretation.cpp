@@ -107,6 +107,9 @@ void _addAgentInterpretations(UniqueSemanticExpression& pSemExp,
     InterpretationExpression& intExp = pSemExp->getIntExp();
     _addAgentInterpretations(intExp.interpretedExp, pSemanticMemory, pLingDb,
                              pParentGrammaticalType, pIsMeFromMyName);
+    if (intExp.source == InterpretationSource::STATEMENTCOREFERENCE)
+      _addAgentInterpretations(intExp.originalExp, pSemanticMemory, pLingDb,
+                               pParentGrammaticalType, pIsMeFromMyName);
     break;
   }
   case SemanticExpressionType::LIST:

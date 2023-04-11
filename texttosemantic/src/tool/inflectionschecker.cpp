@@ -1143,6 +1143,8 @@ bool InflectionsChecker::areVerbAndPronComplCanBeLinked
   {
     for (const auto& currVerbInfl : pVerbInflections.getVerbalI().inflections)
     {
+      if (currVerbInfl.tense == LinguisticVerbTense::PRESENT_PARTICIPLE)
+        continue;
       const PronominalInflections* pronInflsPtr = pPronComplInflections.getPronominalIPtr();
       if ((pronInflsPtr == nullptr || pronInflsPtr->inflections.empty()) &&
           _conjVerbCanBeAt3ePers(currVerbInfl))
