@@ -1299,10 +1299,23 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
   case SemanticExpressionType::LIST:
   {
     auto& listExp = pSemExpToAdd->getListExp();
+
+    std::set<const UniqueSemanticExpression*> semExpsToInore;
+    if (pQuestMetaGrdExp != nullptr)
+    {
+      // If specification of the question is found we ignore it
+      for (auto& elt : listExp.elts)
+        if (SemExpComparator::semExpsAreEqual(*pQuestMetaGrdExp, *elt, pMemBlock, pWorkStruct.lingDb))
+          semExpsToInore.insert(&elt);
+      if (!semExpsToInore.empty())
+        pQuestMetaGrdExp = nullptr;
+    }
+
     for (auto& elt : listExp.elts)
-      _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(elt),
-                                       pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
-                                       pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
+      if (semExpsToInore.count(&elt) == 0)
+        _addGrdExpsFromASemExp<TUSEMEXP>(pSemExpsContainer, pId, pSemExpToAdd.wrapInContainer(elt),
+                                         pRelatedContextAxioms, pEqualityOfTheMemoryAnswer, pAnnotationsOfTheAnswer,
+                                         pQuestMetaGrdExp, pWorkStruct, pMemBlock, pRequest);
     break;
   }
   case SemanticExpressionType::INTERPRETATION:
