@@ -255,7 +255,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   SemanticMemory semMem;
   auto language = SemanticLanguageEnum::FRENCH;
 
-  const std::vector<std::string> howManyMetersParameterQuestion = {"Combien de mètres"};
+  const std::vector<std::string> howManyMetersParameterQuestion = {"combien de mètres"};
   triggers_addAnswerWithOneParameter("Avance", howManyMetersParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va vers l'avant", howManyMetersParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va tout droit", howManyMetersParameterQuestion, semMem, lingDb, language);
@@ -276,7 +276,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Va beaucoup en arrière", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va très en arrière", {}, semMem, lingDb, language);
 
-  const std::vector<std::string> howManyDegreesParameterQuestion = {"Combien de degrés"};
+  const std::vector<std::string> howManyDegreesParameterQuestion = {"combien de degrés"};
   triggers_addAnswerWithOneParameter("Tourne à gauche", howManyDegreesParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Va à gauche", howManyDegreesParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Fais une rotation à gauche", howManyDegreesParameterQuestion, semMem, lingDb, language);
@@ -296,7 +296,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   triggers_addAnswerWithOneParameter("Baisse la tête", howManyDegreesParameterQuestion, semMem, lingDb, language);
 
-  const std::vector<std::string> howMuchInPercentageParameterQuestions = {"Combien en pourcentage ?"};
+  const std::vector<std::string> howMuchInPercentageParameterQuestions = {"combien en pourcentage"};
   triggers_addAnswerWithOneParameter("Descends le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Diminue le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
 
@@ -413,7 +413,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   SemanticMemory semMem;
   auto language = SemanticLanguageEnum::ENGLISH;
 
-  triggers_addAnswerWithOneParameter("Advance", {"How far should I advance in meters?"},
+  const std::vector<std::string> howFarInMetersParameterQuestion = {"how far in meters"};
+  triggers_addAnswerWithOneParameter("Advance", howFarInMetersParameterQuestion,
                                      semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Move forward a little", {""},
@@ -422,7 +423,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Move forward a lot", {""},
                                      semMem, lingDb, language);
 
-  triggers_addAnswerWithOneParameter("Move backward", {"How far should I move backward in meters?"},
+  triggers_addAnswerWithOneParameter("Move backward", howFarInMetersParameterQuestion,
                                      semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Move backward a little", {},
@@ -430,48 +431,35 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Move backward a lot", {},
                                      semMem, lingDb, language);
 
-  const std::vector<std::string> turnParameterQuestions = {"How far should I turn in degrees?"};
-  triggers_addAnswerWithOneParameter("Turn left", {turnParameterQuestions},
+  const std::vector<std::string> howFarInDegreesParameterQuestion = {"how far in degrees"};
+  triggers_addAnswerWithOneParameter("Turn left", {howFarInDegreesParameterQuestion},
                                      semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Turn on your left", {turnParameterQuestions},
+  triggers_addAnswerWithOneParameter("Turn on your left", {howFarInDegreesParameterQuestion},
                                      semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Turn right", {turnParameterQuestions},
+  triggers_addAnswerWithOneParameter("Turn right", {howFarInDegreesParameterQuestion},
                                      semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Turn on your right", {turnParameterQuestions},
-                                     semMem, lingDb, language);
-
-  const std::vector<std::string> turnHeadParameterQuestions = {"How far should I turn the head in degrees?"};
-  triggers_addAnswerWithOneParameter("Turn the head to the right", {turnHeadParameterQuestions},
-                                     semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Turn the head to the left", {turnHeadParameterQuestions},
+  triggers_addAnswerWithOneParameter("Turn on your right", {howFarInDegreesParameterQuestion},
                                      semMem, lingDb, language);
 
-  const std::vector<std::string> raiseHeadParameterQuestions =
-  {"How far should I head up in degrees?"};
-  triggers_addAnswerWithOneParameter("Head up", raiseHeadParameterQuestions, semMem, lingDb, language);
-  const std::vector<std::string> lowerHeadParameterQuestions =
-  {"How far should I head down in degrees?"};
-  triggers_addAnswerWithOneParameter("Head down", lowerHeadParameterQuestions, semMem, lingDb, language);
-
-  const std::vector<std::string> turnDownVolumeParameterQuestions =
-  {"How much should I turn down the volume in percentage?",
-   "How much should I lower the volume in percentage?"};
-  triggers_addAnswerWithOneParameter("Turn down the volume", turnDownVolumeParameterQuestions, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Lower the volume", turnDownVolumeParameterQuestions, semMem, lingDb, language);
-
-  const std::vector<std::string> turnUpVolumeParameterQuestions =
-  {"How much should I turn up the volume in percentage?"};
-  triggers_addAnswerWithOneParameter("Turn up the volume", turnUpVolumeParameterQuestions, semMem, lingDb, language);
-
-  const std::vector<std::string> setVolumeParameterQuestions =
-  {"How much should I set the volume in percentage?"};
-  triggers_addAnswerWithOneParameter("Set the volume", setVolumeParameterQuestions, semMem, lingDb, language);
-
-  triggers_addAnswerWithOneParameter("Launch", {"What should I launch?"},
+  triggers_addAnswerWithOneParameter("Turn the head to the right", {howFarInDegreesParameterQuestion},
+                                     semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Turn the head to the left", {howFarInDegreesParameterQuestion},
                                      semMem, lingDb, language);
 
-  triggers_addAnswerWithOneParameter("can you look up", {},
-                                     semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Head up", howFarInDegreesParameterQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Head down", howFarInDegreesParameterQuestion, semMem, lingDb, language);
+
+  const std::vector<std::string> howMuchInPercentageParameterQuestion = {"how much in percentage"};
+  triggers_addAnswerWithOneParameter("Turn down the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Lower the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("Turn up the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Set the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
+
+  const std::vector<std::string> whatQuestion = {"what"};
+  triggers_addAnswerWithOneParameter("Launch", whatQuestion, semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("can you look up", {}, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 cm", semMem, lingDb));

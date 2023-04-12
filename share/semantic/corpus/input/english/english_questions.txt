@@ -91,3 +91,6 @@ and then
 And before
 what about the animals
 How far should I turn in degrees?
+how far in meters
+how far in degrees
+what
