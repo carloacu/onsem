@@ -751,16 +751,9 @@ void LinguisticsynthesizergroundingFrench::_getDeterminer
       {
         _strWithApostropheToOut(pOut, det, "d'", "de");
       }
-      else if (pGrounding.quantity.type == SemanticQuantityType::MOREOREQUALTHANNUMBER)
-      {
-        _strToOut(pOut, det, "des");
-      }
       else
       {
-        if (pContext.isPositive)
-          _strToOut(pOut, det, "des");
-        else
-          _strWithApostropheToOut(pOut, det, "d'", "de");
+        _strToOut(pOut, det, "des");
       }
     }
     else
