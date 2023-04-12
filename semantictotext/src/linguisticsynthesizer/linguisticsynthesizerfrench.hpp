@@ -79,7 +79,7 @@ protected:
    SemanticVerbTense pVerbTense,
    const SemanticStatementGrounding& pStatGrd,
    const UniqueSemanticExpression* pSubjectPtr,
-   const UniqueSemanticExpression* pObjectPtr,
+   const UniqueSemanticExpression*& pObjectPtr,
    bool pIsPassive,
    ObjectPosition pObjectPosition,
    const UniqueSemanticExpression*& pChildToPutBeforeSubject,

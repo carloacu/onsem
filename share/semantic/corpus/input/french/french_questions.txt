@@ -204,3 +204,6 @@ où se trouve Clermont-Ferrand
 combien de mètres
 combien de minutes
 pendant combien de minutes
+quoi
+lequel
+laquelle

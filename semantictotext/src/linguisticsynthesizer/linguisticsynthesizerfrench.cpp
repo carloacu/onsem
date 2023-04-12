@@ -429,7 +429,7 @@ void LinguisticSynthesizerFrench::_getQuestionWord
  SemanticVerbTense pVerbTense,
  const SemanticStatementGrounding& pStatGrd,
  const UniqueSemanticExpression* pSubjectPtr,
- const UniqueSemanticExpression* pObjectPtr,
+ const UniqueSemanticExpression*& pObjectPtr,
  bool pIsPassive,
  ObjectPosition pObjectPosition,
  const UniqueSemanticExpression*& pChildToPutBeforeSubject,
@@ -581,9 +581,30 @@ void LinguisticSynthesizerFrench::_getQuestionWord
           }
           _strToOut(pOut, PartOfSpeech::PRONOUN, "ce");
         }
-        if (pStatGrd.word.isEmpty() && pStatGrd.concepts.empty())
+        if (pStatGrd.noVerb())
         {
-          _strToOut(pOut, PartOfSpeech::PRONOUN, "lequel");
+          bool introWordWritten = false;
+          if (pObjectPtr != nullptr)
+          {
+            auto* objGrdPtr = pObjectPtr->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+            if (objGrdPtr != nullptr)
+            {
+              auto* objGenGrdPtr = objGrdPtr->grounding().getGenericGroundingPtr();
+              if (objGenGrdPtr != nullptr &&
+                  objGenGrdPtr->word.isEmpty() && objGenGrdPtr->concepts.empty() && !objGenGrdPtr->coreference)
+              {
+                auto gender = SemExpGetter::possibleGendersToGender(objGenGrdPtr->possibleGenders);
+                if (gender == SemanticGenderType::FEMININE)
+                  _strToOut(pOut, PartOfSpeech::PRONOUN, "laquelle");
+                else
+                  _strToOut(pOut, PartOfSpeech::PRONOUN, "lequel");
+                pObjectPtr = nullptr;
+                introWordWritten = true;
+              }
+            }
+          }
+          if (!introWordWritten)
+            _strToOut(pOut, PartOfSpeech::PRONOUN, "quoi");
         }
         else
         {

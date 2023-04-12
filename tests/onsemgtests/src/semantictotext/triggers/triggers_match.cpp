@@ -316,7 +316,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Tourne sur toi même", whereQuestion, semMem, lingDb, language);
 
 
-  triggers_addAnswerWithOneParameter("Lance", {"Qu'est-ce que je dois lancer ?"}, semMem, lingDb, language);
+  const std::vector<std::string> whatQuestion = {"quoi"};
+  triggers_addAnswerWithOneParameter("Lance", whatQuestion, semMem, lingDb, language);
 
   const std::vector<std::string> howManyMinutesQuestion = {"combien de minutes"};
   triggers_addAnswerWithOneParameter("Éteins-toi", howManyMinutesQuestion, semMem, lingDb, language);

@@ -132,7 +132,7 @@ void LinguisticSynthesizerEnglish::_getQuestionWord
  SemanticVerbTense,
  const SemanticStatementGrounding& pStatGrd,
  const UniqueSemanticExpression* pSubjectPtr,
- const UniqueSemanticExpression* pObjectPtr,
+ const UniqueSemanticExpression*& pObjectPtr,
  bool pIsPassive,
  ObjectPosition,
  const UniqueSemanticExpression*& pChildToPutBeforeSubject,
@@ -205,9 +205,26 @@ void LinguisticSynthesizerEnglish::_getQuestionWord
             objectPtr->getSemExp().getListExpPtr_SkipWrapperPtrs() != nullptr)
           break;
       }
-      _strToOut(pOut, PartOfSpeech::PRONOUN, pHoldingContextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERNOUN ||
-                pHoldingContextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERADJECTIVE ?
-                  "that" : "what");
+      bool introWordWritten = false;
+      if (pObjectPtr != nullptr)
+      {
+        auto* objGrdPtr = pObjectPtr->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+        if (objGrdPtr != nullptr)
+        {
+          auto* objGenGrdPtr = objGrdPtr->grounding().getGenericGroundingPtr();
+          if (objGenGrdPtr != nullptr &&
+              objGenGrdPtr->word.isEmpty() && objGenGrdPtr->concepts.empty() && !objGenGrdPtr->coreference)
+          {
+            _strToOut(pOut, PartOfSpeech::PRONOUN, "which");
+            pObjectPtr = nullptr;
+            introWordWritten = true;
+          }
+        }
+      }
+      if (!introWordWritten)
+        _strToOut(pOut, PartOfSpeech::PRONOUN, pHoldingContextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERNOUN ||
+                  pHoldingContextType == SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERADJECTIVE ?
+                    "that" : "what");
       break;
     }
     case SemanticRequestType::SUBJECT:

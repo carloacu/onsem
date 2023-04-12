@@ -34,7 +34,7 @@
       <questionWord lemme="en quoi" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="way" />
       <questionWord lemme="lequel" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="object" />
       <questionWord lemme="lequel" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
-      <questionWord lemme="quoi" gram="pronoun" beforeVerb="no" afterVerb="only_next_to_the_verb" canBeAlone="no" request="object" />
+      <questionWord lemme="quoi" gram="pronoun" beforeVerb="no" afterVerb="only_next_to_the_verb" canBeAlone="yes" request="object" />
       <questionWord lemme="si" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="yes or no" />
       <questionWord lemme="à" gram="preposition" beforeVerb="no" afterVerb="no" canBeAlone="no" request="subject" />
       <questionWord lemme="ou bien" gram="pronoun" beforeVerb="no" afterVerb="yes" canBeAlone="no" request="yes or no" />

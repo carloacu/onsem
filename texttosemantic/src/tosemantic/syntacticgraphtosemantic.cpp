@@ -414,9 +414,10 @@ void SyntacticGraphToSemantic::xReplaceQuestWordByRequest
         grdExp.children.empty())
     {
       const SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
-      SemanticRequestType requType = fLingDico.semWordToRequest(genGrd.word);
+      SemanticRequestType requType = fLingDico.aloneWordToRequest(genGrd.word);
       if (requType != SemanticRequestType::NOTHING)
       {
+        auto possibleGenders = genGrd.possibleGenders;
         grdExp.moveGrounding([&requType]
         {
           auto statGrd = std::make_unique<SemanticStatementGrounding>();
@@ -424,6 +425,19 @@ void SyntacticGraphToSemantic::xReplaceQuestWordByRequest
           statGrd->coreference.emplace();
           return statGrd;
         }());
+        if (requType == SemanticRequestType::OBJECT &&
+            genGrd.word.partOfSpeech == PartOfSpeech::PRONOUN)
+        {
+          if (possibleGenders.size() == 1)
+          {
+            SemExpModifier::addChild(grdExp, GrammaticalType::OBJECT, std::make_unique<GroundedExpression>([&]{
+                                       auto genGrd = std::make_unique<SemanticGenericGrounding>();
+                                       genGrd->possibleGenders = std::move(possibleGenders);
+                                       genGrd->referenceType = SemanticReferenceType::DEFINITE;
+                                       return genGrd;
+                                     }()));
+          }
+        }
       }
     }
   }
@@ -479,7 +493,8 @@ void SyntacticGraphToSemantic::xFillPossibleGenders
     if (possibleGendersFromWord.size() > 1)
       fConfiguration.getFlsChecker().initGenderSetFromIGram(pPossibleGenders, pInflWord);
   }
-  else if (pInflWord.word.partOfSpeech == PartOfSpeech::UNKNOWN)
+  else if (pInflWord.word.partOfSpeech == PartOfSpeech::UNKNOWN ||
+           pInflWord.word.partOfSpeech == PartOfSpeech::PRONOUN)
   {
     fConfiguration.getFlsChecker().initGenderSetFromIGram(pPossibleGenders, pInflWord);
   }

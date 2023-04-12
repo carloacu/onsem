@@ -319,9 +319,9 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas te donner ma main.",
                               operator_react(order1Str, semMem, lingDb));
     triggers_add(order1Str, "Laquelle", semMem, lingDb);
-    ONSEM_BEHAVIOR_EQ("Lequel ?", operator_react(order1Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("Laquelle ?", operator_react(order1Str, semMem, lingDb));
     const std::string order2Str = "Donne-moi ta main mouillée";
-    ONSEM_BEHAVIOR_EQ("Lequel ?", operator_react(order2Str, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("Laquelle ?", operator_react(order2Str, semMem, lingDb));
     triggers_add(order2Str, "Ok la voilà", semMem, lingDb);
     ONSEM_BEHAVIOR_EQ("Ok. Le voilà", operator_react(order2Str, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("Ok. Le voilà", triggers_match(order2Str, semMem, lingDb));
