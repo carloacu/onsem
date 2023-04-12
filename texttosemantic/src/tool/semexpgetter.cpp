@@ -129,6 +129,27 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
     if (pUnityGrdPtr == nullptr || pUnityGrdPtr->typeOfUnity == TypeOfUnity::PERCENTAGE)
       return pGrdExp.cloneGrounding();
   }
+  else if (grd.type == SemanticGroundingType::RELATIVETIME)
+  {
+    if (pUnityGrdPtr == nullptr)
+      return pGrdExp.cloneGrounding();
+
+    if (pUnityGrdPtr->typeOfUnity == TypeOfUnity::TIME)
+    {
+      auto itSpec = pGrdExp.children.find(GrammaticalType::SPECIFIER);
+      if (itSpec != pGrdExp.children.end())
+      {
+        auto* specGrdExpPtr = itSpec->second->getGrdExpPtr_SkipWrapperPtrs();
+        if (specGrdExpPtr != nullptr &&
+            specGrdExpPtr->grounding().type == SemanticGroundingType::DURATION)
+        {
+          auto res = specGrdExpPtr->cloneGrounding();
+          res->getDurationGrounding().duration.convertToUnity(pUnityGrdPtr->getTimeUnity());
+          return res;
+        }
+      }
+    }
+  }
 
   if (pUnityGrdPtr == nullptr)
   {

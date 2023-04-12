@@ -22,7 +22,7 @@ namespace onsem
   SEMANTIC_TIME_UNITY(MONTH, "month", "mo", 2592000000, 2)                            \
   SEMANTIC_TIME_UNITY(DAY, "day", "d", 86400000, 2)                                   \
   SEMANTIC_TIME_UNITY(HOUR, "hour", "h", 3600000, 2)                                  \
-  SEMANTIC_TIME_UNITY(MINUTE, "minute", "m", 60000, 2)                                \
+  SEMANTIC_TIME_UNITY(MINUTE, "minute", "min", 60000, 2)                              \
   SEMANTIC_TIME_UNITY(SECOND, "second", "s", 1000, 2)                                 \
   SEMANTIC_TIME_UNITY(MILLISECOND, "millisecond", "ms", 1, 3)                         \
   SEMANTIC_TIME_UNITY(LESS_THAN_A_MILLISECOND, "less_than_a_millisecond", "", 0, 10)
@@ -253,6 +253,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticDuration
   bool isPositive() const { return sign == Sign::POSITIVE; }
   bool isEqualWithMarginOfError(const SemanticDuration& pOther,
                                 const SemanticDuration& pMarginOfError) const;
+  void convertToUnity(SemanticTimeUnity pUnity);
 
   Sign sign{Sign::POSITIVE};
   std::map<SemanticTimeUnity, SemanticFloat> timeInfos{};

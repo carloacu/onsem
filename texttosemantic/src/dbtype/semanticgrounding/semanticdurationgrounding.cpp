@@ -358,5 +358,27 @@ int64_t SemanticDuration::nbMilliseconds() const
 }
 
 
+void SemanticDuration::convertToUnity(SemanticTimeUnity pUnity)
+{
+  SemanticFloat nbInGoodUnity;
+  auto nbOfMillisecOfResult = static_cast<double>(semanticTimeUnity_toNbOfMilliseconds(pUnity));
+
+  for (auto it = timeInfos.begin(); it != timeInfos.end(); )
+  {
+    if (it->first != pUnity)
+    {
+      nbInGoodUnity += it->second * (semanticTimeUnity_toNbOfMilliseconds(it->first) / nbOfMillisecOfResult);
+      it = timeInfos.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+
+  if (nbInGoodUnity > 0)
+    timeInfos[pUnity] += nbInGoodUnity;
+}
+
 
 } // End of namespace onsem

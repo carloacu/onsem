@@ -423,7 +423,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi\\", triggers_match("Éteins-toi", semMem, lingDb));
-  //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=Akinator)\\", triggers_match("Éteins-toi pendant 3 minutes", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=3 minutes)\\", triggers_match("Éteins-toi pendant 3 minutes", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=120 minutes)\\", triggers_match("Éteins-toi pendant 2 heures", semMem, lingDb));
 }
 
 

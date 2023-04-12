@@ -13,6 +13,7 @@ set(ONSEMGTESTS_SRCS
   src/texttosemantic/test_conceptset.cpp
   src/texttosemantic/test_databasemodifications.cpp
   src/texttosemantic/test_serialization.cpp
+  src/texttosemantic/test_semanticduration.cpp
   src/texttosemantic/test_semanticfloat.cpp
   src/texttosemantic/test_semanticmodel_tool.cpp
   src/texttosemantic/test_semanticlengthgrounding.cpp
