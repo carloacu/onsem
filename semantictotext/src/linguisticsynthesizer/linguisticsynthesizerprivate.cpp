@@ -949,10 +949,13 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
     case GrammaticalType::UNITY:
     {
       OutSemExp* outSE = &sentWorkStruct.outs.other;
-      if (_language == SemanticLanguageEnum::FRENCH)
-        _strToOut(outSE->out, PartOfSpeech::PREPOSITION, "en");
-      else
-        _strToOut(outSE->out, PartOfSpeech::PREPOSITION, "in");
+      if (!pStatementGrd.noVerb())
+      {
+        if (_language == SemanticLanguageEnum::FRENCH)
+          _strToOut(outSE->out, PartOfSpeech::PREPOSITION, "en");
+        else
+          _strToOut(outSE->out, PartOfSpeech::PREPOSITION, "in");
+      }
       _writeObjectAfterVerb(sentWorkStruct, *outSE, currChild.first, pStatementGrd,
                             inflectedVerb, pGrdExp, currSemExpChild, pConf, pRequests,
                             childContextType, verbContext, pLastSubject);

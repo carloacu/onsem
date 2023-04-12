@@ -1518,7 +1518,10 @@ void SyntacticGraphToSemantic::xAddModifiers
             statGrd->requests.set(qWordPtr->request);
             statGrd->coreference.emplace();
             auto newGrdExp = std::make_unique<GroundedExpression>(std::move(statGrd));
-            newGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pGrdExpPtr));
+            auto childGramType = GrammaticalType::OBJECT;
+            if (pGrdExpPtr->grounding().type == SemanticGroundingType::UNITY)
+              childGramType = GrammaticalType::UNITY;
+            newGrdExp->children.emplace(childGramType, std::move(pGrdExpPtr));
             pGrdExpPtr = std::move(newGrdExp);
             continue;
           }
