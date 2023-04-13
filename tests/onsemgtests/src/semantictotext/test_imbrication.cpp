@@ -92,6 +92,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I bought N5", "I bought N5 robot", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("je vais faire des courses au supermarché", "je vais faire des courses au supermarché demain", semanticMemory, lingDb));
 
+  EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("des gens", "3 gens", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("et puis", "et avant", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("Il est né en 1988", "Il est né le 5 mai 1986", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("le 3 septembre 1986", "septembre 1987", semanticMemory, lingDb));

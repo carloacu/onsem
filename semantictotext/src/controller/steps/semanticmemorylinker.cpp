@@ -1276,6 +1276,11 @@ void _addGrdExpsFromASemExp(std::map<semIdAbs, std::list<AnswerExp>>& pSemExpsCo
       break;
     }
 
+    // If specification of the question is found we ignore it
+    if (pQuestMetaGrdExp != nullptr &&
+        SemExpComparator::grdExpsAreEqual(*pQuestMetaGrdExp, grdExp, pMemBlock, pWorkStruct.lingDb))
+        break;
+
     if (_isAValidAnswerForTheQuestionFilter(grdExp, pQuestMetaGrdExp, pRequest, pWorkStruct.lingDb.conceptSet, pWorkStruct.lingDb) ||
         (grdExp.children.count(GrammaticalType::SUB_CONCEPT) > 0 &&
          pWorkStruct.lingDb.conceptSet.areConceptsCompatibles(grdExp->concepts, pQuestMetaGrdExp->grounding().concepts) == true))
@@ -1603,13 +1608,14 @@ void _addCauseResult(std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnsw
 
 
 void _replaceAnswersByNumberOfInstances(std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
-                                        const SemanticUnityGrounding* pUnityGrdPtr)
+                                        const SemanticUnityGrounding* pUnityGrdPtr,
+                                        bool pSimpleNumber)
 {
   mystd::optional<QuestionAskedInformation> answerQuestionAskedInformation;
   std::unique_ptr<SemanticGrounding> answerGrdPtr;
   auto _addElts = [&](QuestionAskedInformation pQuestionAskedInformation, const SemanticExpression& pSemExp)
   {
-    auto quantityGrd = SemExpGetter::extractQuantity(pSemExp, pUnityGrdPtr);
+    auto quantityGrd = SemExpGetter::extractQuantity(pSemExp, pUnityGrdPtr, pSimpleNumber);
     if (quantityGrd)
     {
       answerQuestionAskedInformation.emplace(pQuestionAskedInformation);
@@ -1987,6 +1993,7 @@ void _getRelationsOfLinks
     _genericFilterSemExpThatCanAnswer(pUserAnswers, answElts, pGrdExp, questionAskedInformation,
                                       pOriginalQuestRequestType, pWorkStruct, pMemViewer.constView);
 
+    bool simpleNumber = false;
     const SemanticUnityGrounding* unityGrdPtr = nullptr;
     auto itUnityChild = pGrdExp.children.find(GrammaticalType::UNITY);
     if (itUnityChild != pGrdExp.children.end())
@@ -1995,7 +2002,26 @@ void _getRelationsOfLinks
       if (unityGrdExpPtr != nullptr)
         unityGrdPtr = unityGrdExpPtr->grounding().getUnityGroundingPtr();
     }
-    _replaceAnswersByNumberOfInstances(pUserAnswers, unityGrdPtr);
+    else if (pRequestType == SemanticRequestType::QUANTITY)
+    {
+      auto itObjectChild = pGrdExp.children.find(GrammaticalType::OBJECT);
+      if (itObjectChild != pGrdExp.children.end())
+      {
+        auto* objectGrdExpPtr = itObjectChild->second->getGrdExpPtr_SkipWrapperPtrs();
+        if (objectGrdExpPtr != nullptr)
+        {
+          auto* genGrdPtr = objectGrdExpPtr->grounding().getGenericGroundingPtr();
+          if (genGrdPtr != nullptr && genGrdPtr->referenceType == SemanticReferenceType::DEFINITE)
+            simpleNumber = true;
+        }
+      }
+      else
+      {
+        simpleNumber = true;
+      }
+    }
+
+    _replaceAnswersByNumberOfInstances(pUserAnswers, unityGrdPtr, simpleNumber);
     return;
   }
   default:

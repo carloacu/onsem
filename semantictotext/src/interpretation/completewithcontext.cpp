@@ -821,18 +821,10 @@ void _replaceRecentFromContext_fromSemExp
             else
               assert(false);
             grdExpCopied->moveGrounding(contextGrdExpPtr->cloneGrounding());
-            std::set<GrammaticalType> grammTypeToNotCopy;
-            for (auto& currRequest : statementRequests.types)
-            {
-              grammTypeToNotCopy.insert(semanticRequestType_toSemGram(currRequest));
-            }
             for (const auto& currChildFroContext : contextGrdExpPtr->children)
             {
-              if (grammTypeToNotCopy.count(currChildFroContext.first) == 0)
-              {
-                SemExpModifier::addChild(*grdExpCopied, currChildFroContext.first,
-                                         currChildFroContext.second->clone());
-              }
+              SemExpModifier::addChild(*grdExpCopied, currChildFroContext.first,
+                                       currChildFroContext.second->clone());
             }
             SemExpModifier::swapRequests(*grdExpCopied, statementRequests);
             pSemExp = std::make_unique<InterpretationExpression>

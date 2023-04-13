@@ -112,7 +112,8 @@ mystd::optional<TypeOfUnity> getTypeOfUnityFromGrdExp(const GroundedExpression& 
 
 ONSEM_TEXTTOSEMANTIC_API
 std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp,
-                                                   const SemanticUnityGrounding* pUnityGrdPtr);
+                                                   const SemanticUnityGrounding* pUnityGrdPtr,
+                                                   bool pSimpleNumber);
 
 ONSEM_TEXTTOSEMANTIC_API
 std::unique_ptr<SemanticGrounding> mergeQuantities(const SemanticGrounding& pPreviousQuantity,

@@ -979,8 +979,10 @@ ImbricationType getQuantityImbrication(const SemanticQuantity& pQuantity1,
       return ImbricationType::CONTAINS;
     if (pQuantity2.type == SemanticQuantityType::EVERYTHING)
       return ImbricationType::ISCONTAINED;
-    if (pQuantity1.type == SemanticQuantityType::UNKNOWN ||
-        pQuantity2.type == SemanticQuantityType::UNKNOWN)
+    if ((pQuantity1.type == SemanticQuantityType::UNKNOWN &&
+         pQuantity2.type == SemanticQuantityType::NUMBER && pQuantity2.nb == 1) ||
+        (pQuantity2.type == SemanticQuantityType::UNKNOWN &&
+         pQuantity1.type == SemanticQuantityType::NUMBER && pQuantity1.nb == 1))
       return ImbricationType::EQUALS;
     return ImbricationType::DIFFERS;
   }

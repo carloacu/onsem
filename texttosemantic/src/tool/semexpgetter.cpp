@@ -88,7 +88,8 @@ bool _isMandatoryGrdExp(const GroundedExpression& pGrdExp)
 }
 
 std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpression& pGrdExp,
-                                                              const SemanticUnityGrounding* pUnityGrdPtr)
+                                                              const SemanticUnityGrounding* pUnityGrdPtr,
+                                                              bool pSimpleNumber)
 {
   mystd::optional<int> res;
   const auto& grd = *pGrdExp;
@@ -96,13 +97,14 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
   {
     if (pUnityGrdPtr == nullptr)
     {
-      const SemanticQuantity& repetitionQuantity = grd.getGenericGrounding().quantity;
-      if (repetitionQuantity.type == SemanticQuantityType::NUMBER)
+      auto& genGrd = grd.getGenericGrounding();
+      if ((!pSimpleNumber || genGrd.word.isEmpty()) &&
+          genGrd.quantity.type == SemanticQuantityType::NUMBER)
       {
-        auto genGrd = std::make_unique<SemanticGenericGrounding>();
-        genGrd->quantity.setNumber(repetitionQuantity.nb);
-        genGrd->entityType = SemanticEntityType::THING;
-        return genGrd;
+        auto resGenGrd = std::make_unique<SemanticGenericGrounding>();
+        resGenGrd->quantity.setNumber(genGrd.quantity.nb);
+        resGenGrd->entityType = SemanticEntityType::NUMBER;
+        return resGenGrd;
       }
     }
   }
@@ -151,11 +153,11 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
     }
   }
 
-  if (pUnityGrdPtr == nullptr)
+  if (pUnityGrdPtr == nullptr && !pSimpleNumber)
   {
     auto genGrd = std::make_unique<SemanticGenericGrounding>();
     genGrd->quantity.setNumber(1);
-    genGrd->entityType = SemanticEntityType::THING;
+    genGrd->entityType = SemanticEntityType::NUMBER;
     return genGrd;
   }
   return {};
@@ -477,11 +479,12 @@ mystd::optional<TypeOfUnity> getTypeOfUnityFromGrdExp(const GroundedExpression& 
 
 
 std::unique_ptr<SemanticGrounding> extractQuantity(const SemanticExpression& pSemExp,
-                                                   const SemanticUnityGrounding* pUnityGrdPtr)
+                                                   const SemanticUnityGrounding* pUnityGrdPtr,
+                                                   bool pSimpleNumber)
 {
   const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
   if (grdExpPtr != nullptr)
-    return _extractQuantityFromGrdExp(*grdExpPtr, pUnityGrdPtr);
+    return _extractQuantityFromGrdExp(*grdExpPtr, pUnityGrdPtr, pSimpleNumber);
   return {};
 }
 
@@ -2495,8 +2498,8 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
       if (*pTypeOfUnityOpt == TypeOfUnity::ANGLE)
         return {GrammaticalType::LOCATION};
     }
-    return {GrammaticalType::OBJECT, GrammaticalType::LENGTH, GrammaticalType::LOCATION,
-            GrammaticalType::TIME};
+    return {GrammaticalType::OBJECT, GrammaticalType::SPECIFIER, GrammaticalType::LENGTH,
+            GrammaticalType::LOCATION, GrammaticalType::TIME};
   }
 
   case SemanticRequestType::ABOUT:

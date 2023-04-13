@@ -296,7 +296,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   triggers_addAnswerWithOneParameter("Baisse la tête", howManyDegreesParameterQuestion, semMem, lingDb, language);
 
-  const std::vector<std::string> howMuchInPercentageParameterQuestions = {"combien en pourcentage"};
+  const std::vector<std::string> howMuchInPercentageParameterQuestions = {"combien en pourcentage", "combien"};
   triggers_addAnswerWithOneParameter("Descends le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Diminue le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
 
@@ -391,6 +391,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Monte le volume(param1=12 pour cent)\\", triggers_match("Monte le volume de 12 %", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume(param1=90 pour cent)\\", triggers_match("Mets le volume à 90 %", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume(param1=80)\\", triggers_match("Mets le volume à 80", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume(param1=91 pour cent)\\", triggers_match("Mets le volume à quatre vingt onze pour cent", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume plus fort\\", triggers_match("Mets le volume plus fort", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume plus fort\\", triggers_match("Mets le volume encore plus fort", semMem, lingDb, language));
@@ -399,7 +400,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet\\", triggers_match("Fais un tour complet", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(param1=Droite)\\", triggers_match("Fais un tour complet à droite", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sur toi même(param1=Sur toi|Même droite)\\", triggers_match("Tourne sur toi même à droite", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sur toi même(param1=Même droite)\\", triggers_match("Tourne sur toi même à droite", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi\\", triggers_match("Éteins-toi", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=3 minutes)\\", triggers_match("Éteins-toi pendant 3 minutes", semMem, lingDb));

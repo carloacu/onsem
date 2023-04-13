@@ -12,6 +12,7 @@
     <child lemma="au" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(country_)|[followedByBeginOfConcept(location_,, ms)&!followedByVowel]" />
 
     <child lemma="à" pos="preposition" chunkLinkType="specification" condition="followedByConceptOrHyponym(percent, have_number_before)" />
+    <child lemma="à" pos="preposition" chunkLinkType="specification" condition="!followedByPartOfSpeech(determiner)&followedByBeginOfConcept(number_)" />
     <child chunkLinkType="length" condition="followedByBeginOfConcept(length_, have_number_before)" />
     <child lemma="de" chunkLinkType="length" condition="followedByBeginOfConcept(length_, have_number_before)" />
     <child chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_angle_, have_number_before)" />
