@@ -450,7 +450,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Head up", howFarInDegreesParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Head down", howFarInDegreesParameterQuestion, semMem, lingDb, language);
 
-  const std::vector<std::string> howMuchInPercentageParameterQuestion = {"how much in percentage"};
+  const std::vector<std::string> howMuchInPercentageParameterQuestion = {"how many in percentage", "how many"};
   triggers_addAnswerWithOneParameter("Turn down the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Lower the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
 
@@ -496,6 +496,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume\\", triggers_match("Turn down the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Lower the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume(param1=29 percents)\\", triggers_match("Turn down the volume by 29 %", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume(param1=28)\\", triggers_match("Turn down the volume by 28", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume(param1=30 percents)\\", triggers_match("Lower the volume by 30%", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume\\", triggers_match("Turn up the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume(param1=31 percents)\\", triggers_match("Turn up the volume by 31%", semMem, lingDb));

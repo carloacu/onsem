@@ -31,6 +31,7 @@
     <child lemma="before" pos="sub_conj" chunkLinkType="time" />
     <child lemma="but" pos="sub_conj" chunkLinkType="mitigation" />
     <child lemma="by" pos="preposition" chunkLinkType="specification" chunkLinkType="specification" condition="followedByConceptOrHyponym(percent, have_number_before)" />
+    <child lemma="by" pos="preposition" chunkLinkType="specification" condition="!followedByPartOfSpeech(determiner)&followedByBeginOfConcept(number_)" />
     <child lemma="by" pos="preposition" chunkLinkType="way" />
     <child lemma="during" pos="preposition" chunkLinkType="time"/>
     <child lemma="for" pos="preposition" chunkLinkType="occurrence rank" condition="followedByOccurenceRank" />
