@@ -1957,6 +1957,9 @@ void LinguisticSynthesizerPrivate::_writeEquality
         return pSentWorkStruct.outs.objectBeforeVerb;
       if (specGrd.type == SemanticGroundingType::PERCENTAGE)
         return pSentWorkStruct.outs.objectAfterVerb;
+      auto* genGrdPtr = specGrd.getGenericGroundingPtr();
+      if (genGrdPtr != nullptr && genGrdPtr->entityType == SemanticEntityType::NUMBER)
+        return pSentWorkStruct.outs.objectAfterVerb;
       return pSentWorkStruct.outs.equalityAfterVerb;
     }();
     auto subRequests = pRequests;
