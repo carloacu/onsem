@@ -32,7 +32,9 @@
     <child lemma="but" pos="sub_conj" chunkLinkType="mitigation" />
     <child lemma="by" pos="preposition" chunkLinkType="specification" chunkLinkType="specification" condition="followedByConceptOrHyponym(percent, have_number_before)" />
     <child lemma="by" pos="preposition" chunkLinkType="way" />
+    <child lemma="during" pos="preposition" chunkLinkType="time"/>
     <child lemma="for" pos="preposition" chunkLinkType="occurrence rank" condition="followedByOccurenceRank" />
+    <child lemma="for" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(duration_, skip_determiners)"><add_concept val="time_relative_during" /></child>
     <child lemma="for" pos="preposition" chunkLinkType="purpose" />
     <child lemma="from" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child lemma="from" pos="preposition" chunkLinkType="starting point" />

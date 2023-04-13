@@ -53,3 +53,6 @@ Turn the head to the right 34 degrees
 Raise your head 43 degrees
 Head up 24 degrees
 Set the volume to 54%
+Shut down for 4 minutes
+Shut down during 5 minutes
+
