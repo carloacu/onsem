@@ -373,6 +373,12 @@ bool _doesConceptConditionMatchWithGrounding(const LinguisticConditionTreeValue&
       return concept == "language_";
     default:
     {
+      auto* genGrdPtr = pGrounding.getGenericGroundingPtr();
+      if (genGrdPtr != nullptr &&
+          genGrdPtr->entityType == SemanticEntityType::NUMBER &&
+          concept == "number_")
+        return true;
+
       if ((pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptThatBeginWith(pGrounding.concepts, concept)) ||
           (!pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptOrAHyponym(pGrounding.concepts, concept)))
       {
