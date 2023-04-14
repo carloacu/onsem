@@ -529,47 +529,15 @@ void _matchAnyTrigger
                                           pWorkStruct.lingDb, &pWorkStruct.comparisonExceptions, &comparisonErrorReporting))
     {
       pSemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
+      nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.clear();
     }
-    else
+    else if (pSemExpWrapperPtrs.empty())
     {
-      bool canBeAtLowPriority = true;
-      if (comparisonErrorReporting.getErrorCoef().type == SemExpComparator::ComparisonTypeOfError::NORMAL)
-      {
-        for (const auto& currChildrenError : comparisonErrorReporting.childrenThatAreNotEqual)
-        {
-          if (currChildrenError.first != GrammaticalType::OWNER &&
-              currChildrenError.first != GrammaticalType::RECEIVER &&
-              currChildrenError.first != GrammaticalType::SPECIFIER &&
-              currChildrenError.first != GrammaticalType::OTHER_THAN)
-          {
-            // If it a anything trigger we accept the matching
-            bool isAnythingTrigger = false;
-            for (const auto& currComparisonErrors : currChildrenError.second)
-            {
-              for (const auto& currTriggerChild : currComparisonErrors.second.child2Ptr.elts)
-              {
-                if (SemExpGetter::isAnythingFromSemExp(*currTriggerChild))
-                {
-                  isAnythingTrigger = true;
-                  break;
-                }
-              }
-              if (isAnythingTrigger)
-                break;
-            }
-            if (!isAnythingTrigger)
-              canBeAtLowPriority = false;
-            break;
-          }
-        }
-      }
-      if (canBeAtLowPriority)
-        nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].insert(
-              &memSent.getContextAxiom().getSemExpWrappedForMemory());
+      nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].insert(
+            &memSent.getContextAxiom().getSemExpWrappedForMemory());
     }
   }
-  if (pSemExpWrapperPtrs.empty() &&
-      !nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.empty())
+  if (!nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.empty())
     pSemExpWrapperPtrs = std::move((--nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.begin()->second.end())->second);
 }
 

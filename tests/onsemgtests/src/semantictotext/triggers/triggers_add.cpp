@@ -156,13 +156,18 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
 
   // a question about object that is a list of elements
   {
+    ONSEM_ANSWERNOTFOUND_EQ("I don't know if Paul likes banana.",
+                            operator_answer("Does Paul like banana ?", semMem, lingDb));
     const std::string questionStr = "Does Paul like banana and bear?";
     ONSEM_ANSWERNOTFOUND_EQ("I don't know if Paul likes banana and the bear.",
                             operator_answer(questionStr, semMem, lingDb));
     const std::string answerStr = "Paul is a nice guy.";
     triggers_add(questionStr, answerStr, semMem, lingDb);
-    ONSEM_ANSWERNOTFOUND_EQ("I don't know if Paul likes banana.",
-                            operator_answer("Does Paul like banana ?", semMem, lingDb));
+    const std::string question2Str ="Does Paul like banana ?";
+    ONSEM_ANSWER_EQ(answerStr, operator_answer(question2Str, semMem, lingDb));
+    const std::string answer2Str = "It's more precise.";
+    triggers_add(question2Str, answer2Str, semMem, lingDb);
+    ONSEM_ANSWER_EQ(answer2Str, operator_answer(question2Str, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, operator_answer(questionStr, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, triggers_match(questionStr, semMem, lingDb));
   }
@@ -195,8 +200,8 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
     triggers_add(question1Str, answer1Str, semMem, lingDb);
     triggers_add(question2Str, answer2Str, semMem, lingDb);
     triggers_add(bothQuestionsStr, bothAnswerStr, semMem, lingDb);
-    ONSEM_ANSWERNOTFOUND_EQ("I don't know if Paul likes banana.",
-                            operator_answer("Does Paul like banana ?", semMem, lingDb));
+    ONSEM_ANSWER_EQ("It's more precise.",
+                    operator_answer("Does Paul like banana ?", semMem, lingDb));
     ONSEM_ANSWER_EQ(answer1Str, operator_answer(question1Str, semMem, lingDb));
     ONSEM_ANSWER_EQ(answer2Str, operator_answer(question2Str, semMem, lingDb));
     ONSEM_ANSWER_EQ(bothAnswerStr, operator_react(bothQuestionsStr, semMem, lingDb));

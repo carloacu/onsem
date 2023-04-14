@@ -479,6 +479,16 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
 
   triggers_addAnswerWithOneParameter("can you look up", {}, semMem, lingDb, language);
 
+  const std::vector<std::string> whereQuestion = {"where"};
+  triggers_addAnswerWithOneParameter("Make a full turn", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Do a 360", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Pirouette", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Take a spin on yourself", whereQuestion, semMem, lingDb, language);
+
+  triggers_addAnswerWithOneParameter("Turn without stopping", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Turn continuously", whereQuestion, semMem, lingDb, language);
+
+
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 cm", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 centimeters", semMem, lingDb));
@@ -526,5 +536,15 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down\\", triggers_match("Shut down", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=4 minutes)\\", triggers_match("Shut down for 4 minutes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=5 minutes)\\", triggers_match("Shut down during 5 minutes", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn\\", triggers_match("Make a full turn", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do a 360\\", triggers_match("Do a 360", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette\\", triggers_match("Pirouette", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(param1=The left)\\", triggers_match("Pirouette to the left", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Take a spin on yourself(param1=On you)\\", triggers_match("Take a spin on yourself", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn without stopping\\", triggers_match("Turn without stopping", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn without stopping(param1=To the left)\\", triggers_match("Turn without stopping to the left", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn continuously\\", triggers_match("Turn continuously", semMem, lingDb));
 }
 
