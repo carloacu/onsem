@@ -141,6 +141,9 @@ ONSEM_TEXTTOSEMANTIC_API
 SemanticRequests* getRequestList(GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
+const SemanticRequests* getRequestListFromSemExp(const SemanticExpression& pSemExp);
+
+ONSEM_TEXTTOSEMANTIC_API
 GroundedExpression* getGrdExpChild(GroundedExpression& pGrdExp,
                                    GrammaticalType pChildType);
 
@@ -155,6 +158,10 @@ const SemanticExpression* getChildFromGrdExp(const GroundedExpression& pGrdExp,
 ONSEM_TEXTTOSEMANTIC_API
 const SemanticExpression* getChildFromSemExp(const SemanticExpression& pSemExp,
                                              GrammaticalType pChildType);
+
+ONSEM_TEXTTOSEMANTIC_API
+const SemanticExpression* getChildFromSemExpRecursively(const SemanticExpression& pSemExp,
+                                                        GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
 SemanticExpression& getDirectObjectOrIdentityRecursively(SemanticExpression& pSemExp);

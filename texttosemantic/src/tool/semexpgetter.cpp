@@ -614,7 +614,14 @@ SemanticRequests* getRequestList
   return nullptr;
 }
 
-
+const SemanticRequests* getRequestListFromSemExp
+(const SemanticExpression& pSemExp)
+{
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+    return getRequestList(*grdExpPtr);
+  return nullptr;
+}
 
 
 GroundedExpression* getGrdExpChild(GroundedExpression& pGrdExp,
@@ -656,6 +663,27 @@ const SemanticExpression* getChildFromSemExp(const SemanticExpression& pSemExp,
     auto itChild = grdExpPtr->children.find(pChildType);
     if (itChild != grdExpPtr->children.end())
       return &*itChild->second;
+  }
+  return nullptr;
+}
+
+
+const SemanticExpression* getChildFromSemExpRecursively(const SemanticExpression& pSemExp,
+                                                        GrammaticalType pChildType)
+{
+  const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+  {
+    auto itChild = grdExpPtr->children.find(pChildType);
+    if (itChild != grdExpPtr->children.end())
+      return &*itChild->second;
+
+    for (auto& currChild : grdExpPtr->children)
+    {
+      auto* subRes = getChildFromSemExpRecursively(*currChild.second, pChildType);
+      if (subRes != nullptr)
+        return subRes;
+    }
   }
   return nullptr;
 }

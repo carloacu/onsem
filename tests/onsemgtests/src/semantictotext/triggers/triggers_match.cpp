@@ -322,6 +322,11 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   const std::vector<std::string> howManyMinutesQuestion = {"combien de minutes"};
   triggers_addAnswerWithOneParameter("Éteins-toi", howManyMinutesQuestion, semMem, lingDb, language);
 
+  triggers_addAnswerWithOneParameter("Tourne sans t'arrêter", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tourne en continu", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tourne sans arrêt", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("fais la toupie", whereQuestion, semMem, lingDb, language);
+
 
   ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("fais un saut périeux", semMem, lingDb));
   ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("fous de ma gueule", semMem, lingDb));
@@ -405,6 +410,15 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi\\", triggers_match("Éteins-toi", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=3 minutes)\\", triggers_match("Éteins-toi pendant 3 minutes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=120 minutes)\\", triggers_match("Éteins-toi pendant 2 heures", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sans t'arrêter\\", triggers_match("Tourne sans t'arrêter", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sans t'arrêter(param1=Gauche)\\", triggers_match("Tourne sans t'arrêter à gauche", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne en continu\\", triggers_match("Tourne en continu", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne en continu(param1=Droite)\\", triggers_match("tourne en continu à droite", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sans arrêt\\", triggers_match("tourne sans arrêt", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sans arrêt(param1=Gauche)\\", triggers_match("Tourne sans arrêt à gauche", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#fais la toupie\\", triggers_match("fais la toupie", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#fais la toupie(param1=Droite)\\", triggers_match("Fais la toupie à droite", semMem, lingDb));
 }
 
 

@@ -1,7 +1,8 @@
 #include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/texttosemantic/tool/semexpgetter.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
-#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include "../conversion/mandatoryformconverter.hpp"
 
 namespace onsem
@@ -60,7 +61,8 @@ void TextExecutor::_extractParameters(
 {
   if (pInputSemExpPtr != nullptr)
   {
-    UniqueSemanticExpression clonedInput = pInputSemExpPtr->clone();
+    auto& inputSemExp = *pInputSemExpPtr;
+    UniqueSemanticExpression clonedInput = inputSemExp.clone();
     mandatoryFormConverter::process(clonedInput);
     SemanticMemory semMemory;
     memoryOperation::inform(std::move(clonedInput), semMemory, _lingDb);
@@ -72,6 +74,33 @@ void TextExecutor::_extractParameters(
         UniqueSemanticExpression questionSemExp = currQuestion->clone();
         std::vector<std::unique_ptr<GroundedExpression>> answers;
         memoryOperation::get(answers, std::move(questionSemExp), semMemory, _lingDb);
+
+        // Little hack to still get the answer even if the child answer is not well positionned in the tree
+        if (answers.empty())
+        {
+          auto* questionRequestPtr = SemExpGetter::getRequestListFromSemExp(*currQuestion);
+          if (questionRequestPtr != nullptr && !questionRequestPtr->empty())
+          {
+            auto requestType = questionRequestPtr->types.front();
+            if (requestType != SemanticRequestType::QUANTITY)
+            {
+              GrammaticalType grammaticalChildrenType = semanticRequestType_toSemGram(requestType);
+              if (grammaticalChildrenType != GrammaticalType::UNKNOWN)
+              {
+                auto answerChildSemExpPtr = SemExpGetter::getChildFromSemExpRecursively(inputSemExp, grammaticalChildrenType);
+                if (answerChildSemExpPtr != nullptr)
+                {
+                  std::list<const GroundedExpression*> grdExpPtrs;
+                  answerChildSemExpPtr->getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+                  for (auto* currGrdExpPtr : grdExpPtrs)
+                    answers.emplace_back(currGrdExpPtr->clone());
+                }
+              }
+            }
+          }
+        }
+
+
         if (!answers.empty())
         {
           TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
