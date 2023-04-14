@@ -78,36 +78,12 @@ void triggers_addAnswerWithOneParameter(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage)
 {
-  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
-                                           SemanticAgentGrounding::me,
-                                           pLanguage);
-  triggerProcContext.isTimeDependent = false;
-  auto triggerSemExp = converter::textToContextualSemExp(pTriggerText, triggerProcContext,
-                                                         SemanticSourceEnum::WRITTENTEXT, pLingDb);
-
-
-  TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
-                                                 SemanticAgentGrounding::currentUser,
-                                                 pLanguage);
-  paramQuestionProcContext.isTimeDependent = false;
-  auto answer1Grd = std::make_unique<SemanticResourceGrounding>("label", pLanguage, pTriggerText);
-
-  for (auto& currQuestion : pParameterQuestions)
-  {
-    auto paramSemExp = converter::textToContextualSemExp(currQuestion,
-                                                         paramQuestionProcContext,
-                                                         SemanticSourceEnum::UNKNOWN, pLingDb);
-    converter::addBothDirectionForms(paramSemExp, pLingDb);
-    SemanticMemory semMemory;
-    memoryOperation::inform(std::move(triggerSemExp->clone()), semMemory, pLingDb);
-
-    memoryOperation::mergeWithContext(paramSemExp, semMemory, pLingDb);
-    answer1Grd->resource.parameterLabelsToQuestions["param1"].emplace_back(std::move(paramSemExp));
-  }
-
-  auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
-
-  triggers::add(std::move(triggerSemExp), std::move(answer1SemExp), pSemanticMemory, pLingDb);
+  std::map<std::string, std::vector<std::string>> parameterLabelToQuestionsStrs{{"param1", pParameterQuestions}};
+  std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestionsSemExps;
+  triggers::createParameterSemanticexpressions(parameterLabelToQuestionsSemExps,
+                                               parameterLabelToQuestionsStrs,
+                                               pLingDb, pLanguage);
+  triggers::addToResource(pTriggerText, "label", pTriggerText, parameterLabelToQuestionsSemExps, pSemanticMemory, pLingDb, pLanguage);
 }
 
 

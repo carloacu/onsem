@@ -1,10 +1,10 @@
 #ifndef ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICRESOURCEGROUNDING_HPP
 #define ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICRESOURCEGROUNDING_HPP
 
-#include <list>
 #include <map>
 #include <memory>
 #include <string>
+#include <vector>
 #include "semanticgrounding.hpp"
 #include <onsem/common/enum/semanticlanguageenum.hpp>
 #include "../../api.hpp"
@@ -67,7 +67,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticResource
   std::string label;
   SemanticLanguageEnum language;
   std::string value;
-  std::map<std::string, std::list<UniqueSemanticExpression>> parameterLabelsToQuestions;
+  std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelsToQuestions;
 };
 
 

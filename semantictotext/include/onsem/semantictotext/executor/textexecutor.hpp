@@ -28,7 +28,7 @@ protected:
 
   void _extractParameters(
       std::map<std::string, std::vector<std::string>>& pParameters,
-      const std::map<std::string, std::list<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
+      const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
       SemanticLanguageEnum pLanguage,
       const SemanticExpression* pInputSemExp) const;
 

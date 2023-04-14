@@ -1,4 +1,5 @@
 #include <onsem/semantictotext/triggers.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/metadataexpression.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
@@ -9,14 +10,13 @@
 #include "conversion/conditionsadder.hpp"
 #include "utility/utility.hpp"
 
-
 namespace onsem
 {
 namespace triggers
 {
 
 void add(UniqueSemanticExpression pTriggerSemExp,
-         UniqueSemanticExpression pAnswerSemExp,
+         UniqueSemanticExpression pReactionSemExp,
          SemanticMemory& pSemanticMemory,
          const linguistics::LinguisticDatabase& pLingDb)
 {
@@ -26,29 +26,65 @@ void add(UniqueSemanticExpression pTriggerSemExp,
 
   // Add anything children to the trigger for asked parameters
   std::set<GrammaticalType> askedChildren;
-  SemExpGetter::extractAskedChildrenByAResource(askedChildren, *pAnswerSemExp);
+  SemExpGetter::extractAskedChildrenByAResource(askedChildren, *pReactionSemExp);
   for (const auto& currAskedChild : askedChildren)
     SemExpModifier::addAnythingChild(*pTriggerSemExp, currAskedChild);
 
   auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pTriggerSemExp), pLingDb);
-  expForMem->outputToAnswerIfTriggerHasMatched.emplace(std::move(pAnswerSemExp));
+  expForMem->outputToAnswerIfTriggerHasMatched.emplace(std::move(pReactionSemExp));
   expForMem->addTriggerLinks(InformationType::ASSERTION, *expForMem->semExp, pLingDb);
+}
+
+
+void addToResource(
+    const std::string& pTriggerText,
+    const std::string& pResourceLabel,
+    const std::string& pResourceValue,
+    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pResourceParameterLabelToQuestions,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
+{
+  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           pLanguage);
+  triggerProcContext.isTimeDependent = false;
+  auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
+
+  auto answer1Grd = std::make_unique<SemanticResourceGrounding>(pResourceLabel, pLanguage, pResourceValue);
+
+  for (auto& currLabelToQuestions : pResourceParameterLabelToQuestions)
+  {
+    for (auto& currQuestionSemExp : currLabelToQuestions.second)
+    {
+      SemanticMemory semMemory;
+      memoryOperation::inform(
+            std::make_unique<MetadataExpression>
+                  (SemanticSourceEnum::WRITTENTEXT, UniqueSemanticExpression(), triggerSemExp->clone()),
+            semMemory, pLingDb);
+      UniqueSemanticExpression questionMergedWithContext = currQuestionSemExp->clone();
+      memoryOperation::mergeWithContext(questionMergedWithContext, semMemory, pLingDb);
+      answer1Grd->resource.parameterLabelsToQuestions[currLabelToQuestions.first].emplace_back(std::move(questionMergedWithContext));
+    }
+  }
+  auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
+  add(std::move(triggerSemExp), std::move(answer1SemExp), pSemanticMemory, pLingDb);
 }
 
 
 std::shared_ptr<ExpressionWithLinks> match(
     mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
     SemanticMemory& pSemanticMemory,
-    UniqueSemanticExpression pSemExp,
+    UniqueSemanticExpression pUtteranceSemExp,
     const linguistics::LinguisticDatabase& pLingDb,
     const ReactionOptions* pReactionOptions)
 {
-  converter::addDifferentForms(pSemExp, pLingDb);
-  conditionsAdder::addConditonsForSomeTimedGrdExp(pSemExp);
+  converter::addDifferentForms(pUtteranceSemExp, pLingDb);
+  conditionsAdder::addConditonsForSomeTimedGrdExp(pUtteranceSemExp);
 
   static const InformationType informationType = InformationType::INFORMATION;
   std::unique_ptr<CompositeSemAnswer> compSemAnswers;
-  auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pSemExp), pLingDb);
+  auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pUtteranceSemExp), pLingDb);
   ExpressionWithLinks& expForMemRef = *expForMem;
   controller::applyOperatorOnExpHandleInMemory(compSemAnswers, expForMemRef,
                                                SemanticOperatorEnum::REACTFROMTRIGGER,
@@ -63,6 +99,27 @@ std::shared_ptr<ExpressionWithLinks> match(
     controller::compAnswerToSemExp(pReaction, *compSemAnswers);
   }
   return expForMem;
+}
+
+
+void createParameterSemanticexpressions(
+    std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
+    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
+{
+  TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
+                                                 SemanticAgentGrounding::currentUser,
+                                                 pLanguage);
+  paramQuestionProcContext.isTimeDependent = false;
+  for (auto& currLabelToQuestions : pParameterLabelToQuestionsStrs)
+  {
+    for (auto& currQuestion : currLabelToQuestions.second)
+    {
+      auto paramSemExp = converter::textToSemExp(currQuestion, paramQuestionProcContext, pLingDb);
+      pParameterLabelToQuestionsSemExps[currLabelToQuestions.first].emplace_back(std::move(paramSemExp));
+    }
+  }
 }
 
 
