@@ -333,6 +333,7 @@ std::unique_ptr<MetadataExpression> wrapSemExpWithContextualInfos
   res->fromText = pText;
   if (pReferencesPtr != nullptr)
     res->references = *pReferencesPtr;
+  res->confidence = pConfidence;
   return res;
 }
 
