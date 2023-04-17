@@ -2494,7 +2494,7 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
   case SemanticRequestType::LOCATION:
     return {GrammaticalType::LOCATION};
   case SemanticRequestType::MANNER:
-    return {GrammaticalType::MANNER};
+    return {GrammaticalType::MANNER, GrammaticalType::OBJECT};
   case SemanticRequestType::PURPOSE:
     return {GrammaticalType::PURPOSE};
   case SemanticRequestType::SUBJECT:

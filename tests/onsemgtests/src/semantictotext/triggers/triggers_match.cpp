@@ -327,9 +327,16 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Tourne sans arrêt", whereQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("fais la toupie", whereQuestion, semMem, lingDb, language);
 
-
   ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("fais un saut périeux", semMem, lingDb));
   ONSEM_ANSWERNOTFOUND_EQ("", triggers_match("fous de ma gueule", semMem, lingDb));
+
+
+  const std::vector<std::string> howQuestion = {"comment"};
+  triggers_addAnswerWithOneParameter("Fais demi tour", howQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Demi-tour", howQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Retourne toi", howQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tourne toi", howQuestion, semMem, lingDb, language);
+
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=3 mètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=5 mètres)\\", triggers_match("avance cinq mètres", semMem, lingDb));
@@ -419,6 +426,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sans arrêt(param1=Gauche)\\", triggers_match("Tourne sans arrêt à gauche", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#fais la toupie\\", triggers_match("fais la toupie", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#fais la toupie(param1=Droite)\\", triggers_match("Fais la toupie à droite", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Retourne toi\\", triggers_match("Retourne toi", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Retourne toi(param1=Lentement)\\", triggers_match("Retourne toi lentement", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Retourne toi(param1=Rapidement)\\", triggers_match("Retourne toi rapidement", semMem, lingDb));
 }
 
 

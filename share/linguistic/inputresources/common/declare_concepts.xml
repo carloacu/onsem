@@ -220,6 +220,8 @@
   <declareconcept name="location_relative_angle_radian" />
 
   <declareconcept name="manner" />
+  <declareconcept name="manner_quickly" />
+  <declareconcept name="manner_slowly" />
   <declareconcept name="manner_stronger" autofill="false" />
   <declareconcept name="manner_together" />
   <declareconcept name="manner_well" />
