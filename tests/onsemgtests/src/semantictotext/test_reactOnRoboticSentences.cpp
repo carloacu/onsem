@@ -92,7 +92,7 @@ TEST_F(SemanticReasonerGTests, operator_reactOnRoboticSentences)
   operator_inform_fromRobot("I started \"thriller2\" because the trigger condition was true", semMem, lingDb);
   ONSEM_ANSWER_EQ("I started \"thriller2\" because the trigger condition was true.", operator_react("Why did you start \"thriller2\"?", semMem, lingDb));
   operator_inform_fromRobot("I started \"thriller3\" because you asked me orally", semMem, lingDb);
-  ONSEM_ANSWER_EQ("I started \"thriller3\" because you asked me.", operator_react("Why did you start \"thriller3\"?", semMem, lingDb));
+  ONSEM_ANSWER_EQ("I started \"thriller3\" because you asked me orally.", operator_react("Why did you start \"thriller3\"?", semMem, lingDb));
   operator_inform_fromRobot("I started \"thriller4\" because you trigger the application by the tablet", semMem, lingDb);
   ONSEM_ANSWER_EQ("I started \"thriller4\" because you trigger the application by the tablet.", operator_react("Why did you start \"thriller4\"?", semMem, lingDb));
   operator_inform_fromRobot("I started \"thriller5\" because it was pending", semMem, lingDb);

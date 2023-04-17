@@ -582,8 +582,8 @@ ChunkLinkType EntityRecognizer::xVerbFollowedBy
 
 
 void EntityRecognizer::xAddComplementsOfVerbFromBegin
-(Chunk& pRootVerb,
- ChunkLink* pSubjectChunkLink,
+(const Chunk& pRootVerb,
+ const ChunkLink* pSubjectChunkLink,
  Chunk& pCurrentChunk,
  Chunk& pChunkToSplit,
  TokIt pItBeforeBegin,
@@ -718,8 +718,8 @@ void EntityRecognizer::xLinkPronounComplementBeforeVerb
 
 
 void EntityRecognizer::xLinkPronounComplementAfterVerb
-(Chunk& pRootVerb,
- ChunkLink* pSubjectChunkLink,
+(const Chunk& pRootVerb,
+ const ChunkLink* pSubjectChunkLink,
  Chunk& pCurrentChunk,
  Chunk& pChunkToSplit,
  TokIt pPronounComplement) const
@@ -756,12 +756,30 @@ void EntityRecognizer::xLinkPronounComplementAfterVerb
   complChunk->chunk->head = pPronounComplement;
   pChunkToSplit.tokRange.setItEnd(pPronounComplement);
 
-  TokIt afterPronounComplement = getNextToken(pPronounComplement, pChunkToSplit.tokRange.getItEnd());
-  if (afterPronounComplement != pChunkToSplit.tokRange.getItEnd())
+  auto& subChunk = *complChunk->chunk;
+  TokIt afterPronounComplement = getNextToken(pPronounComplement, subChunk.tokRange.getItEnd());
+  if (afterPronounComplement != subChunk.tokRange.getItEnd())
   {
-    xAddComplementsOfVerbFromBegin(pRootVerb, pSubjectChunkLink,
-                                   pCurrentChunk, *complChunk->chunk,
-                                   pPronounComplement, pChunkToSplit.tokRange.getItEnd());
+    auto itEnd = subChunk.tokRange.getItEnd();
+    for (TokIt it = getNextToken(pPronounComplement, itEnd);
+         it != itEnd;
+         it = getNextToken(it, itEnd))
+    {
+      if (it->inflWords.front().word.partOfSpeech == PartOfSpeech::ADVERB)
+      {
+        std::list<ChunkLink>::iterator advChunk =
+            pCurrentChunk.children.insert(pCurrentChunk.children.end(),
+                                          ChunkLink(ChunkLinkType::SIMPLE,
+                                                    Chunk
+                                                    (TokenRange(subChunk.tokRange.getTokList(),
+                                                                it,
+                                                                subChunk.tokRange.getItEnd()),
+                                                     ChunkType::NOMINAL_CHUNK)));
+        advChunk->chunk->head = it;
+        subChunk.tokRange.setItEnd(it);
+        break;
+      }
+    }
   }
 }
 

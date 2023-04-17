@@ -74,8 +74,8 @@ private:
                                 const StaticLinguisticMeaning& pVerRootbMeaning) const;
 
   void xAddComplementsOfVerbFromBegin
-  (Chunk& pRootVerb,
-   ChunkLink* pSubjectChunkLink,
+  (const Chunk& pRootVerb,
+   const ChunkLink* pSubjectChunkLink,
    Chunk& pCurrentChunk,
    Chunk& pChunkToSplit,
    TokIt pItBeforeBegin,
@@ -99,8 +99,8 @@ private:
    ChunkLinkType pVerbCanBeFollowedBy) const;
 
   void xLinkPronounComplementAfterVerb
-  (Chunk& pRootVerb,
-   ChunkLink* pSubjectChunkLink,
+  (const Chunk& pRootVerb,
+   const ChunkLink* pSubjectChunkLink,
    Chunk& pCurrentChunk,
    Chunk& pChunkToSplit,
    TokIt pPronounComplement) const;
