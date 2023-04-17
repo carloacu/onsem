@@ -428,7 +428,7 @@ bool hasBefore(std::vector<Token>& pTokens,
 bool hasAfter(std::vector<Token>& pTokens,
               TokIt pItTok,
               const std::set<PartOfSpeech>& pPartOfSpeechsToFind,
-              PartOfSpeech pPartOfSpeechToSkip)
+              const std::optional<PartOfSpeech>& pPartOfSpeechToSkip)
 {
   auto itNext = getNextToken(pItTok, pTokens.end());
   while (itNext != pTokens.end())
@@ -436,9 +436,10 @@ bool hasAfter(std::vector<Token>& pTokens,
     PartOfSpeech nextPartOfSpeech = itNext->getPartOfSpeech();
     if (pPartOfSpeechsToFind.count(nextPartOfSpeech) > 0)
       return true;
-    if (nextPartOfSpeech != pPartOfSpeechToSkip)
+    if (pPartOfSpeechToSkip && nextPartOfSpeech == *pPartOfSpeechToSkip)
+      itNext = getNextToken(itNext, pTokens.end());
+    else
       return false;
-    itNext = getNextToken(itNext, pTokens.end());
   }
   return false;
 }

@@ -225,6 +225,7 @@ bool _verbCanHaveASubject(const VerbalInflection& pVerbInfl)
       pVerbInfl.tense != LinguisticVerbTense::PRESENT_IMPERATIVE;
 }
 
+
 bool _isPronounVerbCompatibles(const InflectedWord& pIGramPron,
                                const InflectedWord& pIGramVerb)
 {
@@ -557,6 +558,10 @@ bool InflectionsChecker::areCompatibles
     case PartOfSpeech::DETERMINER:
     {
       return _isPronounCompDetCompatibles(pIGram1);
+    }
+    case PartOfSpeech::ADVERB:
+    {
+      return _impl->isPronounComplAdverbCompatibles(pIGram1, pIGram2);
     }
     default:
     {

@@ -50,7 +50,10 @@ public:
   bool areNounNounCompatibles(const InflectedWord& pNounInflWord1,
                               const InflectedWord& pNounInflWord2) const override;
 
-  bool isPronounPronounComplementCompatibles(const InflectedWord& pInflPronoun) const override { return true; }
+  bool isPronounPronounComplementCompatibles(const InflectedWord&) const override { return true; }
+
+  bool isPronounComplAdverbCompatibles(const InflectedWord&,
+                                       const InflectedWord&) const override { return true; }
 
   bool isIntjInflCompatibles(const InflectedWord& pIntj,
                              const InflectedWord& pInfl) const override { return true; }

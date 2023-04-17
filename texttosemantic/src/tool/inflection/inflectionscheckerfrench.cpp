@@ -167,6 +167,13 @@ bool InflectionsCheckerFrench::isPronounPronounComplementCompatibles(const Infle
   return pInflPronoun.word.lemma != "qu'est-ce que";
 }
 
+bool InflectionsCheckerFrench::isPronounComplAdverbCompatibles(const InflectedWord& pInflPronCompl,
+                                                               const InflectedWord& pInflAdv) const
+{
+  return pInflPronCompl.word.lemma != "en" ||
+      !ConceptSet::haveAConceptThatBeginWith(pInflAdv.infos.concepts, "time_relative_");
+}
+
 bool InflectionsCheckerFrench::isIntjInflCompatibles(const InflectedWord& pIntj,
                                                      const InflectedWord&) const
 {

@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include <memory>
+#include <optional>
 #include <onsem/common/enum/partofspeech.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/lingtypetoken.hpp>
@@ -127,7 +128,7 @@ ONSEM_TEXTTOSEMANTIC_API
 bool hasAfter(std::vector<Token>& pTokens,
               TokIt pItTok,
               const std::set<PartOfSpeech>& pPartOfSpeechsToFind,
-              PartOfSpeech pPartOfSpeechToSkip);
+              const std::optional<PartOfSpeech>& pPartOfSpeechToSkip = {});
 
 ONSEM_TEXTTOSEMANTIC_API
 void fillRelativeCharEncodedFromInflWord(LinguisticSubordinateId& pLinguisticSubordinateId,

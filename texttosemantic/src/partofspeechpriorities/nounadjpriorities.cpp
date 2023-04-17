@@ -571,7 +571,7 @@ void pronounPriorities(std::vector<Token>& pTokens,
              inflWords.size() > 1)
     {
       if (!hasBefore(pTokens, itTok, verbAuxpPartOfSpeechsToFind, pInflsCheker, PartOfSpeech::ADVERB) &&
-          !hasAfter(pTokens, itTok, verbAuxpPartOfSpeechsToFind, PartOfSpeech::ADVERB))
+          !hasAfter(pTokens, itTok, verbAuxpPartOfSpeechsToFind))
         putOnBottom(inflWords, inflWords.begin());
       else if (hasAfter(pTokens, itTok, nounPartOfSpeechsToFind, PartOfSpeech::ADVERB))
         putOnBottom(inflWords, inflWords.begin());
