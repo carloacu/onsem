@@ -334,7 +334,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   const std::vector<std::string> howQuestion = {"comment"};
   triggers_addAnswerWithOneParameter("Fais demi tour", howQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Demi-tour", howQuestion, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Retourne toi", howQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Tourne toi", howQuestion, semMem, lingDb, language);
 
 
@@ -427,9 +426,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#fais la toupie\\", triggers_match("fais la toupie", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#fais la toupie(param1=Droite)\\", triggers_match("Fais la toupie à droite", semMem, lingDb));
 
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Retourne toi\\", triggers_match("Retourne toi", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Retourne toi(param1=Lentement)\\", triggers_match("Retourne toi lentement", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Retourne toi(param1=Rapidement)\\", triggers_match("Retourne toi rapidement", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi\\", triggers_match("Tourne toi", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi(param1=Rapidement)\\", triggers_match("Tourne toi rapidement", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi\\", triggers_match("Retourne toi", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi(param1=Lentement)\\", triggers_match("Retourne toi lentement", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi(param1=Rapidement)\\", triggers_match("Retourne toi rapidement", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais demi tour(param1=Lentement)\\", triggers_match("Fais lentement demi tour", semMem, lingDb));
 }
 
 
@@ -499,6 +501,9 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("Turn without stopping", whereQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Turn continuously", whereQuestion, semMem, lingDb, language);
 
+  const std::vector<std::string> howQuestion = {"how"};
+  triggers_addAnswerWithOneParameter("Rotate", howQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Turn around", howQuestion, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 cm", semMem, lingDb));
@@ -557,5 +562,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn without stopping\\", triggers_match("Turn without stopping", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn without stopping(param1=To the left)\\", triggers_match("Turn without stopping to the left", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn continuously\\", triggers_match("Turn continuously", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Rotate\\", triggers_match("Rotate", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Rotate(param1=Slowly)\\", triggers_match("Rotate slowly", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn around\\", triggers_match("Turn around", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn around(param1=Quickly)\\", triggers_match("Turn around quickly", semMem, lingDb));
 }
 
