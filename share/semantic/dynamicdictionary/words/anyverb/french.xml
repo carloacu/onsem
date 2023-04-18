@@ -22,6 +22,9 @@
     <child lemma="en" pos="preposition" chunkLinkType="time" condition="[followedByBeginOfConcept(time_, skip_determiners)&!followedByQuantityEverything]|followedByBeginOfConcept(number_)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />
     <child lemma="à" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />
+    <child lemma="pour" pos="preposition" chunkLinkType="occurrence rank" condition="followedByOccurenceRank" />
+    <child lemma="pour" pos="preposition" chunkLinkType="purpose" />
+    <child lemma="pour" pos="preposition" chunkLinkType="cause" condition="followedByInfinitiveVerb" />
     <child lemma="parce que" pos="sub_conj" chunkLinkType="cause" />
     <child lemma="quand" pos="sub_conj" chunkLinkType="time" />
     <child lemma="ici :" pos="preposition" chunkLinkType="location" condition="followedByResource" />
@@ -66,8 +69,6 @@
     <child lemma="par" pos="preposition" chunkLinkType="way" />
     <child lemma="pendant que" pos="sub_conj" chunkLinkType="time" />
     <child lemma="pendant" pos="preposition" chunkLinkType="time" />
-    <child lemma="pour" pos="preposition" chunkLinkType="occurrence rank" condition="followedByOccurenceRank" />
-    <child lemma="pour" pos="preposition" chunkLinkType="purpose" />
     <child lemma="pour cela que" pos="sub_conj" chunkLinkType="reason of" />
     <child lemma="près" pos="preposition" chunkLinkType="location" />
     <child lemma="sans" pos="preposition" chunkLinkType="without" />

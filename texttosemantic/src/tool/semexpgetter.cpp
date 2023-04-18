@@ -2488,7 +2488,7 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
   switch (pRequestType)
   {
   case SemanticRequestType::CAUSE:
-    return {GrammaticalType::CAUSE};
+    return {GrammaticalType::CAUSE, GrammaticalType::PURPOSE};
   case SemanticRequestType::DURATION:
     return {GrammaticalType::DURATION};
   case SemanticRequestType::LOCATION:

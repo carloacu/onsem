@@ -3,8 +3,8 @@
     <bookmark name="" />
     <child lemma="on" pos="preposition" chunkLinkType="time" condition="followedByDate(with_day_value)" />
     <child chunkLinkType="location" condition="followedByBeginOfConcept(location_)&!followedByBeginOfConcept(level_)" />
-    <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
     <child lemma="in order" pos="sub_conj" chunkLinkType="purpose" condition="followedByInfinitiveVerb" />
+    <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
     <child lemma="when" pos="sub_conj" chunkLinkType="time" condition="followedBySubordinate" />
     <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(duration_, skip_determiners)" ><add_concept val="time_relative_delayedStart" /></child>
     <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(number_, skip_determiners)|followedByBeginOfConcept(duration_, skip_determiners)|followedByDate" />
@@ -27,6 +27,7 @@
     <child lemma="after" pos="sub_conj" chunkLinkType="time" />
     <child lemma="at" pos="preposition" chunkLinkType="time"  condition="followedByBeginOfConcept(time_, skip_determiners)|followedByHour" />
     <child lemma="at" pos="preposition" chunkLinkType="location" />
+    <child lemma="in order" pos="sub_conj" chunkLinkType="cause" condition="followedByInfinitiveVerb" />
     <child lemma="because" pos="sub_conj" chunkLinkType="cause" />
     <child lemma="before" pos="sub_conj" chunkLinkType="time" />
     <child lemma="but" pos="sub_conj" chunkLinkType="mitigation" />
