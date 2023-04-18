@@ -14,6 +14,8 @@ namespace onsem
 {
 namespace howYouThatAnswer
 {
+namespace
+{
 
 struct InformationProvider
 {
@@ -135,6 +137,7 @@ void _addProvider(std::set<InformationProvider>& pInfosProv,
         break;
 }
 
+}
 
 void process(std::unique_ptr<LeafSemAnswer>& pLeafAnswer)
 {

@@ -153,6 +153,8 @@ UniqueSemanticExpression sorryIWillTryToImproveMyself();
 UniqueSemanticExpression getWhoIsSomebodyQuestion(
     const GroundedExpression& pPersonToAsk);
 
+std::unique_ptr<GroundedExpression> generateNumber(int pNumber);
+
 UniqueSemanticExpression generateNumberOfTimesAnswer(
     const GroundedExpression& pGrdExpQuestion,
     std::size_t pNbOfTimes);

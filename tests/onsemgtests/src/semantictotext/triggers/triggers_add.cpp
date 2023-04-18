@@ -79,13 +79,23 @@ void triggers_addAnswerWithOneParameter(
     SemanticLanguageEnum pLanguage)
 {
   std::map<std::string, std::vector<std::string>> parameterLabelToQuestionsStrs{{"param1", pParameterQuestions}};
+  triggers_addAnswerWithManyParameters(pTriggerText, parameterLabelToQuestionsStrs, pSemanticMemory, pLingDb, pLanguage);
+}
+
+
+void triggers_addAnswerWithManyParameters(
+    const std::string& pTriggerText,
+    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
+{
   std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestionsSemExps;
   triggers::createParameterSemanticexpressions(parameterLabelToQuestionsSemExps,
-                                               parameterLabelToQuestionsStrs,
+                                               pParameterLabelToQuestionsStrs,
                                                pLingDb, pLanguage);
   triggers::addToResource(pTriggerText, "label", pTriggerText, parameterLabelToQuestionsSemExps, pSemanticMemory, pLingDb, pLanguage);
 }
-
 
 void triggers_addOtherTriggerFormulations(const std::string& pTriggerText,
                                           const std::string& pAnswerText,

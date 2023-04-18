@@ -244,6 +244,15 @@ UniqueSemanticExpression _confirmWeAlreadyKnowIt(
   return _confirmSemExp(_sayThatWeKnow(pObjectGrdExp));
 }
 
+std::unique_ptr<GroundedExpression> _invertSubjectAndObject(
+    const GroundedExpression& pGrdExp)
+{
+  auto res = std::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
+  for (const auto& currChild : pGrdExp.children)
+    res->children.emplace(SemExpGetter::invertGrammaticalType(currChild.first), currChild.second->clone());
+  return res;
+}
+
 }
 
 
@@ -1299,6 +1308,18 @@ UniqueSemanticExpression getWhoIsSomebodyQuestion(
 }
 
 
+std::unique_ptr<GroundedExpression> generateNumber(int pNumber)
+{
+  return std::make_unique<GroundedExpression>(
+        [&pNumber]
+  {
+    auto newNumberGenGrd = std::make_unique<SemanticGenericGrounding>();
+    newNumberGenGrd->quantity.setNumber(pNumber);
+    newNumberGenGrd->entityType = SemanticEntityType::NUMBER;
+    return newNumberGenGrd;
+  }());
+}
+
 
 UniqueSemanticExpression generateNumberOfTimesAnswer(
     const GroundedExpression& pGrdExpQuestion,
@@ -1320,16 +1341,6 @@ UniqueSemanticExpression generateNumberOfTimesAnswer(
   }()));
 
   return std::move(rootGrdExp);
-}
-
-
-std::unique_ptr<GroundedExpression> _invertSubjectAndObject(
-    const GroundedExpression& pGrdExp)
-{
-  auto res = std::make_unique<GroundedExpression>(pGrdExp.cloneGrounding());
-  for (const auto& currChild : pGrdExp.children)
-    res->children.emplace(SemExpGetter::invertGrammaticalType(currChild.first), currChild.second->clone());
-  return res;
 }
 
 
@@ -1357,8 +1368,28 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
   if (pAllAnswers.empty())
     return mystd::unique_propagate_const<UniqueSemanticExpression>();
 
-  std::map<QuestionAskedInformation, UniqueSemanticExpression> requestToAnswers;
   mystd::unique_propagate_const<UniqueSemanticExpression> res;
+  if (request == SemanticRequestType::YESORNO)
+  {
+    auto& answElts = pAllAnswers.begin()->second;
+    if (!answElts.answersGenerated.empty())
+    {
+      AnswerExpGenerated& firstAnswerExp = answElts.answersGenerated.front();
+      res.emplace(std::move(firstAnswerExp.genSemExp));
+      answElts.getReferences(pReferences);
+    }
+    return res;
+  }
+
+  if (request == SemanticRequestType::TIMES)
+  {
+    auto& answElts = pAllAnswers.begin()->second;
+    res.emplace(generateNumberOfTimesAnswer(grdExpQuestion, answElts.getNbOfTimes()));
+    answElts.getReferences(pReferences);
+    return res;
+  }
+
+  std::map<QuestionAskedInformation, UniqueSemanticExpression> requestToAnswers;
   for (auto& currAnsw : pAllAnswers)
   {
     AllAnswerElts& answElts = currAnsw.second;
@@ -1369,95 +1400,66 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
         !answElts.answersGenerated.empty())
       answerSemExpOpt = answElts.answersGenerated.front().genSemExp->clone();
 
-    if (!answerSemExpOpt)
-    {
-      if (request == SemanticRequestType::TIMES)
-      {
-        res.emplace(generateNumberOfTimesAnswer(grdExpQuestion, 0));
-        answElts.getReferences(pReferences);
-      }
-    }
-    else
-    {
+    if (answerSemExpOpt)
       requestToAnswers.emplace(currAnsw.first, std::move(*answerSemExpOpt));
-    }
   }
 
-  if (!res)
+  if (request == SemanticRequestType::VERB)
   {
-    if (request == SemanticRequestType::YESORNO)
+    auto it = requestToAnswers.find(request);
+    if (it != requestToAnswers.end())
     {
+      res = std::move(it->second);
       auto& answElts = pAllAnswers.begin()->second;
-      if (!answElts.answersGenerated.empty())
-      {
-        AnswerExpGenerated& firstAnswerExp = answElts.answersGenerated.front();
-        res.emplace(std::move(firstAnswerExp.genSemExp));
-        answElts.getReferences(pReferences);
-      }
-    }
-    else if (request == SemanticRequestType::TIMES)
-    {
-      auto& answElts = pAllAnswers.begin()->second;
-      res.emplace(generateNumberOfTimesAnswer(grdExpQuestion, answElts.answersFromMemory.size()));
       answElts.getReferences(pReferences);
     }
-    else if (request == SemanticRequestType::VERB)
+  }
+  else if ((request == SemanticRequestType::SUBJECT && !SemExpGetter::isPassive(grdExpQuestion)) ||
+           (request == SemanticRequestType::OBJECT && SemExpGetter::isPassive(grdExpQuestion)))
+  {
+    bool resEmplaced = false;
+    // For the cases that the verb is "be" and the subject has at least one child,
+    // we produce a sentence instead of just the raw answer
+    if (ConceptSet::haveAConcept(grdExpQuestion->concepts, ConceptSet::conceptVerbEquality))
     {
-      auto it = requestToAnswers.find(request);
-      if (it != requestToAnswers.end())
+      auto itSubject = grdExpQuestion.children.find(GrammaticalType::SUBJECT);
+      if (itSubject != grdExpQuestion.children.end() &&
+          SemExpGetter::isDefinite(*itSubject->second))
       {
-        res = std::move(it->second);
-        auto& answElts = pAllAnswers.begin()->second;
-        answElts.getReferences(pReferences);
+        auto itSubject = requestToAnswers.find(SemanticRequestType::SUBJECT);
+        if (itSubject != requestToAnswers.end())
+        {
+          requestToAnswers.emplace(SemanticRequestType::OBJECT, std::move(itSubject->second));
+          requestToAnswers.erase(itSubject);
+        }
+        res.emplace(_reformulateQuestionWithListOfAnswers(requestToAnswers, grdExpQuestion,
+                                                          pMemBlock, pLingDb));
+        resEmplaced = true;
       }
     }
-    else if ((request == SemanticRequestType::SUBJECT && !SemExpGetter::isPassive(grdExpQuestion)) ||
-             (request == SemanticRequestType::OBJECT && SemExpGetter::isPassive(grdExpQuestion)))
+    if (!resEmplaced)
     {
-      bool resEmplaced = false;
-      // For the cases that the verb is "be" and the subject has at least one child,
-      // we produce a sentence instead of just the raw answer
-      if (ConceptSet::haveAConcept(grdExpQuestion->concepts, ConceptSet::conceptVerbEquality))
+      auto nbOfReqToAswers = requestToAnswers.size();
+      if (nbOfReqToAswers == 1)
       {
-        auto itSubject = grdExpQuestion.children.find(GrammaticalType::SUBJECT);
-        if (itSubject != grdExpQuestion.children.end() &&
-            SemExpGetter::isDefinite(*itSubject->second))
-        {
-          auto itSubject = requestToAnswers.find(SemanticRequestType::SUBJECT);
-          if (itSubject != requestToAnswers.end())
-          {
-            requestToAnswers.emplace(SemanticRequestType::OBJECT, std::move(itSubject->second));
-            requestToAnswers.erase(itSubject);
-          }
-          res.emplace(_reformulateQuestionWithListOfAnswers(requestToAnswers, grdExpQuestion,
-                                                            pMemBlock, pLingDb));
-          resEmplaced = true;
-        }
+        res = std::move(requestToAnswers.begin()->second);
       }
-      if (!resEmplaced)
+      else if (nbOfReqToAswers > 1)
       {
-        auto nbOfReqToAswers = requestToAnswers.size();
-        if (nbOfReqToAswers == 1)
-        {
-          res = std::move(requestToAnswers.begin()->second);
-        }
-        else if (nbOfReqToAswers > 1)
-        {
-          auto listExp = std::make_unique<ListExpression>();
-          for (auto& currAnswer : requestToAnswers)
-            listExp->elts.emplace_back(std::move(currAnswer.second));
-          res = std::move(listExp);
-        }
+        auto listExp = std::make_unique<ListExpression>();
+        for (auto& currAnswer : requestToAnswers)
+          listExp->elts.emplace_back(std::move(currAnswer.second));
+        res = std::move(listExp);
       }
-      for (const auto& currAnswer : pAllAnswers)
-        currAnswer.second.getReferences(pReferences);
     }
-    else
-    {
-      res.emplace(_reformulateQuestionWithListOfAnswers(requestToAnswers, grdExpQuestion, pMemBlock, pLingDb));
-      for (const auto& currAnswer : pAllAnswers)
-        currAnswer.second.getReferences(pReferences);
-    }
+    for (const auto& currAnswer : pAllAnswers)
+      currAnswer.second.getReferences(pReferences);
+  }
+  else
+  {
+    res.emplace(_reformulateQuestionWithListOfAnswers(requestToAnswers, grdExpQuestion, pMemBlock, pLingDb));
+    for (const auto& currAnswer : pAllAnswers)
+      currAnswer.second.getReferences(pReferences);
   }
 
   return res;

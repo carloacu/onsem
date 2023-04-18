@@ -117,6 +117,14 @@ TEST_F(SemanticReasonerGTests, operator_get_basic)
     ASSERT_EQ(1u, res.size());
     ASSERT_EQ("Tu souris.", res[0]);
   }
+
+  // number of times information
+  {
+    operator_inform("Thérèse a joué 3 fois", semMem, lingDb);
+    auto res = operator_get("Combien de fois Thérèse a joué ?", semMem, lingDb);
+    ASSERT_EQ(1u, res.size());
+    ASSERT_EQ("3", res[0]);
+  }
 }
 
 TEST_F(SemanticReasonerGTests, operator_get_lists)

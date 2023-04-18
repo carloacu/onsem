@@ -387,6 +387,12 @@ TEST_F(SemanticReasonerGTests, operator_answer_basic)
   }
 
   {
+      operator_inform("Thérèse a joué 3 fois", semMem, lingDb);
+      ONSEM_ANSWER_EQ("Thérèse a joué 3 fois.",
+                      operator_answer("Combien de fois Thérèse a joué ?", semMem, lingDb));
+  }
+
+  {
     operator_inform("Je dois avancer d'un mètre", semMem, lingDb);
     ONSEM_ANSWER_EQ("Tu dois avancer 1 mètre.",
                     operator_answer("De combien dois-je avancer en mètres ?", semMem, lingDb));

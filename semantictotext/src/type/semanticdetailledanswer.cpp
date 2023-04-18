@@ -56,6 +56,21 @@ bool QuestionAskedInformation::operator<(const QuestionAskedInformation& pOther)
 }
 
 
+int AllAnswerElts::getNbOfTimes() const
+{
+  int currentResult = 0;
+  for (auto it = answersFromMemory.rbegin(); it != answersFromMemory.rend(); ++it)
+  {
+    const AnswerExp& currAnswer = *it;
+    auto res = SemExpGetter::getNumberOfRepetitionsOpt(currAnswer.getGrdExp().children);
+    if (res)
+      return currentResult + *res;
+    ++currentResult;
+  }
+  return currentResult;
+}
+
+
 LeafSemAnswer::LeafSemAnswer(ContextualAnnotation pType)
   : SemAnswer(),
     type(pType),

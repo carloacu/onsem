@@ -2305,8 +2305,19 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
       howYouThatAnswer::process(newAnsw);
       break;
     }
-    case SemanticOperatorEnum::CHECK:
     case SemanticOperatorEnum::GET:
+    {
+      if (pRequests.has(SemanticRequestType::TIMES))
+      {
+        auto& answElts = allAnswers.begin()->second;
+        int nOfTimes = answElts.getNbOfTimes();
+        newAnsw = std::make_unique<LeafSemAnswer>(ContextualAnnotation::ANSWER);
+        newAnsw->answerElts[SemanticRequestType::TIMES].answersGenerated.emplace_back(
+              SemExpCreator::generateNumber(nOfTimes));
+      }
+      break;
+    }
+    case SemanticOperatorEnum::CHECK:
     case SemanticOperatorEnum::FEEDBACK:
     case SemanticOperatorEnum::FIND:
     case SemanticOperatorEnum::RESOLVECOMMAND:

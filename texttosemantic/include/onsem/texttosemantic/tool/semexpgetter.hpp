@@ -4,6 +4,7 @@
 #include <set>
 #include <list>
 #include <map>
+#include <optional>
 #include <vector>
 #include <onsem/common/enum/contextualannotation.hpp>
 #include <onsem/common/enum/semanticentitytype.hpp>
@@ -120,7 +121,10 @@ std::unique_ptr<SemanticGrounding> mergeQuantities(const SemanticGrounding& pPre
                                                    std::unique_ptr<SemanticGrounding> pNewQuantity);
 
 ONSEM_TEXTTOSEMANTIC_API
-int getNumberOfRepetitions(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);
+int getNumberOfRepetitions(const std::map<GrammaticalType, UniqueSemanticExpression>& pChildren);
+
+ONSEM_TEXTTOSEMANTIC_API
+std::optional<int> getNumberOfRepetitionsOpt(const std::map<GrammaticalType, UniqueSemanticExpression>& pChildren);
 
 ONSEM_TEXTTOSEMANTIC_API
 const SemanticExpression* getUntilChild(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);

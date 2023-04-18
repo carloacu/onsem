@@ -506,18 +506,25 @@ std::unique_ptr<SemanticGrounding> mergeQuantities(const SemanticGrounding& pPre
   return pNewQuantity;
 }
 
-int getNumberOfRepetitions(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations)
+int getNumberOfRepetitions(const std::map<GrammaticalType, UniqueSemanticExpression>& pChildren)
 {
-  auto itRepetitionChild = pAnnotations.find(GrammaticalType::REPETITION);
-  if (itRepetitionChild != pAnnotations.end())
+  auto res = getNumberOfRepetitionsOpt(pChildren);
+  if (res)
+    return *res;
+  return 1;
+}
+
+std::optional<int> getNumberOfRepetitionsOpt(const std::map<GrammaticalType, UniqueSemanticExpression>& pChildren)
+{
+  auto itRepetitionChild = pChildren.find(GrammaticalType::REPETITION);
+  if (itRepetitionChild != pChildren.end())
   {
     auto res = getNumberOfElements(*itRepetitionChild->second);
     if (res)
       return res->value;
   }
-  return 1;
+  return {};
 }
-
 
 const SemanticExpression* getUntilChild(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations)
 {

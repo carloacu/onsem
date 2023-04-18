@@ -87,6 +87,7 @@ struct AllAnswerElts : public ReferencesGetter
 {
   bool isEmpty() const { return answersFromMemory.empty() && answersGenerated.empty(); }
   void getReferences(std::list<std::string>& pReferences) const override;
+  int getNbOfTimes() const;
 
   std::list<AnswerExp> answersFromMemory{};
   // elts of the reaction, not coming from memory
