@@ -26,7 +26,7 @@ struct AnswerElement
   virtual std::unique_ptr<SemanticExpressionContainer> getSemExpForGrammaticalType(GrammaticalType pGrammType,
                                                                                    const GroundedExpression* pFromGrdExpQuestion,
                                                                                    const linguistics::LinguisticDatabase* pLingDb,
-                                                                                   bool* pHasSamePolarityPtr) = 0;
+                                                                                   bool* pHasSamePolarityPtr) const = 0;
   virtual const std::list<GroundedExpWithLinks>& getMemorySentences() const = 0;
 
   RelatedContextAxiom relatedContextAxioms;
@@ -56,7 +56,7 @@ struct AnswerElementDynamic : public AnswerElement
   std::unique_ptr<SemanticExpressionContainer> getSemExpForGrammaticalType(GrammaticalType pGrammType,
                                                                            const GroundedExpression* pFromGrdExpQuestion,
                                                                            const linguistics::LinguisticDatabase* pLingDb,
-                                                                           bool* pHasSamePolarityPtr) override;
+                                                                           bool* pHasSamePolarityPtr) const override;
   const std::list<GroundedExpWithLinks>& getMemorySentences() const override
   { return _memSentPtr->getContextAxiom().memorySentences.elts; }
 
@@ -93,7 +93,7 @@ struct AnswerElementStatic : public AnswerElement
   std::unique_ptr<SemanticExpressionContainer> getSemExpForGrammaticalType(GrammaticalType pGrammType,
                                                                            const GroundedExpression* pFromGrdExpQuestion,
                                                                            const linguistics::LinguisticDatabase* pLingDb,
-                                                                           bool* pHasSamePolarityPtr) override;
+                                                                           bool* pHasSamePolarityPtr) const override;
   const std::list<GroundedExpWithLinks>& getMemorySentences() const override { return _memSents; }
 
 private:

@@ -15,7 +15,7 @@ std::unique_ptr<SemanticExpressionContainer> AnswerElementDynamic::getSemExpForG
     GrammaticalType pGrammType,
     const GroundedExpression* pFromGrdExpQuestion,
     const linguistics::LinguisticDatabase* pLingDb,
-    bool* pHasSamePolarityPtr)
+    bool* pHasSamePolarityPtr) const
 {
   auto* rawRes = _memSentPtr->getSemExpForGrammaticalType(pGrammType);
   if (rawRes != nullptr)
@@ -65,11 +65,11 @@ std::unique_ptr<SemanticExpressionContainer> AnswerElementStatic::getSemExpForGr
     GrammaticalType pGrammType,
     const GroundedExpression* pFromGrdExpQuestion,
     const linguistics::LinguisticDatabase* pLingDb,
-    bool* pHasSamePolarityPtr)
+    bool* pHasSamePolarityPtr) const
 {
   if (!_grdExpPtr)
     _fillGrdExp();
-  auto& grdExp = *_grdExpPtr;
+  const auto& grdExp = *_grdExpPtr;
   if (!_annotations)
     _fillAnnotations();
   auto* semExpPtr = _annotations->grammaticalTypeToSemExpPtr(pGrammType);
@@ -77,7 +77,7 @@ std::unique_ptr<SemanticExpressionContainer> AnswerElementStatic::getSemExpForGr
   {
     if (pHasSamePolarityPtr != nullptr && pFromGrdExpQuestion != nullptr && pLingDb != nullptr)
       *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet, true);
-    return std::make_unique<UniqueSemanticExpression>(std::move(semExpPtr->clone()));
+    return std::make_unique<UniqueSemanticExpression>(semExpPtr->clone());
   }
 
   const auto itChild = grdExp.children.find(pGrammType);
@@ -85,7 +85,7 @@ std::unique_ptr<SemanticExpressionContainer> AnswerElementStatic::getSemExpForGr
   {
     if (pHasSamePolarityPtr != nullptr && pFromGrdExpQuestion != nullptr && pLingDb != nullptr)
       *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet, true);
-    return std::make_unique<UniqueSemanticExpression>(std::move(itChild->second));
+    return std::make_unique<UniqueSemanticExpression>(itChild->second->clone());
   }
   return {};
 }
