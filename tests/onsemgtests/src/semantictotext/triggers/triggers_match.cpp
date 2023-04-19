@@ -433,6 +433,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais demi tour(param1=Lentement)\\", triggers_match("Fais lentement demi tour", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(nbOfTimes=1)\\", triggers_match("Fais un tour complet", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(nbOfTimes=2)\\", triggers_match("Fais un tour complet 2 fois", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(nbOfTimes=1, speed=Vite)\\", triggers_match("Fais un tour complet vite", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(nbOfTimes=1, speed=Rapidement)\\", triggers_match("Fais un tour complet rapidement", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(location=Droite, nbOfTimes=1)\\", triggers_match("Fais un tour complet à droite", semMem, lingDb));
@@ -502,17 +503,20 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("can you look up", {}, semMem, lingDb, language);
 
   const std::vector<std::string> whereQuestion = {"where"};
-  triggers_addAnswerWithOneParameter("Make a full turn", whereQuestion, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Do a 360", whereQuestion, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Pirouette", whereQuestion, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Take a spin on yourself", whereQuestion, semMem, lingDb, language);
-
   triggers_addAnswerWithOneParameter("Turn without stopping", whereQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Turn continuously", whereQuestion, semMem, lingDb, language);
 
   const std::vector<std::string> howQuestion = {"how"};
   triggers_addAnswerWithOneParameter("Rotate", howQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Turn around", howQuestion, semMem, lingDb, language);
+
+  std::map<std::string, std::vector<std::string>> turnParameters {
+    {"location", {"where"}}, {"speed", {"how"}}, {"nbOfTimes", {"how many times"}}
+  };
+  triggers_addAnswerWithManyParameters("Make a full turn", turnParameters, semMem, lingDb, language);
+  triggers_addAnswerWithManyParameters("Do a 360", turnParameters, semMem, lingDb, language);
+  triggers_addAnswerWithManyParameters("Pirouette", turnParameters, semMem, lingDb, language);
+  triggers_addAnswerWithManyParameters("Take a spin on yourself", turnParameters, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 cm", semMem, lingDb));
@@ -562,12 +566,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=4 minutes)\\", triggers_match("Shut down for 4 minutes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=5 minutes)\\", triggers_match("Shut down during 5 minutes", semMem, lingDb));
 
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn\\", triggers_match("Make a full turn", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do a 360\\", triggers_match("Do a 360", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette\\", triggers_match("Pirouette", semMem, lingDb, language));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(param1=The left)\\", triggers_match("Pirouette to the left", semMem, lingDb, language));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Take a spin on yourself(param1=On you)\\", triggers_match("Take a spin on yourself", semMem, lingDb));
-
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn without stopping\\", triggers_match("Turn without stopping", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn without stopping(param1=To the left)\\", triggers_match("Turn without stopping to the left", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn continuously\\", triggers_match("Turn continuously", semMem, lingDb));
@@ -576,5 +574,14 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Rotate(param1=Slowly)\\", triggers_match("Rotate slowly", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn around\\", triggers_match("Turn around", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn around(param1=Quickly)\\", triggers_match("Turn around quickly", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=1)\\", triggers_match("Make a full turn", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=1, speed=Quickly)\\", triggers_match("Make a full turn quickly", semMem, lingDb));
+//  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=2, speed=Quickly)\\", triggers_match("Make a full turn quickly 2 times", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=3)\\", triggers_match("Make a full turn 3 times", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do a 360(nbOfTimes=1)\\", triggers_match("Do a 360", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(nbOfTimes=1)\\", triggers_match("Pirouette", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(location=The left, nbOfTimes=1)\\", triggers_match("Pirouette to the left", semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Take a spin on yourself(location=On you, nbOfTimes=1)\\", triggers_match("Take a spin on yourself", semMem, lingDb));
 }
 
