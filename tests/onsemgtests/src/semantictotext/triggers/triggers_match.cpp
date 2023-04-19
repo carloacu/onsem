@@ -433,11 +433,14 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais demi tour(param1=Lentement)\\", triggers_match("Fais lentement demi tour", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(nbOfTimes=1)\\", triggers_match("Fais un tour complet", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(nbOfTimes=1, speed=Vite)\\", triggers_match("Fais un tour complet vite", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(nbOfTimes=1, speed=Rapidement)\\", triggers_match("Fais un tour complet rapidement", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour complet(location=Droite, nbOfTimes=1)\\", triggers_match("Fais un tour complet à droite", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sur toi même(location=Sur toi, nbOfTimes=1)\\", triggers_match("Tourne sur toi même", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais une pirouette(nbOfTimes=1)\\", triggers_match("Fais une pirouette", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un tour sur toi même(location=Sur toi, nbOfTimes=1)\\", triggers_match("Fais un tour sur toi même", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(nbOfTimes=1)\\", triggers_match("Fais un 360", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(nbOfTimes=1, speed=Lentement)\\", triggers_match("Fais un 360 lentement", semMem, lingDb));
 }
 
 
