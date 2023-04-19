@@ -371,21 +371,29 @@
 #porte-vélos,porte vélo.N:mp
 
 -moi-même.PRO
-#moi\-même,lui-même.PRO:1ms:1fs
+#moi-même,lui-même.PRO:1ms:1fs
+#moi même,lui-même.PRO:1ms:1fs
 -toi-même.PRO
-#toi\-même,lui-même.PRO:2ms:2fs
+#toi-même,lui-même.PRO:2ms:2fs
+#toi même,lui-même.PRO:2ms:2fs
 -lui-même.PRO
-#lui\-même,.PRO:3ms
+#lui-même,.PRO:3ms
+#lui même,lui-même.PRO:3ms
 -elle-même.PRO
 -elle-même.PRO
-#elle\-même,lui-même.PRO:3fs
-#nous\-mêmes,.PRO:1mp:1fp
-#vous\-mêmes,.PRO:2mp:2fp
+#elle-même,lui-même.PRO:3fs
+#elle même,lui-même.PRO:3fs
+#nous-mêmes,lui-même.PRO:1mp:1fp
+#nous mêmes,lui-même.PRO:1mp:1fp
+#vous-mêmes,lui-même.PRO:2mp:2fp
+#vous mêmes,lui-même.PRO:2mp:2fp
 -eux-mêmes.PRO
-#eux\-mêmes,lui-même.PRO:3mp
+#eux-mêmes,lui-même.PRO:3mp
+#eux mêmes,lui-même.PRO:3mp
 -elles-mêmes.PRO
 -elles-mêmes.PRO
-#elles\-mêmes,lui-même.PRO:3fp
+#elles-mêmes,lui-même.PRO:3fp
+#elles mêmes,lui-même.PRO:3fp
 
 #n'importe qui,.PRO
 #n'importe quoi,.PRO
