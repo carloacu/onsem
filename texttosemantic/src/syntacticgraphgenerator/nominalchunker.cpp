@@ -182,12 +182,22 @@ void NominalChunker::xSplitAChunk(ChunkLinkIter& pItChunkLink) const
     if (itTokenBefore == currChunk.tokRange.getItEnd())
       continue;
     bool canBeInANewChunk = !tokenIsMoreProbablyAType(*itTokenBefore, subChunkSeps);
+    const auto& beginOfWordInflWord = *itBeginOfWordGroup->inflWords.begin();
+    PartOfSpeech currentPartOfSpeech = beginOfWordInflWord.word.partOfSpeech;
+
+    if (!canBeInANewChunk && currentPartOfSpeech != PartOfSpeech::ADVERB)
+    {
+      auto& tokBeforeInflWord = *itTokenBefore->inflWords.begin();
+      if (tokBeforeInflWord.word.partOfSpeech == PartOfSpeech::ADVERB &&
+          ConceptSet::haveAConceptThatBeginWith(tokBeforeInflWord.infos.concepts, "manner_"))
+      {
+          canBeInANewChunk = true;
+      }
+    }
 
     if (canBeInANewChunk)
     {
       const auto& tokenBeforeInflWord = *itTokenBefore->inflWords.begin();
-      const auto& beginOfWordInflWord = *itBeginOfWordGroup->inflWords.begin();
-      PartOfSpeech currentPartOfSpeech = beginOfWordInflWord.word.partOfSpeech;
       switch (currentPartOfSpeech)
       {
       case PartOfSpeech::PREPOSITION:

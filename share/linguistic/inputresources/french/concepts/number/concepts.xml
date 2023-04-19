@@ -83,10 +83,10 @@
  <concept name="number_1000">
   <linkedMeaning lemme="mille" relationToConcept="4"/>
  </concept>
- <concept name="number_10000">
+ <concept name="number_1000000">
   <linkedMeaning lemme="million" relationToConcept="4"/>
  </concept>
- <concept name="number_100000">
+ <concept name="number_1000000000">
   <linkedMeaning lemme="milliard" relationToConcept="4"/>
  </concept>
 </linguisticdatabase>

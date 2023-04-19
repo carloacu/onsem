@@ -789,10 +789,12 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
       {
         if (!pKnowReferenceForSure)
           genGrd.referenceType = SemanticReferenceType::INDEFINITE;
-        if (genGrd.entityType == SemanticEntityType::NUMBER)
+        if (genGrd.entityType != SemanticEntityType::NUMBER)
+          genGrd.quantity.setNumber(*numberOpt);
+        else if (*numberOpt > genGrd.quantity.nb)
           genGrd.quantity.increaseNumber(*numberOpt);
         else
-          genGrd.quantity.setNumber(*numberOpt);
+          genGrd.quantity.setNumber(*numberOpt * genGrd.quantity.nb);
       }
     }
 

@@ -267,8 +267,8 @@
   <declareconcept name="number_90" autofill="false" />
   <declareconcept name="number_100" autofill="false" />
   <declareconcept name="number_1000" autofill="false" />
-  <declareconcept name="number_10000" autofill="false" />
-  <declareconcept name="number_100000" autofill="false" />
+  <declareconcept name="number_1000000" autofill="false" />
+  <declareconcept name="number_1000000000" autofill="false" />
 
   <declareconcept name="perception" />
   <declareconcept name="perception_hear" />
