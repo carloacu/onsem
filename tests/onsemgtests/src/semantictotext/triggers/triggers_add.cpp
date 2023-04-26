@@ -158,7 +158,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_basic)
   {
     const std::string areWeHappy = "are we happy";
     ONSEM_ANSWERNOTFOUND_EQ("I don't know if we are happy.", operator_answer(areWeHappy, semMem, lingDb));
-    const std::string answerStr = "It's probably sunday.";
+    const std::string answerStr = "It's probably Sunday.";
     triggers_add(areWeHappy, answerStr, semMem, lingDb);
     ONSEM_ANSWER_EQ(answerStr, operator_answer(areWeHappy, semMem, lingDb));
     ONSEM_ANSWER_EQ(answerStr, triggers_match(areWeHappy, semMem, lingDb));

@@ -223,12 +223,12 @@ TEST_F(SemanticReasonerGTests, operator_resolveCommand_startWithRobotName)
   SemanticMemory semMem;
   memoryOperation::learnSayCommand(semMem, lingDb);
 
-  EXPECT_EQ("", operator_resolveCommand("asimo say hello", semMem, lingDb));
+  EXPECT_EQ("", operator_resolveCommand("asimo says hello", semMem, lingDb));
   EXPECT_EQ("", operator_resolveCommand("asimo demande quel est mon nom", semMem, lingDb));
   operator_mergeAndInform("you are Asimo", semMem, lingDb);
-  EXPECT_EQ("Hello", operator_resolveCommand("asimo say hello", semMem, lingDb));
-  EXPECT_EQ("Hello", operator_resolveCommand("Asimo say hello", semMem, lingDb));
-  EXPECT_EQ("", operator_resolveCommand("n5 say hello", semMem, lingDb));
+  EXPECT_EQ("Hello", operator_resolveCommand("asimo says hello", semMem, lingDb));
+  EXPECT_EQ("Hello", operator_resolveCommand("Asimo says hello", semMem, lingDb));
+  EXPECT_EQ("", operator_resolveCommand("n5 says hello", semMem, lingDb));
   EXPECT_EQ("Quel est ton nom ?", operator_resolveCommand("asimo demande quel est mon nom", semMem, lingDb));
 }
 

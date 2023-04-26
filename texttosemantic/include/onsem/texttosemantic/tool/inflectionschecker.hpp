@@ -61,6 +61,7 @@ public:
 
   static bool verbIsAtPastParticiple(const InflectedWord& pIGram);
   static bool verbCanBeAtImperative(const InflectedWord& pIGram);
+  static bool verbCanBeAtThridOfSingularExceptImperative(const InflectedWord& pInflWord);
   static bool verbIsAtPresentIndicative(const InflectedWord& pIGram);
   static bool verbIsAtPresentParticiple(const InflectedWord& pIGram);
   static bool verbIsAtInfinitive(const InflectedWord& pIGram);

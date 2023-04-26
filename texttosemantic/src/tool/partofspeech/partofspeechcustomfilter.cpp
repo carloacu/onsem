@@ -89,7 +89,7 @@ bool PartOfSpeechCustomFilter::process
       {
         for (const LingWordsGroup& meanGroup : itIGram->infos.metaMeanings)
         {
-          std::list<std::pair<TokIt, std::list<InflectedWord>::iterator> > linkedTokens;
+          std::list<std::pair<TokIt, std::list<InflectedWord>::iterator>> linkedTokens;
           if (xTryToLinkAToken(linkedTokens, pTokens, itTok, itIGram, meanGroup))
           {
             LinguisticMeaning rootMeaning;
@@ -291,8 +291,21 @@ void PartOfSpeechCustomFilter::xTestOfPuttingNounAtBottomOfListIfOccurTwoTimesIn
   for (TokIt it = getNextToken(prevIt, pTokens.end());
        it != pTokens.end(); it = getNextToken(it, pTokens.end()))
   {
-    xPutNounAtBottomIfNecessary(prevIt->inflWords, it->inflWords, pExceptForVerb);
-    xPutNounAtBottomIfNecessary(it->inflWords, prevIt->inflWords, pExceptForVerb);
+    auto& inflWords1 = prevIt->inflWords;
+    auto& inflWords2 = it->inflWords;
+    if ((inflWords1.size() > 1 || inflWords2.size() > 1) &&
+        (inflWords1.size() == 1 || inflWords2.size() == 1))
+    {
+      auto& inflWord1 = inflWords1.front();
+      auto& inflWord2 = inflWords2.front();
+      if (inflWord1.word.partOfSpeech == PartOfSpeech::NOUN &&
+          inflWord2.word.partOfSpeech == PartOfSpeech::NOUN &&
+          !fFls.areCompatibles(inflWord1, inflWord2))
+      {
+        xPutNounAtBottomIfNecessary(inflWords1, inflWords2, pExceptForVerb);
+        xPutNounAtBottomIfNecessary(inflWords2, inflWords1, pExceptForVerb);
+      }
+    }
     prevIt = it;
   }
 }
@@ -303,17 +316,11 @@ void PartOfSpeechCustomFilter::xPutNounAtBottomIfNecessary
  std::list<InflectedWord>& pIGram2,
  bool pExceptForVerb) const
 {
-  if (pIGram1.size() == 1 &&
-      pIGram1.front().word.partOfSpeech == PartOfSpeech::NOUN &&
-      pIGram2.size() > 1 &&
-      pIGram2.front().word.partOfSpeech == PartOfSpeech::NOUN &&
-      !fFls.areCompatibles(pIGram1.front(), pIGram2.front()))
-  {
-    auto itSecondIGram2 = ++pIGram2.begin();
-    if (!pExceptForVerb ||
-        itSecondIGram2->word.partOfSpeech != PartOfSpeech::VERB)
-      pIGram2.splice(pIGram2.begin(), pIGram2, itSecondIGram2);
-  }
+  auto itSecondIGram2 = ++pIGram2.begin();
+  if ((!pExceptForVerb ||
+      itSecondIGram2->word.partOfSpeech != PartOfSpeech::VERB) &&
+      itSecondIGram2->word.partOfSpeech != PartOfSpeech::NOUN)
+    pIGram2.splice(pIGram2.begin(), pIGram2, itSecondIGram2);
 }
 
 

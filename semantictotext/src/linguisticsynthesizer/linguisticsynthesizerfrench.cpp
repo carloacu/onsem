@@ -333,6 +333,13 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerFrench::_getOb
       const SemanticGenericGrounding& genGrd = objectGrd.getGenericGrounding();
       return getObjPositionOfGenericGrd(genGrd);
     }
+    case SemanticGroundingType::CONCEPTUAL:
+    {
+      if (pRequests.has(SemanticRequestType::OBJECT) ||
+          pRequests.has(SemanticRequestType::QUANTITY))
+        return LinguisticSynthesizerPrivate::ObjectPosition::BEFORESUBJECT;
+      break;
+    }
     case SemanticGroundingType::AGENT:
     {
       const SemanticAgentGrounding& agentGrd = objectGrd.getAgentGrounding();

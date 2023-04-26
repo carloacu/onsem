@@ -580,6 +580,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=1)\\", triggers_match("Make a full turn", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=1, speed=Quickly)\\", triggers_match("Make a full turn quickly", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=2, speed=Quickly)\\", triggers_match("Make a full turn quickly 2 times", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(location=The left, nbOfTimes=3, speed=Slowly)\\", triggers_match("Make a full turn to the left slowly 3 times", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=3)\\", triggers_match("Make a full turn 3 times", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do a 360(nbOfTimes=1)\\", triggers_match("Do a 360", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(nbOfTimes=1)\\", triggers_match("Pirouette", semMem, lingDb, language));

@@ -164,6 +164,175 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
   }());
 
 
+  // is a possible verb
+  rules.emplace_back([&pInfls]
+  {
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
+        ("is a possible verb", pInfls,
+         TaggerTokenCheck
+                  ([](const InflectedWord& pInflWord)
+    {
+      return pInflWord.word.partOfSpeech == PartOfSpeech::VERB &&
+          !InflectionsChecker::verbCanBeAtThridOfSingularExceptImperative(pInflWord) &&
+          !InflectionsChecker::verbIsAtPresentParticiple(pInflWord);
+    }, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
+                   ActionIfLinked::NOTHING, ActionIfNotLinked::REMOVE));
+
+    TaggerPattern& pattern = res->getPattern();
+
+    pattern.possibilities.emplace_back
+        ([]
+    {
+      AIGramContext resContext;
+      {
+        TaggerListOfTokenChecks adjGramType(CanBeEmpty::YES, CanHaveMany::YES);
+        adjGramType.elts.emplace_back(PartOfSpeech::INTERJECTION);
+        resContext.before.emplace_back(adjGramType);
+      }
+      {
+        TaggerListOfTokenChecks nounGramTypes;
+        nounGramTypes.elts.emplace_back(PartOfSpeech::LINKBETWEENWORDS);
+        nounGramTypes.elts.emplace_back(PartOfSpeech::PUNCTUATION);
+        nounGramTypes.elts.emplace_back
+            ([](const InflectedWord& pInflWord) {
+          return pInflWord.word.partOfSpeech == PartOfSpeech::VERB &&
+              InflectionsChecker::verbIsAtInfinitive(pInflWord);
+        });
+        resContext.before.emplace_back(nounGramTypes);
+      }
+      return resContext;
+    }());
+
+    pattern.possibilities.emplace_back
+        ([]
+    {
+      AIGramContext resContext;
+      {
+        TaggerListOfTokenChecks adjGramType(CanBeEmpty::YES, CanHaveMany::YES);
+        adjGramType.elts.emplace_back(PartOfSpeech::INTERJECTION);
+        adjGramType.elts.emplace_back(PartOfSpeech::NOUN);
+        adjGramType.elts.emplace_back(PartOfSpeech::UNKNOWN);
+        adjGramType.elts.emplace_back(PartOfSpeech::PROPER_NOUN);
+        adjGramType.elts.emplace_back(PartOfSpeech::DETERMINER);
+        adjGramType.elts.emplace_back(PartOfSpeech::ADJECTIVE);
+        adjGramType.elts.emplace_back(PartOfSpeech::ADVERB);
+        adjGramType.elts.emplace_back(PartOfSpeech::PRONOUN_SUBJECT);
+        resContext.before.emplace_back(adjGramType);
+      }
+
+      {
+        TaggerListOfTokenChecks nounGramTypes;
+        nounGramTypes.elts.emplace_back
+            ([](const InflectedWord& pInflWord) {
+          return pInflWord.word.partOfSpeech == PartOfSpeech::NOUN &&
+              InflectionsChecker::nounCanBePlural(pInflWord);
+        }, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE);
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::PRONOUN, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE);
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::PRONOUN_SUBJECT, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE);
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::CONJUNCTIVE);
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::AUX, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE);
+        nounGramTypes.elts.emplace_back
+            ([](const InflectedWord& pInflWord) {
+          return pInflWord.word.partOfSpeech == PartOfSpeech::VERB &&
+              (pInflWord.word.lemma == "say" || pInflWord.word.lemma == "tell" || pInflWord.word.lemma == "ask" ||
+               pInflWord.word.lemma == "want" || pInflWord.word.lemma == "let");
+        });
+        resContext.before.emplace_back(nounGramTypes);
+      }
+      return resContext;
+    }());
+
+    pattern.possibilities.emplace_back
+        ([]
+    {
+      AIGramContext resContext;
+      {
+        TaggerListOfTokenChecks nounGramTypes;
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::PRONOUN, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE);
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::PRONOUN_SUBJECT, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE);        resContext.after.emplace_back(nounGramTypes);
+      }
+      return resContext;
+    }());
+
+    pattern.possibilities.emplace_back
+        ([]
+    {
+      AIGramContext resContext;
+      {
+        TaggerListOfTokenChecks adjGramType(CanBeEmpty::YES, CanHaveMany::YES);
+        adjGramType.elts.emplace_back
+            ([](const InflectedWord& pInflWord) {
+          return pInflWord.word.partOfSpeech != PartOfSpeech::PREPOSITION &&
+              pInflWord.word.partOfSpeech != PartOfSpeech::SUBORDINATING_CONJONCTION &&
+              pInflWord.word.partOfSpeech != PartOfSpeech::PUNCTUATION;
+        });
+        resContext.before.emplace_back(adjGramType);
+      }
+
+      {
+        TaggerListOfTokenChecks nounGramTypes;
+        nounGramTypes.elts.emplace_back(PartOfSpeech::PREPOSITION);
+        nounGramTypes.elts.emplace_back(PartOfSpeech::SUBORDINATING_CONJONCTION);
+        resContext.before.emplace_back(nounGramTypes);
+      }
+      return resContext;
+    }());
+
+    return res;
+  }());
+
+
+  // det-noun links
+  rules.emplace_back([&pInfls]
+  {
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
+        ("det-noun links", pInfls,
+         TaggerTokenCheck
+                  (PartOfSpeech::DETERMINER, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
+                   ActionIfLinked::DEL_ALL_OTHERS, ActionIfNotLinked::REMOVE));
+
+    TaggerPattern& pattern = res->getPattern();
+    pattern.possibilities.emplace_back
+        ([]
+    {
+      AIGramContext resContext;
+      {
+        TaggerListOfTokenChecks adjGramType(CanBeEmpty::YES, CanHaveMany::YES, 11);
+        adjGramType.elts.emplace_back
+            (PartOfSpeech::ADJECTIVE, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
+             ActionIfLinked::DEL_ALL_OTHERS);
+        resContext.after.emplace_back(adjGramType);
+      }
+
+      {
+        TaggerListOfTokenChecks nounGramTypes;
+        nounGramTypes.elts.emplace_back
+            ([](const InflectedWord& pInflWord) {
+          return pInflWord.word.partOfSpeech == PartOfSpeech::NOUN && !ConceptSet::haveAConceptThatBeginWith(pInflWord.infos.concepts, "number_");
+        }, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
+             ActionIfLinked::DEL_ALL_OTHERS);
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::UNKNOWN, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
+             ActionIfLinked::DEL_ALL_OTHERS);
+        nounGramTypes.elts.emplace_back(PartOfSpeech::PROPER_NOUN, FinderConstraint::FIRST_ELT);
+        nounGramTypes.elts.emplace_back
+            (PartOfSpeech::NOUN, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
+             ActionIfLinked::NOTHING, ActionIfNotLinked::NOTHING,
+             LinkedValue::UNKNOWN);
+        resContext.after.emplace_back(nounGramTypes);
+      }
+      return resContext;
+    }());
+
+    return res;
+  }());
+
   // gather linked meanings
   rules.emplace_back(std::make_unique<PartOfSpeechCustomFilter>
                      ("gather linked meanings",
@@ -631,53 +800,6 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
         punctGramType.elts.emplace_back(PartOfSpeech::NOUN, FinderConstraint::FIRST_ELT);
         punctGramType.elts.emplace_back(PartOfSpeech::PRONOUN, FinderConstraint::FIRST_ELT);
         resContext.after.emplace_back(punctGramType);
-      }
-      return resContext;
-    }());
-
-    return res;
-  }());
-
-
-
-  // det-noun links
-  rules.emplace_back([&pInfls]
-  {
-    auto res = std::make_unique<PartOfSpeechPatternMatcher>
-        ("det-noun links", pInfls,
-         TaggerTokenCheck
-                  (PartOfSpeech::DETERMINER, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
-                   ActionIfLinked::DEL_ALL_OTHERS, ActionIfNotLinked::REMOVE));
-
-    TaggerPattern& pattern = res->getPattern();
-    pattern.possibilities.emplace_back
-        ([]
-    {
-      AIGramContext resContext;
-      {
-        TaggerListOfTokenChecks adjGramType(CanBeEmpty::YES, CanHaveMany::YES, 11);
-        adjGramType.elts.emplace_back
-            (PartOfSpeech::ADJECTIVE, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
-             ActionIfLinked::DEL_ALL_OTHERS);
-        resContext.after.emplace_back(adjGramType);
-      }
-
-      {
-        TaggerListOfTokenChecks nounGramTypes;
-        nounGramTypes.elts.emplace_back
-            ([](const InflectedWord& pInflWord) {
-          return pInflWord.word.partOfSpeech == PartOfSpeech::NOUN && !ConceptSet::haveAConceptThatBeginWith(pInflWord.infos.concepts, "number_");
-        }, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
-             ActionIfLinked::DEL_ALL_OTHERS);
-        nounGramTypes.elts.emplace_back
-            (PartOfSpeech::UNKNOWN, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
-             ActionIfLinked::DEL_ALL_OTHERS);
-        nounGramTypes.elts.emplace_back(PartOfSpeech::PROPER_NOUN, FinderConstraint::FIRST_ELT);
-        nounGramTypes.elts.emplace_back
-            (PartOfSpeech::NOUN, FinderConstraint::HAS, CompatibilityCheck::IS_COMPATIBLE,
-             ActionIfLinked::NOTHING, ActionIfNotLinked::NOTHING,
-             LinkedValue::UNKNOWN);
-        resContext.after.emplace_back(nounGramTypes);
       }
       return resContext;
     }());

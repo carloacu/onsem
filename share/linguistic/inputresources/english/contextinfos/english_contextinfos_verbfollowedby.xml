@@ -8,6 +8,9 @@
   <existingMeaning lemme="head~down" gram="verb">
     <contextInfo val="canBeFollowedByLocation" />
   </existingMeaning>
+  <existingMeaning lemme="let" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
   <existingMeaning lemme="look" gram="verb">
     <contextInfo val="canBeFollowedByLocation" />
   </existingMeaning>

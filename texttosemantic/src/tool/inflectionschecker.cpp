@@ -767,6 +767,20 @@ bool InflectionsChecker::verbCanBeAtImperative
   return false;
 }
 
+bool InflectionsChecker::verbCanBeAtThridOfSingularExceptImperative
+(const InflectedWord& pInflWord)
+{
+  const Inflections& infls = pInflWord.inflections();
+  if (infls.type == InflectionType::VERBAL)
+    for (const auto& currInfl : infls.getVerbalI().inflections)
+    {
+      if (currInfl.tense != LinguisticVerbTense::PRESENT_IMPERATIVE &&
+          currInfl.person == RelativePerson::THIRD_SING)
+        return true;
+    }
+  return false;
+}
+
 bool InflectionsChecker::verbIsAtPresentIndicative
 (const InflectedWord& pIGram)
 {
