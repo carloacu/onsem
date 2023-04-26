@@ -566,7 +566,8 @@ void LinguisticsynthesizergroundingEnglish::_getDeterminer
   }
   else if (pGrounding.referenceType == SemanticReferenceType::INDEFINITE)
   {
-    if (pContext.wordContext.number == SemanticNumberType::PLURAL)
+    if (pContext.wordContext.number == SemanticNumberType::PLURAL &&
+        pGrounding.entityType != SemanticEntityType::NUMBER)
     {
       if (!pContext.isPositive &&
           !pGrounding.quantity.isPlural())

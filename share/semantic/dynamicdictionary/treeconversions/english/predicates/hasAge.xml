@@ -18,7 +18,7 @@
     <tree inText="true">
       <root id="1" grounding="statement" concept="verb_equal_be" notConcept="verb_have" >
 	<subject id="3" grounding="generic" notType="thing" />
-        <object id="2" grounding="generic" type="number" word="" notConcept="age_*"/>
+        <object id="2" grounding="generic" type="number" word="" notConcept="age_*" reference="undefined" />
       </root>
     </tree>
     <tree mind="true">
@@ -34,7 +34,7 @@
     <tree inText="true">
       <root id="1" grounding="statement" concept="verb_equal_be" notConcept="verb_have" >
 	<subject id="3" beginOfConcept="agent_" />
-        <object id="2" grounding="generic" type="number" word="" notConcept="age_*"/>
+        <object id="2" grounding="generic" type="number" word="" notConcept="age_*" reference="undefined" />
       </root>
     </tree>
     <tree mind="true">
@@ -67,7 +67,7 @@
   <conversion>
     <tree outText="true">
       <root id="1" grounding="statement" concept="verb_equal_be" notConcept="verb_have" >
-        <object id="2" grounding="generic" type="number" word="" notConcept="age_*"/>
+        <object id="2" grounding="generic" type="number" word="" notConcept="age_*" reference="undefined" />
       </root>
     </tree>
     <tree mind="true">
