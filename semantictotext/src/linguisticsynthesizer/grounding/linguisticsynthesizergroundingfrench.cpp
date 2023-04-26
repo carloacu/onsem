@@ -745,7 +745,8 @@ void LinguisticsynthesizergroundingFrench::_getDeterminer
   }
   else if (pContext.wordContext.referenceType == SemanticReferenceType::INDEFINITE)
   {
-    if (pContext.wordContext.number == SemanticNumberType::PLURAL)
+    if (pContext.wordContext.number == SemanticNumberType::PLURAL &&
+        pGrounding.entityType != SemanticEntityType::NUMBER)
     {
       if (pGrounding.quantity.type == SemanticQuantityType::NUMBER)
       {

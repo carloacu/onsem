@@ -779,6 +779,7 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
     SemanticLanguageEnum language = fConfiguration.getLanguageType();
     SemanticGenericGrounding& genGrd = *genGrdPtr;
 
+    bool canCheckReference = true;
     if (genGrd.entityType == SemanticEntityType::AGENTORTHING)
       genGrd.entityType = SemanticEntityType::THING;
 
@@ -787,14 +788,23 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
       res = eatNumber(numberOpt, pItDetToken, pItEndToken, "number_");
       if (numberOpt)
       {
-        if (!pKnowReferenceForSure)
-          genGrd.referenceType = SemanticReferenceType::INDEFINITE;
         if (genGrd.entityType != SemanticEntityType::NUMBER)
+        {
+          if (!pKnowReferenceForSure)
+            genGrd.referenceType = SemanticReferenceType::INDEFINITE;
           genGrd.quantity.setNumber(*numberOpt);
-        else if (*numberOpt > genGrd.quantity.nb)
-          genGrd.quantity.increaseNumber(*numberOpt);
+        }
         else
-          genGrd.quantity.setNumber(*numberOpt * genGrd.quantity.nb);
+        {
+          if (*numberOpt != 1)
+          {
+            canCheckReference = false;
+            if (*numberOpt > genGrd.quantity.nb)
+              genGrd.quantity.increaseNumber(*numberOpt);
+            else
+              genGrd.quantity.setNumber(*numberOpt * genGrd.quantity.nb);
+          }
+        }
       }
     }
 
@@ -809,7 +819,8 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
     if (!introInflWord.word.lemma.empty())
     {
       SemExpModifier::fillCoreference(genGrd.coreference, introInflWord.infos.concepts);
-      if (ConceptSet::haveAConceptThatBeginWith(introInflWord.infos.concepts, "reference_"))
+      if (canCheckReference &&
+          ConceptSet::haveAConceptThatBeginWith(introInflWord.infos.concepts, "reference_"))
       {
         if (ConceptSet::haveAConcept(introInflWord.infos.concepts, "reference_indefinite"))
         {
@@ -1282,7 +1293,8 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
       auto holdingSentenceRequest = pContext.holdingSentenceRequests.firstOrNothing();
       auto synthGramOfTheChild = semanticRequestType_toSemGram(holdingSentenceRequest);
       auto childGrammTypeOpt = chunkTypeToGrammaticalType(pChunkLink.type);
-      if (pChunkLink.type != ChunkLinkType::IN_CASE_OF &&
+      if (genGrounding.entityType != SemanticEntityType::NUMBER &&
+          pChunkLink.type != ChunkLinkType::IN_CASE_OF &&
           pChunkLink.type != ChunkLinkType::OWNER &&
           pChunkLink.type != ChunkLinkType::SPECIFICATION &&
           (pChunkLink.type != ChunkLinkType::DIRECTOBJECT || holdingSentenceRequest != SemanticRequestType::QUANTITY) &&

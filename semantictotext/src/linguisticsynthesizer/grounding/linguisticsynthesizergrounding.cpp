@@ -688,6 +688,9 @@ bool Linguisticsynthesizergrounding::_needToWriteDeterminer
   if (pOutInfoGram.word.partOfSpeech == PartOfSpeech::ADVERB &&
       pGrounding.coreference)
     return false;
+  if (pGrounding.entityType == SemanticEntityType::NUMBER &&
+      pGrounding.quantity.type == SemanticQuantityType::NUMBER)
+      return pGrounding.referenceType != SemanticReferenceType::UNDEFINED;
   if (pContext.grammaticalTypeFromParent == GrammaticalType::REPETITION ||
       ((pContext.grammaticalTypeFromParent == GrammaticalType::OBJECT ||
         pContext.grammaticalTypeFromParent == GrammaticalType::LOCATION ||
