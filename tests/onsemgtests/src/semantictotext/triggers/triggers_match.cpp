@@ -443,6 +443,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(nbOfTimes=1)\\", triggers_match("Fais un 360", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(nbOfTimes=1, speed=Lentement)\\", triggers_match("Fais un 360 lentement", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(nbOfTimes=3, speed=Lentement)\\", triggers_match("Fais un 360 lentement 3 fois", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(location=Droite, nbOfTimes=4, speed=Vite)\\", triggers_match("Fais un 360 à droite vite 4 fois", semMem, lingDb));
 }
 
 

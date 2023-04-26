@@ -1,6 +1,7 @@
 <linguisticdatabase>
  <concept name="manner_quickly">
   <linkedMeaning lemme="rapidement" relationToConcept="4"/>
+  <linkedMeaning lemme="vite" relationToConcept="3"/>
  </concept>
  <concept name="manner_slowly">
   <linkedMeaning lemme="lentement" relationToConcept="4"/>
