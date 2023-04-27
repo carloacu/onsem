@@ -22,8 +22,6 @@ struct InformationProvider
   explicit InformationProvider(SemanticSourceEnum pFrom);
 
   InformationProvider(InformationProvider&& pOther);
-  InformationProvider& operator=(InformationProvider&& pOther);
-
   InformationProvider(const InformationProvider&) = delete;
   InformationProvider& operator=(const InformationProvider&) = delete;
 
@@ -51,17 +49,6 @@ InformationProvider::InformationProvider(InformationProvider&& pOther)
     eventValue(std::move(pOther.eventValue))
 {
 }
-
-InformationProvider&
-InformationProvider::operator=(InformationProvider&& pOther)
-{
-  from = std::move(pOther.from);
-  author = std::move(pOther.author);
-  eventName = std::move(pOther.eventName);
-  eventValue = std::move(pOther.eventValue);
-  return *this;
-}
-
 
 bool InformationProvider::operator<(const InformationProvider& pOther) const
 {
