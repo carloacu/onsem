@@ -131,6 +131,17 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
     if (pUnityGrdPtr == nullptr || pUnityGrdPtr->typeOfUnity == TypeOfUnity::PERCENTAGE)
       return pGrdExp.cloneGrounding();
   }
+  else if (grd.type == SemanticGroundingType::DURATION)
+  {
+    if (pUnityGrdPtr == nullptr)
+      return pGrdExp.cloneGrounding();
+    if (pUnityGrdPtr->typeOfUnity == TypeOfUnity::TIME)
+    {
+      auto res = pGrdExp.cloneGrounding();
+      res->getDurationGrounding().duration.convertToUnity(pUnityGrdPtr->getTimeUnity());
+      return res;
+    }
+  }
   else if (grd.type == SemanticGroundingType::RELATIVETIME)
   {
     if (pUnityGrdPtr == nullptr)
@@ -2497,7 +2508,7 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
   case SemanticRequestType::CAUSE:
     return {GrammaticalType::CAUSE, GrammaticalType::PURPOSE};
   case SemanticRequestType::DURATION:
-    return {GrammaticalType::DURATION};
+    return {GrammaticalType::DURATION, GrammaticalType::OBJECT};
   case SemanticRequestType::LOCATION:
     return {GrammaticalType::LOCATION};
   case SemanticRequestType::MANNER:

@@ -314,9 +314,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   const std::vector<std::string> whatQuestion = {"quoi"};
   triggers_addAnswerWithOneParameter("Lance", whatQuestion, semMem, lingDb, language);
 
-  const std::vector<std::string> howManyMinutesQuestion = {"combien de minutes"};
-  triggers_addAnswerWithOneParameter("Éteins-toi", howManyMinutesQuestion, semMem, lingDb, language);
-
   const std::vector<std::string> whereQuestion = {"où"};
   triggers_addAnswerWithOneParameter("Tourne sans t'arrêter", whereQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Tourne en continu", whereQuestion, semMem, lingDb, language);
@@ -339,6 +336,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithManyParameters("Tourne sur toi même", turnParameters, semMem, lingDb, language);
   triggers_addAnswerWithManyParameters("Fais un tour sur toi même", turnParameters, semMem, lingDb, language);
   triggers_addAnswerWithManyParameters("Fais un 360", turnParameters, semMem, lingDb, language);
+
+  const std::vector<std::string> howLongInMinutesQuestion = {"pendant combien de minutes"}; //{"pendant combien de temps en minutes"};
+  triggers_addAnswerWithOneParameter("Éteins-toi", howLongInMinutesQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tu peux t'éteindre", howLongInMinutesQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Tu t'éteins", howLongInMinutesQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Ferme-toi", howLongInMinutesQuestion, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=3 mètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=5 mètres)\\", triggers_match("avance cinq mètres", semMem, lingDb));
@@ -412,10 +415,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lance(param1=Akinator)\\", triggers_match("Lance akinator", semMem, lingDb));
 
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi\\", triggers_match("Éteins-toi", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=3 minutes)\\", triggers_match("Éteins-toi pendant 3 minutes", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=120 minutes)\\", triggers_match("Éteins-toi pendant 2 heures", semMem, lingDb));
-
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sans t'arrêter\\", triggers_match("Tourne sans t'arrêter", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne sans t'arrêter(param1=Gauche)\\", triggers_match("Tourne sans t'arrêter à gauche", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne en continu\\", triggers_match("Tourne en continu", semMem, lingDb));
@@ -444,6 +443,15 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(nbOfTimes=1, speed=Lentement)\\", triggers_match("Fais un 360 lentement", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(nbOfTimes=3, speed=Lentement)\\", triggers_match("Fais un 360 lentement 3 fois", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais un 360(location=Droite, nbOfTimes=4, speed=Vite)\\", triggers_match("Fais un 360 à droite vite 4 fois", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi\\", triggers_match("éteins toi", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi\\", triggers_match("Éteins-toi", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=3 minutes)\\", triggers_match("Éteins-toi pendant 3 minutes", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=120 minutes)\\", triggers_match("Éteins-toi pendant 2 heures", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Éteins-toi(param1=60 minutes)\\", triggers_match("éteins toi une heure", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#fr_FR#Tu peux t'éteindre\\", triggers_match("Tu peux t'éteindre", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#fr_FR#Tu t'éteins\\", triggers_match("Tu t'éteins", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Ferme-toi\\", triggers_match("Ferme-toi", semMem, lingDb));
 }
 
 

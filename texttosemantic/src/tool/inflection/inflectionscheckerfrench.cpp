@@ -125,8 +125,7 @@ bool InflectionsCheckerFrench::isVerbAdjCompatibles(const InflectedWord& pIGramV
 bool InflectionsCheckerFrench::areDetCompatibles(const InflectedWord& pInflDet1,
                                                  const InflectedWord& pInflDet2) const
 {
-  return pInflDet1.infos.hasContextualInfo(WordContextualInfos::CANBEBEFOREDETERMINER) ||
-      ConceptSet::haveAConceptThatBeginWith(pInflDet1.infos.concepts, "quantity_") ||
+  return ConceptSet::haveAConceptThatBeginWith(pInflDet1.infos.concepts, "quantity_") ||
       (ConceptSet::haveAConceptThatBeginWith(pInflDet2.infos.concepts, "number_") &&
        !ConceptSet::haveAConcept(pInflDet2.infos.concepts, "number_1"));
 }
@@ -172,6 +171,11 @@ bool InflectionsCheckerFrench::isPronounComplAdverbCompatibles(const InflectedWo
 {
   return pInflPronCompl.word.lemma != "en" ||
       !ConceptSet::haveAConceptThatBeginWith(pInflAdv.infos.concepts, "time_relative_");
+}
+
+bool InflectionsCheckerFrench::isPronounCompDetCompatibles(const InflectedWord& pPronComp) const
+{
+  return pPronComp.word.lemma != "le";
 }
 
 bool InflectionsCheckerFrench::isIntjInflCompatibles(const InflectedWord& pIntj,

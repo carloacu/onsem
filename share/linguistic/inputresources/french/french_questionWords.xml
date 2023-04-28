@@ -9,6 +9,7 @@
       <questionWord lemme="à combien" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="quantity" />
       <questionWord lemme="à combien" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="quantity" />
       <questionWord lemme="combien de fois" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="times" />
+      <questionWord lemme="combien de temps" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="duration" />
       <questionWord lemme="comment" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="manner" />
       <questionWord lemme="comment" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="manner" />
       <questionWord lemme="d'où" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="no" request="location" />
@@ -18,6 +19,7 @@
       <questionWord lemme="qu'est-ce que" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" />
       <questionWord lemme="qu'en est-il" gram="pronoun" beforeVerb="no" afterVerb="no" canBeAlone="yes" request="about" />
       <questionWord lemme="qu'est-ce qui" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="pendant combien de temps" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="duration" />
       <questionWord lemme="pourquoi" gram="adverb" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="cause" />
       <questionWord lemme="pourquoi" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="cause" />
       <questionWord lemme="quand" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="time" />

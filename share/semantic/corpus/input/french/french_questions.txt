@@ -207,3 +207,4 @@ pendant combien de minutes
 quoi
 lequel
 laquelle
+pendant combien de temps en minutes

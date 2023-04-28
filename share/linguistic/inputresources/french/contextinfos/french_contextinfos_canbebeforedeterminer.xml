@@ -1,8 +1,0 @@
-<linguisticdatabase>
-  <existingMeaning lemme="de" gram="determiner">
-    <contextInfo val="canBeBeforeDeterminer" />
-  </existingMeaning>
-  <existingMeaning lemme="nous" gram="pronoun_comp">
-    <contextInfo val="canBeBeforeDeterminer" />
-  </existingMeaning>
-</linguisticdatabase>

@@ -73,9 +73,10 @@ void _tryToAddEstCeQue(std::list<WordToSynthesize>& pOut,
 {
   if (pOutSentence.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_GENERIC &&
       !pOutSentence.requests.empty() &&
-      !pOutSentence.requests.has(SemanticRequestType::ACTION) &&
+      !pOutSentence.requests.has(SemanticRequestType::ACTION) && // TODO refactor to optimize
       !pOutSentence.requests.has(SemanticRequestType::CAUSE) &&
       !pOutSentence.requests.has(SemanticRequestType::DISTANCE) &&
+      !pOutSentence.requests.has(SemanticRequestType::DURATION) &&
       !pOutSentence.requests.has(SemanticRequestType::LOCATION) &&
       !pOutSentence.requests.has(SemanticRequestType::MANNER) &&
       !pOutSentence.requests.has(SemanticRequestType::QUANTITY) &&

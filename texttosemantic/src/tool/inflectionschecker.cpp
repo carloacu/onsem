@@ -156,11 +156,6 @@ bool _isNounVerbCompatibles(const Inflections& pNomInflections,
   return false;
 }
 
-bool _isPronounCompDetCompatibles(const InflectedWord& pPronComp)
-{
-  return pPronComp.infos.hasContextualInfo(WordContextualInfos::CANBEBEFOREDETERMINER);
-}
-
 bool _isPronounNounCompatibles(const InflectedWord& pIGramPron,
                                const LinguisticDictionary& pLingDic)
 {
@@ -557,7 +552,7 @@ bool InflectionsChecker::areCompatibles
     {
     case PartOfSpeech::DETERMINER:
     {
-      return _isPronounCompDetCompatibles(pIGram1);
+      return _impl->isPronounCompDetCompatibles(pIGram1);
     }
     case PartOfSpeech::ADVERB:
     {

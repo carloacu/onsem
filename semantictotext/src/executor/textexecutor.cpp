@@ -100,7 +100,6 @@ void TextExecutor::_extractParameters(
           }
         }
 
-
         if (!answers.empty())
         {
           TextProcessingContext outContext(SemanticAgentGrounding::currentUser,

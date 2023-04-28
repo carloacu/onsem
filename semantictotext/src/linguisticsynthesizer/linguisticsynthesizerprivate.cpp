@@ -949,7 +949,9 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
     case GrammaticalType::UNITY:
     {
       OutSemExp* outSE = &sentWorkStruct.outs.other;
-      if (!pStatementGrd.noVerb() || pStatementGrd.requests.has(SemanticRequestType::DISTANCE))
+      if (!pStatementGrd.noVerb() ||
+          pStatementGrd.requests.has(SemanticRequestType::DISTANCE) ||
+          pStatementGrd.requests.has(SemanticRequestType::DURATION))
       {
         if (_language == SemanticLanguageEnum::FRENCH)
           _strToOut(outSE->out, PartOfSpeech::PREPOSITION, "en");
