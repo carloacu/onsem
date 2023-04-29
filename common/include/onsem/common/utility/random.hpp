@@ -54,6 +54,7 @@ public:
 
   static std::string generateUuid();
   static std::string generateUuidWithoutHyphen();
+  static std::size_t getRandomNumber(std::size_t pFrom, std::size_t pTo);
 
 private:
   static std::atomic<int> _currentNumber;

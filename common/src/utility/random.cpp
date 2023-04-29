@@ -66,5 +66,11 @@ std::string Random::generateUuidWithoutHyphen() {
   return "u" + ss.str();
 }
 
+std::size_t Random::getRandomNumber(std::size_t pFrom, std::size_t pTo)
+{
+  std::uniform_int_distribution<> distrib(pFrom, pTo);
+  return distrib(gen);
+}
+
 
 } // End of namespace onsem
