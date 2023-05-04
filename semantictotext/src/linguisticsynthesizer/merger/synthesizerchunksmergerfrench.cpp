@@ -71,36 +71,35 @@ bool _shouldWriteSubjectAfterTheVerb
 void _tryToAddEstCeQue(std::list<WordToSynthesize>& pOut,
                        OutSentence& pOutSentence)
 {
-  if (pOutSentence.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_GENERIC &&
-      !pOutSentence.requests.empty() &&
-      !pOutSentence.requests.has(SemanticRequestType::ACTION) && // TODO refactor to optimize
-      !pOutSentence.requests.has(SemanticRequestType::CAUSE) &&
-      !pOutSentence.requests.has(SemanticRequestType::DISTANCE) &&
-      !pOutSentence.requests.has(SemanticRequestType::DURATION) &&
-      !pOutSentence.requests.has(SemanticRequestType::LOCATION) &&
-      !pOutSentence.requests.has(SemanticRequestType::MANNER) &&
-      !pOutSentence.requests.has(SemanticRequestType::QUANTITY) &&
-      !pOutSentence.requests.has(SemanticRequestType::WAY) &&
-      (!pOutSentence.requests.has(SemanticRequestType::OBJECT) ||
-       pOut.empty() || (pOut.back().word.lemma != "qui" && pOut.back().word.lemma != "à quoi")) &&
-      (!pOutSentence.requests.has(SemanticRequestType::SUBJECT) ||
-       pOut.empty() || (pOut.back().word.lemma != "qui" && pOut.back().word.lemma != "quel")))
+  if (pOutSentence.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_GENERIC)
   {
-    if (pOutSentence.requests.has(SemanticRequestType::ABOUT))
+    for (const auto& currRequest : pOutSentence.requests.types)
     {
-      synthTool::strWithApostropheToOut(pOut, PartOfSpeech::DETERMINER,
-                                        "d'", "de", SemanticLanguageEnum::FRENCH);
-    }
-    else if (pOutSentence.subject.out.empty())
-    {
-      if (pOutSentence.verbTense != SemanticVerbTense::UNKNOWN)
-        synthTool::strToOut(pOut, PartOfSpeech::ADVERB,
-                            "est-ce qui", SemanticLanguageEnum::FRENCH);
-    }
-    else
-    {
-      synthTool::strWithApostropheToOut(pOut, PartOfSpeech::ADVERB,
-                                        "est-ce qu'", "est-ce que", SemanticLanguageEnum::FRENCH);
+      if (currRequest == SemanticRequestType::ABOUT)
+      {
+        synthTool::strWithApostropheToOut(pOut, PartOfSpeech::DETERMINER,
+                                          "d'", "de", SemanticLanguageEnum::FRENCH);
+        break;
+      }
+
+      if (currRequest == SemanticRequestType::TIME ||
+          currRequest == SemanticRequestType::YESORNO ||
+          (currRequest == SemanticRequestType::OBJECT &&
+           (pOut.empty() || (pOut.back().word.lemma != "qui" && pOut.back().word.lemma != "à quoi"))) ||
+          (currRequest == SemanticRequestType::SUBJECT &&
+           (pOut.empty() || (pOut.back().word.lemma != "qui" && pOut.back().word.lemma != "quel"))))
+      {
+        if (pOutSentence.subject.out.empty())
+        {
+          if (pOutSentence.verbTense != SemanticVerbTense::UNKNOWN)
+            synthTool::strToOut(pOut, PartOfSpeech::ADVERB,
+                                "est-ce qui", SemanticLanguageEnum::FRENCH);
+          break;
+        }
+        synthTool::strWithApostropheToOut(pOut, PartOfSpeech::ADVERB,
+                                          "est-ce qu'", "est-ce que", SemanticLanguageEnum::FRENCH);
+        break;
+      }
     }
   }
 }
