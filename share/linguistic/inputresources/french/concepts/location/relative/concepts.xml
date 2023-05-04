@@ -44,6 +44,7 @@ s <concept name="location_relative_high">
  </concept>
  <concept name="location_relative_here">
   <linkedMeaning lemme="ici" gram="adverb" relationToConcept="4"/>
+  <linkedMeaning lemme="là" gram="adverb" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_left">
   <linkedMeaning lemme="gauche" gram="*" relationToConcept="4"/>
