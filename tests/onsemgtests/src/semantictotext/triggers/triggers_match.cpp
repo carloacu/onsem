@@ -507,9 +507,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   const std::vector<std::string> whatQuestion = {"what"};
   triggers_addAnswerWithOneParameter("Launch", whatQuestion, semMem, lingDb, language);
 
-  const std::vector<std::string> howManyMinutesQuestion = {"how many minutes"};
-  triggers_addAnswerWithOneParameter("Shut down", howManyMinutesQuestion, semMem, lingDb, language);
-
   triggers_addAnswerWithOneParameter("can you look up", {}, semMem, lingDb, language);
 
   const std::vector<std::string> whereQuestion = {"where"};
@@ -527,6 +524,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithManyParameters("Do a 360", turnParameters, semMem, lingDb, language);
   triggers_addAnswerWithManyParameters("Pirouette", turnParameters, semMem, lingDb, language);
   triggers_addAnswerWithManyParameters("Take a spin on yourself", turnParameters, semMem, lingDb, language);
+
+  const std::vector<std::string> howManyMinutesQuestion = {"how many minutes"};
+  triggers_addAnswerWithOneParameter("Shut down", howManyMinutesQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("You can turn off", howManyMinutesQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("You turn off", howManyMinutesQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Turn off", howManyMinutesQuestion, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 cm", semMem, lingDb));
@@ -572,10 +575,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Could you look up", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#en_US#can you look up\\", triggers_match("Could you please look up", semMem, lingDb));
 
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down\\", triggers_match("Shut down", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=4 minutes)\\", triggers_match("Shut down for 4 minutes", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=5 minutes)\\", triggers_match("Shut down during 5 minutes", semMem, lingDb));
-
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn without stopping\\", triggers_match("Turn without stopping", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn without stopping(param1=To the left)\\", triggers_match("Turn without stopping to the left", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn continuously\\", triggers_match("Turn continuously", semMem, lingDb));
@@ -594,5 +593,14 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(nbOfTimes=1)\\", triggers_match("Pirouette", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(location=The left, nbOfTimes=1)\\", triggers_match("Pirouette to the left", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Take a spin on yourself(location=On you, nbOfTimes=1)\\", triggers_match("Take a spin on yourself", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down\\", triggers_match("Shut down", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=4 minutes)\\", triggers_match("Shut down for 4 minutes", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=5 minutes)\\", triggers_match("Shut down during 5 minutes", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Shut down(param1=3 minutes)\\", triggers_match("Shut down 3 minutes", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#en_US#You can turn off\\", triggers_match("You can turn off", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#en_US#You turn off\\", triggers_match("You turn off", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn off\\", triggers_match("Turn off", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn off(param1=0.5 minute)\\", triggers_match("Turn off 30 seconds", semMem, lingDb));
 }
 
