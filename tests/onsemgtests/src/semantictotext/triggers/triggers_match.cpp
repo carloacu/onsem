@@ -467,12 +467,12 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Ne bouge pas\\", triggers_match("Ne bouge pas", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Ne bouge pas\\", triggers_match("Ne bouge plus", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste ici\\", triggers_match("reste ici", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste ici\\", triggers_match("reste là", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste ici(param1=120 minutes)\\", triggers_match("reste là pendant 2 heures", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste où tu es\\", triggers_match("reste où tu es", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Arrête-toi ici\\", triggers_match("arrête toi ici", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Arrête-toi ici\\", triggers_match("arrête toi là", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Arrête-toi où tu es\\", triggers_match("arrête toi où tu es", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste immobile\\", triggers_match("reste immobile", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste immobile(param1=5 minutes)\\", triggers_match("reste immobile 5 minutes", semMem, lingDb));
 }
 
 
