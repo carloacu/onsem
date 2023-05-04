@@ -1510,6 +1510,18 @@ const SemanticExpression* GroundedExpWithLinks::getSemExpForGrammaticalType(Gram
   const auto itChild = grdExp.children.find(pGrammType);
   if (itChild != grdExp.children.end())
     return &*itChild->second;
+
+  // Get also time children linked to an infinite subordinate verb
+  if (pGrammType == GrammaticalType::TIME)
+  {
+    auto* rawRes = getSemExpForGrammaticalType(GrammaticalType::OBJECT);
+    if (rawRes != nullptr)
+    {
+      auto* objGrdExpPtr = rawRes->getGrdExpPtr_SkipWrapperPtrs();
+      if (objGrdExpPtr != nullptr && SemExpGetter::isAnInfinitiveGrdExp(*objGrdExpPtr))
+        return SemExpGetter::getChildFromGrdExp(*objGrdExpPtr, pGrammType);
+    }
+  }
   return nullptr;
 }
 

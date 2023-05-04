@@ -24,27 +24,6 @@ std::unique_ptr<SemanticExpressionContainer> AnswerElementDynamic::getSemExpForG
       *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(_memSentPtr->grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet, true);
     return std::make_unique<ReferenceOfSemanticExpressionContainer>(*rawRes);
   }
-
-  if (pGrammType == GrammaticalType::TIME)
-  {
-    auto* rawRes = _memSentPtr->getSemExpForGrammaticalType(GrammaticalType::OBJECT);
-    if (rawRes != nullptr)
-    {
-      auto* objGrdExpPtr = rawRes->getGrdExpPtr_SkipWrapperPtrs();
-      if (objGrdExpPtr != nullptr)
-      {
-        auto itTime = objGrdExpPtr->children.find(GrammaticalType::TIME);
-        if (itTime != objGrdExpPtr->children.end())
-        {
-          if (pHasSamePolarityPtr != nullptr && pFromGrdExpQuestion != nullptr && pLingDb != nullptr)
-            *pHasSamePolarityPtr = SemExpComparator::haveSamePolarity(_memSentPtr->grdExp, *pFromGrdExpQuestion, pLingDb->conceptSet, true);
-          return std::make_unique<ReferenceOfSemanticExpressionContainer>(*itTime->second);
-        }
-      }
-    }
-
-  }
-
   return {};
 }
 
