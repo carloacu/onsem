@@ -1093,6 +1093,15 @@ bool GroundedExpWithLinksPrivate::_linkChildSemExp
     if (itSubCptChild != childGrdExp->children.end() &&
         !_linkChildSemExp(*itSubCptChild->second, pFromRequest, pLingDb))
       return false;
+
+    if (pFromRequest == SemanticRequestType::OBJECT)
+    {
+      auto itTimeChild = childGrdExp->children.find(GrammaticalType::TIME);
+      if (itTimeChild != childGrdExp->children.end() &&
+          !_linkChildSemExp(*itTimeChild->second, pFromRequest, pLingDb))
+        return false;
+    }
+
     return true;
   }
 

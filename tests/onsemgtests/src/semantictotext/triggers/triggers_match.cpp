@@ -552,6 +552,9 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   triggers_addAnswerWithOneParameter("You turn off", howManyMinutesQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Turn off", howManyMinutesQuestion, semMem, lingDb, language);
 
+  triggers_addAnswerWithOneParameter("Do not move", howManyMinutesQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Stop moving", howManyMinutesQuestion, semMem, lingDb, language);
+
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 cm", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 centimeters", semMem, lingDb));
@@ -623,5 +626,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_ANSWER_EQ("\\label=#en_US#You turn off\\", triggers_match("You turn off", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn off\\", triggers_match("Turn off", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn off(param1=0.5 minute)\\", triggers_match("Turn off 30 seconds", semMem, lingDb));
+
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do not move\\", triggers_match("Do not move", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do not move(param1=5 minutes)\\", triggers_match("Do not move 5 minutes", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Stop moving\\", triggers_match("Stop moving", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Stop moving(param1=240 minutes)\\", triggers_match("Stop moving during 4 hours", semMem, lingDb));
 }
 
