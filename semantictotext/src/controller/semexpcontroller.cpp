@@ -595,7 +595,8 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
   {
     const InterpretationExpression& intExp = pSemExp.getIntExp();
     pWorkStruct.originalSemExpPtr = &*intExp.originalExp;
-    applyOperatorOnSemExp(pWorkStruct, pMemViewer, *intExp.interpretedExp);
+    auto& intSemExp = *intExp.interpretedExp; // This variable is to allow to enter directly on the folllowing call with gdb
+    applyOperatorOnSemExp(pWorkStruct, pMemViewer, intSemExp);
     break;
   }
   case SemanticExpressionType::FEEDBACK:
