@@ -940,10 +940,19 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
   for (const auto& currEltList1 : pListExpPtr1.elts)
   {
     bool found = false;
+    ComparisonErrorsCoef smallerSubComparisonErrorsCoef;
     for (const auto& currEltList2 : pListExpPtr2.elts)
     {
+      ComparisonErrorReporting* subComparisonErrorReportingPtr = nullptr;
+      std::unique_ptr<ComparisonErrorReporting> subComparisonErrorReportingUPtr;
+      if (pComparisonErrorsCoefPtr != nullptr)
+      {
+        subComparisonErrorReportingUPtr = std::make_unique<ComparisonErrorReporting>();
+        subComparisonErrorReportingPtr = &*subComparisonErrorReportingUPtr;
+      }
+
       auto optRes = _getSemExpsWithoutListImbrications(*currEltList1, *currEltList2, pMemBlock, pLingDb, pExceptionsPtr,
-                                                       nullptr, pParentGrammaticalType);
+                                                       subComparisonErrorReportingPtr, pParentGrammaticalType);
       if (optRes && *optRes == ImbricationType::EQUALS)
       {
         if (pNumberOfEqualitiesPtr != nullptr)
@@ -951,16 +960,19 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
         found = true;
         break;
       }
+
+      if (subComparisonErrorReportingPtr != nullptr)
+      {
+        auto newCoef = subComparisonErrorReportingPtr->getErrorCoef();
+        if (smallerSubComparisonErrorsCoef.type <= ComparisonTypeOfError::PARAMETER_DIFF || newCoef > smallerSubComparisonErrorsCoef)
+          smallerSubComparisonErrorsCoef = newCoef;
+      }
     }
     if (!found)
     {
       if (pComparisonErrorsCoefPtr == nullptr)
         return ImbricationType::DIFFERS;
-      bool followInterpretations = pExceptionsPtr == nullptr || !pExceptionsPtr->interpretations;
-      if (_hasInformationToFill(*currEltList1, followInterpretations))
-        pComparisonErrorsCoefPtr->add(ComparisonErrorsCoef(1, ComparisonTypeOfError::PARAMETER_DIFF));
-      else
-        pComparisonErrorsCoefPtr->add(ComparisonErrorsCoef(10, ComparisonTypeOfError::NORMAL));
+      pComparisonErrorsCoefPtr->add(smallerSubComparisonErrorsCoef);
       res = ImbricationType::DIFFERS;
     }
   }

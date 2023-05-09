@@ -49,7 +49,7 @@ DetailedReactionAnswer triggers_match(const std::string& pText,
                                   textLanguage);
   auto semExp =
       converter::textToContextualSemExp(pText, inContext,
-                                        SemanticSourceEnum::ASR, pLingDb);
+                                        SemanticSourceEnum::UNKNOWN, pLingDb);
   return _operator_reactFromTrigger_fromSemExp(std::move(semExp), pSemanticMemory, pLingDb,
                                                textLanguage, pReactionOptions);
 }
@@ -301,14 +301,14 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Descends le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Diminue le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
 
-  triggers_addAnswerWithOneParameter("Mets le volume moins fort", {}, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Parle moins fort", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Mets le volume moins fort", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Parle moins fort", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Monte le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Augmente le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
 
-  triggers_addAnswerWithOneParameter("Mets le volume plus fort", {}, semMem, lingDb, language);
-  triggers_addAnswerWithOneParameter("Parle plus fort", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Mets le volume plus fort", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Parle plus fort", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Mets le volume", howMuchInPercentageParameterQuestions, semMem, lingDb, language);
 
@@ -353,6 +353,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Ferme-toi", howLongInMinutesQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Reste immobile", howLongInMinutesQuestion, semMem, lingDb, language);
 
+  triggers_addAnswerWithOneParameter("Raconte une blague", {}, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=3 mètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=5 mètres)\\", triggers_match("avance cinq mètres", semMem, lingDb));
@@ -416,6 +417,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Diminue le volume(param1=32 pour cent)\\", triggers_match("Je veux que tu diminues le son de 32 %", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume moins fort\\", triggers_match("Mets le volume moins fort", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume moins fort\\", triggers_match(("Mets le volume encore moins fort"), semMem, lingDb, language));
+  //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Parle plus fort\\", triggers_match(("parle encore plus fort"), semMem, lingDb, language));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Monte le volume(param1=12 pour cent)\\", triggers_match("Monte le volume de 12 %", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume(param1=90 pour cent)\\", triggers_match("Mets le volume à 90 %", semMem, lingDb, language));
@@ -474,6 +476,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Arrête-toi ici\\", triggers_match("arrête toi là", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Arrête-toi où tu es\\", triggers_match("arrête toi où tu es", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste immobile(param1=5 minutes)\\", triggers_match("reste immobile 5 minutes", semMem, lingDb));
+
+  //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Raconte une blague\\", triggers_match("raconte    une autre histoire drôle", semMem, lingDb));
 }
 
 
@@ -522,6 +526,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   const std::vector<std::string> howMuchInPercentageParameterQuestion = {"how many in percentage", "how many"};
   triggers_addAnswerWithOneParameter("Turn down the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Lower the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Lower the voice", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Turn up the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Set the volume", howMuchInPercentageParameterQuestion, semMem, lingDb, language);
@@ -586,9 +591,13 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume\\", triggers_match("Turn down the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Lower the volume", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the voice\\", triggers_match("Lower your voice", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume(param1=29 percents)\\", triggers_match("Turn down the volume by 29 %", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn down the volume(param1=28)\\", triggers_match("Turn down the volume by 28", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume(param1=30 percents)\\", triggers_match("Lower the volume by 30%", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume(param1=31 percents)\\", triggers_match("Lower your volume by 31%", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the voice(param1=28 percents)\\", triggers_match("Lower the voice by 28%", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the voice(param1=29 percents)\\", triggers_match("Lower your voice by 29%", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume\\", triggers_match("Turn up the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn up the volume(param1=31 percents)\\", triggers_match("Turn up the volume by 31%", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Set the volume\\", triggers_match("Set the volume", semMem, lingDb));
