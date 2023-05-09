@@ -525,13 +525,14 @@ void _matchAnyTrigger
   {
     SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
     const GroundedExpWithLinks& memSent = *currRel.second;
-    if (SemExpComparator::grdExpsAreEqual(pInputGrdExp, memSent.grdExp, pMemViewer.constView,
-                                          pWorkStruct.lingDb, &pWorkStruct.comparisonExceptions, &comparisonErrorReporting))
+    auto imbrication = SemExpComparator::getGrdExpsImbrications(pInputGrdExp, memSent.grdExp, pMemViewer.constView,
+                                                                pWorkStruct.lingDb, &pWorkStruct.comparisonExceptions, &comparisonErrorReporting);
+    if (imbrication == ImbricationType::EQUALS)
     {
       pSemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
       nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.clear();
     }
-    else if (pSemExpWrapperPtrs.empty())
+    else if (imbrication != ImbricationType::OPPOSES && pSemExpWrapperPtrs.empty())
     {
       nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].insert(
             &memSent.getContextAxiom().getSemExpWrappedForMemory());

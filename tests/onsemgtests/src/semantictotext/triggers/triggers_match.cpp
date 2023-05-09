@@ -8,6 +8,7 @@
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/triggers.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
+#include "../operators/operator_inform.hpp"
 #include "../../semanticreasonergtests.hpp"
 #include "triggers_add.hpp"
 
@@ -631,5 +632,20 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do not move(param1=5 minutes)\\", triggers_match("Do not move 5 minutes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Stop moving\\", triggers_match("Stop moving", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Stop moving(param1=240 minutes)\\", triggers_match("Stop moving during 4 hours", semMem, lingDb));
+}
+
+
+TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_mergeWithContext_fr)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  auto language = SemanticLanguageEnum::FRENCH;
+
+  auto superAnswer = "Super";
+  triggers_add("Comment je peux t'apprendre un comportement ?", superAnswer, semMem, lingDb);
+  triggers_add("Je ne veux pas savoir comment je peux t'apprendre un comportement", "D'accord je ne t'embêterai plus avec ça", semMem, lingDb);
+
+  operator_inform_fromRobot("Est-ce que tu veux savoir comment tu peux m'apprendre un comportement ?", semMem, lingDb);
+  ONSEM_ANSWER_EQ(superAnswer, operator_react("oui", semMem, lingDb));
 }
 
