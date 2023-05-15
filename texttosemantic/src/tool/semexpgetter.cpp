@@ -91,7 +91,6 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
                                                               const SemanticUnityGrounding* pUnityGrdPtr,
                                                               bool pSimpleNumber)
 {
-  mystd::optional<int> res;
   const auto& grd = *pGrdExp;
   if (grd.type == SemanticGroundingType::GENERIC)
   {
@@ -107,6 +106,10 @@ std::unique_ptr<SemanticGrounding> _extractQuantityFromGrdExp(const GroundedExpr
         return resGenGrd;
       }
     }
+  }
+  else if (grd.type == SemanticGroundingType::CONCEPTUAL)
+  {
+    return {};
   }
   else if (grd.type == SemanticGroundingType::ANGLE)
   {

@@ -417,7 +417,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Diminue le volume(param1=32 pour cent)\\", triggers_match("Je veux que tu diminues le son de 32 %", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume moins fort\\", triggers_match("Mets le volume moins fort", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume moins fort\\", triggers_match(("Mets le volume encore moins fort"), semMem, lingDb, language));
-  //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Parle plus fort\\", triggers_match(("parle encore plus fort"), semMem, lingDb, language));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Parle plus fort\\", triggers_match(("parle encore plus fort"), semMem, lingDb, language));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Monte le volume(param1=12 pour cent)\\", triggers_match("Monte le volume de 12 %", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Mets le volume(param1=90 pour cent)\\", triggers_match("Mets le volume à 90 %", semMem, lingDb, language));
