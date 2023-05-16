@@ -235,6 +235,10 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         operator_react("Qu'est-ce que Moïse a fait ?", semMem, lingDb, language, &reactionOptions));
 
 
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "\\resLabel=#fr_FR#qui-est-moise\\",
+        "\"qui-est-moise\"",
+        operator_react("les 10 commandements", semMem, lingDb, language, &reactionOptions));
 
 }
 
