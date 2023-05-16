@@ -27,8 +27,6 @@ std::unique_ptr<SemanticNameGrounding> makeNameGrd(const std::list<std::string>&
 UniqueSemanticExpression makeCoreferenceExpression(CoreferenceDirectionEnum pDirection,
                                                    const mystd::optional<SemanticEntityType>& pEntityType = mystd::optional<SemanticEntityType>());
 
-UniqueSemanticExpression makeHumanCoreferenceBefore();
-
 UniqueSemanticExpression emptyStatementSemExp();
 
 

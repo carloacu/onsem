@@ -105,6 +105,8 @@ GroundedExpression& _getRootForNextdjective(GroundedExpression& pGrdExp)
 {
   for (auto itChild = pGrdExp.children.rbegin(); itChild != pGrdExp.children.rend(); ++itChild)
   {
+    if (itChild->first == GrammaticalType::OTHER_THAN)
+      continue;
     auto* childGrdExpPtr = itChild->second->getGrdExpPtr_SkipWrapperPtrs();
     if (childGrdExpPtr != nullptr)
     {
@@ -936,21 +938,10 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
       }
     }
   }
-  else
+  else if (!introInflWord.word.lemma.empty())
   {
-    if (!introInflWord.word.lemma.empty())
-    {
-      if (ConceptSet::haveAConceptThatBeginWith(introInflWord.infos.concepts, "reference_"))
-      {
-        if (ConceptSet::haveAConcept(introInflWord.infos.concepts, "reference_other"))
-          SemExpModifier::addChild(pRootGrdExp, GrammaticalType::OTHER_THAN, SemExpGenerator::makeHumanCoreferenceBefore());
-      }
-      else
-      {
-        RelativePerson relPers = ConceptSet::conceptsToRelativePerson(introInflWord.infos.concepts);
-        xAddOwnertTolink(pRootGrdExp, introInflWord, relPers, pContext, pGeneral);
-      }
-    }
+    RelativePerson relPers = ConceptSet::conceptsToRelativePerson(introInflWord.infos.concepts);
+    xAddOwnertTolink(pRootGrdExp, introInflWord, relPers, pContext, pGeneral);
   }
   return res;
 }

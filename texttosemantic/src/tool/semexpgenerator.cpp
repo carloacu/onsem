@@ -32,14 +32,6 @@ UniqueSemanticExpression makeCoreferenceExpression(CoreferenceDirectionEnum pDir
   return std::make_unique<GroundedExpression>(std::move(genGrd));
 }
 
-UniqueSemanticExpression makeHumanCoreferenceBefore()
-{
-  auto genGrd = std::make_unique<SemanticGenericGrounding>();
-  genGrd->coreference.emplace(CoreferenceDirectionEnum::BEFORE);
-  genGrd->entityType = SemanticEntityType::HUMAN;
-  return std::make_unique<GroundedExpression>(std::move(genGrd));
-}
-
 UniqueSemanticExpression emptyStatementSemExp()
 {
   return std::make_unique<GroundedExpression>

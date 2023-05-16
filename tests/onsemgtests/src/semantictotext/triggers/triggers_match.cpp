@@ -477,7 +477,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Arrête-toi où tu es\\", triggers_match("arrête toi où tu es", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste immobile(param1=5 minutes)\\", triggers_match("reste immobile 5 minutes", semMem, lingDb));
 
-  //ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Raconte une blague\\", triggers_match("raconte    une autre histoire drôle", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Raconte une blague\\", triggers_match("raconte    une autre histoire drôle", semMem, lingDb));
 }
 
 
