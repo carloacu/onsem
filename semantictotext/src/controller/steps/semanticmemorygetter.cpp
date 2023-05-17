@@ -305,7 +305,8 @@ bool _addPotentialNewRelationsFromLinks(RelationsThatMatch<IS_MODIFIABLE>& pRela
     return res;
   }
 
-  if (pGrdExpToLookFor->grounding().type == SemanticGroundingType::STATEMENT)
+  auto grdToLookFor = pGrdExpToLookFor->grounding().type;
+  if (grdToLookFor == SemanticGroundingType::STATEMENT)
   {
     _executeForLinksAlreadyMatched<IS_MODIFIABLE, MEMSENTENCES>
         (pAlreadyMatchedSentences, pLinksToGrdExp, pLinksToGrdExpFromBinary, pMemBlockPrivatePtr, pLingDb,
@@ -386,10 +387,16 @@ bool _addPotentialNewRelationsFromLinks(RelationsThatMatch<IS_MODIFIABLE>& pRela
       (pAlreadyMatchedSentences, pLinksToGrdExp, pLinksToGrdExpFromBinary, pMemBlockPrivatePtr, pLingDb,
        [&](MEMSENTENCES* pMemSentToAdd, const unsigned char* pStaticMemorySentencePtr, const std::function<std::unique_ptr<GroundedExpressionContainer>()>& pGetGrdExpFromMem)
   {
+    auto grdExpFromMemContainer = pGetGrdExpFromMem();
+    const GroundedExpression& grdExpFromMem = grdExpFromMemContainer->getGrdExp();
+    if (grdToLookFor == SemanticGroundingType::AGENT &&
+        grdExpFromMem.grounding().type != SemanticGroundingType::AGENT &&
+        grdExpFromMem.grounding().type != SemanticGroundingType::NAME &&
+        !grdExpFromMem.children.empty())
+      return;
+
     if (pMemBlockPrivatePtr != nullptr && hasAnChildToCheck)
     {
-      auto grdExpFromMemContainer = pGetGrdExpFromMem();
-      const auto& grdExpFromMem = grdExpFromMemContainer->getGrdExp();
       auto compWithOrWithoutInterpretations = _createCompWithOrWithoutInterpretations(!pIsATrigger);
 
       auto& memBlock = pMemBlockPrivatePtr->getMemBlock();

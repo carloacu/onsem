@@ -240,5 +240,10 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         "\\resLabel=#fr_FR#qui-est-moise\\",
         "\"qui-est-moise\"",
         operator_react("Qui est Moïse ?", semMem, lingDb, language, &reactionOptions));
+
+  ONSEM_ANSWER_WITH_REFERENCES_EQ(
+        "(\t\\resLabel=#fr_FR#qui-est-saint-joseph\\\tTHEN\tSaint Joseph est le p\xC3\xA8re adoptif de J\xC3\xA9sus.\t)",
+        "\"qui-est-saint-joseph\", \"saint-joseph-est-le-pere-adoptif-de-jesus\"",
+        operator_react("Qui est Saint Joseph ?", semMem, lingDb, language, &reactionOptions));
 }
 

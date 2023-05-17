@@ -36,6 +36,9 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
 
   {
     ONSEM_NOANSWER(operator_react("Victor est proche de tout le monde", semMem, lingDb));
+    ONSEM_NOANSWER(operator_react("Thomas est le concepteur de la sainte chose.", semMem, lingDb));
+    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas qui est Saint Lazare.",
+                            operator_react("Qui est Saint Lazare ?", semMem, lingDb));
     ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas qui est Mehdi.",
                             operator_react("Qui est Mehdi ?", semMem, lingDb));
   }
