@@ -34,6 +34,12 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
   }
   ONSEM_FEEDBACK_EQ("Ok, tu regardes à droite.", operator_react("je regarde à droite", semMem, lingDb));
 
+  {
+    ONSEM_NOANSWER(operator_react("Victor est proche de tout le monde", semMem, lingDb));
+    ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas qui est Mehdi.",
+                            operator_react("Qui est Mehdi ?", semMem, lingDb));
+  }
+
   // unknown answer
   ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas quelle langue je peux parler.",
                           operator_react("Quelle langue sais-tu parler", semMem, lingDb));

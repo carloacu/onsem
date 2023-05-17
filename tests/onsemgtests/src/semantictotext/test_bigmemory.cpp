@@ -39,6 +39,7 @@ std::shared_ptr<ExpressionWithLinks> _inform(
   TextProcessingContext inContext(SemanticAgentGrounding::currentUser,
                                   SemanticAgentGrounding::me,
                                   SemanticLanguageEnum::UNKNOWN);
+  inContext.setUsAsEverybody();
   inContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{"hc_resource_html"});
 
@@ -238,7 +239,6 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   ONSEM_ANSWER_WITH_REFERENCES_EQ(
         "\\resLabel=#fr_FR#qui-est-moise\\",
         "\"qui-est-moise\"",
-        operator_react("les 10 commandements", semMem, lingDb, language, &reactionOptions));
-
+        operator_react("Qui est Moïse ?", semMem, lingDb, language, &reactionOptions));
 }
 

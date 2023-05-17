@@ -628,7 +628,8 @@ private:
 
   bool _linkChildSemExp(const SemanticExpression& pSemExpression,
                         SemanticRequestType pFromRequest,
-                        const linguistics::LinguisticDatabase& pLingDb);
+                        const linguistics::LinguisticDatabase& pLingDb,
+                        bool pLinkNonSpecificStuffs);
 
   void _fillUserCenteredLinks(SemanticMemoryGrdExp& pNewMemGrdExp,
                               const GroundedExpression& pGrdExp);
@@ -970,7 +971,7 @@ void GroundedExpWithLinksPrivate::_linkStatementGrdExp(const SemanticStatementGr
       SemanticRequestType newRequ =
           SemExpGetter::convertSemGramToRequestType(currChild.first);
       if (newRequ != SemanticRequestType::NOTHING &&
-          !_linkChildSemExp(*currChild.second, newRequ, pLingDb))
+          !_linkChildSemExp(*currChild.second, newRequ, pLingDb, true))
       {
         skipLinkage = true;
         break;
@@ -984,7 +985,7 @@ void GroundedExpWithLinksPrivate::_linkStatementGrdExp(const SemanticStatementGr
         SemanticRequestType newRequ =
             SemExpGetter::convertSemGramToRequestType(currAnnotation.first);
         if (newRequ != SemanticRequestType::NOTHING &&
-            !_linkChildSemExp(*currAnnotation.second, newRequ, pLingDb))
+            !_linkChildSemExp(*currAnnotation.second, newRequ, pLingDb, true))
           break;
       }
     }
@@ -1054,7 +1055,8 @@ void GroundedExpWithLinksPrivate::_linkStatementGrdExp(const SemanticStatementGr
 bool GroundedExpWithLinksPrivate::_linkChildSemExp
 (const SemanticExpression& pSemExpression,
  SemanticRequestType pFromRequest,
- const linguistics::LinguisticDatabase& pLingDb)
+ const linguistics::LinguisticDatabase& pLingDb,
+ bool pLinkNonSpecificStuffs)
 {
   const bool followInterpretations = !_memSent.isATrigger();
   const GroundedExpression* childGrdExp = pSemExpression.getGrdExpPtr_SkipWrapperPtrs(followInterpretations);
@@ -1081,24 +1083,24 @@ bool GroundedExpWithLinksPrivate::_linkChildSemExp
       }
     }
 
-    if (!_linkGrdExp([&]() -> auto& { return _links.reqToGrdExps[pFromRequest]; }, *childGrdExp, childGrounding, pLingDb, true))
+    if (!_linkGrdExp([&]() -> auto& { return _links.reqToGrdExps[pFromRequest]; }, *childGrdExp, childGrounding, pLingDb, pLinkNonSpecificStuffs))
       return false;
 
     auto itSpechild = childGrdExp->children.find(GrammaticalType::SPECIFIER);
     if (itSpechild != childGrdExp->children.end() &&
-        !_linkChildSemExp(*itSpechild->second, pFromRequest, pLingDb))
+        !_linkChildSemExp(*itSpechild->second, pFromRequest, pLingDb, false))
         return false;
 
     auto itSubCptChild = childGrdExp->children.find(GrammaticalType::SUB_CONCEPT);
     if (itSubCptChild != childGrdExp->children.end() &&
-        !_linkChildSemExp(*itSubCptChild->second, pFromRequest, pLingDb))
+        !_linkChildSemExp(*itSubCptChild->second, pFromRequest, pLingDb, false))
       return false;
 
     if (pFromRequest == SemanticRequestType::OBJECT)
     {
       auto itTimeChild = childGrdExp->children.find(GrammaticalType::TIME);
       if (itTimeChild != childGrdExp->children.end() &&
-          !_linkChildSemExp(*itTimeChild->second, pFromRequest, pLingDb))
+          !_linkChildSemExp(*itTimeChild->second, pFromRequest, pLingDb, false))
         return false;
     }
 
@@ -1109,7 +1111,7 @@ bool GroundedExpWithLinksPrivate::_linkChildSemExp
   if (chilListExp != nullptr)
   {
     for (const auto& currElt : chilListExp->elts)
-      if (!_linkChildSemExp(*currElt, pFromRequest, pLingDb))
+      if (!_linkChildSemExp(*currElt, pFromRequest, pLingDb, pLinkNonSpecificStuffs))
         return false;
   }
   return true;
