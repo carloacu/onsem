@@ -111,6 +111,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction13 = "Il est sympa.";
   const std::string trigger14 = "Pourquoi Marie ?";
   const std::string reaction14 = "C'est connu.";
+
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(whatTimeItIs, semMem, lingDb));
@@ -145,6 +146,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger13, reaction13, semMem, lingDb);
   triggers_add(trigger14, reaction14, semMem, lingDb);
 
+
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match("Ferme l'application", semMem, lingDb));
@@ -154,7 +156,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_ANSWER_EQ(itIs15h, triggers_match(whatTimeItIs, semMem, lingDb));
   ONSEM_ANSWER_EQ(itIs15h, triggers_match("Quelle heure il est ?", semMem, lingDb));
   //ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("C'est quoi l'heure", semMem, lingDb));
-  //ONSEM_ANSWER_EQ(itIs15h, operator_reactFromTrigger("Il est quelle heure", semMem, lingDb));
+  ONSEM_ANSWER_EQ(itIs15h, triggers_match("Il est quelle heure", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("C'est tout", semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsNotFamous, triggers_match(whatAboutWellBeingOfAnimals, semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsAHoliday, triggers_match(whatIsToussaint, semMem, lingDb));
   ONSEM_ANSWER_EQ(itIsAHoliday, triggers_match("Qu'est-ce que la toussaint ?", semMem, lingDb));

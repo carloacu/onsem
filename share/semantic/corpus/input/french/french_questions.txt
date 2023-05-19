@@ -208,3 +208,4 @@ quoi
 lequel
 laquelle
 pendant combien de temps en minutes
+Il est quelle heure

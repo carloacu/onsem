@@ -1825,7 +1825,6 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       auto genGrd = std::make_unique<SemanticGenericGrounding>();
       if (*pContext.chunk.introductingWordToSaveForSynthesis != nullptr)
         genGrd->word = **pContext.chunk.introductingWordToSaveForSynthesis;
-      genGrd->entityType = SemanticEntityType::MODIFIER;
       return genGrd;
     }()));
   }

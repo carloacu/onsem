@@ -27,7 +27,7 @@
       <questionWord lemme="où" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="location" />
       <questionWord lemme="où" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="location" />
       <questionWord lemme="que" gram="pronoun" beforeVerb="only_next_to_the_verb" afterVerb="no" canBeAlone="no" request="object" />
-      <questionWord lemme="quel" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" followedByRequestedWord="yes" />
+      <questionWord lemme="quel" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="no" request="object" followedByRequestedWord="yes" />
       <questionWord lemme="quel" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="object" />
       <questionWord lemme="qui" gram="pronoun" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="subject" />
       <questionWord lemme="qui" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="subject" />
