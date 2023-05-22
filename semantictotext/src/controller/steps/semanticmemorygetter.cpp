@@ -2114,6 +2114,37 @@ void  _getRelationsFromSubReqLinks(RelationsThatMatch<IS_MODIFIABLE>& pRelations
 }
 
 
+bool _hasToSkip(SemanticRequestType pChildRequest,
+                const semanticMemoryLinker::SubRequestLinks& pSubReqLinks,
+                bool pCheckTimeRequest,
+                bool pIsATrigger)
+{
+  if (pChildRequest == SemanticRequestType::TIME)
+  {
+    if (!pCheckTimeRequest)
+      return true;
+    bool hasASemExpToCheck = false;
+    for (const auto& currSemExp : pSubReqLinks.semExps)
+    {
+      auto* timeGrdPtr = SemExpGetter::semExpToTimeGrounding(*currSemExp);
+      if (timeGrdPtr != nullptr && timeGrdPtr->fromConcepts.count("time_relative_now") > 0)
+        continue;
+      hasASemExpToCheck = true;
+    }
+    if (!hasASemExpToCheck)
+      return true;
+  }
+  if (!pIsATrigger && !pSubReqLinks.semExps.empty())
+  {
+    bool skipThisChild = true;
+    for (const auto& currSemExp : pSubReqLinks.semExps)
+      skipThisChild = skipThisChild && _shouldSemExpBeSkipped(*currSemExp);
+    if (skipThisChild)
+      return true;
+  }
+  return false;
+}
+
 
 template <bool IS_MODIFIABLE>
 void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
@@ -2129,16 +2160,8 @@ void _getResultFromLink(RelationsThatMatch<IS_MODIFIABLE>& pRes,
                         const semanticMemoryLinker::RequestLinks& pReqLinks,
                         bool pIsATrigger)
 {
-  if (!pCheckTimeRequest && pChildRequest == SemanticRequestType::TIME)
+  if (_hasToSkip(pChildRequest, pSubReqLinks, pCheckTimeRequest, pIsATrigger))
     return;
-  if (!pIsATrigger && !pSubReqLinks.semExps.empty())
-  {
-    bool skipThisChild = true;
-    for (const auto& currSemExp : pSubReqLinks.semExps)
-      skipThisChild = skipThisChild && _shouldSemExpBeSkipped(*currSemExp);
-    if (skipThisChild)
-      return;
-  }
 
   RelationsThatMatch<IS_MODIFIABLE> matchedSemExp;
   GrammaticalType gramType = semanticRequestType_toSemGram(pChildRequest);

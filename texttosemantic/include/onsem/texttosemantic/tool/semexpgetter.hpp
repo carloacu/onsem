@@ -523,6 +523,9 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
                                                        const mystd::optional<TypeOfUnity>& pTypeOfUnityOpt);
 
 
+ONSEM_TEXTTOSEMANTIC_API
+const SemanticTimeGrounding* semExpToTimeGrounding(const SemanticExpression& pSemExp);
+
 
 } // End of namespace SemExpGetter
 

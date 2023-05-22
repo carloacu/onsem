@@ -2564,6 +2564,15 @@ std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequ
 }
 
 
+const SemanticTimeGrounding* semExpToTimeGrounding(const SemanticExpression& pSemExp)
+{
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+    return grdExpPtr->grounding().getTimeGroundingPtr();
+  return nullptr;
+}
+
+
 
 } // End of namespace SemExpGetter
 
