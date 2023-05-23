@@ -143,6 +143,7 @@ include_directories(
 
 target_link_libraries(${PROJECT_NAME}
   Qt5::Core Qt5::Widgets Qt5::Xml
+  pthread
   ${ONSEMCOMMON_LIBRARIES}
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
   ${ONSEMTYPEALLOCATORANDSERIALYZER_LIBRARIES}

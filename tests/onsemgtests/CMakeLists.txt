@@ -126,6 +126,7 @@ include_directories(
 
 target_link_libraries(onsemgtests
   ${GTEST_LIBRARIES}
+  pthread
   ${ONSEMCOMMON_LIBRARIES}
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
   ${ONSEMSEMANTICTOTEXT_LIBRARIES}
