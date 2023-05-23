@@ -1,5 +1,5 @@
 #include "../../semanticreasonergtests.hpp"
-#include "operator_executeFromTrigger.hpp"
+#include "operator_executeFromCondition.hpp"
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>

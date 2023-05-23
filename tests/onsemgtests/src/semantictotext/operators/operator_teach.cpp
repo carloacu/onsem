@@ -2,7 +2,7 @@
 #include "operator_answer.hpp"
 #include "operator_inform.hpp"
 #include "operator_resolveCommand.hpp"
-#include "operator_executeFromTrigger.hpp"
+#include "operator_executeFromCondition.hpp"
 #include <gtest/gtest.h>
 #include <onsem/common/utility/noresult.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
@@ -186,6 +186,11 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
   EXPECT_EQ("", operator_resolveCommand("marche", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour marcher il faut dire je marche. Et puis ?",
                             operator_teachBehavior("pour marcher il faut dire je marche", semMem, lingDb));
+
+  ONSEM_TEACHINGFEEDBACK_EQ("qqqqqqqqq",
+                            operator_teachBehavior("Pour profiter il faut dire je profite", semMem, lingDb));
+
+
   EXPECT_EQ("Je marche.", operator_resolveCommand("marche", semMem, lingDb));
 
   EXPECT_EQ("", operator_resolveCommand("cours", semMem, lingDb));
