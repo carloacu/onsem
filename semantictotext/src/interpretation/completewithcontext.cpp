@@ -491,7 +491,8 @@ const SemanticExpression* _getSemExpIfCompatibleWithTheEntityType(const Semantic
     }
     else if (contextGrd.type == SemanticGroundingType::STATEMENT)
     {
-      if (pGenGrd.concepts.empty() &&
+      if (contextGrd.getStatementGrounding().requests.empty() &&
+          pGenGrd.concepts.empty() &&
           pGramParentLink != GrammaticalType::LOCATION &&
           (pGenGrd.entityType == SemanticEntityType::SENTENCE ||
            pGenGrd.entityType == SemanticEntityType::THING))

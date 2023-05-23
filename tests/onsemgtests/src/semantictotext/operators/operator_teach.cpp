@@ -186,12 +186,10 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
   EXPECT_EQ("", operator_resolveCommand("marche", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour marcher il faut dire je marche. Et puis ?",
                             operator_teachBehavior("pour marcher il faut dire je marche", semMem, lingDb));
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour marcher il faut dire je marche et puis il faut dire c'est tout. Et puis ?",
+                            operator_teachBehavior("il faut dire c'est tout", semMem, lingDb));
 
-  ONSEM_TEACHINGFEEDBACK_EQ("qqqqqqqqq",
-                            operator_teachBehavior("Pour profiter il faut dire je profite", semMem, lingDb));
-
-
-  EXPECT_EQ("Je marche.", operator_resolveCommand("marche", semMem, lingDb));
+  EXPECT_EQ("(\tJe marche.\tTHEN\tC'est tout.\t)", operator_resolveCommand("marche", semMem, lingDb));
 
   EXPECT_EQ("", operator_resolveCommand("cours", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour courir il faut dire j'utilise mes jambes. Et puis ?",

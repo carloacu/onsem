@@ -189,6 +189,13 @@ TEST_F(SemanticReasonerGTests, operator_mergeWithContext_basic)
               semExpToText(std::move(helloSemExp), frLanguage, semMem, lingDb));
   }
 
+  {
+    operator_inform_fromRobot("Et puis ?", semMem, lingDb);
+    auto userSemExp = textToSemExp("c'est tout", lingDb, frLanguage);
+    memoryOperation::mergeWithContext(userSemExp, semMem, lingDb);
+    EXPECT_EQ("C'est tout.",
+              semExpToText(std::move(userSemExp), frLanguage, semMem, lingDb));
+  }
 }
 
 
