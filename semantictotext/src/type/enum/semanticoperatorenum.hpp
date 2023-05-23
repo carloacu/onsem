@@ -12,9 +12,9 @@ enum class SemanticOperatorEnum
   FEEDBACK,
   FIND,
   GET,
-  RESOLVECOMMAND, // convert to a command with the starting condition
-  EXECUTEBEHAVIOR, // convert to a command without the starting condition
-  EXECUTEFROMCONDITION, // replace a text to his linked command
+  RESOLVECOMMAND, // convert to an order or an affirmation to the corresponding action without the starting condition
+  EXECUTEBEHAVIOR, // convert an order to the corresponding action without the starting condition
+  EXECUTEFROMCONDITION, // text of a starting condition to the corresponding action
   HOWYOUKNOW,
   INFORM,
   REACT,

@@ -182,7 +182,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> executeFromCondition(
     const SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb);
 
-// resolveCommand + resolveCommandFromCondition
+// resolveCommand + executeFromCondition
 ONSEMSEMANTICTOTEXT_API
 mystd::unique_propagate_const<UniqueSemanticExpression> execute(
     const SemanticExpression& pSemExp,
