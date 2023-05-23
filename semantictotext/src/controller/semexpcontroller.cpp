@@ -619,7 +619,7 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
 
     bool informOrReact = pWorkStruct.reactOperator == SemanticOperatorEnum::REACT ||
                          pWorkStruct.reactOperator == SemanticOperatorEnum::INFORM ||
-                         pWorkStruct.reactOperator == SemanticOperatorEnum::EXECUTEFROMTRIGGER;
+                         pWorkStruct.reactOperator == SemanticOperatorEnum::EXECUTEFROMCONDITION;
     const bool isSourceASentence = metadataExp.isSourceASentence();
     bool storeSource = informOrReact && isSourceASentence;
     pWorkStruct.fromLanguage = metadataExp.fromLanguage;
@@ -785,7 +785,7 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
   case SemanticOperatorEnum::FEEDBACK:
   case SemanticOperatorEnum::FIND:
   case SemanticOperatorEnum::INFORM:
-  case SemanticOperatorEnum::EXECUTEFROMTRIGGER:
+  case SemanticOperatorEnum::EXECUTEFROMCONDITION:
   case SemanticOperatorEnum::TEACHBEHAVIOR:
   case SemanticOperatorEnum::TEACHCONDITION:
   case SemanticOperatorEnum::TEACHINFORMATION:
@@ -880,7 +880,7 @@ void manageQuestion(SemControllerWorkingStruct& pWorkStruct,
   case SemanticOperatorEnum::INFORM:
   case SemanticOperatorEnum::RESOLVECOMMAND:
   case SemanticOperatorEnum::EXECUTEBEHAVIOR:
-  case SemanticOperatorEnum::EXECUTEFROMTRIGGER:
+  case SemanticOperatorEnum::EXECUTEFROMCONDITION:
   case SemanticOperatorEnum::SHOW:
   case SemanticOperatorEnum::TEACHBEHAVIOR:
   case SemanticOperatorEnum::TEACHCONDITION:
@@ -1008,7 +1008,7 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
   case SemanticOperatorEnum::REACT:
   case SemanticOperatorEnum::INFORM:
   case SemanticOperatorEnum::FEEDBACK:
-  case SemanticOperatorEnum::EXECUTEFROMTRIGGER:
+  case SemanticOperatorEnum::EXECUTEFROMCONDITION:
   case SemanticOperatorEnum::TEACHBEHAVIOR:
   case SemanticOperatorEnum::TEACHCONDITION:
   case SemanticOperatorEnum::TEACHINFORMATION:
@@ -1132,7 +1132,7 @@ void _manageAssertion(SemControllerWorkingStruct& pWorkStruct,
     // Consider the new actions to do because they are linked to a condition that is satistied by the input.
     if ((pWorkStruct.reactOperator == SemanticOperatorEnum::REACT ||
          pWorkStruct.reactOperator == SemanticOperatorEnum::INFORM ||
-         pWorkStruct.reactOperator == SemanticOperatorEnum::EXECUTEFROMTRIGGER) &&
+         pWorkStruct.reactOperator == SemanticOperatorEnum::EXECUTEFROMCONDITION) &&
         isNewInformationRevelant &&
         semanticMemoryLinker::checkForConditionsLinkedToStatement(pWorkStruct, pMemViewer, reqLinks, pGrdExp))
       isAnswered = true;
@@ -1390,7 +1390,7 @@ void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
     case SemanticOperatorEnum::ANSWER:
     case SemanticOperatorEnum::RESOLVECOMMAND:
     case SemanticOperatorEnum::EXECUTEBEHAVIOR:
-    case SemanticOperatorEnum::EXECUTEFROMTRIGGER:
+    case SemanticOperatorEnum::EXECUTEFROMCONDITION:
     case SemanticOperatorEnum::FIND:
     case SemanticOperatorEnum::INFORM:
     case SemanticOperatorEnum::TEACHBEHAVIOR:

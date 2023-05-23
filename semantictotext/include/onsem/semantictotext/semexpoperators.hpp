@@ -177,12 +177,12 @@ mystd::unique_propagate_const<UniqueSemanticExpression> resolveCommand(const Sem
                                                          const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
-mystd::unique_propagate_const<UniqueSemanticExpression> executeFromTrigger(
+mystd::unique_propagate_const<UniqueSemanticExpression> executeFromCondition(
     const SemanticExpression& pSemExp,
     const SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb);
 
-// resolveCommand + resolveCommandFromTrigger
+// resolveCommand + resolveCommandFromCondition
 ONSEMSEMANTICTOTEXT_API
 mystd::unique_propagate_const<UniqueSemanticExpression> execute(
     const SemanticExpression& pSemExp,

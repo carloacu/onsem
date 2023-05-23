@@ -39,8 +39,8 @@ set(ONSEMGTESTS_SRCS
   src/semantictotext/operators/operator_categorize.cpp
   src/semantictotext/operators/operator_check.hpp
   src/semantictotext/operators/operator_check.cpp
-  src/semantictotext/operators/operator_executeFromTrigger.hpp
-  src/semantictotext/operators/operator_executeFromTrigger.cpp
+  src/semantictotext/operators/operator_executeFromCondition.hpp
+  src/semantictotext/operators/operator_executeFromCondition.cpp
   src/semantictotext/operators/operator_extractEngagement.cpp
   src/semantictotext/operators/operator_get.hpp
   src/semantictotext/operators/operator_get.cpp

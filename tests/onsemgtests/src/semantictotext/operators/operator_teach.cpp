@@ -99,7 +99,7 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_basic)
             operator_resolveCommand("smile", semMem, lingDb));
   EXPECT_EQ("I am smiling.",
             operator_execute("smile", semMem, lingDb));
-  EXPECT_EQ("", operator_executeFromTrigger("smile", semMem, lingDb));
+  EXPECT_EQ("", operator_executeFromCondition("smile", semMem, lingDb));
 }
 
 
@@ -121,11 +121,11 @@ TEST_F(SemanticReasonerGTests, operator_teachCondition_basic)
   static const std::string helloPaulQuote = "\"Bonjour Paul!!\"";
   ONSEM_NOTIFYSOMETHINGWILLBEDONE_EQ("Ok, I will say " + helloPaulQuote + " whenever I see Paul.",
                                      operator_teachCondition("Say " + helloPaulQuote + " when you see Paul", semMem, lingDb));
-  EXPECT_EQ(helloPaulQuote, operator_executeFromTrigger("You see Paul", semMem, lingDb));
-  EXPECT_EQ("Hi", operator_executeFromTrigger("You see me", semMem, lingDb));
-  EXPECT_EQ("", operator_executeFromTrigger("You don't see me", semMem, lingDb));
+  EXPECT_EQ(helloPaulQuote, operator_executeFromCondition("You see Paul", semMem, lingDb));
+  EXPECT_EQ("Hi", operator_executeFromCondition("You see me", semMem, lingDb));
+  EXPECT_EQ("", operator_executeFromCondition("You don't see me", semMem, lingDb));
   EXPECT_EQ("Hi", operator_execute("You see me", semMem, lingDb));
-  EXPECT_EQ("", operator_executeFromTrigger("You don't see me", semMem, lingDb));
+  EXPECT_EQ("", operator_executeFromCondition("You don't see me", semMem, lingDb));
   EXPECT_EQ("", operator_resolveCommand("You see me", semMem, lingDb));
   ONSEM_NOANSWER(operator_teachCondition("to smile is to say I am smiling", semMem, lingDb));
   EXPECT_EQ("", operator_resolveCommand("smile", semMem, lingDb));
@@ -140,7 +140,7 @@ TEST_F(SemanticReasonerGTests, operator_teachCondition_fromInform)
   operator_inform("to present the company means " + commandResource + ". "
                   "Present the company when somebody is interested", semMem, lingDb);
   // trigger it from a text
-  EXPECT_EQ(commandResource, operator_executeFromTrigger("Somebody is interested", semMem, lingDb));
+  EXPECT_EQ(commandResource, operator_executeFromCondition("Somebody is interested", semMem, lingDb));
   // trigger it from a natural language expression
   NaturalLanguageExpression nle;
   nle.word.text = "interest";
@@ -153,7 +153,7 @@ TEST_F(SemanticReasonerGTests, operator_teachCondition_fromInform)
   totoNle.word.language = SemanticLanguageEnum::ENGLISH;
   nle.children.emplace(GrammaticalType::OBJECT, std::move(totoNle));
   auto totoInterestedSemExp = converter::naturalLanguageExpressionToSemanticExpression(nle, lingDb);
-  EXPECT_EQ(commandResource, operator_executeFromSemExpTrigger(*totoInterestedSemExp, SemanticLanguageEnum::ENGLISH, semMem, lingDb));
+  EXPECT_EQ(commandResource, operator_executeFromSemExpCondition(*totoInterestedSemExp, SemanticLanguageEnum::ENGLISH, semMem, lingDb));
 }
 
 

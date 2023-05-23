@@ -14,7 +14,7 @@ enum class SemanticOperatorEnum
   GET,
   RESOLVECOMMAND, // convert to a command with the starting condition
   EXECUTEBEHAVIOR, // convert to a command without the starting condition
-  EXECUTEFROMTRIGGER, // replace a text to his linked command
+  EXECUTEFROMCONDITION, // replace a text to his linked command
   HOWYOUKNOW,
   INFORM,
   REACT,

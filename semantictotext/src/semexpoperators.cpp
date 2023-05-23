@@ -711,7 +711,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> executeBehavior(
                                     pSemanticMemory.getCurrUserId(), pLingDb);
 }
 
-mystd::unique_propagate_const<UniqueSemanticExpression> executeFromTrigger(
+mystd::unique_propagate_const<UniqueSemanticExpression> executeFromCondition(
     const SemanticExpression& pSemExp,
     const SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb)
@@ -722,7 +722,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> executeFromTrigger(
   std::unique_ptr<CompositeSemAnswer> compSemAnswers;
   controller::applyOperatorOnSemExpConstMem(
         compSemAnswers, *clonedSemExp,
-        SemanticOperatorEnum::EXECUTEFROMTRIGGER, InformationType::INFORMATION,
+        SemanticOperatorEnum::EXECUTEFROMCONDITION, InformationType::INFORMATION,
         pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId(),
         nullptr, nullptr, nullptr, nullptr, pLingDb);
   mystd::unique_propagate_const<UniqueSemanticExpression> res;
@@ -759,7 +759,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> execute(
     std::unique_ptr<CompositeSemAnswer> compSemAnswers;
     controller::applyOperatorOnSemExpConstMem(
           compSemAnswers, *clonedSemExp,
-          SemanticOperatorEnum::EXECUTEFROMTRIGGER, InformationType::INFORMATION,
+          SemanticOperatorEnum::EXECUTEFROMCONDITION, InformationType::INFORMATION,
           pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId(),
           nullptr, nullptr, nullptr, nullptr, pLingDb);
     if (compSemAnswers)

@@ -2323,7 +2323,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
     case SemanticOperatorEnum::FIND:
     case SemanticOperatorEnum::RESOLVECOMMAND:
     case SemanticOperatorEnum::EXECUTEBEHAVIOR:
-    case SemanticOperatorEnum::EXECUTEFROMTRIGGER:
+    case SemanticOperatorEnum::EXECUTEFROMCONDITION:
     case SemanticOperatorEnum::INFORM:
     case SemanticOperatorEnum::REACTFROMTRIGGER:
     case SemanticOperatorEnum::SHOW:
