@@ -13,6 +13,7 @@
 #include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/texttosemantic/algorithmsetforalanguage.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
+#include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
@@ -569,6 +570,34 @@ void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
   auto inf = imperativeToInfinitive(pSemExp);
   if (inf)
     pRes.emplace_back(std::move(*inf));
+}
+
+
+std::unique_ptr<GroundedExpression> createResourceWithParameters(
+    const std::string& pResourceLabel,
+    const std::string& pResourceValue,
+    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pResourceParameterLabelToQuestions,
+    const SemanticExpression& pContextForParameters,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
+{
+  auto answer1Grd = std::make_unique<SemanticResourceGrounding>(pResourceLabel, pLanguage, pResourceValue);
+
+  for (auto& currLabelToQuestions : pResourceParameterLabelToQuestions)
+  {
+    for (auto& currQuestionSemExp : currLabelToQuestions.second)
+    {
+      SemanticMemory semMemory;
+      memoryOperation::inform(
+            std::make_unique<MetadataExpression>
+            (SemanticSourceEnum::WRITTENTEXT, UniqueSemanticExpression(), pContextForParameters.clone()),
+            semMemory, pLingDb);
+      UniqueSemanticExpression questionMergedWithContext = currQuestionSemExp->clone();
+      memoryOperation::mergeWithContext(questionMergedWithContext, semMemory, pLingDb);
+      answer1Grd->resource.parameterLabelsToQuestions[currLabelToQuestions.first].emplace_back(std::move(questionMergedWithContext));
+    }
+  }
+  return std::make_unique<GroundedExpression>(std::move(answer1Grd));
 }
 
 

@@ -50,25 +50,9 @@ void addToResource(
                                            pLanguage);
   triggerProcContext.isTimeDependent = false;
   auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
-
-  auto answer1Grd = std::make_unique<SemanticResourceGrounding>(pResourceLabel, pLanguage, pResourceValue);
-
-  for (auto& currLabelToQuestions : pResourceParameterLabelToQuestions)
-  {
-    for (auto& currQuestionSemExp : currLabelToQuestions.second)
-    {
-      SemanticMemory semMemory;
-      memoryOperation::inform(
-            std::make_unique<MetadataExpression>
-                  (SemanticSourceEnum::WRITTENTEXT, UniqueSemanticExpression(), triggerSemExp->clone()),
-            semMemory, pLingDb);
-      UniqueSemanticExpression questionMergedWithContext = currQuestionSemExp->clone();
-      memoryOperation::mergeWithContext(questionMergedWithContext, semMemory, pLingDb);
-      answer1Grd->resource.parameterLabelsToQuestions[currLabelToQuestions.first].emplace_back(std::move(questionMergedWithContext));
-    }
-  }
-  auto answer1SemExp = std::make_unique<GroundedExpression>(std::move(answer1Grd));
-  add(std::move(triggerSemExp), std::move(answer1SemExp), pSemanticMemory, pLingDb);
+  auto answerSemExp = converter::createResourceWithParameters(pResourceLabel, pResourceValue, pResourceParameterLabelToQuestions,
+                                                              *triggerSemExp, pLingDb, pLanguage);
+  add(std::move(triggerSemExp), std::move(answerSemExp), pSemanticMemory, pLingDb);
 }
 
 

@@ -154,6 +154,15 @@ void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
                                  const SemanticExpression& pSemExp);
 
 
+ONSEMSEMANTICTOTEXT_API
+std::unique_ptr<GroundedExpression> createResourceWithParameters(
+    const std::string& pResourceLabel,
+    const std::string& pResourceValue,
+    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pResourceParameterLabelToQuestions,
+    const SemanticExpression& pContextForParameters,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage);
+
 } // End of namespace converter
 } // End of namespace onsem
 
