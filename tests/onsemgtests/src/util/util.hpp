@@ -87,7 +87,8 @@ std::string semExpToTextExectionResult
 (UniqueSemanticExpression pSemExp,
  SemanticLanguageEnum pLanguage,
  SemanticMemory& pSemanticMemory,
- const linguistics::LinguisticDatabase& pLingDb);
+ const linguistics::LinguisticDatabase& pLingDb,
+ const SemanticExpression* pInputSemExpPtr = nullptr);
 
 std::string reformulate
 (const std::string& pText,

@@ -100,7 +100,8 @@ std::string semExpToTextExectionResult
 (UniqueSemanticExpression pSemExp,
  SemanticLanguageEnum pLanguage,
  SemanticMemory& pSemanticMemory,
- const linguistics::LinguisticDatabase& pLingDb)
+ const linguistics::LinguisticDatabase& pLingDb,
+ const SemanticExpression* pInputSemExpPtr)
 {
   std::string resStr;
   DefaultExecutorLogger logger(resStr);
@@ -111,6 +112,7 @@ std::string semExpToTextExectionResult
   outContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
   auto execContext = std::make_shared<ExecutorContext>(outContext);
+  execContext->inputSemExpPtr = pInputSemExpPtr;
   textExec.runSemExp(std::move(pSemExp), execContext);
   return resStr;
 }

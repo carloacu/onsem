@@ -29,7 +29,7 @@ std::string operator_resolveCommand(const std::string& pText,
   memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
   auto resSemExp = memoryOperation::resolveCommandFromMemBlock(*semExp, pSemanticMemory.memBloc, textProc.author.userId, pLingDb);
   if (resSemExp)
-    return semExpToTextExectionResult(std::move(*resSemExp), pLanguage, pSemanticMemory, pLingDb);
+    return semExpToTextExectionResult(std::move(*resSemExp), pLanguage, pSemanticMemory, pLingDb, &*semExp);
   return "";
 }
 

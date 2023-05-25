@@ -44,6 +44,40 @@ DetailedReactionAnswer _operator_teach(
   return reactionToAnswer(reaction, pSemanticMemory, pLingDb, textLanguage, inputSemExpInMemory);
 }
 
+DetailedReactionAnswer _operator_teachAResourceWithParameters(
+    const std::string& pAction,
+    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
+    SemanticMemory& pSemanticMemory,
+    const linguistics::LinguisticDatabase& pLingDb,
+    memoryOperation::SemanticActionOperatorEnum pActionOperator,
+    SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN)
+{
+  SemanticLanguageEnum textLanguage = pLanguage == SemanticLanguageEnum::UNKNOWN ?
+      linguistics::getLanguage(pAction, pLingDb) : pLanguage;
+
+  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           textLanguage);
+  triggerProcContext.isTimeDependent = false;
+  auto actionSemExp = converter::textToSemExp(pAction, triggerProcContext, pLingDb);
+
+  auto outputResourceGrdExp =
+      std::make_unique<GroundedExpression>(
+        converter::createResourceWithParameters(resourceLabelForTests_cmd, pAction, pParameterLabelToQuestionsStrs,
+                                                *actionSemExp, pLingDb, textLanguage));
+
+  if (textLanguage == SemanticLanguageEnum::UNKNOWN)
+    textLanguage = pSemanticMemory.defaultLanguage;
+  mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
+  auto infinitiveActionSemExp = converter::imperativeToInfinitive(*actionSemExp);
+  if (!infinitiveActionSemExp)
+    return {};
+  auto teachSemExp = converter::constructTeachSemExp(std::move(*infinitiveActionSemExp), std::move(outputResourceGrdExp));
+  auto inputSemExpInMemory = memoryOperation::teach(reaction, pSemanticMemory, std::move(teachSemExp),
+                                                    pLingDb, pActionOperator);
+  return reactionToAnswer(reaction, pSemanticMemory, pLingDb, textLanguage, inputSemExpInMemory);
+}
+
 
 DetailedReactionAnswer operator_teachBehavior(
     const std::string& pText,
@@ -285,4 +319,30 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\",
             operator_resolveCommand("saute", semMem, lingDb));
 }
+
+
+
+
+TEST_F(SemanticReasonerGTests, operator_teachBehavior_withParameters)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  SemanticLanguageEnum language = SemanticLanguageEnum::FRENCH;
+
+  std::map<std::string, std::vector<std::string>> distanceParameter {
+    {"distance", {"combien de mètres"}}
+  };
+  const std::string moveForwardStr = "avance";
+  _operator_teachAResourceWithParameters(moveForwardStr, distanceParameter, semMem, lingDb,
+                                         memoryOperation::SemanticActionOperatorEnum::BEHAVIOR,
+                                         language);
+
+  EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "\\",
+            operator_resolveCommand("avance", semMem, lingDb));
+
+  EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=3 mètres)\\",
+            operator_resolveCommand("avance 3 mètres", semMem, lingDb));
+}
+
+
 
