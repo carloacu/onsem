@@ -2572,6 +2572,13 @@ const SemanticTimeGrounding* semExpToTimeGrounding(const SemanticExpression& pSe
   return nullptr;
 }
 
+const SemanticResourceGrounding* semExpToResourceGrounding(const SemanticExpression& pSemExp)
+{
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+    return grdExpPtr->grounding().getResourceGroundingPtr();
+  return nullptr;
+}
 
 
 } // End of namespace SemExpGetter

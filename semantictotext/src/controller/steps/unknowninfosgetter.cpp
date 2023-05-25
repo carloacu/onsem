@@ -8,6 +8,7 @@
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <onsem/semantictotext/semanticmemory/links/sentencewithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
+#include <onsem/semantictotext/semanticconverter.hpp>
 #include "../semexpcontroller.hpp"
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../../type/referencesfiller.hpp"
@@ -366,7 +367,27 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
                     auto& semAnswer = subWorkStruct.compositeSemAnswers->semAnswers.front();
                     LeafSemAnswer* leafAnswPtr = semAnswer->getLeafPtr();
                     if (leafAnswPtr != nullptr && leafAnswPtr->reaction)
-                      *currListElts = std::move(*leafAnswPtr->reaction);
+                    {
+                      auto& reaction = *leafAnswPtr->reaction;
+                      auto* reactionResourcePtr = SemExpGetter::semExpToResourceGrounding(reaction.getSemExp());
+                      if (reactionResourcePtr != nullptr)
+                      {
+                        auto& reactionResource = reactionResourcePtr->resource;
+                        auto semResource = std::make_unique<SemanticResourceGrounding>(
+                              reactionResource.label, reactionResource.language, reactionResource.value);
+                        auto genericMandatoryForm = listEltGrdExpPtr->clone();
+                        SemExpModifier::setChild(*genericMandatoryForm, GrammaticalType::SUBJECT,
+                                                 std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr()));
+                        converter::extractParameters(semResource->resource.parametersLabelsToValue,
+                                                     reactionResource.parameterLabelsToQuestions,
+                                                     std::move(genericMandatoryForm), pWorkStruct.lingDb);
+                        *currListElts = std::make_unique<GroundedExpression>(std::move(semResource));
+                      }
+                      else
+                      {
+                        *currListElts = std::move(reaction);
+                      }
+                    }
                   }
                   actionCanBeDone = true;
                 }

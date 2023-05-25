@@ -163,6 +163,13 @@ std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage);
 
+
+ONSEMSEMANTICTOTEXT_API
+void extractParameters(std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameters,
+                       const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
+                       UniqueSemanticExpression pInputSemExp,
+                       const linguistics::LinguisticDatabase& pLingDb);
+
 } // End of namespace converter
 } // End of namespace onsem
 

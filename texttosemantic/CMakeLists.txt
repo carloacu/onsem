@@ -159,6 +159,7 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/dbtype/semanticgrounding/semanticlengthgrounding.cpp
     src/dbtype/semanticgrounding/semanticmetagrounding.cpp
     src/dbtype/semanticgrounding/semanticnamegrounding.cpp
+    src/dbtype/semanticgrounding/semanticresourcegrounding.cpp
     src/dbtype/semanticgrounding/semantictextgrounding.cpp
     src/dbtype/semanticgrounding/semanticunitygrounding.cpp
     src/dbtype/binary/semexploader.cpp

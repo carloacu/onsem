@@ -13,6 +13,8 @@
 namespace onsem
 {
 
+
+
 struct ONSEM_TEXTTOSEMANTIC_API SemanticResource
 {
   SemanticResource(const std::string& pLabel,
@@ -21,27 +23,17 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticResource
     : label(pLabel),
       language(pLanguage),
       value(pValue),
-      parameterLabelsToQuestions()
+      parameterLabelsToQuestions(),
+      parametersLabelsToValue()
   {
   }
 
-  SemanticResource(const SemanticResource& pOther)
-    : label(pOther.label),
-      language(pOther.language),
-      value(pOther.value),
-      parameterLabelsToQuestions()
-  {
-    for (const auto& currParam : pOther.parameterLabelsToQuestions)
-    {
-      auto& newParam = parameterLabelsToQuestions[currParam.first];
-      for (const auto& currSemExp : currParam.second)
-        newParam.push_back(currSemExp->clone());
-    }
-  }
+  SemanticResource(const SemanticResource& pOther);
 
   bool operator==(const SemanticResource& pOther) const
   { return label == pOther.label && language == pOther.language && value == pOther.value &&
-        parameterLabelsToQuestions == pOther.parameterLabelsToQuestions; }
+        parameterLabelsToQuestions == pOther.parameterLabelsToQuestions &&
+        parametersLabelsToValue == pOther.parametersLabelsToValue; }
 
   bool operator<(const SemanticResource& pOther) const
   {
@@ -52,12 +44,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticResource
     return language < pOther.language;
   }
 
-  std::string toStr() const
-  {
-    if (language != SemanticLanguageEnum::UNKNOWN)
-      return label + "=#" + semanticLanguageEnum_toStr(language) + "#" + value;
-    return label + "=" + value;
-  }
+  std::string toStr() const;
 
   std::string toRadixMapStr() const
   {
@@ -68,6 +55,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticResource
   SemanticLanguageEnum language;
   std::string value;
   std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelsToQuestions;
+  std::map<std::string, std::vector<UniqueSemanticExpression>> parametersLabelsToValue;
 };
 
 

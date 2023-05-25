@@ -14,6 +14,7 @@
 #include <onsem/texttosemantic/algorithmsetforalanguage.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
+#include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
@@ -633,6 +634,58 @@ std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
   return res;
 }
 
+
+void extractParameters(std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameters,
+                       const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
+                       UniqueSemanticExpression pInputSemExp,
+                       const linguistics::LinguisticDatabase& pLingDb)
+{
+  SemanticMemory semMemory;
+  auto expWithLinks = memoryOperation::inform(std::move(pInputSemExp), semMemory, pLingDb);
+
+  for (const auto& currParam : pParameterLabelsToQuestions)
+  {
+    for (const auto& currQuestion : currParam.second)
+    {
+      UniqueSemanticExpression questionSemExp = currQuestion->clone();
+      std::vector<std::unique_ptr<GroundedExpression>> answers;
+      memoryOperation::get(answers, std::move(questionSemExp), semMemory, pLingDb);
+
+      // Little hack to still get the answer even if the child answer is not well positionned in the tree
+      if (answers.empty())
+      {
+        auto* questionRequestPtr = SemExpGetter::getRequestListFromSemExp(*currQuestion);
+        if (questionRequestPtr != nullptr && !questionRequestPtr->empty())
+        {
+          auto requestType = questionRequestPtr->types.front();
+          if (requestType != SemanticRequestType::QUANTITY)
+          {
+            GrammaticalType grammaticalChildrenType = semanticRequestType_toSemGram(requestType);
+            if (grammaticalChildrenType != GrammaticalType::UNKNOWN && expWithLinks)
+            {
+              auto answerChildSemExpPtr = SemExpGetter::getChildFromSemExpRecursively(*expWithLinks->semExp, grammaticalChildrenType);
+              if (answerChildSemExpPtr != nullptr)
+              {
+                std::list<const GroundedExpression*> grdExpPtrs;
+                answerChildSemExpPtr->getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+                for (auto* currGrdExpPtr : grdExpPtrs)
+                  answers.emplace_back(currGrdExpPtr->clone());
+              }
+            }
+          }
+        }
+      }
+
+      if (!answers.empty())
+      {
+        auto& exitingParams = pParameters[currParam.first];
+        for (auto& currAnswer : answers)
+          exitingParams.emplace_back(std::move(currAnswer));
+        break;
+      }
+    }
+  }
+}
 
 } // End of namespace converter
 } // End of namespace onsem

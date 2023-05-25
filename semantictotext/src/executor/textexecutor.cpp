@@ -1,12 +1,43 @@
 #include <onsem/semantictotext/executor/textexecutor.hpp>
-#include <onsem/texttosemantic/tool/semexpgetter.hpp>
-#include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
-#include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include "../conversion/mandatoryformconverter.hpp"
 
+
 namespace onsem
 {
+namespace
+{
+
+void _paramSemExpsToToParamStr(
+    std::map<std::string, std::vector<std::string>>& pParameters,
+    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParametersToSemExps,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
+{
+  for (auto& currParametersToSemExps : pParametersToSemExps)
+  {
+    auto& semExps = currParametersToSemExps.second;
+    if (!semExps.empty())
+    {
+      auto& strs = pParameters[currParametersToSemExps.first];
+      TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
+                                       SemanticAgentGrounding::me,
+                                       pLanguage);
+      SemanticMemory semMemory;
+
+      for (auto& currAnswer : semExps)
+      {
+        std::string subRes;
+        converter::semExpToText(subRes, currAnswer->clone(), outContext,
+                                true, semMemory, pLingDb, nullptr);
+        strs.push_back(subRes);
+      }
+    }
+  }
+}
+
+}
+
 
 TextExecutor::TextExecutor(SemanticMemory& pSemanticMemory,
                            const linguistics::LinguisticDatabase& pLingDb,
@@ -43,83 +74,21 @@ FutureVoid TextExecutor::_exposeResource(const SemanticResource& pResource,
                                          const FutureVoid&)
 {
   std::map<std::string, std::vector<std::string>> parameters;
-  if (!pResource.parameterLabelsToQuestions.empty())
+  if (!pResource.parameterLabelsToQuestions.empty() && pInputSemExpPtr != nullptr)
   {
-    _extractParameters(parameters, pResource.parameterLabelsToQuestions,
-                       pResource.language, pInputSemExpPtr);
+    std::map<std::string, std::vector<UniqueSemanticExpression>> parametersToSemExps;
+    UniqueSemanticExpression clonedInput = pInputSemExpPtr->clone();
+    mandatoryFormConverter::process(clonedInput);
+    converter::extractParameters(parametersToSemExps,
+                                 pResource.parameterLabelsToQuestions,
+                                 std::move(clonedInput), _lingDb);
+    _paramSemExpsToToParamStr(parameters, parametersToSemExps, _lingDb, pResource.language);
   }
+
+  _paramSemExpsToToParamStr(parameters, pResource.parametersLabelsToValue, _lingDb, pResource.language);
   _addLogAutoResource(pResource, parameters);
   return FutureVoid();
 }
 
-
-void TextExecutor::_extractParameters(
-    std::map<std::string, std::vector<std::string>>& pParameters,
-    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
-    SemanticLanguageEnum pLanguage,
-    const SemanticExpression* pInputSemExpPtr) const
-{
-  if (pInputSemExpPtr != nullptr)
-  {
-    auto& inputSemExp = *pInputSemExpPtr;
-    UniqueSemanticExpression clonedInput = inputSemExp.clone();
-    mandatoryFormConverter::process(clonedInput);
-    SemanticMemory semMemory;
-    memoryOperation::inform(std::move(clonedInput), semMemory, _lingDb);
-
-    for (const auto& currParam : pParameterLabelsToQuestions)
-    {
-      for (const auto& currQuestion : currParam.second)
-      {
-        UniqueSemanticExpression questionSemExp = currQuestion->clone();
-        std::vector<std::unique_ptr<GroundedExpression>> answers;
-        memoryOperation::get(answers, std::move(questionSemExp), semMemory, _lingDb);
-
-        // Little hack to still get the answer even if the child answer is not well positionned in the tree
-        if (answers.empty())
-        {
-          auto* questionRequestPtr = SemExpGetter::getRequestListFromSemExp(*currQuestion);
-          if (questionRequestPtr != nullptr && !questionRequestPtr->empty())
-          {
-            auto requestType = questionRequestPtr->types.front();
-            if (requestType != SemanticRequestType::QUANTITY)
-            {
-              GrammaticalType grammaticalChildrenType = semanticRequestType_toSemGram(requestType);
-              if (grammaticalChildrenType != GrammaticalType::UNKNOWN)
-              {
-                auto answerChildSemExpPtr = SemExpGetter::getChildFromSemExpRecursively(inputSemExp, grammaticalChildrenType);
-                if (answerChildSemExpPtr != nullptr)
-                {
-                  std::list<const GroundedExpression*> grdExpPtrs;
-                  answerChildSemExpPtr->getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
-                  for (auto* currGrdExpPtr : grdExpPtrs)
-                    answers.emplace_back(currGrdExpPtr->clone());
-                }
-              }
-            }
-          }
-        }
-
-        if (!answers.empty())
-        {
-          TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
-                                           SemanticAgentGrounding::me,
-                                           pLanguage);
-          std::vector<std::string> res(answers.size());
-          std::size_t i = 0;
-          for (auto& currAnswer : answers)
-          {
-            std::string subRes;
-            converter::semExpToText(subRes, std::move(currAnswer), outContext,
-                                    true, semMemory, _lingDb, nullptr);
-            res[i++] = subRes;
-          }
-          pParameters.emplace(currParam.first, std::move(res));
-          break;
-        }
-      }
-    }
-  }
-}
 
 } // End of namespace onsem

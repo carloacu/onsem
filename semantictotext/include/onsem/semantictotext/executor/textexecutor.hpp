@@ -26,12 +26,6 @@ protected:
                              const SemanticExpression* pInputSemExpPtr,
                              const FutureVoid&) override;
 
-  void _extractParameters(
-      std::map<std::string, std::vector<std::string>>& pParameters,
-      const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
-      SemanticLanguageEnum pLanguage,
-      const SemanticExpression* pInputSemExp) const;
-
 private:
   SemanticMemory& _semanticMemory;
   const linguistics::LinguisticDatabase& _lingDb;

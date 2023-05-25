@@ -527,6 +527,10 @@ ONSEM_TEXTTOSEMANTIC_API
 const SemanticTimeGrounding* semExpToTimeGrounding(const SemanticExpression& pSemExp);
 
 
+ONSEM_TEXTTOSEMANTIC_API
+const SemanticResourceGrounding* semExpToResourceGrounding(const SemanticExpression& pSemExp);
+
+
 } // End of namespace SemExpGetter
 
 } // End of namespace onsem

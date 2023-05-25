@@ -342,6 +342,11 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_withParameters)
 
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=3 mètres)\\",
             operator_resolveCommand("avance 3 mètres", semMem, lingDb));
+
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour tester les roues il faut avancer de 2 mètres. Et puis ?",
+                            operator_teachBehavior("pour tester les roues il faut avancer de 2 mètres", semMem, lingDb));
+  EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=2 mètres)\\",
+            operator_resolveCommand("teste les roues", semMem, lingDb));
 }
 
 
