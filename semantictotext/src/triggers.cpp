@@ -36,26 +36,6 @@ void add(UniqueSemanticExpression pTriggerSemExp,
 }
 
 
-void addToResource(
-    const std::string& pTriggerText,
-    const std::string& pResourceLabel,
-    const std::string& pResourceValue,
-    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pResourceParameterLabelToQuestions,
-    SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage)
-{
-  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
-                                           SemanticAgentGrounding::me,
-                                           pLanguage);
-  triggerProcContext.isTimeDependent = false;
-  auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
-  auto answerSemExp = converter::createResourceWithParameters(pResourceLabel, pResourceValue, pResourceParameterLabelToQuestions,
-                                                              *triggerSemExp, pLingDb, pLanguage);
-  add(std::move(triggerSemExp), std::move(answerSemExp), pSemanticMemory, pLingDb);
-}
-
-
 std::shared_ptr<ExpressionWithLinks> match(
     mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
     SemanticMemory& pSemanticMemory,
@@ -83,27 +63,6 @@ std::shared_ptr<ExpressionWithLinks> match(
     controller::compAnswerToSemExp(pReaction, *compSemAnswers);
   }
   return expForMem;
-}
-
-
-void createParameterSemanticexpressions(
-    std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
-    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
-    const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage)
-{
-  TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
-                                                 SemanticAgentGrounding::currentUser,
-                                                 pLanguage);
-  paramQuestionProcContext.isTimeDependent = false;
-  for (auto& currLabelToQuestions : pParameterLabelToQuestionsStrs)
-  {
-    for (auto& currQuestion : currLabelToQuestions.second)
-    {
-      auto paramSemExp = converter::textToSemExp(currQuestion, paramQuestionProcContext, pLingDb);
-      pParameterLabelToQuestionsSemExps[currLabelToQuestions.first].emplace_back(std::move(paramSemExp));
-    }
-  }
 }
 
 

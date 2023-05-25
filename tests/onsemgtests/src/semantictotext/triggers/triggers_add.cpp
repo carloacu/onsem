@@ -90,11 +90,17 @@ void triggers_addAnswerWithManyParameters(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage)
 {
-  std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestionsSemExps;
-  triggers::createParameterSemanticexpressions(parameterLabelToQuestionsSemExps,
-                                               pParameterLabelToQuestionsStrs,
-                                               pLingDb, pLanguage);
-  triggers::addToResource(pTriggerText, "label", pTriggerText, parameterLabelToQuestionsSemExps, pSemanticMemory, pLingDb, pLanguage);
+  TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                           SemanticAgentGrounding::me,
+                                           pLanguage);
+  triggerProcContext.isTimeDependent = false;
+  auto triggerSemExp = converter::textToSemExp(pTriggerText, triggerProcContext, pLingDb);
+
+  auto outputResourceGrdExp =
+      std::make_unique<GroundedExpression>(
+        converter::createResourceWithParameters("label", pTriggerText, pParameterLabelToQuestionsStrs,
+                                                *triggerSemExp, pLingDb, pLanguage));
+  triggers::add(std::move(triggerSemExp), std::move(outputResourceGrdExp), pSemanticMemory, pLingDb);
 }
 
 void triggers_addOtherTriggerFormulations(const std::string& pTriggerText,

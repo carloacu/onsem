@@ -150,6 +150,33 @@ void _naturalLanguageTextToSemanticWord(
   pWord.language = pNaturalLanguageText.language;
 }
 
+/**
+ * @brief Create semantic expressions of the resource parameters.
+ * @param pParameterLabelToQuestionsSemExps Result.
+ * @param pParameterLabelToQuestionsStrs Parameters in strings.
+ * @param pLingDb Linguistic database.
+ * @param pLanguage Language of the parameters.
+ */
+void _createParameterSemanticexpressions(
+    std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
+    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
+{
+  TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
+                                                 SemanticAgentGrounding::currentUser,
+                                                 pLanguage);
+  paramQuestionProcContext.isTimeDependent = false;
+  for (auto& currLabelToQuestions : pParameterLabelToQuestionsStrs)
+  {
+    for (auto& currQuestion : currLabelToQuestions.second)
+    {
+      auto paramSemExp = converter::textToSemExp(currQuestion, paramQuestionProcContext, pLingDb);
+      pParameterLabelToQuestionsSemExps[currLabelToQuestions.first].emplace_back(std::move(paramSemExp));
+    }
+  }
+}
+
 }
 
 
@@ -573,17 +600,23 @@ void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
 }
 
 
-std::unique_ptr<GroundedExpression> createResourceWithParameters(
+
+std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const std::string& pResourceLabel,
     const std::string& pResourceValue,
-    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pResourceParameterLabelToQuestions,
+    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
     const SemanticExpression& pContextForParameters,
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage)
 {
-  auto answer1Grd = std::make_unique<SemanticResourceGrounding>(pResourceLabel, pLanguage, pResourceValue);
+  std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestionsSemExps;
+  _createParameterSemanticexpressions(parameterLabelToQuestionsSemExps,
+                                      pParameterLabelToQuestionsStrs,
+                                      pLingDb, pLanguage);
 
-  for (auto& currLabelToQuestions : pResourceParameterLabelToQuestions)
+  auto res = std::make_unique<SemanticResourceGrounding>(pResourceLabel, pLanguage, pResourceValue);
+
+  for (auto& currLabelToQuestions : parameterLabelToQuestionsSemExps)
   {
     for (auto& currQuestionSemExp : currLabelToQuestions.second)
     {
@@ -594,10 +627,10 @@ std::unique_ptr<GroundedExpression> createResourceWithParameters(
             semMemory, pLingDb);
       UniqueSemanticExpression questionMergedWithContext = currQuestionSemExp->clone();
       memoryOperation::mergeWithContext(questionMergedWithContext, semMemory, pLingDb);
-      answer1Grd->resource.parameterLabelsToQuestions[currLabelToQuestions.first].emplace_back(std::move(questionMergedWithContext));
+      res->resource.parameterLabelsToQuestions[currLabelToQuestions.first].emplace_back(std::move(questionMergedWithContext));
     }
   }
-  return std::make_unique<GroundedExpression>(std::move(answer1Grd));
+  return res;
 }
 
 

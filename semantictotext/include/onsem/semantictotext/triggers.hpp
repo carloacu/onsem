@@ -43,27 +43,6 @@ void add(UniqueSemanticExpression pTriggerSemExp,
 
 
 /**
- * @brief Register a resource in reaction of a trigger.
- * @param pTriggerText Trigger text.
- * @param pResourceLabel Label of the resource in reaction.
- * @param pResourceValue Value of the resource in reaction.
- * @param pResourceParameterLabelToQuestions Parameters of the resource in reaction.<br/>
- * After the matching, the executor will try to answer the question based on the user utterance.
- * @param pSemanticMemory Memory object where this mapping is stored.
- * @param pLingDb Linguistic database.
- * @param pLanguage Language of the trigger and the resource.
- */
-ONSEMSEMANTICTOTEXT_API
-void addToResource(const std::string& pTriggerText,
-    const std::string& pResourceLabel,
-    const std::string& pResourceValue,
-    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pResourceParameterLabelToQuestions,
-    SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage);
-
-
-/**
  * @brief Match a user utterance to a reaction stored in the memory object.
  * @param pReaction Result of the matching.
  * @param pSemanticMemory Memory object where this mappings are stored.
@@ -79,20 +58,6 @@ std::shared_ptr<ExpressionWithLinks> match(
     const linguistics::LinguisticDatabase& pLingDb,
     const ReactionOptions* pReactionOptions = nullptr);
 
-
-/**
- * @brief Create semantic expressions of the resource parameters.
- * @param pParameterLabelToQuestionsSemExps Result.
- * @param pParameterLabelToQuestionsStrs Parameters in strings.
- * @param pLingDb Linguistic database.
- * @param pLanguage Language of the parameters.
- */
-ONSEMSEMANTICTOTEXT_API
-void createParameterSemanticexpressions(
-    std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
-    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
-    const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
 
 } // End of namespace triggers

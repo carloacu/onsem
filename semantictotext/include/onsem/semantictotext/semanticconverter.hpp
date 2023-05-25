@@ -29,8 +29,8 @@ namespace converter
 
 ONSEMSEMANTICTOTEXT_API
 void addDifferentForms(UniqueSemanticExpression& pSemExp,
-                                   const linguistics::LinguisticDatabase& pLingDb,
-                                   std::list<std::list<SemLineToPrint>>* pDebugOutput = nullptr);
+                       const linguistics::LinguisticDatabase& pLingDb,
+                       std::list<std::list<SemLineToPrint>>* pDebugOutput = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
 void addBothDirectionForms(UniqueSemanticExpression& pSemExp,
@@ -155,10 +155,10 @@ void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
 
 
 ONSEMSEMANTICTOTEXT_API
-std::unique_ptr<GroundedExpression> createResourceWithParameters(
+std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const std::string& pResourceLabel,
     const std::string& pResourceValue,
-    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pResourceParameterLabelToQuestions,
+    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
     const SemanticExpression& pContextForParameters,
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage);
