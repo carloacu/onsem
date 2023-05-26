@@ -66,6 +66,12 @@ public:
   virtual bool isPronounComplAdverbCompatibles(const InflectedWord& pInflPronCompl,
                                                const InflectedWord& pInflAdv) const = 0;
 
+  virtual bool isPronounComplAdjectiveCompatibles(const InflectedWord& pInflPronCompl,
+                                                  const InflectedWord& pInflAdj) const = 0;
+
+  virtual bool isPronounComplVerbCompatibles(const InflectedWord& pInflPronCompl,
+                                             const InflectedWord& pInflVerb) const = 0;
+
   virtual bool isPronounCompDetCompatibles(const InflectedWord& pPronComp) const = 0;
 
   virtual bool isIntjInflCompatibles(const InflectedWord& pIntj,

@@ -55,6 +55,12 @@ public:
   bool isPronounComplAdverbCompatibles(const InflectedWord&,
                                        const InflectedWord&) const override { return true; }
 
+  bool isPronounComplAdjectiveCompatibles(const InflectedWord& pInflPronCompl,
+                                          const InflectedWord& pInflAdj) const override { return true; }
+
+  bool isPronounComplVerbCompatibles(const InflectedWord& pInflPronCompl,
+                                     const InflectedWord& pInflVerb) const override { return true; }
+
   bool isPronounCompDetCompatibles(const InflectedWord&) const override { return true; }
 
   bool isIntjInflCompatibles(const InflectedWord& pIntj,

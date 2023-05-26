@@ -66,6 +66,7 @@ std::vector<std::pair<PartOfSpeech, PartOfSpeech> > _getCheckCompatibility()
     {PartOfSpeech::PRONOUN, PartOfSpeech::PRONOUN_COMPLEMENT},
     {PartOfSpeech::PRONOUN_COMPLEMENT, PartOfSpeech::DETERMINER},
     {PartOfSpeech::PRONOUN_COMPLEMENT, PartOfSpeech::ADVERB},
+    {PartOfSpeech::PRONOUN_COMPLEMENT, PartOfSpeech::VERB},
     {PartOfSpeech::NOUN, PartOfSpeech::ADJECTIVE},
     {PartOfSpeech::NOUN, PartOfSpeech::NOUN},
     {PartOfSpeech::NOUN, PartOfSpeech::PRONOUN},

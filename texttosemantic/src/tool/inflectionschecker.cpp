@@ -558,6 +558,14 @@ bool InflectionsChecker::areCompatibles
     {
       return _impl->isPronounComplAdverbCompatibles(pIGram1, pIGram2);
     }
+    case PartOfSpeech::ADJECTIVE:
+    {
+      return _impl->isPronounComplAdjectiveCompatibles(pIGram1, pIGram2);
+    }
+    case PartOfSpeech::VERB:
+    {
+      return _impl->isPronounComplVerbCompatibles(pIGram1, pIGram2);
+    }
     default:
     {
       return true;

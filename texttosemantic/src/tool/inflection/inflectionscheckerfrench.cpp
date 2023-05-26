@@ -173,6 +173,12 @@ bool InflectionsCheckerFrench::isPronounComplAdverbCompatibles(const InflectedWo
       !ConceptSet::haveAConceptThatBeginWith(pInflAdv.infos.concepts, "time_relative_");
 }
 
+bool InflectionsCheckerFrench::isPronounComplVerbCompatibles(const InflectedWord& pInflPronCompl,
+                                                             const InflectedWord& pInflVerb) const
+{
+  return !(pInflPronCompl.word.lemma == "en" && InflectionsChecker::verbIsAtPresentParticiple(pInflVerb));
+}
+
 bool InflectionsCheckerFrench::isPronounCompDetCompatibles(const InflectedWord& pPronComp) const
 {
   return pPronComp.word.lemma != "le";
