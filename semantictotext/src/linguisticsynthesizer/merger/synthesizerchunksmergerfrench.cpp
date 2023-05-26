@@ -311,6 +311,7 @@ void SynthesizerChunksMergerFrench::_writEndOfSentence
   pOut.splice(pOut.end(), pOutSentence.inCaseOf.out);
   pOut.splice(pOut.end(), pOutSentence.occurrenceRank.out);
   pOut.splice(pOut.end(), pOutSentence.startingPoint.out);
+  pOut.splice(pOut.end(), pOutSentence.inBackground.out);
   _writeDurationLocationAndTimeInGoodOrder(pOut, pOutSentence);
 }
 

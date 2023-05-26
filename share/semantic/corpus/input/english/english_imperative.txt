@@ -57,3 +57,5 @@ Shut down for 4 minutes
 Shut down during 5 minutes
 Turn down the volume by 28
 Make a full turn to the left slowly 3 times
+walk while singing
+

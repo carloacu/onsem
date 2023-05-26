@@ -55,7 +55,9 @@
     <child lemma="when" pos="sub_conj" chunkLinkType="time" />
     <child lemma="whenever" pos="sub_conj" chunkLinkType="time" />
     <child lemma="whereas" pos="sub_conj" chunkLinkType="despite contraint" />
+    <child lemma="while" pos="sub_conj" chunkLinkType="in background" condition="followedByPartOfSpeech(verb)" />
     <child lemma="while" pos="sub_conj" chunkLinkType="time" />
+
     <child lemma="with" pos="preposition" chunkLinkType="with" />
     <child lemma="without" pos="sub_conj" chunkLinkType="without" />
     <child lemma="why" pos="sub_conj" chunkLinkType="reason of" />

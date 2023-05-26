@@ -685,7 +685,8 @@ CarryOnFrom ErrorDetector::xSolveBadVerbChunks
       res = CarryOnFrom::PARTOFSPEECH_FILTERS;
     }
     else if (haveASubject(verbChunk) ||
-             pParentChkLk == ChunkLinkType::SUBJECT_OF)
+             pParentChkLk == ChunkLinkType::SUBJECT_OF ||
+             pParentChkLk == ChunkLinkType::IN_BACKGROUND)
     {
       if (xSolveVerbThatHaveASubjectThatBeginsWithAPrep(verbChunk))
       {

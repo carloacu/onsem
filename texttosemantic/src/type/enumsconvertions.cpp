@@ -42,6 +42,8 @@ mystd::optional<ChunkLinkType> grammaticalTypeToChunkType(GrammaticalType pGramT
     return ChunkLinkType::BETWEEN;
   case GrammaticalType::STARTING_POINT:
     return ChunkLinkType::STARTING_POINT;
+  case GrammaticalType::IN_BACKGROUND:
+    return ChunkLinkType::IN_BACKGROUND;
   case GrammaticalType::IN_CASE_OF:
     return ChunkLinkType::IN_CASE_OF;
   case GrammaticalType::CAUSE:
@@ -126,6 +128,8 @@ mystd::optional<GrammaticalType> chunkTypeToGrammaticalType
     return GrammaticalType::BETWEEN;
   case ChunkLinkType::STARTING_POINT:
     return GrammaticalType::STARTING_POINT;
+  case ChunkLinkType::IN_BACKGROUND:
+    return GrammaticalType::IN_BACKGROUND;
   case ChunkLinkType::IN_CASE_OF:
     return GrammaticalType::IN_CASE_OF;
   case ChunkLinkType::CAUSE:

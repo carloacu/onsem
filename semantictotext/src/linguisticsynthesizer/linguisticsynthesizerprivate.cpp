@@ -551,7 +551,8 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
   else if (pRequests.has(SemanticRequestType::ACTION))
     verbContext.verbTense = LinguisticVerbTense::PRESENT_IMPERATIVE;
   else if (sentWorkStruct.statementGrd.verbTense == SemanticVerbTense::UNKNOWN &&
-           pContext.grammaticalTypeFromParent == GrammaticalType::WAY)
+           (pContext.grammaticalTypeFromParent == GrammaticalType::IN_BACKGROUND ||
+            pContext.grammaticalTypeFromParent == GrammaticalType::WAY))
     verbContext.verbTense = LinguisticVerbTense::PRESENT_PARTICIPLE;
   else
   {
@@ -877,6 +878,14 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
     case GrammaticalType::STARTING_POINT:
     {
       OutSemExp& outSE = sentWorkStruct.outs.startingPoint;
+      _writeObjectAfterVerb(sentWorkStruct, outSE, currChild.first, pStatementGrd,
+                            inflectedVerb, pGrdExp, currSemExpChild, pConf, pRequests,
+                            childContextType, verbContext, pLastSubject);
+      break;
+    }
+    case GrammaticalType::IN_BACKGROUND:
+    {
+      OutSemExp& outSE = sentWorkStruct.outs.inBackground;
       _writeObjectAfterVerb(sentWorkStruct, outSE, currChild.first, pStatementGrd,
                             inflectedVerb, pGrdExp, currSemExpChild, pConf, pRequests,
                             childContextType, verbContext, pLastSubject);

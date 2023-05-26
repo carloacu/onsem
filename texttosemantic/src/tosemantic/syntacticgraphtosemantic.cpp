@@ -2822,6 +2822,7 @@ void SyntacticGraphToSemantic::xFillNewSentence
     case ChunkLinkType::LENGTH:
     case ChunkLinkType::DURATION:
     case ChunkLinkType::STARTING_POINT:
+    case ChunkLinkType::IN_BACKGROUND:
     case ChunkLinkType::IN_CASE_OF:
     case ChunkLinkType::LANGUAGE:
     case ChunkLinkType::LOCATION:

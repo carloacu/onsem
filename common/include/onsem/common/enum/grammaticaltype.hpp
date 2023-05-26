@@ -30,6 +30,7 @@ namespace onsem
   SEMANTIC_GRAMMATICALTYPE(AGAINST, "against")                      \
   SEMANTIC_GRAMMATICALTYPE(BETWEEN, "between")                      \
   SEMANTIC_GRAMMATICALTYPE(STARTING_POINT, "starting_point")        \
+  SEMANTIC_GRAMMATICALTYPE(IN_BACKGROUND, "in_background")          \
   SEMANTIC_GRAMMATICALTYPE(IN_CASE_OF, "in_case_of")                \
   SEMANTIC_GRAMMATICALTYPE(SUB_CONCEPT, "sub_concept")              \
   SEMANTIC_GRAMMATICALTYPE(OCCURRENCE_RANK, "occurrence_rank")      \

@@ -182,6 +182,7 @@ void SynthesizerChunksMergerEnglish::_writEndOfSentence
 
   pOut.splice(pOut.end(), pOutSentence.occurrenceRank.out);
   pOut.splice(pOut.end(), pOutSentence.startingPoint.out);
+  pOut.splice(pOut.end(), pOutSentence.inBackground.out);
   _writeDurationLocationAndTimeInGoodOrder(pOut, pOutSentence);
 }
 

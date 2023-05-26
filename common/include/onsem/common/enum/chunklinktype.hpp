@@ -27,6 +27,7 @@ namespace linguistics
   SYNTACTIC_CHUNK_LINK(SUBORDINATE_CLAUSE, "subordinate clause", "green")      \
   SYNTACTIC_CHUNK_LINK(IF, "if", "green")                                      \
   SYNTACTIC_CHUNK_LINK(ELSE, "else", "green")                                  \
+  SYNTACTIC_CHUNK_LINK(IN_BACKGROUND, "in background", "green")                \
   SYNTACTIC_CHUNK_LINK(IN_CASE_OF, "in case of", "green")                      \
   SYNTACTIC_CHUNK_LINK(OWNER, "owner", "black")                                \
   SYNTACTIC_CHUNK_LINK(SPECIFICATION, "specification", "black")                \

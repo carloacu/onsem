@@ -171,6 +171,7 @@ struct OutSentence
   OutSemExp objectJustAfterVerb{};
   OutSemExp objectAfterVerb{};
   OutSemExp inCaseOf{};
+  OutSemExp inBackground{};
   OutSemExp mannerBetweenAuxAndVerb{};
   OutSemExp manner{};
   OutSemExp other{};
