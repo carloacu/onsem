@@ -135,15 +135,15 @@ TEST_F(SemanticReasonerGTests, operator_resolveCommand_basic)
   EXPECT_EQ("Bonjour",
             operator_resolveCommand("say hello in French", semMem, lingDb));
   // repetition
-  EXPECT_EQ("Hello\tHello\tHello\tHello",
+  EXPECT_EQ("(\tHello\tNUMBER_OF_TIMES: 4\t)",
             operator_resolveCommand("say hello four times", semMem, lingDb));
   // repetition + translation
-  EXPECT_EQ("Bonjour\tBonjour\tBonjour\tBonjour",
+  EXPECT_EQ("(\tBonjour\tNUMBER_OF_TIMES: 4\t)",
             operator_resolveCommand("say hello four times in French", semMem, lingDb));
   // repetition in list of commands
-  EXPECT_EQ("(\tYou are a nice man.\tAND\tPoop!\tPoop!\t)",
+  EXPECT_EQ("(\tYou are a nice man.\tAND\t(\tPoop!\tNUMBER_OF_TIMES: 2\t)\t)",
             operator_resolveCommand("do goodbye and say poop 2 times", semMem, lingDb));
-  EXPECT_EQ("(\tNice\tNice\tNice\tAND\tYou are a nice man.\t)",
+  EXPECT_EQ("(\t(\tNice\tNUMBER_OF_TIMES: 3\t)\tAND\tYou are a nice man.\t)",
             operator_resolveCommand("say nice 3 times and do goodbye", semMem, lingDb));
 
   // AND has a higher priority than THEN

@@ -1,5 +1,6 @@
 #include <onsem/semantictotext/executor/virtualexecutor.hpp>
 #include <future>
+#include <sstream>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
@@ -254,6 +255,16 @@ void VirtualExecutor::_insideScopeLink(Link pLink)
   _addLogAutoScheduling(linkToStr(pLink));
 }
 
+void VirtualExecutor::_insideScopeRepetition(int pNumberOfRepetitions)
+{
+  if (_syncLoggerPtr != nullptr)
+  {
+    std::stringstream ss;
+    ss << "NUMBER_OF_TIMES: " << pNumberOfRepetitions;
+    _syncLoggerPtr->onMetaInformation(ss.str());
+  }
+}
+
 void VirtualExecutor::_endOfScope()
 {
   _addLogAutoSchedulingEndOfScope();
@@ -266,28 +277,6 @@ FutureVoid VirtualExecutor::_handleDurationAnnotations(
     const FutureVoid&)
 {
   return FutureVoid();
-}
-
-
-FutureVoid VirtualExecutor::_runSemExpNTimes(
-    const UniqueSemanticExpression& pSemExp,
-    std::shared_ptr<ExecutorContext> pExecutorContext,
-    const FutureVoid& pStopRequest,
-    int pNbOfTimes)
-{
-  FutureVoid res;
-  for (int i = 0; i < pNbOfTimes; ++i)
-  {
-    if (pStopRequest.isFinished())
-      return FutureVoid();
-    res = res.then([this, &pSemExp, pExecutorContext, pStopRequest]() mutable
-    {
-      if (pStopRequest.isFinished())
-        return FutureVoid();
-      return _runSemExp(pSemExp, pExecutorContext, pStopRequest);
-    });
-  }
-  return res;
 }
 
 
@@ -524,7 +513,6 @@ FutureVoid VirtualExecutor::_runSemExp(
       if (isHandled)
         return res;
     }
-    int nbOfRepetitions = SemExpGetter::getNumberOfRepetitions(annExp.annotations);
 
     const UniqueSemanticExpression* backgroundSemExpPtr = nullptr;
     auto itBackground = annExp.annotations.find(GrammaticalType::IN_BACKGROUND);
@@ -534,7 +522,16 @@ FutureVoid VirtualExecutor::_runSemExp(
     if (backgroundSemExpPtr != nullptr)
       _beginOfScope();
 
-    auto res = _runSemExpNTimes(annExp.semExp, subContext, pStopRequest, nbOfRepetitions);
+    int nbOfRepetitions = SemExpGetter::getNumberOfRepetitions(annExp.annotations);
+    if (nbOfRepetitions > 1)
+      _beginOfScope();
+    auto res = _runSemExp(annExp.semExp, subContext, pStopRequest);
+
+    if (nbOfRepetitions > 1)
+    {
+      _insideScopeRepetition(nbOfRepetitions);
+      _endOfScope();
+    }
 
     if (backgroundSemExpPtr != nullptr)
     {

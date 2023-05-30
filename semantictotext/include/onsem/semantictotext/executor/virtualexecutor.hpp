@@ -114,6 +114,7 @@ protected:
 
   virtual void _beginOfScope();
   virtual void _insideScopeLink(Link pLink);
+  virtual void _insideScopeRepetition(int pNumberOfRepetitions);
   virtual void _endOfScope();
 
   /**
@@ -191,11 +192,6 @@ private:
   FutureVoid _runConditionExp(const ConditionExpression &pCondExp,
                               std::shared_ptr<ExecutorContext> pExecutorContext,
                               const FutureVoid& pStopRequest);
-
-  FutureVoid _runSemExpNTimes(const UniqueSemanticExpression &pSemExp,
-                              std::shared_ptr<ExecutorContext> pExecutorContext,
-                              const FutureVoid& pStopRequest,
-                              int pNbOfTimes);
 
   FutureVoid _runGrdExp(const UniqueSemanticExpression& pUSemExp,
                         std::shared_ptr<ExecutorContext> pExecutorContext,
