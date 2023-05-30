@@ -36,7 +36,6 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/tool/semexpcomparator.hpp
     include/onsem/semantictotext/type/naturallanguageexpression.hpp
     include/onsem/semantictotext/type/reactionoptions.hpp
-    include/onsem/semantictotext/utility/futurevoid.hpp
 )
 
 set(ONSEMSEMANTICTOTEXT_SRCS
@@ -47,7 +46,6 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/type/referencesfiller.cpp
     src/type/semanticdetailledanswer.hpp
     src/type/semanticdetailledanswer.cpp
-    src/utility/futurevoid.cpp
     src/utility/semexpcreator.hpp
     src/utility/semexpcreator.cpp
     src/utility/utility.hpp
