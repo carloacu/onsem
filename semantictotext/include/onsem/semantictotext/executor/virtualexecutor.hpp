@@ -11,7 +11,6 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/executor/executorcontext.hpp>
 #include <onsem/semantictotext/executor/executorlogger.hpp>
-#include <onsem/semantictotext/utility/futurevoid.hpp>
 #include "../api.hpp"
 
 
@@ -54,7 +53,7 @@ struct ONSEMSEMANTICTOTEXT_API VirtualExecutor
    * @param pExecutorContext Context of the execution.
    * @return A SharedExecutorResult finished when the execution of the semantic expression is completed.
    */
-  FutureVoid runSemExp(UniqueSemanticExpression pUSemExp,
+  void runSemExp(UniqueSemanticExpression pUSemExp,
                        std::shared_ptr<ExecutorContext>& pExecutorContext);
 
 
@@ -93,8 +92,8 @@ protected:
    * @param pStopRequest The object to notify about the stop of the execution.
    * @return A SharedExecutorResult finished when the execution of the command is completed.
    */
-  virtual FutureVoid _exposeResource(const SemanticResource& pResource,
-                                     const SemanticExpression* pInutSemExpPtr);
+  virtual void _exposeResource(const SemanticResource& pResource,
+                               const SemanticExpression* pInutSemExpPtr);
 
   /**
    * @brief _exposeText Defines how to expose a text.
@@ -103,8 +102,8 @@ protected:
    * @param pStopRequest The object to notify about the stop of the execution.
    * @return A SharedExecutorResult finished when the text has been completed.
    */
-  virtual FutureVoid _exposeText(const std::string& pText,
-                                 SemanticLanguageEnum pLanguage);
+  virtual void _exposeText(const std::string& pText,
+                           SemanticLanguageEnum pLanguage);
 
   virtual void _beginOfScope();
   virtual void _insideScopeLink(Link pLink);
@@ -116,18 +115,16 @@ protected:
    * @param pIsHandled Result set to true when we wait.
    * @param pAnnExp The expression.
    * @param pExecutorContext The context of the execution.
-   * @return A SharedExecutorResult finished when we finished to wait.
    */
-  virtual FutureVoid _handleDurationAnnotations(bool& pIsHandled,
-                                                const AnnotatedExpression& pAnnExp,
-                                                std::shared_ptr<ExecutorContext> pExecutorContext);
+  virtual void _handleDurationAnnotations(bool& pIsHandled,
+                                          const AnnotatedExpression& pAnnExp,
+                                          std::shared_ptr<ExecutorContext> pExecutorContext);
 
   /**
    * @brief _returnError Handle the error reports. (not implemented yet)
    * @param pErrorMrg The error message.
-   * @return A SharedExecutorResult already finished.
    */
-  FutureVoid _reportAnError(const std::string& pErrorMrg);
+  void _reportAnError(const std::string& pErrorMrg);
 
   /**
    * @brief _doExecutionUntil Execute the expression in loop until a stop is asked in the context object.
@@ -136,9 +133,9 @@ protected:
    * @param pLimitOfRecursions Maximum number of looping before to stop.
    * @return A SharedExecutorResult finished when the execution of the expression in loop is completed.
    */
-  FutureVoid _doExecutionUntil(const AnnotatedExpression& pAnnExp,
-                               std::shared_ptr<ExecutorContext> pExecutorContext,
-                               std::shared_ptr<int> pLimitOfRecursions);
+  void _doExecutionUntil(const AnnotatedExpression& pAnnExp,
+                         std::shared_ptr<ExecutorContext> pExecutorContext,
+                         std::shared_ptr<int> pLimitOfRecursions);
 
   void _addLogAutoResource(const SemanticResource& pResource,
                            const std::map<std::string, std::vector<std::string>>& pParameters)
@@ -165,30 +162,30 @@ private:
                       const UniqueSemanticExpression& pUSemExp,
                       const TextProcessingContext& pTextProcContext);
 
-  FutureVoid _runSemExp(const UniqueSemanticExpression &pUSemExp,
+  void _runSemExp(const UniqueSemanticExpression &pUSemExp,
+                  std::shared_ptr<ExecutorContext> pExecutorContext);
+
+  void _handleList(
+      const ListExpression& pListExp,
+      Link pLink,
+      std::shared_ptr<ExecutorContext> pExecutorContext);
+  void _handleThenReversedList(const ListExpression &pListExp,
+                               std::shared_ptr<ExecutorContext> pExecutorContext);
+  void _runConditionExp(const ConditionExpression &pCondExp,
                         std::shared_ptr<ExecutorContext> pExecutorContext);
 
-  FutureVoid _handleAndList(const ListExpression &pListExp,
-                            std::shared_ptr<ExecutorContext> pExecutorContext);
-  FutureVoid _handleThenList(const ListExpression &pListExp,
-                             std::shared_ptr<ExecutorContext> pExecutorContext);
-  FutureVoid _handleThenReversedList(const ListExpression &pListExp,
-                                     std::shared_ptr<ExecutorContext> pExecutorContext);
-  FutureVoid _runConditionExp(const ConditionExpression &pCondExp,
-                              std::shared_ptr<ExecutorContext> pExecutorContext);
+  void _runGrdExp(const UniqueSemanticExpression& pUSemExp,
+                  std::shared_ptr<ExecutorContext> pExecutorContext);
 
-  FutureVoid _runGrdExp(const UniqueSemanticExpression& pUSemExp,
-                        std::shared_ptr<ExecutorContext> pExecutorContext);
-
-  FutureVoid _sayAndAddDescriptionTree(const UniqueSemanticExpression& pUSemExp,
-                                       std::shared_ptr<ExecutorContext> pExecutorContext,
-                                       SemanticSourceEnum pFrom,
-                                       ContextualAnnotation pContextualAnnotation);
-
-  FutureVoid _sayWithAnnotations(const UniqueSemanticExpression& pUSemExp,
+  void _sayAndAddDescriptionTree(const UniqueSemanticExpression& pUSemExp,
                                  std::shared_ptr<ExecutorContext> pExecutorContext,
                                  SemanticSourceEnum pFrom,
                                  ContextualAnnotation pContextualAnnotation);
+
+  void _sayWithAnnotations(const UniqueSemanticExpression& pUSemExp,
+                           std::shared_ptr<ExecutorContext> pExecutorContext,
+                           SemanticSourceEnum pFrom,
+                           ContextualAnnotation pContextualAnnotation);
 
 
 };

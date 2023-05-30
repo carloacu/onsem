@@ -69,8 +69,8 @@ void TextExecutor::_usageOfLingDb(std::function<void(const linguistics::Linguist
 }
 
 
-FutureVoid TextExecutor::_exposeResource(const SemanticResource& pResource,
-                                         const SemanticExpression* pInputSemExpPtr)
+void TextExecutor::_exposeResource(const SemanticResource& pResource,
+                                   const SemanticExpression* pInputSemExpPtr)
 {
   std::map<std::string, std::vector<std::string>> parameters;
   if (!pResource.parameterLabelsToQuestions.empty() && pInputSemExpPtr != nullptr)
@@ -86,7 +86,6 @@ FutureVoid TextExecutor::_exposeResource(const SemanticResource& pResource,
 
   _paramSemExpsToToParamStr(parameters, pResource.parametersLabelsToValue, _lingDb, pResource.language);
   _addLogAutoResource(pResource, parameters);
-  return FutureVoid();
 }
 
 
