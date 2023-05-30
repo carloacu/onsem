@@ -222,13 +222,13 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
                             operator_teachBehavior("pour marcher il faut dire je marche", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour marcher il faut dire je marche et puis il faut dire c'est tout. Et puis ?",
                             operator_teachBehavior("il faut dire c'est tout", semMem, lingDb));
-
   EXPECT_EQ("(\tJe marche.\tTHEN\tC'est tout.\t)", operator_resolveCommand("marche", semMem, lingDb));
 
   EXPECT_EQ("", operator_resolveCommand("cours", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour courir il faut dire j'utilise mes jambes. Et puis ?",
                             operator_react("pour courir il faut dire j'utilise mes jambes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("J'utilise mes jambes.", operator_react("cours", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("(\t(\tJe marche.\tTHEN\tC'est tout.\t)\tIN_BACKGROUND\tJ'utilise mes jambes.\t)", operator_react("marche en courant", semMem, lingDb));
 
   ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas grimper.", operator_react("grimpe", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour grimper il faut dire je marche et il faut sauter. Et puis ?",

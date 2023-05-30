@@ -26,6 +26,22 @@ VirtualExecutor::VirtualExecutor
 }
 
 
+std::string VirtualExecutor::linkToStr(Link pLink)
+{
+  switch (pLink) {
+  case Link::AND:
+    return "AND";
+  case Link::THEN:
+    return "THEN";
+  case Link::THEN_REVERSED:
+    return "THEN_REVERSED";
+  case Link::IN_BACKGROUND:
+    return "IN_BACKGROUND";
+  }
+  return "";
+}
+
+
 FutureVoid VirtualExecutor::_sayAndAddDescriptionTree(
     const UniqueSemanticExpression& pUSemExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
@@ -110,32 +126,33 @@ FutureVoid VirtualExecutor::_sayWithAnnotations(
 
 
 FutureVoid VirtualExecutor::_handleAndList(
-    ListExpression& pListExp,
+    const ListExpression& pListExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
     const FutureVoid& pStopRequest)
 {
   std::list<FutureVoid> futuresToWait;
-  _addLogAutoSchedulingBeginOfScope();
+  _beginOfScope();
   bool firstIteration = true;
   for (auto& currElt : pListExp.elts)
   {
     if (!firstIteration)
-      _addLogAutoScheduling("AND");
+      _insideScopeLink(Link::AND);
     futuresToWait.emplace_back(_runSemExp(currElt, pExecutorContext, pStopRequest));
     firstIteration = false;
   }
-  _addLogAutoSchedulingEndOfScope();
+  _endOfScope();
   return FutureVoid(futuresToWait);
 }
 
 
 
-FutureVoid VirtualExecutor::_handleThenList(ListExpression& pListExp,
+FutureVoid VirtualExecutor::_handleThenList(
+    const ListExpression& pListExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
     const FutureVoid& pStopRequest)
 {
   FutureVoid res;
-  _addLogAutoSchedulingBeginOfScope();
+  _beginOfScope();
   bool firstIteration = true;
   for (auto& currElt : pListExp.elts)
   {
@@ -151,22 +168,23 @@ FutureVoid VirtualExecutor::_handleThenList(ListExpression& pListExp,
     {
       res = res.then([this, &currElt, pExecutorContext, pStopRequest]() mutable
       {
-        _addLogAutoScheduling("THEN");
+        _insideScopeLink(Link::THEN);
         return _runSemExp(currElt, pExecutorContext, pStopRequest);
       });
     }
   }
-  _addLogAutoSchedulingEndOfScope();
+  _endOfScope();
   return res;
 }
 
 
-FutureVoid VirtualExecutor::_handleThenReversedList(ListExpression& pListExp,
+FutureVoid VirtualExecutor::_handleThenReversedList(
+    const ListExpression& pListExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
     const FutureVoid& pStopRequest)
 {
   FutureVoid res;
-  _addLogAutoSchedulingBeginOfScope();
+  _beginOfScope();
   bool firstIteration = true;
   for (auto it = pListExp.elts.rbegin(); it != pListExp.elts.rend(); ++it)
   {
@@ -183,19 +201,19 @@ FutureVoid VirtualExecutor::_handleThenReversedList(ListExpression& pListExp,
     {
       res = res.then([this, &currElt, pExecutorContext, pStopRequest]() mutable
       {
-        _addLogAutoScheduling("THEN_REVERSED");
+        _insideScopeLink(Link::THEN_REVERSED);
         return _runSemExp(currElt, pExecutorContext, pStopRequest);
       });
     }
   }
-  _addLogAutoSchedulingEndOfScope();
+  _endOfScope();
   return res;
 }
 
 
 
 FutureVoid VirtualExecutor::_runConditionExp(
-    ConditionExpression& pCondExp,
+    const ConditionExpression& pCondExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
     const FutureVoid& pStopRequest)
 {
@@ -226,6 +244,21 @@ FutureVoid VirtualExecutor::_exposeText(
   return FutureVoid();
 }
 
+void VirtualExecutor::_beginOfScope()
+{
+  _addLogAutoSchedulingBeginOfScope();
+}
+
+void VirtualExecutor::_insideScopeLink(Link pLink)
+{
+  _addLogAutoScheduling(linkToStr(pLink));
+}
+
+void VirtualExecutor::_endOfScope()
+{
+  _addLogAutoSchedulingEndOfScope();
+}
+
 FutureVoid VirtualExecutor::_handleDurationAnnotations(
     bool&,
     const AnnotatedExpression&,
@@ -237,7 +270,7 @@ FutureVoid VirtualExecutor::_handleDurationAnnotations(
 
 
 FutureVoid VirtualExecutor::_runSemExpNTimes(
-    UniqueSemanticExpression& pSemExp,
+    const UniqueSemanticExpression& pSemExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
     const FutureVoid& pStopRequest,
     int pNbOfTimes)
@@ -259,7 +292,7 @@ FutureVoid VirtualExecutor::_runSemExpNTimes(
 
 
 FutureVoid VirtualExecutor::_doExecutionUntil(
-    AnnotatedExpression& pAnnExp,
+    const AnnotatedExpression& pAnnExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
     const FutureVoid& pStopRequest,
     std::shared_ptr<int> pLimitOfRecursions)
@@ -413,7 +446,7 @@ bool VirtualExecutor::isStopped() const
 
 
 FutureVoid VirtualExecutor::_runSemExp(
-    UniqueSemanticExpression& pUSemExp,
+    const UniqueSemanticExpression& pUSemExp,
     std::shared_ptr<ExecutorContext> pExecutorContext,
     const FutureVoid& pStopRequest)
 {
@@ -427,7 +460,7 @@ FutureVoid VirtualExecutor::_runSemExp(
       return _sayWithAnnotations(pUSemExp, pExecutorContext, pStopRequest,
                                  _typeOfExecutor, pExecutorContext->contAnnotation);
 
-    ListExpression& listExp = pUSemExp->getListExp();
+    const ListExpression& listExp = pUSemExp->getListExp();
     switch (listExp.listType)
     {
     case ListExpressionType::AND:
@@ -445,7 +478,7 @@ FutureVoid VirtualExecutor::_runSemExp(
     }
     case ListExpressionType::OR:
     {
-      auto itRandElt = Random::advanceIterator(listExp.elts);
+      auto itRandElt = Random::advanceConstIterator(listExp.elts);
       return _runSemExp(*itRandElt, pExecutorContext, pStopRequest);
     }
     }
@@ -453,7 +486,7 @@ FutureVoid VirtualExecutor::_runSemExp(
   }
   case SemanticExpressionType::ANNOTATED:
   {
-    AnnotatedExpression& annExp = pUSemExp->getAnnExp();
+    const AnnotatedExpression& annExp = pUSemExp->getAnnExp();
 
     auto subContext = std::make_shared<ExecutorContext>(*pExecutorContext);
     subContext->updateAnnotation(annExp.annotations);
@@ -491,9 +524,25 @@ FutureVoid VirtualExecutor::_runSemExp(
       if (isHandled)
         return res;
     }
-
     int nbOfRepetitions = SemExpGetter::getNumberOfRepetitions(annExp.annotations);
-    return _runSemExpNTimes(annExp.semExp, subContext, pStopRequest, nbOfRepetitions);
+
+    const UniqueSemanticExpression* backgroundSemExpPtr = nullptr;
+    auto itBackground = annExp.annotations.find(GrammaticalType::IN_BACKGROUND);
+    if (itBackground != annExp.annotations.end())
+      backgroundSemExpPtr = &itBackground->second;
+
+    if (backgroundSemExpPtr != nullptr)
+      _beginOfScope();
+
+    auto res = _runSemExpNTimes(annExp.semExp, subContext, pStopRequest, nbOfRepetitions);
+
+    if (backgroundSemExpPtr != nullptr)
+    {
+      _insideScopeLink(Link::IN_BACKGROUND);
+      _runSemExp(*backgroundSemExpPtr, pExecutorContext, pStopRequest);
+      _endOfScope();
+    }
+    return res;
   }
   case SemanticExpressionType::INTERPRETATION:
   {
@@ -510,8 +559,7 @@ FutureVoid VirtualExecutor::_runSemExp(
     {
       _usageOfMemory([&](SemanticMemory& pSemanticMemory)
       {
-        pSemanticMemory.interactionContextContainer = std::move(metadataExp.interactionContextContainer);
-        metadataExp.interactionContextContainer = std::unique_ptr<InteractionContextContainer>();
+        pSemanticMemory.interactionContextContainer = metadataExp.interactionContextContainer->clone();
       });
     }
     return _runSemExp(metadataExp.semExp, subContext, pStopRequest);

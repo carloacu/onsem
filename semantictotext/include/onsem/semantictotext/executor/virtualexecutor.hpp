@@ -37,6 +37,16 @@ struct ONSEMSEMANTICTOTEXT_API VirtualExecutor
 
   virtual ~VirtualExecutor() {}
 
+  enum class Link
+  {
+    AND,
+    THEN,
+    THEN_REVERSED,
+    IN_BACKGROUND
+  };
+
+  static std::string linkToStr(Link pLink);
+
   /**
    * @brief runSemExp Execute a semantic expression.
    * /!\ Only one run is allowed per VirtualExecutor object.
@@ -102,6 +112,9 @@ protected:
                                  SemanticLanguageEnum pLanguage,
                                  const FutureVoid& pStopRequest);
 
+  virtual void _beginOfScope();
+  virtual void _insideScopeLink(Link pLink);
+  virtual void _endOfScope();
 
   /**
    * @brief _handleDurationAnnotations If the expression specify a time to wait it waits this specified time otherwise it does nothing.
@@ -129,7 +142,7 @@ protected:
    * @param pLimitOfRecursions Maximum number of looping before to stop.
    * @return A SharedExecutorResult finished when the execution of the expression in loop is completed.
    */
-  FutureVoid _doExecutionUntil(AnnotatedExpression& pAnnExp,
+  FutureVoid _doExecutionUntil(const AnnotatedExpression& pAnnExp,
                                std::shared_ptr<ExecutorContext> pExecutorContext,
                                const FutureVoid& pStopRequest,
                                std::shared_ptr<int> pLimitOfRecursions);
@@ -162,24 +175,24 @@ private:
   FutureVoid _waitUntil(const SemanticExpression& pSemExp,
                         const FutureVoid& pStopRequest);
 
-  FutureVoid _runSemExp(UniqueSemanticExpression& pUSemExp,
+  FutureVoid _runSemExp(const UniqueSemanticExpression &pUSemExp,
                         std::shared_ptr<ExecutorContext> pExecutorContext,
                         const FutureVoid& pStopRequest);
 
-  FutureVoid _handleAndList(ListExpression& pListExp,
+  FutureVoid _handleAndList(const ListExpression &pListExp,
                             std::shared_ptr<ExecutorContext> pExecutorContext,
                             const FutureVoid& pStopRequest);
-  FutureVoid _handleThenList(ListExpression& pListExp,
+  FutureVoid _handleThenList(const ListExpression &pListExp,
                              std::shared_ptr<ExecutorContext> pExecutorContext,
                              const FutureVoid& pStopRequest);
-  FutureVoid _handleThenReversedList(ListExpression& pListExp,
+  FutureVoid _handleThenReversedList(const ListExpression &pListExp,
                                      std::shared_ptr<ExecutorContext> pExecutorContext,
                                      const FutureVoid& pStopRequest);
-  FutureVoid _runConditionExp(ConditionExpression& pCondExp,
+  FutureVoid _runConditionExp(const ConditionExpression &pCondExp,
                               std::shared_ptr<ExecutorContext> pExecutorContext,
                               const FutureVoid& pStopRequest);
 
-  FutureVoid _runSemExpNTimes(UniqueSemanticExpression& pSemExp,
+  FutureVoid _runSemExpNTimes(const UniqueSemanticExpression &pSemExp,
                               std::shared_ptr<ExecutorContext> pExecutorContext,
                               const FutureVoid& pStopRequest,
                               int pNbOfTimes);

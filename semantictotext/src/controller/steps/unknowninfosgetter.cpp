@@ -213,6 +213,53 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
   }
 }
 
+std::unique_ptr<UniqueSemanticExpression> convertToActionToDo(
+    const GroundedExpression*& pActionThatCannotBeDone,
+    const GroundedExpression& pActionGrdExp,
+    const SemControllerWorkingStruct& pWorkStruct,
+    SemanticMemoryBlockViewer& pMemViewer)
+{
+  const auto* statGrdExpPtr = pActionGrdExp->getStatementGroundingPtr();
+  if (statGrdExpPtr != nullptr &&
+      (statGrdExpPtr->isAtInfinitive() || statGrdExpPtr->isMandatoryInPresentTense()))
+  {
+    SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+    if (subWorkStruct.askForNewRecursion())
+    {
+      if (semanticMemoryLinker::satisfyAnAction(subWorkStruct, pMemViewer, pActionGrdExp, *statGrdExpPtr))
+      {
+        if (!subWorkStruct.compositeSemAnswers->semAnswers.empty())
+        {
+          auto& semAnswer = subWorkStruct.compositeSemAnswers->semAnswers.front();
+          LeafSemAnswer* leafAnswPtr = semAnswer->getLeafPtr();
+          if (leafAnswPtr != nullptr && leafAnswPtr->reaction)
+          {
+            auto& reaction = *leafAnswPtr->reaction;
+            auto* reactionResourcePtr = SemExpGetter::semExpToResourceGrounding(reaction.getSemExp());
+            if (reactionResourcePtr != nullptr)
+            {
+              auto& reactionResource = reactionResourcePtr->resource;
+              auto semResource = std::make_unique<SemanticResourceGrounding>(
+                    reactionResource.label, reactionResource.language, reactionResource.value);
+              auto genericMandatoryForm = pActionGrdExp.clone();
+              SemExpModifier::setChild(*genericMandatoryForm, GrammaticalType::SUBJECT,
+                                       std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr()));
+              converter::extractParameters(semResource->resource.parametersLabelsToValue,
+                                           reactionResource.parameterLabelsToQuestions,
+                                           std::move(genericMandatoryForm), pWorkStruct.lingDb);
+              return std::make_unique<UniqueSemanticExpression>(std::make_unique<GroundedExpression>(std::move(semResource)));
+            }
+            return std::make_unique<UniqueSemanticExpression>(std::move(reaction));
+          }
+        }
+        return {};
+      }
+    }
+    pActionThatCannotBeDone = &pActionGrdExp;
+  }
+  return {};
+}
+
 }
 
 
@@ -234,7 +281,6 @@ bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
                                  pGrdExp, pWorkStruct, pMemViewer);
   return isComplete;
 }
-
 
 
 bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
@@ -341,6 +387,7 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
         }
       }
 
+      const GroundedExpression* actionThatCannotBeDone = nullptr;
       if (!answerGenerated)
       {
         UniqueSemanticExpression actionSemExp = contextAxiom.infCommandToDo->clone(paramsPtr);
@@ -351,68 +398,47 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
               (*currListElts)->getGrdExpPtr_SkipWrapperPtrs();
           if (listEltGrdExpPtr != nullptr)
           {
-            bool actionCanBeDone = false;
-            const SemanticStatementGrounding* statGrdExpPtr =
-                listEltGrdExpPtr->grounding().getStatementGroundingPtr();
-            if (statGrdExpPtr != nullptr &&
-                (statGrdExpPtr->isAtInfinitive() || statGrdExpPtr->isMandatoryInPresentTense()))
-            {
-              SemControllerWorkingStruct subWorkStruct(pWorkStruct);
-              if (subWorkStruct.askForNewRecursion())
-              {
-                if (semanticMemoryLinker::satisfyAnAction(subWorkStruct, pMemViewer, *listEltGrdExpPtr, *statGrdExpPtr))
-                {
-                  if (!subWorkStruct.compositeSemAnswers->semAnswers.empty())
-                  {
-                    auto& semAnswer = subWorkStruct.compositeSemAnswers->semAnswers.front();
-                    LeafSemAnswer* leafAnswPtr = semAnswer->getLeafPtr();
-                    if (leafAnswPtr != nullptr && leafAnswPtr->reaction)
-                    {
-                      auto& reaction = *leafAnswPtr->reaction;
-                      auto* reactionResourcePtr = SemExpGetter::semExpToResourceGrounding(reaction.getSemExp());
-                      if (reactionResourcePtr != nullptr)
-                      {
-                        auto& reactionResource = reactionResourcePtr->resource;
-                        auto semResource = std::make_unique<SemanticResourceGrounding>(
-                              reactionResource.label, reactionResource.language, reactionResource.value);
-                        auto genericMandatoryForm = listEltGrdExpPtr->clone();
-                        SemExpModifier::setChild(*genericMandatoryForm, GrammaticalType::SUBJECT,
-                                                 std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr()));
-                        converter::extractParameters(semResource->resource.parametersLabelsToValue,
-                                                     reactionResource.parameterLabelsToQuestions,
-                                                     std::move(genericMandatoryForm), pWorkStruct.lingDb);
-                        *currListElts = std::make_unique<GroundedExpression>(std::move(semResource));
-                      }
-                      else
-                      {
-                        *currListElts = std::move(reaction);
-                      }
-                    }
-                  }
-                  actionCanBeDone = true;
-                }
-              }
+            auto actionToDoPtr = convertToActionToDo(actionThatCannotBeDone, *listEltGrdExpPtr, pWorkStruct, pMemViewer);
+            if (actionThatCannotBeDone != nullptr)
+              break;
+            if (actionToDoPtr)
+              *currListElts = std::move(*actionToDoPtr);
+          }
+        }
 
-              if (!actionCanBeDone)
-              {
-                if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
-                {
-                  pWorkStruct.addAnswerWithoutReferences
-                      (ContextualAnnotation::BEHAVIORNOTFOUND,
-                       SemExpCreator::sayThatTheRobotCannotDoIt(**currListElts));
-                }
-                answerGenerated = true;
-                break;
-              }
+        std::unique_ptr<UniqueSemanticExpression> actionToDoInBackground;
+        if (!answerGenerated && actionThatCannotBeDone == nullptr)
+        {
+          auto itBackgroundChild = pGrdExp.children.find(GrammaticalType::IN_BACKGROUND);
+          if (itBackgroundChild != pGrdExp.children.end())
+          {
+            auto* backgroundGrdExpPtr = itBackgroundChild->second->getGrdExpPtr_SkipWrapperPtrs();
+            if (backgroundGrdExpPtr != nullptr)
+            {
+              const GroundedExpression* actionThatCannotBeDone = nullptr;
+              actionToDoInBackground = convertToActionToDo(actionThatCannotBeDone, *backgroundGrdExpPtr,
+                                                           pWorkStruct, pMemViewer);
             }
           }
+        }
+
+        if (actionThatCannotBeDone != nullptr)
+        {
+          if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
+          {
+            pWorkStruct.addAnswerWithoutReferences
+                (ContextualAnnotation::BEHAVIORNOTFOUND,
+                 SemExpCreator::sayThatTheRobotCannotDoIt(*actionThatCannotBeDone));
+          }
+          answerGenerated = true;
         }
 
         if (!answerGenerated)
         {
           if (behavLanguage != SemanticLanguageEnum::UNKNOWN ||
               numberOfExcutionsSemExpPtr != nullptr ||
-              durationSemExpPtr != nullptr)
+              durationSemExpPtr != nullptr ||
+              actionToDoInBackground)
           {
             auto newAnnExp = std::make_unique<AnnotatedExpression>(std::move(actionSemExp));
             if (behavLanguage != SemanticLanguageEnum::UNKNOWN)
@@ -425,6 +451,9 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
             if (durationSemExpPtr != nullptr)
               newAnnExp->annotations.emplace
                   (GrammaticalType::DURATION, durationSemExpPtr->clone());
+            if (actionToDoInBackground)
+              newAnnExp->annotations.emplace
+                  (GrammaticalType::IN_BACKGROUND, std::move(*actionToDoInBackground));
             actionSemExp = std::move(newAnnExp);
           }
 
