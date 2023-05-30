@@ -57,10 +57,6 @@ struct ONSEMSEMANTICTOTEXT_API VirtualExecutor
   FutureVoid runSemExp(UniqueSemanticExpression pUSemExp,
                        std::shared_ptr<ExecutorContext>& pExecutorContext);
 
-  /// Stop the execution. If it is called before runSemExp(...), the execution will not start.
-  void stop();
-
-  bool isStopped() const;
 
 protected:
   /**
@@ -98,8 +94,7 @@ protected:
    * @return A SharedExecutorResult finished when the execution of the command is completed.
    */
   virtual FutureVoid _exposeResource(const SemanticResource& pResource,
-                                     const SemanticExpression* pInutSemExpPtr,
-                                     const FutureVoid& pStopRequest);
+                                     const SemanticExpression* pInutSemExpPtr);
 
   /**
    * @brief _exposeText Defines how to expose a text.
@@ -109,8 +104,7 @@ protected:
    * @return A SharedExecutorResult finished when the text has been completed.
    */
   virtual FutureVoid _exposeText(const std::string& pText,
-                                 SemanticLanguageEnum pLanguage,
-                                 const FutureVoid& pStopRequest);
+                                 SemanticLanguageEnum pLanguage);
 
   virtual void _beginOfScope();
   virtual void _insideScopeLink(Link pLink);
@@ -126,8 +120,7 @@ protected:
    */
   virtual FutureVoid _handleDurationAnnotations(bool& pIsHandled,
                                                 const AnnotatedExpression& pAnnExp,
-                                                std::shared_ptr<ExecutorContext> pExecutorContext,
-                                                const FutureVoid& pStopRequest);
+                                                std::shared_ptr<ExecutorContext> pExecutorContext);
 
   /**
    * @brief _returnError Handle the error reports. (not implemented yet)
@@ -145,7 +138,6 @@ protected:
    */
   FutureVoid _doExecutionUntil(const AnnotatedExpression& pAnnExp,
                                std::shared_ptr<ExecutorContext> pExecutorContext,
-                               const FutureVoid& pStopRequest,
                                std::shared_ptr<int> pLimitOfRecursions);
 
   void _addLogAutoResource(const SemanticResource& pResource,
@@ -155,7 +147,6 @@ protected:
 private:
   const SemanticSourceEnum _typeOfExecutor;
   VirtualExecutorLogger* _syncLoggerPtr;
-  std::shared_ptr<PromiseVoid> _stopper;
 
   void _addLogAutoScheduling(const std::string& pLog)
   { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onMetaInformation(pLog); }
@@ -173,39 +164,29 @@ private:
   void _convertToText(std::list<std::unique_ptr<SynthesizerResult>>& pRes,
                       const UniqueSemanticExpression& pUSemExp,
                       const TextProcessingContext& pTextProcContext);
-  FutureVoid _waitUntil(const SemanticExpression& pSemExp,
-                        const FutureVoid& pStopRequest);
 
   FutureVoid _runSemExp(const UniqueSemanticExpression &pUSemExp,
-                        std::shared_ptr<ExecutorContext> pExecutorContext,
-                        const FutureVoid& pStopRequest);
+                        std::shared_ptr<ExecutorContext> pExecutorContext);
 
   FutureVoid _handleAndList(const ListExpression &pListExp,
-                            std::shared_ptr<ExecutorContext> pExecutorContext,
-                            const FutureVoid& pStopRequest);
+                            std::shared_ptr<ExecutorContext> pExecutorContext);
   FutureVoid _handleThenList(const ListExpression &pListExp,
-                             std::shared_ptr<ExecutorContext> pExecutorContext,
-                             const FutureVoid& pStopRequest);
+                             std::shared_ptr<ExecutorContext> pExecutorContext);
   FutureVoid _handleThenReversedList(const ListExpression &pListExp,
-                                     std::shared_ptr<ExecutorContext> pExecutorContext,
-                                     const FutureVoid& pStopRequest);
+                                     std::shared_ptr<ExecutorContext> pExecutorContext);
   FutureVoid _runConditionExp(const ConditionExpression &pCondExp,
-                              std::shared_ptr<ExecutorContext> pExecutorContext,
-                              const FutureVoid& pStopRequest);
+                              std::shared_ptr<ExecutorContext> pExecutorContext);
 
   FutureVoid _runGrdExp(const UniqueSemanticExpression& pUSemExp,
-                        std::shared_ptr<ExecutorContext> pExecutorContext,
-                        const FutureVoid& pStopRequest);
+                        std::shared_ptr<ExecutorContext> pExecutorContext);
 
   FutureVoid _sayAndAddDescriptionTree(const UniqueSemanticExpression& pUSemExp,
                                        std::shared_ptr<ExecutorContext> pExecutorContext,
-                                       const FutureVoid& pStopRequest,
                                        SemanticSourceEnum pFrom,
                                        ContextualAnnotation pContextualAnnotation);
 
   FutureVoid _sayWithAnnotations(const UniqueSemanticExpression& pUSemExp,
                                  std::shared_ptr<ExecutorContext> pExecutorContext,
-                                 const FutureVoid& pStopRequest,
                                  SemanticSourceEnum pFrom,
                                  ContextualAnnotation pContextualAnnotation);
 

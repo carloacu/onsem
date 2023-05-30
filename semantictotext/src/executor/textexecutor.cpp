@@ -70,8 +70,7 @@ void TextExecutor::_usageOfLingDb(std::function<void(const linguistics::Linguist
 
 
 FutureVoid TextExecutor::_exposeResource(const SemanticResource& pResource,
-                                         const SemanticExpression* pInputSemExpPtr,
-                                         const FutureVoid&)
+                                         const SemanticExpression* pInputSemExpPtr)
 {
   std::map<std::string, std::vector<std::string>> parameters;
   if (!pResource.parameterLabelsToQuestions.empty() && pInputSemExpPtr != nullptr)

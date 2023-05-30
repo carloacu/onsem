@@ -23,8 +23,7 @@ protected:
   void _usageOfLingDb(std::function<void(const linguistics::LinguisticDatabase&)> pFunction) override;
 
   FutureVoid _exposeResource(const SemanticResource& pResource,
-                             const SemanticExpression* pInputSemExpPtr,
-                             const FutureVoid&) override;
+                             const SemanticExpression* pInputSemExpPtr) override;
 
 private:
   SemanticMemory& _semanticMemory;
