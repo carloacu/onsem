@@ -75,9 +75,8 @@ protected:
                            SemanticLanguageEnum pLanguage);
 
   virtual void _beginOfScope(Link pLink);
-  virtual void _insideScopeLink(Link pLink);
-  virtual void _insideScopeRepetition(int pNumberOfRepetitions);
   virtual void _endOfScope();
+  virtual void _insideScopeRepetition(int pNumberOfRepetitions);
 
   /**
    * @brief _handleDurationAnnotations If the expression specify a time to wait it waits this specified time otherwise it does nothing.
@@ -125,7 +124,9 @@ private:
   void _addLogAutoSaidText(const std::string& pLog)
   { if (_loggerPtr != nullptr) _loggerPtr->onAutoSaidText(pLog); }
 
-  void _assertPunctually(const SemanticExpression& pSemExp);
+  void _insideScopeLink(Link pLink);
+
+  void _assertPunctually(UniqueSemanticExpression pUSemExp);
   void _teachInformation(UniqueSemanticExpression pUSemExp);
   void _assertPermanently(UniqueSemanticExpression pUSemExp);
   void _convertToText(std::list<std::unique_ptr<SynthesizerResult>>& pRes,

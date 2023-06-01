@@ -94,7 +94,7 @@ void VirtualOutputter::_sayAndAddDescriptionTree(const SemanticExpression& pSemE
   static const std::set<SemanticExpressionType> expressionTypesToSkip =
   {SemanticExpressionType::ANNOTATED, SemanticExpressionType::SETOFFORMS};
   descExp = descExp->clone(&params, true, &expressionTypesToSkip);
-  _assertPunctually(*descExp);
+  _assertPunctually(descExp->clone());
   auto descExpWithMetadata = std::make_shared<std::unique_ptr<MetadataExpression>>
       (std::make_unique<MetadataExpression>(SemanticSourceEnum::SEMREACTION,
                                               std::move(descExp), pSemExp.clone()));
@@ -248,6 +248,11 @@ void VirtualOutputter::_insideScopeLink(Link pLink)
   _addLogAutoScheduling(linkToStr(pLink));
 }
 
+void VirtualOutputter::_endOfScope()
+{
+  _addLogAutoSchedulingEndOfScope();
+}
+
 void VirtualOutputter::_insideScopeRepetition(int pNumberOfRepetitions)
 {
   if (_loggerPtr != nullptr)
@@ -256,11 +261,6 @@ void VirtualOutputter::_insideScopeRepetition(int pNumberOfRepetitions)
     ss << "NUMBER_OF_TIMES: " << pNumberOfRepetitions;
     _loggerPtr->onMetaInformation(ss.str());
   }
-}
-
-void VirtualOutputter::_endOfScope()
-{
-  _addLogAutoSchedulingEndOfScope();
 }
 
 void VirtualOutputter::_handleDurationAnnotations(bool&,
@@ -307,9 +307,9 @@ void VirtualOutputter::_reportAnError(const std::string&)
 }
 
 
-void VirtualOutputter::_assertPunctually(const SemanticExpression& pSemExp)
+void VirtualOutputter::_assertPunctually(UniqueSemanticExpression pUSemExp)
 {
-  memoryOperation::notifyPunctually(pSemExp, InformationType::ASSERTION,
+  memoryOperation::notifyPunctually(*pUSemExp, InformationType::ASSERTION,
                                     _semanticMemory, _lingDb);
 }
 
@@ -558,7 +558,7 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
         }
         auto semExpToInform = std::make_shared<UniqueSemanticExpression>
             (SemExpModifier::fromActionDescriptionToSentenceInPresentTense(grdExp));
-        _assertPunctually(**semExpToInform);
+        _assertPunctually(semExpToInform->getSemExp().clone());
 
         auto exposureTime = std::make_shared<std::unique_ptr<SemanticTimeGrounding>>
                                                                                      (SemanticTimeGrounding::nowInstance());
