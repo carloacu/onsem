@@ -164,8 +164,8 @@ private:
   void _runConditionExp(const ConditionExpression &pCondExp,
                         const OutputterContext &pOutputterContext);
 
-  void _runGrdExp(const SemanticExpression& pSemExp,
-                  const OutputterContext &pOutputterContext);
+  void _processGrdExp(const SemanticExpression& pSemExp,
+                      const OutputterContext &pOutputterContext);
 
   void _sayAndAddDescriptionTree(const SemanticExpression& pSemExp,
                                  const OutputterContext &pOutputterContext,

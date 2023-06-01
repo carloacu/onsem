@@ -228,8 +228,8 @@ void VirtualOutputter::_doUntil(
 }
 
 
-void VirtualOutputter::_runGrdExp(const SemanticExpression& pSemExp,
-                                  const OutputterContext& pOutputterContext)
+void VirtualOutputter::_processGrdExp(const SemanticExpression& pSemExp,
+                                      const OutputterContext& pOutputterContext)
 {
   const GroundedExpression& grdExp = pSemExp.getGrdExp();
   const SemanticResourceGrounding* resourceGrdPtr = grdExp->getResourceGroundingPtr();
@@ -351,7 +351,7 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
   {
   case SemanticExpressionType::GROUNDED:
   {
-    _runGrdExp(pSemExp, pOutputterContext);
+    _processGrdExp(pSemExp, pOutputterContext);
     return;
   }
   case SemanticExpressionType::LIST:
