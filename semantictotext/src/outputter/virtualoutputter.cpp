@@ -156,7 +156,7 @@ void VirtualOutputter::_handleList(const ListExpression& pListExp,
                                    Link pLink,
                                    const OutputterContext& pOutputterContext)
 {
-  _beginOfScope();
+  _beginOfScope(pLink);
   bool firstIteration = true;
   for (auto& currElt : pListExp.elts)
   {
@@ -174,7 +174,7 @@ void VirtualOutputter::_handleList(const ListExpression& pListExp,
 void VirtualOutputter::_handleThenReversedList(const ListExpression& pListExp,
                                                const OutputterContext& pOutputterContext)
 {
-  _beginOfScope();
+  _beginOfScope(Link::THEN_REVERSED);
   bool firstIteration = true;
   for (auto it = pListExp.elts.rbegin(); it != pListExp.elts.rend(); ++it)
   {
@@ -238,7 +238,7 @@ void VirtualOutputter::_exposeText(const std::string& pText,
   _addLogAutoSaidText(pText);
 }
 
-void VirtualOutputter::_beginOfScope()
+void VirtualOutputter::_beginOfScope(Link pLink)
 {
   _addLogAutoSchedulingBeginOfScope();
 }
@@ -471,11 +471,11 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
       backgroundSemExpPtr = &itBackground->second;
 
     if (backgroundSemExpPtr != nullptr)
-      _beginOfScope();
+      _beginOfScope(Link::IN_BACKGROUND);
 
     int nbOfRepetitions = SemExpGetter::getNumberOfRepetitions(annExp.annotations);
     if (nbOfRepetitions > 1)
-      _beginOfScope();
+      _beginOfScope(Link::THEN);
     processSemExp(*annExp.semExp, subContext);
 
     if (nbOfRepetitions > 1)

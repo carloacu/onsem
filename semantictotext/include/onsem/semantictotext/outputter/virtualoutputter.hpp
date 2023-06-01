@@ -74,7 +74,7 @@ protected:
   virtual void _exposeText(const std::string& pText,
                            SemanticLanguageEnum pLanguage);
 
-  virtual void _beginOfScope();
+  virtual void _beginOfScope(Link pLink);
   virtual void _insideScopeLink(Link pLink);
   virtual void _insideScopeRepetition(int pNumberOfRepetitions);
   virtual void _endOfScope();

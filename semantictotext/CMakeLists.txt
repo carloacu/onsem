@@ -30,6 +30,7 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/outputter/outputterlogger.hpp
     include/onsem/semantictotext/outputter/virtualoutputter.hpp
     include/onsem/semantictotext/outputter/textoutputter.hpp
+    include/onsem/semantictotext/outputter/executiondataoutputter.hpp
     include/onsem/semantictotext/sentiment/sentimentanalyzer.hpp
     include/onsem/semantictotext/sentiment/sentimentdetector.hpp
     include/onsem/semantictotext/tool/peoplefiller.hpp
@@ -97,6 +98,7 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/conversion/reasonofrefactor.cpp
     src/outputter/outputterlogger.cpp
     src/outputter/textoutputter.cpp
+    src/outputter/executiondataoutputter
     src/outputter/virtualoutputter.cpp
     src/interpretation/addagentinterpretation.hpp
     src/interpretation/addagentinterpretation.cpp
