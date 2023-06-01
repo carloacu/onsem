@@ -216,11 +216,11 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                       operator_react("Say \"a1\" then say \"a2\" and say \"a3\" then say \"a4\"", semMem, lingDb));
     ONSEM_TEACHINGFEEDBACK_EQ("Ok, to become crazy is to say \"a1\", then to say \"a2\" and to say \"a3\" and then to say \"a4\".",
                               operator_react("that's to become crazy", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("(\t(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\t)\tTHEN\tI finished to become crazy.\t)",
+    ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\tTHEN\tI finished to become crazy.\t)",
                       operator_react("become crazy then say I have finished to become crazy", semMem, lingDb));
     ONSEM_TEACHINGFEEDBACK_EQ("Ok, to do a big test is to become crazy and then to say I finished to become crazy.",
                               operator_react("it's to do a big test", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("(\t(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\t)\tTHEN\tI finished to become crazy.\t)",
+    ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\tTHEN\tI finished to become crazy.\t)",
                       operator_react("do a big test", semMem, lingDb));
   }
 
@@ -457,7 +457,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
     ONSEM_NOANSWER(operator_react("Jean is an old man", semMem, lingDb));
     static const std::string spinRightCommandStr = "\\" + resourceLabelForTests_cmd + "=semantic/animations/spin_right.qianim\\";
     ONSEM_NOANSWER(operator_react("I went to the", semMem, lingDb));
-    ONSEM_TEACHINGFEEDBACK_EQ("Ok, to spin right means " + spinRightCommandStr,
+    ONSEM_TEACHINGFEEDBACK_EQ("(\tOk, to spin right means \tTHEN\t" + spinRightCommandStr + "\t)",
                               operator_react("to spin right means " + spinRightCommandStr, semMem, lingDb));
     ONSEM_NOANSWER(operator_react("I went to the", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(spinRightCommandStr,
@@ -977,26 +977,26 @@ TEST_F(SemanticReasonerGTests, operator_react_cause)
   const std::string urlStr1 =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=4yQil_1ZA98\\";
   operator_inform("il y a une année de joie parce que " + urlStr1, semMem, lingDb);
-  ONSEM_ANSWER_EQ("Il y a une année de joie parce que " + urlStr1,
+  ONSEM_ANSWER_EQ("(\tIl y a une année de joie parce que \tTHEN\t" + urlStr1 + "\t)",
                   operator_react("pourquoi il y a une année de joie", semMem, lingDb));
   const std::string urlStr2 =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=4GZNoxrKZUQ\\";
   operator_inform(urlStr2 + " est pour cela qu'il y a de l'espérance.", semMem, lingDb);
-  ONSEM_ANSWER_EQ("Il y a de l'espérance parce que " + urlStr2,
+  ONSEM_ANSWER_EQ("(\tIl y a de l'espérance parce que \tTHEN\t" + urlStr2 + "\t)",
                   operator_react("pourquoi il y a de l'espérance", semMem, lingDb));
   const std::string urlStr3 =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=ZYCV4DmWbkw\\";
   operator_inform(urlStr3 + ". C'est pourquoi Paul est content.", semMem, lingDb);
-  ONSEM_ANSWER_EQ("Paul est content parce que " + urlStr3,
+  ONSEM_ANSWER_EQ("(\tPaul est content parce que \tTHEN\t" + urlStr3 + "\t)",
                   operator_react("pourquoi Paul est content", semMem, lingDb));
   const std::string urlStr4 =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=zMyaKqtu0TE\\";
   operator_inform(urlStr4 + ". c'est pour cela que je suis content", semMem, lingDb);
-  ONSEM_ANSWER_EQ("Tu es content parce que " + urlStr4,
+  ONSEM_ANSWER_EQ("(\tTu es content parce que \tTHEN\t" + urlStr4 + "\t)",
                   operator_react("pourquoi je suis content ?", semMem, lingDb));
   ONSEM_ANSWER_EQ("Oui, tu es content.",
                   operator_react("je suis content ?", semMem, lingDb));
-  ONSEM_ANSWER_EQ("Parce que " + urlStr4,
+  ONSEM_ANSWER_EQ("(\tParce que \tTHEN\t" + urlStr4 + "\t)",
                   operator_react("pourquoi ?", semMem, lingDb));
 }
 

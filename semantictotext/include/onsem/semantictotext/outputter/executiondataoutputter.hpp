@@ -29,7 +29,8 @@ struct ONSEMSEMANTICTOTEXT_API ExecutionData
 
   bool hasData() const;
   std::list<ExecutionData>& linkToChildList(VirtualOutputter::Link pLink);
-  std::string run() const;
+  std::string run(SemanticMemory& pSemanticMemory,
+                  const linguistics::LinguisticDatabase &pLingDb);
 
 private:
   std::string _dataToStr() const;

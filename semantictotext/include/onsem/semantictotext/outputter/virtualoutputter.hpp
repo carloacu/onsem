@@ -58,6 +58,8 @@ struct ONSEMSEMANTICTOTEXT_API VirtualOutputter
 
 
 protected:
+  const linguistics::LinguisticDatabase& _lingDb;
+
   /**
    * @brief _exposeResource Defines how to expose a resource.
    * @param pResource The command to expose (encoded in a string).
@@ -114,8 +116,7 @@ protected:
 
 
 private:
-  SemanticMemory& _semanticMemory;
-  const linguistics::LinguisticDatabase& _lingDb;
+  SemanticMemory& _semanticMemoryToRemove;
   const SemanticSourceEnum _typeOfOutputter;
   VirtualOutputterLogger* _loggerPtr;
 

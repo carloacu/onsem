@@ -56,8 +56,8 @@ VirtualOutputter::VirtualOutputter
  const linguistics::LinguisticDatabase &pLingDb,
  SemanticSourceEnum pHowTheTextWillBeExposed,
  VirtualOutputterLogger* pLoggerPtr)
-  : _semanticMemory(pSemanticMemory),
-    _lingDb(pLingDb),
+  : _lingDb(pLingDb),
+    _semanticMemoryToRemove(pSemanticMemory),
     _typeOfOutputter(pHowTheTextWillBeExposed),
     _loggerPtr(pLoggerPtr)
 {
@@ -310,21 +310,21 @@ void VirtualOutputter::_reportAnError(const std::string&)
 void VirtualOutputter::_assertPunctually(UniqueSemanticExpression pUSemExp)
 {
   memoryOperation::notifyPunctually(*pUSemExp, InformationType::ASSERTION,
-                                    _semanticMemory, _lingDb);
+                                    _semanticMemoryToRemove, _lingDb);
 }
 
 
 void VirtualOutputter::_teachInformation(UniqueSemanticExpression pUSemExp)
 {
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
-  memoryOperation::teach(reaction, _semanticMemory, std::move(pUSemExp), _lingDb,
+  memoryOperation::teach(reaction, _semanticMemoryToRemove, std::move(pUSemExp), _lingDb,
                          memoryOperation::SemanticActionOperatorEnum::INFORMATION);
 }
 
 void VirtualOutputter::_assertPermanently(UniqueSemanticExpression pUSemExp)
 {
   memoryOperation::informAxiom(std::move(pUSemExp),
-                               _semanticMemory, _lingDb);
+                               _semanticMemoryToRemove, _lingDb);
 }
 
 
@@ -333,9 +333,9 @@ void VirtualOutputter::_convertToText(
     const SemanticExpression& pSemExp,
     const TextProcessingContext& pTextProcContext)
 {
-  auto userId = _semanticMemory.getCurrUserId();
+  auto userId = _semanticMemoryToRemove.getCurrUserId();
   synthesize(pRes, pSemExp.clone(), false,
-             _semanticMemory.memBloc, userId, pTextProcContext, _lingDb, nullptr);
+             _semanticMemoryToRemove.memBloc, userId, pTextProcContext, _lingDb, nullptr);
 }
 
 
@@ -505,7 +505,7 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
     subContext.contAnnotation = metadataExp.contextualAnnotation;
     subContext.sayOrExecute = metadataExp.contextualAnnotation != ContextualAnnotation::BEHAVIOR;
     if (metadataExp.interactionContextContainer)
-      _semanticMemory.interactionContextContainer = metadataExp.interactionContextContainer->clone();
+      _semanticMemoryToRemove.interactionContextContainer = metadataExp.interactionContextContainer->clone();
     processSemExp(*metadataExp.semExp, subContext);
     return;
   }

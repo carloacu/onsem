@@ -313,7 +313,7 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
   auto inputSemExpInMemory = memoryOperation::teach(reaction, semMem, std::move(teachSemExp), lingDb,
                                                     memoryOperation::SemanticActionOperatorEnum::BEHAVIOR);
-  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour sauter \\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\\t et puis ?",
+  ONSEM_TEACHINGFEEDBACK_EQ("(\tOk pour sauter \tTHEN\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\\tTHEN\t et puis ?\t)",
                             reactionToAnswer(reaction, semMem, lingDb, language, inputSemExpInMemory));
 
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\",

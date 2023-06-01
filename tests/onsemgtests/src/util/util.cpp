@@ -113,7 +113,7 @@ std::string semExpToOutputStr
   outputterContext.inputSemExpPtr = pInputSemExpPtr;
   ExecutionDataOutputter executionDataOutputter(pSemanticMemory, pLingDb);
   executionDataOutputter.processSemExp(pSemExp, outputterContext);
-  return executionDataOutputter.rootExecutionData.run();
+  return executionDataOutputter.rootExecutionData.run(pSemanticMemory, pLingDb);
 }
 
 

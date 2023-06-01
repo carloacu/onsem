@@ -1,5 +1,7 @@
 #include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <sstream>
+#include <onsem/semantictotext/semexpoperators.hpp>
+
 
 namespace onsem
 {
@@ -46,8 +48,15 @@ std::list<ExecutionData>& ExecutionData::linkToChildList(VirtualOutputter::Link 
 }
 
 
-std::string ExecutionData::run() const
+std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
+                               const linguistics::LinguisticDatabase& pLingDb)
 {
+  if (punctualAssertion)
+  {
+    memoryOperation::notifyPunctually(**punctualAssertion, InformationType::ASSERTION,
+                                      pSemanticMemory, pLingDb);
+  }
+
   std::string res = _dataToStr();
 
   if (numberOfRepetitions > 1)
@@ -63,7 +72,7 @@ std::string ExecutionData::run() const
   {
     res = "(\t" + res;
     for (auto& currElt : toRunInParallel)
-      res += "\tAND\t" + currElt.run();
+      res += "\tAND\t" + currElt.run(pSemanticMemory, pLingDb);
     res += "\t)";
   }
 
@@ -71,7 +80,7 @@ std::string ExecutionData::run() const
   {
     res = "(\t" + res;
     for (auto& currElt : toRunSequencially)
-      res += "\tTHEN\t" + currElt.run();
+      res += "\tTHEN\t" + currElt.run(pSemanticMemory, pLingDb);
     res += "\t)";
   }
 
@@ -79,8 +88,20 @@ std::string ExecutionData::run() const
   {
     res = "(\t" + res;
     for (auto& currElt : toRunInBackground)
-      res += "\tIN_BACKGROUND\t" + currElt.run();
+      res += "\tIN_BACKGROUND\t" + currElt.run(pSemanticMemory, pLingDb);
     res += "\t)";
+  }
+
+  if (permanentAssertion)
+  {
+    memoryOperation::informAxiom(std::move(*permanentAssertion),
+                                 pSemanticMemory, pLingDb);
+  }
+  if (informationToTeach)
+  {
+    mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
+    memoryOperation::teach(reaction, pSemanticMemory, std::move(*informationToTeach), pLingDb,
+                           memoryOperation::SemanticActionOperatorEnum::INFORMATION);
   }
   return res;
 }

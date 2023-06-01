@@ -199,7 +199,7 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
   std::string logStr;
   ExecutionDataOutputter executionDataOutputter(semMem, lingDb);
   executionDataOutputter.processSemExp(*semExp7, outputterContext);
-  EXPECT_EQ("\\resLabel=resValue\\", executionDataOutputter.rootExecutionData.run());
+  EXPECT_EQ("\\resLabel=resValue\\", executionDataOutputter.rootExecutionData.run(semMem, lingDb));
 
   auto semExp8 = converter::naturalLanguageExpressionToSemanticExpression(lunchIsAfterMorningNle, lingDb);
   EXPECT_EQ("Lunch time is after morning.",

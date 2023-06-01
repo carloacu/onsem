@@ -5,7 +5,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
-#include <onsem/semantictotext/outputter/textoutputter.hpp>
+#include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
@@ -61,9 +61,9 @@ DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSema
   OutputterContext outputterContext(outContext);
   if (pInputSemExpInMemory)
     outputterContext.inputSemExpPtr = &*pInputSemExpInMemory->semExp;
-  DefaultOutputterLogger logger(res.answer);
-  TextOutputter textExec(pSemanticMemory, pLingDb, logger);
-  textExec.processSemExp(**pReaction, outputterContext);
+  ExecutionDataOutputter executionDataOutputter(pSemanticMemory, pLingDb);
+  executionDataOutputter.processSemExp(**pReaction, outputterContext);
+  res.answer = executionDataOutputter.rootExecutionData.run(pSemanticMemory, pLingDb);
   return res;
 }
 
