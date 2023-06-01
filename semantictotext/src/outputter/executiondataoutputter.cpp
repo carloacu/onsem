@@ -127,7 +127,7 @@ std::string ExecutionData::_dataToStr() const
 
 ExecutionDataOutputter::ExecutionDataOutputter(SemanticMemory& pSemanticMemory,
      const linguistics::LinguisticDatabase& pLingDb)
-  : VirtualOutputter(pSemanticMemory, pLingDb, SemanticSourceEnum::ASR, nullptr),
+  : VirtualOutputter(pSemanticMemory, pLingDb, SemanticSourceEnum::ASR),
     rootExecutionData(),
     _linksStack(1, Link::THEN),
     _executionDataStack(1, &rootExecutionData)

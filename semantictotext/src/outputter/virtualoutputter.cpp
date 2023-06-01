@@ -52,14 +52,12 @@ void _paramSemExpsToToParamStr(
 
 
 VirtualOutputter::VirtualOutputter
-(SemanticMemory &pSemanticMemory,
- const linguistics::LinguisticDatabase &pLingDb,
- SemanticSourceEnum pHowTheTextWillBeExposed,
- VirtualOutputterLogger* pLoggerPtr)
+(SemanticMemory& pSemanticMemory,
+ const linguistics::LinguisticDatabase& pLingDb,
+ SemanticSourceEnum pHowTheTextWillBeExposed)
   : _lingDb(pLingDb),
-    _semanticMemoryToRemove(pSemanticMemory),
-    _typeOfOutputter(pHowTheTextWillBeExposed),
-    _loggerPtr(pLoggerPtr)
+    _semanticMemory(pSemanticMemory),
+    _typeOfOutputter(pHowTheTextWillBeExposed)
 {
 }
 
@@ -157,15 +155,8 @@ void VirtualOutputter::_handleList(const ListExpression& pListExp,
                                    const OutputterContext& pOutputterContext)
 {
   _beginOfScope(pLink);
-  bool firstIteration = true;
   for (auto& currElt : pListExp.elts)
-  {
-    if (firstIteration)
-      firstIteration = false;
-    else
-      _insideScopeLink(pLink);
     processSemExp(*currElt, pOutputterContext);
-  }
   _endOfScope();
 }
 
@@ -175,15 +166,10 @@ void VirtualOutputter::_handleThenReversedList(const ListExpression& pListExp,
                                                const OutputterContext& pOutputterContext)
 {
   _beginOfScope(Link::THEN_REVERSED);
-  bool firstIteration = true;
   for (auto it = pListExp.elts.rbegin(); it != pListExp.elts.rend(); ++it)
   {
-    if (firstIteration)
-      firstIteration = false;
-    else
-      _insideScopeLink(Link::THEN_REVERSED);
-    auto& currElt = *it;
-    processSemExp(*currElt, pOutputterContext);
+    auto& currElt = **it;
+    processSemExp(currElt, pOutputterContext);
   }
   _endOfScope();
 }
@@ -223,45 +209,6 @@ void VirtualOutputter::_processResource(const SemanticResource& pResource,
   _exposeResource(pResource, parameters);
 }
 
-
-
-void VirtualOutputter::_exposeResource(const SemanticResource& pResource,
-                                       const std::map<std::string, std::vector<std::string>>& pParameters)
-{
-  _addLogAutoResource(pResource, pParameters);
-}
-
-
-void VirtualOutputter::_exposeText(const std::string& pText,
-                                   SemanticLanguageEnum)
-{
-  _addLogAutoSaidText(pText);
-}
-
-void VirtualOutputter::_beginOfScope(Link pLink)
-{
-  _addLogAutoSchedulingBeginOfScope();
-}
-
-void VirtualOutputter::_insideScopeLink(Link pLink)
-{
-  _addLogAutoScheduling(linkToStr(pLink));
-}
-
-void VirtualOutputter::_endOfScope()
-{
-  _addLogAutoSchedulingEndOfScope();
-}
-
-void VirtualOutputter::_insideScopeRepetition(int pNumberOfRepetitions)
-{
-  if (_loggerPtr != nullptr)
-  {
-    std::stringstream ss;
-    ss << "NUMBER_OF_TIMES: " << pNumberOfRepetitions;
-    _loggerPtr->onMetaInformation(ss.str());
-  }
-}
 
 void VirtualOutputter::_handleDurationAnnotations(bool&,
     const AnnotatedExpression&,
@@ -309,22 +256,15 @@ void VirtualOutputter::_reportAnError(const std::string&)
 
 void VirtualOutputter::_assertPunctually(UniqueSemanticExpression pUSemExp)
 {
-  memoryOperation::notifyPunctually(*pUSemExp, InformationType::ASSERTION,
-                                    _semanticMemoryToRemove, _lingDb);
 }
 
 
 void VirtualOutputter::_teachInformation(UniqueSemanticExpression pUSemExp)
 {
-  mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
-  memoryOperation::teach(reaction, _semanticMemoryToRemove, std::move(pUSemExp), _lingDb,
-                         memoryOperation::SemanticActionOperatorEnum::INFORMATION);
 }
 
 void VirtualOutputter::_assertPermanently(UniqueSemanticExpression pUSemExp)
 {
-  memoryOperation::informAxiom(std::move(pUSemExp),
-                               _semanticMemoryToRemove, _lingDb);
 }
 
 
@@ -333,9 +273,9 @@ void VirtualOutputter::_convertToText(
     const SemanticExpression& pSemExp,
     const TextProcessingContext& pTextProcContext)
 {
-  auto userId = _semanticMemoryToRemove.getCurrUserId();
+  auto userId = _semanticMemory.getCurrUserId();
   synthesize(pRes, pSemExp.clone(), false,
-             _semanticMemoryToRemove.memBloc, userId, pTextProcContext, _lingDb, nullptr);
+             _semanticMemory.memBloc, userId, pTextProcContext, _lingDb, nullptr);
 }
 
 
@@ -486,7 +426,6 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
 
     if (backgroundSemExpPtr != nullptr)
     {
-      _insideScopeLink(Link::IN_BACKGROUND);
       processSemExp(**backgroundSemExpPtr, pOutputterContext);
       _endOfScope();
     }
@@ -505,7 +444,7 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
     subContext.contAnnotation = metadataExp.contextualAnnotation;
     subContext.sayOrExecute = metadataExp.contextualAnnotation != ContextualAnnotation::BEHAVIOR;
     if (metadataExp.interactionContextContainer)
-      _semanticMemoryToRemove.interactionContextContainer = metadataExp.interactionContextContainer->clone();
+      _semanticMemory.interactionContextContainer = metadataExp.interactionContextContainer->clone();
     processSemExp(*metadataExp.semExp, subContext);
     return;
   }

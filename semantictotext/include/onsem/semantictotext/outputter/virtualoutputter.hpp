@@ -9,7 +9,6 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/outputter/outputtercontext.hpp>
-#include <onsem/semantictotext/outputter/outputterlogger.hpp>
 #include "../api.hpp"
 
 
@@ -19,18 +18,18 @@ struct SynthesizerResult;
 
 
 
-/// Mother class output a semantic expression.
+/// Parent class output a semantic expression.
 struct ONSEMSEMANTICTOTEXT_API VirtualOutputter
 {
   /**
    * @brief Constrcut a VirtualOutputter.
+   * @param pSemanticMemory Semantic memory.
+   * @param pLingDb Linguistic database.
    * @param pHowTheTextWillBeExposed Specified how the text will be exposed (voice, written text, ...).
-   * @param pLoggerPtr Optional logger.
    */
   VirtualOutputter(SemanticMemory& pSemanticMemory,
                    const linguistics::LinguisticDatabase& pLingDb,
-                   SemanticSourceEnum pHowTheTextWillBeExposed,
-                   VirtualOutputterLogger* pLoggerPtr = nullptr);
+                   SemanticSourceEnum pHowTheTextWillBeExposed);
 
   VirtualOutputter(const VirtualOutputter&) = delete;
   VirtualOutputter& operator=(const VirtualOutputter&) = delete;
@@ -66,7 +65,7 @@ protected:
    * @param pInutSemExpPtr Semantic expression of the input.
    */
   virtual void _exposeResource(const SemanticResource& pResource,
-                               const std::map<std::string, std::vector<std::string>>& pParameters);
+                               const std::map<std::string, std::vector<std::string>>& pParameters) {}
 
   /**
    * @brief _exposeText Defines how to expose a text.
@@ -74,11 +73,11 @@ protected:
    * @param pLanguage The language of the text.
    */
   virtual void _exposeText(const std::string& pText,
-                           SemanticLanguageEnum pLanguage);
+                           SemanticLanguageEnum pLanguage) {}
 
-  virtual void _beginOfScope(Link pLink);
-  virtual void _endOfScope();
-  virtual void _insideScopeRepetition(int pNumberOfRepetitions);
+  virtual void _beginOfScope(Link pLink) {}
+  virtual void _endOfScope() {}
+  virtual void _insideScopeRepetition(int pNumberOfRepetitions) {}
 
   virtual void _assertPunctually(UniqueSemanticExpression pUSemExp);
   virtual void _teachInformation(UniqueSemanticExpression pUSemExp);
@@ -110,26 +109,9 @@ protected:
                 std::shared_ptr<OutputterContext> pOutputterContext,
                 std::shared_ptr<int> pLimitOfRecursions);
 
-  void _addLogAutoResource(const SemanticResource& pResource,
-                           const std::map<std::string, std::vector<std::string>>& pParameters)
-  { if (_loggerPtr != nullptr) _loggerPtr->onAutoResource(pResource, pParameters); }
-
-
 private:
-  SemanticMemory& _semanticMemoryToRemove;
+  SemanticMemory& _semanticMemory;
   const SemanticSourceEnum _typeOfOutputter;
-  VirtualOutputterLogger* _loggerPtr;
-
-  void _addLogAutoScheduling(const std::string& pLog)
-  { if (_loggerPtr != nullptr) _loggerPtr->onMetaInformation(pLog); }
-  void _addLogAutoSchedulingBeginOfScope()
-  { if (_loggerPtr != nullptr) _loggerPtr->onMetaInformation_BeginOfScope(); }
-  void _addLogAutoSchedulingEndOfScope()
-  { if (_loggerPtr != nullptr) _loggerPtr->onMetaInformation_EndOfScope(); }
-  void _addLogAutoSaidText(const std::string& pLog)
-  { if (_loggerPtr != nullptr) _loggerPtr->onAutoSaidText(pLog); }
-
-  void _insideScopeLink(Link pLink);
 
   void _convertToText(std::list<std::unique_ptr<SynthesizerResult>>& pRes,
                       const SemanticExpression& pSemExp,

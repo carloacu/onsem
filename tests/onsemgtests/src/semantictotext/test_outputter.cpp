@@ -7,7 +7,7 @@
 using namespace onsem;
 
 
-TEST_F(SemanticReasonerGTests, test_textOutputter)
+TEST_F(SemanticReasonerGTests, test_outputter)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;

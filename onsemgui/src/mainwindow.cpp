@@ -15,9 +15,8 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
-#include <onsem/semantictotext/outputter/outputterlogger.hpp>
 #include <onsem/semantictotext/outputter/outputtercontext.hpp>
-#include <onsem/semantictotext/outputter/textoutputter.hpp>
+#include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <onsem/semantictotext/serialization.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp>
@@ -993,11 +992,9 @@ std::string MainWindow::_operator_react(
                                    SemanticAgentGrounding::currentUser,
                                    pTextLanguage);
   OutputterContext outputterContext(outContext);
-  std::string res;
-  OutputterLoggerWithoutMetaInformation logger(res);
-  TextOutputter textExec(semMemory, _lingDb, logger);
-  textExec.processSemExp(**reaction, outputterContext);
-  return res;
+  ExecutionDataOutputter executionDataOutputter(semMemory, _lingDb);
+  executionDataOutputter.processSemExp(**reaction, outputterContext);
+  return executionDataOutputter.rootExecutionData.run(semMemory, _lingDb);
 }
 
 

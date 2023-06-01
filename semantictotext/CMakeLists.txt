@@ -27,9 +27,7 @@ set(ONSEMSEMANTICTOTEXT_HPPS
     include/onsem/semantictotext/serialization.hpp
     include/onsem/semantictotext/triggers.hpp
     include/onsem/semantictotext/outputter/outputtercontext.hpp
-    include/onsem/semantictotext/outputter/outputterlogger.hpp
     include/onsem/semantictotext/outputter/virtualoutputter.hpp
-    include/onsem/semantictotext/outputter/textoutputter.hpp
     include/onsem/semantictotext/outputter/executiondataoutputter.hpp
     include/onsem/semantictotext/sentiment/sentimentanalyzer.hpp
     include/onsem/semantictotext/sentiment/sentimentdetector.hpp
@@ -96,8 +94,6 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/conversion/simplesentencesplitter.cpp
     src/conversion/reasonofrefactor.hpp
     src/conversion/reasonofrefactor.cpp
-    src/outputter/outputterlogger.cpp
-    src/outputter/textoutputter.cpp
     src/outputter/executiondataoutputter
     src/outputter/virtualoutputter.cpp
     src/interpretation/addagentinterpretation.hpp

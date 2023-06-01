@@ -1,6 +1,5 @@
 #include "../semanticreasonergtests.hpp"
 #include "operators/operator_answer.hpp"
-#include <onsem/semantictotext/outputter/outputterlogger.hpp>
 #include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
