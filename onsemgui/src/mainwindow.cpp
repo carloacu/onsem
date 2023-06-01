@@ -16,7 +16,6 @@
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/semantictotext/outputter/outputtercontext.hpp>
-#include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <onsem/semantictotext/serialization.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp>
@@ -27,6 +26,8 @@
 #include <onsem/semanticdebugger/diagnosisprinter.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
 #include <onsem/tester/syntacticanalysisxmlsaver.hpp>
+#include <onsem/tester/executiondataoutputter.hpp>
+
 
 
 namespace {

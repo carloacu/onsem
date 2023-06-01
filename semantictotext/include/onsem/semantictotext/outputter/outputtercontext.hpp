@@ -1,7 +1,7 @@
 #ifndef ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERCONTEXT_HPP
 #define ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERCONTEXT_HPP
 
-#include <atomic>
+#include <map>
 #include <memory>
 #include <onsem/common/enum/contextualannotation.hpp>
 #include <onsem/common/enum/semanticsourceenum.hpp>

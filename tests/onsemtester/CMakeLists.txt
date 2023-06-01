@@ -14,6 +14,7 @@ set(ONSEMTESTER_HPPS
   include/onsem/tester/sentencesloader.hpp
   include/onsem/tester/syntacticanalysisxmlloader.hpp
   include/onsem/tester/syntacticanalysisxmlsaver.hpp
+  include/onsem/tester/executiondataoutputter.hpp
 )
 
 set(ONSEMTESTER_SRCS
@@ -24,6 +25,7 @@ set(ONSEMTESTER_SRCS
   src/sentencesloader.cpp
   src/syntacticanalysisxmlloader.cpp
   src/syntacticanalysisxmlsaver.cpp
+  src/executiondataoutputter.cpp
 )
 
 include_directories(include)

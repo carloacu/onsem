@@ -1,10 +1,11 @@
 #include "../semanticreasonergtests.hpp"
 #include "operators/operator_answer.hpp"
-#include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
+#include <onsem/tester/executiondataoutputter.hpp>
+
 
 using namespace onsem;
 

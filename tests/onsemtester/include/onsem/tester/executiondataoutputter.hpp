@@ -1,15 +1,15 @@
 #ifndef ONSEM_SEMANTICTOTEXT_OUTPUTTER_EXECUTIONDATAOUTPUTTER_HPP
 #define ONSEM_SEMANTICTOTEXT_OUTPUTTER_EXECUTIONDATAOUTPUTTER_HPP
 
-#include "virtualoutputter.hpp"
-#include "../api.hpp"
+#include <onsem/semantictotext/outputter/virtualoutputter.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include "api.hpp"
 
 
 namespace onsem
 {
 
-struct ONSEMSEMANTICTOTEXT_API ExecutionData
+struct ONSEMTESTER_API ExecutionData
 {
   std::string text;
   SemanticLanguageEnum textLanguage;
@@ -37,7 +37,7 @@ private:
 };
 
 
-struct ONSEMSEMANTICTOTEXT_API ExecutionDataOutputter : public VirtualOutputter
+struct ONSEMTESTER_API ExecutionDataOutputter : public VirtualOutputter
 {
   ExecutionDataOutputter(SemanticMemory& pSemanticMemory,
                          const linguistics::LinguisticDatabase& pLingDb);
