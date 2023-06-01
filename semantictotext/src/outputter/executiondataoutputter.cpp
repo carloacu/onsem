@@ -1,8 +1,32 @@
 #include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
-
+#include <sstream>
 
 namespace onsem
 {
+namespace
+{
+std::string _parameterToStr(const std::map<std::string, std::vector<std::string>>& pParameters)
+{
+  std::string res;
+  for (const auto& currParam : pParameters)
+  {
+    if (!res.empty())
+      res += ", ";
+    res += currParam.first + "=";
+    bool firstIteration = true;
+    for (const auto& currValue : currParam.second)
+    {
+      if (firstIteration)
+        firstIteration = false;
+      else
+        res += "|";
+      res += currValue;
+    }
+  }
+  return res;
+}
+
+}
 
 bool ExecutionData::hasData() const
 {
@@ -22,11 +46,69 @@ std::list<ExecutionData>& ExecutionData::linkToChildList(VirtualOutputter::Link 
 }
 
 
+std::string ExecutionData::run() const
+{
+  std::string res = _dataToStr();
+
+  if (numberOfRepetitions > 1)
+  {
+    res = "(\t" + res;
+    std::stringstream ss;
+    ss << numberOfRepetitions;
+    res += "\tNUMBER_OF_TIMES: " + ss.str();
+    res += "\t)";
+  }
+
+  if (!toRunInParallel.empty())
+  {
+    res = "(\t" + res;
+    for (auto& currElt : toRunInParallel)
+      res += "\tAND\t" + currElt.run();
+    res += "\t)";
+  }
+
+  if (!toRunSequencially.empty())
+  {
+    res = "(\t" + res;
+    for (auto& currElt : toRunSequencially)
+      res += "\tTHEN\t" + currElt.run();
+    res += "\t)";
+  }
+
+  if (!toRunInBackground.empty())
+  {
+    res = "(\t" + res;
+    for (auto& currElt : toRunInBackground)
+      res += "\tIN_BACKGROUND\t" + currElt.run();
+    res += "\t)";
+  }
+  return res;
+}
+
+
+std::string ExecutionData::_dataToStr() const
+{
+  if (!text.empty())
+    return text;
+
+  if (resource)
+  {
+    std::string res;
+    res = "\\" +  resource->toStr();
+    if (!resourceParameters.empty())
+      res += "(" + _parameterToStr(resourceParameters) + ")";
+    res += "\\";
+    return res;
+  }
+
+  return "";
+}
+
 ExecutionDataOutputter::ExecutionDataOutputter(SemanticMemory& pSemanticMemory,
      const linguistics::LinguisticDatabase& pLingDb)
   : VirtualOutputter(pSemanticMemory, pLingDb, SemanticSourceEnum::ASR, nullptr),
     rootExecutionData(),
-    _currentLink(Link::THEN),
+    _linksStack(1, Link::THEN),
     _executionDataStack(1, &rootExecutionData)
 {
 }
@@ -52,54 +134,103 @@ void ExecutionDataOutputter::_exposeText(
 
 void ExecutionDataOutputter::_assertPunctually(UniqueSemanticExpression pUSemExp)
 {
-  _executionDataStack.back()->punctualAssertion =
+  _getLasExectInStack().punctualAssertion =
       std::make_unique<UniqueSemanticExpression>(std::move(pUSemExp));
 }
 
 void ExecutionDataOutputter::_teachInformation(UniqueSemanticExpression pUSemExp)
 {
-  _executionDataStack.back()->informationToTeach =
+  _getLasExectInStack().informationToTeach =
       std::make_unique<UniqueSemanticExpression>(std::move(pUSemExp));
 }
 
 void ExecutionDataOutputter::_assertPermanently(UniqueSemanticExpression pUSemExp)
 {
-  _executionDataStack.back()->permanentAssertion =
+  _getLasExectInStack().permanentAssertion =
       std::make_unique<UniqueSemanticExpression>(std::move(pUSemExp));
 }
 
 
 void ExecutionDataOutputter::_beginOfScope(Link pLink)
 {
-  _currentLink = pLink;
-  auto& childList  = _executionDataStack.back()->linkToChildList(_currentLink);
-  childList.emplace_back();
-  auto& newElt = childList.back();
-  _executionDataStack.push_back(&newElt);
+  if (!_linksStack.empty())
+  {
+    auto currentLink = _linksStack.back();
+    _linksStack.push_back(pLink);
+    if (!_executionDataStack.empty())
+    {
+      ExecutionData& currElt = _getLasExectInStack();
+      if (currElt.hasData())
+      {
+        auto& childList  = currElt.linkToChildList(currentLink);
+        childList.emplace_back();
+        auto& newElt = childList.back();
+        _executionDataStack.push_back(&newElt);
+      }
+      else
+      {
+        _executionDataStack.push_back(nullptr);
+      }
+    }
+    else
+    {
+      assert(false);
+    }
+  }
+  else
+  {
+    assert(false);
+  }
 }
 
 void ExecutionDataOutputter::_endOfScope()
 {
-  assert(!_executionDataStack.empty());
-  _executionDataStack.pop_back();
+  if (_linksStack.size() > 1)
+    _linksStack.pop_back();
+  else
+    assert(false);
+  if (_executionDataStack.size() > 1)
+    _executionDataStack.pop_back();
+  else
+    assert(false);
 }
 
 
 void ExecutionDataOutputter::_insideScopeRepetition(int pNumberOfRepetitions)
 {
-  _executionDataStack.back()->numberOfRepetitions = pNumberOfRepetitions;
+  _getLasExectInStack().numberOfRepetitions = pNumberOfRepetitions;
 }
 
 ExecutionData& ExecutionDataOutputter::_getOrCreateNewElt()
 {
-  ExecutionData* newEltPtr = _executionDataStack.back();
-  if (newEltPtr->hasData())
+  ExecutionData& newElt = _getLasExectInStack();
+  if (newElt.hasData())
   {
-    auto& childList  = newEltPtr->linkToChildList(_currentLink);
-    childList.emplace_back();
-    return childList.back();
+    if (!_linksStack.empty())
+    {
+      auto& childList  = newElt.linkToChildList(_linksStack.back());
+      childList.emplace_back();
+      return childList.back();
+    }
+    else
+    {
+      assert(false);
+    }
   }
-  return *newEltPtr;
+  return newElt;
 }
+
+ExecutionData& ExecutionDataOutputter::_getLasExectInStack()
+{
+  for (auto it = _executionDataStack.rbegin(); it != _executionDataStack.rend(); ++it)
+  {
+    ExecutionData* executionDataPtr = *it;
+    if (executionDataPtr != nullptr)
+      return *executionDataPtr;
+  }
+  assert(false);
+  return rootExecutionData;
+}
+
 
 } // End of namespace onsem

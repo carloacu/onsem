@@ -1,7 +1,7 @@
 #include "../semanticreasonergtests.hpp"
 #include "operators/operator_answer.hpp"
 #include <onsem/semantictotext/outputter/outputterlogger.hpp>
-#include <onsem/semantictotext/outputter/textoutputter.hpp>
+#include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
@@ -197,10 +197,9 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
                                    SemanticLanguageEnum::ENGLISH);
   OutputterContext outputterContext(outContext);
   std::string logStr;
-  OutputterLoggerWithoutMetaInformation logger(logStr);
-  TextOutputter textExec(semMem, lingDb, logger);
-  textExec.processSemExp(*semExp7, outputterContext);
-  EXPECT_EQ("\\resLabel=resValue\\", logStr);
+  ExecutionDataOutputter executionDataOutputter(semMem, lingDb);
+  executionDataOutputter.processSemExp(*semExp7, outputterContext);
+  EXPECT_EQ("\\resLabel=resValue\\", executionDataOutputter.rootExecutionData.run());
 
   auto semExp8 = converter::naturalLanguageExpressionToSemanticExpression(lunchIsAfterMorningNle, lingDb);
   EXPECT_EQ("Lunch time is after morning.",

@@ -7,7 +7,7 @@
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/serialization.hpp>
-#include <onsem/semantictotext/outputter/textoutputter.hpp>
+#include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <onsem/texttosemantic/printer/expressionprinter.hpp>
 #include <onsem/semanticdebugger/printer/semexplinestostr.hpp>
 #include <onsem/tester/resourcelabelfortests.hpp>
@@ -104,8 +104,6 @@ std::string semExpToOutputStr
  const SemanticExpression* pInputSemExpPtr)
 {
   std::string resStr;
-  DefaultOutputterLogger logger(resStr);
-  TextOutputter textExec(pSemanticMemory, pLingDb, logger);
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    pLanguage);
@@ -113,8 +111,9 @@ std::string semExpToOutputStr
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
   OutputterContext outputterContext(outContext);
   outputterContext.inputSemExpPtr = pInputSemExpPtr;
-  textExec.processSemExp(pSemExp, outputterContext);
-  return resStr;
+  ExecutionDataOutputter executionDataOutputter(pSemanticMemory, pLingDb);
+  executionDataOutputter.processSemExp(pSemExp, outputterContext);
+  return executionDataOutputter.rootExecutionData.run();
 }
 
 

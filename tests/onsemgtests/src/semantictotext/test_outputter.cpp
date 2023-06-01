@@ -37,7 +37,7 @@ TEST_F(SemanticReasonerGTests, test_textOutputter)
     auto semExpToOutput = textToSemExp("To look left is", lingDb, enLanguage);
     SemExpModifier::addChildFromSemExp(*semExpToOutput, GrammaticalType::OBJECT,
                                        lookLeftResource->clone(), ListExpressionType::UNRELATED);
-    EXPECT_EQ("To look left is \\" + resourceLabelForTests_cmd + "=methodToLookLeft()\\",
+    EXPECT_EQ("(\tTo look left is \tTHEN\t\\" + resourceLabelForTests_cmd + "=methodToLookLeft()\\\t)",
               semExpToOutputStr(*semExpToOutput,
                                 enLanguage, semMem, lingDb));
   }
@@ -51,9 +51,9 @@ TEST_F(SemanticReasonerGTests, test_textOutputter)
                                                      "https://www.redmine.org/"));
     SemExpModifier::addChildFromSemExp(*semExpToOutput, GrammaticalType::LOCATION,
                                        redmineResource->clone(), ListExpressionType::UNRELATED);
-    EXPECT_EQ("I can look at bugs here: \\" + resourceLabelForTests_url + "=https://www.redmine.org/\\",
+    EXPECT_EQ("(\tI can look at bugs here: \tTHEN\t\\" + resourceLabelForTests_url + "=https://www.redmine.org/\\\t)",
               semExpToOutputStr(*semExpToOutput, enLanguage, semMem, lingDb));
-    EXPECT_EQ("Je peux regarder des bogues ici : \\" + resourceLabelForTests_url + "=https://www.redmine.org/\\",
+    EXPECT_EQ("(\tJe peux regarder des bogues ici : \tTHEN\t\\" + resourceLabelForTests_url + "=https://www.redmine.org/\\\t)",
               semExpToOutputStr(*semExpToOutput, frLanguage, semMem, lingDb));
   }
 }

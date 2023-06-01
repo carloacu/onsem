@@ -21,7 +21,7 @@ struct ONSEMSEMANTICTOTEXT_API ExecutionData
   std::unique_ptr<UniqueSemanticExpression> permanentAssertion;
   std::unique_ptr<UniqueSemanticExpression> informationToTeach;
 
-  int numberOfRepetitions;
+  int numberOfRepetitions = 1;
 
   std::list<ExecutionData> toRunSequencially;
   std::list<ExecutionData> toRunInParallel;
@@ -29,6 +29,10 @@ struct ONSEMSEMANTICTOTEXT_API ExecutionData
 
   bool hasData() const;
   std::list<ExecutionData>& linkToChildList(VirtualOutputter::Link pLink);
+  std::string run() const;
+
+private:
+  std::string _dataToStr() const;
 };
 
 
@@ -57,10 +61,11 @@ protected:
   void _insideScopeRepetition(int pNumberOfRepetitions) override;
 
 private:
-  Link _currentLink;
+  std::list<Link> _linksStack;
   std::list<ExecutionData*> _executionDataStack;
 
   ExecutionData& _getOrCreateNewElt();
+  ExecutionData& _getLasExectInStack();
 };
 
 } // End of namespace onsem
