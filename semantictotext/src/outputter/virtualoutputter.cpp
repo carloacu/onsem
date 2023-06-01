@@ -10,17 +10,55 @@
 #include <onsem/common/utility/random.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
+#include <onsem/semantictotext/semanticconverter.hpp>
 #include "../linguisticsynthesizer/linguisticsynthesizer.hpp"
+#include "../conversion/mandatoryformconverter.hpp"
 
 
 namespace onsem
 {
+namespace
+{
+
+void _paramSemExpsToToParamStr(
+    std::map<std::string, std::vector<std::string>>& pParameters,
+    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParametersToSemExps,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage)
+{
+  for (auto& currParametersToSemExps : pParametersToSemExps)
+  {
+    auto& semExps = currParametersToSemExps.second;
+    if (!semExps.empty())
+    {
+      auto& strs = pParameters[currParametersToSemExps.first];
+      TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
+                                       SemanticAgentGrounding::me,
+                                       pLanguage);
+      SemanticMemory semMemory;
+
+      for (auto& currAnswer : semExps)
+      {
+        std::string subRes;
+        converter::semExpToText(subRes, currAnswer->clone(), outContext,
+                                true, semMemory, pLingDb, nullptr);
+        strs.push_back(subRes);
+      }
+    }
+  }
+}
+
+}
 
 
 VirtualOutputter::VirtualOutputter
-(SemanticSourceEnum pHowTheTextWillBeExposed,
+(SemanticMemory &pSemanticMemory,
+ const linguistics::LinguisticDatabase &pLingDb,
+ SemanticSourceEnum pHowTheTextWillBeExposed,
  VirtualOutputterLogger* pLoggerPtr)
-  : _typeOfOutputter(pHowTheTextWillBeExposed),
+  : _semanticMemory(pSemanticMemory),
+    _lingDb(pLingDb),
+    _typeOfOutputter(pHowTheTextWillBeExposed),
     _loggerPtr(pLoggerPtr)
 {
 }
@@ -81,7 +119,7 @@ void VirtualOutputter::_sayAndAddDescriptionTree(const SemanticExpression& pSemE
     case SynthesizerResultEnum::TASK:
     {
       const auto& syntTask = *dynamic_cast<const SynthesizerTask*>(&*currResult);
-      _exposeResource(syntTask.resource, pOutputterContext.inputSemExpPtr);
+      _processResource(syntTask.resource, pOutputterContext.inputSemExpPtr);
       break;
     }
     }
@@ -165,10 +203,32 @@ void VirtualOutputter::_runConditionExp(
   */
 }
 
-void VirtualOutputter::_exposeResource(const SemanticResource& pResource,
-                                       const SemanticExpression*)
+
+void VirtualOutputter::_processResource(const SemanticResource& pResource,
+                                        const SemanticExpression* pInputSemExpPtr)
 {
-  _addLogAutoResource(pResource, {});
+  std::map<std::string, std::vector<std::string>> parameters;
+  if (!pResource.parameterLabelsToQuestions.empty() && pInputSemExpPtr != nullptr)
+  {
+    std::map<std::string, std::vector<UniqueSemanticExpression>> parametersToSemExps;
+    UniqueSemanticExpression clonedInput = pInputSemExpPtr->clone();
+    mandatoryFormConverter::process(clonedInput);
+    converter::extractParameters(parametersToSemExps,
+                                 pResource.parameterLabelsToQuestions,
+                                 std::move(clonedInput), _lingDb);
+    _paramSemExpsToToParamStr(parameters, parametersToSemExps, _lingDb, pResource.language);
+  }
+
+  _paramSemExpsToToParamStr(parameters, pResource.parametersLabelsToValue, _lingDb, pResource.language);
+  _exposeResource(pResource, parameters);
+}
+
+
+
+void VirtualOutputter::_exposeResource(const SemanticResource& pResource,
+                                       const std::map<std::string, std::vector<std::string>>& pParameters)
+{
+  _addLogAutoResource(pResource, pParameters);
 }
 
 
@@ -234,7 +294,7 @@ void VirtualOutputter::_processGrdExp(const SemanticExpression& pSemExp,
   const GroundedExpression& grdExp = pSemExp.getGrdExp();
   const SemanticResourceGrounding* resourceGrdPtr = grdExp->getResourceGroundingPtr();
   if (resourceGrdPtr != nullptr)
-    _exposeResource(resourceGrdPtr->resource, pOutputterContext.inputSemExpPtr);
+    _processResource(resourceGrdPtr->resource, pOutputterContext.inputSemExpPtr);
   else
     _sayWithAnnotations(pSemExp, pOutputterContext,
                         _typeOfOutputter, pOutputterContext.contAnnotation);
@@ -249,34 +309,22 @@ void VirtualOutputter::_reportAnError(const std::string&)
 
 void VirtualOutputter::_assertPunctually(const SemanticExpression& pSemExp)
 {
-  _usageOfMemoryAndLingDb([&](SemanticMemory& pSemanticMemory,
-                          const linguistics::LinguisticDatabase& pLingDb)
-  {
-    memoryOperation::notifyPunctually(pSemExp, InformationType::ASSERTION,
-                                      pSemanticMemory, pLingDb);
-  });
+  memoryOperation::notifyPunctually(pSemExp, InformationType::ASSERTION,
+                                    _semanticMemory, _lingDb);
 }
 
 
 void VirtualOutputter::_teachInformation(UniqueSemanticExpression pUSemExp)
 {
-  _usageOfMemoryAndLingDb([&](SemanticMemory& pSemanticMemory,
-                          const linguistics::LinguisticDatabase& pLingDb)
-  {
-    mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
-    memoryOperation::teach(reaction, pSemanticMemory, std::move(pUSemExp), pLingDb,
-                           memoryOperation::SemanticActionOperatorEnum::INFORMATION);
-  });
+  mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
+  memoryOperation::teach(reaction, _semanticMemory, std::move(pUSemExp), _lingDb,
+                         memoryOperation::SemanticActionOperatorEnum::INFORMATION);
 }
 
 void VirtualOutputter::_assertPermanently(UniqueSemanticExpression pUSemExp)
 {
-  _usageOfMemoryAndLingDb([&](SemanticMemory& pSemanticMemory,
-                          const linguistics::LinguisticDatabase& pLingDb)
-  {
-    memoryOperation::informAxiom(std::move(pUSemExp),
-                                 pSemanticMemory, pLingDb);
-  });
+  memoryOperation::informAxiom(std::move(pUSemExp),
+                               _semanticMemory, _lingDb);
 }
 
 
@@ -285,26 +333,9 @@ void VirtualOutputter::_convertToText(
     const SemanticExpression& pSemExp,
     const TextProcessingContext& pTextProcContext)
 {
-  _usageOfMemblock([&](const SemanticMemoryBlock& pMemBlock, const std::string& pCurrUserId)
-  {
-    _usageOfLingDb([&](const linguistics::LinguisticDatabase& pLingDb)
-    {
-      synthesize(pRes, pSemExp.clone(), false,
-                 pMemBlock, pCurrUserId, pTextProcContext, pLingDb, nullptr);
-    });
-  });
-}
-
-
-void VirtualOutputter::_usageOfMemoryAndLingDb(std::function<void(SemanticMemory&, const linguistics::LinguisticDatabase&)> pFunction)
-{
-  _usageOfMemory([&](SemanticMemory& pSemanticMemory)
-  {
-    _usageOfLingDb([&](const linguistics::LinguisticDatabase& pLingDb)
-    {
-      pFunction(pSemanticMemory, pLingDb);
-    });
-  });
+  auto userId = _semanticMemory.getCurrUserId();
+  synthesize(pRes, pSemExp.clone(), false,
+             _semanticMemory.memBloc, userId, pTextProcContext, _lingDb, nullptr);
 }
 
 
@@ -474,12 +505,7 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
     subContext.contAnnotation = metadataExp.contextualAnnotation;
     subContext.sayOrExecute = metadataExp.contextualAnnotation != ContextualAnnotation::BEHAVIOR;
     if (metadataExp.interactionContextContainer)
-    {
-      _usageOfMemory([&](SemanticMemory& pSemanticMemory)
-      {
-        pSemanticMemory.interactionContextContainer = metadataExp.interactionContextContainer->clone();
-      });
-    }
+      _semanticMemory.interactionContextContainer = metadataExp.interactionContextContainer->clone();
     processSemExp(*metadataExp.semExp, subContext);
     return;
   }

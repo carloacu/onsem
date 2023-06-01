@@ -27,7 +27,9 @@ struct ONSEMSEMANTICTOTEXT_API VirtualOutputter
    * @param pHowTheTextWillBeExposed Specified how the text will be exposed (voice, written text, ...).
    * @param pLoggerPtr Optional logger.
    */
-  VirtualOutputter(SemanticSourceEnum pHowTheTextWillBeExposed,
+  VirtualOutputter(SemanticMemory& pSemanticMemory,
+                   const linguistics::LinguisticDatabase& pLingDb,
+                   SemanticSourceEnum pHowTheTextWillBeExposed,
                    VirtualOutputterLogger* pLoggerPtr = nullptr);
 
   VirtualOutputter(const VirtualOutputter&) = delete;
@@ -57,40 +59,12 @@ struct ONSEMSEMANTICTOTEXT_API VirtualOutputter
 
 protected:
   /**
-   * @brief _usageOfMemory Wrapper to protect any function call that can modify the memory.
-   * /!\ This function has to be synchronous!
-   * @param pFunction Function to call in your wrapper.
-   */
-  virtual void _usageOfMemory(std::function<void(SemanticMemory&)> pFunction) = 0;
-
-  /**
-   * @brief _usageOfMemblock Wrapper to protect any function call that use the meomry without modifing it.
-   * /!\ This function has to be synchronous!
-   * @param pFunction Function to call in your wrapper.
-   */
-  virtual void _usageOfMemblock(std::function<void(const SemanticMemoryBlock&, const std::string&)> pFunction) = 0;
-
-  /**
-   * @brief _usageOfLingDb Wrapper to protect any function call that can modify the linguistic database.
-   * /!\ This function has to be synchronous!
-   * /!\ _usageOfLingDb will always be already protected by the method _usageOfMemory!
-   * @param pFunction Function to call in your wrapper.
-   */
-  virtual void _usageOfLingDb(std::function<void(const linguistics::LinguisticDatabase&)> pFunction) = 0;
-
-  /**
-   * @brief _synchronicityWrapper Define how a callback subscribed to an extenral event will called.
-   * @param pFunction The callback subscribed to an extenral event.
-   */
-  virtual void _synchronicityWrapper(std::function<void()> pFunction) = 0;
-
-  /**
    * @brief _exposeResource Defines how to expose a resource.
    * @param pResource The command to expose (encoded in a string).
    * @param pInutSemExpPtr Semantic expression of the input.
    */
   virtual void _exposeResource(const SemanticResource& pResource,
-                               const SemanticExpression* pInutSemExpPtr);
+                               const std::map<std::string, std::vector<std::string>>& pParameters);
 
   /**
    * @brief _exposeText Defines how to expose a text.
@@ -135,7 +109,10 @@ protected:
                            const std::map<std::string, std::vector<std::string>>& pParameters)
   { if (_loggerPtr != nullptr) _loggerPtr->onAutoResource(pResource, pParameters); }
 
+
 private:
+  SemanticMemory& _semanticMemory;
+  const linguistics::LinguisticDatabase& _lingDb;
   const SemanticSourceEnum _typeOfOutputter;
   VirtualOutputterLogger* _loggerPtr;
 
@@ -148,7 +125,6 @@ private:
   void _addLogAutoSaidText(const std::string& pLog)
   { if (_loggerPtr != nullptr) _loggerPtr->onAutoSaidText(pLog); }
 
-  void _usageOfMemoryAndLingDb(std::function<void(SemanticMemory&, const linguistics::LinguisticDatabase&)> pFunction);
   void _assertPunctually(const SemanticExpression& pSemExp);
   void _teachInformation(UniqueSemanticExpression pUSemExp);
   void _assertPermanently(UniqueSemanticExpression pUSemExp);
@@ -177,7 +153,8 @@ private:
                            SemanticSourceEnum pFrom,
                            ContextualAnnotation pContextualAnnotation);
 
-
+  void _processResource(const SemanticResource& pResource,
+                        const SemanticExpression* pInputSemExpPtr);
 };
 
 } // End of namespace onsem
