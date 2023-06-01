@@ -22,11 +22,9 @@ std::list<ExecutionData>& ExecutionData::linkToChildList(VirtualOutputter::Link 
 }
 
 
-ExecutionDataOutputter::ExecutionDataOutputter(
-    SemanticMemory& pSemanticMemory,
-     const linguistics::LinguisticDatabase& pLingDb,
-    VirtualOutputterLogger& pLogOnSynchronousExecutionCase)
-  : VirtualOutputter(pSemanticMemory, pLingDb, SemanticSourceEnum::ASR, &pLogOnSynchronousExecutionCase),
+ExecutionDataOutputter::ExecutionDataOutputter(SemanticMemory& pSemanticMemory,
+     const linguistics::LinguisticDatabase& pLingDb)
+  : VirtualOutputter(pSemanticMemory, pLingDb, SemanticSourceEnum::ASR, nullptr),
     rootExecutionData(),
     _currentLink(Link::THEN),
     _executionDataStack(1, &rootExecutionData)
@@ -51,6 +49,25 @@ void ExecutionDataOutputter::_exposeText(
   newElt.text = pText;
   newElt.textLanguage = pLanguage;
 }
+
+void ExecutionDataOutputter::_assertPunctually(UniqueSemanticExpression pUSemExp)
+{
+  _executionDataStack.back()->punctualAssertion =
+      std::make_unique<UniqueSemanticExpression>(std::move(pUSemExp));
+}
+
+void ExecutionDataOutputter::_teachInformation(UniqueSemanticExpression pUSemExp)
+{
+  _executionDataStack.back()->informationToTeach =
+      std::make_unique<UniqueSemanticExpression>(std::move(pUSemExp));
+}
+
+void ExecutionDataOutputter::_assertPermanently(UniqueSemanticExpression pUSemExp)
+{
+  _executionDataStack.back()->permanentAssertion =
+      std::make_unique<UniqueSemanticExpression>(std::move(pUSemExp));
+}
+
 
 void ExecutionDataOutputter::_beginOfScope(Link pLink)
 {

@@ -17,6 +17,10 @@ struct ONSEMSEMANTICTOTEXT_API ExecutionData
   std::unique_ptr<SemanticResource> resource;
   std::map<std::string, std::vector<std::string>> resourceParameters;
 
+  std::unique_ptr<UniqueSemanticExpression> punctualAssertion;
+  std::unique_ptr<UniqueSemanticExpression> permanentAssertion;
+  std::unique_ptr<UniqueSemanticExpression> informationToTeach;
+
   int numberOfRepetitions;
 
   std::list<ExecutionData> toRunSequencially;
@@ -31,8 +35,7 @@ struct ONSEMSEMANTICTOTEXT_API ExecutionData
 struct ONSEMSEMANTICTOTEXT_API ExecutionDataOutputter : public VirtualOutputter
 {
   ExecutionDataOutputter(SemanticMemory& pSemanticMemory,
-                         const linguistics::LinguisticDatabase& pLingDb,
-                         VirtualOutputterLogger& pLogOnSynchronousExecutionCase);
+                         const linguistics::LinguisticDatabase& pLingDb);
   virtual ~ExecutionDataOutputter() {}
 
   ExecutionData rootExecutionData;
@@ -44,6 +47,10 @@ protected:
 
   void _exposeText(const std::string& pText,
                    SemanticLanguageEnum pLanguage) override;
+
+  void _assertPunctually(UniqueSemanticExpression pUSemExp) override;
+  void _teachInformation(UniqueSemanticExpression pUSemExp) override;
+  void _assertPermanently(UniqueSemanticExpression pUSemExp) override;
 
   void _beginOfScope(Link pLink) override;
   void _endOfScope() override;

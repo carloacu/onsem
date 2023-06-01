@@ -78,6 +78,10 @@ protected:
   virtual void _endOfScope();
   virtual void _insideScopeRepetition(int pNumberOfRepetitions);
 
+  virtual void _assertPunctually(UniqueSemanticExpression pUSemExp);
+  virtual void _teachInformation(UniqueSemanticExpression pUSemExp);
+  virtual void _assertPermanently(UniqueSemanticExpression pUSemExp);
+
   /**
    * @brief _handleDurationAnnotations If the expression specify a time to wait it waits this specified time otherwise it does nothing.
    * @param pIsHandled Result set to true when we wait.
@@ -126,9 +130,6 @@ private:
 
   void _insideScopeLink(Link pLink);
 
-  void _assertPunctually(UniqueSemanticExpression pUSemExp);
-  void _teachInformation(UniqueSemanticExpression pUSemExp);
-  void _assertPermanently(UniqueSemanticExpression pUSemExp);
   void _convertToText(std::list<std::unique_ptr<SynthesizerResult>>& pRes,
                       const SemanticExpression& pSemExp,
                       const TextProcessingContext& pTextProcContext);
