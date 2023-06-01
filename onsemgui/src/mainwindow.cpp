@@ -15,9 +15,9 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
-#include <onsem/semantictotext/executor/executorlogger.hpp>
-#include <onsem/semantictotext/executor/executorcontext.hpp>
-#include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/semantictotext/outputter/outputterlogger.hpp>
+#include <onsem/semantictotext/outputter/outputtercontext.hpp>
+#include <onsem/semantictotext/outputter/textoutputter.hpp>
 #include <onsem/semantictotext/serialization.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticbehaviordefinition.hpp>
@@ -992,11 +992,11 @@ std::string MainWindow::_operator_react(
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    pTextLanguage);
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
+  auto execContext = std::make_shared<OutputterContext>(outContext);
   std::string res;
-  ExecutorLoggerWithoutMetaInformation logger(res);
-  TextExecutor textExec(semMemory, _lingDb, logger);
-  textExec.runSemExp(std::move(*reaction), execContext);
+  OutputterLoggerWithoutMetaInformation logger(res);
+  TextOutputter textExec(semMemory, _lingDb, logger);
+  textExec.processSemExp(std::move(*reaction), execContext);
   return res;
 }
 

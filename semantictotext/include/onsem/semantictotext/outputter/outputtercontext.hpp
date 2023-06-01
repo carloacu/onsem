@@ -1,5 +1,5 @@
-#ifndef ONSEM_SEMANTICTOTEXT_SRC_LINGUISTICSYNTHESIZER_EXECUTORSPECS_HPP
-#define ONSEM_SEMANTICTOTEXT_SRC_LINGUISTICSYNTHESIZER_EXECUTORSPECS_HPP
+#ifndef ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERCONTEXT_HPP
+#define ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERCONTEXT_HPP
 
 #include <atomic>
 #include <memory>
@@ -14,9 +14,9 @@ namespace onsem
 struct SemanticMemory;
 
 
-struct ONSEMSEMANTICTOTEXT_API ExecutorContext
+struct ONSEMSEMANTICTOTEXT_API OutputterContext
 {
-  ExecutorContext(const TextProcessingContext& pTextProcessingContext)
+  OutputterContext(const TextProcessingContext& pTextProcessingContext)
     : textProcContext(pTextProcessingContext),
       annotations(std::make_shared<std::map<GrammaticalType, UniqueSemanticExpression>>()),
       contAnnotation(ContextualAnnotation::PROACTIVE),
@@ -43,4 +43,4 @@ struct ONSEMSEMANTICTOTEXT_API ExecutorContext
 
 } // End of namespace onsem
 
-#endif // !ONSEM_SEMANTICTOTEXT_SRC_LINGUISTICSYNTHESIZER_EXECUTORSPECS_HPP
+#endif // !ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERCONTEXT_HPP

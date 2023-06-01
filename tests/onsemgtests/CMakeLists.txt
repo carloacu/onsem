@@ -69,7 +69,7 @@ set(ONSEMGTESTS_SRCS
   src/semantictotext/test_converter.cpp
   src/semantictotext/test_coreference.cpp
   src/semantictotext/test_equivalentSemanticRepresentation.cpp
-  src/semantictotext/test_executor.cpp
+  src/semantictotext/test_outputter.cpp
   src/semantictotext/test_imbrication.cpp
   src/semantictotext/test_intents.cpp
   src/semantictotext/test_invertpolarity.cpp

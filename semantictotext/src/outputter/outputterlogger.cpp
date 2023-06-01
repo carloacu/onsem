@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/executor/executorlogger.hpp>
+#include <onsem/semantictotext/outputter/outputterlogger.hpp>
 
 namespace onsem
 {
@@ -28,7 +28,7 @@ std::string _parameterToStr(const std::map<std::string, std::vector<std::string>
 
 }
 
-void DefaultExecutorLogger::onAutoResource(
+void DefaultOutputterLogger::onAutoResource(
     const SemanticResource& pResource,
     const std::map<std::string, std::vector<std::string>>& pParameters)
 {
@@ -41,7 +41,7 @@ void DefaultExecutorLogger::onAutoResource(
 }
 
 
-void ExecutorLoggerWithoutMetaInformation::onAutoResource(
+void OutputterLoggerWithoutMetaInformation::onAutoResource(
     const SemanticResource& pResource,
     const std::map<std::string, std::vector<std::string>>& pParameters)
 {

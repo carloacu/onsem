@@ -1,7 +1,7 @@
 #include "../semanticreasonergtests.hpp"
 #include "operators/operator_answer.hpp"
-#include <onsem/semantictotext/executor/executorlogger.hpp>
-#include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/semantictotext/outputter/outputterlogger.hpp>
+#include <onsem/semantictotext/outputter/textoutputter.hpp>
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
@@ -195,11 +195,11 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    SemanticLanguageEnum::ENGLISH);
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
+  auto execContext = std::make_shared<OutputterContext>(outContext);
   std::string logStr;
-  ExecutorLoggerWithoutMetaInformation logger(logStr);
-  TextExecutor textExec(semMem, lingDb, logger);
-  textExec.runSemExp(std::move(semExp7), execContext);
+  OutputterLoggerWithoutMetaInformation logger(logStr);
+  TextOutputter textExec(semMem, lingDb, logger);
+  textExec.processSemExp(std::move(semExp7), execContext);
   EXPECT_EQ("\\resLabel=resValue\\", logStr);
 
   auto semExp8 = converter::naturalLanguageExpressionToSemanticExpression(lunchIsAfterMorningNle, lingDb);

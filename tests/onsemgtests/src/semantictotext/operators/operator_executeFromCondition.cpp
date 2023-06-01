@@ -22,7 +22,7 @@ std::string _operator_execOrExecuteFromSemExpCondition(const SemanticExpression&
         memoryOperation::execute(pSemExp, pSemanticMemory, pLingDb) :
         memoryOperation::executeFromCondition(pSemExp, pSemanticMemory, pLingDb);
   if (resSemExp)
-    return semExpToTextExectionResult(std::move(*resSemExp), pLanguage, pSemanticMemory, pLingDb, &pSemExp);
+    return semExpToOutputStr(std::move(*resSemExp), pLanguage, pSemanticMemory, pLingDb, &pSemExp);
   return "";
 }
 

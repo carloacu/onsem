@@ -1,16 +1,15 @@
-#ifndef ONSEM_SEMANTICTOTEXT_EXECUTOR_VIRTUALEXECUTOR_HPP
-#define ONSEM_SEMANTICTOTEXT_EXECUTOR_VIRTUALEXECUTOR_HPP
+#ifndef ONSEM_SEMANTICTOTEXT_OUTPUTTER_VIRTUALOUTPUTTER_HPP
+#define ONSEM_SEMANTICTOTEXT_OUTPUTTER_VIRTUALOUTPUTTER_HPP
 
 #include <atomic>
-#include <mutex>
 #include <memory>
 #include <onsem/common/enum/contextualannotation.hpp>
 #include <onsem/common/enum/semanticsourceenum.hpp>
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
-#include <onsem/semantictotext/executor/executorcontext.hpp>
-#include <onsem/semantictotext/executor/executorlogger.hpp>
+#include <onsem/semantictotext/outputter/outputtercontext.hpp>
+#include <onsem/semantictotext/outputter/outputterlogger.hpp>
 #include "../api.hpp"
 
 
@@ -20,21 +19,21 @@ struct SynthesizerResult;
 
 
 
-/// Mother class execute a semantic expression.
-struct ONSEMSEMANTICTOTEXT_API VirtualExecutor
+/// Mother class output a semantic expression.
+struct ONSEMSEMANTICTOTEXT_API VirtualOutputter
 {
   /**
-   * @brief VirtualExecutor
+   * @brief Constrcut a VirtualOutputter.
    * @param pHowTheTextWillBeExposed Specified how the text will be exposed (voice, written text, ...).
-   * @param pLogOnSynchronousExecutionCasePtr Optional logger to use only for synchronous executors.
+   * @param pLoggerPtr Optional logger.
    */
-  VirtualExecutor(SemanticSourceEnum pHowTheTextWillBeExposed,
-                  VirtualExecutorLogger* pLogOnSynchronousExecutionCasePtr = nullptr);
+  VirtualOutputter(SemanticSourceEnum pHowTheTextWillBeExposed,
+                   VirtualOutputterLogger* pLoggerPtr = nullptr);
 
-  VirtualExecutor(const VirtualExecutor&) = delete;
-  VirtualExecutor& operator=(const VirtualExecutor&) = delete;
+  VirtualOutputter(const VirtualOutputter&) = delete;
+  VirtualOutputter& operator=(const VirtualOutputter&) = delete;
 
-  virtual ~VirtualExecutor() {}
+  virtual ~VirtualOutputter() {}
 
   enum class Link
   {
@@ -47,14 +46,13 @@ struct ONSEMSEMANTICTOTEXT_API VirtualExecutor
   static std::string linkToStr(Link pLink);
 
   /**
-   * @brief runSemExp Execute a semantic expression.
-   * /!\ Only one run is allowed per VirtualExecutor object.
-   * @param pUSemExp The semantic expression to execute.
-   * @param pExecutorContext Context of the execution.
-   * @return A SharedExecutorResult finished when the execution of the semantic expression is completed.
+   * @brief Process a semantic expression.
+   * /!\ Only one run is allowed per VirtualOutputter object.
+   * @param pUSemExp The semantic expression to process.
+   * @param pOutputterContext Context of the outputter.
    */
-  void runSemExp(UniqueSemanticExpression pUSemExp,
-                       std::shared_ptr<ExecutorContext>& pExecutorContext);
+  void processSemExp(UniqueSemanticExpression pUSemExp,
+                     std::shared_ptr<OutputterContext>& pOutputterContext);
 
 
 protected:
@@ -88,9 +86,8 @@ protected:
 
   /**
    * @brief _exposeResource Defines how to expose a resource.
-   * @param pResource The command to execute (encoded in a string).
-   * @param pStopRequest The object to notify about the stop of the execution.
-   * @return A SharedExecutorResult finished when the execution of the command is completed.
+   * @param pResource The command to expose (encoded in a string).
+   * @param pInutSemExpPtr Semantic expression of the input.
    */
   virtual void _exposeResource(const SemanticResource& pResource,
                                const SemanticExpression* pInutSemExpPtr);
@@ -99,8 +96,6 @@ protected:
    * @brief _exposeText Defines how to expose a text.
    * @param pText The text to expose.
    * @param pLanguage The language of the text.
-   * @param pStopRequest The object to notify about the stop of the execution.
-   * @return A SharedExecutorResult finished when the text has been completed.
    */
   virtual void _exposeText(const std::string& pText,
                            SemanticLanguageEnum pLanguage);
@@ -114,11 +109,11 @@ protected:
    * @brief _handleDurationAnnotations If the expression specify a time to wait it waits this specified time otherwise it does nothing.
    * @param pIsHandled Result set to true when we wait.
    * @param pAnnExp The expression.
-   * @param pExecutorContext The context of the execution.
+   * @param pOutputterContext Context of the outputter.
    */
   virtual void _handleDurationAnnotations(bool& pIsHandled,
                                           const AnnotatedExpression& pAnnExp,
-                                          std::shared_ptr<ExecutorContext> pExecutorContext);
+                                          std::shared_ptr<OutputterContext> pOutputterContext);
 
   /**
    * @brief _returnError Handle the error reports. (not implemented yet)
@@ -127,32 +122,31 @@ protected:
   void _reportAnError(const std::string& pErrorMrg);
 
   /**
-   * @brief _doExecutionUntil Execute the expression in loop until a stop is asked in the context object.
-   * @param pAnnExp The expression to execute.
-   * @param pExecutorContext The context that contains the stopper.
+   * @brief Process the expression in loop until a stop is asked in the context object.
+   * @param pAnnExp The expression to process.
+   * @param pOutputterContext Context of the outputter.
    * @param pLimitOfRecursions Maximum number of looping before to stop.
-   * @return A SharedExecutorResult finished when the execution of the expression in loop is completed.
    */
-  void _doExecutionUntil(const AnnotatedExpression& pAnnExp,
-                         std::shared_ptr<ExecutorContext> pExecutorContext,
-                         std::shared_ptr<int> pLimitOfRecursions);
+  void _doUntil(const AnnotatedExpression& pAnnExp,
+                std::shared_ptr<OutputterContext> pOutputterContext,
+                std::shared_ptr<int> pLimitOfRecursions);
 
   void _addLogAutoResource(const SemanticResource& pResource,
                            const std::map<std::string, std::vector<std::string>>& pParameters)
-  { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onAutoResource(pResource, pParameters); }
+  { if (_loggerPtr != nullptr) _loggerPtr->onAutoResource(pResource, pParameters); }
 
 private:
-  const SemanticSourceEnum _typeOfExecutor;
-  VirtualExecutorLogger* _syncLoggerPtr;
+  const SemanticSourceEnum _typeOfOutputter;
+  VirtualOutputterLogger* _loggerPtr;
 
   void _addLogAutoScheduling(const std::string& pLog)
-  { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onMetaInformation(pLog); }
+  { if (_loggerPtr != nullptr) _loggerPtr->onMetaInformation(pLog); }
   void _addLogAutoSchedulingBeginOfScope()
-  { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onMetaInformation_BeginOfScope(); }
+  { if (_loggerPtr != nullptr) _loggerPtr->onMetaInformation_BeginOfScope(); }
   void _addLogAutoSchedulingEndOfScope()
-  { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onMetaInformation_EndOfScope(); }
+  { if (_loggerPtr != nullptr) _loggerPtr->onMetaInformation_EndOfScope(); }
   void _addLogAutoSaidText(const std::string& pLog)
-  { if (_syncLoggerPtr != nullptr) _syncLoggerPtr->onAutoSaidText(pLog); }
+  { if (_loggerPtr != nullptr) _loggerPtr->onAutoSaidText(pLog); }
 
   void _usageOfMemoryAndLingDb(std::function<void(SemanticMemory&, const linguistics::LinguisticDatabase&)> pFunction);
   void _assertPunctually(const SemanticExpression& pSemExp);
@@ -163,27 +157,27 @@ private:
                       const TextProcessingContext& pTextProcContext);
 
   void _runSemExp(const UniqueSemanticExpression &pUSemExp,
-                  std::shared_ptr<ExecutorContext> pExecutorContext);
+                  std::shared_ptr<OutputterContext> pOutputterContext);
 
   void _handleList(
       const ListExpression& pListExp,
       Link pLink,
-      std::shared_ptr<ExecutorContext> pExecutorContext);
+      std::shared_ptr<OutputterContext> pOutputterContext);
   void _handleThenReversedList(const ListExpression &pListExp,
-                               std::shared_ptr<ExecutorContext> pExecutorContext);
+                               std::shared_ptr<OutputterContext> pOutputterContext);
   void _runConditionExp(const ConditionExpression &pCondExp,
-                        std::shared_ptr<ExecutorContext> pExecutorContext);
+                        std::shared_ptr<OutputterContext> pOutputterContext);
 
   void _runGrdExp(const UniqueSemanticExpression& pUSemExp,
-                  std::shared_ptr<ExecutorContext> pExecutorContext);
+                  std::shared_ptr<OutputterContext> pOutputterContext);
 
   void _sayAndAddDescriptionTree(const UniqueSemanticExpression& pUSemExp,
-                                 std::shared_ptr<ExecutorContext> pExecutorContext,
+                                 std::shared_ptr<OutputterContext> pOutputterContext,
                                  SemanticSourceEnum pFrom,
                                  ContextualAnnotation pContextualAnnotation);
 
   void _sayWithAnnotations(const UniqueSemanticExpression& pUSemExp,
-                           std::shared_ptr<ExecutorContext> pExecutorContext,
+                           std::shared_ptr<OutputterContext> pOutputterContext,
                            SemanticSourceEnum pFrom,
                            ContextualAnnotation pContextualAnnotation);
 
@@ -193,4 +187,4 @@ private:
 } // End of namespace onsem
 
 
-#endif // ONSEM_SEMANTICTOTEXT_EXECUTOR_VIRTUALEXECUTOR_HPP
+#endif // ONSEM_SEMANTICTOTEXT_OUTPUTTER_VIRTUALOUTPUTTER_HPP

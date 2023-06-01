@@ -5,7 +5,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
-#include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/semantictotext/outputter/textoutputter.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
@@ -58,12 +58,12 @@ DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSema
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    pLanguage);
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
+  auto execContext = std::make_shared<OutputterContext>(outContext);
   if (pInputSemExpInMemory)
     execContext->inputSemExpPtr = &*pInputSemExpInMemory->semExp;
-  DefaultExecutorLogger logger(res.answer);
-  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
-  textExec.runSemExp(std::move(*pReaction), execContext);
+  DefaultOutputterLogger logger(res.answer);
+  TextOutputter textExec(pSemanticMemory, pLingDb, logger);
+  textExec.processSemExp(std::move(*pReaction), execContext);
   return res;
 }
 

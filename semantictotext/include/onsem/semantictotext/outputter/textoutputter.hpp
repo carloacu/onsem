@@ -1,7 +1,7 @@
-#ifndef ONSEM_SEMANTICTOTEXT_EXECUTOR_TEXTEXECUTOR_HPP
-#define ONSEM_SEMANTICTOTEXT_EXECUTOR_TEXTEXECUTOR_HPP
+#ifndef ONSEM_SEMANTICTOTEXT_OUTPUTTER_TEXTOUTPUTTER_HPP
+#define ONSEM_SEMANTICTOTEXT_OUTPUTTER_TEXTOUTPUTTER_HPP
 
-#include "virtualexecutor.hpp"
+#include "virtualoutputter.hpp"
 #include "../api.hpp"
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 
@@ -9,12 +9,12 @@
 namespace onsem
 {
 
-struct ONSEMSEMANTICTOTEXT_API TextExecutor : public VirtualExecutor
+struct ONSEMSEMANTICTOTEXT_API TextOutputter : public VirtualOutputter
 {
-  TextExecutor(SemanticMemory& pSemanticMemory,
-               const linguistics::LinguisticDatabase& pLingDb,
-               VirtualExecutorLogger& pLogOnSynchronousExecutionCase);
-  virtual ~TextExecutor() {}
+  TextOutputter(SemanticMemory& pSemanticMemory,
+                const linguistics::LinguisticDatabase& pLingDb,
+                VirtualOutputterLogger& pLogOnSynchronousExecutionCase);
+  virtual ~TextOutputter() {}
 
 protected:
   void _synchronicityWrapper(std::function<void()> pFunction) override;
@@ -32,5 +32,5 @@ private:
 
 } // End of namespace onsem
 
-#endif // ONSEM_SEMANTICTOTEXT_EXECUTOR_TEXTEXECUTOR_HPP
+#endif // ONSEM_SEMANTICTOTEXT_OUTPUTTER_TEXTOUTPUTTER_HPP
 

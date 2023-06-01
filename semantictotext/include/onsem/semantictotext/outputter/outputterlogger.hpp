@@ -1,5 +1,5 @@
-#ifndef ONSEM_SEMANTICTOTEXT_EXECUTOR_EXECUTORLOGGER_HPP
-#define ONSEM_SEMANTICTOTEXT_EXECUTOR_EXECUTORLOGGER_HPP
+#ifndef ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERLOGGER_HPP
+#define ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERLOGGER_HPP
 
 #include <string>
 #include "../api.hpp"
@@ -11,11 +11,11 @@ namespace onsem
 struct SemanticResourceGrounding;
 
 
-/// Mother class to log the execution. (only for synchronous executors)
-class ONSEMSEMANTICTOTEXT_API VirtualExecutorLogger
+/// Mother class to log the outputter.
+class ONSEMSEMANTICTOTEXT_API VirtualOutputterLogger
 {
 public:
-  virtual ~VirtualExecutorLogger() {}
+  virtual ~VirtualOutputterLogger() {}
   /**
    * @brief onMetaInformation Print Link between elements like "AND", "OR", "THEN", ...
    * @param pLog Value to print
@@ -37,19 +37,19 @@ public:
                               const std::map<std::string, std::vector<std::string>>& pParameters) = 0;
 
   /**
-   * @brief onAutoCommand Print a text that executor expose.
+   * @brief Print a text that outputter expose.
    * @param pLog Value to print.
    */
   virtual void onAutoSaidText(const std::string& pLog) = 0;
 };
 
 
-/// Default implementation of an executor class.
-class ONSEMSEMANTICTOTEXT_API DefaultExecutorLogger : public VirtualExecutorLogger
+/// Default implementation of an outputter logger class.
+class ONSEMSEMANTICTOTEXT_API DefaultOutputterLogger : public VirtualOutputterLogger
 {
 public:
-  DefaultExecutorLogger(std::string& pLogsStr)
-    : VirtualExecutorLogger(),
+  DefaultOutputterLogger(std::string& pLogsStr)
+    : VirtualOutputterLogger(),
       _logsStr(pLogsStr)
   {
   }
@@ -69,11 +69,11 @@ private:
 
 
 
-class ONSEMSEMANTICTOTEXT_API ExecutorLoggerWithoutMetaInformation : public VirtualExecutorLogger
+class ONSEMSEMANTICTOTEXT_API OutputterLoggerWithoutMetaInformation : public VirtualOutputterLogger
 {
 public:
-  ExecutorLoggerWithoutMetaInformation(std::string& pLogsStr)
-    : VirtualExecutorLogger(),
+  OutputterLoggerWithoutMetaInformation(std::string& pLogsStr)
+    : VirtualOutputterLogger(),
       _logsStr(pLogsStr)
   {
   }
@@ -97,4 +97,4 @@ private:
 } // End of namespace onsem
 
 
-#endif // ONSEM_SEMANTICTOTEXT_EXECUTOR_EXECUTORLOGGER_HPP
+#endif // ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERLOGGER_HPP

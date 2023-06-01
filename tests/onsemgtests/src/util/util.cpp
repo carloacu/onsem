@@ -7,7 +7,7 @@
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/serialization.hpp>
-#include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/semantictotext/outputter/textoutputter.hpp>
 #include <onsem/texttosemantic/printer/expressionprinter.hpp>
 #include <onsem/semanticdebugger/printer/semexplinestostr.hpp>
 #include <onsem/tester/resourcelabelfortests.hpp>
@@ -96,7 +96,7 @@ std::string semExpToText
 }
 
 
-std::string semExpToTextExectionResult
+std::string semExpToOutputStr
 (UniqueSemanticExpression pSemExp,
  SemanticLanguageEnum pLanguage,
  SemanticMemory& pSemanticMemory,
@@ -104,16 +104,16 @@ std::string semExpToTextExectionResult
  const SemanticExpression* pInputSemExpPtr)
 {
   std::string resStr;
-  DefaultExecutorLogger logger(resStr);
-  TextExecutor textExec(pSemanticMemory, pLingDb, logger);
+  DefaultOutputterLogger logger(resStr);
+  TextOutputter textExec(pSemanticMemory, pLingDb, logger);
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    pLanguage);
   outContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
-  auto execContext = std::make_shared<ExecutorContext>(outContext);
+  auto execContext = std::make_shared<OutputterContext>(outContext);
   execContext->inputSemExpPtr = pInputSemExpPtr;
-  textExec.runSemExp(std::move(pSemExp), execContext);
+  textExec.processSemExp(std::move(pSemExp), execContext);
   return resStr;
 }
 

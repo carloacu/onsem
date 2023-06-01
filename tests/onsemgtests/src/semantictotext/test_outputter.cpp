@@ -7,7 +7,7 @@
 using namespace onsem;
 
 
-TEST_F(SemanticReasonerGTests, test_textExecutor)
+TEST_F(SemanticReasonerGTests, test_textOutputter)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
@@ -16,45 +16,45 @@ TEST_F(SemanticReasonerGTests, test_textExecutor)
 
   // any text
   {
-    auto semExpToExecute = textToSemExp("you are cool", lingDb, enLanguage);
-    EXPECT_EQ("I am cool.", semExpToTextExectionResult(std::move(semExpToExecute),
-                                                       enLanguage, semMem, lingDb));
+    auto semExpToOutput = textToSemExp("you are cool", lingDb, enLanguage);
+    EXPECT_EQ("I am cool.", semExpToOutputStr(std::move(semExpToOutput),
+                                              enLanguage, semMem, lingDb));
   }
 
 
   auto lookLeftResource = std::make_unique<GroundedExpression>
       (std::make_unique<SemanticResourceGrounding>(resourceLabelForTests_cmd,
-                                                     SemanticLanguageEnum::UNKNOWN,
-                                                     "methodToLookLeft()"));
+                                                   SemanticLanguageEnum::UNKNOWN,
+                                                   "methodToLookLeft()"));
 
   // resource alone
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=methodToLookLeft()\\",
-            semExpToTextExectionResult(lookLeftResource->clone(),
-                                       enLanguage, semMem, lingDb));
+            semExpToOutputStr(lookLeftResource->clone(),
+                              enLanguage, semMem, lingDb));
 
   // resource inside an object
   {
-    auto semExpToExecute = textToSemExp("To look left is", lingDb, enLanguage);
-    SemExpModifier::addChildFromSemExp(*semExpToExecute, GrammaticalType::OBJECT,
+    auto semExpToOutput = textToSemExp("To look left is", lingDb, enLanguage);
+    SemExpModifier::addChildFromSemExp(*semExpToOutput, GrammaticalType::OBJECT,
                                        lookLeftResource->clone(), ListExpressionType::UNRELATED);
     EXPECT_EQ("To look left is \\" + resourceLabelForTests_cmd + "=methodToLookLeft()\\",
-              semExpToTextExectionResult(std::move(semExpToExecute),
-                                         enLanguage, semMem, lingDb));
+              semExpToOutputStr(std::move(semExpToOutput),
+                                enLanguage, semMem, lingDb));
   }
 
   // resource inside a location
   {
-    auto semExpToExecute = textToSemExp("You can look at bugs", lingDb, enLanguage);
+    auto semExpToOutput = textToSemExp("You can look at bugs", lingDb, enLanguage);
     auto redmineResource = std::make_unique<GroundedExpression>
         (std::make_unique<SemanticResourceGrounding>(resourceLabelForTests_url,
-                                                       SemanticLanguageEnum::UNKNOWN,
-                                                       "https://www.redmine.org/"));
-    SemExpModifier::addChildFromSemExp(*semExpToExecute, GrammaticalType::LOCATION,
+                                                     SemanticLanguageEnum::UNKNOWN,
+                                                     "https://www.redmine.org/"));
+    SemExpModifier::addChildFromSemExp(*semExpToOutput, GrammaticalType::LOCATION,
                                        redmineResource->clone(), ListExpressionType::UNRELATED);
     EXPECT_EQ("I can look at bugs here: \\" + resourceLabelForTests_url + "=https://www.redmine.org/\\",
-              semExpToTextExectionResult(semExpToExecute->clone(), enLanguage, semMem, lingDb));
+              semExpToOutputStr(semExpToOutput->clone(), enLanguage, semMem, lingDb));
     EXPECT_EQ("Je peux regarder des bogues ici : \\" + resourceLabelForTests_url + "=https://www.redmine.org/\\",
-              semExpToTextExectionResult(std::move(semExpToExecute), frLanguage, semMem, lingDb));
+              semExpToOutputStr(std::move(semExpToOutput), frLanguage, semMem, lingDb));
   }
 }
 

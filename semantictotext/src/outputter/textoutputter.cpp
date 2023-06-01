@@ -1,4 +1,4 @@
-#include <onsem/semantictotext/executor/textexecutor.hpp>
+#include <onsem/semantictotext/outputter/textoutputter.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include "../conversion/mandatoryformconverter.hpp"
 
@@ -39,37 +39,37 @@ void _paramSemExpsToToParamStr(
 }
 
 
-TextExecutor::TextExecutor(SemanticMemory& pSemanticMemory,
+TextOutputter::TextOutputter(SemanticMemory& pSemanticMemory,
                            const linguistics::LinguisticDatabase& pLingDb,
-                           VirtualExecutorLogger& pLogOnSynchronousExecutionCase)
-  : VirtualExecutor(SemanticSourceEnum::ASR, &pLogOnSynchronousExecutionCase),
+                           VirtualOutputterLogger& pLogOnSynchronousExecutionCase)
+  : VirtualOutputter(SemanticSourceEnum::ASR, &pLogOnSynchronousExecutionCase),
     _semanticMemory(pSemanticMemory),
     _lingDb(pLingDb)
 {
 }
 
-void TextExecutor::_synchronicityWrapper(std::function<void()> pFunction)
+void TextOutputter::_synchronicityWrapper(std::function<void()> pFunction)
 {
   pFunction();
 }
 
-void TextExecutor::_usageOfMemory(std::function<void(SemanticMemory&)> pFunction)
+void TextOutputter::_usageOfMemory(std::function<void(SemanticMemory&)> pFunction)
 {
   pFunction(_semanticMemory);
 }
 
-void TextExecutor::_usageOfMemblock(std::function<void(const SemanticMemoryBlock&, const std::string&)> pFunction)
+void TextOutputter::_usageOfMemblock(std::function<void(const SemanticMemoryBlock&, const std::string&)> pFunction)
 {
   pFunction(_semanticMemory.memBloc, _semanticMemory.getCurrUserId());
 }
 
-void TextExecutor::_usageOfLingDb(std::function<void(const linguistics::LinguisticDatabase&)> pFunction)
+void TextOutputter::_usageOfLingDb(std::function<void(const linguistics::LinguisticDatabase&)> pFunction)
 {
   pFunction(_lingDb);
 }
 
 
-void TextExecutor::_exposeResource(const SemanticResource& pResource,
+void TextOutputter::_exposeResource(const SemanticResource& pResource,
                                    const SemanticExpression* pInputSemExpPtr)
 {
   std::map<std::string, std::vector<std::string>> parameters;
