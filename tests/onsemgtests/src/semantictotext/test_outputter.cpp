@@ -17,7 +17,7 @@ TEST_F(SemanticReasonerGTests, test_textOutputter)
   // any text
   {
     auto semExpToOutput = textToSemExp("you are cool", lingDb, enLanguage);
-    EXPECT_EQ("I am cool.", semExpToOutputStr(std::move(semExpToOutput),
+    EXPECT_EQ("I am cool.", semExpToOutputStr(*semExpToOutput,
                                               enLanguage, semMem, lingDb));
   }
 
@@ -29,7 +29,7 @@ TEST_F(SemanticReasonerGTests, test_textOutputter)
 
   // resource alone
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=methodToLookLeft()\\",
-            semExpToOutputStr(lookLeftResource->clone(),
+            semExpToOutputStr(*lookLeftResource,
                               enLanguage, semMem, lingDb));
 
   // resource inside an object
@@ -38,7 +38,7 @@ TEST_F(SemanticReasonerGTests, test_textOutputter)
     SemExpModifier::addChildFromSemExp(*semExpToOutput, GrammaticalType::OBJECT,
                                        lookLeftResource->clone(), ListExpressionType::UNRELATED);
     EXPECT_EQ("To look left is \\" + resourceLabelForTests_cmd + "=methodToLookLeft()\\",
-              semExpToOutputStr(std::move(semExpToOutput),
+              semExpToOutputStr(*semExpToOutput,
                                 enLanguage, semMem, lingDb));
   }
 
@@ -52,9 +52,9 @@ TEST_F(SemanticReasonerGTests, test_textOutputter)
     SemExpModifier::addChildFromSemExp(*semExpToOutput, GrammaticalType::LOCATION,
                                        redmineResource->clone(), ListExpressionType::UNRELATED);
     EXPECT_EQ("I can look at bugs here: \\" + resourceLabelForTests_url + "=https://www.redmine.org/\\",
-              semExpToOutputStr(semExpToOutput->clone(), enLanguage, semMem, lingDb));
+              semExpToOutputStr(*semExpToOutput, enLanguage, semMem, lingDb));
     EXPECT_EQ("Je peux regarder des bogues ici : \\" + resourceLabelForTests_url + "=https://www.redmine.org/\\",
-              semExpToOutputStr(std::move(semExpToOutput), frLanguage, semMem, lingDb));
+              semExpToOutputStr(*semExpToOutput, frLanguage, semMem, lingDb));
   }
 }
 

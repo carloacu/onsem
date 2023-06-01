@@ -97,7 +97,7 @@ std::string semExpToText
 
 
 std::string semExpToOutputStr
-(UniqueSemanticExpression pSemExp,
+(const SemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
  SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb,
@@ -113,7 +113,7 @@ std::string semExpToOutputStr
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
   OutputterContext outputterContext(outContext);
   outputterContext.inputSemExpPtr = pInputSemExpPtr;
-  textExec.processSemExp(std::move(pSemExp), outputterContext);
+  textExec.processSemExp(pSemExp, outputterContext);
   return resStr;
 }
 

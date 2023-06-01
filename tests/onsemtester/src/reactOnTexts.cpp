@@ -63,7 +63,7 @@ DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSema
     outputterContext.inputSemExpPtr = &*pInputSemExpInMemory->semExp;
   DefaultOutputterLogger logger(res.answer);
   TextOutputter textExec(pSemanticMemory, pLingDb, logger);
-  textExec.processSemExp(std::move(*pReaction), outputterContext);
+  textExec.processSemExp(**pReaction, outputterContext);
   return res;
 }
 

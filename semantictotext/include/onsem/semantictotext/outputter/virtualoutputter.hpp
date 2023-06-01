@@ -48,10 +48,10 @@ struct ONSEMSEMANTICTOTEXT_API VirtualOutputter
   /**
    * @brief Process a semantic expression.
    * /!\ Only one run is allowed per VirtualOutputter object.
-   * @param pUSemExp The semantic expression to process.
+   * @param pSemExp The semantic expression to process.
    * @param pOutputterContext Context of the outputter.
    */
-  void processSemExp(const UniqueSemanticExpression& pUSemExp,
+  void processSemExp(const SemanticExpression& pSemExp,
                      const OutputterContext& pOutputterContext);
 
 
@@ -153,7 +153,7 @@ private:
   void _teachInformation(UniqueSemanticExpression pUSemExp);
   void _assertPermanently(UniqueSemanticExpression pUSemExp);
   void _convertToText(std::list<std::unique_ptr<SynthesizerResult>>& pRes,
-                      const UniqueSemanticExpression& pUSemExp,
+                      const SemanticExpression& pSemExp,
                       const TextProcessingContext& pTextProcContext);
 
   void _handleList(const ListExpression& pListExp,
@@ -164,15 +164,15 @@ private:
   void _runConditionExp(const ConditionExpression &pCondExp,
                         const OutputterContext &pOutputterContext);
 
-  void _runGrdExp(const UniqueSemanticExpression& pUSemExp,
+  void _runGrdExp(const SemanticExpression& pSemExp,
                   const OutputterContext &pOutputterContext);
 
-  void _sayAndAddDescriptionTree(const UniqueSemanticExpression& pUSemExp,
+  void _sayAndAddDescriptionTree(const SemanticExpression& pSemExp,
                                  const OutputterContext &pOutputterContext,
                                  SemanticSourceEnum pFrom,
                                  ContextualAnnotation pContextualAnnotation);
 
-  void _sayWithAnnotations(const UniqueSemanticExpression& pUSemExp,
+  void _sayWithAnnotations(const SemanticExpression& pSemExp,
                            const OutputterContext &pOutputterContext,
                            SemanticSourceEnum pFrom,
                            ContextualAnnotation pContextualAnnotation);

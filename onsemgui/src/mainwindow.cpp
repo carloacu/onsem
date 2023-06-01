@@ -996,7 +996,7 @@ std::string MainWindow::_operator_react(
   std::string res;
   OutputterLoggerWithoutMetaInformation logger(res);
   TextOutputter textExec(semMemory, _lingDb, logger);
-  textExec.processSemExp(std::move(*reaction), outputterContext);
+  textExec.processSemExp(**reaction, outputterContext);
   return res;
 }
 
