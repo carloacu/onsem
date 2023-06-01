@@ -43,9 +43,9 @@ std::string VirtualOutputter::linkToStr(Link pLink)
 
 
 void VirtualOutputter::_sayAndAddDescriptionTree(const UniqueSemanticExpression& pUSemExp,
-    std::shared_ptr<OutputterContext> pOutputterContext,
-    SemanticSourceEnum pFrom,
-    ContextualAnnotation pContextualAnnotation)
+                                                 const OutputterContext& pOutputterContext,
+                                                 SemanticSourceEnum pFrom,
+                                                 ContextualAnnotation pContextualAnnotation)
 {
   IndexToSubNameToParameterValue params;
   params[0][""] =
@@ -66,7 +66,7 @@ void VirtualOutputter::_sayAndAddDescriptionTree(const UniqueSemanticExpression&
       (SemanticTimeGrounding::nowInstance());
 
   std::list<std::unique_ptr<SynthesizerResult>> synthesizerResults;
-  _convertToText(synthesizerResults, pUSemExp, pOutputterContext->textProcContext);
+  _convertToText(synthesizerResults, pUSemExp, pOutputterContext.textProcContext);
 
   for (const auto& currResult : synthesizerResults)
   {
@@ -75,13 +75,13 @@ void VirtualOutputter::_sayAndAddDescriptionTree(const UniqueSemanticExpression&
     case SynthesizerResultEnum::TEXT:
     {
       const auto& syntText = *dynamic_cast<const SynthesizerText*>(&*currResult);
-      _exposeText(syntText.text, pOutputterContext->textProcContext.langType);
+      _exposeText(syntText.text, pOutputterContext.textProcContext.langType);
       break;
     }
     case SynthesizerResultEnum::TASK:
     {
       const auto& syntTask = *dynamic_cast<const SynthesizerTask*>(&*currResult);
-      _exposeResource(syntTask.resource, pOutputterContext->inputSemExpPtr);
+      _exposeResource(syntTask.resource, pOutputterContext.inputSemExpPtr);
       break;
     }
     }
@@ -96,18 +96,18 @@ void VirtualOutputter::_sayAndAddDescriptionTree(const UniqueSemanticExpression&
 
 
 void VirtualOutputter::_sayWithAnnotations(const UniqueSemanticExpression& pUSemExp,
-    std::shared_ptr<OutputterContext> pOutputterContext,
-    SemanticSourceEnum pFrom,
-    ContextualAnnotation pContextualAnnotation)
+                                           const OutputterContext& pOutputterContext,
+                                           SemanticSourceEnum pFrom,
+                                           ContextualAnnotation pContextualAnnotation)
 {
-  if (pOutputterContext->annotations->empty())
+  if (pOutputterContext.annotations->empty())
   {
     _sayAndAddDescriptionTree(pUSemExp, pOutputterContext, pFrom, pContextualAnnotation);
     return;
   }
 
   auto annExp = std::make_unique<AnnotatedExpression>(pUSemExp->clone());
-  for (const auto& currAnnotation : *pOutputterContext->annotations)
+  for (const auto& currAnnotation : *pOutputterContext.annotations)
     annExp->annotations.emplace(currAnnotation.first, currAnnotation.second->clone());
   UniqueSemanticExpression uSemExp(std::move(annExp));
   _sayAndAddDescriptionTree(uSemExp, pOutputterContext, pFrom, pContextualAnnotation);
@@ -116,8 +116,8 @@ void VirtualOutputter::_sayWithAnnotations(const UniqueSemanticExpression& pUSem
 
 
 void VirtualOutputter::_handleList(const ListExpression& pListExp,
-    Link pLink,
-    std::shared_ptr<OutputterContext> pOutputterContext)
+                                   Link pLink,
+                                   const OutputterContext& pOutputterContext)
 {
   _beginOfScope();
   bool firstIteration = true;
@@ -127,7 +127,7 @@ void VirtualOutputter::_handleList(const ListExpression& pListExp,
       firstIteration = false;
     else
       _insideScopeLink(pLink);
-    _runSemExp(currElt, pOutputterContext);
+    processSemExp(currElt, pOutputterContext);
   }
   _endOfScope();
 }
@@ -135,7 +135,7 @@ void VirtualOutputter::_handleList(const ListExpression& pListExp,
 
 
 void VirtualOutputter::_handleThenReversedList(const ListExpression& pListExp,
-    std::shared_ptr<OutputterContext> pOutputterContext)
+                                               const OutputterContext& pOutputterContext)
 {
   _beginOfScope();
   bool firstIteration = true;
@@ -146,7 +146,7 @@ void VirtualOutputter::_handleThenReversedList(const ListExpression& pListExp,
     else
       _insideScopeLink(Link::THEN_REVERSED);
     auto& currElt = *it;
-    _runSemExp(currElt, pOutputterContext);
+    processSemExp(currElt, pOutputterContext);
   }
   _endOfScope();
 }
@@ -155,7 +155,7 @@ void VirtualOutputter::_handleThenReversedList(const ListExpression& pListExp,
 
 void VirtualOutputter::_runConditionExp(
     const ConditionExpression& pCondExp,
-    std::shared_ptr<OutputterContext> pOutputterContext)
+    const OutputterContext& pOutputterContext)
 {
   /*
   return _waitUntil(*pCondExp.conditionExp).then
@@ -167,14 +167,14 @@ void VirtualOutputter::_runConditionExp(
 }
 
 void VirtualOutputter::_exposeResource(const SemanticResource& pResource,
-                                      const SemanticExpression*)
+                                       const SemanticExpression*)
 {
   _addLogAutoResource(pResource, {});
 }
 
 
 void VirtualOutputter::_exposeText(const std::string& pText,
-                                        SemanticLanguageEnum)
+                                   SemanticLanguageEnum)
 {
   _addLogAutoSaidText(pText);
 }
@@ -206,7 +206,7 @@ void VirtualOutputter::_endOfScope()
 
 void VirtualOutputter::_handleDurationAnnotations(bool&,
     const AnnotatedExpression&,
-    std::shared_ptr<OutputterContext> pOutputterContext)
+    const OutputterContext& pOutputterContext)
 {
 }
 
@@ -230,15 +230,15 @@ void VirtualOutputter::_doUntil(
 
 
 void VirtualOutputter::_runGrdExp(const UniqueSemanticExpression& pUSemExp,
-    std::shared_ptr<OutputterContext> pOutputterContext)
+                                  const OutputterContext& pOutputterContext)
 {
   const GroundedExpression& grdExp = pUSemExp->getGrdExp();
   const SemanticResourceGrounding* resourceGrdPtr = grdExp->getResourceGroundingPtr();
   if (resourceGrdPtr != nullptr)
-    _exposeResource(resourceGrdPtr->resource, pOutputterContext->inputSemExpPtr);
+    _exposeResource(resourceGrdPtr->resource, pOutputterContext.inputSemExpPtr);
   else
     _sayWithAnnotations(pUSemExp, pOutputterContext,
-                        _typeOfOutputter, pOutputterContext->contAnnotation);
+                        _typeOfOutputter, pOutputterContext.contAnnotation);
 }
 
 
@@ -343,17 +343,10 @@ FutureVoid VirtualOutputter::_waitUntil(const SemanticExpression& pSemExp,
 }
 */
 
-void VirtualOutputter::processSemExp(UniqueSemanticExpression pUSemExp,
-                                     std::shared_ptr<OutputterContext>& pOutputterContext)
-{
-  auto keepSemExpAlive = std::make_shared<UniqueSemanticExpression>
-      (std::move(pUSemExp));
-  _runSemExp(*keepSemExpAlive, pOutputterContext);
-}
 
 
-void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
-                                  std::shared_ptr<OutputterContext> pOutputterContext)
+void VirtualOutputter::processSemExp(const UniqueSemanticExpression& pUSemExp,
+                                     const OutputterContext& pOutputterContext)
 {
   switch (pUSemExp->type)
   {
@@ -364,10 +357,10 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
   }
   case SemanticExpressionType::LIST:
   {
-    if (pOutputterContext->sayOrExecute)
+    if (pOutputterContext.sayOrExecute)
     {
       _sayWithAnnotations(pUSemExp, pOutputterContext,
-                          _typeOfOutputter, pOutputterContext->contAnnotation);
+                          _typeOfOutputter, pOutputterContext.contAnnotation);
       return;
     }
 
@@ -393,7 +386,7 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
     case ListExpressionType::OR:
     {
       auto itRandElt = Random::advanceConstIterator(listExp.elts);
-      _runSemExp(*itRandElt, pOutputterContext);
+      processSemExp(*itRandElt, pOutputterContext);
       return;
     }
     }
@@ -403,11 +396,11 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
   {
     const AnnotatedExpression& annExp = pUSemExp->getAnnExp();
 
-    auto subContext = std::make_shared<OutputterContext>(*pOutputterContext);
-    subContext->updateAnnotation(annExp.annotations);
+    auto subContext = pOutputterContext;
+    subContext.updateAnnotation(annExp.annotations);
     SemanticLanguageEnum subLanguage = SemExpGetter::getLanguage(annExp.annotations);
     if (subLanguage != SemanticLanguageEnum::UNKNOWN)
-      subContext->textProcContext.langType = subLanguage;
+      subContext.textProcContext.langType = subLanguage;
 
     /*
     const SemanticExpression* untilChildPtr = SemExpGetter::getUntilChild(annExp.annotations);
@@ -453,7 +446,7 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
     int nbOfRepetitions = SemExpGetter::getNumberOfRepetitions(annExp.annotations);
     if (nbOfRepetitions > 1)
       _beginOfScope();
-    _runSemExp(annExp.semExp, subContext);
+    processSemExp(annExp.semExp, subContext);
 
     if (nbOfRepetitions > 1)
     {
@@ -464,7 +457,7 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
     if (backgroundSemExpPtr != nullptr)
     {
       _insideScopeLink(Link::IN_BACKGROUND);
-      _runSemExp(*backgroundSemExpPtr, pOutputterContext);
+      processSemExp(*backgroundSemExpPtr, pOutputterContext);
       _endOfScope();
     }
     return;
@@ -472,15 +465,15 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
   case SemanticExpressionType::INTERPRETATION:
   {
     auto& intExp = pUSemExp->getIntExp();
-    _runSemExp(intExp.interpretedExp, pOutputterContext);
+    processSemExp(intExp.interpretedExp, pOutputterContext);
     return;
   }
   case SemanticExpressionType::METADATA:
   {
     auto& metadataExp = pUSemExp->getMetadataExp();
-    auto subContext = std::make_shared<OutputterContext>(*pOutputterContext);
-    subContext->contAnnotation = metadataExp.contextualAnnotation;
-    subContext->sayOrExecute = metadataExp.contextualAnnotation != ContextualAnnotation::BEHAVIOR;
+    auto subContext = pOutputterContext;
+    subContext.contAnnotation = metadataExp.contextualAnnotation;
+    subContext.sayOrExecute = metadataExp.contextualAnnotation != ContextualAnnotation::BEHAVIOR;
     if (metadataExp.interactionContextContainer)
     {
       _usageOfMemory([&](SemanticMemory& pSemanticMemory)
@@ -488,7 +481,7 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
         pSemanticMemory.interactionContextContainer = metadataExp.interactionContextContainer->clone();
       });
     }
-    _runSemExp(metadataExp.semExp, subContext);
+    processSemExp(metadataExp.semExp, subContext);
     return;
   }
   case SemanticExpressionType::SETOFFORMS:
@@ -496,17 +489,17 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
     UniqueSemanticExpression* originalFrom = pUSemExp->getSetOfFormsExp().getOriginalForm();
     if (originalFrom != nullptr)
     {
-      _runSemExp(*originalFrom, pOutputterContext);
+      processSemExp(*originalFrom, pOutputterContext);
       return;
     }
     break;
   }
   case SemanticExpressionType::CONDITION:
   {
-    if (pOutputterContext->sayOrExecute)
+    if (pOutputterContext.sayOrExecute)
     {
       _sayWithAnnotations(pUSemExp, pOutputterContext, _typeOfOutputter,
-                          pOutputterContext->contAnnotation);
+                          pOutputterContext.contAnnotation);
       return;
     }
 
@@ -518,7 +511,7 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
   case SemanticExpressionType::COMPARISON:
   {
     _sayWithAnnotations(pUSemExp, pOutputterContext, _typeOfOutputter,
-                        pOutputterContext->contAnnotation);
+                        pOutputterContext.contAnnotation);
     return;
   }
   case SemanticExpressionType::COMMAND:
@@ -534,9 +527,9 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
         if (statementPtr != nullptr &&
             statementPtr->concepts.count("verb_action_say"))
         {
-          auto subContext = std::make_shared<OutputterContext>(*pOutputterContext);
-          subContext->sayOrExecute = true;
-          return _runSemExp(cmdExp.semExp, subContext);
+          auto subContext = pOutputterContext;
+          subContext.sayOrExecute = true;
+          return processSemExp(cmdExp.semExp, subContext);
         }
         auto semExpToInform = std::make_shared<UniqueSemanticExpression>
             (SemExpModifier::fromActionDescriptionToSentenceInPresentTense(grdExp));
@@ -544,7 +537,7 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
 
         auto exposureTime = std::make_shared<std::unique_ptr<SemanticTimeGrounding>>
                                                                                      (SemanticTimeGrounding::nowInstance());
-        _runSemExp(cmdExp.semExp, pOutputterContext);
+        processSemExp(cmdExp.semExp, pOutputterContext);
         (*exposureTime)->setEndOfThisTimeNow();
         SemExpModifier::putInPastWithTimeAnnotation(*semExpToInform, std::move(*exposureTime));
         _assertPermanently(std::move(*semExpToInform));
@@ -552,13 +545,13 @@ void VirtualOutputter::_runSemExp(const UniqueSemanticExpression& pUSemExp,
       }
     }
 
-    _runSemExp(cmdExp.semExp, pOutputterContext);
+    processSemExp(cmdExp.semExp, pOutputterContext);
     return;
   }
   case SemanticExpressionType::FIXEDSYNTHESIS:
   {
     _sayAndAddDescriptionTree(pUSemExp, pOutputterContext, _typeOfOutputter,
-                                     pOutputterContext->contAnnotation);
+                                     pOutputterContext.contAnnotation);
     return;
   }
   }

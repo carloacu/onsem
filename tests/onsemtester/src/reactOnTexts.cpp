@@ -58,12 +58,12 @@ DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSema
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    pLanguage);
-  auto execContext = std::make_shared<OutputterContext>(outContext);
+  OutputterContext outputterContext(outContext);
   if (pInputSemExpInMemory)
-    execContext->inputSemExpPtr = &*pInputSemExpInMemory->semExp;
+    outputterContext.inputSemExpPtr = &*pInputSemExpInMemory->semExp;
   DefaultOutputterLogger logger(res.answer);
   TextOutputter textExec(pSemanticMemory, pLingDb, logger);
-  textExec.processSemExp(std::move(*pReaction), execContext);
+  textExec.processSemExp(std::move(*pReaction), outputterContext);
   return res;
 }
 

@@ -111,9 +111,9 @@ std::string semExpToOutputStr
                                    pLanguage);
   outContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
-  auto execContext = std::make_shared<OutputterContext>(outContext);
-  execContext->inputSemExpPtr = pInputSemExpPtr;
-  textExec.processSemExp(std::move(pSemExp), execContext);
+  OutputterContext outputterContext(outContext);
+  outputterContext.inputSemExpPtr = pInputSemExpPtr;
+  textExec.processSemExp(std::move(pSemExp), outputterContext);
   return resStr;
 }
 

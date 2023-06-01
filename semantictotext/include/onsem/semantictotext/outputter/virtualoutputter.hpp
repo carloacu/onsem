@@ -51,8 +51,8 @@ struct ONSEMSEMANTICTOTEXT_API VirtualOutputter
    * @param pUSemExp The semantic expression to process.
    * @param pOutputterContext Context of the outputter.
    */
-  void processSemExp(UniqueSemanticExpression pUSemExp,
-                     std::shared_ptr<OutputterContext>& pOutputterContext);
+  void processSemExp(const UniqueSemanticExpression& pUSemExp,
+                     const OutputterContext& pOutputterContext);
 
 
 protected:
@@ -113,7 +113,7 @@ protected:
    */
   virtual void _handleDurationAnnotations(bool& pIsHandled,
                                           const AnnotatedExpression& pAnnExp,
-                                          std::shared_ptr<OutputterContext> pOutputterContext);
+                                          const OutputterContext& pOutputterContext);
 
   /**
    * @brief _returnError Handle the error reports. (not implemented yet)
@@ -156,28 +156,24 @@ private:
                       const UniqueSemanticExpression& pUSemExp,
                       const TextProcessingContext& pTextProcContext);
 
-  void _runSemExp(const UniqueSemanticExpression &pUSemExp,
-                  std::shared_ptr<OutputterContext> pOutputterContext);
-
-  void _handleList(
-      const ListExpression& pListExp,
-      Link pLink,
-      std::shared_ptr<OutputterContext> pOutputterContext);
+  void _handleList(const ListExpression& pListExp,
+                   Link pLink,
+                   const OutputterContext &pOutputterContext);
   void _handleThenReversedList(const ListExpression &pListExp,
-                               std::shared_ptr<OutputterContext> pOutputterContext);
+                               const OutputterContext &pOutputterContext);
   void _runConditionExp(const ConditionExpression &pCondExp,
-                        std::shared_ptr<OutputterContext> pOutputterContext);
+                        const OutputterContext &pOutputterContext);
 
   void _runGrdExp(const UniqueSemanticExpression& pUSemExp,
-                  std::shared_ptr<OutputterContext> pOutputterContext);
+                  const OutputterContext &pOutputterContext);
 
   void _sayAndAddDescriptionTree(const UniqueSemanticExpression& pUSemExp,
-                                 std::shared_ptr<OutputterContext> pOutputterContext,
+                                 const OutputterContext &pOutputterContext,
                                  SemanticSourceEnum pFrom,
                                  ContextualAnnotation pContextualAnnotation);
 
   void _sayWithAnnotations(const UniqueSemanticExpression& pUSemExp,
-                           std::shared_ptr<OutputterContext> pOutputterContext,
+                           const OutputterContext &pOutputterContext,
                            SemanticSourceEnum pFrom,
                            ContextualAnnotation pContextualAnnotation);
 

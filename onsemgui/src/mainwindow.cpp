@@ -992,11 +992,11 @@ std::string MainWindow::_operator_react(
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    pTextLanguage);
-  auto execContext = std::make_shared<OutputterContext>(outContext);
+  OutputterContext outputterContext(outContext);
   std::string res;
   OutputterLoggerWithoutMetaInformation logger(res);
   TextOutputter textExec(semMemory, _lingDb, logger);
-  textExec.processSemExp(std::move(*reaction), execContext);
+  textExec.processSemExp(std::move(*reaction), outputterContext);
   return res;
 }
 

@@ -195,11 +195,11 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
   TextProcessingContext outContext(SemanticAgentGrounding::me,
                                    SemanticAgentGrounding::currentUser,
                                    SemanticLanguageEnum::ENGLISH);
-  auto execContext = std::make_shared<OutputterContext>(outContext);
+  OutputterContext outputterContext(outContext);
   std::string logStr;
   OutputterLoggerWithoutMetaInformation logger(logStr);
   TextOutputter textExec(semMem, lingDb, logger);
-  textExec.processSemExp(std::move(semExp7), execContext);
+  textExec.processSemExp(std::move(semExp7), outputterContext);
   EXPECT_EQ("\\resLabel=resValue\\", logStr);
 
   auto semExp8 = converter::naturalLanguageExpressionToSemanticExpression(lunchIsAfterMorningNle, lingDb);
