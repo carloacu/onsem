@@ -7,6 +7,7 @@
  <concept name="quantity_everything">
   <linkedMeaning lemme="tout" relationToConcept="4"/>
   <linkedMeaning lemme="tout le monde" relationToConcept="3"/>
+  <linkedMeaning lemme="tout ça" relationToConcept="3"/>
  </concept>
  <concept name="quantity_less">
   <linkedMeaning lemme="moins de" gram="determiner" relationToConcept="4"/>
