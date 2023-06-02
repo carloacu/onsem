@@ -153,10 +153,10 @@ void ExecutionDataOutputter::_exposeText(
   newElt.textLanguage = pLanguage;
 }
 
-void ExecutionDataOutputter::_assertPunctually(UniqueSemanticExpression pUSemExp)
+void ExecutionDataOutputter::_assertPunctually(const SemanticExpression& pSemExp)
 {
   _getLasExectInStack().punctualAssertion =
-      std::make_unique<UniqueSemanticExpression>(std::move(pUSemExp));
+      std::make_unique<UniqueSemanticExpression>(pSemExp.clone());
 }
 
 void ExecutionDataOutputter::_teachInformation(UniqueSemanticExpression pUSemExp)

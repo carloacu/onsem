@@ -53,7 +53,7 @@ protected:
   void _exposeText(const std::string& pText,
                    SemanticLanguageEnum pLanguage) override;
 
-  void _assertPunctually(UniqueSemanticExpression pUSemExp) override;
+  void _assertPunctually(const SemanticExpression& pSemExp) override;
   void _teachInformation(UniqueSemanticExpression pUSemExp) override;
   void _assertPermanently(UniqueSemanticExpression pUSemExp) override;
 

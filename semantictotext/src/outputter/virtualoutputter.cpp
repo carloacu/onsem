@@ -77,7 +77,7 @@ void VirtualOutputter::_sayAndAddDescriptionTree(const SemanticExpression& pSemE
   static const std::set<SemanticExpressionType> expressionTypesToSkip =
   {SemanticExpressionType::ANNOTATED, SemanticExpressionType::SETOFFORMS};
   descExp = descExp->clone(&params, true, &expressionTypesToSkip);
-  _assertPunctually(descExp->clone());
+  _assertPunctually(*descExp);
   auto descExpWithMetadata = std::make_shared<std::unique_ptr<MetadataExpression>>
       (std::make_unique<MetadataExpression>(SemanticSourceEnum::SEMREACTION,
                                               std::move(descExp), pSemExp.clone()));
@@ -236,20 +236,6 @@ void VirtualOutputter::_processGrdExp(const SemanticExpression& pSemExp,
 void VirtualOutputter::_reportAnError(const std::string&)
 {
   return;
-}
-
-
-void VirtualOutputter::_assertPunctually(UniqueSemanticExpression pUSemExp)
-{
-}
-
-
-void VirtualOutputter::_teachInformation(UniqueSemanticExpression pUSemExp)
-{
-}
-
-void VirtualOutputter::_assertPermanently(UniqueSemanticExpression pUSemExp)
-{
 }
 
 
@@ -482,7 +468,7 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
         }
         auto semExpToInform = std::make_shared<UniqueSemanticExpression>
             (SemExpModifier::fromActionDescriptionToSentenceInPresentTense(grdExp));
-        _assertPunctually(semExpToInform->getSemExp().clone());
+        _assertPunctually(semExpToInform->getSemExp());
 
         auto exposureTime = std::make_shared<std::unique_ptr<SemanticTimeGrounding>>
                                                                                      (SemanticTimeGrounding::nowInstance());

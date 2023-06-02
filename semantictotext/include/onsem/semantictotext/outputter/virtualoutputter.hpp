@@ -77,9 +77,9 @@ protected:
   virtual void _endOfScope() {}
   virtual void _insideScopeRepetition(int pNumberOfRepetitions) {}
 
-  virtual void _assertPunctually(UniqueSemanticExpression pUSemExp);
-  virtual void _teachInformation(UniqueSemanticExpression pUSemExp);
-  virtual void _assertPermanently(UniqueSemanticExpression pUSemExp);
+  virtual void _assertPunctually(const SemanticExpression& pSemExp) {}
+  virtual void _teachInformation(UniqueSemanticExpression pUSemExp) {}
+  virtual void _assertPermanently(UniqueSemanticExpression pUSemExp) {}
 
   /**
    * @brief _handleDurationAnnotations If the expression specify a time to wait it waits this specified time otherwise it does nothing.
