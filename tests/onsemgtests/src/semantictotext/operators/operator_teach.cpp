@@ -323,13 +323,13 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)
 
 
 
-TEST_F(SemanticReasonerGTests, operator_teachBehavior_withParameters)
+TEST_F(SemanticReasonerGTests, operator_teachBehavior_repetitions)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
   SemanticLanguageEnum language = SemanticLanguageEnum::FRENCH;
 
-  std::map<std::string, std::vector<std::string>> distanceParameter {
+  const std::map<std::string, std::vector<std::string>> distanceParameter {
     {"distance", {"combien de mètres"}}
   };
   const std::string moveForwardStr = "avance";
@@ -343,10 +343,30 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_withParameters)
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=3 mètres)\\",
             operator_resolveCommand("avance 3 mètres", semMem, lingDb));
 
+
+  const std::map<std::string, std::vector<std::string>> howManyDegreesParameterQuestion = {
+    {"angle", {"combien de degrés"}}
+  };
+  const std::vector<std::string> turnsStr = {/* "Tourne", */ "Tourne à gauche", "Tourne à gauche"};
+  for (const auto& currTurnStr : turnsStr)
+    _operator_teachAResourceWithParameters(currTurnStr, howManyDegreesParameterQuestion, semMem, lingDb,
+                                           memoryOperation::SemanticActionOperatorEnum::BEHAVIOR,
+                                           language);
+  /*
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour tester les roues il faut avancer de 2 mètres. Et puis ?",
                             operator_teachBehavior("pour tester les roues il faut avancer de 2 mètres", semMem, lingDb));
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=2 mètres)\\",
             operator_resolveCommand("teste les roues", semMem, lingDb));
+            */
+
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres. Et puis ?",
+                            operator_teachBehavior("pour faire un carré il faut avancer de 30 centimètres", semMem, lingDb));
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres et puis il faut tourner de 90 degrés à droite. Et puis ?",
+                            operator_teachBehavior("il faut tourner à droite de 90 degrés", semMem, lingDb));
+//  ONSEM_TEACHINGFEEDBACK_EQ("...",
+//                            operator_teachBehavior("il faut répéter tout ça 3 fois", semMem, lingDb));
+
+
 }
 
 

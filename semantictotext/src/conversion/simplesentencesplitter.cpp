@@ -57,6 +57,7 @@ void splitInVerySimpleSentences(UniqueSemanticExpression& pSemExp,
     if (grdExp->type == SemanticGroundingType::STATEMENT)
     {
       if (SemExpGetter::isAnActionDefinition(grdExp) ||
+          SemExpGetter::isATeachingElement(grdExp) ||
           (!pDoWeSplitQuestions && SemExpGetter::getMainRequestTypeFromGrdExp(grdExp) != SemanticRequestType::NOTHING))
         return;
       for (const auto& currChild : grdExp.children)
