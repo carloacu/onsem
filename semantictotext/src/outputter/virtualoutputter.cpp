@@ -62,21 +62,6 @@ VirtualOutputter::VirtualOutputter
 }
 
 
-std::string VirtualOutputter::linkToStr(Link pLink)
-{
-  switch (pLink) {
-  case Link::AND:
-    return "AND";
-  case Link::THEN:
-    return "THEN";
-  case Link::THEN_REVERSED:
-    return "THEN_REVERSED";
-  case Link::IN_BACKGROUND:
-    return "IN_BACKGROUND";
-  }
-  return "";
-}
-
 
 void VirtualOutputter::_sayAndAddDescriptionTree(const SemanticExpression& pSemExp,
                                                  const OutputterContext& pOutputterContext,

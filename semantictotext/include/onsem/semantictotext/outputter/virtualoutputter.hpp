@@ -44,8 +44,6 @@ struct ONSEMSEMANTICTOTEXT_API VirtualOutputter
     IN_BACKGROUND
   };
 
-  static std::string linkToStr(Link pLink);
-
   /**
    * @brief Process a semantic expression.
    * /!\ Only one run is allowed per VirtualOutputter object.
