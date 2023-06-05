@@ -1,6 +1,7 @@
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
+#include <onsem/texttosemantic/tool/semexpmodifier.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticgenericgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
@@ -857,6 +858,28 @@ std::shared_ptr<ExpressionWithLinks> teach
   }
   return expForMem;
 }
+
+
+std::shared_ptr<ExpressionWithLinks> teachSplitted
+(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+ SemanticMemory& pSemanticMemory,
+ UniqueSemanticExpression pInfitiveLabelSemExp,
+ UniqueSemanticExpression pSemExpToDo,
+ const linguistics::LinguisticDatabase& pLingDb,
+ SemanticActionOperatorEnum pActionOperator)
+{
+  // Add anything children to the trigger for asked parameters
+  std::set<GrammaticalType> askedChildren;
+  SemExpGetter::extractAskedChildrenByAResource(askedChildren, *pSemExpToDo);
+  for (const auto& currAskedChild : askedChildren)
+    SemExpModifier::addAnythingChild(*pInfitiveLabelSemExp, currAskedChild);
+
+  auto teachSemExp = converter::constructTeachSemExp(std::move(pInfitiveLabelSemExp), std::move(pSemExpToDo));
+  return teach(pReaction, pSemanticMemory, std::move(teachSemExp),
+               pLingDb, pActionOperator);
+}
+
+
 
 
 void show(std::vector<std::unique_ptr<GroundedExpression>>& pAnswers,

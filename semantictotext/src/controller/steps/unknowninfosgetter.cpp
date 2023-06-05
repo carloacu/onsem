@@ -49,14 +49,21 @@ void _recCheckIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
   if (itSemExpChild == pGrdExp.children.end())
   {
     // if it's a
-    const GroundedExpression* childGrdExp = pCurrMemChild.second->getGrdExpPtr_SkipWrapperPtrs();
-    if (childGrdExp != nullptr &&
-        (*childGrdExp)->type == SemanticGroundingType::META)
+    const GroundedExpression* childGrdExpPtr = pCurrMemChild.second->getGrdExpPtr_SkipWrapperPtrs();
+    if (childGrdExpPtr != nullptr)
     {
-      int idParam = (*childGrdExp)->getMetaGroundingPtr()->paramId;
-      if (idParam == SemanticMetaGrounding::returnId)
+      auto& childGrd = childGrdExpPtr->grounding();
+      if (childGrd.type == SemanticGroundingType::META)
       {
-        pParams[SemanticMetaGrounding::returnId][""];
+        int idParam = childGrd.getMetaGroundingPtr()->paramId;
+        if (idParam == SemanticMetaGrounding::returnId)
+        {
+          pParams[SemanticMetaGrounding::returnId][""];
+          return;
+        }
+      }
+      else if (ConceptSet::haveAConcept(childGrd.concepts, "stuff_informationToFill"))
+      {
         return;
       }
     }
@@ -286,192 +293,178 @@ bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
 bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
                                        SemanticMemoryBlockViewer& pMemViewer,
                                        GrdKnowToUnlinked& pIncompleteRelations,
-                                       const SentenceLinks<false>& pIdsToSentences,
+                                       const GroundedExpWithLinks& pMemSent,
                                        const GroundedExpression& pGrdExp)
 {
-  bool hasAddAReaction = false;
-  for (auto itRel = pIdsToSentences.dynamicLinks.rbegin(); itRel != pIdsToSentences.dynamicLinks.rend(); ++itRel)
+  auto params = std::make_unique<IndexToSubNameToParameterValue>();
+  std::unique_ptr<InteractionContextContainer> subIntContext;
+  if (!checkIfMatchAndGetParams(*params, subIntContext, &pIncompleteRelations, pMemSent, pGrdExp, pWorkStruct, pMemViewer))
+    return false;
+
+  // if it has a receiver -> say that we will do it when the receiver will be focused
+  auto itSemExpReceiver = pGrdExp.children.find(GrammaticalType::RECEIVER);
+  if (itSemExpReceiver != pGrdExp.children.end())
   {
-    const GroundedExpWithLinks& memSent = *itRel->second;
-    auto params = std::make_unique<IndexToSubNameToParameterValue>();
-    std::unique_ptr<InteractionContextContainer> subIntContext;
-    if (!checkIfMatchAndGetParams(*params, subIntContext, &pIncompleteRelations, memSent, pGrdExp, pWorkStruct, pMemViewer))
+    const GroundedExpression* receiverGrdExp = itSemExpReceiver->second->getGrdExpPtr_SkipWrapperPtrs();
+    if (receiverGrdExp != nullptr)
     {
-      continue;
-    }
-
-    // if it has a receiver -> say that we will do it when the receiver will be focused
-    auto itSemExpReceiver = pGrdExp.children.find(GrammaticalType::RECEIVER);
-    if (itSemExpReceiver != pGrdExp.children.end())
-    {
-      const GroundedExpression* receiverGrdExp = itSemExpReceiver->second->getGrdExpPtr_SkipWrapperPtrs();
-      if (receiverGrdExp != nullptr)
+      if (receiverGrdExp->grounding().type == SemanticGroundingType::AGENT)
       {
-        if (receiverGrdExp->grounding().type == SemanticGroundingType::AGENT)
+        const SemanticAgentGrounding& agentGrd = (*receiverGrdExp)->getAgentGrounding();
+        if (agentGrd.userId != SemanticAgentGrounding::me &&
+            !pMemViewer.constView.areSameUserConst(agentGrd.userId, pMemViewer.currentUserId))
         {
-          const SemanticAgentGrounding& agentGrd = (*receiverGrdExp)->getAgentGrounding();
-          if (agentGrd.userId != SemanticAgentGrounding::me &&
-              !pMemViewer.constView.areSameUserConst(agentGrd.userId, pMemViewer.currentUserId))
+          if (agentGrd.userId == SemanticAgentGrounding::userNotIdentified ||
+              agentGrd.userId == SemanticAgentGrounding::anyUser ||
+              pMemViewer.constView.getName(agentGrd.userId).empty())
           {
-            if (agentGrd.userId == SemanticAgentGrounding::userNotIdentified ||
-                agentGrd.userId == SemanticAgentGrounding::anyUser ||
-                pMemViewer.constView.getName(agentGrd.userId).empty())
-            {
-              pWorkStruct.addQuestion(SemExpCreator::getWhoIsSomebodyQuestion(*receiverGrdExp));
-              hasAddAReaction = true;
-              break;
-            }
-            else
-            {
-              pWorkStruct.addConditionForAUserAnswer
-                  (ContextualAnnotation::NOTIFYSOMETHINGWILLBEDONE,
-                   SemExpCreator::sayWeWillDoIt_fromGrdExp(pGrdExp),
-                   ConditionForAUser(agentGrd.userId,
-                                     pGrdExp.clone()));
-              hasAddAReaction = true;
-              break;
-            }
+            pWorkStruct.addQuestion(SemExpCreator::getWhoIsSomebodyQuestion(*receiverGrdExp));
+            return true;
           }
-        }
-        else
-        {
-          pWorkStruct.addQuestion(SemExpCreator::getWhoIsSomebodyQuestion(*receiverGrdExp));
-          hasAddAReaction = true;
-          break;
-        }
-      }
-    }
-
-    // get the specified language for the reaction
-    SemanticLanguageEnum behavLanguage = SemExpGetter::getLanguage(pGrdExp.children);
-
-    // get the specified number of execution for the reaction
-    const SemanticExpression* numberOfExcutionsSemExpPtr = nullptr;
-    auto itSemExpRepetition = pGrdExp.children.find(GrammaticalType::REPETITION);
-    if (itSemExpRepetition != pGrdExp.children.end())
-      numberOfExcutionsSemExpPtr = &*itSemExpRepetition->second;
-
-    // get the duration
-    const SemanticExpression* durationSemExpPtr = nullptr;
-    auto itSemExpDuration = pGrdExp.children.find(GrammaticalType::DURATION);
-    if (itSemExpDuration != pGrdExp.children.end())
-      durationSemExpPtr = &*itSemExpDuration->second;
-
-    auto& contextAxiom = memSent.getContextAxiom();
-    if (contextAxiom.infCommandToDo != nullptr)
-    {
-      bool answerGenerated = false;
-      const IndexToSubNameToParameterValue* paramsPtr = params ? &*params : nullptr;
-
-      for (const auto& currListElts : SemExpGetter::iterateOnList(*contextAxiom.infCommandToDo))
-      {
-        const GroundedExpression* listEltGrdExpPtr =
-            currListElts->getGrdExpPtr_SkipWrapperPtrs();
-        if (listEltGrdExpPtr != nullptr)
-        {
-          const SemanticStatementGrounding* statGrdExpPtr =
-              listEltGrdExpPtr->grounding().getStatementGroundingPtr();
-          if (statGrdExpPtr != nullptr &&
-              !statGrdExpPtr->isAtInfinitive() && !statGrdExpPtr->isMandatoryInPresentTense())
+          else
           {
-            if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT && pWorkStruct.author != nullptr)
-            {
-              pWorkStruct.addAnswerWithoutReferences
-                  (ContextualAnnotation::TEACHINGFEEDBACK,
-                   SemExpCreator::mergeInAList(SemExpCreator::sayThatTheRobotIsNotAbleToDoIt(pGrdExp),
-                                               SemExpCreator::doYouWantMeToSayToTellYouHowTo(*pWorkStruct.author, pGrdExp)));
-            }
-            answerGenerated = true;
-            break;
+            pWorkStruct.addConditionForAUserAnswer
+                (ContextualAnnotation::NOTIFYSOMETHINGWILLBEDONE,
+                 SemExpCreator::sayWeWillDoIt_fromGrdExp(pGrdExp),
+                 ConditionForAUser(agentGrd.userId,
+                                   pGrdExp.clone()));
+            return true;
           }
         }
       }
-
-      const GroundedExpression* actionThatCannotBeDone = nullptr;
-      if (!answerGenerated)
+      else
       {
-        UniqueSemanticExpression actionSemExp = contextAxiom.infCommandToDo->clone(paramsPtr);
-
-        for (const auto& currListElts : SemExpGetter::iterateOnList(actionSemExp))
-        {
-          const GroundedExpression* listEltGrdExpPtr =
-              (*currListElts)->getGrdExpPtr_SkipWrapperPtrs();
-          if (listEltGrdExpPtr != nullptr)
-          {
-            auto actionToDoPtr = convertToActionToDo(actionThatCannotBeDone, *listEltGrdExpPtr, pWorkStruct, pMemViewer);
-            if (actionThatCannotBeDone != nullptr)
-              break;
-            if (actionToDoPtr)
-              *currListElts = std::move(*actionToDoPtr);
-          }
-        }
-
-        std::unique_ptr<UniqueSemanticExpression> actionToDoInBackground;
-        if (!answerGenerated && actionThatCannotBeDone == nullptr)
-        {
-          auto itBackgroundChild = pGrdExp.children.find(GrammaticalType::IN_BACKGROUND);
-          if (itBackgroundChild != pGrdExp.children.end())
-          {
-            auto* backgroundGrdExpPtr = itBackgroundChild->second->getGrdExpPtr_SkipWrapperPtrs();
-            if (backgroundGrdExpPtr != nullptr)
-            {
-              const GroundedExpression* actionThatCannotBeDone = nullptr;
-              actionToDoInBackground = convertToActionToDo(actionThatCannotBeDone, *backgroundGrdExpPtr,
-                                                           pWorkStruct, pMemViewer);
-            }
-          }
-        }
-
-        if (actionThatCannotBeDone != nullptr)
-        {
-          if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
-          {
-            pWorkStruct.addAnswerWithoutReferences
-                (ContextualAnnotation::BEHAVIORNOTFOUND,
-                 SemExpCreator::sayThatTheRobotCannotDoIt(*actionThatCannotBeDone));
-          }
-          answerGenerated = true;
-        }
-
-        if (!answerGenerated)
-        {
-          if (behavLanguage != SemanticLanguageEnum::UNKNOWN ||
-              numberOfExcutionsSemExpPtr != nullptr ||
-              durationSemExpPtr != nullptr ||
-              actionToDoInBackground)
-          {
-            auto newAnnExp = std::make_unique<AnnotatedExpression>(std::move(actionSemExp));
-            if (behavLanguage != SemanticLanguageEnum::UNKNOWN)
-              newAnnExp->annotations.emplace
-                  (GrammaticalType::LANGUAGE,
-                   std::make_unique<GroundedExpression>(std::make_unique<SemanticLanguageGrounding>(behavLanguage)));
-            if (numberOfExcutionsSemExpPtr != nullptr)
-              newAnnExp->annotations.emplace
-                  (GrammaticalType::REPETITION, numberOfExcutionsSemExpPtr->clone());
-            if (durationSemExpPtr != nullptr)
-              newAnnExp->annotations.emplace
-                  (GrammaticalType::DURATION, durationSemExpPtr->clone());
-            if (actionToDoInBackground)
-              newAnnExp->annotations.emplace
-                  (GrammaticalType::IN_BACKGROUND, std::move(*actionToDoInBackground));
-            actionSemExp = std::move(newAnnExp);
-          }
-
-          auto cmdExp = std::make_unique<CommandExpression>(std::move(actionSemExp));
-          cmdExp->description.emplace(SemExpModifier::fromImperativeToActionDescription(pGrdExp));
-          pWorkStruct.addAnswer(ContextualAnnotation::BEHAVIOR, std::move(cmdExp),
-                                ReferencesFiller(contextAxiom));
-          auto* leafPtr = pWorkStruct.compositeSemAnswers->semAnswers.back()->getLeafPtr();
-          if (leafPtr != nullptr && subIntContext)
-            leafPtr->interactionContextContainer = std::move(subIntContext);
-        }
+        pWorkStruct.addQuestion(SemExpCreator::getWhoIsSomebodyQuestion(*receiverGrdExp));
+        return true;
       }
-
-      hasAddAReaction = true;
-      break;
     }
   }
-  return hasAddAReaction;
+
+  // get the specified language for the reaction
+  SemanticLanguageEnum behavLanguage = SemExpGetter::getLanguage(pGrdExp.children);
+
+  // get the specified number of execution for the reaction
+  const SemanticExpression* numberOfExcutionsSemExpPtr = nullptr;
+  auto itSemExpRepetition = pGrdExp.children.find(GrammaticalType::REPETITION);
+  if (itSemExpRepetition != pGrdExp.children.end())
+    numberOfExcutionsSemExpPtr = &*itSemExpRepetition->second;
+
+  // get the duration
+  const SemanticExpression* durationSemExpPtr = nullptr;
+  auto itSemExpDuration = pGrdExp.children.find(GrammaticalType::DURATION);
+  if (itSemExpDuration != pGrdExp.children.end())
+    durationSemExpPtr = &*itSemExpDuration->second;
+
+  auto& contextAxiom = pMemSent.getContextAxiom();
+  if (contextAxiom.infCommandToDo == nullptr)
+    return false;
+  auto& infCommandToDo = *contextAxiom.infCommandToDo;
+  bool answerGenerated = false;
+  const IndexToSubNameToParameterValue* paramsPtr = params ? &*params : nullptr;
+
+  for (const auto& currListElts : SemExpGetter::iterateOnList(infCommandToDo))
+  {
+    const GroundedExpression* listEltGrdExpPtr =
+        currListElts->getGrdExpPtr_SkipWrapperPtrs();
+    if (listEltGrdExpPtr != nullptr)
+    {
+      const SemanticStatementGrounding* statGrdExpPtr =
+          listEltGrdExpPtr->grounding().getStatementGroundingPtr();
+      if (statGrdExpPtr != nullptr &&
+          !statGrdExpPtr->isAtInfinitive() && !statGrdExpPtr->isMandatoryInPresentTense())
+      {
+        if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT && pWorkStruct.author != nullptr)
+        {
+          pWorkStruct.addAnswerWithoutReferences
+              (ContextualAnnotation::TEACHINGFEEDBACK,
+               SemExpCreator::mergeInAList(SemExpCreator::sayThatTheRobotIsNotAbleToDoIt(pGrdExp),
+                                           SemExpCreator::doYouWantMeToSayToTellYouHowTo(*pWorkStruct.author, pGrdExp)));
+        }
+        return true;
+      }
+    }
+  }
+
+  const GroundedExpression* actionThatCannotBeDone = nullptr;
+  if (!answerGenerated)
+  {
+    UniqueSemanticExpression actionSemExp = infCommandToDo.clone(paramsPtr);
+
+    for (const auto& currListElts : SemExpGetter::iterateOnList(actionSemExp))
+    {
+      const GroundedExpression* listEltGrdExpPtr =
+          (*currListElts)->getGrdExpPtr_SkipWrapperPtrs();
+      if (listEltGrdExpPtr != nullptr)
+      {
+        auto actionToDoPtr = convertToActionToDo(actionThatCannotBeDone, *listEltGrdExpPtr, pWorkStruct, pMemViewer);
+        if (actionThatCannotBeDone != nullptr)
+          break;
+        if (actionToDoPtr)
+          *currListElts = std::move(*actionToDoPtr);
+      }
+    }
+
+    std::unique_ptr<UniqueSemanticExpression> actionToDoInBackground;
+    if (!answerGenerated && actionThatCannotBeDone == nullptr)
+    {
+      auto itBackgroundChild = pGrdExp.children.find(GrammaticalType::IN_BACKGROUND);
+      if (itBackgroundChild != pGrdExp.children.end())
+      {
+        auto* backgroundGrdExpPtr = itBackgroundChild->second->getGrdExpPtr_SkipWrapperPtrs();
+        if (backgroundGrdExpPtr != nullptr)
+        {
+          const GroundedExpression* actionThatCannotBeDone = nullptr;
+          actionToDoInBackground = convertToActionToDo(actionThatCannotBeDone, *backgroundGrdExpPtr,
+                                                       pWorkStruct, pMemViewer);
+        }
+      }
+    }
+
+    if (actionThatCannotBeDone != nullptr)
+    {
+      if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT)
+      {
+        pWorkStruct.addAnswerWithoutReferences
+            (ContextualAnnotation::BEHAVIORNOTFOUND,
+             SemExpCreator::sayThatTheRobotCannotDoIt(*actionThatCannotBeDone));
+      }
+      answerGenerated = true;
+    }
+
+    if (!answerGenerated)
+    {
+      if (behavLanguage != SemanticLanguageEnum::UNKNOWN ||
+          numberOfExcutionsSemExpPtr != nullptr ||
+          durationSemExpPtr != nullptr ||
+          actionToDoInBackground)
+      {
+        auto newAnnExp = std::make_unique<AnnotatedExpression>(std::move(actionSemExp));
+        if (behavLanguage != SemanticLanguageEnum::UNKNOWN)
+          newAnnExp->annotations.emplace
+              (GrammaticalType::LANGUAGE,
+               std::make_unique<GroundedExpression>(std::make_unique<SemanticLanguageGrounding>(behavLanguage)));
+        if (numberOfExcutionsSemExpPtr != nullptr)
+          newAnnExp->annotations.emplace
+              (GrammaticalType::REPETITION, numberOfExcutionsSemExpPtr->clone());
+        if (durationSemExpPtr != nullptr)
+          newAnnExp->annotations.emplace
+              (GrammaticalType::DURATION, durationSemExpPtr->clone());
+        if (actionToDoInBackground)
+          newAnnExp->annotations.emplace
+              (GrammaticalType::IN_BACKGROUND, std::move(*actionToDoInBackground));
+        actionSemExp = std::move(newAnnExp);
+      }
+
+      auto cmdExp = std::make_unique<CommandExpression>(std::move(actionSemExp));
+      cmdExp->description.emplace(SemExpModifier::fromImperativeToActionDescription(pGrdExp));
+      pWorkStruct.addAnswer(ContextualAnnotation::BEHAVIOR, std::move(cmdExp),
+                            ReferencesFiller(contextAxiom));
+      auto* leafPtr = pWorkStruct.compositeSemAnswers->semAnswers.back()->getLeafPtr();
+      if (leafPtr != nullptr && subIntContext)
+        leafPtr->interactionContextContainer = std::move(subIntContext);
+    }
+  }
+  return true;
 }
 
 

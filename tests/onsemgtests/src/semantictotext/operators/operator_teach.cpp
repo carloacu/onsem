@@ -72,9 +72,9 @@ DetailedReactionAnswer _operator_teachAResourceWithParameters(
   auto infinitiveActionSemExp = converter::imperativeToInfinitive(*actionSemExp);
   if (!infinitiveActionSemExp)
     return {};
-  auto teachSemExp = converter::constructTeachSemExp(std::move(*infinitiveActionSemExp), std::move(outputResourceGrdExp));
-  auto inputSemExpInMemory = memoryOperation::teach(reaction, pSemanticMemory, std::move(teachSemExp),
-                                                    pLingDb, pActionOperator);
+  auto inputSemExpInMemory = memoryOperation::teachSplitted(reaction, pSemanticMemory,
+                                                            std::move(*infinitiveActionSemExp), std::move(outputResourceGrdExp),
+                                                            pLingDb, pActionOperator);
   return reactionToAnswer(reaction, pSemanticMemory, pLingDb, textLanguage, inputSemExpInMemory);
 }
 
@@ -347,7 +347,8 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_repetitions)
   const std::map<std::string, std::vector<std::string>> howManyDegreesParameterQuestion = {
     {"angle", {"combien de degrés"}}
   };
-  const std::vector<std::string> turnsStr = {/* "Tourne", */ "Tourne à gauche", "Tourne à gauche"};
+  const std::string turnRightStr = "Tourne à droite";
+  const std::vector<std::string> turnsStr = {/* "Tourne", */ turnRightStr, "Tourne à gauche"};
   for (const auto& currTurnStr : turnsStr)
     _operator_teachAResourceWithParameters(currTurnStr, howManyDegreesParameterQuestion, semMem, lingDb,
                                            memoryOperation::SemanticActionOperatorEnum::BEHAVIOR,
@@ -363,10 +364,14 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_repetitions)
                             operator_teachBehavior("pour faire un carré il faut avancer de 30 centimètres", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres et puis il faut tourner de 90 degrés à droite. Et puis ?",
                             operator_teachBehavior("il faut tourner à droite de 90 degrés", semMem, lingDb));
-//  ONSEM_TEACHINGFEEDBACK_EQ("...",
-//                            operator_teachBehavior("il faut répéter tout ça 3 fois", semMem, lingDb));
+  /*
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres, puis il faut tourner de 90 degrés à droite et puis il faut répéter tout 3 fois. Et puis ?",
+                            operator_teachBehavior("il faut répéter tout ça 3 fois", semMem, lingDb));
+*/
 
-
+  EXPECT_EQ("(\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=0,3 mètre)\\\tTHEN\t\\" +
+            resourceLabelForTests_cmd + "=#fr_FR#" + turnRightStr + "(angle=90 degrés)\\\t)",
+            operator_resolveCommand("fais un carré", semMem, lingDb));
 }
 
 

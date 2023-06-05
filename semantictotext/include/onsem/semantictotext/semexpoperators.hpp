@@ -231,6 +231,15 @@ std::shared_ptr<ExpressionWithLinks> teach(mystd::unique_propagate_const<UniqueS
                                            SemanticActionOperatorEnum pActionOperator);
 
 ONSEMSEMANTICTOTEXT_API
+std::shared_ptr<ExpressionWithLinks> teachSplitted
+(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+ SemanticMemory& pSemanticMemory,
+ UniqueSemanticExpression pInfitiveLabelSemExp,
+ UniqueSemanticExpression pSemExpToDo,
+ const linguistics::LinguisticDatabase& pLingDb,
+ SemanticActionOperatorEnum pActionOperator);
+
+ONSEMSEMANTICTOTEXT_API
 void show(std::vector<std::unique_ptr<GroundedExpression> >& pAnswers,
           const SemanticExpression& pSemExp,
           const SemanticMemory& pSemanticMemory,

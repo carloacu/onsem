@@ -505,6 +505,33 @@ bool _addTriggerThatMatchTheMost(SemControllerWorkingStruct& pWorkStruct,
 }
 
 
+void _orderResultBySimilarity(
+    std::list<const GroundedExpWithLinks*>& pEqualsGroundedExpWithLinksPtrs,
+    std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<const GroundedExpWithLinks*>>>& pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
+    SemControllerWorkingStruct& pWorkStruct,
+    SemanticMemoryBlockViewer& pMemViewer,
+    const std::map<intSemId, const GroundedExpWithLinks*>& pDynamicLinks,
+    const GroundedExpression& pInputGrdExp)
+{
+  for (const auto& currRel : pDynamicLinks)
+  {
+    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
+    const GroundedExpWithLinks& memSent = *currRel.second;
+    auto imbrication = SemExpComparator::getGrdExpsImbrications(pInputGrdExp, memSent.grdExp, pMemViewer.constView,
+                                                                pWorkStruct.lingDb, &pWorkStruct.comparisonExceptions, &comparisonErrorReporting);
+    if (imbrication == ImbricationType::EQUALS)
+    {
+      pEqualsGroundedExpWithLinksPtrs.push_back(&memSent);
+      pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.clear();
+    }
+    else if (imbrication != ImbricationType::OPPOSES && pEqualsGroundedExpWithLinksPtrs.empty())
+    {
+      pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].push_back(&memSent);
+    }
+  }
+}
+
+
 void _matchAnyTrigger
 (std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
@@ -520,26 +547,22 @@ void _matchAnyTrigger
                        pMemViewer, pReqLinks, true, semanticMemoryGetter::RequestContext::SENTENCE,
                        nullptr, SemanticRequestType::NOTHING, true, true);
 
-  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::set<const ExpressionWithLinks*>>> nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs;
-  for (const auto& currRel : idsToSentences.res.dynamicLinks)
+  std::list<const GroundedExpWithLinks*> equalsGroundedExpWithLinksPtrs;
+  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<const GroundedExpWithLinks*>>> nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs;
+  _orderResultBySimilarity(equalsGroundedExpWithLinksPtrs, nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
+                           pWorkStruct, pMemViewer, idsToSentences.res.dynamicLinks, pInputGrdExp);
+
+  if (!equalsGroundedExpWithLinksPtrs.empty())
   {
-    SemExpComparator::ComparisonErrorReporting comparisonErrorReporting;
-    const GroundedExpWithLinks& memSent = *currRel.second;
-    auto imbrication = SemExpComparator::getGrdExpsImbrications(pInputGrdExp, memSent.grdExp, pMemViewer.constView,
-                                                                pWorkStruct.lingDb, &pWorkStruct.comparisonExceptions, &comparisonErrorReporting);
-    if (imbrication == ImbricationType::EQUALS)
-    {
-      pSemExpWrapperPtrs.insert(&memSent.getContextAxiom().getSemExpWrappedForMemory());
-      nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.clear();
-    }
-    else if (imbrication != ImbricationType::OPPOSES && pSemExpWrapperPtrs.empty())
-    {
-      nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].insert(
-            &memSent.getContextAxiom().getSemExpWrappedForMemory());
-    }
+    for (auto& currElt : equalsGroundedExpWithLinksPtrs)
+      pSemExpWrapperPtrs.insert(&currElt->getContextAxiom().getSemExpWrappedForMemory());
   }
-  if (!nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.empty())
-    pSemExpWrapperPtrs = std::move((--nbOfErrorsToNbOfEqualitiesToLowPrioritySemExpWrapperPtrs.begin()->second.end())->second);
+  else if (!nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.empty())
+  {
+    auto& resSet = (--nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.begin()->second.end())->second;
+    for (auto& currElt : resSet)
+      pSemExpWrapperPtrs.insert(&currElt->getContextAxiom().getSemExpWrappedForMemory());
+  }
 }
 
 
@@ -695,9 +718,31 @@ bool _handleActionRelations(SentenceLinks<false>& pIdsToSentences,
                             const GroundedExpression& pGrdExp)
 {
   GrdKnowToUnlinked incompleteRelations;
-  if (unknownInfosGetter::splitCompeleteIncompleteOfActions(pWorkStruct, pMemViewer, incompleteRelations,
-                                                            pIdsToSentences, pGrdExp))
-    return true;
+
+  std::list<const GroundedExpWithLinks*> equalsGroundedExpWithLinksPtrs;
+  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<const GroundedExpWithLinks*>>> nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs;
+  _orderResultBySimilarity(equalsGroundedExpWithLinksPtrs, nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
+                           pWorkStruct, pMemViewer, pIdsToSentences.dynamicLinks, pGrdExp);
+
+  for (auto itRel = equalsGroundedExpWithLinksPtrs.rbegin(); itRel != equalsGroundedExpWithLinksPtrs.rend(); ++itRel)
+  {
+    if (unknownInfosGetter::splitCompeleteIncompleteOfActions(pWorkStruct, pMemViewer, incompleteRelations,
+                                                              **itRel, pGrdExp))
+      return true;
+  }
+
+  for (auto& currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs : nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs)
+  {
+    for (auto itLowPriorityGrdExpWithLinksPtrs = currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.second.rbegin(); itLowPriorityGrdExpWithLinksPtrs != currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.second.rend(); ++itLowPriorityGrdExpWithLinksPtrs)
+    {
+      for (auto itRel = itLowPriorityGrdExpWithLinksPtrs->second.rbegin(); itRel != itLowPriorityGrdExpWithLinksPtrs->second.rend(); ++itRel)
+      {
+        if (unknownInfosGetter::splitCompeleteIncompleteOfActions(pWorkStruct, pMemViewer, incompleteRelations,
+                                                                  **itRel, pGrdExp))
+          return true;
+      }
+    }
+  }
 
   SemanticRequestType askForThisRequestType = SemanticRequestType::NOTHING;
   if (!incompleteRelations.empty() &&
