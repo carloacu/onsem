@@ -141,7 +141,7 @@ TEST_F(SemanticReasonerGTests, userDisambiguation_wikpedia)
   semMem.memBloc.disableOldContrarySentences = true;
 
 
-  ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tComment t'appelles-tu ?\t)",
+  ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tComment t'appelles-tu ?",
                     operator_react("comment je m'appelle ?", semMem, lingDb));
   ONSEM_ANSWER_EQ("Adolphe de Chesnel et Sébastien Chardonnet",
                   operator_react("qui est né à Paris", semMem, lingDb));

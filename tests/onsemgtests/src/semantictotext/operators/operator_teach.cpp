@@ -222,13 +222,13 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
                             operator_teachBehavior("pour marcher il faut dire je marche", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour marcher il faut dire je marche et puis il faut dire c'est tout. Et puis ?",
                             operator_teachBehavior("il faut dire c'est tout", semMem, lingDb));
-  EXPECT_EQ("(\tJe marche.\tTHEN\tC'est tout.\t)", operator_resolveCommand("marche", semMem, lingDb));
+  EXPECT_EQ("Je marche.\tTHEN\tC'est tout.", operator_resolveCommand("marche", semMem, lingDb));
 
   EXPECT_EQ("", operator_resolveCommand("cours", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour courir il faut dire j'utilise mes jambes. Et puis ?",
                             operator_react("pour courir il faut dire j'utilise mes jambes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("J'utilise mes jambes.", operator_react("cours", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("(\t(\tJe marche.\tTHEN\tC'est tout.\t)\tIN_BACKGROUND\tJ'utilise mes jambes.\t)", operator_react("marche en courant", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("(\tJe marche.\tTHEN\tC'est tout.\t)\tIN_BACKGROUND\tJ'utilise mes jambes.", operator_react("marche en courant", semMem, lingDb));
 
   ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas grimper.", operator_react("grimpe", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour grimper il faut dire je marche et il faut sauter. Et puis ?",
@@ -313,7 +313,7 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)
   mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
   auto inputSemExpInMemory = memoryOperation::teach(reaction, semMem, std::move(teachSemExp), lingDb,
                                                     memoryOperation::SemanticActionOperatorEnum::BEHAVIOR);
-  ONSEM_TEACHINGFEEDBACK_EQ("(\tOk pour sauter \tTHEN\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\\tTHEN\t et puis ?\t)",
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour sauter \tTHEN\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\\tTHEN\t et puis ?",
                             reactionToAnswer(reaction, semMem, lingDb, language, inputSemExpInMemory));
 
   EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + cmdValue + "\\",
@@ -348,29 +348,26 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_repetitions)
     {"angle", {"combien de degrés"}}
   };
   const std::string turnRightStr = "Tourne à droite";
-  const std::vector<std::string> turnsStr = {/* "Tourne", */ turnRightStr, "Tourne à gauche"};
+  const std::string turnLeftStr = "Tourne à gauche";
+  const std::vector<std::string> turnsStr = {/* "Tourne", */ turnRightStr, turnLeftStr};
   for (const auto& currTurnStr : turnsStr)
     _operator_teachAResourceWithParameters(currTurnStr, howManyDegreesParameterQuestion, semMem, lingDb,
                                            memoryOperation::SemanticActionOperatorEnum::BEHAVIOR,
                                            language);
-  /*
-  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour tester les roues il faut avancer de 2 mètres. Et puis ?",
-                            operator_teachBehavior("pour tester les roues il faut avancer de 2 mètres", semMem, lingDb));
-  EXPECT_EQ("\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=2 mètres)\\",
-            operator_resolveCommand("teste les roues", semMem, lingDb));
-            */
 
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres. Et puis ?",
                             operator_teachBehavior("pour faire un carré il faut avancer de 30 centimètres", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres et puis il faut tourner de 90 degrés à droite. Et puis ?",
                             operator_teachBehavior("il faut tourner à droite de 90 degrés", semMem, lingDb));
-  /*
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres, puis il faut tourner de 90 degrés à droite et puis il faut répéter tout 3 fois. Et puis ?",
                             operator_teachBehavior("il faut répéter tout ça 3 fois", semMem, lingDb));
-*/
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres, puis il faut tourner de 90 degrés à droite, puis il faut répéter tout 3 fois et puis il faut tourner à gauche. Et puis ?",
+                            operator_teachBehavior("il faut tourner à gauche", semMem, lingDb));
 
-  EXPECT_EQ("(\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=0,3 mètre)\\\tTHEN\t\\" +
-            resourceLabelForTests_cmd + "=#fr_FR#" + turnRightStr + "(angle=90 degrés)\\\t)",
+  EXPECT_EQ("(\t(\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=0,3 mètre)\\\tTHEN\t\\" +
+            resourceLabelForTests_cmd + "=#fr_FR#" + turnRightStr + "(angle=90 degrés)\\\t)" +
+            "\tNUMBER_OF_TIMES: 4\t)" +
+            "\tTHEN\t(\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + turnLeftStr + "\\\t)",
             operator_resolveCommand("fais un carré", semMem, lingDb));
 }
 

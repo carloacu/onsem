@@ -1,7 +1,7 @@
 in: "si j'aime le chocolat, je suis gourmand"
 out: "Ok, tu es gourmand si tu aimes le chocolat."
 in: "pourquoi je suis gourmand ?"
-out: "(	Je ne sais pas.	THEN	Pourquoi es-tu gourmand ?	)"
+out: "Je ne sais pas.	THEN	Pourquoi es-tu gourmand ?"
 in: "j'aime le chocolat"
 out: "Pourquoi aimes-tu le chocolat ?"
 in: "pourquoi je suis gourmand ?"

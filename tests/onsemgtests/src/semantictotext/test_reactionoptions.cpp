@@ -147,7 +147,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_canAnswerWithAllTheTrigg
     const std::string nominalGroupTrigger2 = "cool";
     const std::string reactionOfNominalGroup2 = "Réponse 2";
     triggers_add(nominalGroupTrigger2, reactionOfNominalGroup2, semMem, lingDb);
-    ONSEM_ANSWER_EQ("(\tRéponse 1\tTHEN\tRéponse 2\t)",
+    ONSEM_ANSWER_EQ("Réponse 1\tTHEN\tRéponse 2",
                     operator_react(nominalGroupTrigger1, semMem, lingDb,
                                    langauge, &canAnswerWithAllTheTriggersReaction));
     ONSEM_ANSWER_EQ("Réponse 1",
@@ -258,7 +258,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
   ONSEM_ANSWER_EQ(videoResource1Str,
                   operator_react(questionTriggerStr, semMem, lingDb,
                                  SemanticLanguageEnum::ENGLISH, &cannnotMergeTextAndResourceReaction));
-  ONSEM_ANSWER_EQ("(\t" + videoResource1Str + "\tTHEN\tGad likes the humanity well-being.\t)",
+  ONSEM_ANSWER_EQ(videoResource1Str + "\tTHEN\tGad likes the humanity well-being.",
                   operator_react(questionTriggerStr, semMem, lingDb,
                                  SemanticLanguageEnum::ENGLISH, &canMergeTextAndResourceReaction));
 
@@ -267,7 +267,7 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
   ONSEM_ANSWER_EQ(videoResource1Str,
                   operator_react(questionTriggerStr, semMem, lingDb,
                                  SemanticLanguageEnum::ENGLISH, &cannnotMergeTextAndResourceReaction));
-  ONSEM_ANSWER_EQ("(\t" + videoResource1Str + "\tTHEN\tGad likes me.\t)",
+  ONSEM_ANSWER_EQ(videoResource1Str + "\tTHEN\tGad likes me.",
                   operator_react(questionTriggerStr, semMem, lingDb,
                                  SemanticLanguageEnum::ENGLISH, &canMergeTextAndResourceReaction));
 
@@ -289,12 +289,12 @@ TEST_F(SemanticReasonerGTests, operator_reactionOptions_mergeTextAnResource)
   ONSEM_ANSWER_EQ(videoResource2Str,
                   operator_react(questionTrigger2Str, semMem, lingDb,
                                  SemanticLanguageEnum::FRENCH, &cannnotMergeTextAndResourceReaction));
-  ONSEM_ANSWER_EQ("(\t" + videoResource2Str + "\tTHEN\tGad est un humoriste.\t)",
+  ONSEM_ANSWER_EQ(videoResource2Str + "\tTHEN\tGad est un humoriste.",
                   operator_react(questionTrigger2Str, semMem, lingDb,
                                  SemanticLanguageEnum::FRENCH, &canMergeTextAndResourceReaction));
   canMergeTextAndResourceReaction.canReactToANoun = true;
   triggers_add("Gad", videoResource2Str, semMem, lingDb);
-  ONSEM_ANSWER_EQ("(\t" + videoResource2Str + "\tTHEN\tGad est un humoriste.\t)",
+  ONSEM_ANSWER_EQ(videoResource2Str + "\tTHEN\tGad est un humoriste.",
                   operator_react("Gad", semMem, lingDb,
                                  SemanticLanguageEnum::FRENCH, &canMergeTextAndResourceReaction));
   canMergeTextAndResourceReaction.canReactToANoun = false;

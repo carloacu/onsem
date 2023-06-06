@@ -90,16 +90,16 @@ TEST_F(SemanticReasonerGTests, operator_resolveCommand_basic)
   EXPECT_EQ("", operator_resolveCommand("do goodbye", semMem, lingDb));
 
   // TODO: write this in a separate test case
-  EXPECT_EQ("(\t" + resource_goToPostureStr + "\tAND\t" + resource_goToPostureStr + "\t)",
+  EXPECT_EQ(resource_goToPostureStr + "\tAND\t" + resource_goToPostureStr,
             operator_resolveCommand("stand up and stand up", semMem, lingDb));
 
-  EXPECT_EQ("(\t" + resource_goToPostureStr + "\tTHEN\t" + resource_goToPostureStr + "\t)",
+  EXPECT_EQ(resource_goToPostureStr + "\tTHEN\t" + resource_goToPostureStr,
             operator_resolveCommand("stand up and then stand up", semMem, lingDb));
 
-  EXPECT_EQ("(\t" + resource_goToPostureStr + "\tTHEN\t" + resource_movebackStr + "\t)",
+  EXPECT_EQ(resource_goToPostureStr + "\tTHEN\t" + resource_movebackStr,
             operator_resolveCommand("stand up and then move back", semMem, lingDb));
 
-  EXPECT_EQ("(\t" + resource_goToPostureStr + "\tTHEN\t" + resource_raiseLeftHandStr + "\tTHEN\t" + resource_movebackStr + "\t)",
+  EXPECT_EQ(resource_goToPostureStr + "\tTHEN\t" + resource_raiseLeftHandStr + "\tTHEN\t" + resource_movebackStr,
             operator_resolveCommand("stand up, then raise your left hand and then move back", semMem, lingDb));
 
 
@@ -135,23 +135,23 @@ TEST_F(SemanticReasonerGTests, operator_resolveCommand_basic)
   EXPECT_EQ("Bonjour",
             operator_resolveCommand("say hello in French", semMem, lingDb));
   // repetition
-  EXPECT_EQ("(\tHello\tNUMBER_OF_TIMES: 4\t)",
+  EXPECT_EQ("Hello\tNUMBER_OF_TIMES: 4",
             operator_resolveCommand("say hello four times", semMem, lingDb));
   // repetition + translation
-  EXPECT_EQ("(\tBonjour\tNUMBER_OF_TIMES: 4\t)",
+  EXPECT_EQ("Bonjour\tNUMBER_OF_TIMES: 4",
             operator_resolveCommand("say hello four times in French", semMem, lingDb));
   // repetition in list of commands
-  EXPECT_EQ("(\tYou are a nice man.\tAND\t(\tPoop!\tNUMBER_OF_TIMES: 2\t)\t)",
+  EXPECT_EQ("You are a nice man.\tAND\t(\tPoop!\tNUMBER_OF_TIMES: 2\t)",
             operator_resolveCommand("do goodbye and say poop 2 times", semMem, lingDb));
-  EXPECT_EQ("(\t(\tNice\tNUMBER_OF_TIMES: 3\t)\tAND\tYou are a nice man.\t)",
+  EXPECT_EQ("(\tNice\tNUMBER_OF_TIMES: 3\t)\tAND\tYou are a nice man.",
             operator_resolveCommand("say nice 3 times and do goodbye", semMem, lingDb));
 
   // AND has a higher priority than THEN
-  EXPECT_EQ("(\t(\t\"a1\"\tAND\t\"a2\"\t)\tTHEN\t(\t\"a3\"\tAND\t\"a4\"\t)\t)",
+  EXPECT_EQ("(\t\"a1\"\tAND\t\"a2\"\t)\tTHEN\t(\t\"a3\"\tAND\t\"a4\"\t)",
             operator_resolveCommand("Say \"a1\" and say \"a2\" then say \"a3\" and say \"a4\"", semMem, lingDb));
-  EXPECT_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\t)",
+  EXPECT_EQ("\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"",
             operator_resolveCommand("Say \"a1\" then say \"a2\" and say \"a3\" then say \"a4\"", semMem, lingDb));
-  EXPECT_EQ("(\t(\t\"a1\"\tAND\t\"a2\"\t)\tTHEN\t(\t\"a3\"\tAND\t\"a4\"\t)\tTHEN\t(\t\"a5\"\tAND\t\"a6\"\t)\t)",
+  EXPECT_EQ("(\t\"a1\"\tAND\t\"a2\"\t)\tTHEN\t(\t\"a3\"\tAND\t\"a4\"\t)\tTHEN\t(\t\"a5\"\tAND\t\"a6\"\t)",
             operator_resolveCommand("Say \"a1\" and say \"a2\" then say \"a3\" and say \"a4\" then say \"a5\" and say \"a6\"", semMem, lingDb));
 }
 

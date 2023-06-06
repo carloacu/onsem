@@ -72,14 +72,14 @@ TEST_F(SemanticReasonerGTests, operator_reactOnRoboticSentences)
   ONSEM_ANSWER_EQ("No, I don't hear any speech.", operator_react("Are you hearing a speech", semMem, lingDb));
 
   // the user is coming
-  ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tDo you come?\t)", operator_react("am I coming", semMem, lingDb));
+  ONSEM_QUESTION_EQ("I don't know.\tTHEN\tDo you come?", operator_react("am I coming", semMem, lingDb));
   operator_inform_fromRobot("You are coming", semMem, lingDb);
   ONSEM_ANSWER_EQ("Yes, you are coming.", operator_react("am I coming", semMem, lingDb));
   operator_inform_fromRobot("You are not coming", semMem, lingDb);
   ONSEM_ANSWER_EQ("No, you are not coming.", operator_react("am I coming", semMem, lingDb));
 
   // the user is leaving
-  ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tDo you leave?\t)", operator_react("am I leaving", semMem, lingDb));
+  ONSEM_QUESTION_EQ("I don't know.\tTHEN\tDo you leave?", operator_react("am I leaving", semMem, lingDb));
   operator_inform_fromRobot("You are leaving", semMem, lingDb);
   ONSEM_ANSWER_EQ("Yes, you are leaving.", operator_react("am I leaving", semMem, lingDb));
   operator_inform_fromRobot("You are not leaving", semMem, lingDb);

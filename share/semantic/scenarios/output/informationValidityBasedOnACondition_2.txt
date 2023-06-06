@@ -1,7 +1,7 @@
 in: "si Paul est là, je suis content"
 out: "Ok, tu es content si Paul est là."
 in: "est-ce que je suis content ?"
-out: "(	Je ne sais pas.	THEN	Es-tu content ?	)"
+out: "Je ne sais pas.	THEN	Es-tu content ?"
 in: "Paul est là"
 in: "est-ce que je suis content ?"
 out: "Oui, tu es content."

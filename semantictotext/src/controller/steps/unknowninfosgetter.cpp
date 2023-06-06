@@ -394,7 +394,8 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
     {
       const GroundedExpression* listEltGrdExpPtr =
           (*currListElts)->getGrdExpPtr_SkipWrapperPtrs();
-      if (listEltGrdExpPtr != nullptr)
+      if (listEltGrdExpPtr != nullptr &&
+          !ConceptSet::haveAConcept(listEltGrdExpPtr->grounding().concepts, "verb_action_repeat"))
       {
         auto actionToDoPtr = convertToActionToDo(actionThatCannotBeDone, *listEltGrdExpPtr, pWorkStruct, pMemViewer);
         if (actionThatCannotBeDone != nullptr)

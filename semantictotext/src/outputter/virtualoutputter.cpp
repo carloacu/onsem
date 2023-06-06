@@ -1,6 +1,7 @@
 #include <onsem/semantictotext/outputter/virtualoutputter.hpp>
 #include <future>
 #include <sstream>
+#include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
@@ -226,10 +227,22 @@ void VirtualOutputter::_processGrdExp(const SemanticExpression& pSemExp,
   const GroundedExpression& grdExp = pSemExp.getGrdExp();
   const SemanticResourceGrounding* resourceGrdPtr = grdExp->getResourceGroundingPtr();
   if (resourceGrdPtr != nullptr)
+  {
     _processResource(resourceGrdPtr->resource, pOutputterContext.inputSemExpPtr);
-  else
-    _sayWithAnnotations(pSemExp, pOutputterContext,
-                        _typeOfOutputter, pOutputterContext.contAnnotation);
+    return;
+  }
+
+  if (ConceptSet::haveAConcept(grdExp.grounding().concepts, "verb_action_repeat"))
+  {
+    int nbOfRepetitions = SemExpGetter::getNumberOfRepetitions(grdExp.children);
+    _insideScopeNbOfTimes(nbOfRepetitions + 1);
+    _endOfScope();
+    _beginOfScope(Link::THEN);
+    return;
+  }
+
+  _sayWithAnnotations(pSemExp, pOutputterContext,
+                      _typeOfOutputter, pOutputterContext.contAnnotation);
 }
 
 
@@ -391,7 +404,7 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
 
     if (nbOfRepetitions > 1)
     {
-      _insideScopeRepetition(nbOfRepetitions);
+      _resourceNbOfTimes(nbOfRepetitions);
       _endOfScope();
     }
 

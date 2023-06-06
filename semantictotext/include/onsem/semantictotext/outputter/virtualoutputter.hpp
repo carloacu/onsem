@@ -75,7 +75,8 @@ protected:
 
   virtual void _beginOfScope(Link pLink) {}
   virtual void _endOfScope() {}
-  virtual void _insideScopeRepetition(int pNumberOfRepetitions) {}
+  virtual void _resourceNbOfTimes(int pNumberOfTimes) {}
+  virtual void _insideScopeNbOfTimes(int pNumberOfTimes) {}
 
   virtual void _assertPunctually(const SemanticExpression& pSemExp) {}
   virtual void _teachInformation(UniqueSemanticExpression pUSemExp) {}

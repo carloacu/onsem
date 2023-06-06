@@ -35,6 +35,30 @@ bool ExecutionData::hasData() const
   return !text.empty() || resource;
 }
 
+void ExecutionData::setResourceNbOfTimes(int pNumberOfTimes)
+{
+  if (hasData())
+  {
+    resourceNbOfTimes = pNumberOfTimes;
+    return;
+  }
+  if (toRunInBackground.size())
+  {
+    toRunInBackground.back().setResourceNbOfTimes(pNumberOfTimes);
+    return;
+  }
+  if (toRunInParallel.size())
+  {
+    toRunInParallel.back().setResourceNbOfTimes(pNumberOfTimes);
+    return;
+  }
+  if (toRunSequencially.size())
+  {
+    toRunSequencially.back().setResourceNbOfTimes(pNumberOfTimes);
+    return;
+  }
+}
+
 std::list<ExecutionData>& ExecutionData::linkToChildList(VirtualOutputter::Link pLink)
 {
   switch (pLink) {
@@ -49,7 +73,8 @@ std::list<ExecutionData>& ExecutionData::linkToChildList(VirtualOutputter::Link 
 
 
 std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
-                               const linguistics::LinguisticDatabase& pLingDb)
+                               const linguistics::LinguisticDatabase& pLingDb,
+                               bool pHasAlreadyData)
 {
   if (punctualAssertion)
   {
@@ -59,36 +84,69 @@ std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
 
   std::string res = _dataToStr();
 
-  if (numberOfRepetitions > 1)
+  if (resourceNbOfTimes > 1)
   {
-    res = "(\t" + res;
+    auto newRes = res;
     std::stringstream ss;
-    ss << numberOfRepetitions;
-    res += "\tNUMBER_OF_TIMES: " + ss.str();
-    res += "\t)";
+    ss << resourceNbOfTimes;
+    newRes += "\tNUMBER_OF_TIMES: " + ss.str();
+    if (pHasAlreadyData || !toRunInParallel.empty() || !toRunSequencially.empty() || !toRunInBackground.empty())
+      res = "(\t" + newRes + "\t)";
+    else
+      res = newRes;
   }
 
   if (!toRunInParallel.empty())
   {
-    res = "(\t" + res;
+    auto newRes = res;
     for (auto& currElt : toRunInParallel)
-      res += "\tAND\t" + currElt.run(pSemanticMemory, pLingDb);
-    res += "\t)";
+    {
+      if (!newRes.empty())
+        newRes += "\tAND\t";
+      newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunInParallel.size() > 1);
+    }
+    if (pHasAlreadyData || !res.empty())
+      res = "(\t" + newRes + "\t)";
+    else
+      res = newRes;
   }
 
   if (!toRunSequencially.empty())
   {
-    res = "(\t" + res;
+    auto newRes = res;
     for (auto& currElt : toRunSequencially)
-      res += "\tTHEN\t" + currElt.run(pSemanticMemory, pLingDb);
-    res += "\t)";
+    {
+      if (!newRes.empty())
+        newRes += "\tTHEN\t";
+      newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunSequencially.size() > 1);
+    }
+    if (pHasAlreadyData || !res.empty())
+      res = "(\t" + newRes + "\t)";
+    else
+      res = newRes;
   }
 
   if (!toRunInBackground.empty())
   {
-    res = "(\t" + res;
+    auto newRes = res;
     for (auto& currElt : toRunInBackground)
-      res += "\tIN_BACKGROUND\t" + currElt.run(pSemanticMemory, pLingDb);
+    {
+      if (!newRes.empty())
+        newRes += "\tIN_BACKGROUND\t";
+      newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunInBackground.size() > 1);
+    }
+    if (pHasAlreadyData || !res.empty())
+      res = "(\t" + newRes + "\t)";
+    else
+      res = newRes;
+  }
+
+  if (numberOfTimes > 1)
+  {
+    res = "(\t" + res;
+    std::stringstream ss;
+    ss << numberOfTimes;
+    res += "\tNUMBER_OF_TIMES: " + ss.str();
     res += "\t)";
   }
 
@@ -181,7 +239,7 @@ void ExecutionDataOutputter::_beginOfScope(Link pLink)
     if (!_executionDataStack.empty())
     {
       ExecutionData& currElt = _getLasExectInStack();
-      if (currElt.hasData())
+      if (true) //currElt.hasData())
       {
         auto& childList  = currElt.linkToChildList(currentLink);
         childList.emplace_back();
@@ -216,16 +274,20 @@ void ExecutionDataOutputter::_endOfScope()
     assert(false);
 }
 
-
-void ExecutionDataOutputter::_insideScopeRepetition(int pNumberOfRepetitions)
+void ExecutionDataOutputter::_resourceNbOfTimes(int pNumberOfTimes)
 {
-  _getLasExectInStack().numberOfRepetitions = pNumberOfRepetitions;
+  _getLasExectInStack().setResourceNbOfTimes(pNumberOfTimes);
+}
+
+void ExecutionDataOutputter::_insideScopeNbOfTimes(int pNumberOfTimes)
+{
+  _getLasExectInStack().numberOfTimes = pNumberOfTimes;
 }
 
 ExecutionData& ExecutionDataOutputter::_getOrCreateNewElt()
 {
   ExecutionData& newElt = _getLasExectInStack();
-  if (newElt.hasData())
+  if (true) //newElt.hasData())
   {
     if (!_linksStack.empty())
     {

@@ -52,7 +52,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                           operator_react("Quelle langue tu sais parler", semMem, lingDb));
   ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas quelle est la consigne.",
                           operator_react("Quelle est la consigne ?", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tQui es-tu ?\t)",
+  ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tQui es-tu ?",
                     operator_react("qui suis je", semMem, lingDb));
 
   EXPECT_EQ("", trackSemMemoryNotifications.getInfActions());
@@ -132,7 +132,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
   // condition to a permanent actions
   ONSEM_NOTIFYSOMETHINGWILLBEDONE_EQ("Ok, I will stand up and I will raise my right hand whenever I see you.",
                                      operator_react("Whenever you see me stand up and raise your right hand", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("(\t" + standUpCommandStr + "\tAND\t" + raiseRightHandCommandStr + "\t)",
+  ONSEM_BEHAVIOR_EQ(standUpCommandStr + "\tAND\t" + raiseRightHandCommandStr,
                     operator_react("You see me", semMem, lingDb));
   ONSEM_REMOVEALLCONDITIONS_EQ("Ok, je supprime toutes les conditions.", operator_react("Supprime toutes les conditions", semMem, lingDb));
   ONSEM_FEEDBACK_EQ("Yes, I know I see you.", operator_react("You see me", semMem, lingDb));
@@ -184,7 +184,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
     ONSEM_ANSWER_EQ(jokeStr, operator_react("raconte-moi la blague du jour", semMem, lingDb));
     ONSEM_ANSWER_EQ(jokeStr, operator_react("dis la blague du jour", semMem, lingDb));
     ONSEM_ANSWER_EQ("La blague d'aujourd'hui est " + jokeStr + ".", operator_react("quel est la blague du jour", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\t)",
+    ONSEM_BEHAVIOR_EQ("\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"",
                       operator_react("Say \"a1\" then say \"a2\" and say \"a3\" then say \"a4\"", semMem, lingDb));
   }
 
@@ -202,25 +202,25 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
 
   // action labeling after execution of a sequence of actions
   {
-    ONSEM_BEHAVIOR_EQ("(\tI like you.\tTHEN\tWhat is your name?\t)",
+    ONSEM_BEHAVIOR_EQ("I like you.\tTHEN\tWhat is your name?",
                       operator_react("say that you like me then ask what is my name", semMem, lingDb));
     ONSEM_TEACHINGFEEDBACK_EQ("Ok, to welcome means to say I like you and then to ask what your name is.",
                               operator_react("it means to welcome", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("(\tI like you.\tTHEN\tWhat is your name?\t)",
+    ONSEM_BEHAVIOR_EQ("I like you.\tTHEN\tWhat is your name?",
                       operator_react("welcome", semMem, lingDb));
   }
 
   // action labeling after execution of a sequence of actions even more complex
   {
-    ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\t)",
+    ONSEM_BEHAVIOR_EQ("\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"",
                       operator_react("Say \"a1\" then say \"a2\" and say \"a3\" then say \"a4\"", semMem, lingDb));
     ONSEM_TEACHINGFEEDBACK_EQ("Ok, to become crazy is to say \"a1\", then to say \"a2\" and to say \"a3\" and then to say \"a4\".",
                               operator_react("that's to become crazy", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\tTHEN\tI finished to become crazy.\t)",
+    ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\t)\tTHEN\tI finished to become crazy.",
                       operator_react("become crazy then say I have finished to become crazy", semMem, lingDb));
     ONSEM_TEACHINGFEEDBACK_EQ("Ok, to do a big test is to become crazy and then to say I finished to become crazy.",
                               operator_react("it's to do a big test", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\tTHEN\tI finished to become crazy.\t)",
+    ONSEM_BEHAVIOR_EQ("(\t\"a1\"\tTHEN\t(\t\"a2\"\tAND\t\"a3\"\t)\tTHEN\t\"a4\"\t)\tTHEN\tI finished to become crazy.",
                       operator_react("do a big test", semMem, lingDb));
   }
 
@@ -304,7 +304,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
     ONSEM_NOTIFYSOMETHINGWILLBEDONE_EQ("Ok, I will say your name if I know your name.",
                                        operator_react("If you know my name say it", semMem, lingDb));
     operator_inform("My name is Christophe.", semMem, lingDb);
-    ONSEM_BEHAVIOR_EQ("(\tOk, I will say your name if I know your name.\tTHEN\tChristophe\t)",
+    ONSEM_BEHAVIOR_EQ("Ok, I will say your name if I know your name.\tTHEN\tChristophe",
                       operator_react("If you know my name say it", semMem, lingDb));
     ONSEM_NOTIFYSOMETHINGWILLBEDONE_EQ("Ok, I will say your name whenever you say hello.",
                                        operator_react("say my name when I say hello", semMem, lingDb));
@@ -315,11 +315,11 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
 
   // time answer
   {
-    ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tQuand es-tu content ?\t)",
+    ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tQuand es-tu content ?",
                       operator_react("quand je suis content ?", semMem, lingDb));
     operator_inform("je suis content quand tu souris", semMem, lingDb);
     ONSEM_ANSWER_EQ("Tu es content quand je souris.", operator_react("quand je suis content ?", semMem, lingDb));
-    ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tEs-tu content ?\t)",
+    ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tEs-tu content ?",
                       operator_react("est-ce que je suis content ?", semMem, lingDb));
     operator_inform("Tu souris", semMem, lingDb);
     ONSEM_ANSWER_EQ("Oui, tu es content.",
@@ -328,11 +328,11 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
 
   // object answer
   {
-    ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tQu'aimes-tu ?\t)",
+    ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tQu'aimes-tu ?",
                       operator_react("qu'est-ce que j'aime ?", semMem, lingDb));
     // it should not be considered has an answer to the previous question
     ONSEM_NOANSWER(operator_react("c'est du chocolat", semMem, lingDb));
-    ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tQu'aimes-tu ?\t)",
+    ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tQu'aimes-tu ?",
                       operator_react("qu'est-ce que j'aime ?", semMem, lingDb));
   }
 
@@ -350,7 +350,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
     ONSEM_BEHAVIOR_EQ(raiseRightHandCommandStr, operator_react("salute", semMem, lingDb));
     ONSEM_TEACHINGFEEDBACK_EQ("Ok, to salute means to say hello and to raise the right arm.",
                               operator_react("to salute means to say hello and raise the right arm", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("(\tHello\tAND\t" + raiseRightHandCommandStr + "\t)",
+    ONSEM_BEHAVIOR_EQ("Hello\tAND\t" + raiseRightHandCommandStr,
                       operator_react("salute", semMem, lingDb));
     ONSEM_TEACHINGFEEDBACK_EQ("Ok, to salute you means to say hi man.",
                               operator_react("to salute me means to say hi man", semMem, lingDb));
@@ -411,14 +411,14 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
 
   // answer filtered by an occurence rank
   {
-    ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tWhen did you say occurenceRankTest for the first time?\t)",
+    ONSEM_QUESTION_EQ("I don't know.\tTHEN\tWhen did you say occurenceRankTest for the first time?",
                       operator_react("When did I say occurenceRankTest for the first time", semMem, lingDb));
     SemanticTimeGrounding::hardCodedCurrentTimeOfDay->add(SemanticTimeUnity::SECOND, 1);
     operator_inform("occurenceRankTest", semMem, lingDb);
     SemanticTimeGrounding::hardCodedCurrentTimeOfDay->add(SemanticTimeUnity::SECOND, 13);
     ONSEM_ANSWER_EQ("You said occurenceRankTest for the first time 13 seconds ago.",
                     operator_react("When did I say occurenceRankTest for the first time", semMem, lingDb));
-    ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tWhen did you say occurenceRankTest for the second time?\t)",
+    ONSEM_QUESTION_EQ("I don't know.\tTHEN\tWhen did you say occurenceRankTest for the second time?",
                       operator_react("When did I say occurenceRankTest for the second time", semMem, lingDb));
     SemanticTimeGrounding::hardCodedCurrentTimeOfDay->add(SemanticTimeUnity::SECOND, 2);
     operator_inform("occurenceRankTest", semMem, lingDb);
@@ -437,7 +437,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
 
   // merge with context
   {
-    ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tWhat do you want?\t)",
+    ONSEM_QUESTION_EQ("I don't know.\tTHEN\tWhat do you want?",
                       operator_react("What do I want ?", semMem, lingDb));
     operator_inform_fromRobot("What do you want ?", semMem, lingDb);
     operator_mergeAndInform("to play soccer", semMem, lingDb);
@@ -457,7 +457,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
     ONSEM_NOANSWER(operator_react("Jean is an old man", semMem, lingDb));
     static const std::string spinRightCommandStr = "\\" + resourceLabelForTests_cmd + "=semantic/animations/spin_right.qianim\\";
     ONSEM_NOANSWER(operator_react("I went to the", semMem, lingDb));
-    ONSEM_TEACHINGFEEDBACK_EQ("(\tOk, to spin right means \tTHEN\t" + spinRightCommandStr + "\t)",
+    ONSEM_TEACHINGFEEDBACK_EQ("Ok, to spin right means \tTHEN\t" + spinRightCommandStr,
                               operator_react("to spin right means " + spinRightCommandStr, semMem, lingDb));
     ONSEM_NOANSWER(operator_react("I went to the", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(spinRightCommandStr,
@@ -466,9 +466,9 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
 
   // positive sentiment feedbacks
   {
-    ONSEM_QUESTION_EQ("(\tJe suis content de l'entendre.\tTHEN\tPourquoi es-tu content ?\t)",
+    ONSEM_QUESTION_EQ("Je suis content de l'entendre.\tTHEN\tPourquoi es-tu content ?",
                       operator_react("je suis content", semMem, lingDb));
-    ONSEM_QUESTION_EQ("(\tI am happy to hear that.\tTHEN\tWhy are you happy?\t)",
+    ONSEM_QUESTION_EQ("I am happy to hear that.\tTHEN\tWhy are you happy?",
                       operator_react("I am happy", semMem, lingDb));
     // why answer understanding
     ONSEM_QUESTION_EQ("Why was it a beautiful day yesterday?",
@@ -542,10 +542,10 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
 
   // quantity question when the number is explicitly said
   {
-    ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tHow many children do you have?\t)",
+    ONSEM_QUESTION_EQ("I don't know.\tTHEN\tHow many children do you have?",
                       operator_react("How many children do I have?", semMem, lingDb));
     operator_inform("I have many children.", semMem, lingDb);
-    ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tHow many children do you have?\t)",
+    ONSEM_QUESTION_EQ("I don't know.\tTHEN\tHow many children do you have?",
                       operator_react("How many children do I have?", semMem, lingDb));
     operator_inform("I have 2 children.", semMem, lingDb);
     ONSEM_ANSWER_EQ("You have 2 children.",
@@ -582,9 +582,9 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                     operator_react("comment ça va ?", semMem, lingDb));
     ONSEM_ANSWER_EQ("Je vais bien. Merci",
                     operator_react("comment ça va", semMem, lingDb));
-    ONSEM_QUESTION_EQ("(\tJe suis content de l'entendre.\tTHEN\tPourquoi vas-tu bien ?\t)",
+    ONSEM_QUESTION_EQ("Je suis content de l'entendre.\tTHEN\tPourquoi vas-tu bien ?",
                       operator_react("ça va", semMem, lingDb));
-    ONSEM_QUESTION_EQ("(\tJe suis content de l'entendre.\tTHEN\tPourquoi vas-tu bien ?\t)",
+    ONSEM_QUESTION_EQ("Je suis content de l'entendre.\tTHEN\tPourquoi vas-tu bien ?",
                       operator_react("ça va bien", semMem, lingDb));
   }
 
@@ -648,7 +648,7 @@ TEST_F(SemanticReasonerGTests, operator_react_basic)
                       operator_react("Alexis looks at you", semMem, lingDb));
     ONSEM_FEEDBACK_EQ("Ok, you look at chocolate.",
                       operator_react("I look at chocolate", semMem, lingDb));
-    ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tAimes-tu le chocolat ?\t)",
+    ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tAimes-tu le chocolat ?",
                       operator_react("J'aime le chocolat ?", semMem, lingDb));
   }
 
@@ -753,13 +753,13 @@ TEST_F(SemanticReasonerGTests, operator_react_useActionAsVariables)
   ONSEM_BEHAVIOR_EQ("Nice to meet you",
                     operator_react("welcome", semMem, lingDb));
 
-  ONSEM_BEHAVIOR_EQ("(\tNice to meet you\tTHEN\tHello\t)",
+  ONSEM_BEHAVIOR_EQ("Nice to meet you\tTHEN\tHello",
                     operator_react("welcome then say hello", semMem, lingDb));
 
   ONSEM_TEACHINGFEEDBACK_EQ("Ok, to welcome is to say nice to meet you and then to say hello.",
                             operator_react("that is to welcome", semMem, lingDb));
 
-  ONSEM_BEHAVIOR_EQ("(\tNice to meet you\tTHEN\tHello\t)",
+  ONSEM_BEHAVIOR_EQ("Nice to meet you\tTHEN\tHello",
                     operator_react("welcome", semMem, lingDb));
 }
 
@@ -977,26 +977,26 @@ TEST_F(SemanticReasonerGTests, operator_react_cause)
   const std::string urlStr1 =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=4yQil_1ZA98\\";
   operator_inform("il y a une année de joie parce que " + urlStr1, semMem, lingDb);
-  ONSEM_ANSWER_EQ("(\tIl y a une année de joie parce que \tTHEN\t" + urlStr1 + "\t)",
+  ONSEM_ANSWER_EQ("Il y a une année de joie parce que \tTHEN\t" + urlStr1,
                   operator_react("pourquoi il y a une année de joie", semMem, lingDb));
   const std::string urlStr2 =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=4GZNoxrKZUQ\\";
   operator_inform(urlStr2 + " est pour cela qu'il y a de l'espérance.", semMem, lingDb);
-  ONSEM_ANSWER_EQ("(\tIl y a de l'espérance parce que \tTHEN\t" + urlStr2 + "\t)",
+  ONSEM_ANSWER_EQ("Il y a de l'espérance parce que \tTHEN\t" + urlStr2,
                   operator_react("pourquoi il y a de l'espérance", semMem, lingDb));
   const std::string urlStr3 =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=ZYCV4DmWbkw\\";
   operator_inform(urlStr3 + ". C'est pourquoi Paul est content.", semMem, lingDb);
-  ONSEM_ANSWER_EQ("(\tPaul est content parce que \tTHEN\t" + urlStr3 + "\t)",
+  ONSEM_ANSWER_EQ("Paul est content parce que \tTHEN\t" + urlStr3,
                   operator_react("pourquoi Paul est content", semMem, lingDb));
   const std::string urlStr4 =
       "\\" + resourceLabelForTests_url + "=https://www.youtube.com/watch?v=zMyaKqtu0TE\\";
   operator_inform(urlStr4 + ". c'est pour cela que je suis content", semMem, lingDb);
-  ONSEM_ANSWER_EQ("(\tTu es content parce que \tTHEN\t" + urlStr4 + "\t)",
+  ONSEM_ANSWER_EQ("Tu es content parce que \tTHEN\t" + urlStr4,
                   operator_react("pourquoi je suis content ?", semMem, lingDb));
   ONSEM_ANSWER_EQ("Oui, tu es content.",
                   operator_react("je suis content ?", semMem, lingDb));
-  ONSEM_ANSWER_EQ("(\tParce que \tTHEN\t" + urlStr4 + "\t)",
+  ONSEM_ANSWER_EQ("Parce que \tTHEN\t" + urlStr4,
                   operator_react("pourquoi ?", semMem, lingDb));
 }
 
@@ -1137,8 +1137,8 @@ TEST_F(SemanticReasonerGTests, operator_react_choice)
   SemanticMemory semMem;
 
   const std::string question = "Do I like chocolate or banana?";
-  ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tDo you like chocolate or banana?\t)", operator_react(question, semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tAimes-tu le chocolat ou la banane ?\t)",
+  ONSEM_QUESTION_EQ("I don't know.\tTHEN\tDo you like chocolate or banana?", operator_react(question, semMem, lingDb));
+  ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tAimes-tu le chocolat ou la banane ?",
                     operator_react("J'aime le chocolat ou la banane ?", semMem, lingDb));
   operator_inform("I don't like chocolate", semMem, lingDb);
   ONSEM_ANSWER_EQ("You don't like chocolate.", operator_react(question, semMem, lingDb));
@@ -1156,29 +1156,29 @@ TEST_F(SemanticReasonerGTests, operator_react_abilityQuestion)
                           operator_react("can I say something?", semMem, lingDb));
   ONSEM_ANSWER_EQ("No, I can't.", operator_react("can you say something?", semMem, lingDb));
   memoryOperation::learnSayCommand(semMem, lingDb);
-  ONSEM_QUESTION_EQ("(\tYes, I can.\tTHEN\tDo you want me to say something now?\t)", operator_react("can you say something?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("Yes, I can.\tTHEN\tDo you want me to say something now?", operator_react("can you say something?", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("Something", operator_react("yes", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tOui, je peux.\tTHEN\tVeux-tu que je dise bonjour maintenant ?\t)", operator_react("sais-tu dire bonjour ?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("Oui, je peux.\tTHEN\tVeux-tu que je dise bonjour maintenant ?", operator_react("sais-tu dire bonjour ?", semMem, lingDb));
   ONSEM_NOANSWER(operator_react("je ne sais pas", semMem, lingDb));
   ONSEM_QUESTION_EQ("Veux-tu que je dise bonjour maintenant ?", operator_react("pas du tout", semMem, lingDb));
   ONSEM_FEEDBACK_EQ("Ok, tu ne veux pas que je dise bonjour maintenant.", operator_react("non", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tOui, je peux.\tTHEN\tVeux-tu que je dise bonjour maintenant ?\t)", operator_react("sais-tu dire bonjour ?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("Oui, je peux.\tTHEN\tVeux-tu que je dise bonjour maintenant ?", operator_react("sais-tu dire bonjour ?", semMem, lingDb));
   ONSEM_NOANSWER(operator_react("je ne sais pas", semMem, lingDb));
   ONSEM_QUESTION_EQ("Veux-tu que je dise bonjour maintenant ?", operator_react("Allez oui!", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("Bonjour", operator_react("ouep", semMem, lingDb));
 
   memoryOperation::allowToInformTheUserHowToTeach(semMem);
-  ONSEM_QUESTION_EQ("(\tNo, I can't but you can teach me.\tTHEN\tDo you want to know how?\t)", operator_react("can you sing?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("No, I can't but you can teach me.\tTHEN\tDo you want to know how?", operator_react("can you sing?", semMem, lingDb));
   ONSEM_ANSWER_EQ("For example, you can tell me to sing is to say I am singing.", operator_react("yes", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok, to sing is to say I am singing.", operator_react("to sing is to say I am singing", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tYes, I can.\tTHEN\tDo you want me to sing now?\t)", operator_react("can you sing", semMem, lingDb));
+  ONSEM_QUESTION_EQ("Yes, I can.\tTHEN\tDo you want me to sing now?", operator_react("can you sing", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("I am singing.", operator_react("yes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("I am singing.", operator_react("sing", semMem, lingDb));
 
-  ONSEM_QUESTION_EQ("(\tNon, je ne peux pas mais tu peux m'apprendre.\tTHEN\tVeux-tu savoir comment ?\t)", operator_react("peux-tu courir ?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("Non, je ne peux pas mais tu peux m'apprendre.\tTHEN\tVeux-tu savoir comment ?", operator_react("peux-tu courir ?", semMem, lingDb));
   ONSEM_ANSWER_EQ("Par exemple, tu peux me dire que courir c'est dire je cours.", operator_react("oui", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok, courir c'est dire je cours.", operator_react("courir c'est dire je cours.", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tOui, je peux.\tTHEN\tVeux-tu que je coure maintenant ?\t)", operator_react("peux-tu courir ?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("Oui, je peux.\tTHEN\tVeux-tu que je coure maintenant ?", operator_react("peux-tu courir ?", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("Je cours.", operator_react("oui", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("Je cours.", operator_react("cours", semMem, lingDb));
 
@@ -1240,18 +1240,18 @@ TEST_F(SemanticReasonerGTests, operator_react_linkUserToAnAlreadyKnowAgent)
   ONSEM_NOANSWER(operator_react("Donna is a goalkeeper", semMem, lingDb));
 
   // add information about the current user
-  ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tDo you like to swim?\t)", operator_react("do I like to swim?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("I don't know.\tTHEN\tDo you like to swim?", operator_react("do I like to swim?", semMem, lingDb));
   ONSEM_QUESTION_EQ("Why do you like to swim?", operator_react("yeah", semMem, lingDb));
   ONSEM_QUESTION_EQ("Why is it funny?", operator_react("because it's funny", semMem, lingDb));
 
   // add Donna information to the current user
-  ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tAre you a goalkeeper?\t)", operator_react("am I a goalkeeper?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("I don't know.\tTHEN\tAre you a goalkeeper?", operator_react("am I a goalkeeper?", semMem, lingDb));
   ONSEM_FEEDBACK_EQ("Nice to meet you Donna", operator_react("I am Donna", semMem, lingDb));
   ONSEM_ANSWER_EQ("Yes, you are a goalkeeper.", operator_react("am I a goalkeeper?", semMem, lingDb));
 
   // remove Donna information from current user
   ONSEM_FEEDBACK_EQ("I thought the opposite.", operator_react("I am not Donna", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tI don't know.\tTHEN\tAre you a goalkeeper?\t)", operator_react("am I a goalkeeper?", semMem, lingDb));
+  ONSEM_QUESTION_EQ("I don't know.\tTHEN\tAre you a goalkeeper?", operator_react("am I a goalkeeper?", semMem, lingDb));
 
   // check that other information about the current user are still there
   ONSEM_ANSWER_EQ("Yes, you like to swim.", operator_react("do I like to swim?", semMem, lingDb));
@@ -1338,13 +1338,13 @@ TEST_F(SemanticReasonerGTests, operator_react_answerOfGeneratedQuestions)
 
   ONSEM_BEHAVIOR_EQ("Es-tu sympa ?",
                     operator_react("demande-moi si je suis sympa", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tJe suis content de l'entendre.\tTHEN\tPourquoi es-tu sympa ?\t)",
+  ONSEM_QUESTION_EQ("Je suis content de l'entendre.\tTHEN\tPourquoi es-tu sympa ?",
                     operator_react("oui toujours", semMem, lingDb));
 
   // + translation
   ONSEM_BEHAVIOR_EQ("Es-tu content ?",
                     operator_react("ask me in French if I am happy", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tJe suis content de l'entendre.\tTHEN\tPourquoi es-tu content ?\t)",
+  ONSEM_QUESTION_EQ("Je suis content de l'entendre.\tTHEN\tPourquoi es-tu content ?",
                     operator_react("oui", semMem, lingDb));
 }
 
@@ -1387,7 +1387,7 @@ TEST_F(SemanticReasonerGTests, operator_react_changeTheUser_namesSaving)
   ONSEM_ANSWER_EQ("Tu t'appelles Pierre.",
                   operator_react("comment je m'appelle ?", semMem, lingDb));
   semMem.setCurrUserId("2");
-  ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tComment t'appelles-tu ?\t)",
+  ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tComment t'appelles-tu ?",
                     operator_react("comment je m'appelle ?", semMem, lingDb));
   ONSEM_FEEDBACK_EQ("Nice to meet you André",
                     operator_react("André", semMem, lingDb));
@@ -1534,7 +1534,7 @@ TEST_F(SemanticReasonerGTests, operator_react_subBlockPtr)
   operator_mergeAndInform("Paul likes bear", semMem, lingDb);
   ONSEM_ANSWER_EQ("Paul likes banana and the bear.",
                   operator_react("what does Paul like?", semMem, lingDb));
-  ONSEM_QUESTION_EQ("(\tJe ne sais pas.\tTHEN\tLe savais-tu ?\t)",
+  ONSEM_QUESTION_EQ("Je ne sais pas.\tTHEN\tLe savais-tu ?",
                     operator_react("Est-ce que je le savais ?", semMem, lingDb));
   ONSEM_ANSWERNOTFOUND_EQ("Je ne sais pas comment tu peux plus en savoir sur Paul.",
                           operator_react("Comment puis-je en savoir plus sur Paul ?", semMem, lingDb));

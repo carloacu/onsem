@@ -163,7 +163,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
 
   /*
   ONSEM_ANSWER_WITH_REFERENCES_EQ(
-        "(\t\\resLabel=#fr_FR#qu-est-ce-que-c-est-le-saint-esprit\\\tTHEN\tLe Saint-Esprit est cet Amour échangé le Père et le Fils, la source d'énergie de Dieu et cela.\t)",
+        "\\resLabel=#fr_FR#qu-est-ce-que-c-est-le-saint-esprit\\\tTHEN\tLe Saint-Esprit est cet Amour échangé le Père et le Fils, la source d'énergie de Dieu et cela.",
         "\"qu-est-ce-que-c-est-le-saint-esprit\","
         "\"l-esprit-saint-est-une-des-trois-personnes-de-la-sainte-trinite-l-esprit-saint-est-un-seul-dieu-avec-le-pere-et-le-fils-il-est-l-amour-mutuel-le-don-total-echange-entre-le-pere-et-le-fils-le-pere-engendre-le-fils-dans-le-feu-de-l-amour-il-se-donne-tout-entier-a-lui-dans-l-amour-le-fils-se-recoit-du-pere-il-se-redonne-tout-entier-au-pere-dans-le-meme-amour-que-celui-qu-il-a-recu-cet-amour-echange-entre-le-pere-et-le-fils-c-est-l-esprit-saint\","
         "\"le-fondateur-de-ce-peuple-est-dieu-le-pere-celui-qui-le-dirige-est-jesus-christ-sa-source-d-energie-est-l-esprit-saint-la-porte-d-entree-du-peuple-de-dieu-est-le-bapteme-sa-dignite-est-la-liberte-des-enfants-de-dieu-sa-loi-est-l-amour-quand-ce-peuple-reste-fidele-a-dieu-et-cherche-d-abord-le-royaume-de-dieu-il-transforme-le-monde\","
@@ -191,7 +191,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   */
 
   ONSEM_ANSWER_WITH_REFERENCES_EQ(
-        "(\t\\resLabel=#fr_FR#jesus-est-il-dieu\\\tTHEN\tOui, Jésus est Dieu.\t)",
+        "\\resLabel=#fr_FR#jesus-est-il-dieu\\\tTHEN\tOui, Jésus est Dieu.",
         "\"jesus-est-il-dieu\", \"jesus-est-dieu\"",
         operator_react("Jésus est-il Dieu ?", semMem, lingDb, language, &reactionOptions));
 
@@ -216,7 +216,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         operator_react("Martin Luther est un fondateur, un réformateur, un homme de Dieu ou un déformateur....?", semMem, lingDb, language, &reactionOptions));
 
   ONSEM_ANSWER_WITH_REFERENCES_EQ(
-        "(\t\\resLabel=#fr_FR#la-resurrection-du-christ-simple-legende-ou-fait-historique\\\tTHEN\tLa simple de légende ou de fait historique résurrection de Christ est Pâques.\t)",
+        "\\resLabel=#fr_FR#la-resurrection-du-christ-simple-legende-ou-fait-historique\\\tTHEN\tLa simple de légende ou de fait historique résurrection de Christ est Pâques.",
         "\"la-resurrection-du-christ-simple-legende-ou-fait-historique\", \"paques-c-est-la-commemoration-de-la-resurrection-de-jesus\"",
         operator_react("La résurrection du Christ, simple légende ou fait historique ?", semMem, lingDb, language, &reactionOptions));
 
@@ -242,7 +242,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         operator_react("Qui est Moïse ?", semMem, lingDb, language, &reactionOptions));
 
   ONSEM_ANSWER_WITH_REFERENCES_EQ(
-        "(\t\\resLabel=#fr_FR#qui-est-saint-joseph\\\tTHEN\tSaint Joseph est le p\xC3\xA8re adoptif de J\xC3\xA9sus.\t)",
+        "\\resLabel=#fr_FR#qui-est-saint-joseph\\\tTHEN\tSaint Joseph est le p\xC3\xA8re adoptif de J\xC3\xA9sus.",
         "\"qui-est-saint-joseph\", \"saint-joseph-est-le-pere-adoptif-de-jesus\"",
         operator_react("Qui est Saint Joseph ?", semMem, lingDb, language, &reactionOptions));
 }

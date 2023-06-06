@@ -16,21 +16,24 @@ struct ONSEMTESTER_API ExecutionData
 
   std::unique_ptr<SemanticResource> resource;
   std::map<std::string, std::vector<std::string>> resourceParameters;
+  int resourceNbOfTimes = 1;
 
   std::unique_ptr<UniqueSemanticExpression> punctualAssertion;
   std::unique_ptr<UniqueSemanticExpression> permanentAssertion;
   std::unique_ptr<UniqueSemanticExpression> informationToTeach;
 
-  int numberOfRepetitions = 1;
+  int numberOfTimes = 1;
 
   std::list<ExecutionData> toRunSequencially;
   std::list<ExecutionData> toRunInParallel;
   std::list<ExecutionData> toRunInBackground;
 
   bool hasData() const;
+  void setResourceNbOfTimes(int pNumberOfTimes);
   std::list<ExecutionData>& linkToChildList(VirtualOutputter::Link pLink);
   std::string run(SemanticMemory& pSemanticMemory,
-                  const linguistics::LinguisticDatabase &pLingDb);
+                  const linguistics::LinguisticDatabase &pLingDb,
+                  bool pHasAlreadyData = false);
 
 private:
   std::string _dataToStr() const;
@@ -59,7 +62,8 @@ protected:
 
   void _beginOfScope(Link pLink) override;
   void _endOfScope() override;
-  void _insideScopeRepetition(int pNumberOfRepetitions) override;
+  void _resourceNbOfTimes(int pNumberOfTimes) override;
+  void _insideScopeNbOfTimes(int pNumberOfTimes) override;
 
 private:
   std::list<Link> _linksStack;
