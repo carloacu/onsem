@@ -67,8 +67,18 @@ protected:
   void _insideScopeNbOfTimes(int pNumberOfTimes) override;
 
 private:
-  std::list<Link> _linksStack;
-  std::list<ExecutionData*> _executionDataStack;
+  struct LinkAndExecutionData
+  {
+    LinkAndExecutionData(Link pLink,
+                         ExecutionData& pExecutionData)
+      : link(pLink),
+        executionData(pExecutionData)
+    {
+    }
+    Link link;
+    ExecutionData& executionData;
+  };
+  std::list<LinkAndExecutionData> _stack;
 
   ExecutionData& _getOrCreateNewElt();
   ExecutionData& _getLasExectInStack();

@@ -193,8 +193,7 @@ ExecutionDataOutputter::ExecutionDataOutputter(SemanticMemory& pSemanticMemory,
      const linguistics::LinguisticDatabase& pLingDb)
   : VirtualOutputter(pSemanticMemory, pLingDb, SemanticSourceEnum::ASR),
     rootExecutionData(),
-    _linksStack(1, Link::THEN),
-    _executionDataStack(1, &rootExecutionData)
+    _stack(1, LinkAndExecutionData(Link::THEN, rootExecutionData))
 {
 }
 
@@ -238,22 +237,14 @@ void ExecutionDataOutputter::_assertPermanently(UniqueSemanticExpression pUSemEx
 
 void ExecutionDataOutputter::_beginOfScope(Link pLink)
 {
-  if (!_linksStack.empty())
+  if (!_stack.empty())
   {
-    auto currentLink = _linksStack.back();
-    _linksStack.push_back(pLink);
-    if (!_executionDataStack.empty())
-    {
-      ExecutionData& currElt = _getLasExectInStack();
-      auto& childList  = currElt.linkToChildList(currentLink);
-      childList.emplace_back();
-      auto& newElt = childList.back();
-      _executionDataStack.push_back(&newElt);
-    }
-    else
-    {
-      assert(false);
-    }
+    auto currentLink = _stack.back().link;
+    ExecutionData& currElt = _getLasExectInStack();
+    auto& childList  = currElt.linkToChildList(currentLink);
+    childList.emplace_back();
+    auto& newElt = childList.back();
+    _stack.emplace_back(pLink, newElt);
   }
   else
   {
@@ -263,12 +254,8 @@ void ExecutionDataOutputter::_beginOfScope(Link pLink)
 
 void ExecutionDataOutputter::_endOfScope()
 {
-  if (_linksStack.size() > 1)
-    _linksStack.pop_back();
-  else
-    assert(false);
-  if (_executionDataStack.size() > 1)
-    _executionDataStack.pop_back();
+  if (_stack.size() > 1)
+    _stack.pop_back();
   else
     assert(false);
 }
@@ -288,9 +275,9 @@ ExecutionData& ExecutionDataOutputter::_getOrCreateNewElt()
   ExecutionData& newElt = _getLasExectInStack();
   if (newElt.hasData() || newElt.hasChildren())
   {
-    if (!_linksStack.empty())
+    if (!_stack.empty())
     {
-      auto& childList  = newElt.linkToChildList(_linksStack.back());
+      auto& childList  = newElt.linkToChildList(_stack.back().link);
       childList.emplace_back();
       return childList.back();
     }
@@ -304,8 +291,8 @@ ExecutionData& ExecutionDataOutputter::_getOrCreateNewElt()
 
 ExecutionData& ExecutionDataOutputter::_getLasExectInStack()
 {
-  for (auto it = _executionDataStack.rbegin(); it != _executionDataStack.rend(); ++it)
-    return **it;
+  if (!_stack.empty())
+    return _stack.back().executionData;
   assert(false);
   return rootExecutionData;
 }
