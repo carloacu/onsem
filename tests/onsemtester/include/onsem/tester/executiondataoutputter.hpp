@@ -29,6 +29,7 @@ struct ONSEMTESTER_API ExecutionData
   std::list<ExecutionData> toRunInBackground;
 
   bool hasData() const;
+  bool hasChildren() const;
   void setResourceNbOfTimes(int pNumberOfTimes);
   std::list<ExecutionData>& linkToChildList(VirtualOutputter::Link pLink);
   std::string run(SemanticMemory& pSemanticMemory,

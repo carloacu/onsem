@@ -367,7 +367,7 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_repetitions)
   EXPECT_EQ("(\t(\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=0,3 mètre)\\\tTHEN\t\\" +
             resourceLabelForTests_cmd + "=#fr_FR#" + turnRightStr + "(angle=90 degrés)\\\t)" +
             "\tNUMBER_OF_TIMES: 4\t)" +
-            "\tTHEN\t(\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + turnLeftStr + "\\\t)",
+            "\tTHEN\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + turnLeftStr + "\\",
             operator_resolveCommand("fais un carré", semMem, lingDb));
 }
 

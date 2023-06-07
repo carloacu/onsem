@@ -35,6 +35,11 @@ bool ExecutionData::hasData() const
   return !text.empty() || resource;
 }
 
+bool ExecutionData::hasChildren() const
+{
+  return !toRunInBackground.empty() || !toRunInParallel.empty() || !toRunSequencially.empty();
+}
+
 void ExecutionData::setResourceNbOfTimes(int pNumberOfTimes)
 {
   if (hasData())
@@ -82,7 +87,8 @@ std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
                                       pSemanticMemory, pLingDb);
   }
 
-  std::string res = _dataToStr();
+  std::string dataStr = _dataToStr();
+  std::string res = dataStr;
 
   if (resourceNbOfTimes > 1)
   {
@@ -105,7 +111,7 @@ std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
         newRes += "\tAND\t";
       newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunInParallel.size() > 1);
     }
-    if (pHasAlreadyData || !res.empty())
+    if (pHasAlreadyData || res != dataStr)
       res = "(\t" + newRes + "\t)";
     else
       res = newRes;
@@ -120,7 +126,7 @@ std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
         newRes += "\tTHEN\t";
       newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunSequencially.size() > 1);
     }
-    if (pHasAlreadyData || !res.empty())
+    if (pHasAlreadyData || res != dataStr)
       res = "(\t" + newRes + "\t)";
     else
       res = newRes;
@@ -135,7 +141,7 @@ std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
         newRes += "\tIN_BACKGROUND\t";
       newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunInBackground.size() > 1);
     }
-    if (pHasAlreadyData || !res.empty())
+    if (pHasAlreadyData || res != dataStr)
       res = "(\t" + newRes + "\t)";
     else
       res = newRes;
@@ -287,7 +293,7 @@ void ExecutionDataOutputter::_insideScopeNbOfTimes(int pNumberOfTimes)
 ExecutionData& ExecutionDataOutputter::_getOrCreateNewElt()
 {
   ExecutionData& newElt = _getLasExectInStack();
-  if (true) //newElt.hasData())
+  if (newElt.hasData() || newElt.hasChildren())
   {
     if (!_linksStack.empty())
     {
