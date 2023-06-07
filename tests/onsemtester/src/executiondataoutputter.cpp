@@ -245,17 +245,10 @@ void ExecutionDataOutputter::_beginOfScope(Link pLink)
     if (!_executionDataStack.empty())
     {
       ExecutionData& currElt = _getLasExectInStack();
-      if (true) //currElt.hasData())
-      {
-        auto& childList  = currElt.linkToChildList(currentLink);
-        childList.emplace_back();
-        auto& newElt = childList.back();
-        _executionDataStack.push_back(&newElt);
-      }
-      else
-      {
-        _executionDataStack.push_back(nullptr);
-      }
+      auto& childList  = currElt.linkToChildList(currentLink);
+      childList.emplace_back();
+      auto& newElt = childList.back();
+      _executionDataStack.push_back(&newElt);
     }
     else
     {
@@ -312,11 +305,7 @@ ExecutionData& ExecutionDataOutputter::_getOrCreateNewElt()
 ExecutionData& ExecutionDataOutputter::_getLasExectInStack()
 {
   for (auto it = _executionDataStack.rbegin(); it != _executionDataStack.rend(); ++it)
-  {
-    ExecutionData* executionDataPtr = *it;
-    if (executionDataPtr != nullptr)
-      return *executionDataPtr;
-  }
+    return **it;
   assert(false);
   return rootExecutionData;
 }
