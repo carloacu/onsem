@@ -34,7 +34,7 @@ struct ONSEMTESTER_API ExecutionData
   std::list<ExecutionData>& linkToChildList(VirtualOutputter::Link pLink);
   std::string run(SemanticMemory& pSemanticMemory,
                   const linguistics::LinguisticDatabase &pLingDb,
-                  bool pHasAlreadyData = false);
+                  bool pHasAlreadyData = false) const;
 
 private:
   std::string _dataToStr() const;

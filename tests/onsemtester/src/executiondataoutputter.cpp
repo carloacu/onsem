@@ -79,7 +79,7 @@ std::list<ExecutionData>& ExecutionData::linkToChildList(VirtualOutputter::Link 
 
 std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
                                const linguistics::LinguisticDatabase& pLingDb,
-                               bool pHasAlreadyData)
+                               bool pHasAlreadyData) const
 {
   if (punctualAssertion)
   {
@@ -102,44 +102,37 @@ std::string ExecutionData::run(SemanticMemory& pSemanticMemory,
       res = newRes;
   }
 
-  if (!toRunInParallel.empty())
+  auto printList = [&] (const std::list<ExecutionData>& pListToPrint,
+                        const std::string& pSeparator)
   {
-    auto newRes = res;
-    for (auto& currElt : toRunInParallel)
+    if (!pListToPrint.empty())
     {
-      if (!newRes.empty())
-        newRes += "\tAND\t";
-      newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunInParallel.size() > 1);
+      auto newRes = res;
+      for (auto& currElt : pListToPrint)
+      {
+        if (currElt.hasData() || currElt.hasChildren())
+        {
+          if (!newRes.empty())
+            newRes += "\t" + pSeparator + "\t";
+          newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || pListToPrint.size() > 1);
+        }
+      }
+      if (pHasAlreadyData || res != dataStr || !toRunInBackground.empty())
+        res = "(\t" + newRes + "\t)";
+      else
+        res = newRes;
     }
-    if (pHasAlreadyData || res != dataStr)
-      res = "(\t" + newRes + "\t)";
-    else
-      res = newRes;
-  }
-
-  if (!toRunSequencially.empty())
-  {
-    auto newRes = res;
-    for (auto& currElt : toRunSequencially)
-    {
-      if (!newRes.empty())
-        newRes += "\tTHEN\t";
-      newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunSequencially.size() > 1);
-    }
-    if (pHasAlreadyData || res != dataStr)
-      res = "(\t" + newRes + "\t)";
-    else
-      res = newRes;
-  }
+  };
+  printList(toRunInParallel, "AND");
+  printList(toRunSequencially, "THEN");
 
   if (!toRunInBackground.empty())
   {
     auto newRes = res;
     for (auto& currElt : toRunInBackground)
     {
-      if (!newRes.empty())
-        newRes += "\tIN_BACKGROUND\t";
-      newRes += currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunInBackground.size() > 1);
+      newRes += "\tIN_BACKGROUND: " +
+          currElt.run(pSemanticMemory, pLingDb, !newRes.empty() || toRunInBackground.size() > 1);
     }
     if (pHasAlreadyData || res != dataStr)
       res = "(\t" + newRes + "\t)";
@@ -239,9 +232,9 @@ void ExecutionDataOutputter::_beginOfScope(Link pLink)
 {
   if (!_stack.empty())
   {
-    auto currentLink = _stack.back().link;
+    auto childLink = pLink == Link::IN_BACKGROUND ? pLink : _stack.back().link;
     ExecutionData& currElt = _getLasExectInStack();
-    auto& childList  = currElt.linkToChildList(currentLink);
+    auto& childList  = currElt.linkToChildList(childLink);
     childList.emplace_back();
     auto& newElt = childList.back();
     _stack.emplace_back(pLink, newElt);

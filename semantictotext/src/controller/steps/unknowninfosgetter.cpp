@@ -10,6 +10,7 @@
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinks.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include "../semexpcontroller.hpp"
+#include "../../outputter/grdexptooutputterinformation.hpp"
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../../type/referencesfiller.hpp"
 #include "../../type/semanticdetailledanswer.hpp"
@@ -290,6 +291,26 @@ bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParams,
 }
 
 
+std::unique_ptr<UniqueSemanticExpression> _extartActionToDoInBackground(
+    const GroundedExpression*& pActionThatCannotBeDone,
+    const GroundedExpression& pGrdExp,
+    SemControllerWorkingStruct& pWorkStruct,
+    SemanticMemoryBlockViewer& pMemViewer)
+{
+  auto itBackgroundChild = pGrdExp.children.find(GrammaticalType::IN_BACKGROUND);
+  if (itBackgroundChild != pGrdExp.children.end())
+  {
+    auto* backgroundGrdExpPtr = itBackgroundChild->second->getGrdExpPtr_SkipWrapperPtrs();
+    if (backgroundGrdExpPtr != nullptr)
+    {
+      return convertToActionToDo(pActionThatCannotBeDone, *backgroundGrdExpPtr,
+                                 pWorkStruct, pMemViewer);
+    }
+  }
+  return {};
+}
+
+
 bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
                                        SemanticMemoryBlockViewer& pMemViewer,
                                        GrdKnowToUnlinked& pIncompleteRelations,
@@ -392,34 +413,33 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
 
     for (const auto& currListElts : SemExpGetter::iterateOnList(actionSemExp))
     {
-      const GroundedExpression* listEltGrdExpPtr =
+      GroundedExpression* listEltGrdExpPtr =
           (*currListElts)->getGrdExpPtr_SkipWrapperPtrs();
-      if (listEltGrdExpPtr != nullptr &&
-          !ConceptSet::haveAConcept(listEltGrdExpPtr->grounding().concepts, "verb_action_repeat"))
+      if (listEltGrdExpPtr != nullptr)
       {
-        auto actionToDoPtr = convertToActionToDo(actionThatCannotBeDone, *listEltGrdExpPtr, pWorkStruct, pMemViewer);
+        if (!hasGrdExpOutputInformations(*listEltGrdExpPtr))
+        {
+          auto actionToDoPtr = convertToActionToDo(actionThatCannotBeDone, *listEltGrdExpPtr, pWorkStruct, pMemViewer);
+          if (actionThatCannotBeDone != nullptr)
+            break;
+          if (actionToDoPtr)
+            *currListElts = std::move(*actionToDoPtr);
+        }
+
+        auto actionToDoInBackground = _extartActionToDoInBackground(actionThatCannotBeDone, *listEltGrdExpPtr, pWorkStruct, pMemViewer);
         if (actionThatCannotBeDone != nullptr)
           break;
-        if (actionToDoPtr)
-          *currListElts = std::move(*actionToDoPtr);
+        if (actionToDoInBackground)
+        {
+          listEltGrdExpPtr->children.erase(GrammaticalType::IN_BACKGROUND);
+          listEltGrdExpPtr->children.emplace(GrammaticalType::IN_BACKGROUND, std::move(*actionToDoInBackground));
+        }
       }
     }
 
     std::unique_ptr<UniqueSemanticExpression> actionToDoInBackground;
     if (!answerGenerated && actionThatCannotBeDone == nullptr)
-    {
-      auto itBackgroundChild = pGrdExp.children.find(GrammaticalType::IN_BACKGROUND);
-      if (itBackgroundChild != pGrdExp.children.end())
-      {
-        auto* backgroundGrdExpPtr = itBackgroundChild->second->getGrdExpPtr_SkipWrapperPtrs();
-        if (backgroundGrdExpPtr != nullptr)
-        {
-          const GroundedExpression* actionThatCannotBeDone = nullptr;
-          actionToDoInBackground = convertToActionToDo(actionThatCannotBeDone, *backgroundGrdExpPtr,
-                                                       pWorkStruct, pMemViewer);
-        }
-      }
-    }
+      actionToDoInBackground = _extartActionToDoInBackground(actionThatCannotBeDone, pGrdExp, pWorkStruct, pMemViewer);
 
     if (actionThatCannotBeDone != nullptr)
     {

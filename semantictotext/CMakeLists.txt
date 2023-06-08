@@ -94,6 +94,8 @@ set(ONSEMSEMANTICTOTEXT_SRCS
     src/conversion/reasonofrefactor.hpp
     src/conversion/reasonofrefactor.cpp
     src/outputter/virtualoutputter.cpp
+    src/outputter/grdexptooutputterinformation.hpp
+    src/outputter/grdexptooutputterinformation.cpp
     src/interpretation/addagentinterpretation.hpp
     src/interpretation/addagentinterpretation.cpp
     src/interpretation/completewithcontext.hpp

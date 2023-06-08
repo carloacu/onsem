@@ -228,7 +228,7 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_frenchMainFormulation)
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour courir il faut dire j'utilise mes jambes. Et puis ?",
                             operator_react("pour courir il faut dire j'utilise mes jambes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("J'utilise mes jambes.", operator_react("cours", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("(\tJe marche.\tTHEN\tC'est tout.\t)\tIN_BACKGROUND\tJ'utilise mes jambes.", operator_react("marche en courant", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("(\t(\tJe marche.\tTHEN\tC'est tout.\t)\tIN_BACKGROUND: J'utilise mes jambes.\t)", operator_react("marche en courant", semMem, lingDb));
 
   ONSEM_BEHAVIORNOTFOUND_EQ("Je ne sais pas grimper.", operator_react("grimpe", semMem, lingDb));
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour grimper il faut dire je marche et il faut sauter. Et puis ?",
@@ -328,12 +328,21 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_repetitions)
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
   SemanticMemory semMem;
   SemanticLanguageEnum language = SemanticLanguageEnum::FRENCH;
+  memoryOperation::learnSayCommand(semMem, lingDb);
 
   const std::map<std::string, std::vector<std::string>> distanceParameter {
     {"distance", {"combien de mètres"}}
   };
   const std::string moveForwardStr = "avance";
   _operator_teachAResourceWithParameters(moveForwardStr, distanceParameter, semMem, lingDb,
+                                         memoryOperation::SemanticActionOperatorEnum::BEHAVIOR,
+                                         language);
+
+  const std::map<std::string, std::vector<std::string>> objectParameter {
+    {"object", {"quoi"}}
+  };
+  const std::string putMusicStr = "mets une musique";
+  _operator_teachAResourceWithParameters(putMusicStr, objectParameter, semMem, lingDb,
                                          memoryOperation::SemanticActionOperatorEnum::BEHAVIOR,
                                          language);
 
@@ -364,11 +373,24 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_repetitions)
   ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un carré il faut avancer de 30 centimètres, puis il faut tourner de 90 degrés à droite, puis il faut répéter tout 3 fois et puis il faut tourner à gauche. Et puis ?",
                             operator_teachBehavior("il faut tourner à gauche", semMem, lingDb));
 
-  EXPECT_EQ("(\t(\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=0,3 mètre)\\\tTHEN\t\\" +
-            resourceLabelForTests_cmd + "=#fr_FR#" + turnRightStr + "(angle=90 degrés)\\\t)" +
-            "\tNUMBER_OF_TIMES: 4\t)" +
-            "\tTHEN\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + turnLeftStr + "\\",
+  std::string doSquareOutput =
+      "(\t(\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + moveForwardStr + "(distance=0,3 mètre)\\\tTHEN\t\\" +
+      resourceLabelForTests_cmd + "=#fr_FR#" + turnRightStr + "(angle=90 degrés)\\\t)" +
+      "\tNUMBER_OF_TIMES: 4\t)" +
+      "\tTHEN\t\\" + resourceLabelForTests_cmd + "=#fr_FR#" + turnLeftStr + "\\";
+
+  EXPECT_EQ(doSquareOutput,
             operator_resolveCommand("fais un carré", semMem, lingDb));
+
+
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un truc cool il faut faire un carré. Et puis ?",
+                            operator_teachBehavior("pour faire un truc cool il faut faire un carré", semMem, lingDb));
+  ONSEM_TEACHINGFEEDBACK_EQ("Ok pour faire un truc cool il faut faire un carré et puis il faut le faire en mettant une musique de Michael Jackson. Et puis ?",
+                            operator_teachBehavior("il faut faire ça en mettant une musique de Michael Jackson", semMem, lingDb));
+
+  EXPECT_EQ("(\t(\t" + doSquareOutput + "\t)\tIN_BACKGROUND: \\" + resourceLabelForTests_cmd +
+            "=#fr_FR#mets une musique(object=Une musique de Michael Jackson)\\\t)",
+            operator_resolveCommand("fais un truc cool", semMem, lingDb));
 }
 
 

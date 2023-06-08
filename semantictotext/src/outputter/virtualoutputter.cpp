@@ -1,7 +1,6 @@
 #include <onsem/semantictotext/outputter/virtualoutputter.hpp>
 #include <future>
 #include <sstream>
-#include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
@@ -14,7 +13,7 @@
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include "../linguisticsynthesizer/linguisticsynthesizer.hpp"
 #include "../conversion/mandatoryformconverter.hpp"
-
+#include "grdexptooutputterinformation.hpp"
 
 namespace onsem
 {
@@ -232,10 +231,19 @@ void VirtualOutputter::_processGrdExp(const SemanticExpression& pSemExp,
     return;
   }
 
-  if (ConceptSet::haveAConcept(grdExp.grounding().concepts, "verb_action_repeat"))
+  OutputInformation outputInformation;
+  if (grdExpToOutputInformation(outputInformation, grdExp))
   {
-    int nbOfRepetitions = SemExpGetter::getNumberOfRepetitions(grdExp.children);
-    _insideScopeNbOfTimes(nbOfRepetitions + 1);
+    if (outputInformation.nbOfTimes)
+      _insideScopeNbOfTimes(*outputInformation.nbOfTimes);
+
+    if (outputInformation.toDoInBackground)
+    {
+      _beginOfScope(Link::IN_BACKGROUND);
+      processSemExp(**outputInformation.toDoInBackground, pOutputterContext);
+      _endOfScope();
+    }
+
     _endOfScope();
     _beginOfScope(Link::THEN);
     return;
@@ -389,14 +397,6 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
         return;
     }
 
-    const UniqueSemanticExpression* backgroundSemExpPtr = nullptr;
-    auto itBackground = annExp.annotations.find(GrammaticalType::IN_BACKGROUND);
-    if (itBackground != annExp.annotations.end())
-      backgroundSemExpPtr = &itBackground->second;
-
-    if (backgroundSemExpPtr != nullptr)
-      _beginOfScope(Link::IN_BACKGROUND);
-
     int nbOfRepetitions = SemExpGetter::getNumberOfRepetitions(annExp.annotations);
     if (nbOfRepetitions > 1)
       _beginOfScope(Link::THEN);
@@ -408,8 +408,13 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp,
       _endOfScope();
     }
 
+    const UniqueSemanticExpression* backgroundSemExpPtr = nullptr;
+    auto itBackground = annExp.annotations.find(GrammaticalType::IN_BACKGROUND);
+    if (itBackground != annExp.annotations.end())
+      backgroundSemExpPtr = &itBackground->second;
     if (backgroundSemExpPtr != nullptr)
     {
+      _beginOfScope(Link::IN_BACKGROUND);
       processSemExp(**backgroundSemExpPtr, pOutputterContext);
       _endOfScope();
     }
