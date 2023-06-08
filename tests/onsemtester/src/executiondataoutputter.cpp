@@ -47,17 +47,17 @@ void ExecutionData::setResourceNbOfTimes(int pNumberOfTimes)
     resourceNbOfTimes = pNumberOfTimes;
     return;
   }
-  if (toRunInBackground.size())
+  if (!toRunInBackground.empty())
   {
     toRunInBackground.back().setResourceNbOfTimes(pNumberOfTimes);
     return;
   }
-  if (toRunInParallel.size())
+  if (!toRunInParallel.empty())
   {
     toRunInParallel.back().setResourceNbOfTimes(pNumberOfTimes);
     return;
   }
-  if (toRunSequencially.size())
+  if (!toRunSequencially.empty())
   {
     toRunSequencially.back().setResourceNbOfTimes(pNumberOfTimes);
     return;
