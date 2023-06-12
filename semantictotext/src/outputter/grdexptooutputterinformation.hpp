@@ -1,6 +1,7 @@
 #ifndef ONSEM_SEMANTICTOTEXT_SRC_OUTPUTTER_GRDEXPTOOUTPUTINFORMATION_HPP
 #define ONSEM_SEMANTICTOTEXT_SRC_OUTPUTTER_GRDEXPTOOUTPUTINFORMATION_HPP
 
+#include <optional>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 
 namespace onsem
