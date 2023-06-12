@@ -7,10 +7,10 @@
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/serialization.hpp>
+#include <onsem/semantictotext/outputter/executiondataoutputter.hpp>
 #include <onsem/texttosemantic/printer/expressionprinter.hpp>
 #include <onsem/semanticdebugger/printer/semexplinestostr.hpp>
 #include <onsem/tester/resourcelabelfortests.hpp>
-#include <onsem/tester/executiondataoutputter.hpp>
 
 
 namespace onsem
