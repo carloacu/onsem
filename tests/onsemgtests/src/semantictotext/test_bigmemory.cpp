@@ -1,5 +1,6 @@
 #include "../semanticreasonergtests.hpp"
 #include <gtest/gtest.h>
+#include <onsem/common/utility/string.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictextgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
@@ -48,6 +49,116 @@ std::shared_ptr<ExpressionWithLinks> _inform(
                                       nullptr, inContext);
 }
 
+void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReferenceOfAnswer,
+                        const std::string& pTextFilename,
+                        const ReactionOptions& pReactionOptions,
+                        SemanticLanguageEnum pLanguage,
+                        SemanticMemory& pMemory,
+                        const linguistics::LinguisticDatabase& pLingDb)
+{
+  std::ifstream triggersAndTextsCorpusFile(pTextFilename, std::ifstream::in);
+  if (!triggersAndTextsCorpusFile.is_open())
+    throw std::runtime_error("Can't open " + pTextFilename + " file !");
+
+  std::string currentLabel;
+  std::string currentId;
+  std::string currentText;
+
+  auto fillCurrentInfos = [&]() {
+    if (currentLabel == "trigger")
+    {
+      triggers_addToSemExpAnswer(currentText, _idToSemExp(currentId, pLanguage), pMemory, pLingDb, pLanguage);
+      pTriggersToReferenceOfAnswer.emplace(currentText, currentId);
+    }
+    if (currentLabel == "inform" || currentLabel == "message")
+      _inform(currentText, pMemory, pLingDb, {currentId});
+  };
+
+  std::string line;
+  while (getline(triggersAndTextsCorpusFile, line))
+  {
+    if (line.empty())
+      continue;
+    if (line[0] == '#')
+    {
+      std::vector<std::string> lineSplitted;
+      mystd::split(lineSplitted, line, "#");
+
+      if (lineSplitted.size() < 4)
+      {
+        std::cerr << "Not enough separators in line: " << line << std::endl;
+        continue;
+      }
+      auto id = lineSplitted[2];
+
+      auto label = lineSplitted[1];
+      if (label == "trigger" || label == "inform" || label == "message")
+      {
+        fillCurrentInfos();
+
+        currentLabel = label;
+        currentId = id;
+        currentText = lineSplitted[3];
+        continue;
+      }
+      else if (label == "checkTrigger")
+      {
+        currentText = lineSplitted[3];
+
+        auto answer = triggers_match(currentText, pMemory, pLingDb, pLanguage, &pReactionOptions);
+
+        auto refIt = std::find(answer.references.begin(), answer.references.end(), id);
+        if (refIt == answer.references.end())
+        {
+          std::string refStrs = "[";
+          for (auto& currRef : answer.references)
+          {
+            if (refStrs != "[")
+              refStrs += ", ";
+            refStrs += currRef;
+          }
+          refStrs += "]";
+          std::cerr << "Error in trigger: \"" << currentText << "\" expected ref: \"" << id << "\" get refs: " << refStrs
+                    << " asnwer: \"" << answer.answer << "\"" << std::endl;
+          EXPECT_TRUE(false);
+        }
+      }
+    }
+
+    currentText += "\n" + line;
+  }
+  triggersAndTextsCorpusFile.close();
+  fillCurrentInfos();
+}
+
+
+void _checkDeclaredTriggersMatching(const std::map<std::string, std::string>& pTriggersToReferenceOfAnswer,
+                                    const ReactionOptions& pReactionOptions,
+                                    SemanticLanguageEnum pLanguage,
+                                    SemanticMemory& pMemory,
+                                    const linguistics::LinguisticDatabase& pLingDb)
+{
+  for (const auto& currTrigger : pTriggersToReferenceOfAnswer)
+  {
+    auto answer = triggers_match(currTrigger.first, pMemory, pLingDb, pLanguage, &pReactionOptions);
+    auto refIt = std::find(answer.references.begin(), answer.references.end(), currTrigger.second);
+    if (refIt == answer.references.end())
+    {
+      std::string refStrs = "[";
+      for (auto& currRef : answer.references)
+      {
+        if (refStrs != "[")
+          refStrs += ", ";
+        refStrs += currRef;
+      }
+      refStrs += "]";
+      std::cerr << "Error in trigger: \"" << currTrigger.first << "\" expected ref: \"" << currTrigger.second << "\" get refs: " << refStrs
+                << " asnwer: \"" << answer.answer << "\"" << std::endl;
+      EXPECT_TRUE(false);
+    }
+  }
+}
+
 }
 
 
@@ -67,91 +178,16 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   peopleFiller::addPeople(peopledatabase, peopleXmlFile, language, lingDb);
   semMem.memBloc.subBlockPtr = &peopledatabase;
 
-  const std::string textFilename = corpusPath + "/triggerAndTexts/triggersAndTextsCorpus.txt";
-  std::ifstream triggersAndTextsCorpusFile(textFilename, std::ifstream::in);
-  if (!triggersAndTextsCorpusFile.is_open())
-    throw std::runtime_error("Can't open " + textFilename + " file !");
-
-  std::map<std::string, std::string> triggersToReferenceOfAnswer;
-
-  std::string currentLabel;
-  std::string currentId;
-  std::string currentText;
-
-  auto fillCurrentInfos = [&]() {
-    if (currentLabel == "trigger")
-    {
-      triggers_addToSemExpAnswer(currentText, _idToSemExp(currentId, language), semMem, lingDb, language);
-      triggersToReferenceOfAnswer.emplace(currentText, currentId);
-    }
-    if (currentLabel == "inform" || currentLabel == "message")
-      _inform(currentText, semMem, lingDb, {currentId});
-  };
-
-  std::string line;
-  while (getline(triggersAndTextsCorpusFile, line))
-  {
-    if (line.empty())
-      continue;
-    if (line[0] == '#')
-    {
-      auto endOfLabel = line.find_first_of('#', 1);
-      if (endOfLabel == std::string::npos)
-      {
-        std::cerr << "End of label not found for line: " << line << std::endl;
-        continue;
-      }
-
-      auto label = line.substr(1, endOfLabel - 1);
-      if (label == "trigger" || label == "inform" || label == "message")
-      {
-        auto beginOfId = endOfLabel + 1;
-        auto endOfId = line.find_first_of('#', beginOfId);
-        if (endOfId == std::string::npos)
-        {
-          std::cerr << "End of id not found for line: " << line << std::endl;
-          continue;
-        }
-        auto id = line.substr(beginOfId, endOfId - beginOfId);
-
-        fillCurrentInfos();
-
-        currentLabel = label;
-        currentId = id;
-        auto beginOfText = endOfId + 1;
-        currentText = line.substr(beginOfText, line.size() - beginOfText);
-        continue;
-      }
-    }
-
-    currentText += "\n" + line;
-  }
-  triggersAndTextsCorpusFile.close();
-  fillCurrentInfos();
-
-  std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
-
   ReactionOptions reactionOptionsForTriggerTests;
   reactionOptionsForTriggerTests.canAnswerWithAllTheTriggers = true;
-  for (const auto& currTrigger : triggersToReferenceOfAnswer)
-  {
-    auto answer = triggers_match(currTrigger.first, semMem, lingDb, language, &reactionOptionsForTriggerTests);
-    auto refIt = std::find(answer.references.begin(), answer.references.end(), currTrigger.second);
-    if (refIt == answer.references.end())
-    {
-      std::string refStrs = "[";
-      for (auto& currRef : answer.references)
-      {
-        if (refStrs != "[")
-          refStrs += ", ";
-        refStrs += currRef;
-      }
-      refStrs += "]";
-      std::cerr << "Error in trigger: \"" << currTrigger.first << "\" expected ref: \"" << currTrigger.second << "\" get refs: " << refStrs
-                << " asnwer: \"" << answer.answer << "\"" << std::endl;
-      EXPECT_TRUE(false);
-    }
-  }
+
+  std::map<std::string, std::string> triggersToReferenceOfAnswer;
+  const std::string textFilename = corpusPath + "/triggerAndTexts/triggersAndTextsCorpus.txt";
+  _loadBigMemoryFile(triggersToReferenceOfAnswer, textFilename, reactionOptionsForTriggerTests,
+                     language, semMem, lingDb);
+
+  std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
+  _checkDeclaredTriggersMatching(triggersToReferenceOfAnswer, reactionOptionsForTriggerTests, language, semMem, lingDb);
 
   ReactionOptions reactionOptions;
   reactionOptions.canReactToANoun = true;
@@ -247,3 +283,25 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
         operator_react("Qui est Saint Joseph ?", semMem, lingDb, language, &reactionOptions));
 }
 
+
+/*
+TEST_F(SemanticReasonerGTests, test_bigMemoryRobot)
+{
+  auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+  linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
+  iStreams.close();
+  auto language = SemanticLanguageEnum::FRENCH;
+  SemanticMemory semMem;
+
+  ReactionOptions reactionOptionsForTriggerTests;
+  reactionOptionsForTriggerTests.canAnswerWithAllTheTriggers = true;
+
+  std::map<std::string, std::string> triggersToReferenceOfAnswer;
+  const std::string textFilename = corpusPath + "/triggerAndTexts/robotTriggers.txt";
+  _loadBigMemoryFile(triggersToReferenceOfAnswer, textFilename, reactionOptionsForTriggerTests,
+                     language, semMem, lingDb);
+
+  std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
+  _checkDeclaredTriggersMatching(triggersToReferenceOfAnswer, reactionOptionsForTriggerTests, language, semMem, lingDb);
+}
+*/

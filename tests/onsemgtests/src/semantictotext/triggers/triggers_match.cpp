@@ -113,6 +113,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction14 = "C'est connu.";
   const std::string trigger15 = "C'est quoi la chanson";
   const std::string reaction15 = "Je ne la connais pas.";
+  const std::string trigger16 = "Parle moins fort";
+  const std::string reaction16 = "Voilà, je parle moins fort.";
 
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
@@ -148,8 +150,11 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger13, reaction13, semMem, lingDb);
   triggers_add(trigger14, reaction14, semMem, lingDb);
   triggers_add(trigger15, reaction15, semMem, lingDb);
+  triggers_add(trigger16, reaction16, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
+  ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match("peux-tu me dire qui tu es", semMem, lingDb));
+  ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match("Pourriez-vous me dire qui vous êtes ?", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match(stopApplication, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match("Ferme l'application", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(itIsStopped, triggers_match("Quitte l'application", semMem, lingDb));
@@ -187,6 +192,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_ANSWER_EQ(reaction14, triggers_match(trigger14, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction15, triggers_match(trigger15, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction15, triggers_match("C'est quoi la chanson maintenant", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction16, triggers_match(trigger16, semMem, lingDb));
 }
 
 
