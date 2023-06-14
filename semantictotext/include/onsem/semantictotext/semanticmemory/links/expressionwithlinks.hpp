@@ -94,6 +94,7 @@ private:
                                const linguistics::LinguisticDatabase& pLingDb);
 };
 
+typedef std::map<std::string, std::vector<UniqueSemanticExpression>> ParametersLabelsToValue;
 
 
 } // End of namespace onsem

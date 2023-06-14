@@ -37,7 +37,7 @@ bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParam,
 bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
                                        SemanticMemoryBlockViewer& pMemViewer,
                                        GrdKnowToUnlinked& pIncompleteRelations,
-                                       const GroundedExpWithLinks& pMemSent,
+                                       GroundedExpWithLinksWithParameters& pMemSentWithParams,
                                        const GroundedExpression& pGrdExp);
 
 bool getRequestToAskForPrecision(SemanticRequestType& pRequestType,

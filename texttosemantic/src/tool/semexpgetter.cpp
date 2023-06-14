@@ -731,6 +731,25 @@ bool hasChild(const GroundedExpression& pGrdExp,
 }
 
 
+bool hasChildOtherThanParameterToFill(
+    const GroundedExpression& pGrdExp,
+    GrammaticalType pChildType)
+{
+  auto itChild = pGrdExp.children.find(pChildType);
+  if (itChild != pGrdExp.children.end())
+  {
+    auto* childGrdExpPtr = itChild->second->getGrdExpPtr_SkipWrapperPtrs();
+    if (childGrdExpPtr != nullptr)
+    {
+      auto* childCptGrdPtr = childGrdExpPtr->grounding().getConceptualGroundingPtr();
+      return childCptGrdPtr == nullptr || !ConceptSet::haveAConcept(childCptGrdPtr->concepts, "stuff_informationToFill");
+    }
+    return true;
+  }
+  return false;
+}
+
+
 const GroundedExpression* getUnnamedGrdExpPtr(const SemanticExpression& pSemExp)
 {
   switch (pSemExp.type)

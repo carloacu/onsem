@@ -12,44 +12,10 @@
 #include <onsem/semantictotext/semexpoperators.hpp>
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include "../linguisticsynthesizer/linguisticsynthesizer.hpp"
-#include "../conversion/mandatoryformconverter.hpp"
 #include "grdexptooutputterinformation.hpp"
 
 namespace onsem
 {
-namespace
-{
-
-void _paramSemExpsToToParamStr(
-    std::map<std::string, std::vector<std::string>>& pParameters,
-    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParametersToSemExps,
-    const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage)
-{
-  for (auto& currParametersToSemExps : pParametersToSemExps)
-  {
-    auto& semExps = currParametersToSemExps.second;
-    if (!semExps.empty())
-    {
-      auto& strs = pParameters[currParametersToSemExps.first];
-      TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
-                                       SemanticAgentGrounding::me,
-                                       pLanguage);
-      SemanticMemory semMemory;
-
-      for (auto& currAnswer : semExps)
-      {
-        std::string subRes;
-        converter::semExpToText(subRes, currAnswer->clone(), outContext,
-                                true, semMemory, pLingDb, nullptr);
-        strs.push_back(subRes);
-      }
-    }
-  }
-}
-
-}
-
 
 VirtualOutputter::VirtualOutputter
 (SemanticMemory& pSemanticMemory,
@@ -179,18 +145,26 @@ void VirtualOutputter::_processResource(const SemanticResource& pResource,
                                         const SemanticExpression* pInputSemExpPtr)
 {
   std::map<std::string, std::vector<std::string>> parameters;
-  if (!pResource.parameterLabelsToQuestions.empty() && pInputSemExpPtr != nullptr)
+  for (auto& currParametersToSemExps : pResource.parametersLabelsToValue)
   {
-    std::map<std::string, std::vector<UniqueSemanticExpression>> parametersToSemExps;
-    UniqueSemanticExpression clonedInput = pInputSemExpPtr->clone();
-    mandatoryFormConverter::process(clonedInput);
-    converter::extractParameters(parametersToSemExps,
-                                 pResource.parameterLabelsToQuestions,
-                                 std::move(clonedInput), _lingDb);
-    _paramSemExpsToToParamStr(parameters, parametersToSemExps, _lingDb, pResource.language);
-  }
+    auto& semExps = currParametersToSemExps.second;
+    if (!semExps.empty())
+    {
+      auto& strs = parameters[currParametersToSemExps.first];
+      TextProcessingContext outContext(SemanticAgentGrounding::currentUser,
+                                       SemanticAgentGrounding::me,
+                                       pResource.language);
+      SemanticMemory semMemory;
 
-  _paramSemExpsToToParamStr(parameters, pResource.parametersLabelsToValue, _lingDb, pResource.language);
+      for (auto& currAnswer : semExps)
+      {
+        std::string subRes;
+        converter::semExpToText(subRes, currAnswer->clone(), outContext,
+                                true, semMemory, _lingDb, nullptr);
+        strs.push_back(subRes);
+      }
+    }
+  }
   _exposeResource(pResource, parameters);
 }
 

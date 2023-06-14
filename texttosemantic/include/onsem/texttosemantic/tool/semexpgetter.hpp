@@ -175,6 +175,11 @@ bool hasChild(const GroundedExpression& pGrdExp,
               GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
+bool hasChildOtherThanParameterToFill(
+    const GroundedExpression& pGrdExp,
+    GrammaticalType pChildType);
+
+ONSEM_TEXTTOSEMANTIC_API
 const GroundedExpression* getUnnamedGrdExpPtr(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API

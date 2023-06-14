@@ -1661,5 +1661,15 @@ void GroundedExpWithLinks::setEnabled(bool pEnabled)
 }
 
 
+std::map<std::string, std::vector<UniqueSemanticExpression>> GroundedExpWithLinksWithParameters::cloneParameters() const
+{
+  std::map<std::string, std::vector<UniqueSemanticExpression>> res;
+  for (auto& currParam : parametersLabelsToValue)
+    for (auto& currParamValue : currParam.second)
+      res[currParam.first].push_back(currParamValue->clone());
+  return res;
+}
+
+
 } // End of namespace onsem
 

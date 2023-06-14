@@ -314,12 +314,12 @@ std::unique_ptr<UniqueSemanticExpression> _extartActionToDoInBackground(
 bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
                                        SemanticMemoryBlockViewer& pMemViewer,
                                        GrdKnowToUnlinked& pIncompleteRelations,
-                                       const GroundedExpWithLinks& pMemSent,
+                                       GroundedExpWithLinksWithParameters& pMemSentWithParams,
                                        const GroundedExpression& pGrdExp)
 {
   auto params = std::make_unique<IndexToSubNameToParameterValue>();
   std::unique_ptr<InteractionContextContainer> subIntContext;
-  if (!checkIfMatchAndGetParams(*params, subIntContext, &pIncompleteRelations, pMemSent, pGrdExp, pWorkStruct, pMemViewer))
+  if (!checkIfMatchAndGetParams(*params, subIntContext, &pIncompleteRelations, pMemSentWithParams.links, pGrdExp, pWorkStruct, pMemViewer))
     return false;
 
   // if it has a receiver -> say that we will do it when the receiver will be focused
@@ -376,7 +376,7 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
   if (itSemExpDuration != pGrdExp.children.end())
     durationSemExpPtr = &*itSemExpDuration->second;
 
-  auto& contextAxiom = pMemSent.getContextAxiom();
+  auto& contextAxiom = pMemSentWithParams.links.getContextAxiom();
   if (contextAxiom.infCommandToDo == nullptr)
     return false;
   auto& infCommandToDo = *contextAxiom.infCommandToDo;
@@ -424,6 +424,15 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
             break;
           if (actionToDoPtr)
             *currListElts = std::move(*actionToDoPtr);
+          else
+          {
+            if (!pMemSentWithParams.parametersLabelsToValue.empty())
+            {
+              auto* resGrdPtr = listEltGrdExpPtr->grounding().getResourceGroundingPtr();
+              if (resGrdPtr != nullptr)
+                resGrdPtr->resource.parametersLabelsToValue = pMemSentWithParams.cloneParameters();
+            }
+          }
         }
 
         auto actionToDoInBackground = _extartActionToDoInBackground(actionThatCannotBeDone, *listEltGrdExpPtr, pWorkStruct, pMemViewer);

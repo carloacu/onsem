@@ -8,6 +8,7 @@
 #include <onsem/common/enum/grammaticaltype.hpp>
 #include <onsem/common/utility/unique_propagate_const.hpp>
 #include <onsem/texttosemantic/dbtype/binary/semexpsaver.hpp>
+#include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 
 namespace onsem
@@ -19,7 +20,6 @@ struct LinguisticDatabase;
 struct SentenceWithLinks;
 struct GroundedExpression;
 struct GroundedExpWithLinksPrivate;
-struct SemanticExpression;
 struct SemanticMemoryGrdExp;
 struct SemanticExpressionContainer;
 
@@ -90,6 +90,20 @@ private:
   mystd::unique_propagate_const<GroundedExpWithLinksPrivate> _impl;
 };
 
+
+struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinksWithParameters
+{
+  GroundedExpWithLinksWithParameters(const GroundedExpWithLinks& pLinks)
+   : links(pLinks),
+     parametersLabelsToValue()
+  {
+  }
+
+  std::map<std::string, std::vector<UniqueSemanticExpression>> cloneParameters() const;
+
+  const GroundedExpWithLinks& links;
+  std::map<std::string, std::vector<UniqueSemanticExpression>> parametersLabelsToValue;
+};
 
 
 } // End of namespace onsem

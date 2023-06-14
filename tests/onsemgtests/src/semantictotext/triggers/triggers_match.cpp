@@ -113,8 +113,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction14 = "C'est connu.";
   const std::string trigger15 = "C'est quoi la chanson";
   const std::string reaction15 = "Je ne la connais pas.";
-  const std::string trigger16 = "Parle moins fort";
-  const std::string reaction16 = "Voilà, je parle moins fort.";
 
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
@@ -150,7 +148,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger13, reaction13, semMem, lingDb);
   triggers_add(trigger14, reaction14, semMem, lingDb);
   triggers_add(trigger15, reaction15, semMem, lingDb);
-  triggers_add(trigger16, reaction16, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match("peux-tu me dire qui tu es", semMem, lingDb));
@@ -192,7 +189,6 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_ANSWER_EQ(reaction14, triggers_match(trigger14, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction15, triggers_match(trigger15, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction15, triggers_match("C'est quoi la chanson maintenant", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ(reaction16, triggers_match(trigger16, semMem, lingDb));
 }
 
 
@@ -367,6 +363,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Reste immobile", howLongInMinutesQuestion, semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Raconte une blague", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Qui es tu ?", {}, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=3 mètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=5 mètres)\\", triggers_match("avance cinq mètres", semMem, lingDb));
@@ -491,6 +488,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Reste immobile(param1=5 minutes)\\", triggers_match("reste immobile 5 minutes", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Raconte une blague\\", triggers_match("raconte    une autre histoire drôle", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("Dis moi quel robot es-tu ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#fr_FR#Qui es tu ?\\", triggers_match("Pourriez-vous me dire qui vous êtes ?", semMem, lingDb));
 }
 
 

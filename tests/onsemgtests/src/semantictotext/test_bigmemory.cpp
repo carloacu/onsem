@@ -120,7 +120,7 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
         currentParameters.clear();
         for (std::size_t i = 4; i < lineSplitted.size(); ++i)
         {
-          auto paramWithValueStr = lineSplitted[4];
+          auto paramWithValueStr = lineSplitted[i];
           std::vector<std::string> paramWithValueSplitted;
           mystd::split(paramWithValueSplitted, paramWithValueStr, "=");
           if (paramWithValueSplitted.size() >= 2)
@@ -323,7 +323,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemoryRobot)
   ReactionOptions reactionOptionsForTriggerTests;
 
   std::map<std::string, std::string> triggersToReferenceOfAnswer;
-  const std::string textFilename = corpusPath + "/triggerAndTexts/robotTriggers.txt";
+  const std::string textFilename = corpusPath + "/triggerAndTexts/robot_triggers.txt";
   _loadBigMemoryFile(triggersToReferenceOfAnswer, textFilename, reactionOptionsForTriggerTests,
                      language, semMem, lingDb, true, true);
 

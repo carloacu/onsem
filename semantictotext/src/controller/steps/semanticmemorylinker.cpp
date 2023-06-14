@@ -33,6 +33,7 @@
 #include "unknowninfosgetter.hpp"
 #include "specificactionshandler.hpp"
 #include "../../tool/semexpsimilaritycoef.hpp"
+#include "../../conversion/mandatoryformconverter.hpp"
 
 namespace onsem
 {
@@ -447,6 +448,7 @@ void _getResultFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRes,
 bool _addTriggerAnswer(SemControllerWorkingStruct& pWorkStruct,
                        bool& pAnAnswerHasBeenAdded,
                        const ExpressionWithLinks& pExp,
+                       ParametersLabelsToValue& pExpParams,
                        const SemanticMemoryBlockViewer& pMemViewer,
                        ContextualAnnotation pContAnnotation)
 {
@@ -455,6 +457,16 @@ bool _addTriggerAnswer(SemControllerWorkingStruct& pWorkStruct,
   if (!pWorkStruct.canBeANewAnswer(outSemExp))
     return false;
   UniqueSemanticExpression res = outSemExp.clone();
+  if (!pExpParams.empty())
+  {
+    auto* grdExpPtr = res->getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExpPtr != nullptr)
+    {
+      auto* resGrdPtr = grdExpPtr->grounding().getResourceGroundingPtr();
+      if (resGrdPtr != nullptr)
+        resGrdPtr->resource.parametersLabelsToValue = std::move(pExpParams);
+    }
+  }
   std::list<std::string> references;
   SemExpGetter::extractReferences(references, *pExp.semExp);
   simplifier::processFromMemBlock(res, pMemViewer.constView, pWorkStruct.lingDb);
@@ -466,7 +478,7 @@ bool _addTriggerAnswer(SemControllerWorkingStruct& pWorkStruct,
 
 bool _addTriggerThatMatchTheMost(SemControllerWorkingStruct& pWorkStruct,
                                  bool& pAnAnswerHasBeenAdded,
-                                 const std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
+                                 std::map<const ExpressionWithLinks*, ParametersLabelsToValue>& pSemExpWrapperPtrs,
                                  const SemanticMemoryBlockViewer& pMemViewer,
                                  ContextualAnnotation pContAnnotation,
                                  const SemanticExpression& pInputSemExp)
@@ -474,23 +486,26 @@ bool _addTriggerThatMatchTheMost(SemControllerWorkingStruct& pWorkStruct,
   std::size_t pSemExpWrapperPtrsSize = pSemExpWrapperPtrs.size();
   if (pSemExpWrapperPtrsSize == 1)
   {
-    const auto& exp = **pSemExpWrapperPtrs.begin();
-    return _addTriggerAnswer(pWorkStruct, pAnAnswerHasBeenAdded, exp,
+    auto& beginElt = *pSemExpWrapperPtrs.begin();
+    return _addTriggerAnswer(pWorkStruct, pAnAnswerHasBeenAdded,
+                             *beginElt.first, beginElt.second,
                              pMemViewer, pContAnnotation);
   }
 
   if (pSemExpWrapperPtrsSize > 1)
   {
-    std::map<int, std::map<intSemId, const ExpressionWithLinks*>> similarityCoef;
-    for (const auto& currRel : pSemExpWrapperPtrs)
-      similarityCoef[getSimilarityCoef(pInputSemExp, *currRel->semExp)].emplace(currRel->getIdOfFirstSentence(), currRel);
+    std::map<int, std::map<intSemId, std::pair<const ExpressionWithLinks* const, ParametersLabelsToValue>*>> similarityCoef;
+    for (auto& currRel : pSemExpWrapperPtrs)
+      similarityCoef[getSimilarityCoef(pInputSemExp, *currRel.first->semExp)].emplace(currRel.first->getIdOfFirstSentence(), &currRel);
 
     bool res = false;
     for (auto itExp = similarityCoef.rbegin(); itExp != similarityCoef.rend(); ++itExp)
     {
       for (auto& currExpHandleInMemory : itExp->second)
       {
-        if (_addTriggerAnswer(pWorkStruct, pAnAnswerHasBeenAdded, *currExpHandleInMemory.second,
+        if (_addTriggerAnswer(pWorkStruct, pAnAnswerHasBeenAdded,
+                              *currExpHandleInMemory.second->first,
+                              currExpHandleInMemory.second->second,
                               pMemViewer, pContAnnotation))
         {
           if (!pWorkStruct.reactionOptions.canAnswerWithAllTheTriggers)
@@ -505,9 +520,61 @@ bool _addTriggerThatMatchTheMost(SemControllerWorkingStruct& pWorkStruct,
 }
 
 
+bool _evaluateMatchingAndExtractParameters(
+    GroundedExpWithLinksWithParameters& pMatchCandidate,
+    const GroundedExpression& pInputGrdExp,
+    const linguistics::LinguisticDatabase& pLingDb)
+{
+  const SemanticExpression* outPutSemExpPtr = nullptr;
+  const SemanticExpression* infCommandToDoPtr = nullptr;
+  auto& contextAxiom = pMatchCandidate.links.getContextAxiom();
+  auto& outputToAnswerIfTriggerHasMatched = contextAxiom.getSemExpWrappedForMemory().outputToAnswerIfTriggerHasMatched;
+  if (outputToAnswerIfTriggerHasMatched)
+  {
+    outPutSemExpPtr = &outputToAnswerIfTriggerHasMatched->getSemExp();
+  }
+  else
+  {
+    infCommandToDoPtr = contextAxiom.infCommandToDo;
+    if (infCommandToDoPtr == nullptr)
+      return true;
+  }
+
+  const SemanticExpression& reactionSemExp = outPutSemExpPtr != nullptr ? *outPutSemExpPtr : *infCommandToDoPtr;
+  auto* reactionResourcePtr = SemExpGetter::semExpToResourceGrounding(reactionSemExp);
+  if (reactionResourcePtr != nullptr)
+  {
+    auto& reactionResource = reactionResourcePtr->resource;
+    // Mathing candidate has parameters to match
+    if (!reactionResource.parameterLabelsToQuestions.empty())
+    {
+      auto semResource = std::make_unique<SemanticResourceGrounding>(
+            reactionResource.label, reactionResource.language, reactionResource.value);
+      auto genericMandatoryForm = pInputGrdExp.clone();
+      UniqueSemanticExpression genericMandatoryFormUSemExp = std::move(genericMandatoryForm);
+        mandatoryFormConverter::process(genericMandatoryFormUSemExp);
+      converter::extractParameters(pMatchCandidate.parametersLabelsToValue,
+                                   reactionResource.parameterLabelsToQuestions,
+                                   std::move(genericMandatoryFormUSemExp), pLingDb);
+
+      // We did fill any parameters
+      if (pMatchCandidate.parametersLabelsToValue.empty())
+      {
+        // Cancel the matching if it is not related enough to the input
+        if (SemExpGetter::hasChild(pInputGrdExp, GrammaticalType::OBJECT) &&
+            !SemExpGetter::hasChildOtherThanParameterToFill(pMatchCandidate.links.grdExp, GrammaticalType::OBJECT))
+          return false;
+      }
+      return true;
+    }
+  }
+  return true;
+}
+
+
 void _orderResultBySimilarity(
-    std::list<const GroundedExpWithLinks*>& pEqualsGroundedExpWithLinksPtrs,
-    std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<const GroundedExpWithLinks*>>>& pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
+    std::list<GroundedExpWithLinksWithParameters>& pEqualsGroundedExpWithLinksPtrs,
+    std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>>& pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
     SemControllerWorkingStruct& pWorkStruct,
     SemanticMemoryBlockViewer& pMemViewer,
     const std::map<intSemId, const GroundedExpWithLinks*>& pDynamicLinks,
@@ -521,19 +588,47 @@ void _orderResultBySimilarity(
                                                                 pWorkStruct.lingDb, &pWorkStruct.comparisonExceptions, &comparisonErrorReporting);
     if (imbrication == ImbricationType::EQUALS)
     {
-      pEqualsGroundedExpWithLinksPtrs.push_back(&memSent);
+      pEqualsGroundedExpWithLinksPtrs.emplace_back(memSent);
       pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.clear();
     }
     else if (imbrication != ImbricationType::OPPOSES && pEqualsGroundedExpWithLinksPtrs.empty())
     {
-      pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].push_back(&memSent);
+      pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].emplace_back(memSent);
+    }
+  }
+
+  bool foundMatching = false;
+  if (!pEqualsGroundedExpWithLinksPtrs.empty())
+  {
+    for (auto it = pEqualsGroundedExpWithLinksPtrs.begin(); it != pEqualsGroundedExpWithLinksPtrs.end(); )
+    {
+      auto& currElt = *it;
+      bool okForMatching = _evaluateMatchingAndExtractParameters(currElt, pInputGrdExp, pWorkStruct.lingDb);
+      if (okForMatching)
+        ++it;
+      else
+        it = pEqualsGroundedExpWithLinksPtrs.erase(it);
+    }
+    foundMatching = !pEqualsGroundedExpWithLinksPtrs.empty();
+  }
+  if (!foundMatching && !pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.empty())
+  {
+    auto& resSet = (--pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.begin()->second.end())->second;
+    for (auto it = resSet.begin(); it != resSet.end(); )
+    {
+      auto& currElt = *it;
+      bool okForMatching = _evaluateMatchingAndExtractParameters(currElt, pInputGrdExp, pWorkStruct.lingDb);
+      if (okForMatching)
+        ++it;
+      else
+        it = resSet.erase(it);
     }
   }
 }
 
 
 void _matchAnyTrigger
-(std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
+(std::map<const ExpressionWithLinks*, ParametersLabelsToValue>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
  RequestToMemoryLinksVirtual<false>& pReqToGrdExps,
@@ -547,21 +642,21 @@ void _matchAnyTrigger
                        pMemViewer, pReqLinks, true, semanticMemoryGetter::RequestContext::SENTENCE,
                        nullptr, SemanticRequestType::NOTHING, true, true);
 
-  std::list<const GroundedExpWithLinks*> equalsGroundedExpWithLinksPtrs;
-  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<const GroundedExpWithLinks*>>> nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs;
+  std::list<GroundedExpWithLinksWithParameters> equalsGroundedExpWithLinksPtrs;
+  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>> nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs;
   _orderResultBySimilarity(equalsGroundedExpWithLinksPtrs, nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
                            pWorkStruct, pMemViewer, idsToSentences.res.dynamicLinks, pInputGrdExp);
 
   if (!equalsGroundedExpWithLinksPtrs.empty())
   {
     for (auto& currElt : equalsGroundedExpWithLinksPtrs)
-      pSemExpWrapperPtrs.insert(&currElt->getContextAxiom().getSemExpWrappedForMemory());
+      pSemExpWrapperPtrs.emplace(&currElt.links.getContextAxiom().getSemExpWrappedForMemory(), std::move(currElt.parametersLabelsToValue));
   }
   else if (!nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.empty())
   {
     auto& resSet = (--nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.begin()->second.end())->second;
     for (auto& currElt : resSet)
-      pSemExpWrapperPtrs.insert(&currElt->getContextAxiom().getSemExpWrappedForMemory());
+      pSemExpWrapperPtrs.emplace(&currElt.links.getContextAxiom().getSemExpWrappedForMemory(), std::move(currElt.parametersLabelsToValue));
   }
 }
 
@@ -586,7 +681,7 @@ bool _isAValidAnswerForTheQuestionFilter(const GroundedExpression& pGrdExp,
 
 
 void _matchTriggerSentences
-(std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
+(std::map<const ExpressionWithLinks*, ParametersLabelsToValue>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
  const RequestLinks& pReqLinks,
@@ -613,7 +708,7 @@ void _matchTriggerSentences
 
 
 void _matchNominalGroupTrigger
-(std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
+(std::map<const ExpressionWithLinks*, ParametersLabelsToValue>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
  const RequestLinks& pReqLinks,
@@ -640,7 +735,7 @@ void _matchNominalGroupTrigger
 
 
 void _matchGrdExpTrigger
-(std::set<const ExpressionWithLinks*>& pSemExpWrapperPtrs,
+(std::map<const ExpressionWithLinks*, ParametersLabelsToValue>& pSemExpWrapperPtrs,
  SemControllerWorkingStruct& pWorkStruct,
  SemanticMemoryBlockViewer& pMemViewer,
  const RequestLinks& pReqLinks,
@@ -664,7 +759,7 @@ bool _addTriggerGrdExps
  const SemanticExpression& pSemExp,
  const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId)
 {
-  std::set<const ExpressionWithLinks*> semExpWrapperPtrs;
+  std::map<const ExpressionWithLinks*, ParametersLabelsToValue> semExpWrapperPtrs;
   std::size_t i = 0;
   for (const auto* currGrdExpPtr : pGrdExpPtrs)
   {
@@ -684,7 +779,7 @@ bool _addTriggerGrdExps
     RequestLinks reqLinks;
     getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, currGrdExp, false);
     SemanticTriggerAxiomId axiomId = pGetAxiomIdFromId(i++);
-    std::set<const ExpressionWithLinks*> subSemExpWrapperPtrs;
+    std::map<const ExpressionWithLinks*, ParametersLabelsToValue> subSemExpWrapperPtrs;
     _matchGrdExpTrigger(subSemExpWrapperPtrs, pWorkStruct, pMemViewer, reqLinks,
                         semExpCategory, axiomId, currGrdExp);
     if (subSemExpWrapperPtrs.empty())
@@ -699,7 +794,7 @@ bool _addTriggerGrdExps
       auto itSemExpWrapperPtrs = semExpWrapperPtrs.begin();
       while (itSemExpWrapperPtrs != semExpWrapperPtrs.end())
       {
-        if (subSemExpWrapperPtrs.count(*itSemExpWrapperPtrs) == 0)
+        if (subSemExpWrapperPtrs.count(itSemExpWrapperPtrs->first) == 0)
           itSemExpWrapperPtrs = semExpWrapperPtrs.erase(itSemExpWrapperPtrs);
         else
           ++itSemExpWrapperPtrs;
@@ -719,15 +814,16 @@ bool _handleActionRelations(SentenceLinks<false>& pIdsToSentences,
 {
   GrdKnowToUnlinked incompleteRelations;
 
-  std::list<const GroundedExpWithLinks*> equalsGroundedExpWithLinksPtrs;
-  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<const GroundedExpWithLinks*>>> nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs;
+  std::list<GroundedExpWithLinksWithParameters> equalsGroundedExpWithLinksPtrs;
+  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>> nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs;
   _orderResultBySimilarity(equalsGroundedExpWithLinksPtrs, nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
                            pWorkStruct, pMemViewer, pIdsToSentences.dynamicLinks, pGrdExp);
 
   for (auto itRel = equalsGroundedExpWithLinksPtrs.rbegin(); itRel != equalsGroundedExpWithLinksPtrs.rend(); ++itRel)
   {
+    auto& currRel = *itRel;
     if (unknownInfosGetter::splitCompeleteIncompleteOfActions(pWorkStruct, pMemViewer, incompleteRelations,
-                                                              **itRel, pGrdExp))
+                                                              currRel, pGrdExp))
       return true;
   }
 
@@ -737,8 +833,9 @@ bool _handleActionRelations(SentenceLinks<false>& pIdsToSentences,
     {
       for (auto itRel = itLowPriorityGrdExpWithLinksPtrs->second.rbegin(); itRel != itLowPriorityGrdExpWithLinksPtrs->second.rend(); ++itRel)
       {
+        auto& currRel = *itRel;
         if (unknownInfosGetter::splitCompeleteIncompleteOfActions(pWorkStruct, pMemViewer, incompleteRelations,
-                                                                  **itRel, pGrdExp))
+                                                                  currRel, pGrdExp))
           return true;
       }
     }
@@ -1188,7 +1285,7 @@ bool addTriggerSentencesAnswer
  const GroundedExpression& pInputGrdExp,
  ContextualAnnotation pContAnnotation)
 {
-  std::set<const ExpressionWithLinks*> semExpWrapperPtrs;
+  std::map<const ExpressionWithLinks*, ParametersLabelsToValue> semExpWrapperPtrs;
   _matchGrdExpTrigger(semExpWrapperPtrs, pWorkStruct, pMemViewer,
                       pReqLinks, pExpCategory, pAxiomId, pInputGrdExp);
   return _addTriggerThatMatchTheMost(pWorkStruct, pAnAnswerHasBeenAdded, semExpWrapperPtrs,
