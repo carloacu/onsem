@@ -38,6 +38,23 @@ void _triggers_addFromSemExp(UniqueSemanticExpression& pTriggerSemExp,
 }
 
 
+void triggers_addFromSemExps(UniqueSemanticExpression& pTriggerSemExp,
+                             UniqueSemanticExpression pAnswerSemExp,
+                             SemanticMemory& pSemanticMemory,
+                             const linguistics::LinguisticDatabase& pLingDb,
+                             bool pAddInfinitveForms)
+{
+  if (pAddInfinitveForms)
+  {
+    auto infinitiveActionSemExp = converter::imperativeToInfinitive(*pTriggerSemExp);
+    if (infinitiveActionSemExp)
+      triggers::add(std::move(*infinitiveActionSemExp), pAnswerSemExp->clone(),
+                    pSemanticMemory, pLingDb);
+  }
+
+  triggers::add(std::move(pTriggerSemExp), std::move(pAnswerSemExp), pSemanticMemory, pLingDb);
+}
+
 void triggers_add(const std::string& pTriggerText,
                   const std::string& pAnswerText,
                   SemanticMemory& pSemanticMemory,

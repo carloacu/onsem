@@ -8,6 +8,7 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/tool/peoplefiller.hpp>
 #include <onsem/semantictotext/type/reactionoptions.hpp>
+#include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/tester/reactOnTexts.hpp>
 #include "operators/operator_inform.hpp"
 #include "triggers/triggers_add.hpp"
@@ -21,12 +22,16 @@ namespace
 {
 const std::string _resourceLabel = "resLabel";
 
-UniqueSemanticExpression _idToSemExp(const std::string& pId,
-                                     SemanticLanguageEnum pLanguage)
+UniqueSemanticExpression _createResource(const std::string& pId,
+                                         SemanticLanguageEnum pLanguage,
+                                         const std::map<std::string, std::vector<std::string>>& pParameters,
+                                         const SemanticExpression& pContextForParameters,
+                                         const linguistics::LinguisticDatabase& pLingDb)
 {
   auto res = std::make_unique<MetadataExpression>(
         std::make_unique<GroundedExpression>(
-          std::make_unique<SemanticResourceGrounding>(_resourceLabel, pLanguage, pId)));
+          converter::createResourceWithParameters(_resourceLabel, pId, pParameters,
+                                                  pContextForParameters, pLingDb, pLanguage)));
   res->references.push_back(pId);
   return std::move(res);
 }
@@ -54,7 +59,9 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
                         const ReactionOptions& pReactionOptions,
                         SemanticLanguageEnum pLanguage,
                         SemanticMemory& pMemory,
-                        const linguistics::LinguisticDatabase& pLingDb)
+                        const linguistics::LinguisticDatabase& pLingDb,
+                        bool pSetUsAsEverybody,
+                        bool pAddInfinitveForms = false)
 {
   std::ifstream triggersAndTextsCorpusFile(pTextFilename, std::ifstream::in);
   if (!triggersAndTextsCorpusFile.is_open())
@@ -63,11 +70,20 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
   std::string currentLabel;
   std::string currentId;
   std::string currentText;
+  std::map<std::string, std::vector<std::string>> currentParameters;
 
   auto fillCurrentInfos = [&]() {
     if (currentLabel == "trigger")
     {
-      triggers_addToSemExpAnswer(currentText, _idToSemExp(currentId, pLanguage), pMemory, pLingDb, pLanguage);
+      TextProcessingContext triggerProcContext(SemanticAgentGrounding::currentUser,
+                                               SemanticAgentGrounding::me,
+                                               pLanguage);
+      if (pSetUsAsEverybody)
+        triggerProcContext.setUsAsEverybody();
+      triggerProcContext.isTimeDependent = false;
+      auto actionSemExp = converter::textToSemExp(currentText, triggerProcContext, pLingDb);
+      auto resource = _createResource(currentId, pLanguage, currentParameters, *actionSemExp, pLingDb);
+      triggers_addFromSemExps(actionSemExp, std::move(resource), pMemory, pLingDb, pAddInfinitveForms);
       pTriggersToReferenceOfAnswer.emplace(currentText, currentId);
     }
     if (currentLabel == "inform" || currentLabel == "message")
@@ -99,6 +115,17 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
         currentLabel = label;
         currentId = id;
         currentText = lineSplitted[3];
+
+        // Fill current parameters
+        currentParameters.clear();
+        for (std::size_t i = 4; i < lineSplitted.size(); ++i)
+        {
+          auto paramWithValueStr = lineSplitted[4];
+          std::vector<std::string> paramWithValueSplitted;
+          mystd::split(paramWithValueSplitted, paramWithValueStr, "=");
+          if (paramWithValueSplitted.size() >= 2)
+            currentParameters[paramWithValueSplitted[0]].push_back(paramWithValueSplitted[1]);
+        }
         continue;
       }
       else if (label == "checkTrigger")
@@ -106,9 +133,9 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
         currentText = lineSplitted[3];
 
         auto answer = triggers_match(currentText, pMemory, pLingDb, pLanguage, &pReactionOptions);
+        auto expectedAnswer = "\\resLabel=#fr_FR#" + id + "\\";
 
-        auto refIt = std::find(answer.references.begin(), answer.references.end(), id);
-        if (refIt == answer.references.end())
+        if (answer.answer != expectedAnswer)
         {
           std::string refStrs = "[";
           for (auto& currRef : answer.references)
@@ -118,8 +145,8 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
             refStrs += currRef;
           }
           refStrs += "]";
-          std::cerr << "Error in trigger: \"" << currentText << "\" expected ref: \"" << id << "\" get refs: " << refStrs
-                    << " asnwer: \"" << answer.answer << "\"" << std::endl;
+          std::cerr << "Error in trigger: \"" << currentText << "\" expected: \"" << expectedAnswer << "\" "
+                    << "get: \"" << answer.answer << "\" with refs: " << refStrs << std::endl;
           EXPECT_TRUE(false);
         }
       }
@@ -184,7 +211,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory)
   std::map<std::string, std::string> triggersToReferenceOfAnswer;
   const std::string textFilename = corpusPath + "/triggerAndTexts/triggersAndTextsCorpus.txt";
   _loadBigMemoryFile(triggersToReferenceOfAnswer, textFilename, reactionOptionsForTriggerTests,
-                     language, semMem, lingDb);
+                     language, semMem, lingDb, false);
 
   std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
   _checkDeclaredTriggersMatching(triggersToReferenceOfAnswer, reactionOptionsForTriggerTests, language, semMem, lingDb);
@@ -294,12 +321,11 @@ TEST_F(SemanticReasonerGTests, test_bigMemoryRobot)
   SemanticMemory semMem;
 
   ReactionOptions reactionOptionsForTriggerTests;
-  reactionOptionsForTriggerTests.canAnswerWithAllTheTriggers = true;
 
   std::map<std::string, std::string> triggersToReferenceOfAnswer;
   const std::string textFilename = corpusPath + "/triggerAndTexts/robotTriggers.txt";
   _loadBigMemoryFile(triggersToReferenceOfAnswer, textFilename, reactionOptionsForTriggerTests,
-                     language, semMem, lingDb);
+                     language, semMem, lingDb, true, true);
 
   std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
   _checkDeclaredTriggersMatching(triggersToReferenceOfAnswer, reactionOptionsForTriggerTests, language, semMem, lingDb);

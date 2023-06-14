@@ -15,6 +15,12 @@ struct SemanticMemory;
 struct UniqueSemanticExpression;
 
 
+void triggers_addFromSemExps(UniqueSemanticExpression& pTriggerSemExp,
+                             UniqueSemanticExpression pAnswerSemExp,
+                             SemanticMemory& pSemanticMemory,
+                             const linguistics::LinguisticDatabase& pLingDb,
+                             bool pAddInfinitveForms = false);
+
 void triggers_add(const std::string& pTriggerText,
                   const std::string& pAnswerText,
                   SemanticMemory& pSemanticMemory,
