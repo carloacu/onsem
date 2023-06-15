@@ -173,10 +173,13 @@ void _refactorCaVaFrenchSentence(GroundedExpression& pGrdExp,
 
       pStatementGrd.concepts.clear();
       pStatementGrd.concepts.emplace("verb_go", 4);
-      if (pStatementGrd.requests.empty())
-        subjectGrdExpPtr->moveGrounding(std::make_unique<SemanticAgentGrounding>(pTextProcContext.author));
-      else
-        subjectGrdExpPtr->moveGrounding(std::make_unique<SemanticAgentGrounding>(pTextProcContext.receiver));
+      if (subjectGrdExpPtr->grounding().type == SemanticGroundingType::GENERIC)
+      {
+        if (pStatementGrd.requests.empty())
+          subjectGrdExpPtr->moveGrounding(std::make_unique<SemanticAgentGrounding>(pTextProcContext.author));
+        else
+          subjectGrdExpPtr->moveGrounding(std::make_unique<SemanticAgentGrounding>(pTextProcContext.receiver));
+      }
     }
   }
 }

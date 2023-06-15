@@ -115,6 +115,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction15 = "Je ne la connais pas.";
   const std::string trigger16 = "Fais-tu le café";
   const std::string reaction16 = "Tu me charries.";
+  const std::string trigger17 = "ça va ?";
+  const std::string reaction17 = "J'ai mal à la tête.";
 
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
@@ -151,6 +153,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger14, reaction14, semMem, lingDb);
   triggers_add(trigger15, reaction15, semMem, lingDb);
   triggers_add(trigger16, reaction16, semMem, lingDb);
+  triggers_add(trigger17, reaction17, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match("peux-tu me dire qui tu es", semMem, lingDb));
@@ -194,6 +197,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_ANSWER_EQ(reaction15, triggers_match("C'est quoi la chanson maintenant", semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction16, triggers_match(trigger16, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Comment tu vas faire ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction17, triggers_match(trigger17, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("Vais-je bien", semMem, lingDb));
 }
 
 
