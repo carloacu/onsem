@@ -593,7 +593,8 @@ void _orderResultBySimilarity(
     }
     else if (imbrication != ImbricationType::OPPOSES && pEqualsGroundedExpWithLinksPtrs.empty())
     {
-      pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].emplace_back(memSent);
+      if (SemExpComparator::haveSamePolarity(pInputGrdExp, memSent.grdExp, pWorkStruct.lingDb.conceptSet, true))
+        pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].emplace_back(memSent);
     }
   }
 
