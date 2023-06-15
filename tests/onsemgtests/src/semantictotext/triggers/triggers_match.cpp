@@ -364,6 +364,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   triggers_addAnswerWithOneParameter("Raconte une blague", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Qui es tu ?", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("C'est quoi ton nom ?", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Sais-tu faire le café ?", {}, semMem, lingDb, language);
 
 
@@ -493,6 +494,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_NOANSWER(triggers_match("Dis moi quel robot es-tu ?", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#fr_FR#Qui es tu ?\\", triggers_match("Pourriez-vous me dire qui vous êtes ?", semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Que ne sais-tu pas faire ?", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("Quel est mon nom ?", semMem, lingDb));
 }
 
 
