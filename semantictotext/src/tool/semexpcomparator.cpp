@@ -204,6 +204,18 @@ ImbricationType _getStatementGrdsImbrications(const SemanticStatementGrounding& 
 
   if (res != ImbricationType::DIFFERS)
   {
+    if ((pExceptionsPtr == nullptr || !pExceptionsPtr->request) &&
+        pStatGrd1.requests != pStatGrd2.requests)
+    {
+      if (pErrorCoefPtr != nullptr && !pStatGrd1.requests.empty() &&
+          !pStatGrd2.requests.empty())
+      {
+        pErrorCoefPtr->value = 7;
+        pErrorCoefPtr->type = ComparisonTypeOfError::REQUEST;
+      }
+      return ImbricationType::DIFFERS;
+    }
+
     if ((pExceptionsPtr == nullptr || !pExceptionsPtr->verbTense) &&
         !_verbTenseAreNearlyEqual(pStatGrd1.verbTense, pStatGrd2.verbTense))
     {
@@ -216,10 +228,6 @@ ImbricationType _getStatementGrdsImbrications(const SemanticStatementGrounding& 
     }
 
     if (!_verbGoalAreNearlyEqual(pStatGrd1.verbGoal, pStatGrd2.verbGoal))
-      return ImbricationType::DIFFERS;
-
-    if ((pExceptionsPtr == nullptr || !pExceptionsPtr->request) &&
-        pStatGrd1.requests != pStatGrd2.requests)
       return ImbricationType::DIFFERS;
   }
 

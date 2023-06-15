@@ -87,6 +87,7 @@ enum ComparisonTypeOfError : char
   NO_ERROR,
   PARAMETER_DIFF,
   SPECIFIER,
+  REQUEST,
   TENSE,
   NORMAL
 };
@@ -177,6 +178,17 @@ struct ComparisonErrorReporting
         {
           if (currImbrication.first != ImbricationType::LESS_DETAILED &&
               currImbrication.first != ImbricationType::MORE_DETAILED)
+          {
+            return false;
+          }
+        }
+      }
+
+      if (currGramChild.first == GrammaticalType::UNKNOWN)
+      {
+        for (auto& currImbrication : currGramChild.second)
+        {
+          if (currImbrication.second.errorCoef.type == ComparisonTypeOfError::REQUEST)
           {
             return false;
           }
