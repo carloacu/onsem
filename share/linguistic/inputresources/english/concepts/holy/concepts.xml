@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="holy_gospel">
+  <linkedMeaning lemme="évangile" relationToConcept="4" />
+ </concept>
+</linguisticdatabase>

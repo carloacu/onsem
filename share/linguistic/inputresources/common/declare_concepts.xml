@@ -170,6 +170,8 @@
   <declareconcept name="health_bad" />
   <oppositeconcepts concept1="health_good" concept2="health_bad" />
 
+  <declareconcept name="holy_gospel" />
+
   <declareconcept name="language_french" />
   <declareconcept name="language_english" />
 
