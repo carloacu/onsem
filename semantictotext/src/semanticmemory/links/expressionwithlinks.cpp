@@ -108,39 +108,29 @@ void _addGrdExpToAxiom
  const linguistics::LinguisticDatabase& pLingDb,
  bool pIsATrigger);
 
-void _addSpecifierSemExp
+
+void _addSpecifierGrdExp
 (SentenceWithLinks& pContextAxiom,
  const GrdExpLinksContext& pContext,
- const SemanticExpression& pSemExp,
+ const GroundedExpression& pGrdExp,
  const linguistics::LinguisticDatabase& pLingDb,
  bool pIsATrigger)
 {
-  const GroundedExpression* specChildGrdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
-  if (specChildGrdExpPtr != nullptr)
+  std::map<GrammaticalType, const SemanticExpression*> subAnnotations;
+  auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
+  if (itSubject != pGrdExp.children.end() &&
+      SemExpGetter::isACoreference(*itSubject->second, CoreferenceDirectionEnum::PARENT, false))
   {
-    std::map<GrammaticalType, const SemanticExpression*> subAnnotations;
-    auto itSubject = specChildGrdExpPtr->children.find(GrammaticalType::SUBJECT);
-    if (itSubject != specChildGrdExpPtr->children.end() &&
-        SemExpGetter::isACoreference(*itSubject->second, CoreferenceDirectionEnum::PARENT, false))
-    {
-      subAnnotations.emplace(GrammaticalType::SUBJECT, &_resolveParentCoreferenceLink(pContext));
-    }
-    else
-    {
-      auto itObject = specChildGrdExpPtr->children.find(GrammaticalType::OBJECT);
-      if (itObject != specChildGrdExpPtr->children.end() &&
-          SemExpGetter::isACoreference(*itObject->second, CoreferenceDirectionEnum::PARENT, false))
-        subAnnotations.emplace(GrammaticalType::OBJECT, &_resolveParentCoreferenceLink(pContext));
-    }
-    _addGrdExpToAxiom(pContextAxiom, *specChildGrdExpPtr, subAnnotations, false, pLingDb, pIsATrigger);
+    subAnnotations.emplace(GrammaticalType::SUBJECT, &_resolveParentCoreferenceLink(pContext));
   }
   else
   {
-    auto childListExpPtr = pSemExp.getListExpPtr_SkipWrapperPtrs();
-    if (childListExpPtr != nullptr)
-      for (const auto& currElt : childListExpPtr->elts)
-        _addSpecifierSemExp(pContextAxiom, pContext, *currElt, pLingDb, pIsATrigger);
+    auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
+    if (itObject != pGrdExp.children.end() &&
+        SemExpGetter::isACoreference(*itObject->second, CoreferenceDirectionEnum::PARENT, false))
+      subAnnotations.emplace(GrammaticalType::OBJECT, &_resolveParentCoreferenceLink(pContext));
   }
+  _addGrdExpToAxiom(pContextAxiom, pGrdExp, subAnnotations, false, pLingDb, pIsATrigger);
 }
 
 
@@ -178,7 +168,7 @@ void _addGrdExpToAxiom
                 SemExpGetter::isACoreference(*itSubjectOfChild->second, CoreferenceDirectionEnum::PARENT))
             {
               GrdExpLinksContext context(childGrdExp, statGrd, GrammaticalType::SUBJECT, *itSubject->second);
-              _addSpecifierSemExp(pContextAxiom, context, childSemExp, pLingDb, pIsATrigger);
+              _addSpecifierGrdExp(pContextAxiom, context, childGrdExp, pLingDb, pIsATrigger);
             }
             else
             {
@@ -187,7 +177,7 @@ void _addGrdExpToAxiom
                   SemExpGetter::isACoreference(*itObjectOfChild->second, CoreferenceDirectionEnum::PARENT))
               {
                 GrdExpLinksContext context(childGrdExp, statGrd, GrammaticalType::SUBJECT, *itSubject->second);
-                _addSpecifierSemExp(pContextAxiom, context, childSemExp, pLingDb, pIsATrigger);
+                _addSpecifierGrdExp(pContextAxiom, context, childGrdExp, pLingDb, pIsATrigger);
               }
             }
           }
@@ -198,8 +188,17 @@ void _addGrdExpToAxiom
         auto itSpecifier = childGrdExp.children.find(GrammaticalType::SPECIFIER);
         if (itSpecifier != childGrdExp.children.end())
         {
-          GrdExpLinksContext context(pGrdExpToAdd, statGrd, currChild.first, *currChild.second);
-          _addSpecifierSemExp(pContextAxiom, context, *itSpecifier->second, pLingDb, pIsATrigger);
+          std::list<const GroundedExpression*> specGrdExps;
+          itSpecifier->second->getGrdExpPtrs_SkipWrapperLists(specGrdExps);
+          for (auto& currGrdExpPtr : specGrdExps)
+          {
+            if (currGrdExpPtr != nullptr &&
+                currGrdExpPtr->grounding().type == SemanticGroundingType::STATEMENT)
+            {
+              GrdExpLinksContext context(pGrdExpToAdd, statGrd, currChild.first, *currChild.second);
+              _addSpecifierGrdExp(pContextAxiom, context, *currGrdExpPtr, pLingDb, pIsATrigger);
+            }
+          }
         }
       }
     }
