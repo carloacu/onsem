@@ -43,7 +43,8 @@ public:
   static bool isAdjCompatibleWithNumberType(const Inflections& pAdjInfls,
                                             SemanticNumberType pNumberType);
 
-  bool filterIncompatibleInflections(Token& pToken1,
+  bool filterIncompatibleInflections(const Token* pPrevPrevToken,
+                                     Token& pToken1,
                                      Token& pToken2) const;
 
   bool canBeAssociatedInAList(const InflectedWord& pIGram1,

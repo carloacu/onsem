@@ -162,7 +162,8 @@ bool InflectionsChecker::isAdjCompatibleWithNumberType(const Inflections& pAdjIn
 }
 
 
-bool InflectionsChecker::filterIncompatibleInflections(Token& pToken1,
+bool InflectionsChecker::filterIncompatibleInflections(const Token* pPrevPrevToken,
+                                                       Token& pToken1,
                                                        Token& pToken2) const
 {
   InflectedWord& inflWord1 = pToken1.inflWords.front();
@@ -218,6 +219,10 @@ bool InflectionsChecker::filterIncompatibleInflections(Token& pToken1,
         fBinDico.getLanguage() != SemanticLanguageEnum::FRENCH)
       return false;
 
+    if (pPrevPrevToken != nullptr &&
+        pPrevPrevToken->inflWords.front().word.lemma == "ne")
+      return false;
+
     bool res = false;
     // remove imperative inflections
     Inflections& infls2 = inflWord2.inflections();
@@ -236,7 +241,6 @@ bool InflectionsChecker::filterIncompatibleInflections(Token& pToken1,
           ++itInfl;
       }
     }
-
     return res;
   }
 

@@ -689,11 +689,13 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
   }
 
   bool isANameAssignement = SemExpGetter::isANameAssignement(pGrdExp);
+  RelativePerson subjectRelativePersonWithoutTransformation = RelativePerson::UNKNOWN;
   RelativePerson subjectRelativePerson = RelativePerson::UNKNOWN;
   if (sentWorkStruct.subjectPtr != nullptr)
   {
-    subjectRelativePerson = _semExpToRelativePerson(**sentWorkStruct.subjectPtr, pConf,
-                                                    isANameAssignement);
+    subjectRelativePersonWithoutTransformation = _semExpToRelativePerson(**sentWorkStruct.subjectPtr, pConf,
+                                                                         isANameAssignement);
+    subjectRelativePerson = subjectRelativePersonWithoutTransformation;
     if (pRequests.has(SemanticRequestType::ACTION))
       _invertRelativePerson(subjectRelativePerson);
   }
@@ -830,7 +832,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
   {
     const SemanticExpression& objectSemExp = **sentWorkStruct.objectPtr;
     if (!_writeReflexionIfNeeded(sentWorkStruct, sentWorkStruct.outs.objectAfterVerb,
-                                sentWorkStruct.outs.subject.relativePerson, pStatementGrd,
+                                subjectRelativePersonWithoutTransformation, pStatementGrd,
                                 inflectedVerb, pGrdExp, objectSemExp, pConf,
                                 verbContext, verbContext.rootSubject, verbContext.verbContextOpt))
     {

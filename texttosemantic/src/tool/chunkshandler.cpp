@@ -1400,12 +1400,14 @@ bool filterIncompatibleInflectionsInTokenList(std::vector<Token>& pTokens,
                                               const InflectionsChecker& pFls)
 {
   bool res = false;
+  const Token* prevPrevToken = nullptr;
   auto prevIt = getTheNextestToken(pTokens.begin(), pTokens.end());
   for (auto it = getNextToken(prevIt, pTokens.end());
        it != pTokens.end(); it = getNextToken(it, pTokens.end()))
   {
-    if (pFls.filterIncompatibleInflections(*prevIt, *it))
+    if (pFls.filterIncompatibleInflections(prevPrevToken, *prevIt, *it))
       res = true;
+    prevPrevToken = &*prevIt;
     prevIt = it;
   }
   return res;
