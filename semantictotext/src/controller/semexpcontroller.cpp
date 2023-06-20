@@ -511,7 +511,8 @@ void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
   case SemanticExpressionType::CONDITION:
   {
     const ConditionExpression& condExp = pSemExp.getCondExp();
-    manageCondition(pWorkStruct, pMemViewer, condExp);
+    const auto* originalGrdExpPtr = pWorkStruct.getOriginalGrdExpPtr();
+    manageCondition(pWorkStruct, pMemViewer, condExp, originalGrdExpPtr);
     break;
   }
   case SemanticExpressionType::COMPARISON:

@@ -2124,15 +2124,18 @@ bool _hasToSkip(SemanticRequestType pChildRequest,
     if (!pCheckTimeRequest)
       return true;
     bool hasASemExpToCheck = false;
+
     for (const auto& currSemExp : pSubReqLinks.semExps)
     {
       auto* timeGrdPtr = SemExpGetter::semExpToTimeGrounding(*currSemExp);
-      if (timeGrdPtr != nullptr && timeGrdPtr->fromConcepts.count("time_relative_now") > 0)
+      if (timeGrdPtr != nullptr &&
+          ConceptSet::haveAnyOfConcepts(timeGrdPtr->fromConcepts, {"time_relative_now", "time_relative_rightAway"}))
         continue;
       hasASemExpToCheck = true;
     }
     if (!hasASemExpToCheck)
       return true;
+
   }
   if (!pIsATrigger && !pSubReqLinks.semExps.empty())
   {

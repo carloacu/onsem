@@ -9,11 +9,14 @@
 #include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 #include "../semexpcontroller.hpp"
 #include "../../utility/semexpcreator.hpp"
+#include "../../operator/semanticcategorizer.hpp"
 #include "semanticmemorylinker.hpp"
 
 namespace onsem
 {
-
+namespace
+{
+const SemanticTriggerAxiomId _emptyAxiomId;
 
 bool _applyConditionAccordingToHisTrueness(SemControllerWorkingStruct& pWorkStruct,
                                            SemanticMemoryBlockViewer& pMemViewer,
@@ -43,10 +46,12 @@ bool _applyConditionAccordingToHisTrueness(SemControllerWorkingStruct& pWorkStru
   return false;
 }
 
+}
 
 void manageCondition(SemControllerWorkingStruct& pWorkStruct,
                      SemanticMemoryBlockViewer& pMemViewer,
-                     const ConditionExpression& pCondExp)
+                     const ConditionExpression& pCondExp,
+                     const GroundedExpression* pOriginalGrdExpPtr)
 {
   const SemanticExpression* elseExpPtr = nullptr;
   if (pCondExp.elseExp)
@@ -78,18 +83,36 @@ void manageCondition(SemControllerWorkingStruct& pWorkStruct,
     // don't even try to learn a condition if the knowledge come from us
     if (pWorkStruct.expHandleInMemory == nullptr)
       return;
+
+    std::string authorUserId = "";
     {
       const SemanticAgentGrounding* authorPtr = SemExpGetter::extractAuthor(*pWorkStruct.expHandleInMemory->semExp);
-      if (authorPtr != nullptr &&
-          authorPtr->userId == SemanticAgentGrounding::me)
-        return;
+      if (authorPtr != nullptr)
+      {
+        if (authorPtr->userId == SemanticAgentGrounding::me)
+          return;
+        authorUserId = authorPtr->userId;
+      }
     }
 
     if (pWorkStruct.reactionOptions.canAnswerWithATrigger &&
         (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT ||
-         pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER) &&
-        semanticMemoryLinker::addTriggerCondExp(pWorkStruct, pMemViewer, pCondExp))
-      return;
+         pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER))
+    {
+      if (pOriginalGrdExpPtr != nullptr)
+      {
+        bool anAnswerHasBeenAdded = false;
+        semanticMemoryLinker::RequestLinks reqLinksOfOriginalGrdExp;
+        auto originalGrdExpCategory = privateImplem::categorizeGrdExp(*pOriginalGrdExpPtr, authorUserId);
+        getLinksOfAGrdExp(reqLinksOfOriginalGrdExp, pWorkStruct, pMemViewer, *pOriginalGrdExpPtr, false);
+        if (addTriggerSentencesAnswer(pWorkStruct, anAnswerHasBeenAdded, pMemViewer, reqLinksOfOriginalGrdExp,
+                                      originalGrdExpCategory, _emptyAxiomId,
+                                      *pOriginalGrdExpPtr, ContextualAnnotation::ANSWER))
+          return;
+      }
+      if (semanticMemoryLinker::addTriggerCondExp(pWorkStruct, pMemViewer, pCondExp))
+        return;
+    }
 
     if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER)
       return;

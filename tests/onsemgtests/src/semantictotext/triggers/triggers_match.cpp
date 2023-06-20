@@ -191,6 +191,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_BEHAVIOR_EQ(reaction7, triggers_match("remets l'application Aa", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction8, triggers_match(trigger8, semMem, lingDb, SemanticLanguageEnum::FRENCH));
   ONSEM_BEHAVIOR_EQ(reaction8, triggers_match("Descends ton volume", semMem, lingDb, SemanticLanguageEnum::FRENCH));
+  ONSEM_ANSWER_EQ(reaction8, triggers_match("Descends le volume tout de suite", semMem, lingDb, SemanticLanguageEnum::FRENCH));
   ONSEM_ANSWER_EQ(reaction9, triggers_match(trigger9, semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction10, triggers_match(trigger10, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction11, triggers_match(trigger11, semMem, lingDb));

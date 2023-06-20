@@ -11,7 +11,8 @@ namespace conditionsAdder
 {
 
 void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
-                                    const std::string& pUserId = "");
+                                    const std::string& pUserId = "",
+                                    bool pAddInterpretations = true);
 
 
 } // End of namespace conditionsAdder

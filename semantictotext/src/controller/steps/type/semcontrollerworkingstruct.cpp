@@ -290,14 +290,22 @@ std::string SemControllerWorkingStruct::getAuthorUserId() const
   return "";
 }
 
-const GroundedExpression& SemControllerWorkingStruct::getOriginalGrdExp(const GroundedExpression& pDefaultGrdExp) const
+const GroundedExpression* SemControllerWorkingStruct::getOriginalGrdExpPtr() const
 {
   if (originalSemExpPtr != nullptr)
   {
     auto* res = originalSemExpPtr->getGrdExpPtr_SkipWrapperPtrs(false);
     if (res != nullptr)
-      return *res;
+      return res;
   }
+  return nullptr;
+}
+
+const GroundedExpression& SemControllerWorkingStruct::getOriginalGrdExp(const GroundedExpression& pDefaultGrdExp) const
+{
+  auto* resPtr = getOriginalGrdExpPtr();
+  if (resPtr != nullptr)
+    return *resPtr;
   return pDefaultGrdExp;
 }
 

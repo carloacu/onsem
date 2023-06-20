@@ -20,7 +20,7 @@ void add(UniqueSemanticExpression pTriggerSemExp,
          SemanticMemory& pSemanticMemory,
          const linguistics::LinguisticDatabase& pLingDb)
 {
-  conditionsAdder::addConditonsForSomeTimedGrdExp(pTriggerSemExp);
+  conditionsAdder::addConditonsForSomeTimedGrdExp(pTriggerSemExp, "", false);
   memoryOperation::resolveAgentAccordingToTheContext(pTriggerSemExp, pSemanticMemory, pLingDb);
   converter::addBothDirectionForms(pTriggerSemExp, pLingDb);
 

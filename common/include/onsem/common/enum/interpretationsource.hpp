@@ -17,6 +17,7 @@ namespace onsem
   ADD_SEMANTIC_INTERPREATIONFROM(RECENTCONTEXT, "recent_context")                \
   ADD_SEMANTIC_INTERPREATIONFROM(STATEMENTCOREFERENCE, "statement_coreference")  \
   ADD_SEMANTIC_INTERPREATIONFROM(TEACHING_FOLLOW_UP, "teaching_follow_up")       \
+  ADD_SEMANTIC_INTERPREATIONFROM(CONDITION, "condition")                         \
   ADD_SEMANTIC_INTERPREATIONFROM(ANDTHEN, "and_then")
 
 

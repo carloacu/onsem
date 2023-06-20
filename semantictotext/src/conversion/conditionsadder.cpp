@@ -14,7 +14,8 @@ namespace conditionsAdder
 
 
 void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
-                                    const std::string& pUserId)
+                                    const std::string& pUserId,
+                                    bool pAddInterpretations)
 {
   switch (pSemExp->type)
   {
@@ -42,9 +43,21 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
               SemExpModifier::removeChildFromSemExp(*timeSemExp, GrammaticalType::INTRODUCTING_WORD);
               splitter::splitInVerySimpleSentences(timeSemExp, false);
               grdExp.children.erase(itTimeChild);
-              pSemExp = std::make_unique<ConditionExpression>
-                  (timeGrdType == SemanticGroundingType::STATEMENT, false,
-                   std::move(timeSemExp), std::move(pSemExp));
+              if (pAddInterpretations)
+              {
+                auto condSemExp = std::make_unique<ConditionExpression>
+                    (timeGrdType == SemanticGroundingType::STATEMENT, false,
+                     std::move(timeSemExp), pSemExp->clone());
+                pSemExp = std::make_unique<InterpretationExpression>
+                    (InterpretationSource::CONDITION, std::move(condSemExp),
+                     std::move(pSemExp));
+              }
+              else
+              {
+                pSemExp = std::make_unique<ConditionExpression>
+                    (timeGrdType == SemanticGroundingType::STATEMENT, false,
+                     std::move(timeSemExp), std::move(pSemExp));
+              }
               break;
             }
 
@@ -57,8 +70,22 @@ void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
                 SemExpModifier::removeChildFromSemExp(*durationSemExp, GrammaticalType::INTRODUCTING_WORD);
                 splitter::splitInVerySimpleSentences(durationSemExp, false);
                 grdExp.children.erase(itTimeChild);
-                pSemExp = std::make_unique<ConditionExpression>(false, false,
-                                                                  std::move(durationSemExp), std::move(pSemExp));
+
+                if (pAddInterpretations)
+                {
+                  auto condSemExp = std::make_unique<ConditionExpression>(
+                        false, false,
+                        std::move(durationSemExp), pSemExp->clone());
+                  pSemExp = std::make_unique<InterpretationExpression>
+                      (InterpretationSource::CONDITION, std::move(condSemExp),
+                       std::move(pSemExp));
+                }
+                else
+                {
+                  pSemExp = std::make_unique<ConditionExpression>(
+                        false, false,
+                        std::move(durationSemExp), std::move(pSemExp));
+                }
                 break;
               }
             }

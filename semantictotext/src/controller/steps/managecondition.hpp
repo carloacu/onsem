@@ -8,11 +8,13 @@ namespace onsem
 struct SemControllerWorkingStruct;
 struct SemanticMemoryBlockViewer;
 struct ConditionExpression;
+struct GroundedExpression;
 
 
 void manageCondition(SemControllerWorkingStruct& pWorkStruct,
                      SemanticMemoryBlockViewer& pMemViewer,
-                     const ConditionExpression& pCondExp);
+                     const ConditionExpression& pCondExp,
+                     const GroundedExpression* pOriginalGrdExpPtr);
 
 
 
