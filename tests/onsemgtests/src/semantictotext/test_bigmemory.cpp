@@ -88,6 +88,7 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
     }
     if (currentLabel == "inform" || currentLabel == "message")
       _inform(currentText, pMemory, pLingDb, {currentId});
+    currentLabel = "";
   };
 
   std::string line;
@@ -130,6 +131,8 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
       }
       else if (label == "checkTrigger")
       {
+        fillCurrentInfos();
+
         currentText = lineSplitted[3];
 
         auto answer = triggers_match(currentText, pMemory, pLingDb, pLanguage, &pReactionOptions);
