@@ -194,11 +194,16 @@ PartOfSpeech LinguisticsynthesizergroundingFrench::writeRelativePerson
       }
       return PartOfSpeech::PRONOUN;
     }
-    else if (pRequests.has(SemanticRequestType::ACTION))
+    else if ((pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTAFTERVERB ||
+              pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_INDIRECTOBJECTAFTERVERB)&&
+             pRequests.has(SemanticRequestType::ACTION))
     {
       if (pAgentType == SemanticEntityType::HUMAN)
         pOut.emplace_back(WordToSynthesize(SemanticWord(_language, "lui", PartOfSpeech::PRONOUN),
                                            InflectionToSynthesize("-lui", false, true, alwaysTrue)));
+      else if (pContext.wordContext.gender == SemanticGenderType::FEMININE)
+        pOut.emplace_back(WordToSynthesize(SemanticWord(_language, "la", PartOfSpeech::PRONOUN),
+                                           InflectionToSynthesize("-la", false, true, alwaysTrue)));
       else
         pOut.emplace_back(WordToSynthesize(SemanticWord(_language, "le", PartOfSpeech::PRONOUN),
                                            InflectionToSynthesize("-le", false, true, alwaysTrue)));
