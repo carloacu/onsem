@@ -1605,7 +1605,11 @@ void SyntacticGraphToSemantic::xAddModifiersOfATokenAfterVerb
   if (firstTokIGram.word.partOfSpeech == PartOfSpeech::ADVERB ||
       firstTokIGram.word.partOfSpeech == PartOfSpeech::ADJECTIVE)
   {
-    if (!firstTokIGram.infos.hasContextualInfo(WordContextualInfos::NEGATION))
+    if (!firstTokIGram.infos.hasContextualInfo(WordContextualInfos::NEGATION) &&
+        !(fLingDico.getLanguage() == SemanticLanguageEnum::FRENCH &&
+          pContext.holdingVerbChunkPtr != nullptr &&
+          !pContext.holdingVerbChunkPtr->positive &&
+          firstTokIGram.word.lemma == "plus"))
     {
       auto genGrounding = std::make_unique<SemanticGenericGrounding>();
       SemExpModifier::fillSemanticConcepts(genGrounding->concepts, firstTokIGram.infos.concepts);

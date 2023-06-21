@@ -22,12 +22,13 @@ namespace
 const std::vector<std::string> _rootVerbsForSubjonctiveInSubordinate{"verb_like", "verb_want", "verb_doubt", "verb_require"};
 
 bool _doWeNeedToPutObjectGenGrdBeforeVerb(const SemanticGenericGrounding& pGenGrd,
-                                          const SemanticRequests& pRequests)
+                                          const SemanticRequests& pRequests,
+                                          bool pVerbPolarity)
 {
   return pGenGrd.coreference && pGenGrd.word.lemma.empty() &&
       pGenGrd.quantity.type != SemanticQuantityType::MAXNUMBER &&
       pGenGrd.quantity.type != SemanticQuantityType::EVERYTHING &&
-      !pRequests.has(SemanticRequestType::ACTION);
+      !(pVerbPolarity && pRequests.has(SemanticRequestType::ACTION));
 }
 
 }
@@ -285,7 +286,7 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerFrench::_getOb
         if (pGenGrd.referenceType != SemanticReferenceType::DEFINITE)
           return LinguisticSynthesizerPrivate::ObjectPosition::BEFORESUBJECT;
       }
-      if (_doWeNeedToPutObjectGenGrdBeforeVerb(pGenGrd, pRequests))
+      if (_doWeNeedToPutObjectGenGrdBeforeVerb(pGenGrd, pRequests, pStatementGrd.polarity))
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
       if (pSentWorkStruct.objectIsAnNoElement && pVerbTense == LinguisticVerbTense::INFINITIVE)
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
@@ -344,7 +345,7 @@ LinguisticSynthesizerPrivate::ObjectPosition LinguisticSynthesizerFrench::_getOb
     {
       const SemanticAgentGrounding& agentGrd = objectGrd.getAgentGrounding();
       if (_syntGrounding.agentTypeToRelativePerson(agentGrd, pConf, true) != RelativePerson::THIRD_SING &&
-          !pRequests.has(SemanticRequestType::ACTION) &&
+          !(pStatementGrd.polarity && pRequests.has(SemanticRequestType::ACTION)) &&
           pStatementGrd.concepts.count("verb_equal_be") == 0)
         return LinguisticSynthesizerPrivate::ObjectPosition::BEFOREVERB;
       return LinguisticSynthesizerPrivate::ObjectPosition::AFTERVERB;
@@ -377,7 +378,7 @@ LinguisticSynthesizerPrivate::ReceiverPosition LinguisticSynthesizerFrench::_get
     case SemanticGroundingType::GENERIC:
     {
       const SemanticGenericGrounding& genGrd = objectGrd.getGenericGrounding();
-      if (_doWeNeedToPutObjectGenGrdBeforeVerb(genGrd, pRequests))
+      if (_doWeNeedToPutObjectGenGrdBeforeVerb(genGrd, pRequests, pVerbIsAffirmative))
         return LinguisticSynthesizerPrivate::ReceiverPosition::BEFOREVERB;
       return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB;
     }

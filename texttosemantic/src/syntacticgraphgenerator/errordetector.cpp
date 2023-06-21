@@ -266,36 +266,47 @@ void ErrorDetector::frFixOfVerbalChunks
       }
 
       // add negation if necessary
-      if (currChunk.positive &&
-          currChunk.tokRange.getItBegin()->inflWords.front().infos.hasContextualInfo(WordContextualInfos::NEGATION))
+      if (currChunk.positive)
       {
-        currChunk.positive = false;
+        if (currChunk.tokRange.getItBegin()->inflWords.front().infos.hasContextualInfo(WordContextualInfos::NEGATION))
+        {
+          currChunk.positive = false;
 
-        auto nextTokenIt = getNextToken(currChunk.head, currChunk.tokRange.getItEnd());
-        if (nextTokenIt != currChunk.tokRange.getItEnd() &&
-            nextTokenIt->inflWords.front().word.lemma == "que")
-        {
-          currChunk.positive = true;
-        }
-        else
-        {
-          auto* doChunkLinkPtr = getDOChunkLink(currChunk);
-          if (doChunkLinkPtr != nullptr)
+          auto nextTokenIt = getNextToken(currChunk.head, currChunk.tokRange.getItEnd());
+          if (nextTokenIt != currChunk.tokRange.getItEnd() &&
+              nextTokenIt->inflWords.front().word.lemma == "que")
           {
-            if (!doChunkLinkPtr->tokRange.isEmpty() &&
-                doChunkLinkPtr->tokRange.getItBegin()->inflWords.front().word.lemma == "que")
-              currChunk.positive = true;
-            else if (ConceptSet::haveAnyOfConcepts(doChunkLinkPtr->chunk->tokRange.getItBegin()->inflWords.front().infos.concepts, {"quantity_nothing", "number_0"}))
+            currChunk.positive = true;
+          }
+          else
+          {
+            auto* doChunkLinkPtr = getDOChunkLink(currChunk);
+            if (doChunkLinkPtr != nullptr)
+            {
+              if (!doChunkLinkPtr->tokRange.isEmpty() &&
+                  doChunkLinkPtr->tokRange.getItBegin()->inflWords.front().word.lemma == "que")
+                currChunk.positive = true;
+              else if (ConceptSet::haveAnyOfConcepts(doChunkLinkPtr->chunk->tokRange.getItBegin()->inflWords.front().infos.concepts, {"quantity_nothing", "number_0"}))
+                currChunk.positive = true;
+            }
+          }
+
+          if (!currChunk.positive)
+          {
+            auto* subjectChunkLinkPtr = getSubjectChunk(currChunk);
+            if (subjectChunkLinkPtr != nullptr &&
+                ConceptSet::haveAnyOfConcepts(subjectChunkLinkPtr->tokRange.getItBegin()->inflWords.front().infos.concepts, {"quantity_nothing", "number_0"}))
               currChunk.positive = true;
           }
         }
-
-        if (!currChunk.positive)
+        else if (currChunk.requests.has(SemanticRequestType::ACTION))
         {
-          auto* subjectChunkLinkPtr = getSubjectChunk(currChunk);
-          if (subjectChunkLinkPtr != nullptr &&
-              ConceptSet::haveAnyOfConcepts(subjectChunkLinkPtr->tokRange.getItBegin()->inflWords.front().infos.concepts, {"quantity_nothing", "number_0"}))
-            currChunk.positive = true;
+          for (auto& currChildLink : currChunk.children)
+          {
+            if (currChildLink.chunk->type != ChunkType::VERB_CHUNK &&
+                currChildLink.chunk->tokRange.getItBegin()->inflWords.front().infos.hasContextualInfo(WordContextualInfos::NEGATION))
+              currChunk.positive = false;
+          }
         }
       }
     }

@@ -327,7 +327,7 @@ PartOfSpeech LinguisticsynthesizergroundingFrench::_writeRelativePersonObject
     {
       _strToOut(pOut, PartOfSpeech::PRONOUN, "lui");
     }
-    else if (pRequests.has(SemanticRequestType::ACTION))
+    else if (pContextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTAFTERVERB)
     {
       pOut.emplace_back(WordToSynthesize(SemanticWord(_language, "le", PartOfSpeech::PRONOUN),
                                          InflectionToSynthesize("-le", false, true, alwaysTrue)));
