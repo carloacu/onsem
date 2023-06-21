@@ -8,5 +8,9 @@
  </concept>
  <concept name="engagement_disengage">
   <linkedMeaning lemme="au revoir" relationToConcept="4"/>
+  <linkedMeaning lemme="au plaisir" relationToConcept="3"/>
+  <linkedMeaning lemme="à plus tard" relationToConcept="3"/>
+  <linkedMeaning lemme="à Dieu" relationToConcept="3"/>
+  <linkedMeaning lemme="hasta luego" relationToConcept="3"/>
  </concept>
 </linguisticdatabase>
