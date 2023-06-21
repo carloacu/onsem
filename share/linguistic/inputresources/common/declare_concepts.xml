@@ -325,6 +325,9 @@
 
   <declareconcept name="sequence_relative_next" />
 
+  <declareconcept name="sleep" />
+  <declareconcept name="sleep_nap" />
+
   <declareconcept name="sport" />
 
   <declareconcept name="step" />

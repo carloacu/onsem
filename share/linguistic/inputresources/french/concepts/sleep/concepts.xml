@@ -1,0 +1,8 @@
+<linguisticdatabase>
+ <concept name="sleep">
+  <linkedMeaning lemme="dodo" gram="noun" relationToConcept="3"/>
+ </concept>
+ <concept name="sleep_nap">
+  <linkedMeaning lemme="sieste" gram="noun" relationToConcept="3"/>
+ </concept>
+</linguisticdatabase>

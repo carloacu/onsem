@@ -119,6 +119,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction17 = "J'ai mal à la tête.";
   const std::string trigger18 = "Tourner sur toi même";
   const std::string reaction18 = "J'ai le tourni.";
+  const std::string trigger19 = "Fais une sieste";
+  const std::string reaction19 = "Ok, je dors.";
 
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
@@ -157,6 +159,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger16, reaction16, semMem, lingDb);
   triggers_add(trigger17, reaction17, semMem, lingDb);
   triggers_add(trigger18, reaction18, semMem, lingDb);
+  triggers_add(trigger19, reaction19, semMem, lingDb);
 
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
@@ -206,7 +209,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_NOANSWER(triggers_match("Vais-je bien", semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction18, triggers_match(trigger18, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("toi", semMem, lingDb));
-}
+  ONSEM_BEHAVIOR_EQ(reaction19, triggers_match(trigger19, semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction19, triggers_match("Fais dodo", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction19, triggers_match("Va faire dodo", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction19, triggers_match("Va faire une sieste", semMem, lingDb));}
 
 
 TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
