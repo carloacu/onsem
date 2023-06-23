@@ -389,3 +389,8 @@
 
 #hail Mary,.N:ms
 #hail mary,hail Mary.N:ms
+
+
+#U-turn,.N+XN+z1:s
+#U-turns,U-turn.N+XN+z1:p
+

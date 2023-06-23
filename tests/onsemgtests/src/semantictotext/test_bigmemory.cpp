@@ -135,7 +135,7 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
 
         currentText = lineSplitted[3];
 
-        auto answer = triggers_match(currentText, pMemory, pLingDb, pLanguage, &pReactionOptions);
+        auto answer = triggers_match(currentText, pMemory, pLingDb, pLanguage, &pReactionOptions, pSetUsAsEverybody);
         auto expectedAnswer = "\\resLabel=#fr_FR#" + id + "\\";
 
         if (answer.answer != expectedAnswer)

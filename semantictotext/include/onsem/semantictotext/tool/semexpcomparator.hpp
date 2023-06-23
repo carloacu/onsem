@@ -168,35 +168,7 @@ struct ComparisonErrorReporting
       childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, ComparisonErrors(pChild1Ptr, pChild2Ptr, pErrorCoef));
   }
 
-  bool canBeConsideredHasSimilar() const
-  {
-    for (auto& currGramChild : childrenThatAreNotEqual)
-    {
-      if (currGramChild.first == GrammaticalType::OWNER)
-      {
-        for (auto& currImbrication : currGramChild.second)
-        {
-          if (currImbrication.first != ImbricationType::LESS_DETAILED &&
-              currImbrication.first != ImbricationType::MORE_DETAILED)
-          {
-            return false;
-          }
-        }
-      }
-
-      if (currGramChild.first == GrammaticalType::UNKNOWN)
-      {
-        for (auto& currImbrication : currGramChild.second)
-        {
-          if (currImbrication.second.errorCoef.type == ComparisonTypeOfError::REQUEST)
-          {
-            return false;
-          }
-        }
-      }
-    }
-    return true;
-  }
+  bool canBeConsideredHasSimilar() const;
 
   ComparisonErrorsCoef getErrorCoef()
   {

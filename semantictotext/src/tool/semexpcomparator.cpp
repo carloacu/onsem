@@ -930,7 +930,8 @@ ComparisonErrorsCoef _getErrorCoefFromListExpPtr(
 {
   if (_hasOnlyInformationToFillFromListExpPtr(pListExpPtr, pFollowInterpretations))
     return ComparisonErrorsCoef(1, ComparisonTypeOfError::PARAMETER_DIFF);
-  if (pGrammType == GrammaticalType::SPECIFIER || pGrammType == GrammaticalType::OWNER)
+  if (pGrammType == GrammaticalType::SPECIFIER || pGrammType == GrammaticalType::OWNER  ||
+      pGrammType == GrammaticalType::OTHER_THAN)
     return ComparisonErrorsCoef(5, ComparisonTypeOfError::SPECIFIER);
   return ComparisonErrorsCoef(10, ComparisonTypeOfError::NORMAL);
 }
@@ -948,19 +949,13 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
   for (const auto& currEltList1 : pListExpPtr1.elts)
   {
     bool found = false;
+    mystd::optional<ImbricationType> currentImbricationType;
     ComparisonErrorsCoef smallerSubComparisonErrorsCoef;
     for (const auto& currEltList2 : pListExpPtr2.elts)
     {
-      ComparisonErrorReporting* subComparisonErrorReportingPtr = nullptr;
-      std::unique_ptr<ComparisonErrorReporting> subComparisonErrorReportingUPtr;
-      if (pComparisonErrorsCoefPtr != nullptr)
-      {
-        subComparisonErrorReportingUPtr = std::make_unique<ComparisonErrorReporting>();
-        subComparisonErrorReportingPtr = &*subComparisonErrorReportingUPtr;
-      }
-
+      ComparisonErrorReporting subComparisonErrorReporting;
       auto optRes = _getSemExpsWithoutListImbrications(*currEltList1, *currEltList2, pMemBlock, pLingDb, pExceptionsPtr,
-                                                       subComparisonErrorReportingPtr, pParentGrammaticalType);
+                                                       &subComparisonErrorReporting, pParentGrammaticalType);
       if (optRes && *optRes == ImbricationType::EQUALS)
       {
         if (pNumberOfEqualitiesPtr != nullptr)
@@ -969,24 +964,66 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
         break;
       }
 
-      if (subComparisonErrorReportingPtr != nullptr)
-      {
-        auto newCoef = subComparisonErrorReportingPtr->getErrorCoef();
+        auto newCoef = subComparisonErrorReporting.getErrorCoef();
         if (smallerSubComparisonErrorsCoef.type <= ComparisonTypeOfError::PARAMETER_DIFF || newCoef > smallerSubComparisonErrorsCoef)
+        {
           smallerSubComparisonErrorsCoef = newCoef;
-      }
+          if (optRes)
+            currentImbricationType.emplace(*optRes);
+        }
     }
     if (!found)
     {
+      if (currentImbricationType)
+        res = *currentImbricationType;
+      else
+        res = ImbricationType::DIFFERS;
       if (pComparisonErrorsCoefPtr == nullptr)
-        return ImbricationType::DIFFERS;
+        return res;
       pComparisonErrorsCoefPtr->add(smallerSubComparisonErrorsCoef);
-      res = ImbricationType::DIFFERS;
     }
   }
   return res;
 }
 
+}
+
+
+bool ComparisonErrorReporting::canBeConsideredHasSimilar() const
+{
+  for (auto& currGramChild : childrenThatAreNotEqual)
+  {
+    if (currGramChild.first == GrammaticalType::OBJECT)
+      for (auto& currImbrication : currGramChild.second)
+        if (currImbrication.first == ImbricationType::DIFFERS &&
+            currImbrication.second.errorCoef.type != ComparisonTypeOfError::PARAMETER_DIFF &&
+            currImbrication.second.errorCoef.type != ComparisonTypeOfError::SPECIFIER)
+          return false;
+
+    if (currGramChild.first == GrammaticalType::OWNER)
+    {
+      for (auto& currImbrication : currGramChild.second)
+      {
+        if (currImbrication.first != ImbricationType::LESS_DETAILED &&
+            currImbrication.first != ImbricationType::MORE_DETAILED)
+        {
+          return false;
+        }
+      }
+    }
+
+    if (currGramChild.first == GrammaticalType::UNKNOWN)
+    {
+      for (auto& currImbrication : currGramChild.second)
+      {
+        if (currImbrication.second.errorCoef.type == ComparisonTypeOfError::REQUEST)
+        {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
 }
 
 
@@ -1381,106 +1418,109 @@ ImbricationType getGrdExpsImbrications(const GroundedExpression& pGrdExp1,
   mystd::optional<ImbricationType> childImbr;
   std::map<GrammaticalType, ListExpPtr> childrenOnlyIn1;
   std::map<GrammaticalType, ListExpPtr> childrenOnlyIn2;
-  auto itChild1 = pGrdExp1.children.begin();
-  auto itChild2 = pGrdExp2.children.begin();
-  while (itChild1 != pGrdExp1.children.end() &&
-         itChild2 != pGrdExp2.children.end())
+  if (errorCoef.type != ComparisonTypeOfError::PARAMETER_DIFF)
   {
-    if (itChild1->first != itChild2->first)
+    auto itChild1 = pGrdExp1.children.begin();
+    auto itChild2 = pGrdExp2.children.begin();
+    while (itChild1 != pGrdExp1.children.end() &&
+           itChild2 != pGrdExp2.children.end())
     {
-      if (itChild1->first < itChild2->first)
+      if (itChild1->first != itChild2->first)
       {
-        tryToAddSemExp(childrenOnlyIn1, itChild1, true);
-        ++itChild1;
+        if (itChild1->first < itChild2->first)
+        {
+          tryToAddSemExp(childrenOnlyIn1, itChild1, true);
+          ++itChild1;
+        }
+        else
+        {
+          tryToAddSemExp(childrenOnlyIn2, itChild2, false);
+          ++itChild2;
+        }
+        continue;
       }
       else
       {
-        tryToAddSemExp(childrenOnlyIn2, itChild2, false);
-        ++itChild2;
-      }
-      continue;
-    }
-    else
-    {
-      // Ignore certain grammatical types if specified.
-      if (itChild1->first == GrammaticalType::INTRODUCTING_WORD ||
-          itChild1->first == GrammaticalType::SUB_CONCEPT ||
-          (pExceptionsPtr != nullptr && pExceptionsPtr->grammaticalTypes.count(itChild1->first) > 0))
-      {
-        ++itChild1;
-        continue;
-      }
-      const auto& semExp1 = *itChild1->second;
-      const auto& semExp2 = *itChild2->second;
-      auto newChildImbr = getSemExpsImbrications(semExp1, semExp2, pMemBlock, pLingDb, pExceptionsPtr,
-                                                 pComparisonErrorReportingPtr, itChild1->first);
-      childImbr = childImbr ? _mergeChildImbrications(newChildImbr, *childImbr) : newChildImbr;
-    }
-
-    ++itChild1;
-    ++itChild2;
-  }
-
-  auto addRemainingChildren = [&](
-      std::map<GrammaticalType, ListExpPtr>& pRemainingChildren,
-      std::map<GrammaticalType, UniqueSemanticExpression>::const_iterator& pItChild,
-      const std::map<GrammaticalType, UniqueSemanticExpression>& pChildren,
-      bool pFirstOrSecondArg)
-  {
-    while (pItChild != pChildren.end())
-    {
-      tryToAddSemExp(pRemainingChildren, pItChild, pFirstOrSecondArg);
-      ++pItChild;
-    }
-  };
-  addRemainingChildren(childrenOnlyIn1, itChild1, pGrdExp1.children, true);
-  addRemainingChildren(childrenOnlyIn2, itChild2, pGrdExp2.children, false);
-
-  auto _matchReflexiveChildren = [&](std::map<GrammaticalType, ListExpPtr>& pChildrenOnlyInOne,
-                                     const SemanticGrounding& pGrdOther,
-                                     const GroundedExpression& pGrdExpOther,
-                                     bool pNeedToInvertImbricationOrder)
-  {
-    for (auto itChildrenOnlyInOne = pChildrenOnlyInOne.begin(); itChildrenOnlyInOne != pChildrenOnlyInOne.end();)
-    {
-      if ((itChildrenOnlyInOne->first == GrammaticalType::RECEIVER ||
-           itChildrenOnlyInOne->first == GrammaticalType::OBJECT) &&
-          SemExpGetter::isGrdReflexive(pGrdOther))
-      {
-        auto itSubject2 = pGrdExpOther.children.find(GrammaticalType::SUBJECT);
-        if (itSubject2 != pGrdExpOther.children.end())
+        // Ignore certain grammatical types if specified.
+        if (itChild1->first == GrammaticalType::INTRODUCTING_WORD ||
+            itChild1->first == GrammaticalType::SUB_CONCEPT ||
+            (pExceptionsPtr != nullptr && pExceptionsPtr->grammaticalTypes.count(itChild1->first) > 0))
         {
-          if (itChildrenOnlyInOne->second.elts.size() == 1)
+          ++itChild1;
+          continue;
+        }
+        const auto& semExp1 = *itChild1->second;
+        const auto& semExp2 = *itChild2->second;
+        auto newChildImbr = getSemExpsImbrications(semExp1, semExp2, pMemBlock, pLingDb, pExceptionsPtr,
+                                                   pComparisonErrorReportingPtr, itChild1->first);
+        childImbr = childImbr ? _mergeChildImbrications(newChildImbr, *childImbr) : newChildImbr;
+      }
+
+      ++itChild1;
+      ++itChild2;
+    }
+
+    auto addRemainingChildren = [&](
+        std::map<GrammaticalType, ListExpPtr>& pRemainingChildren,
+        std::map<GrammaticalType, UniqueSemanticExpression>::const_iterator& pItChild,
+        const std::map<GrammaticalType, UniqueSemanticExpression>& pChildren,
+        bool pFirstOrSecondArg)
+    {
+      while (pItChild != pChildren.end())
+      {
+        tryToAddSemExp(pRemainingChildren, pItChild, pFirstOrSecondArg);
+        ++pItChild;
+      }
+    };
+    addRemainingChildren(childrenOnlyIn1, itChild1, pGrdExp1.children, true);
+    addRemainingChildren(childrenOnlyIn2, itChild2, pGrdExp2.children, false);
+
+    auto _matchReflexiveChildren = [&](std::map<GrammaticalType, ListExpPtr>& pChildrenOnlyInOne,
+        const SemanticGrounding& pGrdOther,
+        const GroundedExpression& pGrdExpOther,
+        bool pNeedToInvertImbricationOrder)
+    {
+      for (auto itChildrenOnlyInOne = pChildrenOnlyInOne.begin(); itChildrenOnlyInOne != pChildrenOnlyInOne.end();)
+      {
+        if ((itChildrenOnlyInOne->first == GrammaticalType::RECEIVER ||
+             itChildrenOnlyInOne->first == GrammaticalType::OBJECT) &&
+            SemExpGetter::isGrdReflexive(pGrdOther))
+        {
+          auto itSubject2 = pGrdExpOther.children.find(GrammaticalType::SUBJECT);
+          if (itSubject2 != pGrdExpOther.children.end())
           {
-            auto newChildImbr = getSemExpsImbrications(*itChildrenOnlyInOne->second.elts.front(), *itSubject2->second,
-                                                       pMemBlock, pLingDb, pExceptionsPtr,
-                                                       pComparisonErrorReportingPtr, itChildrenOnlyInOne->first);
-            if (pNeedToInvertImbricationOrder)
-              newChildImbr = switchOrderOfEltsImbrication(newChildImbr);
-            childImbr = childImbr ? _mergeChildImbrications(newChildImbr, *childImbr) : newChildImbr;
-            itChildrenOnlyInOne = pChildrenOnlyInOne.erase(itChildrenOnlyInOne);
-            continue;
+            if (itChildrenOnlyInOne->second.elts.size() == 1)
+            {
+              auto newChildImbr = getSemExpsImbrications(*itChildrenOnlyInOne->second.elts.front(), *itSubject2->second,
+                                                         pMemBlock, pLingDb, pExceptionsPtr,
+                                                         pComparisonErrorReportingPtr, itChildrenOnlyInOne->first);
+              if (pNeedToInvertImbricationOrder)
+                newChildImbr = switchOrderOfEltsImbrication(newChildImbr);
+              childImbr = childImbr ? _mergeChildImbrications(newChildImbr, *childImbr) : newChildImbr;
+              itChildrenOnlyInOne = pChildrenOnlyInOne.erase(itChildrenOnlyInOne);
+              continue;
+            }
           }
         }
+        ++itChildrenOnlyInOne;
       }
-      ++itChildrenOnlyInOne;
+    };
+    _matchReflexiveChildren(childrenOnlyIn1, grd2, pGrdExp2, false);
+    _matchReflexiveChildren(childrenOnlyIn2, grd1, pGrdExp1, true);
+
+    if (pComparisonErrorReportingPtr != nullptr)
+    {
+      for (auto& currChild : childrenOnlyIn1)
+        pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::MORE_DETAILED, currChild.second, ListExpPtr(),
+                                               _getErrorCoefFromListExpPtr(currChild.first, currChild.second, followInterpretations));
+      for (auto& currChild : childrenOnlyIn2)
+        pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::LESS_DETAILED, ListExpPtr(), currChild.second,
+                                               _getErrorCoefFromListExpPtr(currChild.first, currChild.second, followInterpretations));
     }
-  };
-  _matchReflexiveChildren(childrenOnlyIn1, grd2, pGrdExp2, false);
-  _matchReflexiveChildren(childrenOnlyIn2, grd1, pGrdExp1, true);
 
-  if (pComparisonErrorReportingPtr != nullptr)
-  {
-    for (auto& currChild : childrenOnlyIn1)
-      pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::MORE_DETAILED, currChild.second, ListExpPtr(),
-                                             _getErrorCoefFromListExpPtr(currChild.first, currChild.second, followInterpretations));
-    for (auto& currChild : childrenOnlyIn2)
-      pComparisonErrorReportingPtr->addError(currChild.first, ImbricationType::LESS_DETAILED, ListExpPtr(), currChild.second,
-                                             _getErrorCoefFromListExpPtr(currChild.first, currChild.second, followInterpretations));
+    if (!childrenOnlyIn1.empty() && !childrenOnlyIn2.empty())
+      return ImbricationType::DIFFERS;
   }
-
-  if (!childrenOnlyIn1.empty() && !childrenOnlyIn2.empty())
-    return ImbricationType::DIFFERS;
 
   if (childImbr && *childImbr == ImbricationType::DIFFERS)
     return *childImbr;

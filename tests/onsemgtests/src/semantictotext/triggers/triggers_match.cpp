@@ -40,13 +40,16 @@ DetailedReactionAnswer triggers_match(const std::string& pText,
     SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pTextLanguage,
-    const ReactionOptions* pReactionOptions)
+    const ReactionOptions* pReactionOptions,
+    bool pSetUsAsEverybody)
 {
   SemanticLanguageEnum textLanguage = pTextLanguage == SemanticLanguageEnum::UNKNOWN ?
       linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
   TextProcessingContext inContext(SemanticAgentGrounding::currentUser,
                                   SemanticAgentGrounding::me,
                                   textLanguage);
+  if (pSetUsAsEverybody)
+    inContext.setUsAsEverybody();
   auto semExp =
       converter::textToContextualSemExp(pText, inContext,
                                         SemanticSourceEnum::UNKNOWN, pLingDb);
@@ -371,6 +374,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithManyParameters("Fais une pirouette", turnParameters, semMem, lingDb, language);
   triggers_addAnswerWithManyParameters("Tourne sur toi même", turnParameters, semMem, lingDb, language);
   triggers_addAnswerWithManyParameters("Fais un tour sur toi même", turnParameters, semMem, lingDb, language);
+  triggers_addAnswerWithManyParameters("un tour sur toi même", turnParameters, semMem, lingDb, language);
   triggers_addAnswerWithManyParameters("Fais un 360", turnParameters, semMem, lingDb, language);
 
   const std::vector<std::string> howLongInMinutesQuestion = {"pendant combien de minutes"};
@@ -393,6 +397,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("C'est quoi ton nom ?", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Sais-tu faire le café ?", {}, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Peux-tu donner l'heure", {}, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("une balade", {}, semMem, lingDb, language);
 
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=3 mètres)\\", triggers_match("Avance 3 mètres", semMem, lingDb));
@@ -525,6 +530,9 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_NOANSWER(triggers_match("Quel est mon nom ?", semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Ne me dis rien", semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Pouvez-vous vous présenter ?", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#fr_FR#une balade\\",  triggers_match("En avant pour la balade", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("Baisse ta lampe.", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("tu peux   nous donner   l'heure", semMem, lingDb));
 }
 
 
