@@ -522,6 +522,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_ANSWER_EQ("\\label=#fr_FR#Qui es tu ?\\", triggers_match("Pourriez-vous me dire qui vous êtes ?", semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Que ne sais-tu pas faire ?", semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Quel est mon nom ?", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("Ne me dis rien", semMem, lingDb));
 }
 
 

@@ -50,6 +50,7 @@ protected:
         reference(),
         word(),
         removeWord(),
+        polarity(),
         timeType(),
         hasToBeCompletedFromContext(),
         children(),
@@ -73,6 +74,7 @@ protected:
     mystd::optional<SemanticReferenceType> reference;
     mystd::optional<SemanticWord> word;
     mystd::optional<bool> removeWord;
+    mystd::optional<bool> polarity;
     mystd::optional<SemanticRelativeTimeType> timeType;
     mystd::optional<bool> hasToBeCompletedFromContext;
     std::map<GrammaticalType, SemExpTreePatternNode> children;

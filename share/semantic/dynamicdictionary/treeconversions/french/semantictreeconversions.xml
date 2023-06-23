@@ -80,4 +80,18 @@
   </conversion>
 
 
+  <conversion>
+    <tree inText="true">
+      <root id="1" grounding="statement" polarity="false">
+        <object id="2" grounding="generic" nb="0" />
+      </root>
+    </tree>
+    <tree mind="true">
+      <root id="1" grounding="statement" polarity="true">
+        <object id="2" grounding="generic" nb="0" />
+      </root>
+    </tree>
+  </conversion>
+
+
 </semantictreeconversions>

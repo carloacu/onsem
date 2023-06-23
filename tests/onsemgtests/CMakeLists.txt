@@ -72,7 +72,7 @@ set(ONSEMGTESTS_SRCS
   src/semantictotext/test_outputter.cpp
   src/semantictotext/test_imbrication.cpp
   src/semantictotext/test_intents.cpp
-  src/semantictotext/test_invertpolarity.cpp
+  src/semantictotext/test_polarity.cpp
   src/semantictotext/test_reactionoptions.cpp
   src/semantictotext/test_reactOnRoboticSentences.cpp
   src/semantictotext/test_recommendations.cpp

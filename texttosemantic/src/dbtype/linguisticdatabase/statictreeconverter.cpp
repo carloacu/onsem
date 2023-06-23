@@ -554,6 +554,15 @@ void StaticTreeConverter::_printAPatternNode
       pSs << "false";
     pSs << ")";
   }
+  if (pRootPattern.polarity)
+  {
+    pSs << " polarity(";
+    if (*pRootPattern.polarity)
+      pSs << "true";
+    else
+      pSs << "false";
+    pSs << ")";
+  }
   if (pRootPattern.timeType)
   {
     pSs << " timeType(" << semanticRelativeTimeType_toStr(*pRootPattern.timeType) << ")";
@@ -692,6 +701,8 @@ void StaticTreeConverter::_applyModifsOnGrdExp
             statGrd.word = *pRootPattern.word;
           if (pRootPattern.removeWord == true)
             statGrd.word.clear();
+          if (pRootPattern.polarity)
+            statGrd.polarity = *pRootPattern.polarity;
         }
         break;
       }
@@ -950,14 +961,13 @@ bool StaticTreeConverter::_doesASemExpMatchAPatternTree
 
               if (res && pCurrNode.time.has_value() &&
                   statGrd->verbTense != *pCurrNode.time)
-              {
                 res = false;
-              }
 
               if (res && pCurrNode.word && statGrd->word != pCurrNode.word)
-              {
                 res = false;
-              }
+
+              if (res && pCurrNode.polarity && statGrd->polarity != *pCurrNode.polarity)
+                res = false;
             }
             else
             {

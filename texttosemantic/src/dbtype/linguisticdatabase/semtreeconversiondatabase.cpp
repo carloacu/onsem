@@ -626,6 +626,15 @@ void SemExpTreeConversionDatabase::xFillNode
       }
       pCurrNode.removeWord.emplace(valStr == "true");
     }
+    else if (attrName == "polarity")
+    {
+      if (!pCurrNode.groundingType ||
+          pCurrNode.groundingType != SemanticGroundingType::STATEMENT)
+      {
+        xWriteErrorMsg("\"polarity\" can only be set inside a statement grounding");
+      }
+      pCurrNode.polarity.emplace(valStr == "true");
+    }
     else if (attrName == "timeType")
     {
       if (!pCurrNode.groundingType ||
