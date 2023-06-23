@@ -426,7 +426,7 @@
   <declareconcept name="verb_install" />
   <declareconcept name="verb_like" />
   <declareconcept name="verb_need" />
-  <declareconcept name="verb_offer" />
+  <declareconcept name="verb_offer" autofill="false" />
   <declareconcept name="verb_require" />
   <declareconcept name="verb_return" autofill="false" />
   <declareconcept name="verb_should" autofill="false" />

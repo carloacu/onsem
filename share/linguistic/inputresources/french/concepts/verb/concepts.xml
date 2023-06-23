@@ -52,7 +52,8 @@
   <linkedMeaning lemme="apprécier" gram="verb" relationToConcept="4"/>
  </concept>
  <concept name="verb_offer">
-  <linkedMeaning lemme="donner" relationToConcept="4"/>
+  <linkedMeaning lemme="offrir" relationToConcept="4"/>
+  <linkedMeaning lemme="donner" relationToConcept="3"/>
  </concept>
  <concept name="verb_require">
   <linkedMeaning lemme="exiger" gram="verb" relationToConcept="4"/>
