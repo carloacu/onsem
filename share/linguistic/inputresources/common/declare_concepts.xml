@@ -35,7 +35,6 @@
   <declareconcept name="reading" />
   <declareconcept name="reflexive" autofill="false" />
   <declareconcept name="resource" />
-  <declareconcept name="smallAmount" />
   <declareconcept name="soFar" />
   <declareconcept name="sorry" />
   <declareconcept name="surprise.i" />
@@ -144,6 +143,8 @@
   <declareconcept name="concrete_food_vegetable_squash" />
 
   <declareconcept name="degree" />
+  <declareconcept name="degree_much" />
+  <declareconcept name="degree_notMuch" />
 
   <declareconcept name="duration_day" />
   <declareconcept name="duration_hour" />

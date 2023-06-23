@@ -110,9 +110,6 @@
  <concept name="reflexive">
   <linkedMeaning lemme="lui-même" gram="pronoun" relationToConcept="4"/>
  </concept>
- <concept name="smallAmount">
-  <linkedMeaning lemme="peu" gram="adverb" relationToConcept="4"/>
- </concept>
  <concept name="soFar">
   <linkedMeaning lemme="pour autant" gram="interjection" relationToConcept="4"/>
  </concept>

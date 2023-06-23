@@ -24,7 +24,7 @@ namespace onsem
 namespace linguistics
 {
 static const std::vector<std::string> adjAdvShouldNotBeReplacedByAConcept =
-{"health_", "manner_", "meaning_", "sentiment_"};
+{"degree_", "health_", "manner_", "meaning_", "sentiment_"};
 
 
 namespace

@@ -115,10 +115,6 @@
   <linkedMeaning lemme="ourself" gram="pronoun" relationToConcept="4"/>
   <linkedMeaning lemme="themselves" gram="pronoun" relationToConcept="4"/>
  </concept>
- <concept name="smallAmount">
-  <linkedMeaning lemme="bit" gram="noun" relationToConcept="4"/>
-  <linkedMeaning lemme="little" gram="noun" relationToConcept="3"/>
- </concept>
  <concept name="soFar">
   <linkedMeaning lemme="so far" gram="interjection" relationToConcept="4"/>
  </concept>
