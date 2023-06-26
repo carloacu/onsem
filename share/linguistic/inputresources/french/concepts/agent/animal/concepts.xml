@@ -1,5 +1,6 @@
 <linguisticdatabase>
  <concept name="agent_animal_*">
+  <linkedMeaning lemme="dodo" relationToConcept="0"/>
   <linkedMeaning lemme="stylo" relationToConcept="0"/>
  </concept>
 </linguisticdatabase>

@@ -575,6 +575,7 @@ bool _evaluateMatchingAndExtractParameters(
 void _orderResultBySimilarity(
     std::list<GroundedExpWithLinksWithParameters>& pEqualsGroundedExpWithLinksPtrs,
     std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>>& pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
+    std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>>* pIncompleteLinksPtrs,
     SemControllerWorkingStruct& pWorkStruct,
     SemanticMemoryBlockViewer& pMemViewer,
     const std::map<intSemId, const GroundedExpWithLinks*>& pDynamicLinks,
@@ -593,9 +594,14 @@ void _orderResultBySimilarity(
     }
     else if (imbrication != ImbricationType::OPPOSES && pEqualsGroundedExpWithLinksPtrs.empty())
     {
-      if (SemExpComparator::haveSamePolarity(pInputGrdExp, memSent.grdExp, pWorkStruct.lingDb.conceptSet, true) &&
-          comparisonErrorReporting.canBeConsideredHasSimilar())
-        pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].emplace_back(memSent);
+      if (SemExpComparator::haveSamePolarity(pInputGrdExp, memSent.grdExp, pWorkStruct.lingDb.conceptSet, true))
+      {
+        auto similarityValue = comparisonErrorReporting.canBeConsideredHasSimilar();
+        if (similarityValue == SemExpComparator::ComparisonErrorReporting::SmimilarityValue::YES)
+          pNbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].emplace_back(memSent);
+        else if (pIncompleteLinksPtrs != nullptr && similarityValue == SemExpComparator::ComparisonErrorReporting::SmimilarityValue::YES_BUT_INCOMPLETE)
+          (*pIncompleteLinksPtrs)[comparisonErrorReporting.getErrorCoef()][comparisonErrorReporting.numberOfEqualities].emplace_back(memSent);
+      }
     }
   }
 
@@ -646,7 +652,7 @@ void _matchAnyTrigger
 
   std::list<GroundedExpWithLinksWithParameters> equalsGroundedExpWithLinksPtrs;
   std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>> nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs;
-  _orderResultBySimilarity(equalsGroundedExpWithLinksPtrs, nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
+  _orderResultBySimilarity(equalsGroundedExpWithLinksPtrs, nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs, nullptr,
                            pWorkStruct, pMemViewer, idsToSentences.res.dynamicLinks, pInputGrdExp);
 
   if (!equalsGroundedExpWithLinksPtrs.empty())
@@ -818,7 +824,8 @@ bool _handleActionRelations(SentenceLinks<false>& pIdsToSentences,
 
   std::list<GroundedExpWithLinksWithParameters> equalsGroundedExpWithLinksPtrs;
   std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>> nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs;
-  _orderResultBySimilarity(equalsGroundedExpWithLinksPtrs, nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs,
+  std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>> incompleteLinksPtrs;
+  _orderResultBySimilarity(equalsGroundedExpWithLinksPtrs, nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs, &incompleteLinksPtrs,
                            pWorkStruct, pMemViewer, pIdsToSentences.dynamicLinks, pGrdExp);
 
   for (auto itRel = equalsGroundedExpWithLinksPtrs.rbegin(); itRel != equalsGroundedExpWithLinksPtrs.rend(); ++itRel)
@@ -829,19 +836,27 @@ bool _handleActionRelations(SentenceLinks<false>& pIdsToSentences,
       return true;
   }
 
-  for (auto& currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs : nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs)
-  {
-    for (auto itLowPriorityGrdExpWithLinksPtrs = currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.second.rbegin(); itLowPriorityGrdExpWithLinksPtrs != currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.second.rend(); ++itLowPriorityGrdExpWithLinksPtrs)
+  auto considerErrorToSimilarity = [&](std::map<SemExpComparator::ComparisonErrorsCoef, std::map<std::size_t, std::list<GroundedExpWithLinksWithParameters>>>& pErrorCoefToGrdExpWithLinks) {
+    for (auto& currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs : pErrorCoefToGrdExpWithLinks)
     {
-      for (auto itRel = itLowPriorityGrdExpWithLinksPtrs->second.rbegin(); itRel != itLowPriorityGrdExpWithLinksPtrs->second.rend(); ++itRel)
+      for (auto itLowPriorityGrdExpWithLinksPtrs = currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.second.rbegin(); itLowPriorityGrdExpWithLinksPtrs != currNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs.second.rend(); ++itLowPriorityGrdExpWithLinksPtrs)
       {
-        auto& currRel = *itRel;
-        if (unknownInfosGetter::splitCompeleteIncompleteOfActions(pWorkStruct, pMemViewer, incompleteRelations,
-                                                                  currRel, pGrdExp))
-          return true;
+        for (auto itRel = itLowPriorityGrdExpWithLinksPtrs->second.rbegin(); itRel != itLowPriorityGrdExpWithLinksPtrs->second.rend(); ++itRel)
+        {
+          auto& currRel = *itRel;
+          if (unknownInfosGetter::splitCompeleteIncompleteOfActions(pWorkStruct, pMemViewer, incompleteRelations,
+                                                                    currRel, pGrdExp))
+            return true;
+        }
       }
     }
-  }
+    return false;
+  };
+
+  if (considerErrorToSimilarity(nbOfErrorsToNbOfEqualitiesToLowPriorityGrdExpWithLinksPtrs))
+    return true;
+  if (considerErrorToSimilarity(incompleteLinksPtrs))
+    return true;
 
   SemanticRequestType askForThisRequestType = SemanticRequestType::NOTHING;
   if (!incompleteRelations.empty() &&

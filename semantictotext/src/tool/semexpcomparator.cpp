@@ -989,16 +989,26 @@ ImbricationType _getListExpsImbrications(const ListExpPtr& pListExpPtr1,
 }
 
 
-bool ComparisonErrorReporting::canBeConsideredHasSimilar() const
+ComparisonErrorReporting::SmimilarityValue ComparisonErrorReporting::canBeConsideredHasSimilar() const
 {
   for (auto& currGramChild : childrenThatAreNotEqual)
   {
     if (currGramChild.first == GrammaticalType::OBJECT)
+    {
       for (auto& currImbrication : currGramChild.second)
+      {
+        if (currImbrication.second.errorCoef.type == ComparisonTypeOfError::PARAMETER_DIFF)
+          continue;
+
         if (currImbrication.first == ImbricationType::DIFFERS &&
-            currImbrication.second.errorCoef.type != ComparisonTypeOfError::PARAMETER_DIFF &&
             currImbrication.second.errorCoef.type != ComparisonTypeOfError::SPECIFIER)
-          return false;
+          return ComparisonErrorReporting::SmimilarityValue::NO;
+
+        if (currImbrication.first == ImbricationType::LESS_DETAILED &&
+            currImbrication.second.child1Ptr.elts.empty())
+          return ComparisonErrorReporting::SmimilarityValue::YES_BUT_INCOMPLETE;
+      }
+    }
 
     if (currGramChild.first == GrammaticalType::OWNER)
     {
@@ -1007,7 +1017,7 @@ bool ComparisonErrorReporting::canBeConsideredHasSimilar() const
         if (currImbrication.first != ImbricationType::LESS_DETAILED &&
             currImbrication.first != ImbricationType::MORE_DETAILED)
         {
-          return false;
+          return ComparisonErrorReporting::SmimilarityValue::NO;
         }
       }
     }
@@ -1018,12 +1028,12 @@ bool ComparisonErrorReporting::canBeConsideredHasSimilar() const
       {
         if (currImbrication.second.errorCoef.type == ComparisonTypeOfError::REQUEST)
         {
-          return false;
+          return ComparisonErrorReporting::SmimilarityValue::NO;
         }
       }
     }
   }
-  return true;
+  return ComparisonErrorReporting::SmimilarityValue::YES;
 }
 
 

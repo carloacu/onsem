@@ -533,6 +533,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_ANSWER_EQ("\\label=#fr_FR#une balade\\",  triggers_match("En avant pour la balade", semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Baisse ta lampe.", semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("tu peux   nous donner   l'heure", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("mets", semMem, lingDb));
 }
 
 

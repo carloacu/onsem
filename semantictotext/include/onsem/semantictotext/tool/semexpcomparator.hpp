@@ -168,7 +168,14 @@ struct ComparisonErrorReporting
       childrenThatAreNotEqual[pGrammType].emplace(pImpbricationType, ComparisonErrors(pChild1Ptr, pChild2Ptr, pErrorCoef));
   }
 
-  bool canBeConsideredHasSimilar() const;
+  enum class SmimilarityValue
+  {
+    YES,
+    YES_BUT_INCOMPLETE,
+    NO
+  };
+
+  SmimilarityValue canBeConsideredHasSimilar() const;
 
   ComparisonErrorsCoef getErrorCoef()
   {
