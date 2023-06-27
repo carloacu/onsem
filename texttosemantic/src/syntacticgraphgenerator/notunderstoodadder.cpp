@@ -126,10 +126,11 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
             break;
         }
         isNotUnderstood = true;
-        if (isFirstChunk)
+        if (isFirstChunk && currChunk.requests.empty())
         {
-          bool subjectCanBeInAPreviousText = currChunk.requests.empty() &&
-              !pInlfChecker.verbIsOnlyAtPresentOrPastParticiple(currChunk.head->inflWords.front());
+          bool subjectCanBeInAPreviousText = pLingDico.getLanguage() == SemanticLanguageEnum::FRENCH ?
+                !pInlfChecker.verbIsOnlyAtPresentOrPastParticiple(currChunk.head->inflWords.front()) :
+                !pInlfChecker.verbIsOnlyAtPastParticiple(currChunk.head->inflWords.front());
           if (subjectCanBeInAPreviousText)
             isNotUnderstood = false;
         }

@@ -825,13 +825,23 @@ bool ErrorDetector::xTryToCorrectVerbsWithoutSubject
       }
     }
 
-    // if it's the first token maybe the subject was in a previous text
-    bool canHaveASubjectBefore =
-        pFirstChunk && !haveAChildBefore(verbChunk) &&
-        !fConfiguration.getFlsChecker().verbIsOnlyAtPresentOrPastParticiple(verbChunk.head->inflWords.front());
-    if (linguistics::hasAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::CONJUNCTIVE) ||
-        !canHaveASubjectBefore)
+    if (linguistics::hasAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::CONJUNCTIVE))
       return delAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::VERB);
+
+    // if it's the first token maybe the subject was in a previous text
+    if (!pFirstChunk || haveAChildBefore(verbChunk))
+      return delAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::VERB);
+
+    if (language == SemanticLanguageEnum::FRENCH)
+    {
+      if (fConfiguration.getFlsChecker().verbIsOnlyAtPresentOrPastParticiple(verbChunk.head->inflWords.front()))
+        return delAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::VERB);
+    }
+    else
+    {
+      if (fConfiguration.getFlsChecker().verbIsOnlyAtPastParticiple(verbChunk.head->inflWords.front()))
+        return delAPartOfSpeech(verbChunk.head->inflWords, PartOfSpeech::VERB);
+    }
   }
   return false;
 }

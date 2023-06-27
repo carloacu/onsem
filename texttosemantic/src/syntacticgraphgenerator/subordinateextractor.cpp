@@ -549,50 +549,59 @@ void SubordinateExtractor::xLinkSubordinatesThatBeginWithAPreposition
 void SubordinateExtractor::xLinkSubjectInfinitiveVerbs
 (std::list<ChunkLink>& pChunkLinks) const
 {
+  const auto& flsCheker = fConf.getFlsChecker();
+  bool previousChunkWasPrepositinal = false;
   auto language = fConf.getLanguageType();
   for (auto it = pChunkLinks.begin(); it != pChunkLinks.end(); )
   {
-    if (hasAChunkTypeOrAListOfChunkTypes(*it->chunk, ChunkType::INFINITVE_VERB_CHUNK))
+    if (!previousChunkWasPrepositinal)
     {
-      auto itNext = it;
-      ++itNext;
-      if (itNext == pChunkLinks.end())
-        break;
-      Chunk& nextChunk = *itNext->chunk;
-      if (nextChunk.type == ChunkType::VERB_CHUNK)
+      bool isAtInfinitive = hasAChunkTypeOrAListOfChunkTypes(*it->chunk, ChunkType::INFINITVE_VERB_CHUNK);
+      if (!isAtInfinitive && fLingDico.getLanguage() == SemanticLanguageEnum::ENGLISH &&
+          hasAChunkTypeOrAListOfChunkTypes(*it->chunk, ChunkType::VERB_CHUNK) &&
+          flsCheker.verbIsAtPresentParticiple(it->chunk->head->inflWords.front()))
+        isAtInfinitive = true;
+      if (isAtInfinitive)
       {
-        if (!haveASubject(nextChunk))
+        auto itNext = it;
+        ++itNext;
+        if (itNext == pChunkLinks.end())
+          break;
+        Chunk& nextChunk = *itNext->chunk;
+        if (nextChunk.type == ChunkType::VERB_CHUNK)
         {
-          const auto& flsCheker = fConf.getFlsChecker();
-          const auto& nextChunkInfls = nextChunk.head->inflWords.front();
-          if (ConceptSet::haveAConceptThatBeginWith(nextChunkInfls.infos.concepts, "verb_equal_") &&
-              !flsCheker.verbIsAtPresentParticiple(nextChunkInfls) &&
-              flsCheker.verbIsConjAtPerson(nextChunkInfls, RelativePerson::THIRD_SING))
+          if (!haveASubject(nextChunk))
           {
-            it->type = ChunkLinkType::SUBJECT;
-            auto itToMove = it;
-            ++it;
-            nextChunk.children.splice(nextChunk.children.begin(), pChunkLinks, itToMove);
-            continue;
+            const auto& nextChunkInfls = nextChunk.head->inflWords.front();
+            if (!flsCheker.verbIsOnlyAtPresentOrPastParticiple(nextChunkInfls) &&
+                flsCheker.verbIsConjAtPerson(nextChunkInfls, RelativePerson::THIRD_SING))
+            {
+              it->type = ChunkLinkType::SUBJECT;
+              auto itToMove = it;
+              ++it;
+              nextChunk.children.splice(nextChunk.children.begin(), pChunkLinks, itToMove);
+              continue;
+            }
+          }
+        }
+        else if (language == SemanticLanguageEnum::ENGLISH &&
+                 nextChunk.type == ChunkType::SEPARATOR_CHUNK &&
+                 nextChunk.head->inflWords.front().word.partOfSpeech == PartOfSpeech::LINKBETWEENWORDS)
+        {
+          auto itNextNext = itNext;
+          ++itNextNext;
+          if (itNextNext == pChunkLinks.end())
+            break;
+          Chunk& nextNextChunk = *itNextNext->chunk;
+          if (recInListConst(chunkCanBeAtImperative, nextNextChunk))
+          {
+            itNextNext->type = ChunkLinkType::PURPOSE_OF;
+            it->chunk->children.splice(it->chunk->children.end(), pChunkLinks, itNextNext);
           }
         }
       }
-      else if (language == SemanticLanguageEnum::ENGLISH &&
-               nextChunk.type == ChunkType::SEPARATOR_CHUNK &&
-               nextChunk.head->inflWords.front().word.partOfSpeech == PartOfSpeech::LINKBETWEENWORDS)
-      {
-        auto itNextNext = itNext;
-        ++itNextNext;
-        if (itNextNext == pChunkLinks.end())
-          break;
-        Chunk& nextNextChunk = *itNextNext->chunk;
-        if (recInListConst(chunkCanBeAtImperative, nextNextChunk))
-        {
-          itNextNext->type = ChunkLinkType::PURPOSE_OF;
-          it->chunk->children.splice(it->chunk->children.end(), pChunkLinks, itNextNext);
-        }
-      }
     }
+    previousChunkWasPrepositinal = it->chunk->type == ChunkType::PREPOSITIONAL_CHUNK;
     ++it;
   }
 }
