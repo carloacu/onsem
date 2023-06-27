@@ -616,6 +616,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
 
   triggers_addAnswerWithOneParameter("Do not move", howManyMinutesQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Stop moving", howManyMinutesQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("fine thank you", {}, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\", triggers_match("Move forward 3 meters", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\", triggers_match("move forward 20 cm", semMem, lingDb));
@@ -631,6 +632,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a little\\", triggers_match("Move backward a bit", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a lot\\", triggers_match("Move backward a lot", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn left(param1=32 degrees)\\", triggers_match("Turn left 32 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn right(param1=33 degrees)\\", triggers_match("turn right 33 degrees", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn the head to the right(param1=34 degrees)\\", triggers_match("Turn the head to the right 34 degrees", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn the head to the left(param1=41 degrees)\\", triggers_match("Turn the head to the left 41 degrees", semMem, lingDb));
 
@@ -697,6 +699,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do not move(param1=5 minutes)\\", triggers_match("Do not move 5 minutes", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Stop moving\\", triggers_match("Stop moving", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Stop moving(param1=240 minutes)\\", triggers_match("Stop moving during 4 hours", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("Understanding emotions in robotics", semMem, lingDb));
 }
 
 

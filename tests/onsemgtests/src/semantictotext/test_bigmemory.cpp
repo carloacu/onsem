@@ -91,6 +91,7 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
     currentLabel = "";
   };
 
+  const auto languageStr = semanticLanguageEnum_toStr(pLanguage);
   std::string line;
   while (getline(triggersAndTextsCorpusFile, line))
   {
@@ -136,7 +137,7 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
         currentText = lineSplitted[3];
 
         auto answer = triggers_match(currentText, pMemory, pLingDb, pLanguage, &pReactionOptions, pSetUsAsEverybody);
-        auto expectedAnswer = "\\resLabel=#fr_FR#" + id + "\\";
+        auto expectedAnswer = "\\resLabel=#" + languageStr + "#" + id + "\\";
 
         if (answer.answer != expectedAnswer)
         {
@@ -187,6 +188,21 @@ void _checkDeclaredTriggersMatching(const std::map<std::string, std::string>& pT
       EXPECT_TRUE(false);
     }
   }
+}
+
+void _checkRobotBigMemory(SemanticLanguageEnum pLanguage,
+                          const std::string& pFileName,
+                          const linguistics::LinguisticDatabase& pLingDb)
+{
+  SemanticMemory semMem;
+  ReactionOptions reactionOptionsForTriggerTests;
+
+  std::map<std::string, std::string> triggersToReferenceOfAnswer;
+  _loadBigMemoryFile(triggersToReferenceOfAnswer, pFileName, reactionOptionsForTriggerTests,
+                     pLanguage, semMem, pLingDb, true, true);
+
+  std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
+  _checkDeclaredTriggersMatching(triggersToReferenceOfAnswer, reactionOptionsForTriggerTests, pLanguage, semMem, pLingDb);
 }
 
 }
@@ -320,17 +336,8 @@ TEST_F(SemanticReasonerGTests, test_bigMemoryRobot)
   auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
   linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
   iStreams.close();
-  auto language = SemanticLanguageEnum::FRENCH;
-  SemanticMemory semMem;
 
-  ReactionOptions reactionOptionsForTriggerTests;
-
-  std::map<std::string, std::string> triggersToReferenceOfAnswer;
-  const std::string textFilename = corpusPath + "/triggerAndTexts/robot_triggers.txt";
-  _loadBigMemoryFile(triggersToReferenceOfAnswer, textFilename, reactionOptionsForTriggerTests,
-                     language, semMem, lingDb, true, true);
-
-  std::cout << "nbOfKnowledges: " << semMem.memBloc.nbOfKnowledges() << std::endl;
-  _checkDeclaredTriggersMatching(triggersToReferenceOfAnswer, reactionOptionsForTriggerTests, language, semMem, lingDb);
+  _checkRobotBigMemory(SemanticLanguageEnum::ENGLISH, corpusPath + "/triggerAndTexts/robot_triggers_en.txt", lingDb);
+  _checkRobotBigMemory(SemanticLanguageEnum::FRENCH, corpusPath + "/triggerAndTexts/robot_triggers_fr.txt", lingDb);
 }
 */

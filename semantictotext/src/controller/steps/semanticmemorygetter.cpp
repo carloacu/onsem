@@ -903,6 +903,8 @@ bool _conceptsToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRelation
     {
     case OtherConceptsLinkStrategy::LINK_WITH_CHILDREN_CONCEPTS:
     {
+      if (conceptName == "sentiment")
+        break;
       std::vector<std::string> subConcepts;
       pLingDb.conceptSet.conceptToChildConcepts(subConcepts, conceptName);
       for (const auto& currSubConcept : subConcepts)
