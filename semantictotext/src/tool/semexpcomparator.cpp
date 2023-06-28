@@ -993,13 +993,22 @@ ComparisonErrorReporting::SmimilarityValue ComparisonErrorReporting::canBeConsid
 {
   for (auto& currGramChild : childrenThatAreNotEqual)
   {
-    if (currGramChild.first == GrammaticalType::OBJECT)
+    for (auto& currImbrication : currGramChild.second)
     {
-      for (auto& currImbrication : currGramChild.second)
-      {
-        if (currImbrication.second.errorCoef.type == ComparisonTypeOfError::PARAMETER_DIFF)
-          continue;
+      if (currImbrication.second.errorCoef.type == ComparisonTypeOfError::PARAMETER_DIFF)
+        continue;
 
+      switch (currGramChild.first)
+      {
+      case GrammaticalType::SPECIFIER:
+      {
+        if (currImbrication.first == ImbricationType::DIFFERS &&
+            currImbrication.second.errorCoef.type == ComparisonTypeOfError::NORMAL)
+          return ComparisonErrorReporting::SmimilarityValue::NO;
+        break;
+      }
+      case GrammaticalType::OBJECT:
+      {
         if (currImbrication.first == ImbricationType::DIFFERS &&
             currImbrication.second.errorCoef.type != ComparisonTypeOfError::SPECIFIER)
           return ComparisonErrorReporting::SmimilarityValue::NO;
@@ -1007,29 +1016,23 @@ ComparisonErrorReporting::SmimilarityValue ComparisonErrorReporting::canBeConsid
         if (currImbrication.first == ImbricationType::LESS_DETAILED &&
             currImbrication.second.child1Ptr.elts.empty())
           return ComparisonErrorReporting::SmimilarityValue::YES_BUT_INCOMPLETE;
+        break;
       }
-    }
-
-    if (currGramChild.first == GrammaticalType::OWNER)
-    {
-      for (auto& currImbrication : currGramChild.second)
+      case GrammaticalType::OWNER:
       {
         if (currImbrication.first != ImbricationType::LESS_DETAILED &&
             currImbrication.first != ImbricationType::MORE_DETAILED)
-        {
           return ComparisonErrorReporting::SmimilarityValue::NO;
-        }
+        break;
       }
-    }
-
-    if (currGramChild.first == GrammaticalType::UNKNOWN)
-    {
-      for (auto& currImbrication : currGramChild.second)
+      case GrammaticalType::UNKNOWN:
       {
         if (currImbrication.second.errorCoef.type == ComparisonTypeOfError::REQUEST)
-        {
           return ComparisonErrorReporting::SmimilarityValue::NO;
-        }
+        break;
+      }
+      default:
+        break;
       }
     }
   }
@@ -1326,13 +1329,19 @@ ImbricationType getSemExpsImbrications(const SemanticExpression& pSemExp1,
   auto* numberOfEqualitiesPtr = pComparisonErrorReportingPtr !=  nullptr ? &pComparisonErrorReportingPtr->numberOfEqualities : nullptr;
   if (size1 <= size2)
   {
+    ComparisonErrorsCoef subNbOfErrors;
     auto res = _getListExpsImbrications(listExpPtr1, listExpPtr2, pMemBlock, pLingDb, pExceptionsPtr,
-                                        nbOfErrorsPtr, pParentGrammaticalType, numberOfEqualitiesPtr);
-    if (res == ImbricationType::EQUALS && size1 < size2)
-      res = ImbricationType::LESS_DETAILED;
-    if (pComparisonErrorReportingPtr != nullptr && !errorCoef.empty())
-      pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, listExpPtr1, listExpPtr2, errorCoef);
-    return res;
+                                        &subNbOfErrors, pParentGrammaticalType, numberOfEqualitiesPtr);
+    if (res != ImbricationType::DIFFERS || size1 < size2)
+    {
+      if (res == ImbricationType::EQUALS && size1 < size2)
+        res = ImbricationType::LESS_DETAILED;
+      if (nbOfErrorsPtr != nullptr && subNbOfErrors.type != ComparisonTypeOfError::NO_ERROR)
+        *nbOfErrorsPtr = subNbOfErrors;
+      if (pComparisonErrorReportingPtr != nullptr && !errorCoef.empty())
+        pComparisonErrorReportingPtr->addError(pParentGrammaticalType, res, listExpPtr1, listExpPtr2, errorCoef);
+      return res;
+    }
   }
   auto res = _getListExpsImbrications(listExpPtr2, listExpPtr1, pMemBlock, pLingDb, pExceptionsPtr,
                                       nbOfErrorsPtr, pParentGrammaticalType, numberOfEqualitiesPtr);

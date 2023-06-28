@@ -15,5 +15,6 @@
   <linkedMeaning lemme="full" gram="adjective" relationToConcept="4" />
   <linkedMeaning lemme="full" gram="noun" relationToConcept="3" />
   <linkedMeaning lemme="full" gram="adverb" relationToConcept="3" />
+  <linkedMeaning lemme="complete" gram="adjective" relationToConcept="3" />
  </concept>
 </linguisticdatabase>

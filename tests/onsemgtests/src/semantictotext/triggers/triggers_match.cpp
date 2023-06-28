@@ -242,6 +242,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   const std::string reaction6 = "It's a nice application.";
   const std::string trigger7 = "Hello robot";
   const std::string reaction7 = "Hello";
+  const std::string trigger8 = "What is the volume level?";
+  const std::string reaction8 = "My volume level is 80 percents.";
   ONSEM_NOANSWER(triggers_match(trigger1, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(trigger2, semMem, lingDb));
 
@@ -252,6 +254,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   triggers_add(trigger5, reaction5, semMem, lingDb);
   triggers_add(trigger6, reaction6, semMem, lingDb, {}, SemanticLanguageEnum::ENGLISH);
   triggers_add(trigger7, reaction7, semMem, lingDb);
+  triggers_add(trigger8, reaction8, semMem, lingDb);
 
   ONSEM_ANSWER_EQ(reaction1, triggers_match(trigger1, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction1, triggers_match("tell me who you are", semMem, lingDb));
@@ -276,6 +279,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)
   ONSEM_BEHAVIOR_EQ(reaction6, triggers_match(trigger6, semMem, lingDb));
   ONSEM_ANSWER_EQ(reaction7, triggers_match(trigger7, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Designing robots with emotional understanding requires advanced algorithms.", semMem, lingDb));
+  ONSEM_ANSWER_EQ(reaction8, triggers_match(trigger8, semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("What is the level of the radio?", semMem, lingDb));
 }
 
 
@@ -417,6 +422,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=0,4 mètre)\\", triggers_match("Avance de 40 cm", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant(param1=5 mètres)\\", triggers_match("Va vers l'avant 5 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va vers l'avant(param1=6 mètres)\\", triggers_match("Va vers l'avant de 6 mètres", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va tout droit\\", triggers_match("Va tout droit", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va tout droit(param1=7 mètres)\\", triggers_match("Va tout droit 7 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Va tout droit(param1=8 mètres)\\", triggers_match("Va tout droit de 8 mètres", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Avance(param1=7 mètres)\\", triggers_match("Je veux que tu avances de 7 mètres", semMem, lingDb));
@@ -682,6 +688,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn around(param1=Quickly)\\", triggers_match("Turn around quickly", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=1)\\", triggers_match("Make a full turn", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=1)\\", triggers_match("Make a complete turn", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=1, speed=Quickly)\\", triggers_match("Make a full turn quickly", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=2, speed=Quickly)\\", triggers_match("Make a full turn quickly 2 times", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(location=The left, nbOfTimes=3, speed=Slowly)\\", triggers_match("Make a full turn to the left slowly 3 times", semMem, lingDb));
