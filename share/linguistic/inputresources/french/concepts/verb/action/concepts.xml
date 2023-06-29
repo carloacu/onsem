@@ -72,6 +72,7 @@
  <concept name="verb_action_raise">
   <linkedMeaning lemme="lever" relationToConcept="4"/>
   <linkedMeaning lemme="monter" relationToConcept="3"/>
+  <linkedMeaning lemme="élever" relationToConcept="3"/>
  </concept>
   <concept name="verb_action_repeat">
   <linkedMeaning lemme="répéter" relationToConcept="4"/>

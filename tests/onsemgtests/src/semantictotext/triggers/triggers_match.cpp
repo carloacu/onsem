@@ -342,6 +342,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   triggers_addAnswerWithOneParameter("Lève la tête", howManyDegreesParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Regarde", howManyDegreesParameterQuestion, semMem, lingDb, language);
   triggers_addAnswerWithOneParameter("Regarde en haut", howManyDegreesParameterQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("Regarde en l'air", howManyDegreesParameterQuestion, semMem, lingDb, language);
 
   triggers_addAnswerWithOneParameter("Baisse la tête", howManyDegreesParameterQuestion, semMem, lingDb, language);
 
@@ -463,7 +464,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Lève la tête(param1=11 degrés)\\", triggers_match("Monte la tête de onze degrés", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde\\", triggers_match("regarde", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde en haut\\", triggers_match("Regarde en haut", semMem, lingDb));
-  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde en haut\\", triggers_match("Regarde vers le haut", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Regarde en l'air\\", triggers_match("Regarde vers le haut", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête\\", triggers_match("Descends la tête", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête(param1=29 degrés)\\", triggers_match("descends la tête de vingt neuf degrés", semMem, lingDb));
@@ -712,6 +713,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Stop moving\\", triggers_match("Stop moving", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Stop moving(param1=240 minutes)\\", triggers_match("Stop moving during 4 hours", semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("Understanding emotions in robotics", semMem, lingDb));
+  ONSEM_NOANSWER(triggers_match("Hi there!", semMem, lingDb));
 }
 
 

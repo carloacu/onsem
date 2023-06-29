@@ -125,9 +125,6 @@
   <word lemma="ravir" pos="verb">
     <include_child_list_template name="de+infinitif->cod"/>
   </word>
-  <word lemma="regarder" pos="verb">
-    <child lemma="à" pos="preposition" chunkLinkType="location" condition="!followedByResource" />
-  </word>
   <word lemma="revenir" pos="verb">
     <include_child_list_template name="à+infinitive"/>
   </word>

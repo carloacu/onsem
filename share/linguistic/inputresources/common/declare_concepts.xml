@@ -202,11 +202,11 @@
   <declareconcept name="location_relative_behind" />
   <declareconcept name="location_relative_below" />
   <declareconcept name="location_relative_close" />
+  <declareconcept name="location_relative_down" />
   <declareconcept name="location_relative_east" />
   <declareconcept name="location_relative_inFrontOf" />
   <declareconcept name="location_relative_inside" />
   <declareconcept name="location_relative_far" />
-  <declareconcept name="location_relative_high" />
   <declareconcept name="location_relative_here" />
   <declareconcept name="location_relative_left" />
   <declareconcept name="location_relative_low" />
@@ -216,6 +216,7 @@
   <declareconcept name="location_relative_right" />
   <declareconcept name="location_relative_south" />
   <declareconcept name="location_relative_under" />
+  <declareconcept name="location_relative_up" />
   <declareconcept name="location_relative_west" />
 
   <declareconcept name="location_relative_angle" />

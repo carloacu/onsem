@@ -181,7 +181,7 @@ bool InflectionsCheckerFrench::isPronounComplVerbCompatibles(const InflectedWord
 
 bool InflectionsCheckerFrench::isPronounCompDetCompatibles(const InflectedWord& pPronComp) const
 {
-  return pPronComp.word.lemma != "le";
+  return pPronComp.word.lemma != "en" && pPronComp.word.lemma != "le";
 }
 
 bool InflectionsCheckerFrench::isIntjInflCompatibles(const InflectedWord& pIntj,

@@ -261,8 +261,6 @@ bool _isConditionIsVerified(const LinguisticConditionTreeValue& pConditionValue,
     if (pNextToken != nullptr && !pNextToken->atEnd())
     {
       const InflectedWord& inflWord = pNextToken->getToken().inflWords.front();
-      if (ConceptSet::haveAnyOfConcepts(inflWord.infos.concepts, {"location_relative_high", "location_relative_low"}))
-        return true;
       SemanticNumberType number = SemanticNumberType::UNKNOWN;
       SemanticGenderType gender = SemanticGenderType::UNKNOWN;
       InflectionsChecker::getNounNumberAndGender(number, gender, inflWord);
@@ -499,8 +497,6 @@ bool _doesConditionMatchWithGrounding(const LinguisticConditionTreeValue& pCondi
   }
   case LinguisticCondition::LOCATIONEN_FR:
   {
-    if (ConceptSet::haveAnyOfConcepts(grounding.concepts, {"location_relative_high", "location_relative_low"}))
-      return true;
     if (ConceptSet::haveAConceptThatBeginWith(grounding.concepts, "country_") &&
         pNumber != SemanticNumberType::PLURAL &&
         !(pGender == SemanticGenderType::MASCULINE &&

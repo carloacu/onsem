@@ -17,6 +17,11 @@
   <linkedMeaning lemme="near" gram="preposition" relationToConcept="4"/>
   <linkedMeaning lemme="next~to" gram="preposition" relationToConcept="5"/>
  </concept>
+ <concept name="location_relative_down">
+  <linkedMeaning lemme="downward" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="down" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="downward" gram="adverb" relationToConcept="3"/>
+ </concept>
  <concept name="location_relative_east">
   <linkedMeaning lemme="east" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="east" gram="adjective" relationToConcept="3"/>
@@ -47,18 +52,15 @@
   <linkedMeaning lemme="faraway" relationToConcept="4"/>
   <linkedMeaning lemme="faraway~from" gram="preposition" relationToConcept="4"/>
  </concept>
- <concept name="location_relative_high">
-  <linkedMeaning lemme="high" gram="adjective" relationToConcept="4"/>
-  <linkedMeaning lemme="high" gram="noun" relationToConcept="3"/>
-  <linkedMeaning lemme="high" gram="adverb" relationToConcept="3"/>
- </concept>
  <concept name="location_relative_here">
   <linkedMeaning lemme="here" gram="adverb" relationToConcept="4"/>
  </concept>
  <concept name="location_relative_left">
   <linkedMeaning lemme="left" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="leftward" gram="adjective" relationToConcept="3"/>
   <linkedMeaning lemme="left" gram="noun" relationToConcept="3"/>
   <linkedMeaning lemme="left" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="leftward" gram="adverb" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_low">
   <linkedMeaning lemme="low" gram="adjective" relationToConcept="4"/>
@@ -82,8 +84,10 @@
  </concept>
  <concept name="location_relative_right">
   <linkedMeaning lemme="right" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="rightward" gram="adjective" relationToConcept="3"/>
   <linkedMeaning lemme="right" gram="noun" relationToConcept="3"/>
   <linkedMeaning lemme="right" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="rightward" gram="adverb" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_south">
   <linkedMeaning lemme="south" gram="noun" relationToConcept="4"/>
@@ -92,6 +96,14 @@
  </concept>
  <concept name="location_relative_under">
   <linkedMeaning lemme="under" gram="*" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_up">
+  <linkedMeaning lemme="up" gram="adjective" relationToConcept="4"/>
+  <linkedMeaning lemme="upward" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="upward" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="high" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="high" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="high" gram="adverb" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_west">
   <linkedMeaning lemme="west" gram="noun" relationToConcept="4"/>

@@ -17,6 +17,12 @@
   <linkedMeaning lemme="près" gram="preposition" relationToConcept="4"/>
   <linkedMeaning lemme="à" relationToConcept="0"/>
  </concept>
+ <concept name="location_relative_down">
+  <linkedMeaning lemme="bas" gram="adjective" relationToConcept="3"/>
+  <linkedMeaning lemme="bas" gram="adverb" relationToConcept="3"/>
+  <linkedMeaning lemme="bas" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="sol" gram="noun" relationToConcept="2"/>
+ </concept>
  <concept name="location_relative_east">
   <linkedMeaning lemme="est" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="est" gram="adjective" relationToConcept="3"/>
@@ -38,9 +44,6 @@
  <concept name="location_relative_far">
   <linkedMeaning lemme="là-bas" relationToConcept="3"/>
   <linkedMeaning lemme="loin" gram="adverb" relationToConcept="4"/>
- </concept>
-s <concept name="location_relative_high">
-  <linkedMeaning lemme="haut" gram="*" relationToConcept="4"/>
  </concept>
  <concept name="location_relative_here">
   <linkedMeaning lemme="ici" gram="adverb" relationToConcept="4"/>
@@ -71,6 +74,11 @@ s <concept name="location_relative_high">
  </concept>
  <concept name="location_relative_under">
   <linkedMeaning lemme="sous" gram="preposition" relationToConcept="4"/>
+ </concept>
+ <concept name="location_relative_up">
+  <linkedMeaning lemme="haut" gram="*" relationToConcept="4"/>
+  <linkedMeaning lemme="air" gram="noun" relationToConcept="2"/>
+  <linkedMeaning lemme="ciel" gram="noun" relationToConcept="2"/>
  </concept>
  <concept name="location_relative_west">
   <linkedMeaning lemme="ouest" gram="*" relationToConcept="4"/>
