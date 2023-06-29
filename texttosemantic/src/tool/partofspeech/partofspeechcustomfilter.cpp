@@ -215,22 +215,40 @@ std::vector<Token>::iterator PartOfSpeechCustomFilter::xSearchWordAfter
  const SemanticWord& pWord,
  const InflectedWord& pMainIGram) const
 {
+  bool hasDeterminerInBetween = false;
+  bool hasNounInBetween = false;
   for (TokIt itTok = getNextToken(pCurrTok, pTokens.end(), SkipPartOfWord::YES); itTok != pTokens.end();
        itTok = getNextToken(itTok, pTokens.end(), SkipPartOfWord::YES))
   {
-    for (auto itIGram = itTok->inflWords.begin();
-         itIGram != itTok->inflWords.end(); ++itIGram)
+    if (hasDeterminerInBetween == hasNounInBetween)
     {
-      if (itIGram->word == pWord &&
-          xCanBeLinked(pMainIGram, *itIGram))
+      for (auto itIGram = itTok->inflWords.begin();
+           itIGram != itTok->inflWords.end(); ++itIGram)
       {
-        pOnlyItIGramToKeep = itIGram;
-        return itTok;
+        if (itIGram->word == pWord &&
+            xCanBeLinked(pMainIGram, *itIGram))
+        {
+          pOnlyItIGramToKeep = itIGram;
+          return itTok;
+        }
       }
     }
-    if (pMainIGram.word.partOfSpeech == PartOfSpeech::VERB &&
-        itTok->inflWords.front().word.partOfSpeech == PartOfSpeech::ADVERB)
-      continue;
+
+    if (pMainIGram.word.partOfSpeech == PartOfSpeech::VERB)
+    {
+      if (itTok->inflWords.front().word.partOfSpeech == PartOfSpeech::ADVERB)
+        continue;
+      if (itTok->inflWords.front().word.partOfSpeech == PartOfSpeech::DETERMINER)
+      {
+        hasDeterminerInBetween = true;
+        continue;
+      }
+      if (itTok->inflWords.front().word.partOfSpeech == PartOfSpeech::NOUN)
+      {
+        hasNounInBetween = true;
+        continue;
+      }
+    }
     break;
   }
   return pTokens.end();

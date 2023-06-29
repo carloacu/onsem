@@ -226,6 +226,8 @@ set(ONSEMTEXTTOSEMANTIC_SRCS
     src/syntacticgraphgenerator/verbalchunker.hpp
     src/syntacticgraphgenerator/subordinateextractor.cpp
     src/syntacticgraphgenerator/entityrecognizer.cpp
+    src/syntacticgraphgenerator/extractsubchunkinsidelinkedtokens.hpp
+    src/syntacticgraphgenerator/extractsubchunkinsidelinkedtokens.cpp
     src/syntacticgraphgenerator/errordetector.cpp
     src/syntacticgraphgenerator/nominalchunker.cpp
     src/syntacticgraphgenerator/incompletelistsresolver.hpp

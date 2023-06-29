@@ -12,6 +12,7 @@
 #include "syntacticgraphgenerator/verbalchunker.hpp"
 #include "syntacticgraphgenerator/nominalchunker.hpp"
 #include "syntacticgraphgenerator/chunkslinker.hpp"
+#include "syntacticgraphgenerator/extractsubchunkinsidelinkedtokens.hpp"
 #include "syntacticgraphgenerator/verbaltomoninalchunkslinker.hpp"
 #include "syntacticgraphgenerator/errordetector.hpp"
 #include "syntacticgraphgenerator/entityrecognizer.hpp"
@@ -181,15 +182,19 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
   { return; }
 
   if (pIsRootLevel &&
-      language == SemanticLanguageEnum::ENGLISH &&
-      errDetector.tryToConvertNounToImperativeVerbs(pFirstChildren))
+      language == SemanticLanguageEnum::ENGLISH)
   {
-    SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
-    --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
-    ++pParsingConfidence.nbOfProblematicRetries;
-    _launchGrammRules(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
-                      pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
-    return;
+    if (errDetector.tryToConvertNounToImperativeVerbs(pFirstChildren))
+    {
+      SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
+      --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
+      ++pParsingConfidence.nbOfProblematicRetries;
+      _launchGrammRules(pTokensTree, pFirstChildren, pParsingConfidence, pLangConfig, pSpecLingDb,
+                        pIsRootLevel, pSpellingMistakeTypesPossible, subEndingStep);
+      return;
+    }
+
+    extractSubChunkInsideLinkedTokens(pFirstChildren, language);
   }
   _fillPassiveInformation(pFirstChildren, pLangConfig);
 

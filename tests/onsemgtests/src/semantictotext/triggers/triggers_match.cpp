@@ -658,9 +658,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=25 degrees)\\", triggers_match("Head down 25 degrees", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=23 degrees)\\", triggers_match("Lower your head 23 degrees", semMem, lingDb));
 
-  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Turn down the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Lower the volume", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the voice\\", triggers_match("Lower your voice", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Turn down the volume", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Turn the volume down", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Reduce the volume level.", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Decrease the sound level", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume(param1=29 percents)\\", triggers_match("Turn down the volume by 29 %", semMem, lingDb));
