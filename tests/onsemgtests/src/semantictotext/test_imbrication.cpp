@@ -91,6 +91,8 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic)
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I bought a N5", "I bought a N5 robot", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("I bought N5", "I bought N5 robot", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("je vais faire des courses au supermarché", "je vais faire des courses au supermarché demain", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("The volume", "The volume level.", semanticMemory, lingDb));
+  EXPECT_EQ(ImbricationType::LESS_DETAILED, _getImbrication("Reduce the volume", "Reduce the volume level.", semanticMemory, lingDb));
 
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("des gens", "3 gens", semanticMemory, lingDb));
   EXPECT_EQ(ImbricationType::DIFFERS, _getImbrication("et puis", "et avant", semanticMemory, lingDb));

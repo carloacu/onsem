@@ -451,6 +451,7 @@
   <declareconcept name="verb_action_leave" />
   <declareconcept name="verb_action_lookat" />
   <declareconcept name="verb_action_lookup" />
+  <declareconcept name="verb_action_lower" autofill="false" />
   <declareconcept name="verb_action_moveBack" />
   <declareconcept name="verb_action_moveForward" />
   <declareconcept name="verb_action_notify" />

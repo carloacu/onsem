@@ -135,7 +135,9 @@ const SemanticGrounding& _getSubCptGrd(const GroundedExpression& pGrdExp,
   if (itSpec != pGrdExp.children.end())
   {
     auto* grdExpPtr = itSpec->second->getGrdExpPtr_SkipWrapperPtrs(pFollowInterpretations);
-    if (grdExpPtr != nullptr && SemExpGetter::isNominal(grdExpPtr->grounding()))
+    if (grdExpPtr != nullptr &&
+        (SemExpGetter::isNominal(grdExpPtr->grounding()) ||
+         ConceptSet::haveAConcept(pGrdExp->concepts, "level")))
       return grdExpPtr->grounding();
   }
   return pDefault;

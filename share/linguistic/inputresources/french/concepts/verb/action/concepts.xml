@@ -59,6 +59,11 @@
  <concept name="verb_action_lookup">
   <linkedMeaning lemme="regarder~en~haut" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_lower">
+  <linkedMeaning lemme="baisser" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="descendre" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="réduire" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_moveBack">
   <linkedMeaning lemme="reculer" gram="verb" relationToConcept="5"/>
  </concept>
