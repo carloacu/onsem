@@ -191,6 +191,8 @@
   <linkedMeaning lemme="lift~up" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="raise~up" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="elevate" relationToConcept="3"/>
+  <linkedMeaning lemme="increase" relationToConcept="3"/>
+  <linkedMeaning lemme="turn~up" gram="verb" relationToConcept="3"/>
  </concept>
    <concept name="verb_action_repeat">
   <linkedMeaning lemme="repeat" relationToConcept="4"/>
