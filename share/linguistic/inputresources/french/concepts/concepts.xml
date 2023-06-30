@@ -75,6 +75,10 @@
  <concept name="longtime">
   <linkedMeaning lemme="longtemps" relationToConcept="4"/>
  </concept>
+ <concept name="nap">
+  <linkedMeaning lemme="sieste" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="repos" gram="noun" relationToConcept="2"/>
+ </concept>
  <concept name="news">
   <linkedMeaning lemme="nouvelle" gram="noun" relationToConcept="4"/>
  </concept>
