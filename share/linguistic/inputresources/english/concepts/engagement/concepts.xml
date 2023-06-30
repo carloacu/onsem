@@ -12,5 +12,9 @@
   <linkedMeaning lemme="goodbye" relationToConcept="4"/>
   <linkedMeaning lemme="bye" relationToConcept="4"/>
   <linkedMeaning lemme="bye-bye" relationToConcept="4"/>
+  <linkedMeaning lemme="catch you later" relationToConcept="3"/>
+  <linkedMeaning lemme="see you later" relationToConcept="3"/>
+  <linkedMeaning lemme="see you soon" relationToConcept="3"/>
+  <linkedMeaning lemme="farewell" relationToConcept="3"/>
  </concept>
 </linguisticdatabase>
