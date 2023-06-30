@@ -237,6 +237,11 @@
   <linkedMeaning lemme="turn~around" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="turn~away" gram="verb" relationToConcept="5"/>
  </concept>
+ <concept name="verb_action_turnOff">
+  <linkedMeaning lemme="turn~off" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="power~off" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="shut~down" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_use">
   <linkedMeaning lemme="use" gram="verb" relationToConcept="5"/>
  </concept>

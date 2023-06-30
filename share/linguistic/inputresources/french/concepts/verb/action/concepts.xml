@@ -128,6 +128,9 @@
   <linkedMeaning lemme="retourner~se" gram="verb" relationToConcept="5"/>
   <linkedMeaning lemme="tourner~se" gram="verb" relationToConcept="5"/>
  </concept>
+  <concept name="verb_action_turnOff">
+  <linkedMeaning lemme="éteindre" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_action_use">
   <linkedMeaning lemme="utiliser" gram="verb" relationToConcept="5"/>
  </concept>
