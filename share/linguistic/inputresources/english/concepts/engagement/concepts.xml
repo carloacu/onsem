@@ -3,7 +3,9 @@
   <linkedMeaning lemme="hallo" gram="interjection" relationToConcept="4"/>
   <linkedMeaning lemme="hello" relationToConcept="5"/>
   <linkedMeaning lemme="hi" relationToConcept="4"/>
+  <linkedMeaning lemme="hey" relationToConcept="4"/>
   <linkedMeaning lemme="hullo" relationToConcept="4"/>
+  <linkedMeaning lemme="greetings" gram="interjection" relationToConcept="4"/>
   <linkedMeaning lemme="welcome" gram="interjection" relationToConcept="4"/>
  </concept>
  <concept name="engagement_disengage">

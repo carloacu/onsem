@@ -31,6 +31,8 @@ TEST_F(SemanticReasonerGTests, operator_extractEngagement)
   EXPECT_EQ(SemanticEngagementValue::ENGAGE,
             operator_extractEngagement("hi", lingDb, SemanticLanguageEnum::ENGLISH));
   EXPECT_EQ(SemanticEngagementValue::ENGAGE,
+            operator_extractEngagement("hey", lingDb, SemanticLanguageEnum::ENGLISH));
+  EXPECT_EQ(SemanticEngagementValue::ENGAGE,
             operator_extractEngagement("hello Buddy", lingDb, SemanticLanguageEnum::ENGLISH));
   EXPECT_EQ(SemanticEngagementValue::ENGAGE,
             operator_extractEngagement("hi robot", lingDb, SemanticLanguageEnum::ENGLISH));
