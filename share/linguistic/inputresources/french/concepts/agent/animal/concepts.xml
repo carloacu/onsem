@@ -1,6 +1,27 @@
 <linguisticdatabase>
  <concept name="agent_animal_*">
-  <linkedMeaning lemme="dodo" relationToConcept="0"/>
-  <linkedMeaning lemme="stylo" relationToConcept="0"/>
+  <linkedMeaning lemme="attrape-mouches" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="branle-queue" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="casse-motte" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="fouette-queue" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="fouille-merde" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="garde-boutique" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="happe-lopin" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="hausse-queue" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="hoche-queue" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="mange-mil" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="perce-oreille" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="pique-broc" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="pique-mouche" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="porte-bât" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="porte-chandelle" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="porte-queue" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="porte-écuelle" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="porte-épée" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="tape-marteau" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="torche-pot" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="tourne-pierre" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="traîne-buisson" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="traîne-charrue" gram="noun" relationToConcept="4" />
  </concept>
 </linguisticdatabase>
