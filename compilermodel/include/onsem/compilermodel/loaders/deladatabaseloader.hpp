@@ -31,6 +31,10 @@ public:
    bool pRemoveHum,
    bool pRemoveDnum);
 
+  void toXml
+  (const std::string& pInFilename,
+   const std::string& pOutFilename);
+
   /**
    * @brief Merge the current database with a Dela text file.
    * @param pFilename Filename of the Dela text file.

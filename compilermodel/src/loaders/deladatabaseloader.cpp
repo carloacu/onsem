@@ -1,6 +1,7 @@
 #include <onsem/compilermodel/loaders/deladatabaseloader.hpp>
 #include <sstream>
 #include <fstream>
+#include <onsem/common/utility/string.hpp>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 #include <onsem/compilermodel/lingdbmodifier.hpp>
@@ -185,6 +186,139 @@ void DelaDatabaseLoader::simplifyDelaFile
   }
   outfile.close();
   infile.close();
+}
+
+
+void DelaDatabaseLoader::toXml
+(const std::string& pInFilename,
+ const std::string& pOutDir)
+{
+  std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToConcrete;
+  std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToACountry;
+  std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToAProfesion;
+  std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToAHuman;
+  std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToATime;
+  std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToAnimal;
+
+  std::map<std::string, std::list<NewWordInfos>> lemmaToNewWords;
+  {
+    std::ifstream infile(pInFilename, std::ifstream::in);
+    if (!infile.is_open())
+      throw std::runtime_error("Can't open " + pInFilename + " file !");
+    std::string line;
+    while (getline(infile, line))
+    {
+      if (line.empty())
+        continue;
+
+      bool removeLine = false;
+      if (line[0] == '#')
+      {
+        NewWordInfos newWord;
+        xFillNewWordInfos(newWord, line);
+        lemmaToNewWords[newWord.lemma].push_back(newWord);
+      }
+    }
+    infile.close();
+  }
+
+
+
+  std::ofstream outfile(pOutDir + "/french.omld");
+  outfile << "<omld>" << std::endl;
+  std::string line;
+  for (auto& currLemmaToNewWords : lemmaToNewWords)
+  {
+    if (currLemmaToNewWords.second.empty())
+      continue;
+    auto lemmaGram = currLemmaToNewWords.second.front().gram;
+    outfile << " <w l=\"" << currLemmaToNewWords.first << "\" p=\"" << partOfSpeech_toStr(lemmaGram) << "\">" << std::endl;
+    for (auto& newWord : currLemmaToNewWords.second)
+    {
+      outfile << "  <i";
+      if (newWord.word != currLemmaToNewWords.first)
+        outfile << " i=\"" << newWord.word << "\"";
+      if (newWord.gram != lemmaGram)
+        outfile << " p=\"" << partOfSpeech_toStr(newWord.gram) << "\"";
+      if (!newWord.flexions.empty())
+        outfile << " f=\"" << mystd::join(newWord.flexions, "|") << "\"";
+
+      char frequency = 4;
+      for (const auto& currOthInf : newWord.otherInfos)
+      {
+        if (currOthInf == "z2")
+        {
+          frequency = 3;
+        }
+        else if (currOthInf == "z3")
+        {
+          frequency = 2;
+        }
+        else if (currOthInf == "OLD")
+        {
+          frequency = 1;
+        }
+        else if (currOthInf == "Ntime")
+        {
+          lemmaAndGramThatPointsToATime[newWord.lemma].insert(newWord.gram);
+        }
+        else if (currOthInf == "Conc")
+        {
+          lemmaAndGramThatPointsToConcrete[newWord.lemma].insert(newWord.gram);
+        }
+        else if (currOthInf == "Country")
+        {
+          lemmaAndGramThatPointsToACountry[newWord.lemma].insert(newWord.gram);
+        }
+        else if (currOthInf == "Hum")
+        {
+          lemmaAndGramThatPointsToAHuman[newWord.lemma].insert(newWord.gram);
+        }
+        else if (currOthInf == "Anl")
+        {
+          lemmaAndGramThatPointsToAnimal[newWord.lemma].insert(newWord.gram);
+        }
+        else if (currOthInf == "Profession")
+        {
+          lemmaAndGramThatPointsToAProfesion[newWord.lemma].insert(newWord.gram);
+          break;
+        }
+      }
+      if (frequency != 4)
+        outfile << " y=\"" << static_cast<int>(frequency) << "\"";
+      outfile << " />" << std::endl;
+    }
+    outfile << " </w>" << std::endl;
+  }
+  outfile << "</omld>" << std::endl;
+  outfile.close();
+
+  /*
+  auto _addCptFile = [&](const std::string& pFilename,
+                         const std::string& pConcept,
+                         const std::map<std::string, std::set<PartOfSpeech>>& pWords) {
+    std::ofstream outfile(pOutDir + "/cpts/" + pFilename);
+
+    outfile << "<linguisticdatabase>" << std::endl;
+    outfile << " <concept name=\"" << pConcept << "\">" << std::endl;
+    for (const auto& currElt : pWords)
+    {
+      for (const auto& currPos : currElt.second)
+        outfile << "  <linkedMeaning lemme=\"" << currElt.first <<
+                   "\" gram=\"" << partOfSpeech_toStr(currPos) << "\" relationToConcept=\"4\" />" << std::endl;
+    }
+    outfile << " </concept>" << std::endl;
+    outfile << "</linguisticdatabase>" << std::endl;
+    outfile.close();
+  };
+
+  _addCptFile("concret_concepts.xml", "concrete_*", lemmaAndGramThatPointsToConcrete);
+  _addCptFile("country_concepts.xml", "country_*", lemmaAndGramThatPointsToACountry);
+  _addCptFile("agent_profession_concepts.xml", "agent_profession_*", lemmaAndGramThatPointsToAProfesion);
+  _addCptFile("agent_concepts.xml", "agent_*", lemmaAndGramThatPointsToAHuman);
+  _addCptFile("time_concepts.xml", "time_*", lemmaAndGramThatPointsToATime);
+  _addCptFile("agent_animal_concepts.xml", "agent_animal_*", lemmaAndGramThatPointsToAnimal);
+  */
 }
 
 

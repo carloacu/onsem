@@ -507,6 +507,11 @@ void DbGeneratorPreprocessingWindow::on_pushButton_2_clicked()
        _inputResourcesFolder + "/french/readonly/french_simplified_dela.dela",
        frLemmaToKeep, true, true /* TODO: to check */);
 
+  delaLoader.toXml(
+        _inputResourcesFolder + "/french/readonly/french_simplified_dela.dela",
+        _inputResourcesFolder + "/french/readonly");
+
+
   std::set<std::string> enLemmaToKeep{
     "acorn squash",
     "banana squash",
