@@ -23,5 +23,7 @@
   <linkedMeaning lemme="tourne-pierre" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="traîne-buisson" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="traîne-charrue" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="dodo" relationToConcept="0"/>
+  <linkedMeaning lemme="stylo" relationToConcept="0"/>
  </concept>
 </linguisticdatabase>

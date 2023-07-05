@@ -43,14 +43,6 @@ public:
   (LinguisticIntermediaryDatabase& pLingDatabase) const;
 
   /**
-   * @brief Delete words that have a capital letter.
-   * @param pLingDatabase The linguistic database.
-   * @return The number of words deleted.
-   */
-  std::size_t delWordsWithACapitalLetter
-  (LinguisticIntermediaryDatabase& pLingDatabase) const;
-
-  /**
    * @brief Delete all the expressions.
    * @param pLingDatabase The linguistic database.
    * @return The number of words deleted.
@@ -68,14 +60,6 @@ public:
   (LinguisticIntermediaryDatabase& pLingDatabase) const;
 
 private:
-  /**
-   * @brief Know if a word has a capital letter.
-   * @param pWord The word.
-   * @return True if the word has a capital letter, False otherwise.
-   */
-  bool xHasACapitalLetter
-  (const std::string& pWord) const;
-
   /**
    * @brief Know if a word finish with "que"
    * @param pWord The word.

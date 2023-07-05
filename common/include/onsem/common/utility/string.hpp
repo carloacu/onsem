@@ -92,6 +92,11 @@ void split(std::vector<std::string>& pStrs,
 
 
 ONSEM_COMMON_API
+void splitNotEmpty(std::vector<std::string>& pStrs,
+                   const std::string& pStr,
+                   const std::string& pSeparator);
+
+ONSEM_COMMON_API
 std::string filenameToSuffix(const std::string& pFileName);
 
 

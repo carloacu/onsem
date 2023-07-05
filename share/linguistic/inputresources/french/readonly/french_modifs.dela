@@ -1,0 +1,612 @@
+-en avant.ADV
+-en arrière.ADV
+-arrière.INTJ
+-à gauche.ADV
+-par terre.ADV
+-de naissance.ADV
+-dans l'espace.ADV
+-dans la vie.ADV
+-le jour.ADV
+-ce soir.ADV
+-sur terre.ADV
+-de joie.ADV
+-par chèque.ADV
+-en particulier.ADV
+#peut\-être,.ADV
+#là\-bas,.ADV
+#combien de fois,.ADV
+#de combien,combien.ADV
+#combien de temps,.ADV
+#pendant combien de temps,.ADV
+
+#pour cent,.N:ms:mp
+#%,.N:ms:mp
+
+-mars.N
+-mars.N
+#mars,.N+z1:ms:mp
+#baseball,.N
+#l'avant,.N
+
+#homme d'affaires,.N+Profession+Hum:ms
+#hommes d'affaires,homme d'affaires.N+Profession+Hum:mp
+#femme d'affaires,.N+Profession+Hum:fs
+#femmes d'affaires,femme d'affaires.N+Profession+Hum:fp
+
+#homme politique,.N+Profession+Hum+z1:ms
+#hommes politiques,homme politique.N+Profession+Hum+z1:mp
+
+#hip-hop,.N:ms
+#hip hop,hip-hop.N:ms
+
+-alors que.CONJS
+-alors même que.CONJS
+#alors que,.CONJS
+#alors même que,alors que.CONJS
+
+#après-demain,.ADV
+#avant-hier,.ADV
+
+#ressenti,ressenti.N:ms
+#ressentie,ressenti.N:fs
+#ressentis,ressenti.N:mp
+#ressenties,ressenti.N:fp
+
+#au dessus,.ADV
+#au dessus de,.PREP
+#en dessous de,.PREP
+
+#avant d,avant.PREP
+#avant de,avant.PREP
+#après d,après.PREP
+#après de,après.PREP
+#à partir d,à partir de.PREP
+#à partir de,.PREP
+
+#jusqu'à,.PREP
+#ici :,.PREP
+
+#plus de,.DET
+#plus d,plus de.DET
+#moins de,.DET
+#moins d,moins de.DET
+
+#même si,.CONJS
+#même s,même si.CONJS
+
+#pour cela que,.CONJS
+#pour cela qu,pour cela que.CONJS
+
+#parce-que,parce que.CONJS
+#parceque,parce que.CONJS
+#par ce que,parce que.CONJS
+
+#jusqu'à ce que,.CONJS
+#jusqu'à que,jusqu'à ce que.CONJS
+
+#ip,.N:ms
+#adresse ip,ip.N:ms
+
+-à chaque fois que.CONJS
+#à chaque fois que,.CONJS
+#a chaque fois que,à chaque fois que.CONJS
+
+#compatible,.N
+
+#et bien,.ADV
+#d'où,.ADV
+#où,.ADV
+#jusqu'où,.ADV
+
+#ce que,ce que.PRO
+#ce que,ce que.CONJS
+#ce qu,ce que.PRO
+#ce qu,ce que.CONJS
+#ce qui,ce que.CONJS
+
+#est-ce que,.ADV
+#est-ce qu,est-ce que.ADV
+#est ce que,est-ce que.ADV
+#est ce qu,est-ce que.ADV
+#est-ce-que,est-ce que.ADV
+#est-ce-qu,est-ce que.ADV
+
+#qu'est-ce que,.PRO
+#qu'est-ce qu,qu'est-ce que.PRO
+#qu'est ce que,qu'est-ce que.PRO
+#qu'est ce qu,qu'est-ce que.PRO
+#qu est-ce que,qu'est-ce que.PRO
+#qu est-ce qu,qu'est-ce que.PRO
+#qu est ce que,qu'est-ce que.PRO
+#qu est ce qu,qu'est-ce que.PRO
+
+#qu'en est-il,.PRO
+#qu'en est il,qu'en est-il.PRO
+#qu en est-il,qu'en est-il.PRO
+#qu en est il,qu'en est-il.PRO
+#quid,qu'en est-il.PRO
+#qu'est-ce qu'il en est,qu'en est-il.PRO
+#qu'est ce qu'il en est,qu'en est-il.PRO
+#qu est-ce qu'il en est,qu'en est-il.PRO
+#qu est ce qu'il en est,qu'en est-il.PRO
+#qu'est-ce qu il en est,qu'en est-il.PRO
+#qu'est ce qu il en est,qu'en est-il.PRO
+#qu est-ce qu il en est,qu'en est-il.PRO
+#qu est ce qu il en est,qu'en est-il.PRO
+
+#est-ce qui,.ADV
+#est ce qui,est-ce qui.ADV
+#est-ce qu'y,est-ce qui.ADV+z2
+#est ce qu'y,est-ce qui.ADV+z2
+
+#qu'est-ce qui,.PRO
+#qu'est ce qui,qu'est-ce qui.PRO
+#qu est-ce qui,qu'est-ce qui.PRO
+#qu est ce qui,qu'est-ce qui.PRO
+#qu'est-ce qu'y,qu'est-ce qui.PRO+z2
+#qu'est ce qu'y,qu'est-ce qui.PRO+z2
+#qu est-ce qu'y,qu'est-ce qui.PRO+z2
+#qu est ce qu'y,qu'est-ce qui.PRO+z2
+
+#nn,non.INTJ
+#nn,non.ADV
+
+#ou alors,ou.CONJC
+#ou encore,ou.CONJC
+
+
+-y.PRO
+#y,.PROC:3s:3p
+
+-se.PRO
+#se,.PROC:3s:3p
+#s,se.PROC:3s:3p
+-me.PRO
+#me,se.PROC:1s
+-te.PRO
+#te,se.PROC:2s
+#t,se.PROC:2s
+#toi,se.PROC:2s
+
+
+-je.PRO
+#je,.PROS:1s
+#j,je.PROS:1s
+-tu.PRO
+#tu,.PROS:2s
+#t,tu.PROS:2s
+-il.PRO
+#il,.PROS:3ms
+-elle.PRO
+#elle,.PROS:3fs
+-on.PRO
+#on,.PROS:3s
+-nous.PRO
+#nous,.PROS:1p
+-vous.PRO
+#vous,.PROS:2p
+-ils.PRO
+#ils,.PROS:3mp
+-elles.PRO
+#elles,.PROS:3fp
+-ce.PRO
+#ce,.PROS:3s:3p
+#c,ce.PROS:3s:3p
+
+#t-on,on.PROS:3s
+#t on,on.PROS:3s
+#t-il,il.PROS:3ms
+#t il,il.PROS:3ms
+
+
+#tout le monde,.PRO+z1:ms
+#tous le monde,tout le monde.PRO+z3:ms
+
+#juste après,.PREP
+#juste avant,.PREP
+
+#tout ça,.PRO:3ms
+
+#nan,.INTJ
+#okay,.INTJ
+#au delà,.ADV
+#là-haut,.ADV
+-a.N
+-b.N
+-c.N
+-d.N
+-e.N
+-f.N
+-g.N
+-h.N
+-i.N
+-j.N
+-k.N
+-l.N
+-m.N
+-n.N
+-o.N
+-p.N
+-q.N
+-r.N
+-s.N
+-t.N
+-u.N
+-v.N
+-w.N
+-x.N
+-y.N
+-z.N
+-garçon.A
+-que ça.ADV
+-dieu.INTJ
+-jérôme.N
+
+-et des.ADV
+-pour moi.ADV
+#plus d'une fois,.ADV
+#plus du tout,.ADV
+#plus en détail,.ADV
+#plus exactement,.ADV
+#plus généralement,.ADV
+#plus ou moins,.ADV
+#plus précisément,.ADV
+#plus que jamais,.ADV
+#plus que personne,.ADV
+#plus que probable,.A
+#plus que sur,.A
+#plus royaliste que le roi,.A:ms:fs
+#plus spécialement,.ADV
+#plus tard,.ADV
+#plus tard que prévu,.ADV
+#plus tôt,.ADV
+#plus vrai que nature,.A
+-pendant que.CONJS
+#pendant que,.CONJS
+
+
+#etats-unis,.PN
+#états-unis,etats-unis.PN
+#États-unis,etats-unis.PN
+
+#chef d'entreprise,.N
+
+#smartphone,.N:ms
+#smartphones,smartphone.N:mp
+
+-grâce à.ADV
+-grâce au.ADV
+#grâce au,grâce à.PREP
+
+
+#un par un,.ADV
+#une par une,.ADV
+#un peu,.ADV
+
+-enchanté.INTJ
+#enchanté,.INTJ
+-désolé.INTJ
+#désolé,.INTJ
+-entendu.INTJ
+#entendu,.INTJ
+-parfait.INTJ
+#parfait,.INTJ
+#de rien,.INTJ
+#cool,.INTJ
+#à bientôt,.INTJ
+
+#avec joie,.ADV
+#avec plaisir,.ADV
+#d'accord,.ADV
+#en effet,.ADV
+#ok,.INTJ
+#pas de problème,.ADV
+#pas de souci,.ADV
+#pourquoi pas,.ADV
+#sans problème,.A
+#sisi,.INTJ
+#tout à fait,.ADV
+#bien vu,.ADV
+#n,ne.ADV
+#nan,.ADV
+#pas vraiment,.ADV
+#pas encore,.ADV
+#super,.INTJ
+#nickel,.INTJ
+#pour autant,.INTJ
+
+#vas-y,aller.V+z2:Y2s
+#vas-y,.INTJ
+#vas y,aller.V+z2:Y2s
+#vas y,vas-y.INTJ
+
+#quelque chose,.PRO:ms
+#grand-chose,.PRO:ms
+#grand chose,grand-chose.PRO:ms
+#en quoi,.PRO
+#ou bien,.PRO
+#ou quoi,.PRO
+#ou pas,.PRO
+#ca,ça.PRO:3ms
+
+#philippien,.N+z1:ms
+#philippiene,philippien.N+z1:fs
+#philippienes,philippien.N+z1:fp
+#philippiens,philippien.N+z1:mp
+#qatarien,.N:ms
+#qatarienne,qatarien.N:fs
+#qatariennes,qatarien.N:fp
+#qatariens,qatarien.N:mp
+
+#homme d'État,.N+Profession:ms
+#homme d'État,.N:ms
+#femme d'État,homme d'État.N:fs
+#hommes d'État,homme d'État.N:mp
+#femmes d'État,homme d'État.N:fp
+
+#joueur de football,footballeur.N+z2:ms
+#joueur de foot,footballeur.N+z2:ms
+#joueuse de football,footballeur.N+z2:fs
+#joueuse de foot,footballeur.N+z2:fs
+
+#gardien de but,.N:ms
+#gardienne,gardien de but.N:fs
+#gardiennes,gardien de but.N:fp
+#gardiens,gardien de but.N:mp
+
+#arrière centrale,.N:ms:fs
+#arrières centraux,arrière centrale.N:mp:fp
+
+#milieu de terrain,.N:ms:fs
+#milieux de terrain,milieu de terrain.N:mp:fp
+
+#avant-centre,.N:ms:fs
+#avant-centres,avant-centre.N:mp:fp
+
+#porte vélo,.N:ms
+#porte vélos,porte vélo.N:mp
+#porte-vélo,porte vélo.N:ms
+#porte-vélos,porte vélo.N:mp
+
+-moi-même.PRO
+#moi-même,lui-même.PRO:1ms:1fs
+#moi même,lui-même.PRO:1ms:1fs
+-toi-même.PRO
+#toi-même,lui-même.PRO:2ms:2fs
+#toi même,lui-même.PRO:2ms:2fs
+-lui-même.PRO
+#lui-même,.PRO:3ms
+#lui même,lui-même.PRO:3ms
+-elle-même.PRO
+-elle-même.PRO
+#elle-même,lui-même.PRO:3fs
+#elle même,lui-même.PRO:3fs
+#nous-mêmes,lui-même.PRO:1mp:1fp
+#nous mêmes,lui-même.PRO:1mp:1fp
+#vous-mêmes,lui-même.PRO:2mp:2fp
+#vous mêmes,lui-même.PRO:2mp:2fp
+-eux-mêmes.PRO
+#eux-mêmes,lui-même.PRO:3mp
+#eux mêmes,lui-même.PRO:3mp
+-elles-mêmes.PRO
+-elles-mêmes.PRO
+#elles-mêmes,lui-même.PRO:3fp
+#elles mêmes,lui-même.PRO:3fp
+
+#n'importe qui,.PRO
+#n'importe quoi,.PRO
+
+
+
+
+#beaucoup de,.DET
+#beaucoup d,beaucoup de.DET
+
+#en termes de,.PREP
+#en termes d,en termes de.PREP
+
+#acteur,.N+z2+Profession:ms:fs
+#acteurs,acteur.N+z2+Profession:fp:mp
+
+#cantatrice,chanteur.N+z2+Profession:fs
+#cantatrices,chanteur.N+z2+Profession:fp
+
+#co-auteur,coauteur.N:ms
+#co-auteurs,coauteur.N:mp
+
+
+#désenregistra,désenregistrer.V+z1:J3s
+#désenregistrai,désenregistrer.V+z1:J1s
+#désenregistraient,désenregistrer.V+z1:I3p
+#désenregistrais,désenregistrer.V+z1:I1s:I2s
+#désenregistrait,désenregistrer.V+z1:I3s
+#désenregistrant,désenregistrer.V+z1:G
+#désenregistras,désenregistrer.V+z1:J2s
+#désenregistrasse,désenregistrer.V+z1:T1s
+#désenregistrassent,désenregistrer.V+z1:T3p
+#désenregistrasses,désenregistrer.V+z1:T2s
+#désenregistrassiez,désenregistrer.V+z1:T2p
+#désenregistrassions,désenregistrer.V+z1:T1p
+#désenregistre,désenregistrer.V+z1:P1s:P3s:S1s:S3s:Y2s
+#désenregistrent,désenregistrer.V+z1:P3p:S3p
+#désenregistrer,.V+z1:W
+#désenregistrera,désenregistrer.V+z1:F3s
+#désenregistrerai,désenregistrer.V+z1:F1s
+#désenregistreraient,désenregistrer.V+z1:C3p
+#désenregistrerais,désenregistrer.V+z1:C1s:C2s
+#désenregistrerait,désenregistrer.V+z1:C3s
+#désenregistreras,désenregistrer.V+z1:F2s
+#désenregistrerez,désenregistrer.V+z1:F2p
+#désenregistreriez,désenregistrer.V+z1:C2p
+#désenregistrerions,désenregistrer.V+z1:C1p
+#désenregistrerons,désenregistrer.V+z1:F1p
+#désenregistreront,désenregistrer.V+z1:F3p
+#désenregistrez,désenregistrer.V+z1:P2p:Y2p
+#désenregistriez,désenregistrer.V+z1:I2p:S2p
+#désenregistrions,désenregistrer.V+z1:I1p:S1p
+#désenregistrons,désenregistrer.V+z1:P1p:Y1p
+#désenregistrâmes,désenregistrer.V+z1:J1p
+#désenregistrât,désenregistrer.V+z1:T3s
+#désenregistrâtes,désenregistrer.V+z1:J2p
+#désenregistrèrent,désenregistrer.V+z1:J3p
+#désenregistré,désenregistrer.V+z1:Kms
+#désenregistrée,désenregistrer.V+z1:Kfs
+#désenregistrées,désenregistrer.V+z1:Kfp
+#désenregistrés,désenregistrer.V+z1:Kmp
+
+#bien-être,.N:ms
+#bien-êtres,bien-être.N:mp
+
+#petit-déjeuner,.N:ms
+#petit déjeuner,petit-déjeuner.N:ms
+
+#endommagé,.A+z1:ms
+#endommagée,endommagé.A+z1:fs
+#endommagées,endommagé.A+z1:fp
+#endommagés,endommagé.A+z1:mp
+
+
+#milliard,.DET:mp:fp
+#milliards,milliard.DET:mp:fp
+#million,.DET:mp:fp
+#millions,million.DET:mp:fp
+#milles,mille.DET:mp:fp
+
+#dix-sept,.N+z1:ms:mp
+#dix-sept,.DET+z1:mp:fp
+#dix sept,dix-sept.N+z1:ms:mp
+#dix sept,dix-sept.DET+z1:mp:fp
+
+#dix-huit,.N+z1:ms:mp
+#dix-huit,.DET+z1:mp:fp
+#dix huit,dix-huit.N+z1:ms:mp
+#dix huit,dix-huit.DET+z1:mp:fp
+
+#soixante-dix,.N+z1:ms:mp
+#soixante-dix,.DET+z1:mp:fp
+#soixante dix,soixante-dix.N+z1:ms:mp
+#soixante dix,soixante-dix.DET+z1:mp:fp
+#soixantes-dix,soixante-dix.N+z1:ms:mp
+#soixantes-dix,soixante-dix.DET+z1:mp:fp
+#soixantes dix,soixante-dix.N+z1:ms:mp
+#soixantes dix,soixante-dix.DET+z1:mp:fp
+
+#quatre-vingts,.N+z1:ms:mp
+#quatre-vingts,.DET+z1:mp:fp
+#quatre vingts,quatre-vingts.N+z1:ms:mp
+#quatre vingts,quatre-vingts.DET+z1:mp:fp
+#quatre-vingt,quatre-vingts.N+z1:ms:mp
+#quatre-vingt,quatre-vingts.DET+z1:mp:fp
+#quatre vingt,quatre-vingts.N+z1:ms:mp
+#quatre vingt,quatre-vingts.DET+z1:mp:fp
+
+#quatre-vingt-dix,.N+z1:ms:mp
+#quatre-vingt-dix,.DET+z1:mp:fp
+#quatre vingt-dix,quatre-vingt-dix.N+z1:ms:mp
+#quatre vingt-dix,quatre-vingt-dix.DET+z1:mp:fp
+#quatre vingt dix,quatre-vingt-dix.N+z1:ms:mp
+#quatre vingt dix,quatre-vingt-dix.DET+z1:mp:fp
+#quatre-vingt dix,quatre-vingt-dix.N+z1:ms:mp
+#quatre-vingt dix,quatre-vingt-dix.DET+z1:mp:fp
+
+#quatre-vingts-dix,quatre-vingt-dix.N+z1:ms:mp
+#quatre-vingts-dix,quatre-vingt-dix.DET+z1:mp:fp
+#quatre vingts-dix,quatre-vingt-dix.N+z1:ms:mp
+#quatre vingts-dix,quatre-vingt-dix.DET+z1:mp:fp
+#quatre vingts dix,quatre-vingt-dix.N+z1:ms:mp
+#quatre vingts dix,quatre-vingt-dix.DET+z1:mp:fp
+#quatre-vingts dix,quatre-vingt-dix.N+z1:ms:mp
+#quatre-vingts dix,quatre-vingt-dix.DET+z1:mp:fp
+
+
+#couche\-tard,.N+VX+Hum:ms:fs:mp:fp
+#lève\-tard,.N+VX+Hum+z1:ms:fs:mp:fp
+#lève\-tôt,.N+VX+Hum+z1:ms:fs:mp:fp
+#passe\-partout,.N+VX+Conc:ms:mp
+#passe\-partout,.N+VX+Conc+z1:ms:mp
+#rendez\-vous,.N+VX:ms:mp
+#revenez\-y,.N+VX:ms:mp
+
+#chemin neuf,.N:ms
+
+#Saint-Esprit,.PN:ms
+#Esprit,Saint-Esprit.PN:ms
+#Esprit-Saint,Saint-Esprit.PN:ms
+#Esprit Saint,Saint-Esprit.PN:ms
+
+#Isaïe,.PN:ms
+#Ésaïe,Isaïe.PN:ms
+
+#Habacuc,.PN:ms
+#Habaquq,Habacuc.PN:ms
+#Habaquc,Habacuc.PN:ms
+
+-jésus.N
+#Jésus,.PN:ms
+#jésus,Jésus.PN:ms
+#Jesus,Jésus.PN:ms
+#jesus,Jésus.PN:ms
+
+#Dieu,.PN:ms
+#dieu,Dieu.PN:ms
+
+#Saint-Esprit,.PN:ms
+#Esprit-Saint,Saint-Esprit.PN:ms
+#Esprit Saint,Saint-Esprit.PN:ms
+#Saint Esprit,Saint-Esprit.PN:ms
+#Esprit,Saint-Esprit.PN:ms
+
+#Marie,.PN:fs
+#Vierge Marie,Marie.PN:fs
+#Vierge marie,Marie.PN:fs
+#vierge Marie,Marie.PN:fs
+#vierge marie,Marie.PN:fs
+
+#Immaculée Conception,.PN:fs
+#Immaculée conception,Immaculée Conception.PN:fs
+#immaculée Conception,Immaculée Conception.PN:fs
+#immaculée conception,Immaculée Conception.PN:fs
+
+#Notre-Père,.N:ms
+#Notre-père,Notre-Père.N:ms
+#notre-Père,Notre-Père.N:ms
+#notre-père,Notre-Père.N:ms
+#Notre Père,Notre-Père.N:ms
+#Notre père,Notre-Père.N:ms
+#notre Père,Notre-Père.N:ms
+#notre père,Notre-Père.N:ms
+
+#je vous salue Marie,.N:ms
+#je vous salue marie,je vous salue Marie.N:ms
+
+#œuvre,.N
+#oeuvre,œuvre.N:fs
+#œuvres,œuvre.N:fp
+#oeuvres,œuvre.N:fp
+
+
+#sans-abri,.N:ms:mp
+#SDF,.N:ms:mp
+#sdf,SDF.N:ms:mp
+
+#Frat,.N:ms
+#FRAT,Frat.N:ms
+#frat,Frat.N:ms
+#fraternel,Frat.N:ms
+#Fraternel,Frat.N:ms
+#FRATernel,Frat.N:ms
+
+#d'autres,.PRO:3mp:3fp
+
+#à Dieu,.INTJ
+#a Dieu,à Dieu.INTJ
+#au plaisir,.INTJ
+#hasta luego,.INTJ
+#à plus tard,.INTJ
+#a plus tard,à plus tard.INTJ
+#à plus,à plus tard.INTJ
+#a plus,à plus tard.INTJ
+
+
+#demi-tour,.N+AN:ms
+#demi-tours,demi-tour.N+AN:mp

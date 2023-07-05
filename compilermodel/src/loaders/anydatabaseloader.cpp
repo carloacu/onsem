@@ -8,7 +8,7 @@
 #include "rladatabaseloader.hpp"
 #include "gfsdatabaseloader.hpp"
 #include "cptsdatabaseloader.hpp"
-
+#include "omldloader.hpp"
 
 namespace onsem
 {
@@ -37,6 +37,11 @@ void AnyDatabaseLoader::open
     pCurrLingdb.clear();
     DelaDatabaseLoader ddl;
     ddl.merge(pFilename, pCurrLingdb);
+  }
+  else if (suffixStr == pLingdbTree.getExtOmld())
+  {
+    pCurrLingdb.clear();
+    mergeOmld(pFilename, pCurrLingdb);
   }
   else if (suffixStr == pLingdbTree.getRlaDatabase())
   {
@@ -70,6 +75,10 @@ void AnyDatabaseLoader::mergeWith
   {
     DelaDatabaseLoader ddl;
     ddl.merge(pFilename, pCurrLingdb);
+  }
+  else if (suffixStr == pLingdbTree.getExtOmld())
+  {
+    mergeOmld(pFilename, pCurrLingdb);
   }
   else if (suffixStr == pLingdbTree.getExtGfsDatabase())
   {

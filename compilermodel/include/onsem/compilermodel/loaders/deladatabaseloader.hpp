@@ -1,6 +1,7 @@
 #ifndef ONSEM_COMPILERMODEL_LOADERS_DELADATABASELOADER_HPP
 #define ONSEM_COMPILERMODEL_LOADERS_DELADATABASELOADER_HPP
 
+#include <list>
 #include <vector>
 #include <string>
 #include <map>
@@ -25,14 +26,15 @@ public:
   DelaDatabaseLoader(bool pSaveWords = false);
 
   void simplifyDelaFile
-  (const std::string& pInFilename,
+  (const std::string &pInFilename,
    const std::string& pOutFilename,
    const std::set<std::string>& pLemmaToKeep,
    bool pRemoveHum,
-   bool pRemoveDnum);
+   bool pRemoveDnum,
+   bool pWordsThatBeginsWithCapitalLetter);
 
   void toXml
-  (const std::string& pInFilename,
+  (const std::vector<std::string>& pInFilenames,
    const std::string& pOutFilename);
 
   /**
@@ -67,6 +69,14 @@ private:
     std::vector<std::string> flexions;
     std::vector<std::string> otherInfos;
   };
+  struct WordModif
+  {
+    std::list<NewWordInfos> newWords;
+    std::set<PartOfSpeech> partOfSpeechesToDel;
+
+    bool empty() { return newWords.empty() && partOfSpeechesToDel.empty(); }
+  };
+
 
   void xFillNewWordInfos
   (NewWordInfos& pNewWord,

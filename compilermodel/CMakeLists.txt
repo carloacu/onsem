@@ -55,6 +55,8 @@ set(ONSEMCOMPILERMODEL_SRCS
   src/loaders/gfsdatabaseloader.cpp
   src/loaders/cptsdatabaseloader.hpp
   src/loaders/cptsdatabaseloader.cpp
+  src/loaders/omldloader.hpp
+  src/loaders/omldloader.cpp
   src/loaders/rladatabaseloader.hpp
   src/loaders/rladatabaseloader.cpp
   src/loaders/anydatabaseloader.cpp

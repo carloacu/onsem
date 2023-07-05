@@ -111,28 +111,6 @@ std::size_t LingdbModifier::addToAtBeginOfVerbsForEnglish
 }
 
 
-
-
-std::size_t LingdbModifier::delWordsWithACapitalLetter
-(LinguisticIntermediaryDatabase& pLingDatabase) const
-{
-  std::size_t nbDeletedWords = 0;
-  LingdbDynamicTrieNode* currNode = pLingDatabase.getRoot()->getNextWordNode();
-  while (currNode != nullptr)
-  {
-    std::string word = currNode->getWord();
-    if (xHasACapitalLetter(word))
-    {
-      pLingDatabase.removeWord(word);
-      currNode = pLingDatabase.getRoot()->advanceInTrie(word, false);
-      ++nbDeletedWords;
-    }
-    currNode = currNode->getNextWordNode();
-  }
-  return nbDeletedWords;
-}
-
-
 std::size_t LingdbModifier::delExprs
 (LinguisticIntermediaryDatabase& pLingDatabase) const
 {
@@ -168,21 +146,6 @@ std::size_t LingdbModifier::delAllWords
   }
   return nbDeletedWords;
 }
-
-
-bool LingdbModifier::xHasACapitalLetter
-(const std::string& pWord) const
-{
-  for (std::size_t i = 0; i < pWord.size(); ++i)
-  {
-    if (pWord[i] >= 'A' && pWord[i] <= 'Z')
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
 
 bool LingdbModifier::xEndWithQue
 (const std::string& pWord) const

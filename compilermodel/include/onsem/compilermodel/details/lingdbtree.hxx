@@ -31,6 +31,10 @@ inline std::string LingdbTree::getExtDelaDatabase
   return "dela";
 }
 
+inline std::string LingdbTree::getExtOmld() const
+{
+  return "omld";
+}
 
 
 inline std::string LingdbTree::getExtGfsDatabase

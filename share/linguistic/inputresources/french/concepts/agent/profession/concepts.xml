@@ -6,6 +6,12 @@
   <linkedMeaning lemme="profession" relationToConcept="4"/>
  </concept>
  <concept name="agent_profession_*">
+  <linkedMeaning lemme="acteur" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="chanteur" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="homme d'affaires" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="femme d'affaires" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="homme politique" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="homme d'État" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="abbé" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="accordéoniste" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="acheteur" gram="noun" relationToConcept="4" />

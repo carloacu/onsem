@@ -46,6 +46,8 @@ public:
    */
   std::string getExtDelaDatabase() const;
 
+  std::string getExtOmld() const;
+
   std::string getExtGfsDatabase() const;
 
 

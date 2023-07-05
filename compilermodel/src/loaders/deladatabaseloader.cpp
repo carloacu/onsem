@@ -1,6 +1,7 @@
 #include <onsem/compilermodel/loaders/deladatabaseloader.hpp>
 #include <sstream>
 #include <fstream>
+#include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/common/utility/string.hpp>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
 #include <onsem/compilermodel/lingdbmeaning.hpp>
@@ -71,7 +72,8 @@ void DelaDatabaseLoader::simplifyDelaFile
  const std::string& pOutFilename,
  const std::set<std::string>& pLemmaToKeep,
  bool pRemoveHum,
- bool pRemoveDnum)
+ bool pRemoveDnum,
+ bool pWordsThatBeginsWithCapitalLetter)
 {
   std::ifstream infile(pInFilename, std::ifstream::in);
   if (!infile.is_open())
@@ -99,6 +101,8 @@ void DelaDatabaseLoader::simplifyDelaFile
       {
         continue;
       }
+      if (pWordsThatBeginsWithCapitalLetter && beginWithUppercase(newWord.lemma))
+        continue;
 
       if (pLemmaToKeep.count(newWord.lemma) == 0)
       {
@@ -190,7 +194,7 @@ void DelaDatabaseLoader::simplifyDelaFile
 
 
 void DelaDatabaseLoader::toXml
-(const std::string& pInFilename,
+(const std::vector<std::string>& pInFilenames,
  const std::string& pOutDir)
 {
   std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToConcrete;
@@ -199,12 +203,40 @@ void DelaDatabaseLoader::toXml
   std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToAHuman;
   std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToATime;
   std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToAnimal;
+  std::map<std::string, WordModif> lemmaToWordModifs;
 
-  std::map<std::string, std::list<NewWordInfos>> lemmaToNewWords;
+  auto removeInfl = [&](const std::string& pWordToRemove,
+                        PartOfSpeech pPosToRemove) {
+    bool res = false;
+    for (auto itLemmaToNewWords = lemmaToWordModifs.begin(); itLemmaToNewWords != lemmaToWordModifs.end(); )
+    {
+      // Remove words to remove
+      for (auto itWord = itLemmaToNewWords->second.newWords.begin(); itWord != itLemmaToNewWords->second.newWords.end(); )
+      {
+        if (itWord->word == pWordToRemove && itWord->gram == pPosToRemove)
+        {
+          res = true;
+          itWord = itLemmaToNewWords->second.newWords.erase(itWord);
+        }
+        else
+        {
+          ++itWord;
+        }
+      }
+
+      if (itLemmaToNewWords->second.empty())
+        itLemmaToNewWords = lemmaToWordModifs.erase(itLemmaToNewWords);
+      else
+        ++itLemmaToNewWords;
+    }
+    return res;
+  };
+
+  for (const auto& currInFilename : pInFilenames)
   {
-    std::ifstream infile(pInFilename, std::ifstream::in);
+    std::ifstream infile(currInFilename, std::ifstream::in);
     if (!infile.is_open())
-      throw std::runtime_error("Can't open " + pInFilename + " file !");
+      throw std::runtime_error("Can't open " + currInFilename + " file !");
     std::string line;
     while (getline(infile, line))
     {
@@ -216,24 +248,43 @@ void DelaDatabaseLoader::toXml
       {
         NewWordInfos newWord;
         xFillNewWordInfos(newWord, line);
-        lemmaToNewWords[newWord.lemma].push_back(newWord);
+        lemmaToWordModifs[newWord.lemma].newWords.push_back(newWord);
+      }
+      else if (line[0] == '-') // delete a wordform
+      {
+        std::string lemma;
+        std::size_t endOfLemma = xGetStringUntilAChar(lemma, 1, '.', line);
+        std::size_t beginOfGram = endOfLemma + 1;
+        PartOfSpeech gram = xReadGram(line.substr(beginOfGram,  line.size() - beginOfGram));
+
+        if (!removeInfl(lemma, gram))
+          lemmaToWordModifs[lemma].partOfSpeechesToDel.insert(gram);
       }
     }
     infile.close();
   }
 
-
-
   std::ofstream outfile(pOutDir + "/french.omld");
   outfile << "<omld>" << std::endl;
   std::string line;
-  for (auto& currLemmaToNewWords : lemmaToNewWords)
+  for (auto& currLemmaToNewWords : lemmaToWordModifs)
   {
-    if (currLemmaToNewWords.second.empty())
-      continue;
-    auto lemmaGram = currLemmaToNewWords.second.front().gram;
+    PartOfSpeech lemmaGram = PartOfSpeech::UNKNOWN;
+    if (!currLemmaToNewWords.second.newWords.empty())
+      lemmaGram = currLemmaToNewWords.second.newWords.front().gram;
+    else if (!currLemmaToNewWords.second.partOfSpeechesToDel.empty())
+      lemmaGram = *currLemmaToNewWords.second.partOfSpeechesToDel.begin();
+
     outfile << " <w l=\"" << currLemmaToNewWords.first << "\" p=\"" << partOfSpeech_toStr(lemmaGram) << "\">" << std::endl;
-    for (auto& newWord : currLemmaToNewWords.second)
+
+    for (auto& posToRemove : currLemmaToNewWords.second.partOfSpeechesToDel)
+    {
+      outfile << "  <r";
+      if (posToRemove != lemmaGram)
+        outfile << " p=\"" << partOfSpeech_toStr(posToRemove) << "\"";
+      outfile << " />" << std::endl;
+    }
+    for (auto& newWord : currLemmaToNewWords.second.newWords)
     {
       outfile << "  <i";
       if (newWord.word != currLemmaToNewWords.first)
@@ -437,11 +488,7 @@ void DelaDatabaseLoader::merge
     else if (line[0] == '>')
     {
       LingdbModifier modifier;
-      if (line == ">delWordsWithACapitalLetter")
-      {
-        modifier.delWordsWithACapitalLetter(pWords);
-      }
-      else if (line == ">delExprs")
+      if (line == ">delExprs")
       {
         modifier.delExprs(pWords);
       }

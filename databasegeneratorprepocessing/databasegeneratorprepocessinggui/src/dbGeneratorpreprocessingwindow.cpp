@@ -505,10 +505,11 @@ void DbGeneratorPreprocessingWindow::on_pushButton_2_clicked()
   delaLoader.simplifyDelaFile
       (_inputResourcesFolder + "/french/readonly/french_dela.dela",
        _inputResourcesFolder + "/french/readonly/french_simplified_dela.dela",
-       frLemmaToKeep, true, true /* TODO: to check */);
+       frLemmaToKeep, true, true /* TODO: to check */, true);
 
   delaLoader.toXml(
-        _inputResourcesFolder + "/french/readonly/french_simplified_dela.dela",
+        {_inputResourcesFolder + "/french/readonly/french_simplified_dela.dela",
+         _inputResourcesFolder + "/french/readonly/french_modifs.dela"},
         _inputResourcesFolder + "/french/readonly");
 
 
@@ -541,7 +542,7 @@ void DbGeneratorPreprocessingWindow::on_pushButton_2_clicked()
   delaLoader.simplifyDelaFile
       (_inputResourcesFolder + "/english/readonly/english_dela.dela",
        _inputResourcesFolder + "/english/readonly/english_simplified_dela.dela",
-       enLemmaToKeep, false, false  /* TODO: to check */);
+       enLemmaToKeep, false, false  /* TODO: to check */, false);
 }
 
 void DbGeneratorPreprocessingWindow::on_pushButton_3_clicked()
