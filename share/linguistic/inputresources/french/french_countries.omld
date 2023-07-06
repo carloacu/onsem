@@ -1,0 +1,582 @@
+<omld>
+ <w l="Afghanistan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Afrique du Sud" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Albanie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Algérie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Allemagne" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Andorre" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Angola" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Arabie saoudite" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Argentine" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Arménie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Australie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Autriche" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Azerbaïdjan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Bahamas" p="proper_noun">
+  <i f="fp" />
+ </w>
+ <w l="Bahreïn" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Bangladesh" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Barbade" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Belgique" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Bhoutan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Birmanie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Bolivie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Bosnie-Herzégovine" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Botswana" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Brunéi Darussalam" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Brésil" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Bulgarie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Burkina Faso" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Burundi" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Bélarus" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Bélize" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Bénin" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Cameroun" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Canada" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Chili" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Chine" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Chypre" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Colombie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Comores" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Congo" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Corée du Nord" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Corée du Sud" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Costa Rica" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Croatie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Cuba" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Côte d’Ivoire" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Danemark" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Djibouti" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Dominique" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Espagne" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Estonie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Fidji" p="proper_noun">
+  <i f="fp" />
+ </w>
+ <w l="Finlande" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="France" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Gabon" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Gambie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Ghana" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Grenade" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Grèce" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Guatemala" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Guinée" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Guinée équatoriale" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Guinée-Bissau" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Guyana" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Géorgie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Haïti" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Honduras" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Hongrie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Inde" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Indonésie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Iran" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Iraq" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Irlande" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Islande" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Israël" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Italie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Jamaïque" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Japon" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Jordanie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Kazakhstan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Kenya" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Kirghizistan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Kiribati" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Kosovo" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Koweït" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Laos" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Lesotho" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Lettonie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Liban" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Libye" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Libéria" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Liechtenstein" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Lituanie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Luxembourg" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Macédoine" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Madagascar" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Malaisie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Malawi" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Maldives" p="proper_noun">
+  <i f="fp" />
+ </w>
+ <w l="Mali" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Malte" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Maroc" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Mauritanie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Mexique" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Micronésie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Moldavie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Monaco" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Monténégro" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Mozambique" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Namibie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Nauru" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Nicaragua" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Niger" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Nigéria" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Norvège" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Nouvelle-Zélande" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Népal" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Oman" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Ouganda" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Ouzbékistan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Pakistan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Palaos" p="proper_noun">
+  <i f="fp" />
+ </w>
+ <w l="Panamá" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Papouasie-Nouvelle-Guinée" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Paraguay" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Pays-Bas" p="proper_noun">
+  <i f="mp" />
+ </w>
+ <w l="Philippines" p="proper_noun">
+  <i f="fp" />
+ </w>
+ <w l="Pologne" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Portugal" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Pérou" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Qatar" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Roumanie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Royaume-Uni" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Russie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Rwanda" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="République centrafricaine" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="République dominicaine" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="République démocratique du Congo" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="République tchèque" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Saint-Kitts-et-Nevis" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Saint-Marin" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Saint-Siège" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Saint-Vincent-et-les Grenadines" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Sainte-Lucie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Salvador" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Samoa" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Sao Tomé-et-Principe" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Serbie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Seychelles" p="proper_noun">
+  <i f="fp" />
+ </w>
+ <w l="Sierra Leone" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Singapour" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Slovaquie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Slovénie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Somalie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Soudan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Soudan du Sud" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Sri Lanka" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Suisse" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Suriname" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Suède" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Swaziland" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Syrie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Sénégal" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Tadjikistan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Tanzanie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Taïwan" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Tchad" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Thaïlande" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Timor-Oriental" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Togo" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Tonga" p="proper_noun">
+  <i f="fp" />
+ </w>
+ <w l="Trinité-et-Tobago" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Tunisie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Turkménistan" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Turquie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Tuvalu" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Ukraine" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Uruguay" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Vanuatu" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Venezuela" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Vietnam" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Yémen" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Zambie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Zimbabwe" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Égypte" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Émirats arabes unis" p="proper_noun">
+  <i f="mp" />
+ </w>
+ <w l="Équateur" p="proper_noun">
+  <i f="ms" />
+ </w>
+ <w l="Érythrée" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="États-Unis" p="proper_noun">
+  <i f="mp" />
+  <i i="États-Unis d’Amérique" f="mp" />
+  <i i="États Unis" f="mp" />
+  <i i="Etats-Unis" f="mp" />
+  <i i="Etats Unis" f="mp" />
+ </w>
+ <w l="Éthiopie" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Île Maurice" p="proper_noun">
+  <i f="fs" />
+ </w>
+ <w l="Îles Marshall" p="proper_noun">
+  <i f="fp" />
+ </w>
+ <w l="Îles Salomon" p="proper_noun">
+  <i f="fp" />
+ </w>
+</omld>

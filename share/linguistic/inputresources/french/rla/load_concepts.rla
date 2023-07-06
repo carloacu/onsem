@@ -2,8 +2,9 @@ merge [inputresources]/french/french_separators.xml
 merge [inputresources]/french/readonly/french.omld
 merge [inputresources]/french/french_modifs.dela
 merge [inputresources]/french/readonly/french_gramfreqs.gfs
-merge [inputresources]/french/french_after_sorted.dela
+merge [inputresources]/french/french_after_sorted.omld
+merge [inputresources]/french/queHandling.dela
 merge [inputresources]/french/readonly/frComposedWords.xml
 merge [inputresources]/french/frComposedWords.xml
 merge [inputresources]/french/french_aftercomposedwords.xml
-merge [inputresources]/french/french_countries.dela
+merge [inputresources]/french/french_countries.omld

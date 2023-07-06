@@ -1,0 +1,317 @@
+<omld>
+ <r l="alors" p="conjunctive">
+ <r l="certaines" p="determiner">
+ <r l="certains" p="determiner">
+ <r l="cm" p="noun">
+ <r l="comme" p="sub_conj">
+ <r l="coucou" p="interjection">
+ <r l="dam" p="noun">
+ <r l="de" p="determiner">
+ <r l="de" p="preposition">
+ <r l="des" p="determiner">
+ <r l="dont" p="pronoun">
+ <r l="désolé" p="interjection">
+ <r l="en" p="preposition">
+ <r l="en" p="pronoun">
+ <r l="enchanté" p="interjection">
+ <r l="entendu" p="interjection">
+ <r l="le" p="pronoun">
+ <r l="mesure" p="verb">
+ <r l="nous" p="pronoun_subject">
+ <r l="où" p="pronoun">
+ <r l="pardon" p="adverb">
+ <r l="pardon" p="noun">
+ <r l="parfait" p="interjection">
+ <r l="pose" p="noun">
+ <r l="pourquoi" p="sub_conj">
+ <r l="quand" p="sub_conj">
+ <r l="que" p="sub_conj">
+ <r l="que" p="pronoun">
+ <r l="quel" p="pronoun">
+ <r l="quelle" p="pronoun">
+ <r l="quelles" p="pronoun">
+ <r l="quels" p="pronoun">
+ <r l="salut" p="interjection">
+ <r l="si" p="sub_conj">
+ <r l="sinon" p="sub_conj">
+ <r l="ton" p="determiner">
+ <r l="tous" p="determiner">
+ <r l="toutes" p="determiner">
+ <r l="tu" p="pronoun_subject">
+ <r l="vous" p="pronoun_subject">
+ <w l="allez" p="interjection">
+  <i />
+ </w>
+ <w l="alors" p="conjunctive">
+  <i />
+ </w>
+ <w l="au revoir" p="interjection">
+  <i />
+ </w>
+ <w l="aucun d'entre eux" p="interjection">
+  <i />
+ </w>
+ <w l="bien sûr" p="interjection">
+  <i />
+  <i i="bien sur" />
+ </w>
+ <w l="bien sûr que non" p="interjection">
+  <i />
+  <i i="bien sur que non" />
+ </w>
+ <w l="bonjour" p="interjection">
+  <i />
+ </w>
+ <w l="car" p="sub_conj">
+  <i />
+ </w>
+ <w l="centimètre" p="noun">
+  <i i="cm" f="ms|mp" y="3" />
+ </w>
+ <w l="certains" p="determiner">
+  <i f="mp" />
+  <i i="certaines" f="fp" />
+ </w>
+ <w l="combien" p="sub_conj">
+  <i />
+ </w>
+ <w l="comme" p="sub_conj">
+  <i />
+ </w>
+ <w l="coucou" p="interjection">
+  <i />
+ </w>
+ <w l="d'accord" p="interjection">
+  <i />
+ </w>
+ <w l="de" p="determiner">
+  <i />
+  <i p="proper_noun" />
+  <i p="preposition" />
+  <i p="partitive" />
+  <i i="d" />
+  <i i="d" p="preposition" />
+  <i i="d" p="partitive" />
+ </w>
+ <w l="des" p="determiner">
+  <i f="mp|fp" />
+  <i p="partitive" f="p" />
+ </w>
+ <w l="dont" p="sub_conj">
+  <i />
+ </w>
+ <w l="droite" p="adjective">
+  <i f="fs" />
+ </w>
+ <w l="du" p="proper_noun">
+  <i />
+  <i p="partitive" f="ms" />
+ </w>
+ <w l="décamètre" p="noun">
+  <i i="dam" f="ms|mp" y="3" />
+ </w>
+ <w l="décimètre" p="noun">
+  <i i="dm" f="ms|mp" y="3" />
+ </w>
+ <w l="désolé" p="interjection">
+  <i />
+ </w>
+ <w l="eh bien" p="interjection">
+  <i />
+ </w>
+ <w l="en" p="partitive">
+  <i />
+  <i p="preposition" />
+  <i p="pronoun_comp" />
+ </w>
+ <w l="en cas de" p="preposition">
+  <i />
+  <i i="en cas d" />
+ </w>
+ <w l="en effet" p="interjection">
+  <i />
+ </w>
+ <w l="en fait" p="interjection">
+  <i />
+ </w>
+ <w l="enchanté" p="interjection">
+  <i />
+ </w>
+ <w l="ensuite" p="conjunctive">
+  <i />
+ </w>
+ <w l="entendu" p="interjection">
+  <i />
+ </w>
+ <w l="hectomètre" p="noun">
+  <i i="hm" f="ms|mp" y="3" />
+ </w>
+ <w l="hé bien" p="interjection">
+  <i />
+ </w>
+ <w l="kilomètre" p="noun">
+  <i i="km" f="ms|mp" y="3" />
+ </w>
+ <w l="le" p="pronoun_comp">
+  <i f="3ms" />
+  <i i="l" f="3ms" />
+  <i i="la" f="3fs" />
+  <i i="les" f="3mp|3fp" />
+ </w>
+ <w l="lequel" p="sub_conj">
+  <i />
+  <i i="lesquels" />
+  <i i="laquelle" />
+  <i i="lesquelles" />
+ </w>
+ <w l="leur" p="pronoun_comp">
+  <i f="3mp|3fp" />
+ </w>
+ <w l="lui" p="pronoun_comp">
+  <i f="3ms|3fs" />
+ </w>
+ <w l="mais" p="sub_conj">
+  <i />
+ </w>
+ <w l="mesurer" p="verb">
+  <i i="mesure" f="P1s|P3s|S1s|S3s|Y2s" />
+ </w>
+ <w l="millimètre" p="noun">
+  <i i="mm" f="ms|mp" y="3" />
+ </w>
+ <w l="mètre" p="noun">
+  <i i="m" f="ms|mp" y="3" />
+ </w>
+ <w l="ni l'un ni l'autre" p="interjection">
+  <i />
+ </w>
+ <w l="non" p="interjection">
+  <i i="nope" y="3" />
+  <i />
+ </w>
+ <w l="non seulement" p="interjection">
+  <i />
+ </w>
+ <w l="nous" p="pronoun_comp">
+  <i f="1p" />
+  <i p="pronoun_subject" f="1p" />
+ </w>
+ <w l="oui" p="interjection">
+  <i i="ouep" y="3" />
+  <i i="ouai" y="3" />
+  <i i="ouaip" y="3" />
+  <i i="ouais" y="3" />
+  <i i="wouais" y="3" />
+  <i />
+ </w>
+ <w l="où" p="adverb">
+  <i />
+  <i p="sub_conj" />
+ </w>
+ <w l="par exemple" p="interjection">
+  <i />
+ </w>
+ <w l="pardon" p="interjection">
+  <i />
+  <i p="noun" f="ms" />
+ </w>
+ <w l="parfait" p="interjection">
+  <i />
+ </w>
+ <w l="pas du tout" p="interjection">
+  <i />
+ </w>
+ <w l="pose" p="noun">
+  <i f="fs" />
+ </w>
+ <w l="pourquoi" p="sub_conj">
+  <i />
+ </w>
+ <w l="quand" p="sub_conj">
+  <i />
+  <i i="à quel moment" p="adverb" y="3" />
+  <i i="a quel moment" p="adverb" y="3" />
+  <i i="à quel moment" y="3" />
+  <i i="a quel moment" y="3" />
+ </w>
+ <w l="que" p="adverb">
+  <i />
+  <i p="interjection" />
+  <i p="sub_conj" />
+  <i p="pronoun" />
+ </w>
+ <w l="quel" p="pronoun">
+  <i f="ms" />
+  <i i="en quel" f="ms" />
+  <i i="quelle" f="fs" />
+  <i i="en quelle" f="fs" />
+  <i i="quels" f="mp" />
+  <i i="quelles" f="fp" />
+  <i i="en quelles" f="fp" />
+  <i p="sub_conj" />
+  <i i="quels" p="sub_conj" />
+  <i i="quelle" p="sub_conj" />
+  <i i="quelles" p="sub_conj" />
+  <i i="de quel" f="ms" y="3" />
+  <i i="de quels" f="mp" y="3" />
+  <i i="de quelle" f="fs" y="3" />
+  <i i="de quelles" f="fp" y="3" />
+ </w>
+ <w l="qui" p="sub_conj">
+  <i />
+ </w>
+ <w l="s'il te plaît" p="interjection">
+  <i />
+  <i i="s'il te plait" />
+  <i i="s'il vous plait" />
+  <i i="s'il vous plaît" />
+ </w>
+ <w l="salut" p="interjection">
+  <i />
+ </w>
+ <w l="se" p="pronoun_comp">
+  <i i="m" f="1s" />
+ </w>
+ <w l="si" p="sub_conj">
+  <i />
+ </w>
+ <w l="sinon" p="conjunctive">
+  <i />
+ </w>
+ <w l="ton" p="determiner">
+  <i f="ms" />
+ </w>
+ <w l="tous" p="determiner">
+  <i f="mp" />
+  <i i="toutes" f="fp" />
+ </w>
+ <w l="tu" p="pronoun_subject">
+  <i f="2s" />
+ </w>
+ <w l="voilà" p="adverb">
+  <i />
+  <i i="voila" y="3" />
+  <i p="interjection" />
+  <i i="voila" p="interjection" y="3" />
+ </w>
+ <w l="vous" p="pronoun_comp">
+  <i f="2p" />
+  <i p="pronoun_subject" f="2p" />
+ </w>
+ <w l="à combien" p="adverb">
+  <i />
+  <i p="sub_conj" />
+  <i i="a combien" />
+  <i i="a combien" p="sub_conj" />
+ </w>
+ <w l="à qui" p="pronoun">
+  <i />
+  <i i="a qui" />
+  <i p="sub_conj" />
+ </w>
+ <w l="à quoi" p="pronoun">
+  <i />
+  <i i="a quoi" />
+  <i p="sub_conj" />
+ </w>
+</omld>

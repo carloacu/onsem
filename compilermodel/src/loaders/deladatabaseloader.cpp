@@ -203,31 +203,24 @@ void DelaDatabaseLoader::toXml
   std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToAHuman;
   std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToATime;
   std::map<std::string, std::set<PartOfSpeech> > lemmaAndGramThatPointsToAnimal;
-  std::map<std::string, WordModif> lemmaToWordModifs;
+  std::list<NewWordInfos> newWords;
+  std::map<std::string, std::set<PartOfSpeech>> partOfSpeechesToDel;
 
   auto removeInfl = [&](const std::string& pWordToRemove,
-                        PartOfSpeech pPosToRemove) {
+      PartOfSpeech pPosToRemove) {
     bool res = false;
-    for (auto itLemmaToNewWords = lemmaToWordModifs.begin(); itLemmaToNewWords != lemmaToWordModifs.end(); )
+    // Remove words to remove
+    for (auto itWord = newWords.begin(); itWord != newWords.end(); )
     {
-      // Remove words to remove
-      for (auto itWord = itLemmaToNewWords->second.newWords.begin(); itWord != itLemmaToNewWords->second.newWords.end(); )
+      if (itWord->word == pWordToRemove && itWord->gram == pPosToRemove)
       {
-        if (itWord->word == pWordToRemove && itWord->gram == pPosToRemove)
-        {
-          res = true;
-          itWord = itLemmaToNewWords->second.newWords.erase(itWord);
-        }
-        else
-        {
-          ++itWord;
-        }
+        res = true;
+        itWord = newWords.erase(itWord);
       }
-
-      if (itLemmaToNewWords->second.empty())
-        itLemmaToNewWords = lemmaToWordModifs.erase(itLemmaToNewWords);
       else
-        ++itLemmaToNewWords;
+      {
+        ++itWord;
+      }
     }
     return res;
   };
@@ -248,7 +241,7 @@ void DelaDatabaseLoader::toXml
       {
         NewWordInfos newWord;
         xFillNewWordInfos(newWord, line);
-        lemmaToWordModifs[newWord.lemma].newWords.push_back(newWord);
+        newWords.push_back(newWord);
       }
       else if (line[0] == '-') // delete a wordform
       {
@@ -258,7 +251,7 @@ void DelaDatabaseLoader::toXml
         PartOfSpeech gram = xReadGram(line.substr(beginOfGram,  line.size() - beginOfGram));
 
         if (!removeInfl(lemma, gram))
-          lemmaToWordModifs[lemma].partOfSpeechesToDel.insert(gram);
+          partOfSpeechesToDel[lemma].insert(gram);
       }
     }
     infile.close();
@@ -266,88 +259,74 @@ void DelaDatabaseLoader::toXml
 
   std::ofstream outfile(pOutDir + "/french.omld");
   outfile << "<omld>" << std::endl;
-  std::string line;
-  for (auto& currLemmaToNewWords : lemmaToWordModifs)
+  for (auto& currWordToDel : partOfSpeechesToDel)
+    for (auto& currPosToDel : currWordToDel.second)
+      outfile << " <r l=\"" << currWordToDel.first << "\" p=\"" << partOfSpeech_toStr(currPosToDel) << "\">" << std::endl;
+
+
+  for (auto& newWord : newWords)
   {
-    PartOfSpeech lemmaGram = PartOfSpeech::UNKNOWN;
-    if (!currLemmaToNewWords.second.newWords.empty())
-      lemmaGram = currLemmaToNewWords.second.newWords.front().gram;
-    else if (!currLemmaToNewWords.second.partOfSpeechesToDel.empty())
-      lemmaGram = *currLemmaToNewWords.second.partOfSpeechesToDel.begin();
+    outfile << " <i";
+    outfile << " l=\"" << newWord.lemma << "\"";
+    if (newWord.word != newWord.lemma)
+      outfile << " i=\"" << newWord.word << "\"";
+    outfile << " p=\"" << partOfSpeech_toStr(newWord.gram) << "\"";
+    if (!newWord.flexions.empty())
+      outfile << " f=\"" << mystd::join(newWord.flexions, "|") << "\"";
 
-    outfile << " <w l=\"" << currLemmaToNewWords.first << "\" p=\"" << partOfSpeech_toStr(lemmaGram) << "\">" << std::endl;
-
-    for (auto& posToRemove : currLemmaToNewWords.second.partOfSpeechesToDel)
+    char frequency = 4;
+    for (const auto& currOthInf : newWord.otherInfos)
     {
-      outfile << "  <r";
-      if (posToRemove != lemmaGram)
-        outfile << " p=\"" << partOfSpeech_toStr(posToRemove) << "\"";
-      outfile << " />" << std::endl;
-    }
-    for (auto& newWord : currLemmaToNewWords.second.newWords)
-    {
-      outfile << "  <i";
-      if (newWord.word != currLemmaToNewWords.first)
-        outfile << " i=\"" << newWord.word << "\"";
-      if (newWord.gram != lemmaGram)
-        outfile << " p=\"" << partOfSpeech_toStr(newWord.gram) << "\"";
-      if (!newWord.flexions.empty())
-        outfile << " f=\"" << mystd::join(newWord.flexions, "|") << "\"";
-
-      char frequency = 4;
-      for (const auto& currOthInf : newWord.otherInfos)
+      if (currOthInf == "z2")
       {
-        if (currOthInf == "z2")
-        {
-          frequency = 3;
-        }
-        else if (currOthInf == "z3")
-        {
-          frequency = 2;
-        }
-        else if (currOthInf == "OLD")
-        {
-          frequency = 1;
-        }
-        else if (currOthInf == "Ntime")
-        {
-          lemmaAndGramThatPointsToATime[newWord.lemma].insert(newWord.gram);
-        }
-        else if (currOthInf == "Conc")
-        {
-          lemmaAndGramThatPointsToConcrete[newWord.lemma].insert(newWord.gram);
-        }
-        else if (currOthInf == "Country")
-        {
-          lemmaAndGramThatPointsToACountry[newWord.lemma].insert(newWord.gram);
-        }
-        else if (currOthInf == "Hum")
-        {
-          lemmaAndGramThatPointsToAHuman[newWord.lemma].insert(newWord.gram);
-        }
-        else if (currOthInf == "Anl")
-        {
-          lemmaAndGramThatPointsToAnimal[newWord.lemma].insert(newWord.gram);
-        }
-        else if (currOthInf == "Profession")
-        {
-          lemmaAndGramThatPointsToAProfesion[newWord.lemma].insert(newWord.gram);
-          break;
-        }
+        frequency = 3;
       }
-      if (frequency != 4)
-        outfile << " y=\"" << static_cast<int>(frequency) << "\"";
-      outfile << " />" << std::endl;
+      else if (currOthInf == "z3")
+      {
+        frequency = 2;
+      }
+      else if (currOthInf == "OLD")
+      {
+        frequency = 1;
+      }
+      else if (currOthInf == "Ntime")
+      {
+        lemmaAndGramThatPointsToATime[newWord.lemma].insert(newWord.gram);
+      }
+      else if (currOthInf == "Conc")
+      {
+        lemmaAndGramThatPointsToConcrete[newWord.lemma].insert(newWord.gram);
+      }
+      else if (currOthInf == "Country")
+      {
+        lemmaAndGramThatPointsToACountry[newWord.lemma].insert(newWord.gram);
+      }
+      else if (currOthInf == "Hum")
+      {
+        lemmaAndGramThatPointsToAHuman[newWord.lemma].insert(newWord.gram);
+      }
+      else if (currOthInf == "Anl")
+      {
+        lemmaAndGramThatPointsToAnimal[newWord.lemma].insert(newWord.gram);
+      }
+      else if (currOthInf == "Profession")
+      {
+        lemmaAndGramThatPointsToAProfesion[newWord.lemma].insert(newWord.gram);
+        break;
+      }
     }
-    outfile << " </w>" << std::endl;
+    if (frequency != 4)
+      outfile << " y=\"" << static_cast<int>(frequency) << "\"";
+    outfile << " />" << std::endl;
   }
+
   outfile << "</omld>" << std::endl;
   outfile.close();
 
-  /*
+
   auto _addCptFile = [&](const std::string& pFilename,
-                         const std::string& pConcept,
-                         const std::map<std::string, std::set<PartOfSpeech>>& pWords) {
+      const std::string& pConcept,
+      const std::map<std::string, std::set<PartOfSpeech>>& pWords) {
     std::ofstream outfile(pOutDir + "/cpts/" + pFilename);
 
     outfile << "<linguisticdatabase>" << std::endl;
@@ -363,13 +342,12 @@ void DelaDatabaseLoader::toXml
     outfile.close();
   };
 
-  _addCptFile("concret_concepts.xml", "concrete_*", lemmaAndGramThatPointsToConcrete);
   _addCptFile("country_concepts.xml", "country_*", lemmaAndGramThatPointsToACountry);
+  _addCptFile("concret_concepts.xml", "concrete_*", lemmaAndGramThatPointsToConcrete);
   _addCptFile("agent_profession_concepts.xml", "agent_profession_*", lemmaAndGramThatPointsToAProfesion);
   _addCptFile("agent_concepts.xml", "agent_*", lemmaAndGramThatPointsToAHuman);
   _addCptFile("time_concepts.xml", "time_*", lemmaAndGramThatPointsToATime);
   _addCptFile("agent_animal_concepts.xml", "agent_animal_*", lemmaAndGramThatPointsToAnimal);
-  */
 }
 
 

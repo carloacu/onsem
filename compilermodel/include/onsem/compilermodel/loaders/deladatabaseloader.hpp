@@ -69,13 +69,6 @@ private:
     std::vector<std::string> flexions;
     std::vector<std::string> otherInfos;
   };
-  struct WordModif
-  {
-    std::list<NewWordInfos> newWords;
-    std::set<PartOfSpeech> partOfSpeechesToDel;
-
-    bool empty() { return newWords.empty() && partOfSpeechesToDel.empty(); }
-  };
 
 
   void xFillNewWordInfos

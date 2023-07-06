@@ -3,6 +3,47 @@
   <linkedMeaning lemme="time" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="sometime" relationToConcept="3"/>
  </concept>
+ <concept name="time_*">
+  <linkedMeaning lemme="Advent" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="April" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Ascensiontide" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="August" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="December" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="February" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Friday" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="January" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="July" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="June" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="March" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="May" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Messidor" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Monday" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="November" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="October" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Saturday" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="September" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Sunday" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Thursday" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Tuesday" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="Wednesday" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="aeon" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="century" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="day" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="era" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="evening" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="everlasting" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="fortnight" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="hour" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="ides" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="instant" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="iyar" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="kalends" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="lustrum" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="minute" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="month" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="week" gram="noun" relationToConcept="4" />
+  <linkedMeaning lemme="year" gram="noun" relationToConcept="4" />
+ </concept>
  <concept name="time_birthdate">
   <linkedMeaning lemme="birthdate" gram="noun" relationToConcept="4"/>
  </concept>

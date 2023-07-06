@@ -90,6 +90,10 @@ void mergeOmld
       char frequency = 4;
       _readAttributtes(line, beanNamePos, [&](char pAttrName, const std::string& pAttrValue) {
         switch (pAttrName) {
+        case 'l':
+          currentLemma = pAttrValue;
+          word = pAttrValue;
+          break;
         case 'i':
           word = pAttrValue;
           break;
@@ -111,15 +115,19 @@ void mergeOmld
 
     case 'r':
     {
+      std::string word = currentLemma;
       PartOfSpeech inflPos = currentLemmaPos;
       _readAttributtes(line, beanNamePos, [&](char pAttrName, const std::string& pAttrValue) {
         switch (pAttrName) {
+        case 'l':
+          word = pAttrValue;
+          break;
         case 'p':
           inflPos = partOfSpeech_fromStr(pAttrValue);
           break;
         }
       });
-      pWords.removeWordForm(currentLemma, inflPos);
+      pWords.removeWordForm(word, inflPos);
       break;
     }
     }

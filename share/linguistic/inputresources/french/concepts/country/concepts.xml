@@ -1,0 +1,196 @@
+<linguisticdatabase>
+ <concept name="country_*">
+  <linkedMeaning lemme="Afghanistan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Afrique du Sud" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Albanie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Algérie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Allemagne" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Andorre" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Angola" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Arabie saoudite" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Argentine" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Arménie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Australie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Autriche" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Azerbaïdjan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bahamas" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bahreïn" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bangladesh" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Barbade" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Belgique" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bhoutan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Birmanie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bolivie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bosnie-Herzégovine" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Botswana" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Brunéi Darussalam" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Brésil" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bulgarie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Burkina Faso" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Burundi" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bélarus" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bélize" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Bénin" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Cameroun" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Canada" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Chili" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Chine" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Chypre" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Colombie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Comores" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Congo" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Corée du Nord" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Corée du Sud" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Costa Rica" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Croatie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Cuba" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Côte d’Ivoire" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Danemark" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Djibouti" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Dominique" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Espagne" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Estonie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Fidji" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Finlande" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="France" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Gabon" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Gambie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Ghana" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Grenade" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Grèce" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Guatemala" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Guinée" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Guinée équatoriale" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Guinée-Bissau" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Guyana" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Géorgie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Haïti" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Honduras" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Hongrie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Inde" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Indonésie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Iran" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Iraq" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Irlande" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Islande" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Israël" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Italie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Jamaïque" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Japon" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Jordanie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Kazakhstan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Kenya" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Kirghizistan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Kiribati" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Kosovo" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Koweït" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Laos" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Lesotho" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Lettonie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Liban" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Libye" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Libéria" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Liechtenstein" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Lituanie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Luxembourg" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Macédoine" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Madagascar" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Malaisie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Malawi" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Maldives" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Mali" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Malte" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Maroc" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Mauritanie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Mexique" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Micronésie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Moldavie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Monaco" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Monténégro" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Mozambique" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Namibie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Nauru" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Nicaragua" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Niger" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Nigéria" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Norvège" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Nouvelle-Zélande" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Népal" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Oman" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Ouganda" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Ouzbékistan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Pakistan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Palaos" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Panamá" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Papouasie-Nouvelle-Guinée" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Paraguay" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Pays-Bas" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Philippines" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Pologne" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Portugal" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Pérou" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Qatar" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Roumanie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Royaume-Uni" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Russie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Rwanda" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="République centrafricaine" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="République dominicaine" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="République démocratique du Congo" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="République tchèque" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Saint-Kitts-et-Nevis" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Saint-Marin" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Saint-Siège" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Saint-Vincent-et-les Grenadines" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Sainte-Lucie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Salvador" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Samoa" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Sao Tomé-et-Principe" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Serbie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Seychelles" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Sierra Leone" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Singapour" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Slovaquie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Slovénie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Somalie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Soudan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Soudan du Sud" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Sri Lanka" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Suisse" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Suriname" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Suède" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Swaziland" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Syrie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Sénégal" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Tadjikistan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Tanzanie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Taïwan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Tchad" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Thaïlande" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Timor-Oriental" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Togo" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Tonga" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Trinité-et-Tobago" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Tunisie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Turkménistan" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Turquie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Tuvalu" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Ukraine" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Uruguay" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Vanuatu" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Venezuela" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Vietnam" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Yémen" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Zambie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Zimbabwe" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Égypte" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Émirats arabes unis" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Équateur" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Érythrée" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="États-Unis" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Éthiopie" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Île Maurice" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Îles Marshall" gram="proper_noun" relationToConcept="4" />
+  <linkedMeaning lemme="Îles Salomon" gram="proper_noun" relationToConcept="4" />
+ </concept>
+</linguisticdatabase>
