@@ -1,6 +1,7 @@
 <dictionary_modification language="english">
   <any_verb>
     <bookmark name="" />
+    <child chunkLinkType="interval" condition="followedByConceptOrHyponym(quantity_everything)" />
     <child lemma="on" pos="preposition" chunkLinkType="time" condition="followedByDate(with_day_value)" />
     <child chunkLinkType="location" condition="followedByBeginOfConcept(location_)&!followedByBeginOfConcept(level_)" />
     <child lemma="in order" pos="sub_conj" chunkLinkType="purpose" condition="followedByInfinitiveVerb" />
@@ -50,7 +51,7 @@
     <child lemma="next" pos="preposition" chunkLinkType="location" />
     <child lemma="since" pos="sub_conj" chunkLinkType="time" />
     <child lemma="to" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />
-    <child lemma="to" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_, skip_determiners)" />
+    <child lemma="to" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_, skip_determiners)|followedByPartOfSpeech(determiner)" />
     <child lemma="until" pos="sub_conj" chunkLinkType="duration" />
     <child lemma="when" pos="sub_conj" chunkLinkType="time" />
     <child lemma="whenever" pos="sub_conj" chunkLinkType="time" />

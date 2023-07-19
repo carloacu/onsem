@@ -59,3 +59,4 @@ Turn down the volume by 28
 Make a full turn to the left slowly 3 times
 walk while singing
 turn the volume down
+move the board to a new room every hour
