@@ -17,6 +17,67 @@ namespace onsem
 {
 namespace linguistics
 {
+namespace
+{
+
+bool _isBeginOfTimeSubordinateBeforeVerb(const InflectedWord& pSubWordInlf,
+                                          const SemanticFrameDictionary& pSemFrameDict)
+{
+  return pSubWordInlf.word.partOfSpeech == PartOfSpeech::SUBORDINATING_CONJONCTION &&
+      pSubWordInlf.infos.hasContextualInfo(WordContextualInfos::SENTENCECANBEGINWITH) &&
+      (pSubWordInlf.infos.hasContextualInfo(WordContextualInfos::CONDITION) ||
+       pSemFrameDict.doesIntroductionWordHasChunkLinkType(pSubWordInlf.word, ChunkLinkType::TIME));
+}
+
+bool _canBeATimeSpecification(const Chunk& pChunk)
+{
+  return pChunk.type != ChunkType::VERB_CHUNK ||
+      pChunk.requests.empty();
+}
+
+
+bool _setItThenAndItThenContent(
+    std::list<ChunkLink>::iterator& pIt,
+    std::list<ChunkLink>::iterator& pItThen,
+    std::list<ChunkLink>::iterator& pItThenContent,
+    std::list<ChunkLink>& pChunkLinks)
+{
+  //if (subWordInlf.infos.hasContextualInfo(WordContextualInfos::CONDITION))
+  {
+    const InflectedWord& iGramThenHead = pIt->chunk->head->inflWords.front();
+    if (pIt->chunk->type == ChunkType::SEPARATOR_CHUNK &&
+        (iGramThenHead.word.partOfSpeech == PartOfSpeech::LINKBETWEENWORDS ||
+         (iGramThenHead.word.partOfSpeech == PartOfSpeech::CONJUNCTIVE &&
+          iGramThenHead.infos.hasContextualInfo(WordContextualInfos::THEN))))
+    {
+      pItThen = pIt;
+      ++pIt;
+      if (pIt == pChunkLinks.end())
+        return false;
+    }
+  }
+
+  // get "then content" node
+  if (pIt->chunk->type != ChunkType::SEPARATOR_CHUNK)
+  {
+    pItThenContent = pIt;
+    return true;
+  }
+  return false;
+}
+
+ChunkLinkType _getChunkLinkTypeOfCondition(const InflectedWord& pSubWordInlf,
+                                           const SemanticFrameDictionary& pSemFrameDict,
+                                           const Chunk& pThenContentChunk)
+{
+  if (pSemFrameDict.doesIntroductionWordHasChunkLinkType(pSubWordInlf.word, ChunkLinkType::TIME) &&
+      !isACommandOrAListOfCommands(pThenContentChunk))
+    return ChunkLinkType::TIME;
+  return ChunkLinkType::IF;
+}
+
+}
+
 
 SubordinateExtractor::SubordinateExtractor
 (const AlgorithmSetForALanguage& pConfiguration)
@@ -766,17 +827,52 @@ void SubordinateExtractor::xLinkSubordonateThatAreBeforeVerbs
 {
   for (auto it = pChunkLinks.begin(); it != pChunkLinks.end(); ++it)
   {
+    Chunk& currChunk = *it->chunk;
     // if we are at a separator node
-    switch (it->chunk->type)
+    switch (currChunk.type)
     {
+    case ChunkType::AND_CHUNK:
+    {
+      if (currChunk.children.size() == 0)
+        break;
+
+      auto itLastListEltChkLk = --currChunk.children.end();
+      ChunkLink& lastListEltChkLk = *itLastListEltChkLk;
+      if (lastListEltChkLk.tokRange.isEmpty())
+        break;
+      const InflectedWord& subWordInlf = lastListEltChkLk.tokRange.getItBegin()->inflWords.front();
+      if (_isBeginOfTimeSubordinateBeforeVerb(subWordInlf, fSemFrameDict))
+      {
+        Chunk& lastListEltChk = *lastListEltChkLk.chunk;
+        if (!_canBeATimeSpecification(lastListEltChk))
+          break;
+
+        // get "then" node
+        ++it;
+        if (it == pChunkLinks.end())
+          return;
+        auto itThen = pChunkLinks.end();
+        auto itThenContent = itThen;
+        if (!_setItThenAndItThenContent(it, itThen, itThenContent, pChunkLinks))
+          break;
+
+        ChunkLinkType ifContentChunkLinkType = _getChunkLinkTypeOfCondition(subWordInlf, fSemFrameDict, *itThenContent->chunk);
+        itThenContent->chunk->children.splice(itThenContent->chunk->children.begin(), currChunk.children, itLastListEltChkLk);
+        ChunkLink& ifContent = *itThenContent->chunk->children.begin();
+        ifContent.type = ifContentChunkLinkType;
+
+        ++it;
+        currChunk.children.splice(currChunk.children.end(), pChunkLinks, itThenContent);
+        if (it == pChunkLinks.end())
+          return;
+      }
+      break;
+    }
     case ChunkType::SEPARATOR_CHUNK:
     {
       // if the the separator node is a "if" node
-      const InflectedWord& ifIGram = it->chunk->head->inflWords.front();
-      if (ifIGram.word.partOfSpeech == PartOfSpeech::SUBORDINATING_CONJONCTION &&
-          ifIGram.infos.hasContextualInfo(WordContextualInfos::SENTENCECANBEGINWITH) &&
-          (ifIGram.infos.hasContextualInfo(WordContextualInfos::CONDITION) ||
-           fSemFrameDict.doesIntroductionWordHasChunkLinkType(ifIGram.word, ChunkLinkType::TIME)))
+      const InflectedWord& subWordInlf = currChunk.head->inflWords.front();
+      if (_isBeginOfTimeSubordinateBeforeVerb(subWordInlf, fSemFrameDict))
       {
         // get "if" node
         auto itIf = it;
@@ -786,8 +882,7 @@ void SubordinateExtractor::xLinkSubordonateThatAreBeforeVerbs
 
         // get "if content" node
         auto itIfContent = it;
-        if (itIfContent->chunk->type == ChunkType::VERB_CHUNK &&
-            !itIfContent->chunk->requests.empty())
+        if (!_canBeATimeSpecification(*itIfContent->chunk))
           return;
         ++it;
         if (it == pChunkLinks.end())
@@ -795,30 +890,15 @@ void SubordinateExtractor::xLinkSubordonateThatAreBeforeVerbs
 
         // get "then" node
         auto itThen = pChunkLinks.end();
-        //if (ifIGram.infos.hasContextualInfo(WordContextualInfos::CONDITION))
-        {
-          const InflectedWord& iGramThenHead = it->chunk->head->inflWords.front();
-          if (it->chunk->type == ChunkType::SEPARATOR_CHUNK &&
-              (iGramThenHead.word.partOfSpeech == PartOfSpeech::LINKBETWEENWORDS ||
-               (iGramThenHead.word.partOfSpeech == PartOfSpeech::CONJUNCTIVE &&
-                iGramThenHead.infos.hasContextualInfo(WordContextualInfos::THEN))))
-          {
-            itThen = it;
-            ++it;
-            if (it == pChunkLinks.end())
-              return;
-          }
-        }
+        auto itThenContent = itThen;
+
+        if (!_setItThenAndItThenContent(it, itThen, itThenContent, pChunkLinks))
+          break;
 
         // get "then content" node
-        if (it->chunk->type != ChunkType::SEPARATOR_CHUNK)
         {
-          auto itThenContent = it;
           // tag the new link as a "if" link
-          ChunkLinkType ifContentChunkLinkType = ChunkLinkType::IF;
-          if (fSemFrameDict.doesIntroductionWordHasChunkLinkType(ifIGram.word, ChunkLinkType::TIME) &&
-              !isACommandOrAListOfCommands(*itThenContent->chunk))
-            ifContentChunkLinkType = ChunkLinkType::TIME;
+          ChunkLinkType ifContentChunkLinkType = _getChunkLinkTypeOfCondition(subWordInlf, fSemFrameDict, *itThenContent->chunk);
           itThenContent->chunk->children.splice(itThenContent->chunk->children.begin(), pChunkLinks, itIfContent);
           ChunkLink& ifContent = *itThenContent->chunk->children.begin();
           ifContent.type = ifContentChunkLinkType;
