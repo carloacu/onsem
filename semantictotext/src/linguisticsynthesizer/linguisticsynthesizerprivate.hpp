@@ -152,7 +152,6 @@ protected:
   (std::list<WordToSynthesize>&,
    const SemanticExpression&) const { return false; }
 
-  virtual void _getBeginOfIntervalChild(std::list<WordToSynthesize>& pOut) const = 0;
   virtual void _getBeginOfWithChild(std::list<WordToSynthesize>& pOut) const = 0;
   virtual void _getBeginOfWithoutChild(std::list<WordToSynthesize>& pOut) const = 0;
 

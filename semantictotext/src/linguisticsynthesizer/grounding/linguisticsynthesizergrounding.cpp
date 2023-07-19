@@ -25,6 +25,7 @@ namespace onsem
 namespace
 {
 void _printValue(std::stringstream& pSs,
+                 SemanticGenderType& pGlobalGender,
                  const SemanticFloat& pValue,
                  const std::string& pConceptName,
                  const linguistics::SynthesizerDictionary& pStatSynthDico,
@@ -46,6 +47,8 @@ void _printValue(std::stringstream& pSs,
     SemanticGenderType gender = SemanticGenderType::UNKNOWN;
     pStatSynthDico.getNounForm(word, meaning, gender, number);
     pSs << word;
+    if (pGlobalGender != SemanticGenderType::MASCULINE)
+      pGlobalGender = gender;
   }
 }
 
@@ -55,8 +58,9 @@ void _printAngleValue(std::stringstream& pSs,
                       const linguistics::SynthesizerDictionary& pStatSynthDico,
                       SemanticLanguageEnum pLanguage)
 {
+  SemanticGenderType globalGender = SemanticGenderType::UNKNOWN;
   GrammaticalType parentGrammaticalType = GrammaticalType::UNKNOWN;
-  _printValue(pSs, pValue, semanticAngleUnity_toConcept(pAngle),
+  _printValue(pSs, globalGender, pValue, semanticAngleUnity_toConcept(pAngle),
               pStatSynthDico, pLanguage, parentGrammaticalType);
 }
 
@@ -66,19 +70,21 @@ void _printLengthValue(std::stringstream& pSs,
                        const linguistics::SynthesizerDictionary& pStatSynthDico,
                        SemanticLanguageEnum pLanguage)
 {
+  SemanticGenderType globalGender = SemanticGenderType::UNKNOWN;
   GrammaticalType parentGrammaticalType = GrammaticalType::UNKNOWN;
-  _printValue(pSs, pValue, semanticLengthUnity_toConcept(pLength),
+  _printValue(pSs, globalGender, pValue, semanticLengthUnity_toConcept(pLength),
               pStatSynthDico, pLanguage, parentGrammaticalType);
 }
 
 void _printTimeValue(std::stringstream& pSs,
+                     SemanticGenderType& pGlobalGender,
                      const SemanticFloat& pValue,
                      SemanticTimeUnity pTime,
                      const linguistics::SynthesizerDictionary& pStatSynthDico,
                      SemanticLanguageEnum pLanguage,
                      GrammaticalType pParentGrammaticalType)
 {
-  _printValue(pSs, pValue, semanticTimeUnity_toConcept(pTime),
+  _printValue(pSs, pGlobalGender, pValue, semanticTimeUnity_toConcept(pTime),
               pStatSynthDico, pLanguage, pParentGrammaticalType);
 }
 }
@@ -1178,18 +1184,19 @@ bool Linguisticsynthesizergrounding::durationTranslation
  GrammaticalType pParentGrammaticalType) const
 {
   GroundingDurationPrettyPrintStruct durationPrint(pDuration);
+  SemanticGenderType globalGender = SemanticGenderType::UNKNOWN;
   std::stringstream ss;
   bool finishedToPrint = false;
   if (durationPrint.day)
   {
-    _printTimeValue(ss, *durationPrint.day, SemanticTimeUnity::DAY,
+    _printTimeValue(ss, globalGender, *durationPrint.day, SemanticTimeUnity::DAY,
                     pStatSynthDico, _language, pParentGrammaticalType);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
   if (durationPrint.hour)
   {
-    _printTimeValue(ss, *durationPrint.hour, SemanticTimeUnity::HOUR,
+    _printTimeValue(ss, globalGender, *durationPrint.hour, SemanticTimeUnity::HOUR,
                     pStatSynthDico, _language, pParentGrammaticalType);
     if (!pPrintPrecisely)
       finishedToPrint = true;
@@ -1198,7 +1205,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, *durationPrint.minute, SemanticTimeUnity::MINUTE,
+    _printTimeValue(ss, globalGender, *durationPrint.minute, SemanticTimeUnity::MINUTE,
                     pStatSynthDico, _language, pParentGrammaticalType);
     if (!pPrintPrecisely)
       finishedToPrint = true;
@@ -1207,7 +1214,7 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, *durationPrint.second, SemanticTimeUnity::SECOND,
+    _printTimeValue(ss, globalGender, *durationPrint.second, SemanticTimeUnity::SECOND,
                     pStatSynthDico, _language, pParentGrammaticalType);
     if (!pPrintPrecisely)
       finishedToPrint = true;
@@ -1216,13 +1223,21 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, *durationPrint.millisecond, SemanticTimeUnity::MILLISECOND,
+    _printTimeValue(ss, globalGender, *durationPrint.millisecond, SemanticTimeUnity::MILLISECOND,
                     pStatSynthDico, _language, pParentGrammaticalType);
   }
 
-  const std::string timePrinted = ss.str();
+  std::string timePrinted = ss.str();
   if (!timePrinted.empty())
   {
+    if (pParentGrammaticalType == GrammaticalType::INTERVAL)
+    {
+      if (_language == SemanticLanguageEnum::FRENCH)
+        _strToOut(pOut, PartOfSpeech::DETERMINER,
+                  globalGender == SemanticGenderType::FEMININE ? "toutes" : "tous");
+      else
+        _strToOut(pOut, PartOfSpeech::DETERMINER, "every");
+    }
     _strToOut(pOut, PartOfSpeech::NOUN, timePrinted);
     return true;
   }

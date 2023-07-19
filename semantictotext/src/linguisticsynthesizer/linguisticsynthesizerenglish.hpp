@@ -85,9 +85,6 @@ protected:
    const SemanticGrounding& pParentGrounding,
    const SynthesizerWordContext& pWordContext) const;
 
-  virtual void _getBeginOfIntervalChild
-  (std::list<WordToSynthesize>& pOut) const;
-
   virtual void _getBeginOfWithChild
   (std::list<WordToSynthesize>& pOut) const;
 
