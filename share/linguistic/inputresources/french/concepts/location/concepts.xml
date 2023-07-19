@@ -5,6 +5,7 @@
  </concept>
  <concept name="location_*">
   <linkedMeaning lemme="ailleurs" relationToConcept="4"/>
+  <linkedMeaning lemme="place" gram="noun" relationToConcept="3"/>
  </concept>
  <concept name="location_floor">
   <linkedMeaning lemme="sol" gram="noun" relationToConcept="4"/>
