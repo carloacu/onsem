@@ -345,6 +345,7 @@ private:
   std::unique_ptr<GroundedExpression> xFillPercentageStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillHourTimeStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillDurationStruct(const ToGenRepContext& pContext) const;
+  std::unique_ptr<GroundedExpression> xFillInterval(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillTimeStruct(const ToGenRepContext& pContext) const;
 };
 

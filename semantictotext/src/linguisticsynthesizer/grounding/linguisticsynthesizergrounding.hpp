@@ -90,7 +90,8 @@ public:
   (std::list<WordToSynthesize>& pOut,
    const linguistics::SynthesizerDictionary& pStatSynthDico,
    const SemanticDuration& pDuration,
-   bool pPrintPrecisely) const;
+   bool pPrintPrecisely,
+   GrammaticalType pParentGrammaticalType) const;
 
   void statGroundingTranslation
   (OutSentence& pOutSentence,

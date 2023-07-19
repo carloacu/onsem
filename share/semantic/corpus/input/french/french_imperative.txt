@@ -79,3 +79,4 @@ Ne me dis rien
 fais un demi-tour
 regarde en l'air
 ramène tous ces objets à leur place
+déplace le plateau dans une nouvelle pièce toutes les heures

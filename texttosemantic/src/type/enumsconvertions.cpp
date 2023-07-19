@@ -54,6 +54,8 @@ mystd::optional<ChunkLinkType> grammaticalTypeToChunkType(GrammaticalType pGramT
     return ChunkLinkType::OCCURRENCE_RANK;
   case GrammaticalType::SIMILARITY:
     return ChunkLinkType::SIMILARITY;
+  case GrammaticalType::INTERVAL:
+    return ChunkLinkType::INTERVAL;
   case GrammaticalType::REPETITION:
     return ChunkLinkType::REPETITION;
   case GrammaticalType::DESPITE_CONTRAINT:
@@ -142,6 +144,8 @@ mystd::optional<GrammaticalType> chunkTypeToGrammaticalType
     return GrammaticalType::SIMILARITY;
   case ChunkLinkType::RECEIVER:
     return GrammaticalType::RECEIVER;
+  case ChunkLinkType::INTERVAL:
+    return GrammaticalType::INTERVAL;
   case ChunkLinkType::REPETITION:
     return GrammaticalType::REPETITION;
   case ChunkLinkType::DESPITE_CONTRAINT:

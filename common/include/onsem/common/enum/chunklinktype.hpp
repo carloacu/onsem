@@ -53,6 +53,7 @@ namespace linguistics
   SYNTACTIC_CHUNK_LINK(COMPARATOR_LESS, "comparator less", "green")            \
   SYNTACTIC_CHUNK_LINK(COMPARATOR_MORE, "comparator more", "green")            \
   SYNTACTIC_CHUNK_LINK(RIGHTOPCOMPARISON, "right op comparison", "green")      \
+  SYNTACTIC_CHUNK_LINK(INTERVAL, "interval", "green")                          \
   SYNTACTIC_CHUNK_LINK(REPETITION, "repetition", "green")                      \
   SYNTACTIC_CHUNK_LINK(DESPITE_CONTRAINT, "despite contraint", "green")        \
   SYNTACTIC_CHUNK_LINK(RECEIVER, "receiver", "green")                          \

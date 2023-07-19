@@ -3,6 +3,7 @@
     <bookmark name="" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_relative_)|followedByBeginOfConcept(time_relativeDay_)" />
     <child chunkLinkType="location" condition="followedByConceptOrHyponym(location_relative_here)" />
+    <child chunkLinkType="interval" condition="followedByConceptOrHyponym(quantity_maxNumber)" />
     <child lemma="au" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_floor)|followedByBeginOfConcept(location_sky)" />
     <child lemma="en" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_up, skip_determiners)|followedByBeginOfConcept(location_relative_low)" />
     <child lemma="à" pos="preposition" chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_)&!followedByOneOfPrefixes(a,ha)" />

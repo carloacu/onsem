@@ -77,6 +77,44 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillDurationStruc
 }
 
 
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillInterval
+(const ToGenRepContext& pContext) const
+{
+  switch (pContext.chunk.type)
+  {
+  case ChunkType::NOMINAL_CHUNK:
+  case ChunkType::PREPOSITIONAL_CHUNK:
+  {
+    const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
+    if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_"))
+    {
+      mystd::unique_propagate_const<UniqueSemanticExpression> res;
+      for (auto& currTimeUnity : semanticTimeUnities)
+      {
+        if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity)))
+        {
+          SemanticFloat number;
+          if (!getNumberBeforeHead(number, pContext.chunk))
+            number.set(1);
+          auto newDuration = std::make_unique<SemanticDurationGrounding>();
+          newDuration->duration.sign = Sign::POSITIVE;
+          newDuration->duration.timeInfos[currTimeUnity] = number;
+          return std::make_unique<GroundedExpression>(std::move(newDuration));
+        }
+      }
+    }
+    break;
+  }
+  default:
+  {
+    break;
+  }
+  }
+  return {};
+}
+
+
+
 std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
 (const ToGenRepContext& pContext) const
 {

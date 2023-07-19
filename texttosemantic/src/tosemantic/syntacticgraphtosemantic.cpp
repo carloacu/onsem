@@ -2859,6 +2859,14 @@ void SyntacticGraphToSemantic::xFillNewSentence
       }
       break;
     }
+    case ChunkLinkType::INTERVAL:
+    {
+      auto optRes = xFillInterval(subContext);
+      if (optRes)
+        pGrdExpSentence.children.emplace(GrammaticalType::INTERVAL,
+                                         std::move(optRes));
+      break;
+    }
     case ChunkLinkType::AUXILIARY:
     case ChunkLinkType::SIMPLE:
     {

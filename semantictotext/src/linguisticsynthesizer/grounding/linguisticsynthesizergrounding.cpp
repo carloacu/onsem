@@ -28,17 +28,24 @@ void _printValue(std::stringstream& pSs,
                  const SemanticFloat& pValue,
                  const std::string& pConceptName,
                  const linguistics::SynthesizerDictionary& pStatSynthDico,
-                 SemanticLanguageEnum pLanguage)
+                 SemanticLanguageEnum pLanguage,
+                 GrammaticalType pParentGrammaticalType)
 {
-  pSs << pValue.toStr(pLanguage);
   const auto& meaning = pStatSynthDico.conceptToMeaning(pConceptName);
   if (!meaning.isEmpty())
   {
+    if (pParentGrammaticalType == GrammaticalType::INTERVAL && pLanguage == SemanticLanguageEnum::FRENCH)
+      pSs << "les ";
+    if (pParentGrammaticalType != GrammaticalType::INTERVAL || pValue != 1)
+      pSs << pValue.toStr(pLanguage) << " ";
+
+    bool forceInPlural = pParentGrammaticalType == GrammaticalType::INTERVAL && pLanguage == SemanticLanguageEnum::FRENCH;
     std::string word;
-    SemanticNumberType number = pValue > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR;
+    SemanticNumberType number = forceInPlural ?
+          SemanticNumberType::PLURAL : (pValue > 1 ? SemanticNumberType::PLURAL : SemanticNumberType::SINGULAR);
     SemanticGenderType gender = SemanticGenderType::UNKNOWN;
     pStatSynthDico.getNounForm(word, meaning, gender, number);
-    pSs << " " << word;
+    pSs << word;
   }
 }
 
@@ -48,7 +55,9 @@ void _printAngleValue(std::stringstream& pSs,
                       const linguistics::SynthesizerDictionary& pStatSynthDico,
                       SemanticLanguageEnum pLanguage)
 {
-  _printValue(pSs, pValue, semanticAngleUnity_toConcept(pAngle), pStatSynthDico, pLanguage);
+  GrammaticalType parentGrammaticalType = GrammaticalType::UNKNOWN;
+  _printValue(pSs, pValue, semanticAngleUnity_toConcept(pAngle),
+              pStatSynthDico, pLanguage, parentGrammaticalType);
 }
 
 void _printLengthValue(std::stringstream& pSs,
@@ -57,16 +66,20 @@ void _printLengthValue(std::stringstream& pSs,
                        const linguistics::SynthesizerDictionary& pStatSynthDico,
                        SemanticLanguageEnum pLanguage)
 {
-  _printValue(pSs, pValue, semanticLengthUnity_toConcept(pLength), pStatSynthDico, pLanguage);
+  GrammaticalType parentGrammaticalType = GrammaticalType::UNKNOWN;
+  _printValue(pSs, pValue, semanticLengthUnity_toConcept(pLength),
+              pStatSynthDico, pLanguage, parentGrammaticalType);
 }
 
 void _printTimeValue(std::stringstream& pSs,
                      const SemanticFloat& pValue,
                      SemanticTimeUnity pTime,
                      const linguistics::SynthesizerDictionary& pStatSynthDico,
-                     SemanticLanguageEnum pLanguage)
+                     SemanticLanguageEnum pLanguage,
+                     GrammaticalType pParentGrammaticalType)
 {
-  _printValue(pSs, pValue, semanticTimeUnity_toConcept(pTime), pStatSynthDico, pLanguage);
+  _printValue(pSs, pValue, semanticTimeUnity_toConcept(pTime),
+              pStatSynthDico, pLanguage, pParentGrammaticalType);
 }
 }
 
@@ -298,7 +311,8 @@ void Linguisticsynthesizergrounding::writeGrounding
   {
     const auto& synthDico = pConf.lingDb.langToSpec[_language].synthDico;
     durationTranslation(pOutSemExp.out, synthDico,
-                        pGrounding.getDurationGrounding().duration, true);
+                        pGrounding.getDurationGrounding().duration,
+                        true, pContext.grammaticalTypeFromParent);
     break;
   }
   case SemanticGroundingType::LANGUAGE:
@@ -1160,20 +1174,23 @@ bool Linguisticsynthesizergrounding::durationTranslation
 (std::list<WordToSynthesize>& pOut,
  const linguistics::SynthesizerDictionary& pStatSynthDico,
  const SemanticDuration& pDuration,
- bool pPrintPrecisely) const
+ bool pPrintPrecisely,
+ GrammaticalType pParentGrammaticalType) const
 {
   GroundingDurationPrettyPrintStruct durationPrint(pDuration);
   std::stringstream ss;
   bool finishedToPrint = false;
   if (durationPrint.day)
   {
-    _printTimeValue(ss, *durationPrint.day, SemanticTimeUnity::DAY, pStatSynthDico, _language);
+    _printTimeValue(ss, *durationPrint.day, SemanticTimeUnity::DAY,
+                    pStatSynthDico, _language, pParentGrammaticalType);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
   if (durationPrint.hour)
   {
-    _printTimeValue(ss, *durationPrint.hour, SemanticTimeUnity::HOUR, pStatSynthDico, _language);
+    _printTimeValue(ss, *durationPrint.hour, SemanticTimeUnity::HOUR,
+                    pStatSynthDico, _language, pParentGrammaticalType);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1181,7 +1198,8 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, *durationPrint.minute, SemanticTimeUnity::MINUTE, pStatSynthDico, _language);
+    _printTimeValue(ss, *durationPrint.minute, SemanticTimeUnity::MINUTE,
+                    pStatSynthDico, _language, pParentGrammaticalType);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1189,7 +1207,8 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, *durationPrint.second, SemanticTimeUnity::SECOND, pStatSynthDico, _language);
+    _printTimeValue(ss, *durationPrint.second, SemanticTimeUnity::SECOND,
+                    pStatSynthDico, _language, pParentGrammaticalType);
     if (!pPrintPrecisely)
       finishedToPrint = true;
   }
@@ -1197,7 +1216,8 @@ bool Linguisticsynthesizergrounding::durationTranslation
   {
     if (!ss.str().empty())
       ss << " ";
-    _printTimeValue(ss, *durationPrint.millisecond, SemanticTimeUnity::MILLISECOND, pStatSynthDico, _language);
+    _printTimeValue(ss, *durationPrint.millisecond, SemanticTimeUnity::MILLISECOND,
+                    pStatSynthDico, _language, pParentGrammaticalType);
   }
 
   const std::string timePrinted = ss.str();
@@ -1248,7 +1268,7 @@ void Linguisticsynthesizergrounding::timeGroundingTranslation
         if (timeDiffAbs < threeHours)
         {
           std::list<WordToSynthesize> durationOut;
-          if (durationTranslation(durationOut, synthDico, timeDiff, false))
+          if (durationTranslation(durationOut, synthDico, timeDiff, false, GrammaticalType::UNKNOWN))
           {
             if (timeDiff.isPositive())
               _writeDurationAgo(durationOut);

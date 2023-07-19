@@ -26,6 +26,7 @@ namespace onsem
   SEMANTIC_GRAMMATICALTYPE(PURPOSE, "purpose")                      \
   SEMANTIC_GRAMMATICALTYPE(REASONOF, "reason_of")                   \
   SEMANTIC_GRAMMATICALTYPE(REPETITION, "repetition")                \
+  SEMANTIC_GRAMMATICALTYPE(INTERVAL, "interval")                    \
   SEMANTIC_GRAMMATICALTYPE(ACCORDING_TO, "according_to")            \
   SEMANTIC_GRAMMATICALTYPE(AGAINST, "against")                      \
   SEMANTIC_GRAMMATICALTYPE(BETWEEN, "between")                      \

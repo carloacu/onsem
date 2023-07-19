@@ -347,6 +347,12 @@ void LinguisticSynthesizerEnglish::_getBeginOfSpecification
   _getOfWord(pOut, pWordContext);
 }
 
+void LinguisticSynthesizerEnglish::_getBeginOfIntervalChild
+(std::list<WordToSynthesize>& pOut) const
+{
+  _strToOut(pOut, PartOfSpeech::DETERMINER, "every");
+}
+
 void LinguisticSynthesizerEnglish::_getBeginOfWithChild
 (std::list<WordToSynthesize>& pOut) const
 {

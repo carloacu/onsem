@@ -92,6 +92,9 @@ protected:
   (std::list<WordToSynthesize>& pOut,
    const SemanticExpression& pSemExp) const;
 
+  virtual void _getBeginOfIntervalChild
+  (std::list<WordToSynthesize>& pOut) const;
+
   virtual void _getBeginOfWithChild
   (std::list<WordToSynthesize>& pOut) const;
 

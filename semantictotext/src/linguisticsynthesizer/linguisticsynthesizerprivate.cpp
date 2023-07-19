@@ -1039,6 +1039,15 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
                             childContextType, verbContext, pLastSubject);
       break;
     }
+    case GrammaticalType::INTERVAL:
+    {
+      OutSemExp& outSE = sentWorkStruct.outs.other;
+      _getBeginOfIntervalChild(outSE.out);
+      _writeObjectAfterVerb(sentWorkStruct, outSE, currChild.first, pStatementGrd,
+                            inflectedVerb, pGrdExp, currSemExpChild, pConf, pRequests,
+                            childContextType, verbContext, pLastSubject);
+      break;
+    }
     case GrammaticalType::ACCORDING_TO:
     case GrammaticalType::AGAINST:
     case GrammaticalType::BETWEEN:
