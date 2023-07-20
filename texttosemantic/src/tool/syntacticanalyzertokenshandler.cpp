@@ -521,7 +521,7 @@ std::size_t getSeparatorOfHourMinute(const std::string& pStr)
     if (isDigit(pStr[i]))
       continue;
 
-    if (pStr[i] == 'h' && i > 0 && res == std::string::npos)
+    if ((pStr[i] == 'h' || pStr[i] == 'H') && i > 0 && res == std::string::npos)
       res = i;
     else
       return std::string::npos;

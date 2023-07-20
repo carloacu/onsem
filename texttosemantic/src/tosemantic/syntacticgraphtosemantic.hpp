@@ -347,6 +347,9 @@ private:
   std::unique_ptr<GroundedExpression> xFillDurationStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillInterval(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillTimeStruct(const ToGenRepContext& pContext) const;
+
+  std::unique_ptr<GroundedExpression> _fillHourTimeStructEn(const ToGenRepContext& pContext) const;
+  std::unique_ptr<GroundedExpression> _fillHourTimeStructFr(const ToGenRepContext& pContext) const;
 };
 
 
