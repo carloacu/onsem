@@ -466,7 +466,7 @@ bool LinguisticsynthesizergroundingFrench::_dayHourTranslation
       ss << " " << hourWord;
     }
   }
-  if (durationPrint.minute)
+  if (durationPrint.minute && *durationPrint.minute > 0)
   {
     if (durationPrint.hour)
       ss << " ";

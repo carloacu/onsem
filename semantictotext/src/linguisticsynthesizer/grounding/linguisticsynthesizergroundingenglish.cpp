@@ -390,7 +390,7 @@ bool LinguisticsynthesizergroundingEnglish::_dayHourTranslation
     else
       ss << (*durationPrint.hour - 12).toStr(_language);
   }
-  if (durationPrint.minute)
+  if (durationPrint.minute && *durationPrint.minute > 0)
   {
     if (durationPrint.hour)
       ss << ":";
