@@ -353,7 +353,8 @@ void NounPrioritiesFr(std::vector<Token>& pTokens,
           }
         }
 
-        PartOfSpeech partOfSpeechAfter = tokenAfter.inflWords.front().word.partOfSpeech;
+        auto& tokenAfterInfWord = tokenAfter.inflWords.front();
+        PartOfSpeech partOfSpeechAfter = tokenAfterInfWord.word.partOfSpeech;
         if (partOfSpeechAfter == PartOfSpeech::PRONOUN)
         {
           auto itInflWord = itFirstInflWord;
@@ -368,7 +369,8 @@ void NounPrioritiesFr(std::vector<Token>& pTokens,
             ++itInflWord;
           }
         }
-        else if (partOfSpeech_isNominal(partOfSpeechAfter))
+        else if (partOfSpeech_isNominal(partOfSpeechAfter) &&
+                 !ConceptSet::haveAConceptThatBeginWith(tokenAfterInfWord.infos.concepts, "time_"))
         {
           auto itDet = getInflWordWithASpecificPartOfSpeech(inflWords, PartOfSpeech::DETERMINER);
           if (itDet != inflWords.end())
