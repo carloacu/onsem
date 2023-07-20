@@ -137,24 +137,32 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::_fillHourTimeStruc
   auto itToken = pContext.chunk.tokRange.getItBegin();
   auto endIt = pContext.chunk.tokRange.getItEnd();
 
-  if (itToken != endIt)
+  if (itToken == endIt)
+    return {};
+
+  auto pos = itToken->getPartOfSpeech();
+  if (pos == PartOfSpeech::PREPOSITION)
   {
-    std::size_t separatorOfHourMinute = getSeparatorOfHourMinute(itToken->str);
-    if (separatorOfHourMinute != std::string::npos)
-    {
-      try {
-        auto time = std::make_unique<SemanticTimeGrounding>();
-        time->timeOfDay.sign = Sign::POSITIVE;
-        time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = mystd::lexical_cast<int>(itToken->str.substr(0, separatorOfHourMinute));
-        std::size_t beginOfMinutePos = separatorOfHourMinute + 1;
-        if (itToken->str.size() > beginOfMinutePos)
-        {
-          int minuteStrSize = itToken->str.size() - beginOfMinutePos;
-          time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = mystd::lexical_cast<int>(itToken->str.substr(beginOfMinutePos, minuteStrSize));
-        }
-        return std::make_unique<GroundedExpression>(std::move(time));
-      }  catch (...) {}
-    }
+    itToken = getNextToken(itToken, endIt, PartOfSpeech::PREPOSITION);
+    if (itToken == endIt)
+      return {};
+  }
+
+  std::size_t separatorOfHourMinute = getSeparatorOfHourMinute(itToken->str);
+  if (separatorOfHourMinute != std::string::npos)
+  {
+    try {
+      auto time = std::make_unique<SemanticTimeGrounding>();
+      time->timeOfDay.sign = Sign::POSITIVE;
+      time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = mystd::lexical_cast<int>(itToken->str.substr(0, separatorOfHourMinute));
+      std::size_t beginOfMinutePos = separatorOfHourMinute + 1;
+      if (itToken->str.size() > beginOfMinutePos)
+      {
+        int minuteStrSize = itToken->str.size() - beginOfMinutePos;
+        time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = mystd::lexical_cast<int>(itToken->str.substr(beginOfMinutePos, minuteStrSize));
+      }
+      return std::make_unique<GroundedExpression>(std::move(time));
+    }  catch (...) {}
   }
   return {};
 }

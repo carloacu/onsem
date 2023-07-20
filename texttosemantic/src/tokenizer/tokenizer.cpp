@@ -801,7 +801,8 @@ void _tryToTokenizeANumber(TokSent& pTokSent,
         isAPercentage = true;
         continue;
       }
-      if (pTokSent.textForms.formattedText[pTokSent.currPos] == 'h')
+      if (pTokSent.textForms.formattedText[pTokSent.currPos] == 'h' ||
+          pTokSent.textForms.formattedText[pTokSent.currPos] == 'H')
       {
         isAnHour = true;
         // advance in the sentence
