@@ -27,7 +27,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticDate
   void prettyPrint(std::stringstream& pSs) const;
   void moveOfANumberOfDaysInFuture(std::size_t pNumberOfDaysOffsets);
   void moveOfANumberOfDaysInPast(std::size_t pNumberOfDaysOffsets);
-  void dayEqualToAWeekDayOfThisWeek(TimeWeekdayEnum pWeekday);
+  void dayEqualToAWeekDayOfThisWeek(TimeWeekdayEnum pWeekday, bool pShouldBeInPast);
   void getCorrespondingDuration(SemanticDuration& pDuration) const;
   std::string getDayConcept() const;
   std::string getYearConcept() const;

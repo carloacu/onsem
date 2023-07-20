@@ -1078,8 +1078,9 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
     {
       auto timeGrounding = std::make_unique<SemanticTimeGrounding>();
       timeGrounding->fromConcepts = weekDayConcepts;
+      bool shouldBeInPast = isAPastTense(pContext.holdingSentenceVerbTense);
       timeGrounding->date.dayEqualToAWeekDayOfThisWeek
-          (semanticTimeWeekdayEnum_fromStr(weekDayConcepts.begin()->first));
+          (semanticTimeWeekdayEnum_fromStr(weekDayConcepts.begin()->first), shouldBeInPast);
       _considerTimeModifiersAfterHead(*timeGrounding, pChunk);
       return std::make_unique<GroundedExpression>(std::move(timeGrounding));
     }

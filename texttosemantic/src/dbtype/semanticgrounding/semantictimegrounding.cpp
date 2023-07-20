@@ -264,7 +264,7 @@ void SemanticDate::moveOfANumberOfDaysInPast(std::size_t pNumberOfDaysOffsets)
 }
 
 
-void SemanticDate::dayEqualToAWeekDayOfThisWeek(TimeWeekdayEnum pWeekday)
+void SemanticDate::dayEqualToAWeekDayOfThisWeek(TimeWeekdayEnum pWeekday, bool pShouldBeInPast)
 {
   _equalToNow();
   TimeWeekdayEnum currWekkDay = getWeekDay();
@@ -278,6 +278,18 @@ void SemanticDate::dayEqualToAWeekDayOfThisWeek(TimeWeekdayEnum pWeekday)
   };
 
   int offsetToDo = getWeekDayOffset(pWeekday) - getWeekDayOffset(currWekkDay);
+
+  if (pShouldBeInPast)
+  {
+    if (offsetToDo > 0)
+      offsetToDo -= 7;
+  }
+  else
+  {
+    if (offsetToDo < 0)
+      offsetToDo += 7;
+  }
+
   if (offsetToDo > 0)
     moveOfANumberOfDaysInFuture(static_cast<std::size_t>(offsetToDo));
   else if (offsetToDo < 0)
