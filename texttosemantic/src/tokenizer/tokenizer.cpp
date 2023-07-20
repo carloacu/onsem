@@ -316,6 +316,12 @@ void _insertTokenWithStr(TokSent& pTokSent, std::size_t pLength,
         }
         break;
       }
+      case PartOfSpeech::NOUN:
+      {
+        if (ConceptSet::haveAConceptThatBeginWith(it->infos.concepts, "time_weekday_"))
+          canAddANewProperNoun = false;
+        break;
+      }
       case PartOfSpeech::PRONOUN:
       {
         canAddANewProperNoun = false;
