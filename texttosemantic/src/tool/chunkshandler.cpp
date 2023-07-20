@@ -1084,6 +1084,11 @@ bool canLinkVerbToASubject
   if (firstWordIGram.word.partOfSpeech == PartOfSpeech::PREPOSITION)
     return false;
   InflectedWord& iGramSubject = pSubjectChunk.head->inflWords.front();
+  if (ConceptSet::haveAConceptThatBeginWith(iGramSubject.infos.concepts, "time_") &&
+      infGramVerb->word.partOfSpeech != PartOfSpeech::AUX &&
+      infGramVerb->infos.concepts.count("verb_equal_be") == 0)
+    return false;
+
   if ((iGramSubject.word.partOfSpeech == PartOfSpeech::DETERMINER ||
           partOfSpeech_isNominal(iGramSubject.word.partOfSpeech) ||
           iGramSubject.word.partOfSpeech == PartOfSpeech::PRONOUN ||

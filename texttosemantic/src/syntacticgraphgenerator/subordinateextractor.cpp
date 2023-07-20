@@ -708,8 +708,6 @@ void SubordinateExtractor::xLinkSubordonateOfCondition
 
 void SubordinateExtractor::xLinkSubordinatesAtTheBeginning(std::list<ChunkLink>& pChunkLinks) const
 {
-
-
   for (auto it = pChunkLinks.begin(); it != pChunkLinks.end(); ++it)
   {
     ChunkLink& currChunkLk = *it;
@@ -973,6 +971,16 @@ void SubordinateExtractor::xLinkSubordonateThatAreBeforeVerbs
             if (it == pChunkLinks.end())
               return;
           }
+        }
+        else if (nextIt->chunk->type == ChunkType::VERB_CHUNK)
+        {
+          auto timeChunkIt = it;
+          it = nextIt;
+          ++it;
+          timeChunkIt->type = ChunkLinkType::TIME;
+          nextIt->chunk->children.splice(nextIt->chunk->children.begin(), pChunkLinks, timeChunkIt);
+          if (it == pChunkLinks.end())
+            return;
         }
       }
       break;

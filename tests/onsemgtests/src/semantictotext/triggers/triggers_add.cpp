@@ -635,13 +635,13 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_subMemory_affirmation)
   SemanticMemory semMem;
   ONSEM_NOANSWER(operator_react(affirmationStr, semMem, lingDb));
   semMem.memBloc.subBlockPtr = &subSemMem.memBloc;
-  ONSEM_ANSWER_EQ("Effectivement. Demain. C'est son anniversaire.",
+  ONSEM_ANSWER_EQ("Effectivement. C'est son anniversaire demain.",
                   operator_react(affirmationStr, semMem, lingDb));
   // 2 levels of depth
   {
     SemanticMemory semMemTopLevel;
     semMemTopLevel.memBloc.subBlockPtr = &semMem.memBloc;
-    ONSEM_ANSWER_EQ("Effectivement. Demain. C'est son anniversaire.",
+    ONSEM_ANSWER_EQ("Effectivement. C'est son anniversaire demain.",
                     operator_react(affirmationStr, semMemTopLevel, lingDb));
   }
 }
@@ -664,7 +664,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_subMemory_nominalGroup)
                                                      &canReactToANoun));
   ONSEM_NOANSWER(operator_react("Je ne sais pas", semMem, lingDb));
   semMem.memBloc.subBlockPtr = &subSemMem.memBloc;
-  ONSEM_ANSWER_EQ("Demain. C'est son anniversaire.",
+  ONSEM_ANSWER_EQ("C'est son anniversaire demain.",
                   operator_react(propernounStr, semMem, lingDb, SemanticLanguageEnum::UNKNOWN,
                                  &canReactToANoun));
   ONSEM_ANSWER_EQ("C'est des nems.",
@@ -676,7 +676,7 @@ TEST_F(SemanticReasonerGTests, operator_addATrigger_subMemory_nominalGroup)
     SemanticMemory semMemTopLevel;
     semMem.defaultLanguage = SemanticLanguageEnum::ENGLISH;
     semMemTopLevel.memBloc.subBlockPtr = &semMem.memBloc;
-    ONSEM_ANSWER_EQ("Tomorrow. It's his birthday.",
+    ONSEM_ANSWER_EQ("It's his birthday tomorrow.",
                     operator_react(propernounStr, semMemTopLevel, lingDb, SemanticLanguageEnum::UNKNOWN,
                                    &canReactToANoun));
   }
