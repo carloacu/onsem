@@ -94,3 +94,4 @@ How far should I turn in degrees?
 how far in meters
 how far in degrees
 what
+Why was it a beautiful day yesterday?

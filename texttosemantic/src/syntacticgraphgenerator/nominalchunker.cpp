@@ -261,7 +261,9 @@ void NominalChunker::xSplitAChunk(ChunkLinkIter& pItChunkLink) const
       case PartOfSpeech::NOUN:
       {
         if (tokenBeforeInflWord.word.partOfSpeech != PartOfSpeech::ADJECTIVE &&
-            ConceptSet::haveAConceptThatBeginWith(currIt->inflWords.front().infos.concepts, "time_"))
+            ConceptSet::haveAConceptThatBeginWith(currIt->inflWords.front().infos.concepts, "time_") &&
+            (!ConceptSet::haveAConceptThatBeginWith(tokenBeforeInflWord.infos.concepts, "time_") ||
+             ConceptSet::haveAConcept(tokenBeforeInflWord.infos.concepts, "time_day")))
         {
           separateBeginOfAChunk(pItChunkLink, itBeginOfWordGroup, currChunk.type, language);
           currChunk.type = ChunkType::NOMINAL_CHUNK;
