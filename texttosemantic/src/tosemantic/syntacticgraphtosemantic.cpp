@@ -669,7 +669,7 @@ bool _modifyTimeGrdAccordingToARelativeDay
 }
 
 
-void _considerTimeModifiers
+void _considerTimeModifiersBeforeHead
 (SemanticTimeGrounding& pTimeGrd,
  const Chunk& pChunk)
 {
@@ -685,6 +685,31 @@ void _considerTimeModifiers
       {
         const std::string& relCptStr = timeRelConcepts.begin()->first;
         _modifyTimeGrdAccordingToARelativeDay(pTimeGrd, relCptStr);
+      }
+    }
+  }
+}
+
+
+void _considerTimeModifiersAfterHead
+(SemanticTimeGrounding& pTimeGrd,
+ const Chunk& pChunk)
+{
+  auto itEnd = pChunk.tokRange.getItEnd();
+  for (TokIt it = getNextToken(pChunk.head, itEnd); it != itEnd; it = getNextToken(it, itEnd))
+  {
+    const auto& wordConcepts = it->inflWords.front().infos.concepts;
+    std::map<std::string, char> timeConcepts;
+    ConceptSet::extractConceptsThatBeginWith(timeConcepts, wordConcepts, "time_");
+    if (timeConcepts.size() == 1)
+    {
+      pTimeGrd.fromConcepts.insert(timeConcepts.begin(), timeConcepts.end());
+      std::map<std::string, char> dayRelConcepts;
+      ConceptSet::extractConceptsThatBeginWith(dayRelConcepts, wordConcepts, "time_day_");
+      if (dayRelConcepts.size() == 1)
+      {
+        const std::string& dayRelCptStr = dayRelConcepts.begin()->first;
+        pTimeGrd.modifyTimeGrdAccordingToADayPart(dayRelCptStr);
       }
     }
   }
@@ -969,7 +994,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
       timeGrounding->date = pGeneral.syntGraphTime.date;
       if (timeGrounding->modifyTimeGrdAccordingToADayPart(relCptStr))
       {
-        _considerTimeModifiers(*timeGrounding, pChunk);
+        _considerTimeModifiersBeforeHead(*timeGrounding, pChunk);
         if ((relCptStr == "time_day_midnight" || relCptStr == "time_day_night") &&
             isAPastTense(pContext.holdingSentenceVerbTense) &&
             timeGrounding->isAfter(pGeneral.syntGraphTime))
@@ -1055,6 +1080,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp
       timeGrounding->fromConcepts = weekDayConcepts;
       timeGrounding->date.dayEqualToAWeekDayOfThisWeek
           (semanticTimeWeekdayEnum_fromStr(weekDayConcepts.begin()->first));
+      _considerTimeModifiersAfterHead(*timeGrounding, pChunk);
       return std::make_unique<GroundedExpression>(std::move(timeGrounding));
     }
 
