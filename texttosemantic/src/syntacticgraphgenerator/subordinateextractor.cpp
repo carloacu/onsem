@@ -977,7 +977,8 @@ void SubordinateExtractor::xLinkSubordonateThatAreBeforeVerbs
           auto timeChunkIt = it;
           it = nextIt;
           ++it;
-          timeChunkIt->type = ChunkLinkType::TIME;
+
+          timeChunkIt->type = fConf.getEntityRecognizer().findNatureOfAChunkLink(*timeChunkIt, &*nextIt->chunk, false); //ChunkLinkType::TIME;
           nextIt->chunk->children.splice(nextIt->chunk->children.begin(), pChunkLinks, timeChunkIt);
           if (it == pChunkLinks.end())
             return;

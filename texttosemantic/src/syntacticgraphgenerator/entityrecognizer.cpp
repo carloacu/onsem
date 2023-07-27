@@ -46,7 +46,7 @@ bool _getNextWordWithoutIntro(ConstTokenIterator& pNextToken,
 }
 
 
-InflectedWord* _getIntroWord(TokenRange& pTokRange)
+InflectedWord* _getIntroWord(const TokenRange& pTokRange)
 {
   const TokIt& tokRangeEnd = pTokRange.getItEnd();
   for (TokIt itTok = pTokRange.getItBegin(); itTok != tokRangeEnd;
@@ -265,7 +265,7 @@ ChunkLinkType EntityRecognizer::findNatureOfAChunkLink
 }
 
 
-bool _referToOneOrManyAgent(Chunk& pChunk)
+bool _referToOneOrManyAgent(const Chunk& pChunk)
 {
   if (doesChunkHaveDeterminerBeforeHead(pChunk))
     return false;
@@ -293,7 +293,7 @@ bool EntityRecognizer::isTheBeginOfAPartitive(const Chunk& pChunk)
 }
 
 
-bool _isMetaTimeChunk(Chunk& pChunk)
+bool _isMetaTimeChunk(const Chunk& pChunk)
 {
   if (!pChunk.head->str.empty() &&
       pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStr &&
