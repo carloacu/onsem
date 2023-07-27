@@ -56,9 +56,6 @@ LinguisticVerbTense LinguisticSynthesizerFrench::_semanticVerbTenseToLinguisticV
   case SemanticVerbTense::PAST:
     return LinguisticVerbTense::IMPERFECT_INDICATIVE;
   case SemanticVerbTense::PRESENT:
-  {
-    return LinguisticVerbTense::PRESENT_INDICATIVE;
-  }
   case SemanticVerbTense::PUNCTUALPRESENT:
   {
     if (pContextType == SYNTHESIZERCURRENTCONTEXTTYPE_OBJECTBEFOREVERB ||
@@ -69,6 +66,8 @@ LinguisticVerbTense LinguisticSynthesizerFrench::_semanticVerbTenseToLinguisticV
           ConceptSet::haveAnyOfConcepts(pRootStatementPtr->concepts, _rootVerbsForSubjonctiveInSubordinate))
         return LinguisticVerbTense::PRESENT_SUBJONCTIVE;
     }
+    if (pSemVerbTense == SemanticVerbTense::PRESENT)
+      return LinguisticVerbTense::PRESENT_INDICATIVE;
     return LinguisticVerbTense::PRESENT_CONTINUOUS;
   }
   case SemanticVerbTense::PUNCTUALPAST:
