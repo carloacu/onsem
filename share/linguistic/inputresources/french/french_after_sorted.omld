@@ -275,6 +275,10 @@
  <w l="si" p="sub_conj">
   <i />
  </w>
+ <w l="sérieusement" p="interjection">
+  <i />
+  <i i="sérieux" />
+ </w>
  <w l="sinon" p="conjunctive">
   <i />
  </w>
