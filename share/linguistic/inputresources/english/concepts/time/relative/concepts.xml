@@ -4,6 +4,7 @@
  </concept>
  <concept name="time_relative_before">
   <linkedMeaning lemme="before" relationToConcept="4"/>
+  <linkedMeaning lemme="ago" gram="adverb" relationToConcept="3"/>
  </concept>
  <concept name="time_relative_during">
   <linkedMeaning lemme="during" gram="preposition" relationToConcept="4"/>

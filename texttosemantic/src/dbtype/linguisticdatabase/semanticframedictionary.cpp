@@ -354,6 +354,11 @@ bool _doesConceptConditionMatchWithGrounding(const LinguisticConditionTreeValue&
     {
     case SemanticGroundingType::TIME:
     {
+      auto& timeGrd = pGrounding.getTimeGrounding();
+      if ((pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptThatBeginWith(timeGrd.fromConcepts, concept)) ||
+          (!pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptOrAHyponym(timeGrd.fromConcepts, concept)))
+        return true;
+
       if (pBeginOfConceptOrConceptWithHyponyms)
       {
         if (concept == "time_")
@@ -442,7 +447,10 @@ bool _doesConditionMatchWithGrounding(const LinguisticConditionTreeValue& pCondi
   }
   case LinguisticCondition::FOLLOWEDBYHOUR:
   {
-    return grounding.getTimeGroundingPtr() != nullptr;
+    if (pOut != nullptr && !pOut->empty() && ConceptSet::haveAConcept(pOut->back().concepts, "time_relative_before"))
+      return false;
+    const auto* timeGrdPtr = grounding.getTimeGroundingPtr();
+    return timeGrdPtr != nullptr && !timeGrdPtr->timeOfDay.isEmpty();
   }
   case LinguisticCondition::FOLLOWEDBYINFINITIVEVERB:
   {

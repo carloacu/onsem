@@ -362,6 +362,8 @@ void LinguisticsynthesizergroundingEnglish::_writeDurationAgo
 (std::list<WordToSynthesize>& pOut) const
 {
   _strToOut(pOut, PartOfSpeech::ADVERB, "ago");
+  if (!pOut.empty())
+    pOut.back().concepts.emplace("time_relative_before", 4);
 }
 
 void LinguisticsynthesizergroundingEnglish::_writeDurationIn(std::list<WordToSynthesize>& pOut) const

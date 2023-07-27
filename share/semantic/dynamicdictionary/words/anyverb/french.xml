@@ -24,6 +24,7 @@
     <child lemma="de" chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_angle_, have_number_before)" />
     <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, have_number_before)" />
     <child chunkLinkType="time" condition="followedByDefiniteNoun&followedByBeginOfConcept(time_, skip_determiners)" />
+    <child lemma="à" pos="preposition" chunkLinkType="time" condition="followedByHour" />
     <child lemma="en" pos="preposition" chunkLinkType="time" condition="[followedByBeginOfConcept(time_, skip_determiners)&!followedByQuantityEverything]|followedByBeginOfConcept(number_)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />
     <child lemma="à" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />

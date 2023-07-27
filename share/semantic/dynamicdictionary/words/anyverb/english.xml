@@ -11,6 +11,9 @@
     <child lemma="in" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(number_, skip_determiners)|followedByBeginOfConcept(duration_, skip_determiners)|followedByDate" />
     <child lemma="in" pos="preposition" chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
     <child lemma="in" pos="preposition" chunkLinkType="unity" condition="followedByBeginOfConcept(location_relative_angle_)|followedByBeginOfConcept(length_)|followedByBeginOfConcept(duration_)|followedByConceptOrHyponym(percentage)" />
+    <child chunkLinkType="time" condition="followedByDefiniteNoun&followedByBeginOfConcept(time_, skip_determiners)" />
+    <child chunkLinkType="time" condition="followedByBeginOfConcept(time_relative_)|followedByBeginOfConcept(time_relativeDay_)|followedByBeginOfConcept(time_day, skip_determiners)" />
+    <child lemma="at" pos="preposition" chunkLinkType="time" condition="followedByHour" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
     <child chunkLinkType="location" condition="[followedByPartOfSpeech(adverb)|followedByPartOfSpeech(pronoun)]&followedByConceptOrHyponym(location)" />
@@ -26,7 +29,7 @@
     <child lemma="according to" pos="preposition" chunkLinkType="according to" />
     <child lemma="against" pos="preposition" chunkLinkType="against" />
     <child lemma="after" pos="sub_conj" chunkLinkType="time" />
-    <child lemma="at" pos="preposition" chunkLinkType="time"  condition="followedByBeginOfConcept(time_, skip_determiners)|followedByHour" />
+    <child lemma="at" pos="preposition" chunkLinkType="time"  condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child lemma="at" pos="preposition" chunkLinkType="location" />
     <child lemma="in order" pos="sub_conj" chunkLinkType="cause" condition="followedByInfinitiveVerb" />
     <child lemma="because" pos="sub_conj" chunkLinkType="cause" />

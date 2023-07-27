@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<equivalences><text in="Make a full turn to the left slowly 3 times" out="Make a full turn slowly to the left 3 times!"/><text in="Tous les jours à 17h" out="Tous les jours à 17 heures"/><text in="qu&apos;est-ce qu&apos;y est trop chaud ?" out="Qu&apos;est-ce qui est trop chaud ?"/></equivalences>
+<equivalences><text in="Make a full turn to the left slowly 3 times" out="Make a full turn slowly to the left 3 times!"/><text in="Tous les jours à 17h" out="Tous les jours à 17 heures"/><text in="Tous les jours à 17h lave le sol" out="Lave le sol à 17 heures tous les jours !"/><text in="qu&apos;est-ce qu&apos;y est trop chaud ?" out="Qu&apos;est-ce qui est trop chaud ?"/></equivalences>

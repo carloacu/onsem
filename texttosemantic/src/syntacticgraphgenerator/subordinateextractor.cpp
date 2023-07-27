@@ -980,7 +980,13 @@ void SubordinateExtractor::xLinkSubordonateThatAreBeforeVerbs
           it = nextIt;
           ++it;
 
-          timeChunkIt->type = fConf.getEntityRecognizer().findNatureOfAChunkLink(*timeChunkIt, &*nextIt->chunk, false); //ChunkLinkType::TIME;
+          timeChunkIt->type = fConf.getEntityRecognizer().findNatureOfAChunkLink(*timeChunkIt, &*nextIt->chunk, false);
+          // Move sub time children into the children of the verb
+          {
+            auto itTimeChildren = getChunkLink(*timeChunkIt->chunk, ChunkLinkType::TIME);
+            if (itTimeChildren != timeChunkIt->chunk->children.end())
+              nextIt->chunk->children.splice(nextIt->chunk->children.begin(), timeChunkIt->chunk->children, itTimeChildren);
+          }
           nextIt->chunk->children.splice(nextIt->chunk->children.begin(), pChunkLinks, timeChunkIt);
           if (it == pChunkLinks.end())
             return;
