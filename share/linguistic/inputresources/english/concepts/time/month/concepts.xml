@@ -1,4 +1,7 @@
 <linguisticdatabase>
+ <concept name="time_month">
+  <linkedMeaning lemme="month" gram="noun" relationToConcept="4"/>
+ </concept>
  <concept name="time_month_january">
   <linkedMeaning lemme="January" relationToConcept="4"/>
  </concept>

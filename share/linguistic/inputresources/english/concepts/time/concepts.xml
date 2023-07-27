@@ -40,7 +40,6 @@
   <linkedMeaning lemme="kalends" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="lustrum" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="minute" gram="noun" relationToConcept="4" />
-  <linkedMeaning lemme="month" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="week" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="year" gram="noun" relationToConcept="4" />
  </concept>

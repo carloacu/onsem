@@ -386,6 +386,46 @@ void putEndOfAChunkToHisChildren
 }
 
 
+void putPrepositionInCunkLkTokenRange(
+    ChunkLink& pChunkLink,
+    SemanticLanguageEnum pLanguage)
+{
+  TokenRange& chunkTokRange = pChunkLink.chunk->tokRange;
+  assert(!chunkTokRange.isEmpty());
+  TokIt itFirstWord = chunkTokRange.getItBegin();
+  if (itFirstWord != pChunkLink.chunk->head)
+  {
+    for (TokIt itNewBeginOfChunk = itFirstWord;
+         itNewBeginOfChunk != chunkTokRange.getItEnd();
+         itNewBeginOfChunk = getNextToken(itNewBeginOfChunk, chunkTokRange.getItEnd()))
+    {
+      if (itNewBeginOfChunk->getTokenLinkage() != TokenLinkage::PART_OF_WORD_GROUP ||
+          itFirstWord->getTokenLinkage() == TokenLinkage::HEAD_OF_WORD_GROUP)
+      {
+        if (itNewBeginOfChunk->inflWords.front().word.partOfSpeech == PartOfSpeech::PREPOSITION)
+        {
+          continue;
+        }
+      }
+      else if (itFirstWord->getTokenLinkage() == TokenLinkage::PART_OF_WORD_GROUP &&
+               itFirstWord->linkedTokens.front()->inflWords.front().word.partOfSpeech == PartOfSpeech::PREPOSITION)
+      {
+        continue;
+      }
+
+      if (itNewBeginOfChunk != itFirstWord &&
+          itNewBeginOfChunk != chunkTokRange.getItEnd())
+      {
+        chunkTokRange.setItBegin(itNewBeginOfChunk);
+        pChunkLink.chunk->head = getHeadOfNominalGroup(pChunkLink.chunk->tokRange, pLanguage);
+        pChunkLink.tokRange.setItBegin(itFirstWord);
+        pChunkLink.tokRange.setItEnd(chunkTokRange.getItBegin());
+      }
+      break;
+    }
+  }
+}
+
 
 TokIt getHeadOfNominalGroup
 (const TokenRange& pTokRange,

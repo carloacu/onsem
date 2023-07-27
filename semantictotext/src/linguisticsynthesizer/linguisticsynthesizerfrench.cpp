@@ -161,26 +161,6 @@ void LinguisticSynthesizerFrench::_getPossessiveDeterminer
 }
 
 
-void LinguisticSynthesizerFrench::_getOfWord(std::list<WordToSynthesize>& pOut,
-                                             const SynthesizerWordContext& pWordContext) const
-{
-  if (pWordContext.number != SemanticNumberType::PLURAL ||
-      pWordContext.referenceType != SemanticReferenceType::INDEFINITE)
-  {
-    pOut.emplace_back([&]
-    {
-      WordToSynthesize wordToToSynth(SemanticWord(_language, "de", PartOfSpeech::PREPOSITION),
-                                     InflectionToSynthesize("d'", true, false,
-                                                            [](const WordToSynthesize& pNext)
-      {
-        return ifNeedAnApostropheBefore(pNext) && ifNextWordIsNotAPrepostion(pNext);
-      }));
-      wordToToSynth.inflections.emplace_back("de", true, true, ifNextWordIsNotAPrepostion);
-      return wordToToSynth;
-    }());
-  }
-}
-
 
 void LinguisticSynthesizerFrench::_getRelTimeFollowingPrep(std::list<WordToSynthesize>& pOut,
                                                            const SemanticRelativeTimeGrounding& pRelTimeGrd) const
@@ -245,7 +225,22 @@ void LinguisticSynthesizerFrench::_getBeginOfSpecification
       return;
     }
   }
-  _getOfWord(pOut, pWordContext);
+
+  if (pWordContext.number != SemanticNumberType::PLURAL ||
+      pWordContext.referenceType != SemanticReferenceType::INDEFINITE)
+  {
+    pOut.emplace_back([&]
+    {
+      WordToSynthesize wordToToSynth(SemanticWord(_language, "de", PartOfSpeech::PREPOSITION),
+                                     InflectionToSynthesize("d'", true, false,
+                                                            [](const WordToSynthesize& pNext)
+      {
+        return ifNeedAnApostropheBefore(pNext) && ifNextWordIsNotAPrepostion(pNext);
+      }));
+      wordToToSynth.inflections.emplace_back("de", true, true, ifNextWordIsNotAPrepostion);
+      return wordToToSynth;
+    }());
+  }
 }
 
 

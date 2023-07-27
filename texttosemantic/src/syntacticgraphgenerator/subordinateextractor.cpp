@@ -327,6 +327,7 @@ struct SepAndNomnalChunk
 void SubordinateExtractor::xLinkComplementaryNominalChunks
 (std::list<ChunkLink>& pChunkLinks) const
 {
+  SemanticLanguageEnum language = fConf.getLanguageType();
   Chunk* prevChunkIfNominalPtr = nullptr;
   Chunk* prevCODChunkIfVerbalPtr = nullptr;
   std::list<ChunkLink>::iterator prevIt = pChunkLinks.end();
@@ -347,13 +348,13 @@ void SubordinateExtractor::xLinkComplementaryNominalChunks
       if (prevChunkIfNominalPtr != nullptr)
       {
         auto& prevChunkIfNominal = *prevChunkIfNominalPtr;
-        xAddASubChunk(pChunkLinks, prevChunkIfNominal, it, it, linkType);
+        xAddASubChunk(pChunkLinks, prevChunkIfNominal, it, it, linkType, language);
         it = prevIt;
       }
       else if (prevCODChunkIfVerbalPtr != nullptr)
       {
         auto& prevCODChunkIfVerbal = *prevCODChunkIfVerbalPtr;
-        xAddASubChunk(pChunkLinks, prevCODChunkIfVerbal, it, it, linkType);
+        xAddASubChunk(pChunkLinks, prevCODChunkIfVerbal, it, it, linkType, language);
         it = prevIt;
       }
       else if (linkType != ChunkLinkType::SUBORDINATE)
@@ -518,12 +519,13 @@ void SubordinateExtractor::xLinkComplementaryNominalChunksSeparatredByCommas
 
       if (linkSubNominalChunks)
       {
+        SemanticLanguageEnum language = fConf.getLanguageType();
         if (currChunk.type == ChunkType::NOMINAL_CHUNK)
         {
           if (subNominalChunks.size() == 1)
           {
             const SepAndNomnalChunk& frontElt = subNominalChunks.front();
-            xAddASubChunk(pChunkLinks, currChunk, frontElt.sepChunk, frontElt.nominalChunk, ChunkLinkType::SPECIFICATION);
+            xAddASubChunk(pChunkLinks, currChunk, frontElt.sepChunk, frontElt.nominalChunk, ChunkLinkType::SPECIFICATION, language);
           }
         }
         else if (currChunk.type == ChunkType::VERB_CHUNK)
@@ -532,17 +534,17 @@ void SubordinateExtractor::xLinkComplementaryNominalChunksSeparatredByCommas
           if (doChunkPtr == nullptr)
           {
             for (auto& currSubNominalChunk : subNominalChunks)
-              xAddASubChunk(pChunkLinks, currChunk, currSubNominalChunk.sepChunk, currSubNominalChunk.nominalChunk, ChunkLinkType::DIRECTOBJECT);
+              xAddASubChunk(pChunkLinks, currChunk, currSubNominalChunk.sepChunk, currSubNominalChunk.nominalChunk, ChunkLinkType::DIRECTOBJECT, language);
           }
           else
           {
             Chunk& doChunk = *doChunkPtr;
             if (doChunk.type == ChunkType::VERB_CHUNK)
               for (auto& currSubNominalChunk : subNominalChunks)
-                xAddASubChunk(pChunkLinks, doChunk, currSubNominalChunk.sepChunk, currSubNominalChunk.nominalChunk, ChunkLinkType::DIRECTOBJECT);
+                xAddASubChunk(pChunkLinks, doChunk, currSubNominalChunk.sepChunk, currSubNominalChunk.nominalChunk, ChunkLinkType::DIRECTOBJECT, language);
             else if (doChunk.type != ChunkType::INFINITVE_VERB_CHUNK)
               for (auto& currSubNominalChunk : subNominalChunks)
-                xAddASubChunk(pChunkLinks, doChunk, currSubNominalChunk.sepChunk, currSubNominalChunk.nominalChunk, ChunkLinkType::SPECIFICATION);
+                xAddASubChunk(pChunkLinks, doChunk, currSubNominalChunk.sepChunk, currSubNominalChunk.nominalChunk, ChunkLinkType::SPECIFICATION, language);
           }
 
         }
@@ -1103,6 +1105,7 @@ bool SubordinateExtractor::xAddOneOrAListofPastParticipleVerbs
  std::list<ChunkLink>::iterator pPrev,
  Chunk& pNewPotentialRootChunk) const
 {
+  SemanticLanguageEnum language = fConf.getLanguageType();
   std::list<ChunkLink>::iterator nexIt = pIt;
   ++nexIt;
   if (pNewPotentialRootChunk.type == ChunkType::NOMINAL_CHUNK &&
@@ -1110,7 +1113,7 @@ bool SubordinateExtractor::xAddOneOrAListofPastParticipleVerbs
                             fConf.getFlsChecker(), true))
   {
     xAddASubChunk(pSyntTree, pNewPotentialRootChunk, pPrev, pIt,
-                  ChunkLinkType::SUBJECT_OF);
+                  ChunkLinkType::SUBJECT_OF, language);
     pIt = nexIt;
     return true;
   }
@@ -1129,7 +1132,7 @@ bool SubordinateExtractor::xAddOneOrAListofPastParticipleVerbs
       else if (canLinkVerbToASubject(*pIt->chunk, dObj,
                                      fConf.getFlsChecker(), true))
       {
-        xAddASubChunk(pSyntTree, dObj, pPrev, pIt, ChunkLinkType::SUBJECT_OF);
+        xAddASubChunk(pSyntTree, dObj, pPrev, pIt, ChunkLinkType::SUBJECT_OF, language);
         pIt = nexIt;
         return true;
       }
@@ -1142,7 +1145,7 @@ bool SubordinateExtractor::xAddOneOrAListofPastParticipleVerbs
           canLinkVerbToASubject(*pIt->chunk, *subj,
                                 fConf.getFlsChecker(), true))
       {
-        xAddASubChunk(pSyntTree, *subj, pPrev, pIt, ChunkLinkType::SUBJECT_OF);
+        xAddASubChunk(pSyntTree, *subj, pPrev, pIt, ChunkLinkType::SUBJECT_OF, language);
         pIt = nexIt;
         return true;
       }
@@ -1157,7 +1160,8 @@ void SubordinateExtractor::xAddASubChunk
  Chunk& pMotherCunk,
  std::list<ChunkLink>::iterator pPrev,
  std::list<ChunkLink>::iterator pIt,
- ChunkLinkType pType)
+ ChunkLinkType pType,
+ SemanticLanguageEnum pLanguage)
 {
   if (pPrev != pIt)
   {
@@ -1166,6 +1170,11 @@ void SubordinateExtractor::xAddASubChunk
     pSyntTree.erase(pPrev);
   }
   pIt->type = pType;
+  if (pIt->chunk->type == ChunkType::PREPOSITIONAL_CHUNK &&
+      pType != ChunkLinkType::SIMPLE)
+  {
+    putPrepositionInCunkLkTokenRange(*pIt, pLanguage);
+  }
   pMotherCunk.children.emplace_back(*pIt);
   pSyntTree.erase(pIt);
 }

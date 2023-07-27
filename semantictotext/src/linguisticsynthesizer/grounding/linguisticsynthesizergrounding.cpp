@@ -248,6 +248,12 @@ void Linguisticsynthesizergrounding::writeGroundingIntroduction
     _writeReDurationType(pBeforeOut.out, pGrounding.getRelDurationGrounding().durationType, pHoldingGrdExp);
     break;
   }
+  case SemanticGroundingType::TIME:
+  {
+    if (pContext.contextType == SynthesizerCurrentContextType::SYNTHESIZERCURRENTCONTEXTTYPE_TIME)
+      writePreposition(pBeforeOut.out, &pOut, pOutInfoGram, pContext, pConf, pGrounding, pHoldingGrdExp);
+    break;
+  }
   default:
   {
     if (!ConceptSet::haveAConcept(pGrounding.concepts, "tolink_1p"))
@@ -1302,6 +1308,7 @@ void Linguisticsynthesizergrounding::timeGroundingTranslation
       if (partOfDayMeaningToSay.isEmpty())
       {
         _strToOut(pOut, PartOfSpeech::ADVERB, synthDico.getLemma(meaning, false));
+        pOut.back().concepts.emplace(dateConceptToSay, 4);
         if (dateConceptToSay == "time_relative_now")
           return;
         dateWritten = true;

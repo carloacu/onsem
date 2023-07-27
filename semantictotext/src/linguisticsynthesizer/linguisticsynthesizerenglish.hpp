@@ -74,8 +74,6 @@ protected:
    SemanticGenderType pGender,
    SemanticNumberType pNumber) const;
 
-  virtual void _getOfWord(std::list<WordToSynthesize>& pOut,
-                          const SynthesizerWordContext& pWordContext) const;
   virtual void _getRelTimeFollowingPrep(std::list<WordToSynthesize>& pOut,
                                         const SemanticRelativeTimeGrounding& pRelTimeGrd) const {}
 

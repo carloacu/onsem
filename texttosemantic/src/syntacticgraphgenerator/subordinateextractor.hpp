@@ -98,7 +98,8 @@ private:
    Chunk& pMotherCunk,
    std::list<ChunkLink>::iterator pPrev,
    std::list<ChunkLink>::iterator pIt,
-   ChunkLinkType pType);
+   ChunkLinkType pType,
+   SemanticLanguageEnum pLanguage);
 
   void xLinkSubjectAndAuxiliaryToVerbsInsideAList
   (std::list<ChunkLink>& pChunkLinks) const;

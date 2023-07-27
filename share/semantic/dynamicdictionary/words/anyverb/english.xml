@@ -65,15 +65,16 @@
   </any_verb>
 
   <no_verb>
+    <child lemma="of" pos="partitive" chunkLinkType="time" condition="followedByBeginOfConcept(time_relativeDay_, skip_determiners)|followedByBeginOfConcept(time_day, skip_determiners)|followedByBeginOfConcept(time_month, skip_determiners)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_relative_)|followedByBeginOfConcept(time_relativeDay_)" />
-    <child lemma="after" pos="sub_conj" chunkLinkType="time" />
     <child lemma="at" pos="preposition" chunkLinkType="time" condition="followedByHour" />
+    <child lemma="when" pos="preposition" chunkLinkType="time" />
+    <child lemma="after" pos="sub_conj" chunkLinkType="time" />
     <child lemma="at" pos="preposition" chunkLinkType="location" />
     <child lemma="because" pos="sub_conj" chunkLinkType="cause" />
     <child lemma="before" pos="sub_conj" chunkLinkType="time" />
     <child lemma="but" pos="sub_conj" chunkLinkType="mitigation" />
     <child lemma="in order" pos="sub_conj" chunkLinkType="purpose" condition="followedByInfinitiveVerb" />
-    <child lemma="of" pos="partitive" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child lemma="since" pos="sub_conj" chunkLinkType="time" />
     <child lemma="whenever" pos="sub_conj" chunkLinkType="time" />
     <child lemma="with" pos="preposition" chunkLinkType="with" />

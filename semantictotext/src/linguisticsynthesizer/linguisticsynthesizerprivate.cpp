@@ -1325,12 +1325,14 @@ void LinguisticSynthesizerPrivate::_writeNominalChild(OutNominalGroup& outNomina
   }
   case GrammaticalType::TIME:
   {
-    _getOfWord(outNominalGroup.time.out, pContext.wordContext);
+    SynthesizerCurrentContext timeContext;
+    timeContext.grammaticalTypeFromParent = GrammaticalType::TIME;
+    timeContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_TIME;
     auto subRequests = pRequests;
     std::list<SemExpTypeEnumFormSynt> semExpSyntTypes;
     _writeSemExp(semExpSyntTypes, outNominalGroup.time, subRequests,
                  pLastSubject, currSemExpChild,
-                 pConf, SynthesizerCurrentContext());
+                 pConf, timeContext);
     break;
   }
   case GrammaticalType::OTHER_THAN:

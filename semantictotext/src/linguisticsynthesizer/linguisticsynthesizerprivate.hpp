@@ -163,8 +163,6 @@ protected:
   (std::list<WordToSynthesize>& pOut,
    const SemanticExpression& pSemExp) const = 0;
 
-  virtual void _getOfWord(std::list<WordToSynthesize>& pOut,
-                          const SynthesizerWordContext& pWordContext) const = 0;
   virtual void _getRelTimeFollowingPrep(std::list<WordToSynthesize>& pOut,
                                         const SemanticRelativeTimeGrounding& pRelTimeGrd) const = 0;
 

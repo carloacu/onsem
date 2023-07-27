@@ -314,15 +314,6 @@ void LinguisticSynthesizerEnglish::_getPossessiveDeterminer
 }
 
 
-void LinguisticSynthesizerEnglish::_getOfWord(std::list<WordToSynthesize>& pOut,
-                                              const SynthesizerWordContext&) const
-{
-  static const std::string specificationWordStr = "of";
-  pOut.emplace_back(SemanticWord(_language, specificationWordStr,
-                                 PartOfSpeech::PREPOSITION),
-                    InflectionToSynthesize(specificationWordStr, true, true,
-                                           ifNextWordIsNotAPrepostion));
-}
 
 void LinguisticSynthesizerEnglish::_getBeginOfSpecification
 (std::list<WordToSynthesize>& pOut,
@@ -344,7 +335,12 @@ void LinguisticSynthesizerEnglish::_getBeginOfSpecification
     }
     return;
   }
-  _getOfWord(pOut, pWordContext);
+
+  static const std::string specificationWordStr = "of";
+  pOut.emplace_back(SemanticWord(_language, specificationWordStr,
+                                 PartOfSpeech::PREPOSITION),
+                    InflectionToSynthesize(specificationWordStr, true, true,
+                                           ifNextWordIsNotAPrepostion));
 }
 
 void LinguisticSynthesizerEnglish::_getBeginOfWithChild

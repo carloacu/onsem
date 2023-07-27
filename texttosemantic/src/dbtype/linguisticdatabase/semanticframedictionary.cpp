@@ -358,10 +358,23 @@ bool _doesConceptConditionMatchWithGrounding(const LinguisticConditionTreeValue&
       {
         if (concept == "time_")
           return true;
-        if (pOut != nullptr && !pOut->empty() &&
-            ((pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptThatBeginWith(pOut->front().concepts, concept)) ||
-             (!pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptOrAHyponym(pOut->front().concepts, concept))))
-          return true;
+        if (pOut != nullptr)
+        {
+          auto itOut = pOut->begin();
+          if (pConditionValue.parameters.size() >= 2 &&
+              pConditionValue.parameters[1] == "skip_determiners")
+          {
+            while (itOut != pOut->end() && itOut->word.partOfSpeech == PartOfSpeech::DETERMINER)
+            {
+              ++itOut;
+              continue;
+            }
+          }
+          if (itOut != pOut->end() &&
+              ((pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptThatBeginWith(itOut->concepts, concept)) ||
+               (!pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptOrAHyponym(itOut->concepts, concept))))
+            return true;
+        }
       }
       return false;
     }

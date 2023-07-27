@@ -41,8 +41,6 @@ protected:
 
   virtual bool _subConceptBeforeOrAfter(const linguistics::WordAssociatedInfos&) const { return false; }
 
-  virtual void _getOfWord(std::list<WordToSynthesize>& pOut,
-                          const SynthesizerWordContext& pWordContext) const;
   virtual void _getRelTimeFollowingPrep(std::list<WordToSynthesize>& pOut,
                                         const SemanticRelativeTimeGrounding& pRelTimeGrd) const;
 

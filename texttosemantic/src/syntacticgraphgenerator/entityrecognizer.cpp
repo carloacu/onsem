@@ -179,40 +179,7 @@ void EntityRecognizer::process
     else if (currChunkType == ChunkType::PREPOSITIONAL_CHUNK &&
              currChkLk.type != ChunkLinkType::SIMPLE)
     {
-      TokenRange& chunkTokRange = currChkLk.chunk->tokRange;
-      assert(!chunkTokRange.isEmpty());
-      TokIt itFirstWord = chunkTokRange.getItBegin();
-      if (itFirstWord != currChkLk.chunk->head)
-      {
-        for (TokIt itNewBeginOfChunk = itFirstWord;
-             itNewBeginOfChunk != chunkTokRange.getItEnd();
-             itNewBeginOfChunk = getNextToken(itNewBeginOfChunk, chunkTokRange.getItEnd()))
-        {
-          if (itNewBeginOfChunk->getTokenLinkage() != TokenLinkage::PART_OF_WORD_GROUP ||
-              itFirstWord->getTokenLinkage() == TokenLinkage::HEAD_OF_WORD_GROUP)
-          {
-            if (itNewBeginOfChunk->inflWords.front().word.partOfSpeech == PartOfSpeech::PREPOSITION)
-            {
-              continue;
-            }
-          }
-          else if (itFirstWord->getTokenLinkage() == TokenLinkage::PART_OF_WORD_GROUP &&
-                   itFirstWord->linkedTokens.front()->inflWords.front().word.partOfSpeech == PartOfSpeech::PREPOSITION)
-          {
-            continue;
-          }
-
-          if (itNewBeginOfChunk != itFirstWord &&
-              itNewBeginOfChunk != chunkTokRange.getItEnd())
-          {
-            chunkTokRange.setItBegin(itNewBeginOfChunk);
-            currChkLk.chunk->head = getHeadOfNominalGroup(currChkLk.chunk->tokRange, language);
-            currChkLk.tokRange.setItBegin(itFirstWord);
-            currChkLk.tokRange.setItEnd(chunkTokRange.getItBegin());
-          }
-          break;
-        }
-      }
+      putPrepositionInCunkLkTokenRange(currChkLk, language);
     }
     process(currChkLk.chunk->children);
   }

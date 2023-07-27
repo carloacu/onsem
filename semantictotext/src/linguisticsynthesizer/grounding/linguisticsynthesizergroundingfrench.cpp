@@ -30,13 +30,18 @@ bool LinguisticsynthesizergroundingFrench::_dateTranslation
       {
         std::stringstream ss;
         ss << *pDate.day;
-        _strToOut(pOut, PartOfSpeech::NOUN, ss.str(), WordToSynthesizeTag::DATE);
+        _strToOut(pOut, PartOfSpeech::DETERMINER, ss.str(), WordToSynthesizeTag::DATE);
       }
     }
 
-    const auto& meaning = pDicoSynth.conceptToMeaning(monthConceptStr_fromMonthId(*pDate.month));
+    auto monthConcept = monthConceptStr_fromMonthId(*pDate.month);
+    const auto& meaning = pDicoSynth.conceptToMeaning(monthConcept);
     if (!meaning.isEmpty())
+    {
       _strToOut(pOut, PartOfSpeech::NOUN, pDicoSynth.getLemma(meaning, false), WordToSynthesizeTag::DATE);
+      if (!pOut.empty())
+        pOut.back().concepts.emplace(monthConcept, 4);
+    }
   }
 
   if (pDate.year)

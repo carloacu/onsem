@@ -182,6 +182,9 @@ void putEndOfAChunkToHisChildren
  TokIt pBeginNewChunk,
  SemanticLanguageEnum pLanguage);
 
+void putPrepositionInCunkLkTokenRange(
+    ChunkLink& pChunkLink,
+    SemanticLanguageEnum pLanguage);
 
 TokIt getHeadOfNominalGroup
 (const TokenRange& pTokRange,

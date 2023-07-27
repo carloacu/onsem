@@ -582,12 +582,7 @@ void LinguisticsynthesizergroundingEnglish::_getDeterminer
   }
   else if (pGrounding.referenceType == SemanticReferenceType::DEFINITE)
   {
-    if (pContext.contextType == SYNTHESIZERCURRENTCONTEXTTYPE_TIME &&
-        pGrounding.word.partOfSpeech == PartOfSpeech::NOUN &&
-        pHoldingGrdExp.children.empty())
-      _strToOut(pOut, PartOfSpeech::PREPOSITION, "at");
-    else
-      _strToOut(pOut, PartOfSpeech::DETERMINER, "the");
+    _strToOut(pOut, PartOfSpeech::DETERMINER, "the");
   }
 }
 

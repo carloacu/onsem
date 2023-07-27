@@ -363,6 +363,7 @@
   <declareconcept name="time_hour_am" />
   <declareconcept name="time_hour_pm" />
 
+  <declareconcept name="time_month" />
   <declareconcept name="time_month_january" />
   <declareconcept name="time_month_february" />
   <declareconcept name="time_month_march" />

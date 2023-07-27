@@ -88,9 +88,11 @@
 
   <no_verb>
     <child lemma="à" pos="preposition" chunkLinkType="todo" condition="followedByInfinitiveVerb" />
+    <child lemma="de" pos="partitive" chunkLinkType="time" condition="followedByBeginOfConcept(time_relativeDay_, skip_determiners)|followedByBeginOfConcept(time_day, skip_determiners)|followedByBeginOfConcept(time_month, skip_determiners)" />
     <child lemma="à" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_)" />
     <child lemma="à" pos="preposition" chunkLinkType="receiver" condition="!followedByPartOfSpeech(pronoun_comp)&!followedByPartOfSpeech(verb)" />
     <child lemma="à" pos="preposition" chunkLinkType="location" condition="!followedByBeginOfConcept(abstract_)" />
+    <child lemma="quand" pos="sub_conj" chunkLinkType="time" />
     <child lemma="à chaque fois que" pos="sub_conj" chunkLinkType="time" />
     <child lemma="après" pos="preposition" chunkLinkType="time" />
     <child lemma="avec" pos="preposition" chunkLinkType="with" />
@@ -106,7 +108,6 @@
     <child lemma="mais" pos="sub_conj" chunkLinkType="mitigation" />
     <child lemma="parce que" pos="sub_conj" chunkLinkType="cause" />
     <child lemma="pour" pos="preposition" chunkLinkType="purpose" />
-    <child lemma="quand" pos="sub_conj" chunkLinkType="time" />
     <child lemma="sans" pos="preposition" chunkLinkType="without" />
     <child lemma="suite à" pos="preposition" chunkLinkType="time" />
   </no_verb>
