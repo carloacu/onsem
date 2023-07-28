@@ -62,3 +62,4 @@ turn the volume down
 move the board to a new room every hour
 move every minute
 Wash the ground every 2 days!
+turn 45°

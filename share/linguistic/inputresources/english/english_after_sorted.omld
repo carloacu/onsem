@@ -111,4 +111,5 @@
  <i l="centimeter" i="cm" p="noun" f="ms|mp" y="3" />
  <i l="millimeter" i="mm" p="noun" f="ms|mp" y="3" />
  <i l="seriously" p="interjection" />
+ <i l="°" p="noun" />
 </omld>

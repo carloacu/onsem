@@ -322,4 +322,7 @@
   <i i="demi tour" f="ms" />
   <i i="demi tours" f="mp" />
  </w>
+ <w l="°" p="noun">
+  <i />
+ </w>
 </omld>

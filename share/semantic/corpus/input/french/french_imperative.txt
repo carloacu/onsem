@@ -82,3 +82,4 @@ ramène tous ces objets à leur place
 déplace le plateau dans une nouvelle pièce toutes les heures
 avance toutes les minutes
 lave le sol tous les 2 jours
+tourne de 45°

@@ -4,6 +4,7 @@
  </concept>
  <concept name="location_relative_angle_degree">
   <linkedMeaning lemme="degree" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="°" gram="noun" relationToConcept="3"/>
  </concept>
  <concept name="location_relative_angle_radian">
   <linkedMeaning lemme="radian" gram="noun" relationToConcept="4"/>

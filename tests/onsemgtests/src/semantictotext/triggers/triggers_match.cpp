@@ -468,6 +468,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête\\", triggers_match("Descends la tête", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête(param1=29 degrés)\\", triggers_match("descends la tête de vingt neuf degrés", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Baisse la tête(param1=31 degrés)\\", triggers_match("descends la tête de 31°", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume\\", triggers_match("Descends ton volume", semMem, lingDb, language));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Descends le volume(param1=30 pour cent)\\", triggers_match("Descends le volume de 30 %", semMem, lingDb, language));
@@ -655,6 +656,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down\\", triggers_match("Head down", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down\\", triggers_match("Lower your head", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=25 degrees)\\", triggers_match("Head down 25 degrees", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=25 degrees)\\", triggers_match("Head down 25°", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Head down(param1=23 degrees)\\", triggers_match("Lower your head 23 degrees", semMem, lingDb));
 
   ONSEM_BEHAVIOR_EQ("\\label=#en_US#Lower the volume\\", triggers_match("Lower the volume", semMem, lingDb));
