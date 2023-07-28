@@ -318,4 +318,8 @@
   <i i="a quoi" />
   <i p="sub_conj" />
  </w>
+ <w l="demi-tour" p="noun">
+  <i i="demi tour" f="ms" />
+  <i i="demi tours" f="mp" />
+ </w>
 </omld>
