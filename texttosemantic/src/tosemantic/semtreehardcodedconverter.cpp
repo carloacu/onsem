@@ -165,6 +165,10 @@ void _refactorCaVaFrenchSentence(GroundedExpression& pGrdExp,
             return res;
           }()));
         }
+        else if (!pStatementGrd.requests.has(SemanticRequestType::MANNER))
+        {
+          return;
+        }
       }
       else if (pGrdExp.children.count(GrammaticalType::OBJECT) > 0)
       {

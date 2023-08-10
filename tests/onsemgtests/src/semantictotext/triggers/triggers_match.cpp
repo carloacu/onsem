@@ -550,6 +550,20 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr)
 }
 
 
+TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr2)
+{
+  const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+  SemanticMemory semMem;
+  auto language = SemanticLanguageEnum::FRENCH;
+
+  const std::vector<std::string> whereQuestion = {"où"};
+  triggers_addAnswerWithOneParameter("va", whereQuestion, semMem, lingDb, language);
+
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#va\\",  triggers_match("Va", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#va(param1=La cuisine)\\",  triggers_match("Va à la cuisine", semMem, lingDb));
+}
+
+
 TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en)
 {
   const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
