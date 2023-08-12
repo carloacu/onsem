@@ -362,10 +362,18 @@ bool _tryToCompleteAnswerWithTheQuestionFromGrdExp
     }
     break;
   }
+  case SemanticGroundingType::RELATIVELOCATION:
+  {
+    if (pContextRequest == SemanticRequestType::LOCATION)
+    {
+      _addChild(pSemExp, pContextGrdExp, pContextRequest, pGrdExp, pLingDb);
+      return true;
+    }
+    break;
+  }
   case SemanticGroundingType::ANGLE:
   case SemanticGroundingType::DURATION:
   case SemanticGroundingType::LANGUAGE:
-  case SemanticGroundingType::RELATIVELOCATION:
   case SemanticGroundingType::RELATIVETIME:
   case SemanticGroundingType::RELATIVEDURATION:
   case SemanticGroundingType::RESOURCE:

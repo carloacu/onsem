@@ -196,6 +196,14 @@ TEST_F(SemanticReasonerGTests, operator_mergeWithContext_basic)
     EXPECT_EQ("C'est tout.",
               semExpToText(std::move(userSemExp), frLanguage, semMem, lingDb));
   }
+
+  {
+    operator_inform_fromRobot("Où est la bouteille ?", semMem, lingDb);
+    auto inKitcehnSemExp = textToSemExp("dans la cuisine", lingDb, frLanguage);
+    memoryOperation::mergeWithContext(inKitcehnSemExp, semMem, lingDb);
+    EXPECT_EQ("La bouteille est dans la cuisine.",
+              semExpToText(std::move(inKitcehnSemExp), frLanguage, semMem, lingDb));
+  }
 }
 
 
