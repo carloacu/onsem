@@ -564,6 +564,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr2)
   };
   triggers_addAnswerWithManyParameters("\\p_meta=0\\ sont", whatAndWhereParameters, semMem, lingDb, language);
 
+  std::map<std::string, std::vector<std::string>> whatParameters {{"object", {"quoi"}}};
+  triggers_addAnswerWithManyParameters("\\p_meta=0\\ sont déplacés", whatParameters, semMem, lingDb, language);
 
   std::map<std::string, std::vector<std::string>> putParameters {
     {"object", {"quoi"}}, {"location", {"où"}}
@@ -574,6 +576,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr2)
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#va(param1=La cuisine)\\",  triggers_match("Va à la cuisine", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#mets(location=Dans la cuisine, object=Les bonbons)\\",  triggers_match("Mets les bonbons dans la cuisine", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#fr_FR#\\p_meta=0\\ sont(location=Dans la cuisine, subject=Les bonbons)\\",  triggers_match("les bonbons sont dans la cuisine", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#fr_FR#\\p_meta=0\\ sont déplacés(object=Les bonbons)\\",  triggers_match("les bonbons sont déplacés", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#fr_FR#\\p_meta=0\\ sont déplacés(object=La bouteille)\\",  triggers_match("la bouteille est déplacée", semMem, lingDb));
 }
 
 
