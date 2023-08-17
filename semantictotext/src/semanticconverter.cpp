@@ -19,6 +19,7 @@
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
 #include "linguisticsynthesizer/linguisticsynthesizer.hpp"
+#include "conversion/mandatoryformconverter.hpp"
 #include "conversion/occurrencerankconverter.hpp"
 #include "conversion/simplesentencesplitter.hpp"
 #include "conversion/reasonofrefactor.hpp"
@@ -578,6 +579,11 @@ std::unique_ptr<UniqueSemanticExpression> imperativeToInfinitive(const SemanticE
     }
   }
   return {};
+}
+
+void imperativeToMandatory(UniqueSemanticExpression& pSemExp)
+{
+  mandatoryFormConverter::process(pSemExp);
 }
 
 

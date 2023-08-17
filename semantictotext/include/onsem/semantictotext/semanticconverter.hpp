@@ -141,6 +141,8 @@ UniqueSemanticExpression getFutureIndicativeAssociatedForm(UniqueSemanticExpress
 ONSEMSEMANTICTOTEXT_API
 std::unique_ptr<UniqueSemanticExpression> imperativeToInfinitive(const SemanticExpression& pSemExp);
 
+ONSEMSEMANTICTOTEXT_API
+void imperativeToMandatory(UniqueSemanticExpression& pSemExp);
 
 ONSEMSEMANTICTOTEXT_API
 UniqueSemanticExpression constructTeachSemExp(
