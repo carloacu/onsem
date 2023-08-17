@@ -62,4 +62,7 @@
   <existingMeaning lemme="qui" gram="pronoun">
     <contextInfo val="refToAPerson" />
   </existingMeaning>
+  <existingMeaning lemme="qui est-ce qui" gram="pronoun">
+    <contextInfo val="refToAPerson" />
+  </existingMeaning>
 </linguisticdatabase>

@@ -18,7 +18,8 @@
       <questionWord lemme="jusqu'où" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="distance" />
       <questionWord lemme="qu'est-ce que" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" />
       <questionWord lemme="qu'en est-il" gram="pronoun" beforeVerb="no" afterVerb="no" canBeAlone="yes" request="about" />
-      <questionWord lemme="qu'est-ce qui" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="no" request="object" />
+      <questionWord lemme="qu'est-ce qui" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="subject" />
+      <questionWord lemme="qui est-ce qui" gram="pronoun" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="subject" />
       <questionWord lemme="pendant combien de temps" gram="adverb" beforeVerb="yes" afterVerb="yes" canBeAlone="yes" request="duration" />
       <questionWord lemme="pourquoi" gram="adverb" beforeVerb="yes" afterVerb="no" canBeAlone="yes" request="cause" />
       <questionWord lemme="pourquoi" gram="sub_conj" beforeVerb="no" afterVerb="no" canBeAlone="no" request="cause" />

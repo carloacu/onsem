@@ -560,7 +560,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr2)
   triggers_addAnswerWithOneParameter("va", whereQuestion, semMem, lingDb, language);
 
   std::map<std::string, std::vector<std::string>> whatAndWhereParameters {
-    {"subject", {"qui"}}, {"location", {"où"}}
+    {"subject", {"qu'est-ce qui"}}, {"location", {"où"}}
   };
   triggers_addAnswerWithManyParameters("\\p_meta=0\\ sont", whatAndWhereParameters, semMem, lingDb, language);
 
