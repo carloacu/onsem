@@ -383,6 +383,7 @@
   <declareconcept name="time_relative_during" autofill="false" />
   <declareconcept name="time_relative_justAfter" autofill="false" />
   <declareconcept name="time_relative_justBefore" autofill="false" />
+  <declareconcept name="time_relative_later" autofill="false" />
   <declareconcept name="time_relative_now" autofill="false" />
   <declareconcept name="time_relative_rightAway" autofill="false" />
   <nearlyequalconcepts concept1="time_relative_now" concept2="time_relative_rightAway" />

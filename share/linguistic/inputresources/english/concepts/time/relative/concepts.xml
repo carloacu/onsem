@@ -17,6 +17,9 @@
   <linkedMeaning lemme="just before" relationToConcept="4"/>
   <linkedMeaning lemme="right before" relationToConcept="3"/>
  </concept>
+ <concept name="time_relative_later">
+  <linkedMeaning lemme="later" gram="adverb" relationToConcept="4"/>
+ </concept>
  <concept name="time_relative_now">
   <linkedMeaning lemme="now" gram="adverb" relationToConcept="4"/>
  </concept>

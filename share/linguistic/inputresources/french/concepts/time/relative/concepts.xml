@@ -18,6 +18,9 @@
  <concept name="time_relative_justBefore">
   <linkedMeaning lemme="juste avant" relationToConcept="4"/>
  </concept>
+ <concept name="time_relative_later">
+  <linkedMeaning lemme="plus tard" relationToConcept="4"/>
+ </concept>
  <concept name="time_relative_now">
   <linkedMeaning lemme="maintenant" gram="adverb" relationToConcept="4"/>
  </concept>
