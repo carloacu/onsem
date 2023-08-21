@@ -319,7 +319,7 @@ void LinguisticSynthesizerEnglish::_getBeginOfSpecification
 (std::list<WordToSynthesize>& pOut,
  const GroundedExpression& pChildGrdExp,
  const SemanticGrounding& pParentGrounding,
- const SynthesizerWordContext& pWordContext) const
+ const SynthesizerWordContext&) const
 {
   const SemanticStatementGrounding* statGrdPtr = pChildGrdExp->getStatementGroundingPtr();
   if (statGrdPtr != nullptr)

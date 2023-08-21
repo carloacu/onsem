@@ -196,7 +196,7 @@ void LinguisticSynthesizerFrench::_getRelTimeFollowingPrep(std::list<WordToSynth
 void LinguisticSynthesizerFrench::_getBeginOfSpecification
 (std::list<WordToSynthesize>& pOut,
  const GroundedExpression& pChildGrdExp,
- const SemanticGrounding& pParentGrounding,
+ const SemanticGrounding&,
  const SynthesizerWordContext& pWordContext) const
 {
   if (pChildGrdExp.children.count(GrammaticalType::INTRODUCTING_WORD) > 0)

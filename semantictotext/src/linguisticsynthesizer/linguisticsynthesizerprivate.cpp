@@ -2079,6 +2079,7 @@ void LinguisticSynthesizerPrivate::_writeSomeModifiersOfAWord
     else
       grdContext.contextType = SYNTHESIZERCURRENTCONTEXTTYPE_SUBORDINATEAFTERNOUN;
     grdContext.parentSubject = &pMotherGrdExp;
+    grdContext.verbContextOpt.reset();
 
     OutSemExp outSemExp;
     SpecifierPosition specifierPosition =

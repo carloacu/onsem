@@ -98,7 +98,7 @@ std::size_t OutSemExp::getPriority()
     std::size_t res = out.size();
     auto pos = out.front().word.partOfSpeech;
     if (pos == PartOfSpeech::PREPOSITION)
-      res += 3;
+      res += 2;
     else if (pos == PartOfSpeech::ADVERB)
       res += 1000;
     return res;
