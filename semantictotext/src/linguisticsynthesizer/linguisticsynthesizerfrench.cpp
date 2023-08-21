@@ -201,16 +201,9 @@ void LinguisticSynthesizerFrench::_getBeginOfSpecification
 {
   if (pChildGrdExp.children.count(GrammaticalType::INTRODUCTING_WORD) > 0)
     return;
-  static const std::vector<std::string> cptsToFollowByA{"rank_", "manner_"};
   const SemanticStatementGrounding* statGrdPtr = pChildGrdExp->getStatementGroundingPtr();
   if (statGrdPtr != nullptr)
   {
-    if (ConceptSet::haveAConceptThatBeginWithAnyOf(pParentGrounding.concepts, cptsToFollowByA))
-    {
-     _strToOut(pOut, PartOfSpeech::PREPOSITION, "à");
-     return;
-    }
-
     auto itSubject = pChildGrdExp.children.find(GrammaticalType::SUBJECT);
     if (itSubject != pChildGrdExp.children.end() &&
         SemExpGetter::isACoreference(*itSubject->second, CoreferenceDirectionEnum::PARENT))
