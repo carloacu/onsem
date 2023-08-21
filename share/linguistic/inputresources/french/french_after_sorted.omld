@@ -59,6 +59,10 @@
   <i />
   <i i="bien sur que non" />
  </w>
+ <w l="bloc opératoire" p="noun">
+  <i f="ms" />
+  <i i="blocs opératoires" f="mp" />
+ </w>
  <w l="bonjour" p="interjection">
   <i />
  </w>
@@ -291,6 +295,10 @@
  </w>
  <w l="tu" p="pronoun_subject">
   <i f="2s" />
+ </w>
+  <w l="unité de soins intensifs" p="noun">
+  <i f="ms" />
+  <i i="unités de soins intensifs" f="mp" />
  </w>
  <w l="voilà" p="adverb">
   <i />

@@ -1,4 +1,10 @@
 Je mange à l'école
 Je travaille en France
 Il est né à Mogi das Cruzes
-
+Tu es à la chambre 42
+Tu es à la salle d'attente
+Tu es au bureau des admissions
+Tu es au bloc opératoire
+Tu es à l'unité de soins intensifs
+Tu es à la radiologie
+Tu es à la cafétéria

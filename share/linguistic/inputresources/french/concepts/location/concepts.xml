@@ -5,7 +5,18 @@
  </concept>
  <concept name="location_*">
   <linkedMeaning lemme="ailleurs" relationToConcept="4"/>
+  <linkedMeaning lemme="bloc opératoire" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="bureau" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="cafétéria" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="chambre" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="chapelle" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="église" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="laboratoire" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="pharmacie" gram="noun" relationToConcept="3"/>
   <linkedMeaning lemme="place" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="radiologie" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="salle" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="unité de soins intensifs" gram="noun" relationToConcept="3"/>
  </concept>
  <concept name="location_floor">
   <linkedMeaning lemme="sol" gram="noun" relationToConcept="4"/>
