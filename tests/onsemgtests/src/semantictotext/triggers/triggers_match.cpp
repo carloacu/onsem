@@ -558,6 +558,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr2)
 
   const std::vector<std::string> whereQuestion = {"où"};
   triggers_addAnswerWithOneParameter("va", whereQuestion, semMem, lingDb, language);
+  triggers_addAnswerWithOneParameter("tu es", whereQuestion, semMem, lingDb, language);
 
   std::map<std::string, std::vector<std::string>> whatAndWhereParameters {
     {"subject", {"qu'est-ce qui"}}, {"location", {"où"}}
@@ -573,6 +574,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr2)
   triggers_addAnswerWithManyParameters("mets", putParameters, semMem, lingDb, language);
 
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#va\\",  triggers_match("Va", semMem, lingDb));
+  ONSEM_ANSWER_EQ("\\label=#fr_FR#tu es(param1=L'ascenseur)\\",  triggers_match("Tu es à l'ascenseur", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#va(param1=La cuisine)\\",  triggers_match("Va à la cuisine", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#mets(location=Dans la cuisine, object=Les bonbons)\\",  triggers_match("Mets les bonbons dans la cuisine", semMem, lingDb));
   ONSEM_ANSWER_EQ("\\label=#fr_FR#\\p_meta=0\\ sont(location=Dans la cuisine, subject=Les bonbons)\\",  triggers_match("les bonbons sont dans la cuisine", semMem, lingDb));

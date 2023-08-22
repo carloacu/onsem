@@ -8,3 +8,6 @@ Tu es au bloc opératoire
 Tu es à l'unité de soins intensifs
 Tu es à la radiologie
 Tu es à la cafétéria
+Tu es à l'entrée
+Tu es à l'ascenseur
+
