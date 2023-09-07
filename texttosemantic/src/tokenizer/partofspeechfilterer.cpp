@@ -92,10 +92,10 @@ void process(std::vector<Token>& pTokens,
     NounPrioritiesFr(pTokens, inflsCheker, pIsRootLevel);
     detNounPriorities(pTokens, inflsCheker);
     advPriorities(pTokens);
-    pronounPriorities(pTokens, inflsCheker);
     adjPriorities(pTokens);
     filterIncompatibleInflectionsInTokenList(pTokens, inflsCheker);
     verbPrioritiesFr(pTokens, inflsCheker);
+    pronounPriorities(pTokens, inflsCheker);
     break;
   }
   default:

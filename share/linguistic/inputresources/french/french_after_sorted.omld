@@ -270,6 +270,10 @@
   <i i="s'il vous plait" />
   <i i="s'il vous plaît" />
  </w>
+ <w l="salle à manger" p="noun">
+  <i f="fs" />
+  <i i="salles à manger" f="fp" />
+ </w>
  <w l="salut" p="interjection">
   <i />
  </w>
