@@ -167,7 +167,8 @@ public:
   void timeGroundingTranslation
   (std::list<WordToSynthesize>& pOut,
    const linguistics::LinguisticDatabase& pLingDb,
-   const SemanticTimeGrounding& pGrounding) const;
+   const SemanticTimeGrounding& pGrounding,
+   const GroundedExpression& pHoldingGrdExp) const;
 
   virtual PartOfSpeech writeRelativePerson
   (std::list<WordToSynthesize>& pOut,
@@ -242,8 +243,9 @@ protected:
   (std::list<WordToSynthesize>& pOut,
    PartOfSpeech pPartOfSpeech,
    const std::string& pStr,
-   WordToSynthesizeTag pTag = WordToSynthesizeTag::ANY) const
-  { synthTool::strToOut(pOut, pPartOfSpeech, pStr, _language, pTag); }
+   WordToSynthesizeTag pTag = WordToSynthesizeTag::ANY,
+   int pPriorityOffset = 0) const
+  { synthTool::strToOut(pOut, pPartOfSpeech, pStr, _language, pTag, pPriorityOffset); }
 
   void _strToOutCptsMove
   (std::list<WordToSynthesize>& pOut,

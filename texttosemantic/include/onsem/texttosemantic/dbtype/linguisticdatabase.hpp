@@ -123,6 +123,13 @@ struct ONSEM_TEXTTOSEMANTIC_API LinguisticDatabase
                         SemanticGenderType& pGender,
                         SemanticNumberType& pNumber) const;
 
+  void getInflectedNounFromMeaning(std::string& pRes,
+                                   std::set<WordContextualInfos>& pContextualInfos,
+                                   SemanticLanguageEnum pLanguage,
+                                   const LinguisticMeaning& pLingMeaning,
+                                   SemanticGenderType& pGender,
+                                   SemanticNumberType& pNumber) const;
+
   ConceptSet conceptSet;
   mystd::enum_vector_initialized<SemanticLanguageEnum, SpecificLinguisticDatabase> langToSpec;
   TranslationDictionary transDict;

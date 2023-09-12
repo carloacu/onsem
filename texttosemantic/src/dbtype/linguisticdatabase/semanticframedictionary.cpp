@@ -359,6 +359,9 @@ bool _doesConceptConditionMatchWithGrounding(const LinguisticConditionTreeValue&
           (!pBeginOfConceptOrConceptWithHyponyms && ConceptSet::haveAConceptOrAHyponym(timeGrd.fromConcepts, concept)))
         return true;
 
+      if (concept == "quantity_" && pHoldingGrdExp.children.count(GrammaticalType::INTERVAL) > 0)
+        return true;
+
       if (pBeginOfConceptOrConceptWithHyponyms)
       {
         if (concept == "time_")

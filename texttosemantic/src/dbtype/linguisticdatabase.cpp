@@ -465,16 +465,24 @@ void LinguisticDatabase::getInflectedNoun(std::string& pRes,
 {
   LinguisticMeaning lingMeaning;
   SemExpGetter::wordToAMeaning(lingMeaning, pWord, pLanguage, *this);
-  SemanticLanguageEnum meaningLanguage = SemanticLanguageEnum::UNKNOWN;
-  if (lingMeaning.getLanguageIfNotEmpty(meaningLanguage))
-  {
-    auto& lingDb = langToSpec[meaningLanguage];
-    lingDb.synthDico.getNounForm(pRes, lingMeaning, pGender, pNumber);
-    lingDb.lingDico.getContextualInfos(pContextualInfos, lingMeaning);
-  }
+  getInflectedNounFromMeaning(pRes, pContextualInfos, pLanguage, lingMeaning, pGender, pNumber);
 }
 
-
+void LinguisticDatabase::getInflectedNounFromMeaning(std::string& pRes,
+                                                     std::set<WordContextualInfos>& pContextualInfos,
+                                                     SemanticLanguageEnum pLanguage,
+                                                     const LinguisticMeaning& pLingMeaning,
+                                                     SemanticGenderType& pGender,
+                                                     SemanticNumberType& pNumber) const
+{
+  SemanticLanguageEnum meaningLanguage = SemanticLanguageEnum::UNKNOWN;
+  if (pLingMeaning.getLanguageIfNotEmpty(meaningLanguage))
+  {
+    auto& lingDb = langToSpec[meaningLanguage];
+    lingDb.synthDico.getNounForm(pRes, pLingMeaning, pGender, pNumber);
+    lingDb.lingDico.getContextualInfos(pContextualInfos, pLingMeaning);
+  }
+}
 
 } // End of namespace linguistics
 } // End of namespace onsem

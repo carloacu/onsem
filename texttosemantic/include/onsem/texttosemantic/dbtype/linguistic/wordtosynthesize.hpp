@@ -66,12 +66,14 @@ struct ONSEM_TEXTTOSEMANTIC_API WordToSynthesize
   WordToSynthesize(const SemanticWord& pWord,
                    const InflectionToSynthesize& pOutBloc,
                    WordToSynthesizeTag pTag = WordToSynthesizeTag::ANY,
-                   const std::set<WordContextualInfos>* pContextualInfosPtr = nullptr)
+                   const std::set<WordContextualInfos>* pContextualInfosPtr = nullptr,
+                   int pPriorityOffset = 0)
     : word(pWord),
       inflections(1, pOutBloc),
       concepts(),
       tag(pTag),
-      contextualInfos(pContextualInfosPtr != nullptr ? *pContextualInfosPtr : std::set<WordContextualInfos>())
+      contextualInfos(pContextualInfosPtr != nullptr ? *pContextualInfosPtr : std::set<WordContextualInfos>()),
+      priorityOffset(pPriorityOffset)
  {
  }
 
@@ -83,7 +85,8 @@ struct ONSEM_TEXTTOSEMANTIC_API WordToSynthesize
       inflections(1, pOutBloc),
       concepts(pConcepts),
       tag(pTag),
-      contextualInfos()
+      contextualInfos(),
+      priorityOffset(0)
   {
   }
 
@@ -102,6 +105,7 @@ struct ONSEM_TEXTTOSEMANTIC_API WordToSynthesize
   std::map<std::string, char> concepts;
   WordToSynthesizeTag tag;
   std::set<WordContextualInfos> contextualInfos;
+  int priorityOffset;
 };
 
 

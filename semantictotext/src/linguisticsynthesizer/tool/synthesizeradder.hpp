@@ -18,10 +18,12 @@ static inline void strToOut
  PartOfSpeech pPartOfSpeech,
  const std::string& pStr,
  SemanticLanguageEnum pLanguage,
- WordToSynthesizeTag pTag = WordToSynthesizeTag::ANY)
+ WordToSynthesizeTag pTag = WordToSynthesizeTag::ANY,
+ int pPriorityOffset = 0)
 {
   pOut.emplace_back(SemanticWord(pLanguage, pStr, pPartOfSpeech),
-                    InflectionToSynthesize(pStr, true, true, alwaysTrue), pTag);
+                    InflectionToSynthesize(pStr, true, true, alwaysTrue),
+                    pTag, nullptr, pPriorityOffset);
 }
 
 

@@ -310,7 +310,7 @@ void Linguisticsynthesizergrounding::writeGrounding
   }
   case SemanticGroundingType::TIME:
   {
-    timeGroundingTranslation(pOutSemExp.out, pConf.lingDb, pGrounding.getTimeGrounding());
+    timeGroundingTranslation(pOutSemExp.out, pConf.lingDb, pGrounding.getTimeGrounding(), pHoldingGrdExp);
     break;
   }
   case SemanticGroundingType::TEXT:
@@ -1257,12 +1257,14 @@ bool Linguisticsynthesizergrounding::durationTranslation
 void Linguisticsynthesizergrounding::timeGroundingTranslation
 (std::list<WordToSynthesize>& pOut,
  const linguistics::LinguisticDatabase& pLingDb,
- const SemanticTimeGrounding& pGrounding) const
+ const SemanticTimeGrounding& pGrounding,
+ const GroundedExpression& pHoldingGrdExp) const
 {
   SemanticTimeGrounding refTimeGrd;
   refTimeGrd.equalToNow();
 
-  const auto& synthDico = pLingDb.langToSpec[_language].synthDico;
+  const auto& specLingDb = pLingDb.langToSpec[_language];
+  const auto& synthDico = specLingDb.synthDico;
   LinguisticMeaning partOfDayMeaningToSay;
   assert(partOfDayMeaningToSay.isEmpty());
   std::string partOfDayConceptToSay;
@@ -1336,7 +1338,41 @@ void Linguisticsynthesizergrounding::timeGroundingTranslation
   }
 
   if (!dateWritten)
+  {
     dateWritten = _dateTranslation(pOut, synthDico, pGrounding.date);
+
+    if (!dateWritten)
+    {
+      std::map<std::string, char> timeConcepts;
+      ConceptSet::extractConceptsThatBeginWith(timeConcepts, pGrounding.fromConcepts, "time_weekday_");
+      if (!timeConcepts.empty())
+      {
+        SemanticGenderType gender = SemanticGenderType::MASCULINE;
+        SemanticNumberType number = SemanticNumberType::SINGULAR;
+        if (pHoldingGrdExp.children.count(GrammaticalType::INTERVAL) > 0)
+        {
+          if (_language == SemanticLanguageEnum::FRENCH)
+          {
+            _strToOut(pOut, PartOfSpeech::DETERMINER, "tous", WordToSynthesizeTag::ANY, 10);
+            _strToOut(pOut, PartOfSpeech::DETERMINER, "les");
+            number = SemanticNumberType::PLURAL;
+          }
+          else
+          {
+            _strToOut(pOut, PartOfSpeech::DETERMINER, "every", WordToSynthesizeTag::ANY, 10);
+          }
+        }
+
+        LinguisticMeaning lingMeaning;
+        synthGetter::fillLingMeaningFromConcepts(lingMeaning, timeConcepts, specLingDb.synthDico);
+        std::string nounStr;
+        std::set<WordContextualInfos> contextualInfos;
+        pLingDb.getInflectedNounFromMeaning(nounStr, contextualInfos, _language, lingMeaning,
+                                            gender, number);
+        _strToOutIfNotEmpty(pOut, PartOfSpeech::NOUN, nounStr, &contextualInfos);
+      }
+    }
+  }
   _dayHourTranslation(pOut, synthDico, pGrounding.timeOfDay, dateWritten);
 }
 

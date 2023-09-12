@@ -7,6 +7,7 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/conceptset.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
+#include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include "../tool/chunkshandler.hpp"
 
@@ -131,18 +132,37 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
       return std::make_unique<GroundedExpression>(std::move(newTime));
     }
 
-    const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
-    if (pContext.grammTypeFromParent == GrammaticalType::TIME &&
-        ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "number_"))
+    const InflectedWord& headInflWord = pContext.chunk.head->inflWords.front();
+    if (pContext.grammTypeFromParent == GrammaticalType::TIME)
     {
-      SemanticFloat year;
-      if (getNumberHoldByTheInflWord(year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_") &&
-          year.isPositive() && year.isAnInteger() &&
-          hasNotMoreThanANumberOfDigits(year.value, 4))
+      if (ConceptSet::haveAConceptThatBeginWith(headInflWord.infos.concepts, "number_"))
       {
-        auto newTime = std::make_unique<SemanticTimeGrounding>();
-        newTime->date.year.emplace(year.value);
-        return std::make_unique<GroundedExpression>(std::move(newTime));
+        SemanticFloat year;
+        if (getNumberHoldByTheInflWord(year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_") &&
+            year.isPositive() && year.isAnInteger() &&
+            hasNotMoreThanANumberOfDigits(year.value, 4))
+        {
+          auto newTime = std::make_unique<SemanticTimeGrounding>();
+          newTime->date.year.emplace(year.value);
+          return std::make_unique<GroundedExpression>(std::move(newTime));
+        }
+      }
+      else if (InflectionsChecker::nounCanBePlural(headInflWord))
+      {
+        std::map<std::string, char> timeConcepts;
+        ConceptSet::extractConceptsThatBeginWith(timeConcepts, headInflWord.infos.concepts, "time_weekday_");
+        if (!timeConcepts.empty())
+        {
+          auto newTime = std::make_unique<SemanticTimeGrounding>();
+          newTime->fromConcepts = std::move(timeConcepts);
+          auto timeGrdExp = std::make_unique<GroundedExpression>(std::move(newTime));
+
+          auto newInterval = std::make_unique<SemanticDurationGrounding>();
+          newInterval->duration.sign = Sign::POSITIVE;
+          newInterval->duration.timeInfos[SemanticTimeUnity::DAY] = 7;
+          timeGrdExp->children.emplace(GrammaticalType::INTERVAL, std::make_unique<GroundedExpression>(std::move(newInterval)));
+          return timeGrdExp;
+        }
       }
     }
     break;
