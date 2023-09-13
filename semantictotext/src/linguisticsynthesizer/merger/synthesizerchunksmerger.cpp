@@ -3,6 +3,18 @@
 
 namespace onsem
 {
+namespace
+{
+
+void _addPrioritytoOutList(
+    std::map<std::size_t, std::list<std::list<WordToSynthesize>*>>& pPriorities,
+    OutSemExp& pOutSemExp)
+{
+  if (!pOutSemExp.out.empty())
+    pPriorities[pOutSemExp.getPriority()].emplace_back(&pOutSemExp.out);
+}
+
+}
 
 
 void SynthesizerChunksMerger::_writeDurationLocationAndTimeInGoodOrder(
@@ -10,14 +22,10 @@ void SynthesizerChunksMerger::_writeDurationLocationAndTimeInGoodOrder(
     OutSentence& pOutSentence)
 {
   std::map<std::size_t, std::list<std::list<WordToSynthesize>*>> priorities;
-  priorities[pOutSentence.length.getPriority()]
-      .emplace_back(&pOutSentence.length.out);
-  priorities[pOutSentence.duration.getPriority()]
-      .emplace_back(&pOutSentence.duration.out);
-  priorities[pOutSentence.time.getPriority()]
-      .emplace_back(&pOutSentence.time.out);
-  priorities[pOutSentence.location.getPriority()]
-      .emplace_back(&pOutSentence.location.out);
+  _addPrioritytoOutList(priorities, pOutSentence.length);
+  _addPrioritytoOutList(priorities, pOutSentence.duration);
+  _addPrioritytoOutList(priorities, pOutSentence.time);
+  _addPrioritytoOutList(priorities, pOutSentence.location);
   for (auto& currOuts : priorities)
     for (auto& currOut : currOuts.second)
       pOut.splice(pOut.end(), *currOut);
