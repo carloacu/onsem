@@ -133,36 +133,34 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
     }
 
     const InflectedWord& headInflWord = pContext.chunk.head->inflWords.front();
-    if (pContext.grammTypeFromParent == GrammaticalType::TIME)
+    if (pContext.grammTypeFromParent == GrammaticalType::TIME &&
+        ConceptSet::haveAConceptThatBeginWith(headInflWord.infos.concepts, "number_"))
     {
-      if (ConceptSet::haveAConceptThatBeginWith(headInflWord.infos.concepts, "number_"))
+      SemanticFloat year;
+      if (getNumberHoldByTheInflWord(year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_") &&
+          year.isPositive() && year.isAnInteger() &&
+          hasNotMoreThanANumberOfDigits(year.value, 4))
       {
-        SemanticFloat year;
-        if (getNumberHoldByTheInflWord(year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_") &&
-            year.isPositive() && year.isAnInteger() &&
-            hasNotMoreThanANumberOfDigits(year.value, 4))
-        {
-          auto newTime = std::make_unique<SemanticTimeGrounding>();
-          newTime->date.year.emplace(year.value);
-          return std::make_unique<GroundedExpression>(std::move(newTime));
-        }
+        auto newTime = std::make_unique<SemanticTimeGrounding>();
+        newTime->date.year.emplace(year.value);
+        return std::make_unique<GroundedExpression>(std::move(newTime));
       }
-      else if (InflectionsChecker::nounCanBePlural(headInflWord))
+    }
+    else if (InflectionsChecker::nounCanBePlural(headInflWord))
+    {
+      std::map<std::string, char> timeConcepts;
+      ConceptSet::extractConceptsThatBeginWith(timeConcepts, headInflWord.infos.concepts, "time_weekday_");
+      if (!timeConcepts.empty())
       {
-        std::map<std::string, char> timeConcepts;
-        ConceptSet::extractConceptsThatBeginWith(timeConcepts, headInflWord.infos.concepts, "time_weekday_");
-        if (!timeConcepts.empty())
-        {
-          auto newTime = std::make_unique<SemanticTimeGrounding>();
-          newTime->fromConcepts = std::move(timeConcepts);
-          auto timeGrdExp = std::make_unique<GroundedExpression>(std::move(newTime));
+        auto newTime = std::make_unique<SemanticTimeGrounding>();
+        newTime->fromConcepts = std::move(timeConcepts);
+        auto timeGrdExp = std::make_unique<GroundedExpression>(std::move(newTime));
 
-          auto newInterval = std::make_unique<SemanticDurationGrounding>();
-          newInterval->duration.sign = Sign::POSITIVE;
-          newInterval->duration.timeInfos[SemanticTimeUnity::DAY] = 7;
-          timeGrdExp->children.emplace(GrammaticalType::INTERVAL, std::make_unique<GroundedExpression>(std::move(newInterval)));
-          return timeGrdExp;
-        }
+        auto newInterval = std::make_unique<SemanticDurationGrounding>();
+        newInterval->duration.sign = Sign::POSITIVE;
+        newInterval->duration.timeInfos[SemanticTimeUnity::DAY] = 7;
+        timeGrdExp->children.emplace(GrammaticalType::INTERVAL, std::make_unique<GroundedExpression>(std::move(newInterval)));
+        return timeGrdExp;
       }
     }
     break;
