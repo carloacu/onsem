@@ -1370,6 +1370,7 @@ void Linguisticsynthesizergrounding::timeGroundingTranslation
         pLingDb.getInflectedNounFromMeaning(nounStr, contextualInfos, _language, lingMeaning,
                                             gender, number);
         _strToOutIfNotEmpty(pOut, PartOfSpeech::NOUN, nounStr, &contextualInfos);
+        dateWritten = true;
       }
     }
   }
