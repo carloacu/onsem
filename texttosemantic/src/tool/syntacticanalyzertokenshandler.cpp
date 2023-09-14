@@ -692,16 +692,6 @@ bool isAnHour(const linguistics::ConstTokenIterator& pNextToken)
   {
     auto endIt = pNextToken.getItEnd();
 
-    mystd::optional<SemanticFloat> number;
-    itToken = eatNumber(number, itToken, endIt, "number_");
-
-    if (!number)
-    {
-      const auto& tokenInfos = itToken->inflWords.front().infos;
-      if (tokenInfos.hasContextualInfo(WordContextualInfos::EN_TIMEWORD))
-        return true;
-    }
-
     if (itToken != endIt)
       itToken = getNextToken(itToken, endIt);
 
