@@ -343,13 +343,13 @@ private:
   std::unique_ptr<GroundedExpression> xFillLengthStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillLocationStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillPercentageStruct(const ToGenRepContext& pContext) const;
-  std::unique_ptr<GroundedExpression> xFillHourTimeStruct(const ToGenRepContext& pContext) const;
+  std::unique_ptr<SemanticTimeGrounding> xFillHourTimeStruct(const Chunk& pChunk) const;
   std::unique_ptr<GroundedExpression> xFillDurationStruct(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillInterval(const ToGenRepContext& pContext) const;
   std::unique_ptr<GroundedExpression> xFillTimeStruct(const ToGenRepContext& pContext) const;
 
-  std::unique_ptr<GroundedExpression> _fillHourTimeStructEn(const ToGenRepContext& pContext) const;
-  std::unique_ptr<GroundedExpression> _fillHourTimeStructFr(const ToGenRepContext& pContext) const;
+  std::unique_ptr<SemanticTimeGrounding> _fillHourTimeStructEn(const Chunk& pChunk) const;
+  std::unique_ptr<SemanticTimeGrounding> _fillHourTimeStructFr(const Chunk& pChunk) const;
 };
 
 

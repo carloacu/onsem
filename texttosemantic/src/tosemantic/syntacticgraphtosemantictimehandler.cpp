@@ -154,6 +154,15 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
       {
         auto newTime = std::make_unique<SemanticTimeGrounding>();
         newTime->fromConcepts = std::move(timeConcepts);
+        {
+          const Chunk* timeChildPtr = getChildChunkPtr(pContext.chunk, ChunkLinkType::TIME);
+          if (timeChildPtr != nullptr)
+          {
+            auto hourGrdPtr = xFillHourTimeStruct(*timeChildPtr);
+            if (hourGrdPtr)
+              newTime->mergeWith(*hourGrdPtr);
+          }
+        }
         auto timeGrdExp = std::make_unique<GroundedExpression>(std::move(newTime));
 
         auto newInterval = std::make_unique<SemanticDurationGrounding>();

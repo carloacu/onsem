@@ -2423,10 +2423,11 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunk
 {
   {
     auto optRes = xFillTimeStruct(pContext);
-    if (!optRes)
-      optRes = xFillHourTimeStruct(pContext);
     if (optRes)
       return std::move(optRes);
+    auto optResGrd = xFillHourTimeStruct(pContext.chunk);
+    if (optResGrd)
+      return std::make_unique<GroundedExpression>(std::move(optResGrd));
   }
 
   {

@@ -25,11 +25,10 @@ enum class AmOrPm
 };
 
 
-std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::_fillHourTimeStructEn
-(const ToGenRepContext& pContext) const
+std::unique_ptr<SemanticTimeGrounding> SyntacticGraphToSemantic::_fillHourTimeStructEn(const Chunk& pChunk) const
 {
-  auto itToken = pContext.chunk.tokRange.getItBegin();
-  auto endIt = pContext.chunk.tokRange.getItEnd();
+  auto itToken = pChunk.tokRange.getItBegin();
+  auto endIt = pChunk.tokRange.getItEnd();
 
   mystd::optional<SemanticFloat> number;
   itToken = eatNumber(number, itToken, endIt, "number_");
@@ -122,7 +121,7 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::_fillHourTimeStruc
           time->timeOfDay.sign = Sign::POSITIVE;
           time->timeOfDay.timeInfos[SemanticTimeUnity::HOUR] = hourNumber->value;
           time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = number->value;
-          return std::make_unique<GroundedExpression>(std::move(time));
+          return time;
         }
       }
     }
@@ -131,11 +130,11 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::_fillHourTimeStruc
 }
 
 
-std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::_fillHourTimeStructFr
-(const ToGenRepContext& pContext) const
+std::unique_ptr<SemanticTimeGrounding> SyntacticGraphToSemantic::_fillHourTimeStructFr
+(const Chunk& pChunk) const
 {
-  auto itToken = pContext.chunk.tokRange.getItBegin();
-  auto endIt = pContext.chunk.tokRange.getItEnd();
+  auto itToken = pChunk.tokRange.getItBegin();
+  auto endIt = pChunk.tokRange.getItEnd();
 
   if (itToken == endIt)
     return {};
@@ -161,24 +160,24 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::_fillHourTimeStruc
         int minuteStrSize = itToken->str.size() - beginOfMinutePos;
         time->timeOfDay.timeInfos[SemanticTimeUnity::MINUTE] = mystd::lexical_cast<int>(itToken->str.substr(beginOfMinutePos, minuteStrSize));
       }
-      return std::make_unique<GroundedExpression>(std::move(time));
+      return time;
     }  catch (...) {}
   }
   return {};
 }
 
 
-std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillHourTimeStruct
-(const ToGenRepContext& pContext) const
+std::unique_ptr<SemanticTimeGrounding> SyntacticGraphToSemantic::xFillHourTimeStruct
+(const Chunk& pChunk) const
 {
   auto language = fConfiguration.getLanguageType();
-  std::unique_ptr<GroundedExpression> res;
+  std::unique_ptr<SemanticTimeGrounding> res;
 
   if (language == SemanticLanguageEnum::ENGLISH || language == SemanticLanguageEnum::UNKNOWN)
-    res = _fillHourTimeStructEn(pContext);
+    res = _fillHourTimeStructEn(pChunk);
 
   if (!res && (language == SemanticLanguageEnum::FRENCH || language == SemanticLanguageEnum::UNKNOWN))
-    res = _fillHourTimeStructFr(pContext);
+    res = _fillHourTimeStructFr(pChunk);
 
   return res;
 }
