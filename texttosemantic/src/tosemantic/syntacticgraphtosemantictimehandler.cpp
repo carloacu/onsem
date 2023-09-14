@@ -146,7 +146,9 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
         return std::make_unique<GroundedExpression>(std::move(newTime));
       }
     }
-    else if (InflectionsChecker::nounCanBePlural(headInflWord))
+
+    const InflectedWord& firstWordInflWord = pContext.chunk.tokRange.getItBegin()->inflWords.front();
+    if (ConceptSet::haveAConceptThatBeginWith(firstWordInflWord.infos.concepts, "quantity_"))
     {
       std::map<std::string, char> timeConcepts;
       ConceptSet::extractConceptsThatBeginWith(timeConcepts, headInflWord.infos.concepts, "time_weekday_");
