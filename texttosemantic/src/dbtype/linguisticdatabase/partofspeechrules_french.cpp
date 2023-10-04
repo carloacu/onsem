@@ -412,6 +412,34 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules
                      ("noun at bottom if two times in a row",
                       pInfls, pSpecLingDb, "nounAtBottomIfTwoTimesInARow"));
 
+
+  // intj links
+  rules.emplace_back([&pInfls]
+  {
+    auto res = std::make_unique<PartOfSpeechPatternMatcher>
+        ("intj links", pInfls,
+         TaggerTokenCheck
+         (PartOfSpeech::INTERJECTION, FinderConstraint::FIRST_ELT, CompatibilityCheck::IS_COMPATIBLE,
+          ActionIfLinked::DEL_THIS_POSSIBILITY));
+
+    TaggerPattern& pattern = res->getPattern();
+    TaggerListOfTokenChecks adjNounGramType;
+    adjNounGramType.elts.emplace_back(PartOfSpeech::ADJECTIVE, FinderConstraint::FIRST_ELT);
+    adjNounGramType.elts.emplace_back(PartOfSpeech::NOUN, FinderConstraint::FIRST_ELT);
+
+    pattern.possibilities.emplace_back
+        ([&adjNounGramType]
+    {
+      AIGramContext resContext;
+      resContext.before.emplace_back(adjNounGramType);
+      resContext.after.emplace_back(adjNounGramType);
+      return resContext;
+    }());
+
+    return res;
+  }());
+
+
   // adj links
   rules.emplace_back([&pInfls]
   {

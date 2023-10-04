@@ -59,6 +59,7 @@ TEST_F(SemanticReasonerGTests, test_agreement)
   ONSEM_FALSE(_getAgreement("bien sûr que non", lingDb));
 
   // unknown
+  ONSEM_UNKNOWN(_getAgreement("Montrez-moi le témoignage d'un ancien non américain !", lingDb));
   ONSEM_UNKNOWN(_getAgreement("animal", lingDb));
   ONSEM_UNKNOWN(_getAgreement("hello", lingDb));
   ONSEM_UNKNOWN(_getAgreement("I am happy", lingDb));
