@@ -84,3 +84,4 @@ avance toutes les minutes
 lave le sol tous les 2 jours
 tourne de 45°
 sois content s'il te plaît
+dis la date

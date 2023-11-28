@@ -128,6 +128,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   const std::string reaction20 = "Au revoir";
   const std::string trigger21 = "Dis l'heure";
   const std::string reaction21 = "Il est 18 heures.";
+  const std::string trigger22 = "Dis la date";
+  const std::string reaction22 = "Il est le 6 janvier.";
 
   ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
@@ -169,6 +171,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   triggers_add(trigger19, reaction19, semMem, lingDb);
   triggers_add(trigger20, reaction20, semMem, lingDb);
   triggers_add(trigger21, reaction21, semMem, lingDb);
+  triggers_add(trigger22, reaction22, semMem, lingDb);
 
 
   ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
@@ -226,6 +229,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr)
   ONSEM_ANSWER_EQ(reaction20, triggers_match("à plus", semMem, lingDb));
   ONSEM_BEHAVIOR_EQ(reaction21, triggers_match(trigger21, semMem, lingDb));
   ONSEM_NOANSWER(triggers_match("parle moins fort", semMem, lingDb));
+  ONSEM_BEHAVIOR_EQ(reaction22, triggers_match(trigger22, semMem, lingDb));
 }
 
 TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en)

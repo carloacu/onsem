@@ -348,7 +348,6 @@
   <declareconcept name="time" />
   <declareconcept name="time_birthdate" />
   <declareconcept name="time_birthday" />
-  <declareconcept name="time_date" />
   <declareconcept name="time_everyTime" />
   <declareconcept name="time_year" />
 

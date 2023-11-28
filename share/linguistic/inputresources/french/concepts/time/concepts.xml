@@ -9,10 +9,6 @@
  <concept name="time_birthday">
   <linkedMeaning lemme="anniversaire" gram="noun" relationToConcept="4"/>
  </concept>
- <concept name="time_date">
-  <linkedMeaning lemme="date" relationToConcept="4"/>
-  <linkedMeaning lemme="dater" relationToConcept="4"/>
- </concept>
  <concept name="time_everyTime">
   <linkedMeaning lemme="à chaque fois" relationToConcept="3"/>
  </concept>
