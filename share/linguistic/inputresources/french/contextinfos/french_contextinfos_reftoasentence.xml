@@ -5,4 +5,7 @@
   <existingMeaning lemme="ce" gram="pronoun_subject">
     <contextInfo val="refToASentence" />
   </existingMeaning>
+  <existingMeaning lemme="ça" gram="pronoun">
+    <contextInfo val="refToASentence" />
+  </existingMeaning>
 </linguisticdatabase>

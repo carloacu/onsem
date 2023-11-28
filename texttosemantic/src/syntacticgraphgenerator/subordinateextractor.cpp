@@ -383,6 +383,7 @@ void SubordinateExtractor::xLinkComplementaryNominalChunks
 
 void SubordinateExtractor::xResolveBadObjectRequests(std::list<ChunkLink>& pChunkLinks) const
 {
+  SemanticLanguageEnum language = fConf.getLanguageType();
   for (const auto& currChkLk : pChunkLinks)
   {
     Chunk& currChunk = *currChkLk.chunk;
@@ -437,6 +438,8 @@ void SubordinateExtractor::xResolveBadObjectRequests(std::list<ChunkLink>& pChun
       {
         if (objectChunkPtr != nullptr &&
             checkOrder(*subjectChunkPtr, *objectChunkPtr) &&
+            (language == SemanticLanguageEnum::ENGLISH ||
+             subjectChunkPtr->head->inflWords.front().infos.hasContextualInfo(WordContextualInfos::REFTOASENTENCE)) &&
             objectChunkPtr->type != ChunkType::OR_CHUNK)
         {
           currChunk.requests.set(SemanticRequestType::SUBJECT);
