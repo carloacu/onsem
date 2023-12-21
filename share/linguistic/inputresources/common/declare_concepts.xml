@@ -473,7 +473,7 @@
   <declareconcept name="verb_action_subscribe" />
   <declareconcept name="verb_action_teach" />
   <declareconcept name="verb_action_touch" />
-  <declareconcept name="verb_action_turnAway" />
+  <declareconcept name="verb_action_turnAway" autofill="false" />
   <declareconcept name="verb_action_turnOff" autofill="false" />
   <declareconcept name="verb_action_use" />
   <declareconcept name="verb_action_walk" />
