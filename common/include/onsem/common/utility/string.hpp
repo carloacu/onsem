@@ -1,6 +1,7 @@
 #ifndef ONSEM_COMMON_UTILITY_STRING_HPP
 #define ONSEM_COMMON_UTILITY_STRING_HPP
 
+#include <set>
 #include <string>
 #include <vector>
 #include "../api.hpp"
@@ -90,6 +91,10 @@ void split(std::vector<std::string>& pStrs,
            const std::string& pStr,
            const std::string& pSeparator);
 
+ONSEM_COMMON_API
+void splitAnyOf(std::vector<std::string>& pStrs,
+                const std::string& pStr,
+                const std::set<char>& pChars);
 
 ONSEM_COMMON_API
 void splitNotEmpty(std::vector<std::string>& pStrs,

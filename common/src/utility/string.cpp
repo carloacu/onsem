@@ -341,6 +341,28 @@ void split(std::vector<std::string>& pStrs,
 }
 
 
+void splitAnyOf(std::vector<std::string>& pStrs,
+                const std::string& pStr,
+                const std::set<char>& pChars)
+{
+  std::size_t lastPos = 0u;
+  for (std::size_t pos = 0u; pos < pStr.size(); )
+  {
+    if (pChars.count(pStr[pos]) > 0)
+    {
+      pStrs.emplace_back(pStr.substr(lastPos, pos - lastPos));
+      ++pos;
+      lastPos = pos;
+    }
+    else
+    {
+      ++pos;
+    }
+  }
+  pStrs.emplace_back(pStr.substr(lastPos, pStr.size() - lastPos));
+}
+
+
 void splitNotEmpty(std::vector<std::string>& pStrs,
                    const std::string& pStr,
                    const std::string& pSeparator)
