@@ -1,3 +1,6 @@
 [submodule "subdirectories/boost"]
 	path = subdirectories/boost
 	url = https://github.com/carloacu/boost-submodules-for-onsem.git
+[submodule "subdirectories/openai-cpp"]
+	path = subdirectories/openai-cpp
+	url = https://github.com/olrea/openai-cpp.git
