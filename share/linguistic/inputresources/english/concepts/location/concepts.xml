@@ -5,6 +5,9 @@
   <linkedMeaning lemme="somewhere" relationToConcept="4"/>
   <linkedMeaning lemme="there" gram="pronoun" relationToConcept="2"/>
  </concept>
+ <concept name="location_*">
+  <linkedMeaning lemme="coffee" relationToConcept="0"/>
+ </concept>
  <concept name="location_floor">
   <linkedMeaning lemme="floor" gram="noun" relationToConcept="4"/>
   <linkedMeaning lemme="ground" gram="noun" relationToConcept="4"/>

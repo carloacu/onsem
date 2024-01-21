@@ -1488,7 +1488,7 @@ TEST_F(SemanticReasonerGTests, operator_react_changeTheUser_askAboutWhatAnotherU
                                                 semMem.defaultLanguage));
   }
   ONSEM_FEEDBACK_EQ("Ok, you will go this evening to the cinema.",
-                    operator_react("I will go to cinema", semMem, lingDb));
+                    operator_react("I will go to the cinema", semMem, lingDb));
   semMem.setCurrUserId("2");
   ONSEM_ANSWER_EQ("Erwan ira ce soir au cinéma.",
                   operator_react("qu'est ce que Erwan fera ce soir ?", semMem, lingDb));

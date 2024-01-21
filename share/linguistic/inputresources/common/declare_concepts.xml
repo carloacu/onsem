@@ -275,6 +275,8 @@
   <declareconcept name="number_1000000" autofill="false" />
   <declareconcept name="number_1000000000" autofill="false" />
 
+  <declareconcept name="object" />
+
   <declareconcept name="perception" />
   <declareconcept name="perception_hear" />
 

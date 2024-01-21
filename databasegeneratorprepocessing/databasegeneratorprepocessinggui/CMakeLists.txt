@@ -26,6 +26,9 @@ set(${PROJECT_NAME}_SRC
   src/intransitiveverbs/intransitiveverbsextractor.hpp
   src/intransitiveverbs/intransitiveverbsextractor.cpp
 
+  src/listwordsbypos/listwordsbypos.hpp
+  src/listwordsbypos/listwordsbypos.cpp
+
   src/textextractor/textextractor.hpp
   src/textextractor/detail/textextractor.cpp
   src/textextractor/detail/adjbeforenounextractor.hpp
@@ -92,6 +95,25 @@ set(${PROJECT_NAME}_MOC
 #)
 
 
+# Curl
+option(CURL_STATIC_LINKING "Set to ON to build libcurl with static linking."  OFF)
+
+if(CURL_STATIC_LINKING)
+    message("-DCURL_STATICLIB [added]")
+    add_definitions(-DCURL_STATICLIB)
+endif()
+
+add_definitions(-DJSON_USE_IMPLICIT_CONVERSIONS=0)
+
+# SET(CURL_MIN_VERSION "7.61.0")
+find_package(CURL REQUIRED)
+
+include_directories(${CURL_INCLUDE_DIRS})
+
+
+
+
+
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 find_package(Qt5 COMPONENTS Core Widgets Xml REQUIRED)
@@ -144,6 +166,7 @@ include_directories(
 target_link_libraries(${PROJECT_NAME}
   Qt5::Core Qt5::Widgets Qt5::Xml
   pthread
+  ${CURL_LIBRARIES}
   ${ONSEMCOMMON_LIBRARIES}
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
   ${ONSEMTYPEALLOCATORANDSERIALYZER_LIBRARIES}

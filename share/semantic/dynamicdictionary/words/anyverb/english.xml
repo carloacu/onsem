@@ -4,7 +4,7 @@
     <child chunkLinkType="interval" condition="followedByConceptOrHyponym(quantity_everything)&followedByBeginOfConcept(duration_, skip_determiners)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(quantity_)&followedByBeginOfConcept(time_, skip_determiners)" />
     <child lemma="on" pos="preposition" chunkLinkType="time" condition="followedByDate(with_day_value)" />
-    <child chunkLinkType="location" condition="followedByBeginOfConcept(location_)&!followedByBeginOfConcept(level_)" />
+    <child chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_)&!followedByBeginOfConcept(level_)" />
     <child lemma="in order" pos="sub_conj" chunkLinkType="purpose" condition="followedByInfinitiveVerb" />
     <child chunkLinkType="duration" condition="followedByBeginOfConcept(duration_, skip_determiners)" />
     <child lemma="when" pos="sub_conj" chunkLinkType="time" condition="followedBySubordinate" />

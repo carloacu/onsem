@@ -14,7 +14,7 @@
     <child bookmark="before-indirectObject" lemma="to" pos="preposition" chunkLinkType="indirect object" />
   </word>
   <word lemma="go" pos="verb">
-    <child chunkLinkType="location" condition="followedByBeginOfConcept(location_)&!followedByBeginOfConcept(level_)" />
+    <child chunkLinkType="location" condition="followedByBeginOfConcept(location_relative_)&!followedByBeginOfConcept(level_)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child bookmark="after-adverb-location" lemma="to" pos="preposition" chunkLinkType="location" />
     <child bookmark="after-adverb-location" chunkLinkType="location" />
