@@ -1,17 +1,26 @@
 <linguisticdatabase>
  <concept name="engagement_engage">
   <linkedMeaning lemme="bonjour" relationToConcept="5"/>
+  <linkedMeaning lemme="allô" gram="interjection" relationToConcept="3"/>
+  <linkedMeaning lemme="coucou" gram="interjection" relationToConcept="4"/>
   <linkedMeaning lemme="enchanté" gram="adjective" relationToConcept="4"/>
   <linkedMeaning lemme="hi" gram="interjection" relationToConcept="3"/>
   <linkedMeaning lemme="hello" gram="interjection" relationToConcept="3"/>
+  <linkedMeaning lemme="holà" gram="interjection" relationToConcept="3"/>
   <linkedMeaning lemme="salut" relationToConcept="4"/>
+  <linkedMeaning lemme="wesh ma gueule" gram="interjection" relationToConcept="3"/>
+  <linkedMeaning lemme="yo" gram="interjection" relationToConcept="3"/>
  </concept>
  <concept name="engagement_disengage">
+  <linkedMeaning lemme="adieu" relationToConcept="3"/>
   <linkedMeaning lemme="au revoir" relationToConcept="4"/>
   <linkedMeaning lemme="au plaisir" relationToConcept="3"/>
   <linkedMeaning lemme="à plus tard" relationToConcept="3"/>
-  <linkedMeaning lemme="à Dieu" relationToConcept="3"/>
+  <linkedMeaning lemme="à demain" relationToConcept="3"/>
   <linkedMeaning lemme="à bientôt" relationToConcept="3"/>
+  <linkedMeaning lemme="à tout à l'heure" relationToConcept="3"/>
+  <linkedMeaning lemme="ciao" relationToConcept="3"/>
   <linkedMeaning lemme="hasta luego" relationToConcept="3"/>
+  <linkedMeaning lemme="tchao" relationToConcept="3"/>
  </concept>
 </linguisticdatabase>
