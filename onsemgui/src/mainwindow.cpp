@@ -778,8 +778,8 @@ void MainWindow::onRescaleChatDiagnosisPanel()
 
 void MainWindow::onRescaleGenRep()
 {
-  _ui->textBrowser_genRep->setGeometry(10, 10, _ui->tab_AATester_Logs_GenRep->width() - 20,
-                                       _ui->tab_AATester_Logs_GenRep->height() - 20);
+  _ui->textBrowser_genRep->setGeometry(10, 10, _ui->tabWidget_AATester_Logs->width() - 20,
+                                       _ui->tabWidget_AATester_Logs->height() - 20);
 }
 
 void MainWindow::onRescaleAllForms()
