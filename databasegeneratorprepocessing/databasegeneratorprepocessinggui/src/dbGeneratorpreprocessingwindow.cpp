@@ -897,8 +897,8 @@ std::set<std::string> _getWordsOfLlmOutFile(const std::string& pFilename)
 
 void DbGeneratorPreprocessingWindow::on_pushButton_12_clicked()
 {
-  auto locationFilename = "nouns_location.txt";
-  auto objectFilename = "nouns_object.txt";
+  auto locationFilename = "noun_location_infos.txt";
+  auto objectFilename = "noun_object_infos.txt";
 
   auto locationWords = _getWordsOfLlmOutFile(locationFilename);
   auto objectWords = _getWordsOfLlmOutFile(objectFilename);
@@ -911,7 +911,7 @@ void DbGeneratorPreprocessingWindow::on_pushButton_12_clicked()
   int i = 0;
   list_words_by_pos_for_a_langauge(_lingDbTree, SemanticLanguageEnum::FRENCH, [&](const std::string& pWord) {
     ++i;
-    if (!newWord && !pWord.empty() && pWord[0] == 'y')
+    if (!newWord && !pWord.empty())
       newWord = true;
 
     if (newWord)
