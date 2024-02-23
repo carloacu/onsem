@@ -19,12 +19,13 @@
     <child chunkLinkType="language" condition="followedByBeginOfConcept(language_)" />
     <child chunkLinkType="location" condition="[followedByPartOfSpeech(adverb)|followedByPartOfSpeech(pronoun)]&followedByConceptOrHyponym(location)" />
     <bookmark name="after-adverb-location" />
-    <child chunkLinkType="direct object" condition="!followedByPartOfSpeech(adverb)&!followedByPartOfSpeech(interjection)" />
+    <child chunkLinkType="direct object" condition="!followedByPartOfSpeech(adverb)&!followedByPartOfSpeech(interjection)&!followedByBeginOfConcept(location_relative_, skip_determiners)" />
     <bookmark name="before-indirectObject" />
-    <child chunkLinkType="indirect object" condition="followedByBeginOfConcept(agent_)" />
+    <child chunkLinkType="indirect object" condition="followedByBeginOfConcept(agent_)&!followedByBeginOfConcept(location_relative_, skip_determiners)" />
     <child lemma="here:" pos="preposition" chunkLinkType="location" condition="followedByResource" />
     <child lemma="in" pos="preposition" chunkLinkType="location" condition="followedByPartOfSpeech(proper_noun)" />
 
+    <child chunkLinkType="location" condition="followedByBeginOfConcept(number_)&!followedByConceptOrHyponym(reference_indefinite)&followedByBeginOfConcept(location_relative_, skip_determiners)" />
     <child lemma="to" pos="preposition" chunkLinkType="specification" condition="followedByConceptOrHyponym(percent, have_number_before)" />
     <child lemma="about" pos="preposition" chunkLinkType="topic" />
     <child lemma="according to" pos="preposition" chunkLinkType="according to" />

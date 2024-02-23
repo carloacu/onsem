@@ -137,43 +137,23 @@ void EntityRecognizer::process
       }
 
       // move directObject -> indirectObject for some verbs
-      switch (verbFollowedBy)
-      {
-      case ChunkLinkType::INDIRECTOBJECT:
-      {
-        if (!haveChild(*currChkLk.chunk, ChunkLinkType::INDIRECTOBJECT))
-        {
-          for (auto& currChild : currChkLk.chunk->children)
-          {
-            if (currChild.type == ChunkLinkType::DIRECTOBJECT)
-            {
-              const InflectedWord& objIGram = currChild.chunk->head->inflWords.front();
-              if (_canBeAnIndirectObject(objIGram, language))
-              {
-                currChild.type = ChunkLinkType::INDIRECTOBJECT;
-                break;
-              }
-            }
-          }
-        }
-        break;
-      }
-      case ChunkLinkType::LOCATION:
+      if (verbFollowedBy == ChunkLinkType::INDIRECTOBJECT &&
+          !haveChild(*currChkLk.chunk, ChunkLinkType::INDIRECTOBJECT))
       {
         for (auto& currChild : currChkLk.chunk->children)
         {
-          if (currChild.type == ChunkLinkType::DIRECTOBJECT &&
-              ConceptSet::haveAConceptThatBeginWith
-              (currChild.chunk->head->inflWords.front().infos.concepts, "location_"))
+          if (currChild.type == ChunkLinkType::DIRECTOBJECT)
           {
-            currChild.type = ChunkLinkType::LOCATION;
-            break;
+            const InflectedWord& objIGram = currChild.chunk->head->inflWords.front();
+            if (_canBeAnIndirectObject(objIGram, language) &&
+                (objIGram.word.partOfSpeech == PartOfSpeech::PROPER_NOUN ||
+                 objIGram.infos.hasContextualInfo(WordContextualInfos::REFTOAPERSON)))
+            {
+              currChild.type = ChunkLinkType::INDIRECTOBJECT;
+              break;
+            }
           }
         }
-        break;
-      }
-      default:
-        break;
       }
     }
     else if (currChunkType == ChunkType::PREPOSITIONAL_CHUNK &&
