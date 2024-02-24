@@ -73,6 +73,7 @@ set(ONSEMCOMPILERMODEL_SRCS
 
 include_directories(include)
 
+find_package(Boost REQUIRED)
 
 if(NOT ONSEMTYPEALLOCATORANDSERIALYZER_FOUND)
   find_package(onsemtypeallocatorandserialyzer)
@@ -87,7 +88,6 @@ add_library(onsemcompilermodel STATIC
 )
 
 include_directories(
-  ${BOOST_PROPERTY_TREE_WITH_DEPS_INCLUDE_DIRS}
   ${ONSEMTYPEALLOCATORANDSERIALYZER_INCLUDE_DIRS}
   ${ONSEMCOMMON_INCLUDE_DIRS}
 )

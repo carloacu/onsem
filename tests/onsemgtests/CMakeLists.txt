@@ -86,6 +86,8 @@ set(ONSEMGTESTS_SRCS
   src/main.cpp
 )
 
+find_package(Boost REQUIRED)
+
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
@@ -116,7 +118,6 @@ add_executable(onsemgtests
 
 include_directories(
   ${GTEST_INCLUDE_DIRS}
-  ${BOOST_PROPERTY_TREE_WITH_DEPS_INCLUDE_DIRS}
   ${ONSEMCOMMON_INCLUDE_DIRS}
   ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}
   ${ONSEMSEMANTICTOTEXT_INCLUDE_DIRS}

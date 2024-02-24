@@ -29,6 +29,8 @@ set(${PROJECT_NAME}_MOC
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 
+find_package(Boost REQUIRED)
+
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 # This is called *before* any call to target_link_libraries() is made.
@@ -65,7 +67,6 @@ add_executable(${PROJECT_NAME}
 )
 
 include_directories(
-  ${BOOST_PROPERTY_TREE_WITH_DEPS_INCLUDE_DIRS}
   ${ONSEMCOMMON_INCLUDE_DIRS}
   ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}
   ${ONSEMSEMANTICTOTEXT_INCLUDE_DIRS}

@@ -273,6 +273,8 @@ endif()
 
 include_directories(include)
 
+find_package(Boost REQUIRED)
+
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
@@ -282,7 +284,6 @@ add_library(onsemtexttosemantic SHARED
 )
 include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}
-  ${BOOST_PROPERTY_TREE_WITH_DEPS_INCLUDE_DIRS}
 )
 target_link_libraries(onsemtexttosemantic
   ${ONSEMCOMMON_LIBRARIES}

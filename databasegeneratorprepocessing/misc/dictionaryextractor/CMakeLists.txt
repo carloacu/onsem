@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 2.8)
 
 include_directories(include)
 
+find_package(Boost REQUIRED)
+
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
@@ -19,7 +21,6 @@ add_library(onsemdictionaryextractor SHARED
 )
 
 include_directories(
-    ${BOOST_PROPERTY_TREE_WITH_DEPS_INCLUDE_DIRS}
     ${ONSEMCOMMON_INCLUDE_DIRS}
     ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}
 )

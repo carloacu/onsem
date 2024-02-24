@@ -33,7 +33,7 @@ set(ONSEMSEMANTCDEBUGGER_SRCS
 
 include_directories(include)
 
-
+find_package(Boost REQUIRED)
 
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
@@ -51,7 +51,6 @@ add_library(onsemsemanticdebugger SHARED
 )
 
 include_directories(
-  ${BOOST_PROPERTY_TREE_WITH_DEPS_INCLUDE_DIRS}
   ${ONSEMCOMMON_INCLUDE_DIRS}
   ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}
   ${ONSEMSEMANTICTOTEXT_INCLUDE_DIRS}
