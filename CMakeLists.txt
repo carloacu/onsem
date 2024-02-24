@@ -6,9 +6,19 @@ project(onsem)
 # cmake -DBUILD_ONSEM_DATABASE=ON -DCMAKE_BUILD_TYPE=Debug ../ && make -j4
 
 ## Command line for compilation
-# cmake  -DBUILD_ONSEM_DATABASE=OFF -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_TESTS=ON ../ && make -j4
+# cmake -DBUILD_ONSEM_DATABASE=OFF -DCMAKE_BUILD_TYPE=Debug -DBUILD_DB_GENERATOR_PREPROCESSING=ON -DBUILD_ONSEM_TESTS=ON ../ && make -j4
 
 #add_subdirectory(boost-submodules-for-onsem)
+
+option(
+  BUILD_DB_GENERATOR_PREPROCESSING
+  "Build gui to add information to linguistic database."
+  OFF)
+
+option(
+  BUILD_ONSEM_TESTS
+  "Build the onsem tests."
+  OFF)
 
 
 include(onsem-config.cmake)

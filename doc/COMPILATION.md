@@ -21,14 +21,14 @@ cd ${ONSEM_ROOT}/build
 :warning: This step is mandatory before the compilation. It should be done in the same build folder tha>
 
 ```bash
-cmake -DBUILD_ONSEM_DATABASE=ON ../ && make -j4
+cmake -DBUILD_ONSEM_DATABASE=ON -DCMAKE_BUILD_TYPE=Release ../ && make -j4
 ```
 
 
 ## Command line for compilation
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_DATABASE=OFF -DBUILD_ONSEM_TESTS=ON -DBUILD_DB_GENERATOR_PREPROCESSING=ON ../ && make -j4
+cmake -DBUILD_ONSEM_DATABASE=OFF -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONSEM_TESTS=ON -DBUILD_DB_GENERATOR_PREPROCESSING=ON ../ && make -j4
 ```
 
 
