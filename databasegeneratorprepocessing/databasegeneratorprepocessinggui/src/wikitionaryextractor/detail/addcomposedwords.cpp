@@ -160,9 +160,9 @@ void AddComposedWords::xFillMeaningAttriabutes
  LingdbMeaning* pMeaning)
 {
   assert(pMeaning != nullptr);
+  pMeaningElt.setAttribute("gram", QString::fromUtf8(partOfSpeech_toStr(pMeaning->getPartOfSpeech()).c_str()));
   pMeaningElt.setAttribute("lemme", QString::fromUtf8
                            (pMeaning->getLemma()->getWord().c_str()));
-  pMeaningElt.setAttribute("gram", QString::fromUtf8(partOfSpeech_toStr(pMeaning->getPartOfSpeech()).c_str()));
 }
 
 
