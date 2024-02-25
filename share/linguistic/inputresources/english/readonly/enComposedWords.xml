@@ -168,19 +168,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="be">
-  <nextMeaning gram="adjective" lemme="born"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="be">
   <nextMeaning gram="adjective" lemme="careful"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="be">
-  <nextMeaning gram="preposition" lemme="like"/>
+  <nextMeaning gram="adjective" lemme="mum"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="be">
-  <nextMeaning gram="adjective" lemme="mum"/>
+  <nextMeaning gram="preposition" lemme="like"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="be">
@@ -193,6 +189,10 @@
  </words>
  <words gram="verb" lemme="be">
   <nextMeaning gram="adjective" lemme="sick"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="be">
+  <nextMeaning gram="adjective" lemme="born"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="amount">
@@ -412,15 +412,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="back">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="back">
   <nextMeaning gram="preposition" lemme="onto"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="back">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="back">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="back">
@@ -556,11 +556,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="bar">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="bar">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="bar">
@@ -744,11 +744,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="beat">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="beat">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="beat">
@@ -860,11 +860,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="better">
-  <nextMeaning gram="adjective" lemme="half"/>
+  <nextMeaning gram="adjective" lemme="light"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="better">
-  <nextMeaning gram="adjective" lemme="light"/>
+  <nextMeaning gram="adjective" lemme="half"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="better">
@@ -1116,15 +1116,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="blow">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="blow">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="blow">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="blow">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="blow">
@@ -1160,15 +1160,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="block">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="block">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="block">
   <nextMeaning gram="adjective" lemme="party"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="block">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="block">
@@ -1300,11 +1300,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="boil">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="over"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="boil">
-  <nextMeaning gram="preposition" lemme="over"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="boil">
@@ -1472,11 +1472,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="buy">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="buy">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="buy">
@@ -1600,11 +1600,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="branch">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="branch">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="brand">
@@ -1676,15 +1676,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="break">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="break">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="break">
   <nextMeaning gram="adjective" lemme="rank"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="break">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="break">
@@ -1804,10 +1804,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="bring">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="bring">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -1821,6 +1817,10 @@
  </words>
  <words gram="verb" lemme="bring">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="bring">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="bring">
@@ -1900,11 +1900,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="buck">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="private"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="buck">
-  <nextMeaning gram="adjective" lemme="private"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="buck">
@@ -1960,11 +1960,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="bug">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="bug">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="bugger">
@@ -2076,11 +2076,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="burn">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="burn">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="burn">
@@ -2224,15 +2224,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="call">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="call">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="call">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="call">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="call">
@@ -2336,10 +2336,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="come">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="come">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -2357,6 +2353,10 @@
  </words>
  <words gram="verb" lemme="come">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="come">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="come">
@@ -2484,10 +2484,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="carry">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="carry">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -2497,6 +2493,10 @@
  </words>
  <words gram="verb" lemme="carry">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="carry">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cart">
@@ -2600,15 +2600,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cast">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="cast">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cast">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="cast">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cast">
@@ -2716,11 +2716,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chalk">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chalk">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chalk">
@@ -2780,11 +2780,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chase">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="plane"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chase">
-  <nextMeaning gram="adjective" lemme="plane"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chase">
@@ -2816,15 +2816,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="check">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="check">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="check">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="check">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="check">
@@ -2848,11 +2848,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cheese">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="rolling"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cheese">
-  <nextMeaning gram="adjective" lemme="rolling"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chelate">
@@ -2861,10 +2861,6 @@
  </words>
  <words gram="verb" lemme="chelate">
   <nextMeaning gram="adjective" lemme="compound"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="chew">
-  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chew">
@@ -2877,6 +2873,10 @@
  </words>
  <words gram="verb" lemme="chew">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="chew">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="chew">
@@ -3068,15 +3068,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="clear">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="clear">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="clear">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="clear">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="clear">
@@ -3108,11 +3108,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="clock">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="clock">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="clock">
@@ -3136,11 +3136,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="close">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="close">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="close">
@@ -3424,15 +3424,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cop">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="cop">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cop">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="cop">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cope">
@@ -3524,15 +3524,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="count">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="count">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="count">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="count">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="count">
@@ -3704,11 +3704,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cry">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cry">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cry">
@@ -3748,10 +3748,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cross">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="cross">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
@@ -3761,6 +3757,10 @@
  </words>
  <words gram="verb" lemme="cross">
   <nextMeaning gram="adjective" lemme="pattée"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="cross">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="crowd">
@@ -3848,11 +3848,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cut">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cut">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="cut">
@@ -4040,10 +4040,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="do">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="do">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
@@ -4053,6 +4049,10 @@
  </words>
  <words gram="verb" lemme="do">
   <nextMeaning gram="adjective" lemme="proud"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="do">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="do">
@@ -4080,11 +4080,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="die">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="die">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="dig">
@@ -4528,10 +4528,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="draw">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="draw">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -4541,6 +4537,10 @@
  </words>
  <words gram="verb" lemme="draw">
   <nextMeaning gram="adjective" lemme="right"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="draw">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="draw">
@@ -4588,11 +4588,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="dry">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="dry">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="dry">
@@ -4636,11 +4636,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="drive">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="drive">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="drive">
@@ -4680,15 +4680,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="drop">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="drop">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="drop">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="drop">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="drop">
@@ -5132,10 +5132,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fall">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="fall">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -5149,6 +5145,10 @@
  </words>
  <words gram="verb" lemme="fall">
   <nextMeaning gram="adjective" lemme="pregnant"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="fall">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fall">
@@ -5288,10 +5288,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fell">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="fell">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
@@ -5301,6 +5297,10 @@
  </words>
  <words gram="verb" lemme="fell">
   <nextMeaning gram="adjective" lemme="pregnant"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="fell">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fell">
@@ -5392,11 +5392,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="file">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="file">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="file">
@@ -5516,10 +5516,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fire">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="fire">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
@@ -5529,6 +5525,10 @@
  </words>
  <words gram="verb" lemme="fire">
   <nextMeaning gram="adjective" lemme="retardant"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="fire">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fire">
@@ -5656,27 +5656,27 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fly">
-  <nextMeaning gram="adjective" lemme="half"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="fly">
   <nextMeaning gram="adjective" lemme="low"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fly">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="half"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fly">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="flick">
+ <words gram="verb" lemme="fly">
   <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="flick">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="flick">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="flick">
@@ -5696,11 +5696,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="flip">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="flip">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="float">
@@ -5844,15 +5844,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fork">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="fork">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fork">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="fork">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fortune">
@@ -6024,15 +6024,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fuck">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="fuck">
   <nextMeaning gram="preposition" lemme="over"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fuck">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="fuck">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="fuck">
@@ -6292,10 +6292,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="get">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="get">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -6333,6 +6329,10 @@
  </words>
  <words gram="verb" lemme="get">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="get">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="get">
@@ -6416,15 +6416,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="give">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="give">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="give">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="give">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="give">
@@ -6492,11 +6492,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="glance">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="over"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="glance">
-  <nextMeaning gram="preposition" lemme="over"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="glass">
@@ -6640,10 +6640,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="go">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="go">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -6673,6 +6669,10 @@
  </words>
  <words gram="verb" lemme="go">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="go">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="go">
@@ -6844,10 +6844,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="got">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="got">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -6857,6 +6853,10 @@
  </words>
  <words gram="verb" lemme="got">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="got">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="got">
@@ -7188,10 +7188,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="hand">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="hand">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
@@ -7205,6 +7201,10 @@
  </words>
  <words gram="verb" lemme="hand">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="hand">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="hand">
@@ -7356,15 +7356,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="head">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="head">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="head">
   <nextMeaning gram="adjective" lemme="rush"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="head">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="head">
@@ -7432,10 +7432,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="hold">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="hold">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -7445,6 +7441,10 @@
  </words>
  <words gram="verb" lemme="hold">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="hold">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="hold">
@@ -7848,11 +7848,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="jack">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="plane"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="jack">
-  <nextMeaning gram="adjective" lemme="plane"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="jack">
@@ -7900,10 +7900,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="jet">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="jet">
   <nextMeaning gram="adjective" lemme="plane"/>
   <wordForm gram="verb"/>
  </words>
@@ -7913,6 +7909,10 @@
  </words>
  <words gram="verb" lemme="jet">
   <nextMeaning gram="adjective" lemme="setting"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="jet">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="jew">
@@ -7992,15 +7992,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="jump">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="jump">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="jump">
   <nextMeaning gram="adjective" lemme="scare"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="jump">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="jump">
@@ -8072,10 +8072,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="keep">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="keep">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -8085,6 +8081,10 @@
  </words>
  <words gram="verb" lemme="keep">
   <nextMeaning gram="adjective" lemme="quiet"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="keep">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="keep">
@@ -8136,11 +8136,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="kick">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="kick">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="kick">
@@ -8228,10 +8228,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="knock">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="knock">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -8241,6 +8237,10 @@
  </words>
  <words gram="verb" lemme="knock">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="knock">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="knock">
@@ -8300,10 +8300,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="lay">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="lay">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -8317,6 +8313,10 @@
  </words>
  <words gram="verb" lemme="lay">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="lay">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="lay">
@@ -8500,15 +8500,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="lead">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="lead">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="lead">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="lead">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="lead">
@@ -8576,15 +8576,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="leave">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="leave">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="leave">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="leave">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="leg">
@@ -8644,15 +8644,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="let">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="let">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="let">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="let">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="let">
@@ -8676,11 +8676,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="level">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="set"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="level">
-  <nextMeaning gram="adjective" lemme="set"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="level">
@@ -8768,15 +8768,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="like">
-  <nextMeaning gram="preposition" lemme="like"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="like">
   <nextMeaning gram="adjective" lemme="new"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="like">
   <nextMeaning gram="preposition" lemme="of"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="like">
+  <nextMeaning gram="preposition" lemme="like"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="like">
@@ -8876,15 +8876,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="live">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="live">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="live">
   <nextMeaning gram="adjective" lemme="pair"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="live">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="live">
@@ -8944,15 +8944,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="log">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="log">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="log">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="log">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="long">
@@ -8980,11 +8980,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="long">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="long">
-  <nextMeaning gram="preposition" lemme="on"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="long">
@@ -9044,10 +9044,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="look">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="look">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -9061,6 +9057,10 @@
  </words>
  <words gram="verb" lemme="look">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="look">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="look">
@@ -9240,10 +9240,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="make">
-  <nextMeaning gram="preposition" lemme="like"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="make">
   <nextMeaning gram="adjective" lemme="merry"/>
   <wordForm gram="verb"/>
  </words>
@@ -9252,7 +9248,7 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="make">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="like"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="make">
@@ -9265,6 +9261,10 @@
  </words>
  <words gram="verb" lemme="make">
   <nextMeaning gram="adjective" lemme="right"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="make">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="make">
@@ -9376,11 +9376,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="mark">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="mark">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="mark">
@@ -10088,15 +10088,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pack">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="pack">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pack">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="pack">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pack">
@@ -10140,11 +10140,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pay">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pay">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pay">
@@ -10176,11 +10176,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="palm">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="reading"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="palm">
-  <nextMeaning gram="adjective" lemme="reading"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pan">
@@ -10280,10 +10280,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pass">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="pass">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -10297,6 +10293,10 @@
  </words>
  <words gram="verb" lemme="pass">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="pass">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pass">
@@ -10376,11 +10376,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="peel">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="peel">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="peep">
@@ -10500,15 +10500,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pick">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="pick">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pick">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="pick">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pick">
@@ -10628,15 +10628,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="piss">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="piss">
   <nextMeaning gram="adjective" lemme="poor"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="piss">
   <nextMeaning gram="adjective" lemme="proud"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="piss">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="piss">
@@ -10764,10 +10764,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="play">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="play">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -10777,6 +10773,10 @@
  </words>
  <words gram="verb" lemme="play">
   <nextMeaning gram="adjective" lemme="safe"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="play">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="play">
@@ -10960,15 +10960,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pop">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="pop">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pop">
   <nextMeaning gram="adjective" lemme="punk"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="pop">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pop">
@@ -11000,11 +11000,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="post">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="romantic"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="post">
-  <nextMeaning gram="adjective" lemme="romantic"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="post">
@@ -11064,10 +11064,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="power">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="power">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -11077,6 +11073,10 @@
  </words>
  <words gram="verb" lemme="power">
   <nextMeaning gram="adjective" lemme="set"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="power">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="power">
@@ -11288,10 +11288,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pull">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="pull">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -11305,6 +11301,10 @@
  </words>
  <words gram="verb" lemme="pull">
   <nextMeaning gram="adjective" lemme="rank"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="pull">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="pull">
@@ -11384,11 +11384,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="push">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="push">
-  <nextMeaning gram="preposition" lemme="on"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="push">
@@ -11432,10 +11432,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="put">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="put">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -11449,6 +11445,10 @@
  </words>
  <words gram="verb" lemme="put">
   <nextMeaning gram="adjective" lemme="paid"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="put">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="put">
@@ -11576,11 +11576,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rag">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rag">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rag">
@@ -11604,15 +11604,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rake">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="rake">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rake">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="rake">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rake">
@@ -11696,10 +11696,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="run">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="run">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -11725,6 +11721,10 @@
  </words>
  <words gram="verb" lemme="run">
   <nextMeaning gram="adjective" lemme="scared"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="run">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="run">
@@ -11776,15 +11776,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="ring">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="ring">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="ring">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="ring">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="ring">
@@ -11852,11 +11852,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="read">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="read">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="read">
@@ -11920,11 +11920,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="reel">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="reel">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="reel">
@@ -12012,11 +12012,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rhyme">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="royal"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rhyme">
-  <nextMeaning gram="adjective" lemme="royal"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rice">
@@ -12120,11 +12120,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rip">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rip">
-  <nextMeaning gram="preposition" lemme="on"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rip">
@@ -12348,11 +12348,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="round">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="round">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="round">
@@ -12388,11 +12388,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rub">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rub">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rub">
@@ -12444,11 +12444,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rush">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rush">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rust">
@@ -12664,11 +12664,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="saw">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="set"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="saw">
-  <nextMeaning gram="adjective" lemme="set"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="saw">
@@ -12696,10 +12696,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="see">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="see">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
@@ -12709,6 +12705,10 @@
  </words>
  <words gram="verb" lemme="see">
   <nextMeaning gram="adjective" lemme="red"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="see">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="see">
@@ -12740,11 +12740,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="scale">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="scale">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="scale">
@@ -12856,11 +12856,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="screw">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="over"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="screw">
-  <nextMeaning gram="preposition" lemme="over"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="screw">
@@ -12940,10 +12940,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="second">
-  <nextMeaning gram="adjective" lemme="half"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="second">
   <nextMeaning gram="adjective" lemme="helping"/>
   <wordForm gram="verb"/>
  </words>
@@ -12953,6 +12949,10 @@
  </words>
  <words gram="verb" lemme="second">
   <nextMeaning gram="adjective" lemme="name"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="second">
+  <nextMeaning gram="adjective" lemme="half"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="second">
@@ -12992,15 +12992,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sell">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="sell">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sell">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="sell">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="send">
@@ -13016,15 +13016,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="send">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="send">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="send">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="send">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="send">
@@ -13080,15 +13080,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="set">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="set">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="set">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="set">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="set">
@@ -13176,15 +13176,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shake">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="shake">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shake">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="shake">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shake">
@@ -13264,11 +13264,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shit">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shit">
-  <nextMeaning gram="preposition" lemme="on"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shoe">
@@ -13284,11 +13284,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shoot">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shoot">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shoot">
@@ -13380,11 +13380,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="show">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="round"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="show">
-  <nextMeaning gram="preposition" lemme="round"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="show">
@@ -13420,11 +13420,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shut">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shut">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="shut">
@@ -13472,10 +13472,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sign">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="sign">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -13485,6 +13481,10 @@
  </words>
  <words gram="verb" lemme="sign">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="sign">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sign">
@@ -13656,15 +13656,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sleep">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="sleep">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sleep">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="sleep">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sleep">
@@ -13712,11 +13712,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="slip">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="slip">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="slip">
@@ -13884,11 +13884,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sneak">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sneak">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sneak">
@@ -13988,11 +13988,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sound">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sound">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="soup">
@@ -14048,15 +14048,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="spin">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="spin">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="spin">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="spin">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="spin">
@@ -14092,11 +14092,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="spell">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="spell">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="spew">
@@ -14164,11 +14164,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="split">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="second"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="split">
-  <nextMeaning gram="adjective" lemme="second"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="split">
@@ -14280,15 +14280,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="square">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="square">
   <nextMeaning gram="adjective" lemme="piano"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="square">
   <nextMeaning gram="adjective" lemme="rigged"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="square">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="square">
@@ -14412,15 +14412,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stand">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="stand">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stand">
   <nextMeaning gram="adjective" lemme="pat"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="stand">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stand">
@@ -14476,15 +14476,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="start">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="start">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="start">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="start">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="start">
@@ -14620,15 +14620,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="step">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="step">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="step">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="step">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="step">
@@ -14692,15 +14692,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stomp">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="stomp">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stomp">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="stomp">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stone">
@@ -14744,11 +14744,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stop">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="over"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stop">
-  <nextMeaning gram="preposition" lemme="over"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stop">
@@ -14872,15 +14872,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="strip">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="strip">
   <nextMeaning gram="adjective" lemme="party"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="strip">
   <nextMeaning gram="adjective" lemme="searching"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="strip">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="stub">
@@ -14952,11 +14952,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="suck">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="suck">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="suck">
@@ -14988,10 +14988,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sugar">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="sugar">
   <nextMeaning gram="adjective" lemme="paper"/>
   <wordForm gram="verb"/>
  </words>
@@ -15005,6 +15001,10 @@
  </words>
  <words gram="verb" lemme="sugar">
   <nextMeaning gram="adjective" lemme="rush"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="sugar">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sugar">
@@ -15136,19 +15136,19 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="swear">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="swear">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="sweat">
+ <words gram="verb" lemme="swear">
   <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sweat">
   <nextMeaning gram="adjective" lemme="rash"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="sweat">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="sweep">
@@ -15176,11 +15176,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="switch">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="switch">
-  <nextMeaning gram="preposition" lemme="on"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="table">
@@ -15200,11 +15200,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tag">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tag">
-  <nextMeaning gram="preposition" lemme="on"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tag">
@@ -15220,11 +15220,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tail">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="recursive"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tail">
-  <nextMeaning gram="adjective" lemme="recursive"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tailgate">
@@ -15268,10 +15268,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="take">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="take">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -15281,6 +15277,10 @@
  </words>
  <words gram="verb" lemme="take">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="take">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="take">
@@ -15376,10 +15376,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tape">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="tape">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
@@ -15388,15 +15384,19 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tape">
+  <nextMeaning gram="preposition" lemme="off"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="tape">
   <nextMeaning gram="preposition" lemme="up"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="taper">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="pin"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="taper">
-  <nextMeaning gram="adjective" lemme="pin"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tar">
@@ -15492,11 +15492,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tell">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tell">
-  <nextMeaning gram="preposition" lemme="on"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tense">
@@ -15584,10 +15584,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="throw">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="throw">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -15597,6 +15593,10 @@
  </words>
  <words gram="verb" lemme="throw">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="throw">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="throw">
@@ -15632,11 +15632,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tick">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="over"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tick">
-  <nextMeaning gram="preposition" lemme="over"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tickle">
@@ -15696,11 +15696,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="time">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="time">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="time">
@@ -15724,15 +15724,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tip">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="tip">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tip">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="tip">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="tip">
@@ -15812,10 +15812,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="top">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="top">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
@@ -15825,6 +15821,10 @@
  </words>
  <words gram="verb" lemme="top">
   <nextMeaning gram="adjective" lemme="seed"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="top">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="top">
@@ -15860,11 +15860,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="touch">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="touch">
-  <nextMeaning gram="preposition" lemme="on"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="touch">
@@ -16080,11 +16080,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="trot">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="trot">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="trouble">
@@ -16224,10 +16224,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="turn">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="turn">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -16241,6 +16237,10 @@
  </words>
  <words gram="verb" lemme="turn">
   <nextMeaning gram="preposition" lemme="round"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="turn">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="turn">
@@ -16432,15 +16432,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="walk">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="walk">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="walk">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="walk">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="walk">
@@ -16464,11 +16464,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wall">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="railing"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wall">
-  <nextMeaning gram="adjective" lemme="railing"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wall">
@@ -16552,15 +16552,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wash">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="wash">
   <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wash">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="wash">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wash">
@@ -16688,15 +16688,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wear">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="wear">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wear">
   <nextMeaning gram="adjective" lemme="out"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="wear">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wear">
@@ -16776,15 +16776,15 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="well">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="well">
   <nextMeaning gram="adjective" lemme="read"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="well">
   <nextMeaning gram="adjective" lemme="said"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="well">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="well">
@@ -16856,11 +16856,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="whip">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="whip">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="whip">
@@ -17064,11 +17064,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wipe">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wipe">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="wipe">
@@ -17148,10 +17148,6 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="work">
-  <nextMeaning gram="preposition" lemme="off"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="work">
   <nextMeaning gram="preposition" lemme="on"/>
   <wordForm gram="verb"/>
  </words>
@@ -17161,6 +17157,10 @@
  </words>
  <words gram="verb" lemme="work">
   <nextMeaning gram="preposition" lemme="over"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="work">
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="work">
@@ -17204,11 +17204,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="write">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="write">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="write">
@@ -17216,11 +17216,11 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="yank">
-  <nextMeaning gram="preposition" lemme="off"/>
+  <nextMeaning gram="adjective" lemme="out"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="yank">
-  <nextMeaning gram="adjective" lemme="out"/>
+  <nextMeaning gram="preposition" lemme="off"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="yell">

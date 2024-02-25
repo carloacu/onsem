@@ -107,15 +107,15 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="accroître">
-  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
-  <wordForm gram="verb"/>
- </words>
  <words gram="verb" lemme="accroupetonner">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="accroupir">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="accroître">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -595,11 +595,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="autorégler">
+ <words gram="verb" lemme="autoréférer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="autoréférer">
+ <words gram="verb" lemme="autorégler">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -843,11 +843,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="camer">
+ <words gram="verb" lemme="cambrer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="cambrer">
+ <words gram="verb" lemme="camer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -2067,11 +2067,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="fier">
+ <words gram="verb" lemme="ficher">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="ficher">
+ <words gram="verb" lemme="fier">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -2131,11 +2131,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="frayer">
+ <words gram="verb" lemme="frapper">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="frapper">
+ <words gram="verb" lemme="frayer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -2391,11 +2391,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="ingérer">
+ <words gram="verb" lemme="ingénier">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="ingénier">
+ <words gram="verb" lemme="ingérer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -2519,11 +2519,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="lier">
+ <words gram="verb" lemme="libérer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="libérer">
+ <words gram="verb" lemme="lier">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -2619,14 +2619,6 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="mourir">
-  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="mouvoir">
-  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
-  <wordForm gram="verb"/>
- </words>
  <words gram="verb" lemme="microplisser">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
@@ -2675,7 +2667,15 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
+ <words gram="verb" lemme="mourir">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <wordForm gram="verb"/>
+ </words>
  <words gram="verb" lemme="moutonner">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="mouvoir">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -2715,10 +2715,6 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="noyer">
-  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
-  <wordForm gram="verb"/>
- </words>
  <words gram="verb" lemme="noircir">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
@@ -2732,6 +2728,10 @@
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="nourrir">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="noyer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -3087,11 +3087,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="péter">
+ <words gram="verb" lemme="pénétrer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="pénétrer">
+ <words gram="verb" lemme="péter">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -3331,15 +3331,15 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="rendre">
-  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
-  <wordForm gram="verb"/>
- </words>
  <words gram="verb" lemme="rendetter">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
  <words gram="verb" lemme="rendormir">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="rendre">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -3459,11 +3459,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="rire">
+ <words gram="verb" lemme="ridiculiser">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="ridiculiser">
+ <words gram="verb" lemme="rire">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -3659,11 +3659,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="signer">
+ <words gram="verb" lemme="signaler">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="signaler">
+ <words gram="verb" lemme="signer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -3831,11 +3831,11 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="touer">
+ <words gram="verb" lemme="toucher">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="toucher">
+ <words gram="verb" lemme="touer">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -3931,15 +3931,7 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
- <words gram="verb" lemme="voir">
-  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
-  <wordForm gram="verb"/>
- </words>
  <words gram="verb" lemme="verrouiller">
-  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
-  <wordForm gram="verb"/>
- </words>
- <words gram="verb" lemme="vouloir">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
@@ -3951,7 +3943,15 @@
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
+ <words gram="verb" lemme="voir">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <wordForm gram="verb"/>
+ </words>
  <words gram="verb" lemme="volatiliser">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words gram="verb" lemme="vouloir">
   <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
   <wordForm gram="verb"/>
  </words>
