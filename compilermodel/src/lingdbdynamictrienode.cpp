@@ -502,7 +502,7 @@ void LingdbDynamicTrieNode::xTryToDeallocateNodes
       {
         if (prevMultiMeaningsNodes == nullptr)
         {
-          currNode->fMultiMeaningsNodes = multiMeaningsNodes->next;
+          fFather->fMultiMeaningsNodes = multiMeaningsNodes->next;
         }
         else
         {
