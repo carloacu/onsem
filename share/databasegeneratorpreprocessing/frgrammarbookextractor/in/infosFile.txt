@@ -6,7 +6,7 @@
 >avec:object|	 agent(51) object(112)
 >chez:location|	 agent(5) location(12) object(5)
 >contre:object|	 agent(49) location(3) object(72)
->dans:object|	 agent(1) location(50) object(97)
+>dans:object|	 agent(1) location(51) object(97)
 >de:object|	 agent(103) location(22) object(530)
 >derrière:object|	 object(1)
 >devant:object|	 agent(8) object(12)
@@ -19,9 +19,9 @@
 >pour:object|	 agent(27) object(49)
 >près:object|	 agent(8) object(9)
 >sous:location|	 location(4) object(2)
->sur:object|	 agent(61) location(29) object(160)
+>sur:object|	 agent(61) location(30) object(160)
 >vers:object|	 agent(5) location(7) object(10)
->à:object|	 agent(408) location(43) object(581)
+>à:object|	 agent(408) location(44) object(581)
 #abaisser
 ___:object
 ___de:object
@@ -5698,6 +5698,10 @@ ___à:object
 ___:object
 ___à:agent
 ___à:object
+#trouver~se
+___dans:location
+___sur:location
+___à:location
 #truffer
 ___:object
 ___de:object
