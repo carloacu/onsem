@@ -356,10 +356,10 @@
 <existingMeaning lemme="harnois" gram="noun">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
-<existingMeaning lemme="harpaille" gram="noun">
+<existingMeaning lemme="harpailler" gram="verb">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
-<existingMeaning lemme="harpailler" gram="verb">
+<existingMeaning lemme="harpaille" gram="noun">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
 <existingMeaning lemme="harpe" gram="noun">
@@ -959,10 +959,10 @@
 <existingMeaning lemme="housser" gram="verb">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
-<existingMeaning lemme="houssine" gram="noun">
+<existingMeaning lemme="houssiner" gram="verb">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
-<existingMeaning lemme="houssiner" gram="verb">
+<existingMeaning lemme="houssine" gram="noun">
   <contextInfo val="fr_aspiredH"/>
 </existingMeaning>
 <existingMeaning lemme="houssoir" gram="noun">
