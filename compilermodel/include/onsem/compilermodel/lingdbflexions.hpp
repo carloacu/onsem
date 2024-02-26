@@ -223,6 +223,9 @@ private:
   char xFlexionStringToCharForNoun
   (const std::string& pFlexion) const;
 
+  char xFlexionStringToCharForAdverb
+  (const std::string& pFlexion) const;
+
   /**
    * @brief Convert a pronoun string flexion to a char.
    * @param pFlexion The flexion.

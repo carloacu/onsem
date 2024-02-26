@@ -156,7 +156,7 @@ char LingdbFlexions::xFlexionStringToChar
     return xFlexionStringToCharForPronoun(pFlexion);
   }
   case PartOfSpeech::ADVERB:
-    return 0;
+    return xFlexionStringToCharForAdverb(pFlexion);
   default: {}
   }
 
@@ -219,6 +219,30 @@ char LingdbFlexions::xFlexionStringToCharForNoun
     {
       std::cerr << "bad noun flexion: " << pFlexion << std::endl;
     }
+  }
+  return res;
+}
+
+
+char LingdbFlexions::xFlexionStringToCharForAdverb
+(const std::string& pFlexion) const
+{
+  std::size_t i = 0;
+  char res = 0;
+  if (pFlexion[i] == 'C') // comparative
+  {
+    res |= 0x10;
+    ++i;
+  }
+  else if (pFlexion[i] == 'S') // superlative
+  {
+    res |= 0x20;
+    ++i;
+  }
+
+  if (pFlexion.size() > i)
+  {
+    std::cerr << "bad adverb flexion: " << pFlexion << std::endl;
   }
   return res;
 }

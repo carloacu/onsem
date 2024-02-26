@@ -141,6 +141,7 @@ bool InflectionsChecker::areInflectionsCompatibles(const Inflections& pInfls1,
       return _areInflectionsCompatibles(pInfls1.getPronominalI(), pInfls2.getPronominalI());
     break;
   }
+  case InflectionType::ADVERBIAL:
   case InflectionType::VERBAL:
   case InflectionType::EMPTY:
     break;

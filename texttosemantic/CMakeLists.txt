@@ -6,10 +6,12 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/inflection/inflectiontype.hpp
     include/onsem/texttosemantic/dbtype/inflection/inflections.hpp
     include/onsem/texttosemantic/dbtype/inflection/adjectivalinflections.hpp
+    include/onsem/texttosemantic/dbtype/inflection/adverbialinflections.hpp
     include/onsem/texttosemantic/dbtype/inflection/nominalinflections.hpp
     include/onsem/texttosemantic/dbtype/inflection/pronominalinflections.hpp
     include/onsem/texttosemantic/dbtype/inflection/verbalinflections.hpp
     include/onsem/texttosemantic/dbtype/inflection/detail/adjectivalinflections.hxx
+    include/onsem/texttosemantic/dbtype/inflection/detail/adverbialinflections.hxx
     include/onsem/texttosemantic/dbtype/inflection/detail/nominalinflections.hxx
     include/onsem/texttosemantic/dbtype/inflection/detail/pronominalinflections.hxx
     include/onsem/texttosemantic/dbtype/inflection/detail/verbalinflections.hxx

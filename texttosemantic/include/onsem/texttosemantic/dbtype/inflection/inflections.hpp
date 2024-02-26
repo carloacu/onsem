@@ -9,6 +9,7 @@
 namespace onsem
 {
 struct AdjectivalInflections;
+struct AdverbialInflections;
 struct NominalInflections;
 struct PronominalInflections;
 struct VerbalInflections;
@@ -33,6 +34,11 @@ struct ONSEM_TEXTTOSEMANTIC_API Inflections
   virtual const AdjectivalInflections& getAdjectivalI() const;
   virtual AdjectivalInflections* getAdjectivalIPtr() { return nullptr; }
   virtual const AdjectivalInflections* getAdjectivalIPtr() const { return nullptr; }
+
+  virtual AdverbialInflections& getAdverbialI();
+  virtual const AdverbialInflections& getAdverbialI() const;
+  virtual AdverbialInflections* getAdverbialIPtr() { return nullptr; }
+  virtual const AdverbialInflections* getAdverbialIPtr() const { return nullptr; }
 
   virtual NominalInflections& getNominalI();
   virtual const NominalInflections& getNominalI() const;

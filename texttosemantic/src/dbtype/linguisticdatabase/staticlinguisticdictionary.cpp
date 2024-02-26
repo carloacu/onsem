@@ -452,6 +452,24 @@ void _initAdjInflections(std::list<AdjectivalInflection>& pAdjInfls,
   }
 }
 
+void _initAdvInflections(std::list<AdverbialInflection>& pAdvInfls,
+                         const signed char* pFls,
+                         unsigned char pNbFlexions)
+{
+  for (unsigned char i = 0; i < pNbFlexions; ++i, ++pFls)
+  {
+    pAdvInfls.emplace_back();
+    AdverbialInflection& advInfl = pAdvInfls.back();
+    unsigned char currInflection = *pFls;
+
+    if ((currInflection & 0x30) == 0x10)
+      advInfl.comparisonType = ComparisonType::COMPARATIVE;
+    else if ((currInflection & 0x30) == 0x20)
+      advInfl.comparisonType = ComparisonType::SUPERLATIVE;
+  }
+}
+
+
 void _initRelPerson(RelativePerson& pRelPerson,
                     char pPerson,
                     char pNumber)
@@ -661,6 +679,13 @@ std::unique_ptr<Inflections> _getInflections(PartOfSpeech pPartOfSpeech,
     auto inflections = std::make_unique<AdjectivalInflections>();
     AdjectivalInflections& adjInfls = inflections->getAdjectivalI();
     _initAdjInflections(adjInfls.inflections, pFls, pNbFlexions);
+    return std::move(inflections);
+  }
+  case InflectionType::ADVERBIAL:
+  {
+    auto inflections = std::make_unique<AdverbialInflections>();
+    AdverbialInflections& advInfls = inflections->getAdverbialI();
+    _initAdvInflections(advInfls.inflections, pFls, pNbFlexions);
     return std::move(inflections);
   }
   case InflectionType::NOMINAL:

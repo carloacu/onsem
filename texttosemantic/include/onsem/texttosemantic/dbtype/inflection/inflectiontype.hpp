@@ -15,6 +15,7 @@ namespace onsem
   ADD_LINGUISTIC_INFLECTIONTYPE(NOMINAL, "nominal")           \
   ADD_LINGUISTIC_INFLECTIONTYPE(PRONOMINAL, "pronominal")     \
   ADD_LINGUISTIC_INFLECTIONTYPE(VERBAL, "verbal")             \
+  ADD_LINGUISTIC_INFLECTIONTYPE(ADVERBIAL, "adverbial")       \
   ADD_LINGUISTIC_INFLECTIONTYPE(EMPTY, "empty")
 
 
@@ -80,11 +81,12 @@ static inline InflectionType inflectionType_fromPartOfSpeech
   case PartOfSpeech::PRONOUN_COMPLEMENT:
   case PartOfSpeech::PRONOUN_SUBJECT:
     return InflectionType::PRONOMINAL;
+  case PartOfSpeech::ADVERB:
+    return InflectionType::ADVERBIAL;
   case PartOfSpeech::BOOKMARK:
   case PartOfSpeech::INTERSPACE:
   case PartOfSpeech::LINKBETWEENWORDS:
   case PartOfSpeech::PUNCTUATION:
-  case PartOfSpeech::ADVERB:
   case PartOfSpeech::CONJUNCTIVE:
   case PartOfSpeech::SUBORDINATING_CONJONCTION:
   case PartOfSpeech::INTERJECTION:

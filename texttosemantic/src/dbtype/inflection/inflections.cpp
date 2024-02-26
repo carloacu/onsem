@@ -1,5 +1,6 @@
 #include <onsem/texttosemantic/dbtype/inflection/inflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/adjectivalinflections.hpp>
+#include <onsem/texttosemantic/dbtype/inflection/adverbialinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/nominalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/pronominalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/verbalinflections.hpp>
@@ -19,6 +20,19 @@ const AdjectivalInflections& Inflections::getAdjectivalI() const
 {
   assert(false);
   return *dynamic_cast<const AdjectivalInflections*>(this);
+}
+
+
+AdverbialInflections& Inflections::getAdverbialI()
+{
+  assert(false);
+  return *dynamic_cast<AdverbialInflections*>(this);
+}
+
+const AdverbialInflections& Inflections::getAdverbialI() const
+{
+  assert(false);
+  return *dynamic_cast<const AdverbialInflections*>(this);
 }
 
 
@@ -70,6 +84,8 @@ std::unique_ptr<Inflections> Inflections::create
   {
   case InflectionType::ADJECTIVAL:
     return std::make_unique<AdjectivalInflections>(pInflectionalCodes);
+  case InflectionType::ADVERBIAL:
+    return std::make_unique<AdverbialInflections>(pInflectionalCodes);
   case InflectionType::NOMINAL:
     return std::make_unique<NominalInflections>(pInflectionalCodes);
   case InflectionType::PRONOMINAL:
@@ -103,6 +119,8 @@ std::unique_ptr<Inflections> Inflections::clone() const
   {
   case InflectionType::ADJECTIVAL:
     return std::make_unique<AdjectivalInflections>(getAdjectivalI());
+  case InflectionType::ADVERBIAL:
+    return std::make_unique<AdverbialInflections>(getAdverbialI());
   case InflectionType::NOMINAL:
     return std::make_unique<NominalInflections>(getNominalI());
   case InflectionType::PRONOMINAL:
@@ -150,6 +168,8 @@ bool Inflections::operator==(const Inflections& pOther) const
   {
   case InflectionType::ADJECTIVAL:
     return getAdjectivalI() == pOther.getAdjectivalI();
+  case InflectionType::ADVERBIAL:
+    return getAdverbialI() == pOther.getAdverbialI();
   case InflectionType::NOMINAL:
     return getNominalI() == pOther.getNominalI();
   case InflectionType::PRONOMINAL:
@@ -170,6 +190,9 @@ void Inflections::concisePrint(std::ostream& pOs) const
   {
   case InflectionType::ADJECTIVAL:
     pOs << getAdjectivalI();
+    break;
+  case InflectionType::ADVERBIAL:
+    pOs << getAdverbialI();
     break;
   case InflectionType::NOMINAL:
     pOs << getNominalI();
