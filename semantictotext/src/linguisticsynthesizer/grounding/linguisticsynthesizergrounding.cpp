@@ -1035,6 +1035,14 @@ void Linguisticsynthesizergrounding::getIGramOfAStatementMeaning
  const SemanticStatementGrounding& pStatGrounding,
  const SynthesizerConfiguration& pConf) const
 {
+  if (_language == SemanticLanguageEnum::ENGLISH &&
+      pStatGrounding.verbGoal == VerbGoalEnum::CONDITIONAL &&
+      pStatGrounding.concepts.count("verb_want") > 0)
+  {
+    pIGram.word.setContent(SemanticLanguageEnum::ENGLISH, "like", PartOfSpeech::VERB);
+    return;
+  }
+
   getIGramOfAWord(pIGram, pStatGrounding.word, pStatGrounding.concepts, pConf);
 }
 

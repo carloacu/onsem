@@ -96,6 +96,22 @@ std::string semExpToText
 }
 
 
+std::string semExpToTextFromUser
+(UniqueSemanticExpression pSemExp,
+ SemanticLanguageEnum pLanguage,
+ const SemanticMemory& pSemanticMemory,
+ const linguistics::LinguisticDatabase& pLingDb)
+{
+  std::string res;
+  converter::semExpToText(res, std::move(pSemExp),
+                          TextProcessingContext(SemanticAgentGrounding::currentUser,
+                                                SemanticAgentGrounding::me,
+                                                pLanguage),
+                          false, pSemanticMemory, pLingDb, nullptr);
+  return res;
+}
+
+
 std::string semExpToOutputStr
 (const SemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,

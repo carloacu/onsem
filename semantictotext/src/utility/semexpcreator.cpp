@@ -662,6 +662,7 @@ UniqueSemanticExpression iWantThatYou(
     auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
     statementGrd->concepts.emplace("verb_want", 4);
+    statementGrd->verbGoal = VerbGoalEnum::CONDITIONAL;
     return statementGrd;
   }());
 

@@ -83,6 +83,12 @@ std::string semExpToText
  const SemanticMemory& pSemanticMemory,
  const linguistics::LinguisticDatabase& pLingDb);
 
+std::string semExpToTextFromUser
+(UniqueSemanticExpression pSemExp,
+ SemanticLanguageEnum pLanguage,
+ const SemanticMemory& pSemanticMemory,
+ const linguistics::LinguisticDatabase& pLingDb);
+
 std::string semExpToOutputStr
 (const SemanticExpression& pSemExp,
  SemanticLanguageEnum pLanguage,
