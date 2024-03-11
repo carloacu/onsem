@@ -61,8 +61,7 @@ TEST_F(SemanticReasonerGTests, operator_converter_getWayToAskForIt)
   EXPECT_EQ("Avance rapidement vers la droite ! | Je voudrais que tu avances rapidement vers la droite.",
             _getWayToAskForIt("Avancer rapidement vers la droite", SemanticLanguageEnum::FRENCH, semMem, lingDb));
 
-
-  EXPECT_EQ("Grab the bottle! | I would like you are grabbing the bottle.",
+  EXPECT_EQ("Grab the bottle! | I would like you to grab the bottle.",
             _getWayToAskForIt("To grab the bottle", SemanticLanguageEnum::ENGLISH, semMem, lingDb));
 }
 

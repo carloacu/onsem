@@ -554,6 +554,11 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp
            (pContext.grammaticalTypeFromParent == GrammaticalType::IN_BACKGROUND ||
             pContext.grammaticalTypeFromParent == GrammaticalType::WAY))
     verbContext.verbTense = LinguisticVerbTense::PRESENT_PARTICIPLE;
+  else if (_language == SemanticLanguageEnum::ENGLISH &&
+           pContext.rootStatement != nullptr &&
+           pContext.rootStatement->verbTense == SemanticVerbTense::PRESENT &&
+           pContext.rootStatement->concepts.count("verb_want") > 0)
+    verbContext.verbTense = LinguisticVerbTense::INFINITIVE;
   else
   {
     verbContext.verbTense = _semanticVerbTenseToLinguisticVerbTense(sentWorkStruct.outs.verbTense, pContext.contextType,
