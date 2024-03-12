@@ -20,6 +20,12 @@ option(
   "Build the onsem tests."
   OFF)
 
+option(
+  GENERATE_DATABASE
+  "Generate the databases"
+  OFF
+)
+
 
 include(onsem-config.cmake)
 add_subdirectory(common)
@@ -39,14 +45,16 @@ if (NOT BUILD_ONSEM_DATABASE)
   set(SHARE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/share")
   message(STATUS "SHARE_FOLDER=${SHARE_FOLDER}")
 
-  add_custom_target(
-    generate_semantic_databases ALL
-    DEPENDS check_if_semantic_databases_are_needed)
-  add_custom_command(
-    OUTPUT
-      check_if_semantic_databases_are_needed  # ensure we run the binary, but the binary is no op if nothing is needed!
-    COMMAND "${ONSEMDATABASEGENERATOR_EXECUTABLE}" "${SEMANTICDATABASE_OUTDIR}" "${SHARE_FOLDER}"
-  )
+  if (GENERATE_DATABASE)
+    add_custom_target(
+      generate_semantic_databases ALL
+      DEPENDS check_if_semantic_databases_are_needed)
+    add_custom_command(
+      OUTPUT
+        check_if_semantic_databases_are_needed  # ensure we run the binary, but the binary is no op if nothing is needed!
+      COMMAND "${ONSEMDATABASEGENERATOR_EXECUTABLE}" "${SEMANTICDATABASE_OUTDIR}" "${SHARE_FOLDER}"
+    )
+  endif()
 
   install(DIRECTORY "${SEMANTICDATABASE_OUTDIR}/linguistic/databases" DESTINATION share/linguistic)
   install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/share/semantic/dynamicdictionary" DESTINATION share/semantic)
