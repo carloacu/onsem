@@ -30,7 +30,7 @@
      <bool>true</bool>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_WordsToTags">
      <attribute name="title">
@@ -525,19 +525,6 @@
        <string>addFrenchIntransitiveVerbs</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_cptsFromLLM">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>550</y>
-        <width>321</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>addSomeConceptsFromLLMs</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -655,24 +642,6 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string>List noun lemmas</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_4">
-     <attribute name="title">
-      <string>Page</string>
-     </attribute>
-     <widget class="QPushButton" name="pushButton_12">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>100</y>
-        <width>281</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>generateconteps from chatGPT</string>
       </property>
      </widget>
     </widget>

@@ -115,10 +115,6 @@ private Q_SLOTS:
 
   void on_pushButton_11_clicked();
 
-  void on_pushButton_cptsFromLLM_clicked();
-
-  void on_pushButton_12_clicked();
-
 private:
   struct WordsToTagsCurrentState
   {
@@ -132,8 +128,6 @@ private:
   WordsToTagsToDisplay fWordsToTagsToDisplay;
   /// The current state to handle the panel "WordsToTags".
   WordsToTagsCurrentState fWordsToTagsCurrentState;
-
-  void _loadConeptFromLLM(const std::string& pConceptName) const;
 
   /**
    * @brief Refresh the suggestion list of similar words.
