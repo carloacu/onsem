@@ -54,9 +54,9 @@ if (NOT BUILD_ONSEM_DATABASE)
         check_if_semantic_databases_are_needed  # ensure we run the binary, but the binary is no op if nothing is needed!
       COMMAND "${ONSEMDATABASEGENERATOR_EXECUTABLE}" "${SEMANTICDATABASE_OUTDIR}" "${SHARE_FOLDER}"
     )
+    install(DIRECTORY "${SEMANTICDATABASE_OUTDIR}/linguistic/databases" DESTINATION share/linguistic)
   endif()
 
-  install(DIRECTORY "${SEMANTICDATABASE_OUTDIR}/linguistic/databases" DESTINATION share/linguistic)
   install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/share/semantic/dynamicdictionary" DESTINATION share/semantic)
   install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/share/semantic/people" DESTINATION share/semantic)
 
