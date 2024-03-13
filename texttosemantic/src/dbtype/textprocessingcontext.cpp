@@ -12,7 +12,7 @@ std::unique_ptr<SemanticExpression> _getYouAndMeSemExp(const SemanticAgentGround
     agentList->elts.push_back(std::make_unique<GroundedExpression>(std::make_unique<SemanticAgentGrounding>(pAuthor)));
     agentList->elts.push_back(
         std::make_unique<GroundedExpression>(std::make_unique<SemanticAgentGrounding>(pReceiver)));
-    return std::move(agentList);
+    return agentList;
 }
 
 TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,

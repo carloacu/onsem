@@ -42,7 +42,7 @@ protected:
 
     virtual ReceiverPosition _getReceiverPosition(const SemanticExpression&,
                                                   bool,
-                                                  const SemanticRequests& pRequests,
+                                                  const SemanticRequests&,
                                                   const SynthesizerConfiguration&) const {
         return LinguisticSynthesizerPrivate::ReceiverPosition::AFTERVERB;
     }
@@ -68,8 +68,8 @@ protected:
                                           SemanticGenderType pGender,
                                           SemanticNumberType pNumber) const;
 
-    virtual void _getRelTimeFollowingPrep(std::list<WordToSynthesize>& pOut,
-                                          const SemanticRelativeTimeGrounding& pRelTimeGrd) const {}
+    virtual void _getRelTimeFollowingPrep(std::list<WordToSynthesize>&,
+                                          const SemanticRelativeTimeGrounding&) const {}
 
     virtual void _getBeginOfSpecification(std::list<WordToSynthesize>& pOut,
                                           const GroundedExpression& pChildGrdExp,

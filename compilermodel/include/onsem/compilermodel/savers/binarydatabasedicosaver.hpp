@@ -69,8 +69,7 @@ private:
 
     binarymasks::Ptr xWriteVerbConj(binarymasks::Ptr pEndMemory,
                                     const std::map<LingdbDynamicTrieNode const*, int>& pNodesPtr,
-                                    const std::vector<WordLinkForConj>& pTense,
-                                    std::size_t pSize) const;
+                                    const std::vector<WordLinkForConj>& pTense) const;
 
     binarymasks::Ptr xWriteNodeRef(binarymasks::Ptr pEndMemory,
                                    const std::map<LingdbDynamicTrieNode const*, int>& pNodesPtr,

@@ -403,7 +403,7 @@ void LinguisticsynthesizergroundingEnglish::_getDeterminerThatReferToRecentConte
 
 void LinguisticsynthesizergroundingEnglish::_getDeterminer(std::list<WordToSynthesize>& pOut,
                                                            const SemanticGenericGrounding& pGrounding,
-                                                           const GroundedExpression& pHoldingGrdExp,
+                                                           const GroundedExpression&,
                                                            const SynthesizerCurrentContext& pContext) const {
     if (pGrounding.coreference) {
         _getDeterminerThatReferToRecentContext(pOut, pContext.wordContext.number, pContext.wordContext.gender);

@@ -30,7 +30,7 @@ std::unique_ptr<SemanticExpression> SetOfFormsExpression::clone(
             formsToFill.emplace_back(std::make_unique<QuestExpressionFrom>(
                 currRefForm->exp->clone(pParams, pRemoveRecentContextInterpretations), currRefForm->isOriginalForm));
     }
-    return std::move(res);
+    return res;
 }
 
 UniqueSemanticExpression* SetOfFormsExpression::getOriginalForm() const {

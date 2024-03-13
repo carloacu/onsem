@@ -468,7 +468,7 @@ std::unique_ptr<SemanticExpression> _loadSemExp(const boost::property_tree::ptre
                 auto grdExpRes = _loadGrdExp(pTree, pLinks);
                 if (pLinks != nullptr)
                     pLinks->linkToGrdExpPtr.emplace(serialoizationLink, &*grdExpRes);
-                return std::move(grdExpRes);
+                return grdExpRes;
             }
             case SemanticExpressionType::LIST: return _loadListExp(pTree, pLinks);
             case SemanticExpressionType::CONDITION: return _loadConditionExp(pTree, pLinks);

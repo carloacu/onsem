@@ -28,7 +28,7 @@ UniqueSemanticExpression _createResource(const std::string& pId,
         std::make_unique<GroundedExpression>(converter::createResourceWithParameters(
             _resourceLabel, pId, pParameters, pContextForParameters, pLingDb, pLanguage)));
     res->references.push_back(pId);
-    return std::move(res);
+    return res;
 }
 
 std::shared_ptr<ExpressionWithLinks> _inform(const std::string& pText,

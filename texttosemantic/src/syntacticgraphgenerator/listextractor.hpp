@@ -192,8 +192,7 @@ private:
                                           bool pOneWordList,
                                           bool pAllowToNotRepeatTheSubject) const;
 
-    static void _moveSomeChunksAfterMAinAlgo(std::list<ListToMove>& pListsToMove,
-                                             const ChunkLinkWorkingZone& pWorkingZone);
+    static void _moveSomeChunksAfterMAinAlgo(std::list<ListToMove>& pListsToMove);
 
     bool _tryToExtractANewListAroundASeparator(ChunkLinkIter& pCurrIt,
                                                ListInfo& pCurrList,

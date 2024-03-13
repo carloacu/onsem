@@ -1150,7 +1150,7 @@ void Linguisticsynthesizergrounding::timeGroundingTranslation(std::list<WordToSy
                 synthGetter::fillLingMeaningFromConcepts(lingMeaning, timeConcepts, specLingDb.synthDico);
                 std::string nounStr;
                 std::set<WordContextualInfos> contextualInfos;
-                pLingDb.getInflectedNounFromMeaning(nounStr, contextualInfos, _language, lingMeaning, gender, number);
+                pLingDb.getInflectedNounFromMeaning(nounStr, contextualInfos, lingMeaning, gender, number);
                 _strToOutIfNotEmpty(pOut, PartOfSpeech::NOUN, nounStr, &contextualInfos);
                 dateWritten = true;
             }

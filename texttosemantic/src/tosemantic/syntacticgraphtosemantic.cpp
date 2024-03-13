@@ -875,7 +875,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
         const std::string& headStr = pChunk.head->str;
         auto res = _strToMetaOrResourceGrd(headStr, pGeneral.textProcContext.cmdGrdExtractorPtr);
         if (res)
-            return std::move(res);
+            return res;
     }
 
     SemanticLanguageEnum languageType = fConfiguration.getLanguageType();
@@ -916,9 +916,9 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
                     return corefGenGrd;
                 }());
                 corefGrdExp->children.emplace(GrammaticalType::OWNER, std::move(pronSemExp));
-                return std::move(corefGrdExp);
+                return corefGrdExp;
             }
-            return std::move(pronSemExp);
+            return pronSemExp;
         }
     } else if (chunkHeadIGram.word.partOfSpeech == PartOfSpeech::DETERMINER) {
         RelativePerson relPers = ConceptSet::conceptsToRelativePerson(chunkHeadIGram.infos.concepts);
@@ -942,7 +942,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
             if (timeGrdOpt)
                 return std::move(*timeGrdOpt);
         }
-        return std::move(res);
+        return res;
     } else if (chunkHeadIGram.word.partOfSpeech == PartOfSpeech::PROPER_NOUN
                && !doesChunkHaveDeterminerBeforeHead(pChunk)
                && !ConceptSet::haveAConceptThatBeginWith(headConcepts, "country_")) {
@@ -997,13 +997,13 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
                 std::make_unique<GroundedExpression>(std::move(agentWeAreTalkingAbout)),
                 std::move(res));
         }
-        return std::move(res);
+        return res;
     } else if (chunkHeadIGram.word.partOfSpeech == PartOfSpeech::ADJECTIVE
                || chunkHeadIGram.word.partOfSpeech == PartOfSpeech::NOUN) {
         auto langaugeGrdExp = _tryToConvertLanguageChunk(chunkHeadIGram.infos.concepts);
         if (langaugeGrdExp) {
             xConsiderDeterminerAtTheBeginningOfAGrounding(*langaugeGrdExp, pChunk, pContext, pGeneral);
-            return std::move(langaugeGrdExp);
+            return langaugeGrdExp;
         }
     }
 
@@ -1019,7 +1019,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
             && label == "number") {
             genGrounding.quantity.setNumberToFill(paramId, attributeName);
             genGrounding.entityType = SemanticEntityType::NUMBER;
-            return std::move(res);
+            return res;
         }
     }
     xInitGenGroundingsFromToken(genGrounding, pChunk.head, pChunk.tokRange.getItEnd());
@@ -1114,7 +1114,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
                 statementGr->verbTense = SemanticVerbTense::UNKNOWN;
             res->moveGrounding(std::move(statementGr));
             xAddModifiers(res, pContext, pChunk, true);
-            return std::move(res);
+            return res;
         }
         case PartOfSpeech::DETERMINER:
         case PartOfSpeech::PARTITIVE: {
@@ -1215,7 +1215,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
     xAddModifiers(res, pContext, pChunk, true);
     if (askWhatIs)
         return SemExpGenerator::whatIs(std::move(res));
-    return std::move(res);
+    return res;
 }
 
 void SyntacticGraphToSemantic::xAddModifiers(std::unique_ptr<GroundedExpression>& pGrdExpPtr,
@@ -1264,7 +1264,7 @@ void SyntacticGraphToSemantic::xAddModifiers(std::unique_ptr<GroundedExpression>
                         auto genGrounding = std::make_unique<SemanticGenericGrounding>();
                         SemExpModifier::fillSemanticConcepts(genGrounding->concepts, currIGram.infos.concepts);
                         xInitGenGroundingsFromToken(*genGrounding, it, pChunk.head);
-                        return std::move(genGrounding);
+                        return genGrounding;
                     }()));
             }
         }
@@ -1944,7 +1944,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunk(ToGenRep
     {
         auto optRes = xFillTimeStruct(pContext);
         if (optRes)
-            return std::move(optRes);
+            return optRes;
         auto optResGrd = xFillHourTimeStruct(pContext.chunk);
         if (optResGrd)
             return std::make_unique<GroundedExpression>(std::move(optResGrd));
@@ -1960,7 +1960,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunk(ToGenRep
             optRes = xFillDurationStruct(pContext);
         if (optRes) {
             xAddModifiers(optRes, pContext, pContext.chunk, true);
-            return std::move(optRes);
+            return optRes;
         }
     }
 

@@ -495,25 +495,25 @@ std::unique_ptr<Inflections> _getInflections(PartOfSpeech pPartOfSpeech,
             auto inflections = std::make_unique<AdjectivalInflections>();
             AdjectivalInflections& adjInfls = inflections->getAdjectivalI();
             _initAdjInflections(adjInfls.inflections, pFls, pNbFlexions);
-            return std::move(inflections);
+            return inflections;
         }
         case InflectionType::NOMINAL: {
             auto inflections = std::make_unique<NominalInflections>();
             NominalInflections& nomInfls = inflections->getNominalI();
             _initNomInflections(nomInfls.inflections, pFls, pNbFlexions);
-            return std::move(inflections);
+            return inflections;
         }
         case InflectionType::VERBAL: {
             auto inflections = std::make_unique<VerbalInflections>();
             VerbalInflections& verbInfls = inflections->getVerbalI();
             _initVerbInflections(verbInfls.inflections, pFls, pNbFlexions);
-            return std::move(inflections);
+            return inflections;
         }
         case InflectionType::PRONOMINAL: {
             auto inflections = std::make_unique<PronominalInflections>();
             PronominalInflections& pronInfls = inflections->getPronominalI();
             _initPronInflections(pronInfls.inflections, pFls, pNbFlexions);
-            return std::move(inflections);
+            return inflections;
         }
         case InflectionType::EMPTY: return std::make_unique<EmptyInflections>();
     }

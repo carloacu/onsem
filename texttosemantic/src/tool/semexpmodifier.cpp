@@ -642,7 +642,7 @@ UniqueSemanticExpression fromImperativeToActionDescription(const GroundedExpress
     auto itSubject = copiedGrdExp->children.find(GrammaticalType::SUBJECT);
     if (itSubject != copiedGrdExp->children.end())
         copiedGrdExp->children.erase(itSubject);
-    return std::move(copiedGrdExp);
+    return copiedGrdExp;
 }
 
 UniqueSemanticExpression fromActionDescriptionToSentenceInPresentTense(const GroundedExpression& pGrdExp) {
@@ -653,7 +653,7 @@ UniqueSemanticExpression fromActionDescriptionToSentenceInPresentTense(const Gro
     if (!copiedGrdExp->children.count(GrammaticalType::SUBJECT))
         copiedGrdExp->children.emplace(
             GrammaticalType::SUBJECT, std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr()));
-    return std::move(copiedGrdExp);
+    return copiedGrdExp;
 }
 
 void addChildrenOfAnotherSemExp(SemanticExpression& pSemExpToFill,

@@ -53,7 +53,7 @@ void VirtualOutputter::_sayAndAddDescriptionTree(const SemanticExpression& pSemE
             }
             case SynthesizerResultEnum::TASK: {
                 const auto& syntTask = *dynamic_cast<const SynthesizerTask*>(&*currResult);
-                _processResource(syntTask.resource, pOutputterContext.inputSemExpPtr);
+                _processResource(syntTask.resource);
                 break;
             }
         }
@@ -99,18 +99,7 @@ void VirtualOutputter::_handleThenReversedList(const ListExpression& pListExp,
     _endOfScope();
 }
 
-void VirtualOutputter::_runConditionExp(const ConditionExpression& pCondExp,
-                                        const OutputterContext& pOutputterContext) {
-    /*
-    return _waitUntil(*pCondExp.conditionExp).then
-        ([this, &pCondExp, pOutputterContext]() mutable
-    {
-      return _runSemExp(pCondExp.thenExp, pOutputterContext);
-    });
-    */
-}
-
-void VirtualOutputter::_processResource(const SemanticResource& pResource, const SemanticExpression* pInputSemExpPtr) {
+void VirtualOutputter::_processResource(const SemanticResource& pResource) {
     std::map<std::string, std::vector<std::string>> parameters;
     for (auto& currParametersToSemExps : pResource.parametersLabelsToValue) {
         auto& semExps = currParametersToSemExps.second;
@@ -132,28 +121,13 @@ void VirtualOutputter::_processResource(const SemanticResource& pResource, const
 
 void VirtualOutputter::_handleDurationAnnotations(bool&,
                                                   const AnnotatedExpression&,
-                                                  const OutputterContext& pOutputterContext) {}
-
-void VirtualOutputter::_doUntil(const AnnotatedExpression& pAnnExp,
-                                std::shared_ptr<OutputterContext> pOutputterContext,
-                                std::shared_ptr<int> pLimitOfRecursions) {
-    /*
-    _runSemExp(pAnnExp.semExp, pOutputterContext)
-        .then([=, &pAnnExp]() mutable
-    {
-      if (*pLimitOfRecursions <= 0)
-        return;
-      --*pLimitOfRecursions;
-      return _doUntil(pAnnExp, pOutputterContext, pLimitOfRecursions);
-    });
-    */
-}
+                                                  const OutputterContext&) {}
 
 void VirtualOutputter::_processGrdExp(const SemanticExpression& pSemExp, const OutputterContext& pOutputterContext) {
     const GroundedExpression& grdExp = pSemExp.getGrdExp();
     const SemanticResourceGrounding* resourceGrdPtr = grdExp->getResourceGroundingPtr();
     if (resourceGrdPtr != nullptr) {
-        _processResource(resourceGrdPtr->resource, pOutputterContext.inputSemExpPtr);
+        _processResource(resourceGrdPtr->resource);
         return;
     }
 
@@ -187,39 +161,6 @@ void VirtualOutputter::_convertToText(std::list<std::unique_ptr<SynthesizerResul
     synthesize(pRes, pSemExp.clone(), false, _semanticMemory.memBloc, userId, pTextProcContext, _lingDb, nullptr);
 }
 
-/*
-FutureVoid VirtualOutputter::_waitUntil(const SemanticExpression& pSemExp,
-                                        const FutureVoid& pStopRequest)
-{
-  auto res = std::make_shared<PromiseVoid>();
-  auto semTracker = std::make_shared<SemanticTracker>();
-  auto trackerConnection = std::make_shared<mystd::observable::Connection>();
-  *trackerConnection = semTracker->val.connect([this, res]
-                                               (const UniqueSemanticExpression&) mutable -> void
-  {
-    _synchronicityWrapper([res] { res->setFinished(); });
-  });
-  pStopRequest.thenVoid([res]() mutable
-  {
-    res->setFinished();
-  });
-  _usageOfMemoryAndLingDb([&](SemanticMemory& pSemanticMemory,
-                          const linguistics::LinguisticDatabase& pLingDb)
-  {
-    memoryOperation::track(pSemanticMemory, pSemExp.clone(), semTracker, pLingDb);
-  });
-
-  return FutureVoid(res).thenVoid([this, res, trackerConnection, semTracker]() mutable -> void
-  {
-    semTracker->val.disconnect(*trackerConnection);
-    _usageOfMemoryAndLingDb([&](SemanticMemory& pSemanticMemory,
-                            const linguistics::LinguisticDatabase& pLingDb)
-    {
-      memoryOperation::untrack(pSemanticMemory.memBloc, semTracker, pLingDb, nullptr);
-    });
-  });
-}
-*/
 
 void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp, const OutputterContext& pOutputterContext) {
     switch (pSemExp.type) {
@@ -264,32 +205,6 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp, const Ou
             SemanticLanguageEnum subLanguage = SemExpGetter::getLanguage(annExp.annotations);
             if (subLanguage != SemanticLanguageEnum::UNKNOWN)
                 subContext.textProcContext.langType = subLanguage;
-
-            /*
-            const SemanticExpression* untilChildPtr = SemExpGetter::getUntilChild(annExp.annotations);
-            if (untilChildPtr != nullptr)
-            {
-              auto executionStopper = std::make_shared<PromiseVoid>();
-              auto waitStopper = std::make_shared<PromiseVoid>();
-              pStopRequest.thenVoid([executionStopper, waitStopper]
-              {
-                executionStopper->setFinished();
-                waitStopper->setFinished();
-              });
-              auto limitOfRecursions = std::make_shared<int>(1000);
-              auto res = _doExecutionUntil(annExp, subContext,
-                                           FutureVoid(executionStopper), limitOfRecursions).thenVoid([waitStopper]
-              {
-                waitStopper->setFinished();
-              });
-              _waitUntil(*untilChildPtr, FutureVoid(waitStopper)).thenVoid
-                  ([executionStopper]() mutable
-              {
-                executionStopper->setFinished();
-              });
-              return res;
-            }
-            */
 
             {
                 bool isHandled = false;
@@ -345,11 +260,7 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp, const Ou
         case SemanticExpressionType::CONDITION: {
             if (pOutputterContext.sayOrExecute) {
                 _sayWithAnnotations(pSemExp, pOutputterContext, _typeOfOutputter, pOutputterContext.contAnnotation);
-                return;
             }
-
-            auto& condExp = pSemExp.getCondExp();
-            _runConditionExp(condExp, pOutputterContext);
             return;
         }
         case SemanticExpressionType::FEEDBACK:

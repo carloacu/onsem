@@ -110,7 +110,7 @@ bool ListExtractor::extractLists(ChunkLinkWorkingZone& pWorkingZone,
         currList.listType.reset();
     }
 
-    _moveSomeChunksAfterMAinAlgo(listsToMove, pWorkingZone);
+    _moveSomeChunksAfterMAinAlgo(listsToMove);
     return canHaveAnotherList;
 }
 
@@ -590,7 +590,7 @@ void ListExtractor::extractSubordonates(ChunkLinkWorkingZone& pWorkingZone) cons
     }
 
     // TODO: need to fix windows before to uncomment that
-    //_moveSomeChunksAfterMAinAlgo(listsToMove, pWorkingZone);
+    //_moveSomeChunksAfterMAinAlgo(listsToMove);
 }
 
 void ListExtractor::_clear(ChunkLinkWorkingZone& pWorkingZone,
@@ -1139,12 +1139,9 @@ bool ListExtractor::_tryToCompleteListInfoWithAChunk(ChunkLinkIter& pCurrIt,
     return false;
 }
 
-void ListExtractor::_moveSomeChunksAfterMAinAlgo(std::list<ListToMove>& pListsToMove,
-                                                 const ChunkLinkWorkingZone& pWorkingZone) {
+void ListExtractor::_moveSomeChunksAfterMAinAlgo(std::list<ListToMove>& pListsToMove) {
     // put list that are not in the root of the synt graph
     for (auto& currElt : pListsToMove) {
-        assert(pWorkingZone.syntTreePtr() == currElt.itRootList.getList());
-
         PartOfSpeech headPartOfSpeech = currElt.newParent->chunk->head->inflWords.front().word.partOfSpeech;
         if (headPartOfSpeech == PartOfSpeech::PREPOSITION || headPartOfSpeech == PartOfSpeech::PARTITIVE) {
             currElt.newParent->tokRange = currElt.newParent->chunk->tokRange;

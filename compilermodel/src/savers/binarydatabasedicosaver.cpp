@@ -180,19 +180,19 @@ void BinaryDatabaseDicoSaver::xWriteSynthesizerDb(
                 auto itConj = verbConjugaison.find(currMeaning.first);
                 assert(itConj != verbConjugaison.end());
                 VerbConjugaison& conj = itConj->second;
-                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.imperfect, 6);             // 0
-                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.present, 6);               // 6
-                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.future, 6);                // 12
-                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.imperative, 3);            // 18
-                endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.presentParticiple.node);    // 21
+                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.imperfect);              // 0        (+6)
+                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.present);                // 6        (+6)
+                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.future);                 // 12        (+6)
+                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.imperative);             // 18        (+3)
+                endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.presentParticiple.node);  // 21
                 if (pLangType == SemanticLanguageEnum::FRENCH) {
                     endMemory =
-                        xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculineSingular.node);           // 22
-                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculinePlural.node);     // 23
-                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.feminineSingular.node);    // 24
-                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.femininePlural.node);      // 25
-                    endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.conditional, 6);                         // 26
-                    endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.presentSubjunctive, 6);                  // 32
+                        xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculineSingular.node);          // 22
+                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculinePlural.node);    // 23
+                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.feminineSingular.node);   // 24
+                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.femininePlural.node);     // 25
+                    endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.conditional);                           // 26   (+6)
+                    endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.presentSubjunctive);                    // 32   (+6)
                 } else {
                     endMemory =
                         xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculineSingular.node);    // 22
@@ -317,9 +317,7 @@ binarymasks::Ptr BinaryDatabaseDicoSaver::xWriteMeanings(const LingdbConcept& pC
 
 binarymasks::Ptr BinaryDatabaseDicoSaver::xWriteVerbConj(binarymasks::Ptr pEndMemory,
                                                          const std::map<LingdbDynamicTrieNode const*, int>& pNodesPtr,
-                                                         const std::vector<WordLinkForConj>& pTense,
-                                                         std::size_t pSize) const {
-    assert(pTense.size() == pSize);
+                                                         const std::vector<WordLinkForConj>& pTense) const {
     for (std::size_t i = 0; i < pTense.size(); ++i) {
         pEndMemory = xWriteNodeRef(pEndMemory, pNodesPtr, pTense[i].node);
     }

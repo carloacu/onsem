@@ -366,12 +366,11 @@ void LinguisticDatabase::getInflectedNoun(std::string& pRes,
                                           SemanticNumberType& pNumber) const {
     LinguisticMeaning lingMeaning;
     SemExpGetter::wordToAMeaning(lingMeaning, pWord, pLanguage, *this);
-    getInflectedNounFromMeaning(pRes, pContextualInfos, pLanguage, lingMeaning, pGender, pNumber);
+    getInflectedNounFromMeaning(pRes, pContextualInfos, lingMeaning, pGender, pNumber);
 }
 
 void LinguisticDatabase::getInflectedNounFromMeaning(std::string& pRes,
                                                      std::set<WordContextualInfos>& pContextualInfos,
-                                                     SemanticLanguageEnum pLanguage,
                                                      const LinguisticMeaning& pLingMeaning,
                                                      SemanticGenderType& pGender,
                                                      SemanticNumberType& pNumber) const {

@@ -56,8 +56,7 @@ private:
 
     void xTestOfPuttingNounAtBottomOfListIfOccurTwoTimesInARow(std::vector<Token>& pTokens, bool pExceptForVerb) const;
 
-    void xPutNounAtBottomIfNecessary(std::list<InflectedWord>& pIGram1,
-                                     std::list<InflectedWord>& pIGram2,
+    void xPutNounAtBottomIfNecessary(std::list<InflectedWord>& pInflWord,
                                      bool pExceptForVerb) const;
 };
 

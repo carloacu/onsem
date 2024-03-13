@@ -119,7 +119,7 @@ bool InflectionsCheckerFrench::isDetProperNounCompatibles(const InflectedWord&,
 }
 
 bool InflectionsCheckerFrench::areNounNounCompatibles(const InflectedWord& pNounInflWord1,
-                                                      const InflectedWord& pNounInflWord2) const {
+                                                      const InflectedWord&) const {
     return !ConceptSet::haveAConceptThatBeginWith(pNounInflWord1.infos.concepts, "number_");
 }
 

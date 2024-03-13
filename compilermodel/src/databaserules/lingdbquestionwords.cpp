@@ -20,8 +20,7 @@ void LingdbQuestionWords::init() {
 
 void LingdbQuestionWords::load(CompositePoolAllocator& pAlloc, const boost::property_tree::ptree& pXml) {
     xClear(pAlloc);
-    auto size = pXml.size();
-    assert(size == 2);
+    assert(pXml.size() == 2);
 
     childLoop(pXml, currQWordTree, "list") {
         if (currQWordTree.first == "<xmlattr>")

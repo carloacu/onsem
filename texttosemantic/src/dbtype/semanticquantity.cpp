@@ -95,7 +95,7 @@ bool SemanticFloat::operator>=(int pNb) const {
         return true;
 
     if (sign == Sign::POSITIVE)
-        return valueAfterTheDecimalPoint >= 0;
+        return true;
     return valueAfterTheDecimalPoint <= 0;
 }
 
@@ -120,7 +120,7 @@ bool SemanticFloat::operator<=(int pNb) const {
 
     if (sign == Sign::POSITIVE)
         return valueAfterTheDecimalPoint <= 0;
-    return valueAfterTheDecimalPoint >= 0;
+    return true;
 }
 
 SemanticFloat SemanticFloat::operator+=(const SemanticFloat& pOther) {

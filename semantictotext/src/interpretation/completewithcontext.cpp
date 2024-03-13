@@ -201,7 +201,7 @@ UniqueSemanticExpression _generateSentenceWhatHappenedJustAfterThat() {
             std::make_unique<GroundedExpression>(SemanticGenericGrounding::makeThingThatHasToBeCompletedFromContext()));
         return relTimeGrdExp;
     }());
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 bool _tryToCompleteAnswerWithTheQuestion(UniqueSemanticExpression& pSemExp,

@@ -127,7 +127,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _answerHelloBye(
     return {};
 }
 
-bool isLookAtOtherOrder(const GroundedExpression& grdExp, const linguistics::LinguisticDatabase& pLingDb) {
+bool isLookAtOtherOrder(const GroundedExpression& grdExp) {
     // TODO fix toPerson boolean
     const auto isLook = ConceptSet::haveAConceptThatBeginWith(grdExp->concepts, "verb_action_lookat");
     const auto fromMe = SemExpGetter::getUserIdOfSubject(grdExp) == SemanticAgentGrounding::me;
@@ -172,8 +172,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _greet(const SemanticExp
                     if (!statGrdPtr->requests.empty()) {    // CASE request (== question OR order)
 
                         if (statGrdPtr->requests.has(SemanticRequestType::ACTION)
-                            && isLookAtOtherOrder(
-                                grdExp, pLingDb)) {    // CASE human order an action AND action is "look at other"
+                            && isLookAtOtherOrder(grdExp)) {    // CASE human order an action AND action is "look at other"
                             if (callbacks.lookAtOtherPerson)
                                 callbacks.lookAtOtherPerson(std::string());
                         } else {    // CASE might be a question

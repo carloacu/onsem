@@ -31,7 +31,7 @@ public:
 
     bool isDetProperNounCompatibles(const InflectedWord& pInflDet, const InflectedWord& pInflProperNoun) const override;
 
-    bool areNounDetCompatibles(const InflectedWord& pNounInflWord, const InflectedWord& pDetInflWord) const override {
+    bool areNounDetCompatibles(const InflectedWord&, const InflectedWord&) const override {
         return true;
     }
 
@@ -43,7 +43,7 @@ public:
     bool isPronounComplAdverbCompatibles(const InflectedWord& pInflPronCompl,
                                          const InflectedWord& pInflAdv) const override;
 
-    bool isPronounComplAdjectiveCompatibles(const InflectedWord& pInflPronCompl, const InflectedWord& pInflAdj) const {
+    bool isPronounComplAdjectiveCompatibles(const InflectedWord&, const InflectedWord&) const {
         return false;
     }
 

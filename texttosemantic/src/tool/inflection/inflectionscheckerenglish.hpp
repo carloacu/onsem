@@ -19,7 +19,7 @@ public:
 
     bool verbCanHaveAnAuxiliary(const VerbalInflection& pVerbInfl) const override;
 
-    bool isVerbSubConjonction(const InflectedWord& pInflVerb, const InflectedWord& pInflSubConj) const override {
+    bool isVerbSubConjonction(const InflectedWord&, const InflectedWord&) const override {
         return true;
     }
 
@@ -42,21 +42,21 @@ public:
 
     bool isPronounComplAdverbCompatibles(const InflectedWord&, const InflectedWord&) const override { return true; }
 
-    bool isPronounComplAdjectiveCompatibles(const InflectedWord& pInflPronCompl,
-                                            const InflectedWord& pInflAdj) const override {
+    bool isPronounComplAdjectiveCompatibles(const InflectedWord&,
+                                            const InflectedWord&) const override {
         return true;
     }
 
-    bool isPronounComplVerbCompatibles(const InflectedWord& pInflPronCompl,
-                                       const InflectedWord& pInflVerb) const override {
+    bool isPronounComplVerbCompatibles(const InflectedWord&,
+                                       const InflectedWord&) const override {
         return true;
     }
 
     bool isPronounCompDetCompatibles(const InflectedWord&) const override { return true; }
 
-    bool isIntjInflCompatibles(const InflectedWord& pIntj, const InflectedWord& pInfl) const override { return true; }
+    bool isIntjInflCompatibles(const InflectedWord&, const InflectedWord&) const override { return true; }
 
-    bool isAdvIntjCompatibles(const InflectedWord& pAdv, const InflectedWord& pIntj) const override { return true; }
+    bool isAdvIntjCompatibles(const InflectedWord&, const InflectedWord&) const override { return true; }
 };
 
 inline bool InflectionsCheckerEnglish::verbCanHaveAnAuxiliary(const VerbalInflection& pVerbInfl) const {

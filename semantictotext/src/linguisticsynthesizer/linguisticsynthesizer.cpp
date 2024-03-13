@@ -39,7 +39,7 @@ UniqueSemanticExpression _semExpReplacement(UniqueSemanticExpression pSemExp,
             auto newGrdExp = pGrdExpToReplace.clone();
             for (auto& currChildToAdd : childrenToAdd)
                 SemExpModifier::addChild(*newGrdExp, currChildToAdd.first, std::move(currChildToAdd.second));
-            return std::move(newGrdExp);
+            return newGrdExp;
         }
         return pSemExp;
     }

@@ -128,9 +128,7 @@ bool _sayOkIfTheUserIsTalkingAboutHim(SemControllerWorkingStruct& pWorkStruct, c
 }
 
 std::unique_ptr<SemanticExpression> _answerNiceToMeetYouIfTheUserSaysHisName(SemControllerWorkingStruct& pWorkStruct,
-                                                                             SentenceWithLinks* pNewContextAxiom,
-                                                                             const SemanticMemoryBlock& pMemBlock,
-                                                                             const GroundedExpression& pGrdExp) {
+                                                                             SentenceWithLinks* pNewContextAxiom) {
     if (pWorkStruct.author != nullptr && pNewContextAxiom != nullptr) {
         const auto& authorUserId = pWorkStruct.author->userId;
         if (!pNewContextAxiom->memorySentences.hasEquivalentUserIds(authorUserId))
@@ -316,7 +314,7 @@ bool process(bool& pResThatCanHaveAdditionalFeedbacks,
 
     if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT) {
         auto niceToMeetTouExp =
-            _answerNiceToMeetYouIfTheUserSaysHisName(pWorkStruct, pNewContextAxiom, pMemViewer.constView, pGrdExp);
+            _answerNiceToMeetYouIfTheUserSaysHisName(pWorkStruct, pNewContextAxiom);
         if (niceToMeetTouExp) {
             pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::FEEDBACK, std::move(niceToMeetTouExp));
             return true;

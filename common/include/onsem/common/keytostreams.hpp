@@ -38,7 +38,7 @@ struct ONSEM_COMMON_API KeyToFStreams {
     void close();
 
 private:
-    std::ifstream& _addKeyToIfStreamFile(SemanticLanguageEnum pLanguage, const std::string& pFilename);
+    std::ifstream& _addKeyToIfStreamFile(const std::string& pFilename);
 };
 
 }    // End of namespace linguistics

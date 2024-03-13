@@ -174,7 +174,6 @@ void DelaDatabaseLoader::toXml(const std::vector<std::string>& pInFilenames, con
             if (line.empty())
                 continue;
 
-            bool removeLine = false;
             if (line[0] == '#') {
                 NewWordInfos newWord;
                 xFillNewWordInfos(newWord, line);

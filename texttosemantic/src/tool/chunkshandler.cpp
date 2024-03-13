@@ -265,13 +265,11 @@ void moveEndOfAChunk(Chunk& pChunk,
     newChunk.head = getHeadOfNominalGroup(newChunk.tokRange, pLanguage);
 }
 
-void putBeginOfAChunkInTheChunkLink(std::list<ChunkLink>& pSyntTree,
-                                    std::list<ChunkLink>::iterator pChunkIt,
+void putBeginOfAChunkInTheChunkLink(std::list<ChunkLink>::iterator pChunkIt,
                                     TokIt pBeginNewChunk,
                                     SemanticLanguageEnum pLanguage) {
     assert(pChunkIt->chunk->tokRange.getItBegin() != pBeginNewChunk);
     assert(pChunkIt->chunk->tokRange.getItEnd() != pBeginNewChunk);
-    assert(pChunkIt != pSyntTree.end());
     pChunkIt->tokRange =
         TokenRange(pChunkIt->chunk->tokRange.getTokList(), pChunkIt->chunk->tokRange.getItBegin(), pBeginNewChunk);
     pChunkIt->chunk->tokRange.setItBegin(pBeginNewChunk);

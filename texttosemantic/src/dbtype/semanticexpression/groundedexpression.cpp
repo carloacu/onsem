@@ -49,7 +49,7 @@ std::unique_ptr<SemanticGrounding> GroundedExpression::cloneGrounding(
                                     if (optNb)
                                         res->quantity.setNumber(*optNb);
                                 }
-                    return std::move(res);
+                    return res;
                 }
             }
             return std::make_unique<SemanticGenericGrounding>(genGrd);

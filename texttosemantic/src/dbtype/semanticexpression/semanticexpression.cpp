@@ -678,7 +678,7 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone(
                 res->whatIsComparedExp.emplace((*compExp.whatIsComparedExp)->clone(pParams));
             if (compExp.rightOperandExp)
                 res->rightOperandExp.emplace((*compExp.rightOperandExp)->clone(pParams));
-            return std::move(res);
+            return res;
         }
         case SemanticExpressionType::INTERPRETATION: {
             const auto& intExp = getIntExp();

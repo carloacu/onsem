@@ -235,21 +235,20 @@ void PartOfSpeechCustomFilter::xTestOfPuttingNounAtBottomOfListIfOccurTwoTimesIn
             auto& inflWord2 = inflWords2.front();
             if (inflWord1.word.partOfSpeech == PartOfSpeech::NOUN && inflWord2.word.partOfSpeech == PartOfSpeech::NOUN
                 && !fFls.areCompatibles(inflWord1, inflWord2)) {
-                xPutNounAtBottomIfNecessary(inflWords1, inflWords2, pExceptForVerb);
-                xPutNounAtBottomIfNecessary(inflWords2, inflWords1, pExceptForVerb);
+                xPutNounAtBottomIfNecessary(inflWords2, pExceptForVerb);
+                xPutNounAtBottomIfNecessary(inflWords1, pExceptForVerb);
             }
         }
         prevIt = it;
     }
 }
 
-void PartOfSpeechCustomFilter::xPutNounAtBottomIfNecessary(std::list<InflectedWord>& pIGram1,
-                                                           std::list<InflectedWord>& pIGram2,
+void PartOfSpeechCustomFilter::xPutNounAtBottomIfNecessary(std::list<InflectedWord>& pInflWord,
                                                            bool pExceptForVerb) const {
-    auto itSecondIGram2 = ++pIGram2.begin();
+    auto itSecondIGram2 = ++pInflWord.begin();
     if ((!pExceptForVerb || itSecondIGram2->word.partOfSpeech != PartOfSpeech::VERB)
         && itSecondIGram2->word.partOfSpeech != PartOfSpeech::NOUN)
-        pIGram2.splice(pIGram2.begin(), pIGram2, itSecondIGram2);
+        pInflWord.splice(pInflWord.begin(), pInflWord, itSecondIGram2);
 }
 
 }    // End of namespace linguistics

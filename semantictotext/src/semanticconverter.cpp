@@ -281,7 +281,7 @@ UniqueSemanticExpression textToSemExp(const std::string& pText,
         auto res = std::make_unique<MetadataExpression>(
             SemanticSourceEnum::UNKNOWN, UniqueSemanticExpression(), std::move(resSemExp));
         res->references = *pReferencesPtr;
-        return std::move(res);
+        return res;
     }
     return resSemExp;
 }
@@ -379,7 +379,7 @@ UniqueSemanticExpression naturalLanguageExpressionToSemanticExpression(
     for (const auto& currChild : pNaturalLanguageExpression.children)
         res->children.emplace(currChild.first,
                               naturalLanguageExpressionToSemanticExpression(currChild.second, pLingDb));
-    return std::move(res);
+    return res;
 }
 
 UniqueSemanticExpression agentIdWithNameToSemExp(const std::string& pAgentId, const std::vector<std::string>& pNames) {
@@ -399,7 +399,7 @@ UniqueSemanticExpression agentIdWithNameToSemExp(const std::string& pAgentId, co
     res->children.emplace(GrammaticalType::OBJECT,
                           std::make_unique<GroundedExpression>(std::make_unique<SemanticNameGrounding>(pNames)));
 
-    return std::move(res);
+    return res;
 }
 
 UniqueSemanticExpression syntGraphToSemExp(const linguistics::SyntacticGraph& pSyntGraph,
@@ -495,7 +495,7 @@ UniqueSemanticExpression getFutureIndicativeAssociatedForm(UniqueSemanticExpress
         auto res = std::make_unique<ListExpression>(listExp.listType);
         for (auto& currElt : listExp.elts)
             res->elts.push_back(getFutureIndicativeAssociatedForm(std::move(currElt)));
-        return std::move(res);
+        return res;
     }
     return UniqueSemanticExpression();
 }
@@ -523,7 +523,7 @@ UniqueSemanticExpression constructTeachSemExp(UniqueSemanticExpression pInfitive
     auto res = std::make_unique<GroundedExpression>();
     res->children.emplace(GrammaticalType::PURPOSE, std::move(pInfitiveLabelSemExp));
     res->children.emplace(GrammaticalType::OBJECT, std::move(pSemExpToDo));
-    return std::move(res);
+    return res;
 }
 
 void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes, const SemanticExpression& pSemExp) {

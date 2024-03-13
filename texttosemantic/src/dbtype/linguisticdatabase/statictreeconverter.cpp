@@ -713,7 +713,7 @@ UniqueSemanticExpression StaticTreeConverter::_patternNodeToSemExp(
                                                              ? SemanticGrounding::make(*pTreePattern.groundingType)
                                                              : std::make_unique<SemanticConceptualGrounding>());
     _applyModifsOnGrdExp(*newChild, pRepLinks, pTreePattern, pSetMotherConceptOfConceptsAny);
-    return std::move(newChild);
+    return newChild;
 }
 
 template<typename SEMEXPCONTAINER>

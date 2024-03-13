@@ -144,8 +144,7 @@ bool _addIfIsAQWord(ChunkLinkWorkingZone& pWorkingZone,
         if (qWordTokenRange.getItBegin() != holdingChunkTokRange.getItBegin()) {
             auto language = pSpecLingDb.lingDico.statDb.getLanguageType();
             if (hasOnlyPrepositionsBefore) {
-                putBeginOfAChunkInTheChunkLink(
-                    pWorkingZone.syntTree(), pCurrChunkLink, qWordTokenRange.getItBegin(), language);
+                putBeginOfAChunkInTheChunkLink(pCurrChunkLink, qWordTokenRange.getItBegin(), language);
             } else {
                 separateEndOfAChunk(pWorkingZone.syntTree(),
                                     pCurrChunkLink,

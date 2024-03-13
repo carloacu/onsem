@@ -110,7 +110,6 @@ struct ONSEM_TEXTTOSEMANTIC_API LinguisticDatabase {
 
     void getInflectedNounFromMeaning(std::string& pRes,
                                      std::set<WordContextualInfos>& pContextualInfos,
-                                     SemanticLanguageEnum pLanguage,
                                      const LinguisticMeaning& pLingMeaning,
                                      SemanticGenderType& pGender,
                                      SemanticNumberType& pNumber) const;

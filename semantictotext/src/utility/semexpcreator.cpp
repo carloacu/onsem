@@ -35,7 +35,7 @@ UniqueSemanticExpression _addAnnotationsToSemExp(
     }
 
     if (pAnnExp)
-        return std::move(pAnnExp);
+        return pAnnExp;
     return pSemExp;
 }
 
@@ -53,7 +53,7 @@ UniqueSemanticExpression _answerExpToSemExp(const AnswerExp& pAnswExp) {
         annExp = std::make_unique<AnnotatedExpression>(std::move(res));
         for (const auto& currAnnChild : pAnswExp.annotationsOfTheAnswer)
             annExp->annotations.emplace(currAnnChild.first, currAnnChild.second->clone());
-        return std::move(annExp);
+        return annExp;
     }
 
     return _addAnnotationsToSemExp(
@@ -366,7 +366,7 @@ UniqueSemanticExpression formulateConditionToAction(const GroundedExpression& pC
         std::make_unique<ConditionExpression>(pSemExpToDoIsAlwaysActive, false, pCondition.clone(), pStuffToDo.clone());
     if (pStuffToDoOtherwisePtr != nullptr)
         condSemExp->elseExp.emplace(pStuffToDoOtherwisePtr->clone());
-    return std::move(condSemExp);
+    return condSemExp;
 }
 
 UniqueSemanticExpression saySemxExp1IsSemExp2(UniqueSemanticExpression pSemExpSubject,
@@ -374,7 +374,7 @@ UniqueSemanticExpression saySemxExp1IsSemExp2(UniqueSemanticExpression pSemExpSu
     auto rootGrdExp = _statGrdExp(ConceptSet::conceptVerbEquality);
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, std::move(pSemExpSubject));
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pSemExpObject));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression sentenceFromTriple(UniqueSemanticExpression pSemExpSubject,
@@ -383,13 +383,13 @@ UniqueSemanticExpression sentenceFromTriple(UniqueSemanticExpression pSemExpSubj
     auto rootGrdExp = _statGrdExp(pVerbConcept);
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, std::move(pSemExpSubject));
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pSemExpObject));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression askWhatIs(const SemanticExpression& pSubjectSemExp) {
     auto rootGrdExp = _whatIsGrdExp();
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, pSubjectSemExp.clone());
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression formulateActionDefinition(const GroundedExpression& pLabel,
@@ -399,7 +399,7 @@ UniqueSemanticExpression formulateActionDefinition(const GroundedExpression& pLa
         std::make_unique<GroundedExpression>(std::make_unique<SemanticStatementGrounding>(pEqualityStatement));
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, pLabel.clone());
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pDefinition));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression whoSemExp() {
@@ -415,7 +415,7 @@ UniqueSemanticExpression askWhoIs(const SemanticExpression& pSubjecSemExp) {
     auto rootGrdExp = _whatIsGrdExp();
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, pSubjecSemExp.clone());
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, whoSemExp());
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression getImperativeAssociateFrom(const GroundedExpression& pGrdExp) {
@@ -429,7 +429,7 @@ UniqueSemanticExpression getImperativeAssociateFrom(const GroundedExpression& pG
     if (rootGrdExp->children.find(GrammaticalType::SUBJECT) == rootGrdExp->children.end()) {
         rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
     }
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression getMandatoryForm(const GroundedExpression& pGrdExp) {
@@ -439,7 +439,7 @@ UniqueSemanticExpression getMandatoryForm(const GroundedExpression& pGrdExp) {
         statementGrd->verbGoal = VerbGoalEnum::MANDATORY;
         statementGrd->requests.erase(SemanticRequestType::ACTION);
     }
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression getFutureIndicativeAssociatedForm(const GroundedExpression& pGrdExp) {
@@ -455,7 +455,7 @@ UniqueSemanticExpression getFutureIndicativeAssociatedForm(const GroundedExpress
             rootGrdExp->children.erase(itSubject);
         rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
     }
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression getIndicativeFromImperative(const GroundedExpression& pGrdExp) {
@@ -463,7 +463,7 @@ UniqueSemanticExpression getIndicativeFromImperative(const GroundedExpression& p
     SemanticStatementGrounding* statementGrd = (*rootGrdExp)->getStatementGroundingPtr();
     if (statementGrd != nullptr)
         statementGrd->requests.clear();
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression getInfinitiveFromImperativeForm(const GroundedExpression& pGrdExp) {
@@ -475,7 +475,7 @@ UniqueSemanticExpression getInfinitiveFromImperativeForm(const GroundedExpressio
         statementGrd->verbTense = SemanticVerbTense::UNKNOWN;
     }
     rootGrdExp->children.erase(GrammaticalType::SUBJECT);
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression askIfTrue(const GroundedExpression& pOriginalGrdExp,
@@ -517,7 +517,7 @@ UniqueSemanticExpression askDoYouWantMeToDoItNow(const SemanticAgentGrounding& p
 
         return subRootGrdExp;
     }());
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression iWantThatYou(const std::string& pSubjectId, UniqueSemanticExpression pObject) {
@@ -537,7 +537,7 @@ UniqueSemanticExpression iWantThatYou(const std::string& pSubjectId, UniqueSeman
 
     // object
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pObject));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression sayYesOrNo(bool pAnswerPolarity) {
@@ -559,7 +559,7 @@ UniqueSemanticExpression formulateAge(UniqueSemanticExpression&& pSubject,
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, std::move(pSubject));
     // time
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pAgeSemExp));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression sayThatTheAssertionIsTrueOrFalse(const GroundedExpression& pGrdExp, bool pTrueOrFalse) {
@@ -654,7 +654,7 @@ UniqueSemanticExpression askDoYouWantToKnowHow(const SemanticAgentGrounding& pSu
         return knowGrdExp;
     }());
 
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression askWhatIsYourName(const std::string& pSubjectId) {
@@ -673,7 +673,7 @@ UniqueSemanticExpression askWhatIsYourName(const std::string& pSubjectId) {
             std::make_unique<GroundedExpression>(std::make_unique<SemanticAgentGrounding>(pSubjectId)));
         return nameGrdExp;
     }());
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 void addButYouCanTeachMe(GroundedExpression& pRootGrdExp, const SemanticAgentGrounding& pSubjectGrounding) {
@@ -708,7 +708,7 @@ UniqueSemanticExpression sayIThoughtThat(UniqueSemanticExpression pObjectSemExp)
 
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pObjectSemExp));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression sayThatWeThoughtTheContrary() {
@@ -780,7 +780,7 @@ UniqueSemanticExpression formulateHowWeKnowSomething(const SemanticExpression& p
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, _copyAndReformateSemExpToPutItInAnAnswer(pWhatWeKnow));
     rootGrdExp->children.emplace(GrammaticalType::CAUSE, pHowWeKnowThat.clone());
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression forExampleSayToDoMeansToSayIDo(const SemanticAgentGrounding& pAuthor,
@@ -845,7 +845,7 @@ std::unique_ptr<SemanticExpression> getSemExpThatSomebodyToldMeThat(const Semant
         GrammaticalType::OBJECT,
         std::make_unique<GroundedExpression>(SemanticGenericGrounding::makeThingThatHasToBeCompletedFromContext()));
 
-    return std::move(grdExp);
+    return grdExp;
 }
 
 std::unique_ptr<SemanticExpression> getSemExpOfEventValue(const std::string& pEventName,
@@ -875,7 +875,7 @@ std::unique_ptr<SemanticExpression> getSemExpOfEventValue(const std::string& pEv
         GrammaticalType::OBJECT,
         std::make_unique<GroundedExpression>(std::make_unique<SemanticTextGrounding>(pEventValue)));
 
-    return std::move(grdExp);
+    return grdExp;
 }
 
 std::unique_ptr<SemanticExpression> sayThatOpNotifyInformedMeThat() {
@@ -897,7 +897,7 @@ std::unique_ptr<SemanticExpression> sayThatOpNotifyInformedMeThat() {
     grdExp->children.emplace(
         GrammaticalType::OBJECT,
         std::make_unique<GroundedExpression>(SemanticGenericGrounding::makeThingThatHasToBeCompletedFromContext()));
-    return std::move(grdExp);
+    return grdExp;
 }
 
 UniqueSemanticExpression sayThanksThatsCool(const SemanticAgentGrounding& pSubjectGrounding) {
@@ -941,14 +941,14 @@ UniqueSemanticExpression sayIAmHappyToHearThat() {
         return objGrdExp;
     }());
 
-    return std::move(res);
+    return res;
 }
 
 UniqueSemanticExpression itsMe() {
     auto rootGrdExp = _statGrdExp(ConceptSet::conceptVerbEquality);
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, sayThat());
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, _meSemExp());
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression itIsNotKind() {
@@ -966,7 +966,7 @@ UniqueSemanticExpression itIsNotKind() {
     res->children.emplace(
         GrammaticalType::OBJECT,
         std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("sentiment_positive_kind")));
-    return std::move(res);
+    return res;
 }
 
 UniqueSemanticExpression itIsABadNews() {
@@ -989,7 +989,7 @@ UniqueSemanticExpression itIsABadNews() {
         std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>("sentiment_negative_bad")));
     res->children.emplace(GrammaticalType::OBJECT, std::move(grdExpObject));
 
-    return std::move(res);
+    return res;
 }
 
 UniqueSemanticExpression niceYouLikeIt(UniqueSemanticExpression pNiceSemExp,
@@ -1039,7 +1039,7 @@ UniqueSemanticExpression iAmSorryToHearThat() {
     grdExpObject->children.emplace(GrammaticalType::SPECIFIER, std::move(grdExpHear));
     res->children.emplace(GrammaticalType::OBJECT, std::move(grdExpObject));
 
-    return std::move(res);
+    return res;
 }
 
 UniqueSemanticExpression getWhoIsSomebodyQuestion(const GroundedExpression& pPersonToAsk) {
@@ -1051,7 +1051,7 @@ UniqueSemanticExpression getWhoIsSomebodyQuestion(const GroundedExpression& pPer
 
     // object
     SemExpModifier::addNewChildWithConcept(rootGrdExp->children, GrammaticalType::OBJECT, "agent");
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 std::unique_ptr<GroundedExpression> generateNumber(int pNumber) {
@@ -1077,7 +1077,7 @@ UniqueSemanticExpression generateNumberOfTimesAnswer(const GroundedExpression& p
                                      return genGrd;
                                  }()));
 
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
@@ -1185,7 +1185,7 @@ UniqueSemanticExpression sayThatWeDontKnowTheAnswer(const SemanticExpression& pS
 UniqueSemanticExpression sayThatWeDontKnowAnInstanceOf(const SemanticExpression& pSemExp) {
     auto grdExpPtr = _sayThatWeKnow(pSemExp);
     SemExpModifier::invertPolarityFromGrdExp(*grdExpPtr);
-    return std::move(grdExpPtr);
+    return grdExpPtr;
 }
 
 UniqueSemanticExpression sayThatTheRobotCannotDoIt(const SemanticExpression& pSemExp) {
@@ -1211,7 +1211,7 @@ UniqueSemanticExpression sayThatTheRobotCannotDoIt(const SemanticExpression& pSe
             specGrdExp->children.erase(itSubjectSpec);
     }
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(newSpecifSemExp));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(const GroundedExpression& pGrdExp) {
@@ -1246,7 +1246,7 @@ UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(const GroundedExpression
         return mtgGrdExp;
     }());
 
-    return std::move(grdExpPtr);
+    return grdExpPtr;
 }
 
 std::unique_ptr<GroundedExpression> doYouWantMeToSayToTellYouHowTo(const SemanticAgentGrounding& pSubjectGrounding,
@@ -1312,7 +1312,7 @@ UniqueSemanticExpression askForPrecision(const GroundedExpression& pGrdExp, Sema
             actionStruct->verbGoal = VerbGoalEnum::MANDATORY;
     }
     SemExpModifier::addRequest(*rootGrdExp, pRequestType);
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression sayWeWillDoIt_fromGrdExp(const GroundedExpression& pGrdExp) {
@@ -1349,7 +1349,7 @@ UniqueSemanticExpression wrapWithStatementWithRequest(UniqueSemanticExpression p
         return statRes;
     }());
     newRes->children.emplace(GrammaticalType::UNKNOWN, std::move(pUSemExp));
-    return std::move(newRes);
+    return newRes;
 }
 
 UniqueSemanticExpression confirmInfoCondition(const ConditionSpecification& pCondSpec) {

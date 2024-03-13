@@ -140,7 +140,7 @@ UniqueSemanticExpression _constructSourceWithSpecificTime(std::unique_ptr<Semant
 
     auto res = std::make_unique<AnnotatedExpression>(std::move(grdExpSource));
     res->annotations.emplace(GrammaticalType::TIME, std::make_unique<GroundedExpression>(std::move(pTimeGrd)));
-    return std::move(res);
+    return res;
 }
 
 UniqueSemanticExpression _constructSourceInPresent(std::unique_ptr<SemanticAgentGrounding> pAuthor,
@@ -155,7 +155,7 @@ UniqueSemanticExpression _constructSourceInPresent(std::unique_ptr<SemanticAgent
     grdExpSource->children.emplace(
         GrammaticalType::OBJECT,
         std::make_unique<GroundedExpression>(std::make_unique<SemanticMetaGrounding>(SemanticGroundingType::META, 0)));
-    return std::move(grdExpSource);
+    return grdExpSource;
 }
 
 UniqueSemanticExpression MetadataExpression::constructSourceFromSourceEnum(

@@ -130,8 +130,7 @@ void moveEndOfAChunk(Chunk& pChunk,
                      std::list<ChunkLink>& pDestinationList,
                      SemanticLanguageEnum pLanguage);
 
-void putBeginOfAChunkInTheChunkLink(std::list<ChunkLink>& pSyntTree,
-                                    std::list<ChunkLink>::iterator pChunkIt,
+void putBeginOfAChunkInTheChunkLink(std::list<ChunkLink>::iterator pChunkIt,
                                     TokIt pBeginNewChunk,
                                     SemanticLanguageEnum pLanguage);
 

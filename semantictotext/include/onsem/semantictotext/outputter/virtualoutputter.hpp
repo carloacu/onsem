@@ -49,24 +49,24 @@ protected:
      * @param pResource The command to expose (encoded in a string).
      * @param pInutSemExpPtr Semantic expression of the input.
      */
-    virtual void _exposeResource(const SemanticResource& pResource,
-                                 const std::map<std::string, std::vector<std::string>>& pParameters) {}
+    virtual void _exposeResource(const SemanticResource&,
+                                 const std::map<std::string, std::vector<std::string>>&) {}
 
     /**
      * @brief _exposeText Defines how to expose a text.
      * @param pText The text to expose.
      * @param pLanguage The language of the text.
      */
-    virtual void _exposeText(const std::string& pText, SemanticLanguageEnum pLanguage) {}
+    virtual void _exposeText(const std::string&, SemanticLanguageEnum) {}
 
-    virtual void _beginOfScope(Link pLink) {}
+    virtual void _beginOfScope(Link) {}
     virtual void _endOfScope() {}
-    virtual void _resourceNbOfTimes(int pNumberOfTimes) {}
-    virtual void _insideScopeNbOfTimes(int pNumberOfTimes) {}
+    virtual void _resourceNbOfTimes(int) {}
+    virtual void _insideScopeNbOfTimes(int) {}
 
-    virtual void _assertPunctually(const SemanticExpression& pSemExp) {}
-    virtual void _teachInformation(UniqueSemanticExpression pUSemExp) {}
-    virtual void _assertPermanently(UniqueSemanticExpression pUSemExp) {}
+    virtual void _assertPunctually(const SemanticExpression&) {}
+    virtual void _teachInformation(UniqueSemanticExpression) {}
+    virtual void _assertPermanently(UniqueSemanticExpression) {}
 
     /**
      * @brief _handleDurationAnnotations If the expression specify a time to wait it waits this specified time otherwise
@@ -85,16 +85,6 @@ protected:
      */
     void _reportAnError(const std::string& pErrorMrg);
 
-    /**
-     * @brief Process the expression in loop until a stop is asked in the context object.
-     * @param pAnnExp The expression to process.
-     * @param pOutputterContext Context of the outputter.
-     * @param pLimitOfRecursions Maximum number of looping before to stop.
-     */
-    void _doUntil(const AnnotatedExpression& pAnnExp,
-                  std::shared_ptr<OutputterContext> pOutputterContext,
-                  std::shared_ptr<int> pLimitOfRecursions);
-
 private:
     SemanticMemory& _semanticMemory;
     const SemanticSourceEnum _typeOfOutputter;
@@ -105,7 +95,6 @@ private:
 
     void _handleList(const ListExpression& pListExp, Link pLink, const OutputterContext& pOutputterContext);
     void _handleThenReversedList(const ListExpression& pListExp, const OutputterContext& pOutputterContext);
-    void _runConditionExp(const ConditionExpression& pCondExp, const OutputterContext& pOutputterContext);
 
     void _processGrdExp(const SemanticExpression& pSemExp, const OutputterContext& pOutputterContext);
 
@@ -119,7 +108,7 @@ private:
                              SemanticSourceEnum pFrom,
                              ContextualAnnotation pContextualAnnotation);
 
-    void _processResource(const SemanticResource& pResource, const SemanticExpression* pInputSemExpPtr);
+    void _processResource(const SemanticResource& pResource);
 };
 
 }    // End of namespace onsem

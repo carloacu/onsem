@@ -62,7 +62,7 @@ inline std::unique_ptr<SemanticExpression> AnnotatedExpression::clone(
     for (const auto& currAnn : annotations)
         res->annotations.emplace(
             currAnn.first, currAnn.second->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
-    return std::move(res);
+    return res;
 }
 
 }    // End of namespace onsem

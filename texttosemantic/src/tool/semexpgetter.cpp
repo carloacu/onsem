@@ -422,23 +422,6 @@ std::optional<int> getNumberOfRepetitionsOpt(const std::map<GrammaticalType, Uni
     return {};
 }
 
-const SemanticExpression* getUntilChild(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations) {
-    auto itDurationChild = pAnnotations.find(GrammaticalType::DURATION);
-    if (itDurationChild != pAnnotations.end()) {
-        const GroundedExpression* durationGrdExpPtr = itDurationChild->second->getGrdExpPtr_SkipWrapperPtrs();
-        if (durationGrdExpPtr != nullptr) {
-            const GroundedExpression& durationGrdExp = *durationGrdExpPtr;
-            if (durationGrdExp->getRelDurationGroundingPtr() != nullptr
-                && durationGrdExp->getRelDurationGroundingPtr()->durationType == SemanticRelativeDurationType::UNTIL) {
-                auto itSpecifier = durationGrdExp.children.find(GrammaticalType::SPECIFIER);
-                if (itSpecifier != durationGrdExp.children.end())
-                    return &*itSpecifier->second;
-            }
-        }
-    }
-    return nullptr;
-}
-
 mystd::optional<int64_t> getTimeDurationInMilliseconds(
     const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations) {
     auto itDurationChild = pAnnotations.find(GrammaticalType::DURATION);
@@ -1864,7 +1847,7 @@ UniqueSemanticExpression getASimplifiedVersion(const SemanticExpression& pSemExp
             auto res = std::make_unique<ListExpression>(listExp.listType);
             for (const auto& currRefElt : listExp.elts)
                 res->elts.emplace_back(getASimplifiedVersion(*currRefElt));
-            return std::move(res);
+            return res;
         }
         case SemanticExpressionType::CONDITION: {
             auto& condExp = pSemExp.getCondExp();
@@ -1874,7 +1857,7 @@ UniqueSemanticExpression getASimplifiedVersion(const SemanticExpression& pSemExp
                                                              getASimplifiedVersion(*condExp.thenExp));
             if (condExp.elseExp)
                 res->elseExp.emplace(getASimplifiedVersion(**condExp.elseExp));
-            return std::move(res);
+            return res;
         }
         case SemanticExpressionType::COMPARISON: {
             const auto& compExp = pSemExp.getCompExp();
@@ -1886,7 +1869,7 @@ UniqueSemanticExpression getASimplifiedVersion(const SemanticExpression& pSemExp
                 res->whatIsComparedExp.emplace(getASimplifiedVersion(**compExp.whatIsComparedExp));
             if (compExp.rightOperandExp)
                 res->rightOperandExp.emplace(getASimplifiedVersion(**compExp.rightOperandExp));
-            return std::move(res);
+            return res;
         }
         case SemanticExpressionType::INTERPRETATION: {
             const auto& intExp = pSemExp.getIntExp();

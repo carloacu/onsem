@@ -77,12 +77,6 @@ const unsigned char* LingdbFlexions::getMemory() const {
     return fFlexions;
 }
 
-void LingdbFlexions::writeInStream(std::ostream& pOs, PartOfSpeech pGram) const {
-    // std::list<unsigned char> flexions;
-    // pOs << LinguisticFlexionsChecker::printInflections
-    //       (flexions, pGram);
-}
-
 void LingdbFlexions::xGetPointers(std::vector<const void*>& pRes, void* pVar) {
     pRes.emplace_back(&reinterpret_cast<LingdbFlexions*>(pVar)->fFlexions);
 }

@@ -44,7 +44,7 @@ UniqueSemanticExpression whatIs(UniqueSemanticExpression pSubjectSemExp, Semanti
     }());
 
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pSubjectSemExp));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 UniqueSemanticExpression whatAbout(UniqueSemanticExpression pSubjectSemExp) {
@@ -57,7 +57,7 @@ UniqueSemanticExpression whatAbout(UniqueSemanticExpression pSubjectSemExp) {
     }());
 
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pSubjectSemExp));
-    return std::move(rootGrdExp);
+    return rootGrdExp;
 }
 
 }    // End of namespace SemExpGenerator

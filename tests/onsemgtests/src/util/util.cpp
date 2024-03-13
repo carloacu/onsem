@@ -177,7 +177,7 @@ TrackSemMemoryNotifications::TrackSemMemoryNotifications(SemanticMemory& pSemMem
                     }());
                     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, currAction.label->clone());
                     rootGrdExp->children.emplace(GrammaticalType::OBJECT, currAction.composition->clone());
-                    return std::move(rootGrdExp);
+                    return rootGrdExp;
                 }();
                 actionDefinitionsStr.insert(
                     semExpToText(std::move(actionSemExp), _semMem.defaultLanguage, _semMem, _lingDb));

@@ -185,7 +185,7 @@ std::unique_ptr<SemanticExpression> convertEnglishSentenceToASemExp(std::unique_
                 else if (statGrd.concepts.find("comparison_different") != statGrd.concepts.end())
                     compOperator = ComparisonOperator::DIFFERENT;
                 else
-                    return std::move(pGrdExp);
+                    return pGrdExp;
 
                 auto itSubjectChild = pGrdExp->children.find(GrammaticalType::SUBJECT);
                 if (itSubjectChild != pGrdExp->children.end()) {
@@ -196,7 +196,7 @@ std::unique_ptr<SemanticExpression> convertEnglishSentenceToASemExp(std::unique_
                         compExp->rightOperandExp.emplace(std::move(itObjectChild->second));
                         compExp->tense = statGrd.verbTense;
                         compExp->request = statGrd.requests.firstOrNothing();
-                        return std::move(compExp);
+                        return compExp;
                     }
                 }
             } else if (!statGrd.polarity) {
@@ -216,7 +216,7 @@ std::unique_ptr<SemanticExpression> convertEnglishSentenceToASemExp(std::unique_
             }
         }
     }
-    return std::move(pGrdExp);
+    return pGrdExp;
 }
 
 void refactorEnglishSentencesWithAGoal(
