@@ -4,105 +4,79 @@
 #include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 #include <onsem/semantictotext/semanticmemory/semantictracker.hpp>
 
-namespace onsem
-{
+namespace onsem {
 
 SemanticTriggerAxiomId::SemanticTriggerAxiomId()
-  : nbOfAxioms(1),
-    idOfAxiom(0),
-    semExpType(SemanticExpressionType::LIST),
-    listExpType(ListExpressionType::UNRELATED)
-{
-}
+    : nbOfAxioms(1)
+    , idOfAxiom(0)
+    , semExpType(SemanticExpressionType::LIST)
+    , listExpType(ListExpressionType::UNRELATED) {}
 
 SemanticTriggerAxiomId::SemanticTriggerAxiomId(std::size_t pNbOfAxioms,
                                                std::size_t pIdOfAxiom,
                                                SemanticExpressionType pSemExpType)
-  : nbOfAxioms(pNbOfAxioms),
-    idOfAxiom(pIdOfAxiom),
-    semExpType(pSemExpType),
-    listExpType(ListExpressionType::UNRELATED)
-{
-}
+    : nbOfAxioms(pNbOfAxioms)
+    , idOfAxiom(pIdOfAxiom)
+    , semExpType(pSemExpType)
+    , listExpType(ListExpressionType::UNRELATED) {}
 
 SemanticTriggerAxiomId::SemanticTriggerAxiomId(std::size_t pNbOfAxioms,
                                                std::size_t pIdOfAxiom,
                                                ListExpressionType pListExpType)
-  : nbOfAxioms(pNbOfAxioms),
-    idOfAxiom(pIdOfAxiom),
-    semExpType(SemanticExpressionType::LIST),
-    listExpType(pListExpType)
-{
+    : nbOfAxioms(pNbOfAxioms)
+    , idOfAxiom(pIdOfAxiom)
+    , semExpType(SemanticExpressionType::LIST)
+    , listExpType(pListExpType) {}
+
+bool SemanticTriggerAxiomId::isEmpty() const {
+    return nbOfAxioms == 1 && idOfAxiom == 0 && semExpType == SemanticExpressionType::LIST
+        && listExpType == ListExpressionType::UNRELATED;
 }
 
-bool SemanticTriggerAxiomId::isEmpty() const
-{
-  return nbOfAxioms == 1 && idOfAxiom == 0 &&
-      semExpType == SemanticExpressionType::LIST &&
-      listExpType == ListExpressionType::UNRELATED;
+bool SemanticTriggerAxiomId::operator<(const SemanticTriggerAxiomId& pOther) const {
+    if (nbOfAxioms != pOther.nbOfAxioms)
+        return nbOfAxioms < pOther.nbOfAxioms;
+    if (idOfAxiom != pOther.idOfAxiom)
+        return idOfAxiom < pOther.idOfAxiom;
+    if (semExpType != pOther.semExpType)
+        return semExpType < pOther.semExpType;
+    return listExpType < pOther.listExpType;
 }
 
-bool SemanticTriggerAxiomId::operator<(const SemanticTriggerAxiomId& pOther) const
-{
-  if (nbOfAxioms != pOther.nbOfAxioms)
-    return nbOfAxioms < pOther.nbOfAxioms;
-  if (idOfAxiom != pOther.idOfAxiom)
-    return idOfAxiom < pOther.idOfAxiom;
-  if (semExpType != pOther.semExpType)
-    return semExpType < pOther.semExpType;
-  return listExpType < pOther.listExpType;
+SentenceWithLinks::SentenceWithLinks(InformationType pInformationType, ExpressionWithLinks& pSemExpWrappedForMemory)
+    : semTracker()
+    , informationType(pInformationType)
+    , triggerAxiomId()
+    , semExpToDoIsAlwaysActive(false)
+    , semExpToDo(nullptr)
+    , semExpToDoElse(nullptr)
+    , infCommandToDo(nullptr)
+    , memorySentences()
+    , _semExpWrappedForMemory(pSemExpWrappedForMemory) {}
+
+void SentenceWithLinks::setEnabled(bool pEnabled) {
+    memorySentences.setEnabled(pEnabled);
 }
 
+void SentenceWithLinks::clear() {
+    memorySentences.clear();
 
-
-SentenceWithLinks::SentenceWithLinks
-(InformationType pInformationType,
- ExpressionWithLinks& pSemExpWrappedForMemory)
-  : semTracker(),
-    informationType(pInformationType),
-    triggerAxiomId(),
-    semExpToDoIsAlwaysActive(false),
-    semExpToDo(nullptr),
-    semExpToDoElse(nullptr),
-    infCommandToDo(nullptr),
-    memorySentences(),
-    _semExpWrappedForMemory(pSemExpWrappedForMemory)
-{
+    semTracker.reset();
+    semExpToDo = nullptr;
+    semExpToDoElse = nullptr;
+    infCommandToDo = nullptr;
 }
 
-
-void SentenceWithLinks::setEnabled(bool pEnabled)
-{
-  memorySentences.setEnabled(pEnabled);
+bool SentenceWithLinks::isAnActionLinked() const {
+    return semExpToDo != nullptr || semExpToDoElse != nullptr;
 }
 
-void SentenceWithLinks::clear()
-{
-  memorySentences.clear();
-
-  semTracker.reset();
-  semExpToDo = nullptr;
-  semExpToDoElse = nullptr;
-  infCommandToDo = nullptr;
+bool SentenceWithLinks::canOtherInformationTypeBeMoreRevelant(InformationType pInformationType) const {
+    return pInformationType == InformationType::ASSERTION || informationType != InformationType::ASSERTION;
 }
 
-bool SentenceWithLinks::isAnActionLinked() const
-{
-  return semExpToDo != nullptr || semExpToDoElse != nullptr;
+void SentenceWithLinks::getReferences(std::list<std::string>& pReferences) const {
+    SemExpGetter::extractReferences(pReferences, *_semExpWrappedForMemory.semExp);
 }
 
-bool SentenceWithLinks::canOtherInformationTypeBeMoreRevelant(InformationType pInformationType) const
-{
-  return pInformationType == InformationType::ASSERTION ||
-      informationType != InformationType::ASSERTION;
-}
-
-void SentenceWithLinks::getReferences(std::list<std::string>& pReferences) const
-{
-  SemExpGetter::extractReferences(pReferences, *_semExpWrappedForMemory.semExp);
-}
-
-
-
-} // End of namespace onsem
-
+}    // End of namespace onsem

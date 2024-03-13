@@ -5,20 +5,15 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include "../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-
-class ONSEMSEMANTICTOTEXT_API SemanticTracker
-{
+class ONSEMSEMANTICTOTEXT_API SemanticTracker {
 public:
-  SemanticTracker() = default;
+    SemanticTracker() = default;
 
-  mystd::observable::Observable<void (const UniqueSemanticExpression&)> val{};
+    mystd::observable::Observable<void(const UniqueSemanticExpression&)> val{};
 };
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICTRACKER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_SEMANTICTRACKER_HPP

@@ -5,29 +5,18 @@
 #include "../api.hpp"
 #include "semlinetoprint.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct UniqueSemanticExpression;
 struct SemanticExpression;
-namespace printer
-{
-
+namespace printer {
 
 ONSEM_TEXTTOSEMANTIC_API
-void oneWordPrint(std::string& pRes,
-                  const UniqueSemanticExpression& pSemanticExp,
-                  const std::string& pCurrentUserId);
+void oneWordPrint(std::string& pRes, const UniqueSemanticExpression& pSemanticExp, const std::string& pCurrentUserId);
 
 ONSEM_TEXTTOSEMANTIC_API
-void prettyPrintSemExp(std::list<SemLineToPrint>& pLines,
-                       const SemanticExpression& pSemExp);
+void prettyPrintSemExp(std::list<SemLineToPrint>& pLines, const SemanticExpression& pSemExp);
 
+}    // End of namespace printer
+}    // End of namespace onsem
 
-
-
-} // End of namespace printer
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_PRINTER_EXPRESSIONPRINTER_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_PRINTER_EXPRESSIONPRINTER_HPP

@@ -3,23 +3,17 @@
 
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 
-namespace onsem
-{
+namespace onsem {
 
-
-class TabletFallback : public ExternalFallback
-{
+class TabletFallback : public ExternalFallback {
 public:
-  TabletFallback();
+    TabletFallback();
 
-  virtual void addFallback(UniqueSemanticExpression& pSemExp,
-                           const std::string& pUserId,
-                           const GroundedExpression& pOriginalGrdExp) const;
-
+    virtual void addFallback(UniqueSemanticExpression& pSemExp,
+                             const std::string& pUserId,
+                             const GroundedExpression& pOriginalGrdExp) const;
 };
 
+}    // end namespace onsem
 
-} // end namespace onsem
-
-
-#endif // ONSEM_GTESTS_SEMANTICCONTROLLER_EXTERNALFALLBACK_TABLETFALLBACK_HPP
+#endif    // ONSEM_GTESTS_SEMANTICCONTROLLER_EXTERNALFALLBACK_TABLETFALLBACK_HPP

@@ -3,12 +3,10 @@
 
 #include <string>
 
-namespace onsem
-{
+namespace onsem {
 
 void process_webrequest(const std::string& pInputResourcesDir);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // WEBTRANSLATOR_WEBREQUEST_H
+#endif    // WEBTRANSLATOR_WEBREQUEST_H

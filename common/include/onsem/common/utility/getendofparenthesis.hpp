@@ -4,8 +4,7 @@
 #include <string>
 #include "../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
 /**
  * @brief getEndOfParenthesis Get the position of the end of a parenthesis.\n
@@ -16,10 +15,8 @@ namespace onsem
  * @return The position of the end of the parenthesis ) or ].
  */
 ONSEM_COMMON_API
-std::size_t getEndOfParenthesis(const std::string& pStr,
-                                std::size_t pPos,
-                                const std::size_t pEnd);
+std::size_t getEndOfParenthesis(const std::string& pStr, std::size_t pPos, const std::size_t pEnd);
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // ONSEM_COMMON_UTILITY_GETENDOFPARENTHESIS_HPP
+#endif    // ONSEM_COMMON_UTILITY_GETENDOFPARENTHESIS_HPP

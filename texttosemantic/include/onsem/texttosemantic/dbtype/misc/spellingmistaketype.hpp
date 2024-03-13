@@ -3,19 +3,13 @@
 
 #include <set>
 
-namespace onsem
-{
+namespace onsem {
 
-enum class SpellingMistakeType
-{
-  CONJUGATION
-};
+enum class SpellingMistakeType { CONJUGATION };
 
+static const std::set<SpellingMistakeType> _spellingMistakeTypesPossibleForDebugOnTextComparisons{
+    SpellingMistakeType::CONJUGATION};
 
-static const std::set<SpellingMistakeType> _spellingMistakeTypesPossibleForDebugOnTextComparisons{SpellingMistakeType::CONJUGATION};
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPES_MISC_SPELLINGMISTAKETYPE_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPES_MISC_SPELLINGMISTAKETYPE_HPP

@@ -9,38 +9,29 @@
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
 #include "../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemory;
 
+struct ONSEMSEMANTICTOTEXT_API OutputterContext {
+    OutputterContext(const TextProcessingContext& pTextProcessingContext)
+        : textProcContext(pTextProcessingContext)
+        , annotations(std::make_shared<std::map<GrammaticalType, UniqueSemanticExpression>>())
+        , contAnnotation(ContextualAnnotation::PROACTIVE)
+        , sayOrExecute(false)
+        , inputSemExpPtr(nullptr) {}
 
-struct ONSEMSEMANTICTOTEXT_API OutputterContext
-{
-  OutputterContext(const TextProcessingContext& pTextProcessingContext)
-    : textProcContext(pTextProcessingContext),
-      annotations(std::make_shared<std::map<GrammaticalType, UniqueSemanticExpression>>()),
-      contAnnotation(ContextualAnnotation::PROACTIVE),
-      sayOrExecute(false),
-      inputSemExpPtr(nullptr)
-  {
-  }
+    void updateAnnotation(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations) {
+        for (const auto& currAnnotation : pAnnotations)
+            (*annotations)[currAnnotation.first] = currAnnotation.second->clone();
+    }
 
-  void updateAnnotation(
-      const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations)
-  {
-    for (const auto& currAnnotation : pAnnotations)
-      (*annotations)[currAnnotation.first] = currAnnotation.second->clone();
-  }
-
-  TextProcessingContext textProcContext;
-  std::shared_ptr<std::map<GrammaticalType, UniqueSemanticExpression>> annotations;
-  ContextualAnnotation contAnnotation;
-  bool sayOrExecute;
-  const SemanticExpression* inputSemExpPtr;
+    TextProcessingContext textProcContext;
+    std::shared_ptr<std::map<GrammaticalType, UniqueSemanticExpression>> annotations;
+    ContextualAnnotation contAnnotation;
+    bool sayOrExecute;
+    const SemanticExpression* inputSemExpPtr;
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-#endif // !ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERCONTEXT_HPP
+#endif    // !ONSEM_SEMANTICTOTEXT_OUTPUTTER_OUTPUTTERCONTEXT_HPP

@@ -5,47 +5,39 @@
 #include <QScrollBar>
 #include <QFrame>
 
-namespace onsem
-{
+namespace onsem {
 
-class ScrollPanel : public QObject
-{
-  Q_OBJECT
+class ScrollPanel : public QObject {
+    Q_OBJECT
 
 public:
-  ScrollPanel() = default;
-  ~ScrollPanel();
+    ScrollPanel() = default;
+    ~ScrollPanel();
 
-  ScrollPanel(const ScrollPanel&) = delete;
-  ScrollPanel& operator=(const ScrollPanel&) = delete;
+    ScrollPanel(const ScrollPanel&) = delete;
+    ScrollPanel& operator=(const ScrollPanel&) = delete;
 
-  void setParentWidget
-  (QWidget* pParent);
+    void setParentWidget(QWidget* pParent);
 
-  void setGeometry
-  (int pX, int pY, int pW, int pH);
+    void setGeometry(int pX, int pY, int pW, int pH);
 
-  void setContentHeight
-  (int pContentHeight);
+    void setContentHeight(int pContentHeight);
 
-  QWidget* getContentWidget() const;
-
+    QWidget* getContentWidget() const;
 
 private Q_SLOTS:
 
-  void onVerticalScrollBarValueChanged
-  (int pValue);
-
+    void onVerticalScrollBarValueChanged(int pValue);
 
 private:
-  QScrollBar* fScrollBar = nullptr;
-  QWidget* fViewWidget = nullptr;
-  QWidget* fContentWidget = nullptr;
-  int fContentHeight = 0;
+    QScrollBar* fScrollBar = nullptr;
+    QWidget* fViewWidget = nullptr;
+    QWidget* fContentWidget = nullptr;
+    int fContentHeight = 0;
 
-  void xInitScrollBar();
+    void xInitScrollBar();
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // SCROLLPANEL_H
+#endif    // SCROLLPANEL_H

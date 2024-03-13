@@ -5,26 +5,19 @@
 #include "../../api.hpp"
 #include "groundedexpwithlinks.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinksList {
+    void setEnabled(bool pEnabled);
+    void clear();
+    std::string getName(const std::string& pUserId) const;
+    bool hasEquivalentUserIds(const std::string& pUserId) const;
+    intSemId getIdOfFirstSentence() const;
 
-
-struct ONSEMSEMANTICTOTEXT_API GroundedExpWithLinksList
-{
-  void setEnabled(bool pEnabled);
-  void clear();
-  std::string getName(const std::string& pUserId) const;
-  bool hasEquivalentUserIds(const std::string& pUserId) const;
-  intSemId getIdOfFirstSentence() const;
-
-  bool and_or{true};
-  std::list<GroundedExpWithLinks> elts{};
+    bool and_or{true};
+    std::list<GroundedExpWithLinks> elts{};
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_GROUNDEDEXPWITHLINKSLIST_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_GROUNDEDEXPWITHLINKSLIST_HPP

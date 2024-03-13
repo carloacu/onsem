@@ -1,20 +1,10 @@
 #ifndef ONSEM_COMMON_TYPE_ENUM_SEMANTICENGAGEMENTVALUE_HPP
 #define ONSEM_COMMON_TYPE_ENUM_SEMANTICENGAGEMENTVALUE_HPP
 
+namespace onsem {
 
-namespace onsem
-{
+enum class SemanticEngagementValue { ENGAGE, DISENGAGE_GOODBYE, DISENGAGE_NEEDTOGO, UNKNWON };
 
-enum class SemanticEngagementValue
-{
-  ENGAGE,
-  DISENGAGE_GOODBYE,
-  DISENGAGE_NEEDTOGO,
-  UNKNWON
-};
+}    // End of namespace onsem
 
-
-
-} // End of namespace onsem
-
-#endif // ONSEM_COMMON_TYPE_ENUM_SEMANTICENGAGEMENTVALUE_HPP
+#endif    // ONSEM_COMMON_TYPE_ENUM_SEMANTICENGAGEMENTVALUE_HPP

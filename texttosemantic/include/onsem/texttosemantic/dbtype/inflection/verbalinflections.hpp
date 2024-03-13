@@ -9,69 +9,57 @@
 #include <onsem/texttosemantic/dbtype/inflection/inflections.hpp>
 #include "../../api.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEM_TEXTTOSEMANTIC_API VerbalInflection {
+    VerbalInflection() = default;
+    VerbalInflection(const std::string& pInflectionalCode);
+    bool operator==(const VerbalInflection& pOther) const;
+    SemanticNumberType number() const { return relativePerson_toNumberType(person); }
 
-struct ONSEM_TEXTTOSEMANTIC_API VerbalInflection
-{
-  VerbalInflection() = default;
-  VerbalInflection(const std::string& pInflectionalCode);
-  bool operator==(const VerbalInflection& pOther) const;
-  SemanticNumberType number() const { return relativePerson_toNumberType(person); }
-
-  RelativePerson person{RelativePerson::UNKNOWN};
-  LinguisticVerbTense tense{LinguisticVerbTense::INFINITIVE};
-  SemanticGenderType gender{SemanticGenderType::UNKNOWN};
+    RelativePerson person{RelativePerson::UNKNOWN};
+    LinguisticVerbTense tense{LinguisticVerbTense::INFINITIVE};
+    SemanticGenderType gender{SemanticGenderType::UNKNOWN};
 };
 
+struct ONSEM_TEXTTOSEMANTIC_API VerbalInflections : public Inflections {
+    VerbalInflections();
+    VerbalInflections(const std::vector<std::string>& pInflectionalCodes);
+    bool operator==(const VerbalInflections& pOther) const;
 
-struct ONSEM_TEXTTOSEMANTIC_API VerbalInflections : public Inflections
-{
-  VerbalInflections();
-  VerbalInflections(const std::vector<std::string>& pInflectionalCodes);
-  bool operator==(const VerbalInflections& pOther) const;
+    static std::unique_ptr<VerbalInflections> get_inflections_infinitive();
+    static std::unique_ptr<VerbalInflections> get_inflections_imperative();
 
-  static std::unique_ptr<VerbalInflections> get_inflections_infinitive();
-  static std::unique_ptr<VerbalInflections> get_inflections_imperative();
+    virtual VerbalInflections& getVerbalI() { return *this; }
+    virtual const VerbalInflections& getVerbalI() const { return *this; }
+    virtual VerbalInflections* getVerbalIPtr() { return this; }
+    virtual const VerbalInflections* getVerbalIPtr() const { return this; }
 
-  virtual VerbalInflections& getVerbalI() { return *this; }
-  virtual const VerbalInflections& getVerbalI() const { return *this; }
-  virtual VerbalInflections* getVerbalIPtr() { return this; }
-  virtual const VerbalInflections* getVerbalIPtr() const { return this; }
-
-  std::list<VerbalInflection> inflections;
+    std::list<VerbalInflection> inflections;
 };
 
-
-
-
-inline std::ostream& operator<<(std::ostream& pOs, const VerbalInflection& pVerbInfl)
-{
-  pOs << linguisticVerbTense_toChar(pVerbInfl.tense);
-  relativePerson_toConcisePrintWithoutNumber(pOs, pVerbInfl.person);
-  gender_toConcisePrint(pOs, pVerbInfl.gender);
-  number_toConcisePrint(pOs, pVerbInfl.number());
-  return pOs;
+inline std::ostream& operator<<(std::ostream& pOs, const VerbalInflection& pVerbInfl) {
+    pOs << linguisticVerbTense_toChar(pVerbInfl.tense);
+    relativePerson_toConcisePrintWithoutNumber(pOs, pVerbInfl.person);
+    gender_toConcisePrint(pOs, pVerbInfl.gender);
+    number_toConcisePrint(pOs, pVerbInfl.number());
+    return pOs;
 }
 
-inline std::ostream& operator<<(std::ostream& pOs, const VerbalInflections& pVerbInfls)
-{
-  bool firstLoop = true;
-  for (const auto& currInfl : pVerbInfls.inflections)
-  {
-    if (firstLoop)
-      firstLoop = false;
-    else
-      pOs << ",";
-    pOs << currInfl;
-  }
-  return pOs;
+inline std::ostream& operator<<(std::ostream& pOs, const VerbalInflections& pVerbInfls) {
+    bool firstLoop = true;
+    for (const auto& currInfl : pVerbInfls.inflections) {
+        if (firstLoop)
+            firstLoop = false;
+        else
+            pOs << ",";
+        pOs << currInfl;
+    }
+    return pOs;
 }
 
-
-} // End of namespace onsem
+}    // End of namespace onsem
 
 #include "detail/verbalinflections.hxx"
 
-#endif // ONSEM_TEXTTOSEMANTIC_TYPE_INFLECTION_VERBALINFLECTIONS_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPE_INFLECTION_VERBALINFLECTIONS_HPP

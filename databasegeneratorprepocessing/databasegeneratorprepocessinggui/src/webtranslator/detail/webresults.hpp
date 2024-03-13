@@ -3,16 +3,13 @@
 
 #include <string>
 
-namespace onsem
-{
+namespace onsem {
 class LingdbTree;
-
 
 void process_webresults(const LingdbTree& pLingDbTree,
                         const std::string& pTmpFolder,
-                        const std::string &pShareDbFolder);
+                        const std::string& pShareDbFolder);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // WEBTRANSLATOR_WEBRESULTS_H
+#endif    // WEBTRANSLATOR_WEBRESULTS_H

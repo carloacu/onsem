@@ -11,179 +11,145 @@
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include "../tool/chunkshandler.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
-
-std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillDurationStruct
-(const ToGenRepContext& pContext) const
-{
-  switch (pContext.chunk.type)
-  {
-  case ChunkType::NOMINAL_CHUNK:
-  case ChunkType::PREPOSITIONAL_CHUNK:
-  {
-    const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
-    if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_"))
-    {
-      mystd::unique_propagate_const<UniqueSemanticExpression> res;
-      for (auto& currTimeUnity : semanticTimeUnities)
-      {
-        if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity)))
-        {
-          SemanticFloat number;
-          if (getNumberBeforeHead(number, pContext.chunk))
-          {
-            auto newDuration = std::make_unique<SemanticDurationGrounding>();
-            newDuration->duration.sign = Sign::POSITIVE;
-            newDuration->duration.timeInfos[currTimeUnity] = number;
-            return std::make_unique<GroundedExpression>(std::move(newDuration));
-          }
-          if (pContext.posFromParent != PartOfSpeech::DETERMINER && pContext.chunk.children.empty())
-          {
-            bool haveDeterminerBeforeHead = false;
-            for (TokIt itToken = getPrevToken(pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
-                 itToken != pContext.chunk.head;
-                 itToken = getPrevToken(itToken, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head))
-            {
-              const InflectedWord& inflWord = itToken->inflWords.front();
-              if (inflWord.word.partOfSpeech == PartOfSpeech::DETERMINER)
-              {
-                haveDeterminerBeforeHead = true;
-                break;
-              }
-              if (inflWord.word.partOfSpeech == PartOfSpeech::PARTITIVE &&
-                  ConceptSet::haveAConcept(inflWord.infos.concepts, "reference_definite"))
-              {
-                haveDeterminerBeforeHead = true;
-                break;
-              }
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillDurationStruct(
+    const ToGenRepContext& pContext) const {
+    switch (pContext.chunk.type) {
+        case ChunkType::NOMINAL_CHUNK:
+        case ChunkType::PREPOSITIONAL_CHUNK: {
+            const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
+            if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_")) {
+                mystd::unique_propagate_const<UniqueSemanticExpression> res;
+                for (auto& currTimeUnity : semanticTimeUnities) {
+                    if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity))) {
+                        SemanticFloat number;
+                        if (getNumberBeforeHead(number, pContext.chunk)) {
+                            auto newDuration = std::make_unique<SemanticDurationGrounding>();
+                            newDuration->duration.sign = Sign::POSITIVE;
+                            newDuration->duration.timeInfos[currTimeUnity] = number;
+                            return std::make_unique<GroundedExpression>(std::move(newDuration));
+                        }
+                        if (pContext.posFromParent != PartOfSpeech::DETERMINER && pContext.chunk.children.empty()) {
+                            bool haveDeterminerBeforeHead = false;
+                            for (TokIt itToken = getPrevToken(
+                                     pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
+                                 itToken != pContext.chunk.head;
+                                 itToken =
+                                     getPrevToken(itToken, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head)) {
+                                const InflectedWord& inflWord = itToken->inflWords.front();
+                                if (inflWord.word.partOfSpeech == PartOfSpeech::DETERMINER) {
+                                    haveDeterminerBeforeHead = true;
+                                    break;
+                                }
+                                if (inflWord.word.partOfSpeech == PartOfSpeech::PARTITIVE
+                                    && ConceptSet::haveAConcept(inflWord.infos.concepts, "reference_definite")) {
+                                    haveDeterminerBeforeHead = true;
+                                    break;
+                                }
+                            }
+                            if (!haveDeterminerBeforeHead)
+                                return std::make_unique<GroundedExpression>(
+                                    std::make_unique<SemanticUnityGrounding>(currTimeUnity));
+                        }
+                    }
+                }
             }
-            if (!haveDeterminerBeforeHead)
-              return std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currTimeUnity));
-          }
+            break;
         }
-      }
+        default: {
+            break;
+        }
     }
-    break;
-  }
-  default:
-  {
-    break;
-  }
-  }
-  return {};
+    return {};
 }
 
-
-std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillInterval
-(const ToGenRepContext& pContext) const
-{
-  switch (pContext.chunk.type)
-  {
-  case ChunkType::NOMINAL_CHUNK:
-  case ChunkType::PREPOSITIONAL_CHUNK:
-  {
-    const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
-    if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_"))
-    {
-      mystd::unique_propagate_const<UniqueSemanticExpression> res;
-      for (auto& currTimeUnity : semanticTimeUnities)
-      {
-        if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity)))
-        {
-          SemanticFloat number;
-          if (!getNumberBeforeHead(number, pContext.chunk))
-            number.set(1);
-          auto newDuration = std::make_unique<SemanticDurationGrounding>();
-          newDuration->duration.sign = Sign::POSITIVE;
-          newDuration->duration.timeInfos[currTimeUnity] = number;
-          return std::make_unique<GroundedExpression>(std::move(newDuration));
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillInterval(const ToGenRepContext& pContext) const {
+    switch (pContext.chunk.type) {
+        case ChunkType::NOMINAL_CHUNK:
+        case ChunkType::PREPOSITIONAL_CHUNK: {
+            const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
+            if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "duration_")) {
+                mystd::unique_propagate_const<UniqueSemanticExpression> res;
+                for (auto& currTimeUnity : semanticTimeUnities) {
+                    if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticTimeUnity_toConcept(currTimeUnity))) {
+                        SemanticFloat number;
+                        if (!getNumberBeforeHead(number, pContext.chunk))
+                            number.set(1);
+                        auto newDuration = std::make_unique<SemanticDurationGrounding>();
+                        newDuration->duration.sign = Sign::POSITIVE;
+                        newDuration->duration.timeInfos[currTimeUnity] = number;
+                        return std::make_unique<GroundedExpression>(std::move(newDuration));
+                    }
+                }
+            }
+            break;
         }
-      }
+        default: {
+            break;
+        }
     }
-    break;
-  }
-  default:
-  {
-    break;
-  }
-  }
-  return {};
+    return {};
 }
 
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct(const ToGenRepContext& pContext) const {
+    switch (pContext.chunk.type) {
+        case ChunkType::NOMINAL_CHUNK:
+        case ChunkType::PREPOSITIONAL_CHUNK: {
+            auto dateOpt = extractDate(pContext.chunk.head, pContext.chunk.tokRange);
+            if (dateOpt) {
+                auto newTime = std::make_unique<SemanticTimeGrounding>();
+                newTime->date = std::move(*dateOpt);
+                return std::make_unique<GroundedExpression>(std::move(newTime));
+            }
 
+            const InflectedWord& headInflWord = pContext.chunk.head->inflWords.front();
+            if (pContext.grammTypeFromParent == GrammaticalType::TIME
+                && ConceptSet::haveAConceptThatBeginWith(headInflWord.infos.concepts, "number_")) {
+                SemanticFloat year;
+                if (getNumberHoldByTheInflWord(
+                        year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_")
+                    && year.isPositive() && year.isAnInteger() && hasNotMoreThanANumberOfDigits(year.value, 4)) {
+                    auto newTime = std::make_unique<SemanticTimeGrounding>();
+                    newTime->date.year.emplace(year.value);
+                    return std::make_unique<GroundedExpression>(std::move(newTime));
+                }
+            }
 
-std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillTimeStruct
-(const ToGenRepContext& pContext) const
-{
-  switch (pContext.chunk.type)
-  {
-  case ChunkType::NOMINAL_CHUNK:
-  case ChunkType::PREPOSITIONAL_CHUNK:
-  {
-    auto dateOpt = extractDate(pContext.chunk.head, pContext.chunk.tokRange);
-    if (dateOpt)
-    {
-      auto newTime = std::make_unique<SemanticTimeGrounding>();
-      newTime->date = std::move(*dateOpt);
-      return std::make_unique<GroundedExpression>(std::move(newTime));
-    }
+            const InflectedWord& firstWordInflWord = pContext.chunk.tokRange.getItBegin()->inflWords.front();
+            if (ConceptSet::haveAConceptThatBeginWith(firstWordInflWord.infos.concepts, "quantity_")) {
+                std::map<std::string, char> timeConcepts;
+                ConceptSet::extractConceptsThatBeginWith(timeConcepts, headInflWord.infos.concepts, "time_weekday_");
+                if (!timeConcepts.empty()) {
+                    auto newTime = std::make_unique<SemanticTimeGrounding>();
+                    newTime->fromConcepts = std::move(timeConcepts);
+                    {
+                        const Chunk* timeChildPtr = getChildChunkPtr(pContext.chunk, ChunkLinkType::TIME);
+                        if (timeChildPtr != nullptr) {
+                            auto hourGrdPtr = xFillHourTimeStruct(*timeChildPtr);
+                            if (hourGrdPtr)
+                                newTime->mergeWith(*hourGrdPtr);
+                        }
+                    }
+                    auto timeGrdExp = std::make_unique<GroundedExpression>(std::move(newTime));
 
-    const InflectedWord& headInflWord = pContext.chunk.head->inflWords.front();
-    if (pContext.grammTypeFromParent == GrammaticalType::TIME &&
-        ConceptSet::haveAConceptThatBeginWith(headInflWord.infos.concepts, "number_"))
-    {
-      SemanticFloat year;
-      if (getNumberHoldByTheInflWord(year, pContext.chunk.tokRange.getItBegin(), pContext.chunk.tokRange.getItEnd(), "number_") &&
-          year.isPositive() && year.isAnInteger() &&
-          hasNotMoreThanANumberOfDigits(year.value, 4))
-      {
-        auto newTime = std::make_unique<SemanticTimeGrounding>();
-        newTime->date.year.emplace(year.value);
-        return std::make_unique<GroundedExpression>(std::move(newTime));
-      }
-    }
-
-    const InflectedWord& firstWordInflWord = pContext.chunk.tokRange.getItBegin()->inflWords.front();
-    if (ConceptSet::haveAConceptThatBeginWith(firstWordInflWord.infos.concepts, "quantity_"))
-    {
-      std::map<std::string, char> timeConcepts;
-      ConceptSet::extractConceptsThatBeginWith(timeConcepts, headInflWord.infos.concepts, "time_weekday_");
-      if (!timeConcepts.empty())
-      {
-        auto newTime = std::make_unique<SemanticTimeGrounding>();
-        newTime->fromConcepts = std::move(timeConcepts);
-        {
-          const Chunk* timeChildPtr = getChildChunkPtr(pContext.chunk, ChunkLinkType::TIME);
-          if (timeChildPtr != nullptr)
-          {
-            auto hourGrdPtr = xFillHourTimeStruct(*timeChildPtr);
-            if (hourGrdPtr)
-              newTime->mergeWith(*hourGrdPtr);
-          }
+                    auto newInterval = std::make_unique<SemanticDurationGrounding>();
+                    newInterval->duration.sign = Sign::POSITIVE;
+                    newInterval->duration.timeInfos[SemanticTimeUnity::DAY] = 7;
+                    timeGrdExp->children.emplace(GrammaticalType::INTERVAL,
+                                                 std::make_unique<GroundedExpression>(std::move(newInterval)));
+                    return timeGrdExp;
+                }
+            }
+            break;
         }
-        auto timeGrdExp = std::make_unique<GroundedExpression>(std::move(newTime));
-
-        auto newInterval = std::make_unique<SemanticDurationGrounding>();
-        newInterval->duration.sign = Sign::POSITIVE;
-        newInterval->duration.timeInfos[SemanticTimeUnity::DAY] = 7;
-        timeGrdExp->children.emplace(GrammaticalType::INTERVAL, std::make_unique<GroundedExpression>(std::move(newInterval)));
-        return timeGrdExp;
-      }
+        default: {
+            break;
+        }
     }
-    break;
-  }
-  default:
-  {
-    break;
-  }
-  }
-  return {};
+    return {};
 }
 
-
-} // End of namespace linguistics
-} // End of namespace onsem
+}    // End of namespace linguistics
+}    // End of namespace onsem

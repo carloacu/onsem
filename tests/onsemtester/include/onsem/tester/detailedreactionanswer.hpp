@@ -6,20 +6,17 @@
 #include <onsem/common/enum/contextualannotation.hpp>
 #include "api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-struct ONSEMTESTER_API DetailedReactionAnswer
-{
-  std::string answer{};
-  ContextualAnnotation reactionType{ContextualAnnotation::ANSWERNOTFOUND};
-  std::list<std::string> references{};
+struct ONSEMTESTER_API DetailedReactionAnswer {
+    std::string answer{};
+    ContextualAnnotation reactionType{ContextualAnnotation::ANSWERNOTFOUND};
+    std::list<std::string> references{};
 
-  std::string toStr() const;
-  std::string referencesToStr() const;
+    std::string toStr() const;
+    std::string referencesToStr() const;
 };
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_TESTER_DETAILEDREACTIONANSWER_HPP
+#endif    // ONSEM_TESTER_DETAILEDREACTIONANSWER_HPP

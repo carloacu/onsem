@@ -4,21 +4,17 @@
 #include <cstddef>
 #include <iterator>
 
-namespace onsem
-{
+namespace onsem {
 
 template<typename CONTAINER_TYPE>
-void keepOnlyTheFirstElements(CONTAINER_TYPE& pContainer,
-                              std::size_t pMaxSize)
-{
-  if (pContainer.size() > pMaxSize)
-  {
-    auto itLastAnswer = pContainer.begin();
-    std::advance(itLastAnswer, pMaxSize);
-    pContainer.erase(itLastAnswer, pContainer.end());
-  }
+void keepOnlyTheFirstElements(CONTAINER_TYPE& pContainer, std::size_t pMaxSize) {
+    if (pContainer.size() > pMaxSize) {
+        auto itLastAnswer = pContainer.begin();
+        std::advance(itLastAnswer, pMaxSize);
+        pContainer.erase(itLastAnswer, pContainer.end());
+    }
 }
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // ONSEM_COMMON_UTILITY_CONTAINER_HPP
+#endif    // ONSEM_COMMON_UTILITY_CONTAINER_HPP

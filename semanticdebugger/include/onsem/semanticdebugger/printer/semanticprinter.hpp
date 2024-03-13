@@ -5,16 +5,12 @@
 #include "../api.hpp"
 #include <onsem/common/enum/semanticsourceenum.hpp>
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticExpression;
 struct SemanticAgentGrounding;
 class ConceptSet;
 
-
-namespace SemanticPrinter
-{
-
+namespace SemanticPrinter {
 
 ONSEMSEMANTICDEBUGGER_API
 void printSentiments(std::string& pRes,
@@ -24,11 +20,8 @@ void printSentiments(std::string& pRes,
                      std::unique_ptr<SemanticAgentGrounding> pAuthorPtr,
                      SemanticSourceEnum pFrom = SemanticSourceEnum::UNKNOWN);
 
+}    // End of namespace SemanticPrinter
 
+}    // End of namespace onsem
 
-} // End of namespace SemanticPrinter
-
-
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTCDEBUGGER_PRINTER_SEMANTICPRINTER_HPP
+#endif    // ONSEM_SEMANTCDEBUGGER_PRINTER_SEMANTICPRINTER_HPP

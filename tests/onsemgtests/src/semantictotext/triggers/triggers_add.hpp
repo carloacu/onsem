@@ -5,15 +5,12 @@
 #include <list>
 #include <onsem/common/enum/semanticlanguageenum.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct SemanticMemory;
 struct UniqueSemanticExpression;
-
 
 void triggers_addFromSemExps(UniqueSemanticExpression& pTriggerSemExp,
                              UniqueSemanticExpression pAnswerSemExp,
@@ -28,18 +25,17 @@ void triggers_add(const std::string& pTriggerText,
                   const std::list<std::string>& pReferences = std::list<std::string>(),
                   SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
-void triggers_addToSemExpAnswer(
-    const std::string& pTriggerText,
-    UniqueSemanticExpression pAnswerSemExp,
-    SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
+void triggers_addToSemExpAnswer(const std::string& pTriggerText,
+                                UniqueSemanticExpression pAnswerSemExp,
+                                SemanticMemory& pSemanticMemory,
+                                const linguistics::LinguisticDatabase& pLingDb,
+                                SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
 void triggers_addAnswerWithOneParameter(const std::string& pTriggerText,
-    const std::vector<std::string>& pParameterQuestions,
-    SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
+                                        const std::vector<std::string>& pParameterQuestions,
+                                        SemanticMemory& pSemanticMemory,
+                                        const linguistics::LinguisticDatabase& pLingDb,
+                                        SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
 void triggers_addAnswerWithManyParameters(
     const std::string& pTriggerText,
@@ -48,8 +44,6 @@ void triggers_addAnswerWithManyParameters(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEMGTESTS_SEMANTICTOTEXT_TRIGGERS_TRIGGERS_ADD_HPP
+#endif    // ONSEMGTESTS_SEMANTICTOTEXT_TRIGGERS_TRIGGERS_ADD_HPP

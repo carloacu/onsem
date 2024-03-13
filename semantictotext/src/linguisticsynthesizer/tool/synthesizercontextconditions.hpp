@@ -5,18 +5,14 @@
 #include <onsem/common/utility/uppercasehandler.hpp>
 #include "../synthesizertypes.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-inline bool isBeVerb(const OutSentence* pSentencePtr)
-{
-  return pSentencePtr != nullptr &&
-      ((!pSentencePtr->verb.out.empty() &&
-        pSentencePtr->verb.out.front().word.lemma == "être") ||
-       (!pSentencePtr->aux.out.empty() &&
-        pSentencePtr->aux.out.front().word.lemma == "être"));
+inline bool isBeVerb(const OutSentence* pSentencePtr) {
+    return pSentencePtr != nullptr
+        && ((!pSentencePtr->verb.out.empty() && pSentencePtr->verb.out.front().word.lemma == "être")
+            || (!pSentencePtr->aux.out.empty() && pSentencePtr->aux.out.front().word.lemma == "être"));
 }
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // ONSEM_SEMANTICTOTEXT_LINGUISTICSYNTHESIZER_TOOL_SYNTHESIZERCONTEXTCONDITIONS_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_LINGUISTICSYNTHESIZER_TOOL_SYNTHESIZERCONTEXTCONDITIONS_HPP

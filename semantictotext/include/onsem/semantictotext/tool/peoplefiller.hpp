@@ -4,25 +4,21 @@
 #include <istream>
 #include <onsem/common/enum/semanticlanguageenum.hpp>
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemoryBlock;
-namespace linguistics
-{
+namespace linguistics {
 struct LinguisticDatabase;
 }
 
-namespace peopleFiller
-{
+namespace peopleFiller {
 
 void addPeople(SemanticMemoryBlock& pMemoryBlock,
                std::istream& pInputStream,
                SemanticLanguageEnum pLanguage,
                const linguistics::LinguisticDatabase& pLingDb);
 
-} // End of namespace peopleFiller
+}    // End of namespace peopleFiller
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-
-#endif // ONSEM_SEMANTICTOTEXT_TOOL_PEOPLEFILLER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_TOOL_PEOPLEFILLER_HPP

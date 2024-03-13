@@ -10,10 +10,8 @@
 #include <onsem/texttosemantic/dbtype/misc/conditionspecification.hpp>
 #include "../type/semanticdetailledanswer.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct InterpretationExpression;
@@ -25,11 +23,9 @@ struct SemanticAgentGrounding;
 struct UniqueSemanticExpression;
 struct SemanticMemory;
 
-namespace SemExpCreator
-{
+namespace SemExpCreator {
 
-std::unique_ptr<ListExpression> mergeInAList(UniqueSemanticExpression pSemExp1,
-                                             UniqueSemanticExpression pSemExp2);
+std::unique_ptr<ListExpression> mergeInAList(UniqueSemanticExpression pSemExp1, UniqueSemanticExpression pSemExp2);
 
 std::unique_ptr<GroundedExpression> copyAndReformateGrdExpToPutItInAnAnswer(const GroundedExpression& pGrdExp);
 
@@ -45,11 +41,10 @@ std::unique_ptr<GroundedExpression> sayAndThenToContinue();
 
 std::unique_ptr<GroundedExpression> itIsFinished();
 
-UniqueSemanticExpression formulateConditionToAction(
-    const GroundedExpression& pCondition,
-    const SemanticExpression& pStuffToDo,
-    const SemanticExpression* pStuffToDoOtherwisePtr,
-    bool pSemExpToDoIsAlwaysActive);
+UniqueSemanticExpression formulateConditionToAction(const GroundedExpression& pCondition,
+                                                    const SemanticExpression& pStuffToDo,
+                                                    const SemanticExpression* pStuffToDoOtherwisePtr,
+                                                    bool pSemExpToDoIsAlwaysActive);
 
 UniqueSemanticExpression saySemxExp1IsSemExp2(UniqueSemanticExpression pSemExpSubject,
                                               UniqueSemanticExpression pSemExpObject);
@@ -77,23 +72,17 @@ UniqueSemanticExpression askWhoIs(const SemanticExpression& pSubjectSemExp);
 UniqueSemanticExpression askIfTrue(const GroundedExpression& pOriginalGrdExp,
                                    const linguistics::LinguisticDatabase& pLingDb);
 
-UniqueSemanticExpression askDoYouWantMeToDoItNow(
-    const SemanticAgentGrounding& pSubjectGrounding,
-    const GroundedExpression& pActionGrdExp);
+UniqueSemanticExpression askDoYouWantMeToDoItNow(const SemanticAgentGrounding& pSubjectGrounding,
+                                                 const GroundedExpression& pActionGrdExp);
 
-UniqueSemanticExpression iWantThatYou(
-    const std::string& pSubjectId,
-    UniqueSemanticExpression pObject);
+UniqueSemanticExpression iWantThatYou(const std::string& pSubjectId, UniqueSemanticExpression pObject);
 
 UniqueSemanticExpression sayYesOrNo(bool pAnswerPolarity);
 
-UniqueSemanticExpression formulateAge(
-    UniqueSemanticExpression&& pSubject,
-    std::unique_ptr<SemanticExpression> pAgeSemExp);
+UniqueSemanticExpression formulateAge(UniqueSemanticExpression&& pSubject,
+                                      std::unique_ptr<SemanticExpression> pAgeSemExp);
 
-UniqueSemanticExpression sayThatTheAssertionIsTrueOrFalse(
-    const GroundedExpression& pGrdExp,
-    bool pTrueOrFalse);
+UniqueSemanticExpression sayThatTheAssertionIsTrueOrFalse(const GroundedExpression& pGrdExp, bool pTrueOrFalse);
 
 std::unique_ptr<GroundedExpression> sayICan(bool pPolarity);
 UniqueSemanticExpression askDoYouWantToKnowHow(const SemanticAgentGrounding& pSubjectGrounding,
@@ -105,35 +94,28 @@ UniqueSemanticExpression askDoYouWantToKnowHow(const SemanticAgentGrounding& pSu
  * @return a UniqueSemanticExpression
  */
 UniqueSemanticExpression askWhatIsYourName(const std::string& pSubjectId);
-void addButYouCanTeachMe(GroundedExpression& pRootGrdExp,
-                         const SemanticAgentGrounding& pSubjectGrounding);
+void addButYouCanTeachMe(GroundedExpression& pRootGrdExp, const SemanticAgentGrounding& pSubjectGrounding);
 UniqueSemanticExpression sayIThoughtThat(UniqueSemanticExpression pObjectSemExp);
 UniqueSemanticExpression sayThatWeThoughtTheContrary();
 
-UniqueSemanticExpression formulateWeekDay(
-    const std::string& pWeekDayConcept);
+UniqueSemanticExpression formulateWeekDay(const std::string& pWeekDayConcept);
 
 UniqueSemanticExpression okIRemoveAllConditions();
 
-UniqueSemanticExpression formulateHowWeKnowSomething(
-    const SemanticExpression& pWhatWeKnow,
-    const SemanticExpression& pHowWeKnowThat);
+UniqueSemanticExpression formulateHowWeKnowSomething(const SemanticExpression& pWhatWeKnow,
+                                                     const SemanticExpression& pHowWeKnowThat);
 
-UniqueSemanticExpression forExampleSayToDoMeansToSayIDo(
-    const SemanticAgentGrounding& pAuthor,
-    const GroundedExpression& pActionGrdExp);
+UniqueSemanticExpression forExampleSayToDoMeansToSayIDo(const SemanticAgentGrounding& pAuthor,
+                                                        const GroundedExpression& pActionGrdExp);
 
-std::unique_ptr<SemanticExpression> getSemExpThatSomebodyToldMeThat(
-    const SemanticAgentGrounding& pAuthor);
+std::unique_ptr<SemanticExpression> getSemExpThatSomebodyToldMeThat(const SemanticAgentGrounding& pAuthor);
 
-std::unique_ptr<SemanticExpression> getSemExpOfEventValue(
-    const std::string& pEventName,
-    const std::string& pEventValue);
+std::unique_ptr<SemanticExpression> getSemExpOfEventValue(const std::string& pEventName,
+                                                          const std::string& pEventValue);
 
 std::unique_ptr<SemanticExpression> sayThatOpNotifyInformedMeThat();
 
-UniqueSemanticExpression sayThanksThatsCool(
-    const SemanticAgentGrounding& pSubjectGrounding);
+UniqueSemanticExpression sayThanksThatsCool(const SemanticAgentGrounding& pSubjectGrounding);
 
 UniqueSemanticExpression sayIAmHappyToHearThat();
 
@@ -150,41 +132,33 @@ UniqueSemanticExpression niceYouLikeIt(UniqueSemanticExpression pNiceSemExp,
 
 UniqueSemanticExpression sorryIWillTryToImproveMyself();
 
-UniqueSemanticExpression getWhoIsSomebodyQuestion(
-    const GroundedExpression& pPersonToAsk);
+UniqueSemanticExpression getWhoIsSomebodyQuestion(const GroundedExpression& pPersonToAsk);
 
 std::unique_ptr<GroundedExpression> generateNumber(int pNumber);
 
-UniqueSemanticExpression generateNumberOfTimesAnswer(
-    const GroundedExpression& pGrdExpQuestion,
-    std::size_t pNbOfTimes);
+UniqueSemanticExpression generateNumberOfTimesAnswer(const GroundedExpression& pGrdExpQuestion, std::size_t pNbOfTimes);
 
-mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
-                                                                       std::list<std::string>& pReferences,
-                                                                       const GroundedExpression& pGrdExpQuestion,
-                                                                       const SemanticRequests& pRequests,
-                                                                       const SemanticMemoryBlock& pMemBlock,
-                                                                       const linguistics::LinguisticDatabase& pLingDb);
+mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
+    std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
+    std::list<std::string>& pReferences,
+    const GroundedExpression& pGrdExpQuestion,
+    const SemanticRequests& pRequests,
+    const SemanticMemoryBlock& pMemBlock,
+    const linguistics::LinguisticDatabase& pLingDb);
 
 UniqueSemanticExpression sayThatWeDontKnowTheAnswer(const SemanticExpression& pSemExp);
 UniqueSemanticExpression sayThatWeDontKnowAnInstanceOf(const SemanticExpression& pSemExp);
 
-UniqueSemanticExpression sayThatTheRobotCannotDoIt(
-    const SemanticExpression& pSemExp);
+UniqueSemanticExpression sayThatTheRobotCannotDoIt(const SemanticExpression& pSemExp);
 
-UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(
-    const GroundedExpression& pGrdExp);
+UniqueSemanticExpression sayThatTheRobotIsNotAbleToDoIt(const GroundedExpression& pGrdExp);
 
-std::unique_ptr<GroundedExpression> doYouWantMeToSayToTellYouHowTo(
-    const SemanticAgentGrounding& pSubjectGrounding,
-    const GroundedExpression& pGrdExp);
+std::unique_ptr<GroundedExpression> doYouWantMeToSayToTellYouHowTo(const SemanticAgentGrounding& pSubjectGrounding,
+                                                                   const GroundedExpression& pGrdExp);
 
-UniqueSemanticExpression askForPrecision(
-    const GroundedExpression& pGrdExp,
-    SemanticRequestType pRequestType);
+UniqueSemanticExpression askForPrecision(const GroundedExpression& pGrdExp, SemanticRequestType pRequestType);
 
-UniqueSemanticExpression sayWeWillDoIt_fromGrdExp(
-    const GroundedExpression& pGrdExp);
+UniqueSemanticExpression sayWeWillDoIt_fromGrdExp(const GroundedExpression& pGrdExp);
 
 UniqueSemanticExpression sayWeWillDoIt(const ConditionSpecification& pCondSpec);
 
@@ -194,8 +168,7 @@ UniqueSemanticExpression sayOk();
 UniqueSemanticExpression sayTrue();
 UniqueSemanticExpression sayFalse();
 
-UniqueSemanticExpression confirmInformation(
-    const GroundedExpression& pGrdExp);
+UniqueSemanticExpression confirmInformation(const GroundedExpression& pGrdExp);
 
 UniqueSemanticExpression wrapWithStatementWithRequest(UniqueSemanticExpression pUSemExp,
                                                       const SemanticRequests& pRequests);
@@ -204,8 +177,7 @@ UniqueSemanticExpression confirmInfoCondition(const ConditionSpecification& pCon
 
 UniqueSemanticExpression generateYesOrNo(bool pSamePolarity);
 
-UniqueSemanticExpression generateYesOrNoAnswer(UniqueSemanticExpression pSemExp,
-                                               bool pSamePolarity);
+UniqueSemanticExpression generateYesOrNoAnswer(UniqueSemanticExpression pSemExp, bool pSamePolarity);
 
 UniqueSemanticExpression generateYesOrNoAnswerFromQuestion(
     const GroundedExpression& pGrdExpQuestion,
@@ -217,13 +189,11 @@ UniqueSemanticExpression generateYesOrNoAnswerFromMemory(
     bool pSamePolarity,
     const std::map<GrammaticalType, const SemanticExpression*>& pAnnotationsOfTheAnswer);
 
-void replaceSemExpOrAddInterpretation(
-    InterpretationSource pSource,
-    UniqueSemanticExpression& pSemExp,
-    UniqueSemanticExpression pInterpretedExp);
+void replaceSemExpOrAddInterpretation(InterpretationSource pSource,
+                                      UniqueSemanticExpression& pSemExp,
+                                      UniqueSemanticExpression pInterpretedExp);
 
-} // End of namespace SemExpCreator
-} // End of namespace onsem
+}    // End of namespace SemExpCreator
+}    // End of namespace onsem
 
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_UTILITY_SEMEXPCREATOR_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_UTILITY_SEMEXPCREATOR_HPP

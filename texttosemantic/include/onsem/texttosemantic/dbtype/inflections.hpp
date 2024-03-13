@@ -6,4 +6,4 @@
 #include <onsem/texttosemantic/dbtype/inflection/pronominalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/inflection/verbalinflections.hpp>
 
-#endif // ONSEM_TEXTTOSEMANTIC_TYPE_INFLECTIONS_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPE_INFLECTIONS_HPP

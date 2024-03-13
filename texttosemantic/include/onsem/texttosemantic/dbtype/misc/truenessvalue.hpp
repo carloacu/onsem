@@ -1,20 +1,10 @@
 #ifndef ONSEM_TEXTTOSEMANTIC_TYPES_MISC_TRUENESSVALUE_H
 #define ONSEM_TEXTTOSEMANTIC_TYPES_MISC_TRUENESSVALUE_H
 
+namespace onsem {
 
-namespace onsem
-{
+enum class TruenessValue { VAL_TRUE, VAL_FALSE, UNKNOWN };
 
+}    // End of namespace onsem
 
-enum class TruenessValue
-{
-  VAL_TRUE,
-  VAL_FALSE,
-  UNKNOWN
-};
-
-
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPES_MISC_TRUENESSVALUE_H
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPES_MISC_TRUENESSVALUE_H

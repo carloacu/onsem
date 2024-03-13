@@ -7,14 +7,11 @@
 #include <fstream>
 #include "api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemory;
-namespace linguistics
-{
+namespace linguistics {
 struct LinguisticDatabase;
 }
-
 
 ONSEMSEMANTICDEBUGGER_API
 void loadDbPediaMemory(std::size_t& pNbOfInforms,
@@ -25,6 +22,6 @@ void loadDbPediaMemory(std::size_t& pNbOfInforms,
                        std::unique_ptr<std::ofstream>& pTextReplacedFilePtr,
                        bool pAddReferences);
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // ONSEM_SEMANTICDEBUGGER_LOADDBPEDIATXTMEMORY_HPP
+#endif    // ONSEM_SEMANTICDEBUGGER_LOADDBPEDIATXTMEMORY_HPP

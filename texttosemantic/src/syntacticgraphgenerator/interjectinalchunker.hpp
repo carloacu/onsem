@@ -4,25 +4,20 @@
 #include <list>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
-
-class InterjectionalChunker
-{
+class InterjectionalChunker {
 public:
-  explicit InterjectionalChunker(const AlgorithmSetForALanguage& pConfiguration);
+    explicit InterjectionalChunker(const AlgorithmSetForALanguage& pConfiguration);
 
-  void process(std::list<ChunkLink>& pFirstChildren) const;
+    void process(std::list<ChunkLink>& pFirstChildren) const;
 
 private:
     const AlgorithmSetForALanguage& fConf;
 };
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_INTERJECTIONALCHUNKER_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_INTERJECTIONALCHUNKER_HPP

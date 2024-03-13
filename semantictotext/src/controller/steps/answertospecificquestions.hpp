@@ -5,29 +5,23 @@
 #include <onsem/common/enum/semanticrequesttype.hpp>
 #include "type/semcontrollerworkingstruct.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemoryBlockViewer;
 struct GroundedExpression;
 
-namespace answerToSpecificQuestions
-{
+namespace answerToSpecificQuestions {
 
-bool handleNameQuestion(const GroundedExpression& pGrdExp,
-                        SemanticRequestType pRequestType,
-                        const std::function<bool(const std::string&,
-                                                 UniqueSemanticExpression,
-                                                 const std::string&)>& pAnswerNameQuestion);
+bool handleNameQuestion(
+    const GroundedExpression& pGrdExp,
+    SemanticRequestType pRequestType,
+    const std::function<bool(const std::string&, UniqueSemanticExpression, const std::string&)>& pAnswerNameQuestion);
 
 bool process(SemControllerWorkingStruct& pWorkStruct,
              SemanticMemoryBlockViewer& pMemViewer,
              const GroundedExpression& pGrdExp,
              SemanticRequestType pRequestType);
 
+}    // End of namespace answerToSpecificQuestions
+}    // End of namespace onsem
 
-} // End of namespace answerToSpecificQuestions
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_ANSWERTOSPECIFICQUESTIONS_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_ANSWERTOSPECIFICQUESTIONS_HPP

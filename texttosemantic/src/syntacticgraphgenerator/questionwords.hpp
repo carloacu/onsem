@@ -4,18 +4,14 @@
 #include <list>
 #include <onsem/common/enum/semanticrequesttype.hpp>
 
-
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct ChunkLinkWorkingZone;
 struct SpecificLinguisticDatabase;
 struct Chunk;
 struct ChunkLink;
 
-namespace questionWords
-{
+namespace questionWords {
 
 void extractQuestionWordsInsideAVerbGroup(std::list<ChunkLink>& pSyntTree,
                                           std::list<ChunkLink>::iterator pVerbChunkLink,
@@ -26,10 +22,8 @@ void addQuestionWords(ChunkLinkWorkingZone& pWorkingZone,
                       Chunk* pSecondVerbChunk,
                       const SpecificLinguisticDatabase& pSpecLingDb);
 
+}    // End of namespace questionWords
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-
-} // End of namespace questionWords
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_QUESTIONWORDS_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_QUESTIONWORDS_HPP

@@ -6,13 +6,11 @@
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
 #include "../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct GroundedExpression;
 struct SemanticExpression;
 
-namespace semExpAgreementDetector
-{
+namespace semExpAgreementDetector {
 
 ONSEMSEMANTICTOTEXT_API
 TruenessValue semExpToAgreementValue(const SemanticExpression& pSemExp);
@@ -20,10 +18,7 @@ TruenessValue semExpToAgreementValue(const SemanticExpression& pSemExp);
 ONSEMSEMANTICTOTEXT_API
 TruenessValue getAgreementValue(const GroundedExpression& pGrdExp);
 
+}    // End of namespace semExpAgreementDetector
+}    // End of namespace onsem
 
-} // End of namespace semExpAgreementDetector
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_SEMANTICTOTEXT_TOOL_SEMEXPAGREEMENTDETECTOR_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_TOOL_SEMEXPAGREEMENTDETECTOR_HPP

@@ -3,12 +3,10 @@
 
 #include <cstdint>
 
-namespace onsem
-{
+namespace onsem {
 
 static const int32_t LinguisticMeaning_noMeaningId = 0;
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_COMMON_LINGUISTICMEANING_NOMEANINGID_HPP
+#endif    // ONSEM_COMMON_LINGUISTICMEANING_NOMEANINGID_HPP

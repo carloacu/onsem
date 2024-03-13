@@ -4,14 +4,13 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 #include "type/semcontrollerworkingstruct.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemoryBlockViewer;
 
 /**
- * @brief manageChoice Manage a question that represent a choice according to the current operator (get, answer, react, ...)
- * Get will list all the elements that are true according to the memory
- * Answer and react will produce an answer ready to be said like: "Neither, ..."
+ * @brief manageChoice Manage a question that represent a choice according to the current operator (get, answer, react,
+ * ...) Get will list all the elements that are true according to the memory Answer and react will produce an answer
+ * ready to be said like: "Neither, ..."
  * @param pWorkStruct The object that gather the work context (linguistic database, meomory object, operator, ...)
  * @param pGrdExp The grounded expression of the choice question.
  * @param pGramTypeOfTheChoice Grammatical type that refer to the child that enumerate the choice of the question.
@@ -24,12 +23,6 @@ bool manageChoice(SemControllerWorkingStruct& pWorkStruct,
                   GrammaticalType pGramTypeOfTheChoice,
                   const ListExpression& pChoiceListExp);
 
+}    // End of namespace onsem
 
-
-
-
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_MANAGECHOICE_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_MANAGECHOICE_HPP

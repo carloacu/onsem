@@ -3,47 +3,32 @@
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
 #include "sentimentspecprinter.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
-
-namespace SemanticPrinter
-{
-
+namespace SemanticPrinter {
 
 void printSentiments(std::string& pRes,
                      const SemanticExpression& pSemExp,
                      const std::string& pCurrentUserId,
                      const ConceptSet& pConceptSet,
                      std::unique_ptr<SemanticAgentGrounding> pAuthorPtr,
-                     SemanticSourceEnum pFrom)
-{
-  if (pAuthorPtr)
-  {
-    std::list<std::unique_ptr<SentimentContext>> sentContext;
-    sentimentDetector::semExpToSentimentInfos(sentContext, pSemExp,
-                                              *pAuthorPtr, pConceptSet);
+                     SemanticSourceEnum pFrom) {
+    if (pAuthorPtr) {
+        std::list<std::unique_ptr<SentimentContext>> sentContext;
+        sentimentDetector::semExpToSentimentInfos(sentContext, pSemExp, *pAuthorPtr, pConceptSet);
 
-    if (!sentContext.empty())
-    {
-      std::stringstream ss;
-      for (const auto& currSentContext : sentContext)
-      {
-        SentimentSpecPrinter::printSentimentContext
-            (ss, *currSentContext,
-             semanticSourceEnum_toStr(pFrom),
-             pCurrentUserId);
-        ss << "\n";
-      }
-      pRes = ss.str();
+        if (!sentContext.empty()) {
+            std::stringstream ss;
+            for (const auto& currSentContext : sentContext) {
+                SentimentSpecPrinter::printSentimentContext(
+                    ss, *currSentContext, semanticSourceEnum_toStr(pFrom), pCurrentUserId);
+                ss << "\n";
+            }
+            pRes = ss.str();
+        }
     }
-  }
 }
 
+}    // End of namespace SemanticPrinter
 
-
-} // End of namespace SemanticPrinter
-
-
-
-} // End of namespace onsem
+}    // End of namespace onsem

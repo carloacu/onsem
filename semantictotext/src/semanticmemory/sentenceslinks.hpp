@@ -8,289 +8,207 @@
 #include "answerelement.hpp"
 #include "semanticlinkstogrdexps.hpp"
 
-
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemoryBlockPrivate;
 
+enum class SemanticTypeOfLinks { ANSWER, CONDITION_INFORMATION, SENT_WITH_ACTION };
 
-enum class SemanticTypeOfLinks
-{
-  ANSWER,
-  CONDITION_INFORMATION,
-  SENT_WITH_ACTION
+template<bool IS_MODIFIABLE>
+struct SentenceLinks {
+    void clear() {
+        dynamicLinks.clear();
+        staticLinks.clear();
+    }
+    bool empty() const { return dynamicLinks.empty() && staticLinks.empty(); }
+
+    typedef GroundedExpWithLinks memSentType;
+    std::map<intSemId, memSentType*> dynamicLinks{};
+    std::map<intSemId, std::unique_ptr<AnswerElementStatic>> staticLinks{};
 };
-
-
-template <bool IS_MODIFIABLE>
-struct SentenceLinks
-{
-  void clear() { dynamicLinks.clear(); staticLinks.clear(); }
-  bool empty() const { return dynamicLinks.empty() && staticLinks.empty(); }
-
-  typedef GroundedExpWithLinks memSentType;
-  std::map<intSemId, memSentType*> dynamicLinks{};
-  std::map<intSemId, std::unique_ptr<AnswerElementStatic>> staticLinks{};
-};
-
-
-template <>
-struct SentenceLinks<false>
-{
-  void clear() { dynamicLinks.clear(); staticLinks.clear(); }
-  bool empty() const { return dynamicLinks.empty() && staticLinks.empty(); }
-
-  typedef const GroundedExpWithLinks memSentType;
-  std::map<intSemId, memSentType*> dynamicLinks{};
-  std::map<intSemId, std::unique_ptr<AnswerElementStatic>> staticLinks{};
-};
-
-
-struct RelationsThatMatchFilter
-{
-  virtual ~RelationsThatMatchFilter() {}
-  virtual bool filterCondition(const GroundedExpWithLinks& pMemSent) const = 0;
-  virtual bool filterConditionStatic(AnswerElementStatic& pAnswElt) const = 0;
-};
-
-
-template <bool IS_MODIFIABLE>
-struct RelationsThatMatch
-{
-  template <typename MEMSENTENCES>
-  void addMemSent(MEMSENTENCES& pMemSent)
-  {
-    if (filterPtr == nullptr ||
-        filterPtr->filterCondition(pMemSent))
-      res.dynamicLinks[pMemSent.id] = &pMemSent;
-  }
-
-  void addMemSentStatic(const unsigned char* pStaticMemorySentencePtr,
-                        const linguistics::LinguisticDatabase& pLingDb);
-
-  bool empty() const { return res.empty(); }
-  void clear() { res.clear(); }
-  SentenceLinks<IS_MODIFIABLE> res{};
-  const RelationsThatMatchFilter* filterPtr{nullptr};
-};
-
-
-template <bool IS_MODIFIABLE>
-struct MemoryLinksAccessor
-{
-  MemoryLinksAccessor(SemanticLinksToGrdExps* pD,
-                      const unsigned char* pC)
-   : d(pD),
-     c(pC)
-  {
-  }
-
-  bool empty() const { return d == nullptr && c == nullptr; }
-
-  SemanticLinksToGrdExps* d;
-  const unsigned char* c;
-};
-
 
 template<>
-struct MemoryLinksAccessor<false>
-{
-  MemoryLinksAccessor(const SemanticLinksToGrdExps* pD,
-                      const unsigned char* pC)
-   : d(pD),
-     c(pC)
-  {
-  }
+struct SentenceLinks<false> {
+    void clear() {
+        dynamicLinks.clear();
+        staticLinks.clear();
+    }
+    bool empty() const { return dynamicLinks.empty() && staticLinks.empty(); }
 
-  bool empty() const { return d == nullptr && c == nullptr; }
-
-  const SemanticLinksToGrdExps* d;
-  const unsigned char* c;
+    typedef const GroundedExpWithLinks memSentType;
+    std::map<intSemId, memSentType*> dynamicLinks{};
+    std::map<intSemId, std::unique_ptr<AnswerElementStatic>> staticLinks{};
 };
 
-
-template <bool IS_MODIFIABLE>
-struct RequestToMemoryLinksVirtual
-{
-  virtual ~RequestToMemoryLinksVirtual<IS_MODIFIABLE>() {}
-
-  virtual MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType pRequest) = 0;
+struct RelationsThatMatchFilter {
+    virtual ~RelationsThatMatchFilter() {}
+    virtual bool filterCondition(const GroundedExpWithLinks& pMemSent) const = 0;
+    virtual bool filterConditionStatic(AnswerElementStatic& pAnswElt) const = 0;
 };
 
+template<bool IS_MODIFIABLE>
+struct RelationsThatMatch {
+    template<typename MEMSENTENCES>
+    void addMemSent(MEMSENTENCES& pMemSent) {
+        if (filterPtr == nullptr || filterPtr->filterCondition(pMemSent))
+            res.dynamicLinks[pMemSent.id] = &pMemSent;
+    }
 
-template <bool IS_MODIFIABLE>
-struct RequestToMemoryLinks: public RequestToMemoryLinksVirtual<IS_MODIFIABLE>
-{
-  RequestToMemoryLinks(std::map<SemanticRequestType, SemanticLinksToGrdExps>& pD,
-                       const unsigned char* pC)
-   : RequestToMemoryLinksVirtual<IS_MODIFIABLE>(),
-     d(pD),
-     c(pC)
-  {
-  }
+    void addMemSentStatic(const unsigned char* pStaticMemorySentencePtr,
+                          const linguistics::LinguisticDatabase& pLingDb);
 
-  MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType pRequest);
+    bool empty() const { return res.empty(); }
+    void clear() { res.clear(); }
+    SentenceLinks<IS_MODIFIABLE> res{};
+    const RelationsThatMatchFilter* filterPtr{nullptr};
+};
+
+template<bool IS_MODIFIABLE>
+struct MemoryLinksAccessor {
+    MemoryLinksAccessor(SemanticLinksToGrdExps* pD, const unsigned char* pC)
+        : d(pD)
+        , c(pC) {}
+
+    bool empty() const { return d == nullptr && c == nullptr; }
+
+    SemanticLinksToGrdExps* d;
+    const unsigned char* c;
+};
+
+template<>
+struct MemoryLinksAccessor<false> {
+    MemoryLinksAccessor(const SemanticLinksToGrdExps* pD, const unsigned char* pC)
+        : d(pD)
+        , c(pC) {}
+
+    bool empty() const { return d == nullptr && c == nullptr; }
+
+    const SemanticLinksToGrdExps* d;
+    const unsigned char* c;
+};
+
+template<bool IS_MODIFIABLE>
+struct RequestToMemoryLinksVirtual {
+    virtual ~RequestToMemoryLinksVirtual<IS_MODIFIABLE>() {}
+
+    virtual MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType pRequest) = 0;
+};
+
+template<bool IS_MODIFIABLE>
+struct RequestToMemoryLinks : public RequestToMemoryLinksVirtual<IS_MODIFIABLE> {
+    RequestToMemoryLinks(std::map<SemanticRequestType, SemanticLinksToGrdExps>& pD, const unsigned char* pC)
+        : RequestToMemoryLinksVirtual<IS_MODIFIABLE>()
+        , d(pD)
+        , c(pC) {}
+
+    MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType pRequest);
 
 private:
-  std::map<SemanticRequestType, SemanticLinksToGrdExps>& d;
-  const unsigned char* c;
+    std::map<SemanticRequestType, SemanticLinksToGrdExps>& d;
+    const unsigned char* c;
 };
 
-
 template<>
-struct RequestToMemoryLinks<false>: public RequestToMemoryLinksVirtual<false>
-{
-  RequestToMemoryLinks(const std::map<SemanticRequestType, SemanticLinksToGrdExps>& pD,
-                       const unsigned char* pC)
-   : RequestToMemoryLinksVirtual<false>(),
-     d(pD),
-     c(pC)
-  {
-  }
+struct RequestToMemoryLinks<false> : public RequestToMemoryLinksVirtual<false> {
+    RequestToMemoryLinks(const std::map<SemanticRequestType, SemanticLinksToGrdExps>& pD, const unsigned char* pC)
+        : RequestToMemoryLinksVirtual<false>()
+        , d(pD)
+        , c(pC) {}
 
-  MemoryLinksAccessor<false> getMemoryLinksAccessors(SemanticRequestType pRequest);
+    MemoryLinksAccessor<false> getMemoryLinksAccessors(SemanticRequestType pRequest);
 
 private:
-  const std::map<SemanticRequestType, SemanticLinksToGrdExps>& d;
-  const unsigned char* c;
+    const std::map<SemanticRequestType, SemanticLinksToGrdExps>& d;
+    const unsigned char* c;
 };
 
+template<bool IS_MODIFIABLE>
+struct RecommendationMemoryLinks : public RequestToMemoryLinksVirtual<IS_MODIFIABLE> {
+    RecommendationMemoryLinks(SemanticLinksToGrdExps& pD)
+        : RequestToMemoryLinksVirtual<IS_MODIFIABLE>()
+        , d(pD) {}
 
-
-template <bool IS_MODIFIABLE>
-struct RecommendationMemoryLinks: public RequestToMemoryLinksVirtual<IS_MODIFIABLE>
-{
-  RecommendationMemoryLinks(SemanticLinksToGrdExps& pD)
-   : RequestToMemoryLinksVirtual<IS_MODIFIABLE>(),
-     d(pD)
-  {
-  }
-
-  MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType) { return {&d, nullptr}; }
+    MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType) { return {&d, nullptr}; }
 
 private:
-  SemanticLinksToGrdExps& d;
+    SemanticLinksToGrdExps& d;
 };
 
-
 template<>
-struct RecommendationMemoryLinks<false>: public RequestToMemoryLinksVirtual<false>
-{
-  RecommendationMemoryLinks(const SemanticLinksToGrdExps& pD)
-   : RequestToMemoryLinksVirtual<false>(),
-     d(pD)
-  {
-  }
+struct RecommendationMemoryLinks<false> : public RequestToMemoryLinksVirtual<false> {
+    RecommendationMemoryLinks(const SemanticLinksToGrdExps& pD)
+        : RequestToMemoryLinksVirtual<false>()
+        , d(pD) {}
 
-  MemoryLinksAccessor<false> getMemoryLinksAccessors(SemanticRequestType) { return {&d, nullptr}; }
+    MemoryLinksAccessor<false> getMemoryLinksAccessors(SemanticRequestType) { return {&d, nullptr}; }
 
 private:
-  const SemanticLinksToGrdExps& d;
+    const SemanticLinksToGrdExps& d;
 };
 
+template<bool IS_MODIFIABLE>
+struct MemoryBlockPrivateAccessorPtr {
+    MemoryBlockPrivateAccessorPtr(SemanticMemoryBlockPrivate* pMb)
+        : mb(pMb) {}
 
-
-
-
-
-template <bool IS_MODIFIABLE>
-struct MemoryBlockPrivateAccessorPtr
-{
-  MemoryBlockPrivateAccessorPtr(SemanticMemoryBlockPrivate* pMb)
-   : mb(pMb)
-  {
-  }
-
-  SemanticMemoryBlockPrivate* mb;
+    SemanticMemoryBlockPrivate* mb;
 };
-
 
 template<>
-struct MemoryBlockPrivateAccessorPtr<false>
-{
-  MemoryBlockPrivateAccessorPtr(const SemanticMemoryBlockPrivate* pMb)
-   : mb(pMb)
-  {
-  }
+struct MemoryBlockPrivateAccessorPtr<false> {
+    MemoryBlockPrivateAccessorPtr(const SemanticMemoryBlockPrivate* pMb)
+        : mb(pMb) {}
 
-  const SemanticMemoryBlockPrivate* mb;
+    const SemanticMemoryBlockPrivate* mb;
 };
 
+template<bool IS_MODIFIABLE>
+struct MemoryBlockPrivateAccessor {
+    MemoryBlockPrivateAccessor(SemanticMemoryBlockPrivate& pMb)
+        : mb(pMb) {}
 
-template <bool IS_MODIFIABLE>
-struct MemoryBlockPrivateAccessor
-{
-  MemoryBlockPrivateAccessor(SemanticMemoryBlockPrivate& pMb)
-   : mb(pMb)
-  {
-  }
-
-  SemanticMemoryBlockPrivate& mb;
+    SemanticMemoryBlockPrivate& mb;
 };
-
 
 template<>
-struct MemoryBlockPrivateAccessor<false>
-{
-  MemoryBlockPrivateAccessor(const SemanticMemoryBlockPrivate& pMb)
-   : mb(pMb)
-  {
-  }
+struct MemoryBlockPrivateAccessor<false> {
+    MemoryBlockPrivateAccessor(const SemanticMemoryBlockPrivate& pMb)
+        : mb(pMb) {}
 
-  const SemanticMemoryBlockPrivate& mb;
+    const SemanticMemoryBlockPrivate& mb;
 };
 
+template<bool IS_MODIFIABLE>
+struct IntIdToMemSentenceAccessor {
+    IntIdToMemSentenceAccessor(MemoryGrdExpLinks& pM)
+        : m(pM) {}
 
-
-
-template <bool IS_MODIFIABLE>
-struct IntIdToMemSentenceAccessor
-{
-  IntIdToMemSentenceAccessor(MemoryGrdExpLinks& pM)
-   : m(pM)
-  {
-  }
-
-  MemoryGrdExpLinks& m;
+    MemoryGrdExpLinks& m;
 };
 
+template<>
+struct IntIdToMemSentenceAccessor<false> {
+    IntIdToMemSentenceAccessor(const MemoryGrdExpLinks& pM)
+        : m(pM) {}
 
-template <>
-struct IntIdToMemSentenceAccessor<false>
-{
-  IntIdToMemSentenceAccessor(const MemoryGrdExpLinks& pM)
-   : m(pM)
-  {
-  }
-
-  const MemoryGrdExpLinks& m;
+    const MemoryGrdExpLinks& m;
 };
 
+template<bool IS_MODIFIABLE>
+struct EntityTypeToGrdExpAccessor {
+    EntityTypeToGrdExpAccessor(std::map<SemanticEntityType, MemoryGrdExpLinks>& pM)
+        : m(pM) {}
 
-
-template <bool IS_MODIFIABLE>
-struct EntityTypeToGrdExpAccessor
-{
-  EntityTypeToGrdExpAccessor(std::map<SemanticEntityType, MemoryGrdExpLinks>& pM)
-   : m(pM)
-  {
-  }
-
-  std::map<SemanticEntityType, MemoryGrdExpLinks>& m;
+    std::map<SemanticEntityType, MemoryGrdExpLinks>& m;
 };
 
+template<>
+struct EntityTypeToGrdExpAccessor<false> {
+    EntityTypeToGrdExpAccessor(const std::map<SemanticEntityType, MemoryGrdExpLinks>& pM)
+        : m(pM) {}
 
-template <>
-struct EntityTypeToGrdExpAccessor<false>
-{
-  EntityTypeToGrdExpAccessor(const std::map<SemanticEntityType, MemoryGrdExpLinks>& pM)
-   : m(pM)
-  {
-  }
-
-  const std::map<SemanticEntityType, MemoryGrdExpLinks>& m;
+    const std::map<SemanticEntityType, MemoryGrdExpLinks>& m;
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_SENTENCELINKS_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_SENTENCELINKS_HPP

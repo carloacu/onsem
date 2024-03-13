@@ -6,38 +6,34 @@
 #include <chrono>
 #include "api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-class ONSEMSEMANTICDEBUGGER_API TimeChecker
-{
+class ONSEMSEMANTICDEBUGGER_API TimeChecker {
 public:
-  TimeChecker();
+    TimeChecker();
 
-  void beginOfTimeSlot();
+    void beginOfTimeSlot();
 
-  void endOfTimeSlot(const std::string& pName);
+    void endOfTimeSlot(const std::string& pName);
 
-  void printBilanOfTimeSlots(std::string& pBilan) const;
-  void ioPrintBilanOfTimeSlots() const;
-  void concatenate(const TimeChecker& pOther);
+    void printBilanOfTimeSlots(std::string& pBilan) const;
+    void ioPrintBilanOfTimeSlots() const;
+    void concatenate(const TimeChecker& pOther);
 
-  void clear();
+    void clear();
 
 private:
-  struct TimeSlot
-  {
-    TimeSlot();
-    TimeSlot(std::string pName,
-             std::int_least64_t pTimeInMs);
+    struct TimeSlot {
+        TimeSlot();
+        TimeSlot(std::string pName, std::int_least64_t pTimeInMs);
 
-    std::string name;
-    std::int_least64_t timeInMicro;
-  };
-  std::list<TimeSlot> _timeSlots;
-  std::chrono::system_clock::time_point _currTimeSlotStart;
+        std::string name;
+        std::int_least64_t timeInMicro;
+    };
+    std::list<TimeSlot> _timeSlots;
+    std::chrono::system_clock::time_point _currTimeSlotStart;
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // LINGDBVIEWER_TIMECHECKER_H
+#endif    // LINGDBVIEWER_TIMECHECKER_H

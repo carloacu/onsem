@@ -3,18 +3,13 @@
 
 #include <string>
 
-
-namespace onsem
-{
+namespace onsem {
 class LingdbTree;
-namespace linguistics
-{
+namespace linguistics {
 struct LinguisticDatabase;
 }
 
-
-namespace textextractor
-{
+namespace textextractor {
 
 void run(const LingdbTree& pLingDbTree,
          const std::string& pTmpFolder,
@@ -22,9 +17,8 @@ void run(const LingdbTree& pLingDbTree,
          const std::string& pShareSemanticPath,
          const std::string& pInputResourcesFolder);
 
-} // End of namespace textextractor
+}    // End of namespace textextractor
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-
-#endif // TEXTEXTRACTOR_TEXTEXTRACTOR_HPP
+#endif    // TEXTEXTRACTOR_TEXTEXTRACTOR_HPP

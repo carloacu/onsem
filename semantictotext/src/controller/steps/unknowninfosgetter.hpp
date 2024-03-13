@@ -12,8 +12,7 @@
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include "../../semanticmemory/sentenceslinks.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct GroundedExpWithLinks;
 struct GroundedExpression;
 struct SemanticExpression;
@@ -23,8 +22,7 @@ struct InteractionContextContainer;
 // semExp -> childType to complete
 typedef std::map<intSemId, std::list<GrammaticalType> > GrdKnowToUnlinked;
 
-namespace unknownInfosGetter
-{
+namespace unknownInfosGetter {
 
 bool checkIfMatchAndGetParams(IndexToSubNameToParameterValue& pParam,
                               std::unique_ptr<onsem::InteractionContextContainer>& pSubIntContext,
@@ -40,17 +38,13 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
                                        GroundedExpWithLinksWithParameters& pMemSentWithParams,
                                        const GroundedExpression& pGrdExp);
 
-bool getRequestToAskForPrecision(SemanticRequestType& pRequestType,
-                                 const GrdKnowToUnlinked& pIncompleteRelations);
+bool getRequestToAskForPrecision(SemanticRequestType& pRequestType, const GrdKnowToUnlinked& pIncompleteRelations);
 
 bool isItfUnknown(const SemControllerWorkingStruct& pWorkStruct,
                   const SemanticMemoryBlockViewer& pMemViewer,
                   const GroundedExpression& pGrdExp);
 
+}    // End of namespace unknownInfosGetter
+}    // End of namespace onsem
 
-} // End of namespace unknownInfosGetter
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_UNKNOWNINFOSGETTER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_UNKNOWNINFOSGETTER_HPP

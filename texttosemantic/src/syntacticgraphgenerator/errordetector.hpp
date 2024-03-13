@@ -5,10 +5,8 @@
 #include <vector>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct ChunkLinkIter;
 class SemanticFrameDictionary;
 class StaticLinguisticDictionary;
@@ -16,76 +14,57 @@ class AlgorithmSetForALanguage;
 struct TokensTree;
 struct Token;
 
-enum class CarryOnFrom
-{
-  PARTOFSPEECH_FILTERS,
-  SYNTACTIC_TREE,
-  HERE
-};
+enum class CarryOnFrom { PARTOFSPEECH_FILTERS, SYNTACTIC_TREE, HERE };
 
-
-class ErrorDetector
-{
+class ErrorDetector {
 public:
-  explicit ErrorDetector(const AlgorithmSetForALanguage& pConfiguration);
+    explicit ErrorDetector(const AlgorithmSetForALanguage& pConfiguration);
 
-  bool tryToConvertNounToImperativeVerbs
-  (std::list<ChunkLink>& pSyntTree) const;
+    bool tryToConvertNounToImperativeVerbs(std::list<ChunkLink>& pSyntTree) const;
 
-  CarryOnFrom falseGramPossibilitiesRemoved
-  (std::list<ChunkLink>& pSyntTree,
-   ParsingConfidence& pParsingConfidence) const;
+    CarryOnFrom falseGramPossibilitiesRemoved(std::list<ChunkLink>& pSyntTree,
+                                              ParsingConfidence& pParsingConfidence) const;
 
-  void frFixOfVerbalChunks
-  (std::list<ChunkLink>& pSyntTree) const;
+    void frFixOfVerbalChunks(std::list<ChunkLink>& pSyntTree) const;
 
-  static void addYesOrNoRequestForVerbsBeforeInterrogationPunctuation
-  (std::list<ChunkLink>& pSyntTree);
+    static void addYesOrNoRequestForVerbsBeforeInterrogationPunctuation(std::list<ChunkLink>& pSyntTree);
 
 private:
-  const AlgorithmSetForALanguage& fConfiguration;
-  const SemanticFrameDictionary& fSemFrameDict;
-  const LinguisticDictionary& fLingDico;
-  const std::vector<PartOfSpeech> fPossNewHeadGram;
+    const AlgorithmSetForALanguage& fConfiguration;
+    const SemanticFrameDictionary& fSemFrameDict;
+    const LinguisticDictionary& fLingDico;
+    const std::vector<PartOfSpeech> fPossNewHeadGram;
 
-  CarryOnFrom xCheckThatNominalGroupHaveAValidPos
-  (std::list<ChunkLink>::iterator pItChLk,
-   Chunk* pParentVerbChunkPtr) const;
+    CarryOnFrom xCheckThatNominalGroupHaveAValidPos(std::list<ChunkLink>::iterator pItChLk,
+                                                    Chunk* pParentVerbChunkPtr) const;
 
-  CarryOnFrom xRemoveInvalidPronouns(Chunk& pChunk) const;
-  CarryOnFrom xCorrectFalsePrepositionalChunk(std::list<ChunkLink>::iterator pItChLk) const;
+    CarryOnFrom xRemoveInvalidPronouns(Chunk& pChunk) const;
+    CarryOnFrom xCorrectFalsePrepositionalChunk(std::list<ChunkLink>::iterator pItChLk) const;
 
-  bool xSolveVerbThatShouldHaveAnAuxiliary
-  (Chunk& pVerbChunk) const;
+    bool xSolveVerbThatShouldHaveAnAuxiliary(Chunk& pVerbChunk) const;
 
-  bool xSolveVerbThatHaveASubjectThatBeginsWithAPrep
-  (Chunk& pVerbChunk) const;
+    bool xSolveVerbThatHaveASubjectThatBeginsWithAPrep(Chunk& pVerbChunk) const;
 
-  bool xTryToCorrectVerbsWithoutSubject
-  (ChunkLinkIter& pChkLkIter,
-   bool pFirstChunk) const;
+    bool xTryToCorrectVerbsWithoutSubject(ChunkLinkIter& pChkLkIter, bool pFirstChunk) const;
 
-  CarryOnFrom xRemoveSubordinatingConjonctionUnliked
-  (ChunkLink& pItChLk,
-   ChunkLink* pNextItChLk) const;
+    CarryOnFrom xRemoveSubordinatingConjonctionUnliked(ChunkLink& pItChLk, ChunkLink* pNextItChLk) const;
 
-  void xPutRepetitionChildToTheFatherNode(Chunk& pChunk) const;
+    void xPutRepetitionChildToTheFatherNode(Chunk& pChunk) const;
 
-  CarryOnFrom xSolveBadVerbChunks(ChunkLinkIter& pChkLkIter,
-                                  ParsingConfidence& pParsingConfidence,
-                                  ChunkLinkType pParentChkLk,
-                                  ChunkType pPreviousChunkType,
-                                  bool pFirstChunk) const;
+    CarryOnFrom xSolveBadVerbChunks(ChunkLinkIter& pChkLkIter,
+                                    ParsingConfidence& pParsingConfidence,
+                                    ChunkLinkType pParentChkLk,
+                                    ChunkType pPreviousChunkType,
+                                    bool pFirstChunk) const;
 
-  CarryOnFrom xSolveConjunctionUnlinked(std::list<ChunkLink>::iterator pItChLk) const;
+    CarryOnFrom xSolveConjunctionUnlinked(std::list<ChunkLink>::iterator pItChLk) const;
 
-  void xBreakLinkedTokens(Token& pToken) const;
+    void xBreakLinkedTokens(Token& pToken) const;
 
-  bool xTryToConvertNounToImperativeVerbsForAChunk(Chunk& pChunk) const;
+    bool xTryToConvertNounToImperativeVerbsForAChunk(Chunk& pChunk) const;
 };
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_ERRORDETECTOR_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_ERRORDETECTOR_HPP

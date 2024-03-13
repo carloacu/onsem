@@ -3,24 +3,17 @@
 
 #include <sstream>
 
-namespace onsem
-{
+namespace onsem {
 struct SentimentContext;
 
-class SentimentSpecPrinter
-{
+class SentimentSpecPrinter {
 public:
-  static void printSentimentContext
-  (std::stringstream& pRes,
-   const SentimentContext& pSentimentContext,
-   const std::string& pFromStr,
-   const std::string& pCurrentUserId);
+    static void printSentimentContext(std::stringstream& pRes,
+                                      const SentimentContext& pSentimentContext,
+                                      const std::string& pFromStr,
+                                      const std::string& pCurrentUserId);
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-
-
-#endif // SEMANTICDEBUGGER_SRC_PRINTER_SENTIMENTSPECPRINTER_HPP
+#endif    // SEMANTICDEBUGGER_SRC_PRINTER_SENTIMENTSPECPRINTER_HPP

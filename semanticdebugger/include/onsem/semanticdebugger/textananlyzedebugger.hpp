@@ -13,15 +13,11 @@
 #include <onsem/semanticdebugger/syntacticgraphresult.hpp>
 #include "api.hpp"
 
-
-namespace onsem
-{
+namespace onsem {
 struct TextProcessingContext;
 class SemExpLinesToStr;
-namespace linguistics
-{
-namespace TextAnalyzeDebugger
-{
+namespace linguistics {
+namespace TextAnalyzeDebugger {
 
 ONSEMSEMANTICDEBUGGER_API
 void saveGramPossibilities(std::list<std::list<std::string>>& pGramPossibilitiesForEachToken,
@@ -33,10 +29,8 @@ void fillSemAnalResult(SyntacticGraphResult& pResults,
                        const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
                        const SemanticAnalysisDebugOptions& pSemanticAnalysisDebugOptions);
 
+}    // End of namespace TextAnalyzeDebugger
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace TextAnalyzeDebugger
-} // End of namespace linguistics
-} // End of namespace onsem
-
-
-#endif // SEMANTICREASONERTESTER_SRC_DEBUG_TEXTANALYZEDEBUGGER_HPP
+#endif    // SEMANTICREASONERTESTER_SRC_DEBUG_TEXTANALYZEDEBUGGER_HPP

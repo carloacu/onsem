@@ -5,104 +5,87 @@
 #include <memory>
 #include "../../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-struct ONSEM_TEXTTOSEMANTIC_API GroundedExpressionContainer
-{
-  virtual ~GroundedExpressionContainer() {}
+struct ONSEM_TEXTTOSEMANTIC_API GroundedExpressionContainer {
+    virtual ~GroundedExpressionContainer() {}
 
-  virtual const GroundedExpression& getGrdExp() const = 0;
+    virtual const GroundedExpression& getGrdExp() const = 0;
 };
 
+struct ONSEM_TEXTTOSEMANTIC_API GroundedExpression
+    : public SemanticExpression
+    , public GroundedExpressionContainer {
+    // Constructors
+    GroundedExpression();
+    template<typename TGROUNDING>
+    GroundedExpression(std::unique_ptr<TGROUNDING> pGrounding);
 
-struct ONSEM_TEXTTOSEMANTIC_API GroundedExpression : public SemanticExpression,
-    public GroundedExpressionContainer
-{
-  // Constructors
-  GroundedExpression();
-  template<typename TGROUNDING>
-  GroundedExpression(std::unique_ptr<TGROUNDING> pGrounding);
+    GroundedExpression(const GroundedExpression&) = delete;
+    GroundedExpression& operator=(const GroundedExpression&) = delete;
 
-  GroundedExpression(const GroundedExpression&) = delete;
-  GroundedExpression& operator=(const GroundedExpression&) = delete;
+    GroundedExpression& getGrdExp() override { return *this; }
+    const GroundedExpression& getGrdExp() const override { return *this; }
+    GroundedExpression* getGrdExpPtr() override { return this; }
+    const GroundedExpression* getGrdExpPtr() const override { return this; }
 
-  GroundedExpression& getGrdExp() override { return *this; }
-  const GroundedExpression& getGrdExp() const override { return *this; }
-  GroundedExpression* getGrdExpPtr() override { return this; }
-  const GroundedExpression* getGrdExpPtr() const override { return this; }
+    bool operator==(const GroundedExpression& pOther) const;
+    bool isEqual(const GroundedExpression& pOther) const;
+    void assertEltsEqual(const GroundedExpression& pOther) const;
 
-  bool operator==(const GroundedExpression& pOther) const;
-  bool isEqual(const GroundedExpression& pOther) const;
-  void assertEltsEqual(const GroundedExpression& pOther) const;
+    // Setters
+    /// Sets the current grounding to the provided grounding.
+    template<typename TGROUNDING>
+    void moveGrounding(std::unique_ptr<TGROUNDING> pGrounding);
 
-  // Setters
-  /// Sets the current grounding to the provided grounding.
-  template<typename TGROUNDING>
-  void moveGrounding(std::unique_ptr<TGROUNDING> pGrounding);
+    // Getters
+    const SemanticGrounding& grounding() const;
+    SemanticGrounding& grounding();
 
+    SemanticGrounding* operator->();
+    const SemanticGrounding* operator->() const;
+    SemanticGrounding& operator*();
+    const SemanticGrounding& operator*() const;
 
-  // Getters
-  const SemanticGrounding& grounding() const;
-  SemanticGrounding& grounding();
+    // Copiers
+    std::unique_ptr<GroundedExpression> clone(const IndexToSubNameToParameterValue* pParams = nullptr,
+                                              bool pRemoveRecentContextInterpretations = false,
+                                              const std::set<SemanticExpressionType>* pExpressionTypesToSkip = nullptr,
+                                              const std::set<GrammaticalType>* pChildrenToSkip = nullptr) const;
+    std::unique_ptr<SemanticGrounding> cloneGrounding(const IndexToSubNameToParameterValue* pParams = nullptr) const;
 
-  SemanticGrounding* operator->();
-  const SemanticGrounding* operator->() const;
-  SemanticGrounding& operator*();
-  const SemanticGrounding& operator*() const;
-
-
-  // Copiers
-  std::unique_ptr<GroundedExpression> clone(const IndexToSubNameToParameterValue* pParams = nullptr,
-                                            bool pRemoveRecentContextInterpretations = false,
-                                            const std::set<SemanticExpressionType>* pExpressionTypesToSkip = nullptr,
-                                            const std::set<GrammaticalType>* pChildrenToSkip = nullptr) const;
-  std::unique_ptr<SemanticGrounding> cloneGrounding(const IndexToSubNameToParameterValue* pParams = nullptr) const;
-
-
-
-  std::map<GrammaticalType, UniqueSemanticExpression> children;
+    std::map<GrammaticalType, UniqueSemanticExpression> children;
 
 private:
-  std::unique_ptr<SemanticGrounding> _grounding;
+    std::unique_ptr<SemanticGrounding> _grounding;
 };
 
+struct ONSEM_TEXTTOSEMANTIC_API GroundedExpressionRef : public GroundedExpressionContainer {
+    GroundedExpressionRef(const GroundedExpression& pGrdExp)
+        : GroundedExpressionContainer()
+        , _grdExp(pGrdExp) {}
 
-
-struct ONSEM_TEXTTOSEMANTIC_API GroundedExpressionRef : public GroundedExpressionContainer
-{
-  GroundedExpressionRef(const GroundedExpression& pGrdExp)
-    : GroundedExpressionContainer(),
-      _grdExp(pGrdExp)
-  {
-  }
-
-  const GroundedExpression& getGrdExp() const override { return _grdExp; }
+    const GroundedExpression& getGrdExp() const override { return _grdExp; }
 
 private:
-  const GroundedExpression& _grdExp;
+    const GroundedExpression& _grdExp;
 };
 
+struct ONSEM_TEXTTOSEMANTIC_API GroundedExpressionFromSemExp : public GroundedExpressionContainer {
+    GroundedExpressionFromSemExp(UniqueSemanticExpression pSemExp)
+        : GroundedExpressionContainer()
+        , _semExp(std::move(pSemExp)) {
+        assert(_semExp->type == SemanticExpressionType::GROUNDED);
+    }
 
-struct ONSEM_TEXTTOSEMANTIC_API GroundedExpressionFromSemExp : public GroundedExpressionContainer
-{
-  GroundedExpressionFromSemExp(UniqueSemanticExpression pSemExp)
-    : GroundedExpressionContainer(),
-      _semExp(std::move(pSemExp))
-  {
-    assert(_semExp->type == SemanticExpressionType::GROUNDED);
-  }
-
-  const GroundedExpression& getGrdExp() const override { return _semExp->getGrdExp(); }
+    const GroundedExpression& getGrdExp() const override { return _semExp->getGrdExp(); }
 
 private:
-  UniqueSemanticExpression _semExp;
+    UniqueSemanticExpression _semExp;
 };
 
-
-} // End of namespace onsem
+}    // End of namespace onsem
 
 #include "details/groundedexpression.hxx"
 
-
-#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICEXPRESSION_GROUNDEDEXPRESSION_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICEXPRESSION_GROUNDEDEXPRESSION_HPP

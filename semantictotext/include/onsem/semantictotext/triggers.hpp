@@ -12,11 +12,8 @@
 #include <onsem/common/utility/unique_propagate_const.hpp>
 #include "api.hpp"
 
-
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct UniqueSemanticExpression;
@@ -24,9 +21,7 @@ struct SemanticMemory;
 struct ExpressionWithLinks;
 struct ReactionOptions;
 
-namespace triggers
-{
-
+namespace triggers {
 
 /**
  * @brief Register a reaction to a trigger.
@@ -41,7 +36,6 @@ void add(UniqueSemanticExpression pTriggerSemExp,
          SemanticMemory& pSemanticMemory,
          const linguistics::LinguisticDatabase& pLingDb);
 
-
 /**
  * @brief Match a user utterance to a reaction stored in the memory object.
  * @param pReaction Result of the matching.
@@ -51,16 +45,13 @@ void add(UniqueSemanticExpression pTriggerSemExp,
  * @param pReactionOptions Some options to add filters in the matching.
  */
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionWithLinks> match(
-    mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
-    SemanticMemory& pSemanticMemory,
-    UniqueSemanticExpression pUtteranceSemExp,
-    const linguistics::LinguisticDatabase& pLingDb,
-    const ReactionOptions* pReactionOptions = nullptr);
+std::shared_ptr<ExpressionWithLinks> match(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+                                           SemanticMemory& pSemanticMemory,
+                                           UniqueSemanticExpression pUtteranceSemExp,
+                                           const linguistics::LinguisticDatabase& pLingDb,
+                                           const ReactionOptions* pReactionOptions = nullptr);
 
+}    // End of namespace triggers
+}    // End of namespace onsem
 
-
-} // End of namespace triggers
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICTOTEXT_TRIGGERS_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_TRIGGERS_HPP

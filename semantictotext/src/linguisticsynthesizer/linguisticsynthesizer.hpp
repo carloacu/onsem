@@ -5,10 +5,8 @@
 #include <list>
 #include "synthesizerresulttypes.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct UniqueSemanticExpression;
@@ -17,7 +15,6 @@ struct TextProcessingContext;
 struct CommandExpression;
 struct SemLineToPrint;
 
-
 void synthesize(std::list<std::unique_ptr<SynthesizerResult>>& pNaturalLanguageResult,
                 UniqueSemanticExpression pSemExp,
                 bool pOneLinePerSentence,
@@ -25,12 +22,10 @@ void synthesize(std::list<std::unique_ptr<SynthesizerResult>>& pNaturalLanguageR
                 const std::string& pCurrentUserId,
                 const TextProcessingContext& pTextProcContext,
                 const linguistics::LinguisticDatabase& pLingDb,
-                std::list<std::list<SemLineToPrint> >* pDebugOutput);
+                std::list<std::list<SemLineToPrint>>* pDebugOutput);
 
-void writeCommand(std::string& pRes,
-                  const CommandExpression& pCommandExp);
+void writeCommand(std::string& pRes, const CommandExpression& pCommandExp);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICTOTEXT_LINGUISTICSYNTHESIZER_LINGUISTICSYNTHESIZER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_LINGUISTICSYNTHESIZER_LINGUISTICSYNTHESIZER_HPP

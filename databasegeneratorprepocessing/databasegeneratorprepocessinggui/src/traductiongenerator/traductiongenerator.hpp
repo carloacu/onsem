@@ -3,19 +3,13 @@
 
 #include <string>
 
-namespace onsem
-{
+namespace onsem {
 class LingdbTree;
-namespace traductiongenerator
-{
+namespace traductiongenerator {
 
-void run(const LingdbTree& pLingDbTree,
-         const std::string& pTmpFolder,
-         const std::string& pInputResourcePath);
+void run(const LingdbTree& pLingDbTree, const std::string& pTmpFolder, const std::string& pInputResourcePath);
 
+}    // End of namespace traductiongenerator
+}    // End of namespace onsem
 
-} // End of namespace traductiongenerator
-} // End of namespace onsem
-
-
-#endif // TRADUCTIONGENERATOR_TRADUCTIONGENRATOR_HPP
+#endif    // TRADUCTIONGENERATOR_TRADUCTIONGENRATOR_HPP

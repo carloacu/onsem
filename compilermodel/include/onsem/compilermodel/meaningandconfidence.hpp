@@ -3,36 +3,23 @@
 
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 
+namespace onsem {
 
-namespace onsem
-{
+struct MeaningAndConfidence {
+    MeaningAndConfidence(LingdbMeaning* pMeaning, char pConfidence)
+        : meaning(pMeaning)
+        , confidence(pConfidence) {}
 
-struct MeaningAndConfidence
-{
-  MeaningAndConfidence
-  (LingdbMeaning* pMeaning,
-   char pConfidence)
-    : meaning(pMeaning),
-      confidence(pConfidence)
-  {
-  }
+    MeaningAndConfidence(const MeaningAndConfidence& pObj)
+        : meaning(pObj.meaning)
+        , confidence(pObj.confidence) {}
 
-  MeaningAndConfidence
-  (const MeaningAndConfidence& pObj)
-    : meaning(pObj.meaning),
-      confidence(pObj.confidence)
-  {
-  }
+    bool operator<(const MeaningAndConfidence& pOther) const;
 
-  bool operator<
-  (const MeaningAndConfidence& pOther) const;
-
-  LingdbMeaning* meaning;
-  char confidence;
+    LingdbMeaning* meaning;
+    char confidence;
 };
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_COMPILERMODEL_MEANINGANDONFIDENCE_HPP
+#endif    // ONSEM_COMPILERMODEL_MEANINGANDONFIDENCE_HPP

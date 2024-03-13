@@ -3,22 +3,16 @@
 
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 
+namespace onsem {
 
-namespace onsem
-{
-
-namespace conditionsAdder
-{
+namespace conditionsAdder {
 
 void addConditonsForSomeTimedGrdExp(UniqueSemanticExpression& pSemExp,
                                     const std::string& pUserId = "",
                                     bool pAddInterpretations = true);
 
+}    // End of namespace conditionsAdder
 
-} // End of namespace conditionsAdder
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-
-#endif // SEMANTICCONTROLLER_CONVERSIONS_CONDITIONSADDER_HPP
+#endif    // SEMANTICCONTROLLER_CONVERSIONS_CONDITIONSADDER_HPP

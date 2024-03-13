@@ -3,38 +3,28 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticnamegrounding.hpp>
 #include <onsem/semantictotext/semanticmemory/links/expressionwithlinks.hpp>
 
+namespace onsem {
 
-namespace onsem
-{
-
-
-std::string UserNames::getName() const
-{
-  return SemanticNameGrounding::namesToStr(names);
+std::string UserNames::getName() const {
+    return SemanticNameGrounding::namesToStr(names);
 }
 
+bool UserNames::operator<(const UserNames& pOther) const {
+    if (names.size() != pOther.names.size())
+        return names.size() < pOther.names.size();
 
-bool UserNames::operator<(const UserNames& pOther) const
-{
-  if (names.size() != pOther.names.size())
-    return names.size() < pOther.names.size();
+    {
+        auto itOtherName = pOther.names.begin();
+        for (auto itName = names.begin(); itName != names.end(); ++itName, ++itOtherName)
+            if (*itName != *itOtherName)
+                return *itName < *itOtherName;
+    }
 
-  {
-    auto itOtherName = pOther.names.begin();
-    for (auto itName = names.begin(); itName != names.end(); ++itName, ++itOtherName)
-      if (*itName != *itOtherName)
-        return *itName < *itOtherName;
-  }
-
-  return false;
+    return false;
 }
 
-
-bool UserNames::operator==(const UserNames& pOther) const
-{
-  return names == pOther.names;
+bool UserNames::operator==(const UserNames& pOther) const {
+    return names == pOther.names;
 }
 
-
-} // End of namespace onsem
-
+}    // End of namespace onsem

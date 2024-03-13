@@ -5,10 +5,8 @@
 #include <string>
 #include <memory>
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticExpressionContainer;
-
 
 // ex: for the method
 //     fn method1(str s) with s = "chocolate"
@@ -22,10 +20,9 @@ struct SemanticExpressionContainer;
 //     fn method3(int i, MyStrcut ms) with ms.toto = "yes"
 //     it will be
 //     1 -> "toto" -> "yes"
-using IndexToSubNameToParameterValue = std::map<int, std::map<std::string, std::unique_ptr<SemanticExpressionContainer>>>;
+using IndexToSubNameToParameterValue =
+    std::map<int, std::map<std::string, std::unique_ptr<SemanticExpressionContainer>>>;
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPES_MISC_PARAMETERWITHVALUE_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPES_MISC_PARAMETERWITHVALUE_HPP

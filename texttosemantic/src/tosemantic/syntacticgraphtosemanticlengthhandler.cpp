@@ -6,67 +6,54 @@
 #include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include "../tool/chunkshandler.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
+std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillLengthStruct(const ToGenRepContext& pContext) const {
+    switch (pContext.chunk.type) {
+        case ChunkType::NOMINAL_CHUNK:
+        case ChunkType::PREPOSITIONAL_CHUNK: {
+            const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
+            if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "length_")) {
+                for (const auto& currLength : semanticLengthUnities) {
+                    if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticLengthUnity_toConcept(currLength))) {
+                        TokIt itNextToken = getNextToken(pContext.chunk.head, pContext.chunk.tokRange.getItEnd());
+                        if (itNextToken != pContext.chunk.tokRange.getItEnd())
+                            break;    // the length should be the last token
 
-std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xFillLengthStruct
-(const ToGenRepContext& pContext) const
-{
-  switch (pContext.chunk.type)
-  {
-  case ChunkType::NOMINAL_CHUNK:
-  case ChunkType::PREPOSITIONAL_CHUNK:
-  {
-    const InflectedWord& iGram = pContext.chunk.head->inflWords.front();
-    if (ConceptSet::haveAConceptThatBeginWith(iGram.infos.concepts, "length_"))
-    {
-      for (const auto& currLength : semanticLengthUnities)
-      {
-        if (ConceptSet::haveAConcept(iGram.infos.concepts, semanticLengthUnity_toConcept(currLength)))
-        {
-          TokIt itNextToken = getNextToken(pContext.chunk.head, pContext.chunk.tokRange.getItEnd());
-          if (itNextToken != pContext.chunk.tokRange.getItEnd())
-            break; // the length should be the last token
+                        std::unique_ptr<SemanticLengthGrounding> newLength;
+                        for (TokIt itToken = getPrevToken(
+                                 pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
+                             itToken != pContext.chunk.head;
+                             itToken =
+                                 getPrevToken(itToken, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head)) {
+                            SemanticFloat number;
+                            if (getNumberHoldByTheInflWord(number, itToken, pContext.chunk.head, "number_")) {
+                                if (!newLength)
+                                    newLength = std::make_unique<SemanticLengthGrounding>();
+                                newLength->length.lengthInfos[currLength] = number;
+                            } else if (itToken->getPartOfSpeech() == PartOfSpeech::DETERMINER) {
+                                if (newLength)
+                                    return std::make_unique<GroundedExpression>(std::move(newLength));
+                                return {};
+                            }
+                        }
 
-          std::unique_ptr<SemanticLengthGrounding> newLength;
-          for (TokIt itToken = getPrevToken(pContext.chunk.head, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head);
-               itToken != pContext.chunk.head;
-               itToken = getPrevToken(itToken, pContext.chunk.tokRange.getItBegin(), pContext.chunk.head))
-          {
-            SemanticFloat number;
-            if (getNumberHoldByTheInflWord(number, itToken, pContext.chunk.head, "number_"))
-            {
-              if (!newLength)
-                newLength = std::make_unique<SemanticLengthGrounding>();
-              newLength->length.lengthInfos[currLength] = number;
+                        if (newLength)
+                            return std::make_unique<GroundedExpression>(std::move(newLength));
+                        return std::make_unique<GroundedExpression>(
+                            std::make_unique<SemanticUnityGrounding>(currLength));
+                    }
+                }
             }
-            else if (itToken->getPartOfSpeech() == PartOfSpeech::DETERMINER)
-            {
-              if (newLength)
-                return std::make_unique<GroundedExpression>(std::move(newLength));
-              return {};
-            }
-          }
-
-          if (newLength)
-            return std::make_unique<GroundedExpression>(std::move(newLength));
-          return std::make_unique<GroundedExpression>(std::make_unique<SemanticUnityGrounding>(currLength));
+            break;
         }
-      }
+        default: {
+            break;
+        }
     }
-    break;
-  }
-  default:
-  {
-    break;
-  }
-  }
-  return {};
+    return {};
 }
 
-
-} // End of namespace linguistics
-} // End of namespace onsem
+}    // End of namespace linguistics
+}    // End of namespace onsem

@@ -27,129 +27,113 @@
 #include "linguisticsynthesizer/synthesizerresulttypes.hpp"
 #include "utility/semexpcreator.hpp"
 
+namespace onsem {
+namespace converter {
 
-namespace onsem
-{
-namespace converter
-{
-
-namespace
-{
+namespace {
 const SemanticMemoryBlock _emptyMemBlock(0);
 
 void _completeWithContextInternallyToASemExp(SemanticExpression& pSemExp,
                                              const linguistics::LinguisticDatabase& pLingDb,
-                                             const SemanticExpression* pAuthorSemExpPtr)
-{
-  // complete with context between each sentence
-  switch (pSemExp.type)
-  {
-  case SemanticExpressionType::GROUNDED:
-  {
-    GroundedExpression& grdExp = pSemExp.getGrdExp();
-    auto itSubject = grdExp.children.find(GrammaticalType::SUBJECT);
-    if (itSubject != grdExp.children.end() &&
-        SemExpGetter::doesSemExpCanBeCompletedWithContext(*itSubject->second))
-      for (auto& currChild : grdExp.children)
-        if (currChild.first != GrammaticalType::SUBJECT)
-          for (auto& currElt : SemExpGetter::iterateOnListOfGrdExps(*currChild.second))
-            for (auto& currEltChild : currElt->children)
-              completeWithContext(currEltChild.second, currEltChild.first, *itSubject->second,
-                                  true, pAuthorSemExpPtr, _emptyMemBlock, pLingDb);
-    break;
-  }
-  case SemanticExpressionType::LIST:
-  {
-    ListExpression& listExp = pSemExp.getListExp();
-    for (auto& currElt : listExp.elts)
-      _completeWithContextInternallyToASemExp(*currElt, pLingDb, pAuthorSemExpPtr);
+                                             const SemanticExpression* pAuthorSemExpPtr) {
+    // complete with context between each sentence
+    switch (pSemExp.type) {
+        case SemanticExpressionType::GROUNDED: {
+            GroundedExpression& grdExp = pSemExp.getGrdExp();
+            auto itSubject = grdExp.children.find(GrammaticalType::SUBJECT);
+            if (itSubject != grdExp.children.end()
+                && SemExpGetter::doesSemExpCanBeCompletedWithContext(*itSubject->second))
+                for (auto& currChild : grdExp.children)
+                    if (currChild.first != GrammaticalType::SUBJECT)
+                        for (auto& currElt : SemExpGetter::iterateOnListOfGrdExps(*currChild.second))
+                            for (auto& currEltChild : currElt->children)
+                                completeWithContext(currEltChild.second,
+                                                    currEltChild.first,
+                                                    *itSubject->second,
+                                                    true,
+                                                    pAuthorSemExpPtr,
+                                                    _emptyMemBlock,
+                                                    pLingDb);
+            break;
+        }
+        case SemanticExpressionType::LIST: {
+            ListExpression& listExp = pSemExp.getListExp();
+            for (auto& currElt : listExp.elts)
+                _completeWithContextInternallyToASemExp(*currElt, pLingDb, pAuthorSemExpPtr);
 
-    auto itPrevElt = listExp.elts.begin();
-    if (itPrevElt != listExp.elts.end())
-    {
-      auto it = itPrevElt;
-      ++it;
-      while (it != listExp.elts.end())
-      {
-        completeWithContext(*it, GrammaticalType::UNKNOWN, **itPrevElt, true, pAuthorSemExpPtr, _emptyMemBlock, pLingDb);
-        itPrevElt = it;
-        ++it;
-      }
+            auto itPrevElt = listExp.elts.begin();
+            if (itPrevElt != listExp.elts.end()) {
+                auto it = itPrevElt;
+                ++it;
+                while (it != listExp.elts.end()) {
+                    completeWithContext(
+                        *it, GrammaticalType::UNKNOWN, **itPrevElt, true, pAuthorSemExpPtr, _emptyMemBlock, pLingDb);
+                    itPrevElt = it;
+                    ++it;
+                }
+            }
+            break;
+        }
+        case SemanticExpressionType::CONDITION: {
+            ConditionExpression& condExp = pSemExp.getCondExp();
+            _completeWithContextInternallyToASemExp(*condExp.conditionExp, pLingDb, pAuthorSemExpPtr);
+            _completeWithContextInternallyToASemExp(*condExp.thenExp, pLingDb, pAuthorSemExpPtr);
+            if (condExp.elseExp)
+                _completeWithContextInternallyToASemExp(**condExp.elseExp, pLingDb, pAuthorSemExpPtr);
+            break;
+        }
+        case SemanticExpressionType::FEEDBACK: {
+            FeedbackExpression& fbkExp = pSemExp.getFdkExp();
+            _completeWithContextInternallyToASemExp(*fbkExp.concernedExp, pLingDb, pAuthorSemExpPtr);
+            break;
+        }
+        case SemanticExpressionType::INTERPRETATION: {
+            InterpretationExpression& intExp = pSemExp.getIntExp();
+            _completeWithContextInternallyToASemExp(*intExp.interpretedExp, pLingDb, pAuthorSemExpPtr);
+            break;
+        }
+        case SemanticExpressionType::ANNOTATED: {
+            AnnotatedExpression& annExp = pSemExp.getAnnExp();
+            _completeWithContextInternallyToASemExp(*annExp.semExp, pLingDb, pAuthorSemExpPtr);
+            break;
+        }
+        case SemanticExpressionType::METADATA: {
+            MetadataExpression& metaExp = pSemExp.getMetadataExp();
+            pAuthorSemExpPtr = metaExp.getAuthorSemExpPtr();
+            _completeWithContextInternallyToASemExp(*metaExp.semExp, pLingDb, pAuthorSemExpPtr);
+            break;
+        }
+        case SemanticExpressionType::FIXEDSYNTHESIS:
+        case SemanticExpressionType::COMMAND:
+        case SemanticExpressionType::COMPARISON:
+        case SemanticExpressionType::SETOFFORMS: break;
     }
-    break;
-  }
-  case SemanticExpressionType::CONDITION:
-  {
-    ConditionExpression& condExp = pSemExp.getCondExp();
-    _completeWithContextInternallyToASemExp(*condExp.conditionExp, pLingDb, pAuthorSemExpPtr);
-    _completeWithContextInternallyToASemExp(*condExp.thenExp, pLingDb, pAuthorSemExpPtr);
-    if (condExp.elseExp)
-      _completeWithContextInternallyToASemExp(**condExp.elseExp, pLingDb, pAuthorSemExpPtr);
-    break;
-  }
-  case SemanticExpressionType::FEEDBACK:
-  {
-    FeedbackExpression& fbkExp = pSemExp.getFdkExp();
-    _completeWithContextInternallyToASemExp(*fbkExp.concernedExp, pLingDb, pAuthorSemExpPtr);
-    break;
-  }
-  case SemanticExpressionType::INTERPRETATION:
-  {
-    InterpretationExpression& intExp = pSemExp.getIntExp();
-    _completeWithContextInternallyToASemExp(*intExp.interpretedExp, pLingDb, pAuthorSemExpPtr);
-    break;
-  }
-  case SemanticExpressionType::ANNOTATED:
-  {
-    AnnotatedExpression& annExp = pSemExp.getAnnExp();
-    _completeWithContextInternallyToASemExp(*annExp.semExp, pLingDb, pAuthorSemExpPtr);
-    break;
-  }
-  case SemanticExpressionType::METADATA:
-  {
-    MetadataExpression& metaExp = pSemExp.getMetadataExp();
-    pAuthorSemExpPtr = metaExp.getAuthorSemExpPtr();
-    _completeWithContextInternallyToASemExp(*metaExp.semExp, pLingDb, pAuthorSemExpPtr);
-    break;
-  }
-  case SemanticExpressionType::FIXEDSYNTHESIS:
-  case SemanticExpressionType::COMMAND:
-  case SemanticExpressionType::COMPARISON:
-  case SemanticExpressionType::SETOFFORMS:
-    break;
-  }
 }
 
-UniqueSemanticExpression _syntGraphToSemExp(const linguistics::SyntacticGraph& pSyntGraph,
-                                            const TextProcessingContext& pLocutionContext,
-                                            const SemanticTimeGrounding& pNowTimeGrd,
-                                            bool pDoWeSplitQuestions,
-                                            std::list<std::list<SemLineToPrint> >* pDebugOutput,
-                                            std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>())
-{
-  auto semExp  = linguistics::convertToSemExp(pSyntGraph, pLocutionContext, pNowTimeGrd,
-                                              std::move(pAgentWeAreTalkingAbout));
-  splitter::splitInVerySimpleSentences(semExp, pDoWeSplitQuestions);
-  semanticReasonOfRefactor::process(semExp);
-  pSyntGraph.langConfig.lingDb.treeConverter.refactorSemExp
-      (semExp,
-       TREEPATTERN_INTEXT, TREEPATTERN_MIND,
-       pSyntGraph.langConfig.getLanguageType(), pDebugOutput);
-  _completeWithContextInternallyToASemExp(*semExp, pSyntGraph.langConfig.lingDb, nullptr);
-  return semExp;
+UniqueSemanticExpression _syntGraphToSemExp(
+    const linguistics::SyntacticGraph& pSyntGraph,
+    const TextProcessingContext& pLocutionContext,
+    const SemanticTimeGrounding& pNowTimeGrd,
+    bool pDoWeSplitQuestions,
+    std::list<std::list<SemLineToPrint>>* pDebugOutput,
+    std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>()) {
+    auto semExp =
+        linguistics::convertToSemExp(pSyntGraph, pLocutionContext, pNowTimeGrd, std::move(pAgentWeAreTalkingAbout));
+    splitter::splitInVerySimpleSentences(semExp, pDoWeSplitQuestions);
+    semanticReasonOfRefactor::process(semExp);
+    pSyntGraph.langConfig.lingDb.treeConverter.refactorSemExp(
+        semExp, TREEPATTERN_INTEXT, TREEPATTERN_MIND, pSyntGraph.langConfig.getLanguageType(), pDebugOutput);
+    _completeWithContextInternallyToASemExp(*semExp, pSyntGraph.langConfig.lingDb, nullptr);
+    return semExp;
 }
 
-
-void _naturalLanguageTextToSemanticWord(
-    SemanticWord& pWord,
-    const NaturalLanguageText& pNaturalLanguageText)
-{
-  pWord.lemma = pNaturalLanguageText.text;
-  if (pNaturalLanguageText.type == NaturalLanguageTypeOfText::VERB)
-    pWord.partOfSpeech = PartOfSpeech::VERB;
-  else
-    pWord.partOfSpeech = PartOfSpeech::NOUN;
-  pWord.language = pNaturalLanguageText.language;
+void _naturalLanguageTextToSemanticWord(SemanticWord& pWord, const NaturalLanguageText& pNaturalLanguageText) {
+    pWord.lemma = pNaturalLanguageText.text;
+    if (pNaturalLanguageText.type == NaturalLanguageTypeOfText::VERB)
+        pWord.partOfSpeech = PartOfSpeech::VERB;
+    else
+        pWord.partOfSpeech = PartOfSpeech::NOUN;
+    pWord.language = pNaturalLanguageText.language;
 }
 
 /**
@@ -163,126 +147,102 @@ void _createParameterSemanticexpressions(
     std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
     const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
     const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage)
-{
-  TextProcessingContext paramQuestionProcContext(SemanticAgentGrounding::me,
-                                                 SemanticAgentGrounding::currentUser,
-                                                 pLanguage);
-  paramQuestionProcContext.isTimeDependent = false;
-  for (auto& currLabelToQuestions : pParameterLabelToQuestionsStrs)
-  {
-    for (auto& currQuestion : currLabelToQuestions.second)
-    {
-      auto paramSemExp = converter::textToSemExp(currQuestion, paramQuestionProcContext, pLingDb);
-      pParameterLabelToQuestionsSemExps[currLabelToQuestions.first].emplace_back(std::move(paramSemExp));
+    SemanticLanguageEnum pLanguage) {
+    TextProcessingContext paramQuestionProcContext(
+        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
+    paramQuestionProcContext.isTimeDependent = false;
+    for (auto& currLabelToQuestions : pParameterLabelToQuestionsStrs) {
+        for (auto& currQuestion : currLabelToQuestions.second) {
+            auto paramSemExp = converter::textToSemExp(currQuestion, paramQuestionProcContext, pLingDb);
+            pParameterLabelToQuestionsSemExps[currLabelToQuestions.first].emplace_back(std::move(paramSemExp));
+        }
     }
-  }
 }
 
 }
-
 
 void addDifferentForms(UniqueSemanticExpression& pSemExp,
                        const linguistics::LinguisticDatabase& pLingDb,
-                       std::list<std::list<SemLineToPrint>>* pDebugOutput)
-{
-  semanticOccurrenceRankConverter::process(pSemExp);
-  // TODO: do a refactor inside splitPossibilitiesOfQuestion to not make difference between languages
-  pLingDb.treeConverter.addDifferentForms(pSemExp, SemanticLanguageEnum::UNKNOWN, pDebugOutput);
+                       std::list<std::list<SemLineToPrint>>* pDebugOutput) {
+    semanticOccurrenceRankConverter::process(pSemExp);
+    // TODO: do a refactor inside splitPossibilitiesOfQuestion to not make difference between languages
+    pLingDb.treeConverter.addDifferentForms(pSemExp, SemanticLanguageEnum::UNKNOWN, pDebugOutput);
 }
-
 
 void addBothDirectionForms(UniqueSemanticExpression& pSemExp,
                            const linguistics::LinguisticDatabase& pLingDb,
-                           std::list<std::list<SemLineToPrint>>* pDebugOutput)
-{
-  pLingDb.treeConverter.addBothDirectionForms(pSemExp, SemanticLanguageEnum::UNKNOWN, pDebugOutput);
+                           std::list<std::list<SemLineToPrint>>* pDebugOutput) {
+    pLingDb.treeConverter.addBothDirectionForms(pSemExp, SemanticLanguageEnum::UNKNOWN, pDebugOutput);
 }
 
-
-void unsplitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp)
-{
-  switch (pSemExp->type)
-  {
-  case SemanticExpressionType::ANNOTATED:
-  {
-    auto& annExp = pSemExp->getAnnExp();
-    unsplitPossibilitiesOfQuestions(annExp.semExp);
-    break;
-  }
-  case SemanticExpressionType::COMMAND:
-  {
-    auto& cmdExp = pSemExp->getCmdExp();
-    unsplitPossibilitiesOfQuestions(cmdExp.semExp);
-    break;
-  }
-  case SemanticExpressionType::COMPARISON:
-  {
-    auto& compExp = pSemExp->getCompExp();
-    unsplitPossibilitiesOfQuestions(compExp.leftOperandExp);
-    if (compExp.rightOperandExp)
-      unsplitPossibilitiesOfQuestions(*compExp.rightOperandExp);
-    break;
-  }
-  case SemanticExpressionType::CONDITION:
-  {
-    auto& condExp = pSemExp->getCondExp();
-    unsplitPossibilitiesOfQuestions(condExp.conditionExp);
-    unsplitPossibilitiesOfQuestions(condExp.thenExp);
-    if (condExp.elseExp)
-      unsplitPossibilitiesOfQuestions(*condExp.elseExp);
-    break;
-  }
-  case SemanticExpressionType::FEEDBACK:
-  {
-    auto& fdkExp = pSemExp->getFdkExp();
-    unsplitPossibilitiesOfQuestions(fdkExp.concernedExp);
-    unsplitPossibilitiesOfQuestions(fdkExp.feedbackExp);
-    break;
-  }
-  case SemanticExpressionType::GROUNDED:
-  {
-    auto& grdExp = pSemExp->getGrdExp();
-    for (auto& currChild : grdExp.children)
-      unsplitPossibilitiesOfQuestions(currChild.second);
-    break;
-  }
-  case SemanticExpressionType::INTERPRETATION:
-  {
-    auto& intExp = pSemExp->getIntExp();
-    unsplitPossibilitiesOfQuestions(intExp.interpretedExp);
-    break;
-  }
-  case SemanticExpressionType::LIST:
-  {
-    auto& listExp = pSemExp->getListExp();
-    for (auto& currElt : listExp.elts)
-      unsplitPossibilitiesOfQuestions(currElt);
-    break;
-  }
-  case SemanticExpressionType::METADATA:
-  {
-    auto& metadataExp = pSemExp->getMetadataExp();
-    unsplitPossibilitiesOfQuestions(metadataExp.semExp);
-    if (metadataExp.source)
-      unsplitPossibilitiesOfQuestions(*metadataExp.source);
-    break;
-  }
-  case SemanticExpressionType::SETOFFORMS:
-  {
-    UniqueSemanticExpression* originalFromPtr = pSemExp->getSetOfFormsExp().getOriginalForm();
-    if (originalFromPtr != nullptr)
-    {
-      pSemExp = std::move(*originalFromPtr);
-      unsplitPossibilitiesOfQuestions(pSemExp);
+void unsplitPossibilitiesOfQuestions(UniqueSemanticExpression& pSemExp) {
+    switch (pSemExp->type) {
+        case SemanticExpressionType::ANNOTATED: {
+            auto& annExp = pSemExp->getAnnExp();
+            unsplitPossibilitiesOfQuestions(annExp.semExp);
+            break;
+        }
+        case SemanticExpressionType::COMMAND: {
+            auto& cmdExp = pSemExp->getCmdExp();
+            unsplitPossibilitiesOfQuestions(cmdExp.semExp);
+            break;
+        }
+        case SemanticExpressionType::COMPARISON: {
+            auto& compExp = pSemExp->getCompExp();
+            unsplitPossibilitiesOfQuestions(compExp.leftOperandExp);
+            if (compExp.rightOperandExp)
+                unsplitPossibilitiesOfQuestions(*compExp.rightOperandExp);
+            break;
+        }
+        case SemanticExpressionType::CONDITION: {
+            auto& condExp = pSemExp->getCondExp();
+            unsplitPossibilitiesOfQuestions(condExp.conditionExp);
+            unsplitPossibilitiesOfQuestions(condExp.thenExp);
+            if (condExp.elseExp)
+                unsplitPossibilitiesOfQuestions(*condExp.elseExp);
+            break;
+        }
+        case SemanticExpressionType::FEEDBACK: {
+            auto& fdkExp = pSemExp->getFdkExp();
+            unsplitPossibilitiesOfQuestions(fdkExp.concernedExp);
+            unsplitPossibilitiesOfQuestions(fdkExp.feedbackExp);
+            break;
+        }
+        case SemanticExpressionType::GROUNDED: {
+            auto& grdExp = pSemExp->getGrdExp();
+            for (auto& currChild : grdExp.children)
+                unsplitPossibilitiesOfQuestions(currChild.second);
+            break;
+        }
+        case SemanticExpressionType::INTERPRETATION: {
+            auto& intExp = pSemExp->getIntExp();
+            unsplitPossibilitiesOfQuestions(intExp.interpretedExp);
+            break;
+        }
+        case SemanticExpressionType::LIST: {
+            auto& listExp = pSemExp->getListExp();
+            for (auto& currElt : listExp.elts)
+                unsplitPossibilitiesOfQuestions(currElt);
+            break;
+        }
+        case SemanticExpressionType::METADATA: {
+            auto& metadataExp = pSemExp->getMetadataExp();
+            unsplitPossibilitiesOfQuestions(metadataExp.semExp);
+            if (metadataExp.source)
+                unsplitPossibilitiesOfQuestions(*metadataExp.source);
+            break;
+        }
+        case SemanticExpressionType::SETOFFORMS: {
+            UniqueSemanticExpression* originalFromPtr = pSemExp->getSetOfFormsExp().getOriginalForm();
+            if (originalFromPtr != nullptr) {
+                pSemExp = std::move(*originalFromPtr);
+                unsplitPossibilitiesOfQuestions(pSemExp);
+            }
+            break;
+        }
+        case SemanticExpressionType::FIXEDSYNTHESIS: break;
     }
-    break;
-  }
-  case SemanticExpressionType::FIXEDSYNTHESIS:
-    break;
-  }
 }
-
 
 UniqueSemanticExpression textToSemExp(const std::string& pText,
                                       const TextProcessingContext& pTextProcContext,
@@ -292,193 +252,170 @@ UniqueSemanticExpression textToSemExp(const std::string& pText,
                                       std::unique_ptr<SemanticTimeGrounding>* pNowTimePtr,
                                       const std::list<std::string>* pReferencesPtr,
                                       std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout,
-                                      unsigned char* pConfidencePtr)
-{
-  SemanticLanguageEnum language = [&]
-  {
-    if (pTextProcContext.langType == SemanticLanguageEnum::UNKNOWN)
-      return linguistics::getLanguage(pText, pLingDb);
-    return pTextProcContext.langType;
-  }();
-  if (pExtractedLanguagePtr != nullptr)
-    *pExtractedLanguagePtr = language;
+                                      unsigned char* pConfidencePtr) {
+    SemanticLanguageEnum language = [&] {
+        if (pTextProcContext.langType == SemanticLanguageEnum::UNKNOWN)
+            return linguistics::getLanguage(pText, pLingDb);
+        return pTextProcContext.langType;
+    }();
+    if (pExtractedLanguagePtr != nullptr)
+        *pExtractedLanguagePtr = language;
 
-  auto nowTimeGrd = SemanticTimeGrounding::nowInstance();
-  const SemanticTimeGrounding& nowTimeRef = [&]
-  {
-    if (pNowTimePtr != nullptr)
-    {
-      *pNowTimePtr = std::move(nowTimeGrd);
-      return **pNowTimePtr;
+    auto nowTimeGrd = SemanticTimeGrounding::nowInstance();
+    const SemanticTimeGrounding& nowTimeRef = [&] {
+        if (pNowTimePtr != nullptr) {
+            *pNowTimePtr = std::move(nowTimeGrd);
+            return **pNowTimePtr;
+        }
+        return *nowTimeGrd;
+    }();
+    linguistics::SyntacticGraph syntGraph(pLingDb, language);
+    linguistics::tokenizationAndSyntacticalAnalysis(
+        syntGraph, pText, pTextProcContext.spellingMistakeTypesPossible, pTextProcContext.cmdGrdExtractorPtr);
+    if (pConfidencePtr != nullptr)
+        *pConfidencePtr = syntGraph.parsingConfidence.toPercentage();
+    auto resSemExp = _syntGraphToSemExp(
+        syntGraph, pTextProcContext, nowTimeRef, pDoWeSplitQuestions, nullptr, std::move(pAgentWeAreTalkingAbout));
+
+    if (pReferencesPtr != nullptr) {
+        auto res = std::make_unique<MetadataExpression>(
+            SemanticSourceEnum::UNKNOWN, UniqueSemanticExpression(), std::move(resSemExp));
+        res->references = *pReferencesPtr;
+        return std::move(res);
     }
-    return *nowTimeGrd;
-  }();
-  linguistics::SyntacticGraph syntGraph(pLingDb, language);
-  linguistics::tokenizationAndSyntacticalAnalysis(syntGraph, pText,
-                                                  pTextProcContext.spellingMistakeTypesPossible,
-                                                  pTextProcContext.cmdGrdExtractorPtr);
-  if (pConfidencePtr != nullptr)
-    *pConfidencePtr = syntGraph.parsingConfidence.toPercentage();
-  auto resSemExp = _syntGraphToSemExp(syntGraph, pTextProcContext, nowTimeRef,
-                                      pDoWeSplitQuestions, nullptr, std::move(pAgentWeAreTalkingAbout));
-
-  if (pReferencesPtr != nullptr)
-  {
-    auto res = std::make_unique<MetadataExpression>
-        (SemanticSourceEnum::UNKNOWN, UniqueSemanticExpression(), std::move(resSemExp));
-      res->references = *pReferencesPtr;
-    return std::move(res);
-  }
-  return resSemExp;
+    return resSemExp;
 }
 
-
-std::unique_ptr<MetadataExpression> wrapSemExpWithContextualInfos
-(UniqueSemanticExpression pSemExp,
- const std::string& pText,
- const TextProcessingContext& pLocutionContext,
- SemanticSourceEnum pFrom,
- SemanticLanguageEnum pLanguage,
- std::unique_ptr<SemanticTimeGrounding> pNowTimeGrd,
- unsigned char pConfidence,
- const std::list<std::string>* pReferencesPtr)
-{
-  assert(pNowTimeGrd);
-  auto source = MetadataExpression::constructSourceFromSourceEnum(
+std::unique_ptr<MetadataExpression> wrapSemExpWithContextualInfos(UniqueSemanticExpression pSemExp,
+                                                                  const std::string& pText,
+                                                                  const TextProcessingContext& pLocutionContext,
+                                                                  SemanticSourceEnum pFrom,
+                                                                  SemanticLanguageEnum pLanguage,
+                                                                  std::unique_ptr<SemanticTimeGrounding> pNowTimeGrd,
+                                                                  unsigned char pConfidence,
+                                                                  const std::list<std::string>* pReferencesPtr) {
+    assert(pNowTimeGrd);
+    auto source = MetadataExpression::constructSourceFromSourceEnum(
         std::make_unique<SemanticAgentGrounding>(pLocutionContext.author),
         std::make_unique<SemanticAgentGrounding>(pLocutionContext.receiver),
-        pFrom, std::move(pNowTimeGrd));
+        pFrom,
+        std::move(pNowTimeGrd));
 
-  IndexToSubNameToParameterValue params;
-  params[0].emplace("",
-                    std::make_unique<ReferenceOfSemanticExpressionContainer>(*pSemExp));
-  static const std::set<SemanticExpressionType> expressionTypesToSkip{SemanticExpressionType::SETOFFORMS};
-  source = source->clone(&params, true, &expressionTypesToSkip);
-  if (SemExpGetter::doesSemExpContainsOnlyARequest(*pSemExp))
-    SemExpModifier::replaceSayByAskToRobot(*source);
+    IndexToSubNameToParameterValue params;
+    params[0].emplace("", std::make_unique<ReferenceOfSemanticExpressionContainer>(*pSemExp));
+    static const std::set<SemanticExpressionType> expressionTypesToSkip{SemanticExpressionType::SETOFFORMS};
+    source = source->clone(&params, true, &expressionTypesToSkip);
+    if (SemExpGetter::doesSemExpContainsOnlyARequest(*pSemExp))
+        SemExpModifier::replaceSayByAskToRobot(*source);
 
-  auto res = std::make_unique<MetadataExpression>
-      (pFrom, std::move(source), std::move(pSemExp));
-  res->fromLanguage = pLanguage;
-  res->fromText = pText;
-  if (pReferencesPtr != nullptr)
-    res->references = *pReferencesPtr;
-  res->confidence = pConfidence;
-  return res;
+    auto res = std::make_unique<MetadataExpression>(pFrom, std::move(source), std::move(pSemExp));
+    res->fromLanguage = pLanguage;
+    res->fromText = pText;
+    if (pReferencesPtr != nullptr)
+        res->references = *pReferencesPtr;
+    res->confidence = pConfidence;
+    return res;
 }
 
-
-UniqueSemanticExpression textToContextualSemExp
-(const std::string& pText,
- const TextProcessingContext& pLocutionContext,
- SemanticSourceEnum pFrom,
- const linguistics::LinguisticDatabase& pLingDb,
- const std::list<std::string>* pReferencesPtr,
- std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout)
-{
-  SemanticLanguageEnum language = SemanticLanguageEnum::UNKNOWN;
-  std::unique_ptr<SemanticTimeGrounding> nowTimeGrd;
-  unsigned char confidence = 0;
-  auto semExp = textToSemExp(pText, pLocutionContext, pLingDb, false, &language, &nowTimeGrd,
-                             nullptr, std::move(pAgentWeAreTalkingAbout), &confidence);
-  return wrapSemExpWithContextualInfos(std::move(semExp), pText, pLocutionContext, pFrom, language,
-                                       std::move(nowTimeGrd), confidence, pReferencesPtr);
+UniqueSemanticExpression textToContextualSemExp(const std::string& pText,
+                                                const TextProcessingContext& pLocutionContext,
+                                                SemanticSourceEnum pFrom,
+                                                const linguistics::LinguisticDatabase& pLingDb,
+                                                const std::list<std::string>* pReferencesPtr,
+                                                std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout) {
+    SemanticLanguageEnum language = SemanticLanguageEnum::UNKNOWN;
+    std::unique_ptr<SemanticTimeGrounding> nowTimeGrd;
+    unsigned char confidence = 0;
+    auto semExp = textToSemExp(pText,
+                               pLocutionContext,
+                               pLingDb,
+                               false,
+                               &language,
+                               &nowTimeGrd,
+                               nullptr,
+                               std::move(pAgentWeAreTalkingAbout),
+                               &confidence);
+    return wrapSemExpWithContextualInfos(
+        std::move(semExp), pText, pLocutionContext, pFrom, language, std::move(nowTimeGrd), confidence, pReferencesPtr);
 }
 
+UniqueSemanticExpression naturalLanguageExpressionToSemanticExpression(
+    const NaturalLanguageExpression& pNaturalLanguageExpression,
+    const linguistics::LinguisticDatabase& pLingDb,
+    const std::vector<std::string>& pResourceLabels) {
+    if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::EXPRESSION) {
+        auto textProc =
+            TextProcessingContext::getTextProcessingContextFromRobot(pNaturalLanguageExpression.word.language);
+        if (!pResourceLabels.empty())
+            textProc.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(pResourceLabels);
+        return textToSemExp(pNaturalLanguageExpression.word.text, textProc, pLingDb);
+    }
 
-UniqueSemanticExpression naturalLanguageExpressionToSemanticExpression(const NaturalLanguageExpression& pNaturalLanguageExpression,
-                                                                       const linguistics::LinguisticDatabase& pLingDb,
-                                                                       const std::vector<std::string>& pResourceLabels)
-{
-  if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::EXPRESSION)
-  {
-    auto textProc = TextProcessingContext::getTextProcessingContextFromRobot(pNaturalLanguageExpression.word.language);
-    if (!pResourceLabels.empty())
-      textProc.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(pResourceLabels);
-    return textToSemExp(pNaturalLanguageExpression.word.text, textProc, pLingDb);
-  }
-
-  auto res = std::make_unique<GroundedExpression>(
-        [&]() -> std::unique_ptr<SemanticGrounding>
-        {
-          if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::VERB)
-          {
+    auto res = std::make_unique<GroundedExpression>([&]() -> std::unique_ptr<SemanticGrounding> {
+        if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::VERB) {
             auto statGrd = std::make_unique<SemanticStatementGrounding>();
             _naturalLanguageTextToSemanticWord(statGrd->word, pNaturalLanguageExpression.word);
             statGrd->verbTense = pNaturalLanguageExpression.verbTense;
             statGrd->verbGoal = pNaturalLanguageExpression.verbGoal;
             statGrd->polarity = pNaturalLanguageExpression.polarity;
-            pLingDb.langToSpec[pNaturalLanguageExpression.word.language].lingDico.getConceptsFromWord(statGrd->concepts, statGrd->word);
+            pLingDb.langToSpec[pNaturalLanguageExpression.word.language].lingDico.getConceptsFromWord(statGrd->concepts,
+                                                                                                      statGrd->word);
             return statGrd;
-          }
-          if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::AGENT)
-          {
+        }
+        if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::AGENT) {
             return std::make_unique<SemanticAgentGrounding>(pNaturalLanguageExpression.word.text);
-          }
-          if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::QUOTE)
-          {
+        }
+        if (pNaturalLanguageExpression.word.type == NaturalLanguageTypeOfText::QUOTE) {
             return std::make_unique<SemanticTextGrounding>(pNaturalLanguageExpression.word.text);
-          }
-          auto genGrd = std::make_unique<SemanticGenericGrounding>();
-          _naturalLanguageTextToSemanticWord(genGrd->word, pNaturalLanguageExpression.word);
-          genGrd->quantity = pNaturalLanguageExpression.quantity;
-          genGrd->referenceType = pNaturalLanguageExpression.reference;
-          pLingDb.langToSpec[pNaturalLanguageExpression.word.language].lingDico.getConceptsFromWord(genGrd->concepts, genGrd->word);
-          return genGrd;
-        }());
-  for (const auto& currChild : pNaturalLanguageExpression.children)
-    res->children.emplace(currChild.first, naturalLanguageExpressionToSemanticExpression(currChild.second, pLingDb));
-  return std::move(res);
+        }
+        auto genGrd = std::make_unique<SemanticGenericGrounding>();
+        _naturalLanguageTextToSemanticWord(genGrd->word, pNaturalLanguageExpression.word);
+        genGrd->quantity = pNaturalLanguageExpression.quantity;
+        genGrd->referenceType = pNaturalLanguageExpression.reference;
+        pLingDb.langToSpec[pNaturalLanguageExpression.word.language].lingDico.getConceptsFromWord(genGrd->concepts,
+                                                                                                  genGrd->word);
+        return genGrd;
+    }());
+    for (const auto& currChild : pNaturalLanguageExpression.children)
+        res->children.emplace(currChild.first,
+                              naturalLanguageExpressionToSemanticExpression(currChild.second, pLingDb));
+    return std::move(res);
 }
 
+UniqueSemanticExpression agentIdWithNameToSemExp(const std::string& pAgentId, const std::vector<std::string>& pNames) {
+    // fill verb
+    auto res = std::make_unique<GroundedExpression>([]() {
+        auto statementGrd = std::make_unique<SemanticStatementGrounding>();
+        statementGrd->verbTense = SemanticVerbTense::PRESENT;
+        statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
+        return statementGrd;
+    }());
 
-UniqueSemanticExpression agentIdWithNameToSemExp(const std::string& pAgentId,
-                                                 const std::vector<std::string>& pNames)
-{
-  // fill verb
-  auto res = std::make_unique<GroundedExpression>
-      ([]()
-  {
-    auto statementGrd = std::make_unique<SemanticStatementGrounding>();
-    statementGrd->verbTense = SemanticVerbTense::PRESENT;
-    statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
-    return statementGrd;
-  }());
+    // fill subject
+    res->children.emplace(GrammaticalType::SUBJECT,
+                          std::make_unique<GroundedExpression>(std::make_unique<SemanticAgentGrounding>(pAgentId)));
 
-  // fill subject
-  res->children.emplace(GrammaticalType::SUBJECT, std::make_unique<GroundedExpression>(
-                          std::make_unique<SemanticAgentGrounding>(pAgentId)));
+    // fill object
+    res->children.emplace(GrammaticalType::OBJECT,
+                          std::make_unique<GroundedExpression>(std::make_unique<SemanticNameGrounding>(pNames)));
 
-  // fill object
-  res->children.emplace(GrammaticalType::OBJECT, std::make_unique<GroundedExpression>(
-                          std::make_unique<SemanticNameGrounding>(pNames)));
-
-  return std::move(res);
+    return std::move(res);
 }
-
-
 
 UniqueSemanticExpression syntGraphToSemExp(const linguistics::SyntacticGraph& pSyntGraph,
                                            const TextProcessingContext& pLocutionContext,
-                                           std::list<std::list<SemLineToPrint> >* pDebugOutput)
-{
-  auto nowTimeGrd = SemanticTimeGrounding::nowInstance();
-  return _syntGraphToSemExp(pSyntGraph, pLocutionContext, *nowTimeGrd, false, pDebugOutput);
+                                           std::list<std::list<SemLineToPrint>>* pDebugOutput) {
+    auto nowTimeGrd = SemanticTimeGrounding::nowInstance();
+    return _syntGraphToSemExp(pSyntGraph, pLocutionContext, *nowTimeGrd, false, pDebugOutput);
 }
-
-
 
 void semExpToSentiments(std::list<std::unique_ptr<SentimentContext>>& pSentInfos,
                         const SemanticExpression& pSemExp,
-                        const ConceptSet& pConceptSet)
-{
-  const SemanticAgentGrounding* authorPtr = SemExpGetter::extractAuthor(pSemExp);
-  if (authorPtr != nullptr)
-    sentimentDetector::semExpToSentimentInfos
-        (pSentInfos, pSemExp, *authorPtr, pConceptSet);
+                        const ConceptSet& pConceptSet) {
+    const SemanticAgentGrounding* authorPtr = SemExpGetter::extractAuthor(pSemExp);
+    if (authorPtr != nullptr)
+        sentimentDetector::semExpToSentimentInfos(pSentInfos, pSemExp, *authorPtr, pConceptSet);
 }
-
-
 
 void semExpToText(std::string& pResStr,
                   UniqueSemanticExpression pSemExp,
@@ -487,31 +424,31 @@ void semExpToText(std::string& pResStr,
                   const SemanticMemoryBlock& pMemBlock,
                   const std::string& pCurrentUserId,
                   const linguistics::LinguisticDatabase& pLingDb,
-                  std::list<std::list<SemLineToPrint> >* pDebugOutput)
-{
-  std::list<std::unique_ptr<SynthesizerResult>> res;
-  synthesize(res, std::move(pSemExp), pOneLinePerSentence,
-             pMemBlock, pCurrentUserId, pTextProcContext, pLingDb, pDebugOutput);
-  for (const auto& currElt : res)
-  {
-    switch (currElt->type)
-    {
-    case SynthesizerResultEnum::TEXT:
-    {
-      const auto& syntText = *dynamic_cast<const SynthesizerText*>(&*currElt);
-      pResStr += syntText.text;
-      break;
+                  std::list<std::list<SemLineToPrint>>* pDebugOutput) {
+    std::list<std::unique_ptr<SynthesizerResult>> res;
+    synthesize(res,
+               std::move(pSemExp),
+               pOneLinePerSentence,
+               pMemBlock,
+               pCurrentUserId,
+               pTextProcContext,
+               pLingDb,
+               pDebugOutput);
+    for (const auto& currElt : res) {
+        switch (currElt->type) {
+            case SynthesizerResultEnum::TEXT: {
+                const auto& syntText = *dynamic_cast<const SynthesizerText*>(&*currElt);
+                pResStr += syntText.text;
+                break;
+            }
+            case SynthesizerResultEnum::TASK: {
+                const auto& syntTask = *dynamic_cast<const SynthesizerTask*>(&*currElt);
+                pResStr += syntTask.resource.value;
+                break;
+            }
+        }
     }
-    case SynthesizerResultEnum::TASK:
-    {
-      const auto& syntTask = *dynamic_cast<const SynthesizerTask*>(&*currElt);
-      pResStr += syntTask.resource.value;
-      break;
-    }
-    }
-  }
 }
-
 
 void semExpToText(std::string& pResStr,
                   UniqueSemanticExpression pSemExp,
@@ -519,94 +456,81 @@ void semExpToText(std::string& pResStr,
                   bool pOneLinePerSentence,
                   const SemanticMemory& pSemanticMemory,
                   const linguistics::LinguisticDatabase& pLingDb,
-                  std::list<std::list<SemLineToPrint> >* pDebugOutput)
-{
-  semExpToText(pResStr, std::move(pSemExp), pTextProcContext, pOneLinePerSentence,
-               pSemanticMemory.memBloc, pSemanticMemory.getCurrUserId(), pLingDb, pDebugOutput);
+                  std::list<std::list<SemLineToPrint>>* pDebugOutput) {
+    semExpToText(pResStr,
+                 std::move(pSemExp),
+                 pTextProcContext,
+                 pOneLinePerSentence,
+                 pSemanticMemory.memBloc,
+                 pSemanticMemory.getCurrUserId(),
+                 pLingDb,
+                 pDebugOutput);
 }
-
-
-
 
 void getInfinitiveToTwoDifferentPossibleWayToAskForIt(UniqueSemanticExpression& pOut1,
                                                       UniqueSemanticExpression& pOut2,
-                                                      UniqueSemanticExpression pUSemExp)
-{
-  {
+                                                      UniqueSemanticExpression pUSemExp) {
+    {
+        auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
+        if (grdExpPtr != nullptr)
+            pOut1 = SemExpCreator::getImperativeAssociateFrom(*grdExpPtr);
+    }
+
+    {
+        auto* grdExpPtr = pOut1->getGrdExpPtr_SkipWrapperPtrs();
+        if (grdExpPtr != nullptr)
+            pOut2 = SemExpCreator::iWantThatYou(SemanticAgentGrounding::currentUser,
+                                                SemExpCreator::getIndicativeFromImperative(*grdExpPtr));
+    }
+}
+
+UniqueSemanticExpression getFutureIndicativeAssociatedForm(UniqueSemanticExpression pUSemExp) {
     auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
     if (grdExpPtr != nullptr)
-     pOut1 = SemExpCreator::getImperativeAssociateFrom(*grdExpPtr);
-  }
+        return SemExpCreator::getFutureIndicativeAssociatedForm(*grdExpPtr);
 
-  {
-    auto* grdExpPtr = pOut1->getGrdExpPtr_SkipWrapperPtrs();
-    if (grdExpPtr != nullptr)
-      pOut2 = SemExpCreator::iWantThatYou(SemanticAgentGrounding::currentUser, SemExpCreator::getIndicativeFromImperative(*grdExpPtr));
-  }
-}
-
-
-UniqueSemanticExpression getFutureIndicativeAssociatedForm(UniqueSemanticExpression pUSemExp)
-{
-  auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
-  if (grdExpPtr != nullptr)
-    return SemExpCreator::getFutureIndicativeAssociatedForm(*grdExpPtr);
-
-  auto* listExpPtr = pUSemExp->getListExpPtr_SkipWrapperPtrs();
-  if (listExpPtr != nullptr)
-  {
-    auto& listExp = *listExpPtr;
-    auto res = std::make_unique<ListExpression>(listExp.listType);
-    for (auto& currElt : listExp.elts)
-      res->elts.push_back(getFutureIndicativeAssociatedForm(std::move(currElt)));
-    return std::move(res);
-  }
-  return UniqueSemanticExpression();
-}
-
-
-std::unique_ptr<UniqueSemanticExpression> imperativeToInfinitive(const SemanticExpression& pSemExp)
-{
-  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
-  if (grdExpPtr != nullptr)
-  {
-    auto* statGrdPtr = grdExpPtr->grounding().getStatementGroundingPtr();
-    if (statGrdPtr != nullptr)
-    {
-      auto& statGrd = *statGrdPtr;
-      if (statGrd.requests.has(SemanticRequestType::ACTION))
-        return std::make_unique<UniqueSemanticExpression>(SemExpCreator::getInfinitiveFromImperativeForm(*grdExpPtr));
+    auto* listExpPtr = pUSemExp->getListExpPtr_SkipWrapperPtrs();
+    if (listExpPtr != nullptr) {
+        auto& listExp = *listExpPtr;
+        auto res = std::make_unique<ListExpression>(listExp.listType);
+        for (auto& currElt : listExp.elts)
+            res->elts.push_back(getFutureIndicativeAssociatedForm(std::move(currElt)));
+        return std::move(res);
     }
-  }
-  return {};
+    return UniqueSemanticExpression();
 }
 
-void imperativeToMandatory(UniqueSemanticExpression& pSemExp)
-{
-  mandatoryFormConverter::process(pSemExp);
+std::unique_ptr<UniqueSemanticExpression> imperativeToInfinitive(const SemanticExpression& pSemExp) {
+    auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExpPtr != nullptr) {
+        auto* statGrdPtr = grdExpPtr->grounding().getStatementGroundingPtr();
+        if (statGrdPtr != nullptr) {
+            auto& statGrd = *statGrdPtr;
+            if (statGrd.requests.has(SemanticRequestType::ACTION))
+                return std::make_unique<UniqueSemanticExpression>(
+                    SemExpCreator::getInfinitiveFromImperativeForm(*grdExpPtr));
+        }
+    }
+    return {};
 }
 
-
-UniqueSemanticExpression constructTeachSemExp(
-    UniqueSemanticExpression pInfitiveLabelSemExp,
-    UniqueSemanticExpression pSemExpToDo)
-{
-  auto res = std::make_unique<GroundedExpression>();
-  res->children.emplace(GrammaticalType::PURPOSE, std::move(pInfitiveLabelSemExp));
-  res->children.emplace(GrammaticalType::OBJECT, std::move(pSemExpToDo));
-  return std::move(res);
+void imperativeToMandatory(UniqueSemanticExpression& pSemExp) {
+    mandatoryFormConverter::process(pSemExp);
 }
 
-
-void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes,
-                                 const SemanticExpression& pSemExp)
-{
-  auto inf = imperativeToInfinitive(pSemExp);
-  if (inf)
-    pRes.emplace_back(std::move(*inf));
+UniqueSemanticExpression constructTeachSemExp(UniqueSemanticExpression pInfitiveLabelSemExp,
+                                              UniqueSemanticExpression pSemExpToDo) {
+    auto res = std::make_unique<GroundedExpression>();
+    res->children.emplace(GrammaticalType::PURPOSE, std::move(pInfitiveLabelSemExp));
+    res->children.emplace(GrammaticalType::OBJECT, std::move(pSemExpToDo));
+    return std::move(res);
 }
 
-
+void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes, const SemanticExpression& pSemExp) {
+    auto inf = imperativeToInfinitive(pSemExp);
+    if (inf)
+        pRes.emplace_back(std::move(*inf));
+}
 
 std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const std::string& pResourceLabel,
@@ -614,84 +538,73 @@ std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
     const SemanticExpression& pContextForParameters,
     const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage)
-{
-  std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestionsSemExps;
-  _createParameterSemanticexpressions(parameterLabelToQuestionsSemExps,
-                                      pParameterLabelToQuestionsStrs,
-                                      pLingDb, pLanguage);
+    SemanticLanguageEnum pLanguage) {
+    std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestionsSemExps;
+    _createParameterSemanticexpressions(
+        parameterLabelToQuestionsSemExps, pParameterLabelToQuestionsStrs, pLingDb, pLanguage);
 
-  auto res = std::make_unique<SemanticResourceGrounding>(pResourceLabel, pLanguage, pResourceValue);
+    auto res = std::make_unique<SemanticResourceGrounding>(pResourceLabel, pLanguage, pResourceValue);
 
-  for (auto& currLabelToQuestions : parameterLabelToQuestionsSemExps)
-  {
-    for (auto& currQuestionSemExp : currLabelToQuestions.second)
-    {
-      SemanticMemory semMemory;
-      memoryOperation::inform(
-            std::make_unique<MetadataExpression>
-            (SemanticSourceEnum::WRITTENTEXT, UniqueSemanticExpression(), pContextForParameters.clone()),
-            semMemory, pLingDb);
-      UniqueSemanticExpression questionMergedWithContext = currQuestionSemExp->clone();
-      memoryOperation::mergeWithContext(questionMergedWithContext, semMemory, pLingDb);
-      res->resource.parameterLabelsToQuestions[currLabelToQuestions.first].emplace_back(std::move(questionMergedWithContext));
+    for (auto& currLabelToQuestions : parameterLabelToQuestionsSemExps) {
+        for (auto& currQuestionSemExp : currLabelToQuestions.second) {
+            SemanticMemory semMemory;
+            memoryOperation::inform(
+                std::make_unique<MetadataExpression>(
+                    SemanticSourceEnum::WRITTENTEXT, UniqueSemanticExpression(), pContextForParameters.clone()),
+                semMemory,
+                pLingDb);
+            UniqueSemanticExpression questionMergedWithContext = currQuestionSemExp->clone();
+            memoryOperation::mergeWithContext(questionMergedWithContext, semMemory, pLingDb);
+            res->resource.parameterLabelsToQuestions[currLabelToQuestions.first].emplace_back(
+                std::move(questionMergedWithContext));
+        }
     }
-  }
-  return res;
+    return res;
 }
-
 
 void extractParameters(std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameters,
                        const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
                        UniqueSemanticExpression pInputSemExp,
-                       const linguistics::LinguisticDatabase& pLingDb)
-{
-  SemanticMemory semMemory;
-  auto expWithLinks = memoryOperation::inform(std::move(pInputSemExp), semMemory, pLingDb);
+                       const linguistics::LinguisticDatabase& pLingDb) {
+    SemanticMemory semMemory;
+    auto expWithLinks = memoryOperation::inform(std::move(pInputSemExp), semMemory, pLingDb);
 
-  for (const auto& currParam : pParameterLabelsToQuestions)
-  {
-    for (const auto& currQuestion : currParam.second)
-    {
-      UniqueSemanticExpression questionSemExp = currQuestion->clone();
-      std::vector<std::unique_ptr<GroundedExpression>> answers;
-      memoryOperation::get(answers, std::move(questionSemExp), semMemory, pLingDb);
+    for (const auto& currParam : pParameterLabelsToQuestions) {
+        for (const auto& currQuestion : currParam.second) {
+            UniqueSemanticExpression questionSemExp = currQuestion->clone();
+            std::vector<std::unique_ptr<GroundedExpression>> answers;
+            memoryOperation::get(answers, std::move(questionSemExp), semMemory, pLingDb);
 
-      // Little hack to still get the answer even if the child answer is not well positionned in the tree
-      if (answers.empty())
-      {
-        auto* questionRequestPtr = SemExpGetter::getRequestListFromSemExp(*currQuestion);
-        if (questionRequestPtr != nullptr && !questionRequestPtr->empty())
-        {
-          auto requestType = questionRequestPtr->types.front();
-          if (requestType != SemanticRequestType::QUANTITY)
-          {
-            GrammaticalType grammaticalChildrenType = semanticRequestType_toSemGram(requestType);
-            if (grammaticalChildrenType != GrammaticalType::UNKNOWN && expWithLinks)
-            {
-              auto answerChildSemExpPtr = SemExpGetter::getChildFromSemExpRecursively(*expWithLinks->semExp, grammaticalChildrenType);
-              if (answerChildSemExpPtr != nullptr)
-              {
-                std::list<const GroundedExpression*> grdExpPtrs;
-                answerChildSemExpPtr->getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
-                for (auto* currGrdExpPtr : grdExpPtrs)
-                  answers.emplace_back(currGrdExpPtr->clone());
-              }
+            // Little hack to still get the answer even if the child answer is not well positionned in the tree
+            if (answers.empty()) {
+                auto* questionRequestPtr = SemExpGetter::getRequestListFromSemExp(*currQuestion);
+                if (questionRequestPtr != nullptr && !questionRequestPtr->empty()) {
+                    auto requestType = questionRequestPtr->types.front();
+                    if (requestType != SemanticRequestType::QUANTITY) {
+                        GrammaticalType grammaticalChildrenType = semanticRequestType_toSemGram(requestType);
+                        if (grammaticalChildrenType != GrammaticalType::UNKNOWN && expWithLinks) {
+                            auto answerChildSemExpPtr = SemExpGetter::getChildFromSemExpRecursively(
+                                *expWithLinks->semExp, grammaticalChildrenType);
+                            if (answerChildSemExpPtr != nullptr) {
+                                std::list<const GroundedExpression*> grdExpPtrs;
+                                answerChildSemExpPtr->getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+                                for (auto* currGrdExpPtr : grdExpPtrs)
+                                    answers.emplace_back(currGrdExpPtr->clone());
+                            }
+                        }
+                    }
+                }
             }
-          }
-        }
-      }
 
-      if (!answers.empty())
-      {
-        auto& exitingParams = pParameters[currParam.first];
-        for (auto& currAnswer : answers)
-          exitingParams.emplace_back(std::move(currAnswer));
-        break;
-      }
+            if (!answers.empty()) {
+                auto& exitingParams = pParameters[currParam.first];
+                for (auto& currAnswer : answers)
+                    exitingParams.emplace_back(std::move(currAnswer));
+                break;
+            }
+        }
     }
-  }
 }
 
-} // End of namespace converter
-} // End of namespace onsem
+}    // End of namespace converter
+}    // End of namespace onsem

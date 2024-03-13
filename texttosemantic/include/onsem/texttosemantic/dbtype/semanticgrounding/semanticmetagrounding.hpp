@@ -5,55 +5,42 @@
 #include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEM_TEXTTOSEMANTIC_API SemanticMetaGrounding : public SemanticGrounding {
+    SemanticMetaGrounding(SemanticGroundingType pRefToType, int pIdParam, const std::string& pAttibuteName = "")
+        : SemanticGrounding(SemanticGroundingType::META)
+        , refToType(pRefToType)
+        , paramId(pIdParam)
+        , attibuteName(pAttibuteName) {}
 
+    const SemanticMetaGrounding& getMetaGrounding() const override { return *this; }
+    SemanticMetaGrounding& getMetaGrounding() override { return *this; }
+    const SemanticMetaGrounding* getMetaGroundingPtr() const override { return this; }
+    SemanticMetaGrounding* getMetaGroundingPtr() override { return this; }
 
-struct ONSEM_TEXTTOSEMANTIC_API SemanticMetaGrounding : public SemanticGrounding
-{
-  SemanticMetaGrounding(SemanticGroundingType pRefToType,
-                        int pIdParam,
-                        const std::string& pAttibuteName = "")
-    : SemanticGrounding(SemanticGroundingType::META),
-      refToType(pRefToType),
-      paramId(pIdParam),
-      attibuteName(pAttibuteName)
-  {
-  }
+    bool operator==(const SemanticMetaGrounding& pOther) const;
+    bool isEqual(const SemanticMetaGrounding& pOther) const;
 
-  const SemanticMetaGrounding& getMetaGrounding() const override { return *this; }
-  SemanticMetaGrounding& getMetaGrounding() override { return *this; }
-  const SemanticMetaGrounding* getMetaGroundingPtr() const override { return this; }
-  SemanticMetaGrounding* getMetaGroundingPtr() override { return this; }
+    static bool isTheBeginOfAParam(const std::string& pStr);
 
-  bool operator==(const SemanticMetaGrounding& pOther) const;
-  bool isEqual(const SemanticMetaGrounding& pOther) const;
+    static bool parseParameter(int& pParamId,
+                               std::string& pLabel,
+                               std::string& pAttributeName,
+                               const std::string& pStr);
 
-  static bool isTheBeginOfAParam(const std::string& pStr);
+    static std::unique_ptr<SemanticMetaGrounding> makeMetaGroundingFromStr(const std::string& pStr);
 
-  static bool parseParameter(int& pParamId,
-                             std::string& pLabel,
-                             std::string& pAttributeName,
-                             const std::string& pStr);
+    static bool groundingTypeFromStr(SemanticGroundingType& pRefToType, const std::string& pStr);
 
-  static std::unique_ptr<SemanticMetaGrounding> makeMetaGroundingFromStr
-  (const std::string& pStr);
+    static const char firstCharOfStr;
+    static const int returnId;
 
-  static bool groundingTypeFromStr(SemanticGroundingType& pRefToType,
-                                  const std::string& pStr);
-
-  static const char firstCharOfStr;
-  static const int returnId;
-
-  SemanticGroundingType refToType;
-  int paramId;
-  std::string attibuteName;
+    SemanticGroundingType refToType;
+    int paramId;
+    std::string attibuteName;
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICMETAGROUNDING_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICMETAGROUNDING_HPP

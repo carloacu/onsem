@@ -4,20 +4,15 @@
 #include <vector>
 #include <string>
 
-namespace onsem
-{
+namespace onsem {
 
-class MetaExtractor
-{
+class MetaExtractor {
 protected:
-  virtual ~MetaExtractor() {}
+    virtual ~MetaExtractor() {}
 
-  static void spitResultLine
-  (std::string& pLemma,
-   std::vector<int>& pNbs,
-   const std::string& pLine);
+    static void spitResultLine(std::string& pLemma, std::vector<int>& pNbs, const std::string& pLine);
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // TEXTEXTRACTOR_METAEXTRACTOR_H
+#endif    // TEXTEXTRACTOR_METAEXTRACTOR_H

@@ -3,21 +3,15 @@
 
 #include "api.hpp"
 
-
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct SemanticMemoryBlock;
 
-
 ONSEMTESTER_API
-bool checkMemBlocBinarization(const SemanticMemoryBlock& pMemBloc,
-                              const linguistics::LinguisticDatabase& pLingDb);
+bool checkMemBlocBinarization(const SemanticMemoryBlock& pMemBloc, const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_TESTER_MEMORYBINARIZATION_HPP
+#endif    // ONSEM_TESTER_MEMORYBINARIZATION_HPP

@@ -6,38 +6,30 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include "../api.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEM_TEXTTOSEMANTIC_API InteractionContext {
+    UniqueSemanticExpression textToSay;
+    std::unique_ptr<UniqueSemanticExpression> fallbackTextToSay;
+    std::list<std::pair<UniqueSemanticExpression, int>> answerPossibilities;
 
-struct ONSEM_TEXTTOSEMANTIC_API InteractionContext
-{
-  UniqueSemanticExpression textToSay;
-  std::unique_ptr<UniqueSemanticExpression> fallbackTextToSay;
-  std::list<std::pair<UniqueSemanticExpression, int>> answerPossibilities;
-
-  InteractionContext clone() const;
+    InteractionContext clone() const;
 };
 
+struct ONSEM_TEXTTOSEMANTIC_API InteractionContextContainer {
+    mystd::optional<int> currentPosition;
 
-struct ONSEM_TEXTTOSEMANTIC_API InteractionContextContainer
-{
-  mystd::optional<int> currentPosition;
+    int addInteractionContext(InteractionContext pInteractionContext);
+    const InteractionContext* getCurrentInteractionContextPtr() const;
+    const InteractionContext* getInteractionContextPtr(int pId) const;
+    InteractionContext* getInteractionContextPtr(int pId);
 
-  int addInteractionContext(InteractionContext pInteractionContext);
-  const InteractionContext* getCurrentInteractionContextPtr() const;
-  const InteractionContext* getInteractionContextPtr(int pId) const;
-  InteractionContext* getInteractionContextPtr(int pId);
-
-  std::unique_ptr<InteractionContextContainer> clone() const;
+    std::unique_ptr<InteractionContextContainer> clone() const;
 
 private:
-  std::map<int, InteractionContext> _interactionContexts;
+    std::map<int, InteractionContext> _interactionContexts;
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_INTERACTIONCONTEXT_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_DBTYPE_INTERACTIONCONTEXT_HPP

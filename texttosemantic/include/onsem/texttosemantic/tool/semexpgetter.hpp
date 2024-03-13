@@ -21,11 +21,8 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include "../api.hpp"
 
-
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 class StaticLinguisticDictionary;
 class TranslationDictionary;
 struct LinguisticDatabase;
@@ -46,8 +43,7 @@ struct SemanticWord;
 struct LinguisticMeaning;
 struct StaticLinguisticMeaning;
 
-namespace SemExpGetter
-{
+namespace SemExpGetter {
 
 ONSEM_TEXTTOSEMANTIC_API
 mystd::optional<bool> isUncountableFromGrd(const SemanticGenericGrounding& pGrounding,
@@ -130,7 +126,8 @@ ONSEM_TEXTTOSEMANTIC_API
 const SemanticExpression* getUntilChild(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);
 
 ONSEM_TEXTTOSEMANTIC_API
-mystd::optional<int64_t> getTimeDurationInMilliseconds(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);
+mystd::optional<int64_t> getTimeDurationInMilliseconds(
+    const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool hasASpecificWord(const SemanticGenericGrounding& pGrounding);
@@ -148,36 +145,28 @@ ONSEM_TEXTTOSEMANTIC_API
 const SemanticRequests* getRequestListFromSemExp(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-GroundedExpression* getGrdExpChild(GroundedExpression& pGrdExp,
-                                   GrammaticalType pChildType);
+GroundedExpression* getGrdExpChild(GroundedExpression& pGrdExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
-const GroundedExpression* getGrdExpChild(const GroundedExpression& pGrdExp,
-                                         GrammaticalType pChildType);
+const GroundedExpression* getGrdExpChild(const GroundedExpression& pGrdExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
-const SemanticExpression* getChildFromGrdExp(const GroundedExpression& pGrdExp,
-                                             GrammaticalType pChildType);
+const SemanticExpression* getChildFromGrdExp(const GroundedExpression& pGrdExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
-const SemanticExpression* getChildFromSemExp(const SemanticExpression& pSemExp,
-                                             GrammaticalType pChildType);
+const SemanticExpression* getChildFromSemExp(const SemanticExpression& pSemExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
-const SemanticExpression* getChildFromSemExpRecursively(const SemanticExpression& pSemExp,
-                                                        GrammaticalType pChildType);
+const SemanticExpression* getChildFromSemExpRecursively(const SemanticExpression& pSemExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
 SemanticExpression& getDirectObjectOrIdentityRecursively(SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool hasChild(const GroundedExpression& pGrdExp,
-              GrammaticalType pChildType);
+bool hasChild(const GroundedExpression& pGrdExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool hasChildOtherThanParameterToFill(
-    const GroundedExpression& pGrdExp,
-    GrammaticalType pChildType);
+bool hasChildOtherThanParameterToFill(const GroundedExpression& pGrdExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
 const GroundedExpression* getUnnamedGrdExpPtr(const SemanticExpression& pSemExp);
@@ -186,8 +175,7 @@ ONSEM_TEXTTOSEMANTIC_API
 bool isNow(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-const SemanticExpression* getGrammTypeInfo(const SemanticExpression& pSemExp,
-                                           GrammaticalType pGrammaticalType);
+const SemanticExpression* getGrammTypeInfo(const SemanticExpression& pSemExp, GrammaticalType pGrammaticalType);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool doesSemExpCanBeCompletedWithContext(const SemanticExpression& pSemExp);
@@ -225,26 +213,21 @@ ONSEM_TEXTTOSEMANTIC_API
 SemanticRequestType convertSemGramToRequestType(GrammaticalType pGramType);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool isSemExpEqualToAnAgent(const SemanticExpression& pSemExp,
-                       const SemanticAgentGrounding& pAgentGrd);
+bool isSemExpEqualToAnAgent(const SemanticExpression& pSemExp, const SemanticAgentGrounding& pAgentGrd);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool doesSemExpHaveAnAgent(const SemanticExpression& pSemExp,
-                         const SemanticAgentGrounding& pAgentGrd);
+bool doesSemExpHaveAnAgent(const SemanticExpression& pSemExp, const SemanticAgentGrounding& pAgentGrd);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool doSemExpHoldUserId(const SemanticExpression& pSemExp,
-                       const std::string& pUserId);
-
+bool doSemExpHoldUserId(const SemanticExpression& pSemExp, const std::string& pUserId);
 
 ONSEM_TEXTTOSEMANTIC_API
 const GroundedExpression* getOriginalGrdExpForm(const SetOfFormsExpression& pSetOfFormsExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-const GroundedExpression* splitMainGrdAndOtherOnes
-(std::list<const GroundedExpression*>& pOtherGrdExps,
- bool& pHasOriginalForm,
- const std::list<std::unique_ptr<QuestExpressionFrom>>& pForms);
+const GroundedExpression* splitMainGrdAndOtherOnes(std::list<const GroundedExpression*>& pOtherGrdExps,
+                                                   bool& pHasOriginalForm,
+                                                   const std::list<std::unique_ptr<QuestExpressionFrom>>& pForms);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool grdExpIsAnEmptyStatementGrd(const GroundedExpression& pGrdExp);
@@ -256,8 +239,7 @@ ONSEM_TEXTTOSEMANTIC_API
 bool semExphasAStatementGrd(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void extractReferences(std::list<std::string>& pReferences,
-                       const SemanticExpression& pSemExp);
+void extractReferences(std::list<std::string>& pReferences, const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 ContextualAnnotation extractContextualAnnotation(const SemanticExpression& pSemExp);
@@ -305,8 +287,7 @@ ONSEM_TEXTTOSEMANTIC_API
 bool isAResourceOrAText(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool hasGroundingType(const SemanticExpression& pSemExp,
-                      const std::set<SemanticGroundingType>& pGroundingType);
+bool hasGroundingType(const SemanticExpression& pSemExp, const std::set<SemanticGroundingType>& pGroundingType);
 
 ONSEM_TEXTTOSEMANTIC_API
 SemanticRequestType getMainRequestTypeFromGrdExp(const GroundedExpression& pGrdExp);
@@ -346,21 +327,18 @@ int wordToMeaningId(const SemanticWord& pWord,
                     SemanticLanguageEnum pToLanguage,
                     const linguistics::LinguisticDatabase& pLingDb);
 
-
-
 ONSEM_TEXTTOSEMANTIC_API
 std::string getUserIdOfSubject(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void extractSubjectAndObjectOfAVerbDefinition(std::list<const GroundedExpression*> &pSubjectGrdPtrs,
+void extractSubjectAndObjectOfAVerbDefinition(std::list<const GroundedExpression*>& pSubjectGrdPtrs,
                                               const SemanticExpression*& pInfCommandToDo,
                                               const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void extractTeachElements(
-    const GroundedExpression*& pPurposeGrdPtr,
-    const SemanticExpression*& pObjectSemExp,
-    const GroundedExpression& pGrdExp);
+void extractTeachElements(const GroundedExpression*& pPurposeGrdPtr,
+                          const SemanticExpression*& pObjectSemExp,
+                          const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool isAnActionDefinition(const GroundedExpression& pGrdExp);
@@ -383,13 +361,11 @@ bool isAnInfinitiveGrdExp(const GroundedExpression& pGrdExp);
 ONSEM_TEXTTOSEMANTIC_API
 bool isATeachingElement(const GroundedExpression& pGrdExp);
 
-
 ONSEM_TEXTTOSEMANTIC_API
 bool isNothing(const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool isDoNothingSemExp(const SemanticExpression& pSemExp);
-
 
 ONSEM_TEXTTOSEMANTIC_API
 int getRank(const SemanticExpression& pSemExp);
@@ -402,26 +378,21 @@ const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
                                         const SemanticStatementGrounding& pStatementGrd,
                                         const std::string& pAuthorUserId);
 
-
 ONSEM_TEXTTOSEMANTIC_API
 const GroundedExpression* getLastGrdExpPtr(const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void getConceptsOfGrdExp(std::set<std::string>& pConcepts,
-                         const GroundedExpression& pGrdExp);
+void getConceptsOfGrdExp(std::set<std::string>& pConcepts, const GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void getConceptsOfSemExp(std::set<std::string>& pConcepts,
-                         const SemanticExpression& pSemExp);
+void getConceptsOfSemExp(std::set<std::string>& pConcepts, const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-std::unique_ptr<GroundedExpression> getCopyExceptChild
-(const GroundedExpression& pGrdExp,
- GrammaticalType pGrammaticalTypeToSkip);
+std::unique_ptr<GroundedExpression> getCopyExceptChild(const GroundedExpression& pGrdExp,
+                                                       GrammaticalType pGrammaticalTypeToSkip);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool agentIsTheSubject(const GroundedExpression& pGrdExp,
-                       const std::string& pSubjectUserId);
+bool agentIsTheSubject(const GroundedExpression& pGrdExp, const std::string& pSubjectUserId);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool isACoreference(const SemanticExpression& pSemExp,
@@ -451,9 +422,8 @@ const UniqueSemanticExpression* getCoreferenceAfterFromGrdExp(const GroundedExpr
 ONSEM_TEXTTOSEMANTIC_API
 UniqueSemanticExpression* getCoreferenceAfterFromGrdExp(GroundedExpression& pGrdExp);
 
-static inline bool isGrdExpComplete(const GroundedExpression& pGrdExp)
-{
-  return getCoreferenceAfterFromGrdExp(pGrdExp) == nullptr;
+static inline bool isGrdExpComplete(const GroundedExpression& pGrdExp) {
+    return getCoreferenceAfterFromGrdExp(pGrdExp) == nullptr;
 }
 
 ONSEM_TEXTTOSEMANTIC_API
@@ -465,7 +435,6 @@ bool getSubjectAndObjectUserIdsOfNameAssignement(std::string& pSubjectUserId,
                                                  const GroundedExpression*& pSubjectGrdExpPtr,
                                                  const GroundedExpression*& pObjectGrdExpPtr,
                                                  const GroundedExpression& pGrdExp);
-
 
 ONSEM_TEXTTOSEMANTIC_API
 bool isANameAssignement(const GroundedExpression& pGrdExp);
@@ -481,8 +450,7 @@ bool extractExternalTeachingLabel(const GroundedExpression& pGrdExp,
                                   const std::string& pAuthorUserId);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool isAnExtractExternalTeaching(const GroundedExpression& pGrdExp,
-                                 const std::string& pAuthorUserId);
+bool isAnExtractExternalTeaching(const GroundedExpression& pGrdExp, const std::string& pAuthorUserId);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool isWhoSemExp(const SemanticExpression& pSemExp);
@@ -510,34 +478,24 @@ UniqueSemanticExpression getASimplifiedVersion(const SemanticExpression& pSemExp
 ONSEM_TEXTTOSEMANTIC_API
 bool hasGenericConcept(const UniqueSemanticExpression* pUSemExpPtr);
 
+ONSEM_TEXTTOSEMANTIC_API
+void extractAskedChildren(std::set<GrammaticalType>& pAskedChildren, const SemanticExpression& pQuestion);
 
 ONSEM_TEXTTOSEMANTIC_API
-void extractAskedChildren(std::set<GrammaticalType>& pAskedChildren,
-                          const SemanticExpression& pQuestion);
-
-
-ONSEM_TEXTTOSEMANTIC_API
-void extractAskedChildrenByAResource(
-    std::set<GrammaticalType>& pAskedChildren,
-    const SemanticExpression& pSemExp);
-
-
+void extractAskedChildrenByAResource(std::set<GrammaticalType>& pAskedChildren, const SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 std::vector<GrammaticalType> requestToGrammaticalTypes(SemanticRequestType pRequestType,
                                                        const mystd::optional<TypeOfUnity>& pTypeOfUnityOpt);
 
-
 ONSEM_TEXTTOSEMANTIC_API
 const SemanticTimeGrounding* semExpToTimeGrounding(const SemanticExpression& pSemExp);
-
 
 ONSEM_TEXTTOSEMANTIC_API
 const SemanticResourceGrounding* semExpToResourceGrounding(const SemanticExpression& pSemExp);
 
+}    // End of namespace SemExpGetter
 
-} // End of namespace SemExpGetter
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_TOOL_SEMEXPGETTER_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_TOOL_SEMEXPGETTER_HPP

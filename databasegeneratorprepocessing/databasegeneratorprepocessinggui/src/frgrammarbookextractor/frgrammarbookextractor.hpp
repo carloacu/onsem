@@ -3,24 +3,19 @@
 
 #include <string>
 
-namespace onsem
-{
+namespace onsem {
 class LingdbTree;
-namespace linguistics
-{
+namespace linguistics {
 struct LinguisticDatabase;
 }
 
-namespace frgrammarbookextractor
-{
+namespace frgrammarbookextractor {
 
 void run(const LingdbTree& pLingDbTree,
          const std::string& pShareDbFolder,
          const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace frgrammarbookextractor
+}    // End of namespace onsem
 
-} // End of namespace frgrammarbookextractor
-} // End of namespace onsem
-
-
-#endif // ONSEM_DATABASEGENERATORPREPROCESSINGGUI_FRGRAMMARBOOKEXTRACTOR_HPP
+#endif    // ONSEM_DATABASEGENERATORPREPROCESSINGGUI_FRGRAMMARBOOKEXTRACTOR_HPP

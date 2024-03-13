@@ -5,22 +5,17 @@
 #include <string>
 #include <onsem/common/enum/partofspeech.hpp>
 
-namespace onsem
-{
+namespace onsem {
 
-class WikiKeyWords
-{
+class WikiKeyWords {
 public:
-  virtual ~WikiKeyWords() {}
+    virtual ~WikiKeyWords() {}
 
-  virtual void getGramEnum
-  (std::set<PartOfSpeech>& pRes,
-   const std::string& pGramStr,
-   const std::string& pLine) const = 0;
+    virtual void getGramEnum(std::set<PartOfSpeech>& pRes,
+                             const std::string& pGramStr,
+                             const std::string& pLine) const = 0;
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-
-
-#endif // METAWIKIKEYWORDS_H
+#endif    // METAWIKIKEYWORDS_H

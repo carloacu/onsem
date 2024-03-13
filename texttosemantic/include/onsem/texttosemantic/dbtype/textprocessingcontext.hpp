@@ -8,40 +8,32 @@
 #include <onsem/texttosemantic/dbtype/resourcegroundingextractor.hpp>
 #include "../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
+struct ONSEM_TEXTTOSEMANTIC_API TextProcessingContext {
+    TextProcessingContext(const std::string& pAuthorId, const std::string& pReceiverId, SemanticLanguageEnum pLangType);
+    TextProcessingContext(const std::string& pAuthorId,
+                          const std::string& pReceiverId,
+                          SemanticLanguageEnum pLangType,
+                          UniqueSemanticExpression pUsSemExp);
+    TextProcessingContext(const TextProcessingContext& pOther);
 
-struct ONSEM_TEXTTOSEMANTIC_API TextProcessingContext
-{
-  TextProcessingContext(const std::string& pAuthorId,
-                        const std::string& pReceiverId,
-                        SemanticLanguageEnum pLangType);
-  TextProcessingContext(const std::string& pAuthorId,
-                        const std::string& pReceiverId,
-                        SemanticLanguageEnum pLangType,
-                        UniqueSemanticExpression pUsSemExp);
-  TextProcessingContext(const TextProcessingContext& pOther);
+    void setUsAsYouAndMe();    // default config
+    void setUsAsEverybody();
 
-  void setUsAsYouAndMe(); // default config
-  void setUsAsEverybody();
+    static TextProcessingContext getTextProcessingContextFromRobot(SemanticLanguageEnum pLanguage);
+    static TextProcessingContext getTextProcessingContextToRobot(SemanticLanguageEnum pLanguage);
 
-  static TextProcessingContext getTextProcessingContextFromRobot(SemanticLanguageEnum pLanguage);
-  static TextProcessingContext getTextProcessingContextToRobot(SemanticLanguageEnum pLanguage);
-
-  const SemanticAgentGrounding author;
-  const SemanticAgentGrounding receiver;
-  SemanticLanguageEnum langType;
-  bool isTimeDependent;
-  UniqueSemanticExpression usSemExp;
-  bool vouvoiement;
-  std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
-  std::set<SpellingMistakeType> spellingMistakeTypesPossible;
+    const SemanticAgentGrounding author;
+    const SemanticAgentGrounding receiver;
+    SemanticLanguageEnum langType;
+    bool isTimeDependent;
+    UniqueSemanticExpression usSemExp;
+    bool vouvoiement;
+    std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
+    std::set<SpellingMistakeType> spellingMistakeTypesPossible;
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPES_TEXTPROCESSINGCONTEXT_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPES_TEXTPROCESSINGCONTEXT_HPP

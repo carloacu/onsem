@@ -10,100 +10,72 @@
 #include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEM_TEXTTOSEMANTIC_API SemanticStatementGrounding : public SemanticGrounding {
+    SemanticStatementGrounding()
+        : SemanticGrounding(SemanticGroundingType::STATEMENT)
+        , requests()
+        , word()
+        , verbTense(SemanticVerbTense::UNKNOWN)
+        , verbGoal(VerbGoalEnum::NOTIFICATION)
+        , coreference()
+        , isPassive() {}
 
+    static std::unique_ptr<SemanticStatementGrounding> makeCoreference();
 
-struct ONSEM_TEXTTOSEMANTIC_API SemanticStatementGrounding : public SemanticGrounding
-{
-  SemanticStatementGrounding()
-    : SemanticGrounding(SemanticGroundingType::STATEMENT),
-      requests(),
-      word(),
-      verbTense(SemanticVerbTense::UNKNOWN),
-      verbGoal(VerbGoalEnum::NOTIFICATION),
-      coreference(),
-      isPassive()
-  {
-  }
+    const SemanticStatementGrounding& getStatementGrounding() const override { return *this; }
+    SemanticStatementGrounding& getStatementGrounding() override { return *this; }
+    const SemanticStatementGrounding* getStatementGroundingPtr() const override { return this; }
+    SemanticStatementGrounding* getStatementGroundingPtr() override { return this; }
 
-  static std::unique_ptr<SemanticStatementGrounding> makeCoreference();
+    bool operator==(const SemanticStatementGrounding& pOther) const;
+    bool isEqual(const SemanticStatementGrounding& pOther) const;
+    bool empty() const;
+    bool noVerb() const;
 
-  const SemanticStatementGrounding& getStatementGrounding() const override { return *this; }
-  SemanticStatementGrounding& getStatementGrounding() override { return *this; }
-  const SemanticStatementGrounding* getStatementGroundingPtr() const override { return this; }
-  SemanticStatementGrounding* getStatementGroundingPtr() override { return this; }
+    bool isAtInfinitive() const { return verbTense == SemanticVerbTense::UNKNOWN; }
+    bool isMandatoryInPresentTense() const {
+        return verbGoal == VerbGoalEnum::MANDATORY && verbTense == SemanticVerbTense::PRESENT;
+    }
 
-  bool operator==(const SemanticStatementGrounding& pOther) const;
-  bool isEqual(const SemanticStatementGrounding& pOther) const;
-  bool empty() const;
-  bool noVerb() const;
+    SemanticRequests requests;
 
-  bool isAtInfinitive() const { return verbTense == SemanticVerbTense::UNKNOWN; }
-  bool isMandatoryInPresentTense() const {
-    return verbGoal == VerbGoalEnum::MANDATORY &&
-        verbTense == SemanticVerbTense::PRESENT; }
+    /// The word here is in fact the verb in the statement.
+    /// @todo Rename to "verb"?
+    SemanticWord word;
 
-  SemanticRequests requests;
-
-  /// The word here is in fact the verb in the statement.
-  /// @todo Rename to "verb"?
-  SemanticWord word;
-
-  SemanticVerbTense verbTense;
-  VerbGoalEnum verbGoal;
-  mystd::optional<Coreference> coreference;
-  mystd::optional<bool> isPassive;
+    SemanticVerbTense verbTense;
+    VerbGoalEnum verbGoal;
+    mystd::optional<Coreference> coreference;
+    mystd::optional<bool> isPassive;
 };
 
-
-
-
-
-inline bool SemanticStatementGrounding::operator==(const SemanticStatementGrounding& pOther) const
-{
-  return this->isEqual(pOther);
+inline bool SemanticStatementGrounding::operator==(const SemanticStatementGrounding& pOther) const {
+    return this->isEqual(pOther);
 }
 
-
-inline bool SemanticStatementGrounding::isEqual(const SemanticStatementGrounding& pOther) const
-{
-  return _isMotherClassEqual(pOther) &&
-      requests == pOther.requests &&
-      word == pOther.word &&
-      verbTense == pOther.verbTense &&
-      verbGoal == pOther.verbGoal &&
-      coreference == pOther.coreference &&
-      isPassive == pOther.isPassive;
+inline bool SemanticStatementGrounding::isEqual(const SemanticStatementGrounding& pOther) const {
+    return _isMotherClassEqual(pOther) && requests == pOther.requests && word == pOther.word
+        && verbTense == pOther.verbTense && verbGoal == pOther.verbGoal && coreference == pOther.coreference
+        && isPassive == pOther.isPassive;
 }
 
-
-inline bool SemanticStatementGrounding::empty() const
-{
-  return _isMotherClassEmpty() &&
-      requests.empty() &&
-      word.isEmpty() &&
-      verbTense == SemanticVerbTense::UNKNOWN &&
-      verbGoal == VerbGoalEnum::NOTIFICATION &&
-      !coreference.has_value() &&
-      !isPassive.has_value();
+inline bool SemanticStatementGrounding::empty() const {
+    return _isMotherClassEmpty() && requests.empty() && word.isEmpty() && verbTense == SemanticVerbTense::UNKNOWN
+        && verbGoal == VerbGoalEnum::NOTIFICATION && !coreference.has_value() && !isPassive.has_value();
 }
 
-inline bool SemanticStatementGrounding::noVerb() const
-{
-  return word.isEmpty() && concepts.empty();
+inline bool SemanticStatementGrounding::noVerb() const {
+    return word.isEmpty() && concepts.empty();
 }
 
-inline std::unique_ptr<SemanticStatementGrounding> SemanticStatementGrounding::makeCoreference()
-{
-  auto coreferenceStatementGrdExp = std::make_unique<SemanticStatementGrounding>();
-  coreferenceStatementGrdExp->coreference.emplace();
-  return coreferenceStatementGrdExp;
+inline std::unique_ptr<SemanticStatementGrounding> SemanticStatementGrounding::makeCoreference() {
+    auto coreferenceStatementGrdExp = std::make_unique<SemanticStatementGrounding>();
+    coreferenceStatementGrdExp->coreference.emplace();
+    return coreferenceStatementGrdExp;
 }
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICSTATEMENTGROUNDING_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICSTATEMENTGROUNDING_HPP

@@ -4,16 +4,13 @@
 #include <string>
 #include <onsem/common/enum/semanticlanguageenum.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct SemanticMemory;
 struct DetailedReactionAnswer;
 struct ReactionOptions;
-
 
 DetailedReactionAnswer triggers_match(const std::string& pText,
                                       SemanticMemory& pSemanticMemory,
@@ -22,7 +19,6 @@ DetailedReactionAnswer triggers_match(const std::string& pText,
                                       const ReactionOptions* pReactionOptions = nullptr,
                                       bool pSetUsAsEverybody = false);
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-
-#endif // ONSEMGTESTS_SEMANTICTOTEXT_TRIGGERS_TRIGGERS_MATCH_HPP
+#endif    // ONSEMGTESTS_SEMANTICTOTEXT_TRIGGERS_TRIGGERS_MATCH_HPP

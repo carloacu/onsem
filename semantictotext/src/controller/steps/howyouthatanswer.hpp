@@ -3,18 +3,14 @@
 
 #include <memory>
 
-namespace onsem
-{
+namespace onsem {
 struct LeafSemAnswer;
 
-namespace howYouThatAnswer
-{
+namespace howYouThatAnswer {
 
 void process(std::unique_ptr<LeafSemAnswer>& pLeafAnswer);
 
+}    // End of namespace howYouThatAnswer
+}    // End of namespace onsem
 
-} // End of namespace howYouThatAnswer
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_CONTROLLER_STEPS_SEMANTICHOWYOUKNOWTHATANSWERGETTER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_CONTROLLER_STEPS_SEMANTICHOWYOUKNOWTHATANSWERGETTER_HPP

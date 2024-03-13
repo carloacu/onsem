@@ -4,23 +4,16 @@
 #include <string>
 #include "../../api.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
-namespace binaryDbSizePrinter
-{
+namespace binaryDbSizePrinter {
 
 ONSEM_TEXTTOSEMANTIC_API
-void printSize(std::string& pText,
-               const linguistics::LinguisticDatabase& pLingDb);
+void printSize(std::string& pText, const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace binaryDbSizePrinter
+}    // End of namespace onsem
 
-} // End of namespace binaryDbSizePrinter
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPE_LINGUISTICDATABASE_BINARYDATABASESIZEPRINTER_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPE_LINGUISTICDATABASE_BINARYDATABASESIZEPRINTER_HPP

@@ -6,26 +6,22 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/semantictotext/api.hpp>
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemory;
-namespace linguistics
-{
+namespace linguistics {
 struct LinguisticDatabase;
-} // linguistics
+}    // linguistics
 
 /// A structure to carry functions that may be called
 /// in certain cases of the greetings.
-struct GreetCallbacks
-{
-  GreetCallbacks(){} // TODO: understand why not defining this causes undefined reference
-  std::function<void()> onHumanIntroduced;
-  std::function<void(const std::string&)> onHumanHasGivenName;
-  std::function<void()> onHumanLeaving;
-  std::function<void()> onHumanAskingData;
-  std::function<void(const std::string&)> lookAtOtherPerson;
+struct GreetCallbacks {
+    GreetCallbacks() {}    // TODO: understand why not defining this causes undefined reference
+    std::function<void()> onHumanIntroduced;
+    std::function<void(const std::string&)> onHumanHasGivenName;
+    std::function<void()> onHumanLeaving;
+    std::function<void()> onHumanAskingData;
+    std::function<void(const std::string&)> lookAtOtherPerson;
 };
-
 
 /// Responds to a greeting with another greeting.
 /// If the input is not a greeting,
@@ -38,9 +34,6 @@ mystd::unique_propagate_const<UniqueSemanticExpression> greetInResponseOf(
     const GreetCallbacks& pCallbacks = {},
     std::unique_ptr<SemanticExpression> pInterlocutor = {});
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICTOTEXT_GREET_HPP
-
-
+#endif    // ONSEM_SEMANTICTOTEXT_GREET_HPP

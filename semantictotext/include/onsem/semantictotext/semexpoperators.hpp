@@ -15,11 +15,8 @@
 #include <onsem/semantictotext/type/reactionoptions.hpp>
 #include "api.hpp"
 
-
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct SemanticExpression;
@@ -32,25 +29,17 @@ struct SentenceWithLinks;
 struct SemanticMemoryBlock;
 struct SemanticDuration;
 
-namespace memoryOperation
-{
+namespace memoryOperation {
 
-enum class SemanticActionOperatorEnum
-{
-  BEHAVIOR,
-  CONDITION,
-  INFORMATION
-};
-
+enum class SemanticActionOperatorEnum { BEHAVIOR, CONDITION, INFORMATION };
 
 /// Reply to a direct question according.
 /// @todo check that it does not trigger a response, but that it only answers questions.
 ONSEMSEMANTICTOTEXT_API
-mystd::unique_propagate_const<UniqueSemanticExpression> answer(
-    UniqueSemanticExpression pSemExp,
-    bool pAnswerIDontKnow,
-    const SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb);
+mystd::unique_propagate_const<UniqueSemanticExpression> answer(UniqueSemanticExpression pSemExp,
+                                                               bool pAnswerIDontKnow,
+                                                               const SemanticMemory& pSemanticMemory,
+                                                               const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
 mystd::unique_propagate_const<UniqueSemanticExpression> answerIDontKnow(const SemanticExpression& pSemExp);
@@ -63,9 +52,9 @@ mystd::unique_propagate_const<UniqueSemanticExpression> notKnowing(const Semanti
 
 ONSEMSEMANTICTOTEXT_API
 mystd::unique_propagate_const<UniqueSemanticExpression> sayFeedback(const SemanticExpression& pSemExp,
-                                                      SemanticTypeOfFeedback pTypeOfFeedBack,
-                                                      const SemanticMemory& pSemanticMemory,
-                                                      const linguistics::LinguisticDatabase& pLingDb);
+                                                                    SemanticTypeOfFeedback pTypeOfFeedBack,
+                                                                    const SemanticMemory& pSemanticMemory,
+                                                                    const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
 SemanticExpressionCategory categorize(const SemanticExpression& pSemExp);
@@ -79,12 +68,12 @@ ONSEMSEMANTICTOTEXT_API
 SemanticEngagementValue extractEngagement(const SemanticExpression& pSemExp);
 
 /**
-  * @brief Exctract a part of a semantic expression.
-  * @param[in,out] pInputSemExp Input knowledge in which we will remove the matched part.
-  * @param[in] pSemExpToMatch Semantic expression to extract.
-  * @param[in] pLingDb A linguistic database.
-  * @return The extracted semantic expression.
-  */
+ * @brief Exctract a part of a semantic expression.
+ * @param[in,out] pInputSemExp Input knowledge in which we will remove the matched part.
+ * @param[in] pSemExpToMatch Semantic expression to extract.
+ * @param[in] pLingDb A linguistic database.
+ * @return The extracted semantic expression.
+ */
 ONSEMSEMANTICTOTEXT_API
 bool isASubpart(const SemanticExpression& pInputSemExp,
                 const SemanticExpression& pSemExpToFind,
@@ -139,30 +128,26 @@ std::shared_ptr<ExpressionWithLinks> informAxiom(
     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
-void learnSayCommand(SemanticMemory& pSemanticMemory,
-                     const linguistics::LinguisticDatabase& pLingDb);
+void learnSayCommand(SemanticMemory& pSemanticMemory, const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
 void allowToInformTheUserHowToTeach(SemanticMemory& pSemanticMemory);
 
 ONSEMSEMANTICTOTEXT_API
-void defaultKnowledge(SemanticMemory& pSemanticMemory,
-                      const linguistics::LinguisticDatabase& pLingDb);
+void defaultKnowledge(SemanticMemory& pSemanticMemory, const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionWithLinks> addFallback(
-    UniqueSemanticExpression pSemExp,
-    SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb,
-    const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr);
-
+std::shared_ptr<ExpressionWithLinks> addFallback(UniqueSemanticExpression pSemExp,
+                                                 SemanticMemory& pSemanticMemory,
+                                                 const linguistics::LinguisticDatabase& pLingDb,
+                                                 const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr);
 
 ONSEMSEMANTICTOTEXT_API
-mystd::unique_propagate_const<UniqueSemanticExpression> resolveCommandFromMemBlock(const SemanticExpression& pSemExp,
-                                                                     const SemanticMemoryBlock& pMemblock,
-                                                                     const std::string& pCurrentUserId,
-                                                                     const linguistics::LinguisticDatabase& pLingDb);
-
+mystd::unique_propagate_const<UniqueSemanticExpression> resolveCommandFromMemBlock(
+    const SemanticExpression& pSemExp,
+    const SemanticMemoryBlock& pMemblock,
+    const std::string& pCurrentUserId,
+    const linguistics::LinguisticDatabase& pLingDb);
 
 /**
  * Find the knowledge representing actions requested in the imperative form.
@@ -173,8 +158,8 @@ mystd::unique_propagate_const<UniqueSemanticExpression> resolveCommandFromMemBlo
  */
 ONSEMSEMANTICTOTEXT_API
 mystd::unique_propagate_const<UniqueSemanticExpression> resolveCommand(const SemanticExpression& pSemExp,
-                                                         const SemanticMemory& pSemanticMemory,
-                                                         const linguistics::LinguisticDatabase& pLingDb);
+                                                                       const SemanticMemory& pSemanticMemory,
+                                                                       const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
 mystd::unique_propagate_const<UniqueSemanticExpression> executeFromCondition(
@@ -184,10 +169,9 @@ mystd::unique_propagate_const<UniqueSemanticExpression> executeFromCondition(
 
 // resolveCommand + executeFromCondition
 ONSEMSEMANTICTOTEXT_API
-mystd::unique_propagate_const<UniqueSemanticExpression> execute(
-    const SemanticExpression& pSemExp,
-    const SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb);
+mystd::unique_propagate_const<UniqueSemanticExpression> execute(const SemanticExpression& pSemExp,
+                                                                const SemanticMemory& pSemanticMemory,
+                                                                const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMSEMANTICTOTEXT_API
 mystd::unique_propagate_const<UniqueSemanticExpression> externalRequester(
@@ -231,13 +215,12 @@ std::shared_ptr<ExpressionWithLinks> teach(mystd::unique_propagate_const<UniqueS
                                            SemanticActionOperatorEnum pActionOperator);
 
 ONSEMSEMANTICTOTEXT_API
-std::shared_ptr<ExpressionWithLinks> teachSplitted
-(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
- SemanticMemory& pSemanticMemory,
- UniqueSemanticExpression pInfitiveLabelSemExp,
- UniqueSemanticExpression pSemExpToDo,
- const linguistics::LinguisticDatabase& pLingDb,
- SemanticActionOperatorEnum pActionOperator);
+std::shared_ptr<ExpressionWithLinks> teachSplitted(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+                                                   SemanticMemory& pSemanticMemory,
+                                                   UniqueSemanticExpression pInfitiveLabelSemExp,
+                                                   UniqueSemanticExpression pSemExpToDo,
+                                                   const linguistics::LinguisticDatabase& pLingDb,
+                                                   SemanticActionOperatorEnum pActionOperator);
 
 ONSEMSEMANTICTOTEXT_API
 void show(std::vector<std::unique_ptr<GroundedExpression> >& pAnswers,
@@ -245,9 +228,7 @@ void show(std::vector<std::unique_ptr<GroundedExpression> >& pAnswers,
           const SemanticMemory& pSemanticMemory,
           const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace memoryOperation
+}    // End of namespace onsem
 
-
-} // End of namespace memoryOperation
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICTOTEXT_SEMEXPOPERATORS_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SEMEXPOPERATORS_HPP

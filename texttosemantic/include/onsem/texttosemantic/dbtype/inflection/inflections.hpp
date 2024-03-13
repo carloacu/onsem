@@ -6,68 +6,54 @@
 #include <onsem/texttosemantic/dbtype/inflection/inflectiontype.hpp>
 #include "../../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct AdjectivalInflections;
 struct NominalInflections;
 struct PronominalInflections;
 struct VerbalInflections;
 
+struct ONSEM_TEXTTOSEMANTIC_API Inflections {
+    virtual ~Inflections() {}
+    InflectionType type;
 
+    static std::unique_ptr<Inflections> create(InflectionType pType,
+                                               const std::vector<std::string>& pInflectionalCodes);
+    static std::unique_ptr<Inflections> create(InflectionType pType, const std::string& pInflectionalCodes);
+    std::unique_ptr<Inflections> clone() const;
+    std::unique_ptr<Inflections> getOtherInflectionsType(InflectionType pType) const;
+    bool operator==(const Inflections& pOther) const;
+    void concisePrint(std::ostream& pOs) const;
 
-struct ONSEM_TEXTTOSEMANTIC_API Inflections
-{
-  virtual ~Inflections() {}
-  InflectionType type;
+    virtual AdjectivalInflections& getAdjectivalI();
+    virtual const AdjectivalInflections& getAdjectivalI() const;
+    virtual AdjectivalInflections* getAdjectivalIPtr() { return nullptr; }
+    virtual const AdjectivalInflections* getAdjectivalIPtr() const { return nullptr; }
 
-  static std::unique_ptr<Inflections> create(InflectionType pType,
-                                             const std::vector<std::string>& pInflectionalCodes);
-  static std::unique_ptr<Inflections> create(InflectionType pType,
-                                             const std::string& pInflectionalCodes);
-  std::unique_ptr<Inflections> clone() const;
-  std::unique_ptr<Inflections> getOtherInflectionsType(InflectionType pType) const;
-  bool operator==(const Inflections& pOther) const;
-  void concisePrint(std::ostream& pOs) const;
+    virtual NominalInflections& getNominalI();
+    virtual const NominalInflections& getNominalI() const;
+    virtual NominalInflections* getNominalIPtr() { return nullptr; }
+    virtual const NominalInflections* getNominalIPtr() const { return nullptr; }
 
-  virtual AdjectivalInflections& getAdjectivalI();
-  virtual const AdjectivalInflections& getAdjectivalI() const;
-  virtual AdjectivalInflections* getAdjectivalIPtr() { return nullptr; }
-  virtual const AdjectivalInflections* getAdjectivalIPtr() const { return nullptr; }
+    virtual PronominalInflections& getPronominalI();
+    virtual const PronominalInflections& getPronominalI() const;
+    virtual PronominalInflections* getPronominalIPtr() { return nullptr; }
+    virtual const PronominalInflections* getPronominalIPtr() const { return nullptr; }
 
-  virtual NominalInflections& getNominalI();
-  virtual const NominalInflections& getNominalI() const;
-  virtual NominalInflections* getNominalIPtr() { return nullptr; }
-  virtual const NominalInflections* getNominalIPtr() const { return nullptr; }
-
-  virtual PronominalInflections& getPronominalI();
-  virtual const PronominalInflections& getPronominalI() const;
-  virtual PronominalInflections* getPronominalIPtr() { return nullptr; }
-  virtual const PronominalInflections* getPronominalIPtr() const { return nullptr; }
-
-  virtual VerbalInflections& getVerbalI();
-  virtual const VerbalInflections& getVerbalI() const;
-  virtual VerbalInflections* getVerbalIPtr() { return nullptr; }
-  virtual const VerbalInflections* getVerbalIPtr() const { return nullptr; }
-
+    virtual VerbalInflections& getVerbalI();
+    virtual const VerbalInflections& getVerbalI() const;
+    virtual VerbalInflections* getVerbalIPtr() { return nullptr; }
+    virtual const VerbalInflections* getVerbalIPtr() const { return nullptr; }
 
 protected:
-  Inflections(InflectionType pType)
-    : type(pType)
-  {
-  }
+    Inflections(InflectionType pType)
+        : type(pType) {}
 };
 
-
-struct ONSEM_TEXTTOSEMANTIC_API EmptyInflections : public Inflections
-{
-  EmptyInflections()
-    : Inflections(InflectionType::EMPTY)
-  {
-  }
+struct ONSEM_TEXTTOSEMANTIC_API EmptyInflections : public Inflections {
+    EmptyInflections()
+        : Inflections(InflectionType::EMPTY) {}
 };
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPE_INFLECTION_INFLECTIONS_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPE_INFLECTION_INFLECTIONS_HPP

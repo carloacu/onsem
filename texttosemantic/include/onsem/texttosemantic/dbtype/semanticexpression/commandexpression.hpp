@@ -4,51 +4,41 @@
 #include "semanticexpression.hpp"
 #include "../../api.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEM_TEXTTOSEMANTIC_API CommandExpression : public SemanticExpression {
+    template<typename TSEMEXP>
+    CommandExpression(std::unique_ptr<TSEMEXP> pSemExp);
 
+    CommandExpression(UniqueSemanticExpression&& pSemExp);
 
-struct ONSEM_TEXTTOSEMANTIC_API CommandExpression : public SemanticExpression
-{
-  template<typename TSEMEXP>
-  CommandExpression(std::unique_ptr<TSEMEXP> pSemExp);
+    CommandExpression(const AnnotatedExpression&) = delete;
+    CommandExpression& operator=(const AnnotatedExpression&) = delete;
 
-  CommandExpression(UniqueSemanticExpression&& pSemExp);
+    CommandExpression& getCmdExp() override { return *this; }
+    const CommandExpression& getCmdExp() const override { return *this; }
+    CommandExpression* getCmdExpPtr() override { return this; }
+    const CommandExpression* getCmdExpPtr() const override { return this; }
 
-  CommandExpression(const AnnotatedExpression&) = delete;
-  CommandExpression& operator=(const AnnotatedExpression&) = delete;
+    bool operator==(const CommandExpression& pOther) const;
+    bool isEqual(const CommandExpression& pOther) const;
+    void assertEltsEqual(const CommandExpression& pOther) const;
 
-  CommandExpression& getCmdExp() override { return *this; }
-  const CommandExpression& getCmdExp() const override { return *this; }
-  CommandExpression* getCmdExpPtr() override { return this; }
-  const CommandExpression* getCmdExpPtr() const override { return this; }
+    std::unique_ptr<CommandExpression> clone(
+        const IndexToSubNameToParameterValue* pParams = nullptr,
+        bool pRemoveRecentContextInterpretations = false,
+        const std::set<SemanticExpressionType>* pExpressionTypesToSkip = nullptr) const;
 
-  bool operator==(const CommandExpression& pOther) const;
-  bool isEqual(const CommandExpression& pOther) const;
-  void assertEltsEqual(const CommandExpression& pOther) const;
-
-  std::unique_ptr<CommandExpression> clone(const IndexToSubNameToParameterValue* pParams = nullptr,
-                                           bool pRemoveRecentContextInterpretations = false,
-                                           const std::set<SemanticExpressionType>* pExpressionTypesToSkip = nullptr) const;
-
-
-  UniqueSemanticExpression semExp;
-  mystd::unique_propagate_const<UniqueSemanticExpression> description;
+    UniqueSemanticExpression semExp;
+    mystd::unique_propagate_const<UniqueSemanticExpression> description;
 };
-
-
 
 template<typename TSEMEXP>
 CommandExpression::CommandExpression(std::unique_ptr<TSEMEXP> pSemExp)
-  : SemanticExpression(SemanticExpressionType::COMMAND),
-    semExp(std::move(pSemExp)),
-    description()
-{
-}
+    : SemanticExpression(SemanticExpressionType::COMMAND)
+    , semExp(std::move(pSemExp))
+    , description() {}
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPES_SEMANTICEXPRESSION_COMMANDEXPRESSION_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPES_SEMANTICEXPRESSION_COMMANDEXPRESSION_HPP

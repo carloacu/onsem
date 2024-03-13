@@ -5,10 +5,8 @@
 #include <set>
 #include <onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct ChunkLink;
 class InflectionsChecker;
 class LinguisticDictionary;
@@ -20,8 +18,7 @@ bool addNotUnderstood(std::list<ChunkLink>& pChunkList,
                       const InflectionsChecker& pInlfChecker,
                       const linguistics::LinguisticDictionary& pLingDico);
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_NOTUNDERSTOODADDER_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_NOTUNDERSTOODADDER_HPP

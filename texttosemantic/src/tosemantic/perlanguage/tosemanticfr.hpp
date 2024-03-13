@@ -3,29 +3,23 @@
 
 #include "../syntacticgraphtosemantic.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
-
-class ToSemanticFr : public SyntacticGraphToSemantic
-{
+class ToSemanticFr : public SyntacticGraphToSemantic {
 public:
-  ToSemanticFr(const AlgorithmSetForALanguage& pConfiguration)
-    : SyntacticGraphToSemantic(pConfiguration)
-  {}
+    ToSemanticFr(const AlgorithmSetForALanguage& pConfiguration)
+        : SyntacticGraphToSemantic(pConfiguration) {}
 
 protected:
-mystd::unique_propagate_const<UniqueSemanticExpression> _processQuestionWithoutVerb(
-      std::list<ChunkLink>::const_iterator& pItChild,
-      ToGenRepGeneral& pGeneral,
-      const Chunk& pChunk,
-      const SyntacticGraph& pSyntGraph) const override;
+    mystd::unique_propagate_const<UniqueSemanticExpression> _processQuestionWithoutVerb(
+        std::list<ChunkLink>::const_iterator& pItChild,
+        ToGenRepGeneral& pGeneral,
+        const Chunk& pChunk,
+        const SyntacticGraph& pSyntGraph) const override;
 };
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_TOSEMANTIC_PERLANGUAGE_TOSEMANTICFR_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_TOSEMANTIC_PERLANGUAGE_TOSEMANTICFR_HPP

@@ -8,48 +8,36 @@
 #include <onsem/texttosemantic/dbtype/semanticword.hpp>
 #include "metaextractor.hpp"
 
-
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct SyntacticGraph;
 struct Chunk;
 struct ChunkLink;
 }
 
-
-class VerbPrepExtractor : public MetaExtractor
-{
+class VerbPrepExtractor : public MetaExtractor {
 public:
-  VerbPrepExtractor();
-  VerbPrepExtractor(const std::vector<VerbPrepExtractor>& pOtherVerbPrepExtractors);
+    VerbPrepExtractor();
+    VerbPrepExtractor(const std::vector<VerbPrepExtractor>& pOtherVerbPrepExtractors);
 
-  void processText
-  (const linguistics::SyntacticGraph& pSyntGraph,
-   const std::string& pText);
+    void processText(const linguistics::SyntacticGraph& pSyntGraph, const std::string& pText);
 
-  void writeResults
-  (const std::string& pResultFilename) const;
+    void writeResults(const std::string& pResultFilename) const;
 
 private:
-  SemanticWord fAQuiPronWord;
-  SemanticWord fAQuiConjSWord;
-  std::map<std::string, int> fVerbsToFreq;
+    SemanticWord fAQuiPronWord;
+    SemanticWord fAQuiConjSWord;
+    std::map<std::string, int> fVerbsToFreq;
 
-  void xInit();
+    void xInit();
 
-  void xProcessChunkLinkList
-  (const std::list<linguistics::ChunkLink>& pChunkLinks,
-   const std::string& pText);
+    void xProcessChunkLinkList(const std::list<linguistics::ChunkLink>& pChunkLinks, const std::string& pText);
 
-  void xAddSubVerbIfInterestingChunkLink
-  (const linguistics::ChunkLink& pChunkLink);
+    void xAddSubVerbIfInterestingChunkLink(const linguistics::ChunkLink& pChunkLink);
 
-  void xAddChunkHead
-  (const linguistics::Chunk& pChunk);
+    void xAddChunkHead(const linguistics::Chunk& pChunk);
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // TEXTEXTRACTOR_VERBPREPEXTRACTOR_H
+#endif    // TEXTEXTRACTOR_VERBPREPEXTRACTOR_H

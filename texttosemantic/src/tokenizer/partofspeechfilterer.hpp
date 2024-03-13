@@ -4,15 +4,12 @@
 #include <vector>
 #include <string>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct Token;
 struct SpecificLinguisticDatabase;
 
-namespace partOfSpeechFilterer
-{
+namespace partOfSpeechFilterer {
 
 void process(std::vector<Token>& pTokens,
              const SpecificLinguisticDatabase& pSpecLingDb,
@@ -20,9 +17,8 @@ void process(std::vector<Token>& pTokens,
              std::size_t pNbOfDebugRounds,
              bool pIsRootLevel);
 
+}    // End of namespace partOfSpeechFilterer
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace partOfSpeechFilterer
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // !LINGUISTICANALYZER_TAGGER_RULES_SYNTACTICTAGGER_HPP
+#endif    // !LINGUISTICANALYZER_TAGGER_RULES_SYNTACTICTAGGER_HPP

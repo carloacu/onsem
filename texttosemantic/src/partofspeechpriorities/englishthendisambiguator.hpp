@@ -3,16 +3,13 @@
 
 #include <vector>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct Token;
 
 void englishThenDisambiguator(std::vector<Token>& pTokens);
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_TAGGER_ENGLSIHTHENDISAMBIGUATOR_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_TAGGER_ENGLSIHTHENDISAMBIGUATOR_HPP

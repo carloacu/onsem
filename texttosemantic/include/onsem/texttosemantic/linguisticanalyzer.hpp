@@ -9,19 +9,15 @@
 #include <onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp>
 #include "api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct TextProcessingContext;
 struct UniqueSemanticExpression;
 struct ResourceGroundingExtractor;
 struct SemanticTimeGrounding;
 struct SemanticAgentGrounding;
-namespace linguistics
-{
+namespace linguistics {
 struct SyntacticGraph;
 struct LinguisticDatabase;
-
-
 
 ONSEM_TEXTTOSEMANTIC_API
 void tokenizationAndSyntacticalAnalysis(SyntacticGraph& pSyntGraph,
@@ -47,12 +43,10 @@ UniqueSemanticExpression convertToSemExp(const SyntacticGraph& pSyntGraph,
                                          std::unique_ptr<SemanticAgentGrounding> pAgentWeAreTalkingAbout);
 
 ONSEM_TEXTTOSEMANTIC_API
-void extractProperNounsThatDoesntHaveAnyOtherGrammaticalTypes(
-    std::set<std::string>& pNewProperNouns,
-    const std::string& pInputSentence,
-    SemanticLanguageEnum pLanguage,
-    const LinguisticDatabase& pLingDb);
-
+void extractProperNounsThatDoesntHaveAnyOtherGrammaticalTypes(std::set<std::string>& pNewProperNouns,
+                                                              const std::string& pInputSentence,
+                                                              SemanticLanguageEnum pLanguage,
+                                                              const LinguisticDatabase& pLingDb);
 
 ONSEM_TEXTTOSEMANTIC_API
 void extractProperNouns(std::vector<std::string>& pProperNouns,
@@ -60,13 +54,10 @@ void extractProperNouns(std::vector<std::string>& pProperNouns,
                         SemanticLanguageEnum pLanguage,
                         const LinguisticDatabase& pLingDb);
 
-
 ONSEM_TEXTTOSEMANTIC_API
-bool isAProperNoun(const std::string& pStr,
-                   const LinguisticDatabase& pLingDb);
+bool isAProperNoun(const std::string& pStr, const LinguisticDatabase& pLingDb);
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_LINGUISTICANALYZER_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_LINGUISTICANALYZER_HPP

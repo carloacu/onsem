@@ -9,104 +9,72 @@
 #include <onsem/compilermodel/lingdbmeaning.hpp>
 #include "metawiki/patternrecognizer.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct Wikitionary_ComposedWord {
+    explicit Wikitionary_ComposedWord(PartOfSpeech pNewGram)
+        : newGram(pNewGram)
+        , rootSubMeaning(nullptr)
+        , subMeanings() {}
 
-struct Wikitionary_ComposedWord
-{
-  explicit Wikitionary_ComposedWord
-  (PartOfSpeech pNewGram)
-    : newGram(pNewGram),
-      rootSubMeaning(nullptr),
-      subMeanings()
-  {
-  }
+    explicit Wikitionary_ComposedWord(const Wikitionary_ComposedWord& pOther)
+        : newGram(pOther.newGram)
+        , rootSubMeaning(pOther.rootSubMeaning)
+        , subMeanings(pOther.subMeanings) {}
 
-  explicit Wikitionary_ComposedWord
-  (const Wikitionary_ComposedWord& pOther)
-    : newGram(pOther.newGram),
-      rootSubMeaning(pOther.rootSubMeaning),
-      subMeanings(pOther.subMeanings)
-  {
-  }
+    bool operator<(const Wikitionary_ComposedWord& pOther) const {
+        if (rootSubMeaning != pOther.rootSubMeaning) {
+            return rootSubMeaning < pOther.rootSubMeaning;
+        }
+        if (newGram != pOther.newGram) {
+            return newGram < pOther.newGram;
+        }
+        if (subMeanings.size() != pOther.subMeanings.size()) {
+            return subMeanings.size() < pOther.subMeanings.size();
+        }
 
-
-  bool operator<(const Wikitionary_ComposedWord& pOther) const
-  {
-    if (rootSubMeaning != pOther.rootSubMeaning)
-    {
-      return rootSubMeaning < pOther.rootSubMeaning;
-    }
-    if (newGram != pOther.newGram)
-    {
-      return newGram < pOther.newGram;
-    }
-    if (subMeanings.size() != pOther.subMeanings.size())
-    {
-      return subMeanings.size() < pOther.subMeanings.size();
+        for (auto it = subMeanings.begin(), itOther = pOther.subMeanings.begin(); it != subMeanings.end();
+             ++it, ++itOther) {
+            if (it->first != itOther->first) {
+                return it->first < itOther->first;
+            }
+            if (it->second != itOther->second) {
+                return it->second < itOther->second;
+            }
+        }
+        return false;
     }
 
-    for (auto it = subMeanings.begin(), itOther = pOther.subMeanings.begin();
-         it != subMeanings.end(); ++it, ++itOther)
-    {
-      if (it->first != itOther->first)
-      {
-        return it->first < itOther->first;
-      }
-      if (it->second != itOther->second)
-      {
-        return it->second < itOther->second;
-      }
-    }
-    return false;
-  }
-
-  PartOfSpeech newGram;
-  LingdbMeaning* rootSubMeaning;
-  std::list<std::pair<LingdbMeaning*, LinkedMeaningDirection>> subMeanings;
+    PartOfSpeech newGram;
+    LingdbMeaning* rootSubMeaning;
+    std::list<std::pair<LingdbMeaning*, LinkedMeaningDirection>> subMeanings;
 
 private:
-  Wikitionary_ComposedWord& operator=
-  (const Wikitionary_ComposedWord& pOther);
+    Wikitionary_ComposedWord& operator=(const Wikitionary_ComposedWord& pOther);
 };
 
-
-
-class AddComposedWords
-{
+class AddComposedWords {
 public:
-  explicit AddComposedWords
-  (const PatternRecognizer& pPatternRecognizer);
+    explicit AddComposedWords(const PatternRecognizer& pPatternRecognizer);
 
-  void extractDatasFromFile
-  (std::set<Wikitionary_ComposedWord>& pNewComposedWords,
-   std::ifstream& pWikionaryFile,
-   const LinguisticIntermediaryDatabase& pInLingDatabase,
-   SemanticLanguageEnum pLangEnum) const;
+    void extractDatasFromFile(std::set<Wikitionary_ComposedWord>& pNewComposedWords,
+                              std::ifstream& pWikionaryFile,
+                              const LinguisticIntermediaryDatabase& pInLingDatabase,
+                              SemanticLanguageEnum pLangEnum) const;
 
-  static void writeNewComposedWords
-  (const std::set<Wikitionary_ComposedWord>& pNewComposedWords,
-   const std::string& poutFile);
-
+    static void writeNewComposedWords(const std::set<Wikitionary_ComposedWord>& pNewComposedWords,
+                                      const std::string& poutFile);
 
 private:
-  const PatternRecognizer& fPatternReco;
+    const PatternRecognizer& fPatternReco;
 
+    static void xFillMeaningAttriabutes(QDomElement& pMeaningElt, LingdbMeaning* pMeaning);
 
-  static void xFillMeaningAttriabutes
-  (QDomElement& pMeaningElt,
-   LingdbMeaning* pMeaning);
-
-  static void xTryToAddPronominalFrenchVerb
-  (std::set<Wikitionary_ComposedWord>& pNewComposedWords,
-   const LinguisticIntermediaryDatabase& pInLingDatabase,
-   const std::string& pRootVerb);
-
+    static void xTryToAddPronominalFrenchVerb(std::set<Wikitionary_ComposedWord>& pNewComposedWords,
+                                              const LinguisticIntermediaryDatabase& pInLingDatabase,
+                                              const std::string& pRootVerb);
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-
-
-#endif // ADDCOMPOSEDWORDS_H
+#endif    // ADDCOMPOSEDWORDS_H

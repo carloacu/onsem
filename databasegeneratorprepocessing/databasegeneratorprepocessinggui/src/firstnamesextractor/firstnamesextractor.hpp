@@ -3,17 +3,12 @@
 
 #include <string>
 
-namespace onsem
-{
-namespace firstnamesExtractor
-{
+namespace onsem {
+namespace firstnamesExtractor {
 
-void run(const std::string& pMyDataMiningPath,
-         const std::string& pInputResourcesFolder);
+void run(const std::string& pMyDataMiningPath, const std::string& pInputResourcesFolder);
 
+}    // End of namespace firstnamesExtractor
+}    // End of namespace onsem
 
-} // End of namespace firstnamesExtractor
-} // End of namespace onsem
-
-
-#endif // FIRSTNAMEEXTRACTOR_FIRSTNAMEEXTRACTOR_HPP
+#endif    // FIRSTNAMEEXTRACTOR_FIRSTNAMEEXTRACTOR_HPP

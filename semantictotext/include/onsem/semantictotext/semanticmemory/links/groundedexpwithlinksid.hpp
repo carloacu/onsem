@@ -3,35 +3,26 @@
 
 #include <cstdint>
 
-namespace onsem
-{
+namespace onsem {
 
 using intSemId = uint32_t;
 using intMemBlockId = uint64_t;
 
+struct semIdAbs {
+    semIdAbs(intMemBlockId pMemBlockId, intSemId pSemId)
+        : memBlockId(pMemBlockId)
+        , semId(pSemId) {}
 
-struct semIdAbs
-{
-  semIdAbs(intMemBlockId pMemBlockId,
-           intSemId pSemId)
-    : memBlockId(pMemBlockId),
-      semId(pSemId)
-  {
-  }
+    bool operator<(const semIdAbs& pOther) const {
+        if (memBlockId != pOther.memBlockId)
+            return memBlockId < pOther.memBlockId;
+        return semId < pOther.semId;
+    }
 
-  bool operator<(const semIdAbs& pOther) const
-  {
-    if (memBlockId != pOther.memBlockId)
-      return memBlockId < pOther.memBlockId;
-    return semId < pOther.semId;
-  }
-
-  intMemBlockId memBlockId;
-  intSemId semId;
+    intMemBlockId memBlockId;
+    intSemId semId;
 };
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_GROUNDEDEXPWITHLINKSID_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_GROUNDEDEXPWITHLINKSID_HPP

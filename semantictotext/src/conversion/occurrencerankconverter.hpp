@@ -3,13 +3,9 @@
 
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 
+namespace onsem {
 
-namespace onsem
-{
-
-namespace semanticOccurrenceRankConverter
-{
-
+namespace semanticOccurrenceRankConverter {
 
 /**
  * Eg: "what is the last thing that I said?"
@@ -18,11 +14,8 @@ namespace semanticOccurrenceRankConverter
  */
 void process(UniqueSemanticExpression& pSemExp);
 
+}    // End of namespace semanticOccurrenceRankConverter
 
-} // End of namespace semanticOccurrenceRankConverter
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-
-#endif // SEMANTICCONTROLLER_CONVERSION_OCCURRENCERANKCONVERTER_HPP
+#endif    // SEMANTICCONTROLLER_CONVERSION_OCCURRENCERANKCONVERTER_HPP

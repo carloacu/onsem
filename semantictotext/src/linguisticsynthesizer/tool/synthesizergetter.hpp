@@ -6,10 +6,8 @@
 #include <onsem/common/enum/semanticlanguageenum.hpp>
 #include <onsem/common/enum/semanticgendertype.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct InflectedWord;
 struct LinguisticDatabase;
 class SynthesizerDictionary;
@@ -25,8 +23,7 @@ struct SynthesizerConfiguration;
 struct SemanticGrounding;
 struct SemanticWord;
 
-namespace synthGetter
-{
+namespace synthGetter {
 
 void fillLingMeaningFromConcepts(LinguisticMeaning& pLingMeaning,
                                  const std::map<std::string, char>& pConcepts,
@@ -42,11 +39,10 @@ bool getInflWordFromWordAndConcepts(linguistics::InflectedWord& pIGram,
                                     const linguistics::LinguisticDatabase& pLingDb,
                                     SemanticLanguageEnum pLanguage);
 
-SemanticGenderType getGenderFromGrounding(
-    const SemanticGrounding& pGrounding,
-    const SynthesizerConfiguration& pConf,
-    const SynthesizerCurrentContext& pContext,
-    const Linguisticsynthesizergrounding& pGrdSynth);
+SemanticGenderType getGenderFromGrounding(const SemanticGrounding& pGrounding,
+                                          const SynthesizerConfiguration& pConf,
+                                          const SynthesizerCurrentContext& pContext,
+                                          const Linguisticsynthesizergrounding& pGrdSynth);
 
 SemanticGenderType getGenderFromSemExp(const SemanticExpression& pSemExp,
                                        const SynthesizerConfiguration& pConf,
@@ -55,7 +51,7 @@ SemanticGenderType getGenderFromSemExp(const SemanticExpression& pSemExp,
 
 bool doesOutFinishedWithAS(const std::list<WordToSynthesize>& pOut);
 
-} // End of namespace synthGetter
-} // End of namespace onsem
+}    // End of namespace synthGetter
+}    // End of namespace onsem
 
-#endif // ONSEM_SEMANTICTOTEXT_LINGUISTICSYNTHESIZER_TOOL_SYNTHESIZEGETTER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_LINGUISTICSYNTHESIZER_TOOL_SYNTHESIZEGETTER_HPP

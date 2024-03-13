@@ -5,26 +5,21 @@
 #include <onsem/texttosemantic/type/enum/linguisticanalysisfinishdebugstepenum.hpp>
 #include "../../api.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
+struct ONSEM_TEXTTOSEMANTIC_API SynthAnalEndingStepForDebug {
+    std::string tokenizerEndingStep = tokenizerDefaultEndingStep;
+    std::size_t nbOfDebugRoundsForTokens = 1;
+    LinguisticAnalysisFinishDebugStepEnum endingStep = LinguisticAnalysisFinishDebugStepEnum::FINISH;
+    std::size_t nbOfDebugRoundsForSynthAnalysis = 1;
 
-struct ONSEM_TEXTTOSEMANTIC_API SynthAnalEndingStepForDebug
-{
-  std::string tokenizerEndingStep = tokenizerDefaultEndingStep;
-  std::size_t nbOfDebugRoundsForTokens = 1;
-  LinguisticAnalysisFinishDebugStepEnum endingStep = LinguisticAnalysisFinishDebugStepEnum::FINISH;
-  std::size_t nbOfDebugRoundsForSynthAnalysis = 1;
-
-  bool doWeShouldStopForDebug(LinguisticAnalysisFinishDebugStepEnum pEndingStep) const
-  { return endingStep == pEndingStep && nbOfDebugRoundsForSynthAnalysis <= 1; }
+    bool doWeShouldStopForDebug(LinguisticAnalysisFinishDebugStepEnum pEndingStep) const {
+        return endingStep == pEndingStep && nbOfDebugRoundsForSynthAnalysis <= 1;
+    }
 };
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPE_ENUM_SYNTHANALENDINGSTEPFORDEBUG_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPE_ENUM_SYNTHANALENDINGSTEPFORDEBUG_HPP

@@ -3,15 +3,10 @@
 
 #include <string>
 
-namespace wikiutil
-{
+namespace wikiutil {
 
-void extractWordOfTitleLine
-(std::string& pWord,
- const std::string& pLine);
+void extractWordOfTitleLine(std::string& pWord, const std::string& pLine);
 
+}    // End of namespace wikiutil
 
-} // End of namespace wikiutil
-
-
-#endif // SEMANTICTOOLSTOFILLDATABASE_WIKITIONARYEXTRACTOR_WIKIUTILS_HPP
+#endif    // SEMANTICTOOLSTOFILLDATABASE_WIKITIONARYEXTRACTOR_WIKIUTILS_HPP

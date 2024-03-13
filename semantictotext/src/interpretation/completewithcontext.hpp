@@ -3,16 +3,13 @@
 
 #include <onsem/common/enum/grammaticaltype.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct SemanticExpression;
 struct UniqueSemanticExpression;
 struct SemanticMemoryBlock;
-
 
 void completeWithContext(UniqueSemanticExpression& pSemExp,
                          GrammaticalType pGramParentLink,
@@ -22,7 +19,6 @@ void completeWithContext(UniqueSemanticExpression& pSemExp,
                          const SemanticMemoryBlock& pMemBlock,
                          const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_INTERPRETATION_COMPLETEWITHCONTEXT_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_INTERPRETATION_COMPLETEWITHCONTEXT_HPP

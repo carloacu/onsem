@@ -4,23 +4,15 @@
 #include <filesystem>
 #include <string>
 
-namespace onsem
-{
+namespace onsem {
 class LinguisticIntermediaryDatabase;
 
 /// This class load a database from a dela dictionnary file.
-class GFSDatabaseLoader
-{
+class GFSDatabaseLoader {
 public:
-
-  static void merge
-  (const std::filesystem::path& pFilename,
-   LinguisticIntermediaryDatabase& pLingdb);
-
+    static void merge(const std::filesystem::path& pFilename, LinguisticIntermediaryDatabase& pLingdb);
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-#endif // ONSEM_COMPILERMODEL_SRC_LOADERS_GFSDATABASELOADER_HPP
+#endif    // ONSEM_COMPILERMODEL_SRC_LOADERS_GFSDATABASELOADER_HPP

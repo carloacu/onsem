@@ -7,59 +7,51 @@
 #include "semanticnamegrounding.hpp"
 #include "../../api.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEM_TEXTTOSEMANTIC_API SemanticAgentGrounding : public SemanticGrounding {
+    SemanticAgentGrounding();
+    SemanticAgentGrounding(const std::string& pUserId);
+    SemanticAgentGrounding(const std::string& pUserId, const std::string& pUserIdWithoutContext);
+    SemanticAgentGrounding(const std::string& pUserId,
+                           const std::string& pUserIdWithoutContext,
+                           const NameInfos& pNameInfos);
+    SemanticAgentGrounding(const std::string& pUserId,
+                           const std::string& pUserIdWithoutContext,
+                           const std::vector<std::string>& pNames);
+    SemanticAgentGrounding(const std::string& pUserId,
+                           const std::string& pUserIdWithoutContext,
+                           const std::list<std::string>& pNames);
+    SemanticAgentGrounding(const std::vector<std::string>& pNames);
+    SemanticAgentGrounding(const SemanticAgentGrounding& pOther);
 
+    const SemanticAgentGrounding& getAgentGrounding() const override { return *this; }
+    SemanticAgentGrounding& getAgentGrounding() override { return *this; }
+    const SemanticAgentGrounding* getAgentGroundingPtr() const override { return this; }
+    SemanticAgentGrounding* getAgentGroundingPtr() override { return this; }
 
-struct ONSEM_TEXTTOSEMANTIC_API SemanticAgentGrounding : public SemanticGrounding
-{
-  SemanticAgentGrounding();
-  SemanticAgentGrounding(const std::string& pUserId);
-  SemanticAgentGrounding(const std::string& pUserId,
-                         const std::string& pUserIdWithoutContext);
-  SemanticAgentGrounding(const std::string& pUserId,
-                         const std::string& pUserIdWithoutContext,
-                         const NameInfos& pNameInfos);
-  SemanticAgentGrounding(const std::string& pUserId,
-                         const std::string& pUserIdWithoutContext,
-                         const std::vector<std::string>& pNames);
-  SemanticAgentGrounding(const std::string& pUserId,
-                         const std::string& pUserIdWithoutContext,
-                         const std::list<std::string>& pNames);
-  SemanticAgentGrounding(const std::vector<std::string>& pNames);
-  SemanticAgentGrounding(const SemanticAgentGrounding& pOther);
+    static std::unique_ptr<SemanticAgentGrounding> getRobotAgentPtr();
+    static std::string namesToUserId(const std::vector<std::string>& pNames);
+    static std::string namesToUserId(const std::list<std::string>& pNames);
 
-  const SemanticAgentGrounding& getAgentGrounding() const override { return *this; }
-  SemanticAgentGrounding& getAgentGrounding() override { return *this; }
-  const SemanticAgentGrounding* getAgentGroundingPtr() const override { return this; }
-  SemanticAgentGrounding* getAgentGroundingPtr() override { return this; }
+    bool operator==(const SemanticAgentGrounding& pOther) const { return this->isEqual(pOther); }
+    bool isEqual(const SemanticAgentGrounding& pOther) const {
+        return _isMotherClassEqual(pOther) && userId == pOther.userId
+            && userIdWithoutContext == pOther.userIdWithoutContext && nameInfos == pOther.nameInfos;
+    }
 
-  static std::unique_ptr<SemanticAgentGrounding> getRobotAgentPtr();
-  static std::string namesToUserId(const std::vector<std::string>& pNames);
-  static std::string namesToUserId(const std::list<std::string>& pNames);
+    bool isSpecificUser() const { return userId != userNotIdentified && userId != anyUser; }
 
-  bool operator==(const SemanticAgentGrounding& pOther) const { return this->isEqual(pOther); }
-  bool isEqual(const SemanticAgentGrounding& pOther) const
-  { return _isMotherClassEqual(pOther) && userId == pOther.userId &&
-        userIdWithoutContext == pOther.userIdWithoutContext &&
-        nameInfos == pOther.nameInfos; }
+    const std::string userId;
+    const std::string userIdWithoutContext;
+    mystd::optional<NameInfos> nameInfos;
 
-  bool isSpecificUser() const
-  { return userId != userNotIdentified && userId != anyUser; }
-
-  const std::string userId;
-  const std::string userIdWithoutContext;
-  mystd::optional<NameInfos> nameInfos;
-
-  static const std::string currentUser;
-  static const std::string anyUser;
-  static const std::string userNotIdentified;
-  static const std::string me;
+    static const std::string currentUser;
+    static const std::string anyUser;
+    static const std::string userNotIdentified;
+    static const std::string me;
 };
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICAGENTGROUNDING_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICAGENTGROUNDING_HPP

@@ -1,17 +1,10 @@
 #ifndef ONSEM_COMMON_UTILITY_DETAIL_SEARCHENDINGPOINT_HPP
 #define ONSEM_COMMON_UTILITY_DETAIL_SEARCHENDINGPOINT_HPP
 
-namespace onsem
-{
+namespace onsem {
 
-enum class SearchEndingPoint
-{
-  PREV,
-  EQUAL_OR_NEXT,
-  NEXT
-};
+enum class SearchEndingPoint { PREV, EQUAL_OR_NEXT, NEXT };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-
-#endif // ONSEM_COMMON_UTILITY_DETAIL_SEARCHENDINGPOINT_HPP
+#endif    // ONSEM_COMMON_UTILITY_DETAIL_SEARCHENDINGPOINT_HPP

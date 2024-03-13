@@ -6,21 +6,15 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include "../../type/semanticdetailledanswer.hpp"
 
-namespace onsem
-{
-namespace answerFromDataStoredInsideTheQuestion
-{
+namespace onsem {
+namespace answerFromDataStoredInsideTheQuestion {
 
-
-void getAnswers(std::map<QuestionAskedInformation, AllAnswerElts> &pAllAnswers,
+void getAnswers(std::map<QuestionAskedInformation, AllAnswerElts>& pAllAnswers,
                 const GroundedExpression& pGrdExp,
                 SemanticRequestType pRootRequest,
                 const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace answerFromDataStoredInsideTheQuestion
+}    // End of namespace onsem
 
-} // End of namespace answerFromDataStoredInsideTheQuestion
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_ANSWERFROMDATASTOREDINSIDETHEQUESTION_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_ANSWERFROMDATASTOREDINSIDETHEQUESTION_HPP

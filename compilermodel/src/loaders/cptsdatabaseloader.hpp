@@ -3,33 +3,24 @@
 
 #include <string>
 
-namespace onsem
-{
+namespace onsem {
 class LinguisticIntermediaryDatabase;
 class LingdbConcept;
 
-
-class CptsDatabaseLoader
-{
+class CptsDatabaseLoader {
 public:
-  void merge
-  (const std::string& pFilename,
-   LinguisticIntermediaryDatabase& pLingdb);
+    void merge(const std::string& pFilename, LinguisticIntermediaryDatabase& pLingdb);
 
 private:
-  static void _fillConcept
-  (LinguisticIntermediaryDatabase& pLingdb,
-   const std::string& pWord,
-   const LingdbConcept* pNewConcept,
-   const std::string& pNewConceptStr,
-   char pRelatedToConcept,
-   const std::string& pFilename,
-   const std::string& pLine);
-
+    static void _fillConcept(LinguisticIntermediaryDatabase& pLingdb,
+                             const std::string& pWord,
+                             const LingdbConcept* pNewConcept,
+                             const std::string& pNewConceptStr,
+                             char pRelatedToConcept,
+                             const std::string& pFilename,
+                             const std::string& pLine);
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-#endif // ONSEM_COMPILERMODEL_SRC_LOADERS_CPTSDATABASELOADER_HPP
+#endif    // ONSEM_COMPILERMODEL_SRC_LOADERS_CPTSDATABASELOADER_HPP

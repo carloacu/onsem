@@ -6,67 +6,56 @@
 #include "../semanticmemory/semanticmemorygrdexp.hpp"
 #include "semanticdetailledanswer.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-void RelatedContextAxiom::add(const RelatedContextAxiom& pOther)
-{
-  for (const auto& currElt : pOther.elts)
-    elts.emplace_back(currElt);
-  for (const auto& currElt : pOther.constElts)
-    constElts.emplace_back(currElt);
+void RelatedContextAxiom::add(const RelatedContextAxiom& pOther) {
+    for (const auto& currElt : pOther.elts)
+        elts.emplace_back(currElt);
+    for (const auto& currElt : pOther.constElts)
+        constElts.emplace_back(currElt);
 }
 
-void RelatedContextAxiom::add(const SemanticMemoryGrdExp& pSemMemoryGrdExp)
-{
-  constElts.emplace_back(&pSemMemoryGrdExp.getMemSentence().getContextAxiom());
+void RelatedContextAxiom::add(const SemanticMemoryGrdExp& pSemMemoryGrdExp) {
+    constElts.emplace_back(&pSemMemoryGrdExp.getMemSentence().getContextAxiom());
 }
 
-bool RelatedContextAxiom::haveThisExpHandleInMemory(const ExpressionWithLinks* pExpHandleInMemory) const
-{
-  for (const auto& currElt : elts)
-    if (pExpHandleInMemory == &currElt->getSemExpWrappedForMemory())
-      return true;
-  for (const auto& currElt : constElts)
-    if (pExpHandleInMemory == &currElt->getSemExpWrappedForMemory())
-      return true;
-  return false;
+bool RelatedContextAxiom::haveThisExpHandleInMemory(const ExpressionWithLinks* pExpHandleInMemory) const {
+    for (const auto& currElt : elts)
+        if (pExpHandleInMemory == &currElt->getSemExpWrappedForMemory())
+            return true;
+    for (const auto& currElt : constElts)
+        if (pExpHandleInMemory == &currElt->getSemExpWrappedForMemory())
+            return true;
+    return false;
 }
 
-void RelatedContextAxiom::getReferences(std::list<std::string>& pReferences) const
-{
-  for (const auto& currAxiom : elts)
-    currAxiom->getReferences(pReferences);
-  for (const auto& currAxiom : constElts)
-    currAxiom->getReferences(pReferences);
+void RelatedContextAxiom::getReferences(std::list<std::string>& pReferences) const {
+    for (const auto& currAxiom : elts)
+        currAxiom->getReferences(pReferences);
+    for (const auto& currAxiom : constElts)
+        currAxiom->getReferences(pReferences);
 }
 
-bool RelatedContextAxiom::isAnAssertion() const
-{
-  for (const auto& currAxiom : elts)
-    if (currAxiom != nullptr &&
-        currAxiom->informationType == InformationType::ASSERTION)
-      return true;
-  for (const auto& currAxiom : constElts)
-    if (currAxiom != nullptr &&
-        currAxiom->informationType == InformationType::ASSERTION)
-      return true;
-  return false;
+bool RelatedContextAxiom::isAnAssertion() const {
+    for (const auto& currAxiom : elts)
+        if (currAxiom != nullptr && currAxiom->informationType == InformationType::ASSERTION)
+            return true;
+    for (const auto& currAxiom : constElts)
+        if (currAxiom != nullptr && currAxiom->informationType == InformationType::ASSERTION)
+            return true;
+    return false;
 }
 
-bool RelatedContextAxiom::isEmpty() const
-{
-  return elts.empty() && constElts.empty();
+bool RelatedContextAxiom::isEmpty() const {
+    return elts.empty() && constElts.empty();
 }
-
 
 bool answerExpAreEqual(const AnswerExp& pAnswerExp1,
                        const AnswerExp& pAnswerExp2,
                        const SemanticMemoryBlock& pMemBlock,
-                       const linguistics::LinguisticDatabase& pLingDb)
-{
-  return SemExpComparator::grdExpsReferToSameInstance(pAnswerExp1.getGrdExp(), pAnswerExp2.getGrdExp(), pMemBlock, pLingDb);
+                       const linguistics::LinguisticDatabase& pLingDb) {
+    return SemExpComparator::grdExpsReferToSameInstance(
+        pAnswerExp1.getGrdExp(), pAnswerExp2.getGrdExp(), pMemBlock, pLingDb);
 }
 
-
-} // End of namespace onsem
+}    // End of namespace onsem

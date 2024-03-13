@@ -3,21 +3,14 @@
 
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 
+namespace onsem {
 
-namespace onsem
-{
+namespace mandatoryFormConverter {
 
-namespace mandatoryFormConverter
-{
+void process(UniqueSemanticExpression& pSemExp, const std::string& pUserId = "");
 
-void process(UniqueSemanticExpression& pSemExp,
-             const std::string& pUserId = "");
+}    // End of namespace mandatoryFormConverter
 
+}    // End of namespace onsem
 
-} // End of namespace mandatoryFormConverter
-
-} // End of namespace onsem
-
-
-
-#endif // SEMANTICCONTROLLER_CONVERSIONS_MANDATORYFORMCONVERTER_HPP
+#endif    // SEMANTICCONTROLLER_CONVERSIONS_MANDATORYFORMCONVERTER_HPP

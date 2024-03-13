@@ -1,16 +1,13 @@
 #ifndef ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_SPECIFICACTIONHANDLER_HPP
 #define ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_SPECIFICACTIONHANDLER_HPP
 
-
-namespace onsem
-{
+namespace onsem {
 struct GroundedExpression;
 struct SemanticStatementGrounding;
 struct SemControllerWorkingStruct;
 struct SemanticMemoryBlockViewer;
 
-namespace specificActionsHandler
-{
+namespace specificActionsHandler {
 
 bool process(SemControllerWorkingStruct& pWorkStruct,
              SemanticMemoryBlockViewer& pMemViewer,
@@ -22,9 +19,7 @@ void process_forShowOperator(SemControllerWorkingStruct& pWorkStruct,
                              const GroundedExpression& pGrdExp,
                              const SemanticStatementGrounding& pGrdExpStatement);
 
+}    // End of namespace specificActionsHandler
+}    // End of namespace onsem
 
-
-} // End of namespace specificActionsHandler
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_SPECIFICACTIONHANDLER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_SPECIFICACTIONHANDLER_HPP

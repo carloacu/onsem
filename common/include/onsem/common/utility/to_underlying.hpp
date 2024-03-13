@@ -3,19 +3,16 @@
 
 #include <type_traits>
 
-namespace onsem
-{
+namespace onsem {
 
-namespace mystd
-{
+namespace mystd {
 
-template <typename E>
+template<typename E>
 constexpr typename std::underlying_type<E>::type to_underlying(E e) noexcept {
     return static_cast<typename std::underlying_type<E>::type>(e);
 }
 
-} // End of namespace mystd
-} // End of namespace onsem
+}    // End of namespace mystd
+}    // End of namespace onsem
 
-
-#endif // ONSEM_COMMON_UTILITY_TO_UNDERLYING_HPP
+#endif    // ONSEM_COMMON_UTILITY_TO_UNDERLYING_HPP

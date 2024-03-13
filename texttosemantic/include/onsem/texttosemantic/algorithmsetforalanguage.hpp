@@ -6,11 +6,8 @@
 #include <onsem/common/enum/semanticlanguageenum.hpp>
 #include "api.hpp"
 
-
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 struct SpecificLinguisticDatabase;
 class InflectionsChecker;
@@ -25,51 +22,46 @@ class SubordinateExtractor;
 class ErrorDetector;
 class LinguisticDictionary;
 
-
-class ONSEM_TEXTTOSEMANTIC_API AlgorithmSetForALanguage
-{
+class ONSEM_TEXTTOSEMANTIC_API AlgorithmSetForALanguage {
 public:
-  AlgorithmSetForALanguage(const LinguisticDatabase& pLingDb,
-                           SemanticLanguageEnum pLanguageType);
+    AlgorithmSetForALanguage(const LinguisticDatabase& pLingDb, SemanticLanguageEnum pLanguageType);
 
-  const LinguisticDictionary& getLingDico() const;
-  const InflectionsChecker& getFlsChecker() const;
-  const ListExtractor& getListExtractor() const;
-  const VerbalChunker& getVerbChunker() const;
-  const InterjectionalChunker& getIntChunker() const;
-  const NominalChunker& getChunker() const;
-  const VerbalToNominalChunksLinker& getVerbToNounLinker() const;
-  const SubordinateExtractor& getSubordonatesExtractor() const;
-  const ErrorDetector& getErrorDetector() const;
-  const ChunksLinker& getLinker() const;
-  const EntityRecognizer& getEntityRecognizer() const;
+    const LinguisticDictionary& getLingDico() const;
+    const InflectionsChecker& getFlsChecker() const;
+    const ListExtractor& getListExtractor() const;
+    const VerbalChunker& getVerbChunker() const;
+    const InterjectionalChunker& getIntChunker() const;
+    const NominalChunker& getChunker() const;
+    const VerbalToNominalChunksLinker& getVerbToNounLinker() const;
+    const SubordinateExtractor& getSubordonatesExtractor() const;
+    const ErrorDetector& getErrorDetector() const;
+    const ChunksLinker& getLinker() const;
+    const EntityRecognizer& getEntityRecognizer() const;
 
-  SemanticLanguageEnum getLanguageType() const { return fLanguageType; }
-  const SpecificLinguisticDatabase& getSpecifcLingDb() const;
+    SemanticLanguageEnum getLanguageType() const { return fLanguageType; }
+    const SpecificLinguisticDatabase& getSpecifcLingDb() const;
 
-
-  const LinguisticDatabase& lingDb;
+    const LinguisticDatabase& lingDb;
 
 private:
-  SemanticLanguageEnum fLanguageType;
-  const SpecificLinguisticDatabase& fSpecLingDb;
+    SemanticLanguageEnum fLanguageType;
+    const SpecificLinguisticDatabase& fSpecLingDb;
 
-  std::shared_ptr<ListExtractor> fListExtractor;
+    std::shared_ptr<ListExtractor> fListExtractor;
 
-  std::shared_ptr<VerbalChunker> fVerbChunker;
-  std::shared_ptr<InterjectionalChunker> fIntChunker;
-  std::shared_ptr<NominalChunker> fChunker;
-  std::shared_ptr<VerbalToNominalChunksLinker> fVerbToNounLinker;
-  std::shared_ptr<SubordinateExtractor> fSubordonatesExtractor;
-  std::shared_ptr<ErrorDetector> fErrorDetector;
-  std::shared_ptr<ChunksLinker> fLinker;
-  std::shared_ptr<EntityRecognizer> fEntityRecognizer;
+    std::shared_ptr<VerbalChunker> fVerbChunker;
+    std::shared_ptr<InterjectionalChunker> fIntChunker;
+    std::shared_ptr<NominalChunker> fChunker;
+    std::shared_ptr<VerbalToNominalChunksLinker> fVerbToNounLinker;
+    std::shared_ptr<SubordinateExtractor> fSubordonatesExtractor;
+    std::shared_ptr<ErrorDetector> fErrorDetector;
+    std::shared_ptr<ChunksLinker> fLinker;
+    std::shared_ptr<EntityRecognizer> fEntityRecognizer;
 
-  void xResetConfiguration();
+    void xResetConfiguration();
 };
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_ALGORITHMSETFORALANGUAGE_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_ALGORITHMSETFORALANGUAGE_HPP

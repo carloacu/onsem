@@ -3,12 +3,10 @@
 
 #include <string>
 
-namespace onsem
-{
-namespace constant
-{
+namespace onsem {
+namespace constant {
 static const std::string noResult = "<no result>";
 }
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // ONSEM_COMMON_UTILITY_NORESULT_HPP
+#endif    // ONSEM_COMMON_UTILITY_NORESULT_HPP

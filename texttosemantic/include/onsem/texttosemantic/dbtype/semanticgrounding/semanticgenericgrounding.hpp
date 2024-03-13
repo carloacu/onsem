@@ -15,47 +15,38 @@
 #include "semanticgrounding.hpp"
 #include "../../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
+struct ONSEM_TEXTTOSEMANTIC_API SemanticGenericGrounding : public SemanticGrounding {
+    SemanticGenericGrounding()
+        : SemanticGrounding(SemanticGroundingType::GENERIC)
+        , referenceType(SemanticReferenceType::UNDEFINED)
+        , coreference()
+        , entityType(SemanticEntityType::UNKNOWN)
+        , quantity()
+        , word()
+        , possibleGenders() {}
 
-struct ONSEM_TEXTTOSEMANTIC_API SemanticGenericGrounding : public SemanticGrounding
-{
-  SemanticGenericGrounding()
-    : SemanticGrounding(SemanticGroundingType::GENERIC),
-      referenceType(SemanticReferenceType::UNDEFINED),
-      coreference(),
-      entityType(SemanticEntityType::UNKNOWN),
-      quantity(),
-      word(),
-      possibleGenders()
-  {
-  }
+    SemanticGenericGrounding(SemanticReferenceType pReferenceType, SemanticEntityType pAgentType);
 
-  SemanticGenericGrounding
-  (SemanticReferenceType pReferenceType,
-   SemanticEntityType pAgentType);
+    const SemanticGenericGrounding& getGenericGrounding() const override { return *this; }
+    SemanticGenericGrounding& getGenericGrounding() override { return *this; }
+    const SemanticGenericGrounding* getGenericGroundingPtr() const override { return this; }
+    SemanticGenericGrounding* getGenericGroundingPtr() override { return this; }
 
-  const SemanticGenericGrounding& getGenericGrounding() const override { return *this; }
-  SemanticGenericGrounding& getGenericGrounding() override { return *this; }
-  const SemanticGenericGrounding* getGenericGroundingPtr() const override { return this; }
-  SemanticGenericGrounding* getGenericGroundingPtr() override { return this; }
+    bool operator==(const SemanticGenericGrounding& pOther) const;
+    bool isEqual(const SemanticGenericGrounding& pOther) const;
 
-  bool operator==(const SemanticGenericGrounding& pOther) const;
-  bool isEqual(const SemanticGenericGrounding& pOther) const;
+    static std::unique_ptr<SemanticGenericGrounding> makeThingThatHasToBeCompletedFromContext();
 
-  static std::unique_ptr<SemanticGenericGrounding> makeThingThatHasToBeCompletedFromContext();
-
-  SemanticReferenceType referenceType;
-  mystd::optional<Coreference> coreference;
-  SemanticEntityType entityType; // TODO: remove this attribute
-  SemanticQuantity quantity;
-  SemanticWord word;
-  std::set<SemanticGenderType> possibleGenders;
+    SemanticReferenceType referenceType;
+    mystd::optional<Coreference> coreference;
+    SemanticEntityType entityType;    // TODO: remove this attribute
+    SemanticQuantity quantity;
+    SemanticWord word;
+    std::set<SemanticGenderType> possibleGenders;
 };
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICGENERICGROUNDING_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDING_SEMANTICGENERICGROUNDING_HPP

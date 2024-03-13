@@ -5,21 +5,16 @@
 #include <onsem/common/keytostreams.hpp>
 #include "api.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
 ONSEMSTREADATABASEGENERATOR_DATABASEPROVIDER_API
-KeyToFStreams generateIStreams(const std::string& pLingDbPath,
-                               const std::string& pDynamicDictionaryPath);
+KeyToFStreams generateIStreams(const std::string& pLingDbPath, const std::string& pDynamicDictionaryPath);
 
 ONSEMSTREADATABASEGENERATOR_DATABASEPROVIDER_API
-void addDynamicContentFromFolder(KeyToFStreams& pStreams,
-                                 const std::string& pFolderPath);
+void addDynamicContentFromFolder(KeyToFStreams& pStreams, const std::string& pFolderPath);
 
-} // End of namespace linguistics
-} // End of namespace onsem
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-
-#endif // ONSEM_STREAMDATABASEACCESSOR_STREAMDATABASEACCESSOR_HPP
+#endif    // ONSEM_STREAMDATABASEACCESSOR_STREAMDATABASEACCESSOR_HPP

@@ -4,24 +4,17 @@
 #include <vector>
 #include <string>
 
+namespace onsem {
 
-namespace onsem
-{
+struct UserNames {
+    std::string getName() const;
+    bool operator<(const UserNames& pOther) const;
+    bool operator==(const UserNames& pOther) const;
+    bool operator!=(const UserNames& pOther) const { return !operator==(pOther); }
 
-
-struct UserNames
-{
-  std::string getName() const;
-  bool operator<(const UserNames& pOther) const;
-  bool operator==(const UserNames& pOther) const;
-  bool operator!=(const UserNames& pOther) const { return !operator==(pOther); }
-
-  std::vector<std::string> names{};
+    std::vector<std::string> names{};
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_USERNAMES_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_USERNAMES_HPP

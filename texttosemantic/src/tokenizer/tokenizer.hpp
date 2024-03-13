@@ -5,17 +5,13 @@
 #include <string>
 #include <memory>
 
-namespace onsem
-{
+namespace onsem {
 struct ResourceGroundingExtractor;
-namespace linguistics
-{
+namespace linguistics {
 struct Token;
 class LinguisticDictionary;
 
-
-namespace tokenizer
-{
+namespace tokenizer {
 /**
  * @brief Split the sentence into tokens
  * (token is more or less a word).
@@ -28,9 +24,8 @@ void tokenize(std::vector<Token>& pTokens,
               const LinguisticDictionary& pCommonLingDico,
               const std::shared_ptr<ResourceGroundingExtractor>& pCmdGrdExtractorPtr);
 
-}  // End of namespace tokenizer
-} // End of namespace linguistics
-} // End of namespace onsem
+}    // End of namespace tokenizer
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_SETPS_TOKENIZER_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_SETPS_TOKENIZER_HPP

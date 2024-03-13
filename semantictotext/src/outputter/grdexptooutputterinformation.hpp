@@ -4,24 +4,17 @@
 #include <optional>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
 
-namespace onsem
-{
+namespace onsem {
 
-struct OutputInformation
-{
-  std::optional<int> nbOfTimes;
-  std::optional<const SemanticExpression*> toDoInBackground;
+struct OutputInformation {
+    std::optional<int> nbOfTimes;
+    std::optional<const SemanticExpression*> toDoInBackground;
 };
 
-bool grdExpToOutputInformation(
-    OutputInformation& pOutputInformation,
-    const GroundedExpression& pGrdExp);
+bool grdExpToOutputInformation(OutputInformation& pOutputInformation, const GroundedExpression& pGrdExp);
 
-bool hasGrdExpOutputInformations(
-    const GroundedExpression& pGrdExp);
+bool hasGrdExpOutputInformations(const GroundedExpression& pGrdExp);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_OUTPUTTER_GRDEXPTOOUTPUTINFORMATION_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_OUTPUTTER_GRDEXPTOOUTPUTINFORMATION_HPP

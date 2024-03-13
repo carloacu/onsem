@@ -3,16 +3,13 @@
 
 #include "../type/semanticdetailledanswer.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-namespace utility
-{
+namespace utility {
 
 void keepOnlyLastFeedback(CompositeSemAnswer& pCompositeSemAnswer);
 
-} // End of namespace utility
-} // End of namespace onsem
+}    // End of namespace utility
+}    // End of namespace onsem
 
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_UTILITY_UTILITY_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_UTILITY_UTILITY_HPP

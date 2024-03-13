@@ -6,22 +6,17 @@
 #include <string>
 #include <onsem/common/enum/partofspeech.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
-namespace intransitiveVerbsExtractor
-{
+namespace intransitiveVerbsExtractor {
 
 void run(const std::string& pInFilename,
          const std::string& pInputResourcesFolder,
          const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace intransitiveVerbsExtractor
+}    // End of namespace onsem
 
-} // End of namespace intransitiveVerbsExtractor
-} // End of namespace onsem
-
-
-#endif // INTRANSITIVEVERBS_INTRANSITIVEVERBSEXTRACTOR_HPP
+#endif    // INTRANSITIVEVERBS_INTRANSITIVEVERBSEXTRACTOR_HPP

@@ -3,32 +3,20 @@
 
 #include <ostream>
 
+namespace onsem {
 
-namespace onsem
-{
-
-inline static void prettyPrintSizeNbInBytes(std::ostream& pOs,
-                                            std::size_t pSize)
-{
-  if (pSize < 1024)
-  {
-    pOs << pSize << "o";
-  }
-  else if (pSize < 1048576)
-  {
-    pOs << pSize / 1024 << "ko";
-  }
-  else if (pSize < 1073741824)
-  {
-    pOs << pSize / 1048576 << "Mo";
-  }
-  else
-  {
-    pOs << pSize / 1073741824 << "Go";
-  }
+inline static void prettyPrintSizeNbInBytes(std::ostream& pOs, std::size_t pSize) {
+    if (pSize < 1024) {
+        pOs << pSize << "o";
+    } else if (pSize < 1048576) {
+        pOs << pSize / 1024 << "ko";
+    } else if (pSize < 1073741824) {
+        pOs << pSize / 1048576 << "Mo";
+    } else {
+        pOs << pSize / 1073741824 << "Go";
+    }
 }
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_COMMON_UTILITY_SIZEPRINTERINBYTES_HPP
+#endif    // ONSEM_COMMON_UTILITY_SIZEPRINTERINBYTES_HPP

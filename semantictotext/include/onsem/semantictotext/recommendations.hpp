@@ -8,26 +8,21 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemoryblock.hpp>
 #include "api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-struct ONSEMSEMANTICTOTEXT_API SemanticGroundingsToRecommendationCoef
-{
-  std::list<std::shared_ptr<ExpressionWithLinks>> expsWrappedInMemory{};
-  std::map<const ExpressionWithLinks*, int> expToCoef{};
-  SemanticMemoryBlock memBlock{SemanticMemoryBlock::infinteMemory};
+struct ONSEMSEMANTICTOTEXT_API SemanticGroundingsToRecommendationCoef {
+    std::list<std::shared_ptr<ExpressionWithLinks>> expsWrappedInMemory{};
+    std::map<const ExpressionWithLinks*, int> expToCoef{};
+    SemanticMemoryBlock memBlock{SemanticMemoryBlock::infinteMemory};
 };
 
-
-struct ONSEMSEMANTICTOTEXT_API SemanticRecommendationsContainer
-{
-  std::set<std::string> recommendationIds{};
-  std::list<std::shared_ptr<ExpressionWithLinks>> expsWrappedInMemory{};
-  std::map<const ExpressionWithLinks*, std::pair<std::string, int>> recommendationsToNumberOfLinks{};
-  SemanticMemoryBlock memBlock{SemanticMemoryBlock::infinteMemory};
-  SemanticGroundingsToRecommendationCoef goundingsToCoef{};
+struct ONSEMSEMANTICTOTEXT_API SemanticRecommendationsContainer {
+    std::set<std::string> recommendationIds{};
+    std::list<std::shared_ptr<ExpressionWithLinks>> expsWrappedInMemory{};
+    std::map<const ExpressionWithLinks*, std::pair<std::string, int>> recommendationsToNumberOfLinks{};
+    SemanticMemoryBlock memBlock{SemanticMemoryBlock::infinteMemory};
+    SemanticGroundingsToRecommendationCoef goundingsToCoef{};
 };
-
 
 ONSEMSEMANTICTOTEXT_API
 void addGroundingCoef(SemanticGroundingsToRecommendationCoef& pGrdContainer,
@@ -48,7 +43,6 @@ void addARecommendation(SemanticRecommendationsContainer& pContainer,
                         const std::string& pRecommendationId,
                         const linguistics::LinguisticDatabase& pLingDb);
 
-
 /**
  * @brief Get the recommendations from an input.
  * @param pRecommendations The recommendations in result.
@@ -66,7 +60,6 @@ void getRecommendations(std::map<int, std::set<std::string>>& pRecommendations,
                         const linguistics::LinguisticDatabase& pLingDb,
                         const std::set<std::string>& pForbiddenRecommendations = {});
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_RECOMMENDATIONS_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_SEMANTICMEMORY_RECOMMENDATIONS_HPP

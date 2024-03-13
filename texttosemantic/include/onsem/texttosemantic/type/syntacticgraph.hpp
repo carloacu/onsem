@@ -6,53 +6,43 @@
 #include "../api.hpp"
 #include <onsem/texttosemantic/algorithmsetforalanguage.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
-struct ONSEM_TEXTTOSEMANTIC_API ParsingConfidence
-{
-  std::size_t nbOfNotUnderstood = 0;
+struct ONSEM_TEXTTOSEMANTIC_API ParsingConfidence {
+    std::size_t nbOfNotUnderstood = 0;
 
-  std::size_t nbOfProblematicRetries = 0;
+    std::size_t nbOfProblematicRetries = 0;
 
-  std::size_t nbOfSuspiciousChunks = 0;
+    std::size_t nbOfSuspiciousChunks = 0;
 
-  std::size_t nbOfTransitveVerbsWithoutDirectObject = 0;
+    std::size_t nbOfTransitveVerbsWithoutDirectObject = 0;
 
-  void onNewSyntacticTreeParsing();
-  unsigned char toPercentage() const;
+    void onNewSyntacticTreeParsing();
+    unsigned char toPercentage() const;
 };
 
+struct ONSEM_TEXTTOSEMANTIC_API SyntacticGraph {
+    SyntacticGraph(const LinguisticDatabase& pLingDb, SemanticLanguageEnum pLanguageType)
+        : langConfig(pLingDb, pLanguageType)
+        , tokensTree()
+        , firstChildren()
+        , parsingConfidence() {}
 
-struct ONSEM_TEXTTOSEMANTIC_API SyntacticGraph
-{
-  SyntacticGraph(const LinguisticDatabase& pLingDb,
-                 SemanticLanguageEnum pLanguageType)
-    : langConfig(pLingDb, pLanguageType),
-      tokensTree(),
-      firstChildren(),
-      parsingConfidence()
-  {
-  }
+    SyntacticGraph(const SyntacticGraph&) = delete;
+    SyntacticGraph& operator=(const SyntacticGraph&) = delete;
 
-  SyntacticGraph(const SyntacticGraph&) = delete;
-  SyntacticGraph& operator=(const SyntacticGraph&) = delete;
+    AlgorithmSetForALanguage langConfig;
 
-  AlgorithmSetForALanguage langConfig;
+    TokensTree tokensTree;
 
-  TokensTree tokensTree;
+    // first children of the syntatic graph
+    std::list<ChunkLink> firstChildren;
 
-  // first children of the syntatic graph
-  std::list<ChunkLink> firstChildren;
-
-  ParsingConfidence parsingConfidence;
+    ParsingConfidence parsingConfidence;
 };
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPE_SYNTACTICGRAPH_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPE_SYNTACTICGRAPH_HPP

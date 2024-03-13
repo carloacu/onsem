@@ -10,94 +10,87 @@
 #include <onsem/texttosemantic/dbtype/misc/conditionspecification.hpp>
 #include <onsem/texttosemantic/dbtype/misc/truenessvalue.hpp>
 
-
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemoryBlock;
 
+struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks {
+    ExpressionWithLinks(SemanticMemoryBlock& pParentMemBloc,
+                        UniqueSemanticExpression pSemExp,
+                        const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr);
 
-struct ONSEMSEMANTICTOTEXT_API ExpressionWithLinks
-{
-  ExpressionWithLinks
-  (SemanticMemoryBlock& pParentMemBloc,
-   UniqueSemanticExpression pSemExp,
-   const mystd::radix_map_str<std::string>* pLinkedInfosPtr = nullptr);
+    ExpressionWithLinks(ExpressionWithLinks&& pOther) = delete;
+    ExpressionWithLinks& operator=(ExpressionWithLinks&& pOther) = delete;
+    ExpressionWithLinks(const ExpressionWithLinks&) = delete;
+    ExpressionWithLinks& operator=(const ExpressionWithLinks&) = delete;
 
-  ExpressionWithLinks(ExpressionWithLinks&& pOther) = delete;
-  ExpressionWithLinks& operator=(ExpressionWithLinks&& pOther) = delete;
-  ExpressionWithLinks(const ExpressionWithLinks&) = delete;
-  ExpressionWithLinks& operator=(const ExpressionWithLinks&) = delete;
+    void clearWrappings(SemanticMemoryBlock& pMemBlock,
+                        const linguistics::LinguisticDatabase& pLingDb,
+                        std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
+    void removeContextAxiomsWithAnActionLinked();
 
-  void clearWrappings(SemanticMemoryBlock& pMemBlock,
-                      const linguistics::LinguisticDatabase& pLingDb,
-                      std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
-  void removeContextAxiomsWithAnActionLinked();
-
-  void addConditionToAnAction(InformationType pInformationType,
+    void addConditionToAnAction(InformationType pInformationType,
+                                const ConditionSpecification& pCondExp,
+                                const linguistics::LinguisticDatabase& pLingDb);
+    void addConditionToAnInfo(InformationType pInformationType,
                               const ConditionSpecification& pCondExp,
                               const linguistics::LinguisticDatabase& pLingDb);
-  void addConditionToAnInfo(InformationType pInformationType,
-                            const ConditionSpecification& pCondExp,
-                            const linguistics::LinguisticDatabase& pLingDb);
 
-  SentenceWithLinks* addAxiomFromGrdExp(InformationType pInformationType,
-                                        const GroundedExpression& pGrdSemExpToAdd,
-                                        const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
-                                        const linguistics::LinguisticDatabase& pLingDb,
-                                        bool pIsATrigger);
-  SentenceWithLinks* tryToAddTeachFormulation(InformationType pInformationType,
-                                              const GroundedExpression& pGrdSemExpToAdd,
-                                              const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
-                                              const linguistics::LinguisticDatabase& pLingDb,
-                                              bool pIsATrigger);
+    SentenceWithLinks* addAxiomFromGrdExp(InformationType pInformationType,
+                                          const GroundedExpression& pGrdSemExpToAdd,
+                                          const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+                                          const linguistics::LinguisticDatabase& pLingDb,
+                                          bool pIsATrigger);
+    SentenceWithLinks* tryToAddTeachFormulation(
+        InformationType pInformationType,
+        const GroundedExpression& pGrdSemExpToAdd,
+        const std::map<GrammaticalType, const SemanticExpression*>& pAnnotations,
+        const linguistics::LinguisticDatabase& pLingDb,
+        bool pIsATrigger);
 
-  void addAxiomForARecommendation(const GroundedExpression& pGrdSemExpToAdd,
-                                  const linguistics::LinguisticDatabase& pLingDb);
-  void addTriggerLinks(InformationType pInformationType,
-                       const SemanticExpression& pSemExp,
-                       const linguistics::LinguisticDatabase& pLingDb);
+    void addAxiomForARecommendation(const GroundedExpression& pGrdSemExpToAdd,
+                                    const linguistics::LinguisticDatabase& pLingDb);
+    void addTriggerLinks(InformationType pInformationType,
+                         const SemanticExpression& pSemExp,
+                         const linguistics::LinguisticDatabase& pLingDb);
 
-  void addAxiomListToMemory(const SemanticExpression& pSemExpToAdd,
-                            std::shared_ptr<SemanticTracker>* pSemTracker,
-                            InformationType pInformationType,
-                            bool pActionToDoIsAlwaysActive,
-                            const SemanticExpression* pActionToDo,
-                            const SemanticExpression* pActionToDoElse,
-                            const SemanticExpression* pSemExpToAddWithoutLinks,
-                            const linguistics::LinguisticDatabase& pLingDb,
-                            bool pIsATrigger);
+    void addAxiomListToMemory(const SemanticExpression& pSemExpToAdd,
+                              std::shared_ptr<SemanticTracker>* pSemTracker,
+                              InformationType pInformationType,
+                              bool pActionToDoIsAlwaysActive,
+                              const SemanticExpression* pActionToDo,
+                              const SemanticExpression* pActionToDoElse,
+                              const SemanticExpression* pSemExpToAddWithoutLinks,
+                              const linguistics::LinguisticDatabase& pLingDb,
+                              bool pIsATrigger);
 
-  SemanticMemoryBlock& getParentMemBloc() { return  _parentMemBloc; }
-  const SemanticMemoryBlock& getParentMemBloc() const { return  _parentMemBloc; }
-  intSemId getIdOfFirstSentence() const;
+    SemanticMemoryBlock& getParentMemBloc() { return _parentMemBloc; }
+    const SemanticMemoryBlock& getParentMemBloc() const { return _parentMemBloc; }
+    intSemId getIdOfFirstSentence() const;
 
-  mystd::radix_map_str<std::string> linkedInfos;
-  UniqueSemanticExpression semExp;
-  std::list<SentenceWithLinks> contextAxioms;
+    mystd::radix_map_str<std::string> linkedInfos;
+    UniqueSemanticExpression semExp;
+    std::list<SentenceWithLinks> contextAxioms;
 
-  /// SemExp to do if it's a trigger
-  mystd::unique_propagate_const<UniqueSemanticExpression> outputToAnswerIfTriggerHasMatched;
+    /// SemExp to do if it's a trigger
+    mystd::unique_propagate_const<UniqueSemanticExpression> outputToAnswerIfTriggerHasMatched;
 
 private:
-  SemanticMemoryBlock& _parentMemBloc;
+    SemanticMemoryBlock& _parentMemBloc;
 
-  void _addContextAxiom
-  (SentenceWithLinks& pContextAxiom,
-   const SemanticExpression& pSemExpToAdd,
-   const SemanticExpression* pSemExpToAddWithoutLinks,
-   const linguistics::LinguisticDatabase& pLingDb,
-   bool pIsATrigger);
+    void _addContextAxiom(SentenceWithLinks& pContextAxiom,
+                          const SemanticExpression& pSemExpToAdd,
+                          const SemanticExpression* pSemExpToAddWithoutLinks,
+                          const linguistics::LinguisticDatabase& pLingDb,
+                          bool pIsATrigger);
 
-  void _addTriggerGrdExpsLinks(InformationType pInformationType,
-                               const std::list<const GroundedExpression*>& pTriggerGrdExpPtrs,
-                               const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
-                               const linguistics::LinguisticDatabase& pLingDb);
+    void _addTriggerGrdExpsLinks(InformationType pInformationType,
+                                 const std::list<const GroundedExpression*>& pTriggerGrdExpPtrs,
+                                 const std::function<SemanticTriggerAxiomId(std::size_t)>& pGetAxiomIdFromId,
+                                 const linguistics::LinguisticDatabase& pLingDb);
 };
 
 typedef std::map<std::string, std::vector<UniqueSemanticExpression>> ParametersLabelsToValue;
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_EXPRESSIONWITHLINKS_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SEMANTICMEMORY_EXPRESSIONWITHLINKS_HPP

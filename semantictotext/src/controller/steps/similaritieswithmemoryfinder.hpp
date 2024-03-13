@@ -3,23 +3,16 @@
 
 #include "type/semcontrollerworkingstruct.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemoryBlockViewer;
 struct GroundedExpression;
-namespace similaritesWithMemoryFinder
-{
-
+namespace similaritesWithMemoryFinder {
 
 bool reactOnSimilarities(SemControllerWorkingStruct& pWorkStruct,
                          SemanticMemoryBlockViewer& pMemViewer,
                          const GroundedExpression& pGrdExp);
 
+}    // End of namespace similaritesWithMemoryFinder
+}    // End of namespace onsem
 
-
-} // End of namespace similaritesWithMemoryFinder
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_SIMILARITIESWITHMEMORYFINDER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_CONTROLLER_STEPS_SIMILARITIESWITHMEMORYFINDER_HPP

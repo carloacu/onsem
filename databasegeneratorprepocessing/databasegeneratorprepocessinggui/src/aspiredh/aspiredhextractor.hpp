@@ -3,22 +3,17 @@
 
 #include <string>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
-namespace aspiredHExtractor
-{
+namespace aspiredHExtractor {
 
 void run(const std::string& pMyDataMiningPath,
          const std::string& pInputResourcesFolder,
          const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace aspiredHExtractor
+}    // End of namespace onsem
 
-} // End of namespace aspiredHExtractor
-} // End of namespace onsem
-
-
-#endif // ASPIREDH_ASPIREDHEXTRACTOR_HPP
+#endif    // ASPIREDH_ASPIREDHEXTRACTOR_HPP

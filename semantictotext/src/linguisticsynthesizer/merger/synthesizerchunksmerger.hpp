@@ -3,33 +3,24 @@
 
 #include "../synthesizertypes.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
-
-class SynthesizerChunksMerger
-{
+class SynthesizerChunksMerger {
 public:
-  virtual ~SynthesizerChunksMerger() {}
+    virtual ~SynthesizerChunksMerger() {}
 
-  virtual void formulateNominalGroup(std::list<WordToSynthesize>& pOut,
-                                     OutNominalGroup& pOutSentence) const = 0;
+    virtual void formulateNominalGroup(std::list<WordToSynthesize>& pOut, OutNominalGroup& pOutSentence) const = 0;
 
-  virtual void formulateSentence(std::list<WordToSynthesize>& pOut,
-                                 OutSentence& pOutSentence) const = 0;
+    virtual void formulateSentence(std::list<WordToSynthesize>& pOut, OutSentence& pOutSentence) const = 0;
 
 protected:
-  SynthesizerChunksMerger() {}
+    SynthesizerChunksMerger() {}
 
-  static void _writeDurationLocationAndTimeInGoodOrder(std::list<WordToSynthesize>& pOut,
-                                                       OutSentence& pOutSentence);
+    static void _writeDurationLocationAndTimeInGoodOrder(std::list<WordToSynthesize>& pOut, OutSentence& pOutSentence);
 
-  static void _filterForInSentenceContext(std::list<WordToSynthesize>& pOut,
-                                          const OutSentence& pOutSentence);
+    static void _filterForInSentenceContext(std::list<WordToSynthesize>& pOut, const OutSentence& pOutSentence);
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICTOTEXT_LINGUISTICSYNTHESIZER_MERGER_SYNTHESIZERCUNKSMERGER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_LINGUISTICSYNTHESIZER_MERGER_SYNTHESIZERCUNKSMERGER_HPP

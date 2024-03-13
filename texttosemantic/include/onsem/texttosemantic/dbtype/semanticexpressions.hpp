@@ -14,5 +14,4 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/setofformsexpression.hpp>
 
-
-#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICEXPRESSIONS_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICEXPRESSIONS_HPP

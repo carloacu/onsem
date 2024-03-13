@@ -8,11 +8,8 @@
 #include <onsem/semantictotext/semanticmemory/links/groundedexpwithlinksid.hpp>
 #include "type/semcontrollerworkingstruct.hpp"
 
-
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct SemanticStatementGrounding;
@@ -24,63 +21,55 @@ struct SemanticTriggerAxiomId;
 struct SemanticDuration;
 struct SemanticMemoryBlockPrivate;
 
-
-namespace semanticMemoryLinker
-{
+namespace semanticMemoryLinker {
 struct SubRequestLinks;
 
-struct RequestLinks
-{
-  bool isEmpty() const
-  {
-    return language == SemanticLanguageEnum::UNKNOWN &&
-        tense == SemanticVerbTense::UNKNOWN &&
-        verbGoal == VerbGoalEnum::NOTIFICATION &&
-        isEquVerb == false &&
-        _semExpLinks.empty() && _semExpLinksSorted.empty() && occurenceRankFilter == nullptr;
-  }
+struct RequestLinks {
+    bool isEmpty() const {
+        return language == SemanticLanguageEnum::UNKNOWN && tense == SemanticVerbTense::UNKNOWN
+            && verbGoal == VerbGoalEnum::NOTIFICATION && isEquVerb == false && _semExpLinks.empty()
+            && _semExpLinksSorted.empty() && occurenceRankFilter == nullptr;
+    }
 
-  void eraseChild(SemanticRequestType pRequestType);
-  void fillSortedSemExps();
-  void clear();
-  SubRequestLinks& _addChildWithoutSortedContainer(SemanticRequestType pRequestType);
+    void eraseChild(SemanticRequestType pRequestType);
+    void fillSortedSemExps();
+    void clear();
+    SubRequestLinks& _addChildWithoutSortedContainer(SemanticRequestType pRequestType);
 
-  const std::map<SemanticRequestType, SubRequestLinks>& semExpLinks() const { return _semExpLinks; }
-  const std::list<std::pair<SemanticRequestType, const SubRequestLinks*>>& semExpLinksSorted() const { return _semExpLinksSorted; }
+    const std::map<SemanticRequestType, SubRequestLinks>& semExpLinks() const { return _semExpLinks; }
+    const std::list<std::pair<SemanticRequestType, const SubRequestLinks*>>& semExpLinksSorted() const {
+        return _semExpLinksSorted;
+    }
 
-  SemanticLanguageEnum language{SemanticLanguageEnum::UNKNOWN};
-  SemanticVerbTense tense{SemanticVerbTense::UNKNOWN};
-  VerbGoalEnum verbGoal{VerbGoalEnum::NOTIFICATION};
-  bool isEquVerb{false};
-  GrammaticalType gramTypeOfTheAnswer{GrammaticalType::UNKNOWN};
-  const SemanticExpression* occurenceRankFilter{nullptr};
+    SemanticLanguageEnum language{SemanticLanguageEnum::UNKNOWN};
+    SemanticVerbTense tense{SemanticVerbTense::UNKNOWN};
+    VerbGoalEnum verbGoal{VerbGoalEnum::NOTIFICATION};
+    bool isEquVerb{false};
+    GrammaticalType gramTypeOfTheAnswer{GrammaticalType::UNKNOWN};
+    const SemanticExpression* occurenceRankFilter{nullptr};
 
 private:
-  std::map<SemanticRequestType, SubRequestLinks> _semExpLinks{};
-  std::list<std::pair<SemanticRequestType, const SubRequestLinks*>> _semExpLinksSorted{};
+    std::map<SemanticRequestType, SubRequestLinks> _semExpLinks{};
+    std::list<std::pair<SemanticRequestType, const SubRequestLinks*>> _semExpLinksSorted{};
 };
 
-
-struct CrossedLinks
-{
-  // ask what is the semExps to add new matches
-  std::list<RequestLinks> subReqListsToAdd{};
-  // subordinates
-  std::list<RequestLinks> subReqListsToFilter{};
-  // sem exp subordinates stored in subReqListsToFilter
-  std::set<const SemanticExpression*> semExpsWithSpecificFilter{};
+struct CrossedLinks {
+    // ask what is the semExps to add new matches
+    std::list<RequestLinks> subReqListsToAdd{};
+    // subordinates
+    std::list<RequestLinks> subReqListsToFilter{};
+    // sem exp subordinates stored in subReqListsToFilter
+    std::set<const SemanticExpression*> semExpsWithSpecificFilter{};
 };
 
-struct SubRequestLinks
-{
-  // semantic expression
-  std::list<const SemanticExpression*> semExps{};
-  // some concepts to define what we look (can be filled instead of semExps)
-  std::map<std::string, char> concepts{};
+struct SubRequestLinks {
+    // semantic expression
+    std::list<const SemanticExpression*> semExps{};
+    // some concepts to define what we look (can be filled instead of semExps)
+    std::map<std::string, char> concepts{};
 
-  CrossedLinks crossedLinks{};
+    CrossedLinks crossedLinks{};
 };
-
 
 void getLinksOfAGrdExp(RequestLinks& pReqLinks,
                        SemControllerWorkingStruct& pWorkStruct,
@@ -143,8 +132,7 @@ const SemanticExpression* getActionActionDefinition(SemControllerWorkingStruct& 
                                                     SemanticMemoryBlockViewer& pMemViewer,
                                                     const GroundedExpression& pGrdExp);
 
-void checkNominalGrdExp(SemControllerWorkingStruct& pWorkStruct,
-                        const GroundedExpression& pGrdExp);
+void checkNominalGrdExp(SemControllerWorkingStruct& pWorkStruct, const GroundedExpression& pGrdExp);
 
 bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
                       SemanticMemoryBlockViewer& pMemViewer,
@@ -153,9 +141,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
                       const GroundedExpression& pOriginalGrdExp,
                       const SemanticRequests& pRequests);
 
+}    // End of namespace semanticMemoryLinker
+}    // End of namespace onsem
 
-} // End of namespace semanticMemoryLinker
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_CONTROLLER_STEPS_SEMANTICMEMORYLINKER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_CONTROLLER_STEPS_SEMANTICMEMORYLINKER_HPP

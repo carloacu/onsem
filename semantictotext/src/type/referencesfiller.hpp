@@ -4,26 +4,22 @@
 #include <string>
 #include <list>
 
-namespace onsem
-{
+namespace onsem {
 struct UniqueSemanticExpression;
 struct ReferencesGetter;
 
-class ReferencesFiller
-{
+class ReferencesFiller {
 public:
-  ReferencesFiller(const ReferencesGetter& pReferencesGetter);
-  ReferencesFiller(const std::list<std::string>& pReferences);
+    ReferencesFiller(const ReferencesGetter& pReferencesGetter);
+    ReferencesFiller(const std::list<std::string>& pReferences);
 
-  void addReferences(UniqueSemanticExpression& pUSemExp) const;
+    void addReferences(UniqueSemanticExpression& pUSemExp) const;
 
 private:
-  const ReferencesGetter* _referencesGetterPtr;
-  const std::list<std::string>* _references;
+    const ReferencesGetter* _referencesGetterPtr;
+    const std::list<std::string>* _references;
 };
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_TYPE_REFERENCESFILLER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_TYPE_REFERENCESFILLER_HPP

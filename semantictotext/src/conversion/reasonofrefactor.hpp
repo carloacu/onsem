@@ -3,20 +3,14 @@
 
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 
+namespace onsem {
 
-namespace onsem
-{
-
-namespace semanticReasonOfRefactor
-{
+namespace semanticReasonOfRefactor {
 
 void process(UniqueSemanticExpression& pSemExp);
 
+}    // End of namespace semanticReasonOfRefactor
 
-} // End of namespace semanticReasonOfRefactor
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-
-#endif // SEMANTICCONTROLLER_CONVERSIONS_REASONOFREFACTOR_H
+#endif    // SEMANTICCONTROLLER_CONVERSIONS_REASONOFREFACTOR_H

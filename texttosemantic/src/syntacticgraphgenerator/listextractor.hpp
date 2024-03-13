@@ -10,10 +10,8 @@
 #include <onsem/texttosemantic/type/enum/chunktype.hpp>
 #include "../tool/listiter.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 class InflectionsChecker;
 class AlgorithmSetForALanguage;
 struct ChunkLinkWorkingZone;
@@ -21,254 +19,194 @@ struct Chunk;
 struct ChunkLink;
 struct InflectedWord;
 
-
 mystd::optional<ChunkType> getListType(const std::map<std::string, char>& pConcepts);
 
-
-class ListExtractor
-{
+class ListExtractor {
 public:
-  explicit ListExtractor(const AlgorithmSetForALanguage& pConfiguration);
+    explicit ListExtractor(const AlgorithmSetForALanguage& pConfiguration);
 
-  bool extractLists
-  (ChunkLinkWorkingZone& pWorkingZone,
-   bool pOneWordList = false,
-   bool pAllowToNotRepeatTheSubject = false,
-   bool pCanCompletePreviousList = false,
-   int pNbMaxOfListElt = -1,
-   const mystd::optional<ChunkType>& pExceptListType = mystd::optional<ChunkType>()) const;
+    bool extractLists(ChunkLinkWorkingZone& pWorkingZone,
+                      bool pOneWordList = false,
+                      bool pAllowToNotRepeatTheSubject = false,
+                      bool pCanCompletePreviousList = false,
+                      int pNbMaxOfListElt = -1,
+                      const mystd::optional<ChunkType>& pExceptListType = mystd::optional<ChunkType>()) const;
 
-  void extractSubordonates(ChunkLinkWorkingZone& pWorkingZone) const;
-
+    void extractSubordonates(ChunkLinkWorkingZone& pWorkingZone) const;
 
 private:
-  struct ListInfo
-  {
-    ListInfo() = default;
+    struct ListInfo {
+        ListInfo() = default;
 
-    ListInfo(const ListInfo&) = delete;
-    ListInfo& operator=(const ListInfo&) = delete;
+        ListInfo(const ListInfo&) = delete;
+        ListInfo& operator=(const ListInfo&) = delete;
 
-    bool hasAConceptInCommon(const std::map<std::string, char>& pCpts) const
-    {
-      for (const auto& currCpt : concepts)
-        if (pCpts.count(currCpt) > 0)
-          return true;
-      return false;
-    }
+        bool hasAConceptInCommon(const std::map<std::string, char>& pCpts) const {
+            for (const auto& currCpt : concepts)
+                if (pCpts.count(currCpt) > 0)
+                    return true;
+            return false;
+        }
 
-    mystd::optional<ChunkType> listType{};
-    Chunk* listChunk = nullptr;
-    ChunkType eltType = ChunkType::NOMINAL_CHUNK;
-    // if the current list have determiner before the elements
-    PartOfSpeech partOfSpeechAtBegining = PartOfSpeech::UNKNOWN;
-    bool hasASubject = false;
-    std::set<std::string> concepts{};
-    VerbalInflections commonVerbInflections{};
-    SemanticRequests requestsOfElts;
-    mystd::optional<ChunkLinkIter> chunkToMoveInNextEltChunkLink{};
-    PartOfSpeech firstHeadPartOfSpeech = PartOfSpeech::UNKNOWN;
-  };
-  struct ListToMove
-  {
-    ListToMove
-    (const ChunkLinkIter& pNewParent,
-     const ChunkLinkIter& pItRootList,
-     bool pRemoveIfAnotherChunkFound)
-      : newParent(pNewParent),
-        itRootList(pItRootList),
-        removeIfAnotherChunkFound(pRemoveIfAnotherChunkFound)
-    {
-    }
+        mystd::optional<ChunkType> listType{};
+        Chunk* listChunk = nullptr;
+        ChunkType eltType = ChunkType::NOMINAL_CHUNK;
+        // if the current list have determiner before the elements
+        PartOfSpeech partOfSpeechAtBegining = PartOfSpeech::UNKNOWN;
+        bool hasASubject = false;
+        std::set<std::string> concepts{};
+        VerbalInflections commonVerbInflections{};
+        SemanticRequests requestsOfElts;
+        mystd::optional<ChunkLinkIter> chunkToMoveInNextEltChunkLink{};
+        PartOfSpeech firstHeadPartOfSpeech = PartOfSpeech::UNKNOWN;
+    };
+    struct ListToMove {
+        ListToMove(const ChunkLinkIter& pNewParent, const ChunkLinkIter& pItRootList, bool pRemoveIfAnotherChunkFound)
+            : newParent(pNewParent)
+            , itRootList(pItRootList)
+            , removeIfAnotherChunkFound(pRemoveIfAnotherChunkFound) {}
 
-    ChunkLinkIter newParent;
-    ChunkLinkIter itRootList;
-    bool removeIfAnotherChunkFound;
-  };
-  const InflectionsChecker& fFlschecker;
-  const AlgorithmSetForALanguage& fConf;
+        ChunkLinkIter newParent;
+        ChunkLinkIter itRootList;
+        bool removeIfAnotherChunkFound;
+    };
+    const InflectionsChecker& fFlschecker;
+    const AlgorithmSetForALanguage& fConf;
 
-  bool _createNewList(std::list<ListToMove>& pListsToMove,
-                      ChunkAndTokIt& pChunkEnd, ChunkAndTokIt& pChunkBegin,
-                      int& pNbMaxOfListElt,
-                      ListInfo& pCurrList,
-                      ChunkLinkIter& pPrevIt,
-                      ChunkLinkIter& pIt,
-                      ChunkLinkIter& pNextIt) const;
+    bool _createNewList(std::list<ListToMove>& pListsToMove,
+                        ChunkAndTokIt& pChunkEnd,
+                        ChunkAndTokIt& pChunkBegin,
+                        int& pNbMaxOfListElt,
+                        ListInfo& pCurrList,
+                        ChunkLinkIter& pPrevIt,
+                        ChunkLinkIter& pIt,
+                        ChunkLinkIter& pNextIt) const;
 
-  bool _addListElt(Chunk* pListChunk,
-                   ChunkLinkIter& pNextIt,
-                   int& pNbMaxOfListElt,
-                   TokIt pNextChunkBegin) const;
+    bool _addListElt(Chunk* pListChunk, ChunkLinkIter& pNextIt, int& pNbMaxOfListElt, TokIt pNextChunkBegin) const;
 
-  bool _isNewEltCompatibleWithTheList(ListInfo& pCurrList,
-      const Chunk& pChunk,
-      bool pAllowToNotRepeatTheSubject) const;
+    bool _isNewEltCompatibleWithTheList(ListInfo& pCurrList,
+                                        const Chunk& pChunk,
+                                        bool pAllowToNotRepeatTheSubject) const;
 
-  void _getVerbAndAuxInflections
-  (VerbalInflections& pVerbFlexions,
-   const Chunk& pVerbChunk) const;
+    void _getVerbAndAuxInflections(VerbalInflections& pVerbFlexions, const Chunk& pVerbChunk) const;
 
-  bool _getBeginNewEltAndEndOldElt(ChunkAndTokIt& pChunkBegin,
-                                   ChunkAndTokIt& pChunkEnd,
-                                   PartOfSpeech pPartOfSpeechAtBegining) const;
+    bool _getBeginNewEltAndEndOldElt(ChunkAndTokIt& pChunkBegin,
+                                     ChunkAndTokIt& pChunkEnd,
+                                     PartOfSpeech pPartOfSpeechAtBegining) const;
 
-  bool _tryAssociateNewChunkByTruncateTheEnd
-  (TokIt& pLastTokNewChunk,
-   Chunk& pNewChunk,
-   const InflectedWord& pIGramLastElt) const;
+    bool _tryAssociateNewChunkByTruncateTheEnd(TokIt& pLastTokNewChunk,
+                                               Chunk& pNewChunk,
+                                               const InflectedWord& pIGramLastElt) const;
 
-  static bool _itIsInListToMove
-  (const ChunkLinkIter& pIt,
-   const std::list<ListToMove>& pListsToMove);
+    static bool _itIsInListToMove(const ChunkLinkIter& pIt, const std::list<ListToMove>& pListsToMove);
 
-  bool _addANewMultiWordsList
-  (ListInfo& pCurrList,
-   std::list<ListToMove>& pListsToMove,
-   int& pNbMaxOfListElt,
-   ChunkLinkIter& pPrevIt,
-   ChunkLinkIter& pIt,
-   ChunkLinkIter& pNextIt,
-   bool pAllowToNotRepeatTheSubject) const;
+    bool _addANewMultiWordsList(ListInfo& pCurrList,
+                                std::list<ListToMove>& pListsToMove,
+                                int& pNbMaxOfListElt,
+                                ChunkLinkIter& pPrevIt,
+                                ChunkLinkIter& pIt,
+                                ChunkLinkIter& pNextIt,
+                                bool pAllowToNotRepeatTheSubject) const;
 
-  bool _addANewOneWordList
-  (ListInfo& pCurrList,
-   std::list<ListToMove>& pListsToMove,
-   int& pNbMaxOfListElt,
-   ChunkLinkIter& pPrevIt,
-   ChunkLinkIter& pIt,
-   ChunkLinkIter& pNextIt) const;
+    bool _addANewOneWordList(ListInfo& pCurrList,
+                             std::list<ListToMove>& pListsToMove,
+                             int& pNbMaxOfListElt,
+                             ChunkLinkIter& pPrevIt,
+                             ChunkLinkIter& pIt,
+                             ChunkLinkIter& pNextIt) const;
 
-  static void _addAListToMove
-  (std::list<ListToMove>& pListsToMove,
-   const ListToMove& pNewListToMove);
+    static void _addAListToMove(std::list<ListToMove>& pListsToMove, const ListToMove& pNewListToMove);
 
+    // Subordonates extractors
+    // ---------------------------------------------------------------------
 
+    struct SubordinateWithSeparators {
+        SubordinateWithSeparators(std::list<ChunkLink>::iterator pSub)
+            : sub(pSub)
+            , separators() {}
 
-  // Subordonates extractors
-  // ---------------------------------------------------------------------
+        SubordinateWithSeparators(std::list<ChunkLink>::iterator pSub, std::list<ChunkLink>::iterator pSep)
+            : sub(pSub)
+            , separators() {
+            separators.emplace_back(pSep);
+        }
 
-  struct SubordinateWithSeparators
-  {
-    SubordinateWithSeparators(std::list<ChunkLink>::iterator pSub)
-      : sub(pSub),
-        separators()
-    {
-    }
+        std::list<ChunkLink>::iterator sub;
+        std::list<std::list<ChunkLink>::iterator> separators;
+    };
 
-    SubordinateWithSeparators(std::list<ChunkLink>::iterator pSub,
-                              std::list<ChunkLink>::iterator pSep)
-      : sub(pSub),
-        separators()
-    {
-      separators.emplace_back(pSep);
-    }
+    struct ListOfSubordinates {
+        void addSub(std::list<ChunkLink>::iterator pItChkLk) {
+            subWithSeps.emplace_front(SubordinateWithSeparators(pItChkLk));
+        }
 
-    std::list<ChunkLink>::iterator sub;
-    std::list<std::list<ChunkLink>::iterator> separators;
-  };
+        void addSub(std::list<ChunkLink>::iterator pItChkLk, std::list<ChunkLink>::iterator pSep) {
+            subWithSeps.emplace_front(SubordinateWithSeparators(pItChkLk, pSep));
+        }
 
+        bool endOfList = true;
+        std::list<SubordinateWithSeparators> subWithSeps{};
+    };
 
-  struct ListOfSubordinates
-  {
-    void addSub(std::list<ChunkLink>::iterator pItChkLk)
-    {
-      subWithSeps.emplace_front(SubordinateWithSeparators(pItChkLk));
-    }
+    bool _addSubordonates(std::list<ChunkLink>::iterator& pParentChunkLk,
+                          std::list<SubordinateWithSeparators>& pSubOfChunk,
+                          std::list<ChunkLink>::iterator& pEndEltOfList,
+                          mystd::optional<ChunkType> pListType) const;
 
-    void addSub(std::list<ChunkLink>::iterator pItChkLk,
-                std::list<ChunkLink>::iterator pSep)
-    {
-      subWithSeps.emplace_front(SubordinateWithSeparators(pItChkLk, pSep));
-    }
+    static void _clear(ChunkLinkWorkingZone& pWorkingZone, const std::list<SubordinateWithSeparators>& pSubOfChunk);
 
-    bool endOfList = true;
-    std::list<SubordinateWithSeparators> subWithSeps{};
-  };
+    mystd::optional<ChunkLinkType> _getAppropriateChunkLinkFromTokens(
+        InflectedWord* pVerbInflectedWord,
+        mystd::optional<const SemanticWord*>& pIntroductingWord,
+        const TokenRange& pTokRange,
+        ChunkType pTokensChunkType) const;
 
-  bool _addSubordonates
-  (std::list<ChunkLink>::iterator& pParentChunkLk,
-   std::list<SubordinateWithSeparators>& pSubOfChunk,
-   std::list<ChunkLink>::iterator& pEndEltOfList,
-   mystd::optional<ChunkType> pListType) const;
+    bool _linkVerbChunk_VerbChunk(Chunk& pFirstVerb, ChunkLink& pSecondVerb, const TokenRange& pTokRange) const;
 
-  static void _clear
-  (ChunkLinkWorkingZone& pWorkingZone,
-   const std::list<SubordinateWithSeparators>& pSubOfChunk);
+    bool _linkChunk_VerbChunk(Chunk& pFirstChunk, ChunkLink& pSecondVerb, const TokenRange& pTokRange) const;
 
+    void _refactorANewSubordinate(Chunk& pFirstVerb, Chunk& pSecondVerb, const TokenRange& pTokRange) const;
 
-  mystd::optional<ChunkLinkType> _getAppropriateChunkLinkFromTokens(InflectedWord* pVerbInflectedWord,
-                                                                    mystd::optional<const SemanticWord*>& pIntroductingWord,
-                                                                    const TokenRange& pTokRange,
-                                                                    ChunkType pTokensChunkType) const;
+    bool _canLinkDO_Subject(Chunk& pFirstVerb, Chunk& pSecondVerb) const;
 
-  bool _linkVerbChunk_VerbChunk
-  (Chunk& pFirstVerb,
-   ChunkLink& pSecondVerb,
-   const TokenRange& pTokRange) const;
+    // complete an existing list
+    // =========================
 
-  bool _linkChunk_VerbChunk
-  (Chunk& pFirstChunk,
-   ChunkLink& pSecondVerb,
-   const TokenRange& pTokRange) const;
+    std::list<ChunkLink>::iterator _tryToCompleteAnExistingList(std::list<ListToMove>& pListsToMove,
+                                                                ChunkLinkWorkingZone& pWorkingZone,
+                                                                std::list<ChunkLink>::iterator pItChunkLink) const;
 
-  void _refactorANewSubordinate(Chunk& pFirstVerb,
-                                Chunk& pSecondVerb,
-                                const TokenRange& pTokRange) const;
+    void _initNewListInfo(ListInfo& pCurrList, const Chunk& pFirstListEltChunk) const;
 
-  bool _canLinkDO_Subject(Chunk& pFirstVerb,
-                          Chunk& pSecondVerb) const;
+    bool _updateExistingListInfoAccordingToTheNewElt(ListInfo& pCurrList,
+                                                     const Chunk& pNewListEltChunk,
+                                                     bool pDoesBecomeAListOfInfinitiveVerbs) const;
 
+    bool _doesBecomeAListOfInfinitiveVerbs(const ListInfo& pCurrList, const ChunkType& pNewChunkType) const;
 
+    bool _tryToCompleteListInfoWithAChunk(ChunkLinkIter& pCurrIt,
+                                          ListInfo& pCurrList,
+                                          std::list<ListToMove>& pListsToMove,
+                                          int& pNbMaxOfListElt,
+                                          const ChunkLinkWorkingZone& pWorkingZone,
+                                          bool pOneWordList,
+                                          bool pAllowToNotRepeatTheSubject) const;
 
-  // complete an existing list
-  // =========================
+    static void _moveSomeChunksAfterMAinAlgo(std::list<ListToMove>& pListsToMove,
+                                             const ChunkLinkWorkingZone& pWorkingZone);
 
-  std::list<ChunkLink>::iterator _tryToCompleteAnExistingList(
-      std::list<ListToMove>& pListsToMove,
-      ChunkLinkWorkingZone& pWorkingZone,
-      std::list<ChunkLink>::iterator pItChunkLink) const;
-
-  void _initNewListInfo(
-      ListInfo& pCurrList,
-      const Chunk& pFirstListEltChunk) const;
-
-  bool _updateExistingListInfoAccordingToTheNewElt(
-      ListInfo& pCurrList,
-      const Chunk& pNewListEltChunk,
-      bool pDoesBecomeAListOfInfinitiveVerbs) const;
-
-  bool _doesBecomeAListOfInfinitiveVerbs(
-      const ListInfo& pCurrList,
-      const ChunkType& pNewChunkType) const;
-
-  bool _tryToCompleteListInfoWithAChunk(
-      ChunkLinkIter& pCurrIt,
-      ListInfo& pCurrList,
-      std::list<ListToMove>& pListsToMove,
-      int& pNbMaxOfListElt,
-      const ChunkLinkWorkingZone& pWorkingZone,
-      bool pOneWordList,
-      bool pAllowToNotRepeatTheSubject) const;
-
-  static void _moveSomeChunksAfterMAinAlgo(
-      std::list<ListToMove>& pListsToMove,
-      const ChunkLinkWorkingZone& pWorkingZone);
-
-  bool _tryToExtractANewListAroundASeparator(ChunkLinkIter& pCurrIt,
-                                              ListInfo& pCurrList,
-                                              std::list<ListToMove>& pListsToMove,
-                                              bool& pCanHaveAnotherList,
-                                              int& pNbMaxOfListElt,
-                                              const ChunkLinkWorkingZone& pWorkingZone,
-                                              bool pOneWordList,
-                                              bool pAllowToNotRepeatTheSubject,
-                                              const mystd::optional<ChunkType>& pExceptListType) const;
+    bool _tryToExtractANewListAroundASeparator(ChunkLinkIter& pCurrIt,
+                                               ListInfo& pCurrList,
+                                               std::list<ListToMove>& pListsToMove,
+                                               bool& pCanHaveAnotherList,
+                                               int& pNbMaxOfListElt,
+                                               const ChunkLinkWorkingZone& pWorkingZone,
+                                               bool pOneWordList,
+                                               bool pAllowToNotRepeatTheSubject,
+                                               const mystd::optional<ChunkType>& pExceptListType) const;
 };
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_LISTEXTRACTOR_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_LISTEXTRACTOR_HPP

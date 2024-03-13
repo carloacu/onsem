@@ -7,10 +7,8 @@
 #include <onsem/common/enum/chunklinktype.hpp>
 #include <onsem/common/utility/optional.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
 ONSEM_TEXTTOSEMANTIC_API
 mystd::optional<ChunkLinkType> grammaticalTypeToChunkType(GrammaticalType pGramType);
@@ -24,7 +22,7 @@ mystd::optional<SemanticRequestType> chunkTypeToRequestType(ChunkLinkType pChunk
 ONSEM_TEXTTOSEMANTIC_API
 mystd::optional<ChunkLinkType> requestTypeToChunkType(SemanticRequestType pRequestType);
 
-} // End of namespace linguistics
-} // End of namespace onsem
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-#endif // ONSEM_TEXTTOSEMANTIC_TYPE_ENUMSCONVERTIONS_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPE_ENUMSCONVERTIONS_HPP

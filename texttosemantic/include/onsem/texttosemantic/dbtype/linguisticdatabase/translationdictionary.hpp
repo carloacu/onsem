@@ -8,51 +8,49 @@
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/statictranslationdictionary.hpp>
 #include "../../api.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 class StaticLinguisticDictionary;
 class LinguisticDictionary;
 
-class ONSEM_TEXTTOSEMANTIC_API TranslationDictionary
-{
+class ONSEM_TEXTTOSEMANTIC_API TranslationDictionary {
 public:
-  TranslationDictionary(LinguisticDatabaseStreams& pIStreams);
+    TranslationDictionary(LinguisticDatabaseStreams& pIStreams);
 
-  void addTranslation(const SemanticWord& pFromWord,
-                      const SemanticWord& pToWord);
+    void addTranslation(const SemanticWord& pFromWord, const SemanticWord& pToWord);
 
-  bool getTranslation(LinguisticMeaning& pTranslatedMeaningId,
-                      const SemanticWord& pWord,
-                      SemanticLanguageEnum pOutLanguage,
-                      const LinguisticDictionary& pLingDico) const;
+    bool getTranslation(LinguisticMeaning& pTranslatedMeaningId,
+                        const SemanticWord& pWord,
+                        SemanticLanguageEnum pOutLanguage,
+                        const LinguisticDictionary& pLingDico) const;
 
-  void getTranslation(int32_t& pTranslatedMeaningId,
-                      const SemanticWord& pWord,
-                      SemanticLanguageEnum pOutLanguage,
-                      const linguistics::StaticLinguisticDictionary& pStatLingDico) const;
+    void getTranslation(int32_t& pTranslatedMeaningId,
+                        const SemanticWord& pWord,
+                        SemanticLanguageEnum pOutLanguage,
+                        const linguistics::StaticLinguisticDictionary& pStatLingDico) const;
 
-  const StaticTranslationDictionary* getStaticTranslationDictionaryPtr(
-      SemanticLanguageEnum pInLanguage,
-      SemanticLanguageEnum pOutLanguage) const;
+    const StaticTranslationDictionary* getStaticTranslationDictionaryPtr(SemanticLanguageEnum pInLanguage,
+                                                                         SemanticLanguageEnum pOutLanguage) const;
 
-  const std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, std::map<SemanticWord, SemanticWord>>>& getAllTranslations() const
-  { return _translations; }
+    const std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, std::map<SemanticWord, SemanticWord>>>&
+        getAllTranslations() const {
+        return _translations;
+    }
 
 private:
-  std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, const StaticTranslationDictionary*>> _binTranslations{};
-  std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, std::map<SemanticWord, SemanticWord>>> _translations{};
+    std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, const StaticTranslationDictionary*>>
+        _binTranslations{};
+    std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, std::map<SemanticWord, SemanticWord>>>
+        _translations{};
 
-  static std::mutex _pathToStatDbsMutex;
-  static std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, std::unique_ptr<StaticTranslationDictionary>>> _pathToStatDbs;
-  static std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, const StaticTranslationDictionary*> > _getStatDbInstance(LinguisticDatabaseStreams& pIStreams);
+    static std::mutex _pathToStatDbsMutex;
+    static std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, std::unique_ptr<StaticTranslationDictionary>>>
+        _pathToStatDbs;
+    static std::map<SemanticLanguageEnum, std::map<SemanticLanguageEnum, const StaticTranslationDictionary*>>
+        _getStatDbInstance(LinguisticDatabaseStreams& pIStreams);
 };
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-
-} // End of namespace linguistics
-} // End of namespace onsem
-
-
-#endif // ONSEM_TEXTTOSEMANTIC_TYPE_LINGUISTICDATABASE_TRANSLATIONDICTIONARY_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_TYPE_LINGUISTICDATABASE_TRANSLATIONDICTIONARY_HPP

@@ -10,8 +10,7 @@
 #include "../type/semanticdetailledanswer.hpp"
 #include "steps/type/semcontrollerworkingstruct.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticExpression;
 struct ListExpression;
 struct ComparisonExpression;
@@ -21,22 +20,21 @@ struct SemanticMemory;
 struct SemanticMemoryBlockViewer;
 struct SemanticDuration;
 
-
-namespace controller
-{
+namespace controller {
 
 void applyOperatorResolveAgentAccordingToTheContext(UniqueSemanticExpression& pSemExp,
                                                     const SemanticMemory& pSemanticMemory,
                                                     const linguistics::LinguisticDatabase& pLingDb);
 
-void applyOperatorOnExpHandleInMemory(std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers,
-                                      ExpressionWithLinks& pExpressionWithLinks,
-                                      SemanticOperatorEnum pReactionOperator,
-                                      InformationType pInformationType,
-                                      SemanticMemory& pSemanticMemory,
-                                      std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
-                                      const linguistics::LinguisticDatabase& pLingDb,
-                                      const ReactionOptions* pReactionOptions);
+void applyOperatorOnExpHandleInMemory(
+    std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers,
+    ExpressionWithLinks& pExpressionWithLinks,
+    SemanticOperatorEnum pReactionOperator,
+    InformationType pInformationType,
+    SemanticMemory& pSemanticMemory,
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr,
+    const linguistics::LinguisticDatabase& pLingDb,
+    const ReactionOptions* pReactionOptions);
 
 void applyOperatorOnSemExp(SemControllerWorkingStruct& pWorkStruct,
                            SemanticMemoryBlockViewer& pMemViewer,
@@ -49,19 +47,20 @@ void applyOperatorOnSemExp(std::unique_ptr<CompositeSemAnswer>& pCompositeSemAns
                            SemanticMemory& pSemanticMemory,
                            const linguistics::LinguisticDatabase& pLingDb);
 
-void applyOperatorOnSemExpConstMem(std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers,
-                                   const SemanticExpression& pSemExp,
-                                   SemanticOperatorEnum pReactionOperator,
-                                   InformationType pInformationType,
-                                   const SemanticMemoryBlock& pConstMemBlock,
-                                   const std::string& pCurrentUserId,
-                                   const ProativeSpecifications* pProativeSpecificationsPtr,
-                                   const ExternalFallback* pExternalFallbackPtr,
-                                   const std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback>>* pCallbackToSentencesCanBeAnsweredPtr,
-                                   std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentState,
-                                   const linguistics::LinguisticDatabase& pLingDb,
-                                   SemanticTypeOfFeedback* pTypeOfFeedback = nullptr,
-                                   bool* pAnswerIDontKnow = nullptr);
+void applyOperatorOnSemExpConstMem(
+    std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers,
+    const SemanticExpression& pSemExp,
+    SemanticOperatorEnum pReactionOperator,
+    InformationType pInformationType,
+    const SemanticMemoryBlock& pConstMemBlock,
+    const std::string& pCurrentUserId,
+    const ProativeSpecifications* pProativeSpecificationsPtr,
+    const ExternalFallback* pExternalFallbackPtr,
+    const std::list<mystd::unique_propagate_const<MemBlockAndExternalCallback>>* pCallbackToSentencesCanBeAnsweredPtr,
+    std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentState,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticTypeOfFeedback* pTypeOfFeedback = nullptr,
+    bool* pAnswerIDontKnow = nullptr);
 
 void applyOperatorOnGrdExp(SemControllerWorkingStruct& pWorkStruct,
                            SemanticMemoryBlockViewer& pMemViewer,
@@ -74,14 +73,13 @@ void uninform(const SentenceWithLinks& pContextAxiom,
               const linguistics::LinguisticDatabase& pLingDb,
               std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr);
 
-void sendActionProposalIfNecessary(CompositeSemAnswer& pCompSemAnswer,
-                                   SemanticMemoryBlock& pMemBlock);
+void sendActionProposalIfNecessary(CompositeSemAnswer& pCompSemAnswer, SemanticMemoryBlock& pMemBlock);
 
 void compAnswerToSemExp(mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
                         CompositeSemAnswer& pCompositeSemAnswer);
 ContextualAnnotation compAnswerToContextualAnnotation(CompositeSemAnswer& pCompositeSemAnswer);
 
-void linkConditionalReactions(std::list<std::unique_ptr<SemAnswer> >& pSemAnswers,
+void linkConditionalReactions(std::list<std::unique_ptr<SemAnswer>>& pSemAnswers,
                               ExpressionWithLinks& pMemKnowledge,
                               SemanticMemory& pSemanticMemory,
                               const linguistics::LinguisticDatabase& pLingDb,
@@ -114,7 +112,7 @@ void notifyCurrentTime(std::unique_ptr<CompositeSemAnswer>& pCompositeSemAnswers
                        const SemanticDuration& pNowTimeDuration,
                        const linguistics::LinguisticDatabase& pLingDb);
 
-} // End of namespace controller
-} // End of namespace onsem
+}    // End of namespace controller
+}    // End of namespace onsem
 
-#endif // ONSEM_SEMANTICTOTEXT_CONTROLLER_SEMEXPCONTROLLER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_CONTROLLER_SEMEXPCONTROLLER_HPP

@@ -6,26 +6,17 @@
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 #include "api.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEMSEMANTICDEBUGGER_API SyntacticGraphResult {
+    SyntacticGraphResult(const linguistics::LinguisticDatabase& pLingDb, SemanticLanguageEnum pLanguage)
+        : inputText()
+        , syntGraph(pLingDb, pLanguage) {}
 
-
-struct ONSEMSEMANTICDEBUGGER_API SyntacticGraphResult
-{
-  SyntacticGraphResult(const linguistics::LinguisticDatabase& pLingDb,
-                SemanticLanguageEnum pLanguage)
-    : inputText(),
-      syntGraph(pLingDb, pLanguage)
-  {
-  }
-
-  std::string inputText;
-  linguistics::SyntacticGraph syntGraph;
+    std::string inputText;
+    linguistics::SyntacticGraph syntGraph;
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-#endif // !SEMANTICREASONERTESTER_SYNTACTICGRAPHRESULT_HPP
+#endif    // !SEMANTICREASONERTESTER_SYNTACTICGRAPHRESULT_HPP

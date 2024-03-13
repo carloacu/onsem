@@ -3,13 +3,10 @@
 
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 
-namespace onsem
-{
+namespace onsem {
 
-int getSimilarityCoef(const SemanticExpression& pSemExp1,
-                      const SemanticExpression& pSemExp2);
+int getSimilarityCoef(const SemanticExpression& pSemExp1, const SemanticExpression& pSemExp2);
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-
-#endif // ONSEM_SEMANTICTOTEXT_SRC_TOOL_SEMEXPSIMILARITYCOEF_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_SRC_TOOL_SEMEXPSIMILARITYCOEF_HPP

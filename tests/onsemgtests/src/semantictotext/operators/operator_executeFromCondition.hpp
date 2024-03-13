@@ -3,14 +3,11 @@
 
 #include <string>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct SemanticMemory;
-
 
 std::string operator_executeFromCondition(const std::string& pText,
                                           SemanticMemory& pSemanticMemory,
@@ -25,8 +22,6 @@ std::string operator_execute(const std::string& pText,
                              SemanticMemory& pSemanticMemory,
                              const linguistics::LinguisticDatabase& pLingDb);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_GTESTS_SEMANTICCONTROLLLER_OPERATORS_OPERATOR_EXECUTEFROMCONDITION_HPP
+#endif    // ONSEM_GTESTS_SEMANTICCONTROLLLER_OPERATORS_OPERATOR_EXECUTEFROMCONDITION_HPP

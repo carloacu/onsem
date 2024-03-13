@@ -5,58 +5,50 @@
 #include <string>
 #include <QLineEdit>
 
-namespace onsem
-{
+namespace onsem {
 
-class LineEditHistoricalWrapper
-{
+class LineEditHistoricalWrapper {
 public:
-  LineEditHistoricalWrapper();
+    LineEditHistoricalWrapper();
 
-  LineEditHistoricalWrapper(QLineEdit* pLineEdit,
-                            QWidget* pHoldingWidget);
+    LineEditHistoricalWrapper(QLineEdit* pLineEdit, QWidget* pHoldingWidget);
 
-  LineEditHistoricalWrapper(const LineEditHistoricalWrapper&);
-  LineEditHistoricalWrapper& operator=(const LineEditHistoricalWrapper&);
+    LineEditHistoricalWrapper(const LineEditHistoricalWrapper&);
+    LineEditHistoricalWrapper& operator=(const LineEditHistoricalWrapper&);
 
-  void activate();
+    void activate();
 
-  void desactivate();
+    void desactivate();
 
-  void getHistorical(std::vector<std::string>& pHistorical);
+    void getHistorical(std::vector<std::string>& pHistorical);
 
-  void setHistorical
-  (const std::vector<std::string>& pHistorical);
+    void setHistorical(const std::vector<std::string>& pHistorical);
 
-  void addNewText
-  (const std::string& pText,
-   bool pCanClearOldTexts);
+    void addNewText(const std::string& pText, bool pCanClearOldTexts);
 
-  void goToEndOfHistorical();
+    void goToEndOfHistorical();
 
-  void displayPrevText();
+    void displayPrevText();
 
-  void displayNextText();
+    void displayNextText();
 
-  void concat();
-
-
+    void concat();
 
 private:
-  QLineEdit* _lineEdit;
-  bool _isActivated;
-  std::list<std::string> _historical;
-  std::list<std::string>::iterator _currPos;
-  std::string _currCompletionStr;
+    QLineEdit* _lineEdit;
+    bool _isActivated;
+    std::list<std::string> _historical;
+    std::list<std::string>::iterator _currPos;
+    std::string _currCompletionStr;
 
-  void _refreshPos(std::string& pBeginText);
+    void _refreshPos(std::string& pBeginText);
 
-  static std::size_t _updateMinAndMaxSize(std::size_t pCurrSize,
-                                          std::size_t pMinSize,
-                                          const std::string& pNewText,
-                                          const std::string& pRefText);
+    static std::size_t _updateMinAndMaxSize(std::size_t pCurrSize,
+                                            std::size_t pMinSize,
+                                            const std::string& pNewText,
+                                            const std::string& pRefText);
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // ONSEMGUIUTILITY_LINEEDITHISTORICWRAPPER_HPP
+#endif    // ONSEMGUIUTILITY_LINEEDITHISTORICWRAPPER_HPP

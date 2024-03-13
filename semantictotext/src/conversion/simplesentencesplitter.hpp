@@ -3,19 +3,12 @@
 
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
 
-namespace onsem
-{
-namespace splitter
-{
+namespace onsem {
+namespace splitter {
 
+void splitInVerySimpleSentences(UniqueSemanticExpression& pSemExp, bool pDoWeSplitQuestions);
 
-void splitInVerySimpleSentences(UniqueSemanticExpression& pSemExp,
-                                bool pDoWeSplitQuestions);
+}    // End of namespace splitter
+}    // End of namespace onsem
 
-
-} // End of namespace splitter
-} // End of namespace onsem
-
-
-
-#endif // ONSEM_SEMANTICTOTEXT_CONVERSION_SIMPLESENTENCESPLITTER_HPP
+#endif    // ONSEM_SEMANTICTOTEXT_CONVERSION_SIMPLESENTENCESPLITTER_HPP

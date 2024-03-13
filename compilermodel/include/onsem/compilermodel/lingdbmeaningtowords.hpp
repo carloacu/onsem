@@ -5,9 +5,7 @@
 #include <map>
 #include <stddef.h>
 
-
-namespace onsem
-{
+namespace onsem {
 class LingdbMeaning;
 class LinguisticIntermediaryDatabase;
 class LingdbDynamicTrieNode;
@@ -15,18 +13,13 @@ class LingdbFlexions;
 struct VerbConjugaison;
 struct NounAdjConjugaison;
 
-class LingdbMeaningToWords
-{
+class LingdbMeaningToWords {
 public:
-
-  void findWordsConjugaisons
-  (std::map<const LingdbMeaning*, VerbConjugaison>& pWordConjugaison,
-   std::map<const LingdbMeaning*, NounAdjConjugaison>& pNounConjugaison,
-   const LinguisticIntermediaryDatabase& pLingDatabase) const;
-
+    void findWordsConjugaisons(std::map<const LingdbMeaning*, VerbConjugaison>& pWordConjugaison,
+                               std::map<const LingdbMeaning*, NounAdjConjugaison>& pNounConjugaison,
+                               const LinguisticIntermediaryDatabase& pLingDatabase) const;
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-
-#endif // ONSEM_COMPILERMODEL_LINGDBMEANINGTOWORDS_HPP
+#endif    // ONSEM_COMPILERMODEL_LINGDBMEANINGTOWORDS_HPP

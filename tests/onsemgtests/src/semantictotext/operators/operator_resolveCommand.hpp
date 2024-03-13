@@ -4,22 +4,17 @@
 #include <string>
 #include <onsem/common/enum/semanticlanguageenum.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct LinguisticDatabase;
 }
 struct SemanticMemory;
-
 
 std::string operator_resolveCommand(const std::string& pText,
                                     SemanticMemory& pSemanticMemory,
                                     const linguistics::LinguisticDatabase& pLingDb,
                                     SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-
-#endif // ONSEM_GTESTS_SEMANTICCONTROLLLER_OPERATORS_OPERATOR_RESOLVECOMMAND_HPP
+#endif    // ONSEM_GTESTS_SEMANTICCONTROLLLER_OPERATORS_OPERATOR_RESOLVECOMMAND_HPP

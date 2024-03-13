@@ -5,18 +5,14 @@
 #include <string>
 #include "api.hpp"
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 struct ChunkLink;
 
-namespace DotSaver
-{
+namespace DotSaver {
 
 ONSEMSEMANTICDEBUGGER_API
-void writeChunkLinks(std::ostream& pSs,
-                     const std::list<ChunkLink>& pSyntTree);
+void writeChunkLinks(std::ostream& pSs, const std::list<ChunkLink>& pSyntTree);
 
 ONSEMSEMANTICDEBUGGER_API
 /**
@@ -26,15 +22,11 @@ ONSEMSEMANTICDEBUGGER_API
  * @param pOutFilename Filename of the .png file.
  * @param pDotContent String to write into the .dot intermediary file.
  */
-void save(const std::string& pInFilename,
-          const std::string& pOutFilename,
-          const std::string& pDotContent);
+void save(const std::string& pInFilename, const std::string& pOutFilename, const std::string& pDotContent);
 
+}    // End of namespace DotSaver
 
-} // End of namespace DotSaver
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_SEMANTICDEBUGGER_DOTSAVER_HPP
+#endif    // ONSEM_SEMANTICDEBUGGER_DOTSAVER_HPP

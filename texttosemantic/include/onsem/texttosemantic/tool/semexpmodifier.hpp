@@ -15,19 +15,15 @@
 #include <onsem/texttosemantic/dbtype/semanticexpression/listexpression.hpp>
 #include "../api.hpp"
 
-namespace onsem
-{
+namespace onsem {
 struct SemanticQuantity;
 struct Coreference;
 struct SemanticFloat;
-namespace linguistics
-{
+namespace linguistics {
 class LinguisticDatabase;
 }
 
-
-namespace SemExpModifier
-{
+namespace SemExpModifier {
 
 ONSEM_TEXTTOSEMANTIC_API
 void infToMandatoryForm(GroundedExpression& pGrdExp);
@@ -54,24 +50,19 @@ ONSEM_TEXTTOSEMANTIC_API
 void setAtPluralFromSemExp(SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void removeChild(GroundedExpression& pGrdExp,
-                 GrammaticalType pChildType);
+void removeChild(GroundedExpression& pGrdExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
-void removeChildFromSemExp(SemanticExpression& pSemExp,
-                           GrammaticalType pChildType);
+void removeChildFromSemExp(SemanticExpression& pSemExp, GrammaticalType pChildType);
 
 ONSEM_TEXTTOSEMANTIC_API
-void setChild(GroundedExpression& pGrdExp,
-              GrammaticalType pChildGramType,
-              UniqueSemanticExpression pChildSemExp);
+void setChild(GroundedExpression& pGrdExp, GrammaticalType pChildGramType, UniqueSemanticExpression pChildSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 void clearRequestList(GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void swapRequests(GroundedExpression& pGrdExp,
-                  SemanticRequests& pRequests);
+void swapRequests(GroundedExpression& pGrdExp, SemanticRequests& pRequests);
 
 ONSEM_TEXTTOSEMANTIC_API
 void clearRequestListOfSemExp(SemanticExpression& pSemExp);
@@ -91,76 +82,57 @@ void invertPolarity(SemanticExpression& pSemExp);
 ONSEM_TEXTTOSEMANTIC_API
 void removeEmptyListElements(UniqueSemanticExpression& pListExp);
 
+ONSEM_TEXTTOSEMANTIC_API
+void applyVerbTenseModifOfSemExp(SemanticExpression& pSemExp, std::function<void(SemanticVerbTense&)> pVerbTenseModif);
 
 ONSEM_TEXTTOSEMANTIC_API
-void applyVerbTenseModifOfSemExp(SemanticExpression& pSemExp,
-                                 std::function<void(SemanticVerbTense&)> pVerbTenseModif);
-
+void modifyVerbTense(GroundedExpression& pGrdExp, SemanticVerbTense pVerbTense);
 
 ONSEM_TEXTTOSEMANTIC_API
-void modifyVerbTense(GroundedExpression& pGrdExp,
-                     SemanticVerbTense pVerbTense);
+void modifyVerbTenseOfSemExp(SemanticExpression& pSemExp, SemanticVerbTense pVerbTense);
 
 ONSEM_TEXTTOSEMANTIC_API
-void modifyVerbTenseOfSemExp(SemanticExpression& pSemExp,
-                             SemanticVerbTense pVerbTense);
-
-ONSEM_TEXTTOSEMANTIC_API
-void putInPastWithTimeAnnotation(UniqueSemanticExpression& pSemExp,
-                                 std::unique_ptr<SemanticTimeGrounding> pTimeGrd);
+void putInPastWithTimeAnnotation(UniqueSemanticExpression& pSemExp, std::unique_ptr<SemanticTimeGrounding> pTimeGrd);
 
 ONSEM_TEXTTOSEMANTIC_API
 void replaceSayByAskToRobot(SemanticExpression& pSemExp);
 
 ONSEM_TEXTTOSEMANTIC_API
-void setReference(GroundedExpression& pGrdExp,
-                   SemanticReferenceType pRefType);
+void setReference(GroundedExpression& pGrdExp, SemanticReferenceType pRefType);
 
 ONSEM_TEXTTOSEMANTIC_API
-void setReferenceTypeOfSemExp(SemanticExpression& pSemExp,
-                              SemanticReferenceType pRefType);
+void setReferenceTypeOfSemExp(SemanticExpression& pSemExp, SemanticReferenceType pRefType);
 
 /// Add a request type to the given grounded expression, if it is a statement.
 ONSEM_TEXTTOSEMANTIC_API
-void addRequest(GroundedExpression& pGrdExp,
-                SemanticRequestType pRequestType);
+void addRequest(GroundedExpression& pGrdExp, SemanticRequestType pRequestType);
 
 /// Finds the highest-level statements and add the given request type to them.
 ONSEM_TEXTTOSEMANTIC_API
-void addRequest(SemanticExpression& pSemExp,
-                SemanticRequestType pRequestType);
+void addRequest(SemanticExpression& pSemExp, SemanticRequestType pRequestType);
 
 ONSEM_TEXTTOSEMANTIC_API
-void setRequests(SemanticExpression& pSemExp,
-                 const SemanticRequests& pRequests);
+void setRequests(SemanticExpression& pSemExp, const SemanticRequests& pRequests);
 
 ONSEM_TEXTTOSEMANTIC_API
-void setRequest(SemanticExpression& pSemExp,
-                SemanticRequestType pRequestType);
+void setRequest(SemanticExpression& pSemExp, SemanticRequestType pRequestType);
 
 ONSEM_TEXTTOSEMANTIC_API
-void addCoreferenceMotherSemExp(UniqueSemanticExpression& pSemExp,
-                                GrammaticalType pGrammaticalType);
-
+void addCoreferenceMotherSemExp(UniqueSemanticExpression& pSemExp, GrammaticalType pGrammaticalType);
 
 ONSEM_TEXTTOSEMANTIC_API
-void addReferences(UniqueSemanticExpression& pSemExp,
-                   const std::list<std::string>& pReferences);
-
+void addReferences(UniqueSemanticExpression& pSemExp, const std::list<std::string>& pReferences);
 
 ONSEM_TEXTTOSEMANTIC_API
-void fillVerbGoal(GroundedExpression& pGrdExp,
-                  VerbGoalEnum pVerbGoal);
+void fillVerbGoal(GroundedExpression& pGrdExp, VerbGoalEnum pVerbGoal);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool putItAdjectival(SemanticExpression& pSemExp,
-                     const linguistics::LinguisticDatabase& pLingDb);
+bool putItAdjectival(SemanticExpression& pSemExp, const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEM_TEXTTOSEMANTIC_API
 void replaceAgentOfSemExp(SemanticExpression& pSemExp,
                           const std::string& pNewUserId,
                           const std::string& pUserIdToReplace);
-
 
 template<typename TCHILD>
 void addChild(GroundedExpression& pGrdExp,
@@ -180,14 +152,11 @@ void addNewChildWithConcept(std::map<GrammaticalType, UniqueSemanticExpression>&
                             GrammaticalType pGramOfChild,
                             const std::string& pConceptName);
 
+ONSEM_TEXTTOSEMANTIC_API
+void addASemExp(UniqueSemanticExpression& pSemExp, UniqueSemanticExpression pSemExpToAdd);
 
 ONSEM_TEXTTOSEMANTIC_API
-void addASemExp(UniqueSemanticExpression& pSemExp,
-                UniqueSemanticExpression pSemExpToAdd);
-
-ONSEM_TEXTTOSEMANTIC_API
-void moveChildrenOfAGrdExp(GroundedExpression& pGrdExpToFill,
-                           GroundedExpression& pGrdExp);
+void moveChildrenOfAGrdExp(GroundedExpression& pGrdExpToFill, GroundedExpression& pGrdExp);
 
 ONSEM_TEXTTOSEMANTIC_API
 UniqueSemanticExpression grdExpsToUniqueSemExp(const std::list<const GroundedExpression*>& pGrdExps);
@@ -213,8 +182,7 @@ void addChildFromSemExp(SemanticExpression& pSemExp,
                         ListExpressionType pListType = ListExpressionType::UNRELATED);
 
 ONSEM_TEXTTOSEMANTIC_API
-bool fillReferenceFromConcepts(SemanticReferenceType& pReferenceType,
-                               const std::map<std::string, char>& pConcepts);
+bool fillReferenceFromConcepts(SemanticReferenceType& pReferenceType, const std::map<std::string, char>& pConcepts);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool fillQuantityAndReferenceFromConcepts(SemanticQuantity& pQuantity,
@@ -223,20 +191,16 @@ bool fillQuantityAndReferenceFromConcepts(SemanticQuantity& pQuantity,
 
 ONSEM_TEXTTOSEMANTIC_API
 void fillConceptsForPronouns(std::map<std::string, char>& pSemConcepts,
-                                                  const std::map<std::string, char>& pLingConcepts);
+                             const std::map<std::string, char>& pLingConcepts);
 
 ONSEM_TEXTTOSEMANTIC_API
-void fillSemanticConcepts(std::map<std::string, char>& pConcepts,
-                          const std::map<std::string, char>& pConceptsToAdd);
+void fillSemanticConcepts(std::map<std::string, char>& pConcepts, const std::map<std::string, char>& pConceptsToAdd);
 
 ONSEM_TEXTTOSEMANTIC_API
-void fillCoreference(mystd::optional<Coreference>& pCoreference,
-                     const std::map<std::string, char>& pConcepts);
+void fillCoreference(mystd::optional<Coreference>& pCoreference, const std::map<std::string, char>& pConcepts);
 
 ONSEM_TEXTTOSEMANTIC_API
-void removeSemExpPartsThatDoesntHaveAnAgent(UniqueSemanticExpression& pSemExp,
-                                            const SemanticAgentGrounding& pAgentGrd);
-
+void removeSemExpPartsThatDoesntHaveAnAgent(UniqueSemanticExpression& pSemExp, const SemanticAgentGrounding& pAgentGrd);
 
 ONSEM_TEXTTOSEMANTIC_API
 bool removeYearInformation(SemanticExpression& pSemExp);
@@ -244,62 +208,49 @@ bool removeYearInformation(SemanticExpression& pSemExp);
 ONSEM_TEXTTOSEMANTIC_API
 bool removeDayInformation(SemanticExpression& pSemExp);
 
-
 template<typename TCHILD>
 void addListElt(UniqueSemanticExpression& pUSemExp,
                 ListExpressionType pListType,
                 TCHILD&& pNewExp,
-                bool pPushBackOrFront = true)
-{
-  ListExpression* listExp = pUSemExp->getListExpPtr();
-  if (listExp != nullptr &&
-      listExp->listType == pListType)
-  {
-    listExp->elts.emplace_back(std::move(pNewExp));
-    return;
-  }
+                bool pPushBackOrFront = true) {
+    ListExpression* listExp = pUSemExp->getListExpPtr();
+    if (listExp != nullptr && listExp->listType == pListType) {
+        listExp->elts.emplace_back(std::move(pNewExp));
+        return;
+    }
 
-  auto newListExp = std::make_unique<ListExpression>(pListType);
-  if (pPushBackOrFront)
-  {
-    newListExp->elts.emplace_back(std::move(pUSemExp));
-    newListExp->elts.emplace_back(std::move(pNewExp));
-  }
-  else
-  {
-    newListExp->elts.emplace_back(std::move(pNewExp));
-    newListExp->elts.emplace_back(std::move(pUSemExp));
-  }
-  pUSemExp = std::move(newListExp);
+    auto newListExp = std::make_unique<ListExpression>(pListType);
+    if (pPushBackOrFront) {
+        newListExp->elts.emplace_back(std::move(pUSemExp));
+        newListExp->elts.emplace_back(std::move(pNewExp));
+    } else {
+        newListExp->elts.emplace_back(std::move(pNewExp));
+        newListExp->elts.emplace_back(std::move(pUSemExp));
+    }
+    pUSemExp = std::move(newListExp);
 }
 
-
 template<typename TSEMEXP>
-bool _tryToMergeGrdExpAndSemExp(GroundedExpression& pGrdExp1,
-                                const TSEMEXP& pSemExp2)
-{
-  SemanticTimeGrounding* timeGrd1Ptr = pGrdExp1->getTimeGroundingPtr();
-  if (timeGrd1Ptr == nullptr)
-    return false;
-  const GroundedExpression* grdExp2Ptr = pSemExp2->getGrdExpPtr_SkipWrapperPtrs();
-  if (grdExp2Ptr == nullptr)
-    return false;
-  const SemanticTimeGrounding* timeGrd2Ptr = grdExp2Ptr->grounding().getTimeGroundingPtr();
-  if (timeGrd2Ptr == nullptr)
-    return false;
-  timeGrd1Ptr->mergeWith(*timeGrd2Ptr);
-  return true;
+bool _tryToMergeGrdExpAndSemExp(GroundedExpression& pGrdExp1, const TSEMEXP& pSemExp2) {
+    SemanticTimeGrounding* timeGrd1Ptr = pGrdExp1->getTimeGroundingPtr();
+    if (timeGrd1Ptr == nullptr)
+        return false;
+    const GroundedExpression* grdExp2Ptr = pSemExp2->getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExp2Ptr == nullptr)
+        return false;
+    const SemanticTimeGrounding* timeGrd2Ptr = grdExp2Ptr->grounding().getTimeGroundingPtr();
+    if (timeGrd2Ptr == nullptr)
+        return false;
+    timeGrd1Ptr->mergeWith(*timeGrd2Ptr);
+    return true;
 }
 
-
 template<typename TSEMEXP>
-bool _tryToMergeSemExps(UniqueSemanticExpression& pSemExp1,
-                        const TSEMEXP& pSemExp2)
-{
-  GroundedExpression* grdExp1Ptr = pSemExp1->getGrdExpPtr_SkipWrapperPtrs();
-  if (grdExp1Ptr != nullptr)
-    return _tryToMergeGrdExpAndSemExp(*grdExp1Ptr, pSemExp2);
-  return false;
+bool _tryToMergeSemExps(UniqueSemanticExpression& pSemExp1, const TSEMEXP& pSemExp2) {
+    GroundedExpression* grdExp1Ptr = pSemExp1->getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExp1Ptr != nullptr)
+        return _tryToMergeGrdExpAndSemExp(*grdExp1Ptr, pSemExp2);
+    return false;
 }
 
 template<typename TCHILD>
@@ -308,28 +259,22 @@ void addChild(GroundedExpression& pGrdExp,
               TCHILD&& pNewExp,
               ListExpressionType pListType,
               bool pTryToMergeWithExistingChild,
-              bool pPushBackOrFront)
-{
-  auto itGramChild = pGrdExp.children.find(pGramType);
-  if (itGramChild != pGrdExp.children.end())
-  {
-    if (!pTryToMergeWithExistingChild || !_tryToMergeSemExps(itGramChild->second, pNewExp))
-      addListElt(itGramChild->second, pListType, std::move(pNewExp), pPushBackOrFront);
-    return;
-  }
-  if (!pTryToMergeWithExistingChild || !_tryToMergeGrdExpAndSemExp(pGrdExp, pNewExp))
-    pGrdExp.children.emplace(pGramType, std::move(pNewExp));
+              bool pPushBackOrFront) {
+    auto itGramChild = pGrdExp.children.find(pGramType);
+    if (itGramChild != pGrdExp.children.end()) {
+        if (!pTryToMergeWithExistingChild || !_tryToMergeSemExps(itGramChild->second, pNewExp))
+            addListElt(itGramChild->second, pListType, std::move(pNewExp), pPushBackOrFront);
+        return;
+    }
+    if (!pTryToMergeWithExistingChild || !_tryToMergeGrdExpAndSemExp(pGrdExp, pNewExp))
+        pGrdExp.children.emplace(pGramType, std::move(pNewExp));
 }
 
-
 ONSEM_TEXTTOSEMANTIC_API
-void addAnythingChild(
-    SemanticExpression& pSemExp,
-    GrammaticalType pGrammaticalType);
+void addAnythingChild(SemanticExpression& pSemExp, GrammaticalType pGrammaticalType);
 
+}    // End of namespace SemExpModifier
 
-} // End of namespace SemExpModifier
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_TOOL_SEMEXPMODIFIER_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_TOOL_SEMEXPMODIFIER_HPP

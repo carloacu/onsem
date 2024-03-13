@@ -5,86 +5,73 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include "../api.hpp"
 
+namespace onsem {
 
-namespace onsem
-{
+struct ONSEMSEMANTICTOTEXT_API ExecutionData {
+    std::string text;
+    SemanticLanguageEnum textLanguage;
 
-struct ONSEMSEMANTICTOTEXT_API ExecutionData
-{
-  std::string text;
-  SemanticLanguageEnum textLanguage;
+    std::unique_ptr<SemanticResource> resource;
+    std::map<std::string, std::vector<std::string>> resourceParameters;
+    int resourceNbOfTimes = 1;
 
-  std::unique_ptr<SemanticResource> resource;
-  std::map<std::string, std::vector<std::string>> resourceParameters;
-  int resourceNbOfTimes = 1;
+    std::unique_ptr<UniqueSemanticExpression> punctualAssertion;
+    std::unique_ptr<UniqueSemanticExpression> permanentAssertion;
+    std::unique_ptr<UniqueSemanticExpression> informationToTeach;
 
-  std::unique_ptr<UniqueSemanticExpression> punctualAssertion;
-  std::unique_ptr<UniqueSemanticExpression> permanentAssertion;
-  std::unique_ptr<UniqueSemanticExpression> informationToTeach;
+    int numberOfTimes = 1;
 
-  int numberOfTimes = 1;
+    std::list<ExecutionData> toRunSequencially;
+    std::list<ExecutionData> toRunInParallel;
+    std::list<ExecutionData> toRunInBackground;
 
-  std::list<ExecutionData> toRunSequencially;
-  std::list<ExecutionData> toRunInParallel;
-  std::list<ExecutionData> toRunInBackground;
-
-  bool hasData() const;
-  bool hasChildren() const;
-  void setResourceNbOfTimes(int pNumberOfTimes);
-  std::list<ExecutionData>& linkToChildList(VirtualOutputter::Link pLink);
-  std::string run(SemanticMemory& pSemanticMemory,
-                  const linguistics::LinguisticDatabase &pLingDb,
-                  bool pHasAlreadyData = false) const;
+    bool hasData() const;
+    bool hasChildren() const;
+    void setResourceNbOfTimes(int pNumberOfTimes);
+    std::list<ExecutionData>& linkToChildList(VirtualOutputter::Link pLink);
+    std::string run(SemanticMemory& pSemanticMemory,
+                    const linguistics::LinguisticDatabase& pLingDb,
+                    bool pHasAlreadyData = false) const;
 
 private:
-  std::string _dataToStr() const;
+    std::string _dataToStr() const;
 };
 
+struct ONSEMSEMANTICTOTEXT_API ExecutionDataOutputter : public VirtualOutputter {
+    ExecutionDataOutputter(SemanticMemory& pSemanticMemory, const linguistics::LinguisticDatabase& pLingDb);
+    virtual ~ExecutionDataOutputter() {}
 
-struct ONSEMSEMANTICTOTEXT_API ExecutionDataOutputter : public VirtualOutputter
-{
-  ExecutionDataOutputter(SemanticMemory& pSemanticMemory,
-                         const linguistics::LinguisticDatabase& pLingDb);
-  virtual ~ExecutionDataOutputter() {}
-
-  ExecutionData rootExecutionData;
-
+    ExecutionData rootExecutionData;
 
 protected:
-  void _exposeResource(const SemanticResource& pResource,
-                       const std::map<std::string, std::vector<std::string>>& pParameters) override;
+    void _exposeResource(const SemanticResource& pResource,
+                         const std::map<std::string, std::vector<std::string>>& pParameters) override;
 
-  void _exposeText(const std::string& pText,
-                   SemanticLanguageEnum pLanguage) override;
+    void _exposeText(const std::string& pText, SemanticLanguageEnum pLanguage) override;
 
-  void _assertPunctually(const SemanticExpression& pSemExp) override;
-  void _teachInformation(UniqueSemanticExpression pUSemExp) override;
-  void _assertPermanently(UniqueSemanticExpression pUSemExp) override;
+    void _assertPunctually(const SemanticExpression& pSemExp) override;
+    void _teachInformation(UniqueSemanticExpression pUSemExp) override;
+    void _assertPermanently(UniqueSemanticExpression pUSemExp) override;
 
-  void _beginOfScope(Link pLink) override;
-  void _endOfScope() override;
-  void _resourceNbOfTimes(int pNumberOfTimes) override;
-  void _insideScopeNbOfTimes(int pNumberOfTimes) override;
+    void _beginOfScope(Link pLink) override;
+    void _endOfScope() override;
+    void _resourceNbOfTimes(int pNumberOfTimes) override;
+    void _insideScopeNbOfTimes(int pNumberOfTimes) override;
 
 private:
-  struct LinkAndExecutionData
-  {
-    LinkAndExecutionData(Link pLink,
-                         ExecutionData& pExecutionData)
-      : link(pLink),
-        executionData(pExecutionData)
-    {
-    }
-    Link link;
-    ExecutionData& executionData;
-  };
-  std::list<LinkAndExecutionData> _stack;
+    struct LinkAndExecutionData {
+        LinkAndExecutionData(Link pLink, ExecutionData& pExecutionData)
+            : link(pLink)
+            , executionData(pExecutionData) {}
+        Link link;
+        ExecutionData& executionData;
+    };
+    std::list<LinkAndExecutionData> _stack;
 
-  ExecutionData& _getOrCreateNewElt();
-  ExecutionData& _getLasExectInStack();
+    ExecutionData& _getOrCreateNewElt();
+    ExecutionData& _getLasExectInStack();
 };
 
-} // End of namespace onsem
+}    // End of namespace onsem
 
-#endif // ONSEM_SEMANTICTOTEXT_OUTPUTTER_EXECUTIONDATAOUTPUTTER_HPP
-
+#endif    // ONSEM_SEMANTICTOTEXT_OUTPUTTER_EXECUTIONDATAOUTPUTTER_HPP

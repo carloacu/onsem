@@ -9,17 +9,14 @@
 #include "api.hpp"
 #include "detailedreactionanswer.hpp"
 
-
-namespace onsem
-{
+namespace onsem {
 struct SemanticMemory;
 struct UniqueSemanticExpression;
 struct TextProcessingContext;
 class ScenarioContainer;
 struct ReactionOptions;
 struct ExpressionWithLinks;
-namespace linguistics
-{
+namespace linguistics {
 struct LinguisticDatabase;
 }
 
@@ -49,15 +46,11 @@ bool test_knowTheNameOf(const std::string& pName,
                         SemanticMemory& pSemanticMemory,
                         const linguistics::LinguisticDatabase& pLingDb);
 
-
 ONSEMTESTER_API
-void getResultOfAScenario(
-    std::list<std::string>& pResult,
-    const std::string& pFilename,
-    SemanticMemory& pSemanticMemory,
-    const linguistics::LinguisticDatabase& pLingDb);
-
-
+void getResultOfAScenario(std::list<std::string>& pResult,
+                          const std::string& pFilename,
+                          SemanticMemory& pSemanticMemory,
+                          const linguistics::LinguisticDatabase& pLingDb);
 
 ONSEMTESTER_API
 void loadOneFileInSemanticMemory(std::size_t& pNbOfInforms,
@@ -67,7 +60,6 @@ void loadOneFileInSemanticMemory(std::size_t& pNbOfInforms,
                                  bool pAddReferences,
                                  const std::string* pPathToWriteTextReplaced = nullptr);
 
+}    // End of namespace onsem
 
-} // End of namespace onsem
-
-#endif // ONSEM_TESTER_REACTONTEXTS_HPP
+#endif    // ONSEM_TESTER_REACTONTEXTS_HPP

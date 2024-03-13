@@ -5,27 +5,18 @@
 #include <vector>
 #include "../metawiki/wikikeywords.hpp"
 
-namespace onsem
-{
+namespace onsem {
 
-class FRWikiKeyWords : public WikiKeyWords
-{
+class FRWikiKeyWords : public WikiKeyWords {
 public:
-  FRWikiKeyWords();
+    FRWikiKeyWords();
 
-  virtual void getGramEnum
-  (std::set<PartOfSpeech>& pRes,
-   const std::string& pGramStr,
-   const std::string& pLine) const;
+    virtual void getGramEnum(std::set<PartOfSpeech>& pRes, const std::string& pGramStr, const std::string& pLine) const;
 
 private:
-  std::map<std::string, std::vector<PartOfSpeech> > fGramStrToGraEnum;
+    std::map<std::string, std::vector<PartOfSpeech> > fGramStrToGraEnum;
 };
 
+}    // End of namespace onsem
 
-
-} // End of namespace onsem
-
-
-
-#endif // FRWIKIKEYWORDS_H
+#endif    // FRWIKIKEYWORDS_H

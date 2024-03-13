@@ -21,5 +21,4 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticconceptualgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticunitygrounding.hpp>
 
-
-#endif // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDINGS_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_DBTYPE_SEMANTICGROUNDINGS_HPP

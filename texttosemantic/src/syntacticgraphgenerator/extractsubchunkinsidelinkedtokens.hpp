@@ -4,16 +4,12 @@
 #include <list>
 #include <onsem/texttosemantic/type/chunklink.hpp>
 
-namespace onsem
-{
-namespace linguistics
-{
+namespace onsem {
+namespace linguistics {
 
-void extractSubChunkInsideLinkedTokens(std::list<ChunkLink>& pFirstChildren,
-                                       SemanticLanguageEnum pLanguage);
+void extractSubChunkInsideLinkedTokens(std::list<ChunkLink>& pFirstChildren, SemanticLanguageEnum pLanguage);
 
+}    // End of namespace linguistics
+}    // End of namespace onsem
 
-} // End of namespace linguistics
-} // End of namespace onsem
-
-#endif // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_EXTRACTSUBCHUNKINSIDELINKEDTOKENS_HPP
+#endif    // ONSEM_TEXTTOSEMANTIC_SRC_SYNTACTICGRAPHGENERATOR_EXTRACTSUBCHUNKINSIDELINKEDTOKENS_HPP
