@@ -24,7 +24,6 @@ set(TYPEALLOCATORANDSERIALYZER_SRCS
 
 include_directories(include)
 
-find_package(Boost REQUIRED)
 
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)

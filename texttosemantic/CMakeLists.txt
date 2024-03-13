@@ -273,7 +273,6 @@ endif()
 
 include_directories(include)
 
-find_package(Boost REQUIRED)
 
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
@@ -291,7 +290,16 @@ target_link_libraries(onsemtexttosemantic
 target_compile_features(onsemtexttosemantic PRIVATE cxx_std_17)
 
 
-install(TARGETS onsemtexttosemantic DESTINATION lib)
-install(DIRECTORY include/ DESTINATION include)
-
-
+# Create a proper installed package that can be included.
+install(TARGETS onsemtexttosemantic
+    EXPORT onsemtexttosemanticTargets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(DIRECTORY include/onsem DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(EXPORT onsemtexttosemanticTargets
+    FILE onsemtexttosemanticTargets.cmake
+    NAMESPACE onsem::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/onsem
+)

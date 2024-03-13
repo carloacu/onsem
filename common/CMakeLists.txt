@@ -104,7 +104,18 @@ add_library(onsemcommon SHARED
             ${ONSEMCOMMON_SRCS} ${ONSEMCOMMON_HPPS})
 target_compile_features(onsemcommon PRIVATE cxx_std_17)
 
-install(TARGETS onsemcommon DESTINATION lib)
-install(DIRECTORY include/ DESTINATION include)
 
 
+# Create a proper installed package that can be included.
+install(TARGETS onsemcommon
+    EXPORT onsemcommonTargets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(DIRECTORY include/onsem DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(EXPORT onsemcommonTargets
+    FILE onsemcommonTargets.cmake
+    NAMESPACE onsem::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/onsem
+)

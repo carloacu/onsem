@@ -73,7 +73,6 @@ set(ONSEMCOMPILERMODEL_SRCS
 
 include_directories(include)
 
-find_package(Boost REQUIRED)
 
 if(NOT ONSEMTYPEALLOCATORANDSERIALYZER_FOUND)
   find_package(onsemtypeallocatorandserialyzer)

@@ -29,6 +29,16 @@ target_link_libraries(onsemstreamdatabaseaccessor
 target_compile_features(onsemstreamdatabaseaccessor PRIVATE cxx_std_17)
 
 
-install(TARGETS onsemstreamdatabaseaccessor DESTINATION lib)
-install(DIRECTORY include/ DESTINATION include)
-
+# Create a proper installed package that can be included.
+install(TARGETS onsemstreamdatabaseaccessor
+    EXPORT onsemstreamdatabaseaccessorTargets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(DIRECTORY include/onsem DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(EXPORT onsemstreamdatabaseaccessorTargets
+    FILE onsemstreamdatabaseaccessorTargets.cmake
+    NAMESPACE onsem::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/onsem
+)
