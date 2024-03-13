@@ -23,7 +23,7 @@ option(
 option(
   GENERATE_DATABASE
   "Generate the databases"
-  OFF
+  ON
 )
 
 
