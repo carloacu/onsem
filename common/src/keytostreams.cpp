@@ -17,13 +17,11 @@ void LinguisticDatabaseStreams::clear() {
 }
 
 void KeyToFStreams::addMainDicFile(SemanticLanguageEnum pLanguage, const std::string& pFilename) {
-    linguisticDatabaseStreams.languageToStreams[pLanguage].mainDicToStream =
-        &_addKeyToIfStreamFile(pFilename);
+    linguisticDatabaseStreams.languageToStreams[pLanguage].mainDicToStream = &_addKeyToIfStreamFile(pFilename);
 }
 
 void KeyToFStreams::addSynthesizerFile(SemanticLanguageEnum pLanguage, const std::string& pFilename) {
-    linguisticDatabaseStreams.languageToStreams[pLanguage].synthesizerToStream =
-        &_addKeyToIfStreamFile(pFilename);
+    linguisticDatabaseStreams.languageToStreams[pLanguage].synthesizerToStream = &_addKeyToIfStreamFile(pFilename);
 }
 
 std::ifstream& KeyToFStreams::_addKeyToIfStreamFile(const std::string& pFilename) {

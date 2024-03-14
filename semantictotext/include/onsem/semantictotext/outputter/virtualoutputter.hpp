@@ -49,8 +49,7 @@ protected:
      * @param pResource The command to expose (encoded in a string).
      * @param pInutSemExpPtr Semantic expression of the input.
      */
-    virtual void _exposeResource(const SemanticResource&,
-                                 const std::map<std::string, std::vector<std::string>>&) {}
+    virtual void _exposeResource(const SemanticResource&, const std::map<std::string, std::vector<std::string>>&) {}
 
     /**
      * @brief _exposeText Defines how to expose a text.

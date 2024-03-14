@@ -313,8 +313,7 @@ bool process(bool& pResThatCanHaveAdditionalFeedbacks,
         return true;
 
     if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT) {
-        auto niceToMeetTouExp =
-            _answerNiceToMeetYouIfTheUserSaysHisName(pWorkStruct, pNewContextAxiom);
+        auto niceToMeetTouExp = _answerNiceToMeetYouIfTheUserSaysHisName(pWorkStruct, pNewContextAxiom);
         if (niceToMeetTouExp) {
             pWorkStruct.addAnswerWithoutReferences(ContextualAnnotation::FEEDBACK, std::move(niceToMeetTouExp));
             return true;

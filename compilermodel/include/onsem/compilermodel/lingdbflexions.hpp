@@ -92,13 +92,6 @@ public:
 
     bool replaceInfinitiveByImperative() const;
 
-    /**
-     * @brief Prettry print the flexions in a stream.
-     * @param pOs The stream.
-     * @param pGram The grammatical type of the flexions.
-     */
-    void writeInStream(std::ostream& pOs, PartOfSpeech pGram) const;
-
     void fillVerbConjugaison(VerbConjugaison& pVerbConjugaison,
                              const LingdbDynamicTrieNode* pTriNode,
                              char pFrequency) const;

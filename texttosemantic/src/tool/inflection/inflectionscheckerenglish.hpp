@@ -19,9 +19,7 @@ public:
 
     bool verbCanHaveAnAuxiliary(const VerbalInflection& pVerbInfl) const override;
 
-    bool isVerbSubConjonction(const InflectedWord&, const InflectedWord&) const override {
-        return true;
-    }
+    bool isVerbSubConjonction(const InflectedWord&, const InflectedWord&) const override { return true; }
 
     bool isAdjNounCompatibles(const InflectedWord& pIGramAdj, const InflectedWord& pIGramNoun) const override;
 
@@ -42,15 +40,9 @@ public:
 
     bool isPronounComplAdverbCompatibles(const InflectedWord&, const InflectedWord&) const override { return true; }
 
-    bool isPronounComplAdjectiveCompatibles(const InflectedWord&,
-                                            const InflectedWord&) const override {
-        return true;
-    }
+    bool isPronounComplAdjectiveCompatibles(const InflectedWord&, const InflectedWord&) const override { return true; }
 
-    bool isPronounComplVerbCompatibles(const InflectedWord&,
-                                       const InflectedWord&) const override {
-        return true;
-    }
+    bool isPronounComplVerbCompatibles(const InflectedWord&, const InflectedWord&) const override { return true; }
 
     bool isPronounCompDetCompatibles(const InflectedWord&) const override { return true; }
 

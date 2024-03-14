@@ -123,9 +123,6 @@ ONSEM_TEXTTOSEMANTIC_API
 std::optional<int> getNumberOfRepetitionsOpt(const std::map<GrammaticalType, UniqueSemanticExpression>& pChildren);
 
 ONSEM_TEXTTOSEMANTIC_API
-const SemanticExpression* getUntilChild(const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);
-
-ONSEM_TEXTTOSEMANTIC_API
 mystd::optional<int64_t> getTimeDurationInMilliseconds(
     const std::map<GrammaticalType, UniqueSemanticExpression>& pAnnotations);
 

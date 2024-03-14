@@ -29,7 +29,7 @@ struct ONSEMSEMANTICTOTEXT_API OutputterContext {
     std::shared_ptr<std::map<GrammaticalType, UniqueSemanticExpression>> annotations;
     ContextualAnnotation contAnnotation;
     bool sayOrExecute;
-    const SemanticExpression* inputSemExpPtr; // TODO: remove?
+    const SemanticExpression* inputSemExpPtr;    // TODO: remove?
 };
 
 }    // End of namespace onsem

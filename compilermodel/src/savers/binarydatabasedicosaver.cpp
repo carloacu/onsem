@@ -180,19 +180,19 @@ void BinaryDatabaseDicoSaver::xWriteSynthesizerDb(
                 auto itConj = verbConjugaison.find(currMeaning.first);
                 assert(itConj != verbConjugaison.end());
                 VerbConjugaison& conj = itConj->second;
-                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.imperfect);              // 0        (+6)
-                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.present);                // 6        (+6)
-                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.future);                 // 12        (+6)
-                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.imperative);             // 18        (+3)
-                endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.presentParticiple.node);  // 21
+                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.imperfect);                // 0        (+6)
+                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.present);                  // 6        (+6)
+                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.future);                   // 12        (+6)
+                endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.imperative);               // 18        (+3)
+                endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.presentParticiple.node);    // 21
                 if (pLangType == SemanticLanguageEnum::FRENCH) {
                     endMemory =
-                        xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculineSingular.node);          // 22
-                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculinePlural.node);    // 23
-                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.feminineSingular.node);   // 24
-                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.femininePlural.node);     // 25
-                    endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.conditional);                           // 26   (+6)
-                    endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.presentSubjunctive);                    // 32   (+6)
+                        xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculineSingular.node);           // 22
+                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculinePlural.node);     // 23
+                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.feminineSingular.node);    // 24
+                    endMemory = xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.femininePlural.node);      // 25
+                    endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.conditional);           // 26   (+6)
+                    endMemory = xWriteVerbConj(endMemory, pNodesPtr, conj.presentSubjunctive);    // 32   (+6)
                 } else {
                     endMemory =
                         xWriteNodeRef(endMemory, pNodesPtr, conj.pastParticiple.masculineSingular.node);    // 22

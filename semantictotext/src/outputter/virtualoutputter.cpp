@@ -119,9 +119,7 @@ void VirtualOutputter::_processResource(const SemanticResource& pResource) {
     _exposeResource(pResource, parameters);
 }
 
-void VirtualOutputter::_handleDurationAnnotations(bool&,
-                                                  const AnnotatedExpression&,
-                                                  const OutputterContext&) {}
+void VirtualOutputter::_handleDurationAnnotations(bool&, const AnnotatedExpression&, const OutputterContext&) {}
 
 void VirtualOutputter::_processGrdExp(const SemanticExpression& pSemExp, const OutputterContext& pOutputterContext) {
     const GroundedExpression& grdExp = pSemExp.getGrdExp();
@@ -160,7 +158,6 @@ void VirtualOutputter::_convertToText(std::list<std::unique_ptr<SynthesizerResul
     auto userId = _semanticMemory.getCurrUserId();
     synthesize(pRes, pSemExp.clone(), false, _semanticMemory.memBloc, userId, pTextProcContext, _lingDb, nullptr);
 }
-
 
 void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp, const OutputterContext& pOutputterContext) {
     switch (pSemExp.type) {

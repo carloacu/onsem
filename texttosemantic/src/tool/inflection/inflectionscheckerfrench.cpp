@@ -118,8 +118,7 @@ bool InflectionsCheckerFrench::isDetProperNounCompatibles(const InflectedWord&,
             || pInflProperNoun.infos.contextualInfos.count(WordContextualInfos::BEGINSWITHUPPERCHARACTER) > 0);
 }
 
-bool InflectionsCheckerFrench::areNounNounCompatibles(const InflectedWord& pNounInflWord1,
-                                                      const InflectedWord&) const {
+bool InflectionsCheckerFrench::areNounNounCompatibles(const InflectedWord& pNounInflWord1, const InflectedWord&) const {
     return !ConceptSet::haveAConceptThatBeginWith(pNounInflWord1.infos.concepts, "number_");
 }
 
