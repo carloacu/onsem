@@ -225,6 +225,10 @@ target_link_libraries(onsemsemantictotext
 )
 target_compile_features(onsemsemantictotext PRIVATE cxx_std_17)
 
+target_include_directories(onsemsemantictotext PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
 # Create a proper installed package that can be included.
 install(TARGETS onsemsemantictotext
