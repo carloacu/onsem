@@ -30,6 +30,7 @@ struct ONSEM_TEXTTOSEMANTIC_API TextProcessingContext {
     bool isTimeDependent;
     UniqueSemanticExpression usSemExp;
     bool vouvoiement;
+    bool writeParametersToFill;
     std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
     std::set<SpellingMistakeType> spellingMistakeTypesPossible;
 };

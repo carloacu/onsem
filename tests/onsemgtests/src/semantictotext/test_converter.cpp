@@ -28,7 +28,7 @@ std::string _infinitiveToRequestVariationsStr(const std::string& pInputText,
     for (auto& currElt : outSemExps) {
         if (!res.empty())
             res += " | ";
-        res += semExpToTextFromUser(std::move(currElt), pLanguage, pSemMem, pLingDb);
+        res += semExpToTextFromUser(std::move(currElt), pLanguage, pSemMem, pLingDb, true);
     }
     return res;
 }
@@ -51,6 +51,9 @@ TEST_F(SemanticReasonerGTests, operator_converter_infinitiveToRequestVariations)
 
     EXPECT_EQ("Marche ! | Je voudrais que tu marches. | Veux-tu marcher ?",
               _infinitiveToRequestVariationsStr("Marcher", SemanticLanguageEnum::FRENCH, semMem, lingDb));
+
+    EXPECT_EQ("Dis [text](pouet pouet) ! | Je voudrais que tu dises [text](pouet pouet). | Veux-tu dire [text](pouet pouet) ?",
+              _infinitiveToRequestVariationsStr("dire [text](pouet pouet)", SemanticLanguageEnum::FRENCH, semMem, lingDb));
 
     EXPECT_EQ("Avance rapidement vers la droite ! | Je voudrais que tu avances rapidement vers la droite. | Veux-tu avancer rapidement vers la droite ?",
               _infinitiveToRequestVariationsStr("Avancer rapidement vers la droite", SemanticLanguageEnum::FRENCH, semMem, lingDb));

@@ -47,6 +47,7 @@ void _syntSemExpWithDebugInfosIfAsked(std::string& pRes,
                                       const SemanticMemoryBlock& pMemBlock,
                                       const LinguisticDatabase& pLingDb) {
     TextProcessingContext textPorcContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    textPorcContext.writeParametersToFill = true;
     if (pSemanticAnalysisDebugOptions.setUsAsEverybody)
         textPorcContext.setUsAsEverybody();
 

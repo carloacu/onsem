@@ -87,12 +87,15 @@ std::string semExpToText(UniqueSemanticExpression pSemExp,
 std::string semExpToTextFromUser(UniqueSemanticExpression pSemExp,
                                  SemanticLanguageEnum pLanguage,
                                  const SemanticMemory& pSemanticMemory,
-                                 const linguistics::LinguisticDatabase& pLingDb) {
+                                 const linguistics::LinguisticDatabase& pLingDb,
+                                 bool pWriteParametersToFill) {
+    TextProcessingContext textProcContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    textProcContext.writeParametersToFill = pWriteParametersToFill;
     std::string res;
     converter::semExpToText(
         res,
         std::move(pSemExp),
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage),
+        textProcContext,
         false,
         pSemanticMemory,
         pLingDb,

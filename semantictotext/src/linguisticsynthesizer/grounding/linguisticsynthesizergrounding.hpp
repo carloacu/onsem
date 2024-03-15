@@ -104,7 +104,9 @@ public:
                                    GrammaticalType pGrammTypeFromParent,
                                    const SemanticRequests& pRequests) const;
 
-    void metaGroundingTranslation(std::list<WordToSynthesize>& pOut, const SemanticMetaGrounding& pGrounding) const;
+    void metaGroundingTranslation(std::list<WordToSynthesize>& pOut,
+                                  const SemanticMetaGrounding& pGrounding,
+                                  bool pWriteParametersToFill) const;
 
     void agentGroundingTranslation(OutSemExp& pOutSemExp,
                                    SynthesizerConfiguration& pConf,

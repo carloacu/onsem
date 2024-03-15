@@ -181,6 +181,7 @@ void _saveMetaGrd(boost::property_tree::ptree& pTree, const SemanticMetaGroundin
     pTree.put("refToType", semanticGroundingsType_toStr(pMetaGrd.refToType));
     pTree.put("paramId", pMetaGrd.paramId);
     pTree.put("attibuteName", pMetaGrd.attibuteName);
+    pTree.put("attibuteValue", pMetaGrd.attibuteValue);
 }
 
 void _saveSemanticQuantity(boost::property_tree::ptree& pTree, const SemanticQuantity& pSemanticQuantity) {

@@ -193,8 +193,8 @@ bool EntityRecognizer::isTheBeginOfAPartitive(const Chunk& pChunk) {
 }
 
 bool _isMetaTimeChunk(const Chunk& pChunk) {
-    if (!pChunk.head->str.empty() && pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStr
-        && SemanticMetaGrounding::isTheBeginOfAParam(pChunk.head->str)) {
+    if (!pChunk.head->str.empty() && pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStrOld
+        && SemanticMetaGrounding::isTheBeginOfAParamOld(pChunk.head->str)) {
         SemanticGroundingType refToType = SemanticGroundingType::GENERIC;
         return SemanticMetaGrounding::groundingTypeFromStr(refToType, pChunk.head->str)
             && refToType == SemanticGroundingType::TIME;

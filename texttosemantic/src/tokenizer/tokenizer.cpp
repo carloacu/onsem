@@ -920,7 +920,7 @@ void _insertBookmark(std::list<Token>& pTokens,
     bookmark = pStr.substr(pBegin, pLength);
 
     InflectedWord& newInflWord = infosGram.back();
-    if (SemanticMetaGrounding::isTheBeginOfAParam(bookmark)) {
+    if (SemanticMetaGrounding::isTheBeginOfAParamOld(bookmark)) {
         newInflWord.word.partOfSpeech = PartOfSpeech::UNKNOWN;
         newInflWord.moveInflections(_getAllNounInflections(pLanguage));
         infosGram.emplace_back(PartOfSpeech::DETERMINER, _getAllNounInflections(pLanguage));

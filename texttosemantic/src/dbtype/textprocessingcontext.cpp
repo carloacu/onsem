@@ -24,6 +24,7 @@ TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,
     , isTimeDependent(true)
     , usSemExp(_getYouAndMeSemExp(pAuthorId, pReceiverId))
     , vouvoiement(false)
+    , writeParametersToFill(false)
     , cmdGrdExtractorPtr()
     , spellingMistakeTypesPossible() {}
 
@@ -37,6 +38,7 @@ TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,
     , isTimeDependent(true)
     , usSemExp(std::move(pUsSemExp))
     , vouvoiement(false)
+    , writeParametersToFill(false)
     , cmdGrdExtractorPtr()
     , spellingMistakeTypesPossible() {}
 
@@ -47,6 +49,7 @@ TextProcessingContext::TextProcessingContext(const TextProcessingContext& pOther
     , isTimeDependent(true)
     , usSemExp(pOther.usSemExp->clone())
     , vouvoiement(pOther.vouvoiement)
+    , writeParametersToFill(pOther.writeParametersToFill)
     , cmdGrdExtractorPtr(pOther.cmdGrdExtractorPtr)
     , spellingMistakeTypesPossible(pOther.spellingMistakeTypesPossible) {}
 

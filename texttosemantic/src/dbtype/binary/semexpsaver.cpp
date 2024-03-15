@@ -316,6 +316,7 @@ void _writeGrounding(binarymasks::Ptr& pPtr,
             ++pPtr.pchar;
             _writeCharOrInt(pPtr, metaGrd.paramId, paramIdCanBeWrittenInAChar);
             binarysaver::writeString(pPtr, metaGrd.attibuteName);
+            binarysaver::writeString(pPtr, metaGrd.attibuteValue);
             return;
         }
         case SemanticGroundingType::RESOURCE: {

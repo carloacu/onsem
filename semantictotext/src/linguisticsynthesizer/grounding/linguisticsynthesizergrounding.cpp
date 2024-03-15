@@ -300,7 +300,7 @@ void Linguisticsynthesizergrounding::writeGrounding(OutSemExp& pOutSemExp,
             break;
         }
         case SemanticGroundingType::META: {
-            metaGroundingTranslation(pOutSemExp.out, pGrounding.getMetaGrounding());
+            metaGroundingTranslation(pOutSemExp.out, pGrounding.getMetaGrounding(), pConf.textProcessingContext.writeParametersToFill);
             break;
         }
         case SemanticGroundingType::UNITY: {
@@ -425,17 +425,26 @@ void Linguisticsynthesizergrounding::unityGroundingTranslation(std::list<WordToS
 }
 
 void Linguisticsynthesizergrounding::metaGroundingTranslation(std::list<WordToSynthesize>& pOut,
-                                                              const SemanticMetaGrounding& pGrounding) const {
-    if (pGrounding.refToType == SemanticGroundingType::AGENT) {
-        if (_language == SemanticLanguageEnum::FRENCH)
-            _strToOut(pOut, PartOfSpeech::PRONOUN, "quelqu'un");
-        else
-            _strToOut(pOut, PartOfSpeech::PRONOUN, "somebody");
+                                                              const SemanticMetaGrounding& pGrounding,
+                                                              bool pWriteParametersToFill) const {
+    if (pWriteParametersToFill) {
+        std::string metaGrdStr = "[" + pGrounding.attibuteName + "]";
+        if (!pGrounding.attibuteValue.empty()) {
+            metaGrdStr += "(" + pGrounding.attibuteValue + ")";
+        }
+        _strToOut(pOut, PartOfSpeech::UNKNOWN, metaGrdStr);
     } else {
-        if (_language == SemanticLanguageEnum::FRENCH)
-            _strToOut(pOut, PartOfSpeech::PRONOUN, "quelque chose");
-        else
-            _strToOut(pOut, PartOfSpeech::PRONOUN, "something");
+        if (pGrounding.refToType == SemanticGroundingType::AGENT) {
+            if (_language == SemanticLanguageEnum::FRENCH)
+                _strToOut(pOut, PartOfSpeech::PRONOUN, "quelqu'un");
+            else
+                _strToOut(pOut, PartOfSpeech::PRONOUN, "somebody");
+        } else {
+            if (_language == SemanticLanguageEnum::FRENCH)
+                _strToOut(pOut, PartOfSpeech::PRONOUN, "quelque chose");
+            else
+                _strToOut(pOut, PartOfSpeech::PRONOUN, "something");
+        }
     }
 }
 

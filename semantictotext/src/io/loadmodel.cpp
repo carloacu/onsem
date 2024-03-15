@@ -298,7 +298,8 @@ std::unique_ptr<SemanticMetaGrounding> _loadMetaGrd(const boost::property_tree::
     auto res =
         std::make_unique<SemanticMetaGrounding>(semanticGroundingsType_fromStr(pTree.get<std::string>("refToType")),
                                                 pTree.get<int>("paramId"),
-                                                pTree.get<std::string>("attibuteName"));
+                                                pTree.get<std::string>("attibuteName"),
+                                                pTree.get<std::string>("attibuteValue"));
     _loadGrd(*res, pTree);
     return res;
 }

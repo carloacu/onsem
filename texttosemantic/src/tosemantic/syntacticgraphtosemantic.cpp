@@ -473,12 +473,12 @@ bool _shouldConceptsBeInsideAConceptualGrounding(bool pHasReferenceConcept,
     return res;
 }
 
-std::unique_ptr<GroundedExpression> _strToMetaOrResourceGrd(
+std::unique_ptr<GroundedExpression> _strToMetaOrResourceGrdOld(
     const std::string& pStr,
     const std::shared_ptr<ResourceGroundingExtractor>& pCmdGrdExtractorPtr) {
-    if (SemanticMetaGrounding::isTheBeginOfAParam(pStr)) {
+    if (SemanticMetaGrounding::isTheBeginOfAParamOld(pStr)) {
         std::unique_ptr<SemanticMetaGrounding> metaGrd;
-        metaGrd = SemanticMetaGrounding::makeMetaGroundingFromStr(pStr);
+        metaGrd = SemanticMetaGrounding::makeMetaGroundingFromStrOld(pStr);
         if (metaGrd)
             return std::make_unique<GroundedExpression>(std::move(metaGrd));
     } else if (pCmdGrdExtractorPtr) {
@@ -492,6 +492,17 @@ std::unique_ptr<GroundedExpression> _strToMetaOrResourceGrd(
     }
     return std::unique_ptr<GroundedExpression>();
 }
+
+
+std::unique_ptr<GroundedExpression> _strToMetaOrResourceGrd(
+    const std::string& pStr) {
+    std::unique_ptr<SemanticMetaGrounding> metaGrd;
+    metaGrd = SemanticMetaGrounding::makeMetaGroundingFromStr(pStr);
+    if (metaGrd)
+        return std::make_unique<GroundedExpression>(std::move(metaGrd));
+    return std::unique_ptr<GroundedExpression>();
+}
+
 
 void _fillRelativeCharEncodedFromTokenRange(LinguisticSubordinateId& pRes, const TokenRange& pTokRange) {
     for (TokIt itTok = pTokRange.getItBegin(); itTok != pTokRange.getItEnd();
@@ -735,11 +746,11 @@ TokIt SyntacticGraphToSemantic::xAddDeterminerToAGrounding(GroundedExpression& p
             }
         }
         {
-            if (!pItDetToken->str.empty() && pItDetToken->str[0] == SemanticMetaGrounding::firstCharOfStr) {
+            if (!pItDetToken->str.empty() && pItDetToken->str[0] == SemanticMetaGrounding::firstCharOfStrOld) {
                 int paramId = 0;
                 std::string label;
                 std::string attributeName;
-                if (SemanticMetaGrounding::parseParameter(paramId, label, attributeName, pItDetToken->str)
+                if (SemanticMetaGrounding::parseParameterOld(paramId, label, attributeName, pItDetToken->str)
                     && label == "number") {
                     genGrd.quantity.setNumberToFill(paramId, attributeName);
                     if (!pKnowReferenceForSure)
@@ -871,11 +882,19 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
         }
     }
 
-    if (!pChunk.head->str.empty() && pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStr) {
-        const std::string& headStr = pChunk.head->str;
-        auto res = _strToMetaOrResourceGrd(headStr, pGeneral.textProcContext.cmdGrdExtractorPtr);
-        if (res)
-            return res;
+    if (!pChunk.head->str.empty()) {
+        if (pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStrOld) {
+            const std::string& headStr = pChunk.head->str;
+            auto res = _strToMetaOrResourceGrdOld(headStr, pGeneral.textProcContext.cmdGrdExtractorPtr);
+            if (res)
+                return res;
+        }
+        if (pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStr) {
+            const std::string& headStr = pChunk.head->str;
+            auto res = _strToMetaOrResourceGrd(headStr);
+            if (res)
+                return res;
+        }
     }
 
     SemanticLanguageEnum languageType = fConfiguration.getLanguageType();
@@ -1011,11 +1030,11 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
     SemanticGenericGrounding& genGrounding = res->grounding().getGenericGrounding();
     PartOfSpeech headPartOfSpeech = chunkHeadIGram.word.partOfSpeech;
     SemExpModifier::fillSemanticConcepts(genGrounding.concepts, headConcepts);
-    if (!pChunk.head->str.empty() && pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStr) {
+    if (!pChunk.head->str.empty() && pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStrOld) {
         int paramId = 0;
         std::string label;
         std::string attributeName;
-        if (SemanticMetaGrounding::parseParameter(paramId, label, attributeName, pChunk.head->str)
+        if (SemanticMetaGrounding::parseParameterOld(paramId, label, attributeName, pChunk.head->str)
             && label == "number") {
             genGrounding.quantity.setNumberToFill(paramId, attributeName);
             genGrounding.entityType = SemanticEntityType::NUMBER;

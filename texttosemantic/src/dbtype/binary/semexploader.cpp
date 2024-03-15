@@ -274,6 +274,7 @@ std::unique_ptr<SemanticGrounding> _loadGrd(const unsigned char*& pPtr,
             ++pPtr;
             metaGrd.paramId = _loadCharOrInt(pPtr, paramIdIsWrittenInAChar);
             metaGrd.attibuteName = binaryloader::loadString(pPtr);
+            metaGrd.attibuteValue = binaryloader::loadString(pPtr);
             return res;
         }
         case SemanticGroundingType::RESOURCE: {

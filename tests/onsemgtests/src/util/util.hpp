@@ -124,7 +124,8 @@ std::string semExpToText(UniqueSemanticExpression pSemExp,
 std::string semExpToTextFromUser(UniqueSemanticExpression pSemExp,
                                  SemanticLanguageEnum pLanguage,
                                  const SemanticMemory& pSemanticMemory,
-                                 const linguistics::LinguisticDatabase& pLingDb);
+                                 const linguistics::LinguisticDatabase& pLingDb,
+                                 bool pWriteParametersToFill = false);
 
 std::string semExpToOutputStr(const SemanticExpression& pSemExp,
                               SemanticLanguageEnum pLanguage,

@@ -181,6 +181,12 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
         pPrinterBuff.elts.emplace_back(ssAttibuteName.str());
     }
 
+    if (!pGrounding.attibuteValue.empty()) {
+        std::stringstream ssAttibuteValue;
+        ssAttibuteValue << "attibuteValue(" << pGrounding.attibuteValue << ")";
+        pPrinterBuff.elts.emplace_back(ssAttibuteValue.str());
+    }
+
     if (!pGrounding.concepts.empty()) {
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
     }
