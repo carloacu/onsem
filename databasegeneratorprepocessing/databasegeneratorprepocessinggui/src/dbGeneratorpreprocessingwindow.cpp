@@ -184,7 +184,7 @@ void DbGeneratorPreprocessingWindow::refreshWord(const std::string& pWord) {
             ss << wf->elt->getMeaning()->getLemma()->getWord() << " : " << partOfSpeech_toStr(currPartOfSpeech);
             if (wf->elt->getFlexions() != nullptr) {
                 ss << " (";
-                wf->elt->getFlexions()->writeInStream(ss, currPartOfSpeech);
+                //wf->elt->getFlexions()->writeInStream(ss, currPartOfSpeech);
                 ss << ")";
             }
             fWordsToTagsToDisplay.meaningsStr.emplace_back(ss.str());

@@ -27,6 +27,15 @@ option(
 )
 
 
+option(
+  CMAKE_INSTALL_INCLUDEDIR
+  "Where to install the includes"
+  include
+)
+
+
+
+
 include(onsem-config.cmake)
 add_subdirectory(common)
 
