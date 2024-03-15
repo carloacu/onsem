@@ -117,9 +117,8 @@ UniqueSemanticExpression syntGraphToSemExp(const linguistics::SyntacticGraph& pS
                                            std::list<std::list<SemLineToPrint>>* pDebugOutput);
 
 ONSEMSEMANTICTOTEXT_API
-void getInfinitiveToTwoDifferentPossibleWayToAskForIt(UniqueSemanticExpression& pOut1,
-                                                      UniqueSemanticExpression& pOut2,
-                                                      UniqueSemanticExpression pUSemExp);
+void infinitiveToRequestVariations(std::list<UniqueSemanticExpression>& pOuts,
+                                   UniqueSemanticExpression pUSemExp);
 
 ONSEMSEMANTICTOTEXT_API
 UniqueSemanticExpression getFutureIndicativeAssociatedForm(UniqueSemanticExpression pUSemExp);

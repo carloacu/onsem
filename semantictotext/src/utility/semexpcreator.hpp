@@ -77,6 +77,8 @@ UniqueSemanticExpression askDoYouWantMeToDoItNow(const SemanticAgentGrounding& p
 
 UniqueSemanticExpression iWantThatYou(const std::string& pSubjectId, UniqueSemanticExpression pObject);
 
+UniqueSemanticExpression infToDoYouWant(UniqueSemanticExpression pInfSentence);
+
 UniqueSemanticExpression sayYesOrNo(bool pAnswerPolarity);
 
 UniqueSemanticExpression formulateAge(UniqueSemanticExpression&& pSubject,

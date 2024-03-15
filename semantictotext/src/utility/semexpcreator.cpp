@@ -540,6 +540,25 @@ UniqueSemanticExpression iWantThatYou(const std::string& pSubjectId, UniqueSeman
     return rootGrdExp;
 }
 
+UniqueSemanticExpression infToDoYouWant(UniqueSemanticExpression pInfSentence) {
+    auto rootGrdExp = std::make_unique<GroundedExpression>([]() {
+        // verb
+        auto statementGrd = std::make_unique<SemanticStatementGrounding>();
+        statementGrd->verbTense = SemanticVerbTense::PRESENT;
+        statementGrd->concepts.emplace("verb_want", 4);
+        statementGrd->requests.set(SemanticRequestType::YESORNO);
+        return statementGrd;
+    }());
+
+    // subject
+    rootGrdExp->children.emplace(GrammaticalType::SUBJECT,_meSemExp());
+
+    // object
+    rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pInfSentence));
+    return rootGrdExp;
+}
+
+
 UniqueSemanticExpression sayYesOrNo(bool pAnswerPolarity) {
     return std::make_unique<GroundedExpression>(std::make_unique<SemanticConceptualGrounding>(
         pAnswerPolarity ? "accordance_agreement_true" : "accordance_disagreement_false"));

@@ -467,20 +467,28 @@ void semExpToText(std::string& pResStr,
                  pDebugOutput);
 }
 
-void getInfinitiveToTwoDifferentPossibleWayToAskForIt(UniqueSemanticExpression& pOut1,
-                                                      UniqueSemanticExpression& pOut2,
-                                                      UniqueSemanticExpression pUSemExp) {
+void infinitiveToRequestVariations(std::list<UniqueSemanticExpression>& pOuts,
+                                   UniqueSemanticExpression pUSemExp) {
+    const UniqueSemanticExpression* imperativeSemExpPtr = nullptr;
     {
         auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
         if (grdExpPtr != nullptr)
-            pOut1 = SemExpCreator::getImperativeAssociateFrom(*grdExpPtr);
+        {
+            pOuts.emplace_back(SemExpCreator::getImperativeAssociateFrom(*grdExpPtr));
+            imperativeSemExpPtr = &pOuts.back();
+        }
+    }
+
+    if (imperativeSemExpPtr != nullptr)
+    {
+        auto* grdExpPtr = (*imperativeSemExpPtr)->getGrdExpPtr_SkipWrapperPtrs();
+        if (grdExpPtr != nullptr)
+            pOuts.emplace_back(SemExpCreator::iWantThatYou(SemanticAgentGrounding::currentUser,
+                                                           SemExpCreator::getIndicativeFromImperative(*grdExpPtr)));
     }
 
     {
-        auto* grdExpPtr = pOut1->getGrdExpPtr_SkipWrapperPtrs();
-        if (grdExpPtr != nullptr)
-            pOut2 = SemExpCreator::iWantThatYou(SemanticAgentGrounding::currentUser,
-                                                SemExpCreator::getIndicativeFromImperative(*grdExpPtr));
+        pOuts.emplace_back(SemExpCreator::infToDoYouWant(std::move(pUSemExp)));
     }
 }
 
