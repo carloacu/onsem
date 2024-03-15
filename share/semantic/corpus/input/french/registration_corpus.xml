@@ -19,6 +19,7 @@
     <include file="french_location.txt" />
     <include file="french_negation.txt" />
     <include file="french_number.txt" />
+    <include file="french_parameters.txt" />
     <include file="french_passiveForm.txt" />
     <include file="french_predicates.txt" />
     <include file="french_sentiments.txt" />

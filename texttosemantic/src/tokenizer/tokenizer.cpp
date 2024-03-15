@@ -408,6 +408,39 @@ void _fushPrevCharactersInAToken(TokSent& pTokSent, bool pSearchGramType, const 
     _insertToken(pTokSent, pTokSent.currPos - pTokSent.posAfterPreviousToken, infosGram, pLingDico.getLanguage());
 }
 
+void _flushText(TokSent& pTokSent, std::size_t pEndOfText, const LinguisticDictionary& pLingDico) {
+    if (pTokSent.currPos > pTokSent.posAfterPreviousToken)
+        _fushPrevCharactersInAToken(pTokSent, true, pLingDico);
+
+    std::string subInputText = pTokSent.textForms.getSubInputText(pTokSent.currPos, pEndOfText - pTokSent.currPos);
+    pTokSent.tokens.emplace_back(subInputText);
+    std::list<InflectedWord>& inflWords = pTokSent.tokens.back().inflWords;
+    inflWords.emplace_back(PartOfSpeech::UNKNOWN, _getAllNounInflections(pLingDico.getLanguage()));
+    InflectedWord& quotedNounIGram = inflWords.back();
+    quotedNounIGram.word.lemma = subInputText;
+    _refreshReferencePositionsafterAnInsertionWithAbsolutePosition(pTokSent, pEndOfText);
+}
+
+void _inParameter(TokSent& pTokSent,
+                  const LinguisticDictionary& pLingDico) {
+    std::size_t endingFound = getEndOfParenthesis(
+        pTokSent.textForms.formattedText, pTokSent.currPos, pTokSent.textForms.formattedText.size());
+    if (endingFound != std::string::npos) {
+
+        auto nextCharPos = endingFound + 1;
+        if (nextCharPos < pTokSent.endPosToTokenize &&
+            pTokSent.textForms.formattedText[nextCharPos] == '(') {
+            const std::size_t secondEndingFound = getEndOfParenthesis(
+                pTokSent.textForms.formattedText, nextCharPos, pTokSent.textForms.formattedText.size());
+            if (secondEndingFound != std::string::npos) {
+                endingFound = secondEndingFound;
+            }
+        }
+        ++endingFound;
+        _flushText(pTokSent, endingFound, pLingDico);
+    }
+}
+
 void _inParenthesis(TokSent& pTokSent,
                     const LinguisticDictionary& pLingDico,
                     const LinguisticDictionary& pCommonLingDico) {
@@ -472,19 +505,6 @@ std::size_t _getMaxLength(TokSent& pTokSent,
         return std::max(res, commonBinDicoLen);
     }
     return res;
-}
-
-void _flushText(TokSent& pTokSent, std::size_t pEndOfText, const LinguisticDictionary& pLingDico) {
-    if (pTokSent.currPos > pTokSent.posAfterPreviousToken)
-        _fushPrevCharactersInAToken(pTokSent, true, pLingDico);
-
-    std::string subInputText = pTokSent.textForms.getSubInputText(pTokSent.currPos, pEndOfText - pTokSent.currPos);
-    pTokSent.tokens.emplace_back(subInputText);
-    std::list<InflectedWord>& inflWords = pTokSent.tokens.back().inflWords;
-    inflWords.emplace_back(PartOfSpeech::UNKNOWN, _getAllNounInflections(pLingDico.getLanguage()));
-    InflectedWord& quotedNounIGram = inflWords.back();
-    quotedNounIGram.word.lemma = subInputText;
-    _refreshReferencePositionsafterAnInsertionWithAbsolutePosition(pTokSent, pEndOfText);
 }
 
 void _inQuotationMarks(TokSent& pTokSent, const LinguisticDictionary& pBinDico) {
@@ -799,10 +819,13 @@ void _databaseTokenizer(TokSent& pTokSent,
     while (pTokSent.currPos < pTokSent.endPosToTokenize) {
         // if we encounter a text inside parenthesis
         switch (pTokSent.textForms.formattedText[pTokSent.currPos]) {
-            case '(':
-            case '[': {
+            case '(': {
                 if (!pTokSent.tokens.empty())
                     _inParenthesis(pTokSent, pLingDico, pCommonLingDico);
+                break;
+            }
+            case '[': {
+                _inParameter(pTokSent, pLingDico);
                 break;
             }
             case '"': {
