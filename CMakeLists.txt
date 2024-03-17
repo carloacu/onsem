@@ -75,7 +75,6 @@ if (NOT BUILD_ONSEM_DATABASE)
   add_subdirectory(semanticdebugger)
 
   if (BUILD_DB_GENERATOR_PREPROCESSING)
-    include_directories("subdirectories/openai-cpp/include/openai")
     add_subdirectory(databasegeneratorprepocessing)
   endif()
 
