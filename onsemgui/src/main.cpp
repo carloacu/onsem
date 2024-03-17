@@ -26,14 +26,14 @@ int main(int argc, char* argv[]) {
 
     const auto corpusFolder(shareSemantic + "/corpus");
     const auto scenariosFolder(shareSemantic + "/scenarios");
-    const auto dynamicDictionaryPath(shareSemantic + "/dynamicdictionary");
+    const auto relationsPath(shareSemantic + "/relations");
 
     const auto corpusEquivalencesFolder(corpusFolder + "/equivalences");
     const auto corpusResultsFolder(corpusFolder + "/results");
     const auto inputScenariosFolder(scenariosFolder + "/input");
     const auto outputScenariosFolder(scenariosFolder + "/output");
 
-    auto istreams = linguistics::generateIStreams(lingDbPath, dynamicDictionaryPath);
+    auto istreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     MainWindow w(corpusEquivalencesFolder,
                  corpusResultsFolder,
                  inputScenariosFolder,

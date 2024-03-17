@@ -82,7 +82,7 @@ std::string LingdbTree::getDynDbFilenameForLanguage(const std::string& pLang) co
 
 void LingdbTree::update(const std::string& pSdkShareDir,
                         const std::string& pLoadDatabasesDir,
-                        const std::string& pDynamicdictionaryPath,
+                        const std::string& pRelationsPath,
                         bool pClearTmpFolder) {
     std::string inputVersionFilePath = pLoadDatabasesDir + "/version.txt";
     std::string inputDbFormalismVersion;
@@ -185,15 +185,15 @@ void LingdbTree::update(const std::string& pSdkShareDir,
             xRemoveDirectory(fDynamicDatabasesFolder);
 
         // List the paths
-        if (!pDynamicdictionaryPath.empty()) {
+        if (!pRelationsPath.empty()) {
             {
                 std::ofstream wordsrelativePathsFile(linguisticPath + "/wordsrelativePaths.txt");
-                std::string wordModificationPath = pDynamicdictionaryPath + "/words";
+                std::string semanticFramesnPath = pRelationsPath + "/semantic_frames";
                 // /!\ The order of the folders is important
                 static const std::vector<std::string> folders{"anyverb", "readonly", "manual"};
                 for (const auto& currFolder : folders) {
                     try {
-                        _printAllSubPaths(wordsrelativePathsFile, currFolder, wordModificationPath + "/" + currFolder);
+                        _printAllSubPaths(wordsrelativePathsFile, currFolder, semanticFramesnPath + "/" + currFolder);
                     } catch (const std::exception& e) {
                         std::cerr << "Error on load readonly words dynamic database: " << e.what() << std::endl;
                     }
@@ -204,7 +204,7 @@ void LingdbTree::update(const std::string& pSdkShareDir,
             {
                 std::ofstream treeConvertionsPathsFile(linguisticPath + "/treeConvertionsPaths.txt");
 
-                auto treeConverterPath = pDynamicdictionaryPath + "/treeconversions";
+                auto treeConverterPath = pRelationsPath + "/tree_conversions";
                 std::filesystem::directory_iterator itTreeConvsFolders(treeConverterPath);
                 std::filesystem::directory_iterator endit;
                 while (itTreeConvsFolders != endit) {

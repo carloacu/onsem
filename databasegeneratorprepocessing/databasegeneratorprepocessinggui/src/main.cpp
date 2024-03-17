@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     const auto inputResourcesFolder(shareDbFolder + "/linguistic/inputresources");
     const auto loadDatabasesFolder(shareDbFolder + "/linguistic/loaddatabases");
     const auto shareSemanticPath(shareDbFolder + "/semantic");
-    const auto dynamicDictionaryPath(shareSemanticPath + "/dynamicdictionary");
+    const auto relationsPath(shareSemanticPath + "/relations");
     std::string lingDbPath = buildRootPath + "/linguistic/databases";
 
     std::string preprocessingDbPath = buildRootPath + "/preprocessing";
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     onsem::LingdbTree lingDbTree(inputResourcesFolder);
     lingDbTree.update(preprocessingDbPath, loadDatabasesFolder, "", false);
 
-    auto istreams = linguistics::generateIStreams(lingDbPath, dynamicDictionaryPath);
+    auto istreams = linguistics::generateIStreams(lingDbPath, relationsPath);
 
     QApplication a(argc, argv);
 

@@ -183,7 +183,7 @@ void _checkRobotBigMemory(SemanticLanguageEnum pLanguage,
 }
 
 TEST_F(SemanticReasonerGTests, test_bigMemory) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     auto language = SemanticLanguageEnum::FRENCH;
@@ -317,7 +317,7 @@ TEST_F(SemanticReasonerGTests, test_bigMemory) {
 /*
 TEST_F(SemanticReasonerGTests, test_bigMemoryRobot)
 {
-  auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+  auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
   linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
   iStreams.close();
 

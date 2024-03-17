@@ -19,7 +19,7 @@ public:
 
     void update(const std::string& pSdkShareDir,
                 const std::string& pLoadDatabasesDir,
-                const std::string& pDynamicdictionaryPath,
+                const std::string& pRelationsPath,
                 bool pClearTmpFolder);
 
     void clearAll() const;

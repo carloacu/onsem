@@ -118,7 +118,7 @@ void triggers_addOtherTriggerFormulations(const std::string& pTriggerText,
 using namespace onsem;
 
 TEST_F(SemanticReasonerGTests, operator_addATrigger_basic) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;

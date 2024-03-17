@@ -19,7 +19,7 @@ public:
      * @brief This function will be called before all tests.
      */
     static void SetUpTestCase() {
-        auto iStreams = onsem::linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+        auto iStreams = onsem::linguistics::generateIStreams(lingDbPath, relationsPath);
         lingDbPtr = std::make_unique<onsem::linguistics::LinguisticDatabase>(iStreams.linguisticDatabaseStreams);
         iStreams.close();
 
@@ -46,7 +46,7 @@ public:
 
 public:
     static std::string lingDbPath;
-    static std::string dynamicdictionaryPath;
+    static std::string relationsPath;
     static std::string peoplePath;
     static std::string corpusPath;
     static std::string scenariosPath;

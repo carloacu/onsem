@@ -27,7 +27,7 @@ void _loadConvForALanguage(KeyToFStreams& pIStreams,
 
 }
 
-KeyToFStreams generateIStreams(const std::string& pLingDbPath, const std::string& pDynamicDictionaryPath) {
+KeyToFStreams generateIStreams(const std::string& pLingDbPath, const std::string& pRelationsPath) {
     KeyToFStreams iStreams;
     iStreams.addConceptFile(pLingDbPath + "/concepts.bdb");
 
@@ -35,8 +35,8 @@ KeyToFStreams generateIStreams(const std::string& pLingDbPath, const std::string
     static const std::vector<std::string> folders{"anyverb", "readonly", "manual"};
     for (const auto& currFolder : folders) {
         try {
-            std::string wordModificationPath = pDynamicDictionaryPath + "/words/" + currFolder;
-            addDynamicContentFromFolder(iStreams, wordModificationPath);
+            std::string semanticFramesPath = pRelationsPath + "/semantic_frames/" + currFolder;
+            addDynamicContentFromFolder(iStreams, semanticFramesPath);
         } catch (const std::exception& e) {
             std::cerr << "Error on load readonly words dynamic database: " << e.what() << std::endl;
         }
@@ -65,7 +65,7 @@ KeyToFStreams generateIStreams(const std::string& pLingDbPath, const std::string
     }
 
     {
-        auto treeConverterPth = pDynamicDictionaryPath + "/treeconversions";
+        auto treeConverterPth = pRelationsPath + "/tree_conversions";
         std::filesystem::directory_iterator itTreeConvsFolders(treeConverterPth);
         std::filesystem::directory_iterator endit;
         while (itTreeConvsFolders != endit) {

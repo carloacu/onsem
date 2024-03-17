@@ -98,7 +98,7 @@ namespace frgrammarbookextractor {
 void run(const LingdbTree& pLingDbTree,
          const std::string& pShareDbFolder,
          const linguistics::LinguisticDatabase& pLingDb) {
-    const auto verbsprepsXmlFilename = pShareDbFolder + "/semantic/dynamicdictionary/words/readonly/french.xml";
+    const auto verbsprepsXmlFilename = pShareDbFolder + "/semantic/relations/semantic_frames/readonly/french.xml";
     const auto grammarFilename =
         pShareDbFolder + "/databasegeneratorpreprocessing/frgrammarbookextractor/in/verbtoprep.txt";
     const auto infosFilename =

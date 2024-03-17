@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 
     SemanticReasonerGTests::corpusPath = shareSemantic + "/corpus";
     SemanticReasonerGTests::scenariosPath = shareSemantic + "/scenarios";
-    SemanticReasonerGTests::dynamicdictionaryPath = shareSemantic + "/dynamicdictionary";
+    SemanticReasonerGTests::relationsPath = shareSemantic + "/relations";
     SemanticReasonerGTests::peoplePath = shareSemantic + "/people";
 
     ::testing::InitGoogleTest(&argc, argv);

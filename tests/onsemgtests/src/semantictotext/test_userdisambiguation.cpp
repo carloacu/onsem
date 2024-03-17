@@ -272,7 +272,7 @@ TEST_F(SemanticReasonerGTests, userDisambiguation_wikpedia2) {
 }
 
 TEST_F(SemanticReasonerGTests, userDisambiguation_distinguishWellSomePeople) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;

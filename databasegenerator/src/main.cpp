@@ -13,9 +13,9 @@ int main(int argc, char* argv[]) {
 
     const auto inputResourcesDir(shareDir + "/linguistic/inputresources");
     const auto loadDatabasesDir(shareDir + "/linguistic/loaddatabases");
-    const auto dynamicdictionaryPath(shareDir + "/semantic/dynamicdictionary");
+    const auto relationsPath(shareDir + "/semantic/relations");
 
     onsem::LingdbTree lingdbTree(inputResourcesDir);
-    lingdbTree.update(outDatabaseDir, loadDatabasesDir, dynamicdictionaryPath, true);
+    lingdbTree.update(outDatabaseDir, loadDatabasesDir, relationsPath, true);
     return 0;
 }

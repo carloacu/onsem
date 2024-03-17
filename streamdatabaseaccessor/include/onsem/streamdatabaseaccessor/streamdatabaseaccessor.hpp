@@ -9,7 +9,7 @@ namespace onsem {
 namespace linguistics {
 
 ONSEMSTREADATABASEGENERATOR_DATABASEPROVIDER_API
-KeyToFStreams generateIStreams(const std::string& pLingDbPath, const std::string& pDynamicDictionaryPath);
+KeyToFStreams generateIStreams(const std::string& pLingDbPath, const std::string& pRelationsPath);
 
 ONSEMSTREADATABASEGENERATOR_DATABASEPROVIDER_API
 void addDynamicContentFromFolder(KeyToFStreams& pStreams, const std::string& pFolderPath);

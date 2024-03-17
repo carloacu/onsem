@@ -9,7 +9,7 @@
 using namespace onsem;
 
 TEST_F(SemanticReasonerGTests, test_wikipediaTexts) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;

@@ -98,7 +98,7 @@ void _getLoadedNewLingDb(linguistics::LinguisticDatabase& pLoadedLingDb,
 }
 
 TEST_F(SemanticReasonerGTests, addNewWordsAndConcepts) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticWord newWord;
@@ -182,7 +182,7 @@ TEST_F(SemanticReasonerGTests, addNewWordsAndConcepts) {
 
     // test the serialization of the linguistic database
     {
-        auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+        auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
         linguistics::LinguisticDatabase lingDbLoaded(iStreams.linguisticDatabaseStreams);
         iStreams.close();
         _getLoadedNewLingDb(lingDbLoaded, lingDb);
@@ -192,7 +192,7 @@ TEST_F(SemanticReasonerGTests, addNewWordsAndConcepts) {
 }
 
 TEST_F(SemanticReasonerGTests, addNewTranslations) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticWord newFrWord;
@@ -322,7 +322,7 @@ TEST_F(SemanticReasonerGTests, addNewTranslations) {
 }
 
 TEST_F(SemanticReasonerGTests, addNewInflectionsToAnExistingWord) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;
@@ -347,7 +347,7 @@ TEST_F(SemanticReasonerGTests, addNewInflectionsToAnExistingWord) {
 }
 
 TEST_F(SemanticReasonerGTests, addNewAConceptToAnExistingWord) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;
@@ -385,7 +385,7 @@ TEST_F(SemanticReasonerGTests, addNewAConceptToAnExistingWord) {
 
     // test the serialization of the linguistic database
     {
-        auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+        auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
         linguistics::LinguisticDatabase lingDbLoaded(iStreams.linguisticDatabaseStreams);
         iStreams.close();
         ONSEM_UNKNOWN(operator_check("Does Paul like the newRed ?", semMem, lingDbLoaded));
@@ -397,7 +397,7 @@ TEST_F(SemanticReasonerGTests, addNewAConceptToAnExistingWord) {
 }
 
 TEST_F(SemanticReasonerGTests, considerAuthorNameAsInterjection) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;
@@ -417,7 +417,7 @@ TEST_F(SemanticReasonerGTests, considerAuthorNameAsInterjection) {
 }
 
 TEST_F(SemanticReasonerGTests, considerInflectionInReformulation) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;
@@ -439,7 +439,7 @@ TEST_F(SemanticReasonerGTests, considerInflectionInReformulation) {
 }
 
 TEST_F(SemanticReasonerGTests, considerContextInfos) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;
@@ -472,7 +472,7 @@ TEST_F(SemanticReasonerGTests, considerContextInfos) {
 }
 
 TEST_F(SemanticReasonerGTests, considerInflectedWordFrequency) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;
@@ -506,7 +506,7 @@ TEST_F(SemanticReasonerGTests, considerInflectedWordFrequency) {
 }
 
 TEST_F(SemanticReasonerGTests, removeAWord) {
-    auto iStreams = linguistics::generateIStreams(lingDbPath, dynamicdictionaryPath);
+    auto iStreams = linguistics::generateIStreams(lingDbPath, relationsPath);
     linguistics::LinguisticDatabase lingDb(iStreams.linguisticDatabaseStreams);
     iStreams.close();
     SemanticMemory semMem;
