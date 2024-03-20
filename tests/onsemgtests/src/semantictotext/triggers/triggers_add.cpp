@@ -1,8 +1,9 @@
 #include "triggers_add.hpp"
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include <onsem/semantictotext/semexpoperators.hpp>
-#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
+#include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/texttosemantic/tool/semexpgetter.hpp>
 #include <onsem/semantictotext/triggers.hpp>
 #include "../../semanticreasonergtests.hpp"
 #include "../../util/util.hpp"
@@ -97,6 +98,7 @@ void triggers_addAnswerWithManyParameters(
         "label", pTriggerText, pParameterLabelToQuestionsStrs, *triggerSemExp, pLingDb, pLanguage));
     triggers::add(std::move(triggerSemExp), std::move(outputResourceGrdExp), pSemanticMemory, pLingDb);
 }
+
 
 void triggers_addOtherTriggerFormulations(const std::string& pTriggerText,
                                           const std::string& pAnswerText,

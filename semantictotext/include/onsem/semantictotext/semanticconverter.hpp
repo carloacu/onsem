@@ -146,6 +146,14 @@ std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage);
 
+std::unique_ptr<SemanticResourceGrounding> createResourceWithParametersFromSemExp(
+    const std::string& pResourceLabel,
+    const std::string& pResourceValue,
+    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
+    const SemanticExpression& pContextForParameters,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage);
+
 ONSEMSEMANTICTOTEXT_API
 void extractParameters(std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameters,
                        const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelsToQuestions,

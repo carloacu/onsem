@@ -64,6 +64,7 @@ set(ONSEMGTESTS_SRCS
   src/semantictotext/triggers/triggers_add.cpp
   src/semantictotext/triggers/triggers_match.hpp
   src/semantictotext/triggers/triggers_match.cpp
+  src/semantictotext/test_actionrecognizer.cpp
   src/semantictotext/test_agreement.cpp
   src/semantictotext/test_bigmemory.cpp
   src/semantictotext/test_confidence.cpp

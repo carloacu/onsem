@@ -550,10 +550,20 @@ std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestionsSemExps;
     _createParameterSemanticexpressions(
         parameterLabelToQuestionsSemExps, pParameterLabelToQuestionsStrs, pLingDb, pLanguage);
+    return createResourceWithParametersFromSemExp(pResourceLabel, pResourceValue, parameterLabelToQuestionsSemExps,
+                                                  pContextForParameters, pLingDb, pLanguage);
+}
 
+std::unique_ptr<SemanticResourceGrounding> createResourceWithParametersFromSemExp(
+    const std::string& pResourceLabel,
+    const std::string& pResourceValue,
+    const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
+    const SemanticExpression& pContextForParameters,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage) {
     auto res = std::make_unique<SemanticResourceGrounding>(pResourceLabel, pLanguage, pResourceValue);
 
-    for (auto& currLabelToQuestions : parameterLabelToQuestionsSemExps) {
+    for (auto& currLabelToQuestions : pParameterLabelToQuestionsSemExps) {
         for (auto& currQuestionSemExp : currLabelToQuestions.second) {
             SemanticMemory semMemory;
             memoryOperation::inform(
