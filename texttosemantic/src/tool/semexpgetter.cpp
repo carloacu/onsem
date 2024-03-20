@@ -823,6 +823,8 @@ SemanticRequestType convertSemGramToRequestType(GrammaticalType pGramType) {
         case GrammaticalType::PURPOSE: return SemanticRequestType::PURPOSE;
         case GrammaticalType::CAUSE: return SemanticRequestType::CAUSE;
         case GrammaticalType::TOPIC: return SemanticRequestType::TOPIC;
+        case GrammaticalType::DURATION: return SemanticRequestType::DURATION;
+        case GrammaticalType::WAY: return SemanticRequestType::WAY;
         default: return SemanticRequestType::NOTHING;
     }
 }
