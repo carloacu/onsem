@@ -5,6 +5,7 @@ ta tête était touché
 il est allé
 il est regardé
 il est enchanté
-
+le plateau est pressé
+la souris est pressée
 ta tête est-elle touché ?
 
