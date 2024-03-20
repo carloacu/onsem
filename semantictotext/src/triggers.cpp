@@ -42,7 +42,8 @@ std::shared_ptr<ExpressionWithLinks> match(mystd::unique_propagate_const<UniqueS
 
     static const InformationType informationType = InformationType::INFORMATION;
     std::unique_ptr<CompositeSemAnswer> compSemAnswers;
-    auto expForMem = pSemanticMemory.memBloc.addRootSemExp(std::move(pUtteranceSemExp), pLingDb);
+    SemanticMemory localSemanticMemory;
+    auto expForMem = localSemanticMemory.memBloc.addRootSemExp(std::move(pUtteranceSemExp), pLingDb);
     ExpressionWithLinks& expForMemRef = *expForMem;
     controller::applyOperatorOnExpHandleInMemory(compSemAnswers,
                                                  expForMemRef,
@@ -54,9 +55,6 @@ std::shared_ptr<ExpressionWithLinks> match(mystd::unique_propagate_const<UniqueS
                                                  pReactionOptions);
 
     if (compSemAnswers) {
-        controller::linkConditionalReactions(
-            compSemAnswers->semAnswers, expForMemRef, pSemanticMemory, pLingDb, informationType);
-        utility::keepOnlyLastFeedback(*compSemAnswers);
         controller::compAnswerToSemExp(pReaction, *compSemAnswers);
     }
     return expForMem;

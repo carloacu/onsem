@@ -165,11 +165,11 @@ ActionRecognizer::ActionRecognizer()
 
 
 
-void ActionRecognizer::addPredicate(const std::string& pPredicationName,
+void ActionRecognizer::addPredicate(const std::string& pPredicateName,
                                     const std::vector<std::string>& pPredicateFormulations,
                                     const linguistics::LinguisticDatabase& pLingDb,
                                     SemanticLanguageEnum pLanguage) {
-    _addIntent(pPredicationName, pPredicateFormulations, _predicateSemanticMemory, pLingDb, pLanguage);
+    _addIntent(pPredicateName, pPredicateFormulations, _predicateSemanticMemory, pLingDb, pLanguage);
 }
 
 
@@ -195,7 +195,8 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
 
     static const InformationType informationType = InformationType::INFORMATION;
     std::unique_ptr<CompositeSemAnswer> compSemAnswers;
-    auto expForMem = _actionSemanticMemory.memBloc.addRootSemExp(std::move(pUtteranceSemExp), pLingDb);
+    SemanticMemory localSemanticMemory;
+    auto expForMem = localSemanticMemory.memBloc.addRootSemExp(std::move(pUtteranceSemExp), pLingDb);
     ExpressionWithLinks& expForMemRef = *expForMem;
     controller::applyOperatorOnExpHandleInMemory(compSemAnswers,
                                                  expForMemRef,
@@ -208,9 +209,6 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
 
     mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
     if (compSemAnswers) {
-        controller::linkConditionalReactions(
-            compSemAnswers->semAnswers, expForMemRef, _actionSemanticMemory, pLingDb, informationType);
-        utility::keepOnlyLastFeedback(*compSemAnswers);
         controller::compAnswerToSemExp(reaction, *compSemAnswers);
 
         auto actionIntentOpt = _reactionToIntent(reaction, pLingDb);

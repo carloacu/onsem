@@ -31,7 +31,7 @@ public:
         std::optional<Intent> condition;
     };
 
-    void addPredicate(const std::string& pPredicationName,
+    void addPredicate(const std::string& pPredicateName,
                       const std::vector<std::string>& pPredicateFormulations,
                       const linguistics::LinguisticDatabase& pLingDb,
                       SemanticLanguageEnum pLanguage);
