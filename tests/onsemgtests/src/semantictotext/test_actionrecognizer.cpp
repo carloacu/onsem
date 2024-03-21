@@ -34,11 +34,11 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer) {
     actionRecognizer.addPredicate("is_pressed", {"[r] est pressé", "[r] est cliqué"}, lingDb, frLanguage);
     actionRecognizer.addAction("add", {"ajoute [number]"}, lingDb, frLanguage);
 
-    EXPECT_EQ("{\"action\": \"add(number=1)\"\"}",
+    EXPECT_EQ("{\"action\": \"add(number=1)\"}",
               _recognize("Ajoute un", actionRecognizer, lingDb, frLanguage));
 
     EXPECT_EQ("{\"action\": \"add(number=1)\", "
-              "\"condition\": \"is_pressed(r=La rune du plateau)\"\"}",
+              "\"condition\": \"is_pressed(r=La rune du plateau)\"}",
               _recognize("Quand la rune du plateau est pressée, ajoute un", actionRecognizer, lingDb, frLanguage));
 
 }

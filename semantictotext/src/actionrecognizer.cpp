@@ -161,7 +161,7 @@ std::string ActionRecognizer::ActionRecognized::toJson() const {
     auto res = "{\"action\": \"" + action.toStr() + "\"";
     if (condition)
       res += ", \"condition\": \"" + condition->toStr() + "\"";
-    return res + "\"}";
+    return res + "}";
 }
 
 
