@@ -65,7 +65,6 @@ if (NOT BUILD_ONSEM_DATABASE)
     )
     install(DIRECTORY "${SEMANTICDATABASE_OUTDIR}/linguistic/databases" DESTINATION share/linguistic)
     install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/share/semantic/relations" DESTINATION share/semantic)
-    #install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/share/semantic/people" DESTINATION share/semantic)
   endif()
 
   add_subdirectory(texttosemantic)
