@@ -157,6 +157,15 @@ std::string ActionRecognizer::Intent::toStr() const {
 }
 
 
+std::string ActionRecognizer::ActionRecognized::toJson() const {
+    auto res = "{\"action\": \"" + action.toStr() + "\"";
+    if (condition)
+      res += ", \"condition\": \"" + condition->toStr() + "\"";
+    return res + "\"}";
+}
+
+
+
 
 ActionRecognizer::ActionRecognizer()
     : _actionSemanticMemory(),

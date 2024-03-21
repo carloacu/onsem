@@ -29,6 +29,8 @@ public:
     struct ActionRecognized {
         Intent action;
         std::optional<Intent> condition;
+
+        std::string toJson() const;
     };
 
     void addPredicate(const std::string& pPredicateName,
