@@ -33,6 +33,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer) {
 
     actionRecognizer.addPredicate("is_pressed", {"[r] est pressé", "[r] est cliqué"}, lingDb, frLanguage);
     actionRecognizer.addAction("add", {"ajoute [number]"}, lingDb, frLanguage);
+    actionRecognizer.addAction("go_to", {"va à [location]"}, lingDb, frLanguage);
 
     EXPECT_EQ("{\"action\": \"add(number=1)\"}",
               _recognize("Ajoute un", actionRecognizer, lingDb, frLanguage));
@@ -41,4 +42,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer) {
               "\"condition\": \"is_pressed(r=La rune du plateau)\"}",
               _recognize("Quand la rune du plateau est pressée, ajoute un", actionRecognizer, lingDb, frLanguage));
 
+    EXPECT_EQ("{\"action\": \"go_to(location=La rune Alex)\", "
+              "\"condition\": \"is_pressed(r=La rune Alex)\"}",
+              _recognize("quand la rune Alex est pressée, va à la rune Alex", actionRecognizer, lingDb, frLanguage));
 }

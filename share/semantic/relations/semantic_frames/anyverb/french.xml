@@ -43,7 +43,7 @@
     <child lemma="après" pos="preposition" chunkLinkType="time" />
     <child lemma="à" pos="preposition" chunkLinkType="subordinate clause" condition="followedByInfinitiveVerb" />
     <bookmark name="à-avant-lieu" />
-    <child lemma="à" pos="preposition" chunkLinkType="location" condition="followedByPartOfSpeech(proper_noun)|followedByFeminine|followedByVowel" />
+    <child lemma="à" pos="preposition" chunkLinkType="location" condition="followedByPartOfSpeech(proper_noun)|followedByFeminine|followedByVowel|followedByOneOfPrefixes([)" />
     <child lemma="à chaque fois que" pos="sub_conj" chunkLinkType="time" />
     <child lemma="à partir de" pos="preposition" chunkLinkType="time" condition="followedByBeginOfConcept(time_, skip_determiners)" />
     <child lemma="à partir de" pos="preposition" chunkLinkType="starting point" />
