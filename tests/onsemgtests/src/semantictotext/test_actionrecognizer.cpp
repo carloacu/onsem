@@ -26,7 +26,7 @@ std::string _recognize(const std::string& pText,
 }
 
 
-TEST_F(SemanticReasonerGTests, test_actionRecognizer) {
+TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
     ActionRecognizer actionRecognizer;
     auto frLanguage = SemanticLanguageEnum::FRENCH;
@@ -42,7 +42,43 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer) {
               "\"condition\": \"is_pressed(r=La rune du plateau)\"}",
               _recognize("Quand la rune du plateau est pressée, ajoute un", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"go_to(location=La rune Alex)\", "
-              "\"condition\": \"is_pressed(r=La rune Alex)\"}",
-              _recognize("quand la rune Alex est pressée, va à la rune Alex", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"go_to(location=La rune Virginie)\", "
+              "\"condition\": \"is_pressed(r=La rune Virginie)\"}",
+              _recognize("quand la rune Virginie est pressée, va à la rune Virginie", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"condition\": \"is_pressed(r=La rune Virginie)\"}",
+              _recognize("si la rune Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"condition\": \"is_pressed(r=La rune Virginie)\"}",
+              _recognize("quand la rune Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"condition\": \"is_pressed(r=La rune Virginie)\"}",
+              _recognize("à chaque fois que la rune Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
+}
+
+
+TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
+    const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
+    ActionRecognizer actionRecognizer;
+    auto enLanguage = SemanticLanguageEnum::ENGLISH;
+
+    actionRecognizer.addPredicate("is_pressed", {"[r] is pressed", "[r] is clicked"}, lingDb, enLanguage);
+    actionRecognizer.addAction("add", {"add [number]"}, lingDb, enLanguage);
+    actionRecognizer.addAction("go_to", {"go to [location]"}, lingDb, enLanguage);
+
+    EXPECT_EQ("{\"action\": \"go_to(location=The Virginie rune)\"}",
+              _recognize("go to  the Virginie rune", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"action\": \"go_to(location=The Virginie rune)\", "
+              "\"condition\": \"is_pressed(r=The Virginie rune)\"}",
+              _recognize("if the Virginie rune is clicked go to  the Virginie rune", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"condition\": \"is_pressed(r=The Virginie rune)\"}",
+              _recognize("if the Virginie rune is clicked", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"condition\": \"is_pressed(r=The Virginie rune)\"}",
+              _recognize("when the Virginie rune is clicked", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"condition\": \"is_pressed(r=The Virginie rune)\"}",
+              _recognize("whenever the Virginie rune is clicked", actionRecognizer, lingDb, enLanguage));
 }

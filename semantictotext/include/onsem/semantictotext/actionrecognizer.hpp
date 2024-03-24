@@ -27,9 +27,10 @@ public:
     };
 
     struct ActionRecognized {
-        Intent action;
+        std::optional<Intent> action;
         std::optional<Intent> condition;
 
+        bool empty() const;
         std::string toJson() const;
     };
 

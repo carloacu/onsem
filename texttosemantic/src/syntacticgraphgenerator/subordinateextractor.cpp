@@ -751,8 +751,11 @@ void SubordinateExtractor::xLinkSubordonateThatAreBeforeVerbs(std::list<ChunkLin
                     auto itThen = pChunkLinks.end();
                     auto itThenContent = itThen;
 
-                    if (!_setItThenAndItThenContent(it, itThen, itThenContent, pChunkLinks))
+                    if (!_setItThenAndItThenContent(it, itThen, itThenContent, pChunkLinks)) {
+                        if (it == pChunkLinks.end())
+                            return;
                         break;
+                    }
 
                     // get "then content" node
                     {

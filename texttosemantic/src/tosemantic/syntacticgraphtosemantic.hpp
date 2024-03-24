@@ -256,7 +256,7 @@ private:
         ToGenRepGeneral& pGeneral,
         ToGenRepContext& pContext) const;
 
-    GrammaticalType xConvertSeparatorChunkToGrammaticalType(SyntacticGraphToSemantic::ToGenRepContext& pContext) const;
+    ChunkLinkType xConvertSeparatorChunkToChunkLinkType(SyntacticGraphToSemantic::ToGenRepContext& pContext) const;
 
     UniqueSemanticExpression xConvertListChunk(ToGenRepGeneral& pGeneral, ToGenRepContext& pContext) const;
 

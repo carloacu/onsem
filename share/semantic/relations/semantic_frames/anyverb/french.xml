@@ -111,6 +111,7 @@
     <child lemma="parce que" pos="sub_conj" chunkLinkType="cause" />
     <child lemma="pour" pos="preposition" chunkLinkType="purpose" />
     <child lemma="sans" pos="preposition" chunkLinkType="without" />
+    <child lemma="si" pos="sub_conj" chunkLinkType="if" />
     <child lemma="suite à" pos="preposition" chunkLinkType="time" />
   </no_verb>
 

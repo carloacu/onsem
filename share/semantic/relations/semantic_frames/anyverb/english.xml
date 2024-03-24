@@ -73,6 +73,7 @@
     <child lemma="of" pos="partitive" chunkLinkType="time" condition="followedByBeginOfConcept(time_relativeDay_, skip_determiners)|followedByBeginOfConcept(time_day, skip_determiners)|followedByBeginOfConcept(time_month, skip_determiners)" />
     <child chunkLinkType="time" condition="followedByBeginOfConcept(time_relative_)|followedByBeginOfConcept(time_relativeDay_)" />
     <child lemma="at" pos="preposition" chunkLinkType="time" condition="followedByHour" />
+    <child lemma="if" pos="sub_conj" chunkLinkType="if" />
     <child lemma="when" pos="preposition" chunkLinkType="time" />
     <child lemma="after" pos="sub_conj" chunkLinkType="time" />
     <child lemma="at" pos="preposition" chunkLinkType="location" />

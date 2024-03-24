@@ -3,7 +3,7 @@ si tu vois une table, lève-toi
 si je touche ta main droite lève ta main gauche
 si six scies scient six saucissons six cent scies scieront six cent saucissons
 si tu vois une table et regardes à droite, lève-toi
-
+si la chemise est pliée,
 lève-toi si il voit une table
 lève-toi, si il voit une table
 

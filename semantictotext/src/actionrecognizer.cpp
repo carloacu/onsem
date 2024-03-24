@@ -17,6 +17,52 @@ namespace onsem {
 
 namespace {
 
+std::optional<UniqueSemanticExpression> _extractConditionOnlySemExp(
+        UniqueSemanticExpression& pSemExp) {
+    switch (pSemExp->type) {
+        case SemanticExpressionType::GROUNDED: {
+            GroundedExpression& grdExp = pSemExp->getGrdExp();
+            auto* statGrdPtr = grdExp->getStatementGroundingPtr();
+            if (statGrdPtr != nullptr) {
+                auto& statGrd = *statGrdPtr;
+                if (statGrd.requests.has(SemanticRequestType::TIME)) {
+                    statGrd.requests.erase(SemanticRequestType::TIME);
+                    return pSemExp->clone();
+                }
+
+                if (SemExpGetter::isACoreferenceFromStatementGrounding(statGrd, CoreferenceDirectionEnum::BEFORE)) {
+                    auto itTimeChild = grdExp.children.find(GrammaticalType::TIME);
+                    if (itTimeChild != grdExp.children.end())
+                        return itTimeChild->second->clone();
+                }
+            }
+            break;
+        }
+        case SemanticExpressionType::LIST: {
+            break;
+        }
+        case SemanticExpressionType::INTERPRETATION: {
+            return _extractConditionOnlySemExp(pSemExp->getIntExp().interpretedExp);
+        }
+        case SemanticExpressionType::FEEDBACK: {
+            return _extractConditionOnlySemExp(pSemExp->getFdkExp().concernedExp);
+        }
+        case SemanticExpressionType::ANNOTATED: {
+            return _extractConditionOnlySemExp(pSemExp->getAnnExp().semExp);
+        }
+        case SemanticExpressionType::METADATA: {
+            return _extractConditionOnlySemExp(pSemExp->getMetadataExp().semExp);
+        }
+        case SemanticExpressionType::FIXEDSYNTHESIS:
+        case SemanticExpressionType::COMMAND:
+        case SemanticExpressionType::CONDITION:
+        case SemanticExpressionType::COMPARISON:
+        case SemanticExpressionType::SETOFFORMS: break;
+    }
+    return {};
+}
+
+
 void _extractParameters(
         std::map<std::string, std::vector<UniqueSemanticExpression>>& parameterLabelToQuestions,
         UniqueSemanticExpression& pSemExp) {
@@ -157,11 +203,20 @@ std::string ActionRecognizer::Intent::toStr() const {
 }
 
 
+bool ActionRecognizer::ActionRecognized::empty() const {
+    return !action && !condition;
+}
+
 std::string ActionRecognizer::ActionRecognized::toJson() const {
-    auto res = "{\"action\": \"" + action.toStr() + "\"";
-    if (condition)
-      res += ", \"condition\": \"" + condition->toStr() + "\"";
-    return res + "}";
+    std::string res;
+    if (action)
+        res = "\"action\": \"" + action->toStr() + "\"";
+    if (condition) {
+        if (!res.empty())
+            res += ", ";
+        res += "\"condition\": \"" + condition->toStr() + "\"";
+    }
+    return "{" + res + "}";
 }
 
 
@@ -202,10 +257,28 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
         pUtteranceSemExp = std::move(condPtr->thenExp);
     }
 
+    // Function to extract the condition
+    auto _extractCondtionIntent = [&]() -> std::optional<Intent> {
+        if (conditionSepExp) {
+            mystd::unique_propagate_const<UniqueSemanticExpression> conditionReaction;
+            triggers::match(conditionReaction, _predicateSemanticMemory, std::move(*conditionSepExp), pLingDb);
+            return _reactionToIntent(conditionReaction, pLingDb);
+        };
+        return {};
+    };
+
+    if (SemExpGetter::isACoreference(*pUtteranceSemExp, CoreferenceDirectionEnum::BEFORE)) {
+        ActionRecognizer::ActionRecognized actionRecognized;
+        actionRecognized.condition = _extractCondtionIntent();
+        if (actionRecognized.empty())
+            return {};
+        return actionRecognized;
+    }
+
     static const InformationType informationType = InformationType::INFORMATION;
     std::unique_ptr<CompositeSemAnswer> compSemAnswers;
     SemanticMemory localSemanticMemory;
-    auto expForMem = localSemanticMemory.memBloc.addRootSemExp(std::move(pUtteranceSemExp), pLingDb);
+    auto expForMem = localSemanticMemory.memBloc.addRootSemExp(pUtteranceSemExp->clone(), pLingDb);
     ExpressionWithLinks& expForMemRef = *expForMem;
     controller::applyOperatorOnExpHandleInMemory(compSemAnswers,
                                                  expForMemRef,
@@ -219,20 +292,22 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
     mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
     if (compSemAnswers) {
         controller::compAnswerToSemExp(reaction, *compSemAnswers);
-
         auto actionIntentOpt = _reactionToIntent(reaction, pLingDb);
         if (actionIntentOpt) {
             ActionRecognizer::ActionRecognized actionRecognized;
             actionRecognized.action = std::move(*actionIntentOpt);
-
-            // Extract condition
-            if (conditionSepExp) {
-                mystd::unique_propagate_const<UniqueSemanticExpression> conditionReaction;
-                triggers::match(conditionReaction, _predicateSemanticMemory, std::move(*conditionSepExp), pLingDb);
-                actionRecognized.condition = _reactionToIntent(conditionReaction, pLingDb);
-            }
+            actionRecognized.condition = _extractCondtionIntent();
             return actionRecognized;
         }
+    }
+
+    conditionSepExp = _extractConditionOnlySemExp(pUtteranceSemExp);
+    if (conditionSepExp) {
+        ActionRecognizer::ActionRecognized actionRecognized;
+        actionRecognized.condition = _extractCondtionIntent();
+        if (actionRecognized.empty())
+            return {};
+        return actionRecognized;
     }
 
     return {};

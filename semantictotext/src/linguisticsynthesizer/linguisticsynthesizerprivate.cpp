@@ -1518,7 +1518,7 @@ SemExpTypeEnumFormSynt LinguisticSynthesizerPrivate::_writeCondExp(OutSemExp& pO
             }
         }
     } else {
-        {
+        if (!SemExpGetter::isACoreference(*pCondExp.thenExp, CoreferenceDirectionEnum::BEFORE)) {
             std::list<SemExpTypeEnumFormSynt> semExpSyntTypes;
             _writeSemExp(semExpSyntTypes,
                          pOutSemExp,

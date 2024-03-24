@@ -268,7 +268,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::process(
         return xAddSemExpWithMainSentimentalWord(pSyntGraph.tokensTree);
     }
 
-    GrammaticalType gramTypeThatIntroduceAText = GrammaticalType::UNKNOWN;
+    ChunkLinkType chunkLinkTypeThatIntroduceAText = ChunkLinkType::SIMPLE;
     mystd::unique_propagate_const<UniqueSemanticExpression> res;
     ToGenRepGeneral general(res, pTextProcContext, pSyntGraph, pTimeGrd, std::move(pAgentWeAreTalkingAbout));
     for (auto itChild = pSyntGraph.firstChildren.begin(); itChild != pSyntGraph.firstChildren.end(); ++itChild) {
@@ -289,9 +289,16 @@ UniqueSemanticExpression SyntacticGraphToSemantic::process(
                 if (!semExp)
                     semExp = xFillSemExp(general, context);
                 if (semExp) {
-                    if (gramTypeThatIntroduceAText != GrammaticalType::UNKNOWN) {
-                        SemExpModifier::addCoreferenceMotherSemExp(*semExp, gramTypeThatIntroduceAText);
-                        gramTypeThatIntroduceAText = GrammaticalType::UNKNOWN;
+                    if (chunkLinkTypeThatIntroduceAText != ChunkLinkType::SIMPLE) {
+                        auto grammTypeThatIntroduceATextOpt = chunkTypeToGrammaticalType(chunkLinkTypeThatIntroduceAText);
+                        if (grammTypeThatIntroduceATextOpt)
+                            SemExpModifier::addCoreferenceMotherSemExp(*semExp, *grammTypeThatIntroduceATextOpt);
+                        else if (chunkLinkTypeThatIntroduceAText == ChunkLinkType::IF) {
+                            auto newCondSemExp = std::make_unique<ConditionExpression>(false, false, std::move(*semExp),
+                                                                                        SemExpGenerator::makeCoreferenceExpression(CoreferenceDirectionEnum::BEFORE));
+                            *semExp = std::move(newCondSemExp);
+                        }
+                        chunkLinkTypeThatIntroduceAText = ChunkLinkType::SIMPLE;
                     }
                     xAddSemExpPtr(general.uSemExp, std::move(*semExp));
                 }
@@ -300,7 +307,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::process(
                 if (semExp)
                     xAddSemExpIfNotEmpty(general.uSemExp, std::move(*semExp));
                 else
-                    gramTypeThatIntroduceAText = xConvertSeparatorChunkToGrammaticalType(context);
+                    chunkLinkTypeThatIntroduceAText = xConvertSeparatorChunkToChunkLinkType(context);
             }
         }
     }
@@ -1552,16 +1559,13 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
     return mystd::unique_propagate_const<UniqueSemanticExpression>();
 }
 
-GrammaticalType SyntacticGraphToSemantic::xConvertSeparatorChunkToGrammaticalType(
+ChunkLinkType SyntacticGraphToSemantic::xConvertSeparatorChunkToChunkLinkType(
     SyntacticGraphToSemantic::ToGenRepContext& pContext) const {
     const auto& word = pContext.chunk.head->inflWords.front().word;
     auto chLkTypeOpt = fSemFrameDict.introductionWordToChunkLinkType(word);
-    if (chLkTypeOpt) {
-        auto grammType = chunkTypeToGrammaticalType(*chLkTypeOpt);
-        if (grammType)
-            return *grammType;
-    }
-    return GrammaticalType::UNKNOWN;
+    if (chLkTypeOpt)
+        return *chLkTypeOpt;
+    return ChunkLinkType::SIMPLE;
 }
 
 UniqueSemanticExpression SyntacticGraphToSemantic::xConvertListChunk(ToGenRepGeneral& pGeneral,
