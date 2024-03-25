@@ -53,6 +53,8 @@ public:
     std::optional<ActionRecognized> recognize(UniqueSemanticExpression pUtteranceSemExp,
                                               const linguistics::LinguisticDatabase& pLingDb);
 
+    SemanticLanguageEnum getLanguage() { return _language; }
+
 
 private:
     SemanticLanguageEnum _language;
