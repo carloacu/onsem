@@ -17,7 +17,7 @@ struct UniqueSemanticExpression;
 
 class ONSEMSEMANTICTOTEXT_API ActionRecognizer {
 public:
-    ActionRecognizer();
+    ActionRecognizer(SemanticLanguageEnum pLanguage);
 
     struct Intent {
         std::string name;
@@ -34,23 +34,32 @@ public:
         std::string toJson() const;
     };
 
+    void addType(const std::string& pType,
+                 const std::vector<std::string>& pFormulations);
+
+    void addEntity(const std::string& pType,
+                   const std::string& pEntityId,
+                   const std::vector<std::string>& pEntityLabels,
+                   const linguistics::LinguisticDatabase& pLingDb);
+
     void addPredicate(const std::string& pPredicateName,
                       const std::vector<std::string>& pPredicateFormulations,
-                      const linguistics::LinguisticDatabase& pLingDb,
-                      SemanticLanguageEnum pLanguage);
+                      const linguistics::LinguisticDatabase& pLingDb);
 
     void addAction(const std::string& pActionIntentName,
                    const std::vector<std::string>& pIntentFormulations,
-                   const linguistics::LinguisticDatabase& pLingDb,
-                   SemanticLanguageEnum pLanguage);
+                   const linguistics::LinguisticDatabase& pLingDb);
 
     std::optional<ActionRecognized> recognize(UniqueSemanticExpression pUtteranceSemExp,
                                               const linguistics::LinguisticDatabase& pLingDb);
 
 
 private:
+    SemanticLanguageEnum _language;
     SemanticMemory _actionSemanticMemory;
     SemanticMemory _predicateSemanticMemory;
+    std::map<std::string, std::vector<std::string>> _typeToFormulations;
+    std::map<std::string, SemanticMemory> _typeToMemory;
 };
 
 

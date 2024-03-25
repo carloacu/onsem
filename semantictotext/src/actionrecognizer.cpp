@@ -1,4 +1,5 @@
 #include <onsem/semantictotext/actionrecognizer.hpp>
+#include <onsem/common/utility/string.hpp>
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
@@ -142,6 +143,7 @@ void _addIntent(const std::string& pIntentName,
 }
 
 std::optional<ActionRecognizer::Intent> _reactionToIntent(const mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
+                                                          std::map<std::string, SemanticMemory>& pTypeToMemory,
                                                           const linguistics::LinguisticDatabase& pLingDb) {
     if (pReaction) {
          const GroundedExpression* grdExpPtr = pReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
@@ -153,15 +155,41 @@ std::optional<ActionRecognizer::Intent> _reactionToIntent(const mystd::unique_pr
                  for (auto& currParametersToSemExps : resourceGrdPtr->resource.parametersLabelsToValue) {
                      auto& semExps = currParametersToSemExps.second;
                      if (!semExps.empty()) {
-                         auto& strs = intent.slotNameToValues[currParametersToSemExps.first];
-                         TextProcessingContext outContext(
-                             SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, resourceGrdPtr->resource.language);
-                         SemanticMemory semMemory;
+                         std::vector<std::string> parameterSplitted;
+                         mystd::split(parameterSplitted, currParametersToSemExps.first, ":");
+                         if (!parameterSplitted.empty()) {
+                             auto paramName = parameterSplitted[0];
+                             auto& paramValues = intent.slotNameToValues[paramName];
+                             TextProcessingContext outContext(
+                                 SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, resourceGrdPtr->resource.language);
+                             SemanticMemory semMemory;
 
-                         for (auto& currAnswer : semExps) {
-                             std::string subRes;
-                             converter::semExpToText(subRes, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
-                             strs.push_back(subRes);
+                             for (auto& currAnswer : semExps) {
+                                 std::string newValue;
+                                 converter::semExpToText(newValue, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
+
+                                 bool paramAdded = false;
+                                 if (parameterSplitted.size() > 1) {
+                                     auto paramType = parameterSplitted[1];
+                                     auto itParamMemory = pTypeToMemory.find(paramType);
+                                     if (itParamMemory != pTypeToMemory.end()) {
+                                         mystd::unique_propagate_const<UniqueSemanticExpression> entityReaction;
+                                         triggers::match(entityReaction, itParamMemory->second, currAnswer->clone(), pLingDb);
+
+                                         const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+                                         if (entityGrdExpPtr != nullptr) {
+                                             auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
+                                             if (entityResourceGrdPtr != nullptr) {
+                                                 paramValues.push_back(entityResourceGrdPtr->resource.value);
+                                                 paramAdded = true;
+                                             }
+                                         }
+                                     }
+                                 }
+
+                                 if (!paramAdded)
+                                     paramValues.push_back(newValue);
+                             }
                          }
                      }
                  }
@@ -222,26 +250,50 @@ std::string ActionRecognizer::ActionRecognized::toJson() const {
 
 
 
-ActionRecognizer::ActionRecognizer()
-    : _actionSemanticMemory(),
-      _predicateSemanticMemory() {
+ActionRecognizer::ActionRecognizer(SemanticLanguageEnum pLanguage)
+    : _language(pLanguage),
+      _actionSemanticMemory(),
+      _predicateSemanticMemory(),
+      _typeToFormulations(),
+      _typeToMemory() {
 }
 
+
+void ActionRecognizer::addType(const std::string& pType,
+                               const std::vector<std::string>& pFormulations) {
+    auto& formuationsForType = _typeToFormulations[pType];
+    formuationsForType.insert(formuationsForType.end(), pFormulations.begin(), pFormulations.end());
+}
+
+void ActionRecognizer::addEntity(const std::string& pType,
+                                 const std::string& pEntityId,
+                                 const std::vector<std::string>& pEntityLabels,
+                                 const linguistics::LinguisticDatabase& pLingDb) {
+    auto& semMem = _typeToMemory[pType];
+    _addIntent(pEntityId, pEntityLabels, semMem, pLingDb, _language);
+
+    auto& formuations = _typeToFormulations[pType];
+    std::vector<std::string> newEntityLabels;
+    for (const auto& currFormulation : formuations) {
+        for (const auto& currLabel : pEntityLabels) {
+            newEntityLabels.emplace_back(currFormulation + " " + currLabel);
+        }
+    }
+    _addIntent(pEntityId, newEntityLabels, semMem, pLingDb, _language);
+}
 
 
 void ActionRecognizer::addPredicate(const std::string& pPredicateName,
                                     const std::vector<std::string>& pPredicateFormulations,
-                                    const linguistics::LinguisticDatabase& pLingDb,
-                                    SemanticLanguageEnum pLanguage) {
-    _addIntent(pPredicateName, pPredicateFormulations, _predicateSemanticMemory, pLingDb, pLanguage);
+                                    const linguistics::LinguisticDatabase& pLingDb) {
+    _addIntent(pPredicateName, pPredicateFormulations, _predicateSemanticMemory, pLingDb, _language);
 }
 
 
 void ActionRecognizer::addAction(const std::string& pActionIntentName,
                                  const std::vector<std::string>& pIntentFormulations,
-                                 const linguistics::LinguisticDatabase& pLingDb,
-                                 SemanticLanguageEnum pLanguage) {
-    _addIntent(pActionIntentName, pIntentFormulations, _actionSemanticMemory, pLingDb, pLanguage);
+                                 const linguistics::LinguisticDatabase& pLingDb) {
+    _addIntent(pActionIntentName, pIntentFormulations, _actionSemanticMemory, pLingDb, _language);
 }
 
 
@@ -262,7 +314,7 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
         if (conditionSepExp) {
             mystd::unique_propagate_const<UniqueSemanticExpression> conditionReaction;
             triggers::match(conditionReaction, _predicateSemanticMemory, std::move(*conditionSepExp), pLingDb);
-            return _reactionToIntent(conditionReaction, pLingDb);
+            return _reactionToIntent(conditionReaction, _typeToMemory, pLingDb);
         };
         return {};
     };
@@ -292,7 +344,7 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
     mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
     if (compSemAnswers) {
         controller::compAnswerToSemExp(reaction, *compSemAnswers);
-        auto actionIntentOpt = _reactionToIntent(reaction, pLingDb);
+        auto actionIntentOpt = _reactionToIntent(reaction, _typeToMemory, pLingDb);
         if (actionIntentOpt) {
             ActionRecognizer::ActionRecognized actionRecognized;
             actionRecognized.action = std::move(*actionIntentOpt);
