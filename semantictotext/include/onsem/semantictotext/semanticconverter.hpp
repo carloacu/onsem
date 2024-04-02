@@ -137,6 +137,20 @@ UniqueSemanticExpression constructTeachSemExp(UniqueSemanticExpression pInfitive
 ONSEMSEMANTICTOTEXT_API
 void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes, const SemanticExpression& pSemExp);
 
+/**
+ * @brief Create semantic expressions of the resource parameters.
+ * @param pParameterLabelToQuestionsSemExps Result.
+ * @param pParameterLabelToQuestionsStrs Parameters in strings.
+ * @param pLingDb Linguistic database.
+ * @param pLanguage Language of the parameters.
+ */
+ONSEMSEMANTICTOTEXT_API
+void createParameterSemanticexpressions(
+    std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
+    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage);
+
 ONSEMSEMANTICTOTEXT_API
 std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const std::string& pResourceLabel,

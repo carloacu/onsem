@@ -31,32 +31,44 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     auto frLanguage = SemanticLanguageEnum::FRENCH;
     ActionRecognizer actionRecognizer(frLanguage);
 
-    actionRecognizer.addType("rune", {"rune"});
-    actionRecognizer.addEntity("rune", "rune1", {"Virginie"}, lingDb);
-    actionRecognizer.addEntity("rune", "rune2", {"plateau"}, lingDb);
-    actionRecognizer.addPredicate("is_pressed", {"[r:rune] est pressé", "[r:rune] est cliqué"}, lingDb);
-    actionRecognizer.addAction("add", {"ajoute [number]"}, lingDb);
-    actionRecognizer.addAction("go_to_rune", {"va à [r:rune]"}, lingDb);
+    actionRecognizer.addType("object", {"objet"});
+    actionRecognizer.addType("checkpoint", {"checkpoint"});
+    actionRecognizer.addEntity("checkpoint", "checkpoint1", {"Virginie"}, lingDb);
+    actionRecognizer.addEntity("checkpoint", "checkpoint2", {"plateau"}, lingDb);
+    actionRecognizer.addEntity("object", "patate", {"patate"}, lingDb);
+    actionRecognizer.addPredicate("clicked", {"[c:checkpoint] est pressé", "[c:checkpoint] est cliqué"}, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> whatNbParameter{
+        {"nb", ActionRecognizer::ParamInfo("int", {"what"})}};
+    actionRecognizer.addAction("add", {"ajoute"}, whatNbParameter, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> whereParameter{
+        {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where"})}};
+    actionRecognizer.addAction("go_to_loc", {"va"}, whereParameter, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> whatObjParameter{
+        {"obj", ActionRecognizer::ParamInfo("object", {"what"})}};
+    actionRecognizer.addAction("bring", {"apporte"}, whatObjParameter, lingDb);
 
-    EXPECT_EQ("{\"action\": \"add(number=1)\"}",
+    EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
+              _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"action\": \"add(nb=1)\"}",
               _recognize("Ajoute un", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"add(number=1)\", "
-              "\"condition\": \"is_pressed(r=rune2)\"}",
-              _recognize("Quand la rune du plateau est pressée, ajoute un", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"add(nb=1)\", "
+              "\"condition\": \"clicked(c=checkpoint2)\"}",
+              _recognize("Quand le checkpoint du plateau est pressée, ajoute un", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"go_to_rune(r=rune1)\", "
-              "\"condition\": \"is_pressed(r=rune1)\"}",
-              _recognize("quand la rune Virginie est pressée, va à la rune Virginie", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"go_to_loc(loc=checkpoint1)\", "
+              "\"condition\": \"clicked(c=checkpoint1)\"}",
+              _recognize("quand le checkpoint Virginie est pressée, va au checkpoint Virginie", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"condition\": \"is_pressed(r=rune1)\"}",
-              _recognize("si la rune Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
+              _recognize("si le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"condition\": \"is_pressed(r=rune1)\"}",
-              _recognize("quand la rune Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
+              _recognize("quand le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"condition\": \"is_pressed(r=rune1)\"}",
-              _recognize("à chaque fois que la rune Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
+              _recognize("à chaque fois que le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
 }
 
 
@@ -65,23 +77,29 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     auto enLanguage = SemanticLanguageEnum::ENGLISH;
     ActionRecognizer actionRecognizer(enLanguage);
 
-    actionRecognizer.addPredicate("is_pressed", {"[r] is pressed", "[r] is clicked"}, lingDb);
-    actionRecognizer.addAction("add", {"add [number]"}, lingDb);
-    actionRecognizer.addAction("go_to", {"go to [location]"}, lingDb);
+    actionRecognizer.addEntity("checkpoint", "checkpoint1", {"Virginie"}, lingDb);
+    actionRecognizer.addEntity("checkpoint", "checkpoint2", {"tray"}, lingDb);
+    actionRecognizer.addPredicate("clicked", {"[c:checkpoint] is pressed", "[c:checkpoint] is clicked"}, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> whatNbParameter{
+        {"nb", ActionRecognizer::ParamInfo("int", {"quoi"})}};
+    actionRecognizer.addAction("add", {"add"}, whatNbParameter, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> whereParameter{
+        {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where"})}};
+    actionRecognizer.addAction("go_to_loc", {"go"}, whereParameter, lingDb);
 
-    EXPECT_EQ("{\"action\": \"go_to(location=The Virginie rune)\"}",
-              _recognize("go to  the Virginie rune", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\"}",
+              _recognize("go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"action\": \"go_to(location=The Virginie rune)\", "
-              "\"condition\": \"is_pressed(r=The Virginie rune)\"}",
-              _recognize("if the Virginie rune is clicked go to  the Virginie rune", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\", "
+              "\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
+              _recognize("if the Virginie checkpoint is clicked go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": \"is_pressed(r=The Virginie rune)\"}",
-              _recognize("if the Virginie rune is clicked", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
+              _recognize("if the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": \"is_pressed(r=The Virginie rune)\"}",
-              _recognize("when the Virginie rune is clicked", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
+              _recognize("when the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": \"is_pressed(r=The Virginie rune)\"}",
-              _recognize("whenever the Virginie rune is clicked", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
+              _recognize("whenever the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 }

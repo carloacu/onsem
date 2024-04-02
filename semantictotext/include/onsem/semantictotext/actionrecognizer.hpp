@@ -34,6 +34,13 @@ public:
         std::string toJson() const;
     };
 
+    struct ParamInfo {
+        ParamInfo(const std::string& pType,
+                  const std::vector<std::string>& pQuestions);
+        std::string type;
+        std::vector<std::string> questions;
+    };
+
     void addType(const std::string& pType,
                  const std::vector<std::string>& pFormulations);
 
@@ -48,6 +55,7 @@ public:
 
     void addAction(const std::string& pActionIntentName,
                    const std::vector<std::string>& pIntentFormulations,
+                   const std::map<std::string, ParamInfo>& pParameterLabelToInfos,
                    const linguistics::LinguisticDatabase& pLingDb);
 
     std::optional<ActionRecognized> recognize(UniqueSemanticExpression pUtteranceSemExp,

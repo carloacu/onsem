@@ -125,6 +125,7 @@ void _extractParameters(
 
 void _addIntent(const std::string& pIntentName,
                 const std::vector<std::string>& pFormulations,
+                const std::map<std::string, ActionRecognizer::ParamInfo>& pParameterLabelToInfos,
                 SemanticMemory& pSemMemory,
                 const linguistics::LinguisticDatabase& pLingDb,
                 SemanticLanguageEnum pLanguage) {
@@ -133,7 +134,13 @@ void _addIntent(const std::string& pIntentName,
     triggerProcContext.isTimeDependent = false;
     for (auto& currFormulation : pFormulations) {
         auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);
+
+        std::map<std::string, std::vector<std::string>> parameterLabelToQuestionsStrs;
+        for (auto& currParam : pParameterLabelToInfos)
+            parameterLabelToQuestionsStrs.emplace(currParam.first + ":" + currParam.second.type, currParam.second.questions);
+
         std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestions;
+        converter::createParameterSemanticexpressions(parameterLabelToQuestions, parameterLabelToQuestionsStrs, pLingDb, SemanticLanguageEnum::ENGLISH);
         _extractParameters(parameterLabelToQuestions, formulationSemExp);
 
         auto outputResourceGrdExp = std::make_unique<GroundedExpression>(converter::createResourceWithParametersFromSemExp(
@@ -141,6 +148,7 @@ void _addIntent(const std::string& pIntentName,
         triggers::add(std::move(formulationSemExp), std::move(outputResourceGrdExp), pSemMemory, pLingDb);
     }
 }
+
 
 std::optional<ActionRecognizer::Intent> _reactionToIntent(const mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
                                                           std::map<std::string, SemanticMemory>& pTypeToMemory,
@@ -176,12 +184,14 @@ std::optional<ActionRecognizer::Intent> _reactionToIntent(const mystd::unique_pr
                                          mystd::unique_propagate_const<UniqueSemanticExpression> entityReaction;
                                          triggers::match(entityReaction, itParamMemory->second, currAnswer->clone(), pLingDb);
 
-                                         const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
-                                         if (entityGrdExpPtr != nullptr) {
-                                             auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
-                                             if (entityResourceGrdPtr != nullptr) {
-                                                 paramValues.push_back(entityResourceGrdPtr->resource.value);
-                                                 paramAdded = true;
+                                         if (entityReaction) {
+                                             const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+                                             if (entityGrdExpPtr != nullptr) {
+                                                 auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
+                                                 if (entityResourceGrdPtr != nullptr) {
+                                                     paramValues.push_back(entityResourceGrdPtr->resource.value);
+                                                     paramAdded = true;
+                                                 }
                                              }
                                          }
                                      }
@@ -247,7 +257,12 @@ std::string ActionRecognizer::ActionRecognized::toJson() const {
     return "{" + res + "}";
 }
 
-
+ActionRecognizer::ParamInfo::ParamInfo(const std::string& pType,
+                                       const std::vector<std::string>& pQuestions)
+ : type(pType),
+   questions(pQuestions)
+{
+}
 
 
 ActionRecognizer::ActionRecognizer(SemanticLanguageEnum pLanguage)
@@ -270,7 +285,8 @@ void ActionRecognizer::addEntity(const std::string& pType,
                                  const std::vector<std::string>& pEntityLabels,
                                  const linguistics::LinguisticDatabase& pLingDb) {
     auto& semMem = _typeToMemory[pType];
-    _addIntent(pEntityId, pEntityLabels, semMem, pLingDb, _language);
+    const std::map<std::string, ParamInfo> parameterLabelToQuestions;
+    _addIntent(pEntityId, pEntityLabels, parameterLabelToQuestions, semMem, pLingDb, _language);
 
     auto& formuations = _typeToFormulations[pType];
     std::vector<std::string> newEntityLabels;
@@ -279,21 +295,25 @@ void ActionRecognizer::addEntity(const std::string& pType,
             newEntityLabels.emplace_back(currFormulation + " " + currLabel);
         }
     }
-    _addIntent(pEntityId, newEntityLabels, semMem, pLingDb, _language);
+    _addIntent(pEntityId, newEntityLabels, parameterLabelToQuestions, semMem, pLingDb, _language);
 }
 
 
 void ActionRecognizer::addPredicate(const std::string& pPredicateName,
                                     const std::vector<std::string>& pPredicateFormulations,
                                     const linguistics::LinguisticDatabase& pLingDb) {
-    _addIntent(pPredicateName, pPredicateFormulations, _predicateSemanticMemory, pLingDb, _language);
+    const std::map<std::string, ParamInfo> parameterLabelToQuestions;
+    _addIntent(pPredicateName, pPredicateFormulations, parameterLabelToQuestions,
+               _predicateSemanticMemory, pLingDb, _language);
 }
 
 
 void ActionRecognizer::addAction(const std::string& pActionIntentName,
                                  const std::vector<std::string>& pIntentFormulations,
+                                 const std::map<std::string, ParamInfo>& pParameterLabelToInfos,
                                  const linguistics::LinguisticDatabase& pLingDb) {
-    _addIntent(pActionIntentName, pIntentFormulations, _actionSemanticMemory, pLingDb, _language);
+    _addIntent(pActionIntentName, pIntentFormulations, pParameterLabelToInfos,
+               _actionSemanticMemory, pLingDb, _language);
 }
 
 

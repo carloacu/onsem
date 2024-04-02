@@ -136,29 +136,6 @@ void _naturalLanguageTextToSemanticWord(SemanticWord& pWord, const NaturalLangua
     pWord.language = pNaturalLanguageText.language;
 }
 
-/**
- * @brief Create semantic expressions of the resource parameters.
- * @param pParameterLabelToQuestionsSemExps Result.
- * @param pParameterLabelToQuestionsStrs Parameters in strings.
- * @param pLingDb Linguistic database.
- * @param pLanguage Language of the parameters.
- */
-void _createParameterSemanticexpressions(
-    std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
-    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
-    const linguistics::LinguisticDatabase& pLingDb,
-    SemanticLanguageEnum pLanguage) {
-    TextProcessingContext paramQuestionProcContext(
-        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
-    paramQuestionProcContext.isTimeDependent = false;
-    for (auto& currLabelToQuestions : pParameterLabelToQuestionsStrs) {
-        for (auto& currQuestion : currLabelToQuestions.second) {
-            auto paramSemExp = converter::textToSemExp(currQuestion, paramQuestionProcContext, pLingDb);
-            pParameterLabelToQuestionsSemExps[currLabelToQuestions.first].emplace_back(std::move(paramSemExp));
-        }
-    }
-}
-
 }
 
 void addDifferentForms(UniqueSemanticExpression& pSemExp,
@@ -540,6 +517,23 @@ void addOtherTriggerFormulations(std::list<UniqueSemanticExpression>& pRes, cons
         pRes.emplace_back(std::move(*inf));
 }
 
+
+void createParameterSemanticexpressions(
+    std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestionsSemExps,
+    const std::map<std::string, std::vector<std::string>>& pParameterLabelToQuestionsStrs,
+    const linguistics::LinguisticDatabase& pLingDb,
+    SemanticLanguageEnum pLanguage) {
+    TextProcessingContext paramQuestionProcContext(
+        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
+    paramQuestionProcContext.isTimeDependent = false;
+    for (auto& currLabelToQuestions : pParameterLabelToQuestionsStrs) {
+        for (auto& currQuestion : currLabelToQuestions.second) {
+            auto paramSemExp = converter::textToSemExp(currQuestion, paramQuestionProcContext, pLingDb);
+            pParameterLabelToQuestionsSemExps[currLabelToQuestions.first].emplace_back(std::move(paramSemExp));
+        }
+    }
+}
+
 std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const std::string& pResourceLabel,
     const std::string& pResourceValue,
@@ -548,7 +542,7 @@ std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage) {
     std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestionsSemExps;
-    _createParameterSemanticexpressions(
+    createParameterSemanticexpressions(
         parameterLabelToQuestionsSemExps, pParameterLabelToQuestionsStrs, pLingDb, pLanguage);
     return createResourceWithParametersFromSemExp(pResourceLabel, pResourceValue, parameterLabelToQuestionsSemExps,
                                                   pContextForParameters, pLingDb, pLanguage);
