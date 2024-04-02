@@ -46,6 +46,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     std::map<std::string, ActionRecognizer::ParamInfo> whatObjParameter{
         {"obj", ActionRecognizer::ParamInfo("object", {"what"})}};
     actionRecognizer.addAction("bring", {"apporte"}, whatObjParameter, lingDb);
+    actionRecognizer.addAction("arms_down", {"relâche ses bras"}, {}, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -69,6 +70,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
 
     EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
               _recognize("à chaque fois que le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("relâche tes bras", actionRecognizer, lingDb, frLanguage));
 }
 
 
