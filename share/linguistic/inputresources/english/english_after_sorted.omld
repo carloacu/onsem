@@ -112,4 +112,6 @@
  <i l="millimeter" i="mm" p="noun" f="ms|mp" y="3" />
  <i l="seriously" p="interjection" />
  <i l="°" p="noun" />
+ <i l="kind" i="so kind as" p="noun" f="s" y="3" />
+ <i l="kind" i="so kinds as" p="noun" f="p" y="3" />
 </omld>

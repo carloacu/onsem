@@ -33,6 +33,8 @@
     </concept>
     <concept name="sentiment_positive_kind">
         <linkedMeaning lemme="gentil" relationToConcept="4" />
+        <linkedMeaning lemme="amabilité" relationToConcept="3"/>
+        <linkedMeaning lemme="gentillesse" relationToConcept="3"/>
     </concept>
     <concept name="sentiment_positive_thanks">
         <linkedMeaning lemme="merci" gram="interjection" relationToConcept="4"/>

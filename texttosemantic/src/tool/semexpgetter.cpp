@@ -1475,33 +1475,76 @@ bool isWishStatement(const SemanticStatementGrounding& pStatementGrd) {
 const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
                                         const SemanticStatementGrounding& pStatementGrd,
                                         const std::string& pAuthorUserId) {
-    if (!pStatementGrd.polarity || !pStatementGrd.requests.empty())
+    if (!pStatementGrd.polarity)
         return nullptr;
     if (pStatementGrd.verbGoal == VerbGoalEnum::MANDATORY) {
+        if (!pStatementGrd.requests.empty())
+            return nullptr;
         auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
         if (itSubject == pGrdExp.children.end()
             || !SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::me))
             return nullptr;
         return &pGrdExp;
     } else if (!pAuthorUserId.empty() && isWishStatement(pStatementGrd)) {
+        bool isSentenceOk = false;
+        bool needRobotSubject = false;
+        bool needNoSubject = false;
         auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
-        if (itSubject == pGrdExp.children.end() || !SemExpGetter::doSemExpHoldUserId(*itSubject->second, pAuthorUserId))
-            return nullptr;
-
-        auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
-        if (itObject != pGrdExp.children.end()) {
-            const GroundedExpression* res = itObject->second->getGrdExpPtr_SkipWrapperPtrs();
-            if (res != nullptr) {
-                auto itResSubject = res->children.find(GrammaticalType::SUBJECT);
-                if (itResSubject == res->children.end()
-                    || !SemExpGetter::doSemExpHoldUserId(*itResSubject->second, SemanticAgentGrounding::me))
-                    return nullptr;
-
-                const SemanticStatementGrounding* statGrdPtr = res->grounding().getStatementGroundingPtr();
-                if (statGrdPtr != nullptr)
-                    return res;
+        if (itSubject != pGrdExp.children.end()) {
+            if (SemExpGetter::doSemExpHoldUserId(*itSubject->second, pAuthorUserId) && pStatementGrd.requests.empty()) {
+                isSentenceOk = true;
+                needRobotSubject = true;
+            } else if (SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::me)) {
+                isSentenceOk = true;
+                needNoSubject = true;
             }
         }
+
+        if (isSentenceOk) {
+            auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
+            if (itObject != pGrdExp.children.end()) {
+                const GroundedExpression* res = itObject->second->getGrdExpPtr_SkipWrapperPtrs();
+                if (res != nullptr) {
+                    if (needRobotSubject) {
+                        auto itResSubject = res->children.find(GrammaticalType::SUBJECT);
+                        if (itResSubject == res->children.end()
+                            || !SemExpGetter::doSemExpHoldUserId(*itResSubject->second, SemanticAgentGrounding::me))
+                            return nullptr;
+                    }
+                    if (needNoSubject && res->children.count(GrammaticalType::SUBJECT) > 0)
+                        return nullptr;
+
+                    const SemanticStatementGrounding* statGrdPtr = res->grounding().getStatementGroundingPtr();
+                    if (statGrdPtr != nullptr)
+                        return res;
+                }
+            }
+        }
+    } else if (pStatementGrd.verbGoal == VerbGoalEnum::CONDITIONAL) {
+         if (pStatementGrd.concepts.count("verb_have") != 0 ||
+             pStatementGrd.concepts.count("verb_equal_be") != 0) {
+             auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
+             if (itSubject == pGrdExp.children.end()
+                 || !SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::me))
+                 return nullptr;
+
+             auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
+             if (itObject != pGrdExp.children.end()) {
+                 const GroundedExpression* kindGrdExpPtr = itObject->second->getGrdExpPtr_SkipWrapperPtrs();
+                 if (kindGrdExpPtr != nullptr &&
+                     kindGrdExpPtr->grounding().concepts.count("sentiment_positive_kind")) {
+                     auto itKindObject = kindGrdExpPtr->children.find(GrammaticalType::OBJECT);
+                     if (itKindObject != kindGrdExpPtr->children.end()) {
+                         const GroundedExpression* res = itKindObject->second->getGrdExpPtr_SkipWrapperPtrs();
+                         if (res != nullptr) {
+                             const SemanticStatementGrounding* statGrdPtr = res->grounding().getStatementGroundingPtr();
+                             if (statGrdPtr != nullptr)
+                                 return res;
+                         }
+                     }
+                 }
+             }
+         }
     }
     return nullptr;
 }

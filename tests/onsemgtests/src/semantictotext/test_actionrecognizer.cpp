@@ -39,14 +39,14 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addPredicate("clicked", {"[c:checkpoint] est pressé", "[c:checkpoint] est cliqué"}, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> whatNbParameter{
         {"nb", ActionRecognizer::ParamInfo("int", {"what"})}};
-    actionRecognizer.addAction("add", {"ajoute"}, whatNbParameter, lingDb);
+    actionRecognizer.addAction("add", {"ajouter"}, whatNbParameter, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> whereParameter{
         {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where"})}};
-    actionRecognizer.addAction("go_to_loc", {"va"}, whereParameter, lingDb);
+    actionRecognizer.addAction("go_to_loc", {"aller"}, whereParameter, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> whatObjParameter{
         {"obj", ActionRecognizer::ParamInfo("object", {"what"})}};
-    actionRecognizer.addAction("bring", {"apporte"}, whatObjParameter, lingDb);
-    actionRecognizer.addAction("arms_down", {"relâche ses bras"}, {}, lingDb);
+    actionRecognizer.addAction("bring", {"apporter"}, whatObjParameter, lingDb);
+    actionRecognizer.addAction("arms_down", {"relâcher ses bras", "baisser ses bras"}, {}, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -73,6 +73,20 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
 
     EXPECT_EQ("{\"action\": \"arms_down\"}",
               _recognize("relâche tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("j'aimerais que tu baisses tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("Veux-tu bien baisser tes bras ?", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("Voudrais-tu bien baisser tes bras ?", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("baisser tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("tu dois baisser tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("tu aurais l'amabilité de baisser tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("aurais-tu la gentillesse de baisser tes bras", actionRecognizer, lingDb, frLanguage));
 }
 
 
@@ -90,6 +104,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     std::map<std::string, ActionRecognizer::ParamInfo> whereParameter{
         {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where"})}};
     actionRecognizer.addAction("go_to_loc", {"go"}, whereParameter, lingDb);
+    actionRecognizer.addAction("arms_down", {"relax his arms",
+                                             "drop his arms",
+                                             "lower his arms"}, {}, lingDb);
 
     EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\"}",
               _recognize("go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
@@ -106,4 +123,20 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
 
     EXPECT_EQ("{\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
               _recognize("whenever the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("relax your arms", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("Do you want to lower your arms?", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("Would you like to lower your arms?", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("Would you be kind enough to relax your arms?", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("Would you be so kind as to lower your arms?", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("I would like you to lower your arms", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("I'd like you to drop your arms", actionRecognizer, lingDb, enLanguage));
+
 }

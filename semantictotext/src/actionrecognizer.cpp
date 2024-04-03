@@ -12,6 +12,7 @@
 #include "controller/semexpcontroller.hpp"
 #include "conversion/conditionsadder.hpp"
 #include "utility/utility.hpp"
+#include "utility/semexpcreator.hpp"
 
 
 namespace onsem {
@@ -228,6 +229,17 @@ void _addIntent(const std::string& pIntentName,
     }
 }
 
+void _addSemExpTrigger(const std::string& pActionIntentName,
+                       UniqueSemanticExpression pFormulationSemExp,
+                        SemanticMemory& pSemanticMemory,
+                       const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestions,
+                       const linguistics::LinguisticDatabase& pLingDb,
+                       SemanticLanguageEnum pLanguage) {
+    auto outputResourceGrdExp = std::make_unique<GroundedExpression>(converter::createResourceWithParametersFromSemExp(
+        "intent", pActionIntentName, pParameterLabelToQuestions, *pFormulationSemExp, pLingDb, pLanguage));
+    triggers::add(std::move(pFormulationSemExp), std::move(outputResourceGrdExp), pSemanticMemory, pLingDb);
+}
+
 
 std::optional<ActionRecognizer::Intent> _reactionToIntent(const mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
                                                           std::map<std::string, SemanticMemory>& pTypeToMemory,
@@ -387,12 +399,39 @@ void ActionRecognizer::addPredicate(const std::string& pPredicateName,
 }
 
 
+
+
 void ActionRecognizer::addAction(const std::string& pActionIntentName,
                                  const std::vector<std::string>& pIntentFormulations,
                                  const std::map<std::string, ParamInfo>& pParameterLabelToInfos,
                                  const linguistics::LinguisticDatabase& pLingDb) {
-    _addIntent(pActionIntentName, pIntentFormulations, pParameterLabelToInfos,
-               _actionSemanticMemory, pLingDb, _language);
+    TextProcessingContext triggerProcContext(
+        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, _language);
+    triggerProcContext.isTimeDependent = false;
+    for (auto& currFormulation : pIntentFormulations) {
+        auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);
+        _correferenceBeforeToRobot(formulationSemExp, pLingDb);
+
+        std::list<UniqueSemanticExpression> otherFormulationsSemExps;
+        {
+            auto* grdExpPtr = formulationSemExp->getGrdExpPtr_SkipWrapperPtrs();
+            if (grdExpPtr != nullptr && SemExpGetter::isAnInfinitiveGrdExp(*grdExpPtr))
+                otherFormulationsSemExps.emplace_back(SemExpCreator::getImperativeAssociateFrom(*grdExpPtr));
+        }
+
+        std::map<std::string, std::vector<std::string>> parameterLabelToQuestionsStrs;
+        for (auto& currParam : pParameterLabelToInfos)
+            parameterLabelToQuestionsStrs.emplace(currParam.first + ":" + currParam.second.type, currParam.second.questions);
+
+        std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestions;
+        converter::createParameterSemanticexpressions(parameterLabelToQuestions, parameterLabelToQuestionsStrs, pLingDb, SemanticLanguageEnum::ENGLISH);
+
+        _addSemExpTrigger(pActionIntentName, std::move(formulationSemExp), _actionSemanticMemory,
+                          parameterLabelToQuestions, pLingDb, _language);
+        for (auto& currOtherFormulaation : otherFormulationsSemExps)
+            _addSemExpTrigger(pActionIntentName, std::move(currOtherFormulaation), _actionSemanticMemory,
+                              parameterLabelToQuestions, pLingDb, _language);
+    }
 }
 
 

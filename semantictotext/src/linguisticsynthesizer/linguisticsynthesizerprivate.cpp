@@ -510,7 +510,7 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp(std::list<WordToSynthesi
         verbContext.verbTense = LinguisticVerbTense::PRESENT_PARTICIPLE;
     else if (_language == SemanticLanguageEnum::ENGLISH && pContext.rootStatement != nullptr
              && pContext.rootStatement->verbTense == SemanticVerbTense::PRESENT
-             && pContext.rootStatement->concepts.count("verb_want") > 0)
+             && SemExpGetter::isWishStatement(*pContext.rootStatement))
         verbContext.verbTense = LinguisticVerbTense::INFINITIVE;
     else {
         verbContext.verbTense = _semanticVerbTenseToLinguisticVerbTense(sentWorkStruct.outs.verbTense,

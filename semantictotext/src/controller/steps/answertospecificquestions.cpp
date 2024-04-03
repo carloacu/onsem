@@ -903,6 +903,23 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
             return true;
     }
 
+    const SemanticStatementGrounding* statGrdPtr = pGrdExp->getStatementGroundingPtr();
+    if (statGrdPtr != nullptr) {
+        auto grdExpToDpPtr = SemExpGetter::getGrdExpToDo(pGrdExp, *statGrdPtr, pMemViewer.currentUserId);
+        if (grdExpToDpPtr != nullptr) {
+            const SemanticStatementGrounding* statGrdToDoPtr = grdExpToDpPtr->grounding().getStatementGroundingPtr();
+            if (statGrdToDoPtr != nullptr) {
+                SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+                if (subWorkStruct.askForNewRecursion()) {
+                    subWorkStruct.comparisonExceptions.request = true;
+                    controller::manageAction(subWorkStruct, pMemViewer, *statGrdToDoPtr, *grdExpToDpPtr, *grdExpToDpPtr);
+                    pWorkStruct.addAnswers(subWorkStruct);
+                    return true;
+                }
+            }
+        }
+    }
+
     switch (pRequestType) {
         case SemanticRequestType::YESORNO:
             return _canYouQuestions(pWorkStruct, pMemViewer, pGrdExp) || _checkName(pWorkStruct, pMemViewer, pGrdExp)

@@ -9,15 +9,16 @@
 #include <onsem/semantictotext/semanticconverter.hpp>
 #include "../semexpcontroller.hpp"
 #include "../../operator/externalteachingrequester.hpp"
+#include "../../semanticmemory/semanticmemoryblockviewer.hpp"
 
 namespace onsem {
 namespace answerToSpecificAssertions {
 
 namespace {
 
-bool _processWantSentences(SemControllerWorkingStruct& pWorkStruct,
-                           SemanticMemoryBlockViewer& pMemViewer,
-                           const GroundedExpression& pGrdExp) {
+bool _processWantToKnowSentences(SemControllerWorkingStruct& pWorkStruct,
+                                 SemanticMemoryBlockViewer& pMemViewer,
+                                 const GroundedExpression& pGrdExp) {
     if (pWorkStruct.author == nullptr || !SemExpGetter::agentIsTheSubject(pGrdExp, pWorkStruct.author->userId))
         return false;
 
@@ -59,14 +60,6 @@ bool _processWantSentences(SemControllerWorkingStruct& pWorkStruct,
                     }
                 }
             }
-        } else if (SemExpGetter::agentIsTheSubject(*objGrdExPtr, SemanticAgentGrounding::me)) {
-            SemControllerWorkingStruct subWorkStruct(pWorkStruct);
-            if (subWorkStruct.askForNewRecursion()) {
-                subWorkStruct.comparisonExceptions.request = true;
-                controller::manageAction(subWorkStruct, pMemViewer, *objStatGrdPtr, *objGrdExPtr, *objGrdExPtr);
-                pWorkStruct.addAnswers(subWorkStruct);
-                return true;
-            }
         }
     }
     return false;
@@ -96,8 +89,9 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
     if (!statGrd.polarity)
         return false;
 
-    if (SemExpGetter::isWishStatement(statGrd))
-        return _processWantSentences(pWorkStruct, pMemViewer, pGrdExp);
+    if (SemExpGetter::isWishStatement(statGrd) &&
+        _processWantToKnowSentences(pWorkStruct, pMemViewer, pGrdExp))
+        return true;
     for (const auto& currCpt : statGrd.concepts) {
         if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACT && pWorkStruct.proativeSpecificationsPtr != nullptr
             && pWorkStruct.proativeSpecificationsPtr->canLearnANewAxiomaticnAction
@@ -105,12 +99,17 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
             return _processTeachSentences(pWorkStruct, pMemViewer, pGrdExp, *statGrdPtr);
     }
 
-    if (statGrd.verbGoal == VerbGoalEnum::MANDATORY) {
-        SemControllerWorkingStruct subWorkStruct(pWorkStruct);
-        if (subWorkStruct.askForNewRecursion()) {
-            controller::manageAction(subWorkStruct, pMemViewer, statGrd, pGrdExp, pGrdExp);
-            pWorkStruct.addAnswers(subWorkStruct);
-            return true;
+    auto grdExpToDpPtr = SemExpGetter::getGrdExpToDo(pGrdExp, statGrd, pMemViewer.currentUserId);
+    if (grdExpToDpPtr != nullptr) {
+        const SemanticStatementGrounding* statGrdToDoPtr = grdExpToDpPtr->grounding().getStatementGroundingPtr();
+        if (statGrdToDoPtr != nullptr) {
+            SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+            if (subWorkStruct.askForNewRecursion()) {
+                subWorkStruct.comparisonExceptions.request = true;
+                controller::manageAction(subWorkStruct, pMemViewer, *statGrdToDoPtr, *grdExpToDpPtr, *grdExpToDpPtr);
+                pWorkStruct.addAnswers(subWorkStruct);
+                return true;
+            }
         }
     }
 

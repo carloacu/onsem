@@ -456,8 +456,6 @@ bool _evaluateMatchingAndExtractParameters(GroundedExpWithLinksWithParameters& p
         auto& reactionResource = reactionResourcePtr->resource;
         // Mathing candidate has parameters to match
         if (!reactionResource.parameterLabelsToQuestions.empty()) {
-            auto semResource = std::make_unique<SemanticResourceGrounding>(
-                reactionResource.label, reactionResource.language, reactionResource.value);
             auto genericMandatoryForm = pInputGrdExp.clone();
             UniqueSemanticExpression genericMandatoryFormUSemExp = std::move(genericMandatoryForm);
             mandatoryFormConverter::process(genericMandatoryFormUSemExp);
