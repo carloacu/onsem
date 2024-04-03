@@ -47,6 +47,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
         {"obj", ActionRecognizer::ParamInfo("object", {"what"})}};
     actionRecognizer.addAction("bring", {"apporter"}, whatObjParameter, lingDb);
     actionRecognizer.addAction("arms_down", {"relâcher ses bras", "baisser ses bras"}, {}, lingDb);
+    actionRecognizer.addAction("unfreeze", {"se défiger"}, {}, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -87,6 +88,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("tu aurais l'amabilité de baisser tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"arms_down\"}",
               _recognize("aurais-tu la gentillesse de baisser tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"unfreeze\"}",
+              _recognize("défige-toi", actionRecognizer, lingDb, frLanguage));
 }
 
 

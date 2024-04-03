@@ -12,6 +12,10 @@
   <nextMeaning lemme="tête" gram="noun"/>
   <wordForm gram="verb"/>
  </words>
+ <words gram="verb" lemme="défiger">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="être" gram="verb">
   <nextMeaning lemme="après" gram="preposition"/>
   <wordForm gram="verb"/>
