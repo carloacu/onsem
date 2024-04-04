@@ -22,44 +22,44 @@ namespace {
 std::optional<UniqueSemanticExpression> _extractConditionOnlySemExp(
         UniqueSemanticExpression& pSemExp) {
     switch (pSemExp->type) {
-        case SemanticExpressionType::GROUNDED: {
-            GroundedExpression& grdExp = pSemExp->getGrdExp();
-            auto* statGrdPtr = grdExp->getStatementGroundingPtr();
-            if (statGrdPtr != nullptr) {
-                auto& statGrd = *statGrdPtr;
-                if (statGrd.requests.has(SemanticRequestType::TIME)) {
-                    statGrd.requests.erase(SemanticRequestType::TIME);
-                    return pSemExp->clone();
-                }
-
-                if (SemExpGetter::isACoreferenceFromStatementGrounding(statGrd, CoreferenceDirectionEnum::BEFORE)) {
-                    auto itTimeChild = grdExp.children.find(GrammaticalType::TIME);
-                    if (itTimeChild != grdExp.children.end())
-                        return itTimeChild->second->clone();
-                }
+    case SemanticExpressionType::GROUNDED: {
+        GroundedExpression& grdExp = pSemExp->getGrdExp();
+        auto* statGrdPtr = grdExp->getStatementGroundingPtr();
+        if (statGrdPtr != nullptr) {
+            auto& statGrd = *statGrdPtr;
+            if (statGrd.requests.has(SemanticRequestType::TIME)) {
+                statGrd.requests.erase(SemanticRequestType::TIME);
+                return pSemExp->clone();
             }
-            break;
+
+            if (SemExpGetter::isACoreferenceFromStatementGrounding(statGrd, CoreferenceDirectionEnum::BEFORE)) {
+                auto itTimeChild = grdExp.children.find(GrammaticalType::TIME);
+                if (itTimeChild != grdExp.children.end())
+                    return itTimeChild->second->clone();
+            }
         }
-        case SemanticExpressionType::LIST: {
-            break;
-        }
-        case SemanticExpressionType::INTERPRETATION: {
-            return _extractConditionOnlySemExp(pSemExp->getIntExp().interpretedExp);
-        }
-        case SemanticExpressionType::FEEDBACK: {
-            return _extractConditionOnlySemExp(pSemExp->getFdkExp().concernedExp);
-        }
-        case SemanticExpressionType::ANNOTATED: {
-            return _extractConditionOnlySemExp(pSemExp->getAnnExp().semExp);
-        }
-        case SemanticExpressionType::METADATA: {
-            return _extractConditionOnlySemExp(pSemExp->getMetadataExp().semExp);
-        }
-        case SemanticExpressionType::FIXEDSYNTHESIS:
-        case SemanticExpressionType::COMMAND:
-        case SemanticExpressionType::CONDITION:
-        case SemanticExpressionType::COMPARISON:
-        case SemanticExpressionType::SETOFFORMS: break;
+        break;
+    }
+    case SemanticExpressionType::LIST: {
+        break;
+    }
+    case SemanticExpressionType::INTERPRETATION: {
+        return _extractConditionOnlySemExp(pSemExp->getIntExp().interpretedExp);
+    }
+    case SemanticExpressionType::FEEDBACK: {
+        return _extractConditionOnlySemExp(pSemExp->getFdkExp().concernedExp);
+    }
+    case SemanticExpressionType::ANNOTATED: {
+        return _extractConditionOnlySemExp(pSemExp->getAnnExp().semExp);
+    }
+    case SemanticExpressionType::METADATA: {
+        return _extractConditionOnlySemExp(pSemExp->getMetadataExp().semExp);
+    }
+    case SemanticExpressionType::FIXEDSYNTHESIS:
+    case SemanticExpressionType::COMMAND:
+    case SemanticExpressionType::CONDITION:
+    case SemanticExpressionType::COMPARISON:
+    case SemanticExpressionType::SETOFFORMS: break;
     }
     return {};
 }
@@ -67,137 +67,155 @@ std::optional<UniqueSemanticExpression> _extractConditionOnlySemExp(
 
 void _extractParameters(
         std::map<std::string, std::vector<UniqueSemanticExpression>>& parameterLabelToQuestions,
-        UniqueSemanticExpression& pSemExp) {
+        UniqueSemanticExpression& pSemExp,
+        GrammaticalType pFirstChildGramType = GrammaticalType::UNKNOWN) {
     switch (pSemExp->type) {
-        case SemanticExpressionType::GROUNDED: {
-            GroundedExpression& grdExp = pSemExp->getGrdExp();
-            for (auto itChild = grdExp.children.begin(); itChild != grdExp.children.end(); ) {
-                GroundedExpression* childGrdExpPtr = itChild->second->getGrdExpPtr_SkipWrapperPtrs();
-                if (childGrdExpPtr != nullptr) {
-                    auto* metaGrdPtr = childGrdExpPtr->grounding().getMetaGroundingPtr();
-                    if (metaGrdPtr != nullptr) {
-                        parameterLabelToQuestions[metaGrdPtr->attibuteName].emplace_back(
-                                    std::make_unique<GroundedExpression>([&] {
+    case SemanticExpressionType::GROUNDED: {
+        GroundedExpression& grdExp = pSemExp->getGrdExp();
+        for (auto itChild = grdExp.children.begin(); itChild != grdExp.children.end(); ) {
+            auto newRequest = SemanticRequestType::NOTHING;
+            if (pFirstChildGramType == GrammaticalType::UNKNOWN)
+                newRequest = SemExpGetter::convertSemGramToRequestType(itChild->first);
+            else
+                newRequest = SemExpGetter::convertSemGramToRequestType(pFirstChildGramType);
+
+            GroundedExpression* childGrdExpPtr = itChild->second->getGrdExpPtr_SkipWrapperPtrs();
+            if (childGrdExpPtr != nullptr) {
+                auto* metaGrdPtr = childGrdExpPtr->grounding().getMetaGroundingPtr();
+                if (metaGrdPtr != nullptr) {
+                    parameterLabelToQuestions[metaGrdPtr->attibuteName].emplace_back([&] {
+                        auto grdExp = std::make_unique<GroundedExpression>([&] {
                             auto statementGrd = std::make_unique<SemanticStatementGrounding>();
-                            statementGrd->requests.add(SemExpGetter::convertSemGramToRequestType(itChild->first));
+                            statementGrd->requests.add(newRequest);
                             statementGrd->coreference.emplace(Coreference(CoreferenceDirectionEnum::BEFORE));
                             return statementGrd;
-                        }()));
-                        itChild = grdExp.children.erase(itChild);
-                        continue;
-                    }
+                        }());
+                        return grdExp;
+                    }());
+                    itChild = grdExp.children.erase(itChild);
+                    continue;
                 }
+            }
 
-                _extractParameters(parameterLabelToQuestions, itChild->second);
-                ++itChild;
-            }
-            break;
+            if (pFirstChildGramType == GrammaticalType::UNKNOWN)
+                _extractParameters(parameterLabelToQuestions, itChild->second, itChild->first);
+            else
+                _extractParameters(parameterLabelToQuestions, itChild->second, pFirstChildGramType);
+            ++itChild;
         }
-        case SemanticExpressionType::LIST: {
-            ListExpression& listExp = pSemExp->getListExp();
-            for (auto& currElt : listExp.elts) {
-                _extractParameters(parameterLabelToQuestions, currElt);
-            }
-            break;
+        break;
+    }
+    case SemanticExpressionType::LIST: {
+        ListExpression& listExp = pSemExp->getListExp();
+        for (auto& currElt : listExp.elts) {
+            _extractParameters(parameterLabelToQuestions, currElt, pFirstChildGramType);
         }
-        case SemanticExpressionType::INTERPRETATION: {
-            _extractParameters(parameterLabelToQuestions, pSemExp->getIntExp().interpretedExp);
-            break;
-        }
-        case SemanticExpressionType::FEEDBACK: {
-            _extractParameters(parameterLabelToQuestions, pSemExp->getFdkExp().concernedExp);
-            break;
-        }
-        case SemanticExpressionType::ANNOTATED: {
-            _extractParameters(parameterLabelToQuestions, pSemExp->getAnnExp().semExp);
-            break;
-        }
-        case SemanticExpressionType::METADATA: {
-            _extractParameters(parameterLabelToQuestions, pSemExp->getMetadataExp().semExp);
-            break;
-        }
-        case SemanticExpressionType::FIXEDSYNTHESIS:
-        case SemanticExpressionType::COMMAND:
-        case SemanticExpressionType::CONDITION:
-        case SemanticExpressionType::COMPARISON:
-        case SemanticExpressionType::SETOFFORMS: break;
+        break;
+    }
+    case SemanticExpressionType::INTERPRETATION: {
+        _extractParameters(parameterLabelToQuestions, pSemExp->getIntExp().interpretedExp, pFirstChildGramType);
+        break;
+    }
+    case SemanticExpressionType::FEEDBACK: {
+        _extractParameters(parameterLabelToQuestions, pSemExp->getFdkExp().concernedExp, pFirstChildGramType);
+        break;
+    }
+    case SemanticExpressionType::ANNOTATED: {
+        _extractParameters(parameterLabelToQuestions, pSemExp->getAnnExp().semExp, pFirstChildGramType);
+        break;
+    }
+    case SemanticExpressionType::METADATA: {
+        _extractParameters(parameterLabelToQuestions, pSemExp->getMetadataExp().semExp, pFirstChildGramType);
+        break;
+    }
+    case SemanticExpressionType::FIXEDSYNTHESIS:
+    case SemanticExpressionType::COMMAND:
+    case SemanticExpressionType::CONDITION:
+    case SemanticExpressionType::COMPARISON:
+    case SemanticExpressionType::SETOFFORMS: break;
     }
 }
 
 
-void _correferenceBeforeToRobot(UniqueSemanticExpression& pSemExp,
-                                const linguistics::LinguisticDatabase& pLingDb) {
+void _correferenceToRobot(UniqueSemanticExpression& pSemExp,
+                          const linguistics::LinguisticDatabase& pLingDb) {
     switch (pSemExp->type) {
-        case SemanticExpressionType::ANNOTATED: {
-            AnnotatedExpression& annExp = pSemExp->getAnnExp();
-            _correferenceBeforeToRobot(annExp.semExp, pLingDb);
-            for (auto& currAnn : annExp.annotations)
-                _correferenceBeforeToRobot(currAnn.second, pLingDb);
-            break;
-        }
-        case SemanticExpressionType::COMMAND: {
-            CommandExpression& cmdExp = pSemExp->getCmdExp();
-            _correferenceBeforeToRobot(cmdExp.semExp, pLingDb);
-            break;
-        }
-        case SemanticExpressionType::FEEDBACK: {
-            FeedbackExpression& fdkExp = pSemExp->getFdkExp();
-            _correferenceBeforeToRobot(fdkExp.concernedExp, pLingDb);
-            break;
-        }
-        case SemanticExpressionType::GROUNDED: {
-            GroundedExpression& grdExp = pSemExp->getGrdExp();
-            if (grdExp.grounding().type == SemanticGroundingType::GENERIC) {
-                SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
-                if (SemExpGetter::isASpecificHuman(genGrd) &&
-                    SemExpGetter::isACoreferenceFromGenericGrounding(genGrd, CoreferenceDirectionEnum::BEFORE)) {
-                    grdExp.moveGrounding(SemanticAgentGrounding::getRobotAgentPtr());
-                }
+    case SemanticExpressionType::ANNOTATED: {
+        AnnotatedExpression& annExp = pSemExp->getAnnExp();
+        _correferenceToRobot(annExp.semExp, pLingDb);
+        for (auto& currAnn : annExp.annotations)
+            _correferenceToRobot(currAnn.second, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::COMMAND: {
+        CommandExpression& cmdExp = pSemExp->getCmdExp();
+        _correferenceToRobot(cmdExp.semExp, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::FEEDBACK: {
+        FeedbackExpression& fdkExp = pSemExp->getFdkExp();
+        _correferenceToRobot(fdkExp.concernedExp, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::GROUNDED: {
+        GroundedExpression& grdExp = pSemExp->getGrdExp();
+        if (grdExp.grounding().type == SemanticGroundingType::GENERIC) {
+            SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
+            if (SemExpGetter::isASpecificHuman(genGrd) &&
+                SemExpGetter::isACoreferenceFromGenericGrounding(genGrd, CoreferenceDirectionEnum::BEFORE)) {
+                grdExp.moveGrounding(SemanticAgentGrounding::getRobotAgentPtr());
             }
+        }
+        if (grdExp.grounding().type == SemanticGroundingType::META) {
+            SemanticMetaGrounding& metaGrd = grdExp->getMetaGrounding();
+            if (metaGrd.attibuteName == "self") {
+                grdExp.moveGrounding(SemanticAgentGrounding::getRobotAgentPtr());
+            }
+        }
 
-            for (auto& child : grdExp.children) {
-                _correferenceBeforeToRobot(child.second, pLingDb);
-            }
-            break;
+        for (auto& child : grdExp.children) {
+            _correferenceToRobot(child.second, pLingDb);
         }
-        case SemanticExpressionType::INTERPRETATION: {
-            InterpretationExpression& intExp = pSemExp->getIntExp();
-            _correferenceBeforeToRobot(intExp.interpretedExp, pLingDb);
-            if (intExp.source == InterpretationSource::STATEMENTCOREFERENCE)
-                _correferenceBeforeToRobot(intExp.originalExp, pLingDb);
-            break;
+        break;
+    }
+    case SemanticExpressionType::INTERPRETATION: {
+        InterpretationExpression& intExp = pSemExp->getIntExp();
+        _correferenceToRobot(intExp.interpretedExp, pLingDb);
+        if (intExp.source == InterpretationSource::STATEMENTCOREFERENCE)
+            _correferenceToRobot(intExp.originalExp, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::LIST: {
+        ListExpression& listExp = pSemExp->getListExp();
+        for (auto& elt : listExp.elts) {
+            _correferenceToRobot(elt, pLingDb);
         }
-        case SemanticExpressionType::LIST: {
-            ListExpression& listExp = pSemExp->getListExp();
-            for (auto& elt : listExp.elts) {
-                _correferenceBeforeToRobot(elt, pLingDb);
-            }
-            break;
+        break;
+    }
+    case SemanticExpressionType::METADATA: {
+        MetadataExpression& metaExp = pSemExp->getMetadataExp();
+        if (metaExp.source) {
+            _correferenceToRobot(*metaExp.source, pLingDb);
         }
-        case SemanticExpressionType::METADATA: {
-            MetadataExpression& metaExp = pSemExp->getMetadataExp();
-            if (metaExp.source) {
-                _correferenceBeforeToRobot(*metaExp.source, pLingDb);
-            }
-            _correferenceBeforeToRobot(metaExp.semExp, pLingDb);
-            break;
+        _correferenceToRobot(metaExp.semExp, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::CONDITION: {
+        ConditionExpression& condExp = pSemExp->getCondExp();
+        _correferenceToRobot(condExp.conditionExp, pLingDb);
+        _correferenceToRobot(condExp.thenExp, pLingDb);
+        if (condExp.elseExp) {
+            _correferenceToRobot(*condExp.elseExp, pLingDb);
         }
-        case SemanticExpressionType::CONDITION: {
-            ConditionExpression& condExp = pSemExp->getCondExp();
-            _correferenceBeforeToRobot(condExp.conditionExp, pLingDb);
-            _correferenceBeforeToRobot(condExp.thenExp, pLingDb);
-            if (condExp.elseExp) {
-                _correferenceBeforeToRobot(*condExp.elseExp, pLingDb);
-            }
-            break;
-        }
-        case SemanticExpressionType::FIXEDSYNTHESIS: {
-            FixedSynthesisExpression& fSynthExp = pSemExp->getFSynthExp();
-            _correferenceBeforeToRobot(fSynthExp.getUSemExp(), pLingDb);
-            break;
-        }
-        case SemanticExpressionType::COMPARISON:
-        case SemanticExpressionType::SETOFFORMS: break;
+        break;
+    }
+    case SemanticExpressionType::FIXEDSYNTHESIS: {
+        FixedSynthesisExpression& fSynthExp = pSemExp->getFSynthExp();
+        _correferenceToRobot(fSynthExp.getUSemExp(), pLingDb);
+        break;
+    }
+    case SemanticExpressionType::COMPARISON:
+    case SemanticExpressionType::SETOFFORMS: break;
     }
 }
 
@@ -209,11 +227,11 @@ void _addIntent(const std::string& pIntentName,
                 const linguistics::LinguisticDatabase& pLingDb,
                 SemanticLanguageEnum pLanguage) {
     TextProcessingContext triggerProcContext(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+                SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
     triggerProcContext.isTimeDependent = false;
     for (auto& currFormulation : pFormulations) {
         auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);
-        _correferenceBeforeToRobot(formulationSemExp, pLingDb);
+        _correferenceToRobot(formulationSemExp, pLingDb);
 
         std::map<std::string, std::vector<std::string>> parameterLabelToQuestionsStrs;
         for (auto& currParam : pParameterLabelToInfos)
@@ -224,19 +242,19 @@ void _addIntent(const std::string& pIntentName,
         _extractParameters(parameterLabelToQuestions, formulationSemExp);
 
         auto outputResourceGrdExp = std::make_unique<GroundedExpression>(converter::createResourceWithParametersFromSemExp(
-            "intent", pIntentName, parameterLabelToQuestions, *formulationSemExp, pLingDb, pLanguage));
+                                                                             "intent", pIntentName, parameterLabelToQuestions, *formulationSemExp, pLingDb, pLanguage));
         triggers::add(std::move(formulationSemExp), std::move(outputResourceGrdExp), pSemMemory, pLingDb);
     }
 }
 
 void _addSemExpTrigger(const std::string& pActionIntentName,
                        UniqueSemanticExpression pFormulationSemExp,
-                        SemanticMemory& pSemanticMemory,
+                       SemanticMemory& pSemanticMemory,
                        const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestions,
                        const linguistics::LinguisticDatabase& pLingDb,
                        SemanticLanguageEnum pLanguage) {
     auto outputResourceGrdExp = std::make_unique<GroundedExpression>(converter::createResourceWithParametersFromSemExp(
-        "intent", pActionIntentName, pParameterLabelToQuestions, *pFormulationSemExp, pLingDb, pLanguage));
+                                                                         "intent", pActionIntentName, pParameterLabelToQuestions, *pFormulationSemExp, pLingDb, pLanguage));
     triggers::add(std::move(pFormulationSemExp), std::move(outputResourceGrdExp), pSemanticMemory, pLingDb);
 }
 
@@ -245,59 +263,59 @@ std::optional<ActionRecognizer::Intent> _reactionToIntent(const mystd::unique_pr
                                                           std::map<std::string, SemanticMemory>& pTypeToMemory,
                                                           const linguistics::LinguisticDatabase& pLingDb) {
     if (pReaction) {
-         const GroundedExpression* grdExpPtr = pReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
-         if (grdExpPtr != nullptr) {
-             auto* resourceGrdPtr = grdExpPtr->grounding().getResourceGroundingPtr();
-             if (resourceGrdPtr != nullptr) {
-                 ActionRecognizer::Intent intent;
-                 intent.name = resourceGrdPtr->resource.value;
-                 for (auto& currParametersToSemExps : resourceGrdPtr->resource.parametersLabelsToValue) {
-                     auto& semExps = currParametersToSemExps.second;
-                     if (!semExps.empty()) {
-                         std::vector<std::string> parameterSplitted;
-                         mystd::split(parameterSplitted, currParametersToSemExps.first, ":");
-                         if (!parameterSplitted.empty()) {
-                             auto paramName = parameterSplitted[0];
-                             auto& paramValues = intent.slotNameToValues[paramName];
-                             TextProcessingContext outContext(
-                                 SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, resourceGrdPtr->resource.language);
-                             SemanticMemory semMemory;
+        const GroundedExpression* grdExpPtr = pReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+        if (grdExpPtr != nullptr) {
+            auto* resourceGrdPtr = grdExpPtr->grounding().getResourceGroundingPtr();
+            if (resourceGrdPtr != nullptr) {
+                ActionRecognizer::Intent intent;
+                intent.name = resourceGrdPtr->resource.value;
+                for (auto& currParametersToSemExps : resourceGrdPtr->resource.parametersLabelsToValue) {
+                    auto& semExps = currParametersToSemExps.second;
+                    if (!semExps.empty()) {
+                        std::vector<std::string> parameterSplitted;
+                        mystd::split(parameterSplitted, currParametersToSemExps.first, ":");
+                        if (!parameterSplitted.empty()) {
+                            auto paramName = parameterSplitted[0];
+                            auto& paramValues = intent.slotNameToValues[paramName];
+                            TextProcessingContext outContext(
+                                        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, resourceGrdPtr->resource.language);
+                            SemanticMemory semMemory;
 
-                             for (auto& currAnswer : semExps) {
-                                 std::string newValue;
-                                 converter::semExpToText(newValue, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
+                            for (auto& currAnswer : semExps) {
+                                std::string newValue;
+                                converter::semExpToText(newValue, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
 
-                                 bool paramAdded = false;
-                                 if (parameterSplitted.size() > 1) {
-                                     auto paramType = parameterSplitted[1];
-                                     auto itParamMemory = pTypeToMemory.find(paramType);
-                                     if (itParamMemory != pTypeToMemory.end()) {
-                                         mystd::unique_propagate_const<UniqueSemanticExpression> entityReaction;
-                                         triggers::match(entityReaction, itParamMemory->second, currAnswer->clone(), pLingDb);
+                                bool paramAdded = false;
+                                if (parameterSplitted.size() > 1) {
+                                    auto paramType = parameterSplitted[1];
+                                    auto itParamMemory = pTypeToMemory.find(paramType);
+                                    if (itParamMemory != pTypeToMemory.end()) {
+                                        mystd::unique_propagate_const<UniqueSemanticExpression> entityReaction;
+                                        triggers::match(entityReaction, itParamMemory->second, currAnswer->clone(), pLingDb);
 
-                                         if (entityReaction) {
-                                             const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
-                                             if (entityGrdExpPtr != nullptr) {
-                                                 auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
-                                                 if (entityResourceGrdPtr != nullptr) {
-                                                     paramValues.push_back(entityResourceGrdPtr->resource.value);
-                                                     paramAdded = true;
-                                                 }
-                                             }
-                                         }
-                                     }
-                                 }
+                                        if (entityReaction) {
+                                            const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+                                            if (entityGrdExpPtr != nullptr) {
+                                                auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
+                                                if (entityResourceGrdPtr != nullptr) {
+                                                    paramValues.push_back(entityResourceGrdPtr->resource.value);
+                                                    paramAdded = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
 
-                                 if (!paramAdded)
-                                     paramValues.push_back(newValue);
-                             }
-                         }
-                     }
-                 }
+                                if (!paramAdded)
+                                    paramValues.push_back(newValue);
+                            }
+                        }
+                    }
+                }
 
-                 return intent;
-             }
-         }
+                return intent;
+            }
+        }
     }
     return {};
 }
@@ -350,8 +368,8 @@ std::string ActionRecognizer::ActionRecognized::toJson() const {
 
 ActionRecognizer::ParamInfo::ParamInfo(const std::string& pType,
                                        const std::vector<std::string>& pQuestions)
- : type(pType),
-   questions(pQuestions)
+    : type(pType),
+      questions(pQuestions)
 {
 }
 
@@ -406,11 +424,11 @@ void ActionRecognizer::addAction(const std::string& pActionIntentName,
                                  const std::map<std::string, ParamInfo>& pParameterLabelToInfos,
                                  const linguistics::LinguisticDatabase& pLingDb) {
     TextProcessingContext triggerProcContext(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, _language);
+                SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, _language);
     triggerProcContext.isTimeDependent = false;
     for (auto& currFormulation : pIntentFormulations) {
         auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);
-        _correferenceBeforeToRobot(formulationSemExp, pLingDb);
+        _correferenceToRobot(formulationSemExp, pLingDb);
 
         std::list<UniqueSemanticExpression> otherFormulationsSemExps;
         {
@@ -453,7 +471,7 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
             mystd::unique_propagate_const<UniqueSemanticExpression> conditionReaction;
             triggers::match(conditionReaction, _predicateSemanticMemory, std::move(*conditionSepExp), pLingDb);
             return _reactionToIntent(conditionReaction, _typeToMemory, pLingDb);
-        };
+        }
         return {};
     };
 

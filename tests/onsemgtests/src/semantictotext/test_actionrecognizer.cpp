@@ -37,6 +37,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addEntity("checkpoint", "checkpoint2", {"plateau"}, lingDb);
     actionRecognizer.addEntity("object", "patate", {"patate"}, lingDb);
     actionRecognizer.addPredicate("clicked", {"[c:checkpoint] est pressé", "[c:checkpoint] est cliqué"}, lingDb);
+    actionRecognizer.addPredicate("same_location", {"[self] est proche de [c:checkpoint]"}, lingDb);
+
     std::map<std::string, ActionRecognizer::ParamInfo> whatNbParameter{
         {"nb", ActionRecognizer::ParamInfo("int", {"what"})}};
     actionRecognizer.addAction("add", {"ajouter"}, whatNbParameter, lingDb);
@@ -48,6 +50,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("bring", {"apporter"}, whatObjParameter, lingDb);
     actionRecognizer.addAction("arms_down", {"relâcher ses bras", "baisser ses bras"}, {}, lingDb);
     actionRecognizer.addAction("unfreeze", {"se défiger"}, {}, lingDb);
+    actionRecognizer.addAction("what_i_know", {"dire ce que [self] sait"}, {}, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -90,6 +93,12 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("aurais-tu la gentillesse de baisser tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"unfreeze\"}",
               _recognize("défige-toi", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"what_i_know\"}",
+              _recognize("dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"action\": \"what_i_know\", "
+              "\"condition\": \"same_location(c=checkpoint1)\"}",
+              _recognize("si tu es proche du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
 }
 
 

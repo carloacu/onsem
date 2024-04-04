@@ -18,6 +18,7 @@
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
 #include <onsem/semantictotext/sentiment/sentimentdetector.hpp>
 #include <onsem/semantictotext/type/naturallanguageexpression.hpp>
+#include <onsem/semantictotext/tool/semexpcomparator.hpp>
 #include "linguisticsynthesizer/linguisticsynthesizer.hpp"
 #include "conversion/mandatoryformconverter.hpp"
 #include "conversion/occurrencerankconverter.hpp"
@@ -32,6 +33,28 @@ namespace converter {
 
 namespace {
 const SemanticMemoryBlock _emptyMemBlock(0);
+
+
+const SemanticExpression* _skipCustomRoot(const SemanticExpression& pSemExp, const SemanticExpression& pCustomRoot,
+                                         const linguistics::LinguisticDatabase& pLingDb) {
+    const GroundedExpression* customRootGrdExpPtr = pCustomRoot.getGrdExpPtr_SkipWrapperPtrs();
+    if (customRootGrdExpPtr != nullptr && customRootGrdExpPtr->children.size() < 2) {
+        const GroundedExpression* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+        if (grdExpPtr != nullptr && grdExpPtr->children.size() == 1) {
+             const SemanticMemoryBlock memBlock;
+             if (SemExpComparator::groundingsAreEqual(customRootGrdExpPtr->grounding(), grdExpPtr->grounding(), memBlock, pLingDb)) {
+                 auto& grdExpFirstChild = *grdExpPtr->children.begin();
+                 if (customRootGrdExpPtr->children.size() == 0)
+                     return &*grdExpFirstChild.second;
+
+                 auto& customRootFirstChild = *customRootGrdExpPtr->children.begin();
+                 if (customRootFirstChild.first == grdExpFirstChild.first)
+                     return _skipCustomRoot(*customRootFirstChild.second, *grdExpFirstChild.second, pLingDb);
+             }
+        }
+    }
+    return &pSemExp;
+}
 
 void _completeWithContextInternallyToASemExp(SemanticExpression& pSemExp,
                                              const linguistics::LinguisticDatabase& pLingDb,
@@ -598,10 +621,17 @@ void extractParameters(std::map<std::string, std::vector<UniqueSemanticExpressio
                             auto answerChildSemExpPtr = SemExpGetter::getChildFromSemExpRecursively(
                                 *expWithLinks->semExp, grammaticalChildrenType);
                             if (answerChildSemExpPtr != nullptr) {
-                                std::list<const GroundedExpression*> grdExpPtrs;
-                                answerChildSemExpPtr->getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
-                                for (auto* currGrdExpPtr : grdExpPtrs)
-                                    answers.emplace_back(currGrdExpPtr->clone());
+
+                                auto questionChildPtr = SemExpGetter::getChildFromSemExpRecursively(*currQuestion, grammaticalChildrenType);
+                                if (questionChildPtr != nullptr)
+                                    answerChildSemExpPtr = _skipCustomRoot(*answerChildSemExpPtr, *questionChildPtr, pLingDb);
+
+                                if (answerChildSemExpPtr != nullptr) {
+                                    std::list<const GroundedExpression*> grdExpPtrs;
+                                    answerChildSemExpPtr->getGrdExpPtrs_SkipWrapperLists(grdExpPtrs);
+                                    for (auto* currGrdExpPtr : grdExpPtrs)
+                                        answers.emplace_back(currGrdExpPtr->clone());
+                                }
                             }
                         }
                     }

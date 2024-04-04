@@ -354,6 +354,6 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_repetitions) {
         operator_teachBehavior("il faut faire ça en mettant une musique de Michael Jackson", semMem, lingDb));
 
     EXPECT_EQ("(\t(\t" + doSquareOutput + "\t)\tIN_BACKGROUND: \\" + resourceLabelForTests_cmd
-                  + "=#fr_FR#mets une musique(object=Une musique de Michael Jackson)\\\t)",
+                  + "=#fr_FR#mets une musique(object=Michael Jackson)\\\t)",
               operator_resolveCommand("fais un truc cool", semMem, lingDb));
 }
