@@ -1745,6 +1745,16 @@ void _addARequest(SemanticRequests& requestTypes, SemanticRequestType pNewReques
 std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xInitNewSentence(ToGenRepGeneral& pGeneral,
                                                                                ToGenRepContext& pContext,
                                                                                Chunk& pVerbChunk) const {
+    if (ConceptSet::haveAConcept(pVerbChunk.head->inflWords.front().infos.concepts, "verb_equal_be")) {
+        pContext.holdingVerbIsBe = true;
+        ChunkLink* subject = getSubjectChunkLink(pVerbChunk);
+        if (subject != nullptr)
+            subject->chunk->hasOnlyOneReference = false;
+        ChunkLink* objectChkLk = getDOChunkLink(pVerbChunk);
+        if (objectChkLk != nullptr)
+            objectChkLk->chunk->hasOnlyOneReference = false;
+    }
+
     std::unique_ptr<GroundedExpression> res;
     {
         auto rootGrounding = std::make_unique<SemanticStatementGrounding>();
@@ -1753,7 +1763,7 @@ std::unique_ptr<GroundedExpression> SyntacticGraphToSemantic::xInitNewSentence(T
         pContext.holdingVerbChunkPtr = &pVerbChunk;
         xConvertVerbChunkToRootGrounding(*rootGrounding, pVerbChunk);
         // invert confidence signe => inverse the pointed meaning
-        if (!pVerbChunk.positive && !_verbChunkHasAnObjectWithAContxtualInfoAny(pVerbChunk))
+        if (!pVerbChunk.positive && (pContext.holdingVerbIsBe || !_verbChunkHasAnObjectWithAContxtualInfoAny(pVerbChunk)))
             rootGrounding->polarity = !rootGrounding->polarity;
         if (pVerbChunk.isPassive)
             rootGrounding->isPassive.emplace(true);
@@ -1821,16 +1831,6 @@ void SyntacticGraphToSemantic::xFillVerbChunk(std::unique_ptr<GroundedExpression
         }
         if (pContext.holdingSentenceRequests.empty())
             pContext.holdingSentenceRequests = std::move(requests);
-    }
-
-    if (ConceptSet::haveAConcept(pVerbChunk.tokRange.getItBegin()->inflWords.front().infos.concepts, "verb_equal_be")) {
-        pContext.holdingVerbIsBe = true;
-        ChunkLink* subject = getSubjectChunkLink(pVerbChunk);
-        if (subject != nullptr)
-            subject->chunk->hasOnlyOneReference = false;
-        ChunkLink* objectChkLk = getDOChunkLink(pVerbChunk);
-        if (objectChkLk != nullptr)
-            objectChkLk->chunk->hasOnlyOneReference = false;
     }
 }
 

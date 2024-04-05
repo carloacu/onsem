@@ -37,7 +37,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addEntity("checkpoint", "checkpoint2", {"plateau"}, lingDb);
     actionRecognizer.addEntity("object", "patate", {"patate"}, lingDb);
     actionRecognizer.addPredicate("clicked", {"[c:checkpoint] est pressé", "[c:checkpoint] est cliqué"}, lingDb);
-    actionRecognizer.addPredicate("same_location", {"[self] est proche de [c:checkpoint]"}, lingDb);
+    actionRecognizer.addPredicate("same_location", {"[self] est proche de [c:checkpoint]", "[self] est pas loin de [c:checkpoint]"}, lingDb);
 
     std::map<std::string, ActionRecognizer::ParamInfo> whatNbParameter{
         {"nb", ActionRecognizer::ParamInfo("int", {"what"})}};
@@ -99,6 +99,11 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"action\": \"what_i_know\", "
               "\"condition\": \"same_location(c=checkpoint1)\"}",
               _recognize("si tu es proche du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"what_i_know\", "
+              "\"condition\": \"same_location(c=checkpoint1)\"}",
+              _recognize("si tu es pas loin du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"what_i_know\"}",
+              _recognize("si tu es loin du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
 }
 
 
