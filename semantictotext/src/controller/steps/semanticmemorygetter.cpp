@@ -350,21 +350,20 @@ bool _addPotentialNewRelationsFromLinks(RelationsThatMatch<IS_MODIFIABLE>& pRela
         }
     }
 
+    _executeForLinksAlreadyMatched<IS_MODIFIABLE, MEMSENTENCES>(
+        pAlreadyMatchedSentences,
+        pLinksToGrdExp,
+        pLinksToGrdExpFromBinary,
+        pMemBlockPrivatePtr,
+        pLingDb,
+        [&](MEMSENTENCES* pMemSentToAdd,
+            const unsigned char* pStaticMemorySentencePtr,
+            const std::function<std::unique_ptr<GroundedExpressionContainer>()>& pGetGrdExpFromMem) {
+            auto grdExpFromMemContainer = pGetGrdExpFromMem();
+            const GroundedExpression& grdExpFromMem = grdExpFromMemContainer->getGrdExp();
 
-    if (!pCheckChildren) {
-        _executeForLinksAlreadyMatched<IS_MODIFIABLE, MEMSENTENCES>(
-            pAlreadyMatchedSentences,
-            pLinksToGrdExp,
-            pLinksToGrdExpFromBinary,
-            pMemBlockPrivatePtr,
-            pLingDb,
-            [&](MEMSENTENCES* pMemSentToAdd,
-                const unsigned char* pStaticMemorySentencePtr,
-                const std::function<std::unique_ptr<GroundedExpressionContainer>()>& pGetGrdExpFromMem) {
-                auto grdExpFromMemContainer = pGetGrdExpFromMem();
-                const GroundedExpression& grdExpFromMem = grdExpFromMemContainer->getGrdExp();
-
-                if (grdToLookFor != SemanticGroundingType::STATEMENT) {
+            if (grdToLookFor != SemanticGroundingType::STATEMENT) {
+                if (!pCheckChildren) {
                     auto itOwnerFromMemory = grdExpFromMem.children.find(GrammaticalType::OWNER);
                     if (itOwnerFromMemory != grdExpFromMem.children.end()) {
                         if (itOwnerLookForPtr == nullptr)
@@ -416,112 +415,95 @@ bool _addPotentialNewRelationsFromLinks(RelationsThatMatch<IS_MODIFIABLE>& pRela
                         }
                     }
                 }
+            }
 
-                if (pMemSentToAdd != nullptr)
-                    pRelations.addMemSent(*pMemSentToAdd);
-                else
-                    pRelations.addMemSentStatic(pStaticMemorySentencePtr, pLingDb);
-                res = true;
-            });
-        return res;
-    }
+            if (pCheckChildren) {
+                if (grdToLookFor == SemanticGroundingType::AGENT
+                    && grdExpFromMem.grounding().type != SemanticGroundingType::AGENT
+                    && grdExpFromMem.grounding().type != SemanticGroundingType::NAME && !grdExpFromMem.children.empty())
+                    return;
 
-    _executeForLinksAlreadyMatched<IS_MODIFIABLE, MEMSENTENCES>(
-        pAlreadyMatchedSentences,
-        pLinksToGrdExp,
-        pLinksToGrdExpFromBinary,
-        pMemBlockPrivatePtr,
-        pLingDb,
-        [&](MEMSENTENCES* pMemSentToAdd,
-            const unsigned char* pStaticMemorySentencePtr,
-            const std::function<std::unique_ptr<GroundedExpressionContainer>()>& pGetGrdExpFromMem) {
-            auto grdExpFromMemContainer = pGetGrdExpFromMem();
-            const GroundedExpression& grdExpFromMem = grdExpFromMemContainer->getGrdExp();
-            if (grdToLookFor == SemanticGroundingType::AGENT
-                && grdExpFromMem.grounding().type != SemanticGroundingType::AGENT
-                && grdExpFromMem.grounding().type != SemanticGroundingType::NAME && !grdExpFromMem.children.empty())
-                return;
+                if (pMemBlockPrivatePtr != nullptr && (hasAnChildToCheck || grdExpFromMem.children.count(GrammaticalType::OWNER) > 0)) {
+                    auto compWithOrWithoutInterpretations = _createCompWithOrWithoutInterpretations(!pIsATrigger);
 
-            if (pMemBlockPrivatePtr != nullptr && (hasAnChildToCheck || grdExpFromMem.children.count(GrammaticalType::OWNER) > 0)) {
-                auto compWithOrWithoutInterpretations = _createCompWithOrWithoutInterpretations(!pIsATrigger);
+                    auto& memBlock = pMemBlockPrivatePtr->getMemBlock();
+                    if (!pIsATrigger && itSpecifierToLookForPtr != nullptr
+                        && pChildSemExpsToSkip.count(itSpecifierToLookForPtr) == 0) {
+                        auto compWithoutStatementGrd = _createCompWithOrWithoutInterpretations(!pIsATrigger);
+                        compWithoutStatementGrd.semExps1ToSkip = pChildSemExpsToSkip;    // TODO: not copy
+                        auto itSpecifierFromMemory = grdExpFromMem.children.find(GrammaticalType::SPECIFIER);
+                        if (itSpecifierFromMemory == grdExpFromMem.children.end()) {
+                            auto itOwnerFromMemory = grdExpFromMem.children.find(GrammaticalType::OWNER);
+                            if (!SemExpGetter::isAModifier(*itSpecifierToLookForPtr, !pIsATrigger)
+                                && (itOwnerFromMemory == grdExpFromMem.children.end()
+                                    || !SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
+                                        *itSpecifierToLookForPtr,
+                                        *itOwnerFromMemory->second,
+                                        memBlock,
+                                        pLingDb,
+                                        &compWithoutStatementGrd)))
+                                return;
+                        } else if (!SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
+                                       *itSpecifierToLookForPtr,
+                                       *itSpecifierFromMemory->second,
+                                       memBlock,
+                                       pLingDb,
+                                       &compWithoutStatementGrd)) {
+                            return;
+                        }
+                    }
 
-                auto& memBlock = pMemBlockPrivatePtr->getMemBlock();
-                if (!pIsATrigger && itSpecifierToLookForPtr != nullptr
-                    && pChildSemExpsToSkip.count(itSpecifierToLookForPtr) == 0) {
-                    auto compWithoutStatementGrd = _createCompWithOrWithoutInterpretations(!pIsATrigger);
-                    compWithoutStatementGrd.semExps1ToSkip = pChildSemExpsToSkip;    // TODO: not copy
-                    auto itSpecifierFromMemory = grdExpFromMem.children.find(GrammaticalType::SPECIFIER);
-                    if (itSpecifierFromMemory == grdExpFromMem.children.end()) {
+                    if (!pIsATrigger && itOwnerLookForPtr != nullptr) {
                         auto itOwnerFromMemory = grdExpFromMem.children.find(GrammaticalType::OWNER);
-                        if (!SemExpGetter::isAModifier(*itSpecifierToLookForPtr, !pIsATrigger)
-                            && (itOwnerFromMemory == grdExpFromMem.children.end()
+                        if (itOwnerFromMemory == grdExpFromMem.children.end()) {
+                            auto itSpecifierFromMemory = grdExpFromMem.children.find(GrammaticalType::SPECIFIER);
+                            if (itSpecifierFromMemory == grdExpFromMem.children.end()
                                 || !SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
-                                    *itSpecifierToLookForPtr,
-                                    *itOwnerFromMemory->second,
+                                    *itOwnerLookForPtr,
+                                    *itSpecifierFromMemory->second,
                                     memBlock,
                                     pLingDb,
-                                    &compWithoutStatementGrd)))
+                                    &compWithOrWithoutInterpretations))
+                                return;
+                        } else if (SemExpComparator::getSemExpsImbrications(*itOwnerLookForPtr,
+                                                                            *itOwnerFromMemory->second,
+                                                                            memBlock,
+                                                                            pLingDb,
+                                                                            &compWithOrWithoutInterpretations)
+                                   != ImbricationType::EQUALS) {
                             return;
-                    } else if (!SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
-                                   *itSpecifierToLookForPtr,
-                                   *itSpecifierFromMemory->second,
-                                   memBlock,
-                                   pLingDb,
-                                   &compWithoutStatementGrd)) {
-                        return;
+                        }
                     }
-                }
 
-                if (!pIsATrigger && itOwnerLookForPtr != nullptr) {
-                    auto itOwnerFromMemory = grdExpFromMem.children.find(GrammaticalType::OWNER);
-                    if (itOwnerFromMemory == grdExpFromMem.children.end()) {
-                        auto itSpecifierFromMemory = grdExpFromMem.children.find(GrammaticalType::SPECIFIER);
+                    if (itSubConceptToLookForPtr != nullptr) {
+                        auto itSpecifierFromMemory = grdExpFromMem.children.find(GrammaticalType::SUB_CONCEPT);
                         if (itSpecifierFromMemory == grdExpFromMem.children.end()
                             || !SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
-                                *itOwnerLookForPtr,
+                                *itSubConceptToLookForPtr,
                                 *itSpecifierFromMemory->second,
                                 memBlock,
                                 pLingDb,
                                 &compWithOrWithoutInterpretations))
                             return;
-                    } else if (SemExpComparator::getSemExpsImbrications(*itOwnerLookForPtr,
-                                                                        *itOwnerFromMemory->second,
-                                                                        memBlock,
-                                                                        pLingDb,
-                                                                        &compWithOrWithoutInterpretations)
-                               != ImbricationType::EQUALS) {
-                        return;
                     }
-                }
 
-                if (itSubConceptToLookForPtr != nullptr) {
-                    auto itSpecifierFromMemory = grdExpFromMem.children.find(GrammaticalType::SUB_CONCEPT);
-                    if (itSpecifierFromMemory == grdExpFromMem.children.end()
-                        || !SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
-                            *itSubConceptToLookForPtr,
-                            *itSpecifierFromMemory->second,
-                            memBlock,
-                            pLingDb,
-                            &compWithOrWithoutInterpretations))
+                    if (itTimeLookForPtr != nullptr) {
+                        auto itTimeFromMemory = grdExpFromMem.children.find(GrammaticalType::TIME);
+                        if (itTimeFromMemory == grdExpFromMem.children.end()
+                            || !SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
+                                *itTimeLookForPtr,
+                                *itTimeFromMemory->second,
+                                memBlock,
+                                pLingDb,
+                                &compWithOrWithoutInterpretations))
+                            return;
+                    }
+
+                    if (itOtherThanPtr != nullptr
+                        && SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
+                            *itOtherThanPtr, grdExpFromMem, memBlock, pLingDb, &compWithOrWithoutInterpretations))
                         return;
                 }
-
-                if (itTimeLookForPtr != nullptr) {
-                    auto itTimeFromMemory = grdExpFromMem.children.find(GrammaticalType::TIME);
-                    if (itTimeFromMemory == grdExpFromMem.children.end()
-                        || !SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
-                            *itTimeLookForPtr,
-                            *itTimeFromMemory->second,
-                            memBlock,
-                            pLingDb,
-                            &compWithOrWithoutInterpretations))
-                        return;
-                }
-
-                if (itOtherThanPtr != nullptr
-                    && SemExpComparator::semExpsAreEqualOrIsContainedFromMemBlock(
-                        *itOtherThanPtr, grdExpFromMem, memBlock, pLingDb, &compWithOrWithoutInterpretations))
-                    return;
             }
 
             if (pMemSentToAdd != nullptr)
