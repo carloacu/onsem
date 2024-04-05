@@ -31,10 +31,11 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     auto frLanguage = SemanticLanguageEnum::FRENCH;
     ActionRecognizer actionRecognizer(frLanguage);
 
-    actionRecognizer.addType("object", {"objet"});
-    actionRecognizer.addType("checkpoint", {"checkpoint"});
+    actionRecognizer.addType("object", {"objet"}, false);
+    actionRecognizer.addType("checkpoint", {"checkpoint"}, true);
     actionRecognizer.addEntity("checkpoint", "checkpoint1", {"Virginie"}, lingDb);
     actionRecognizer.addEntity("checkpoint", "checkpoint2", {"plateau"}, lingDb);
+    actionRecognizer.addEntity("checkpoint", "checkpoint3", {"Charles"}, lingDb);
     actionRecognizer.addEntity("object", "patate", {"patate"}, lingDb);
     actionRecognizer.addPredicate("clicked", {"[c:checkpoint] est pressé", "[c:checkpoint] est cliqué"}, lingDb);
     actionRecognizer.addPredicate("same_location", {"[self] est proche de [c:checkpoint]", "[self] est pas loin de [c:checkpoint]"}, lingDb);
@@ -62,12 +63,22 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               "\"condition\": \"clicked(c=checkpoint2)\"}",
               _recognize("Quand le checkpoint du plateau est pressée, ajoute un", actionRecognizer, lingDb, frLanguage));
 
+    EXPECT_EQ("{\"action\": \"add(nb=1)\", "
+              "\"condition\": \"clicked(c=checkpoint3)\"}",
+              _recognize("Si le checkpoint de Charles est pressé, ajoute un", actionRecognizer, lingDb, frLanguage));
+
     EXPECT_EQ("{\"action\": \"go_to_loc(loc=checkpoint1)\", "
               "\"condition\": \"clicked(c=checkpoint1)\"}",
               _recognize("quand le checkpoint Virginie est pressée, va au checkpoint Virginie", actionRecognizer, lingDb, frLanguage));
 
     EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
               _recognize("si le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"condition\": \"clicked(c=Le checkpoint NomQuiExistePas)\"}",
+              _recognize("si le checkpoint NomQuiExistePas est cliquée", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"action\": \"add(nb=1)\", \"condition\": \"clicked(c=Le checkpoint de NomQuiExistePas)\"}",
+              _recognize("si le checkpoint de NomQuiExistePas est cliquée, ajoute un", actionRecognizer, lingDb, frLanguage));
 
     EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
               _recognize("quand le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));

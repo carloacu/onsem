@@ -379,14 +379,18 @@ ActionRecognizer::ActionRecognizer(SemanticLanguageEnum pLanguage)
       _actionSemanticMemory(),
       _predicateSemanticMemory(),
       _typeToFormulations(),
+      _typeWithValueConsideredAsOwner(),
       _typeToMemory() {
 }
 
 
 void ActionRecognizer::addType(const std::string& pType,
-                               const std::vector<std::string>& pFormulations) {
+                               const std::vector<std::string>& pFormulations,
+                               bool pIsValueConsideredAsOwner) {
     auto& formuationsForType = _typeToFormulations[pType];
     formuationsForType.insert(formuationsForType.end(), pFormulations.begin(), pFormulations.end());
+    if (pIsValueConsideredAsOwner)
+        _typeWithValueConsideredAsOwner.insert(pType);
 }
 
 void ActionRecognizer::addEntity(const std::string& pType,
@@ -397,11 +401,18 @@ void ActionRecognizer::addEntity(const std::string& pType,
     const std::map<std::string, ParamInfo> parameterLabelToQuestions;
     _addIntent(pEntityId, pEntityLabels, parameterLabelToQuestions, semMem, pLingDb, _language);
 
+    bool isValueConsideredAsOwner = _typeWithValueConsideredAsOwner.count(pType) > 0;
     auto& formuations = _typeToFormulations[pType];
     std::vector<std::string> newEntityLabels;
     for (const auto& currFormulation : formuations) {
         for (const auto& currLabel : pEntityLabels) {
             newEntityLabels.emplace_back(currFormulation + " " + currLabel);
+            if (isValueConsideredAsOwner) {
+                if (_language == SemanticLanguageEnum::FRENCH)
+                    newEntityLabels.emplace_back(currFormulation + " de " + currLabel);
+                else
+                    newEntityLabels.emplace_back(currFormulation + " of " + currLabel);
+            }
         }
     }
     _addIntent(pEntityId, newEntityLabels, parameterLabelToQuestions, semMem, pLingDb, _language);

@@ -42,7 +42,8 @@ public:
     };
 
     void addType(const std::string& pType,
-                 const std::vector<std::string>& pFormulations);
+                 const std::vector<std::string>& pFormulations,
+                 bool pIsValueConsideredAsOwner);
 
     void addEntity(const std::string& pType,
                    const std::string& pEntityId,
@@ -69,6 +70,7 @@ private:
     SemanticMemory _actionSemanticMemory;
     SemanticMemory _predicateSemanticMemory;
     std::map<std::string, std::vector<std::string>> _typeToFormulations;
+    std::set<std::string> _typeWithValueConsideredAsOwner;
     std::map<std::string, SemanticMemory> _typeToMemory;
 };
 

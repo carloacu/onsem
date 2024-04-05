@@ -71,7 +71,7 @@ TEST_F(SemanticReasonerGTests, test_recommendations) {
     EXPECT_EQ("Où est l'iphone ?", _getRecommendations("Je veux un iphone", recommendationContainer, lingDb));
     EXPECT_EQ("Combien coûte le téléphone Xperia S5 ?",
               _getRecommendations("Je veux un Xperia S5", recommendationContainer, lingDb));
-    EXPECT_EQ("Combien coûte le téléphone Xperia S5 ? | Combien coûte le téléphone samsoung D4 ?",
+    EXPECT_EQ("Combien coûte le téléphone Xperia S5 ?",
               _getRecommendations("Je veux un téléphone Xperia S5", recommendationContainer, lingDb));
     EXPECT_EQ("Parle plus fort", _getRecommendations("Plus fort", recommendationContainer, lingDb));
     EXPECT_EQ("Est-ce que N5 est un robot de Short Circuit ?",
