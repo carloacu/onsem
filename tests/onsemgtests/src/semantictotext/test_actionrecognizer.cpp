@@ -86,6 +86,14 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
               _recognize("à chaque fois que le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
 
+    EXPECT_EQ("{\"action\": \"UNKNOWN\", "
+              "\"condition\": \"clicked(c=checkpoint1)\"}",
+              _recognize("quand le checkpoint Virginie est cliquée saute", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"action\": \"UNKNOWN\", "
+              "\"condition\": \"clicked(c=checkpoint1)\"}",
+              _recognize("quand le checkpoint Virginie est cliquée ça sera une belle journée", actionRecognizer, lingDb, frLanguage));
+
     EXPECT_EQ("{\"action\": \"arms_down\"}",
               _recognize("relâche tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"arms_down\"}",
