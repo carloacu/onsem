@@ -52,6 +52,13 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("arms_down", {"relâcher ses bras", "baisser ses bras"}, {}, lingDb);
     actionRecognizer.addAction("unfreeze", {"se défiger"}, {}, lingDb);
     actionRecognizer.addAction("what_i_know", {"dire ce que [self] sait"}, {}, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> howFarInMetersParameter{
+        {"distance", ActionRecognizer::ParamInfo("checkpoint", {"how far in meters"})}};
+    actionRecognizer.addAction("move", {"avance"}, howFarInMetersParameter, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> howFarInDegreesParameter{
+        {"angle", ActionRecognizer::ParamInfo("angle", {"how far in degrees"})}};
+    actionRecognizer.addAction("turn_left", {"tourne à gauche"}, howFarInDegreesParameter, lingDb);
+    actionRecognizer.addAction("turn_right", {"tourne à droite"}, howFarInDegreesParameter, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -97,6 +104,10 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"action\": \"arms_down\"}",
               _recognize("relâche tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("baisse tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
+              _recognize("baisse tes mains", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"arms_down\"}",
               _recognize("j'aimerais que tu baisses tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"arms_down\"}",
               _recognize("Veux-tu bien baisser tes bras ?", actionRecognizer, lingDb, frLanguage));
@@ -123,6 +134,13 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("si tu es pas loin du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"what_i_know\"}",
               _recognize("si tu es loin du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"action\": \"move(distance=10 mètres)\"}",
+              _recognize("avance de 10 mètres", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"turn_left(angle=34 degrés)\"}",
+              _recognize("tourne à gauche de 34 degrés", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"turn_right(angle=12 degrés)\"}",
+              _recognize("tourne à droite de 12 degrés", actionRecognizer, lingDb, frLanguage));
 }
 
 
@@ -143,6 +161,12 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     actionRecognizer.addAction("arms_down", {"relax his arms",
                                              "drop his arms",
                                              "lower his arms"}, {}, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> howFarInMetersParameter{
+        {"distance", ActionRecognizer::ParamInfo("checkpoint", {"how far in meters"})}};
+    actionRecognizer.addAction("move", {"move forward"}, howFarInMetersParameter, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> howFarInDegreesParameter{
+        {"angle", ActionRecognizer::ParamInfo("angle", {"how far in degrees"})}};
+    actionRecognizer.addAction("turn_left", {"turn left"}, howFarInDegreesParameter, lingDb);
 
     EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\"}",
               _recognize("go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
@@ -175,4 +199,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     EXPECT_EQ("{\"action\": \"arms_down\"}",
               _recognize("I'd like you to drop your arms", actionRecognizer, lingDb, enLanguage));
 
+    EXPECT_EQ("{\"action\": \"move(distance=10 meters)\"}",
+              _recognize("move forward 10 meters", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"turn_left(angle=32 degrees)\"}",
+              _recognize("Turn left 32 degrees", actionRecognizer, lingDb, enLanguage));
 }

@@ -1427,6 +1427,8 @@ bool _genGroundingToRelationsFromMemory(RelationsThatMatch<IS_MODIFIABLE>& pRela
 
     if (!pGenGrd.concepts.empty()) {
         OtherConceptsLinkStrategy otherConceptsLinkStrategy = _requestCategoryToLinkStrategy(pRequestContext);
+        if (pIsATrigger)
+          otherConceptsLinkStrategy = OtherConceptsLinkStrategy::LINK_WITH_MOTHER_CONCEPTS;
         // add semantic expressions that have a concept in common
         res = _conceptsToRelationsFromMemory(pRelations,
                                              pAlreadyMatchedSentences,
