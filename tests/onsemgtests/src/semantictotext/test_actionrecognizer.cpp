@@ -59,6 +59,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
         {"angle", ActionRecognizer::ParamInfo("angle", {"how far in degrees"})}};
     actionRecognizer.addAction("turn_left", {"tourne à gauche"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("turn_right", {"tourne à droite"}, howFarInDegreesParameter, lingDb);
+    actionRecognizer.addAction("low_battery_level_reaction", {"avertir de la batterie faible"}, howFarInDegreesParameter, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -141,6 +142,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("tourne à gauche de 34 degrés", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"turn_right(angle=12 degrés)\"}",
               _recognize("tourne à droite de 12 degrés", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"low_battery_level_reaction\"}",
+              _recognize("Avertis de la batterie faible", actionRecognizer, lingDb, frLanguage));
 }
 
 

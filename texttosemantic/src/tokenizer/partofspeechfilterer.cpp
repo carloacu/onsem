@@ -79,6 +79,8 @@ void process(std::vector<Token>& pTokens,
             adjPriorities(pTokens);
             filterIncompatibleInflectionsInTokenList(pTokens, inflsCheker);
             verbPrioritiesFr(pTokens, inflsCheker);
+            partitivePrioritiesFr(pTokens, inflsCheker);
+            prepPrioritiesFr(pTokens);
             pronounPriorities(pTokens, inflsCheker);
             break;
         }

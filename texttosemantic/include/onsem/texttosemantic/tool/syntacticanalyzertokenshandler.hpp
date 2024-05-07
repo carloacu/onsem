@@ -42,7 +42,7 @@ ONSEM_TEXTTOSEMANTIC_API void delTopPartOfSpeech(std::list<InflectedWord>& pIGra
 ONSEM_TEXTTOSEMANTIC_API void delAPartOfSpeech(std::list<InflectedWord>& pIGrams,
                                                std::list<InflectedWord>::iterator& pItToDel);
 
-ONSEM_TEXTTOSEMANTIC_API bool delAPartOfSpeechfPossible(std::list<InflectedWord>& pIGrams,
+ONSEM_TEXTTOSEMANTIC_API bool delAPartOfSpeechPossible(std::list<InflectedWord>& pIGrams,
                                                         std::list<InflectedWord>::iterator& pItToDel);
 
 ONSEM_TEXTTOSEMANTIC_API bool delAPartOfSpeech(std::list<InflectedWord>& pIGrams, PartOfSpeech pPartOfSpeechToDel);
@@ -63,6 +63,10 @@ ONSEM_TEXTTOSEMANTIC_API TokIt getTheNextestWord(TokIt it, const TokIt& endIt);
 ONSEM_TEXTTOSEMANTIC_API bool delAllBefore(std::list<InflectedWord>& pGrams, std::list<InflectedWord>::iterator pIt);
 
 ONSEM_TEXTTOSEMANTIC_API bool delAllAfter(std::list<InflectedWord>& pGrams, std::list<InflectedWord>::iterator pIt);
+
+ONSEM_TEXTTOSEMANTIC_API bool delAllAfterExept(std::list<InflectedWord>& pGrams,
+                                               std::list<InflectedWord>::iterator pIt,
+                                               PartOfSpeech pPartOfSpeechToExcept);
 
 ONSEM_TEXTTOSEMANTIC_API bool delAllExept(std::list<InflectedWord>& pGrams, std::list<InflectedWord>::iterator pIt);
 

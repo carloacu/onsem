@@ -260,9 +260,14 @@ bool PartOfSpeechPatternMatcher::_applyPatternIfLinked(
                     ifDel = delAllAfter(currIGram.itToken->inflWords, currIGram.itInfoGram) || ifDel;
                 break;
             }
+            case ActionIfLinked::DEL_LESSER_PROBA_EXPECT_PARTITIVE: {
+                for (auto& currIGram : pGramPattern.second)
+                    ifDel = delAllAfterExept(currIGram.itToken->inflWords, currIGram.itInfoGram, PartOfSpeech::PARTITIVE) || ifDel;
+                break;
+            }
             case ActionIfLinked::DEL_THIS_POSSIBILITY: {
                 for (auto& currIGram : pGramPattern.second)
-                    ifDel = delAPartOfSpeechfPossible(currIGram.itToken->inflWords, currIGram.itInfoGram) || ifDel;
+                    ifDel = delAPartOfSpeechPossible(currIGram.itToken->inflWords, currIGram.itInfoGram) || ifDel;
                 break;
             }
             case ActionIfLinked::PUT_ON_TOP: {
@@ -288,7 +293,7 @@ bool PartOfSpeechPatternMatcher::_applyPatternIfNotLinked(
         if (pGramPattern.first->actionIfNotLinked == ActionIfNotLinked::REMOVE) {
             for (auto& currIGram : pGramPattern.second) {
                 auto itInfGram = currIGram.itInfoGram;
-                ifDel = delAPartOfSpeechfPossible(currIGram.itToken->inflWords, itInfGram) || ifDel;
+                ifDel = delAPartOfSpeechPossible(currIGram.itToken->inflWords, itInfGram) || ifDel;
             }
         }
     }

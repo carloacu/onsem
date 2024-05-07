@@ -174,7 +174,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules(
                                                                 TaggerTokenCheck(PartOfSpeech::DETERMINER,
                                                                                  FinderConstraint::HAS,
                                                                                  CompatibilityCheck::IS_COMPATIBLE,
-                                                                                 ActionIfLinked::DEL_LESSER_PROBA,
+                                                                                 ActionIfLinked::DEL_LESSER_PROBA_EXPECT_PARTITIVE,
                                                                                  ActionIfNotLinked::REMOVE));
 
         TaggerPattern& pattern = res->getPattern();

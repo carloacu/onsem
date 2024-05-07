@@ -22,6 +22,7 @@ void advPriorities(std::vector<Token>& pTokens);
 void putApproximatelyConceptInTopPrioritiesIfNecessary(std::vector<Token>& pTokens);
 
 void partitivePrioritiesFr(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker);
+void prepPrioritiesFr(std::vector<Token>& pTokens);
 
 }    // End of namespace linguistics
 }    // End of namespace onsem

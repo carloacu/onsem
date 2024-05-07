@@ -38,7 +38,7 @@ bool PartOfSpeechCustomFilter::process(std::vector<Token>& pTokens) const {
                 for (auto itIGram = itTok->inflWords.begin(); itIGram != itTok->inflWords.end(); ++itIGram) {
                     const WordAssociatedInfos& wordInfos = itIGram->infos;
                     if (wordInfos.contextualInfos.count(WordContextualInfos::SENTENCECANNOTBEGINWITH) != 0)
-                        ifDel |= delAPartOfSpeechfPossible(itTok->inflWords, itIGram);
+                        ifDel |= delAPartOfSpeechPossible(itTok->inflWords, itIGram);
                 }
             } else {
                 auto nextItTok = getNextToken(itTok, itEnd, SkipPartOfWord::YES);
@@ -46,7 +46,7 @@ bool PartOfSpeechCustomFilter::process(std::vector<Token>& pTokens) const {
                     for (auto itIGram = itTok->inflWords.begin(); itIGram != itTok->inflWords.end(); ++itIGram) {
                         const WordAssociatedInfos& wordInfos = itIGram->infos;
                         if (wordInfos.contextualInfos.count(WordContextualInfos::SENTENCECANNOTENDWITH) != 0)
-                            ifDel |= delAPartOfSpeechfPossible(itTok->inflWords, itIGram);
+                            ifDel |= delAPartOfSpeechPossible(itTok->inflWords, itIGram);
                     }
                 }
                 itTok = nextItTok;

@@ -83,7 +83,7 @@ void delAPartOfSpeech(std::list<InflectedWord>& pIGrams, std::list<InflectedWord
     }
 }
 
-bool delAPartOfSpeechfPossible(std::list<InflectedWord>& pIGrams, std::list<InflectedWord>::iterator& pItToDel) {
+bool delAPartOfSpeechPossible(std::list<InflectedWord>& pIGrams, std::list<InflectedWord>::iterator& pItToDel) {
     if (pIGrams.size() <= 1) {
         return false;
     }
@@ -208,6 +208,30 @@ bool delAllAfter(std::list<InflectedWord>& pGrams, std::list<InflectedWord>::ite
     }
     return true;
 }
+
+bool delAllAfterExept(std::list<InflectedWord>& pGrams, std::list<InflectedWord>::iterator pIt, PartOfSpeech pPartOfSpeechToExcept) {
+    bool hasRemovedAGram = false;
+    bool foundTheRef = false;
+    for (std::list<InflectedWord>::iterator itGram = pGrams.begin(); itGram != pGrams.end();) {
+        if (itGram == pIt) {
+            foundTheRef = true;
+            ++itGram;
+        } else if (foundTheRef && itGram->word.partOfSpeech != pPartOfSpeechToExcept) {
+            itGram = pGrams.erase(itGram);
+            hasRemovedAGram = true;
+        } else {
+            ++itGram;
+        }
+    }
+    if (!hasRemovedAGram) {
+        return false;
+    }
+    if (pGrams.empty()) {
+        pGrams.emplace_back();
+    }
+    return true;
+}
+
 
 bool delAllExept(std::list<InflectedWord>& pGrams, std::list<InflectedWord>::iterator pIt) {
     return _delAllExcept(pGrams, [&](std::list<InflectedWord>::iterator& pItCurrInfl) { return pItCurrInfl != pIt; });
