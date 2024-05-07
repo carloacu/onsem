@@ -11,6 +11,7 @@
   <linkedMeaning lemme="en" gram="pronoun_comp" relationToConcept="4"/>
   <linkedMeaning lemme="n'importe qui" relationToConcept="4"/>
   <linkedMeaning lemme="n'importe quoi" relationToConcept="4"/>
+  <linkedMeaning lemme="n'importe quel" relationToConcept="4"/>
   <linkedMeaning lemme="quelque chose" relationToConcept="5"/>
   <linkedMeaning lemme="quelqu'un" relationToConcept="4"/>
   <linkedMeaning lemme="quelque part" relationToConcept="4"/>
