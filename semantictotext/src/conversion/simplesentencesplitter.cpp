@@ -1,5 +1,7 @@
 #include "simplesentencesplitter.hpp"
+#include <onsem/common/enum/semanticverbtense.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
 
 namespace onsem {
@@ -45,7 +47,8 @@ void splitInVerySimpleSentences(UniqueSemanticExpression& pSemExp, bool pDoWeSpl
             if (grdExp->type == SemanticGroundingType::STATEMENT) {
                 if (SemExpGetter::isAnActionDefinition(grdExp) || SemExpGetter::isATeachingElement(grdExp)
                     || (!pDoWeSplitQuestions
-                        && SemExpGetter::getMainRequestTypeFromGrdExp(grdExp) != SemanticRequestType::NOTHING))
+                        && (SemExpGetter::getMainRequestTypeFromGrdExp(grdExp) != SemanticRequestType::NOTHING
+                            || grdExp->getStatementGrounding().verbTense == SemanticVerbTense::UNKNOWN)))
                     return;
                 for (const auto& currChild : grdExp.children)
                     if (SemExpGetter::isACoreference(*currChild.second, CoreferenceDirectionEnum::BEFORE))
