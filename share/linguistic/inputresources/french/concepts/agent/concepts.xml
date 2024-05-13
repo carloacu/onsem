@@ -22,6 +22,7 @@
   <linkedMeaning lemme="humain" relationToConcept="4"/>
   <linkedMeaning lemme="personne" relationToConcept="3"/>
   <linkedMeaning lemme="quelqu'un" relationToConcept="3"/>
+  <linkedMeaning lemme="utilisateur" relationToConcept="3"/>
  </concept>
  <concept name="agent_jesus">
   <linkedMeaning lemme="Jésus" gram="proper_noun" />

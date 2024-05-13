@@ -61,6 +61,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("turn_right", {"tourne à droite"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("low_battery_level_reaction", {"avertir de la batterie faible"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("salute", {"saluer de la main et de la voix"}, howFarInDegreesParameter, lingDb);
+    actionRecognizer.addAction("look_at_somebody", {"regarde un utilisateur"}, howFarInDegreesParameter, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -147,6 +148,10 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("Avertis de la batterie faible", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"salute\"}",
               _recognize("salue de la main et de la voix", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"look_at_somebody\"}",
+              _recognize("regarde un humain", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"look_at_somebody\"}",
+              _recognize("regarde un utilisateur", actionRecognizer, lingDb, frLanguage));
 }
 
 
