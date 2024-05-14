@@ -288,7 +288,7 @@ std::optional<ActionRecognizer::Intent> _reactionToIntent(const mystd::unique_pr
                             auto paramName = parameterSplitted[0];
                             auto& paramValues = intent.slotNameToValues[paramName];
                             TextProcessingContext outContext(
-                                        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, resourceGrdPtr->resource.language);
+                                        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, resourceGrdPtr->resource.language);
                             SemanticMemory semMemory;
 
                             for (auto& currAnswer : semExps) {

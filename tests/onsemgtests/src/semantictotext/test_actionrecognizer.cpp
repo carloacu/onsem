@@ -76,6 +76,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("low_battery_level_reaction", {"avertir de la batterie faible"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("salute", {"saluer de la main et de la voix"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("look_at_somebody", {"regarde un utilisateur"}, howFarInDegreesParameter, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> whatParameter{
+        {"something", ActionRecognizer::ParamInfo("str", {"what"})}};
+    actionRecognizer.addAction("say", {"dire"}, whatParameter, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -171,6 +174,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("regarde un humain", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"look_at_somebody\"}",
               _recognize("regarde un utilisateur", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"action\": \"say(something=Je suis content.)\"}",
+              _recognize("dis que tu es content", actionRecognizer, lingDb, frLanguage));
 }
 
 
