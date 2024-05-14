@@ -60,4 +60,7 @@ TEST_F(SemanticReasonerGTests, operator_converter_infinitiveToRequestVariations)
 
     EXPECT_EQ("Grab the bottle! | I would like you to grab the bottle. | Do you want to grab the bottle?",
               _infinitiveToRequestVariationsStr("To grab the bottle", SemanticLanguageEnum::ENGLISH, semMem, lingDb));
+
+    EXPECT_EQ("Don't move! | I would like you to not move. | Do you want to not move?",
+              _infinitiveToRequestVariationsStr("To not move", SemanticLanguageEnum::ENGLISH, semMem, lingDb));
 }

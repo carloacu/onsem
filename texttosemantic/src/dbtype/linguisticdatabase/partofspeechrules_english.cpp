@@ -619,6 +619,28 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules(
             return resContext;
         }());
 
+
+        // infinitive negation
+        pattern.possibilities.emplace_back([] {
+            AIGramContext resContext;
+
+            TaggerListOfTokenChecks notInfl(CanBeEmpty::YES);
+            notInfl.elts.emplace_back([](const InflectedWord& pInflWord) {
+                return pInflWord.word.partOfSpeech == PartOfSpeech::ADVERB
+                    && pInflWord.word.lemma == "not";
+            });
+            resContext.before.emplace_back(notInfl);
+
+            TaggerListOfTokenChecks toInfl;
+            toInfl.elts.emplace_back([](const InflectedWord& pInflWord) {
+                return pInflWord.word.partOfSpeech == PartOfSpeech::PREPOSITION
+                    && pInflWord.word.lemma == "to";
+            });
+            resContext.before.emplace_back(toInfl);
+
+            return resContext;
+        }());
+
         return res;
     }());
 

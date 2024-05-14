@@ -31,7 +31,7 @@ protected:
         return !pInfo.hasContextualInfo(WordContextualInfos::CANBEBEFORENOUN);
     }
 
-    virtual void _getNegationsBeforeVerb(std::list<WordToSynthesize>&) const {}
+    virtual void _getNegationsBeforeVerb(std::list<WordToSynthesize>&) const;
     virtual void _getNegationsAfterVerb(std::list<WordToSynthesize>&) const {}
 
     virtual ObjectPosition _getObjectPosition(SyntSentWorkStruct& pSentWorkStruct,

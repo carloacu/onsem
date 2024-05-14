@@ -1,10 +1,11 @@
 #include <onsem/texttosemantic/tool/partofspeech/partofspeechcustomfilter.hpp>
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <onsem/texttosemantic/tool/semexpgetter.hpp>
+#include <onsem/texttosemantic/dbtype/inflection/verbalinflections.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/staticlinguisticdictionary.hpp>
-#include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/lingtypetoken.hpp>
+#include <onsem/texttosemantic/tool/syntacticanalyzertokenshandler.hpp>
 #include "../chunkshandler.hpp"
 
 namespace onsem {
@@ -87,6 +88,18 @@ bool PartOfSpeechCustomFilter::process(std::vector<Token>& pTokens) const {
 
                         break;
                     }
+                }
+
+                if (fSpecLingDb.language == SemanticLanguageEnum::ENGLISH && itIGram->word.partOfSpeech == PartOfSpeech::VERB) {
+                  auto prevTok = getPrevToken(itTok, pTokens.begin(), pTokens.end(), SkipPartOfWord::YES);
+                  if (prevTok != pTokens.end() && prevTok->inflWords.begin()->word.lemma == "not")
+                    prevTok = getPrevToken(prevTok, pTokens.begin(), pTokens.end(), SkipPartOfWord::YES);
+                  if (prevTok != pTokens.end() && prevTok->inflWords.begin()->word.lemma == "to") {
+                    itTok->linkedTokens.push_back(itTok);
+                    itTok->linkedTokens.push_back(prevTok);
+                    itIGram->moveInflections(VerbalInflections::get_inflections_infinitive());
+                    prevTok->linkedTokens.push_back(itTok);
+                  }
                 }
             }
         }

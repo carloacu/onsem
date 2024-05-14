@@ -748,7 +748,20 @@ void LinguisticSynthesizerPrivate::_writeSentenceGrdExp(std::list<WordToSynthesi
 
         // write the negations
         if (!verbContext.isPositive) {
-            _getNegationsBeforeVerb(sentWorkStruct.outs.negation1.out);
+            if (_language == SemanticLanguageEnum::ENGLISH) {
+              if (!pStatementGrd.polarity && sentWorkStruct.outs.verb.out.size() >= 2) {
+                auto itVerbOut = sentWorkStruct.outs.verb.out.begin();
+                if (itVerbOut->word.lemma == "to") {
+                  _getNegationsBeforeVerb(sentWorkStruct.outs.negation1.out);
+                  sentWorkStruct.outs.verb.out.insert(++sentWorkStruct.outs.verb.out.begin(),
+                                                      sentWorkStruct.outs.negation1.out.begin(),
+                                                      sentWorkStruct.outs.negation1.out.end());
+                  sentWorkStruct.outs.negation1.out.clear();
+                }
+              }
+            } else {
+              _getNegationsBeforeVerb(sentWorkStruct.outs.negation1.out);
+            }
             if (!sentWorkStruct.objectIsAnNoElement)
                 _getNegationsAfterVerb(sentWorkStruct.outs.negation2.out);
         }

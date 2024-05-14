@@ -178,6 +178,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     std::map<std::string, ActionRecognizer::ParamInfo> howFarInDegreesParameter{
         {"angle", ActionRecognizer::ParamInfo("angle", {"how far in degrees"})}};
     actionRecognizer.addAction("turn_left", {"turn left"}, howFarInDegreesParameter, lingDb);
+    actionRecognizer.addAction("not_move", {"to not move"}, howFarInDegreesParameter, lingDb);
 
     EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\"}",
               _recognize("go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
@@ -214,4 +215,6 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
               _recognize("move forward 10 meters", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"action\": \"turn_left(angle=32 degrees)\"}",
               _recognize("Turn left 32 degrees", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"not_move\"}",
+              _recognize("Don't move", actionRecognizer, lingDb, enLanguage));
 }

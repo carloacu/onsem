@@ -99,6 +99,10 @@ LinguisticVerbTense LinguisticSynthesizerEnglish::_semanticVerbTenseToLinguistic
     return LinguisticVerbTense::INFINITIVE;
 }
 
+void LinguisticSynthesizerEnglish::_getNegationsBeforeVerb(std::list<WordToSynthesize>& pOut) const {
+    _strToOut(pOut, PartOfSpeech::ADVERB, "not");
+}
+
 void LinguisticSynthesizerEnglish::_getQuestionWord(std::list<WordToSynthesize>& pOut,
                                                     OutSemExp&,
                                                     const SemanticRequests& pRequests,
