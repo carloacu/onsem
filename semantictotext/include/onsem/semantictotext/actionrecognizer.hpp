@@ -66,7 +66,7 @@ public:
     std::optional<ActionRecognized> recognize(UniqueSemanticExpression pUtteranceSemExp,
                                               const linguistics::LinguisticDatabase& pLingDb);
 
-    SemanticLanguageEnum getLanguage() { return _language; }
+    SemanticLanguageEnum getLanguage() const { return _language; }
 
 
 private:
