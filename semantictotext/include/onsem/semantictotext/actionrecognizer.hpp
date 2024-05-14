@@ -59,6 +59,10 @@ public:
                    const std::map<std::string, ParamInfo>& pParameterLabelToInfos,
                    const linguistics::LinguisticDatabase& pLingDb);
 
+    bool isObviouslyWrong(const std::string& pActionIntentName,
+                          const SemanticExpression& pUtteranceSemExp,
+                          const linguistics::LinguisticDatabase& pLingDb) const;
+
     std::optional<ActionRecognized> recognize(UniqueSemanticExpression pUtteranceSemExp,
                                               const linguistics::LinguisticDatabase& pLingDb);
 
@@ -72,6 +76,7 @@ private:
     std::map<std::string, std::vector<std::string>> _typeToFormulations;
     std::set<std::string> _typeWithValueConsideredAsOwner;
     std::map<std::string, SemanticMemory> _typeToMemory;
+    std::map<std::string, std::list<UniqueSemanticExpression>> _actionToSemExps;
 };
 
 

@@ -251,10 +251,12 @@ void _addIntent(const std::string& pIntentName,
 
 void _addSemExpTrigger(const std::string& pActionIntentName,
                        UniqueSemanticExpression pFormulationSemExp,
+                       std::map<std::string, std::list<UniqueSemanticExpression>>& pActionToSemExps,
                        SemanticMemory& pSemanticMemory,
                        const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelToQuestions,
                        const linguistics::LinguisticDatabase& pLingDb,
                        SemanticLanguageEnum pLanguage) {
+    pActionToSemExps[pActionIntentName].emplace_back(pFormulationSemExp->clone());
     auto outputResourceGrdExp = std::make_unique<GroundedExpression>(converter::createResourceWithParametersFromSemExp(
                                                                          "intent", pActionIntentName, pParameterLabelToQuestions, *pFormulationSemExp, pLingDb, pLanguage));
     triggers::add(std::move(pFormulationSemExp), std::move(outputResourceGrdExp), pSemanticMemory, pLingDb);
@@ -388,7 +390,8 @@ ActionRecognizer::ActionRecognizer(SemanticLanguageEnum pLanguage)
       _predicateSemanticMemory(),
       _typeToFormulations(),
       _typeWithValueConsideredAsOwner(),
-      _typeToMemory() {
+      _typeToMemory(),
+      _actionToSemExps() {
 }
 
 
@@ -463,12 +466,27 @@ void ActionRecognizer::addAction(const std::string& pActionIntentName,
         std::map<std::string, std::vector<UniqueSemanticExpression>> parameterLabelToQuestions;
         converter::createParameterSemanticexpressions(parameterLabelToQuestions, parameterLabelToQuestionsStrs, pLingDb, SemanticLanguageEnum::ENGLISH);
 
-        _addSemExpTrigger(pActionIntentName, std::move(formulationSemExp), _actionSemanticMemory,
-                          parameterLabelToQuestions, pLingDb, _language);
+        _addSemExpTrigger(pActionIntentName, std::move(formulationSemExp), _actionToSemExps,
+                          _actionSemanticMemory, parameterLabelToQuestions, pLingDb, _language);
         for (auto& currOtherFormulaation : otherFormulationsSemExps)
-            _addSemExpTrigger(pActionIntentName, std::move(currOtherFormulaation), _actionSemanticMemory,
-                              parameterLabelToQuestions, pLingDb, _language);
+            _addSemExpTrigger(pActionIntentName, std::move(currOtherFormulaation), _actionToSemExps,
+                              _actionSemanticMemory, parameterLabelToQuestions, pLingDb, _language);
     }
+}
+
+
+bool ActionRecognizer::isObviouslyWrong(const std::string& pActionIntentName,
+                                        const SemanticExpression& pUtteranceSemExp,
+                                        const linguistics::LinguisticDatabase& pLingDb) const {
+  auto it = _actionToSemExps.find(pActionIntentName);
+  if (it != _actionToSemExps.end()) {
+    for (auto& currSemExpToMatch : it->second) {
+      auto imbrication = SemExpComparator::getSemExpsImbrications(pUtteranceSemExp, *currSemExpToMatch, _actionSemanticMemory.memBloc, pLingDb, nullptr);
+      if (imbrication == ImbricationType::OPPOSES)
+        return true;
+    }
+  }
+  return false;
 }
 
 

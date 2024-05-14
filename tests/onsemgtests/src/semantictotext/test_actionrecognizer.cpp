@@ -23,6 +23,20 @@ std::string _recognize(const std::string& pText,
     return "";
 }
 
+bool _isObviouslyWrong(const std::string& pIntent,
+                       const std::string& pText,
+                       const ActionRecognizer& pActionRecognizer,
+                       const linguistics::LinguisticDatabase& pLingDb,
+                       SemanticLanguageEnum pTextLanguage) {
+    SemanticLanguageEnum textLanguage =
+            pTextLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
+    TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
+    auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::UNKNOWN, pLingDb);
+    return pActionRecognizer.isObviouslyWrong(pIntent, *semExp, pLingDb);
+}
+
+
+
 }
 
 
@@ -124,6 +138,11 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("tu aurais l'amabilité de baisser tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"arms_down\"}",
               _recognize("aurais-tu la gentillesse de baisser tes bras", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("", _recognize("ne relâche pas tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_TRUE(_isObviouslyWrong("arms_down", "ne relâche pas tes bras", actionRecognizer, lingDb, frLanguage));
+    EXPECT_FALSE(_isObviouslyWrong("arms_down", "ne monte pas tes bras", actionRecognizer, lingDb, frLanguage));
+
     EXPECT_EQ("{\"action\": \"unfreeze\"}",
               _recognize("défige-toi", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"what_i_know\"}",
