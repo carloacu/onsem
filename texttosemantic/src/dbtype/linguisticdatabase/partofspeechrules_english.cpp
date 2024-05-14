@@ -619,8 +619,18 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules(
             return resContext;
         }());
 
+        return res;
+    }());
 
-        // infinitive negation
+    // verb-pron_comp links
+    rules.emplace_back([&pInfls] {
+        auto res = std::make_unique<PartOfSpeechPatternMatcher>("verb negationned links",
+                                                                pInfls,
+                                                                TaggerTokenCheck(PartOfSpeech::VERB,
+                                                                                 FinderConstraint::HAS,
+                                                                                 CompatibilityCheck::IS_COMPATIBLE,
+                                                                                 ActionIfLinked::DEL_ALL_OTHERS));
+        TaggerPattern& pattern = res->getPattern();
         pattern.possibilities.emplace_back([] {
             AIGramContext resContext;
 
@@ -643,6 +653,7 @@ std::list<std::unique_ptr<PartOfSpeechContextFilter>> getPartOfSpeechRules(
 
         return res;
     }());
+
 
     // propernoun-verb links
     rules.emplace_back([&pInfls] {
