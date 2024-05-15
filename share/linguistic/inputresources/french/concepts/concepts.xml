@@ -28,6 +28,10 @@
  <concept name="calm">
   <linkedMeaning lemme="calmer" relationToConcept="4"/>
  </concept>
+ <concept name="cart">
+  <linkedMeaning lemme="chariot" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="caddie" gram="noun" relationToConcept="3"/>
+ </concept>
  <concept name="condition">
   <linkedMeaning lemme="condition" gram="noun" relationToConcept="4"/>
  </concept>

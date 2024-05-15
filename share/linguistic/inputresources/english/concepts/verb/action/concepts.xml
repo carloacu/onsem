@@ -144,6 +144,7 @@
   <linkedMeaning lemme="catch" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="clutch" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="clench" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="hold~onto" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="seize" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="snatch" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="cling" gram="verb" relationToConcept="3"/>

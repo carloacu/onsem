@@ -9,6 +9,7 @@
   <declareconcept name="ball" />
   <declareconcept name="because" />
   <declareconcept name="calm" />
+  <declareconcept name="cart" />
   <declareconcept name="condition" />
   <declareconcept name="country" />
   <declareconcept name="desperate" />

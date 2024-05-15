@@ -28,6 +28,15 @@
  <concept name="calm">
   <linkedMeaning lemme="calm" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="cart">
+  <linkedMeaning lemme="cart" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="buggy" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="carriage" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="handcart" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="pushcart" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="trolley" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="wagon" gram="noun" relationToConcept="3"/>
+ </concept>
  <concept name="condition">
   <linkedMeaning lemme="condition" gram="noun" relationToConcept="4"/>
  </concept>

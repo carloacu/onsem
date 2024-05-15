@@ -52,6 +52,10 @@
   <nextMeaning gram="preposition" lemme="down"/>
   <wordForm gram="verb"/>
  </words>
+ <words lemme="hold" gram="verb">
+  <nextMeaning gram="preposition" lemme="onto"/>
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="know" gram="verb" >
   <nextMeaning lemme="as" gram="preposition" />
   <wordForm gram="verb"/>
