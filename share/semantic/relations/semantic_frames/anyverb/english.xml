@@ -50,6 +50,8 @@
     <child lemma="just after" pos="preposition" chunkLinkType="time" />
     <child lemma="just before" pos="preposition" chunkLinkType="time" />
     <child lemma="on" pos="preposition" chunkLinkType="location" />
+    <child lemma="towards" pos="preposition" chunkLinkType="location" />
+    <child lemma="over" pos="preposition" chunkLinkType="location" />
     <child lemma="like" pos="preposition" chunkLinkType="similarity" />
     <child lemma="in" pos="preposition" chunkLinkType="location" />
     <child lemma="in terms of" pos="preposition" chunkLinkType="topic" />
