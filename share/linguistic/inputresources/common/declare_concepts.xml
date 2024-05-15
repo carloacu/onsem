@@ -449,6 +449,7 @@
   <declareconcept name="verb_action_execute" />
   <declareconcept name="verb_action_goaway" />
   <declareconcept name="verb_action_go" autofill="false" />
+  <declareconcept name="verb_action_grasp" autofill="false" />
   <declareconcept name="verb_action_headdown" />
   <declareconcept name="verb_action_headup" />
   <declareconcept name="verb_action_improve" />

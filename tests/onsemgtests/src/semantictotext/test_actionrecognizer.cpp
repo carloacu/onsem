@@ -75,7 +75,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("turn_right", {"tourne à droite"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("low_battery_level_reaction", {"avertir de la batterie faible"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("salute", {"saluer de la main et de la voix"}, howFarInDegreesParameter, lingDb);
-    actionRecognizer.addAction("look_at_somebody", {"regarde un utilisateur"}, howFarInDegreesParameter, lingDb);
+    actionRecognizer.addAction("look_at_somebody", {"regarder un utilisateur"}, howFarInDegreesParameter, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> whatParameter{
         {"something", ActionRecognizer::ParamInfo("str", {"what"})}};
     actionRecognizer.addAction("say", {"dire"}, whatParameter, lingDb);

@@ -39,6 +39,18 @@
  <concept name="verb_action_go">
   <linkedMeaning lemme="aller" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_grasp">
+  <linkedMeaning lemme="attraper" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="grasper" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="prendre" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="saisir" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="agripper" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="cramponner" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="empoigner" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="happer" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="chopper" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="rammasser" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_headdown">
   <linkedMeaning lemme="baisser~le~tête" gram="verb" relationToConcept="4"/>
  </concept>
