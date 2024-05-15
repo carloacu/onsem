@@ -43,6 +43,7 @@
   <declareconcept name="tablet" />
   <declareconcept name="television" />
   <declareconcept name="times" autofill="false" />
+  <declareconcept name="tray" autofill="false" />
   <declareconcept name="unless" />
   <declareconcept name="url" />
   <declareconcept name="value" />
@@ -479,6 +480,7 @@
   <declareconcept name="verb_action_touch" />
   <declareconcept name="verb_action_turnAway" autofill="false" />
   <declareconcept name="verb_action_turnOff" autofill="false" />
+  <declareconcept name="verb_action_ungrasp" autofill="false" />
   <declareconcept name="verb_action_use" />
   <declareconcept name="verb_action_walk" />
   <declareconcept name="verb_action_wakeUp" />

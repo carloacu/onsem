@@ -152,6 +152,10 @@
  <concept name="times">
   <linkedMeaning lemme="times" gram="noun" relationToConcept="4"/>
  </concept>
+ <concept name="tray">
+  <linkedMeaning lemme="tray" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="platter" gram="noun" relationToConcept="3"/>
+ </concept>
  <concept name="unless">
   <linkedMeaning lemme="but" relationToConcept="4"/>
   <linkedMeaning lemme="unless" relationToConcept="4"/>

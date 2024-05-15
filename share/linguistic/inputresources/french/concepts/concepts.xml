@@ -140,6 +140,11 @@
  <concept name="times">
   <linkedMeaning lemme="fois" gram="noun" relationToConcept="4"/>
  </concept>
+  <concept name="tray">
+  <linkedMeaning lemme="plateau" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="planche" gram="noun" relationToConcept="3"/>
+  <linkedMeaning lemme="plaque" gram="noun" relationToConcept="3"/>
+ </concept>
  <concept name="unless">
   <linkedMeaning lemme="mais" gram="interjection" relationToConcept="4"/>
   <linkedMeaning lemme="mais" gram="conjunctive" relationToConcept="4"/>

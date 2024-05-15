@@ -41,6 +41,7 @@
  </concept>
  <concept name="verb_action_grasp">
   <linkedMeaning lemme="attraper" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="agripper" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="grasper" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="prendre" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="saisir" gram="verb" relationToConcept="3"/>
@@ -142,6 +143,13 @@
  </concept>
   <concept name="verb_action_turnOff">
   <linkedMeaning lemme="éteindre" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_ungrasp">
+  <linkedMeaning lemme="relâcher" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="rendre" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="lâcher" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="déposer" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="poser" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_action_use">
   <linkedMeaning lemme="utiliser" gram="verb" relationToConcept="5"/>
