@@ -38,6 +38,7 @@
  </concept>
  <concept name="verb_action_go">
   <linkedMeaning lemme="aller" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="aller~voir" gram="verb" relationToConcept="4"/>
  </concept>
  <concept name="verb_action_grasp">
   <linkedMeaning lemme="attraper" gram="verb" relationToConcept="4"/>

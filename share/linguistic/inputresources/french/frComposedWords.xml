@@ -1,4 +1,8 @@
 <linguisticdatabase>
+ <words lemme="aller" gram="verb">
+  <nextMeaning lemme="voir" gram="verb"/>
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="avoir" gram="verb">
   <nextMeaning lemme="envie" gram="noun"/>
   <wordForm gram="verb"/>
