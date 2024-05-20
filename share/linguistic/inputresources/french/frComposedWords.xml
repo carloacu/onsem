@@ -33,6 +33,10 @@
   <nextMeaning lemme="ça" gram="pronoun"/>
   <wordForm gram="adverb"/>
  </words>
+ <words lemme="faire" gram="verb">
+  <nextMeaning lemme="face" gram="noun"/>
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="lever" gram="verb">
   <nextMeaning lemme="le" gram="determiner"/>
   <nextMeaning lemme="tête" gram="noun"/>

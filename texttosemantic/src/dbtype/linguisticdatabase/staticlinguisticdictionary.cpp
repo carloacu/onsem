@@ -741,7 +741,7 @@ StaticLinguisticMeaning StaticLinguisticDictionary::getRootMeaning(const StaticL
                 char nbGatheringMeanings = xGetNbGatheringMeanings(rootMeaningPtr);
                 if (nbGatheringMeanings > 0) {
                     const int* currGatheringMeaning = xGetFirstGatheringMeaning(rootMeaningPtr);
-                    for (unsigned char j = 0; j < nbMeanings; ++j) {
+                    for (unsigned char j = 0; j < nbGatheringMeanings; ++j) {
                         if (binaryloader::alignedDecToInt(*currGatheringMeaning) == pMeaning.meaningId) {
                             return StaticLinguisticMeaning{fLangEnum, rootMeaningId};
                         }
