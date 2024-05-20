@@ -204,6 +204,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
         {"angle", ActionRecognizer::ParamInfo("angle", {"how far in degrees"})}};
     actionRecognizer.addAction("turn_left", {"turn left"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("not_move", {"to not move"}, howFarInDegreesParameter, lingDb);
+    actionRecognizer.addAction("look_at_oneself", {"to look at oneself"}, howFarInDegreesParameter, lingDb);
 
     EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\"}",
               _recognize("go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
@@ -242,4 +243,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
               _recognize("Turn left 32 degrees", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"action\": \"not_move\"}",
               _recognize("Don't move", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"action\": \"look_at_oneself\"}",
+              _recognize("look at oneself", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"look_at_oneself\"}",
+              _recognize("look at yourself", actionRecognizer, lingDb, enLanguage));
 }

@@ -918,6 +918,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
 
         if (chunkHeadIGram.word.partOfSpeech == PartOfSpeech::PRONOUN && pronounRelPerson != RelativePerson::FIRST_SING
             && pronounRelPerson != RelativePerson::SECOND_SING
+            && pContext.holdingSentenceVerbTense != SemanticVerbTense::UNKNOWN
             && ConceptSet::haveAConcept(chunkHeadIGram.infos.concepts, "reflexive")) {
             if (pContext.holdingGrdExpPtr != nullptr) {
                 auto itSubject = pContext.holdingGrdExpPtr->children.find(GrammaticalType::SUBJECT);
@@ -1876,6 +1877,13 @@ std::unique_ptr<SemanticExpression> SyntacticGraphToSemantic::xTranslateRelative
         }
         case RelativePerson::THIRD_SING:
         case RelativePerson::THIRD_PLUR: {
+            if (ConceptSet::haveAConcept(pIGram.infos.concepts, "reflexive")) {
+                referenceType = SemanticReferenceType::DEFINITE;
+                agentType = SemanticEntityType::HUMAN;
+                userId = xGetTextProcContext(pContext, pGeneral).receiver.userId;
+                break;
+            }
+
             if (pRelPers == RelativePerson::THIRD_SING)
                 quantity.setNumber(1);
             bool cannotBeCompletedFromContext =

@@ -65,6 +65,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic) {
                               semanticMemory,
                               lingDb,
                               SemanticLanguageEnum::ENGLISH));
+    EXPECT_EQ(ImbricationType::EQUALS, _getImbrication("to look at oneself", "to look at yourself", semanticMemory, lingDb));
 
     EXPECT_EQ(ImbricationType::OPPOSES,
               _getImbrication("I like banana", "I don't like banana", semanticMemory, lingDb));
