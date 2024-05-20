@@ -56,6 +56,10 @@
   <nextMeaning lemme="devant" gram="adverb"/>
   <wordForm gram="verb"/>
  </words>
+ <words lemme="regarder" gram="verb">
+  <nextOrPrevMeaning lemme="se" gram="pronoun_comp"/>
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="vouloir" gram="verb">
   <nextMeaning lemme="dire" gram="verb"/>
   <wordForm gram="verb"/>
