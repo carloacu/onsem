@@ -127,6 +127,7 @@
   <linkedMeaning lemme="herself" gram="pronoun" relationToConcept="4"/>
   <linkedMeaning lemme="himself" gram="pronoun" relationToConcept="4"/>
   <linkedMeaning lemme="itself" gram="pronoun" relationToConcept="5"/>
+  <linkedMeaning lemme="oneself" gram="pronoun" relationToConcept="4"/>
   <linkedMeaning lemme="ourself" gram="pronoun" relationToConcept="4"/>
   <linkedMeaning lemme="themselves" gram="pronoun" relationToConcept="4"/>
  </concept>
