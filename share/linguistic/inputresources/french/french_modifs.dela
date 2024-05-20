@@ -38,6 +38,45 @@
 #graspés,grasper.V+z1:Kmp
 
 
+#flexa,flexer.V+z1:J3s
+#flexai,flexer.V+z1:J1s
+#flexaient,flexer.V+z1:I3p
+#flexais,flexer.V+z1:I1s:I2s
+#flexait,flexer.V+z1:I3s
+#flexant,flexer.V+z1:G
+#flexas,flexer.V+z1:J2s
+#flexasse,flexer.V+z1:T1s
+#flexassent,flexer.V+z1:T3p
+#flexasses,flexer.V+z1:T2s
+#flexassiez,flexer.V+z1:T2p
+#flexassions,flexer.V+z1:T1p
+#flexe,flexer.V+z1:P1s:P3s:S1s:S3s:Y2s
+#flexent,flexer.V+z1:P3p:S3p
+#flexer,.V+z1:W
+#flexera,flexer.V+z1:F3s
+#flexerai,flexer.V+z1:F1s
+#flexeraient,flexer.V+z1:C3p
+#flexerais,flexer.V+z1:C1s:C2s
+#flexerait,flexer.V+z1:C3s
+#flexeras,flexer.V+z1:F2s
+#flexerez,flexer.V+z1:F2p
+#flexeriez,flexer.V+z1:C2p
+#flexerions,flexer.V+z1:C1p
+#flexerons,flexer.V+z1:F1p
+#flexeront,flexer.V+z1:F3p
+#flexez,flexer.V+z1:P2p:Y2p
+#flexiez,flexer.V+z1:I2p:S2p
+#flexions,flexer.V+z1:I1p:S1p
+#flexons,flexer.V+z1:P1p:Y1p
+#flexâmes,flexer.V+z1:J1p
+#flexât,flexer.V+z1:T3s
+#flexâtes,flexer.V+z1:J2p
+#flexèrent,flexer.V+z1:J3p
+#flexé,flexer.V+z1:Kms
+#flexée,flexer.V+z1:Kfs
+#flexées,flexer.V+z1:Kfp
+#flexés,flexer.V+z1:Kmp
+
 
 %avoir.V.AUX
 %être.V.AUX
