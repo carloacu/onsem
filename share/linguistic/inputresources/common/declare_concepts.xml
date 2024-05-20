@@ -466,6 +466,7 @@
   <declareconcept name="verb_action_repeat" />
   <declareconcept name="verb_action_register" />
   <declareconcept name="verb_action_remove" />
+  <declareconcept name="verb_action_rotate" />
   <declareconcept name="verb_action_say" />
   <declareconcept name="verb_action_say_answer" />
   <declareconcept name="verb_action_say_ask" />

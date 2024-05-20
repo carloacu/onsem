@@ -561,11 +561,10 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_fr) {
     ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi\\", triggers_match("Tourne toi", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi(param1=Rapidement)\\",
                       triggers_match("Tourne toi rapidement", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi\\", triggers_match("Retourne toi", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi(param1=Lentement)\\",
-                      triggers_match("Retourne toi lentement", semMem, lingDb));
+                      triggers_match("Tourne toi lentement", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Tourne toi(param1=Rapidement)\\",
-                      triggers_match("Retourne toi rapidement", semMem, lingDb));
+                      triggers_match("Tourne toi rapidement", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#fr_FR#Fais demi tour(param1=Lentement)\\",
                       triggers_match("Fais lentement demi tour", semMem, lingDb));
 
@@ -844,8 +843,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en) {
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=3)\\",
                       triggers_match("Make a full turn 3 times", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do a 360(nbOfTimes=1)\\", triggers_match("Do a 360", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(nbOfTimes=1)\\", triggers_match("Pirouette", semMem, lingDb, language));
-    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(location=The left, nbOfTimes=1)\\",
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Rotate\\", triggers_match("Pirouette", semMem, lingDb, language));
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn left\\",
                       triggers_match("Pirouette to the left", semMem, lingDb, language));
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Take a spin on yourself(location=You, nbOfTimes=1)\\",
                       triggers_match("Take a spin on yourself", semMem, lingDb));

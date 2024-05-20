@@ -114,6 +114,14 @@
  <concept name="verb_action_remove">
   <linkedMeaning lemme="supprimer" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_rotate">
+  <linkedMeaning lemme="tourner" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="tourner~se" gram="verb" relationToConcept="5"/>
+  <linkedMeaning lemme="retourner" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="pirouetter" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="pivoter" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="tournoyer" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_say">
   <linkedMeaning lemme="dire" gram="verb" relationToConcept="5"/>
   <linkedMeaning lemme="raconter" gram="verb" relationToConcept="4"/>
@@ -147,7 +155,6 @@
  </concept>
  <concept name="verb_action_turnAway">
   <linkedMeaning lemme="retourner~se" gram="verb" relationToConcept="5"/>
-  <linkedMeaning lemme="tourner~se" gram="verb" relationToConcept="5"/>
  </concept>
   <concept name="verb_action_turnOff">
   <linkedMeaning lemme="éteindre" gram="verb" relationToConcept="4"/>
