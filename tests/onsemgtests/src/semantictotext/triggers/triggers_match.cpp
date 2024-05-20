@@ -843,8 +843,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en) {
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Make a full turn(nbOfTimes=3)\\",
                       triggers_match("Make a full turn 3 times", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Do a 360(nbOfTimes=1)\\", triggers_match("Do a 360", semMem, lingDb));
-    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Rotate\\", triggers_match("Pirouette", semMem, lingDb, language));
-    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn left\\",
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(nbOfTimes=1)\\", triggers_match("Pirouette", semMem, lingDb, language));
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Pirouette(location=The left, nbOfTimes=1)\\",
                       triggers_match("Pirouette to the left", semMem, lingDb, language));
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Take a spin on yourself(location=You, nbOfTimes=1)\\",
                       triggers_match("Take a spin on yourself", semMem, lingDb));

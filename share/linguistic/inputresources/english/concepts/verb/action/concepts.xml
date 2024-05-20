@@ -231,20 +231,8 @@
  <concept name="verb_action_rotate">
   <linkedMeaning lemme="rotate" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="circle" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="circumvolve" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="gyrate" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="pirouette" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="pivot" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="revolve" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="roll" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="spin" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="swivel" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="turn" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="twirl" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="twist" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="wheel" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="whirl" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="whirligig" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_action_say">
   <linkedMeaning lemme="say" gram="verb" relationToConcept="5"/>
@@ -259,6 +247,18 @@
  </concept>
  <concept name="verb_action_smile">
   <linkedMeaning lemme="smile" gram="verb" relationToConcept="4"/>
+ </concept>
+ <concept name="verb_action_spin">
+  <linkedMeaning lemme="spin" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="gyrate" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="revolve" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="roll" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="pirouette" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="swivel" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="twirl" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="whirl" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="wheel" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="twist" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_action_standup">
   <linkedMeaning lemme="stand~up" gram="verb" relationToConcept="4"/>

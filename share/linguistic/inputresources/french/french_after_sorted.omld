@@ -42,7 +42,7 @@
  <w l="n'importe quel" p="determiner">
   <i i="n'importe quel" f="ms" />
   <i i="n'importe quelle" f="fs" />
-  <i i="n'importe quels" f="ps" />
+  <i i="n'importe quels" f="mp" />
   <i i="n'importe quelles" f="fp" />
  </w>
  <w l="allez" p="interjection">
