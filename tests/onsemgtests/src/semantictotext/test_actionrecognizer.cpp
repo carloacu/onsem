@@ -180,6 +180,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("dis que tu es content", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"action\": \"put\"}",
               _recognize("pose le panier", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"put\"}",
+              _recognize("pose les bonbons", actionRecognizer, lingDb, frLanguage));
 }
 
 

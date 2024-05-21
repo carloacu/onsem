@@ -78,6 +78,7 @@ TEST_F(SemanticReasonerGTests, test_imbrication_basic) {
 
     EXPECT_EQ(ImbricationType::ISCONTAINED, _getImbrication("Paul", "everybody", semanticMemory, lingDb));
     EXPECT_EQ(ImbricationType::ISCONTAINED, _getImbrication("un panier", "quelque chose", semanticMemory, lingDb));
+    EXPECT_EQ(ImbricationType::ISCONTAINED, _getImbrication("les bonbons", "quelque chose", semanticMemory, lingDb));
 
     EXPECT_EQ(ImbricationType::HYPONYM, _getImbrication("moi", "quelqu'un", semanticMemory, lingDb));
     EXPECT_EQ(ImbricationType::HYPONYM, _getImbrication("I ask walk", "I say walk", semanticMemory, lingDb));

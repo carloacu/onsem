@@ -119,7 +119,8 @@ ImbricationType _getGenericGrdsImbrications(const SemanticGenericGrounding& pGen
                                             const linguistics::LinguisticDatabase& pLingDb,
                                             const ComparisonExceptions* pExceptionsPtr) {
     auto res = ImbricationType::EQUALS;
-    if (pExceptionsPtr == nullptr || !pExceptionsPtr->quantity) {
+    if ((pExceptionsPtr == nullptr || !pExceptionsPtr->quantity) &&
+        pGenGrd1.concepts.count("stuff") == 0 && pGenGrd2.concepts.count("stuff") == 0) {
         res = getQuantityImbrication(pGenGrd1.quantity, pGenGrd2.quantity);
         if (res != ImbricationType::EQUALS)
             return res;
