@@ -79,6 +79,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     std::map<std::string, ActionRecognizer::ParamInfo> whatParameter{
         {"something", ActionRecognizer::ParamInfo("str", {"what"})}};
     actionRecognizer.addAction("say", {"dire"}, whatParameter, lingDb);
+    actionRecognizer.addAction("put", {"poser quelque chose"}, {}, lingDb);
 
     EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -177,6 +178,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
 
     EXPECT_EQ("{\"action\": \"say(something=Je suis content.)\"}",
               _recognize("dis que tu es content", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"action\": \"put\"}",
+              _recognize("pose le panier", actionRecognizer, lingDb, frLanguage));
 }
 
 
@@ -205,6 +208,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     actionRecognizer.addAction("turn_left", {"turn left"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("not_move", {"to not move"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("look_at_oneself", {"to look at oneself"}, howFarInDegreesParameter, lingDb);
+    actionRecognizer.addAction("put", {"put something"}, {}, lingDb);
 
     EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\"}",
               _recognize("go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
@@ -248,4 +252,6 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
               _recognize("look at oneself", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"action\": \"look_at_oneself\"}",
               _recognize("look at yourself", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"action\": \"put\"}",
+              _recognize("put a tray", actionRecognizer, lingDb, enLanguage));
 }

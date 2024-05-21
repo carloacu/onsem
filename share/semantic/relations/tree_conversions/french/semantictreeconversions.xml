@@ -73,7 +73,7 @@
       </root>
     </tree>
     <tree mind="true">
-      <root id="1" grounding="generic" concept="story_joke" notConceptOrHyponym="stuff" word="">
+      <root id="1" grounding="generic" concept="story_joke" notConceptOrHyponym="stuff|concrete" word="">
 	<notspecifier />
       </root>
     </tree>

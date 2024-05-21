@@ -1,4 +1,7 @@
 <linguisticdatabase>
+ <concept name="concrete">
+  <linkedMeaning lemme="quelque chose" relationToConcept="4" />
+ </concept>
  <concept name="concrete_*">
   <linkedMeaning lemme="abat-carrage" gram="noun" relationToConcept="4" />
   <linkedMeaning lemme="abat-faim" gram="noun" relationToConcept="4" />

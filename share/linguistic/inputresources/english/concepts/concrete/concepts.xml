@@ -1,6 +1,6 @@
 <linguisticdatabase>
  <concept name="concrete">
-  <linkedMeaning lemme="something" gram="noun" relationToConcept="4"/>
+  <linkedMeaning lemme="something" relationToConcept="4"/>
  </concept>
  <concept name="concrete_*">
   <linkedMeaning lemme="battery" gram="noun" relationToConcept="4"/>

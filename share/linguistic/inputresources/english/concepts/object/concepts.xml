@@ -1,0 +1,5 @@
+<linguisticdatabase>
+ <concept name="object">
+  <linkedMeaning lemme="object" relationToConcept="4"/>
+ </concept>
+</linguisticdatabase>
