@@ -229,9 +229,11 @@ bool _isConditionIsVerified(const LinguisticConditionTreeValue& pConditionValue,
                 auto itToken = pNextToken->getTokenIt();
                 auto itEnd = pNextToken->getItEnd();
                 _skipDeterminer(itToken, itEnd);
-                auto dateOpt = extractDate(itToken, pNextToken->getTokenRange());
-                if (dateOpt)
-                    return _checkDate(*dateOpt, pConditionValue.parameters);
+                if (itToken != itEnd) {
+                    auto dateOpt = extractDate(itToken, pNextToken->getTokenRange());
+                    if (dateOpt)
+                        return _checkDate(*dateOpt, pConditionValue.parameters);
+                }
             }
             return false;
         }

@@ -46,6 +46,9 @@
   <linkedMeaning lemme="promener~se" gram="verb" relationToConcept="2"/>
   <linkedMeaning lemme="rendre~se" gram="verb" relationToConcept="2"/>
  </concept>
+ <concept name="verb_action_goGet">
+  <linkedMeaning lemme="aller~chercher" gram="verb" relationToConcept="4"/>
+ </concept>
  <concept name="verb_action_grasp">
   <linkedMeaning lemme="attraper" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="agripper" gram="verb" relationToConcept="3"/>
