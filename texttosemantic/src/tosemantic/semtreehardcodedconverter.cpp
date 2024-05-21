@@ -230,6 +230,7 @@ void refactorEnglishSentencesWithAGoal(
             SemanticStatementGrounding& statementGrd = *statementGrdPtr;
             // check that the root verb is "going"
             if (statementGrd.verbTense == SemanticVerbTense::PUNCTUALPRESENT
+                && !statementGrd.requests.has(SemanticRequestType::ACTION)
                 && statementGrd.concepts.count("verb_action_go") != 0) {
                 /**
                  * replace stucts:

@@ -64,3 +64,4 @@ move every minute
 Wash the ground every 2 days!
 turn 45°
 greet with hand and speech
+go to sleep
