@@ -885,24 +885,30 @@ void ListExtractor::_refactorANewSubordinate(Chunk& pFirstVerb, Chunk& pSecondVe
     }
 
     if (recInListConst(chunkIsAtInfinitive, pSecondVerb)) {
-        auto itSubj = getChunkLink(pFirstVerb, ChunkLinkType::SUBJECT);
-        if (itSubj != pFirstVerb.children.end()) {
-            auto tryToConvertObjChildToReflexive = [&](ChunkLink& pObjChkLink) {
-                const InflectedWord& objInflWord = pObjChkLink.chunk->head->inflWords.front();
-                if (objInflWord.word.partOfSpeech == PartOfSpeech::PRONOUN_COMPLEMENT
-                    && fConf.getEntityRecognizer().pronounCompIsReflexiveOfASubject(
-                        itSubj->chunk->head->inflWords.front(), objInflWord))
+        ChunkLink* subjectChLkPtr = getSubjectChunkLink(pFirstVerb);
+        auto tryToConvertObjChildToReflexive = [&](ChunkLink& pObjChkLink) {
+            const InflectedWord& objInflWord = pObjChkLink.chunk->head->inflWords.front();
+            if (objInflWord.word.partOfSpeech == PartOfSpeech::PRONOUN_COMPLEMENT) {
+
+                if (subjectChLkPtr != nullptr) {
+                    if (fConf.getEntityRecognizer().pronounCompIsReflexiveOfASubject(
+                                subjectChLkPtr->chunk->head->inflWords.front(), objInflWord)) {
+                        pObjChkLink.type = ChunkLinkType::REFLEXIVE;
+                    }
+                } else if (fFlschecker.pronounGetPerson(objInflWord) == RelativePerson::SECOND_SING) {
                     pObjChkLink.type = ChunkLinkType::REFLEXIVE;
-            };
+                }
+            }
+        };
+        auto itIndirectObj = getChunkLink(pSecondVerb, ChunkLinkType::INDIRECTOBJECT);
+        if (itIndirectObj != pSecondVerb.children.end())
+            tryToConvertObjChildToReflexive(*itIndirectObj);
+        else if (itDObj != pSecondVerb.children.end())
+            tryToConvertObjChildToReflexive(*itDObj);
 
-            auto itIndirectObj = getChunkLink(pSecondVerb, ChunkLinkType::INDIRECTOBJECT);
-            if (itIndirectObj != pSecondVerb.children.end())
-                tryToConvertObjChildToReflexive(*itIndirectObj);
-            else if (itDObj != pSecondVerb.children.end())
-                tryToConvertObjChildToReflexive(*itDObj);
-
-        } else if (itDObj != pSecondVerb.children.end() && !pFirstVerb.requests.empty()
-                   && canLinkVerbToASubject(pFirstVerb, *itDObj->chunk, inflChecker, false)) {
+        if (subjectChLkPtr == nullptr
+            && itDObj != pSecondVerb.children.end() && !pFirstVerb.requests.empty()
+            && canLinkVerbToASubject(pFirstVerb, *itDObj->chunk, inflChecker, false)) {
             itDObj->type = ChunkLinkType::SUBJECT;
             pFirstVerb.children.splice(pFirstVerb.children.end(), pSecondVerb.children, itDObj);
         }
