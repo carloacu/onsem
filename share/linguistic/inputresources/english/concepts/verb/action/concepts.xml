@@ -142,7 +142,7 @@
   <linkedMeaning lemme="go~get" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="collect" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="fetch" gram="verb" relationToConcept="3"/>
-  <linkedMeaning lemme="pick up" gram="verb" relationToConcept="3"/>
+  <linkedMeaning lemme="pick~up" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_action_grasp">
   <linkedMeaning lemme="grasp" gram="verb" relationToConcept="4"/>
