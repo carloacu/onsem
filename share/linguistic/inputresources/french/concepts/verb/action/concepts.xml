@@ -130,6 +130,7 @@
  </concept>
  <concept name="verb_action_sleep">
   <linkedMeaning lemme="dormir" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="endormir~se" gram="verb" relationToConcept="3"/>
  </concept>
  <concept name="verb_action_spin">
   <linkedMeaning lemme="pirouetter" gram="verb" relationToConcept="3"/>
