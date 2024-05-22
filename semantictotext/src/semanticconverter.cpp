@@ -2,6 +2,7 @@
 #include <onsem/texttosemantic/linguisticanalyzer.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/treeconverter.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
+#include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictextgrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semantictimegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticstatementgrounding.hpp>
@@ -645,6 +646,90 @@ void extractParameters(std::map<std::string, std::vector<UniqueSemanticExpressio
                 break;
             }
         }
+    }
+}
+
+
+
+void correferenceToRobot(UniqueSemanticExpression& pSemExp,
+                         const linguistics::LinguisticDatabase& pLingDb) {
+    switch (pSemExp->type) {
+    case SemanticExpressionType::ANNOTATED: {
+        AnnotatedExpression& annExp = pSemExp->getAnnExp();
+        correferenceToRobot(annExp.semExp, pLingDb);
+        for (auto& currAnn : annExp.annotations)
+            correferenceToRobot(currAnn.second, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::COMMAND: {
+        CommandExpression& cmdExp = pSemExp->getCmdExp();
+        correferenceToRobot(cmdExp.semExp, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::FEEDBACK: {
+        FeedbackExpression& fdkExp = pSemExp->getFdkExp();
+        correferenceToRobot(fdkExp.concernedExp, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::GROUNDED: {
+        GroundedExpression& grdExp = pSemExp->getGrdExp();
+        if (grdExp.grounding().type == SemanticGroundingType::GENERIC) {
+            SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
+            if (SemExpGetter::isASpecificHuman(genGrd) &&
+                SemExpGetter::isACoreferenceFromGenericGrounding(genGrd, CoreferenceDirectionEnum::BEFORE)) {
+                grdExp.moveGrounding(SemanticAgentGrounding::getRobotAgentPtr());
+            }
+        }
+        if (grdExp.grounding().type == SemanticGroundingType::META) {
+            SemanticMetaGrounding& metaGrd = grdExp->getMetaGrounding();
+            if (metaGrd.attibuteName == "self") {
+                grdExp.moveGrounding(SemanticAgentGrounding::getRobotAgentPtr());
+            }
+        }
+
+        for (auto& child : grdExp.children) {
+            correferenceToRobot(child.second, pLingDb);
+        }
+        break;
+    }
+    case SemanticExpressionType::INTERPRETATION: {
+        InterpretationExpression& intExp = pSemExp->getIntExp();
+        correferenceToRobot(intExp.interpretedExp, pLingDb);
+        if (intExp.source == InterpretationSource::STATEMENTCOREFERENCE)
+            correferenceToRobot(intExp.originalExp, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::LIST: {
+        ListExpression& listExp = pSemExp->getListExp();
+        for (auto& elt : listExp.elts) {
+            correferenceToRobot(elt, pLingDb);
+        }
+        break;
+    }
+    case SemanticExpressionType::METADATA: {
+        MetadataExpression& metaExp = pSemExp->getMetadataExp();
+        if (metaExp.source) {
+            correferenceToRobot(*metaExp.source, pLingDb);
+        }
+        correferenceToRobot(metaExp.semExp, pLingDb);
+        break;
+    }
+    case SemanticExpressionType::CONDITION: {
+        ConditionExpression& condExp = pSemExp->getCondExp();
+        correferenceToRobot(condExp.conditionExp, pLingDb);
+        correferenceToRobot(condExp.thenExp, pLingDb);
+        if (condExp.elseExp) {
+            correferenceToRobot(*condExp.elseExp, pLingDb);
+        }
+        break;
+    }
+    case SemanticExpressionType::FIXEDSYNTHESIS: {
+        FixedSynthesisExpression& fSynthExp = pSemExp->getFSynthExp();
+        correferenceToRobot(fSynthExp.getUSemExp(), pLingDb);
+        break;
+    }
+    case SemanticExpressionType::COMPARISON:
+    case SemanticExpressionType::SETOFFORMS: break;
     }
 }
 

@@ -160,6 +160,7 @@ std::unique_ptr<SemanticResourceGrounding> createResourceWithParameters(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage);
 
+ONSEMSEMANTICTOTEXT_API
 std::unique_ptr<SemanticResourceGrounding> createResourceWithParametersFromSemExp(
     const std::string& pResourceLabel,
     const std::string& pResourceValue,
@@ -173,6 +174,10 @@ void extractParameters(std::map<std::string, std::vector<UniqueSemanticExpressio
                        const std::map<std::string, std::vector<UniqueSemanticExpression>>& pParameterLabelsToQuestions,
                        UniqueSemanticExpression pInputSemExp,
                        const linguistics::LinguisticDatabase& pLingDb);
+
+ONSEMSEMANTICTOTEXT_API
+void correferenceToRobot(UniqueSemanticExpression& pSemExp,
+                         const linguistics::LinguisticDatabase& pLingDb);
 
 }    // End of namespace converter
 }    // End of namespace onsem

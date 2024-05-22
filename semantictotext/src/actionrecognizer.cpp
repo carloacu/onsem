@@ -139,89 +139,6 @@ void _extractParameters(
 }
 
 
-void _correferenceToRobot(UniqueSemanticExpression& pSemExp,
-                          const linguistics::LinguisticDatabase& pLingDb) {
-    switch (pSemExp->type) {
-    case SemanticExpressionType::ANNOTATED: {
-        AnnotatedExpression& annExp = pSemExp->getAnnExp();
-        _correferenceToRobot(annExp.semExp, pLingDb);
-        for (auto& currAnn : annExp.annotations)
-            _correferenceToRobot(currAnn.second, pLingDb);
-        break;
-    }
-    case SemanticExpressionType::COMMAND: {
-        CommandExpression& cmdExp = pSemExp->getCmdExp();
-        _correferenceToRobot(cmdExp.semExp, pLingDb);
-        break;
-    }
-    case SemanticExpressionType::FEEDBACK: {
-        FeedbackExpression& fdkExp = pSemExp->getFdkExp();
-        _correferenceToRobot(fdkExp.concernedExp, pLingDb);
-        break;
-    }
-    case SemanticExpressionType::GROUNDED: {
-        GroundedExpression& grdExp = pSemExp->getGrdExp();
-        if (grdExp.grounding().type == SemanticGroundingType::GENERIC) {
-            SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
-            if (SemExpGetter::isASpecificHuman(genGrd) &&
-                SemExpGetter::isACoreferenceFromGenericGrounding(genGrd, CoreferenceDirectionEnum::BEFORE)) {
-                grdExp.moveGrounding(SemanticAgentGrounding::getRobotAgentPtr());
-            }
-        }
-        if (grdExp.grounding().type == SemanticGroundingType::META) {
-            SemanticMetaGrounding& metaGrd = grdExp->getMetaGrounding();
-            if (metaGrd.attibuteName == "self") {
-                grdExp.moveGrounding(SemanticAgentGrounding::getRobotAgentPtr());
-            }
-        }
-
-        for (auto& child : grdExp.children) {
-            _correferenceToRobot(child.second, pLingDb);
-        }
-        break;
-    }
-    case SemanticExpressionType::INTERPRETATION: {
-        InterpretationExpression& intExp = pSemExp->getIntExp();
-        _correferenceToRobot(intExp.interpretedExp, pLingDb);
-        if (intExp.source == InterpretationSource::STATEMENTCOREFERENCE)
-            _correferenceToRobot(intExp.originalExp, pLingDb);
-        break;
-    }
-    case SemanticExpressionType::LIST: {
-        ListExpression& listExp = pSemExp->getListExp();
-        for (auto& elt : listExp.elts) {
-            _correferenceToRobot(elt, pLingDb);
-        }
-        break;
-    }
-    case SemanticExpressionType::METADATA: {
-        MetadataExpression& metaExp = pSemExp->getMetadataExp();
-        if (metaExp.source) {
-            _correferenceToRobot(*metaExp.source, pLingDb);
-        }
-        _correferenceToRobot(metaExp.semExp, pLingDb);
-        break;
-    }
-    case SemanticExpressionType::CONDITION: {
-        ConditionExpression& condExp = pSemExp->getCondExp();
-        _correferenceToRobot(condExp.conditionExp, pLingDb);
-        _correferenceToRobot(condExp.thenExp, pLingDb);
-        if (condExp.elseExp) {
-            _correferenceToRobot(*condExp.elseExp, pLingDb);
-        }
-        break;
-    }
-    case SemanticExpressionType::FIXEDSYNTHESIS: {
-        FixedSynthesisExpression& fSynthExp = pSemExp->getFSynthExp();
-        _correferenceToRobot(fSynthExp.getUSemExp(), pLingDb);
-        break;
-    }
-    case SemanticExpressionType::COMPARISON:
-    case SemanticExpressionType::SETOFFORMS: break;
-    }
-}
-
-
 void _addIntent(const std::string& pIntentName,
                 const std::vector<std::string>& pFormulations,
                 const std::map<std::string, ActionRecognizer::ParamInfo>& pParameterLabelToInfos,
@@ -233,7 +150,7 @@ void _addIntent(const std::string& pIntentName,
     triggerProcContext.isTimeDependent = false;
     for (auto& currFormulation : pFormulations) {
         auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);
-        _correferenceToRobot(formulationSemExp, pLingDb);
+        converter::correferenceToRobot(formulationSemExp, pLingDb);
 
         std::map<std::string, std::vector<std::string>> parameterLabelToQuestionsStrs;
         for (auto& currParam : pParameterLabelToInfos)
@@ -450,7 +367,7 @@ void ActionRecognizer::addAction(const std::string& pActionIntentName,
     triggerProcContext.isTimeDependent = false;
     for (auto& currFormulation : pIntentFormulations) {
         auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);
-        _correferenceToRobot(formulationSemExp, pLingDb);
+        converter::correferenceToRobot(formulationSemExp, pLingDb);
 
         std::list<UniqueSemanticExpression> otherFormulationsSemExps;
         {
