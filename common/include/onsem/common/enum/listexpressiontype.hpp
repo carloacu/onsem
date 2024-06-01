@@ -12,6 +12,7 @@ namespace onsem {
     ADD_SEMANTIC_LISTEXPTYPE(OR, "or")                       \
     ADD_SEMANTIC_LISTEXPTYPE(THEN, "then")                   \
     ADD_SEMANTIC_LISTEXPTYPE(THEN_REVERSED, "then_reversed") \
+    ADD_SEMANTIC_LISTEXPTYPE(IN_BACKGROUND, "in_background") \
     ADD_SEMANTIC_LISTEXPTYPE(UNRELATED, "unrelated")
 
 #define ADD_SEMANTIC_LISTEXPTYPE(a, b) a,

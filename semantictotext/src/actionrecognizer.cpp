@@ -186,62 +186,82 @@ ActionRecognizer::Intent _unknownIntent() {
     return intent;
 }
 
-std::optional<ActionRecognizer::Intent> _reactionToIntent(const mystd::unique_propagate_const<UniqueSemanticExpression>& pReaction,
-                                                          std::map<std::string, SemanticMemory>& pTypeToMemory,
-                                                          const linguistics::LinguisticDatabase& pLingDb) {
-    if (pReaction) {
-        const GroundedExpression* grdExpPtr = pReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
-        if (grdExpPtr != nullptr) {
-            auto* resourceGrdPtr = grdExpPtr->grounding().getResourceGroundingPtr();
-            if (resourceGrdPtr != nullptr) {
-                ActionRecognizer::Intent intent;
-                intent.name = resourceGrdPtr->resource.value;
-                for (auto& currParametersToSemExps : resourceGrdPtr->resource.parametersLabelsToValue) {
-                    auto& semExps = currParametersToSemExps.second;
-                    if (!semExps.empty()) {
-                        std::vector<std::string> parameterSplitted;
-                        mystd::split(parameterSplitted, currParametersToSemExps.first, ":");
-                        if (!parameterSplitted.empty()) {
-                            auto paramName = parameterSplitted[0];
-                            auto& paramValues = intent.slotNameToValues[paramName];
-                            TextProcessingContext outContext(
-                                        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, resourceGrdPtr->resource.language);
-                            SemanticMemory semMemory;
+std::optional<ActionRecognizer::ActionRecognized> _reactionToIntent(const SemanticExpression& pReaction,
+                                                                    std::map<std::string, SemanticMemory>& pTypeToMemory,
+                                                                    const linguistics::LinguisticDatabase& pLingDb) {
+    const GroundedExpression* grdExpPtr = pReaction.getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExpPtr != nullptr) {
+        auto* resourceGrdPtr = grdExpPtr->grounding().getResourceGroundingPtr();
+        if (resourceGrdPtr != nullptr) {
+            ActionRecognizer::ActionRecognized res;
+            res.intent.emplace(ActionRecognizer::Intent());
+            auto& intent = *res.intent;
+            intent.name = resourceGrdPtr->resource.value;
+            for (auto& currParametersToSemExps : resourceGrdPtr->resource.parametersLabelsToValue) {
+                auto& semExps = currParametersToSemExps.second;
+                if (!semExps.empty()) {
+                    std::vector<std::string> parameterSplitted;
+                    mystd::split(parameterSplitted, currParametersToSemExps.first, ":");
+                    if (!parameterSplitted.empty()) {
+                        auto paramName = parameterSplitted[0];
+                        auto& paramValues = intent.slotNameToValues[paramName];
+                        TextProcessingContext outContext(
+                                    SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, resourceGrdPtr->resource.language);
+                        SemanticMemory semMemory;
 
-                            for (auto& currAnswer : semExps) {
-                                std::string newValue;
-                                converter::semExpToText(newValue, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
+                        for (auto& currAnswer : semExps) {
+                            std::string newValue;
+                            converter::semExpToText(newValue, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
 
-                                bool paramAdded = false;
-                                if (parameterSplitted.size() > 1) {
-                                    auto paramType = parameterSplitted[1];
-                                    auto itParamMemory = pTypeToMemory.find(paramType);
-                                    if (itParamMemory != pTypeToMemory.end()) {
-                                        mystd::unique_propagate_const<UniqueSemanticExpression> entityReaction;
-                                        triggers::match(entityReaction, itParamMemory->second, currAnswer->clone(), pLingDb);
+                            bool paramAdded = false;
+                            if (parameterSplitted.size() > 1) {
+                                auto paramType = parameterSplitted[1];
+                                auto itParamMemory = pTypeToMemory.find(paramType);
+                                if (itParamMemory != pTypeToMemory.end()) {
+                                    mystd::unique_propagate_const<UniqueSemanticExpression> entityReaction;
+                                    triggers::match(entityReaction, itParamMemory->second, currAnswer->clone(), pLingDb);
 
-                                        if (entityReaction) {
-                                            const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
-                                            if (entityGrdExpPtr != nullptr) {
-                                                auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
-                                                if (entityResourceGrdPtr != nullptr) {
-                                                    paramValues.push_back(entityResourceGrdPtr->resource.value);
-                                                    paramAdded = true;
-                                                }
+                                    if (entityReaction) {
+                                        const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+                                        if (entityGrdExpPtr != nullptr) {
+                                            auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
+                                            if (entityResourceGrdPtr != nullptr) {
+                                                paramValues.push_back(entityResourceGrdPtr->resource.value);
+                                                paramAdded = true;
                                             }
                                         }
                                     }
                                 }
-
-                                if (!paramAdded)
-                                    paramValues.push_back(newValue);
                             }
+
+                            if (!paramAdded)
+                                paramValues.push_back(newValue);
                         }
                     }
                 }
-
-                return intent;
             }
+            if (!res.empty())
+                return res;
+        }
+    } else {
+        auto listExpPtr = pReaction.getListExpPtr_SkipWrapperPtrs();
+        if (listExpPtr != nullptr) {
+            auto& listExp = *listExpPtr;
+            ActionRecognizer::ActionRecognized res;
+            auto& actions = [&]() -> std::list<ActionRecognizer::ActionRecognized>& {
+                if (listExp.listType == ListExpressionType::THEN)
+                    return res.toRunSequentially;
+                if (listExp.listType == ListExpressionType::IN_BACKGROUND)
+                    return res.toRunInBackground;
+                return res.toRunInParallel;
+            }();
+            for (auto& currElt : listExp.elts) {
+                auto subActioon = _reactionToIntent(*currElt, pTypeToMemory, pLingDb);
+                if (subActioon)
+                    actions.push_back(std::move(*subActioon));
+            }
+            if (!res.empty())
+                return res;
         }
     }
     return {};
@@ -276,20 +296,43 @@ std::string ActionRecognizer::Intent::toStr() const {
     return res;
 }
 
+bool ActionRecognizer::ActionRecognized::isOnlyAnIntent() const {
+    return intent && !condition && toRunSequentially.empty() && toRunInParallel.empty() &&
+            toRunInBackground.empty();
+}
 
 bool ActionRecognizer::ActionRecognized::empty() const {
-    return !action && !condition;
+    return !intent && !condition && toRunSequentially.empty() && toRunInParallel.empty() &&
+            toRunInBackground.empty();
 }
 
 std::string ActionRecognizer::ActionRecognized::toJson() const {
     std::string res;
-    if (action)
-        res = "\"action\": \"" + action->toStr() + "\"";
+    if (intent)
+        res = "\"intent\": \"" + intent->toStr() + "\"";
     if (condition) {
         if (!res.empty())
             res += ", ";
-        res += "\"condition\": \"" + condition->toStr() + "\"";
+        res += "\"condition\": " + condition->toJson();
     }
+
+    auto tryToWriteList = [&](const std::list<ActionRecognized>& pList, const std::string& pLabel) {
+        if (!pList.empty()) {
+            std::string listRes;
+            for (auto& currElt : pList) {
+                if (!listRes.empty())
+                    listRes += ", ";
+                listRes += currElt.toJson();
+            }
+            if (!res.empty())
+                res += ", ";
+            res += "\"" + pLabel + "\": [" + listRes + "]";
+        }
+    };
+
+    tryToWriteList(toRunSequentially, "to_run_sequentially");
+    tryToWriteList(toRunInParallel, "to_run_in_parallel");
+    tryToWriteList(toRunInBackground, "to_run_in_background");
     return "{" + res + "}";
 }
 
@@ -420,20 +463,24 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
     }
 
     // Function to extract the condition
-    auto _extractCondtionIntent = [&]() -> std::optional<Intent> {
+    auto _extractCondtion = [&]() -> std::optional<ActionRecognized> {
         if (conditionSemExp) {
             mystd::unique_propagate_const<UniqueSemanticExpression> conditionReaction;
             triggers::match(conditionReaction, _predicateSemanticMemory, std::move(*conditionSemExp), pLingDb);
-            return _reactionToIntent(conditionReaction, _typeToMemory, pLingDb);
+            if (conditionReaction) {
+              const auto& conditionReactionSemExp = conditionReaction->getSemExp();
+              return _reactionToIntent(conditionReactionSemExp, _typeToMemory, pLingDb);
+            }
         }
         return {};
     };
 
     if (SemExpGetter::isACoreference(*pUtteranceSemExp, CoreferenceDirectionEnum::BEFORE)) {
-        ActionRecognizer::ActionRecognized actionRecognized;
-        actionRecognized.condition = _extractCondtionIntent();
-        if (actionRecognized.empty())
+        auto conditionOpt = _extractCondtion();
+        if (!conditionOpt)
             return {};
+        ActionRecognizer::ActionRecognized actionRecognized;
+        actionRecognized.condition = std::make_unique<ActionRecognizer::ActionRecognized>(std::move(*conditionOpt));
         return actionRecognized;
     }
 
@@ -454,12 +501,23 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
     mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
     if (compSemAnswers) {
         controller::compAnswerToSemExp(reaction, *compSemAnswers);
-        auto actionIntentOpt = _reactionToIntent(reaction, _typeToMemory, pLingDb);
-        if (actionIntentOpt) {
-            ActionRecognizer::ActionRecognized actionRecognized;
-            actionRecognized.action = std::move(*actionIntentOpt);
-            actionRecognized.condition = _extractCondtionIntent();
-            return actionRecognized;
+
+        if (reaction) {
+          const auto& reactionSemExp = reaction->getSemExp();
+          auto actionRecognizedOpt = _reactionToIntent(reactionSemExp, _typeToMemory, pLingDb);
+          if (actionRecognizedOpt) {
+              auto conditionOpt = _extractCondtion();
+              if (conditionOpt) {
+                  ActionRecognizer::ActionRecognized actionRecognized;
+                  actionRecognized.condition = std::make_unique<ActionRecognizer::ActionRecognized>(std::move(*conditionOpt));
+                  if (actionRecognizedOpt->isOnlyAnIntent())
+                      actionRecognized.intent = std::move(actionRecognizedOpt->intent);
+                  else
+                      actionRecognized.toRunSequentially.push_back(std::move(*actionRecognizedOpt));
+                  return actionRecognized;
+              }
+              return actionRecognizedOpt;
+          }
         }
     }
 
@@ -469,13 +527,14 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
     }
 
     if (conditionSemExp) {
-        ActionRecognizer::ActionRecognized actionRecognized;
-        actionRecognized.condition = _extractCondtionIntent();
-        if (actionRecognized.empty())
-            return {};
-        if (!isConditionOnly)
-            actionRecognized.action = _unknownIntent();
-        return actionRecognized;
+        auto conditionOpt = _extractCondtion();
+        if (conditionOpt) {
+            ActionRecognizer::ActionRecognized actionRecognized;
+            actionRecognized.condition = std::make_unique<ActionRecognizer::ActionRecognized>(std::move(*conditionOpt));
+            if (!isConditionOnly)
+                actionRecognized.intent = _unknownIntent();
+            return actionRecognized;
+        }
     }
 
     return {};

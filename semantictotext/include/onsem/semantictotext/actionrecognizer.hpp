@@ -27,9 +27,14 @@ public:
     };
 
     struct ActionRecognized {
-        std::optional<Intent> action;
-        std::optional<Intent> condition;
+        std::optional<Intent> intent;
+        std::unique_ptr<ActionRecognized> condition;
 
+        std::list<ActionRecognized> toRunSequentially;
+        std::list<ActionRecognized> toRunInParallel;
+        std::list<ActionRecognized> toRunInBackground;
+
+        bool isOnlyAnIntent() const;
         bool empty() const;
         std::string toJson() const;
     };

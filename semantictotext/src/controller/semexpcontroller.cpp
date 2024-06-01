@@ -667,14 +667,22 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
             getLinksOfAGrdExp(reqLinks, pWorkStruct, pMemViewer, pGrdExp, false);
 
             bool anAnswerHasBeenAdded = false;
-            if (addTriggerSentencesAnswer(pWorkStruct,
-                                          anAnswerHasBeenAdded,
-                                          pMemViewer,
-                                          reqLinks,
-                                          SemanticExpressionCategory::COMMAND,
-                                          _emptyAxiomId,
-                                          pGrdExp,
-                                          ContextualAnnotation::BEHAVIOR))
+            bool hasResult = addTriggerSentencesAnswer(pWorkStruct,
+                                                       anAnswerHasBeenAdded,
+                                                       pMemViewer,
+                                                       reqLinks,
+                                                       SemanticExpressionCategory::COMMAND,
+                                                       _emptyAxiomId,
+                                                       pGrdExp,
+                                                       ContextualAnnotation::BEHAVIOR);
+
+            auto itBackgroundChild = pGrdExp.children.find(GrammaticalType::IN_BACKGROUND);
+            if (itBackgroundChild != pGrdExp.children.end()) {
+                SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+                applyOperatorOnSemExp(subWorkStruct, pMemViewer, *itBackgroundChild->second);
+                pWorkStruct.addAnswers(ListExpressionType::IN_BACKGROUND, subWorkStruct);
+            }
+            if (hasResult)
                 break;
 
             specificActionsHandler::process(pWorkStruct, pMemViewer, pGrdExp, pStatementStruct);

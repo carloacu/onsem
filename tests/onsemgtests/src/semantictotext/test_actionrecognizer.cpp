@@ -81,107 +81,114 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("say", {"dire"}, whatParameter, lingDb);
     actionRecognizer.addAction("put", {"poser quelque chose"}, {}, lingDb);
 
-    EXPECT_EQ("{\"action\": \"bring(obj=patate)\"}",
+    EXPECT_EQ("{\"intent\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"add(nb=1)\"}",
+    EXPECT_EQ("{\"intent\": \"add(nb=1)\"}",
               _recognize("Ajoute un", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"add(nb=1)\", "
-              "\"condition\": \"clicked(c=checkpoint2)\"}",
+    EXPECT_EQ("{\"intent\": \"add(nb=1)\", "
+              "\"condition\": {\"intent\": \"clicked(c=checkpoint2)\"}}",
               _recognize("Quand le checkpoint du plateau est pressée, ajoute un", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"add(nb=1)\", "
-              "\"condition\": \"clicked(c=checkpoint3)\"}",
+    EXPECT_EQ("{\"intent\": \"add(nb=1)\", "
+              "\"condition\": {\"intent\": \"clicked(c=checkpoint3)\"}}",
               _recognize("Si le checkpoint de Charles est pressé, ajoute un", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"go_to_loc(loc=checkpoint1)\", "
-              "\"condition\": \"clicked(c=checkpoint1)\"}",
+    EXPECT_EQ("{\"intent\": \"go_to_loc(loc=checkpoint1)\", "
+              "\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est pressée, va au checkpoint Virginie", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("si le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"condition\": \"clicked(c=Le checkpoint NomQuiExistePas)\"}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=Le checkpoint NomQuiExistePas)\"}}",
               _recognize("si le checkpoint NomQuiExistePas est cliquée", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"add(nb=1)\", \"condition\": \"clicked(c=Le checkpoint de NomQuiExistePas)\"}",
+    EXPECT_EQ("{\"intent\": \"add(nb=1)\", \"condition\": {\"intent\": \"clicked(c=Le checkpoint de NomQuiExistePas)\"}}",
               _recognize("si le checkpoint de NomQuiExistePas est cliquée, ajoute un", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"condition\": \"clicked(c=checkpoint1)\"}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("à chaque fois que le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"UNKNOWN\", "
-              "\"condition\": \"clicked(c=checkpoint1)\"}",
+    EXPECT_EQ("{\"intent\": \"UNKNOWN\", "
+              "\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est cliquée saute", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"UNKNOWN\", "
-              "\"condition\": \"clicked(c=checkpoint1)\"}",
+    EXPECT_EQ("{\"intent\": \"UNKNOWN\", "
+              "\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est cliquée ça sera une belle journée", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("relâche tes bras", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("baisse tes bras", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("baisse tes mains", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("j'aimerais que tu baisses tes bras", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("Veux-tu bien baisser tes bras ?", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("Voudrais-tu bien baisser tes bras ?", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("baisser tes bras", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("tu dois baisser tes bras", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("tu aurais l'amabilité de baisser tes bras", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("aurais-tu la gentillesse de baisser tes bras", actionRecognizer, lingDb, frLanguage));
 
     EXPECT_EQ("", _recognize("ne relâche pas tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_TRUE(_isObviouslyWrong("arms_down", "ne relâche pas tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_FALSE(_isObviouslyWrong("arms_down", "ne monte pas tes bras", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"unfreeze\"}",
+    EXPECT_EQ("{\"intent\": \"unfreeze\"}",
               _recognize("défige-toi", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"what_i_know\"}",
+    EXPECT_EQ("{\"intent\": \"what_i_know\"}",
               _recognize("dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"what_i_know\", "
-              "\"condition\": \"same_location(c=checkpoint1)\"}",
+    EXPECT_EQ("{\"intent\": \"what_i_know\", "
+              "\"condition\": {\"intent\": \"same_location(c=checkpoint1)\"}}",
               _recognize("si tu es proche du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"what_i_know\", "
-              "\"condition\": \"same_location(c=checkpoint1)\"}",
+    EXPECT_EQ("{\"intent\": \"what_i_know\", "
+              "\"condition\": {\"intent\": \"same_location(c=checkpoint1)\"}}",
               _recognize("si tu es pas loin du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"what_i_know\"}",
+    EXPECT_EQ("{\"intent\": \"what_i_know\"}",
               _recognize("si tu es loin du checkpoint Virginie dis ce que tu sais", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"move(distance=10 mètres)\"}",
+    EXPECT_EQ("{\"intent\": \"move(distance=10 mètres)\"}",
               _recognize("avance de 10 mètres", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"turn_left(angle=34 degrés)\"}",
+    EXPECT_EQ("{\"intent\": \"turn_left(angle=34 degrés)\"}",
               _recognize("tourne à gauche de 34 degrés", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"turn_right(angle=12 degrés)\"}",
+    EXPECT_EQ("{\"intent\": \"turn_right(angle=12 degrés)\"}",
               _recognize("tourne à droite de 12 degrés", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"low_battery_level_reaction\"}",
+    EXPECT_EQ("{\"intent\": \"low_battery_level_reaction\"}",
               _recognize("Avertis de la batterie faible", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"salute\"}",
+    EXPECT_EQ("{\"intent\": \"salute\"}",
               _recognize("salue de la main et de la voix", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"look_at_somebody\"}",
+    EXPECT_EQ("{\"intent\": \"look_at_somebody\"}",
               _recognize("regarde un humain", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"look_at_somebody\"}",
+    EXPECT_EQ("{\"intent\": \"look_at_somebody\"}",
               _recognize("regarde un utilisateur", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"action\": \"say(something=Je suis content.)\"}",
+    EXPECT_EQ("{\"intent\": \"say(something=Je suis content.)\"}",
               _recognize("dis que tu es content", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"put\"}",
+    EXPECT_EQ("{\"intent\": \"put\"}",
               _recognize("pose le panier", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"action\": \"put\"}",
+    EXPECT_EQ("{\"intent\": \"put\"}",
               _recognize("pose les bonbons", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"to_run_in_parallel\": [{\"intent\": \"put\"}, {\"intent\": \"look_at_somebody\"}]}",
+              _recognize("pose les bonbons et regarde un utilisateur", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"to_run_sequentially\": [{\"intent\": \"put\"}, {\"intent\": \"look_at_somebody\"}]}",
+              _recognize("pose les bonbons puis regarde un utilisateur", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"to_run_in_background\": [{\"intent\": \"put\"}, {\"intent\": \"look_at_somebody\"}]}",
+              _recognize("pose les bonbons en regardant un utilisateur", actionRecognizer, lingDb, frLanguage));
 }
 
 
@@ -212,48 +219,48 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     actionRecognizer.addAction("look_at_oneself", {"to look at oneself"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("put", {"put something"}, {}, lingDb);
 
-    EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\"}",
+    EXPECT_EQ("{\"intent\": \"go_to_loc(loc=The Virginie checkpoint)\"}",
               _recognize("go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"action\": \"go_to_loc(loc=The Virginie checkpoint)\", "
-              "\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
+    EXPECT_EQ("{\"intent\": \"go_to_loc(loc=The Virginie checkpoint)\", "
+              "\"condition\": {\"intent\": \"clicked(c=The Virginie checkpoint)\"}}",
               _recognize("if the Virginie checkpoint is clicked go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The Virginie checkpoint)\"}}",
               _recognize("if the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The Virginie checkpoint)\"}}",
               _recognize("when the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": \"clicked(c=The Virginie checkpoint)\"}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The Virginie checkpoint)\"}}",
               _recognize("whenever the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("relax your arms", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("Do you want to lower your arms?", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("Would you like to lower your arms?", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("Would you be kind enough to relax your arms?", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("Would you be so kind as to lower your arms?", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("I would like you to lower your arms", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"arms_down\"}",
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("I'd like you to drop your arms", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"action\": \"move(distance=10 meters)\"}",
+    EXPECT_EQ("{\"intent\": \"move(distance=10 meters)\"}",
               _recognize("move forward 10 meters", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"turn_left(angle=32 degrees)\"}",
+    EXPECT_EQ("{\"intent\": \"turn_left(angle=32 degrees)\"}",
               _recognize("Turn left 32 degrees", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"not_move\"}",
+    EXPECT_EQ("{\"intent\": \"not_move\"}",
               _recognize("Don't move", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"action\": \"look_at_oneself\"}",
+    EXPECT_EQ("{\"intent\": \"look_at_oneself\"}",
               _recognize("look at oneself", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"look_at_oneself\"}",
+    EXPECT_EQ("{\"intent\": \"look_at_oneself\"}",
               _recognize("look at yourself", actionRecognizer, lingDb, enLanguage));
-    EXPECT_EQ("{\"action\": \"put\"}",
+    EXPECT_EQ("{\"intent\": \"put\"}",
               _recognize("put a tray", actionRecognizer, lingDb, enLanguage));
 }
