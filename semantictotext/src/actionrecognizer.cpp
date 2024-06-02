@@ -332,7 +332,7 @@ bool ActionRecognizer::ActionRecognized::empty() const {
 std::string ActionRecognizer::ActionRecognized::toJson() const {
     std::string res;
     if (intent)
-        res = "\"intent\": \"" + intent->toJson() + "\"";
+        res = "\"intent\": " + intent->toJson();
     if (condition) {
         if (!res.empty())
             res += ", ";
