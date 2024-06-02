@@ -19,7 +19,7 @@ std::string _recognize(const std::string& pText,
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::UNKNOWN, pLingDb);
     auto actionRecognizedOpt = pActionRecognizer.recognize(std::move(semExp), pLingDb);
     if (actionRecognizedOpt)
-        return actionRecognizedOpt->toJson();
+        return actionRecognizedOpt->toJsonWithIntentInStr();
     return "";
 }
 

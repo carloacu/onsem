@@ -21,9 +21,10 @@ public:
 
     struct Intent {
         std::string name;
-        std::map<std::string, std::vector<std::string>> slotNameToValues;
+        std::map<std::string, std::vector<std::string>> params;
 
         std::string toStr() const;
+        std::string toJson() const;
     };
 
     struct ActionRecognized {
@@ -37,6 +38,7 @@ public:
         bool isOnlyAnIntent() const;
         bool empty() const;
         std::string toJson() const;
+        std::string toJsonWithIntentInStr() const;
     };
 
     struct ParamInfo {

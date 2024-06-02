@@ -204,7 +204,7 @@ std::optional<ActionRecognizer::ActionRecognized> _reactionToIntent(const Semant
                     mystd::split(parameterSplitted, currParametersToSemExps.first, ":");
                     if (!parameterSplitted.empty()) {
                         auto paramName = parameterSplitted[0];
-                        auto& paramValues = intent.slotNameToValues[paramName];
+                        auto& paramValues = intent.params[paramName];
                         TextProcessingContext outContext(
                                     SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, resourceGrdPtr->resource.language);
                         SemanticMemory semMemory;
@@ -272,10 +272,10 @@ std::optional<ActionRecognizer::ActionRecognized> _reactionToIntent(const Semant
 
 std::string ActionRecognizer::Intent::toStr() const {
     std::string res = name;
-    if (!slotNameToValues.empty()) {
+    if (!params.empty()) {
         res += "(";
         bool firstSlot = true;
-        for (const auto& currSlot : slotNameToValues) {
+        for (const auto& currSlot : params) {
             if (firstSlot)
                 firstSlot = false;
             else
@@ -296,6 +296,29 @@ std::string ActionRecognizer::Intent::toStr() const {
     return res;
 }
 
+std::string ActionRecognizer::Intent::toJson() const {
+    std::string res = "\"name\": \"" + name + "\"";
+    if (!params.empty()) {
+        std::string paramRes;
+        for (const auto& currSlot : params) {
+            if (currSlot.second.empty())
+                continue;
+            std::string valuesRes;
+            for (auto& currValue : currSlot.second) {
+                if (!valuesRes.empty())
+                    valuesRes += ", ";
+                valuesRes += "\"" + currValue + "\"";
+            }
+            if (!paramRes.empty())
+                paramRes += ", ";
+            paramRes += "\"" + currSlot.first + "\": [" + valuesRes + "]";
+        }
+        res += ", \"params\": {" + paramRes + "}";
+    }
+    return "{" + res + "}";
+}
+
+
 bool ActionRecognizer::ActionRecognized::isOnlyAnIntent() const {
     return intent && !condition && toRunSequentially.empty() && toRunInParallel.empty() &&
             toRunInBackground.empty();
@@ -309,7 +332,7 @@ bool ActionRecognizer::ActionRecognized::empty() const {
 std::string ActionRecognizer::ActionRecognized::toJson() const {
     std::string res;
     if (intent)
-        res = "\"intent\": \"" + intent->toStr() + "\"";
+        res = "\"intent\": \"" + intent->toJson() + "\"";
     if (condition) {
         if (!res.empty())
             res += ", ";
@@ -323,6 +346,36 @@ std::string ActionRecognizer::ActionRecognized::toJson() const {
                 if (!listRes.empty())
                     listRes += ", ";
                 listRes += currElt.toJson();
+            }
+            if (!res.empty())
+                res += ", ";
+            res += "\"" + pLabel + "\": [" + listRes + "]";
+        }
+    };
+
+    tryToWriteList(toRunSequentially, "to_run_sequentially");
+    tryToWriteList(toRunInParallel, "to_run_in_parallel");
+    tryToWriteList(toRunInBackground, "to_run_in_background");
+    return "{" + res + "}";
+}
+
+std::string ActionRecognizer::ActionRecognized::toJsonWithIntentInStr() const {
+    std::string res;
+    if (intent)
+        res = "\"intent\": \"" + intent->toStr() + "\"";
+    if (condition) {
+        if (!res.empty())
+            res += ", ";
+        res += "\"condition\": " + condition->toJsonWithIntentInStr();
+    }
+
+    auto tryToWriteList = [&](const std::list<ActionRecognized>& pList, const std::string& pLabel) {
+        if (!pList.empty()) {
+            std::string listRes;
+            for (auto& currElt : pList) {
+                if (!listRes.empty())
+                    listRes += ", ";
+                listRes += currElt.toJsonWithIntentInStr();
             }
             if (!res.empty())
                 res += ", ";
