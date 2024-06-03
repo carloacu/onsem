@@ -173,7 +173,8 @@ void VirtualOutputter::processSemExp(const SemanticExpression& pSemExp, const Ou
 
             const ListExpression& listExp = pSemExp.getListExp();
             switch (listExp.listType) {
-                case ListExpressionType::AND: {
+                case ListExpressionType::AND:
+                case ListExpressionType::IN_BACKGROUND: {
                     _handleList(listExp, Link::AND, pOutputterContext);
                     return;
                 }

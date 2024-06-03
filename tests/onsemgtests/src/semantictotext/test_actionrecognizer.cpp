@@ -163,6 +163,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
 
     EXPECT_EQ("{\"intent\": \"move(distance=10 mètres)\"}",
               _recognize("avance de 10 mètres", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"intent\": \"move(distance=0,2 mètre)\"}",
+              _recognize("avance de 20 centimètres", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"intent\": \"turn_left(angle=34 degrés)\"}",
               _recognize("tourne à gauche de 34 degrés", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"intent\": \"turn_right(angle=12 degrés)\"}",
@@ -189,6 +191,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("pose les bonbons puis regarde un utilisateur", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"to_run_in_background\": [{\"intent\": \"put\"}, {\"intent\": \"look_at_somebody\"}]}",
               _recognize("pose les bonbons en regardant un utilisateur", actionRecognizer, lingDb, frLanguage));
+
+
+    EXPECT_EQ("", _recognize("avance puis fais un saut périeux", actionRecognizer, lingDb, frLanguage));
 }
 
 

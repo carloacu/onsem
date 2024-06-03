@@ -12,6 +12,7 @@ struct ReactionOptions {
     bool canSayOkToAnAffirmation = true;
     bool canAnswerWithExternalEngines = true;
     bool reactWithTextAndResource = false;
+    bool considerOnlyFullMatches = false;
 };
 
 }    // End of namespace onsem

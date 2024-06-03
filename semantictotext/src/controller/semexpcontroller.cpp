@@ -308,10 +308,29 @@ void _applyOperatorOnListExp(SemControllerWorkingStruct& pWorkStruct,
             && semanticMemoryLinker::addTriggerListExp(pWorkStruct, pMemViewer, pListExp))
             return;
 
-        for (const auto& currElt : pListExp.elts) {
-            SemControllerWorkingStruct subWorkStruct(pWorkStruct);
-            applyOperatorOnSemExp(subWorkStruct, pMemViewer, *currElt);
-            pWorkStruct.addAnswers(pListExp.listType, subWorkStruct);
+        if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER &&
+                        pWorkStruct.reactionOptions.considerOnlyFullMatches) {
+            bool canAddAnswerOfListElts = true;
+            SemControllerWorkingStruct candidateWorkStruct(pWorkStruct);
+            for (const auto& currElt : pListExp.elts) {
+                SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+                applyOperatorOnSemExp(subWorkStruct, pMemViewer, *currElt);
+                if (pWorkStruct.reactOperator == SemanticOperatorEnum::REACTFROMTRIGGER &&
+                    pWorkStruct.reactionOptions.considerOnlyFullMatches &&
+                    !subWorkStruct.haveAnAnswer()) {
+                    canAddAnswerOfListElts = false;
+                    break;
+                }
+                candidateWorkStruct.addAnswers(pListExp.listType, subWorkStruct);
+            }
+            if (canAddAnswerOfListElts)
+                pWorkStruct.addAnswers(candidateWorkStruct);
+        } else {
+            for (const auto& currElt : pListExp.elts) {
+                SemControllerWorkingStruct subWorkStruct(pWorkStruct);
+                applyOperatorOnSemExp(subWorkStruct, pMemViewer, *currElt);
+                pWorkStruct.addAnswers(pListExp.listType, subWorkStruct);
+            }
         }
     }
 }

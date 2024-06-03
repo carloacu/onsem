@@ -542,6 +542,8 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
     SemanticMemory localSemanticMemory;
     auto expForMem = localSemanticMemory.memBloc.addRootSemExp(pUtteranceSemExp->clone(), pLingDb);
     ExpressionWithLinks& expForMemRef = *expForMem;
+    ReactionOptions reactionOptions;
+    reactionOptions.considerOnlyFullMatches = true;
     controller::applyOperatorOnExpHandleInMemory(compSemAnswers,
                                                  expForMemRef,
                                                  SemanticOperatorEnum::REACTFROMTRIGGER,
@@ -549,7 +551,7 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
                                                  _actionSemanticMemory,
                                                  nullptr,
                                                  pLingDb,
-                                                 nullptr);
+                                                 &reactionOptions);
 
     mystd::unique_propagate_const<UniqueSemanticExpression> reaction;
     if (compSemAnswers) {
