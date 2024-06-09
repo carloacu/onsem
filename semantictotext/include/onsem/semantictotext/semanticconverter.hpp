@@ -117,6 +117,9 @@ UniqueSemanticExpression syntGraphToSemExp(const linguistics::SyntacticGraph& pS
                                            std::list<std::list<SemLineToPrint>>* pDebugOutput);
 
 ONSEMSEMANTICTOTEXT_API
+UniqueSemanticExpression getImperativeAssociateFrom(UniqueSemanticExpression pUSemExp);
+
+ONSEMSEMANTICTOTEXT_API
 void infinitiveToRequestVariations(std::list<UniqueSemanticExpression>& pOuts,
                                    UniqueSemanticExpression pUSemExp);
 

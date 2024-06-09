@@ -468,6 +468,15 @@ void semExpToText(std::string& pResStr,
                  pDebugOutput);
 }
 
+
+UniqueSemanticExpression getImperativeAssociateFrom(UniqueSemanticExpression pUSemExp) {
+    auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
+    if (grdExpPtr != nullptr)
+        return SemExpCreator::getImperativeAssociateFrom(*grdExpPtr);
+    return pUSemExp;
+}
+
+
 void infinitiveToRequestVariations(std::list<UniqueSemanticExpression>& pOuts,
                                    UniqueSemanticExpression pUSemExp) {
     const UniqueSemanticExpression* imperativeSemExpPtr = nullptr;
