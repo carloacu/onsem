@@ -85,6 +85,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"intent\": \"move\", \"to_run_in_background\": [{\"intent\": \"raise_arms\"}]}",
               _recognize("avance en levant les bras", actionRecognizer, lingDb, frLanguage));
 
+    EXPECT_EQ("{\"intent\": \"move\", \"to_run_sequentially\": [{\"intent\": \"raise_arms\"}]}",
+              _recognize("avance puis lève les bras", actionRecognizer, lingDb, frLanguage));
+
     EXPECT_EQ("{\"intent\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
 

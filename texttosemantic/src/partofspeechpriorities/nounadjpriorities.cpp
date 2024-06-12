@@ -141,6 +141,7 @@ void verbPrioritiesFr(std::vector<Token>& pTokens, const InflectionsChecker& pIn
         if (firstVerbInflWord.word.partOfSpeech == PartOfSpeech::VERB && inflWords.size() > 1) {
             auto itNextTok = getNextToken(itTok, pTokens.end());
             if (itNextTok != pTokens.end() && itNextTok->inflWords.front().word.partOfSpeech == PartOfSpeech::VERB
+               && itNextTok->inflWords.front().word.lemma != "pouvoir"
                 && (!pInflsCheker.verbIsAtInfinitive(itNextTok->inflWords.front())
                     && !pInflsCheker.verbIsOnlyAtPresentOrPastParticiple(itNextTok->inflWords.front())
                     && (!pInflsCheker.verbCanBeAtImperative(itNextTok->inflWords.front())
