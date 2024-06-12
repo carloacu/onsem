@@ -256,9 +256,13 @@ std::optional<ActionRecognizer::ActionRecognized> _reactionToIntent(const Semant
                 return res.toRunInParallel;
             }();
             for (auto& currElt : listExp.elts) {
-                auto subActioon = _reactionToIntent(*currElt, pTypeToMemory, pLingDb);
-                if (subActioon)
-                    actions.push_back(std::move(*subActioon));
+                auto subAction = _reactionToIntent(*currElt, pTypeToMemory, pLingDb);
+                if (subAction) {
+                    if (res.empty())
+                        res = std::move(*subAction);
+                    else
+                        actions.push_back(std::move(*subAction));
+                }
             }
             if (!res.empty())
                 return res;

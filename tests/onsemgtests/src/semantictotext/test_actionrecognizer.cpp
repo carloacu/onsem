@@ -80,6 +80,10 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
         {"something", ActionRecognizer::ParamInfo("str", {"what"})}};
     actionRecognizer.addAction("say", {"dire"}, whatParameter, lingDb);
     actionRecognizer.addAction("put", {"poser quelque chose"}, {}, lingDb);
+    actionRecognizer.addAction("raise_arms", {"lever les bras"}, {}, lingDb);
+
+    EXPECT_EQ("{\"intent\": \"move\", \"to_run_in_background\": [{\"intent\": \"raise_arms\"}]}",
+              _recognize("avance en levant les bras", actionRecognizer, lingDb, frLanguage));
 
     EXPECT_EQ("{\"intent\": \"bring(obj=patate)\"}",
               _recognize("apporte une patate", actionRecognizer, lingDb, frLanguage));
@@ -185,11 +189,11 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"intent\": \"put\"}",
               _recognize("pose les bonbons", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"to_run_in_parallel\": [{\"intent\": \"put\"}, {\"intent\": \"look_at_somebody\"}]}",
+    EXPECT_EQ("{\"intent\": \"put\", \"to_run_in_parallel\": [{\"intent\": \"look_at_somebody\"}]}",
               _recognize("pose les bonbons et regarde un utilisateur", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"to_run_sequentially\": [{\"intent\": \"put\"}, {\"intent\": \"look_at_somebody\"}]}",
+    EXPECT_EQ("{\"intent\": \"put\", \"to_run_sequentially\": [{\"intent\": \"look_at_somebody\"}]}",
               _recognize("pose les bonbons puis regarde un utilisateur", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"to_run_in_background\": [{\"intent\": \"put\"}, {\"intent\": \"look_at_somebody\"}]}",
+    EXPECT_EQ("{\"intent\": \"put\", \"to_run_in_background\": [{\"intent\": \"look_at_somebody\"}]}",
               _recognize("pose les bonbons en regardant un utilisateur", actionRecognizer, lingDb, frLanguage));
 
 
