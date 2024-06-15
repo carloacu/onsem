@@ -421,6 +421,11 @@ void ActionRecognizer::addType(const std::string& pType,
         _typeWithValueConsideredAsOwner.insert(pType);
 }
 
+
+void ActionRecognizer::clearEntities() {
+    _typeToMemory.clear();
+}
+
 void ActionRecognizer::addEntity(const std::string& pType,
                                  const std::string& pEntityId,
                                  const std::vector<std::string>& pEntityLabels,
@@ -456,7 +461,10 @@ void ActionRecognizer::addPredicate(const std::string& pPredicateName,
 }
 
 
-
+void ActionRecognizer::clearActions() {
+    _actionSemanticMemory.clear();
+    _actionToSemExps.clear();
+}
 
 void ActionRecognizer::addAction(const std::string& pActionIntentName,
                                  const std::vector<std::string>& pIntentFormulations,

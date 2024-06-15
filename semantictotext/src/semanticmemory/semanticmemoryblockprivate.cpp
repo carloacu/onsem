@@ -46,6 +46,7 @@ bool SemanticMemoryBlockPrivate::empty() const {
 
 void SemanticMemoryBlockPrivate::clearLocalInformationButNotTheSubBloc() {
     expressionsMemories.clear();
+    trackerKnowledges.clear();
     expressionsMemoriesPtrToIt.clear();
     answersLinks.clear();
     conditionToInformationLinks.clear();

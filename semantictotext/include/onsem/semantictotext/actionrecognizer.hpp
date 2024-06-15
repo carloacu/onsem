@@ -52,6 +52,7 @@ public:
                  const std::vector<std::string>& pFormulations,
                  bool pIsValueConsideredAsOwner);
 
+    void clearEntities();
     void addEntity(const std::string& pType,
                    const std::string& pEntityId,
                    const std::vector<std::string>& pEntityLabels,
@@ -61,6 +62,7 @@ public:
                       const std::vector<std::string>& pPredicateFormulations,
                       const linguistics::LinguisticDatabase& pLingDb);
 
+    void clearActions();
     void addAction(const std::string& pActionIntentName,
                    const std::vector<std::string>& pIntentFormulations,
                    const std::map<std::string, ParamInfo>& pParameterLabelToInfos,

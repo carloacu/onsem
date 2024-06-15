@@ -145,6 +145,8 @@ void SemanticMemoryBlock::clearLocalInformationButNotTheSubBloc() {
 
 void SemanticMemoryBlock::clear() {
     subBlockPtr = nullptr;
+    disableOldContrarySentences = true;
+    _hardCodedUserIdResolution.clear();
     if (_fallbacksBlockPtr)
         _fallbacksBlockPtr->clear();
     _impl->clear();

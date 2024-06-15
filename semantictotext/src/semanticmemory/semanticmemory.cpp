@@ -24,10 +24,14 @@ void SemanticMemory::clearLocalInformationButNotTheSubBloc() {
 
 void SemanticMemory::clear() {
     memBloc.clear();
+    defaultLanguage = SemanticLanguageEnum::ENGLISH;
     callbackToSentencesCanBeAnswered.clear();
-    _externalFallback.reset();
+    proativeSpecifications = ProativeSpecifications();
+    interactionContextContainer.reset();
 
+    _newUserFocusedToSemExps.clear();
     _currUserId = SemanticAgentGrounding::currentUser;
+    _externalFallback.reset();
 }
 
 void SemanticMemory::copySemExps(std::list<UniqueSemanticExpression>& pCopiedSemExps) {
