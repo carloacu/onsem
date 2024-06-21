@@ -53,6 +53,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addEntity("object", "patate", {"patate"}, lingDb);
     actionRecognizer.addPredicate("clicked", {"[c:checkpoint] est pressé", "[c:checkpoint] est cliqué"}, lingDb);
     actionRecognizer.addPredicate("same_location", {"[self] est proche de [c:checkpoint]", "[self] est pas loin de [c:checkpoint]"}, lingDb);
+    actionRecognizer.addPredicate("sees_someone", {"[self] voit quelqu'un"}, lingDb);
 
     std::map<std::string, ActionRecognizer::ParamInfo> whatNbParameter{
         {"nb", ActionRecognizer::ParamInfo("int", {"what"})}};
@@ -128,6 +129,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"intent\": \"UNKNOWN\", "
               "\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est cliquée ça sera une belle journée", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"intent\": \"add(nb=1)\", \"condition\": {\"intent\": \"sees_someone\"}}",
+              _recognize("quand tu vois quelqu'un, ajoute un", actionRecognizer, lingDb, frLanguage));
 
     EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("relâche tes bras", actionRecognizer, lingDb, frLanguage));
