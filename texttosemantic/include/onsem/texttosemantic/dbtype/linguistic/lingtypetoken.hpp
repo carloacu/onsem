@@ -188,7 +188,10 @@ struct TokenRangeTemplate {
 
     TokenRangeTemplate& operator=(const TokenRangeTemplate& pOther);
     void getStr(std::string& pRes) const;
+    std::string toStr() const;
     bool doesContain(const TokenPos& pPos) const;
+
+    void mergeWith(const TokenRangeTemplate& pOther);
 
 private:
     TOKENSVECTOR* tokList;

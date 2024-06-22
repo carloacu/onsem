@@ -11,6 +11,7 @@ set(ONSEMGTESTS_SRCS
   src/common/test_string.cpp
   src/common/test_uppercasehandler.cpp
   src/texttosemantic/test_binarization.cpp
+  src/texttosemantic/test_chunktooriginaltext.cpp
   src/texttosemantic/test_conceptset.cpp
   src/texttosemantic/test_databasemodifications.cpp
   src/texttosemantic/test_serialization.cpp

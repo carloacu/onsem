@@ -25,6 +25,8 @@ struct ONSEM_TEXTTOSEMANTIC_API Chunk {
     const WordAssociatedInfos& getHeadAssInfos() const;
     const std::map<std::string, char>& getHeadConcepts() const;
 
+    TokenRange getTokRangeWrappingChildren() const;
+
     TokenRange tokRange;
     /**
      * @brief The head of the chunk.
@@ -45,6 +47,9 @@ struct ONSEM_TEXTTOSEMANTIC_API Chunk {
     /// The sub-chunks.
     std::list<ChunkLink> children;
     mystd::optional<const SemanticWord*> introductingWordToSaveForSynthesis;
+
+private:
+    void _increaseTokRangeWrappingChildren(TokenRange& pTokenRange) const;
 };
 
 struct ONSEM_TEXTTOSEMANTIC_API ChunkAndTokIt {

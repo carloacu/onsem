@@ -34,5 +34,25 @@ const std::map<std::string, char>& Chunk::getHeadConcepts() const {
     return head->inflWords.front().infos.concepts;
 }
 
+TokenRange Chunk::getTokRangeWrappingChildren() const {
+    auto res = tokRange;
+    for (auto& currChildLk : children) {
+        const Chunk& currChild = *currChildLk.chunk;
+        currChild._increaseTokRangeWrappingChildren(res);
+    }
+    return res;
+}
+
+
+void Chunk::_increaseTokRangeWrappingChildren(TokenRange& pTokenRange) const
+{
+    pTokenRange.mergeWith(tokRange);
+    for (auto& currChildLk : children) {
+        const Chunk& currChild = *currChildLk.chunk;
+        currChild._increaseTokRangeWrappingChildren(pTokenRange);
+    }
+}
+
+
 }    // End of namespace linguistics
 }    // End of namespace onsem

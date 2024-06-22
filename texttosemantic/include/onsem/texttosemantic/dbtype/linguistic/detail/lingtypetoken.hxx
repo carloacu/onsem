@@ -3,6 +3,7 @@
 
 #include "../lingtypetoken.hpp"
 #include <sstream>
+#include <iostream>
 
 namespace onsem
 {
@@ -167,6 +168,13 @@ inline void TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::getStr(std::string& pRes)
 }
 
 template<typename TOKENSVECTOR, typename TOKENIT>
+std::string TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::toStr() const {
+    std::string res;
+    getStr(res);
+    return res;
+}
+
+template<typename TOKENSVECTOR, typename TOKENIT>
 bool TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::doesContain(const TokenPos& pPos) const
 {
   if (itBegin == itEnd ||
@@ -176,6 +184,35 @@ bool TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::doesContain(const TokenPos& pPos
   --itLast;
   return pPos <= itLast->tokenPos;
 }
+
+
+template<typename TOKENSVECTOR, typename TOKENIT>
+void TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::mergeWith(const TokenRangeTemplate& pOther) {
+    if (tokList != pOther.tokList) {
+        std::cerr << "Failed to merge 2 TokenRangeTemplate because they does not come from the same list" << std::endl;
+        return;
+    }
+
+    if (itBegin == tokList->end() || pOther.itBegin == tokList->end()) {
+        itBegin = tokList->end();
+        itEnd = tokList->end();
+        return;
+    }
+
+    if (pOther.itBegin->tokenPos < itBegin->tokenPos)
+        itBegin = pOther.itBegin;
+
+    if (itEnd == tokList->end() || pOther.itEnd == tokList->end()) {
+        itEnd = tokList->end();
+        return;
+    }
+
+    if (itEnd->tokenPos < pOther.itEnd->tokenPos)
+        itEnd = pOther.itEnd;
+}
+
+
+
 
 template<typename TOKENSVECTOR, typename TOKENIT>
 inline std::size_t TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::size() const
