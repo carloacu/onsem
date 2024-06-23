@@ -34,24 +34,31 @@ const std::map<std::string, char>& Chunk::getHeadConcepts() const {
     return head->inflWords.front().infos.concepts;
 }
 
-TokenRange Chunk::getTokRangeWrappingChildren() const {
+TokenRange Chunk::getTokRangeWrappingChildren(const std::set<ChunkLinkType>* pExceptChildrenPtr) const {
     auto res = tokRange;
-    for (auto& currChildLk : children) {
-        const Chunk& currChild = *currChildLk.chunk;
-        currChild._increaseTokRangeWrappingChildren(res);
-    }
+    _increaseTokRangeWrappingOnlyChildren(res, pExceptChildrenPtr);
     return res;
 }
 
 
-void Chunk::_increaseTokRangeWrappingChildren(TokenRange& pTokenRange) const
+void Chunk::_increaseTokRangeWrappingChildren(TokenRange& pTokenRange, const std::set<ChunkLinkType>* pExceptChildrenPtr) const
 {
     pTokenRange.mergeWith(tokRange);
+    _increaseTokRangeWrappingOnlyChildren(pTokenRange, pExceptChildrenPtr);
+}
+
+
+void Chunk::_increaseTokRangeWrappingOnlyChildren(TokenRange& pTokenRange, const std::set<ChunkLinkType>* pExceptChildrenPtr) const
+{
     for (auto& currChildLk : children) {
+        if (pExceptChildrenPtr != nullptr && pExceptChildrenPtr->count(currChildLk.type) > 0) {
+            continue;
+        }
         const Chunk& currChild = *currChildLk.chunk;
-        currChild._increaseTokRangeWrappingChildren(pTokenRange);
+        currChild._increaseTokRangeWrappingChildren(pTokenRange, pExceptChildrenPtr);
     }
 }
+
 
 
 }    // End of namespace linguistics

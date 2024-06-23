@@ -547,6 +547,16 @@ void _prettyPrintCondExp(std::list<SemLineToPrint>& pLines,
         _printLabel(subPrinterBuff, "conditionExp:");
         _prettyPrintSemExp(pLines, subPrinterBuff, *pCondExp.conditionExp);
     }
+
+    if (pCondExp.conditionStr != "") {
+        PrinterBuffer subPrinterBuff;
+        subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
+        subPrinterBuff.offsetNewLine = subPrinterBuff.offsetCurrLine;
+        _printLabel(subPrinterBuff, "conditionStr:");
+        subPrinterBuff.elts.emplace_back("\"" + pCondExp.conditionStr + "\"");
+        _flushStringStream(pLines, subPrinterBuff, nullptr);
+    }
+
     {
         PrinterBuffer subPrinterBuff;
         subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
@@ -554,12 +564,31 @@ void _prettyPrintCondExp(std::list<SemLineToPrint>& pLines,
         _printLabel(subPrinterBuff, "thenExp:");
         _prettyPrintSemExp(pLines, subPrinterBuff, *pCondExp.thenExp);
     }
+
+    if (pCondExp.thenStr != "") {
+        PrinterBuffer subPrinterBuff;
+        subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
+        subPrinterBuff.offsetNewLine = subPrinterBuff.offsetCurrLine;
+        _printLabel(subPrinterBuff, "thenStr:");
+        subPrinterBuff.elts.emplace_back("\"" + pCondExp.thenStr + "\"");
+        _flushStringStream(pLines, subPrinterBuff, nullptr);
+    }
+
     if (pCondExp.elseExp) {
         PrinterBuffer subPrinterBuff;
         subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
         subPrinterBuff.offsetNewLine = subPrinterBuff.offsetCurrLine;
         _printLabel(subPrinterBuff, "elseExp:");
         _prettyPrintSemExp(pLines, subPrinterBuff, **pCondExp.elseExp);
+    }
+
+    if (pCondExp.elseStr != "") {
+        PrinterBuffer subPrinterBuff;
+        subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
+        subPrinterBuff.offsetNewLine = subPrinterBuff.offsetCurrLine;
+        _printLabel(subPrinterBuff, "elseStr:");
+        subPrinterBuff.elts.emplace_back("\"" + pCondExp.elseStr + "\"");
+        _flushStringStream(pLines, subPrinterBuff, nullptr);
     }
 }
 

@@ -43,8 +43,11 @@ struct ONSEM_TEXTTOSEMANTIC_API ConditionExpression : public SemanticExpression 
     // TODO: rename because here "affirmation" -> "sentence"
     bool conditionPointsToAffirmations;
     UniqueSemanticExpression conditionExp;
+    std::string conditionStr;
     UniqueSemanticExpression thenExp;
+    std::string thenStr;
     mystd::unique_propagate_const<UniqueSemanticExpression> elseExp;
+    std::string elseStr;
 };
 
 template<typename TSEMEXP1, typename TSEMEXP2>
@@ -56,8 +59,11 @@ ConditionExpression::ConditionExpression(bool pIsAlwaysActive,
     , isAlwaysActive(pIsAlwaysActive)
     , conditionPointsToAffirmations(pconditionPointsToAffirmations)
     , conditionExp(std::move(pConditionExp))
+    , conditionStr()
     , thenExp(std::move(pThenExp))
-    , elseExp() {}
+    , thenStr()
+    , elseExp()
+    , elseStr() {}
 
 inline bool ConditionExpression::operator==(const ConditionExpression& pOther) const {
     return isEqual(pOther);
@@ -65,8 +71,10 @@ inline bool ConditionExpression::operator==(const ConditionExpression& pOther) c
 
 inline bool ConditionExpression::isEqual(const ConditionExpression& pOther) const {
     return isAlwaysActive == pOther.isAlwaysActive
-        && conditionPointsToAffirmations == pOther.conditionPointsToAffirmations && conditionExp == pOther.conditionExp
-        && thenExp == pOther.thenExp && elseExp == pOther.elseExp;
+        && conditionPointsToAffirmations == pOther.conditionPointsToAffirmations
+        && conditionExp == pOther.conditionExp && conditionStr == pOther.conditionStr
+        && thenExp == pOther.thenExp && thenStr == pOther.thenStr
+        && elseExp == pOther.elseExp && elseStr == pOther.elseStr;
 }
 
 inline std::unique_ptr<ConditionExpression> ConditionExpression::clone(

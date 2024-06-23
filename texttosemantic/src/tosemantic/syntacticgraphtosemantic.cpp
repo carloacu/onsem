@@ -29,6 +29,8 @@ static const std::vector<std::string> adjAdvShouldNotBeReplacedByAConcept = {"de
 
 namespace {
 
+const std::set<ChunkLinkType> _ifAndElseChildrenTypes{ChunkLinkType::IF, ChunkLinkType::ELSE};
+
 ListExpressionType _chunkTypeToListExpType(ChunkType pChunkType) {
     if (pChunkType == ChunkType::AND_CHUNK)
         return ListExpressionType::AND;
@@ -156,7 +158,8 @@ void _tryToConvertToInfinitiveSubordinate(UniqueSemanticExpression& pSemExp) {
 }
 
 void _fillConditions(UniqueSemanticExpression& pSemExp,
-                     std::map<GrammaticalType, std::unique_ptr<ConditionExpression>>& pChildTypeToCondition) {
+                     std::map<GrammaticalType, std::unique_ptr<ConditionExpression>>& pChildTypeToCondition,
+                     const Chunk& pFromChunk) {
     auto it = pChildTypeToCondition.begin();
     while (it != pChildTypeToCondition.end()) {
         UniqueSemanticExpression& rootSemExpOfTheCondition = [&it, &pSemExp]() -> UniqueSemanticExpression& {
@@ -170,6 +173,7 @@ void _fillConditions(UniqueSemanticExpression& pSemExp,
         }();
 
         it->second->thenExp = std::move(rootSemExpOfTheCondition);
+        it->second->thenStr = pFromChunk.getTokRangeWrappingChildren(&_ifAndElseChildrenTypes).toStr();
         rootSemExpOfTheCondition = std::move(it->second);
         it = pChildTypeToCondition.erase(it);
     }
@@ -1454,7 +1458,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> SyntacticGraphToSemantic
                 _refactorThEPurposeOfPatterns(resSemExp, pGeneral, pContext);
                 xFillSentenceSubordonates(
                     resSemExp, childTypeToCondition, GrammaticalType::UNKNOWN, pGeneral, pContext);
-                _fillConditions(resSemExp, childTypeToCondition);
+                _fillConditions(resSemExp, childTypeToCondition, pContext.chunk);
                 res = mystd::unique_propagate_const<UniqueSemanticExpression>(std::move(resSemExp));
             }
             break;
@@ -2273,7 +2277,7 @@ void SyntacticGraphToSemantic::xFillNewSentence(
                     std::map<GrammaticalType, std::unique_ptr<ConditionExpression>> childTypeToCondition;
                     xFillNewSentence(*sentence, childTypeToCondition, pGeneral, subContext);
                     UniqueSemanticExpression semExp(std::move(sentence));
-                    _fillConditions(semExp, childTypeToCondition);
+                    _fillConditions(semExp, childTypeToCondition, *currChkLk.chunk);
                     xFillSentenceSubordonates(semExp, pChildTypeToCondition, childGramType, pGeneral, subContext);
 
                     // add the request of the subordinate
@@ -2471,7 +2475,7 @@ void SyntacticGraphToSemantic::xTryToFillCondition(UniqueSemanticExpression& pSe
     if (itIfChkLink != pContext.chunk.children.end()) {
         std::map<GrammaticalType, std::unique_ptr<ConditionExpression>> childTypeToCondition;
         xFillCondition(childTypeToCondition, GrammaticalType::UNKNOWN, pGeneral, *itIfChkLink, pContext);
-        _fillConditions(pSemExpSentence, childTypeToCondition);
+        _fillConditions(pSemExpSentence, childTypeToCondition, pContext.chunk);
     }
 }
 
@@ -2501,10 +2505,12 @@ void SyntacticGraphToSemantic::xFillCondition(
     if (conLinkToExp) {
         auto condExp = std::make_unique<ConditionExpression>(
             isAlwaysActive, false, std::move(*conLinkToExp), UniqueSemanticExpression());
+        condExp->conditionStr = pSubClauseChunkLink.chunk->getTokRangeWrappingChildren().toStr();
         auto itElse = getChunkLink(pContext.chunk, ChunkLinkType::ELSE);
         if (itElse != pContext.chunk.children.end()) {
             ToGenRepContext elseSubContext(pContext, *itElse, *itElse->chunk);
             condExp->elseExp = xFillSemExp(pGeneral, elseSubContext);
+            condExp->elseStr = itElse->chunk->getTokRangeWrappingChildren().toStr();
         }
         pChildTypeToCondition.emplace(pCurrGramChild, std::move(condExp));
     }

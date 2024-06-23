@@ -3,7 +3,9 @@
 
 #include <list>
 #include <vector>
+#include <set>
 #include <onsem/common/enum/semanticrequesttype.hpp>
+#include <onsem/common/enum/chunklinktype.hpp>
 #include <onsem/texttosemantic/dbtype/linguistic/lingtypetoken.hpp>
 #include "enum/lingverbform.hpp"
 #include "enum/chunktype.hpp"
@@ -25,7 +27,7 @@ struct ONSEM_TEXTTOSEMANTIC_API Chunk {
     const WordAssociatedInfos& getHeadAssInfos() const;
     const std::map<std::string, char>& getHeadConcepts() const;
 
-    TokenRange getTokRangeWrappingChildren() const;
+    TokenRange getTokRangeWrappingChildren(const std::set<ChunkLinkType>* pExceptChildrenPtr = nullptr) const;
 
     TokenRange tokRange;
     /**
@@ -49,7 +51,8 @@ struct ONSEM_TEXTTOSEMANTIC_API Chunk {
     mystd::optional<const SemanticWord*> introductingWordToSaveForSynthesis;
 
 private:
-    void _increaseTokRangeWrappingChildren(TokenRange& pTokenRange) const;
+    void _increaseTokRangeWrappingChildren(TokenRange& pTokenRange, const std::set<ChunkLinkType>* pExceptChildrenPtr) const;
+    void _increaseTokRangeWrappingOnlyChildren(TokenRange& pTokenRange, const std::set<ChunkLinkType>* pExceptChildrenPtr) const;
 };
 
 struct ONSEM_TEXTTOSEMANTIC_API ChunkAndTokIt {
