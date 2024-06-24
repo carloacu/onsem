@@ -54,6 +54,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addPredicate("clicked", {"[c:checkpoint] est pressé", "[c:checkpoint] est cliqué"}, lingDb);
     actionRecognizer.addPredicate("same_location", {"[self] est proche de [c:checkpoint]", "[self] est pas loin de [c:checkpoint]"}, lingDb);
     actionRecognizer.addPredicate("sees_someone", {"[self] voit quelqu'un"}, lingDb);
+    actionRecognizer.addPredicate("likes_paul", {"[self] aime Paul"}, lingDb);
 
     std::map<std::string, ActionRecognizer::ParamInfo> whatNbParameter{
         {"nb", ActionRecognizer::ParamInfo("int", {"what"})}};
@@ -208,6 +209,15 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
 
     EXPECT_EQ("{\"intent\": \"__unknown__(from_text=fais un saut périlleux)\", \"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("si le checkpoint Virginie est cliquée, fais un saut périlleux", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"intent\": \"__unknown__(from_text=fais un saut périlleux (avec joie))\", \"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
+              _recognize("si le checkpoint Virginie est cliquée, fais un saut périlleux (avec joie)", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"condition\": {\"intent\": \"sees_someone\"}}",
+              _recognize("si tu vois quelqu'un", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"condition\": {\"intent\": \"likes_paul\"}}",
+              _recognize("si tu aimes Paul", actionRecognizer, lingDb, frLanguage));
 }
 
 
@@ -242,16 +252,16 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
               _recognize("go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
 
     EXPECT_EQ("{\"intent\": \"go_to_loc(loc=The Virginie checkpoint)\", "
-              "\"condition\": {\"intent\": \"clicked(c=The Virginie checkpoint)\"}}",
+              "\"condition\": {\"intent\": \"clicked(c=The checkpoint of Virginie)\"}}",
               _recognize("if the Virginie checkpoint is clicked go to  the Virginie checkpoint", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The Virginie checkpoint)\"}}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The checkpoint of Virginie)\"}}",
               _recognize("if the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The Virginie checkpoint)\"}}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The checkpoint of Virginie)\"}}",
               _recognize("when the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 
-    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The Virginie checkpoint)\"}}",
+    EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=The checkpoint of Virginie)\"}}",
               _recognize("whenever the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
 
     EXPECT_EQ("{\"intent\": \"arms_down\"}",

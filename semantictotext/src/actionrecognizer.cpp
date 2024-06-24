@@ -535,6 +535,7 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
     auto _extractCondtion = [&]() -> std::optional<ActionRecognized> {
         if (conditionSemExp) {
             mystd::unique_propagate_const<UniqueSemanticExpression> conditionReaction;
+            controller::applyOperatorResolveAgentAccordingToTheContext(*conditionSemExp, _predicateSemanticMemory, pLingDb);
             triggers::match(conditionReaction, _predicateSemanticMemory, std::move(*conditionSemExp), pLingDb);
             if (conditionReaction) {
               const auto& conditionReactionSemExp = conditionReaction->getSemExp();
