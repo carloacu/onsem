@@ -216,6 +216,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"condition\": {\"intent\": \"sees_someone\"}}",
               _recognize("si tu vois quelqu'un", actionRecognizer, lingDb, frLanguage));
 
+    EXPECT_EQ("", _recognize("dis le lui", actionRecognizer, lingDb, frLanguage));
+
     EXPECT_EQ("{\"condition\": {\"intent\": \"likes_paul\"}}",
               _recognize("si tu aimes Paul", actionRecognizer, lingDb, frLanguage));
 }

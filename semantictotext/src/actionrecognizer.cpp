@@ -212,6 +212,9 @@ std::optional<ActionRecognizer::ActionRecognized> _reactionToIntent(const Semant
                         SemanticMemory semMemory;
 
                         for (auto& currAnswer : semExps) {
+                            if (SemExpGetter::isACoreference(*currAnswer, CoreferenceDirectionEnum::BEFORE))
+                                return {};
+
                             std::string newValue;
                             converter::semExpToText(newValue, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
 
