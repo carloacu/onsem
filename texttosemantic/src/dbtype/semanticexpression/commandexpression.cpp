@@ -29,6 +29,7 @@ std::unique_ptr<CommandExpression> CommandExpression::clone(
     if (description)
         res->description.emplace(
             (*description)->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
+    res->fromText = fromText;
     return res;
 }
 

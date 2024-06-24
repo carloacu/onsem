@@ -28,6 +28,7 @@ std::unique_ptr<GroundedExpression> GroundedExpression::clone(
             currChild.first,
             currChild.second->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
     }
+    res->fromText = fromText;
     return res;
 }
 

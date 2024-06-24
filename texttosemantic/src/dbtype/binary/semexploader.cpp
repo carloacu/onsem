@@ -345,17 +345,25 @@ void _loadSemExpOpt(mystd::unique_propagate_const<UniqueSemanticExpression>& pSe
 std::unique_ptr<GroundedExpression> loadGrdExp(const unsigned char*& pPtr,
                                                const linguistics::LinguisticDatabase& pLingDb) {
     pPtr++;
+    FromText fromText;
+    fromText.introduction = binaryloader::loadString(pPtr);
+    fromText.content = binaryloader::loadString(pPtr);
     auto res = std::make_unique<GroundedExpression>(_loadGrd(pPtr, pLingDb));
     _loadChildren(res->children, pPtr, pLingDb);
+    res->fromText = std::move(fromText);
     return res;
 }
 
 UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistics::LinguisticDatabase& pLingDb) {
     SemanticExpressionType semExpType(semanticExpressionType_fromChar(*(pPtr++)));
+    FromText fromText;
+    fromText.introduction = binaryloader::loadString(pPtr);
+    fromText.content = binaryloader::loadString(pPtr);
     switch (semExpType) {
         case SemanticExpressionType::GROUNDED: {
             auto res = std::make_unique<GroundedExpression>(_loadGrd(pPtr, pLingDb));
             _loadChildren(res->children, pPtr, pLingDb);
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::LIST: {
@@ -363,23 +371,26 @@ UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistic
             unsigned char nbOfElts = *(pPtr++);
             for (unsigned char i = 0; i < nbOfElts; ++i)
                 res->elts.emplace_back(loadSemExp(pPtr, pLingDb));
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::COMMAND: {
             auto res = std::make_unique<CommandExpression>(loadSemExp(pPtr, pLingDb));
             _loadSemExpOpt(res->description, pPtr, pLingDb);
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::FEEDBACK: {
             auto feedbackExp = loadSemExp(pPtr, pLingDb);
-            return std::make_unique<FeedbackExpression>(std::move(feedbackExp), loadSemExp(pPtr, pLingDb));
+            auto res = std::make_unique<FeedbackExpression>(std::move(feedbackExp), loadSemExp(pPtr, pLingDb));
+            res->fromText = std::move(fromText);
+            return res;
         }
         case SemanticExpressionType::METADATA: {
             SemanticSourceEnum from = semanticSourceEnum_fromChar(*(pPtr++));
             ContextualAnnotation contextualAnnotation = contextualAnnotation_fromChar(*(pPtr++));
             SemanticLanguageEnum fromLanguage = semanticLanguageEnum_fromChar(*(pPtr++));
             unsigned char confidence = *(pPtr++);
-            std::string fromText = binaryloader::loadString(pPtr);
             unsigned char nbOfReferences = *(pPtr++);
             std::list<std::string> references;
             for (unsigned char i = 0; i < nbOfReferences; ++i)
@@ -392,9 +403,9 @@ UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistic
             res->contextualAnnotation = contextualAnnotation;
             res->fromLanguage = fromLanguage;
             res->confidence = confidence;
-            res->fromText = std::move(fromText);
             res->references = std::move(references);
             res->source = std::move(source);
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::ANNOTATED: {
@@ -404,6 +415,7 @@ UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistic
             auto res = std::make_unique<AnnotatedExpression>(loadSemExp(pPtr, pLingDb));
             res->synthesizeAnnotations = synthesizeAnnotations;
             res->annotations = std::move(annotations);
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::CONDITION: {
@@ -413,6 +425,7 @@ UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistic
             auto res = std::make_unique<ConditionExpression>(
                 isAlwaysActive, conditionPointsToAffirmations, std::move(conditionExp), loadSemExp(pPtr, pLingDb));
             _loadSemExpOpt(res->elseExp, pPtr, pLingDb);
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::COMPARISON: {
@@ -427,6 +440,7 @@ UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistic
             res->request = request;
             res->whatIsComparedExp = std::move(whatIsComparedExp);
             _loadSemExpOpt(res->rightOperandExp, pPtr, pLingDb);
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::SETOFFORMS: {
@@ -443,6 +457,7 @@ UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistic
                 }
                 res->prioToForms.emplace(priorityValue, std::move(qefList));
             }
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::FIXEDSYNTHESIS: {
@@ -454,6 +469,7 @@ UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistic
             }
             auto res = std::make_unique<FixedSynthesisExpression>(loadSemExp(pPtr, pLingDb));
             res->langToSynthesis = std::move(langToSynthesis);
+            res->fromText = std::move(fromText);
             return res;
         }
         case SemanticExpressionType::INTERPRETATION: {
@@ -462,6 +478,7 @@ UniqueSemanticExpression loadSemExp(const unsigned char*& pPtr, const linguistic
             auto originalExp = loadSemExp(pPtr, pLingDb);
             auto res =
                 std::make_unique<InterpretationExpression>(source, std::move(interpretedExp), std::move(originalExp));
+            res->fromText = std::move(fromText);
             return res;
         }
     }

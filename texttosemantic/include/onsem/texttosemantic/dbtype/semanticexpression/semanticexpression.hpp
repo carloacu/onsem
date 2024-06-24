@@ -76,6 +76,26 @@ static inline SemanticExpressionType semanticExpressionType_fromStr(const std::s
     return SemanticExpressionType::GROUNDED;
 }
 
+
+struct ONSEM_TEXTTOSEMANTIC_API FromText {
+    FromText(const std::string& pContent = "",
+             const std::string& pIntroduction = "")
+        : introduction(pIntroduction),
+          content(pContent) {
+    }
+
+    bool operator==(const FromText& pOther) const {
+        return introduction == pOther.introduction && content == pOther.content;
+    }
+    bool operator!=(const FromText& pOther) const {
+        return introduction != pOther.introduction || content != pOther.content;
+    }
+    std::string toStr() const { return introduction + content; }
+
+    std::string introduction;
+    std::string content;
+};
+
 struct ONSEM_TEXTTOSEMANTIC_API SemanticExpression {
     virtual ~SemanticExpression();
     SemanticExpression(const SemanticExpression&) = delete;
@@ -86,6 +106,7 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticExpression {
     void assertEqual(const SemanticExpression& pOther) const;
 
     const SemanticExpressionType type;
+    FromText fromText;
 
     virtual GroundedExpression& getGrdExp();
     virtual const GroundedExpression& getGrdExp() const;

@@ -122,11 +122,11 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("à chaque fois que le checkpoint Virginie est cliquée", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"intent\": \"UNKNOWN\", "
+    EXPECT_EQ("{\"intent\": \"__unknown__(from_text=saute)\", "
               "\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est cliquée saute", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"intent\": \"UNKNOWN\", "
+    EXPECT_EQ("{\"intent\": \"__unknown__(from_text=ça sera une belle journée)\", "
               "\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est cliquée ça sera une belle journée", actionRecognizer, lingDb, frLanguage));
 
@@ -204,7 +204,10 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("pose les bonbons en regardant un utilisateur", actionRecognizer, lingDb, frLanguage));
 
 
-    EXPECT_EQ("", _recognize("avance puis fais un saut périeux", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("", _recognize("avance puis fais un saut périlleux", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"intent\": \"__unknown__(from_text=fais un saut périlleux)\", \"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
+              _recognize("si le checkpoint Virginie est cliquée, fais un saut périlleux", actionRecognizer, lingDb, frLanguage));
 }
 
 

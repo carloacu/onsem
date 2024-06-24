@@ -25,30 +25,29 @@ std::string printSemExp(const SemanticExpression& pSemExp) {
 
 UniqueSemanticExpression textToSemExp(const std::string& pText,
                                       const linguistics::LinguisticDatabase& pLingDb,
-                                      SemanticLanguageEnum pLanguage) {
-    return converter::textToSemExp(
-        pText,
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage),
-        pLingDb);
+                                      SemanticLanguageEnum pLanguage,
+                                      bool pWriteOriginalText) {
+    TextProcessingContext textProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    textProc.writeOriginalText = pWriteOriginalText;
+    return converter::textToSemExp(pText, textProc, pLingDb);
 }
 
 UniqueSemanticExpression textToSemExpFromRobot(const std::string& pText,
                                                const linguistics::LinguisticDatabase& pLingDb,
-                                               SemanticLanguageEnum pLanguage) {
-    return converter::textToSemExp(
-        pText,
-        TextProcessingContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage),
-        pLingDb);
+                                               SemanticLanguageEnum pLanguage,
+                                               bool pWriteOriginalText) {
+    TextProcessingContext textProc(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
+    textProc.writeOriginalText = pWriteOriginalText;
+    return converter::textToSemExp(pText, textProc, pLingDb);
 }
 
 UniqueSemanticExpression textToContextualSemExp(const std::string& pText,
                                                 const linguistics::LinguisticDatabase& pLingDb,
-                                                SemanticLanguageEnum pLanguage) {
-    return converter::textToContextualSemExp(
-        pText,
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage),
-        SemanticSourceEnum::ASR,
-        pLingDb);
+                                                SemanticLanguageEnum pLanguage,
+                                                bool pWriteOriginalText) {
+    TextProcessingContext textProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    textProc.writeOriginalText = pWriteOriginalText;
+    return converter::textToContextualSemExp(pText, textProc, SemanticSourceEnum::ASR, pLingDb);
 }
 
 unsigned int textToConfidence(const std::string& pText,

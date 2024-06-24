@@ -26,7 +26,8 @@ TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,
     , vouvoiement(false)
     , writeParametersToFill(false)
     , cmdGrdExtractorPtr()
-    , spellingMistakeTypesPossible() {}
+    , spellingMistakeTypesPossible()
+    , writeOriginalText(true) {}
 
 TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,
                                              const std::string& pReceiverId,
@@ -40,7 +41,8 @@ TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,
     , vouvoiement(false)
     , writeParametersToFill(false)
     , cmdGrdExtractorPtr()
-    , spellingMistakeTypesPossible() {}
+    , spellingMistakeTypesPossible()
+    , writeOriginalText(true) {}
 
 TextProcessingContext::TextProcessingContext(const TextProcessingContext& pOther)
     : author(pOther.author)
@@ -51,7 +53,8 @@ TextProcessingContext::TextProcessingContext(const TextProcessingContext& pOther
     , vouvoiement(pOther.vouvoiement)
     , writeParametersToFill(pOther.writeParametersToFill)
     , cmdGrdExtractorPtr(pOther.cmdGrdExtractorPtr)
-    , spellingMistakeTypesPossible(pOther.spellingMistakeTypesPossible) {}
+    , spellingMistakeTypesPossible(pOther.spellingMistakeTypesPossible)
+    , writeOriginalText(pOther.writeOriginalText) {}
 
 void TextProcessingContext::setUsAsYouAndMe() {
     usSemExp = _getYouAndMeSemExp(author.userId, receiver.userId);

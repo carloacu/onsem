@@ -19,6 +19,7 @@ std::unique_ptr<FixedSynthesisExpression> FixedSynthesisExpression::clone(
     auto res = std::make_unique<FixedSynthesisExpression>(
         _semExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
     res->langToSynthesis = langToSynthesis;
+    res->fromText = fromText;
     return res;
 }
 

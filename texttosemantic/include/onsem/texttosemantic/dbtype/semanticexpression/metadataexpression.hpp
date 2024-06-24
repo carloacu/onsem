@@ -78,9 +78,6 @@ struct ONSEM_TEXTTOSEMANTIC_API MetadataExpression : public SemanticExpression {
     /// Confidence between 0 and 100 about the semantic expression.
     unsigned char confidence;
 
-    /// From what text the semantic expression comes from.
-    std::string fromText;
-
     /**
      * @brief Set of references (identifiers) linked to the semantic expression.<br/>
      * It is not used by onsem. Onsem only keeps the information and forwards it.<br/>
@@ -105,7 +102,6 @@ MetadataExpression::MetadataExpression(std::unique_ptr<TSEMEXP> pSemExp)
     , contextualAnnotation(ContextualAnnotation::PROACTIVE)
     , fromLanguage(SemanticLanguageEnum::UNKNOWN)
     , confidence(100)
-    , fromText()
     , references()
     , source()
     , semExp(std::move(pSemExp))
@@ -117,7 +113,7 @@ inline bool MetadataExpression::operator==(const MetadataExpression& pOther) con
 
 inline bool MetadataExpression::isEqual(const MetadataExpression& pOther) const {
     return from == pOther.from && contextualAnnotation == pOther.contextualAnnotation
-        && fromLanguage == pOther.fromLanguage && confidence == pOther.confidence && fromText == pOther.fromText
+        && fromLanguage == pOther.fromLanguage && confidence == pOther.confidence
         && references == pOther.references && source == pOther.source && semExp == pOther.semExp
         && interactionContextContainer == pOther.interactionContextContainer;
 }

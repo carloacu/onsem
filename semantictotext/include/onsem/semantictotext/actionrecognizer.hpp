@@ -14,6 +14,11 @@ struct LinguisticDatabase;
 }
 struct UniqueSemanticExpression;
 
+static const std::string garbadgeIntent = "__garbadge__";
+static const std::string agreementIntent = "__agreement__";
+static const std::string disagreementIntent = "__disagreement__";
+static const std::string unknownIntent = "__unknown__";
+
 
 class ONSEMSEMANTICTOTEXT_API ActionRecognizer {
 public:

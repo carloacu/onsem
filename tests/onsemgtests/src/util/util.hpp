@@ -102,15 +102,18 @@ std::string printSemExp(const SemanticExpression& pSemExp);
 
 UniqueSemanticExpression textToSemExp(const std::string& pText,
                                       const linguistics::LinguisticDatabase& pLingDb,
-                                      SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
+                                      SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN,
+                                      bool pWriteOriginalText = true);
 
 UniqueSemanticExpression textToSemExpFromRobot(const std::string& pText,
                                                const linguistics::LinguisticDatabase& pLingDb,
-                                               SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
+                                               SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN,
+                                               bool pWriteOriginalText = true);
 
 UniqueSemanticExpression textToContextualSemExp(const std::string& pText,
                                                 const linguistics::LinguisticDatabase& pLingDb,
-                                                SemanticLanguageEnum pLanguage);
+                                                SemanticLanguageEnum pLanguage,
+                                                bool pWriteOriginalText = true);
 
 unsigned int textToConfidence(const std::string& pText,
                               const linguistics::LinguisticDatabase& pLingDb,

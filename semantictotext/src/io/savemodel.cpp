@@ -347,8 +347,6 @@ void _saveMetadataExp(boost::property_tree::ptree& pTree,
         pTree.put("fromLanguage", semanticLanguageEnum_toStr(pMetadataExp.fromLanguage));
     if (pMetadataExp.confidence != 100)
         pTree.put("confidence", static_cast<int>(pMetadataExp.confidence));
-    if (!pMetadataExp.fromText.empty())
-        pTree.put("fromText", pMetadataExp.fromText);
     if (!pMetadataExp.references.empty()) {
         boost::property_tree::ptree& referencesChild = pTree.put_child("references", {});
         for (const auto& currRef : pMetadataExp.references)
@@ -407,6 +405,10 @@ void _saveSemExp(boost::property_tree::ptree& pTree, const SemanticExpression& p
     }
     if (pSemExp.type != SemanticExpressionType::GROUNDED)
         pTree.put("type", semanticExpressionType_toStr(pSemExp.type));
+    if (pSemExp.fromText.introduction != "")
+        pTree.put("fromText_introduction", pSemExp.fromText.introduction);
+    if (pSemExp.fromText.content != "")
+        pTree.put("fromText_content", pSemExp.fromText.content);
     switch (pSemExp.type) {
         case SemanticExpressionType::GROUNDED: {
             const GroundedExpression& grdExp = pSemExp.getGrdExp();

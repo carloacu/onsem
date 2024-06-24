@@ -165,6 +165,11 @@ struct ONSEM_TEXTTOSEMANTIC_API Token {
     bool thisTokenAlreadyCausedARestart;
 };
 
+
+template<typename TOKENSVECTOR, typename TOKENIT>
+TOKENIT iteratorToSubList(const TOKENIT& pItBegin, const TOKENIT& pItEnd, const TOKENSVECTOR* pSubList);
+
+
 template<typename TOKENSVECTOR, typename TOKENIT>
 struct TokenRangeTemplate {
     TokenRangeTemplate(TOKENSVECTOR& pTokList);
@@ -188,6 +193,7 @@ struct TokenRangeTemplate {
 
     TokenRangeTemplate& operator=(const TokenRangeTemplate& pOther);
     void getStr(std::string& pRes) const;
+    void toStrInplace(std::string& pRes) const;
     std::string toStr() const;
     bool doesContain(const TokenPos& pPos) const;
 
@@ -277,6 +283,7 @@ struct ONSEM_TEXTTOSEMANTIC_API TokensTree {
 
     ConstTokenIterator beginToken() const;
     std::string getText() const;
+    void extractText(std::string& pText) const;
     std::size_t size() const;
 
     /// The list of tokens of the sentence.

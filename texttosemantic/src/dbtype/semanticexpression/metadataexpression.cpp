@@ -14,7 +14,6 @@ MetadataExpression::MetadataExpression(UniqueSemanticExpression&& pSemExp)
     , from(SemanticSourceEnum::UNKNOWN)
     , contextualAnnotation(ContextualAnnotation::PROACTIVE)
     , fromLanguage(SemanticLanguageEnum::UNKNOWN)
-    , fromText()
     , references()
     , source()
     , semExp(std::move(pSemExp))
@@ -27,7 +26,6 @@ MetadataExpression::MetadataExpression(SemanticSourceEnum pFrom,
     , from(pFrom)
     , contextualAnnotation(ContextualAnnotation::PROACTIVE)
     , fromLanguage(SemanticLanguageEnum::UNKNOWN)
-    , fromText()
     , references()
     , source(std::move(pSource))
     , semExp(std::move(pSemExp))
@@ -53,12 +51,12 @@ std::unique_ptr<MetadataExpression> MetadataExpression::clone(
     res->from = from;
     res->contextualAnnotation = contextualAnnotation;
     res->fromLanguage = fromLanguage;
-    res->fromText = fromText;
     res->references = references;
     if (source)
         res->source.emplace((*source)->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
     if (interactionContextContainer)
         res->interactionContextContainer = interactionContextContainer->clone();
+    res->fromText = fromText;
     return res;
 }
 

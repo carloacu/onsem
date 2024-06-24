@@ -36,6 +36,9 @@ std::size_t findFirstOf(const std::string& pStr, const std::string& pChars, std:
 ONSEM_COMMON_API
 void replace_all(std::string& str, const std::string& oldStr, const std::string& newStr);
 
+
+void removeFromStr(std::string& pStr, const std::string& pStrToRemove);
+
 /// Class to do many replacements in a string.
 class ONSEM_COMMON_API Replacer {
 public:

@@ -21,7 +21,7 @@ namespace {
 
 std::optional<UniqueSemanticExpression> _extractConditionOnlySemExp(
         UniqueSemanticExpression& pSemExp,
-        bool& pIsTimeOnly) {
+        std::string& pThenStr) {
     switch (pSemExp->type) {
     case SemanticExpressionType::GROUNDED: {
         GroundedExpression& grdExp = pSemExp->getGrdExp();
@@ -30,13 +30,14 @@ std::optional<UniqueSemanticExpression> _extractConditionOnlySemExp(
             auto& statGrd = *statGrdPtr;
             if (statGrd.requests.has(SemanticRequestType::TIME)) {
                 statGrd.requests.erase(SemanticRequestType::TIME);
-                pIsTimeOnly = true;
                 return pSemExp->clone();
             }
 
             auto itTimeChild = grdExp.children.find(GrammaticalType::TIME);
             if (itTimeChild != grdExp.children.end()) {
-                pIsTimeOnly = SemExpGetter::isACoreferenceFromStatementGrounding(statGrd, CoreferenceDirectionEnum::BEFORE);
+                auto timeStr = itTimeChild->second->fromText.content;
+                pThenStr = grdExp.fromText.content;
+                mystd::removeFromStr(pThenStr, timeStr);
                 return itTimeChild->second->clone();
             }
         }
@@ -46,16 +47,16 @@ std::optional<UniqueSemanticExpression> _extractConditionOnlySemExp(
         break;
     }
     case SemanticExpressionType::INTERPRETATION: {
-        return _extractConditionOnlySemExp(pSemExp->getIntExp().interpretedExp, pIsTimeOnly);
+        return _extractConditionOnlySemExp(pSemExp->getIntExp().interpretedExp, pThenStr);
     }
     case SemanticExpressionType::FEEDBACK: {
-        return _extractConditionOnlySemExp(pSemExp->getFdkExp().concernedExp, pIsTimeOnly);
+        return _extractConditionOnlySemExp(pSemExp->getFdkExp().concernedExp, pThenStr);
     }
     case SemanticExpressionType::ANNOTATED: {
-        return _extractConditionOnlySemExp(pSemExp->getAnnExp().semExp, pIsTimeOnly);
+        return _extractConditionOnlySemExp(pSemExp->getAnnExp().semExp, pThenStr);
     }
     case SemanticExpressionType::METADATA: {
-        return _extractConditionOnlySemExp(pSemExp->getMetadataExp().semExp, pIsTimeOnly);
+        return _extractConditionOnlySemExp(pSemExp->getMetadataExp().semExp, pThenStr);
     }
     case SemanticExpressionType::FIXEDSYNTHESIS:
     case SemanticExpressionType::COMMAND:
@@ -180,9 +181,10 @@ void _addSemExpTrigger(const std::string& pActionIntentName,
 }
 
 
-ActionRecognizer::Intent _unknownIntent() {
+ActionRecognizer::Intent _createUnknownIntent(const std::string& pFromText) {
     ActionRecognizer::Intent intent;
-    intent.name = "UNKNOWN";
+    intent.name = unknownIntent;
+    intent.params["from_text"] = {pFromText};
     return intent;
 }
 
@@ -521,8 +523,10 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
     conditionsAdder::addConditonsForSomeTimedGrdExp(pUtteranceSemExp);
 
     std::optional<UniqueSemanticExpression> conditionSemExp;
+    std::string actionToDoText = "";
     auto* condPtr = pUtteranceSemExp->getCondExpPtr_SkipWrapperPtrs();
     if (condPtr) {
+        actionToDoText = condPtr->thenExp->fromText.content;
         conditionSemExp.emplace(std::move(condPtr->conditionExp));
         pUtteranceSemExp = std::move(condPtr->thenExp);
     }
@@ -588,9 +592,8 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
         }
     }
 
-    bool isConditionOnly = false;
     if (!conditionSemExp) {
-        conditionSemExp = _extractConditionOnlySemExp(pUtteranceSemExp, isConditionOnly);
+        conditionSemExp = _extractConditionOnlySemExp(pUtteranceSemExp, actionToDoText);
     }
 
     if (conditionSemExp) {
@@ -598,8 +601,8 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
         if (conditionOpt) {
             ActionRecognizer::ActionRecognized actionRecognized;
             actionRecognized.condition = std::make_unique<ActionRecognizer::ActionRecognized>(std::move(*conditionOpt));
-            if (!isConditionOnly)
-                actionRecognized.intent = _unknownIntent();
+            if (actionToDoText != "")
+                actionRecognized.intent = _createUnknownIntent(actionToDoText);
             return actionRecognized;
         }
     }

@@ -21,7 +21,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(sentsContext,
-                                      *textToContextualSemExp("I like you", lingDb, SemanticLanguageEnum::ENGLISH),
+                                      *textToContextualSemExp("I like you", lingDb, SemanticLanguageEnum::ENGLISH, false),
                                       lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -35,7 +35,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(sentsContext,
-                                      *textToContextualSemExp("Je t'aime", lingDb, SemanticLanguageEnum::FRENCH),
+                                      *textToContextualSemExp("Je t'aime", lingDb, SemanticLanguageEnum::FRENCH, false),
                                       lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -49,7 +49,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(sentsContext,
-                                      *textToContextualSemExp("You are cool", lingDb, SemanticLanguageEnum::ENGLISH),
+                                      *textToContextualSemExp("You are cool", lingDb, SemanticLanguageEnum::ENGLISH, false),
                                       lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -62,7 +62,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(sentsContext,
-                                      *textToContextualSemExp("You seem cool", lingDb, SemanticLanguageEnum::ENGLISH),
+                                      *textToContextualSemExp("You seem cool", lingDb, SemanticLanguageEnum::ENGLISH, false),
                                       lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -76,7 +76,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(sentsContext,
-                                      *textToContextualSemExp("tu es cool", lingDb, SemanticLanguageEnum::FRENCH),
+                                      *textToContextualSemExp("tu es cool", lingDb, SemanticLanguageEnum::FRENCH, false),
                                       lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -91,7 +91,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(
             sentsContext,
-            *textToContextualSemExp("j'aime le chocolat", lingDb, SemanticLanguageEnum::FRENCH),
+            *textToContextualSemExp("j'aime le chocolat", lingDb, SemanticLanguageEnum::FRENCH, false),
             lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -106,7 +106,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(
             sentsContext,
-            *textToContextualSemExp("I am a little bit sad, actually", lingDb, SemanticLanguageEnum::ENGLISH),
+            *textToContextualSemExp("I am a little bit sad, actually", lingDb, SemanticLanguageEnum::ENGLISH, false),
             lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -119,7 +119,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(
             sentsContext,
-            *textToContextualSemExp("ok but you look happy", lingDb, SemanticLanguageEnum::ENGLISH),
+            *textToContextualSemExp("ok but you look happy", lingDb, SemanticLanguageEnum::ENGLISH, false),
             lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -132,7 +132,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(
             sentsContext,
-            *textToContextualSemExp("Aaa likes chocolate.", lingDb, SemanticLanguageEnum::ENGLISH),
+            *textToContextualSemExp("Aaa likes chocolate.", lingDb, SemanticLanguageEnum::ENGLISH, false),
             lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -148,7 +148,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(sentsContext,
-                                      *textToContextualSemExp("j'aime mon frère", lingDb, SemanticLanguageEnum::FRENCH),
+                                      *textToContextualSemExp("j'aime mon frère", lingDb, SemanticLanguageEnum::FRENCH, false),
                                       lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -162,7 +162,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(
-            sentsContext, *textToContextualSemExp("super", lingDb, SemanticLanguageEnum::FRENCH), lingDb.conceptSet);
+            sentsContext, *textToContextualSemExp("super", lingDb, SemanticLanguageEnum::FRENCH, false), lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
         EXPECT_EQ(*userSemExp, *firstSentContext.author);
@@ -175,7 +175,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(
-            sentsContext, *textToContextualSemExp("merci", lingDb, SemanticLanguageEnum::FRENCH), lingDb.conceptSet);
+            sentsContext, *textToContextualSemExp("merci", lingDb, SemanticLanguageEnum::FRENCH, false), lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
         EXPECT_EQ(*userSemExp, *firstSentContext.author);
@@ -188,7 +188,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(
-            sentsContext, *textToContextualSemExp("cool", lingDb, SemanticLanguageEnum::ENGLISH), lingDb.conceptSet);
+            sentsContext, *textToContextualSemExp("cool", lingDb, SemanticLanguageEnum::ENGLISH, false), lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
         EXPECT_EQ(*userSemExp, *firstSentContext.author);
@@ -201,7 +201,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(sentsContext,
-                                      *textToContextualSemExp("not cool", lingDb, SemanticLanguageEnum::ENGLISH),
+                                      *textToContextualSemExp("not cool", lingDb, SemanticLanguageEnum::ENGLISH, false),
                                       lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
@@ -215,7 +215,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentsContext;
         converter::semExpToSentiments(
-            sentsContext, *textToContextualSemExp("thanks", lingDb, SemanticLanguageEnum::ENGLISH), lingDb.conceptSet);
+            sentsContext, *textToContextualSemExp("thanks", lingDb, SemanticLanguageEnum::ENGLISH, false), lingDb.conceptSet);
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
         EXPECT_EQ(*userSemExp, *firstSentContext.author);
@@ -240,15 +240,15 @@ TEST_F(SemanticReasonerGTests, sentimentWithContext) {
 
     {
         std::list<std::unique_ptr<SentimentContext>> sentSpecs;
-        sentAnalyer.extract(sentSpecs, textToContextualSemExp("yes", lingDb, SemanticLanguageEnum::ENGLISH), user);
+        sentAnalyer.extract(sentSpecs, textToContextualSemExp("yes", lingDb, SemanticLanguageEnum::ENGLISH, false), user);
         EXPECT_EQ(0u, sentSpecs.size());
     }
 
-    sentAnalyer.inform(textToSemExpFromRobot("do you like me", lingDb, SemanticLanguageEnum::ENGLISH));
+    sentAnalyer.inform(textToSemExpFromRobot("do you like me", lingDb, SemanticLanguageEnum::ENGLISH, false));
 
     {
         std::list<std::unique_ptr<SentimentContext>> sentSpecs;
-        sentAnalyer.extract(sentSpecs, textToContextualSemExp("yes", lingDb, SemanticLanguageEnum::ENGLISH), user);
+        sentAnalyer.extract(sentSpecs, textToContextualSemExp("yes", lingDb, SemanticLanguageEnum::ENGLISH, false), user);
         ASSERT_EQ(1u, sentSpecs.size());
         auto& firstSentContext = *sentSpecs.front();
         EXPECT_EQ(*userSemExp, *firstSentContext.author);
@@ -260,7 +260,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentSpecs;
         sentAnalyer.extract(
-            sentSpecs, textToSemExpFromRobot("Thanks, I like you too.", lingDb, SemanticLanguageEnum::ENGLISH), user);
+            sentSpecs, textToSemExpFromRobot("Thanks, I like you too.", lingDb, SemanticLanguageEnum::ENGLISH, false), user);
         ASSERT_EQ(1u, sentSpecs.size());
         auto& firstSentContext = *sentSpecs.front();
         EXPECT_EQ(*meSemExp, *firstSentContext.author);
@@ -271,7 +271,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentSpecs;
         sentAnalyer.extract(
-            sentSpecs, textToSemExpFromRobot("Merci, je t'aime aussi.", lingDb, SemanticLanguageEnum::FRENCH), user);
+            sentSpecs, textToSemExpFromRobot("Merci, je t'aime aussi.", lingDb, SemanticLanguageEnum::FRENCH, false), user);
         ASSERT_EQ(1u, sentSpecs.size());
         auto& firstSentContext = *sentSpecs.front();
         EXPECT_EQ(*meSemExp, *firstSentContext.author);
@@ -282,7 +282,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentSpecs;
         sentAnalyer.extract(
-            sentSpecs, textToSemExpFromRobot("J'aime Paul aussi.", lingDb, SemanticLanguageEnum::FRENCH), user);
+            sentSpecs, textToSemExpFromRobot("J'aime Paul aussi.", lingDb, SemanticLanguageEnum::FRENCH, false), user);
         ASSERT_EQ(1u, sentSpecs.size());
         auto& firstSentContext = *sentSpecs.front();
         EXPECT_EQ(*meSemExp, *firstSentContext.author);
@@ -295,7 +295,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithContext) {
     {
         std::list<std::unique_ptr<SentimentContext>> sentSpecs;
         sentAnalyer.extract(
-            sentSpecs, textToSemExpFromRobot("Oui, Toto aime Paul.", lingDb, SemanticLanguageEnum::FRENCH), user);
+            sentSpecs, textToSemExpFromRobot("Oui, Toto aime Paul.", lingDb, SemanticLanguageEnum::FRENCH, false), user);
         ASSERT_EQ(1u, sentSpecs.size());
         auto& firstSentContext = *sentSpecs.front();
         std::string authorStr;

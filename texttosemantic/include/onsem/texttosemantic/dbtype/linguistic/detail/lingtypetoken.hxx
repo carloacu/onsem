@@ -103,6 +103,22 @@ inline std::ostream& operator<<
 }
 
 
+template<typename TOKENSVECTOR, typename TOKENIT>
+TOKENIT iteratorToSubList(const TOKENIT& pItBegin, const TOKENIT& pItEnd, const TOKENSVECTOR* pSubList) {
+    for (TOKENIT it = pItBegin; it != pItEnd; ++it)
+    {
+        if (!it->subTokens)
+            continue;
+        if (&it->subTokens->tokens == pSubList)
+            return it;
+
+        auto subItEnd = it->subTokens->tokens.end();
+        auto subIt = iteratorToSubList(it->subTokens->tokens.begin(), subItEnd, pSubList);
+        if (subIt != subItEnd)
+            return it;
+    }
+    return pItEnd;
+}
 
 
 template<typename TOKENSVECTOR, typename TOKENIT>
@@ -157,20 +173,27 @@ inline TokenRangeTemplate<TOKENSVECTOR, TOKENIT>& TokenRangeTemplate<TOKENSVECTO
 template<typename TOKENSVECTOR, typename TOKENIT>
 inline void TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::getStr(std::string& pRes) const
 {
-  std::stringstream ss;
-  for (TokCstIt it = itBegin; it != itEnd; ++it)
-  {
-    std::string tok;
-    xReplaceNewLineBySpace(tok, it->str);
-    ss << tok;
+  for (TokCstIt it = itBegin; it != itEnd; ++it) {
+      std::string subRes;
+    xReplaceNewLineBySpace(subRes, it->str);
+    pRes += subRes;
   }
-  pRes = ss.str();
+}
+
+template<typename TOKENSVECTOR, typename TOKENIT>
+inline void TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::toStrInplace(std::string& pRes) const
+{
+  for (TokCstIt it = itBegin; it != itEnd; ++it) {
+    pRes += it->str;
+    if (it->subTokens)
+        it->subTokens->extractText(pRes);
+  }
 }
 
 template<typename TOKENSVECTOR, typename TOKENIT>
 std::string TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::toStr() const {
     std::string res;
-    getStr(res);
+    toStrInplace(res);
     return res;
 }
 
@@ -189,6 +212,29 @@ bool TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::doesContain(const TokenPos& pPos
 template<typename TOKENSVECTOR, typename TOKENIT>
 void TokenRangeTemplate<TOKENSVECTOR, TOKENIT>::mergeWith(const TokenRangeTemplate& pOther) {
     if (tokList != pOther.tokList) {
+        auto res = iteratorToSubList(itBegin, itEnd, pOther.tokList);
+        if (res != itEnd) {
+
+            if (itBegin == tokList->end()) {
+                itBegin = res;
+                ++res;
+                itEnd = res;
+                return;
+            }
+            if (res->tokenPos < itBegin->tokenPos) {
+                itBegin = res;
+                return;
+            }
+
+            if (itEnd == tokList->end()) {
+                itEnd = tokList->end();
+                return;
+            }
+
+            if (itEnd->tokenPos < res->tokenPos)
+                itEnd = res;
+            return;
+        }
         std::cerr << "Failed to merge 2 TokenRangeTemplate because they does not come from the same list" << std::endl;
         return;
     }
@@ -259,6 +305,15 @@ inline std::string TokensTree::getText() const
   return ss.str();
 }
 
+inline void TokensTree::extractText(std::string& pText) const
+{
+    for (ConstTokenIterator itToken = beginToken(); !itToken.atEnd(); ++itToken) {
+        auto& currToken = itToken.getToken();
+        pText += currToken.str;
+        if (currToken.subTokens)
+            currToken.subTokens->extractText(pText);
+    }
+}
 
 inline std::size_t TokensTree::size() const
 {

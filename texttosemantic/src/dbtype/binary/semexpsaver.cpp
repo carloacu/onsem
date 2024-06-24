@@ -439,6 +439,8 @@ void writeSemExp(binarymasks::Ptr& pPtr,
     if (pSemExpPtrOffsetsPtr != nullptr)
         pSemExpPtrOffsetsPtr->addSemExp(pSemExp, pPtr.puchar);
     binarysaver::writeChar(pPtr.pchar++, semanticExpressionType_toChar(pSemExp.type));
+    binarysaver::writeString(pPtr, pSemExp.fromText.introduction);
+    binarysaver::writeString(pPtr, pSemExp.fromText.content);
     switch (pSemExp.type) {
         case SemanticExpressionType::GROUNDED: {
             auto& grdExp = pSemExp.getGrdExp();
@@ -474,7 +476,6 @@ void writeSemExp(binarymasks::Ptr& pPtr,
             binarysaver::writeChar(pPtr.pchar++, contextualAnnotation_toChar(metadataExp.contextualAnnotation));
             binarysaver::writeChar(pPtr.pchar++, semanticLanguageEnum_toChar(metadataExp.fromLanguage));
             binarysaver::writeChar(pPtr.pchar++, metadataExp.confidence);
-            binarysaver::writeString(pPtr, metadataExp.fromText);
             unsigned char nbOfReferences = binarysaver::sizet_to_uchar(metadataExp.references.size());
             binarysaver::writeChar(pPtr.pchar++, nbOfReferences);
             for (const auto& currReference : metadataExp.references)

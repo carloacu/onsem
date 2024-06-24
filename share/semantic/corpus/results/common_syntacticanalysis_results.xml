@@ -18,8 +18,8 @@
     <confidence str="
 score: 100
 "/>
-    <semExps str="word(a(b))&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
-    <allForms str="word(a(b))&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
+    <semExps str="word(a(b))&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a(b))&lt;br&gt;"/>
+    <allForms str="word(a(b))&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a(b))&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -53,8 +53,8 @@ A(b)"/>
     <confidence str="
 score: 100
 "/>
-    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(&quot;b&quot;)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
-    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(&quot;b&quot;)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a&quot;b&quot;)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(&quot;b&quot;)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a&quot;b&quot;)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(&quot;b&quot;)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -81,8 +81,8 @@ English:
     <confidence str="
 score: 100
 "/>
-    <semExps str="word(« a »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
-    <allForms str="word(« a »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
+    <semExps str="word(« a »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(« a »)&lt;br&gt;"/>
+    <allForms str="word(« a »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(« a »)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -116,8 +116,8 @@ English:
     <confidence str="
 score: 100
 "/>
-    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(«b»)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
-    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(«b»)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a«b»)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(«b»)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a«b»)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(«b»)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -151,8 +151,8 @@ English:
     <confidence str="
 score: 100
 "/>
-    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
-    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a« b »)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a« b »)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -192,8 +192,8 @@ English:
     <confidence str="
 score: 100
 "/>
-    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
-    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a « b »)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a « b »)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -227,8 +227,8 @@ English:
     <confidence str="
 score: 100
 "/>
-    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
-    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <semExps str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a« b »)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
+    <allForms str="word(a)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(a« b »)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;specifier:&amp;nbsp;word(« b »)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;introducting_word:&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -255,8 +255,8 @@ English:
     <confidence str="
 score: 100
 "/>
-    <semExps str="label(any_resource)&amp;nbsp;value(MyService.method())&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
-    <allForms str="label(any_resource)&amp;nbsp;value(MyService.method())&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
+    <semExps str="label(any_resource)&amp;nbsp;value(MyService.method())&amp;nbsp;concept(resource_*, 4)&amp;nbsp;fromText(\any_resource=MyService.method()\)&lt;br&gt;"/>
+    <allForms str="label(any_resource)&amp;nbsp;value(MyService.method())&amp;nbsp;concept(resource_*, 4)&amp;nbsp;fromText(\any_resource=MyService.method()\)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -283,8 +283,8 @@ MyService.method()"/>
     <confidence str="
 score: 100
 "/>
-    <semExps str="label(any_url)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
-    <allForms str="label(any_url)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
+    <semExps str="label(any_url)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&amp;nbsp;fromText(\any_url=http://www.lequipe.fr/\)&lt;br&gt;"/>
+    <allForms str="label(any_url)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&amp;nbsp;fromText(\any_url=http://www.lequipe.fr/\)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -311,8 +311,8 @@ http://www.lequipe.fr/"/>
     <confidence str="
 score: 100
 "/>
-    <semExps str="label(any_url)&amp;nbsp;language(fr_FR)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
-    <allForms str="label(any_url)&amp;nbsp;language(fr_FR)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
+    <semExps str="label(any_url)&amp;nbsp;language(fr_FR)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&amp;nbsp;fromText(\any_url=#fr_FR#http://www.lequipe.fr/\)&lt;br&gt;"/>
+    <allForms str="label(any_url)&amp;nbsp;language(fr_FR)&amp;nbsp;value(http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&amp;nbsp;fromText(\any_url=#fr_FR#http://www.lequipe.fr/\)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -339,8 +339,8 @@ http://www.lequipe.fr/"/>
     <confidence str="
 score: 100
 "/>
-    <semExps str="label(any_url)&amp;nbsp;value(#unonkwn_language#http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
-    <allForms str="label(any_url)&amp;nbsp;value(#unonkwn_language#http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&lt;br&gt;"/>
+    <semExps str="label(any_url)&amp;nbsp;value(#unonkwn_language#http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&amp;nbsp;fromText(\any_url=#unonkwn_language#http://www.lequipe.fr/\)&lt;br&gt;"/>
+    <allForms str="label(any_url)&amp;nbsp;value(#unonkwn_language#http://www.lequipe.fr/)&amp;nbsp;concept(resource_*, 4)&amp;nbsp;fromText(\any_url=#unonkwn_language#http://www.lequipe.fr/\)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -391,8 +391,8 @@ English:
     <confidence str="
 score: 100
 "/>
-    <semExps str="word(unknownWordInCamelCase)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
-    <allForms str="word(unknownWordInCamelCase)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&lt;br&gt;"/>
+    <semExps str="word(unknownWordInCamelCase)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(unknownWordInCamelCase)&lt;br&gt;"/>
+    <allForms str="word(unknownWordInCamelCase)&amp;nbsp;quantity(nb, 1)&amp;nbsp;type(thing)&amp;nbsp;fromText(unknownWordInCamelCase)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:
@@ -427,8 +427,8 @@ UnknownWordInCamelCase"/>
     <confidence str="
 score: 100
 "/>
-    <semExps str="name(&quot;Jr.&quot;)&amp;nbsp;concept(agent_*, 1)&amp;nbsp;concept(name_*, 4)&lt;br&gt;"/>
-    <allForms str="name(&quot;Jr.&quot;)&amp;nbsp;concept(agent_*, 1)&amp;nbsp;concept(name_*, 4)&lt;br&gt;"/>
+    <semExps str="name(&quot;Jr.&quot;)&amp;nbsp;concept(agent_*, 1)&amp;nbsp;concept(name_*, 4)&amp;nbsp;fromText(Jr.)&lt;br&gt;"/>
+    <allForms str="name(&quot;Jr.&quot;)&amp;nbsp;concept(agent_*, 1)&amp;nbsp;concept(name_*, 4)&amp;nbsp;fromText(Jr.)&lt;br&gt;"/>
     <sentiments str=""/>
     <completeness bool="true"/>
     <reformulations str="French:

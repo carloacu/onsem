@@ -202,6 +202,12 @@ void replace_all(std::string& str, const std::string& oldStr, const std::string&
     }
 }
 
+void removeFromStr(std::string& pStr, const std::string& pStrToRemove) {
+    size_t pos = pStr.find(pStrToRemove);
+    if (pos != std::string::npos)
+        pStr.erase(pos, pStrToRemove.length());
+}
+
 Replacer::Replacer(bool pIsCaseSensitive, bool pHaveSeparatorBetweenWords)
     : _isCaseSensitive(pIsCaseSensitive)
     , _haveSeparatorBetweenWords(pHaveSeparatorBetweenWords)

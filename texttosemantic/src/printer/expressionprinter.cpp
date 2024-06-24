@@ -58,58 +58,79 @@ void _prettyPrintWord(PrinterBuffer& pPrinterBuff, const SemanticWord& pWord) {
     }
 }
 
+void _prettyPrintFromText(PrinterBuffer& pPrinterBuff, const FromText& pFromText) {
+    if (pFromText.introduction != "")
+        pPrinterBuff.elts.emplace_back("fromIntro(" + pFromText.introduction + ")");
+    if (pFromText.content != "")
+        pPrinterBuff.elts.emplace_back("fromText(" + pFromText.content + ")");
+}
+
 void _prettyPrintAngle(std::list<SemLineToPrint>& pLines,
                        PrinterBuffer& pPrinterBuff,
                        const std::string& pLabelName,
-                       const SemanticAngle& pAngle) {
+                       const SemanticAngle& pAngle,
+                       const FromText& pFromText) {
     pAngle.printAngle(pPrinterBuff.elts, pLabelName);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintLength(std::list<SemLineToPrint>& pLines,
                         PrinterBuffer& pPrinterBuff,
                         const std::string& pLabelName,
-                        const SemanticLength& pLength) {
+                        const SemanticLength& pLength,
+                        const FromText& pFromText) {
     pLength.printLength(pPrinterBuff.elts, pLabelName);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintDuration(std::list<SemLineToPrint>& pLines,
                           PrinterBuffer& pPrinterBuff,
                           const std::string& pDurationLabelName,
-                          const SemanticDuration& pDuration) {
+                          const SemanticDuration& pDuration,
+                          const FromText& pFromText) {
     pDuration.printDuration(pPrinterBuff.elts, pDurationLabelName);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticConceptualGrounding& pGrounding) {
+                                 const SemanticConceptualGrounding& pGrounding,
+                                 const FromText& pFromText) {
     if (!pGrounding.concepts.empty())
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticLanguageGrounding& pGrounding) {
+                                 const SemanticLanguageGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("language(" + semanticLanguageEnum_toStr(pGrounding.language) + ")");
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticPercentageGrounding& pGrounding) {
+                                 const SemanticPercentageGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("%(" + pGrounding.value.toStr() + ")");
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticTextGrounding& pGrounding) {
+                                 const SemanticTextGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("text(\"" + pGrounding.text + "\")");
     if (!pGrounding.concepts.empty())
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
@@ -135,7 +156,8 @@ void _prettyPrintPossibleGenders(PrinterBuffer& pPrinterBuff, const std::set<Sem
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticNameGrounding& pGrounding) {
+                                 const SemanticNameGrounding& pGrounding,
+                                 const FromText& pFromText) {
     std::string nameStr = "name(\"";
     bool firstIt = true;
     for (const auto& currName : pGrounding.nameInfos.names) {
@@ -151,24 +173,28 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
 
     if (!pGrounding.concepts.empty())
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticResourceGrounding& pGrounding) {
+                                 const SemanticResourceGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("label(" + pGrounding.resource.label + ")");
     if (pGrounding.resource.language != SemanticLanguageEnum::UNKNOWN)
         pPrinterBuff.elts.emplace_back("language(" + semanticLanguageEnum_toStr(pGrounding.resource.language) + ")");
     pPrinterBuff.elts.emplace_back("value(" + pGrounding.resource.value + ")");
     if (!pGrounding.concepts.empty())
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticMetaGrounding& pGrounding) {
+                                 const SemanticMetaGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("refToType(\"" + semanticGroundingsType_toStr(pGrounding.refToType) + "\")");
     {
         std::stringstream ssIdParam;
@@ -190,42 +216,50 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
     if (!pGrounding.concepts.empty()) {
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
     }
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticRelativeLocationGrounding& pGrounding) {
+                                 const SemanticRelativeLocationGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("relativeLocation(" + semanticRelativeLocationType_toStr(pGrounding.locationType)
                                    + ")");
     if (!pGrounding.concepts.empty()) {
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
     }
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticRelativeTimeGrounding& pGrounding) {
+                                 const SemanticRelativeTimeGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("relativeTime(" + semanticRelativeTimeType_toStr(pGrounding.timeType) + ")");
     if (!pGrounding.concepts.empty())
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticRelativeDurationGrounding& pGrounding) {
+                                 const SemanticRelativeDurationGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("relativeDuration(" + semanticRelativeDurationType_toStr(pGrounding.durationType)
                                    + ")");
     if (!pGrounding.concepts.empty())
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticStatementGrounding& pGrounding) {
+                                 const SemanticStatementGrounding& pGrounding,
+                                 const FromText& pFromText) {
     pPrinterBuff.elts.emplace_back("statement:");
 
     _prettyPrintWord(pPrinterBuff, pGrounding.word);
@@ -269,12 +303,14 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
         _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
     }
 
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticAgentGrounding& pGrounding) {
+                                 const SemanticAgentGrounding& pGrounding,
+                                 const FromText& pFromText) {
     if (pGrounding.userId != SemanticAgentGrounding::userNotIdentified)
         pPrinterBuff.elts.emplace_back("userId(" + pGrounding.userId + ")");
     if (pGrounding.userIdWithoutContext != pGrounding.userId)
@@ -289,7 +325,8 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticGenericGrounding& pGrounding) {
+                                 const SemanticGenericGrounding& pGrounding,
+                                 const FromText& pFromText) {
     _prettyPrintWord(pPrinterBuff, pGrounding.word);
 
     if (pGrounding.referenceType != SemanticReferenceType::UNDEFINED) {
@@ -334,124 +371,133 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
 
     _prettyPrintPossibleGenders(pPrinterBuff, pGrounding.possibleGenders);
     _prettyPrintConcepts(pPrinterBuff.elts, pGrounding.concepts, pGrounding.polarity);
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticTimeGrounding& pTimeGrounding) {
+                                 const SemanticTimeGrounding& pTimeGrounding,
+                                 const FromText& pFromText) {
     std::stringstream ss;
     pTimeGrounding.date.prettyPrint(ss);
     pPrinterBuff.elts.emplace_back(ss.str());
     pTimeGrounding.timeOfDay.printDuration(pPrinterBuff.elts, "timeOfDay");
     pTimeGrounding.length.printDuration(pPrinterBuff.elts, "length");
     _prettyPrintConcepts(pPrinterBuff.elts, pTimeGrounding.fromConcepts, true, "fromConcept");
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticAngleGrounding& pGrounding) {
-    _prettyPrintAngle(pLines, pPrinterBuff, "angle", pGrounding.angle);
+                                 const SemanticAngleGrounding& pGrounding,
+                                 const FromText& pFromText) {
+    _prettyPrintAngle(pLines, pPrinterBuff, "angle", pGrounding.angle, pFromText);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticLengthGrounding& pGrounding) {
-    _prettyPrintLength(pLines, pPrinterBuff, "length", pGrounding.length);
+                                 const SemanticLengthGrounding& pGrounding,
+                                 const FromText& pFromText) {
+    _prettyPrintLength(pLines, pPrinterBuff, "length", pGrounding.length, pFromText);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticDurationGrounding& pGrounding) {
-    _prettyPrintDuration(pLines, pPrinterBuff, "duration", pGrounding.duration);
+                                 const SemanticDurationGrounding& pGrounding,
+                                 const FromText& pFromText) {
+    _prettyPrintDuration(pLines, pPrinterBuff, "duration", pGrounding.duration, pFromText);
 }
 
 void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
-                                 const SemanticUnityGrounding& pGrounding) {
+                                 const SemanticUnityGrounding& pGrounding,
+                                 const FromText& pFromText) {
     if (pGrounding.typeOfUnity == TypeOfUnity::PERCENTAGE)
         pPrinterBuff.elts.emplace_back("unity(percentage)");
     else
         pPrinterBuff.elts.emplace_back(typeOfUnity_toStr(pGrounding.typeOfUnity) + "(" + pGrounding.getValueStr()
                                        + ")");
+    _prettyPrintFromText(pPrinterBuff, pFromText);
     _flushStringStream(pLines, pPrinterBuff, nullptr);
 }
 
 void _prettyPrintGroundings(std::list<SemLineToPrint>& pLines,
                             PrinterBuffer& pPrinterBuff,
-                            const SemanticGrounding& pGroundings) {
+                            const SemanticGrounding& pGroundings,
+                            const FromText& pFromText) {
     switch (pGroundings.type) {
         case SemanticGroundingType::GENERIC: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getGenericGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getGenericGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::STATEMENT: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getStatementGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getStatementGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::AGENT: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getAgentGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getAgentGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::ANGLE: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getAngleGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getAngleGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::TIME: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getTimeGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getTimeGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::TEXT: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getTextGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getTextGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::DURATION: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getDurationGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getDurationGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::LANGUAGE: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getLanguageGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getLanguageGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::RESOURCE: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getResourceGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getResourceGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::LENGTH: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getLengthGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getLengthGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::META: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getMetaGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getMetaGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::NAME: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getNameGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getNameGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::PERCENTAGE: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getPercentageGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getPercentageGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::RELATIVELOCATION: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getRelLocationGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getRelLocationGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::RELATIVETIME: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getRelTimeGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getRelTimeGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::RELATIVEDURATION: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getRelDurationGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getRelDurationGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::CONCEPTUAL: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getConceptualGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getConceptualGrounding(), pFromText);
             break;
         }
         case SemanticGroundingType::UNITY: {
-            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getUnityGrounding());
+            _prettyPrintTypedGroundings(pLines, pPrinterBuff, pGroundings.getUnityGrounding(), pFromText);
             break;
         }
     }
@@ -492,7 +538,7 @@ void _prettyPrintGrdExp(std::list<SemLineToPrint>& pLines,
     if (!pPrinterBuff.elts.empty())
         ++childrenbPrinterBuff.offsetNewLine;
 
-    _prettyPrintGroundings(pLines, pPrinterBuff, pGrdExp.grounding());
+    _prettyPrintGroundings(pLines, pPrinterBuff, pGrdExp.grounding(), pGrdExp.fromText);
     if (!pLines.empty()) {
         pLines.back().semExp = &pGrdExp;
     }
@@ -548,15 +594,6 @@ void _prettyPrintCondExp(std::list<SemLineToPrint>& pLines,
         _prettyPrintSemExp(pLines, subPrinterBuff, *pCondExp.conditionExp);
     }
 
-    if (pCondExp.conditionStr != "") {
-        PrinterBuffer subPrinterBuff;
-        subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
-        subPrinterBuff.offsetNewLine = subPrinterBuff.offsetCurrLine;
-        _printLabel(subPrinterBuff, "conditionStr:");
-        subPrinterBuff.elts.emplace_back("\"" + pCondExp.conditionStr + "\"");
-        _flushStringStream(pLines, subPrinterBuff, nullptr);
-    }
-
     {
         PrinterBuffer subPrinterBuff;
         subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
@@ -565,30 +602,12 @@ void _prettyPrintCondExp(std::list<SemLineToPrint>& pLines,
         _prettyPrintSemExp(pLines, subPrinterBuff, *pCondExp.thenExp);
     }
 
-    if (pCondExp.thenStr != "") {
-        PrinterBuffer subPrinterBuff;
-        subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
-        subPrinterBuff.offsetNewLine = subPrinterBuff.offsetCurrLine;
-        _printLabel(subPrinterBuff, "thenStr:");
-        subPrinterBuff.elts.emplace_back("\"" + pCondExp.thenStr + "\"");
-        _flushStringStream(pLines, subPrinterBuff, nullptr);
-    }
-
     if (pCondExp.elseExp) {
         PrinterBuffer subPrinterBuff;
         subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
         subPrinterBuff.offsetNewLine = subPrinterBuff.offsetCurrLine;
         _printLabel(subPrinterBuff, "elseExp:");
         _prettyPrintSemExp(pLines, subPrinterBuff, **pCondExp.elseExp);
-    }
-
-    if (pCondExp.elseStr != "") {
-        PrinterBuffer subPrinterBuff;
-        subPrinterBuff.offsetCurrLine = childrenbPrinterBuff.offsetNewLine;
-        subPrinterBuff.offsetNewLine = subPrinterBuff.offsetCurrLine;
-        _printLabel(subPrinterBuff, "elseStr:");
-        subPrinterBuff.elts.emplace_back("\"" + pCondExp.elseStr + "\"");
-        _flushStringStream(pLines, subPrinterBuff, nullptr);
     }
 }
 
@@ -758,8 +777,7 @@ void _prettyPrintMetadataExp(std::list<SemLineToPrint>& pLines,
                                        + contextualAnnotation_toStr(pMetadataExp.contextualAnnotation) + ")");
     if (pMetadataExp.fromLanguage != SemanticLanguageEnum::UNKNOWN)
         pPrinterBuff.elts.emplace_back("fromLanguage(" + semanticLanguageEnum_toStr(pMetadataExp.fromLanguage) + ")");
-    if (!pMetadataExp.fromText.empty())
-        pPrinterBuff.elts.emplace_back("fromText(\"" + pMetadataExp.fromText + "\")");
+    _prettyPrintFromText(pPrinterBuff, pMetadataExp.fromText);
 
     if (pMetadataExp.source) {
         PrinterBuffer subPrinterBuff;

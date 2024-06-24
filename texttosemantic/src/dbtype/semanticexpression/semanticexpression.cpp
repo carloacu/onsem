@@ -145,7 +145,8 @@ template ListExpressionType _getGrdExpPtrs_skipWrapperLists<const SemanticExpres
 }
 
 SemanticExpression::SemanticExpression(SemanticExpressionType pSemExpType)
-    : type(pSemExpType) {}
+    : type(pSemExpType),
+      fromText() {}
 
 SemanticExpression::~SemanticExpression() {}
 
@@ -678,6 +679,7 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone(
                 res->whatIsComparedExp.emplace((*compExp.whatIsComparedExp)->clone(pParams));
             if (compExp.rightOperandExp)
                 res->rightOperandExp.emplace((*compExp.rightOperandExp)->clone(pParams));
+            res->fromText = fromText;
             return res;
         }
         case SemanticExpressionType::INTERPRETATION: {
@@ -689,16 +691,20 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone(
             if (pExpressionTypesToSkip != nullptr
                 && pExpressionTypesToSkip->count(SemanticExpressionType::INTERPRETATION) > 0)
                 return intExp.originalExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip);
-            return std::make_unique<InterpretationExpression>(
+            auto res = std::make_unique<InterpretationExpression>(
                 intExp.source,
                 intExp.interpretedExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip),
                 intExp.originalExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
+            res->fromText = fromText;
+            return res;
         }
         case SemanticExpressionType::FEEDBACK: {
             const auto& fdkExp = getFdkExp();
-            return std::make_unique<FeedbackExpression>(
+            auto res = std::make_unique<FeedbackExpression>(
                 fdkExp.feedbackExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip),
                 fdkExp.concernedExp->clone(pParams, pRemoveRecentContextInterpretations, pExpressionTypesToSkip));
+            res->fromText = fromText;
+            return res;
         }
         case SemanticExpressionType::ANNOTATED: {
             const auto& annExp = getAnnExp();
@@ -734,7 +740,7 @@ std::unique_ptr<SemanticExpression> SemanticExpression::clone(
 }
 
 bool SemanticExpression::operator==(const SemanticExpression& pOther) const {
-    if (type != pOther.type)
+    if (type != pOther.type || fromText != pOther.fromText)
         return false;
 
     switch (type) {
@@ -758,7 +764,7 @@ bool SemanticExpression::operator==(const SemanticExpression& pOther) const {
 }
 
 void SemanticExpression::assertEqual(const SemanticExpression& pOther) const {
-    assert(type == pOther.type);
+    assert(type == pOther.type && fromText == pOther.fromText);
     switch (type) {
         case SemanticExpressionType::GROUNDED: return getGrdExp().assertEltsEqual(pOther.getGrdExp());
         case SemanticExpressionType::LIST: return getListExp().assertEltsEqual(pOther.getListExp());

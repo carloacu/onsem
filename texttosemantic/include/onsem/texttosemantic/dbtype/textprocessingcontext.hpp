@@ -33,6 +33,7 @@ struct ONSEM_TEXTTOSEMANTIC_API TextProcessingContext {
     bool writeParametersToFill;
     std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
     std::set<SpellingMistakeType> spellingMistakeTypesPossible;
+    bool writeOriginalText;
 };
 
 }    // End of namespace onsem

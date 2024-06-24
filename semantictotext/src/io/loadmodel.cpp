@@ -54,11 +54,14 @@ static const std::string relativePersonWithoutNumberDefaultStr =
 static const std::string lingVerbTenseInfinitiveStr = linguisticVerbTense_toStr(LinguisticVerbTense::INFINITIVE);
 static const std::string semExpTypeLabelStr = "type";
 static const std::string serializationLinkStr = "serializationLink";
+static const std::string fromTextIntroductionStr = "fromText_introduction";
+static const std::string fromTextContentStr = "fromText_content";
 static const std::string falseStr = "False";
 static const std::string trueStr = "True";
 
 bool _isASemExpLabel(const std::string& pLabel) {
-    return pLabel == semExpTypeLabelStr || pLabel == serializationLinkStr;
+    return pLabel == semExpTypeLabelStr || pLabel == serializationLinkStr ||
+            pLabel == fromTextIntroductionStr || pLabel == fromTextContentStr;
 }
 
 template<typename T>
@@ -417,7 +420,6 @@ std::unique_ptr<MetadataExpression> _loadMetadataExp(const boost::property_tree:
         contextualAnnotation_fromStr(pTree.get("contextualAnnotation", contextualAnnotationDefaultStr));
     res->fromLanguage = semanticLanguageEnum_fromStr(pTree.get("fromLanguage", languageDefaultStr));
     res->confidence = pTree.get<unsigned char>("confidence", 100u);
-    res->fromText = pTree.get("fromText", "");
     { childLoop(pTree, currRef, "references") res->references.emplace_back(currRef.second.data()); }
     res->source = _loadOptionalSemExp(pTree, "source", pLinks);
     return res;
@@ -488,6 +490,8 @@ std::unique_ptr<SemanticExpression> _loadSemExp(const boost::property_tree::ptre
 
     if (pLinks != nullptr)
         pLinks->linkToSemExpPtr.emplace(serialoizationLink, &*res);
+    res->fromText.introduction = pTree.get(fromTextIntroductionStr, "");
+    res->fromText.content = pTree.get(fromTextContentStr, "");
     return res;
 }
 
