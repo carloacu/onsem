@@ -6,6 +6,7 @@
 #include <onsem/semanticdebugger/diagnosisprinter.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/listexpression.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticresourcegrounding.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/groundedexpression.hpp>
@@ -109,13 +110,11 @@ bool _doesTokenListEqualsInitalText(std::string& pErrorMessage,
     sentencesXml.loadFolder(pCorpusInputFolder + "/" + pLanguageStr);
     const std::vector<std::string>& sentences = sentencesXml.getSentences();
     SemanticLanguageEnum langEnum = semanticLanguageTypeGroundingEnumFromStr(pLanguageStr);
-    const std::set<SpellingMistakeType> spellingMistakeTypesPossible;
+    const LinguisticAnalysisConfig linguisticAnalysisConfig;
 
     for (const std::string& sent : sentences) {
         linguistics::SyntacticGraph syntGraph(pLingDb, langEnum);
-        std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
-        linguistics::tokenizationAndSyntacticalAnalysis(
-            syntGraph, sent, spellingMistakeTypesPossible, cmdGrdExtractorPtr);
+        linguistics::tokenizationAndSyntacticalAnalysis(syntGraph, sent, linguisticAnalysisConfig);
         const std::string restitutedText = syntGraph.tokensTree.getText();
         if (sent != restitutedText) {
             pErrorMessage = "bad text restitution from \n\"" + sent + "\" to\n\"" + restitutedText + "\"";

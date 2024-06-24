@@ -16,6 +16,7 @@ std::string _recognize(const std::string& pText,
     SemanticLanguageEnum textLanguage =
             pTextLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
     TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
+    inContext.linguisticAnalysisConfig.tryToResolveCoreferences = false;
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::UNKNOWN, pLingDb);
     auto actionRecognizedOpt = pActionRecognizer.recognize(std::move(semExp), pLingDb);
     if (actionRecognizedOpt)
@@ -218,8 +219,8 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
 
     EXPECT_EQ("", _recognize("dis le lui", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"condition\": {\"intent\": \"likes_paul\"}}",
-              _recognize("si tu aimes Paul", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"intent\": \"__unknown__(from_text=dis le lui)\", \"condition\": {\"intent\": \"likes_paul\"}}",
+              _recognize("si tu aimes Paul, dis le lui", actionRecognizer, lingDb, frLanguage));
 }
 
 

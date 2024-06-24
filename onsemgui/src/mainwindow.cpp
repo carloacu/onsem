@@ -333,11 +333,15 @@ void MainWindow::on_lineEdit_AATester_InputSentence_textChanged(const QString& a
                 _ui->lineEdit_AATester_synthGraph_nbOfSteps->text().toUtf8().constData());
         } catch (...) { debugOptions.endingStep.nbOfDebugRoundsForSynthAnalysis = 1; }
     }
+
+    LinguisticAnalysisConfig linguisticAnalysisConfig;
+    linguisticAnalysisConfig.spellingMistakeTypesPossible = _spellingMistakeTypesPossibleForDebugOnTextComparisons;
+
     std::map<std::string, std::string> equivalences;
     _readEquivalences(equivalences, _getEquivalencesFilename());
     SemanticDebug::debugTextAnalyze(autoAnnotToDisplay,
                                     sentence,
-                                    _spellingMistakeTypesPossibleForDebugOnTextComparisons,
+                                    linguisticAnalysisConfig,
                                     debugOptions,
                                     languageType,
                                     _lingDb,
@@ -802,7 +806,7 @@ std::string MainWindow::_operator_react(ContextualAnnotation& pContextualAnnotat
     if (pTextLanguage == SemanticLanguageEnum::UNKNOWN)
         pTextLanguage = linguistics::getLanguage(pText, _lingDb);
     TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pTextLanguage);
-    inContext.spellingMistakeTypesPossible.insert(SpellingMistakeType::CONJUGATION);
+    inContext.linguisticAnalysisConfig.spellingMistakeTypesPossible.insert(SpellingMistakeType::CONJUGATION);
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::ASR, _lingDb);
 
     auto urlizeInput = mystd::urlizeText(pText);

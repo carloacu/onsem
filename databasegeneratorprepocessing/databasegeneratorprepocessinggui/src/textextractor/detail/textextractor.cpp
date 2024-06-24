@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <fstream>
 #include <onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 #include <onsem/texttosemantic/linguisticanalyzer.hpp>
 #include <onsem/compilermodel/linguisticintermediarydatabase.hpp>
@@ -22,7 +23,7 @@ void _processTexts(AdjBeforeNounExtractor& pAdjBefNoun,
                    SemanticLanguageEnum pLanguageType,
                    bool pPrintLineNumber) {
     static const std::size_t stepLinesToPrint = 10000;
-    std::set<SpellingMistakeType> spellingMistakeTypesPossible;
+    LinguisticAnalysisConfig linguisticAnalysisConfig;
 
     std::size_t currLine = 0;
     for (const auto& currText : pTexts) {
@@ -31,7 +32,7 @@ void _processTexts(AdjBeforeNounExtractor& pAdjBefNoun,
             syntGraph.tokensTree, syntGraph.langConfig, currText, std::shared_ptr<ResourceGroundingExtractor>());
         pAdjBefNoun.processText(syntGraph.tokensTree);
         linguistics::SynthAnalEndingStepForDebug structForDebug;
-        linguistics::syntacticAnalysis(syntGraph, spellingMistakeTypesPossible, structForDebug);
+        linguistics::syntacticAnalysis(syntGraph, linguisticAnalysisConfig, structForDebug);
         pVerbCanBeFollowedByDeInFr.processText(syntGraph, currText);
         pVerbprepExt.processText(syntGraph, currText);
 

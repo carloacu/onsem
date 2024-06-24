@@ -14,6 +14,7 @@
 #include "api.hpp"
 
 namespace onsem {
+struct LinguisticAnalysisConfig;
 struct TextProcessingContext;
 class SemExpLinesToStr;
 namespace linguistics {
@@ -26,7 +27,7 @@ void saveGramPossibilities(std::list<std::list<std::string>>& pGramPossibilities
 ONSEMSEMANTICDEBUGGER_API
 void fillSemAnalResult(SyntacticGraphResult& pResults,
                        SemanticAnalysisHighLevelResults& pHighLevelResults,
-                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                       LinguisticAnalysisConfig &pLinguisticAnalysisConfig,
                        const SemanticAnalysisDebugOptions& pSemanticAnalysisDebugOptions);
 
 }    // End of namespace TextAnalyzeDebugger

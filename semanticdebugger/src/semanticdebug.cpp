@@ -35,7 +35,7 @@ namespace SemanticDebug {
 
 void debugTextAnalyze(SyntacticAnalysisResultToDisplay& pAutoAnnotToDisplay,
                       const std::string& pSentence,
-                      const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                      LinguisticAnalysisConfig& pLinguisticAnalysisConfig,
                       const SemanticAnalysisDebugOptions& pSemanticAnalysisDebugOptions,
                       SemanticLanguageEnum pLanguageType,
                       const linguistics::LinguisticDatabase& pLingDb,
@@ -44,7 +44,7 @@ void debugTextAnalyze(SyntacticAnalysisResultToDisplay& pAutoAnnotToDisplay,
     results.inputText = pSentence;
     auto timeChecker = std::make_unique<TimeChecker>();
     linguistics::TextAnalyzeDebugger::fillSemAnalResult(
-        results, pAutoAnnotToDisplay.highLevelResults, pSpellingMistakeTypesPossible, pSemanticAnalysisDebugOptions);
+        results, pAutoAnnotToDisplay.highLevelResults, pLinguisticAnalysisConfig, pSemanticAnalysisDebugOptions);
     semAnalResultToStructToDisplay(pAutoAnnotToDisplay, results);
     pAutoAnnotToDisplay.isReformulationOk =
         areTextEquivalent(pSentence, pAutoAnnotToDisplay.highLevelResults.reformulationInputLanguage, pEquivalencesPtr);

@@ -3,6 +3,7 @@
 #include <onsem/semanticdebugger/printer/semexplinestostr.hpp>
 #include <onsem/semanticdebugger/textananlyzedebugger.hpp>
 #include <onsem/semanticdebugger/timechecker.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp>
 
 namespace onsem {
 namespace syntacticAnalysisXmlSaver {
@@ -16,14 +17,14 @@ namespace {
 
 void _getTextToResult(std::shared_ptr<syntacticAnalysisXmlLoader::SemanticAnalysisResult>& pResults,
                       const std::string& pText,
-                      const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                      LinguisticAnalysisConfig& pLinguisticAnalysisConfig,
                       const linguistics::LinguisticDatabase& pLingDb,
                       const SemanticAnalysisDebugOptions& pDebugOptions,
                       SemanticLanguageEnum pLanguageType) {
     pResults = std::make_shared<syntacticAnalysisXmlLoader::SemanticAnalysisResult>(pLingDb, pLanguageType);
     pResults->semAnal.inputText = pText;
     linguistics::TextAnalyzeDebugger::fillSemAnalResult(
-        pResults->semAnal, pResults->semAnalHighLevelResults, pSpellingMistakeTypesPossible, pDebugOptions);
+        pResults->semAnal, pResults->semAnalHighLevelResults, pLinguisticAnalysisConfig, pDebugOptions);
     // save ending token iterators
     pResults->saveEndOfLists();
 }
@@ -136,8 +137,9 @@ void compareResults(std::shared_ptr<syntacticAnalysisXmlLoader::DeserializedText
                     const std::map<std::string, std::string>* pEquivalencesPtr,
                     std::string* pPerformancesPtr) {
     SemanticLanguageEnum langType = semanticLanguageTypeGroundingEnumFromStr(pLanguageStr);
-
     auto oldSaveFilename = pCorpusResultsFolder + "/" + pLanguageStr + "_syntacticanalysis_results.xml";
+    LinguisticAnalysisConfig linguisticAnalysisConfig;
+    linguisticAnalysisConfig.spellingMistakeTypesPossible = _spellingMistakeTypesPossibleForDebugOnTextComparisons;
 
     boost::property_tree::ptree tree;
     boost::property_tree::read_xml(oldSaveFilename, tree);
@@ -155,7 +157,7 @@ void compareResults(std::shared_ptr<syntacticAnalysisXmlLoader::DeserializedText
         std::shared_ptr<syntacticAnalysisXmlLoader::SemanticAnalysisResult> newResult;
         _getTextToResult(newResult,
                          oldResult->semAnal.inputText,
-                         _spellingMistakeTypesPossibleForDebugOnTextComparisons,
+                         linguisticAnalysisConfig,
                          pLingDb,
                          debugOptions,
                          langType);
@@ -178,6 +180,8 @@ void save(const std::string& pFilename,
           const linguistics::LinguisticDatabase& pLingDb) {
     boost::property_tree::ptree tree;
     boost::property_tree::ptree& resultsTree = tree.add_child("syntacticAnalysisResults", {});
+    LinguisticAnalysisConfig linguisticAnalysisConfig;
+    linguisticAnalysisConfig.spellingMistakeTypesPossible = _spellingMistakeTypesPossibleForDebugOnTextComparisons;
 
     for (std::size_t i = 0; i < pInputSentences.size(); ++i) {
         std::shared_ptr<syntacticAnalysisXmlLoader::SemanticAnalysisResult> result;
@@ -185,7 +189,7 @@ void save(const std::string& pFilename,
         debugOptions.outputFormat = PrintSemExpDiffsOutPutFormat::HTML;
         _getTextToResult(result,
                          pInputSentences[i],
-                         _spellingMistakeTypesPossibleForDebugOnTextComparisons,
+                         linguisticAnalysisConfig,
                          pLingDb,
                          debugOptions,
                          pLanguageType);

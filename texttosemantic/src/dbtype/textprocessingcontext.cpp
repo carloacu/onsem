@@ -25,9 +25,8 @@ TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,
     , usSemExp(_getYouAndMeSemExp(pAuthorId, pReceiverId))
     , vouvoiement(false)
     , writeParametersToFill(false)
-    , cmdGrdExtractorPtr()
-    , spellingMistakeTypesPossible()
-    , writeOriginalText(true) {}
+    , writeOriginalText(true)
+    , linguisticAnalysisConfig() {}
 
 TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,
                                              const std::string& pReceiverId,
@@ -40,9 +39,8 @@ TextProcessingContext::TextProcessingContext(const std::string& pAuthorId,
     , usSemExp(std::move(pUsSemExp))
     , vouvoiement(false)
     , writeParametersToFill(false)
-    , cmdGrdExtractorPtr()
-    , spellingMistakeTypesPossible()
-    , writeOriginalText(true) {}
+    , writeOriginalText(true)
+    , linguisticAnalysisConfig() {}
 
 TextProcessingContext::TextProcessingContext(const TextProcessingContext& pOther)
     : author(pOther.author)
@@ -52,9 +50,8 @@ TextProcessingContext::TextProcessingContext(const TextProcessingContext& pOther
     , usSemExp(pOther.usSemExp->clone())
     , vouvoiement(pOther.vouvoiement)
     , writeParametersToFill(pOther.writeParametersToFill)
-    , cmdGrdExtractorPtr(pOther.cmdGrdExtractorPtr)
-    , spellingMistakeTypesPossible(pOther.spellingMistakeTypesPossible)
-    , writeOriginalText(pOther.writeOriginalText) {}
+    , writeOriginalText(pOther.writeOriginalText)
+    , linguisticAnalysisConfig(pOther.linguisticAnalysisConfig) {}
 
 void TextProcessingContext::setUsAsYouAndMe() {
     usSemExp = _getYouAndMeSemExp(author.userId, receiver.userId);

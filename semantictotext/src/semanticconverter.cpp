@@ -271,8 +271,7 @@ UniqueSemanticExpression textToSemExp(const std::string& pText,
         return *nowTimeGrd;
     }();
     linguistics::SyntacticGraph syntGraph(pLingDb, language);
-    linguistics::tokenizationAndSyntacticalAnalysis(
-        syntGraph, pText, pTextProcContext.spellingMistakeTypesPossible, pTextProcContext.cmdGrdExtractorPtr);
+    linguistics::tokenizationAndSyntacticalAnalysis(syntGraph, pText, pTextProcContext.linguisticAnalysisConfig);
     if (pConfidencePtr != nullptr)
         *pConfidencePtr = syntGraph.parsingConfidence.toPercentage();
     auto resSemExp = _syntGraphToSemExp(
@@ -348,7 +347,7 @@ UniqueSemanticExpression naturalLanguageExpressionToSemanticExpression(
         auto textProc =
             TextProcessingContext::getTextProcessingContextFromRobot(pNaturalLanguageExpression.word.language);
         if (!pResourceLabels.empty())
-            textProc.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(pResourceLabels);
+            textProc.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(pResourceLabels);
         return textToSemExp(pNaturalLanguageExpression.word.text, textProc, pLingDb);
     }
 

@@ -38,10 +38,9 @@ std::shared_ptr<ExpressionWithLinks> _inform(const std::string& pText,
     TextProcessingContext inContext(
         SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN);
     inContext.setUsAsEverybody();
-    inContext.cmdGrdExtractorPtr =
+    inContext.linguisticAnalysisConfig.cmdGrdExtractorPtr =
         std::make_shared<ResourceGroundingExtractor>(std::vector<std::string>{"hc_resource_html"});
 
-    auto agentWeAreTalkingAbout = std::unique_ptr<SemanticAgentGrounding>();
     return operator_inform_withTextProc(pText, pSemanticMemory, pLingDb, pReferences, nullptr, inContext);
 }
 

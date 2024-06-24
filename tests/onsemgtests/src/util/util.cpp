@@ -109,7 +109,7 @@ std::string semExpToOutputStr(const SemanticExpression& pSemExp,
                               const SemanticExpression* pInputSemExpPtr) {
     std::string resStr;
     TextProcessingContext outContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
-    outContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
+    outContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
     OutputterContext outputterContext(outContext);
     outputterContext.inputSemExpPtr = pInputSemExpPtr;

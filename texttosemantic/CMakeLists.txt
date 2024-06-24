@@ -89,6 +89,7 @@ set(ONSEMTEXTTOSEMANTIC_HPPS
     include/onsem/texttosemantic/dbtype/semanticgroundings.hpp
     include/onsem/texttosemantic/dbtype/semanticquantity.hpp
     include/onsem/texttosemantic/dbtype/semanticword.hpp
+    include/onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp
     include/onsem/texttosemantic/dbtype/textprocessingcontext.hpp
     include/onsem/texttosemantic/type/enum/linguisticanalysisfinishdebugstepenum.hpp
     include/onsem/texttosemantic/type/enum/lingverbform.hpp

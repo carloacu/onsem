@@ -104,21 +104,21 @@ void saveGramPossibilities(std::list<std::list<std::string>>& pGramPossibilities
 
 void fillSemAnalResult(SyntacticGraphResult& pResults,
                        SemanticAnalysisHighLevelResults& pHighLevelResults,
-                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                       LinguisticAnalysisConfig& pLinguisticAnalysisConfig,
                        const SemanticAnalysisDebugOptions& pSemanticAnalysisDebugOptions) {
     const auto& lingDb = pResults.syntGraph.langConfig.lingDb;
     SemanticLanguageEnum language = pResults.syntGraph.langConfig.getLanguageType();
     const SemExpLinesToStr& semExpLinesToStr =
         SemExpLinesToStr::getInstance(pSemanticAnalysisDebugOptions.outputFormat);
 
-    auto cmdGrdExtractorPtr =
+    pLinguisticAnalysisConfig.cmdGrdExtractorPtr =
         std::make_shared<ResourceGroundingExtractor>(std::vector<std::string>{"any_resource", "any_url"});
 
     // tokenization
     if (pSemanticAnalysisDebugOptions.timeChecker)
         pSemanticAnalysisDebugOptions.timeChecker->beginOfTimeSlot();
     linguistics::tokenizeText(
-        pResults.syntGraph.tokensTree, pResults.syntGraph.langConfig, pResults.inputText, cmdGrdExtractorPtr);
+        pResults.syntGraph.tokensTree, pResults.syntGraph.langConfig, pResults.inputText, pLinguisticAnalysisConfig.cmdGrdExtractorPtr);
     if (pSemanticAnalysisDebugOptions.timeChecker)
         pSemanticAnalysisDebugOptions.timeChecker->endOfTimeSlot("tokenisation");
 
@@ -128,7 +128,7 @@ void fillSemAnalResult(SyntacticGraphResult& pResults,
     if (pSemanticAnalysisDebugOptions.timeChecker)
         pSemanticAnalysisDebugOptions.timeChecker->beginOfTimeSlot();
     linguistics::syntacticAnalysis(
-        pResults.syntGraph, pSpellingMistakeTypesPossible, pSemanticAnalysisDebugOptions.endingStep);
+        pResults.syntGraph, pLinguisticAnalysisConfig, pSemanticAnalysisDebugOptions.endingStep);
     if (pSemanticAnalysisDebugOptions.timeChecker)
         pSemanticAnalysisDebugOptions.timeChecker->endOfTimeSlot("Syntactic Analysis");
 
@@ -147,7 +147,7 @@ void fillSemAnalResult(SyntacticGraphResult& pResults,
         TextProcessingContext textProcCont(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
         if (pSemanticAnalysisDebugOptions.setUsAsEverybody)
             textProcCont.setUsAsEverybody();
-        textProcCont.cmdGrdExtractorPtr = cmdGrdExtractorPtr;
+        textProcCont.linguisticAnalysisConfig = pLinguisticAnalysisConfig;
         if (pSemanticAnalysisDebugOptions.convOutput == CONV_OUTPUT_CURRLANG_TO_MIND) {
             std::list<std::list<SemLineToPrint>> convOutputs;
             auto res = converter::syntGraphToSemExp(pResults.syntGraph, textProcCont, &convOutputs);

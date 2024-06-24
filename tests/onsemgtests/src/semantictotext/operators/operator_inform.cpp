@@ -39,7 +39,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform(
     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr) {
     TextProcessingContext inContext(
         SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN);
-    inContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
+    inContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
 
     return operator_inform_withTextProc(
@@ -54,7 +54,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform_fromRobot(
     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr) {
     TextProcessingContext outContext(
         SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, SemanticLanguageEnum::UNKNOWN);
-    outContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
+    outContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
     auto semExp = converter::textToContextualSemExp(pText, outContext, SemanticSourceEnum::ASR, pLingDb, &pReferences);
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemanticMemory, pLingDb);
@@ -92,7 +92,7 @@ std::shared_ptr<ExpressionWithLinks> operator_informAxiom_fromRobot(
     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr) {
     TextProcessingContext textContext(
         SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, SemanticLanguageEnum::UNKNOWN);
-    textContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
+    textContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
     auto semExp = converter::textToContextualSemExp(pText, textContext, SemanticSourceEnum::ASR, pLingDb, &pReferences);
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemanticMemory, pLingDb);

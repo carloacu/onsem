@@ -1,5 +1,6 @@
 #include <onsem/texttosemantic/tool/iscomplete.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp>
 #include <onsem/texttosemantic/linguisticanalyzer.hpp>
 #include "chunkshandler.hpp"
 
@@ -83,9 +84,8 @@ bool isComplete_fromSyntGraph(const SyntacticGraph& pSyntGraph) {
 
 bool isComplete(const std::string& pText, const LinguisticDatabase& pLingDb, SemanticLanguageEnum pLanguageType) {
     SyntacticGraph syntGraph(pLingDb, pLanguageType);
-    std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
-    const std::set<SpellingMistakeType> spellingMistakeTypesPossible;
-    tokenizationAndSyntacticalAnalysis(syntGraph, pText, spellingMistakeTypesPossible, cmdGrdExtractorPtr);
+    LinguisticAnalysisConfig linguisticAnalysisConfig;
+    tokenizationAndSyntacticalAnalysis(syntGraph, pText, linguisticAnalysisConfig);
     return isComplete_fromSyntGraph(syntGraph);
 }
 

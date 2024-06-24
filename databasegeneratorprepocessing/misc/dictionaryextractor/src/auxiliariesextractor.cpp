@@ -7,6 +7,7 @@
 #include <onsem/texttosemantic/type/chunklink.hpp>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp>
 #include <onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp>
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <onsem/texttosemantic/linguisticanalyzer.hpp>
@@ -110,13 +111,12 @@ void AuxiliariesExtractor::_processTexts(const std::list<std::string>& pTexts,
                                          SemanticLanguageEnum pLanguage,
                                          bool pPrintLineNumber) {
     const linguistics::SpecificLinguisticDatabase& specLingDb = _lingDb.langToSpec[pLanguage];
-    std::set<SpellingMistakeType> spellingMistakeTypesPossible;
+    LinguisticAnalysisConfig linguisticAnalysisConfig;
 
     std::size_t i = 0;
     for (const auto& currText : pTexts) {
         linguistics::SyntacticGraph syntGraph(_lingDb, pLanguage);
-        linguistics::tokenizationAndSyntacticalAnalysis(
-            syntGraph, currText, spellingMistakeTypesPossible, std::shared_ptr<ResourceGroundingExtractor>());
+        linguistics::tokenizationAndSyntacticalAnalysis(syntGraph, currText, linguisticAnalysisConfig);
 
         for (const linguistics::ChunkLink& currChkLk : syntGraph.firstChildren) {
             const linguistics::Chunk& chunk = *currChkLk.chunk;

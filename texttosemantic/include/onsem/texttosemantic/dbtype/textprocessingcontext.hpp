@@ -3,9 +3,8 @@
 
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticagentgrounding.hpp>
 #include <onsem/common/enum/semanticlanguageenum.hpp>
-#include <onsem/texttosemantic/dbtype/misc/spellingmistaketype.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpression/semanticexpression.hpp>
-#include <onsem/texttosemantic/dbtype/resourcegroundingextractor.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp>
 #include "../api.hpp"
 
 namespace onsem {
@@ -31,9 +30,8 @@ struct ONSEM_TEXTTOSEMANTIC_API TextProcessingContext {
     UniqueSemanticExpression usSemExp;
     bool vouvoiement;
     bool writeParametersToFill;
-    std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
-    std::set<SpellingMistakeType> spellingMistakeTypesPossible;
     bool writeOriginalText;
+    LinguisticAnalysisConfig linguisticAnalysisConfig;
 };
 
 }    // End of namespace onsem

@@ -47,6 +47,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                              const SpecificLinguisticDatabase& pSpecLingDb,
                              bool pIsRootLevel,
                              const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                             bool pTryToResolveCoreferences,
                              const SynthAnalEndingStepForDebug& pEndingStep);
 
 struct SubordonateSyntGraphWorkingContext {
@@ -100,6 +101,7 @@ void _launchGrammRules(TokensTree& pTokensTree,
                        const SpecificLinguisticDatabase& pSpecLingDb,
                        bool pIsRootLevel,
                        const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                       bool pTryToResolveCoreferences,
                        const SynthAnalEndingStepForDebug& pEndingStep) {
     partOfSpeechFilterer::process(pTokensTree.tokens,
                                   pSpecLingDb,
@@ -114,6 +116,7 @@ void _launchGrammRules(TokensTree& pTokensTree,
                             pSpecLingDb,
                             pIsRootLevel,
                             pSpellingMistakeTypesPossible,
+                            pTryToResolveCoreferences,
                             pEndingStep);
 }
 
@@ -134,6 +137,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                              const SpecificLinguisticDatabase& pSpecLingDb,
                              bool pIsRootLevel,
                              const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                             bool pTryToResolveCoreferences,
                              const SynthAnalEndingStepForDebug& pEndingStep) {
     const ErrorDetector& errDetector = pLangConfig.getErrorDetector();
     const InflectionsChecker& inflChecker = pLangConfig.getFlsChecker();
@@ -173,6 +177,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                               pSpecLingDb,
                               pIsRootLevel,
                               pSpellingMistakeTypesPossible,
+                              pTryToResolveCoreferences,
                               subEndingStep);
             return;
         }
@@ -214,6 +219,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                                   pSpecLingDb,
                                   pIsRootLevel,
                                   pSpellingMistakeTypesPossible,
+                                  pTryToResolveCoreferences,
                                   subEndingStep);
                 return;
             }
@@ -227,6 +233,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                                         pSpecLingDb,
                                         pIsRootLevel,
                                         pSpellingMistakeTypesPossible,
+                                        pTryToResolveCoreferences,
                                         subEndingStep);
                 return;
             }
@@ -241,7 +248,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
         return;
     }
 
-    if (pIsRootLevel) {
+    if (pIsRootLevel && pTryToResolveCoreferences) {
         // Linker
         pLangConfig.getLinker().process(pFirstChildren);
     }
@@ -279,6 +286,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                           pSpecLingDb,
                           pIsRootLevel,
                           pSpellingMistakeTypesPossible,
+                          pTryToResolveCoreferences,
                           subEndingStep);
         return;
     }
@@ -296,6 +304,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                               pSpecLingDb,
                               false,
                               pSpellingMistakeTypesPossible,
+                              pTryToResolveCoreferences,
                               pEndingStep);
             auto& currChunk = *it->chunk;
             auto _chunckCanBeLinkedToASubject = [&](const Chunk& pChunk) {
@@ -322,14 +331,13 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
 
 void tokenizationAndSyntacticalAnalysis(SyntacticGraph& pSyntGraph,
                                         const std::string& pInputSentence,
-                                        const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
-                                        const std::shared_ptr<ResourceGroundingExtractor>& pCmdGrdExtractorPtr) {
+                                        const LinguisticAnalysisConfig& pLinguisticAnalysisConfig) {
     // 1. Tokenisation
-    tokenizeText(pSyntGraph.tokensTree, pSyntGraph.langConfig, pInputSentence, pCmdGrdExtractorPtr);
+    tokenizeText(pSyntGraph.tokensTree, pSyntGraph.langConfig, pInputSentence, pLinguisticAnalysisConfig.cmdGrdExtractorPtr);
 
     // 2. Syntactic analysis
     SynthAnalEndingStepForDebug debugStruct;
-    syntacticAnalysis(pSyntGraph, pSpellingMistakeTypesPossible, debugStruct);
+    syntacticAnalysis(pSyntGraph, pLinguisticAnalysisConfig, debugStruct);
 }
 
 void tokenizeText(TokensTree& pTokensTree,
@@ -344,7 +352,7 @@ void tokenizeText(TokensTree& pTokensTree,
 }
 
 void syntacticAnalysis(SyntacticGraph& pSyntGraph,
-                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                       const LinguisticAnalysisConfig& pLinguisticAnalysisConfig,
                        const SynthAnalEndingStepForDebug& pEndingStep) {
     _launchGrammRules(pSyntGraph.tokensTree,
                       pSyntGraph.firstChildren,
@@ -352,7 +360,8 @@ void syntacticAnalysis(SyntacticGraph& pSyntGraph,
                       pSyntGraph.langConfig,
                       pSyntGraph.langConfig.getSpecifcLingDb(),
                       true,
-                      pSpellingMistakeTypesPossible,
+                      pLinguisticAnalysisConfig.spellingMistakeTypesPossible,
+                      pLinguisticAnalysisConfig.tryToResolveCoreferences,
                       pEndingStep);
 }
 

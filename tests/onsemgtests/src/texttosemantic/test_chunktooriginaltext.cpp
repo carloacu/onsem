@@ -1,6 +1,7 @@
 #include "../semanticreasonergtests.hpp"
 #include <gtest/gtest.h>
 #include <onsem/common/binary/binarysaver.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/type/syntacticgraph.hpp>
 #include <onsem/texttosemantic/type/chunklink.hpp>
@@ -14,9 +15,8 @@ std::string _toTextToTopRootChunkStrs(const std::string& pText, const linguistic
     std::string res;
 
     linguistics::SyntacticGraph syntGraph(pLingDb, pLanguageType);
-    const std::set<SpellingMistakeType> spellingMistakeTypesPossible;
-    std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
-    linguistics::tokenizationAndSyntacticalAnalysis(syntGraph, pText, spellingMistakeTypesPossible, cmdGrdExtractorPtr);
+    LinguisticAnalysisConfig linguisticAnalysisConfig;
+    linguistics::tokenizationAndSyntacticalAnalysis(syntGraph, pText, linguisticAnalysisConfig);
     for (const auto& currChunkLink : syntGraph.firstChildren) {
         const linguistics::Chunk& currChunk = *currChunkLink.chunk;
         auto tokenRangeWithChildren = currChunk.getTokRangeWrappingChildren();

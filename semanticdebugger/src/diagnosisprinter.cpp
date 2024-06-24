@@ -3,6 +3,7 @@
 #include <onsem/texttosemantic/tool/inflectionschecker.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase.hpp>
 #include <onsem/texttosemantic/dbtype/linguisticdatabase/binarydatabasessizeprinter.hpp>
+#include <onsem/texttosemantic/dbtype/linguisticanalysisconfig.hpp>
 #include <onsem/texttosemantic/printer/semlinetoprint.hpp>
 #include <onsem/texttosemantic/languagedetector.hpp>
 #include <onsem/semantictotext/semanticmemory/semanticmemory.hpp>
@@ -41,9 +42,9 @@ void _print_text_lang_convOutput(std::list<SemLineToPrint>& pLines,
         SemanticAnalysisDebugOptions debugOptions;
         debugOptions.outputFormat = PrintSemExpDiffsOutPutFormat::CONSOLE;
         debugOptions.convOutput = pConvOutput;
-        const std::set<SpellingMistakeType> spellingMistakeTypesPossible;
+        LinguisticAnalysisConfig linguisticAnalysisConfig;
         SemanticDebug::debugTextAnalyze(
-            autoAnnotToDisplay, *pItMode, spellingMistakeTypesPossible, debugOptions, pLanguageType, pLingDb);
+            autoAnnotToDisplay, *pItMode, linguisticAnalysisConfig, debugOptions, pLanguageType, pLingDb);
         pLines.emplace_back(autoAnnotToDisplay.highLevelResults.semExpStr);
         return;
     }
@@ -64,9 +65,9 @@ void _print_text_lang_tokens(std::list<SemLineToPrint>& pLines,
         SemanticAnalysisDebugOptions debugOptions;
         debugOptions.outputFormat = PrintSemExpDiffsOutPutFormat::CONSOLE;
         debugOptions.convOutput = CONV_OUTPUT_MIND;
-        const std::set<SpellingMistakeType> spellingMistakeTypesPossible;
+        LinguisticAnalysisConfig linguisticAnalysisConfig;
         SemanticDebug::debugTextAnalyze(
-            autoAnnotToDisplay, *pItMode, spellingMistakeTypesPossible, debugOptions, pLanguageType, pLingDb);
+            autoAnnotToDisplay, *pItMode, linguisticAnalysisConfig, debugOptions, pLanguageType, pLingDb);
 
         for (const auto& currTok : autoAnnotToDisplay.tokens) {
             pLines.emplace_back(currTok.second);

@@ -898,7 +898,7 @@ UniqueSemanticExpression SyntacticGraphToSemantic::xConvertNominalChunkToSemExp(
     if (!pChunk.head->str.empty()) {
         if (pChunk.head->str[0] == SemanticMetaGrounding::firstCharOfStrOld) {
             const std::string& headStr = pChunk.head->str;
-            auto res = _strToMetaOrResourceGrdOld(headStr, pGeneral.textProcContext.cmdGrdExtractorPtr);
+            auto res = _strToMetaOrResourceGrdOld(headStr, pGeneral.textProcContext.linguisticAnalysisConfig.cmdGrdExtractorPtr);
             if (res)
                 return res;
         }

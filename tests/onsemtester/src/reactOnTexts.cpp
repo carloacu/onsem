@@ -79,9 +79,9 @@ DetailedReactionAnswer operator_react(const std::string& pText,
     SemanticLanguageEnum textLanguage =
         pTextLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
     TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
-    inContext.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
+    inContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
-    inContext.spellingMistakeTypesPossible.insert(SpellingMistakeType::CONJUGATION);
+    inContext.linguisticAnalysisConfig.spellingMistakeTypesPossible.insert(SpellingMistakeType::CONJUGATION);
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::ASR, pLingDb);
     memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
     return operator_react_fromSemExp(std::move(semExp), pSemanticMemory, pLingDb, textLanguage, pReactionOptions);

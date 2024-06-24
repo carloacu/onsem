@@ -11,6 +11,7 @@
 
 namespace onsem {
 struct TextProcessingContext;
+struct LinguisticAnalysisConfig;
 struct UniqueSemanticExpression;
 struct ResourceGroundingExtractor;
 struct SemanticTimeGrounding;
@@ -22,8 +23,7 @@ struct LinguisticDatabase;
 ONSEM_TEXTTOSEMANTIC_API
 void tokenizationAndSyntacticalAnalysis(SyntacticGraph& pSyntGraph,
                                         const std::string& pInputSentence,
-                                        const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
-                                        const std::shared_ptr<ResourceGroundingExtractor>& pCmdGrdExtractorPtr);
+                                        const LinguisticAnalysisConfig& pLinguisticAnalysisConfig);
 
 ONSEM_TEXTTOSEMANTIC_API
 void tokenizeText(TokensTree& pTokensTree,
@@ -33,7 +33,7 @@ void tokenizeText(TokensTree& pTokensTree,
 
 ONSEM_TEXTTOSEMANTIC_API
 void syntacticAnalysis(SyntacticGraph& pSyntGraph,
-                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                       const LinguisticAnalysisConfig& pLinguisticAnalysisConfig,
                        const SynthAnalEndingStepForDebug& pEndingStep);
 
 ONSEM_TEXTTOSEMANTIC_API

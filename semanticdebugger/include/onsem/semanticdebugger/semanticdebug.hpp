@@ -14,6 +14,7 @@
 #include "api.hpp"
 
 namespace onsem {
+struct LinguisticAnalysisConfig;
 struct TextProcessingContext;
 namespace linguistics {
 struct TokensTree;
@@ -113,7 +114,7 @@ namespace SemanticDebug {
 ONSEMSEMANTICDEBUGGER_API
 void debugTextAnalyze(SyntacticAnalysisResultToDisplay& pAutoAnnotToDisplay,
                       const std::string& pSentence,
-                      const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
+                      LinguisticAnalysisConfig &pLinguisticAnalysisConfig,
                       const SemanticAnalysisDebugOptions& pSemanticAnalysisDebugOptions,
                       SemanticLanguageEnum pLanguageType,
                       const linguistics::LinguisticDatabase& pLingDb,
