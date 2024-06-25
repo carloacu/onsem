@@ -181,10 +181,13 @@ void _addSemExpTrigger(const std::string& pActionIntentName,
 }
 
 
-ActionRecognizer::Intent _createUnknownIntent(const std::string& pFromText) {
+ActionRecognizer::Intent _createUnknownIntent(const std::string& pFromText,
+                                              const std::string& pFromContext) {
     ActionRecognizer::Intent intent;
     intent.name = unknownIntent;
     intent.params["from_text"] = {pFromText};
+    if (pFromContext != "")
+        intent.params["from_context"] = {pFromContext};
     return intent;
 }
 
@@ -527,9 +530,11 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
 
     std::optional<UniqueSemanticExpression> conditionSemExp;
     std::string actionToDoText = "";
+    std::string conditionText = "";
     auto* condPtr = pUtteranceSemExp->getCondExpPtr_SkipWrapperPtrs();
     if (condPtr) {
         actionToDoText = condPtr->thenExp->fromText.content;
+        conditionText = condPtr->conditionExp->fromText.content;
         conditionSemExp.emplace(std::move(condPtr->conditionExp));
         pUtteranceSemExp = std::move(condPtr->thenExp);
     }
@@ -539,6 +544,7 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
         if (conditionSemExp) {
             mystd::unique_propagate_const<UniqueSemanticExpression> conditionReaction;
             controller::applyOperatorResolveAgentAccordingToTheContext(*conditionSemExp, _predicateSemanticMemory, pLingDb);
+            conditionText = conditionSemExp->getSemExp().fromText.content;
             triggers::match(conditionReaction, _predicateSemanticMemory, std::move(*conditionSemExp), pLingDb);
             if (conditionReaction) {
               const auto& conditionReactionSemExp = conditionReaction->getSemExp();
@@ -606,7 +612,7 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
             ActionRecognizer::ActionRecognized actionRecognized;
             actionRecognized.condition = std::make_unique<ActionRecognizer::ActionRecognized>(std::move(*conditionOpt));
             if (actionToDoText != "")
-                actionRecognized.intent = _createUnknownIntent(actionToDoText);
+                actionRecognized.intent = _createUnknownIntent(actionToDoText, conditionText);
             return actionRecognized;
         }
     }
