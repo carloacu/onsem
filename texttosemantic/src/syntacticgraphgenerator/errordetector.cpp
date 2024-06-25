@@ -527,7 +527,8 @@ CarryOnFrom ErrorDetector::xSolveBadVerbChunks(ChunkLinkIter& pChkLkIter,
         Chunk& verbChunk = *pChkLkIter->chunk;
         if (verbChunk.requests.has(SemanticRequestType::ACTION)
             && (pPreviousChunkType != ChunkType::SEPARATOR_CHUNK
-                && pPreviousChunkType != ChunkType::INTERJECTION_CHUNK))
+                && pPreviousChunkType != ChunkType::INTERJECTION_CHUNK
+                && pPreviousChunkType != ChunkType::NOMINAL_CHUNK))
             verbChunk.requests.clear();
 
         if (pParentChkLk != ChunkLinkType::SUBJECT_OF && xSolveVerbThatShouldHaveAnAuxiliary(verbChunk)) {

@@ -928,8 +928,11 @@ bool ListExtractor::_linkChunk_VerbChunk(Chunk& pFirstChunk,
             && canLinkVerbToASubject(whereToLinkTheSubject(*pSecondVerb.chunk), pFirstChunk, fFlschecker, false))
             subType = ChunkLinkType::SUBJECT_OF;
     }
-    pFirstChunk.children.emplace_back(pTokRange, *subType, pSecondVerb.chunk);
-    return true;
+    if (*subType != ChunkLinkType::IF) {
+        pFirstChunk.children.emplace_back(pTokRange, *subType, pSecondVerb.chunk);
+        return true;
+    }
+    return false;
 }
 
 bool ListExtractor::_canLinkDO_Subject(Chunk& pFirstVerb, Chunk& pSecondVerb) const {

@@ -6,5 +6,8 @@
   <linkedMeaning lemme="Nao" gram="proper_noun" relationToConcept="5"/>
   <linkedMeaning lemme="Pepper" gram="proper_noun" relationToConcept="5"/>
   <linkedMeaning lemme="Romeo" gram="proper_noun" relationToConcept="5"/>
+  <linkedMeaning lemme="Miroki" gram="proper_noun" relationToConcept="5"/>
+  <linkedMeaning lemme="Miroka" gram="proper_noun" relationToConcept="5"/>
+  <linkedMeaning lemme="Mirokaï" gram="proper_noun" relationToConcept="5"/>
  </concept>
 </linguisticdatabase>
