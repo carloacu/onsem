@@ -4,6 +4,62 @@ namespace onsem {
 
 namespace {
 
+bool _compareSubStrings(const std::string& pText1, const std::string& pText2, size_t pos, size_t len) {
+    if (pos + len > pText1.size() || pos + len > pText2.size())
+        return false;
+    for (size_t i = 0; i < len; ++i)
+        if (pText1[pos + i] != pText2[pos + i])
+            return false;
+    return true;
+}
+
+
+std::size_t _nbOfCharactersFromAPos(const std::string& pStr, std::size_t pPos) {
+    if (pPos >= pStr.size())
+        return 0;
+
+    if (pStr[pPos] >= 'A' && pStr[pPos] <= 'Z')
+        return 1;
+    switch (pStr[pPos]) {
+    case "É"[0]: {
+        if (pStr.compare(pPos, _capitalAGrave_size, "À") == 0)
+            return _capitalAGrave_size;
+        if (pStr.compare(pPos, _aGrave_size, "à") == 0)
+            return _aGrave_size;
+
+        if (pStr.compare(pPos, _capitalEAcute_size, "É") == 0)
+            return _capitalEAcute_size;
+        if (pStr.compare(pPos, _eAcute_size, "é") == 0)
+            return _eAcute_size;
+
+        if (pStr.compare(pPos, _capitalECirconflex_size, "Ê") == 0)
+            return _capitalECirconflex_size;
+        if (pStr.compare(pPos, _eCirconflex_size, "ê") == 0)
+            return _eCirconflex_size;
+
+        if (pStr.compare(pPos, _capitalCCedilla_size, "Ç") == 0)
+            return _capitalCCedilla_size;
+        if (pStr.compare(pPos, _cCedilla_size, "ç") == 0)
+            return _cCedilla_size;
+
+        if (pStr.compare(pPos, _capitalOTrema_size, "Ö") == 0)
+            return _capitalOTrema_size;
+        if (pStr.compare(pPos, _oTrema_size, "ö") == 0)
+            return _oTrema_size;
+        break;
+    }
+    case "Ş"[0]: {
+        if (pStr.compare(pPos, _capitalSCedilla_size, "Ş") == 0)
+            return _capitalSCedilla_size;
+        if (pStr.compare(pPos, _sCedilla_size, "ș") == 0)
+            return _sCedilla_size;
+        break;
+    }
+    }
+    return 1;
+}
+
+
 std::size_t _nbOfCharactersLoweredForTheFirstLetter(std::string& pStrToModify, std::size_t pPos = 0) {
     if (pPos >= pStrToModify.size())
         return 0;
@@ -195,10 +251,19 @@ bool areTextEqualWithoutCaseSensitivity(const std::string& pText1, const std::st
     if (pText1.size() != pText2.size())
         return false;
     for (std::size_t i = 0; i < pText1.size(); ++i) {
-        if (pText1[i] == pText2[i]) {
-            ++i;
-            continue;
+        auto nbCharText1 = _nbOfCharactersFromAPos(pText1, i);
+        auto nbCharText2 = _nbOfCharactersFromAPos(pText2, i);
+        if (nbCharText1 != nbCharText2)
+            return false;
+
+        if (nbCharText1 == 1) {
+            if (pText1[i] == pText2[i])
+                continue;
+        } else {
+            if (_compareSubStrings(pText1, pText2, i, nbCharText1))
+                continue;
         }
+
         if (_isLowerCaseOf(pText1, i, pText2, i) || _isUpperCaseOf(pText1, i, pText2, i)) {
             continue;
         }

@@ -31,4 +31,6 @@ TEST_F(SemanticReasonerGTests, common_uppercaseHandler_lowerCaseText) {
     EXPECT_EQ("youtube", _lowerCaseText("YouTube"));
     EXPECT_EQ("élégance", _lowerCaseText("Élégance"));
     EXPECT_EQ("élégance", _lowerCaseText("ÉLÉGANCE"));
+    EXPECT_EQ("être", _lowerCaseText("être"));
+    EXPECT_EQ("être", _lowerCaseText("Être"));
 }

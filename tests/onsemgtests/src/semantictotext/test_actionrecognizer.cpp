@@ -221,6 +221,22 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
 
     EXPECT_EQ("{\"intent\": \"__unknown__(from_context=tu aimes Paul, from_text=dis le lui)\", \"condition\": {\"intent\": \"likes_paul\"}}",
               _recognize("si tu aimes Paul, dis le lui", actionRecognizer, lingDb, frLanguage));
+
+    actionRecognizer.setNameOfSelf("Miroki");
+
+    EXPECT_EQ("{\"intent\": \"__unknown__(from_context=tu aimes Paul, from_text=dis le lui)\", \"condition\": {\"intent\": \"likes_paul\"}}",
+              _recognize("miroki si tu aimes Paul, dis le lui", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"intent\": \"__not_adressed_to_me__\"}",
+              _recognize("miroka si tu aimes Paul, dis le lui", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"intent\": \"__unknown__(from_context=tu aimes Paul, from_text=dis le lui)\", \"condition\": {\"intent\": \"likes_paul\"}}",
+              _recognize("i si tu aimes Paul, dis le lui", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"intent\": \"__unknown__(from_context=tu aimes Paul, from_text=c'est un bon exemple )\", \"condition\": {\"intent\": \"likes_paul\"}}",
+              _recognize("c'est un bon exemple si tu aimes Paul", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("", _recognize("comment faire si tu aimes Paul ?", actionRecognizer, lingDb, frLanguage));
 }
 
 

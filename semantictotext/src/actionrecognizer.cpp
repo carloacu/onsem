@@ -1,5 +1,6 @@
 #include <onsem/semantictotext/actionrecognizer.hpp>
 #include <onsem/common/utility/string.hpp>
+#include <onsem/common/utility/uppercasehandler.hpp>
 #include <onsem/texttosemantic/dbtype/textprocessingcontext.hpp>
 #include <onsem/texttosemantic/dbtype/semanticexpressions.hpp>
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticmetagrounding.hpp>
@@ -411,6 +412,7 @@ ActionRecognizer::ParamInfo::ParamInfo(const std::string& pType,
 
 ActionRecognizer::ActionRecognizer(SemanticLanguageEnum pLanguage)
     : _language(pLanguage),
+      _nameOfSelf(),
       _actionSemanticMemory(),
       _predicateSemanticMemory(),
       _typeToFormulations(),
@@ -525,6 +527,37 @@ bool ActionRecognizer::isObviouslyWrong(const std::string& pActionIntentName,
 
 std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(UniqueSemanticExpression pUtteranceSemExp,
                                                                               const linguistics::LinguisticDatabase& pLingDb) {
+    auto* listExpPtr = pUtteranceSemExp->getListExpPtr_SkipWrapperPtrs();
+    if (listExpPtr != nullptr && listExpPtr->listType == ListExpressionType::UNRELATED) {
+        for (auto& currElt : listExpPtr->elts) {
+            auto res = _extractAction(std::move(currElt), pLingDb);
+            if (res)
+                return res;
+        }
+        return {};
+    }
+    return _extractAction(std::move(pUtteranceSemExp), pLingDb);
+}
+
+
+std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::_extractAction(UniqueSemanticExpression pUtteranceSemExp,
+                                                                                   const linguistics::LinguisticDatabase& pLingDb) {
+    if (_nameOfSelf != "") {
+        auto* grdExPtr = pUtteranceSemExp->getGrdExpPtr_SkipWrapperPtrs();
+        if (grdExPtr != nullptr) {
+            auto* nameGrdPtr = grdExPtr->grounding().getNameGroundingPtr();
+            if (nameGrdPtr != nullptr) {
+                for (auto& currName : nameGrdPtr->nameInfos.names) {
+                    if (areTextEqualWithoutCaseSensitivity(currName, _nameOfSelf))
+                       return {};
+                }
+                ActionRecognizer::ActionRecognized actionRecognized;
+                actionRecognized.intent = Intent(notAdressedToMeIntent);
+                return actionRecognized;
+            }
+        }
+    }
+
     converter::addDifferentForms(pUtteranceSemExp, pLingDb);
     conditionsAdder::addConditonsForSomeTimedGrdExp(pUtteranceSemExp);
 
@@ -611,8 +644,11 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::recognize(Un
         if (conditionOpt) {
             ActionRecognizer::ActionRecognized actionRecognized;
             actionRecognized.condition = std::make_unique<ActionRecognizer::ActionRecognized>(std::move(*conditionOpt));
-            if (actionToDoText != "")
+            if (actionToDoText != "") {
+                if (SemExpGetter::isSemExpAQuestion(*pUtteranceSemExp))
+                    return {};
                 actionRecognized.intent = _createUnknownIntent(actionToDoText, conditionText);
+            }
             return actionRecognized;
         }
     }

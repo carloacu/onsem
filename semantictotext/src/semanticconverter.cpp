@@ -147,7 +147,8 @@ UniqueSemanticExpression _syntGraphToSemExp(
     semanticReasonOfRefactor::process(semExp);
     pSyntGraph.langConfig.lingDb.treeConverter.refactorSemExp(
         semExp, TREEPATTERN_INTEXT, TREEPATTERN_MIND, pSyntGraph.langConfig.getLanguageType(), pDebugOutput);
-    _completeWithContextInternallyToASemExp(*semExp, pSyntGraph.langConfig.lingDb, nullptr);
+    if (pLocutionContext.linguisticAnalysisConfig.tryToResolveCoreferences)
+        _completeWithContextInternallyToASemExp(*semExp, pSyntGraph.langConfig.lingDb, nullptr);
     return semExp;
 }
 

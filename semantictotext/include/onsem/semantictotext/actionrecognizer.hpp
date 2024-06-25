@@ -15,6 +15,7 @@ struct LinguisticDatabase;
 struct UniqueSemanticExpression;
 
 static const std::string garbadgeIntent = "__garbadge__";
+static const std::string notAdressedToMeIntent = "__not_adressed_to_me__";
 static const std::string agreementIntent = "__agreement__";
 static const std::string disagreementIntent = "__disagreement__";
 static const std::string unknownIntent = "__unknown__";
@@ -25,6 +26,11 @@ public:
     ActionRecognizer(SemanticLanguageEnum pLanguage);
 
     struct Intent {
+        Intent(const std::string& pName = "")
+            : name(pName),
+              params()
+        {
+        }
         std::string name;
         std::map<std::string, std::vector<std::string>> params;
 
@@ -82,15 +88,20 @@ public:
 
     SemanticLanguageEnum getLanguage() const { return _language; }
 
+    void setNameOfSelf(const std::string& pNameOfSelf) { _nameOfSelf = pNameOfSelf; }
 
 private:
     SemanticLanguageEnum _language;
+    std::string _nameOfSelf;
     SemanticMemory _actionSemanticMemory;
     SemanticMemory _predicateSemanticMemory;
     std::map<std::string, std::vector<std::string>> _typeToFormulations;
     std::set<std::string> _typeWithValueConsideredAsOwner;
     std::map<std::string, SemanticMemory> _typeToMemory;
     std::map<std::string, std::list<UniqueSemanticExpression>> _actionToSemExps;
+
+    std::optional<ActionRecognizer::ActionRecognized> _extractAction(UniqueSemanticExpression pUtteranceSemExp,
+                                                                     const linguistics::LinguisticDatabase& pLingDb);
 };
 
 
