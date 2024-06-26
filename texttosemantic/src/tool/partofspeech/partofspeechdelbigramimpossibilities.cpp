@@ -87,9 +87,17 @@ bool PartOfSpeechDelBigramImpossibilities::process(std::vector<Token>& pTokens) 
 
     // Check the compatibility of the last word
     for (std::size_t i = 0; i < fCheckCompatibilityAtTheEnding.size(); ++i) {
-        if (prevIt->inflWords.front().word.partOfSpeech == fCheckCompatibilityAtTheEnding[i]
-            && !fFls.areCompatibles(prevIt->inflWords.front(), InflectedWord::getPuntuationIGram())) {
-            ifDel |= delAPartOfSpeech(prevIt->inflWords, fCheckCompatibilityAtTheEnding[i]);
+        for (auto itGram = prevIt->inflWords.begin(); itGram != prevIt->inflWords.end();) {
+            if (itGram->word.partOfSpeech == fCheckCompatibilityAtTheEnding[i]
+                && !fFls.areCompatibles(*itGram, InflectedWord::getPuntuationIGram())) {
+                bool ifDelThisElt = delAPartOfSpeech(prevIt->inflWords, fCheckCompatibilityAtTheEnding[i]);
+                ifDel |= ifDelThisElt;
+                if (ifDelThisElt) {
+                    itGram = prevIt->inflWords.begin();
+                    continue;
+                }
+            }
+            ++itGram;
         }
     }
 

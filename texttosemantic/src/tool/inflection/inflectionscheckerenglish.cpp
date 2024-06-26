@@ -116,6 +116,10 @@ bool InflectionsCheckerEnglish::areNounNounCompatibles(const InflectedWord& pNou
         && !ConceptSet::haveAConceptThatBeginWith(pNounInflWord1.infos.concepts, "time_");
 }
 
+bool InflectionsCheckerEnglish::canFinishWithPerp(const InflectedWord&) const {
+    return true;
+}
+
 bool InflectionsCheckerEnglish::isDetAdjCompatibles(const InflectedWord& pIGramDet,
                                                     const InflectedWord& pIGramAdj) const {
     return isNounAdjCompatibles(pIGramDet, pIGramAdj.inflections())

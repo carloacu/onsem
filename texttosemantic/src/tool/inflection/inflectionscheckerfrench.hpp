@@ -33,6 +33,8 @@ public:
 
     bool areNounDetCompatibles(const InflectedWord&, const InflectedWord&) const override { return true; }
 
+    bool canFinishWithPerp(const InflectedWord& pPrepInflWord) const override;
+
     bool areNounNounCompatibles(const InflectedWord& pNounInflWord1,
                                 const InflectedWord& pNounInflWord2) const override;
 

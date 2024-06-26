@@ -62,7 +62,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("add", {"ajouter"}, whatNbParameter, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> whereParameter{
         {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where"})}};
-    actionRecognizer.addAction("go_to_loc", {"aller"}, whereParameter, lingDb);
+    actionRecognizer.addAction("go_to_loc", {"aller vers"}, whereParameter, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> whatObjParameter{
         {"obj", ActionRecognizer::ParamInfo("object", {"what"})}};
     actionRecognizer.addAction("bring", {"apporter"}, whatObjParameter, lingDb);

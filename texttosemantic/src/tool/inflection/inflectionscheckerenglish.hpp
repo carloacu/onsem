@@ -36,6 +36,8 @@ public:
     bool areNounNounCompatibles(const InflectedWord& pNounInflWord1,
                                 const InflectedWord& pNounInflWord2) const override;
 
+    bool canFinishWithPerp(const InflectedWord& pPrepInflWord) const override;
+
     bool isPronounPronounComplementCompatibles(const InflectedWord&) const override { return true; }
 
     bool isPronounComplAdverbCompatibles(const InflectedWord&, const InflectedWord&) const override { return true; }

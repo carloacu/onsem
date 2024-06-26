@@ -122,6 +122,10 @@ bool InflectionsCheckerFrench::areNounNounCompatibles(const InflectedWord& pNoun
     return !ConceptSet::haveAConceptThatBeginWith(pNounInflWord1.infos.concepts, "number_");
 }
 
+bool InflectionsCheckerFrench::canFinishWithPerp(const InflectedWord& pPrepInflWord) const {
+    return pPrepInflWord.word.lemma != "avant";
+}
+
 bool InflectionsCheckerFrench::isPronounPronounComplementCompatibles(const InflectedWord& pInflPronoun) const {
     return pInflPronoun.word.lemma != "qu'est-ce que";
 }

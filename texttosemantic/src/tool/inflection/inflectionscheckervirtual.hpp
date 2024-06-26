@@ -44,6 +44,9 @@ public:
     bool isNounAdjCompatibles(const InflectedWord& pNounInflWord, const Inflections& pAdjInflections) const;
 
     virtual bool areNounDetCompatibles(const InflectedWord& pNounInflWord, const InflectedWord& pDetInflWord) const = 0;
+
+    virtual bool canFinishWithPerp(const InflectedWord& pPrepInflWord) const = 0;
+
     virtual bool areNounNounCompatibles(const InflectedWord& pNounInflWord1,
                                         const InflectedWord& pNounInflWord2) const = 0;
 

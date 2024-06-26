@@ -232,6 +232,9 @@ bool InflectionsChecker::areCompatibles(const InflectedWord& pIGram1, const Infl
                 case PartOfSpeech::VERB: {
                     return _isPrepVerbCompatibles(pIGram2.inflections());
                 }
+                case PartOfSpeech::PUNCTUATION: {
+                    return _impl->canFinishWithPerp(pIGram1);
+                }
                 default: {
                     return true;
                 }

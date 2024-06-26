@@ -506,20 +506,26 @@ void partitivePrioritiesFr(std::vector<Token>& pTokens, const InflectionsChecker
 }
 
 void prepPrioritiesFr(std::vector<Token>& pTokens) {
-    for (TokIt itTok = pTokens.begin(); itTok != pTokens.end(); itTok = getNextToken(itTok, pTokens.end())) {
+    for (TokIt itTok = pTokens.begin(); itTok != pTokens.end(); ) {
+        auto itNextTok = getNextToken(itTok, pTokens.end());
         std::list<InflectedWord>& inflWords = itTok->inflWords;
         auto itFirstInflWord = inflWords.begin();
         const InflectedWord& currInflWord = *itFirstInflWord;
-        if (currInflWord.word.partOfSpeech == PartOfSpeech::PREPOSITION &&
-            (currInflWord.word.lemma == "de" || currInflWord.word.lemma == "des")) {
-            auto itPrev = getPrevToken(itTok, pTokens.begin(), pTokens.end());
-            if (itPrev != pTokens.end()) {
-                auto itPrevFirstInfl = itPrev->inflWords.begin();
-                if (itPrevFirstInfl->word.partOfSpeech != PartOfSpeech::VERB) {
-                    putOnTop(inflWords, PartOfSpeech::PARTITIVE);
+        if (currInflWord.word.partOfSpeech == PartOfSpeech::PREPOSITION) {
+            if (currInflWord.word.lemma == "de" || currInflWord.word.lemma == "des") {
+                auto itPrev = getPrevToken(itTok, pTokens.begin(), pTokens.end());
+                if (itPrev != pTokens.end()) {
+                    auto itPrevFirstInfl = itPrev->inflWords.begin();
+                    if (itPrevFirstInfl->word.partOfSpeech != PartOfSpeech::VERB) {
+                        putOnTop(inflWords, PartOfSpeech::PARTITIVE);
+                    }
                 }
             }
+
+            if (itNextTok == pTokens.end())
+                putOnTop(inflWords, PartOfSpeech::ADVERB);
         }
+        itTok = itNextTok;
     }
 }
 

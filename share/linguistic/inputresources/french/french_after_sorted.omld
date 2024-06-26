@@ -42,6 +42,7 @@
  <r l="face à" p="adverb">
  <r l="face à" p="preposition">
  <r l="face au" p="preposition">
+ <r l="avant" p="adverb">
  <w l="n'importe quel" p="determiner">
   <i i="n'importe quel" f="ms" />
   <i i="n'importe quelle" f="fs" />
@@ -344,6 +345,9 @@
   <i i="demi tours" f="mp" />
  </w>
  <w l="°" p="noun">
+  <i />
+ </w>
+ <w l="avant" p="adverb">
   <i />
  </w>
 </omld>
