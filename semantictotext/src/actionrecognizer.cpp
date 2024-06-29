@@ -211,40 +211,49 @@ std::optional<ActionRecognizer::ActionRecognized> _reactionToIntent(const Semant
                     if (!parameterSplitted.empty()) {
                         auto paramName = parameterSplitted[0];
                         auto& paramValues = intent.params[paramName];
-                        TextProcessingContext outContext(
+                        const TextProcessingContext outContext(
                                     SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, resourceGrdPtr->resource.language);
-                        SemanticMemory semMemory;
 
                         for (auto& currAnswer : semExps) {
                             if (SemExpGetter::isACoreference(*currAnswer, CoreferenceDirectionEnum::BEFORE))
                                 return {};
 
-                            std::string newValue;
-                            converter::semExpToText(newValue, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
-
                             bool paramAdded = false;
                             if (parameterSplitted.size() > 1) {
                                 auto paramType = parameterSplitted[1];
-                                auto itParamMemory = pTypeToMemory.find(paramType);
-                                if (itParamMemory != pTypeToMemory.end()) {
-                                    mystd::unique_propagate_const<UniqueSemanticExpression> entityReaction;
-                                    triggers::match(entityReaction, itParamMemory->second, currAnswer->clone(), pLingDb);
 
-                                    if (entityReaction) {
-                                        const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
-                                        if (entityGrdExpPtr != nullptr) {
-                                            auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
-                                            if (entityResourceGrdPtr != nullptr) {
-                                                paramValues.push_back(entityResourceGrdPtr->resource.value);
-                                                paramAdded = true;
+                                if (paramType == "int" || paramType == "float") {
+                                    SemanticMemory semMemory;
+                                    std::string newValue;
+                                    converter::semExpToText(newValue, currAnswer->clone(), outContext, true, semMemory, pLingDb, nullptr);
+                                    paramValues.push_back(newValue);
+                                    paramAdded = true;
+                                } else {
+                                    auto itParamMemory = pTypeToMemory.find(paramType);
+                                    if (itParamMemory != pTypeToMemory.end()) {
+                                        mystd::unique_propagate_const<UniqueSemanticExpression> entityReaction;
+                                        UniqueSemanticExpression paramUSemExp = currAnswer->clone();
+                                        controller::applyOperatorResolveAgentAccordingToTheContext(paramUSemExp, itParamMemory->second, pLingDb);
+                                        triggers::match(entityReaction, itParamMemory->second, std::move(paramUSemExp), pLingDb);
+
+                                        if (entityReaction) {
+                                            const GroundedExpression* entityGrdExpPtr = entityReaction->getSemExp().getGrdExpPtr_SkipWrapperPtrs();
+                                            if (entityGrdExpPtr != nullptr) {
+                                                auto* entityResourceGrdPtr = entityGrdExpPtr->grounding().getResourceGroundingPtr();
+                                                if (entityResourceGrdPtr != nullptr) {
+                                                    paramValues.push_back(entityResourceGrdPtr->resource.value);
+                                                    paramAdded = true;
+                                                }
                                             }
                                         }
                                     }
                                 }
+
                             }
 
                             if (!paramAdded)
-                                paramValues.push_back(newValue);
+                                return {};
+                            //    paramValues.push_back(newValue);
                         }
                     }
                 }
@@ -451,10 +460,12 @@ void ActionRecognizer::addEntity(const std::string& pType,
         for (const auto& currLabel : pEntityLabels) {
             newEntityLabels.emplace_back(currFormulation + " " + currLabel);
             if (isValueConsideredAsOwner) {
-                if (_language == SemanticLanguageEnum::FRENCH)
+                if (_language == SemanticLanguageEnum::FRENCH) {
                     newEntityLabels.emplace_back(currFormulation + " de " + currLabel);
-                else
+                } else {
                     newEntityLabels.emplace_back(currFormulation + " of " + currLabel);
+                    newEntityLabels.emplace_back(currLabel + " " + currFormulation);
+                }
             }
         }
     }
@@ -630,6 +641,8 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::_extractActi
                       actionRecognized.toRunSequentially.push_back(std::move(*actionRecognizedOpt));
                   return actionRecognized;
               }
+              if (conditionText != "")
+                  return {};
               return actionRecognizedOpt;
           }
         }
