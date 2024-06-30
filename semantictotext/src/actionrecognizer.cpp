@@ -253,7 +253,6 @@ std::optional<ActionRecognizer::ActionRecognized> _reactionToIntent(const Semant
 
                             if (!paramAdded)
                                 return {};
-                            //    paramValues.push_back(newValue);
                         }
                     }
                 }
@@ -664,6 +663,35 @@ std::optional<ActionRecognizer::ActionRecognized> ActionRecognizer::_extractActi
             }
             return actionRecognized;
         }
+    }
+
+
+    auto* listPtr = pUtteranceSemExp->getListExpPtr_SkipWrapperPtrs();
+    if (listPtr != nullptr && listPtr->listType == ListExpressionType::THEN) {
+        ActionRecognizer::ActionRecognized actionRecognized;
+        for (auto& currElt : listPtr->elts) {
+            auto currEltText = currElt->fromText.content;
+            if (currEltText == "")
+                return {};
+            auto subAction = _extractAction(std::move(currElt), pLingDb);
+            if (subAction) {
+                if (subAction->isOnlyAnIntent() && actionRecognized.empty()) {
+                    actionRecognized.intent = std::move(subAction->intent);
+                } else {
+                    actionRecognized.toRunSequentially.emplace_back(std::move(*subAction));
+                }
+            } else {
+                auto intent = _createUnknownIntent(currEltText, "");
+                if (actionRecognized.empty()) {
+                    actionRecognized.intent = std::move(intent);
+                } else {
+                    ActionRecognizer::ActionRecognized subActionRecognized;
+                    subActionRecognized.intent = std::move(intent);
+                    actionRecognized.toRunSequentially.emplace_back(std::move(subActionRecognized));
+                }
+            }
+        }
+        return actionRecognized;
     }
 
     return {};
