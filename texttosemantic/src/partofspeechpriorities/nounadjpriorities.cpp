@@ -187,7 +187,10 @@ void nounAdjPriorities(std::vector<Token>& pTokens) {
     }
 }
 
-void NounPrioritiesFr(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker, bool pIsRootLevel) {
+void NounPrioritiesFr(std::vector<Token>& pTokens,
+                      const InflectionsChecker& pInflsCheker,
+                      bool pIsRootLevel,
+                      bool pCanOnlyBeANominalGroup) {
     Token* tokenAfterPtr = nullptr;
     Token* tokenAfterAfterPtr = nullptr;
     auto updateTokenAfterPtrs = [&](TokIt& pTokIt) {
@@ -209,8 +212,8 @@ void NounPrioritiesFr(std::vector<Token>& pTokens, const InflectionsChecker& pIn
                     if ((itInflWord->word.partOfSpeech == PartOfSpeech::DETERMINER
                          && !ConceptSet::haveAConceptThatBeginWith(itInflWord->infos.concepts, "number_"))
                         || itInflWord->word.partOfSpeech == PartOfSpeech::INTERJECTION
-                        || (isAtBeginOfASentence(pTokens, itTok) && pInflsCheker.verbCanBeAtImperative(*itInflWord))
-                        || pInflsCheker.verbIsAtInfinitive(*itInflWord)) {
+                        || (!pCanOnlyBeANominalGroup && isAtBeginOfASentence(pTokens, itTok) && pInflsCheker.verbCanBeAtImperative(*itInflWord))
+                        || (!pCanOnlyBeANominalGroup && pInflsCheker.verbIsAtInfinitive(*itInflWord))) {
                         putOnTop(inflWords, itInflWord);
                         needToContinue = true;
                         break;

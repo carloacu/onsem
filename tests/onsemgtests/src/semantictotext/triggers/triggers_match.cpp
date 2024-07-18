@@ -125,6 +125,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr) {
     const std::string reaction23 = "Je me rechargerai.";
     const std::string trigger24 = "le checkpoint de Laure";    // Vas is wrongly written in purpose for the test
     const std::string reaction24 = "Biiiiip";
+    const std::string trigger25 = "cuisine";
+    const std::string reaction25 = "Il faut aller à table.";
 
     ONSEM_NOANSWER(triggers_match(whoAreYou, semMem, lingDb));
     ONSEM_NOANSWER(triggers_match(stopApplication, semMem, lingDb));
@@ -169,6 +171,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr) {
     triggers_add(trigger22, reaction22, semMem, lingDb);
     triggers_add(trigger23, reaction23, semMem, lingDb);
     triggers_add(trigger24, reaction24, semMem, lingDb, {}, SemanticLanguageEnum::FRENCH);
+    triggers_add(trigger25, reaction25, semMem, lingDb, {}, SemanticLanguageEnum::UNKNOWN, true);
 
     ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match(whoAreYou, semMem, lingDb));
     ONSEM_ANSWER_EQ(iAmYourFrined, triggers_match("peux-tu me dire qui tu es", semMem, lingDb));
@@ -232,6 +235,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_fr) {
     ONSEM_ANSWER_EQ(reaction24, triggers_match(trigger24, semMem, lingDb, SemanticLanguageEnum::FRENCH));
     ONSEM_NOANSWER(triggers_match("le checkpoint de Max", semMem, lingDb, SemanticLanguageEnum::FRENCH));
     ONSEM_NOANSWER(triggers_match("le checkpoint", semMem, lingDb, SemanticLanguageEnum::FRENCH));
+    ONSEM_ANSWER_EQ(reaction25, triggers_match("la cuisine", semMem, lingDb));
 }
 
 TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en) {

@@ -36,8 +36,7 @@ namespace linguistics {
  * @param pLangConfig Algorithms to use for language of the text.
  * @param pSpecLingDb Databases of language of the text.
  * @param pIsRootLevel Yes I we restart for the entire text, False if it's only localized to a subordinate.
- * @param pTokenizerEndingStep For debug only, it indicates where to stop the partOfSpeech filter step. (in case we need
- * to restart from here)
+ * @param pLinguisticAnalysisConfig Linguistic analysis context.
  * @param pEndingStep For debug only, it indicates where to stop the syntactic tree construction.
  */
 void _constructSyntacticTree(TokensTree& pTokensTree,
@@ -46,8 +45,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                              const AlgorithmSetForALanguage& pLangConfig,
                              const SpecificLinguisticDatabase& pSpecLingDb,
                              bool pIsRootLevel,
-                             const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
-                             bool pTryToResolveCoreferences,
+                             const LinguisticAnalysisConfig& pLinguisticAnalysisConfig,
                              const SynthAnalEndingStepForDebug& pEndingStep);
 
 struct SubordonateSyntGraphWorkingContext {
@@ -100,14 +98,14 @@ void _launchGrammRules(TokensTree& pTokensTree,
                        const AlgorithmSetForALanguage& pLangConfig,
                        const SpecificLinguisticDatabase& pSpecLingDb,
                        bool pIsRootLevel,
-                       const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
-                       bool pTryToResolveCoreferences,
+                       const LinguisticAnalysisConfig& pLinguisticAnalysisConfig,
                        const SynthAnalEndingStepForDebug& pEndingStep) {
     partOfSpeechFilterer::process(pTokensTree.tokens,
                                   pSpecLingDb,
                                   pEndingStep.tokenizerEndingStep,
                                   pEndingStep.nbOfDebugRoundsForTokens,
-                                  pIsRootLevel);
+                                  pIsRootLevel,
+                                  pLinguisticAnalysisConfig.canOnlyBeANominalGroup);
 
     _constructSyntacticTree(pTokensTree,
                             pFirstChildren,
@@ -115,8 +113,7 @@ void _launchGrammRules(TokensTree& pTokensTree,
                             pLangConfig,
                             pSpecLingDb,
                             pIsRootLevel,
-                            pSpellingMistakeTypesPossible,
-                            pTryToResolveCoreferences,
+                            pLinguisticAnalysisConfig,
                             pEndingStep);
 }
 
@@ -136,8 +133,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                              const AlgorithmSetForALanguage& pLangConfig,
                              const SpecificLinguisticDatabase& pSpecLingDb,
                              bool pIsRootLevel,
-                             const std::set<SpellingMistakeType>& pSpellingMistakeTypesPossible,
-                             bool pTryToResolveCoreferences,
+                             const LinguisticAnalysisConfig& pLinguisticAnalysisConfig,
                              const SynthAnalEndingStepForDebug& pEndingStep) {
     const ErrorDetector& errDetector = pLangConfig.getErrorDetector();
     const InflectionsChecker& inflChecker = pLangConfig.getFlsChecker();
@@ -166,7 +162,8 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
     }
 
     if (pIsRootLevel && language == SemanticLanguageEnum::ENGLISH) {
-        if (errDetector.tryToConvertNounToImperativeVerbs(pFirstChildren)) {
+        if (!pLinguisticAnalysisConfig.canOnlyBeANominalGroup &&
+            errDetector.tryToConvertNounToImperativeVerbs(pFirstChildren)) {
             SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
             --subEndingStep.nbOfDebugRoundsForSynthAnalysis;
             ++pParsingConfidence.nbOfProblematicRetries;
@@ -176,8 +173,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                               pLangConfig,
                               pSpecLingDb,
                               pIsRootLevel,
-                              pSpellingMistakeTypesPossible,
-                              pTryToResolveCoreferences,
+                              pLinguisticAnalysisConfig,
                               subEndingStep);
             return;
         }
@@ -218,8 +214,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                                   pLangConfig,
                                   pSpecLingDb,
                                   pIsRootLevel,
-                                  pSpellingMistakeTypesPossible,
-                                  pTryToResolveCoreferences,
+                                  pLinguisticAnalysisConfig,
                                   subEndingStep);
                 return;
             }
@@ -232,8 +227,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                                         pLangConfig,
                                         pSpecLingDb,
                                         pIsRootLevel,
-                                        pSpellingMistakeTypesPossible,
-                                        pTryToResolveCoreferences,
+                                        pLinguisticAnalysisConfig,
                                         subEndingStep);
                 return;
             }
@@ -248,7 +242,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
         return;
     }
 
-    if (pIsRootLevel && pTryToResolveCoreferences) {
+    if (pIsRootLevel && pLinguisticAnalysisConfig.tryToResolveCoreferences) {
         // Linker
         pLangConfig.getLinker().process(pFirstChildren);
     }
@@ -273,7 +267,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
         && addNotUnderstood(pFirstChildren,
                             pParsingConfidence.nbOfNotUnderstood,
                             pParsingConfidence.nbOfSuspiciousChunks,
-                            pSpellingMistakeTypesPossible,
+                            pLinguisticAnalysisConfig.spellingMistakeTypesPossible,
                             inflChecker,
                             pSpecLingDb.lingDico)) {
         SynthAnalEndingStepForDebug subEndingStep = pEndingStep;
@@ -285,8 +279,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                           pLangConfig,
                           pSpecLingDb,
                           pIsRootLevel,
-                          pSpellingMistakeTypesPossible,
-                          pTryToResolveCoreferences,
+                          pLinguisticAnalysisConfig,
                           subEndingStep);
         return;
     }
@@ -303,8 +296,7 @@ void _constructSyntacticTree(TokensTree& pTokensTree,
                               pLangConfig,
                               pSpecLingDb,
                               false,
-                              pSpellingMistakeTypesPossible,
-                              pTryToResolveCoreferences,
+                              pLinguisticAnalysisConfig,
                               pEndingStep);
             auto& currChunk = *it->chunk;
             auto _chunckCanBeLinkedToASubject = [&](const Chunk& pChunk) {
@@ -360,8 +352,7 @@ void syntacticAnalysis(SyntacticGraph& pSyntGraph,
                       pSyntGraph.langConfig,
                       pSyntGraph.langConfig.getSpecifcLingDb(),
                       true,
-                      pLinguisticAnalysisConfig.spellingMistakeTypesPossible,
-                      pLinguisticAnalysisConfig.tryToResolveCoreferences,
+                      pLinguisticAnalysisConfig,
                       pEndingStep);
 }
 
@@ -411,7 +402,7 @@ void extractProperNouns(std::vector<std::string>& pProperNouns,
     const auto& lingDico = specLingDb.lingDico;
     std::vector<Token> tokens;
     tokenizer::tokenize(tokens, pInputSentence, lingDico, commonLingDico, cmdGrdExtractorPtr);
-    partOfSpeechFilterer::process(tokens, specLingDb, tokenizerDefaultEndingStep, 1, true);
+    partOfSpeechFilterer::process(tokens, specLingDb, tokenizerDefaultEndingStep, 1, true, true);
 
     // extract the proper nouns
     for (const auto& currToken : tokens)

@@ -12,7 +12,7 @@ void detNounPriorities(std::vector<Token>& pTokens, const InflectionsChecker& pI
 void pronNounPriorities(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker);
 void nounDetPriorities(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker);
 void nounAdjPriorities(std::vector<Token>& pTokens);
-void NounPrioritiesFr(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker, bool pIsRootLevel);
+void NounPrioritiesFr(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker, bool pIsRootLevel, bool pCanOnlyBeANominalGroup);
 void nounNounPrioritiesEn(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker);
 void verbPriorities(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker);
 void verbPrioritiesFr(std::vector<Token>& pTokens, const InflectionsChecker& pInflsCheker);

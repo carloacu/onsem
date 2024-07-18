@@ -11,6 +11,7 @@ struct ONSEM_TEXTTOSEMANTIC_API LinguisticAnalysisConfig {
     std::shared_ptr<ResourceGroundingExtractor> cmdGrdExtractorPtr;
     std::set<SpellingMistakeType> spellingMistakeTypesPossible;
     bool tryToResolveCoreferences = true;
+    bool canOnlyBeANominalGroup = false;
 };
 
 }    // End of namespace onsem

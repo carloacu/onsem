@@ -51,10 +51,12 @@ void triggers_add(const std::string& pTriggerText,
                   SemanticMemory& pSemanticMemory,
                   const linguistics::LinguisticDatabase& pLingDb,
                   const std::list<std::string>& pReferences,
-                  SemanticLanguageEnum pLanguage) {
+                  SemanticLanguageEnum pLanguage,
+                  bool pCanOnlyBeANominalGroup) {
     TextProcessingContext triggerProcContext(
         SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
     triggerProcContext.isTimeDependent = false;
+    triggerProcContext.linguisticAnalysisConfig.canOnlyBeANominalGroup = pCanOnlyBeANominalGroup;
     auto triggerSemExp =
         converter::textToContextualSemExp(pTriggerText, triggerProcContext, SemanticSourceEnum::UNKNOWN, pLingDb);
     _triggers_addFromSemExp(triggerSemExp, pAnswerText, pSemanticMemory, pLingDb, pReferences, pLanguage);

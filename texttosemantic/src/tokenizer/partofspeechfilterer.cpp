@@ -16,7 +16,8 @@ void process(std::vector<Token>& pTokens,
              const SpecificLinguisticDatabase& pSpecLingDb,
              const std::string& pEndingStep,
              std::size_t pNbOfDebugRounds,
-             bool pIsRootLevel) {
+             bool pIsRootLevel,
+             bool pCanOnlyBeANominalGroup) {
     const auto& contextFilters = pSpecLingDb.getContextFilters();
     if (contextFilters.empty())
         return;
@@ -73,7 +74,7 @@ void process(std::vector<Token>& pTokens,
                     putOnBottom(currToken.inflWords, currToken.inflWords.begin());
             }
             partitivePrioritiesFr(pTokens, inflsCheker);
-            NounPrioritiesFr(pTokens, inflsCheker, pIsRootLevel);
+            NounPrioritiesFr(pTokens, inflsCheker, pIsRootLevel, pCanOnlyBeANominalGroup);
             detNounPriorities(pTokens, inflsCheker);
             advPriorities(pTokens);
             adjPriorities(pTokens);

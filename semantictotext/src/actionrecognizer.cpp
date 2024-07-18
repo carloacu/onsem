@@ -146,10 +146,12 @@ void _addIntent(const std::string& pIntentName,
                 const std::map<std::string, ActionRecognizer::ParamInfo>& pParameterLabelToInfos,
                 SemanticMemory& pSemMemory,
                 const linguistics::LinguisticDatabase& pLingDb,
-                SemanticLanguageEnum pLanguage) {
+                SemanticLanguageEnum pLanguage,
+                bool pCanOnlyBeANominalGroup) {
     TextProcessingContext triggerProcContext(
                 SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
     triggerProcContext.isTimeDependent = false;
+    triggerProcContext.linguisticAnalysisConfig.canOnlyBeANominalGroup = pCanOnlyBeANominalGroup;
     for (auto& currFormulation : pFormulations) {
         auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);
         converter::correferenceToRobot(formulationSemExp, pLingDb);
@@ -450,7 +452,7 @@ void ActionRecognizer::addEntity(const std::string& pType,
                                  const linguistics::LinguisticDatabase& pLingDb) {
     auto& semMem = _typeToMemory[pType];
     const std::map<std::string, ParamInfo> parameterLabelToQuestions;
-    _addIntent(pEntityId, pEntityLabels, parameterLabelToQuestions, semMem, pLingDb, _language);
+    _addIntent(pEntityId, pEntityLabels, parameterLabelToQuestions, semMem, pLingDb, _language, true);
 
     bool isValueConsideredAsOwner = _typeWithValueConsideredAsOwner.count(pType) > 0;
     auto& formuations = _typeToFormulations[pType];
@@ -468,7 +470,7 @@ void ActionRecognizer::addEntity(const std::string& pType,
             }
         }
     }
-    _addIntent(pEntityId, newEntityLabels, parameterLabelToQuestions, semMem, pLingDb, _language);
+    _addIntent(pEntityId, newEntityLabels, parameterLabelToQuestions, semMem, pLingDb, _language, true);
 }
 
 
@@ -477,7 +479,7 @@ void ActionRecognizer::addPredicate(const std::string& pPredicateName,
                                     const linguistics::LinguisticDatabase& pLingDb) {
     const std::map<std::string, ParamInfo> parameterLabelToQuestions;
     _addIntent(pPredicateName, pPredicateFormulations, parameterLabelToQuestions,
-               _predicateSemanticMemory, pLingDb, _language);
+               _predicateSemanticMemory, pLingDb, _language, false);
 }
 
 

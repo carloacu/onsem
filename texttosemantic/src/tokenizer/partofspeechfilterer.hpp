@@ -15,7 +15,8 @@ void process(std::vector<Token>& pTokens,
              const SpecificLinguisticDatabase& pSpecLingDb,
              const std::string& pEndingStep,
              std::size_t pNbOfDebugRounds,
-             bool pIsRootLevel);
+             bool pIsRootLevel,
+             bool pCanOnlyBeANominalGroup);
 
 }    // End of namespace partOfSpeechFilterer
 }    // End of namespace linguistics

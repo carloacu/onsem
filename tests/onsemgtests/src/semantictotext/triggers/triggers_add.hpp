@@ -23,7 +23,8 @@ void triggers_add(const std::string& pTriggerText,
                   SemanticMemory& pSemanticMemory,
                   const linguistics::LinguisticDatabase& pLingDb,
                   const std::list<std::string>& pReferences = std::list<std::string>(),
-                  SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN);
+                  SemanticLanguageEnum pLanguage = SemanticLanguageEnum::UNKNOWN,
+                  bool pCanOnlyBeANominalGroup = false);
 
 void triggers_addToSemExpAnswer(const std::string& pTriggerText,
                                 UniqueSemanticExpression pAnswerSemExp,

@@ -51,7 +51,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addEntity("checkpoint", "checkpoint1", {"Virginie"}, lingDb);
     actionRecognizer.addEntity("checkpoint", "checkpoint2", {"plateau"}, lingDb);
     actionRecognizer.addEntity("checkpoint", "checkpoint3", {"Charles"}, lingDb);
-    actionRecognizer.addEntity("checkpoint", "checkpoint4", {"la cuisine"}, lingDb);
+    actionRecognizer.addEntity("checkpoint", "checkpoint4", {"cuisine"}, lingDb);
     actionRecognizer.addEntity("object", "patate", {"patate"}, lingDb);
     actionRecognizer.addPredicate("clicked", {"[c:checkpoint] est pressé", "[c:checkpoint] est cliqué"}, lingDb);
     actionRecognizer.addPredicate("same_location", {"[self] est proche de [c:checkpoint]", "[self] est pas loin de [c:checkpoint]"}, lingDb);
@@ -89,6 +89,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
         {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where", "what"})}};
     actionRecognizer.addAction("turn_to", {"se tourner vers", "faire face à", "se tourner face à", "s'orienter vers"}, whereWhatParameter, lingDb);
 
+
+    EXPECT_EQ("{\"intent\": \"move\", \"to_run_sequentially\": [{\"intent\": \"__unknown__(from_text=dis qui tu es)\"}]}",
+              _recognize("avance puis dis qui tu es", actionRecognizer, lingDb, frLanguage));
 
     EXPECT_EQ("{\"intent\": \"move\", \"to_run_in_background\": [{\"intent\": \"raise_arms\"}]}",
               _recognize("avance en levant les bras", actionRecognizer, lingDb, frLanguage));
@@ -260,6 +263,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     actionRecognizer.addType("checkpoint", {"checkpoint"}, true);
     actionRecognizer.addEntity("checkpoint", "checkpoint1", {"Virginie"}, lingDb);
     actionRecognizer.addEntity("checkpoint", "checkpoint2", {"tray"}, lingDb);
+    actionRecognizer.addEntity("checkpoint", "checkpoint3", {"smile"}, lingDb);
     actionRecognizer.addPredicate("clicked", {"[c:checkpoint] is pressed", "[c:checkpoint] is clicked"}, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> whatNbParameter{
         {"nb", ActionRecognizer::ParamInfo("int", {"quoi"})}};
@@ -267,6 +271,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     std::map<std::string, ActionRecognizer::ParamInfo> whereParameter{
         {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where"})}};
     actionRecognizer.addAction("go_to_loc", {"go"}, whereParameter, lingDb);
+    std::map<std::string, ActionRecognizer::ParamInfo> whatParameter{
+        {"loc", ActionRecognizer::ParamInfo("checkpoint", {"what"})}};
+    actionRecognizer.addAction("look", {"to look at"}, whatParameter, lingDb);
     actionRecognizer.addAction("arms_down", {"relax his arms",
                                              "drop his arms",
                                              "lower his arms"}, {}, lingDb);
@@ -299,6 +306,12 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
 
     EXPECT_EQ("{\"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("whenever the Virginie checkpoint is clicked", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"intent\": \"arms_down\"}",
+              _recognize("relax your arms", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"intent\": \"look(loc=checkpoint3)\"}",
+              _recognize("look at my smile", actionRecognizer, lingDb, enLanguage));
 
     EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("relax your arms", actionRecognizer, lingDb, enLanguage));
