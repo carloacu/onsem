@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <ostream>
 #include <cstring>
+#include <cstdint>
 #include "binarymasks.hpp"
 
 namespace onsem {

@@ -2,6 +2,7 @@
 #define ONSEM_COMMON_SAVER_BINARYMASKS_HPP
 
 #include <fstream>
+#include <cstdint>
 
 namespace onsem {
 namespace binarymasks {
