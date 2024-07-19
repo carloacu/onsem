@@ -46,6 +46,17 @@
   <nextMeaning lemme="tête" gram="noun"/>
   <wordForm gram="verb"/>
  </words>
+ <words lemme="mettre" gram="verb">
+  <nextOrPrevMeaning gram="pronoun_comp" lemme="se"/>
+  <nextMeaning lemme="en" gram="preposition"/>
+  <nextMeaning lemme="veille" gram="noun"/>
+  <wordForm gram="verb"/>
+ </words>
+ <words lemme="mettre" gram="verb">
+  <nextMeaning lemme="en" gram="preposition"/>
+  <nextMeaning lemme="veille" gram="noun"/>
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="regarder" gram="verb">
   <nextMeaning lemme="devant" gram="adverb"/>
   <wordForm gram="verb"/>

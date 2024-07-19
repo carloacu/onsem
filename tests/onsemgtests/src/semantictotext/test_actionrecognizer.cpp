@@ -83,6 +83,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("put", {"poser quelque chose"}, {}, lingDb);
     actionRecognizer.addAction("raise_arms", {"lever les bras"}, {}, lingDb);
     actionRecognizer.addAction("do_something", {"n'importe quoi"}, {}, lingDb);
+    actionRecognizer.addAction("sleep", {"se mettre en veille"}, {}, lingDb);
 
     std::map<std::string, ActionRecognizer::ParamInfo> whereWhatParameter{
         {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where", "what"})}};
@@ -244,6 +245,10 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("", _recognize("tourne ta boulle de 50 degrées vers la gauche", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"intent\": \"__unknown__(from_context=le checkpoint Virginie est cliquée , from_text=tourne ta boulle de 50 degrées vers la gauche)\", \"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est cliquée tourne ta boulle de 50 degrées vers la gauche", actionRecognizer, lingDb, frLanguage));
+
+    EXPECT_EQ("{\"intent\": \"sleep\"}", _recognize("se mettre en veille", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("{\"intent\": \"sleep\"}", _recognize("mets-toi en veille", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("", _recognize("se mettre d'accord sur", actionRecognizer, lingDb, frLanguage));
 }
 
 
@@ -274,6 +279,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     actionRecognizer.addAction("not_move", {"to not move"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("look_at_oneself", {"to look at oneself"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("put", {"put something"}, {}, lingDb);
+    actionRecognizer.addAction("sleep", {"to go to sleep"}, {}, lingDb);
 
     EXPECT_EQ("{\"intent\": \"go_to_loc(loc=checkpoint1)\"}",
               _recognize("go to Virginie", actionRecognizer, lingDb, enLanguage));
@@ -322,4 +328,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
               _recognize("look at yourself", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"intent\": \"put\"}",
               _recognize("put a tray", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"intent\": \"sleep\"}",
+              _recognize("go to sleep", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"intent\": \"go_to_loc\"}",
+              _recognize("go", actionRecognizer, lingDb, enLanguage));
 }
