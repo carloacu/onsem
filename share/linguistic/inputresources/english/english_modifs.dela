@@ -1,7 +1,13 @@
 #ungrasp,.V:W:P1s:P2s:P1p:P2p:P3p
-#ungrasped,grasp.V:K:I1s:I2s:I3s:I1p:I2p:I3p
-#ungrasping,grasp.V:G
-#ungrasps,grasp.V:P3s
+#ungrasped,ungrasp.V:K:I1s:I2s:I3s:I1p:I2p:I3p
+#ungrasping,ungrasp.V:G
+#ungrasps,ungrasp.V:P3s
+
+#fistbump,.V:W:P1s:P2s:P1p:P2p:P3p
+#fistbumped,fistbump.V:K:I1s:I2s:I3s:I1p:I2p:I3p
+#fistbumping,fistbump.V:G
+#fistbumps,fistbump.V:P3s
+
 
 >addToAtBeginOfVerbsForEnglish
 

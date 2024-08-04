@@ -449,6 +449,7 @@
   <declareconcept name="verb_action_deregister" />
   <declareconcept name="verb_action_descend" />
   <declareconcept name="verb_action_execute" />
+  <declareconcept name="verb_action_fistbump" autofill="false" />
   <declareconcept name="verb_action_goaway" />
   <declareconcept name="verb_action_go" autofill="false" />
   <declareconcept name="verb_action_goGet" autofill="false" />

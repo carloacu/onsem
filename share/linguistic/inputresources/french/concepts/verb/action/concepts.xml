@@ -33,6 +33,9 @@
   <linkedMeaning lemme="démarrer" gram="verb" relationToConcept="3"/>
   <linkedMeaning lemme="ouvrir" gram="verb" relationToConcept="3"/>
  </concept>
+ <concept name="verb_action_fistbump">
+  <linkedMeaning lemme="checker" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_goaway">
   <linkedMeaning lemme="aller~se" gram="verb" relationToConcept="4"/>
  </concept>

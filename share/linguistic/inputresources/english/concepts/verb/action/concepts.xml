@@ -129,6 +129,10 @@
   <linkedMeaning lemme="execute" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="run" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_fistbump">
+  <linkedMeaning lemme="fist~bump" gram="verb" relationToConcept="4"/>
+  <linkedMeaning lemme="fistbump" gram="verb" relationToConcept="3"/>
+ </concept>
  <concept name="verb_action_goaway">
   <linkedMeaning lemme="go~away" gram="verb" relationToConcept="4"/>
  </concept>

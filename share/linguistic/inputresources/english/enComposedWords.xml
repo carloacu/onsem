@@ -31,6 +31,10 @@
   <nextMeaning lemme="from" gram="preposition" />
   <wordForm gram="preposition"/>
  </words>
+ <words lemme="fist" gram="verb" >
+  <nextMeaning lemme="bump" gram="noun" />
+  <wordForm gram="verb"/>
+ </words>
  <words lemme="front" gram="noun" >
   <prevMeaning lemme="in" gram="preposition" />
   <nextMeaning lemme="of" gram="preposition" />
