@@ -686,6 +686,9 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en) {
     triggers_addAnswerWithOneParameter("Move backward a little", {}, semMem, lingDb, language);
     triggers_addAnswerWithOneParameter("Move backward a lot", {}, semMem, lingDb, language);
 
+    triggers_addAnswerWithOneParameter("Move left", howFarInMetersParameterQuestion, semMem, lingDb, language);
+    triggers_addAnswerWithOneParameter("Move right", howFarInMetersParameterQuestion, semMem, lingDb, language);
+
     const std::vector<std::string> howFarInDegreesParameterQuestion = {"how far in degrees"};
     triggers_addAnswerWithOneParameter("Turn left", {howFarInDegreesParameterQuestion}, semMem, lingDb, language);
     triggers_addAnswerWithOneParameter(
@@ -742,6 +745,8 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en) {
     triggers_addAnswerWithOneParameter("Stop moving", howManyMinutesQuestion, semMem, lingDb, language);
     triggers_addAnswerWithOneParameter("fine thank you", {}, semMem, lingDb, language);
 
+    triggers_addAnswerWithOneParameter("Show what you see", {}, semMem, lingDb, language);
+
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=3 meters)\\",
                       triggers_match("Move forward 3 meters", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Advance(param1=0.2 meter)\\",
@@ -765,6 +770,16 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en) {
                       triggers_match("Move backward a little", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a little\\", triggers_match("Move backward a bit", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move backward a lot\\", triggers_match("Move backward a lot", semMem, lingDb));
+
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move left\\",
+                      triggers_match("Move left", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move left(param1=3 meters)\\",
+                      triggers_match("Move left 3 meters", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move right\\",
+                      triggers_match("Move right", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Move right(param1=1 meter)\\",
+                      triggers_match("Move right one meter", semMem, lingDb));
+
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn left(param1=32 degrees)\\",
                       triggers_match("Turn left 32 degrees", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ("\\label=#en_US#Turn right(param1=33 degrees)\\",
@@ -874,6 +889,11 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_withParameters_en) {
                       triggers_match("Stop moving during 4 hours", semMem, lingDb));
     ONSEM_NOANSWER(triggers_match("Understanding emotions in robotics", semMem, lingDb));
     ONSEM_NOANSWER(triggers_match("Hi there!", semMem, lingDb));
+
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Show what you see\\",
+                      triggers_match("Show what you see", semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ("\\label=#en_US#Show what you see\\",
+                      triggers_match("Show me what you see", semMem, lingDb));
 }
 
 TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_mergeWithContext_fr) {

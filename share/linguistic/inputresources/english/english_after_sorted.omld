@@ -11,6 +11,7 @@
  <r l="likes" p="verb">
  <r l="many" p="determiner">
  <r l="means" p="verb">
+ <r l="move" p="verb">
  <r l="mus," p="verb">
  <r l="no" p="determiner">
  <r l="no" p="interjection">
@@ -19,6 +20,8 @@
  <r l="off" p="preposition">
  <r l="ok" p="adjective">
  <r l="several" p="determiner">
+ <r l="show" p="verb">
+ <r l="sidestep" p="verb">
  <r l="since" p="conjunctive">
  <r l="than" p="preposition">
  <r l="that" p="sub_conj">
@@ -107,10 +110,13 @@
  <i l="hectometer" i="hm" p="noun" f="ms|mp" y="3" />
  <i l="decameter" i="dam" p="noun" f="ms|mp" y="3" />
  <i l="meter" i="m" p="noun" f="ms|mp" y="3" />
+ <i l="move" p="verb" f="Y|P1s|P2s|P1p|P2p|P3p" >
  <i l="decimeter" i="dm" p="noun" f="ms|mp" y="3" />
  <i l="centimeter" i="cm" p="noun" f="ms|mp" y="3" />
  <i l="millimeter" i="mm" p="noun" f="ms|mp" y="3" />
  <i l="seriously" p="interjection" />
+ <i l="show" p="verb" f="Y|P1s|P2s|P1p|P2p|P3p" >
+ <i l="sidestep" p="verb" f="Y|P1s|P2s|P1p|P2p|P3p" >
  <i l="°" p="noun" />
  <i l="kind" i="so kind as" p="noun" f="s" y="3" />
  <i l="kind" i="so kinds as" p="noun" f="p" y="3" />

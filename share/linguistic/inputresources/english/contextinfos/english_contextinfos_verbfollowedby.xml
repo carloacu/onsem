@@ -23,6 +23,9 @@
   <existingMeaning lemme="raise" gram="verb">
     <contextInfo val="canBeFollowedByLocation" />
   </existingMeaning>
+  <existingMeaning lemme="show" gram="verb">
+    <contextInfo val="canBeFollowedByIndirectObject" />
+  </existingMeaning>
   <existingMeaning lemme="teach" gram="verb">
     <contextInfo val="canBeFollowedByIndirectObject" />
   </existingMeaning>

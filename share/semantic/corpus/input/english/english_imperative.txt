@@ -66,3 +66,7 @@ turn 45°
 greet with hand and speech
 go to sleep
 go get something in the kitchen
+move left
+move right
+sidestep left
+sidestep right
