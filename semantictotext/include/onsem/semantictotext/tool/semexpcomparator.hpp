@@ -138,6 +138,8 @@ struct ComparisonErrorReporting {
         for (auto& currGramChild : childrenThatAreNotEqual)
             for (auto& currImbr : currGramChild.second)
                 res.add(currImbr.second.errorCoef);
+        if (res.type == ComparisonTypeOfError::PARAMETER_DIFF)
+          res.value -= numberOfEqualities * 5;
         return res;
     }
 };

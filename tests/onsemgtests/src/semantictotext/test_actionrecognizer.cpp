@@ -279,7 +279,9 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
                                              "lower his arms"}, {}, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> howFarInMetersParameter{
         {"distance", ActionRecognizer::ParamInfo("float", {"how far in meters"})}};
-    actionRecognizer.addAction("move", {"move forward"}, howFarInMetersParameter, lingDb);
+    actionRecognizer.addAction("move", {"to move forward"}, howFarInMetersParameter, lingDb);
+    actionRecognizer.addAction("move_left", {"to move left"}, howFarInMetersParameter, lingDb);
+    actionRecognizer.addAction("move_right", {"to move right"}, howFarInMetersParameter, lingDb);
     std::map<std::string, ActionRecognizer::ParamInfo> howFarInDegreesParameter{
         {"angle", ActionRecognizer::ParamInfo("float", {"how far in degrees"})}};
     actionRecognizer.addAction("turn_left", {"turn left"}, howFarInDegreesParameter, lingDb);
@@ -346,4 +348,6 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
               _recognize("go to sleep", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"intent\": \"go_to_loc\"}",
               _recognize("go", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"intent\": \"move_left\"}", _recognize("move left", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"intent\": \"move_right\"}", _recognize("move right", actionRecognizer, lingDb, enLanguage));
 }
