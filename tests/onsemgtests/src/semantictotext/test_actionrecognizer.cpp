@@ -349,5 +349,6 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     EXPECT_EQ("{\"intent\": \"go_to_loc\"}",
               _recognize("go", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"intent\": \"move_left\"}", _recognize("move left", actionRecognizer, lingDb, enLanguage));
+    EXPECT_EQ("{\"intent\": \"move_left\"}", _recognize("I want you to move left", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"intent\": \"move_right\"}", _recognize("move right", actionRecognizer, lingDb, enLanguage));
 }

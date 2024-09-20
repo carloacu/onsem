@@ -106,6 +106,7 @@ bool process(SemControllerWorkingStruct& pWorkStruct,
             SemControllerWorkingStruct subWorkStruct(pWorkStruct);
             if (subWorkStruct.askForNewRecursion()) {
                 subWorkStruct.comparisonExceptions.request = true;
+                subWorkStruct.comparisonExceptions.verbTense = true;
                 controller::manageAction(subWorkStruct, pMemViewer, *statGrdToDoPtr, *grdExpToDpPtr, *grdExpToDpPtr);
                 pWorkStruct.addAnswers(subWorkStruct);
                 return true;
