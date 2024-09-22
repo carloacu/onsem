@@ -70,3 +70,5 @@ move left
 move right
 sidestep left
 sidestep right
+show the debug window
+show the vision debug window

@@ -289,6 +289,7 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     actionRecognizer.addAction("look_at_oneself", {"to look at oneself"}, howFarInDegreesParameter, lingDb);
     actionRecognizer.addAction("put", {"put something"}, {}, lingDb);
     actionRecognizer.addAction("sleep", {"to go to sleep"}, {}, lingDb);
+    actionRecognizer.addAction("show_debug", {"to show the vision debug window"}, {}, lingDb);
 
     EXPECT_EQ("{\"intent\": \"go_to_loc(loc=checkpoint1)\"}",
               _recognize("go to Virginie", actionRecognizer, lingDb, enLanguage));
@@ -351,4 +352,6 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_en) {
     EXPECT_EQ("{\"intent\": \"move_left\"}", _recognize("move left", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"intent\": \"move_left\"}", _recognize("I want you to move left", actionRecognizer, lingDb, enLanguage));
     EXPECT_EQ("{\"intent\": \"move_right\"}", _recognize("move right", actionRecognizer, lingDb, enLanguage));
+
+    EXPECT_EQ("{\"intent\": \"show_debug\"}", _recognize("show the vision debug window", actionRecognizer, lingDb, enLanguage));
 }

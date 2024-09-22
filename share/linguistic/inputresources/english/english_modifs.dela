@@ -8,6 +8,8 @@
 #fistbumping,fistbump.V:G
 #fistbumps,fistbump.V:P3s
 
+#debug,.N:s
+#debugs,debug.N:p
 
 >addToAtBeginOfVerbsForEnglish
 
