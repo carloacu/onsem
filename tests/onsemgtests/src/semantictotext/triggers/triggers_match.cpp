@@ -289,7 +289,7 @@ TEST_F(SemanticReasonerGTests, operator_reactFromTrigger_basic_en) {
     ONSEM_BEHAVIOR_EQ(reaction3, triggers_match("Start the Robotbehav application", semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(reaction4, triggers_match(trigger4, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(reaction4, triggers_match("Start akinator application", semMem, lingDb));
-    ONSEM_ANSWER_EQ(reaction5, triggers_match(trigger5, semMem, lingDb));
+    ONSEM_BEHAVIOR_EQ(reaction5, triggers_match(trigger5, semMem, lingDb));
     ONSEM_BEHAVIOR_EQ(reaction6, triggers_match(trigger6, semMem, lingDb));
     ONSEM_ANSWER_EQ(reaction7, triggers_match(trigger7, semMem, lingDb));
     ONSEM_NOANSWER(

@@ -2,6 +2,7 @@
  <r l="English" p="noun">
  <r l="alright" p="adjective">
  <r l="born" p="adjective">
+ <r l="close" p="verb">
  <r l="dam" p="noun">
  <r l="half" p="adjective">
  <r l="launch" p="noun">
@@ -19,6 +20,7 @@
  <r l="off" p="adjective">
  <r l="off" p="preposition">
  <r l="ok" p="adjective">
+ <r l="open" p="verb">
  <r l="several" p="determiner">
  <r l="show" p="verb">
  <r l="sidestep" p="verb">
@@ -30,6 +32,7 @@
  <r l="well" p="interjection">
  <r l="whereas" p="conjunctive">
  <i l="be" p="auxiliary" f="W">
+ <i l="close" p="verb" f="Y|P1s|P2s|P3s|P1p|P2p|P3p" />
  <i l="where" p="sub_conj" />
  <i l="who" p="sub_conj" />
  <i l="what" p="sub_conj" />
@@ -100,6 +103,7 @@
  <i l="born" p="adjective" />
  <i l="English" p="noun" />
  <i l="must" p="verb" f="P1s|P2s|P3s|P1p|P2p|P3p" />
+ <i l="open" p="verb" f="Y|P1s|P2s|P3s|P1p|P2p|P3p" />
  <i l="then" p="conjunctive" />
  <i l="else" p="conjunctive" />
  <i l="than" p="preposition" />

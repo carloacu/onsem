@@ -72,3 +72,5 @@ sidestep left
 sidestep right
 show the debug window
 show the vision debug window
+open ears
+close ears
