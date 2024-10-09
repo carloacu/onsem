@@ -426,12 +426,12 @@ binarymasks::Ptr BinaryDatabaseDicoSaver::xAddMeanings(
 
         // Write the associated concepts
         for (std::size_t iLkToCpt = 0; iLkToCpt < linkToConcepts.size(); ++iLkToCpt) {
-            const LingdbConcept* concept = linkToConcepts[iLkToCpt]->getConcept();
-            std::string conceptStr = concept->getName()->toStr();
+            const LingdbConcept* lingConceptPtr = linkToConcepts[iLkToCpt]->getConcept();
+            std::string conceptStr = lingConceptPtr->getName()->toStr();
             char relatedToConcept = linkToConcepts[iLkToCpt]->getRelatedToConcept();
 
             if (!LingdbConcept::conceptNameFinishWithAStar(conceptStr)) {
-                pConceptToMeanings[concept].insert(MeaningAndConfidence(meaning, relatedToConcept));
+                pConceptToMeanings[lingConceptPtr].insert(MeaningAndConfidence(meaning, relatedToConcept));
             }
             std::map<std::string, ConceptsBinMem>::const_iterator itLink = pConceptsOffsets.find(conceptStr);
             assert(itLink != pConceptsOffsets.end());

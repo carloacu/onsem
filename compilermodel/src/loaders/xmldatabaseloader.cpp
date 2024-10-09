@@ -119,8 +119,8 @@ void XmlDatabaseLoader::merge(const std::string& pFilename,
             }
         } else if (currSubTree.first == "concept") {
             std::string conceptName = subTree.get<std::string>("<xmlattr>.name", "");
-            LingdbConcept* concept = pLingDatabase.getConcept(conceptName);
-            if (concept != nullptr) {
+            LingdbConcept* lingConceptPtr = pLingDatabase.getConcept(conceptName);
+            if (lingConceptPtr != nullptr) {
                 for (const auto& currCptTree : subTree) {
                     if (currCptTree.first == "<xmlattr>")
                         continue;
@@ -148,7 +148,7 @@ void XmlDatabaseLoader::merge(const std::string& pFilename,
                                     pointerEndOfWord->getMeaningsAtThisLemme();
                                 while (itMeanings != nullptr) {
                                     itMeanings->elt->addLinkToConcept(
-                                        pLingDatabase, concept, conceptName, relatedToConcept, true);
+                                        pLingDatabase, lingConceptPtr, conceptName, relatedToConcept, true);
                                     itMeanings = itMeanings->next;
                                 }
                             }
@@ -163,7 +163,7 @@ void XmlDatabaseLoader::merge(const std::string& pFilename,
                                 pLingDatabase.addWord(lemma, lemma, lemmaPartOfSpeech, std::vector<std::string>(), 4);
                                 meaningPtr = pLingDatabase.getMeaning(lemma, lemmaPartOfSpeech);
                             }
-                            meaningPtr->addLinkToConcept(pLingDatabase, concept, conceptName, relatedToConcept, true);
+                            meaningPtr->addLinkToConcept(pLingDatabase, lingConceptPtr, conceptName, relatedToConcept, true);
                         }
                     }
                 }

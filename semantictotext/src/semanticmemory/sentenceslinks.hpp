@@ -88,7 +88,7 @@ struct MemoryLinksAccessor<false> {
 
 template<bool IS_MODIFIABLE>
 struct RequestToMemoryLinksVirtual {
-    virtual ~RequestToMemoryLinksVirtual<IS_MODIFIABLE>() {}
+    virtual ~RequestToMemoryLinksVirtual() {}
 
     virtual MemoryLinksAccessor<IS_MODIFIABLE> getMemoryLinksAccessors(SemanticRequestType pRequest) = 0;
 };

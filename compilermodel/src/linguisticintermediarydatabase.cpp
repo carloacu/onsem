@@ -79,10 +79,10 @@ void LinguisticIntermediaryDatabase::load(const std::string& pFilename, float pC
     fRoot = fAlloc.first<LingdbDynamicTrieNode>();
     fInfos = fAlloc.first<LingdbInfos>();
     fConceptNameToPtr.clear();
-    LingdbConcept* concept = fAlloc.first<LingdbConcept>();
-    while (concept != nullptr) {
-        fConceptNameToPtr.emplace(concept->getName()->toStr(), concept);
-        concept = fAlloc.next<LingdbConcept>(concept);
+    LingdbConcept* conceptPtr = fAlloc.first<LingdbConcept>();
+    while (conceptPtr != nullptr) {
+        fConceptNameToPtr.emplace(conceptPtr->getName()->toStr(), conceptPtr);
+        conceptPtr = fAlloc.next<LingdbConcept>(conceptPtr);
     }
     if (!errorMessage.empty())
         throw std::runtime_error(errorMessage);

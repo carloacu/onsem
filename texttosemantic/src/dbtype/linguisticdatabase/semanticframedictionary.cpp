@@ -288,21 +288,21 @@ bool _doesConceptConditionMatchWithGrounding(const LinguisticConditionTreeValue&
             && pHoldingGrdExp.children.count(GrammaticalType::OWNER) > 0)
             return false;
 
-        const auto& concept = pConditionValue.parameters.front();
+        const auto& conceptRef = pConditionValue.parameters.front();
         switch (pGrounding.type) {
             case SemanticGroundingType::TIME: {
                 auto& timeGrd = pGrounding.getTimeGrounding();
                 if ((pBeginOfConceptOrConceptWithHyponyms
-                     && ConceptSet::haveAConceptThatBeginWith(timeGrd.fromConcepts, concept))
+                     && ConceptSet::haveAConceptThatBeginWith(timeGrd.fromConcepts, conceptRef))
                     || (!pBeginOfConceptOrConceptWithHyponyms
-                        && ConceptSet::haveAConceptOrAHyponym(timeGrd.fromConcepts, concept)))
+                        && ConceptSet::haveAConceptOrAHyponym(timeGrd.fromConcepts, conceptRef)))
                     return true;
 
-                if (concept == "quantity_" && pHoldingGrdExp.children.count(GrammaticalType::INTERVAL) > 0)
+                if (conceptRef == "quantity_" && pHoldingGrdExp.children.count(GrammaticalType::INTERVAL) > 0)
                     return true;
 
                 if (pBeginOfConceptOrConceptWithHyponyms) {
-                    if (concept == "time_")
+                    if (conceptRef == "time_")
                         return true;
                     if (pOut != nullptr) {
                         auto itOut = pOut->begin();
@@ -315,25 +315,25 @@ bool _doesConceptConditionMatchWithGrounding(const LinguisticConditionTreeValue&
                         }
                         if (itOut != pOut->end()
                             && ((pBeginOfConceptOrConceptWithHyponyms
-                                 && ConceptSet::haveAConceptThatBeginWith(itOut->concepts, concept))
+                                 && ConceptSet::haveAConceptThatBeginWith(itOut->concepts, conceptRef))
                                 || (!pBeginOfConceptOrConceptWithHyponyms
-                                    && ConceptSet::haveAConceptOrAHyponym(itOut->concepts, concept))))
+                                    && ConceptSet::haveAConceptOrAHyponym(itOut->concepts, conceptRef))))
                             return true;
                     }
                 }
                 return false;
             }
-            case SemanticGroundingType::DURATION: return concept == "duration_";
-            case SemanticGroundingType::LANGUAGE: return concept == "language_";
+            case SemanticGroundingType::DURATION: return conceptRef == "duration_";
+            case SemanticGroundingType::LANGUAGE: return conceptRef == "language_";
             default: {
                 auto* genGrdPtr = pGrounding.getGenericGroundingPtr();
-                if (genGrdPtr != nullptr && genGrdPtr->entityType == SemanticEntityType::NUMBER && concept == "number_")
+                if (genGrdPtr != nullptr && genGrdPtr->entityType == SemanticEntityType::NUMBER && conceptRef == "number_")
                     return true;
 
                 if ((pBeginOfConceptOrConceptWithHyponyms
-                     && ConceptSet::haveAConceptThatBeginWith(pGrounding.concepts, concept))
+                     && ConceptSet::haveAConceptThatBeginWith(pGrounding.concepts, conceptRef))
                     || (!pBeginOfConceptOrConceptWithHyponyms
-                        && ConceptSet::haveAConceptOrAHyponym(pGrounding.concepts, concept))) {
+                        && ConceptSet::haveAConceptOrAHyponym(pGrounding.concepts, conceptRef))) {
                     if (pConditionValue.parameters.size() >= 3 && pConditionValue.parameters[2].size() >= 2) {
                         SemanticGenderType genderOfCondition = SemanticGenderType::UNKNOWN;
                         gender_fromConcisePrint(genderOfCondition, pConditionValue.parameters[2][0]);
