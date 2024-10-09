@@ -40,7 +40,6 @@ include_directories(
 target_link_libraries(onsemtypeallocatorandserialyzer
   ${ONSEMCOMMON_LIBRARIES}
 )
-target_compile_features(onsemtypeallocatorandserialyzer PRIVATE cxx_std_17)
 
 
 

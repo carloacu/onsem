@@ -95,7 +95,6 @@ target_link_libraries(onsemcompilermodel
   ${ONSEMTYPEALLOCATORANDSERIALYZER_LIBRARIES}
   ${ONSEMCOMMON_LIBRARIES}
 )
-target_compile_features(onsemcompilermodel PRIVATE cxx_std_17)
 
 
 

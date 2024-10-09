@@ -102,7 +102,6 @@ include_directories(include)
 
 add_library(onsemcommon SHARED
             ${ONSEMCOMMON_SRCS} ${ONSEMCOMMON_HPPS})
-target_compile_features(onsemcommon PRIVATE cxx_std_17)
 
 target_include_directories(onsemcommon PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

@@ -62,8 +62,6 @@ target_link_libraries(onsemsemanticdebugger
   ${ONSEMSEMANTICTOTEXT_LIBRARIES}
 )
 
-target_compile_features(onsemsemanticdebugger PRIVATE cxx_std_17)
-
 # Create a proper installed package that can be included.
 install(TARGETS onsemsemanticdebugger
     EXPORT onsemsemanticdebuggerTargets

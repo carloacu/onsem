@@ -225,7 +225,6 @@ target_link_libraries(onsemsemantictotext
   ${ONSEMCOMMON_LIBRARIES}
   ${ONSEMTEXTTOSEMANTIC_LIBRARIES}
 )
-target_compile_features(onsemsemantictotext PRIVATE cxx_std_17)
 
 target_include_directories(onsemsemantictotext PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

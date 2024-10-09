@@ -26,7 +26,6 @@ include_directories(
 target_link_libraries(onsemstreamdatabaseaccessor
   ${ONSEMCOMMON_LIBRARIES}
 )
-target_compile_features(onsemstreamdatabaseaccessor PRIVATE cxx_std_17)
 
 
 # Create a proper installed package that can be included.

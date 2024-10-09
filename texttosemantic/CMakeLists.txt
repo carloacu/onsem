@@ -288,7 +288,6 @@ include_directories(
 target_link_libraries(onsemtexttosemantic
   ${ONSEMCOMMON_LIBRARIES}
 )
-target_compile_features(onsemtexttosemantic PRIVATE cxx_std_17)
 
 target_include_directories(onsemtexttosemantic PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
