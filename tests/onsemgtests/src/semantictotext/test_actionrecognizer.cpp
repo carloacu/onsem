@@ -84,6 +84,15 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     actionRecognizer.addAction("raise_arms", {"lever les bras"}, {}, lingDb);
     actionRecognizer.addAction("do_something", {"n'importe quoi"}, {}, lingDb);
     actionRecognizer.addAction("sleep", {"se mettre en veille"}, {}, lingDb);
+    actionRecognizer.addAction("start_dialog", {"se mettre à écouter",
+                                                "écouter à nouveau",
+                                                "parler à nouveau",
+                                                "écouter la conversation",
+                                                "recommencer à parler",
+                                                "recommencer à écouter",
+                                                "se mettre à parler",
+                                                "reparler",
+                                                "réécouter"}, {}, lingDb);
 
     std::map<std::string, ActionRecognizer::ParamInfo> whereWhatParameter{
         {"loc", ActionRecognizer::ParamInfo("checkpoint", {"where", "what"})}};
@@ -156,8 +165,6 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
               _recognize("Veux-tu bien baisser tes bras ?", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("Voudrais-tu bien baisser tes bras ?", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("{\"intent\": \"arms_down\"}",
-              _recognize("baisser tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"intent\": \"arms_down\"}",
               _recognize("tu dois baisser tes bras", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"intent\": \"arms_down\"}",
@@ -249,9 +256,10 @@ TEST_F(SemanticReasonerGTests, test_actionRecognizer_fr) {
     EXPECT_EQ("{\"intent\": \"__unknown__(from_context=le checkpoint Virginie est cliquée , from_text=tourne ta boulle de 50 degrées vers la gauche)\", \"condition\": {\"intent\": \"clicked(c=checkpoint1)\"}}",
               _recognize("quand le checkpoint Virginie est cliquée tourne ta boulle de 50 degrées vers la gauche", actionRecognizer, lingDb, frLanguage));
 
-    EXPECT_EQ("{\"intent\": \"sleep\"}", _recognize("se mettre en veille", actionRecognizer, lingDb, frLanguage));
     EXPECT_EQ("{\"intent\": \"sleep\"}", _recognize("mets-toi en veille", actionRecognizer, lingDb, frLanguage));
-    EXPECT_EQ("", _recognize("se mettre d'accord sur", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("", _recognize("dire que", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("", _recognize("mment dirais je", actionRecognizer, lingDb, frLanguage));
+    EXPECT_EQ("", _recognize("parler", actionRecognizer, lingDb, frLanguage));
 }
 
 

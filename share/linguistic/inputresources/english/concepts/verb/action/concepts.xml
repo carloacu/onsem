@@ -258,6 +258,9 @@
  <concept name="verb_action_smile">
   <linkedMeaning lemme="smile" gram="verb" relationToConcept="4"/>
  </concept>
+ <concept name="verb_action_speak">
+  <linkedMeaning lemme="speak" gram="verb" relationToConcept="5"/>
+ </concept>
  <concept name="verb_action_spin">
   <linkedMeaning lemme="spin" gram="verb" relationToConcept="4"/>
   <linkedMeaning lemme="gyrate" gram="verb" relationToConcept="3"/>

@@ -698,7 +698,8 @@ void manageAction(SemControllerWorkingStruct& pWorkStruct,
             auto itBackgroundChild = pGrdExp.children.find(GrammaticalType::IN_BACKGROUND);
             if (itBackgroundChild != pGrdExp.children.end()) {
                 SemControllerWorkingStruct subWorkStruct(pWorkStruct);
-                applyOperatorOnSemExp(subWorkStruct, pMemViewer, *itBackgroundChild->second);
+                auto backgroundOrder = SemExpCreator::getImperativeAssociateFormFromSemExp(*itBackgroundChild->second);
+                applyOperatorOnSemExp(subWorkStruct, pMemViewer, *backgroundOrder);
                 pWorkStruct.addAnswers(ListExpressionType::IN_BACKGROUND, subWorkStruct);
             }
             if (hasResult)

@@ -469,12 +469,13 @@
   <declareconcept name="verb_action_register" />
   <declareconcept name="verb_action_remove" />
   <declareconcept name="verb_action_rotate" autofill="false" />
-  <declareconcept name="verb_action_say" />
+  <declareconcept name="verb_action_say" autofill="false" />
   <declareconcept name="verb_action_say_answer" />
   <declareconcept name="verb_action_say_ask" />
   <declareconcept name="verb_action_show" />
   <declareconcept name="verb_action_sleep" />
   <declareconcept name="verb_action_smile" />
+  <declareconcept name="verb_action_speak" autofill="false" />
   <declareconcept name="verb_action_spin" autofill="false" />
   <declareconcept name="verb_action_standup" />
   <declareconcept name="verb_action_stop" />

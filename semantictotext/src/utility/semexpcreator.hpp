@@ -53,7 +53,8 @@ UniqueSemanticExpression sentenceFromTriple(UniqueSemanticExpression pSemExpSubj
                                             const std::string& pVerbConcept,
                                             UniqueSemanticExpression pSemExpObject);
 
-UniqueSemanticExpression getImperativeAssociateFrom(const GroundedExpression& pGrdExp);
+UniqueSemanticExpression getImperativeAssociateForm(const GroundedExpression& pGrdExp);
+UniqueSemanticExpression getImperativeAssociateFormFromSemExp(const SemanticExpression& pSemExp);
 UniqueSemanticExpression getMandatoryForm(const GroundedExpression& pGrdExp);
 UniqueSemanticExpression getFutureIndicativeAssociatedForm(const GroundedExpression& pGrdExp);
 UniqueSemanticExpression getIndicativeFromImperative(const GroundedExpression& pGrdExp);

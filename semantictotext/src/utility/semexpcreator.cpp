@@ -418,7 +418,7 @@ UniqueSemanticExpression askWhoIs(const SemanticExpression& pSubjecSemExp) {
     return rootGrdExp;
 }
 
-UniqueSemanticExpression getImperativeAssociateFrom(const GroundedExpression& pGrdExp) {
+UniqueSemanticExpression getImperativeAssociateForm(const GroundedExpression& pGrdExp) {
     auto rootGrdExp = pGrdExp.clone();
     SemanticStatementGrounding* statementGrd = (*rootGrdExp)->getStatementGroundingPtr();
     if (statementGrd != nullptr) {
@@ -430,6 +430,13 @@ UniqueSemanticExpression getImperativeAssociateFrom(const GroundedExpression& pG
         rootGrdExp->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
     }
     return rootGrdExp;
+}
+
+UniqueSemanticExpression getImperativeAssociateFormFromSemExp(const SemanticExpression& pSemExp) {
+  auto* grdExpPtr = pSemExp.getGrdExpPtr_SkipWrapperPtrs();
+  if (grdExpPtr != nullptr)
+      return SemExpCreator::getImperativeAssociateForm(*grdExpPtr);
+  return pSemExp.clone();
 }
 
 UniqueSemanticExpression getMandatoryForm(const GroundedExpression& pGrdExp) {

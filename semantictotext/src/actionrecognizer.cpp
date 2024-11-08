@@ -499,11 +499,10 @@ void ActionRecognizer::addAction(const std::string& pActionIntentName,
         auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);
         converter::correferenceToRobot(formulationSemExp, pLingDb);
 
-        std::list<UniqueSemanticExpression> otherFormulationsSemExps;
         {
             auto* grdExpPtr = formulationSemExp->getGrdExpPtr_SkipWrapperPtrs();
             if (grdExpPtr != nullptr && SemExpGetter::isAnInfinitiveGrdExp(*grdExpPtr))
-                otherFormulationsSemExps.emplace_back(SemExpCreator::getImperativeAssociateFrom(*grdExpPtr));
+                formulationSemExp = SemExpCreator::getImperativeAssociateForm(*grdExpPtr);
         }
 
         std::map<std::string, std::vector<std::string>> parameterLabelToQuestionsStrs;
@@ -515,9 +514,6 @@ void ActionRecognizer::addAction(const std::string& pActionIntentName,
 
         _addSemExpTrigger(pActionIntentName, std::move(formulationSemExp), _actionToSemExps,
                           _actionSemanticMemory, parameterLabelToQuestions, pLingDb, _language);
-        for (auto& currOtherFormulaation : otherFormulationsSemExps)
-            _addSemExpTrigger(pActionIntentName, std::move(currOtherFormulaation), _actionToSemExps,
-                              _actionSemanticMemory, parameterLabelToQuestions, pLingDb, _language);
     }
 }
 

@@ -472,7 +472,7 @@ void semExpToText(std::string& pResStr,
 UniqueSemanticExpression getImperativeAssociateFrom(UniqueSemanticExpression pUSemExp) {
     auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
     if (grdExpPtr != nullptr)
-        return SemExpCreator::getImperativeAssociateFrom(*grdExpPtr);
+        return SemExpCreator::getImperativeAssociateForm(*grdExpPtr);
     return pUSemExp;
 }
 
@@ -484,7 +484,7 @@ void infinitiveToRequestVariations(std::list<UniqueSemanticExpression>& pOuts,
         auto* grdExpPtr = pUSemExp->getGrdExpPtr_SkipWrapperPtrs();
         if (grdExpPtr != nullptr)
         {
-            pOuts.emplace_back(SemExpCreator::getImperativeAssociateFrom(*grdExpPtr));
+            pOuts.emplace_back(SemExpCreator::getImperativeAssociateForm(*grdExpPtr));
             imperativeSemExpPtr = &pOuts.back();
         }
     }
