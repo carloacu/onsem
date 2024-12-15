@@ -100,7 +100,7 @@ endif()
 
 include_directories(include)
 
-add_library(onsemcommon SHARED
+add_library(onsemcommon STATIC
             ${ONSEMCOMMON_SRCS} ${ONSEMCOMMON_HPPS})
 
 target_include_directories(onsemcommon PUBLIC

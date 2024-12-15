@@ -44,7 +44,7 @@ if(NOT ONSEMSEMANTICTOTEXT_FOUND)
   find_package(onsemsemantictotext)
 endif()
 
-add_library(onsemsemanticdebugger SHARED
+add_library(onsemsemanticdebugger STATIC
   ${ONSEMSEMANTCDEBUGGER_HPPS}
   ${ONSEMSEMANTCDEBUGGER_SRCS}
 )

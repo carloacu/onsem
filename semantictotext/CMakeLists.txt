@@ -211,7 +211,7 @@ if(NOT ONSEMTEXTTOSEMANTIC_FOUND)
   find_package(onsemtexttosemantic)
 endif()
 
-add_library(onsemsemantictotext SHARED
+add_library(onsemsemantictotext STATIC
   ${ONSEMSEMANTICTOTEXT_HPPS}
   ${ONSEMSEMANTICTOTEXT_SRCS}
   ${ONSEMSEMANTICTOTEXT_LINGUISTICSYNTHESIZER_SRCS}

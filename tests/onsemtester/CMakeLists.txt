@@ -43,7 +43,7 @@ if(NOT ONSEMSEMANTOCDEBUGGER_FOUND)
   find_package(onsemsemanticdebugger)
 endif()
 
-add_library(onsemtester SHARED
+add_library(onsemtester STATIC
   ${ONSEMTESTER_HPPS}
   ${ONSEMTESTER_SRCS}
 )

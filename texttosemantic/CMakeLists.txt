@@ -278,7 +278,7 @@ include_directories(include)
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
-add_library(onsemtexttosemantic SHARED
+add_library(onsemtexttosemantic STATIC
   ${ONSEMTEXTTOSEMANTIC_HPPS}
   ${ONSEMTEXTTOSEMANTIC_SRCS}
 )

@@ -42,6 +42,8 @@ option(
 
 
 include(onsem-config.cmake)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 add_subdirectory(common)
 
 add_subdirectory(typeallocatorandserializer)

@@ -14,7 +14,7 @@ if(NOT ONSEMTEXTTOSEMANTIC_FOUND)
 endif()
 
 
-add_library(onsemdictionaryextractor SHARED
+add_library(onsemdictionaryextractor STATIC
   include/onsem/dictionaryextractor/api.hpp
   include/onsem/dictionaryextractor/auxiliariesextractor.hpp
   src/auxiliariesextractor.cpp

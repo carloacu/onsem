@@ -16,7 +16,7 @@ if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
 
-add_library(onsemstreamdatabaseaccessor SHARED
+add_library(onsemstreamdatabaseaccessor STATIC
   ${ONSEMSTREADATABASEACCESSOR_HPPS}
   ${ONSEMSTREADATABASEACCESSOR_SRCS}
 )
