@@ -388,7 +388,7 @@ UniqueSemanticExpression agentIdWithNameToSemExp(const std::string& pAgentId, co
     auto res = std::make_unique<GroundedExpression>([]() {
         auto statementGrd = std::make_unique<SemanticStatementGrounding>();
         statementGrd->verbTense = SemanticVerbTense::PRESENT;
-        statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
+        statementGrd->concepts.emplace(ConceptSet::getConceptVerbEquality(), 4);
         return statementGrd;
     }());
 

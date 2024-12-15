@@ -151,7 +151,7 @@ bool _tryToAnswerToBeVerbNameQuestion(
         const auto* ownerAgentGrdPtr = ownerGrdExpPtr->grounding().getAgentGroundingPtr();
         if (ownerAgentGrdPtr != nullptr)
             return pAnswerNameQuestion(
-                ownerAgentGrdPtr->userId, grdExpSubjectPtr->clone(), ConceptSet::conceptVerbEquality);
+                ownerAgentGrdPtr->userId, grdExpSubjectPtr->clone(), ConceptSet::getConceptVerbEquality());
     }
     return false;
 }
@@ -179,7 +179,7 @@ bool _tryToAnswerToNameQuestion(
     if (statGrdPtr == nullptr)
         return false;
 
-    if (ConceptSet::haveAConcept(statGrdPtr->concepts, ConceptSet::conceptVerbEquality))
+    if (ConceptSet::haveAConcept(statGrdPtr->concepts, ConceptSet::getConceptVerbEquality()))
         return _tryToAnswerToBeVerbNameQuestion(pGrdExp, pAnswerNameQuestion);
     if (ConceptSet::haveAConcept(statGrdPtr->concepts, "predicate_hasName"))
         return _tryToAnswerToHasNameVerbNameQuestion(pGrdExp, pAnswerNameQuestion);
@@ -253,7 +253,7 @@ bool _checkNameBeVerb(SemControllerWorkingStruct& pWorkStruct,
         || pWorkStruct.reactOperator == SemanticOperatorEnum::REACT) {
         UniqueSemanticExpression answerSemExp = SemExpCreator::generateYesOrNoAnswer(
             SemExpCreator::sentenceFromTriple(
-                pSubjectSemExp.clone(), ConceptSet::conceptVerbEquality, std::move(nameSemExp)),
+                pSubjectSemExp.clone(), ConceptSet::getConceptVerbEquality(), std::move(nameSemExp)),
             !pStatementIsPositive);
         pWorkStruct.addAnswer(ContextualAnnotation::ANSWER, std::move(answerSemExp), ReferencesFiller(relContextAxiom));
     } else {
@@ -280,7 +280,7 @@ bool _checkName(SemControllerWorkingStruct& pWorkStruct,
     if (statGrdPtr == nullptr)
         return false;
 
-    if (ConceptSet::haveAConcept(statGrdPtr->concepts, ConceptSet::conceptVerbEquality)) {
+    if (ConceptSet::haveAConcept(statGrdPtr->concepts, ConceptSet::getConceptVerbEquality())) {
         const SemanticExpression* subjectSemExpPtr =
             SemExpGetter::getChildFromGrdExp(pGrdExp, GrammaticalType::SUBJECT);
         if (subjectSemExpPtr == nullptr)
@@ -348,7 +348,7 @@ bool _tryToAnswerToWhoIsQuestion(
         return false;
 
     const SemanticStatementGrounding* statGrdPtr = pGrdExp->getStatementGroundingPtr();
-    if (statGrdPtr == nullptr || !ConceptSet::haveAConcept(statGrdPtr->concepts, ConceptSet::conceptVerbEquality))
+    if (statGrdPtr == nullptr || !ConceptSet::haveAConcept(statGrdPtr->concepts, ConceptSet::getConceptVerbEquality()))
         return false;
 
     auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
@@ -360,7 +360,7 @@ bool _tryToAnswerToWhoIsQuestion(
     const auto* subjectAgentGrdPtr = grdExpSubjectPtr->grounding().getAgentGroundingPtr();
     if (subjectAgentGrdPtr != nullptr)
         return pAnswerNameQuestion(
-            subjectAgentGrdPtr->userId, grdExpSubjectPtr->clone(), ConceptSet::conceptVerbEquality);
+            subjectAgentGrdPtr->userId, grdExpSubjectPtr->clone(), ConceptSet::getConceptVerbEquality());
     return false;
 }
 

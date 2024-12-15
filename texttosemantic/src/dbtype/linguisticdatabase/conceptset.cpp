@@ -6,10 +6,6 @@
 #include <onsem/texttosemantic/dbtype/linguisticmeaning.hpp>
 
 namespace onsem {
-const std::string ConceptSet::conceptVerbEquality{"verb_equal_be"};
-const std::string ConceptSet::conceptAccordanceAgreementOk{"accordance_agreement_ok"};
-std::mutex ConceptSet::_pathToStatConceptsMutex{};
-std::unique_ptr<StaticConceptSet> ConceptSet::_statConcepts{};
 
 ConceptSet::ConceptSet(std::istream& pIStream)
     : statDb(_getStatDbInstance(pIStream))
@@ -17,7 +13,10 @@ ConceptSet::ConceptSet(std::istream& pIStream)
     , _oppositeConcepts() {}
 
 const StaticConceptSet& ConceptSet::_getStatDbInstance(std::istream& pIStream) {
-    std::lock_guard<std::mutex> lock(_pathToStatConceptsMutex);
+  static std::mutex _pathToStatConceptsMutex{};
+  static std::unique_ptr<StaticConceptSet> _statConcepts{};
+
+  std::lock_guard<std::mutex> lock(_pathToStatConceptsMutex);
     if (!_statConcepts)
         _statConcepts = std::make_unique<StaticConceptSet>(pIStream);
     return *_statConcepts;
@@ -316,5 +315,13 @@ bool ConceptSet::rankConceptToNumberStr(std::string& pNumberStr, const std::map<
     }
     return false;
 }
+
+
+const std::string& ConceptSet::getConceptVerbEquality()
+{
+  static const std::string conceptVerbEquality = "verb_equal_be";
+  return conceptVerbEquality;
+}
+
 
 }    // End of namespace onsem

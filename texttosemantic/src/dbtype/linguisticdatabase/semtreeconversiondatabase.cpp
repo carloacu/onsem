@@ -6,7 +6,6 @@
 #include <onsem/texttosemantic/dbtype/semanticgrounding/semanticlanguagegrounding.hpp>
 
 namespace onsem {
-const std::string SemExpTreeConversionDatabase::fFormalism = "1";
 
 namespace {
 
@@ -41,6 +40,12 @@ SemExpTreeConversionDatabase::SemExpTreeConversionDatabase(linguistics::Linguist
     , fCurrFilename()
     , fCurrConversionNb() {
     xLoad(pIStreams);
+}
+
+const std::string& SemExpTreeConversionDatabase::getFormalism()
+{
+  static const std::string formalism = "1";
+  return formalism;
 }
 
 void SemExpTreeConversionDatabase::xLoad(linguistics::LinguisticDatabaseStreams& pIStreams) {
@@ -94,7 +99,7 @@ void SemExpTreeConversionDatabase::xLoadConvFile(SemanticLanguageEnum pLangEnum,
             ++fCurrConversionNb;
             xLoadUniquePatterns(childTree, semanticUniquePatterns);
         } else if (beaconName == "<xmlattr>") {
-            if (childTree.get<std::string>("formalism") != fFormalism) {
+            if (childTree.get<std::string>("formalism") != getFormalism()) {
                 fErrorMessage = "BAD_FORMALISM";
                 return;
             }

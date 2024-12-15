@@ -27,7 +27,6 @@ struct ONSEM_TEXTTOSEMANTIC_API ResourceGroundingExtractor {
 
 private:
     std::vector<PairOfLabelAndBeginOfResource> _labels;
-    static const std::string _emptyString;
 };
 
 }    // End of namespace onsem

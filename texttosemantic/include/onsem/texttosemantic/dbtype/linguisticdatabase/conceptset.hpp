@@ -100,8 +100,8 @@ public:
 
     static bool rankConceptToNumberStr(std::string& pNumberStr, const std::map<std::string, char>& pConcepts);
 
-    static const std::string conceptVerbEquality;
-    static const std::string conceptAccordanceAgreementOk;
+    static const std::string& getConceptVerbEquality();
+
 
     const StaticConceptSet& statDb;
 
@@ -109,8 +109,6 @@ private:
     std::unordered_set<std::string> _localConcepts;
     std::map<std::string, std::set<std::string>> _oppositeConcepts;
 
-    static std::mutex _pathToStatConceptsMutex;
-    static std::unique_ptr<StaticConceptSet> _statConcepts;
     static const StaticConceptSet& _getStatDbInstance(std::istream& pIStream);
 
     ConceptSet(const ConceptSet&);

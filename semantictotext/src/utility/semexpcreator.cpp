@@ -173,7 +173,7 @@ std::unique_ptr<GroundedExpression> _whatIsGrdExp() {
     return std::make_unique<GroundedExpression>([]() {
         auto statementGrd = std::make_unique<SemanticStatementGrounding>();
         statementGrd->verbTense = SemanticVerbTense::PRESENT;
-        statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
+        statementGrd->concepts.emplace(ConceptSet::getConceptVerbEquality(), 4);
         statementGrd->concepts.emplace("verb_equal_mean", 4);
         statementGrd->requests.set(SemanticRequestType::OBJECT);
         return statementGrd;
@@ -371,7 +371,7 @@ UniqueSemanticExpression formulateConditionToAction(const GroundedExpression& pC
 
 UniqueSemanticExpression saySemxExp1IsSemExp2(UniqueSemanticExpression pSemExpSubject,
                                               UniqueSemanticExpression pSemExpObject) {
-    auto rootGrdExp = _statGrdExp(ConceptSet::conceptVerbEquality);
+    auto rootGrdExp = _statGrdExp(ConceptSet::getConceptVerbEquality());
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, std::move(pSemExpSubject));
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, std::move(pSemExpObject));
     return rootGrdExp;
@@ -750,7 +750,7 @@ UniqueSemanticExpression formulateWeekDay(const std::string& pWeekDayConcept) {
     auto rootGrdExp = std::make_unique<GroundedExpression>([]() {
         auto statementGrd = std::make_unique<SemanticStatementGrounding>();
         statementGrd->verbTense = SemanticVerbTense::PAST;
-        statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
+        statementGrd->concepts.emplace(ConceptSet::getConceptVerbEquality(), 4);
         return statementGrd;
     }());
 
@@ -829,7 +829,7 @@ UniqueSemanticExpression forExampleSayToDoMeansToSayIDo(const SemanticAgentGroun
             rootGrdExp->children.emplace(GrammaticalType::RECEIVER, _meSemExp());
 
             rootGrdExp->children.emplace(GrammaticalType::OBJECT, [&] {
-                auto meansGrdExp = _statGrdExp(ConceptSet::conceptVerbEquality);
+                auto meansGrdExp = _statGrdExp(ConceptSet::getConceptVerbEquality());
                 meansGrdExp->children.emplace(GrammaticalType::SUBJECT, pActionGrdExp.clone());
                 meansGrdExp->children.emplace(GrammaticalType::OBJECT, [&] {
                     auto sayGrdExp = std::make_unique<GroundedExpression>([&] {
@@ -877,7 +877,7 @@ std::unique_ptr<SemanticExpression> getSemExpThatSomebodyToldMeThat(const Semant
 std::unique_ptr<SemanticExpression> getSemExpOfEventValue(const std::string& pEventName,
                                                           const std::string& pEventValue) {
     // verb
-    auto grdExp = _statGrdExp(ConceptSet::conceptVerbEquality);
+    auto grdExp = _statGrdExp(ConceptSet::getConceptVerbEquality());
 
     // subject
     grdExp->children.emplace(GrammaticalType::SUBJECT, [&pEventName]() {
@@ -928,7 +928,7 @@ std::unique_ptr<SemanticExpression> sayThatOpNotifyInformedMeThat() {
 
 UniqueSemanticExpression sayThanksThatsCool(const SemanticAgentGrounding& pSubjectGrounding) {
     // fill verb
-    auto res = _statGrdExp(ConceptSet::conceptVerbEquality);
+    auto res = _statGrdExp(ConceptSet::getConceptVerbEquality());
 
     // fill subject
     res->children.emplace(
@@ -947,7 +947,7 @@ UniqueSemanticExpression sayThanksThatsCool(const SemanticAgentGrounding& pSubje
 
 UniqueSemanticExpression sayIAmHappyToHearThat() {
     // fill verb
-    auto res = _statGrdExp(ConceptSet::conceptVerbEquality);
+    auto res = _statGrdExp(ConceptSet::getConceptVerbEquality());
 
     // fill subject
     res->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
@@ -971,7 +971,7 @@ UniqueSemanticExpression sayIAmHappyToHearThat() {
 }
 
 UniqueSemanticExpression itsMe() {
-    auto rootGrdExp = _statGrdExp(ConceptSet::conceptVerbEquality);
+    auto rootGrdExp = _statGrdExp(ConceptSet::getConceptVerbEquality());
     rootGrdExp->children.emplace(GrammaticalType::SUBJECT, sayThat());
     rootGrdExp->children.emplace(GrammaticalType::OBJECT, _meSemExp());
     return rootGrdExp;
@@ -981,7 +981,7 @@ UniqueSemanticExpression itIsNotKind() {
     // fill verb
     auto statementGrd = std::make_unique<SemanticStatementGrounding>();
     statementGrd->verbTense = SemanticVerbTense::PRESENT;
-    statementGrd->concepts.emplace(ConceptSet::conceptVerbEquality, 4);
+    statementGrd->concepts.emplace(ConceptSet::getConceptVerbEquality(), 4);
     statementGrd->polarity = false;
     auto res = std::make_unique<GroundedExpression>(std::move(statementGrd));
 
@@ -997,7 +997,7 @@ UniqueSemanticExpression itIsNotKind() {
 
 UniqueSemanticExpression itIsABadNews() {
     // fill verb
-    auto res = _statGrdExp(ConceptSet::conceptVerbEquality);
+    auto res = _statGrdExp(ConceptSet::getConceptVerbEquality());
 
     // fill subject
     res->children.emplace(GrammaticalType::SUBJECT, sayThat());
@@ -1051,7 +1051,7 @@ UniqueSemanticExpression sorryIWillTryToImproveMyself() {
 
 UniqueSemanticExpression iAmSorryToHearThat() {
     // fill verb
-    auto res = _statGrdExp(ConceptSet::conceptVerbEquality);
+    auto res = _statGrdExp(ConceptSet::getConceptVerbEquality());
 
     // fill subject
     res->children.emplace(GrammaticalType::SUBJECT, _meSemExp());
@@ -1115,7 +1115,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
     const linguistics::LinguisticDatabase& pLingDb) {
     std::unique_ptr<GroundedExpression> invertedGrdExpQuestion = [&pGrdExpQuestion] {
         if (SemExpGetter::getMainRequestTypeFromGrdExp(pGrdExpQuestion) == SemanticRequestType::SUBJECT
-            && ConceptSet::haveAConcept(pGrdExpQuestion->concepts, ConceptSet::conceptVerbEquality))
+            && ConceptSet::haveAConcept(pGrdExpQuestion->concepts, ConceptSet::getConceptVerbEquality()))
             return _invertSubjectAndObject(pGrdExpQuestion);
         return std::unique_ptr<GroundedExpression>();
     }();
@@ -1169,7 +1169,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> generateAnswer(
         bool resEmplaced = false;
         // For the cases that the verb is "be" and the subject has at least one child,
         // we produce a sentence instead of just the raw answer
-        if (ConceptSet::haveAConcept(grdExpQuestion->concepts, ConceptSet::conceptVerbEquality)) {
+        if (ConceptSet::haveAConcept(grdExpQuestion->concepts, ConceptSet::getConceptVerbEquality())) {
             auto itSubject = grdExpQuestion.children.find(GrammaticalType::SUBJECT);
             if (itSubject != grdExpQuestion.children.end() && SemExpGetter::isDefinite(*itSubject->second)) {
                 auto itSubject = requestToAnswers.find(SemanticRequestType::SUBJECT);

@@ -146,7 +146,7 @@ protected:
     ConceptTreeOfRules<ConversionRule> _semanticForms;
     ConceptTreeOfRules<UniqueInformationRule> fTreesOfSemUniquePattern;
 
-    static const std::string fFormalism;
+    static const std::string& getFormalism();
 
     SemExpTreeConversionDatabase(linguistics::LinguisticDatabaseStreams& pIStreams);
 

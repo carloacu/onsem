@@ -1,7 +1,6 @@
 #include <onsem/texttosemantic/dbtype/resourcegroundingextractor.hpp>
 
 namespace onsem {
-const std::string ResourceGroundingExtractor::_emptyString;
 
 PairOfLabelAndBeginOfResource::PairOfLabelAndBeginOfResource(const std::string& pLabel)
     : label(pLabel)
@@ -23,7 +22,8 @@ const std::string& ResourceGroundingExtractor::extractBeginOfAResource(const std
     for (const PairOfLabelAndBeginOfResource& currLabel : _labels)
         if (pStr.compare(0, currLabel.begOfResourceStrSize, currLabel.begOfResourceStr) == 0)
             return currLabel.label;
-    return _emptyString;
+    static const std::string emptyString;
+    return emptyString;
 }
 
 bool ResourceGroundingExtractor::isBeginOfAResource(const std::string& pStr) const {
