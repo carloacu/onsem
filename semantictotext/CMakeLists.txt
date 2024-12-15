@@ -211,11 +211,18 @@ if(NOT ONSEMTEXTTOSEMANTIC_FOUND)
   find_package(onsemtexttosemantic)
 endif()
 
-add_library(onsemsemantictotext STATIC
+add_library(onsemsemantictotext
   ${ONSEMSEMANTICTOTEXT_HPPS}
   ${ONSEMSEMANTICTOTEXT_SRCS}
   ${ONSEMSEMANTICTOTEXT_LINGUISTICSYNTHESIZER_SRCS}
 )
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemsemantictotext PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
+
 include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}
   ${ONSEMTEXTTOSEMANTIC_INCLUDE_DIRS}

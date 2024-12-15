@@ -44,10 +44,16 @@ if(NOT ONSEMSEMANTICTOTEXT_FOUND)
   find_package(onsemsemantictotext)
 endif()
 
-add_library(onsemsemanticdebugger STATIC
+add_library(onsemsemanticdebugger
   ${ONSEMSEMANTCDEBUGGER_HPPS}
   ${ONSEMSEMANTCDEBUGGER_SRCS}
 )
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemsemanticdebugger PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
 
 include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}

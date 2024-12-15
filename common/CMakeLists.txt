@@ -100,8 +100,14 @@ endif()
 
 include_directories(include)
 
-add_library(onsemcommon STATIC
+add_library(onsemcommon
             ${ONSEMCOMMON_SRCS} ${ONSEMCOMMON_HPPS})
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemcommon PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
 
 target_include_directories(onsemcommon PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

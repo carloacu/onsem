@@ -81,10 +81,16 @@ if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
 
-add_library(onsemcompilermodel STATIC
+add_library(onsemcompilermodel
   ${ONSEMCOMPILERMODEL_HPPS}
   ${ONSEMCOMPILERMODEL_SRCS}
 )
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemcompilermodel PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
 
 include_directories(
   ${ONSEMTYPEALLOCATORANDSERIALYZER_INCLUDE_DIRS}

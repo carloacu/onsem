@@ -30,10 +30,17 @@ if(NOT ONSEMCOMMON_FOUND)
 endif()
 
 
-add_library(onsemtypeallocatorandserialyzer STATIC
+add_library(onsemtypeallocatorandserialyzer
   ${TYPEALLOCATORANDSERIALYZER_HPPS}
   ${TYPEALLOCATORANDSERIALYZER_SRCS}
 )
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemtypeallocatorandserialyzer PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
+
 include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}
 )

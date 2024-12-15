@@ -14,11 +14,17 @@ if(NOT ONSEMTEXTTOSEMANTIC_FOUND)
 endif()
 
 
-add_library(onsemdictionaryextractor STATIC
+add_library(onsemdictionaryextractor
   include/onsem/dictionaryextractor/api.hpp
   include/onsem/dictionaryextractor/auxiliariesextractor.hpp
   src/auxiliariesextractor.cpp
 )
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemdictionaryextractor PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
 
 include_directories(
     ${ONSEMCOMMON_INCLUDE_DIRS}

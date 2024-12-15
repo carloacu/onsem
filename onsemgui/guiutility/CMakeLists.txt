@@ -18,10 +18,16 @@ include_directories(include)
 
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
-add_library(onsemguiutility STATIC
+add_library(onsemguiutility
   ${ONSEMGUIUTILITY_HPPS}
   ${ONSEMGUIUTILITY_SRCS}
 )
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemguiutility PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
 
 target_link_libraries(onsemguiutility
   Qt5::Core

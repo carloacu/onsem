@@ -43,10 +43,16 @@ if(NOT ONSEMSEMANTOCDEBUGGER_FOUND)
   find_package(onsemsemanticdebugger)
 endif()
 
-add_library(onsemtester STATIC
+add_library(onsemtester
   ${ONSEMTESTER_HPPS}
   ${ONSEMTESTER_SRCS}
 )
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemtester PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
 
 include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}

@@ -278,10 +278,17 @@ include_directories(include)
 if(NOT ONSEMCOMMON_FOUND)
   find_package(onsemcommon)
 endif()
-add_library(onsemtexttosemantic STATIC
+add_library(onsemtexttosemantic
   ${ONSEMTEXTTOSEMANTIC_HPPS}
   ${ONSEMTEXTTOSEMANTIC_SRCS}
 )
+
+# Add position independent code flag if building shared libs or if explicitly requested
+if(BUILD_SHARED_LIBS OR POSITION_INDEPENDENT_CODE)
+    set_target_properties(onsemtexttosemantic PROPERTIES
+        POSITION_INDEPENDENT_CODE ON)
+endif()
+
 include_directories(
   ${ONSEMCOMMON_INCLUDE_DIRS}
 )
