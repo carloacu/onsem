@@ -18,7 +18,7 @@ std::string operator_sayFeedback(const std::string& pText,
     SemanticLanguageEnum language = linguistics::getLanguage(pText, pLingDb);
     auto semExp = converter::textToContextualSemExp(
         pText,
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language),
+        TextProcessingContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language),
         SemanticSourceEnum::UNKNOWN,
         pLingDb);
     memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
@@ -29,7 +29,7 @@ std::string operator_sayFeedback(const std::string& pText,
     converter::semExpToText(
         res,
         std::move(*outSemExp),
-        TextProcessingContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, language),
+        TextProcessingContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), language),
         false,
         pSemanticMemory,
         pLingDb,

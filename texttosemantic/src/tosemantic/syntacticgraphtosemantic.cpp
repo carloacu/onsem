@@ -1873,7 +1873,7 @@ std::unique_ptr<SemanticExpression> SyntacticGraphToSemantic::xTranslateRelative
     const InflectedWord& pIGram,
     const ToGenRepContext& pContext,
     const ToGenRepGeneral& pGeneral) const {
-    std::string userId = SemanticAgentGrounding::anyUser;
+    std::string userId = SemanticAgentGrounding::getAnyUser();
     SemanticEntityType agentType = SemanticEntityType::THING;
     SemanticReferenceType referenceType = SemanticReferenceType::INDEFINITE;
     SemanticQuantity quantity;
@@ -1936,7 +1936,7 @@ std::unique_ptr<SemanticExpression> SyntacticGraphToSemantic::xTranslateRelative
         default: return std::unique_ptr<SemanticExpression>();
     }
 
-    if (referenceType == SemanticReferenceType::DEFINITE && userId != SemanticAgentGrounding::anyUser) {
+    if (referenceType == SemanticReferenceType::DEFINITE && userId != SemanticAgentGrounding::getAnyUser()) {
         return std::make_unique<GroundedExpression>(std::make_unique<SemanticAgentGrounding>(userId));
     }
 
@@ -2558,11 +2558,11 @@ void SyntacticGraphToSemantic::xFillSubordonateClause(UniqueSemanticExpression& 
     if (sayRequest && pSubClauseChunkLink.tokRange.isEmpty()
         && !pSubClauseChunkLink.chunk->requests.has(SemanticRequestType::ACTION)) {
         std::string subjectUserId = SemExpGetter::getUserIdOfSubject(grdExp);
-        if (subjectUserId == SemanticAgentGrounding::userNotIdentified)
+        if (subjectUserId == SemanticAgentGrounding::getUserNotIdentified())
             subjectUserId = pGeneral.textProcContext.receiver.userId;
-        const std::string& newReceiverUserId = subjectUserId == SemanticAgentGrounding::me
-                                                 ? SemanticAgentGrounding::currentUser
-                                                 : SemanticAgentGrounding::me;
+        const std::string& newReceiverUserId = subjectUserId == SemanticAgentGrounding::getMe()
+                                                 ? SemanticAgentGrounding::getCurrentUser()
+                                                 : SemanticAgentGrounding::getMe();
         pSubContext.localTextProcContextPtr =
             std::make_shared<TextProcessingContext>(TextProcessingContext(subjectUserId,
                                                                           newReceiverUserId,

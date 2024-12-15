@@ -149,7 +149,7 @@ void _addIntent(const std::string& pIntentName,
                 SemanticLanguageEnum pLanguage,
                 bool pCanOnlyBeANominalGroup) {
     TextProcessingContext triggerProcContext(
-                SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+                SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
     triggerProcContext.isTimeDependent = false;
     triggerProcContext.linguisticAnalysisConfig.canOnlyBeANominalGroup = pCanOnlyBeANominalGroup;
     for (auto& currFormulation : pFormulations) {
@@ -214,7 +214,7 @@ std::optional<ActionRecognizer::ActionRecognized> _reactionToIntent(const Semant
                         auto paramName = parameterSplitted[0];
                         auto& paramValues = intent.params[paramName];
                         const TextProcessingContext outContext(
-                                    SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, resourceGrdPtr->resource.language);
+                                    SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), resourceGrdPtr->resource.language);
 
                         for (auto& currAnswer : semExps) {
                             if (SemExpGetter::isACoreference(*currAnswer, CoreferenceDirectionEnum::BEFORE))
@@ -493,7 +493,7 @@ void ActionRecognizer::addAction(const std::string& pActionIntentName,
                                  const std::map<std::string, ParamInfo>& pParameterLabelToInfos,
                                  const linguistics::LinguisticDatabase& pLingDb) {
     TextProcessingContext triggerProcContext(
-                SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, _language);
+                SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), _language);
     triggerProcContext.isTimeDependent = false;
     for (auto& currFormulation : pIntentFormulations) {
         auto formulationSemExp = converter::textToSemExp(currFormulation, triggerProcContext, pLingDb);

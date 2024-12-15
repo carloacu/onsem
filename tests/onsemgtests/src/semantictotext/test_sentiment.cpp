@@ -14,7 +14,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
     UniqueSemanticExpression meSemExp =
         std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr());
     UniqueSemanticExpression userSemExp = std::make_unique<GroundedExpression>(
-        std::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::currentUser));
+        std::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::getCurrentUser()));
     EXPECT_NE(*meSemExp, *userSemExp);
 
     const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
@@ -137,12 +137,12 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         ASSERT_EQ(1u, sentsContext.size());
         auto& firstSentContext = *sentsContext.front();
         std::string authorStr;
-        printer::oneWordPrint(authorStr, firstSentContext.author, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(authorStr, firstSentContext.author, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("human", authorStr);
         EXPECT_EQ("sentiment_positive_*", firstSentContext.sentiment);
         EXPECT_EQ(2, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("thing", receiverStr);
     }
     {
@@ -156,7 +156,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         EXPECT_EQ("sentiment_positive_*", firstSentContext.sentiment);
         EXPECT_EQ(3, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("human", receiverStr);
     }
     {
@@ -169,7 +169,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         EXPECT_EQ("sentiment_positive_joy", firstSentContext.sentiment);
         EXPECT_EQ(4, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("context", receiverStr);
     }
     {
@@ -182,7 +182,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         EXPECT_EQ("sentiment_positive_thanks", firstSentContext.sentiment);
         EXPECT_EQ(4, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("context", receiverStr);
     }
     {
@@ -195,7 +195,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         EXPECT_EQ("sentiment_positive_joy", firstSentContext.sentiment);
         EXPECT_EQ(4, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("context", receiverStr);
     }
     {
@@ -209,7 +209,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         EXPECT_EQ("sentiment_negative_*", firstSentContext.sentiment);
         EXPECT_EQ(4, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("context", receiverStr);
     }
     {
@@ -222,7 +222,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
         EXPECT_EQ("sentiment_positive_thanks", firstSentContext.sentiment);
         EXPECT_EQ(4, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("context", receiverStr);
     }
 }
@@ -230,7 +230,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithoutContext) {
 TEST_F(SemanticReasonerGTests, sentimentWithContext) {
     UniqueSemanticExpression meSemExp =
         std::make_unique<GroundedExpression>(SemanticAgentGrounding::getRobotAgentPtr());
-    SemanticAgentGrounding user(SemanticAgentGrounding::currentUser);
+    SemanticAgentGrounding user(SemanticAgentGrounding::getCurrentUser());
     UniqueSemanticExpression userSemExp =
         std::make_unique<GroundedExpression>(std::make_unique<SemanticAgentGrounding>(user));
     EXPECT_NE(*meSemExp, *userSemExp);
@@ -289,7 +289,7 @@ TEST_F(SemanticReasonerGTests, sentimentWithContext) {
         EXPECT_EQ("sentiment_positive_*", firstSentContext.sentiment);
         EXPECT_EQ(3, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("human", receiverStr);
     }
     {
@@ -299,12 +299,12 @@ TEST_F(SemanticReasonerGTests, sentimentWithContext) {
         ASSERT_EQ(1u, sentSpecs.size());
         auto& firstSentContext = *sentSpecs.front();
         std::string authorStr;
-        printer::oneWordPrint(authorStr, firstSentContext.author, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(authorStr, firstSentContext.author, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("human", authorStr);
         EXPECT_EQ("sentiment_positive_*", firstSentContext.sentiment);
         EXPECT_EQ(3, firstSentContext.sentimentStrengh);
         std::string receiverStr;
-        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::currentUser);
+        printer::oneWordPrint(receiverStr, firstSentContext.receiver, SemanticAgentGrounding::getCurrentUser());
         EXPECT_EQ("human", receiverStr);
     }
 }

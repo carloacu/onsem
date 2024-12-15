@@ -76,7 +76,7 @@ void manageCondition(SemControllerWorkingStruct& pWorkStruct,
             const SemanticAgentGrounding* authorPtr =
                 SemExpGetter::extractAuthor(*pWorkStruct.expHandleInMemory->semExp);
             if (authorPtr != nullptr) {
-                if (authorPtr->userId == SemanticAgentGrounding::me)
+                if (authorPtr->userId == SemanticAgentGrounding::getMe())
                     return;
                 authorUserId = authorPtr->userId;
             }

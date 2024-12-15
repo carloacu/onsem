@@ -3040,7 +3040,7 @@ void findGrdExpInRecommendationLinks(std::set<const ExpressionWithLinks*>& pRes,
                                      const SemanticMemoryBlock& pMemBlock,
                                      const linguistics::LinguisticDatabase& pLingDb,
                                      SemanticLanguageEnum pLanguage) {
-    SemanticMemoryBlockViewer semMemBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::userNotIdentified);
+    SemanticMemoryBlockViewer semMemBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::getUserNotIdentified());
     auto& memBlockPrivate = semMemBlockViewer.getConstViewPrivate();
     auto* recLinks = memBlockPrivate.getRecommendationsTriggersLinks(_emptyAxiomId);
     if (recLinks != nullptr) {
@@ -3069,7 +3069,7 @@ void findGrdExpWithCoefInRecommendationLinks(std::map<const ExpressionWithLinks*
                                              const SemanticMemoryBlock& pMemBlock,
                                              const linguistics::LinguisticDatabase& pLingDb,
                                              SemanticLanguageEnum pLanguage) {
-    SemanticMemoryBlockViewer semMemBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::userNotIdentified);
+    SemanticMemoryBlockViewer semMemBlockViewer(nullptr, pMemBlock, SemanticAgentGrounding::getUserNotIdentified());
     auto& memBlockPrivate = semMemBlockViewer.getConstViewPrivate();
     auto* recLinks = memBlockPrivate.getRecommendationsTriggersLinks(_emptyAxiomId);
     if (recLinks != nullptr) {

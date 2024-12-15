@@ -75,7 +75,7 @@ void _saveUnityGrd(boost::property_tree::ptree& pTree, const SemanticUnityGround
 
 void _saveAgentGrd(boost::property_tree::ptree& pTree, const SemanticAgentGrounding& pAgentGrd) {
     _saveGrd(pTree, pAgentGrd);
-    if (pAgentGrd.userId != SemanticAgentGrounding::userNotIdentified)
+    if (pAgentGrd.userId != SemanticAgentGrounding::getUserNotIdentified())
         pTree.put("userId", pAgentGrd.userId);
     if (pAgentGrd.userIdWithoutContext != pAgentGrd.userId)
         pTree.put("userIdWithoutContext", pAgentGrd.userIdWithoutContext);
@@ -548,7 +548,7 @@ void _saveSemMemory(boost::property_tree::ptree& pTree, const SemanticMemory& pS
     }
 
     const std::string currUserId = pSemMemory.getCurrUserId();
-    if (currUserId != SemanticAgentGrounding::currentUser)
+    if (currUserId != SemanticAgentGrounding::getCurrentUser())
         pTree.put("currUserId", currUserId);
 }
 

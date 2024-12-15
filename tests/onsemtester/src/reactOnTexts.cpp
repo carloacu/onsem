@@ -48,7 +48,7 @@ DetailedReactionAnswer reactionToAnswer(mystd::unique_propagate_const<UniqueSema
     SemExpGetter::extractReferences(res.references, **pReaction);
     res.reactionType = SemExpGetter::extractContextualAnnotation(**pReaction);
 
-    TextProcessingContext outContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
+    TextProcessingContext outContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), pLanguage);
     OutputterContext outputterContext(outContext);
     if (pInputSemExpInMemory)
         outputterContext.inputSemExpPtr = &*pInputSemExpInMemory->semExp;
@@ -78,7 +78,7 @@ DetailedReactionAnswer operator_react(const std::string& pText,
                                       const ReactionOptions* pReactionOptions) {
     SemanticLanguageEnum textLanguage =
         pTextLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
-    TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
+    TextProcessingContext inContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), textLanguage);
     inContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
     inContext.linguisticAnalysisConfig.spellingMistakeTypesPossible.insert(SpellingMistakeType::CONJUGATION);

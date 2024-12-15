@@ -140,7 +140,7 @@ TruenessValue check(const SemanticExpression& pSemExp,
                                               SemanticOperatorEnum::CHECK,
                                               InformationType::INFORMATION,
                                               pMemBlock,
-                                              SemanticAgentGrounding::userNotIdentified,
+                                              SemanticAgentGrounding::getUserNotIdentified(),
                                               nullptr,
                                               nullptr,
                                               nullptr,
@@ -213,7 +213,7 @@ SemanticEngagementValue extractEngagement(const SemanticExpression& pSemExp) {
             if (subjectGrdExpPtr != nullptr) {
                 const SemanticAgentGrounding* subjectAgentGrdPtr = subjectGrdExpPtr->grounding().getAgentGroundingPtr();
                 if (subjectAgentGrdPtr != nullptr
-                    && subjectAgentGrdPtr->userId == SemanticAgentGrounding::currentUser) {
+                    && subjectAgentGrdPtr->userId == SemanticAgentGrounding::getCurrentUser()) {
                     const GroundedExpression* actionGrdExpPtr = nullptr;
                     if (statementGrdPtr->verbGoal == VerbGoalEnum::MANDATORY)
                         actionGrdExpPtr = grdExpPtr;
@@ -538,7 +538,7 @@ void _informAxioms(const std::vector<std::string>& pInfomations,
                    SemanticMemory& pSemanticMemory,
                    const linguistics::LinguisticDatabase& pLingDb) {
     TextProcessingContext textProcContext(
-        SemanticAgentGrounding::me, SemanticAgentGrounding::userNotIdentified, pLanguage);
+        SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getUserNotIdentified(), pLanguage);
     for (const auto& currInfo : pInfomations)
         informAxiom(converter::textToSemExp(currInfo, textProcContext, pLingDb), pSemanticMemory, pLingDb);
 }
@@ -562,7 +562,7 @@ void defaultKnowledge(SemanticMemory& pSemanticMemory, const linguistics::Lingui
     allowToInformTheUserHowToTeach(pSemanticMemory);
 
     TextProcessingContext textProcContext(
-        SemanticAgentGrounding::me, SemanticAgentGrounding::userNotIdentified, SemanticLanguageEnum::ENGLISH);
+        SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getUserNotIdentified(), SemanticLanguageEnum::ENGLISH);
     auto helloSemExp = converter::textToSemExp("hello", textProcContext, pLingDb);
     triggers::add(helloSemExp->clone(), helloSemExp->clone(), pSemanticMemory, pLingDb);
     auto byeSemExp = converter::textToSemExp("bye-bye", textProcContext, pLingDb);

@@ -316,7 +316,7 @@ ImbricationType _getGroundingsImbrications(const SemanticGrounding& pGrounding1,
                     bool res = _userIdsAreEqual(agentGrd1.userId, agentGrd2.userId, pMemBlock, pExceptionsPtr);
                     if (!res)
                         res = agentGrd1.userIdWithoutContext == agentGrd2.userIdWithoutContext
-                           && agentGrd1.userIdWithoutContext != SemanticAgentGrounding::userNotIdentified;
+                           && agentGrd1.userIdWithoutContext != SemanticAgentGrounding::getUserNotIdentified();
                     return bool_toImbricationType(res);
                 }
                 case SemanticGroundingType::NAME: {

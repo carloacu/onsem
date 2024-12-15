@@ -36,7 +36,7 @@ std::shared_ptr<ExpressionWithLinks> _inform(const std::string& pText,
                                              const linguistics::LinguisticDatabase& pLingDb,
                                              const std::list<std::string>& pReferences) {
     TextProcessingContext inContext(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN);
     inContext.setUsAsEverybody();
     inContext.linguisticAnalysisConfig.cmdGrdExtractorPtr =
         std::make_shared<ResourceGroundingExtractor>(std::vector<std::string>{"hc_resource_html"});
@@ -64,7 +64,7 @@ void _loadBigMemoryFile(std::map<std::string, std::string>& pTriggersToReference
     auto fillCurrentInfos = [&]() {
         if (currentLabel == "trigger") {
             TextProcessingContext triggerProcContext(
-                SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+                SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
             if (pSetUsAsEverybody)
                 triggerProcContext.setUsAsEverybody();
             triggerProcContext.isTimeDependent = false;

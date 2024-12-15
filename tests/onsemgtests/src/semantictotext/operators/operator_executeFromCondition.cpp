@@ -27,7 +27,7 @@ std::string _operator_execOrExecuteFromCondition(const std::string& pText,
                                                  const linguistics::LinguisticDatabase& pLingDb,
                                                  bool pExecOrExecuteFromCondition) {
     SemanticLanguageEnum language = linguistics::getLanguage(pText, pLingDb);
-    TextProcessingContext textProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
+    TextProcessingContext textProc(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language);
     auto semExp = converter::textToSemExp(pText, textProc, pLingDb);
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemanticMemory, pLingDb);
     return _operator_execOrExecuteFromSemExpCondition(

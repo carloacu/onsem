@@ -162,7 +162,7 @@ bool _reactOnSentiments(SemControllerWorkingStruct& pWorkStruct,
         &&    // 1 and not 0 because we don't want to react on too weak sentiments
         !ConceptSet::doesConceptBeginWith(sentimentSpec->sentiment, "sentiment_neutral_")) {
         if (SemExpGetter::doSemExpHoldUserId(*sentimentSpec->author, pWorkStruct.author->userId)) {
-            if (SemExpGetter::doSemExpHoldUserId(*sentimentSpec->receiver, SemanticAgentGrounding::me)) {
+            if (SemExpGetter::doSemExpHoldUserId(*sentimentSpec->receiver, SemanticAgentGrounding::getMe())) {
                 if (reactOnSentiment) {
                     if (ConceptSet::doesConceptBeginWith(sentimentSpec->sentiment, "sentiment_positive_")) {
                         std::unique_ptr<GroundedExpression> reverseGrdExp;
@@ -262,7 +262,7 @@ bool _askAboutLocationOrTimeOfAPastActions(SemControllerWorkingStruct& pWorkStru
             const GroundedExpression* subjectGrdExpPtr = itSubject->second->getGrdExpPtr_SkipWrapperPtrs();
             if (subjectGrdExpPtr != nullptr) {
                 const SemanticAgentGrounding* agentGrdPtr = subjectGrdExpPtr->grounding().getAgentGroundingPtr();
-                if (agentGrdPtr != nullptr && agentGrdPtr->userId == SemanticAgentGrounding::me)
+                if (agentGrdPtr != nullptr && agentGrdPtr->userId == SemanticAgentGrounding::getMe())
                     return false;
             }
         }

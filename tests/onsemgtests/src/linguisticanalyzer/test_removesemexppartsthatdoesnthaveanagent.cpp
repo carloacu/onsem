@@ -14,7 +14,7 @@ std::string _removesemexppartsthatdoesnthaveanagent(const std::string& pText,
                                                     SemanticMemory& pSemMem,
                                                     SemanticLanguageEnum pLanguage,
                                                     const linguistics::LinguisticDatabase& pLingDb) {
-    TextProcessingContext textProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    TextProcessingContext textProc(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
     auto agentWeAreTalkingAbout = SemanticMemoryBlock::generateNewAgentGrd(pReferenceText, pLanguage, pLingDb);
     auto semExp = converter::textToSemExp(pText, textProc, pLingDb);
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemMem, pLingDb);

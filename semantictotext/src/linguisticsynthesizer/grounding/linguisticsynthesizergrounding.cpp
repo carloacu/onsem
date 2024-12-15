@@ -1171,8 +1171,8 @@ void Linguisticsynthesizergrounding::timeGroundingTranslation(std::list<WordToSy
 RelativePerson Linguisticsynthesizergrounding::agentTypeToRelativePerson(const SemanticAgentGrounding& pGrounding,
                                                                          const SynthesizerConfiguration& pConf,
                                                                          bool pCanReplaceByEquivalent) const {
-    std::string grdUserId = pGrounding.userId == SemanticAgentGrounding::userNotIdentified
-                              ? SemanticAgentGrounding::currentUser
+    std::string grdUserId = pGrounding.userId == SemanticAgentGrounding::getUserNotIdentified()
+                              ? SemanticAgentGrounding::getCurrentUser()
                               : pGrounding.userId;
     if (grdUserId == pConf.authorId
         || (pCanReplaceByEquivalent && pConf.memBlock.areSameUserConst(grdUserId, pConf.authorId)))

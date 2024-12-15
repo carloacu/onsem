@@ -16,7 +16,7 @@ std::string operator_greet(const std::string& pText,
                            SemanticMemory& pSemanticMemory,
                            const linguistics::LinguisticDatabase& pLingDb) {
     SemanticLanguageEnum language = linguistics::getLanguage(pText, pLingDb);
-    TextProcessingContext inTextProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
+    TextProcessingContext inTextProc(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language);
     auto semExp = converter::textToContextualSemExp(pText, inTextProc, SemanticSourceEnum::ASR, pLingDb, nullptr);
     memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
     auto outSemExp = greetInResponseOf(*semExp, pSemanticMemory, pLingDb);
@@ -26,7 +26,7 @@ std::string operator_greet(const std::string& pText,
     converter::semExpToText(
         res,
         std::move(*outSemExp),
-        TextProcessingContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, language),
+        TextProcessingContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), language),
         false,
         pSemanticMemory,
         pLingDb,

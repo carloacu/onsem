@@ -16,7 +16,7 @@ std::string operator_resolveCommand(const std::string& pText,
                                     SemanticLanguageEnum pLanguage) {
     if (pLanguage == SemanticLanguageEnum::UNKNOWN)
         pLanguage = linguistics::getLanguage(pText, pLingDb);
-    TextProcessingContext textProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    TextProcessingContext textProc(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
     auto semExp = converter::textToContextualSemExp(pText, textProc, SemanticSourceEnum::WRITTENTEXT, pLingDb);
     memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
     auto resSemExp =

@@ -17,7 +17,7 @@ bool _hasACoreferenceFromStr(const std::string& pText, const linguistics::Lingui
     auto semExp = converter::textToSemExp(
         pText,
         TextProcessingContext(
-            SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN),
+            SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN),
         pLingDb);
     return SemExpGetter::hasACoreference(*semExp);
 }

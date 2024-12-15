@@ -123,7 +123,7 @@ std::unique_ptr<SemanticPercentageGrounding> _loadPercentageGrd(const boost::pro
 }
 
 std::unique_ptr<SemanticAgentGrounding> _loadAgentGrd(const boost::property_tree::ptree& pTree) {
-    auto userId = pTree.get("userId", SemanticAgentGrounding::userNotIdentified);
+    auto userId = pTree.get("userId", SemanticAgentGrounding::getUserNotIdentified());
     auto userIdWithoutContext = pTree.get("userIdWithoutContext", userId);
     auto res = std::make_unique<SemanticAgentGrounding>(userId, userIdWithoutContext);
     res->concepts.clear();
@@ -591,7 +591,7 @@ void _loadSemMemory(const boost::property_tree::ptree& pTree,
             pSemMemory.addNewUserFocusedToSemExp(_loadSemExp(currSemExp.second, &links), userId);
         }
     }
-    pSemMemory.setCurrUserId(pTree.get("currUserId", SemanticAgentGrounding::currentUser));
+    pSemMemory.setCurrUserId(pTree.get("currUserId", SemanticAgentGrounding::getCurrentUser()));
 }
 
 void loadSemMemory(const boost::property_tree::ptree& pTree,

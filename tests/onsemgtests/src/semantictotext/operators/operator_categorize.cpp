@@ -11,7 +11,7 @@ SemanticExpressionCategory operator_categorize(const std::string& pText,
     auto semExp = converter::textToContextualSemExp(
         pText,
         TextProcessingContext(
-            SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN),
+            SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN),
         SemanticSourceEnum::WRITTENTEXT,
         pLingDb);
     return memoryOperation::categorize(*semExp);

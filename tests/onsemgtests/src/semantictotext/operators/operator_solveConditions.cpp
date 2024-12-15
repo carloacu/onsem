@@ -16,7 +16,7 @@ DetailedReactionAnswer operator_solveConditions(const std::string& pText,
     SemanticLanguageEnum language = linguistics::getLanguage(pText, pLingDb);
     auto semExp = converter::textToSemExp(
         pText,
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language),
+        TextProcessingContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language),
         pLingDb);
 
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemanticMemory, pLingDb);
@@ -31,7 +31,7 @@ DetailedReactionAnswer operator_solveConditions(const std::string& pText,
     converter::semExpToText(
         res.answer,
         std::move(semExp),
-        TextProcessingContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, language),
+        TextProcessingContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), language),
         false,
         pSemanticMemory,
         pLingDb,

@@ -1258,7 +1258,7 @@ std::string getUserIdOfSubject(const GroundedExpression& pGrdExp) {
                 return subjAgentGrdPtr->userId;
         }
     }
-    return SemanticAgentGrounding::userNotIdentified;
+    return SemanticAgentGrounding::getUserNotIdentified();
 }
 
 void extractSubjectAndObjectOfAVerbDefinition(std::list<const GroundedExpression*>& pSubjectGrdPtrs,
@@ -1482,7 +1482,7 @@ const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
             return nullptr;
         auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
         if (itSubject == pGrdExp.children.end()
-            || !SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::me))
+            || !SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::getMe()))
             return nullptr;
         return &pGrdExp;
     } else if (!pAuthorUserId.empty() && isWishStatement(pStatementGrd)) {
@@ -1494,7 +1494,7 @@ const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
             if (SemExpGetter::doSemExpHoldUserId(*itSubject->second, pAuthorUserId) && pStatementGrd.requests.empty()) {
                 isSentenceOk = true;
                 needRobotSubject = true;
-            } else if (SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::me)) {
+            } else if (SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::getMe())) {
                 isSentenceOk = true;
                 needNoSubject = true;
             }
@@ -1508,7 +1508,7 @@ const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
                     if (needRobotSubject) {
                         auto itResSubject = res->children.find(GrammaticalType::SUBJECT);
                         if (itResSubject == res->children.end()
-                            || !SemExpGetter::doSemExpHoldUserId(*itResSubject->second, SemanticAgentGrounding::me))
+                            || !SemExpGetter::doSemExpHoldUserId(*itResSubject->second, SemanticAgentGrounding::getMe()))
                             return nullptr;
                     }
                     if (needNoSubject && res->children.count(GrammaticalType::SUBJECT) > 0)
@@ -1525,7 +1525,7 @@ const GroundedExpression* getGrdExpToDo(const GroundedExpression& pGrdExp,
              pStatementGrd.concepts.count("verb_equal_be") != 0) {
              auto itSubject = pGrdExp.children.find(GrammaticalType::SUBJECT);
              if (itSubject == pGrdExp.children.end()
-                 || !SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::me))
+                 || !SemExpGetter::doSemExpHoldUserId(*itSubject->second, SemanticAgentGrounding::getMe()))
                  return nullptr;
 
              auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);

@@ -130,7 +130,7 @@ mystd::unique_propagate_const<UniqueSemanticExpression> _answerHelloBye(
 bool isLookAtOtherOrder(const GroundedExpression& grdExp) {
     // TODO fix toPerson boolean
     const auto isLook = ConceptSet::haveAConceptThatBeginWith(grdExp->concepts, "verb_action_lookat");
-    const auto fromMe = SemExpGetter::getUserIdOfSubject(grdExp) == SemanticAgentGrounding::me;
+    const auto fromMe = SemExpGetter::getUserIdOfSubject(grdExp) == SemanticAgentGrounding::getMe();
     auto toPerson(true);
     const auto grdExpObjectPtr = SemExpGetter::getGrdExpChild(grdExp.getGrdExp(), GrammaticalType::OBJECT);
     if (grdExpObjectPtr != nullptr) {

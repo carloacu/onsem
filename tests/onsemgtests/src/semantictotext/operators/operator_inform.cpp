@@ -38,7 +38,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform(
     const std::list<std::string>& pReferences,
     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr) {
     TextProcessingContext inContext(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN);
     inContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
 
@@ -53,7 +53,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform_fromRobot(
     const std::list<std::string>& pReferences,
     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr) {
     TextProcessingContext outContext(
-        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, SemanticLanguageEnum::UNKNOWN);
+        SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), SemanticLanguageEnum::UNKNOWN);
     outContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
     auto semExp = converter::textToContextualSemExp(pText, outContext, SemanticSourceEnum::ASR, pLingDb, &pReferences);
@@ -67,7 +67,7 @@ void operator_mergeAndInform(const std::string& pText,
                              const linguistics::LinguisticDatabase& pLingDb,
                              const std::list<std::string>& pReferences) {
     TextProcessingContext inTextProc(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN);
     auto semExp = converter::textToContextualSemExp(pText, inTextProc, SemanticSourceEnum::ASR, pLingDb, &pReferences);
     memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
     memoryOperation::inform(std::move(semExp), pSemanticMemory, pLingDb);
@@ -78,7 +78,7 @@ std::shared_ptr<ExpressionWithLinks> operator_informAxiom(const std::string& pTe
                                                           const linguistics::LinguisticDatabase& pLingDb,
                                                           const std::list<std::string>& pReferences) {
     TextProcessingContext inTextProc(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN);
     auto semExp = converter::textToContextualSemExp(pText, inTextProc, SemanticSourceEnum::ASR, pLingDb, &pReferences);
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemanticMemory, pLingDb);
     return memoryOperation::informAxiom(std::move(semExp), pSemanticMemory, pLingDb);
@@ -91,7 +91,7 @@ std::shared_ptr<ExpressionWithLinks> operator_informAxiom_fromRobot(
     const std::list<std::string>& pReferences,
     std::map<const SentenceWithLinks*, TruenessValue>* pAxiomToConditionCurrentStatePtr) {
     TextProcessingContext textContext(
-        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, SemanticLanguageEnum::UNKNOWN);
+        SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), SemanticLanguageEnum::UNKNOWN);
     textContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
     auto semExp = converter::textToContextualSemExp(pText, textContext, SemanticSourceEnum::ASR, pLingDb, &pReferences);
@@ -106,7 +106,7 @@ std::shared_ptr<ExpressionWithLinks> operator_addFallback(const std::string& pTe
     auto semExp = converter::textToContextualSemExp(
         pText,
         TextProcessingContext(
-            SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN),
+            SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN),
         SemanticSourceEnum::ASR,
         pLingDb);
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemanticMemory, pLingDb);
@@ -120,7 +120,7 @@ std::shared_ptr<ExpressionWithLinks> operator_inform_withAgentNameFilter(
     SemanticLanguageEnum pLanguage,
     const linguistics::LinguisticDatabase& pLingDb) {
     TextProcessingContext inContext(
-        SemanticAgentGrounding::userNotIdentified, SemanticAgentGrounding::userNotIdentified, pLanguage);
+        SemanticAgentGrounding::getUserNotIdentified(), SemanticAgentGrounding::getUserNotIdentified(), pLanguage);
     auto agentWeAreTalkingAbout = SemanticMemoryBlock::generateNewAgentGrd(pAgentName, pLanguage, pLingDb);
     const std::list<std::string> references{1, pAgentName};
 
@@ -255,7 +255,7 @@ TEST_F(SemanticReasonerGTests, operator_informAndAssert) {
 TEST_F(SemanticReasonerGTests, operator_informWithAnnotations) {
     const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
     TextProcessingContext inContext(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN);
     boost::property_tree::ptree propTree;
 
     {

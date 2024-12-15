@@ -18,13 +18,13 @@ std::vector<std::string> operator_show(const std::string& pText,
     auto semExp = converter::textToSemExp(
         pText,
         TextProcessingContext(
-            SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN),
+            SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN),
         pLingDb);
     std::vector<std::unique_ptr<GroundedExpression>> answers;
     memoryOperation::show(answers, *semExp, pSemanticMemory, pLingDb);
 
     TextProcessingContext outContext(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::ENGLISH);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::ENGLISH);
     std::vector<std::string> res(answers.size());
     std::size_t i = 0;
     for (auto& currAnswer : answers) {

@@ -1686,7 +1686,7 @@ bool matchAffirmationTrigger(SemControllerWorkingStruct& pWorkStruct,
     if (!res && pWorkStruct.callbackToSentencesCanBeAnsweredPtr != nullptr) {
         for (const auto& currCallbackToSents : *pWorkStruct.callbackToSentencesCanBeAnsweredPtr) {
             const auto& memBlock = currCallbackToSents->memBlockForTriggers;
-            SemanticMemoryBlockViewer subMemViewer(nullptr, memBlock, SemanticAgentGrounding::userNotIdentified);
+            SemanticMemoryBlockViewer subMemViewer(nullptr, memBlock, SemanticAgentGrounding::getUserNotIdentified());
             auto& subMemBlockViewer = subMemViewer.getConstViewPrivate();
             RequestToMemoryLinks<false> awLinks(
                 subMemBlockViewer.getLinks(SemanticTypeOfLinks::ANSWER, pReqLinks.tense, pReqLinks.verbGoal));
@@ -2219,7 +2219,7 @@ bool satisfyAQuestion(SemControllerWorkingStruct& pWorkStruct,
         && pWorkStruct.callbackToSentencesCanBeAnsweredPtr != nullptr && allAnswers.empty()) {
         for (const auto& currCallbackToSents : *pWorkStruct.callbackToSentencesCanBeAnsweredPtr) {
             const auto& memBlock = currCallbackToSents->memBlock;
-            SemanticMemoryBlockViewer subMemViewer(nullptr, memBlock, SemanticAgentGrounding::userNotIdentified);
+            SemanticMemoryBlockViewer subMemViewer(nullptr, memBlock, SemanticAgentGrounding::getUserNotIdentified());
             auto& subMemBlockViewer = subMemViewer.getConstViewPrivate();
             auto awLinks = subMemBlockViewer.getLinks(SemanticTypeOfLinks::ANSWER, reqLinks.tense, reqLinks.verbGoal);
             RelationsThatMatch<false> idsToSentences;

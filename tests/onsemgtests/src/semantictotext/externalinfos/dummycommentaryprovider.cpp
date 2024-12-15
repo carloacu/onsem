@@ -14,8 +14,8 @@ DummyCommentaryProvider::DummyCommentaryProvider(const linguistics::LinguisticDa
     , _semExpsThatCanBeAnswered() {
     _semExpsThatCanBeAnswered.emplace_back(
         converter::textToSemExp("the commentary of the book of \\p_time=0\\ is \\p_meta=-1\\",
-                                TextProcessingContext(SemanticAgentGrounding::userNotIdentified,
-                                                      SemanticAgentGrounding::userNotIdentified,
+                                TextProcessingContext(SemanticAgentGrounding::getUserNotIdentified(),
+                                                      SemanticAgentGrounding::getUserNotIdentified(),
                                                       SemanticLanguageEnum::ENGLISH),
                                 pLingDb));
 }

@@ -311,7 +311,7 @@ void _prettyPrintTypedGroundings(std::list<SemLineToPrint>& pLines,
                                  PrinterBuffer& pPrinterBuff,
                                  const SemanticAgentGrounding& pGrounding,
                                  const FromText& pFromText) {
-    if (pGrounding.userId != SemanticAgentGrounding::userNotIdentified)
+    if (pGrounding.userId != SemanticAgentGrounding::getUserNotIdentified())
         pPrinterBuff.elts.emplace_back("userId(" + pGrounding.userId + ")");
     if (pGrounding.userIdWithoutContext != pGrounding.userId)
         pPrinterBuff.elts.emplace_back("userIdWithoutContext(" + pGrounding.userIdWithoutContext + ")");
@@ -980,7 +980,7 @@ void oneWordPrint(std::string& pRes, const UniqueSemanticExpression& pSemanticEx
                     pRes = _currentUserResult;
                     return;
                 }
-                if (agentGr.userId == SemanticAgentGrounding::me) {
+                if (agentGr.userId == SemanticAgentGrounding::getMe()) {
                     pRes = _robotResult;
                     return;
                 }

@@ -51,7 +51,7 @@ void _addAgentInterpretations(UniqueSemanticExpression& pSemExp,
                 SemanticGenericGrounding& genGrd = grdExp->getGenericGrounding();
                 if (SemExpGetter::isASpecificHuman(genGrd)) {
                     std::string userId = pSemanticMemory.memBloc.getUserIdFromGrdExp(grdExp, pLingDb);
-                    if (userId != SemanticAgentGrounding::userNotIdentified) {
+                    if (userId != SemanticAgentGrounding::getUserNotIdentified()) {
                         pSemExp = std::make_unique<InterpretationExpression>(
                             InterpretationSource::AGENTGRDEXP,
                             UniqueSemanticExpression(

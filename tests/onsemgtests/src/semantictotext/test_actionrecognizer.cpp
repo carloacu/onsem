@@ -15,7 +15,7 @@ std::string _recognize(const std::string& pText,
                        SemanticLanguageEnum pTextLanguage) {
     SemanticLanguageEnum textLanguage =
             pTextLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
-    TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
+    TextProcessingContext inContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), textLanguage);
     inContext.linguisticAnalysisConfig.tryToResolveCoreferences = false;
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::UNKNOWN, pLingDb);
     auto actionRecognizedOpt = pActionRecognizer.recognize(std::move(semExp), pLingDb);
@@ -31,7 +31,7 @@ bool _isObviouslyWrong(const std::string& pIntent,
                        SemanticLanguageEnum pTextLanguage) {
     SemanticLanguageEnum textLanguage =
             pTextLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
-    TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
+    TextProcessingContext inContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), textLanguage);
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::UNKNOWN, pLingDb);
     return pActionRecognizer.isObviouslyWrong(pIntent, *semExp, pLingDb);
 }

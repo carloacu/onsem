@@ -52,7 +52,7 @@ void operator_track(std::shared_ptr<TrackStateForTests>& pTrackState, const Text
     pTrackState->connection = pTrackState->semTracker->val.connect([pTrackState](
                                                                        const UniqueSemanticExpression& pSemExp) {
         TextProcessingContext outContext(
-            SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::ENGLISH);
+            SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::ENGLISH);
         pTrackState->resultsStr.emplace_back();
         std::string& newResStr = pTrackState->resultsStr.back();
         converter::semExpToText(

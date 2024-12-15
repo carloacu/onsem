@@ -46,7 +46,7 @@ void _syntSemExpWithDebugInfosIfAsked(std::string& pRes,
                                       const SemanticAnalysisDebugOptions& pSemanticAnalysisDebugOptions,
                                       const SemanticMemoryBlock& pMemBlock,
                                       const LinguisticDatabase& pLingDb) {
-    TextProcessingContext textPorcContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    TextProcessingContext textPorcContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
     textPorcContext.writeParametersToFill = true;
     if (pSemanticAnalysisDebugOptions.setUsAsEverybody)
         textPorcContext.setUsAsEverybody();
@@ -144,7 +144,7 @@ void fillSemAnalResult(SyntacticGraphResult& pResults,
     if (pSemanticAnalysisDebugOptions.timeChecker)
         pSemanticAnalysisDebugOptions.timeChecker->beginOfTimeSlot();
     UniqueSemanticExpression semExp([&]() {
-        TextProcessingContext textProcCont(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
+        TextProcessingContext textProcCont(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language);
         if (pSemanticAnalysisDebugOptions.setUsAsEverybody)
             textProcCont.setUsAsEverybody();
         textProcCont.linguisticAnalysisConfig = pLinguisticAnalysisConfig;
@@ -179,9 +179,9 @@ void fillSemAnalResult(SyntacticGraphResult& pResults,
         pSemanticAnalysisDebugOptions.timeChecker->beginOfTimeSlot();
     SemanticPrinter::printSentiments(pHighLevelResults.sentimentsInfos,
                                      *semExp,
-                                     SemanticAgentGrounding::currentUser,
+                                     SemanticAgentGrounding::getCurrentUser(),
                                      pResults.syntGraph.langConfig.lingDb.conceptSet,
-                                     std::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::currentUser),
+                                     std::make_unique<SemanticAgentGrounding>(SemanticAgentGrounding::getCurrentUser()),
                                      SemanticSourceEnum::WRITTENTEXT);
     if (pSemanticAnalysisDebugOptions.timeChecker)
         pSemanticAnalysisDebugOptions.timeChecker->endOfTimeSlot("Sentiments extractor");

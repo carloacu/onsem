@@ -24,7 +24,7 @@ DetailedReactionAnswer _operator_teach(const std::string& pText,
                                        SemanticLanguageEnum pTextLanguage = SemanticLanguageEnum::UNKNOWN) {
     SemanticLanguageEnum textLanguage =
         pTextLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
-    TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
+    TextProcessingContext inContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), textLanguage);
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::ASR, pLingDb);
     memoryOperation::mergeWithContext(semExp, pSemanticMemory, pLingDb);
 
@@ -47,7 +47,7 @@ DetailedReactionAnswer _operator_teachAResourceWithParameters(
         pLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pAction, pLingDb) : pLanguage;
 
     TextProcessingContext triggerProcContext(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), textLanguage);
     triggerProcContext.isTimeDependent = false;
     auto actionSemExp = converter::textToSemExp(pAction, triggerProcContext, pLingDb);
 
@@ -265,7 +265,7 @@ TEST_F(SemanticReasonerGTests, operator_teachBehavior_from_constructTeachSemExp)
 
     EXPECT_EQ("", operator_resolveCommand("saute", semMem, lingDb));
 
-    TextProcessingContext textProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
+    TextProcessingContext textProc(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language);
     auto labelSemExp = converter::textToContextualSemExp("saute", textProc, SemanticSourceEnum::WRITTENTEXT, lingDb);
     auto infLabelSemExp = converter::imperativeToInfinitive(*labelSemExp);
     ASSERT_TRUE(infLabelSemExp);

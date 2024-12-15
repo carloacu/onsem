@@ -16,13 +16,13 @@ std::vector<std::string> operator_get(const std::string& pText,
                                       const SemanticMemory& pSemanticMemory,
                                       const linguistics::LinguisticDatabase& pLingDb) {
     SemanticLanguageEnum language = linguistics::getLanguage(pText, pLingDb);
-    TextProcessingContext inTextProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
+    TextProcessingContext inTextProc(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language);
     auto semExp = converter::textToContextualSemExp(pText, inTextProc, SemanticSourceEnum::ASR, pLingDb);
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemanticMemory, pLingDb);
     std::vector<std::unique_ptr<GroundedExpression>> answers;
     memoryOperation::get(answers, std::move(semExp), pSemanticMemory, pLingDb);
 
-    TextProcessingContext outContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
+    TextProcessingContext outContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language);
     std::vector<std::string> res(answers.size());
     std::size_t i = 0;
     for (auto& currAnswer : answers) {

@@ -69,11 +69,11 @@ void TextProcessingContext::setUsAsEverybody() {
 }
 
 TextProcessingContext TextProcessingContext::getTextProcessingContextFromRobot(SemanticLanguageEnum pLanguage) {
-    return TextProcessingContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
+    return TextProcessingContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), pLanguage);
 }
 
 TextProcessingContext TextProcessingContext::getTextProcessingContextToRobot(SemanticLanguageEnum pLanguage) {
-    return TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    return TextProcessingContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
 }
 
 }    // End of namespace onsem

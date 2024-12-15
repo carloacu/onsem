@@ -335,7 +335,7 @@ std::string SemanticMemoryBlock::getUserIdFromGrdExp(const GroundedExpression& p
         if (!res.empty())
             return res;
     }
-    return subBlockPtr ? subBlockPtr->getUserIdFromGrdExp(pGrdExp, pLingDb) : SemanticAgentGrounding::userNotIdentified;
+    return subBlockPtr ? subBlockPtr->getUserIdFromGrdExp(pGrdExp, pLingDb) : SemanticAgentGrounding::getUserNotIdentified();
 }
 
 bool SemanticMemoryBlock::areSameUser(const std::string& pUserId1,
@@ -381,7 +381,7 @@ bool SemanticMemoryBlock::areSameUserConst(const std::string& pUserId1,
 }
 
 bool SemanticMemoryBlock::isItMe(const std::string& pUserId) const {
-    return areSameUserConst(pUserId, SemanticAgentGrounding::me) || (subBlockPtr && subBlockPtr->isItMe(pUserId));
+    return areSameUserConst(pUserId, SemanticAgentGrounding::getMe()) || (subBlockPtr && subBlockPtr->isItMe(pUserId));
 }
 
 bool SemanticMemoryBlock::_doesUserIdExist(const std::string& pUserId) const {

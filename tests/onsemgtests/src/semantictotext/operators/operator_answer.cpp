@@ -17,7 +17,7 @@ DetailedReactionAnswer operator_answer(const std::string& pText,
                                        const linguistics::LinguisticDatabase& lingDb,
                                        bool pCanAnswerIDontKnow) {
     SemanticLanguageEnum language = linguistics::getLanguage(pText, lingDb);
-    TextProcessingContext textProcContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
+    TextProcessingContext textProcContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language);
     auto semExp = converter::textToContextualSemExp(pText, textProcContext, SemanticSourceEnum::WRITTENTEXT, lingDb);
     memoryOperation::resolveAgentAccordingToTheContext(semExp, pSemanticMemory, lingDb);
     auto answerSemExp = memoryOperation::answer(std::move(semExp), pCanAnswerIDontKnow, pSemanticMemory, lingDb);
@@ -27,7 +27,7 @@ DetailedReactionAnswer operator_answer(const std::string& pText,
         converter::semExpToText(
             res.answer,
             std::move(*answerSemExp),
-            TextProcessingContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, language),
+            TextProcessingContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), language),
             false,
             pSemanticMemory,
             lingDb,

@@ -22,7 +22,7 @@ const SemanticGenericGrounding _getObjectGenGrd(const std::string& pSentence,
     auto semExp = converter::textToSemExp(
         pSentence,
         TextProcessingContext(
-            SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN),
+            SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN),
         pLingDb);
     const GroundedExpression* verbGrdExp = semExp->getGrdExpPtr();
     if (verbGrdExp != nullptr) {
@@ -44,7 +44,7 @@ const std::map<std::string, char> _getRootConcepts(const std::string& pSentence,
     auto semExp = converter::textToSemExp(
         pSentence,
         TextProcessingContext(
-            SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN),
+            SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN),
         pLingDb);
     const GroundedExpression* verbGrdExp = semExp->getGrdExpPtr();
     if (verbGrdExp != nullptr)
@@ -58,7 +58,7 @@ std::string _getTranslation(const std::string& pSentence,
     auto semExp = converter::textToSemExp(
         pSentence,
         TextProcessingContext(
-            SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::UNKNOWN),
+            SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::UNKNOWN),
         pLingDb);
 
     std::string res;
@@ -66,7 +66,7 @@ std::string _getTranslation(const std::string& pSentence,
     converter::semExpToText(
         res,
         std::move(semExp),
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pOutLanguage),
+        TextProcessingContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pOutLanguage),
         true,
         semanticMemory,
         pLingDb,

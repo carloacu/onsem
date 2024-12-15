@@ -15,8 +15,8 @@ TruenessValue operator_check(
     const std::string& pText,
     const SemanticMemory& pSemanticMemory,
     const linguistics::LinguisticDatabase& pLingDb,
-    const TextProcessingContext& pTextProcContext = TextProcessingContext(SemanticAgentGrounding::currentUser,
-                                                                          SemanticAgentGrounding::me,
+    const TextProcessingContext& pTextProcContext = TextProcessingContext(SemanticAgentGrounding::getCurrentUser(),
+                                                                          SemanticAgentGrounding::getMe(),
                                                                           SemanticLanguageEnum::UNKNOWN));
 
 }    // End of namespace onsem

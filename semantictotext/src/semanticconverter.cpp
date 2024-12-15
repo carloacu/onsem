@@ -493,7 +493,7 @@ void infinitiveToRequestVariations(std::list<UniqueSemanticExpression>& pOuts,
     {
         auto* grdExpPtr = (*imperativeSemExpPtr)->getGrdExpPtr_SkipWrapperPtrs();
         if (grdExpPtr != nullptr)
-            pOuts.emplace_back(SemExpCreator::iWantThatYou(SemanticAgentGrounding::currentUser,
+            pOuts.emplace_back(SemExpCreator::iWantThatYou(SemanticAgentGrounding::getCurrentUser(),
                                                            SemExpCreator::getIndicativeFromImperative(*grdExpPtr)));
     }
 
@@ -557,7 +557,7 @@ void createParameterSemanticexpressions(
     const linguistics::LinguisticDatabase& pLingDb,
     SemanticLanguageEnum pLanguage) {
     TextProcessingContext paramQuestionProcContext(
-        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
+        SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), pLanguage);
     paramQuestionProcContext.isTimeDependent = false;
     for (auto& currLabelToQuestions : pParameterLabelToQuestionsStrs) {
         for (auto& currQuestion : currLabelToQuestions.second) {

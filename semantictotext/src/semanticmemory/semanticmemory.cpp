@@ -12,14 +12,14 @@ SemanticMemory::SemanticMemory()
     , proativeSpecifications()
     , interactionContextContainer()
     , _newUserFocusedToSemExps()
-    , _currUserId(SemanticAgentGrounding::currentUser)
+    , _currUserId(SemanticAgentGrounding::getCurrentUser())
     , _externalFallback() {
     memBloc.ensureFallbacksBlock();
 }
 
 void SemanticMemory::clearLocalInformationButNotTheSubBloc() {
     memBloc.clearLocalInformationButNotTheSubBloc();
-    _currUserId = SemanticAgentGrounding::currentUser;
+    _currUserId = SemanticAgentGrounding::getCurrentUser();
 }
 
 void SemanticMemory::clear() {
@@ -30,7 +30,7 @@ void SemanticMemory::clear() {
     interactionContextContainer.reset();
 
     _newUserFocusedToSemExps.clear();
-    _currUserId = SemanticAgentGrounding::currentUser;
+    _currUserId = SemanticAgentGrounding::getCurrentUser();
     _externalFallback.reset();
 }
 

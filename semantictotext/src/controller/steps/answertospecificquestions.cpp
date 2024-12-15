@@ -40,7 +40,7 @@ bool _tryToAnswerToDoYouKnow(SemControllerWorkingStruct& pWorkStruct,
     if (grdExpSubjectPtr == nullptr)
         return false;
     const SemanticAgentGrounding* subjAgentGrdPtr = (*grdExpSubjectPtr)->getAgentGroundingPtr();
-    if (subjAgentGrdPtr == nullptr || subjAgentGrdPtr->userId != SemanticAgentGrounding::me)
+    if (subjAgentGrdPtr == nullptr || subjAgentGrdPtr->userId != SemanticAgentGrounding::getMe())
         return false;
 
     auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);
@@ -88,7 +88,7 @@ bool _tryToAnswerAboutAbilities(SemControllerWorkingStruct& pWorkStruct,
 
     const SemanticStatementGrounding* statGrdPtr = pGrdExp->getStatementGroundingPtr();
     if (statGrdPtr == nullptr || statGrdPtr->verbGoal != VerbGoalEnum::ABILITY
-        || SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::me)
+        || SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::getMe())
         return false;
 
     auto relatedCmdExp = pGrdExp.clone();
@@ -317,7 +317,7 @@ bool _canYouQuestions(SemControllerWorkingStruct& pWorkStruct,
     const auto* statGrdPtr = pGrdExp->getStatementGroundingPtr();
     if (statGrdPtr != nullptr && statGrdPtr->verbGoal == VerbGoalEnum::ABILITY
         && statGrdPtr->requests.has(SemanticRequestType::YESORNO)
-        && SemExpGetter::getUserIdOfSubject(pGrdExp) == SemanticAgentGrounding::me) {
+        && SemExpGetter::getUserIdOfSubject(pGrdExp) == SemanticAgentGrounding::getMe()) {
         SemControllerWorkingStruct subWorkStruct(pWorkStruct);
         if (subWorkStruct.askForNewRecursion()) {
             subWorkStruct.reactOperator = SemanticOperatorEnum::REACTFROMTRIGGER;
@@ -518,7 +518,7 @@ bool _tryToAnswerToWhatCanYouDo(SemControllerWorkingStruct& pWorkStruct,
     const SemanticStatementGrounding* statGrdPtr = pGrdExp->getStatementGroundingPtr();
     if (statGrdPtr == nullptr || statGrdPtr->verbGoal != VerbGoalEnum::ABILITY
         || statGrdPtr->concepts.count("verb_action") == 0
-        || SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::me)
+        || SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::getMe())
         return false;
 
     const std::map<intSemId, const GroundedExpWithLinks*>& infActions = pMemBlock.getInfActions();
@@ -553,7 +553,7 @@ bool _tryToAnswerToWhatDoYouKnowAbout(SemControllerWorkingStruct& pWorkStruct,
     const SemanticStatementGrounding* statGrdPtr = pGrdExp->getStatementGroundingPtr();
     if (statGrdPtr == nullptr || statGrdPtr->verbGoal != VerbGoalEnum::NOTIFICATION
         || statGrdPtr->concepts.count("mentalState_know") == 0
-        || SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::me)
+        || SemExpGetter::getUserIdOfSubject(pGrdExp) != SemanticAgentGrounding::getMe())
         return false;
 
     bool res = false;
@@ -635,7 +635,7 @@ bool _tryToAnswerToHowWeKnowSomething(SemControllerWorkingStruct& pWorkStruct,
     const GroundedExpression* grdExpSubjectPtr = SemExpGetter::getGrdExpChild(pGrdExp, GrammaticalType::SUBJECT);
     if (grdExpSubjectPtr != nullptr) {
         const SemanticAgentGrounding* agentSubject = (*grdExpSubjectPtr)->getAgentGroundingPtr();
-        if (agentSubject != nullptr && agentSubject->userId == SemanticAgentGrounding::me) {
+        if (agentSubject != nullptr && agentSubject->userId == SemanticAgentGrounding::getMe()) {
             // the verb has to have the concept "mentalState_know"
             const auto& grdExpConcepts = pGrdExp->concepts;
             if (grdExpConcepts.find("mentalState_know") != grdExpConcepts.end()) {
@@ -701,7 +701,7 @@ bool _tryToAnswerToHowCanITeachYouSomething(SemControllerWorkingStruct& pWorkStr
 
     auto itReceiver = pGrdExp.children.find(GrammaticalType::RECEIVER);
     if (itReceiver == pGrdExp.children.end()
-        || !SemExpGetter::doSemExpHoldUserId(*itReceiver->second, SemanticAgentGrounding::me))
+        || !SemExpGetter::doSemExpHoldUserId(*itReceiver->second, SemanticAgentGrounding::getMe()))
         return false;
 
     auto itObject = pGrdExp.children.find(GrammaticalType::OBJECT);

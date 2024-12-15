@@ -24,7 +24,7 @@ std::unique_ptr<SemanticExpression> reactToAnExternalTeachingRequest(const Seman
     assert(externalTeachingLabelSemExpPtr != nullptr);
 
     TextProcessingContext textProcContext(
-        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pTeachingLanguage);
+        SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), pTeachingLanguage);
     std::string labelOfActionToLearn;
     static const std::set<SemanticExpressionType> expressionTypesToSkip{SemanticExpressionType::SETOFFORMS};
     UniqueSemanticExpression semExpToSay(externalTeachingLabelSemExpPtr->clone(nullptr, false, &expressionTypesToSkip));

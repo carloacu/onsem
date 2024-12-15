@@ -42,7 +42,7 @@ DetailedReactionAnswer triggers_match(const std::string& pText,
                                       bool pSetUsAsEverybody) {
     SemanticLanguageEnum textLanguage =
         pTextLanguage == SemanticLanguageEnum::UNKNOWN ? linguistics::getLanguage(pText, pLingDb) : pTextLanguage;
-    TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, textLanguage);
+    TextProcessingContext inContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), textLanguage);
     if (pSetUsAsEverybody)
         inContext.setUsAsEverybody();
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::UNKNOWN, pLingDb);

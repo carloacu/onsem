@@ -306,10 +306,10 @@ bool splitCompeleteIncompleteOfActions(SemControllerWorkingStruct& pWorkStruct,
         if (receiverGrdExp != nullptr) {
             if (receiverGrdExp->grounding().type == SemanticGroundingType::AGENT) {
                 const SemanticAgentGrounding& agentGrd = (*receiverGrdExp)->getAgentGrounding();
-                if (agentGrd.userId != SemanticAgentGrounding::me
+                if (agentGrd.userId != SemanticAgentGrounding::getMe()
                     && !pMemViewer.constView.areSameUserConst(agentGrd.userId, pMemViewer.currentUserId)) {
-                    if (agentGrd.userId == SemanticAgentGrounding::userNotIdentified
-                        || agentGrd.userId == SemanticAgentGrounding::anyUser
+                    if (agentGrd.userId == SemanticAgentGrounding::getUserNotIdentified()
+                        || agentGrd.userId == SemanticAgentGrounding::getAnyUser()
                         || pMemViewer.constView.getName(agentGrd.userId).empty()) {
                         pWorkStruct.addQuestion(SemExpCreator::getWhoIsSomebodyQuestion(*receiverGrdExp));
                         return true;

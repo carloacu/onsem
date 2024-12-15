@@ -55,7 +55,7 @@ void _informOrReactToTheCauseChild(SemControllerWorkingStruct& pWorkStruct,
 
 void _applyOperatorResolveSecondPersonOfSingular(SemanticExpression& pSemExp, const SemanticMemory& pSemanticMemory) {
     const std::string newUserId = pSemanticMemory.getCurrUserId();
-    SemExpModifier::replaceAgentOfSemExp(pSemExp, newUserId, SemanticAgentGrounding::currentUser);
+    SemExpModifier::replaceAgentOfSemExp(pSemExp, newUserId, SemanticAgentGrounding::getCurrentUser());
 }
 
 }
@@ -1408,7 +1408,7 @@ void uninform(const SentenceWithLinks& pContextAxiom,
                                           nullptr,
                                           pAxiomToConditionCurrentStatePtr,
                                           pLingDb);
-    SemanticMemoryBlockViewer memViewer(&pMemBlock, pMemBlock, SemanticAgentGrounding::userNotIdentified);
+    SemanticMemoryBlockViewer memViewer(&pMemBlock, pMemBlock, SemanticAgentGrounding::getUserNotIdentified());
     for (const GroundedExpWithLinks& currMemSent : pContextAxiom.memorySentences.elts)
         if (!currMemSent.isANoun() && !currMemSent.isAConditionToSatisfy())
             _updateConditionValidity(currMemSent, workStruct, memViewer);

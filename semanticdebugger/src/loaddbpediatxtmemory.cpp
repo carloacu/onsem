@@ -35,8 +35,8 @@ void loadDbPediaMemory(std::size_t& pNbOfInforms,
                 if (pGrdExpsDisabled.empty())
                     return;
                 std::string newText;
-                TextProcessingContext textProcContext(SemanticAgentGrounding::userNotIdentified,
-                                                      SemanticAgentGrounding::userNotIdentified,
+                TextProcessingContext textProcContext(SemanticAgentGrounding::getUserNotIdentified(),
+                                                      SemanticAgentGrounding::getUserNotIdentified(),
                                                       SemanticLanguageEnum::FRENCH);
                 converter::semExpToText(newText,
                                         pNewGrdExp.clone(),
@@ -93,8 +93,8 @@ void loadDbPediaMemory(std::size_t& pNbOfInforms,
                                 if (posEndORevelance != std::string::npos) {
                                     std::size_t posBeginOfText = posEndORevelance + 1;
                                     std::string text = line.substr(posBeginOfText, line.size() - posBeginOfText);
-                                    TextProcessingContext textProcContext(SemanticAgentGrounding::userNotIdentified,
-                                                                          SemanticAgentGrounding::userNotIdentified,
+                                    TextProcessingContext textProcContext(SemanticAgentGrounding::getUserNotIdentified(),
+                                                                          SemanticAgentGrounding::getUserNotIdentified(),
                                                                           language);
                                     linguistics::extractProperNounsThatDoesntHaveAnyOtherGrammaticalTypes(
                                         pProperNouns, reference, language, pLingDb);

@@ -11,7 +11,7 @@ SemanticEngagementValue operator_extractEngagement(const std::string& pText,
                                                    SemanticLanguageEnum pLanguage) {
     auto semExp = converter::textToSemExp(
         pText,
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage),
+        TextProcessingContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage),
         pLingDb);
     return memoryOperation::extractEngagement(*semExp);
 }

@@ -805,7 +805,7 @@ std::string MainWindow::_operator_react(ContextualAnnotation& pContextualAnnotat
     auto& semMemory = *_semMemoryPtr;
     if (pTextLanguage == SemanticLanguageEnum::UNKNOWN)
         pTextLanguage = linguistics::getLanguage(pText, _lingDb);
-    TextProcessingContext inContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pTextLanguage);
+    TextProcessingContext inContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pTextLanguage);
     inContext.linguisticAnalysisConfig.spellingMistakeTypesPossible.insert(SpellingMistakeType::CONJUGATION);
     auto semExp = converter::textToContextualSemExp(pText, inContext, SemanticSourceEnum::ASR, _lingDb);
 
@@ -822,7 +822,7 @@ std::string MainWindow::_operator_react(ContextualAnnotation& pContextualAnnotat
     pContextualAnnotation = SemExpGetter::extractContextualAnnotation(**reaction);
     SemExpGetter::extractReferences(pReferences, **reaction);
 
-    TextProcessingContext outContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pTextLanguage);
+    TextProcessingContext outContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), pTextLanguage);
     OutputterContext outputterContext(outContext);
     ExecutionDataOutputter executionDataOutputter(semMemory, _lingDb);
     executionDataOutputter.processSemExp(**reaction, outputterContext);

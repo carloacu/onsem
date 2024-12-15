@@ -46,9 +46,9 @@ SynthesizerConfiguration::SynthesizerConfiguration(const SemanticMemoryBlock& pM
 
 std::string SynthesizerConfiguration::_mergeUserIdWithContext(const std::string& pUserId,
                                                               const std::string& pCurrentUserId) {
-    std::string res = pUserId == SemanticAgentGrounding::currentUser ? pCurrentUserId : pUserId;
-    if (res == SemanticAgentGrounding::userNotIdentified)
-        return SemanticAgentGrounding::currentUser;
+    std::string res = pUserId == SemanticAgentGrounding::getCurrentUser() ? pCurrentUserId : pUserId;
+    if (res == SemanticAgentGrounding::getUserNotIdentified())
+        return SemanticAgentGrounding::getCurrentUser();
     return res;
 }
 

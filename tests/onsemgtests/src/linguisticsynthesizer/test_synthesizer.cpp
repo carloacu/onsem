@@ -18,7 +18,7 @@ TEST_F(SemanticReasonerGTests, infinitiveVerb) {
     auto expression = std::make_unique<GroundedExpression>(std::move(statement));
 
     TextProcessingContext textContext{
-        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, SemanticLanguageEnum::ENGLISH};
+        SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), SemanticLanguageEnum::ENGLISH};
 
     std::string synthesized;
     const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
@@ -140,7 +140,7 @@ TEST_F(SemanticReasonerGTests, vouvoiementInFrench) {
     SemanticLanguageEnum enLanguage = SemanticLanguageEnum::FRENCH;
     auto semExp = textToSemExpFromRobot("Veux-tu voir des informations sur l'entreprise ?", lingDb, enLanguage);
 
-    TextProcessingContext outTextProc(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, enLanguage);
+    TextProcessingContext outTextProc(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), enLanguage);
     outTextProc.vouvoiement = true;
     std::string reformulatedQuestion;
     converter::semExpToText(reformulatedQuestion, std::move(semExp), outTextProc, false, semMem, lingDb, nullptr);

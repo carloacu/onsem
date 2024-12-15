@@ -14,13 +14,13 @@ DummyJokeProvider::DummyJokeProvider(const linguistics::LinguisticDatabase& pLin
     , _semExpsThatCanBeAnswered() {
     _semExpsThatCanBeAnswered.emplace_back(
         converter::textToSemExp("The joke of \\p_time=0\\ is \\p_meta=-1\\",
-                                TextProcessingContext(SemanticAgentGrounding::userNotIdentified,
-                                                      SemanticAgentGrounding::userNotIdentified,
+                                TextProcessingContext(SemanticAgentGrounding::getUserNotIdentified(),
+                                                      SemanticAgentGrounding::getUserNotIdentified(),
                                                       SemanticLanguageEnum::ENGLISH),
                                 pLingDb));
     _trigger.emplace_back(converter::textToSemExp("I want to read the joke of \\p_time=0\\",
-                                                  TextProcessingContext(SemanticAgentGrounding::currentUser,
-                                                                        SemanticAgentGrounding::userNotIdentified,
+                                                  TextProcessingContext(SemanticAgentGrounding::getCurrentUser(),
+                                                                        SemanticAgentGrounding::getUserNotIdentified(),
                                                                         SemanticLanguageEnum::ENGLISH),
                                                   pLingDb));
 }

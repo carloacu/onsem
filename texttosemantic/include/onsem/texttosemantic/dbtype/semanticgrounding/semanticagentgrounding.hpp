@@ -40,16 +40,16 @@ struct ONSEM_TEXTTOSEMANTIC_API SemanticAgentGrounding : public SemanticGroundin
             && userIdWithoutContext == pOther.userIdWithoutContext && nameInfos == pOther.nameInfos;
     }
 
-    bool isSpecificUser() const { return userId != userNotIdentified && userId != anyUser; }
+    bool isSpecificUser() const { return userId != getUserNotIdentified() && userId != getAnyUser(); }
 
     const std::string userId;
     const std::string userIdWithoutContext;
     mystd::optional<NameInfos> nameInfos;
 
-    static const std::string currentUser;
-    static const std::string anyUser;
-    static const std::string userNotIdentified;
-    static const std::string me;
+    static const std::string& getCurrentUser();
+    static const std::string& getAnyUser();
+    static const std::string& getUserNotIdentified();
+    static const std::string& getMe();
 };
 
 }    // End of namespace onsem

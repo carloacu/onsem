@@ -13,7 +13,7 @@ bool _operator_isASubPart(const std::string& pInputText,
                           const SemanticMemory& pSemanticMemory,
                           const linguistics::LinguisticDatabase& pLingDb) {
     SemanticLanguageEnum language = linguistics::getLanguage(pInputText, pLingDb);
-    TextProcessingContext textProcToRobot(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language);
+    TextProcessingContext textProcToRobot(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language);
     auto inputSemExp = converter::textToSemExp(pInputText, textProcToRobot, pLingDb);
     auto semExpToMatch = converter::textToSemExp(pTextToFind, textProcToRobot, pLingDb);
     return memoryOperation::isASubpart(*inputSemExp, *semExpToMatch, pSemanticMemory, pLingDb);

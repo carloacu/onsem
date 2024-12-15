@@ -15,7 +15,7 @@ std::string _operator_answerIDontKnow(const std::string& pText,
     SemanticLanguageEnum language = linguistics::getLanguage(pText, lingDb);
     auto semExp = converter::textToSemExp(
         pText,
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, language),
+        TextProcessingContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), language),
         lingDb);
     auto answerSemExp =
         pForQuestion ? memoryOperation::answerIDontKnow(*semExp) : memoryOperation::answerICannotDo(*semExp);
@@ -25,7 +25,7 @@ std::string _operator_answerIDontKnow(const std::string& pText,
         converter::semExpToText(
             res,
             std::move(*answerSemExp),
-            TextProcessingContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, language),
+            TextProcessingContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), language),
             false,
             semMem,
             lingDb,

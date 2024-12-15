@@ -34,7 +34,7 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
     const std::string paulHumanId = "paul-human";
 
     NaturalLanguageExpression robotNle;
-    robotNle.word = NaturalLanguageText(SemanticAgentGrounding::me, NaturalLanguageTypeOfText::AGENT);
+    robotNle.word = NaturalLanguageText(SemanticAgentGrounding::getMe(), NaturalLanguageTypeOfText::AGENT);
     NaturalLanguageExpression paulNle;
     paulNle.word = NaturalLanguageText(paulHumanId, NaturalLanguageTypeOfText::AGENT);
     NaturalLanguageExpression getCompanyInfoNle;
@@ -170,7 +170,7 @@ TEST_F(SemanticReasonerGTests, test_naturalLanguageExpressionToSemanticExpressio
 
     auto semExp7 = converter::naturalLanguageExpressionToSemanticExpression(resourceExNle, lingDb, {"resLabel"});
     TextProcessingContext outContext(
-        SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, SemanticLanguageEnum::ENGLISH);
+        SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), SemanticLanguageEnum::ENGLISH);
     OutputterContext outputterContext(outContext);
     std::string logStr;
     ExecutionDataOutputter executionDataOutputter(semMem, lingDb);

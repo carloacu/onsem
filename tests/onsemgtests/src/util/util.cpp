@@ -27,7 +27,7 @@ UniqueSemanticExpression textToSemExp(const std::string& pText,
                                       const linguistics::LinguisticDatabase& pLingDb,
                                       SemanticLanguageEnum pLanguage,
                                       bool pWriteOriginalText) {
-    TextProcessingContext textProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    TextProcessingContext textProc(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
     textProc.writeOriginalText = pWriteOriginalText;
     return converter::textToSemExp(pText, textProc, pLingDb);
 }
@@ -36,7 +36,7 @@ UniqueSemanticExpression textToSemExpFromRobot(const std::string& pText,
                                                const linguistics::LinguisticDatabase& pLingDb,
                                                SemanticLanguageEnum pLanguage,
                                                bool pWriteOriginalText) {
-    TextProcessingContext textProc(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
+    TextProcessingContext textProc(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), pLanguage);
     textProc.writeOriginalText = pWriteOriginalText;
     return converter::textToSemExp(pText, textProc, pLingDb);
 }
@@ -45,7 +45,7 @@ UniqueSemanticExpression textToContextualSemExp(const std::string& pText,
                                                 const linguistics::LinguisticDatabase& pLingDb,
                                                 SemanticLanguageEnum pLanguage,
                                                 bool pWriteOriginalText) {
-    TextProcessingContext textProc(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    TextProcessingContext textProc(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
     textProc.writeOriginalText = pWriteOriginalText;
     return converter::textToContextualSemExp(pText, textProc, SemanticSourceEnum::ASR, pLingDb);
 }
@@ -56,7 +56,7 @@ unsigned int textToConfidence(const std::string& pText,
     unsigned char confidence = 0;
     converter::textToSemExp(
         pText,
-        TextProcessingContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage),
+        TextProcessingContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage),
         pLingDb,
         false,
         nullptr,
@@ -75,7 +75,7 @@ std::string semExpToText(UniqueSemanticExpression pSemExp,
     converter::semExpToText(
         res,
         std::move(pSemExp),
-        TextProcessingContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage),
+        TextProcessingContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), pLanguage),
         false,
         pSemanticMemory,
         pLingDb,
@@ -88,7 +88,7 @@ std::string semExpToTextFromUser(UniqueSemanticExpression pSemExp,
                                  const SemanticMemory& pSemanticMemory,
                                  const linguistics::LinguisticDatabase& pLingDb,
                                  bool pWriteParametersToFill) {
-    TextProcessingContext textProcContext(SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pLanguage);
+    TextProcessingContext textProcContext(SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pLanguage);
     textProcContext.writeParametersToFill = pWriteParametersToFill;
     std::string res;
     converter::semExpToText(
@@ -108,7 +108,7 @@ std::string semExpToOutputStr(const SemanticExpression& pSemExp,
                               const linguistics::LinguisticDatabase& pLingDb,
                               const SemanticExpression* pInputSemExpPtr) {
     std::string resStr;
-    TextProcessingContext outContext(SemanticAgentGrounding::me, SemanticAgentGrounding::currentUser, pLanguage);
+    TextProcessingContext outContext(SemanticAgentGrounding::getMe(), SemanticAgentGrounding::getCurrentUser(), pLanguage);
     outContext.linguisticAnalysisConfig.cmdGrdExtractorPtr = std::make_shared<ResourceGroundingExtractor>(
         std::vector<std::string>{resourceLabelForTests_cmd, resourceLabelForTests_url});
     OutputterContext outputterContext(outContext);

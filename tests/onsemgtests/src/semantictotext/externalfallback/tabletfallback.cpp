@@ -12,7 +12,7 @@ TabletFallback::TabletFallback()
 void TabletFallback::addFallback(UniqueSemanticExpression& pSemExp,
                                  const std::string& pUserId,
                                  const GroundedExpression&) const {
-    if (pUserId == SemanticAgentGrounding::userNotIdentified) {
+    if (pUserId == SemanticAgentGrounding::getUserNotIdentified()) {
         return;
     }
 

@@ -23,9 +23,9 @@ TEST_F(SemanticReasonerGTests, test_coreference_us) {
     const linguistics::LinguisticDatabase& lingDb = *lingDbPtr;
 
     TextProcessingContext contextEn(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::ENGLISH);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::ENGLISH);
     TextProcessingContext contextFr(
-        SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, SemanticLanguageEnum::FRENCH);
+        SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), SemanticLanguageEnum::FRENCH);
     std::string isEverybodyHappyEn = "Is everybody happy?";
     std::string isEverybodyHappyFr = "Est-ce que tout le monde est content ?";
 

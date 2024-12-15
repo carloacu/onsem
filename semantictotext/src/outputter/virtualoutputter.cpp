@@ -106,7 +106,7 @@ void VirtualOutputter::_processResource(const SemanticResource& pResource) {
         if (!semExps.empty()) {
             auto& strs = parameters[currParametersToSemExps.first];
             TextProcessingContext outContext(
-                SemanticAgentGrounding::currentUser, SemanticAgentGrounding::me, pResource.language);
+                SemanticAgentGrounding::getCurrentUser(), SemanticAgentGrounding::getMe(), pResource.language);
             SemanticMemory semMemory;
 
             for (auto& currAnswer : semExps) {
