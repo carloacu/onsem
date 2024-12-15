@@ -16,8 +16,10 @@ struct Connection {
         , _disconnect(pDisconnect) {}
     int getId() const { return _id; }
     void disconnect() {
-        if (_id != -1)
+        if (_id != -1) {
             _disconnect();
+            _id = -1;
+        }
     }
 
 private:
