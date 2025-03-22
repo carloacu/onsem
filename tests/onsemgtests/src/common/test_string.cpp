@@ -33,3 +33,10 @@ TEST(StringUtil, split) {
     EXPECT_EQ("[+ff-fd +vdd--]", _testSplitAnyOf("+ff-fd +vdd--", {}));
     EXPECT_EQ("[]", _testSplitAnyOf("", {'+', '-'}));
 }
+
+
+TEST(StringUtil, urlizeText) {
+    EXPECT_EQ("ecouter", mystd::urlizeText("écouter"));
+    EXPECT_EQ("jeuner", mystd::urlizeText("jeûner"));
+    EXPECT_EQ("aee-lol", mystd::urlizeText("àéè lol"));
+}
