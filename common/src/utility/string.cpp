@@ -46,6 +46,33 @@ const std::string _apos_str = "’";
 const std::size_t _apos_size = _apos_str.size();
 const std::string _bigSep_str = "–";
 const std::size_t _bigSep_size = _bigSep_str.size();
+const std::string _aAcute_str = "á";
+const std::size_t _aAcute_size = _aAcute_str.size();
+const std::string _iAcute_str = "í";
+const std::size_t _iAcute_size = _iAcute_str.size();
+const std::string _oAcute_str = "ó";
+const std::size_t _oAcute_size = _oAcute_str.size();
+const std::string _uAcute_str = "ú";
+const std::size_t _uAcute_size = _uAcute_str.size();
+const std::string _nTilde_str = "ñ";
+const std::size_t _nTilde_size = _nTilde_str.size();
+const std::string _uTrema_str = "ü";
+const std::size_t _uTrema_size = _uTrema_str.size();
+const std::string _aTrema_str = "ä";
+const std::size_t _aTrema_size = _aTrema_str.size();
+const std::string _oTrema_str = "ö";
+const std::size_t _oTrema_size = _oTrema_str.size();
+const std::string _eszett_str = "ß";
+const std::size_t _eszett_size = _eszett_str.size();
+const std::string _ae_str = "æ";
+const std::size_t _ae_size = _ae_str.size();
+const std::string _oe_str = "œ";
+const std::size_t _oe_size = _oe_str.size();
+const std::string _capitalEGrave_str = "È";
+const std::size_t _capitalEGrave_size = _capitalEGrave_str.size();
+const std::string _capitalUGrave_str = "Ù";
+const std::size_t _capitalUGrave_size = _capitalUGrave_str.size();
+
 
 bool _isASeparator(char pChar) {
     return pChar == ' ' || pChar == '\'' || pChar == '-' || pChar == ',' || pChar == ';' || pChar == ':' || pChar == '.'
@@ -200,6 +227,71 @@ std::string urlizeText(const std::string& pText, bool pMergeTokens) {
             if (pText.compare(i, _uCirconflex_size, "û") == 0) {
                 res += 'u';
                 i += _uCirconflex_size;
+                continue;
+            }
+            if (pText.compare(i, _aAcute_size, _aAcute_str) == 0) {
+                res += 'a';
+                i += _aAcute_size;
+                continue;
+            }
+            if (pText.compare(i, _iAcute_size, _iAcute_str) == 0) {
+                res += 'i';
+                i += _iAcute_size;
+                continue;
+            }
+            if (pText.compare(i, _oAcute_size, _oAcute_str) == 0) {
+                res += 'o';
+                i += _oAcute_size;
+                continue;
+            }
+            if (pText.compare(i, _uAcute_size, _uAcute_str) == 0) {
+                res += 'u';
+                i += _uAcute_size;
+                continue;
+            }
+            if (pText.compare(i, _nTilde_size, _nTilde_str) == 0) {
+                res += 'n';
+                i += _nTilde_size;
+                continue;
+            }
+            if (pText.compare(i, _uTrema_size, _uTrema_str) == 0) {
+                res += 'u';
+                i += _uTrema_size;
+                continue;
+            }
+            if (pText.compare(i, _aTrema_size, _aTrema_str) == 0) {
+                res += 'a';
+                i += _aTrema_size;
+                continue;
+            }
+            if (pText.compare(i, _oTrema_size, _oTrema_str) == 0) {
+                res += 'o';
+                i += _oTrema_size;
+                continue;
+            }
+            if (pText.compare(i, _eszett_size, _eszett_str) == 0) {
+                res += "ss";
+                i += _eszett_size;
+                continue;
+            }
+            if (pText.compare(i, _ae_size, _ae_str) == 0) {
+                res += "ae";
+                i += _ae_size;
+                continue;
+            }
+            if (pText.compare(i, _oe_size, _oe_str) == 0) {
+                res += "oe";
+                i += _oe_size;
+                continue;
+            }
+            if (pText.compare(i, _capitalEGrave_size, _capitalEGrave_str) == 0) {
+                res += 'e';
+                i += _capitalEGrave_size;
+                continue;
+            }
+            if (pText.compare(i, _capitalUGrave_size, _capitalUGrave_str) == 0) {
+                res += 'u';
+                i += _capitalUGrave_size;
                 continue;
             }
         }
