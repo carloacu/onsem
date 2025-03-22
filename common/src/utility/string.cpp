@@ -14,6 +14,10 @@ const std::string _capitalICirconflex_str = "Î";
 const std::size_t _capitalICirconflex_size = _capitalICirconflex_str.size();
 const std::string _capitalOCirconflex_str = "Ô";
 const std::size_t _capitalOCirconflex_size = _capitalOCirconflex_str.size();
+const std::string _capitalUCirconflex_str = "Û";
+const std::size_t _capitalUCirconflex_size = _capitalUCirconflex_str.size();
+const std::string _capitalACirconflex_str = "Â";
+const std::size_t _capitalACirconflex_size = _capitalACirconflex_str.size();
 const std::string _capitalCCedilla_str = "Ç";
 const std::size_t _capitalCCedilla_size = _capitalCCedilla_str.size();
 const std::string _aGrave_str = "à";
@@ -32,6 +36,8 @@ const std::string _iCirconflex_str = "î";
 const std::size_t _iCirconflex_size = _iCirconflex_str.size();
 const std::string _oCirconflex_str = "ô";
 const std::size_t _oCirconflex_size = _oCirconflex_str.size();
+const std::string _uCirconflex_str = "û";
+const std::size_t _uCirconflex_size = _uCirconflex_str.size();
 const std::string _iTrema_str = "ï";
 const std::size_t _iTrema_size = _iTrema_str.size();
 const std::string _cCedilla_str = "ç";
@@ -53,6 +59,8 @@ static_assert("É"[0] == "Ê"[0], "Wrong assumption: É & Ê doesn't begin with 
 static_assert("É"[0] == "Î"[0], "Wrong assumption: É & Î doesn't begin with same character");
 static_assert("É"[0] == "Ô"[0], "Wrong assumption: É & Ô doesn't begin with same character");
 static_assert("É"[0] == "Ç"[0], "Wrong assumption: É & Ç doesn't begin with same character");
+static_assert("É"[0] == "Â"[0], "Wrong assumption: É & Â doesn't begin with same character");
+static_assert("É"[0] == "Û"[0], "Wrong assumption: É & Û doesn't begin with same character");
 static_assert('a' < 'z', "Wrong assumption: a is not inferior to z");
 static_assert("é"[0] == "à"[0], "Wrong assumption: é & à doesn't begin with same character");
 static_assert("é"[0] == "è"[0], "Wrong assumption: é & è doesn't begin with same character");
@@ -60,6 +68,7 @@ static_assert("é"[0] == "â"[0], "Wrong assumption: é & â doesn't begin with 
 static_assert("é"[0] == "ê"[0], "Wrong assumption: é & ê doesn't begin with same character");
 static_assert("é"[0] == "î"[0], "Wrong assumption: é & î doesn't begin with same character");
 static_assert("é"[0] == "ô"[0], "Wrong assumption: é & ô doesn't begin with same character");
+static_assert("é"[0] == "û"[0], "Wrong assumption: é & û doesn't begin with same character");
 static_assert("é"[0] == "ï"[0], "Wrong assumption: é & î doesn't begin with same character");
 static_assert("é"[0] == "ç"[0], "Wrong assumption: é & ç doesn't begin with same character");
 static_assert("É"[0] == "é"[0], "Wrong assumption: É & é doesn't begin with same character");
@@ -103,9 +112,19 @@ std::string urlizeText(const std::string& pText, bool pMergeTokens) {
                 i += _capitalAGrave_size;
                 continue;
             }
+            if (pText.compare(i, _capitalACirconflex_size, "Â") == 0) {
+                res += 'a';
+                i += _capitalACirconflex_size;
+                continue;
+            }
             if (pText.compare(i, _aGrave_size, "à") == 0) {
                 res += 'a';
                 i += _aGrave_size;
+                continue;
+            }
+            if (pText.compare(i, _aCirconflex_size, "â") == 0) {
+                res += 'a';
+                i += _aCirconflex_size;
                 continue;
             }
             if (pText.compare(i, _capitalEAcute_size, "É") == 0) {
@@ -126,6 +145,11 @@ std::string urlizeText(const std::string& pText, bool pMergeTokens) {
             if (pText.compare(i, _eCirconflex_size, "ê") == 0) {
                 res += 'e';
                 i += _eCirconflex_size;
+                continue;
+            }
+            if (pText.compare(i, _eGrave_size, "è") == 0) {
+                res += 'e';
+                i += _eGrave_size;
                 continue;
             }
             if (pText.compare(i, _eTrema_size, "ë") == 0) {
@@ -168,14 +192,14 @@ std::string urlizeText(const std::string& pText, bool pMergeTokens) {
                 i += _oCirconflex_size;
                 continue;
             }
-            if (pText.compare(i, _aCirconflex_size, "â") == 0) {
-                res += 'a';
-                i += _aCirconflex_size;
+            if (pText.compare(i, _capitalUCirconflex_size, "Û") == 0) {
+                res += 'u';
+                i += _capitalUCirconflex_size;
                 continue;
             }
-            if (pText.compare(i, _eGrave_size, "è") == 0) {
-                res += 'e';
-                i += _eGrave_size;
+            if (pText.compare(i, _uCirconflex_size, "û") == 0) {
+                res += 'u';
+                i += _uCirconflex_size;
                 continue;
             }
         }
