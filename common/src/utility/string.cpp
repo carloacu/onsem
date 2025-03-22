@@ -229,67 +229,67 @@ std::string urlizeText(const std::string& pText, bool pMergeTokens) {
                 i += _uCirconflex_size;
                 continue;
             }
-            if (pText.compare(i, _aAcute_size, _aAcute_str) == 0) {
+            if (pText.compare(i, _aAcute_size, "á") == 0) {
                 res += 'a';
                 i += _aAcute_size;
                 continue;
             }
-            if (pText.compare(i, _iAcute_size, _iAcute_str) == 0) {
+            if (pText.compare(i, _iAcute_size, "í") == 0) {
                 res += 'i';
                 i += _iAcute_size;
                 continue;
             }
-            if (pText.compare(i, _oAcute_size, _oAcute_str) == 0) {
+            if (pText.compare(i, _oAcute_size, "ó") == 0) {
                 res += 'o';
                 i += _oAcute_size;
                 continue;
             }
-            if (pText.compare(i, _uAcute_size, _uAcute_str) == 0) {
+            if (pText.compare(i, _uAcute_size, "ú") == 0) {
                 res += 'u';
                 i += _uAcute_size;
                 continue;
             }
-            if (pText.compare(i, _nTilde_size, _nTilde_str) == 0) {
+            if (pText.compare(i, _nTilde_size, "ñ") == 0) {
                 res += 'n';
                 i += _nTilde_size;
                 continue;
             }
-            if (pText.compare(i, _uTrema_size, _uTrema_str) == 0) {
+            if (pText.compare(i, _uTrema_size, "ü") == 0) {
                 res += 'u';
                 i += _uTrema_size;
                 continue;
             }
-            if (pText.compare(i, _aTrema_size, _aTrema_str) == 0) {
+            if (pText.compare(i, _aTrema_size, "ä") == 0) {
                 res += 'a';
                 i += _aTrema_size;
                 continue;
             }
-            if (pText.compare(i, _oTrema_size, _oTrema_str) == 0) {
+            if (pText.compare(i, _oTrema_size, "ö") == 0) {
                 res += 'o';
                 i += _oTrema_size;
                 continue;
             }
-            if (pText.compare(i, _eszett_size, _eszett_str) == 0) {
+            if (pText.compare(i, _eszett_size, "ß") == 0) {
                 res += "ss";
                 i += _eszett_size;
                 continue;
             }
-            if (pText.compare(i, _ae_size, _ae_str) == 0) {
+            if (pText.compare(i, _ae_size, "æ") == 0) {
                 res += "ae";
                 i += _ae_size;
                 continue;
             }
-            if (pText.compare(i, _oe_size, _oe_str) == 0) {
+            if (pText.compare(i, _oe_size, "œ") == 0) {
                 res += "oe";
                 i += _oe_size;
                 continue;
             }
-            if (pText.compare(i, _capitalEGrave_size, _capitalEGrave_str) == 0) {
+            if (pText.compare(i, _capitalEGrave_size, "È") == 0) {
                 res += 'e';
                 i += _capitalEGrave_size;
                 continue;
             }
-            if (pText.compare(i, _capitalUGrave_size, _capitalUGrave_str) == 0) {
+            if (pText.compare(i, _capitalUGrave_size, "Ù") == 0) {
                 res += 'u';
                 i += _capitalUGrave_size;
                 continue;
