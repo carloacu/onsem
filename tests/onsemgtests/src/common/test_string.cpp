@@ -39,4 +39,5 @@ TEST(StringUtil, urlizeText) {
     EXPECT_EQ("ecouter", mystd::urlizeText("écouter"));
     EXPECT_EQ("jeuner", mystd::urlizeText("jeûner"));
     EXPECT_EQ("aee-lol", mystd::urlizeText("àéè lol"));
+    EXPECT_EQ("oelol", mystd::urlizeText("œlol"));
 }

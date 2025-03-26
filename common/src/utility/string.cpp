@@ -4,74 +4,6 @@
 namespace onsem {
 namespace mystd {
 namespace {
-const std::string _capitalAGrave_str = "À";
-const std::size_t _capitalAGrave_size = _capitalAGrave_str.size();
-const std::string _capitalEAcute_str = "É";
-const std::size_t _capitalEAcute_size = _capitalEAcute_str.size();
-const std::string _capitalECirconflex_str = "Ê";
-const std::size_t _capitalECirconflex_size = _capitalECirconflex_str.size();
-const std::string _capitalICirconflex_str = "Î";
-const std::size_t _capitalICirconflex_size = _capitalICirconflex_str.size();
-const std::string _capitalOCirconflex_str = "Ô";
-const std::size_t _capitalOCirconflex_size = _capitalOCirconflex_str.size();
-const std::string _capitalUCirconflex_str = "Û";
-const std::size_t _capitalUCirconflex_size = _capitalUCirconflex_str.size();
-const std::string _capitalACirconflex_str = "Â";
-const std::size_t _capitalACirconflex_size = _capitalACirconflex_str.size();
-const std::string _capitalCCedilla_str = "Ç";
-const std::size_t _capitalCCedilla_size = _capitalCCedilla_str.size();
-const std::string _aGrave_str = "à";
-const std::size_t _aGrave_size = _aGrave_str.size();
-const std::string _eAcute_str = "é";
-const std::size_t _eAcute_size = _eAcute_str.size();
-const std::string _eGrave_str = "è";
-const std::size_t _eGrave_size = _eGrave_str.size();
-const std::string _eTrema_str = "ë";
-const std::size_t _eTrema_size = _eTrema_str.size();
-const std::string _aCirconflex_str = "â";
-const std::size_t _aCirconflex_size = _aCirconflex_str.size();
-const std::string _eCirconflex_str = "ê";
-const std::size_t _eCirconflex_size = _eCirconflex_str.size();
-const std::string _iCirconflex_str = "î";
-const std::size_t _iCirconflex_size = _iCirconflex_str.size();
-const std::string _oCirconflex_str = "ô";
-const std::size_t _oCirconflex_size = _oCirconflex_str.size();
-const std::string _uCirconflex_str = "û";
-const std::size_t _uCirconflex_size = _uCirconflex_str.size();
-const std::string _iTrema_str = "ï";
-const std::size_t _iTrema_size = _iTrema_str.size();
-const std::string _cCedilla_str = "ç";
-const std::size_t _cCedilla_size = _cCedilla_str.size();
-const std::string _apos_str = "’";
-const std::size_t _apos_size = _apos_str.size();
-const std::string _bigSep_str = "–";
-const std::size_t _bigSep_size = _bigSep_str.size();
-const std::string _aAcute_str = "á";
-const std::size_t _aAcute_size = _aAcute_str.size();
-const std::string _iAcute_str = "í";
-const std::size_t _iAcute_size = _iAcute_str.size();
-const std::string _oAcute_str = "ó";
-const std::size_t _oAcute_size = _oAcute_str.size();
-const std::string _uAcute_str = "ú";
-const std::size_t _uAcute_size = _uAcute_str.size();
-const std::string _nTilde_str = "ñ";
-const std::size_t _nTilde_size = _nTilde_str.size();
-const std::string _uTrema_str = "ü";
-const std::size_t _uTrema_size = _uTrema_str.size();
-const std::string _aTrema_str = "ä";
-const std::size_t _aTrema_size = _aTrema_str.size();
-const std::string _oTrema_str = "ö";
-const std::size_t _oTrema_size = _oTrema_str.size();
-const std::string _eszett_str = "ß";
-const std::size_t _eszett_size = _eszett_str.size();
-const std::string _ae_str = "æ";
-const std::size_t _ae_size = _ae_str.size();
-const std::string _oe_str = "œ";
-const std::size_t _oe_size = _oe_str.size();
-const std::string _capitalEGrave_str = "È";
-const std::size_t _capitalEGrave_size = _capitalEGrave_str.size();
-const std::string _capitalUGrave_str = "Ù";
-const std::size_t _capitalUGrave_size = _capitalUGrave_str.size();
 
 
 bool _isASeparator(char pChar) {
@@ -82,26 +14,112 @@ bool _isASeparator(char pChar) {
 
 static_assert('A' < 'Z', "Wrong assumption: A is not inferior to Z");
 static_assert("É"[0] == "À"[0], "Wrong assumption: É & À doesn't begin with same character");
+static_assert("É"[0] == "È"[0], "Wrong assumption: É & È doesn't begin with same character");
 static_assert("É"[0] == "Ê"[0], "Wrong assumption: É & Ê doesn't begin with same character");
 static_assert("É"[0] == "Î"[0], "Wrong assumption: É & Î doesn't begin with same character");
 static_assert("É"[0] == "Ô"[0], "Wrong assumption: É & Ô doesn't begin with same character");
 static_assert("É"[0] == "Ç"[0], "Wrong assumption: É & Ç doesn't begin with same character");
 static_assert("É"[0] == "Â"[0], "Wrong assumption: É & Â doesn't begin with same character");
+static_assert("É"[0] == "Ù"[0], "Wrong assumption: É & Ù doesn't begin with same character");
 static_assert("É"[0] == "Û"[0], "Wrong assumption: É & Û doesn't begin with same character");
 static_assert('a' < 'z', "Wrong assumption: a is not inferior to z");
-static_assert("é"[0] == "à"[0], "Wrong assumption: é & à doesn't begin with same character");
-static_assert("é"[0] == "è"[0], "Wrong assumption: é & è doesn't begin with same character");
-static_assert("é"[0] == "â"[0], "Wrong assumption: é & â doesn't begin with same character");
-static_assert("é"[0] == "ê"[0], "Wrong assumption: é & ê doesn't begin with same character");
-static_assert("é"[0] == "î"[0], "Wrong assumption: é & î doesn't begin with same character");
-static_assert("é"[0] == "ô"[0], "Wrong assumption: é & ô doesn't begin with same character");
-static_assert("é"[0] == "û"[0], "Wrong assumption: é & û doesn't begin with same character");
-static_assert("é"[0] == "ï"[0], "Wrong assumption: é & î doesn't begin with same character");
-static_assert("é"[0] == "ç"[0], "Wrong assumption: é & ç doesn't begin with same character");
+static_assert("É"[0] == "à"[0], "Wrong assumption: É & à doesn't begin with same character");
+static_assert("É"[0] == "ä"[0], "Wrong assumption: É & ä doesn't begin with same character");
+static_assert("É"[0] == "á"[0], "Wrong assumption: É & á doesn't begin with same character");
+static_assert("É"[0] == "æ"[0], "Wrong assumption: É & æ doesn't begin with same character");
 static_assert("É"[0] == "é"[0], "Wrong assumption: É & é doesn't begin with same character");
+static_assert("É"[0] == "è"[0], "Wrong assumption: É & è doesn't begin with same character");
+static_assert("É"[0] == "ë"[0], "Wrong assumption: É & ë doesn't begin with same character");
+static_assert("É"[0] == "â"[0], "Wrong assumption: É & â doesn't begin with same character");
+static_assert("É"[0] == "ê"[0], "Wrong assumption: É & ê doesn't begin with same character");
+static_assert("É"[0] == "î"[0], "Wrong assumption: É & î doesn't begin with same character");
+static_assert("É"[0] == "í"[0], "Wrong assumption: É & í doesn't begin with same character");
+static_assert("É"[0] == "ó"[0], "Wrong assumption: É & ó doesn't begin with same character");
+static_assert("É"[0] == "ô"[0], "Wrong assumption: É & ô doesn't begin with same character");
+static_assert("É"[0] == "ö"[0], "Wrong assumption: É & ö doesn't begin with same character");
+static_assert("É"[0] == "ú"[0], "Wrong assumption: É & ú doesn't begin with same character");
+static_assert("É"[0] == "û"[0], "Wrong assumption: É & û doesn't begin with same character");
+static_assert("É"[0] == "ü"[0], "Wrong assumption: É & ü doesn't begin with same character");
+static_assert("É"[0] == "ï"[0], "Wrong assumption: É & ï doesn't begin with same character");
+static_assert("É"[0] == "ç"[0], "Wrong assumption: É & ç doesn't begin with same character");
+static_assert("É"[0] == "ñ"[0], "Wrong assumption: É & ñ doesn't begin with same character");
+static_assert("É"[0] == "ß"[0], "Wrong assumption: É & ß doesn't begin with same character");
+
+static_assert("œ"[0] == "œ"[0], "Wrong assumption: É & œ doesn't begin with same character");
+
+
 
 std::string urlizeText(const std::string& pText, bool pMergeTokens) {
-    std::string res;
+  const std::string _capitalAGrave_str = "À";
+  const std::size_t _capitalAGrave_size = _capitalAGrave_str.size();
+  const std::string _capitalEAcute_str = "É";
+  const std::size_t _capitalEAcute_size = _capitalEAcute_str.size();
+  const std::string _capitalECirconflex_str = "Ê";
+  const std::size_t _capitalECirconflex_size = _capitalECirconflex_str.size();
+  const std::string _capitalICirconflex_str = "Î";
+  const std::size_t _capitalICirconflex_size = _capitalICirconflex_str.size();
+  const std::string _capitalOCirconflex_str = "Ô";
+  const std::size_t _capitalOCirconflex_size = _capitalOCirconflex_str.size();
+  const std::string _capitalUCirconflex_str = "Û";
+  const std::size_t _capitalUCirconflex_size = _capitalUCirconflex_str.size();
+  const std::string _capitalACirconflex_str = "Â";
+  const std::size_t _capitalACirconflex_size = _capitalACirconflex_str.size();
+  const std::string _capitalCCedilla_str = "Ç";
+  const std::size_t _capitalCCedilla_size = _capitalCCedilla_str.size();
+  const std::string _aGrave_str = "à";
+  const std::size_t _aGrave_size = _aGrave_str.size();
+  const std::string _eAcute_str = "é";
+  const std::size_t _eAcute_size = _eAcute_str.size();
+  const std::string _eGrave_str = "è";
+  const std::size_t _eGrave_size = _eGrave_str.size();
+  const std::string _eTrema_str = "ë";
+  const std::size_t _eTrema_size = _eTrema_str.size();
+  const std::string _aCirconflex_str = "â";
+  const std::size_t _aCirconflex_size = _aCirconflex_str.size();
+  const std::string _eCirconflex_str = "ê";
+  const std::size_t _eCirconflex_size = _eCirconflex_str.size();
+  const std::string _iCirconflex_str = "î";
+  const std::size_t _iCirconflex_size = _iCirconflex_str.size();
+  const std::string _oCirconflex_str = "ô";
+  const std::size_t _oCirconflex_size = _oCirconflex_str.size();
+  const std::string _uCirconflex_str = "û";
+  const std::size_t _uCirconflex_size = _uCirconflex_str.size();
+  const std::string _iTrema_str = "ï";
+  const std::size_t _iTrema_size = _iTrema_str.size();
+  const std::string _cCedilla_str = "ç";
+  const std::size_t _cCedilla_size = _cCedilla_str.size();
+  const std::string _apos_str = "’";
+  const std::size_t _apos_size = _apos_str.size();
+  const std::string _bigSep_str = "–";
+  const std::size_t _bigSep_size = _bigSep_str.size();
+  const std::string _aAcute_str = "á";
+  const std::size_t _aAcute_size = _aAcute_str.size();
+  const std::string _iAcute_str = "í";
+  const std::size_t _iAcute_size = _iAcute_str.size();
+  const std::string _oAcute_str = "ó";
+  const std::size_t _oAcute_size = _oAcute_str.size();
+  const std::string _uAcute_str = "ú";
+  const std::size_t _uAcute_size = _uAcute_str.size();
+  const std::string _nTilde_str = "ñ";
+  const std::size_t _nTilde_size = _nTilde_str.size();
+  const std::string _uTrema_str = "ü";
+  const std::size_t _uTrema_size = _uTrema_str.size();
+  const std::string _aTrema_str = "ä";
+  const std::size_t _aTrema_size = _aTrema_str.size();
+  const std::string _oTrema_str = "ö";
+  const std::size_t _oTrema_size = _oTrema_str.size();
+  const std::string _eszett_str = "ß";
+  const std::size_t _eszett_size = _eszett_str.size();
+  const std::string _ae_str = "æ";
+  const std::size_t _ae_size = _ae_str.size();
+  const std::string _oe_str = "œ";
+  const std::size_t _oe_size = _oe_str.size();
+  const std::string _capitalEGrave_str = "È";
+  const std::size_t _capitalEGrave_size = _capitalEGrave_str.size();
+  const std::string _capitalUGrave_str = "Ù";
+  const std::size_t _capitalUGrave_size = _capitalUGrave_str.size();
+
+  std::string res;
 
     for (std::size_t i = 0; i < pText.size();) {
         if (pText[i] >= 'a' && pText[i] <= 'z') {
@@ -279,11 +297,6 @@ std::string urlizeText(const std::string& pText, bool pMergeTokens) {
                 i += _ae_size;
                 continue;
             }
-            if (pText.compare(i, _oe_size, "œ") == 0) {
-                res += "oe";
-                i += _oe_size;
-                continue;
-            }
             if (pText.compare(i, _capitalEGrave_size, "È") == 0) {
                 res += 'e';
                 i += _capitalEGrave_size;
@@ -292,6 +305,14 @@ std::string urlizeText(const std::string& pText, bool pMergeTokens) {
             if (pText.compare(i, _capitalUGrave_size, "Ù") == 0) {
                 res += 'u';
                 i += _capitalUGrave_size;
+                continue;
+            }
+        }
+
+        if (pText[i] == "œ"[0]) {
+            if (pText.compare(i, _oe_size, "œ") == 0) {
+                res += "oe";
+                i += _oe_size;
                 continue;
             }
         }
